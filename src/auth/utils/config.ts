@@ -1,5 +1,5 @@
 let configuration = {
-	subdomain: true,
+	useSubdomain: false,
 	path: 'auth',
 
 	isDev: false

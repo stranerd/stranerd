@@ -1,9 +1,11 @@
 import { getNewApplication, setupServer } from './utils/setup'
+import { useAuthentication } from './auth'
 
 const app = getNewApplication()
 
-app.use('/api', (_, res) => res.send('Api'))
-app.use('/in', (_, res) => res.send('In'))
+app.use(useAuthentication({
+	useSubdomain: true
+}))
 
 setupServer(app)
 

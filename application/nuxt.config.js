@@ -17,7 +17,18 @@ module.exports = {
 			{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
 		]
 	},
+	css: [
+		'@/assets/styles/index.scss'
+	],
+	styleResources: {
+		scss: [
+			'@/assets/styles/variables.scss'
+		]
+	},
 	components: true,
+	modules: [
+		'@nuxtjs/style-resources'
+	],
 	buildModules: [
 		'@nuxt/typescript-build',
 		[ 'k-domains', { subDomains: [ 'auth' ], rootDomain: 'root' } ],

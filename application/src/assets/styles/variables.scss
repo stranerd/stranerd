@@ -1,0 +1,27 @@
+$gold: #DAB100;
+$main-red: #910B0B;
+$red: $main-red;
+$blue: #062a54;
+$white: #FEFEFE;
+$black: #444444;
+$blackTransparent: rgba($black, .01);
+
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
+
+$theme-colors: (
+	'gold': $gold
+);
+
+$spacers: (
+	1: .5rem,
+	2: 1.0rem,
+	3: 1.5rem,
+	4: 2.0rem,
+	5: 2.5rem,
+	6: 3.0rem,
+	7: 3.5rem,
+	8: 4.0rem,
+);

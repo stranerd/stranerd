@@ -1,0 +1,30 @@
+@import './variables';
+@import '~bootstrap/scss/bootstrap.scss';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
+
+body{
+	font-family: Montserrat, Roboto, serif;
+}
+
+.btn{
+	padding: 0.75rem 1rem;
+}
+
+.label {
+	font-size: 1em;
+	color: darken($black, 100%);
+	line-height: 1.5;
+	font-weight: 500;
+}
+.label-sm {
+	font-size: .875rem;
+	color: lighten($black, 10%);
+	line-height: 1.5;
+	font-weight: 500;
+}
+
+.form-control {
+	font-size: 1.125em;
+	padding: 1.25em;
+	min-height: 3em;
+}

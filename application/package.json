@@ -9,9 +9,14 @@
     "generate": "nuxt-ts generate"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.0",
     "@nuxt/typescript-runtime": "^2.0.0",
     "@nuxtjs/router": "^1.5.0",
+    "@nuxtjs/style-resources": "^1.0.0",
+    "D": "^1.0.0",
+    "bootstrap": "^4.5.2",
     "core-js": "^3.6.5",
+    "font-awesome": "^4.7.0",
     "k-domains": "^1.2.4",
     "nuxt": "^2.14.5",
     "vue": "^2.6.12",
@@ -19,6 +24,8 @@
   },
   "devDependencies": {
     "@nuxt/types": "^2.14.5",
-    "@nuxt/typescript-build": "^2.0.3"
+    "@nuxt/typescript-build": "^2.0.3",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^10.0.2"
   }
 }

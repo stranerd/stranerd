@@ -30,9 +30,12 @@ module.exports = {
 		'@nuxtjs/style-resources'
 	],
 	buildModules: [
-		'@nuxt/typescript-build',
+		'@nuxtjs/composition-api', '@nuxt/typescript-build',
 		[ 'k-domains', { subDomains: [ 'auth' ], rootDomain: 'root' } ],
 		[ '@nuxtjs/router', { keepDefaultRouter: true, fileName: 'router/index.js' } ],
 	],
+	generate: {
+		interval: 5000,
+	},
 	build: {}
 }

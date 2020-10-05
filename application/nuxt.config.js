@@ -1,6 +1,7 @@
-export default {
+module.exports = {
 	srcDir: 'src',
 	buildDir: 'build',
+	telemetry: false,
 	server: {
 		port: 8080
 	},

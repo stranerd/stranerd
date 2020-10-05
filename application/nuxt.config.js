@@ -19,7 +19,9 @@ module.exports = {
 	},
 	components: true,
 	buildModules: [
-		'@nuxt/typescript-build'
+		'@nuxt/typescript-build',
+		[ 'k-domains', { subDomains: [ 'auth' ], rootDomain: 'root' } ],
+		[ '@nuxtjs/router', { keepDefaultRouter: true, fileName: 'router/index.js' } ],
 	],
 	build: {}
 }

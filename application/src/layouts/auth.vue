@@ -11,17 +11,16 @@
 		min-height: 100vh;
 		background: url('../assets/images/auth/bg.jpg') center no-repeat;
 		background-size: cover;
+		padding: .25rem;
 	}
 	.content{
 		width: 100%;
 		max-width: 720px;
 		background: $white;
-	}
-	@media (min-width: $sm) {
-		.body{ padding: 1rem; }
-		.content { border-radius: .75rem; }
+		border-radius: .75rem;
 	}
 	@media (min-width: $md) {
+		.body{ padding: 4rem; }
 		.content {
 			padding-left: 7rem;
 			padding-right: 7rem;

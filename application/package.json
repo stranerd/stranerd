@@ -10,8 +10,12 @@
   },
   "dependencies": {
     "@nuxt/typescript-runtime": "^2.0.0",
+    "@nuxtjs/router": "^1.5.0",
     "core-js": "^3.6.5",
-    "nuxt": "^2.14.5"
+    "k-domains": "^1.2.4",
+    "nuxt": "^2.14.5",
+    "vue": "^2.6.12",
+    "vue-router": "^3.4.5"
   },
   "devDependencies": {
     "@nuxt/types": "^2.14.5",

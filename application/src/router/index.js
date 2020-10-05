@@ -1,6 +1,10 @@
 import Router from 'vue-router'
 
-const subdomains = [ 'auth', 'root' ]
+const conf = require('../../nuxt.config')
+const subs = conf.subDomains.paths || []
+const root = conf.subDomains.root || 'root'
+
+const subdomains = [ ...subs, root ]
 
 export function createRouter(ssrContext, createDefaultRouter, routerOptions) {
 	const options = routerOptions || createDefaultRouter(ssrContext).options
@@ -12,7 +16,6 @@ export function createRouter(ssrContext, createDefaultRouter, routerOptions) {
 		const matcher = req.headers.host.match(/^(\w+(-\w+)?)\.(localhost|\w+(-\w+)?)(\.\w+)?/) || ['root-domain']
 		routesDirectory = matcher[1] || matcher[0]
 
-		//TODO: Figure out how to extract base domain name and redirect there if subdomain doesn't exist
 		routesDirectory = subdomains.includes(routesDirectory) ? routesDirectory : subdomains[subdomains.length - 1]
 		ssrContext.nuxt.routesDirectory = routesDirectory
 	}

@@ -31,9 +31,12 @@ module.exports = {
 	],
 	buildModules: [
 		'@nuxtjs/composition-api', '@nuxt/typescript-build',
-		[ 'k-domains', { subDomains: [ 'auth' ], rootDomain: 'root' } ],
 		[ '@nuxtjs/router', { keepDefaultRouter: true, fileName: 'router/index.js' } ],
 	],
+	subDomains: {
+		paths: ['auth'],
+		root: 'root'
+	},
 	generate: {
 		interval: 5000,
 	},

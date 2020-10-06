@@ -31,14 +31,21 @@ module.exports = {
 	],
 	buildModules: [
 		'@nuxtjs/composition-api', '@nuxt/typescript-build',
-		[ '@nuxtjs/router', { keepDefaultRouter: true, fileName: 'router/index.js' } ],
+		['@nuxtjs/router', { keepDefaultRouter: true, fileName: 'router/index.js' }]
 	],
 	subDomains: {
 		paths: ['auth'],
 		root: 'root'
 	},
 	generate: {
-		interval: 5000,
+		interval: 5000
 	},
-	build: {}
+	build: {},
+	typescript: {
+		typeCheck: {
+			eslint: {
+				files: 'src/**/*.{ts,js,vue}'
+			}
+		}
+	}
 }

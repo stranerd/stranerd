@@ -1,9 +1,10 @@
 import * as path from 'path'
 // @ts-ignore
 import { Nuxt, build } from 'nuxt'
+import { isDev } from './environment'
 
 export const buildNuxt = async () => {
-	const dev = process.env.NODE_ENV !== 'production'
+	const dev = isDev()
 
 	const rootDir = path.join(__dirname, '../../application')
 

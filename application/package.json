@@ -6,7 +6,8 @@
     "dev": "nuxt-ts",
     "build": "nuxt-ts build",
     "start": "nuxt-ts start",
-    "generate": "nuxt-ts generate"
+    "generate": "nuxt-ts generate",
+    "lint": "eslint src/ --ext .ts,.js,.vue --fix"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.0",
@@ -25,6 +26,11 @@
   "devDependencies": {
     "@nuxt/types": "^2.14.5",
     "@nuxt/typescript-build": "^2.0.3",
+    "@nuxtjs/eslint-config-typescript": "^2.0.0",
+    "@typescript-eslint/eslint-plugin": "^2.33.0",
+    "@typescript-eslint/parser": "^2.33.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^7.0.1",
     "node-sass": "^4.14.1",
     "sass-loader": "^10.0.2"
   }

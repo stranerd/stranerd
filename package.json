@@ -6,12 +6,13 @@
   "scripts": {
     "start": "npm run build && node lib/app.js",
     "watch": "nodemon --watch src --exec ts-node src/app.ts",
-    "build": "npm run lint && tsc --build",
-    "lint": "eslint src/** --fix",
+    "build": "npm run lint && npm run build --prefix ./application && tsc --build",
+    "lint": "eslint src/ --ext .ts,.js --fix && npm run lint --prefix ./application",
     "test": "jest"
   },
   "dependencies": {
     "consola": "^2.15.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-subdomain": "^1.0.5",
     "nuxt": "^2.14.6"

@@ -1,11 +1,11 @@
 <template>
-	<div></div>
+	<div />
 </template>
 
 <script lang="ts">
 import { defineComponent, useContext } from '@nuxtjs/composition-api'
 export default defineComponent({
-	setup(){
+	setup () {
 		const { redirect } = useContext()
 		return redirect('/signin')
 	}

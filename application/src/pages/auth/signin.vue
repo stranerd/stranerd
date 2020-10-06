@@ -1,10 +1,20 @@
 <template>
 	<form>
-		<h2 class="mb-7 text-center">Sign In With</h2>
+		<h2 class="mb-7 text-center">
+			Sign In With
+		</h2>
 		<AuthProviders class="mb-4" />
 		<div class="form-group">
 			<label for="email" class="label">Email</label>
-			<input type="email" id="email" name="email" required class="form-control" autocomplete="email" autofocus>
+			<input
+				id="email"
+				type="email"
+				name="email"
+				required
+				class="form-control"
+				autocomplete="email"
+				autofocus
+			>
 		</div>
 		<div class="form-group">
 			<label class="label d-flex" for="password">
@@ -12,14 +22,25 @@
 				<nuxt-link to="/forgot" class="label-sm ml-1">Forgot?</nuxt-link>
 				<a class="label-sm ml-auto" @click.prevent="toggle">{{ show ? 'Hide' : 'Show' }} password</a>
 			</label>
-			<input :type="show ? 'text' : 'password'" id="password" name="password" required class="form-control" autocomplete="current-password">
+			<input
+				id="password"
+				:type="show ? 'text' : 'password'"
+				name="password"
+				required
+				class="form-control"
+				autocomplete="current-password"
+			>
 		</div>
 		<div class="mt-2">
-			<button class="w-100 btn btn-dark py-2">Sign In</button>
+			<button class="w-100 btn btn-dark py-2">
+				Sign In
+			</button>
 		</div>
 		<div class="text-center mt-4">
 			<span class="label-sm">Not a member?</span>
-			<nuxt-link to="/signup" class="label-sm">Sign up now</nuxt-link>
+			<nuxt-link to="/signup" class="label-sm">
+				Sign up now
+			</nuxt-link>
 		</div>
 	</form>
 </template>
@@ -29,9 +50,9 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import AuthProviders from '@/components/auth/AuthProviders.vue'
 import { usePassword } from '@/usecases/core/forms'
 export default defineComponent({
-	layout: 'auth',
 	components: { AuthProviders },
-	setup() {
+	layout: 'auth',
+	setup () {
 		const { show, toggle } = usePassword()
 		return { show, toggle }
 	}

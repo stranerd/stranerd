@@ -4,9 +4,9 @@ const conf = require('../../nuxt.config')
 const subs = conf.subDomains.paths || []
 const root = conf.subDomains.root || 'root'
 
-const subdomains = [ ...subs, root ]
+const subdomains = [...subs, root]
 
-export function createRouter(ssrContext, createDefaultRouter, routerOptions) {
+export function createRouter (ssrContext, createDefaultRouter, routerOptions) {
 	const options = routerOptions || createDefaultRouter(ssrContext).options
 
 	let routesDirectory
@@ -25,11 +25,10 @@ export function createRouter(ssrContext, createDefaultRouter, routerOptions) {
 		}
 	}
 
-	function isUnderDirectory(route, directory) {
+	function isUnderDirectory (route, directory) {
 		const path = route.path
 		const isUnder = (path, dir) => (path === `/${dir}`) || (path.startsWith(`/${dir}/`))
-		if (typeof directory == 'object') return directory.some((dir) => isUnder(path, dir))
-		else return isUnder(path, directory)
+		if (typeof directory === 'object') { return directory.some((dir) => isUnder(path, dir)) } else { return isUnder(path, directory) }
 	}
 
 	let newRoutes = options.routes

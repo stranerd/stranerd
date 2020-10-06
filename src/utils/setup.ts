@@ -1,6 +1,9 @@
 import * as http from 'http'
 import * as Express from 'express'
 import * as consola from 'consola'
+import * as CookieParser from 'cookie-parser'
+import * as CSRF from 'csurf'
+import * as Cors from 'cors'
 
 export const getNewApplication = () => Express()
 
@@ -36,4 +39,20 @@ export const setupServer = (app: Express.Application) => {
 		}
 	})
 
+}
+
+export const useCSRF = (app: Express.Application) => {
+	app.use(CookieParser())
+	app.use(CSRF({ cookie: true }))
+	app.use(Cors())
+
+	app.use((req,res, next) =>{
+		res.cookie('XSRF-TOKEN', req.csrfToken())
+		next()
+	})
+}
+
+export const useBodyParser = (app: Express.Application) => {
+	app.use(Express.json())
+	app.use(Express.urlencoded({ extended: false }))
 }

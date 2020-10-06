@@ -2,7 +2,7 @@ import './utils/environment'
 import { buildNuxt } from './utils/nuxt'
 import { getNewApplication, setupServer, useBodyParser, useCORS } from './utils/setup'
 import { useAPI } from './api'
-import { isDev } from './utils/environment'
+import { host, isDev } from './utils/environment'
 
 const app = getNewApplication()
 
@@ -15,6 +15,7 @@ const setup = async () => {
 	app.use(useAPI({
 		useSubdomain: true,
 		isDev: isDev(),
+		host: host(),
 	}))
 	app.use(nuxt.render)
 

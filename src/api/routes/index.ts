@@ -1,8 +1,9 @@
-import * as Express from 'express'
-import { getConfig } from '../utils/config'
+import { Router } from 'express'
+import { SigninController, SignoutController } from '../controllers/auth'
 
-const router = Express.Router()
+const router = Router()
 
-router.use((req, res) => res.json(getConfig()).end())
+router.post('/auth/signin', SigninController)
+router.post('/auth/signout', SignoutController)
 
 export { router }

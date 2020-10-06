@@ -3,6 +3,6 @@ import { getConfig } from '../utils/config'
 
 const router = Express.Router()
 
-router.use((req, res) => res.json(res.json(getConfig())))
+router.use((req, res) => res.json(getConfig()).end())
 
 export { router }

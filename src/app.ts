@@ -1,13 +1,13 @@
 import { buildNuxt } from './utils/nuxt'
 import { getNewApplication, setupServer } from './utils/setup'
-import { useAuthentication } from './auth'
+import { useAPI } from './api'
 
 const app = getNewApplication()
 
 const setup = async () => {
 	const nuxt = await buildNuxt()
 
-	app.use(useAuthentication({
+	app.use(useAPI({
 		useSubdomain: true
 	}))
 	app.use(nuxt.render)

@@ -1,6 +1,6 @@
 let configuration = {
 	useSubdomain: false,
-	path: 'auth',
+	path: 'api',
 
 	isDev: false
 }

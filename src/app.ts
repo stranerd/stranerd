@@ -1,6 +1,6 @@
 import './utils/environment'
 import { buildNuxt } from './utils/nuxt'
-import { getNewApplication, setupServer, useBodyParser, useCSRF } from './utils/setup'
+import { getNewApplication, setupServer, useBodyParser, useCORS } from './utils/setup'
 import { useAPI } from './api'
 import { isDev } from './utils/environment'
 
@@ -10,7 +10,7 @@ const setup = async () => {
 	const nuxt = await buildNuxt()
 
 	useBodyParser(app)
-	useCSRF(app)
+	useCORS(app)
 
 	app.use(useAPI({
 		useSubdomain: true,

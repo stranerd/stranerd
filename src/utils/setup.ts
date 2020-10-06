@@ -2,28 +2,26 @@ import * as http from 'http'
 import * as Express from 'express'
 import * as consola from 'consola'
 import * as CookieParser from 'cookie-parser'
-import * as CSRF from 'csurf'
 import * as Cors from 'cors'
+import { port, host } from './environment'
 
 export const getNewApplication = () => Express()
 
 export const setupServer = (app: Express.Application) => {
-	const port = process.env.PORT || 8000
-
-	app.set('port', port)
+	app.set('port', port())
+	app.set('host', host())
 
 	const server = http.createServer(app)
 
-	server.listen(port)
+	server.listen(port(), host())
+
+	const bind = `${host()}:${port()}`
 	server.on('listening', () => {
-		const addr = server.address()
-		const bind = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr?.port}`
 		//@ts-ignore
 		consola.success(`Listening on ${bind}`)
 	})
 	server.on('error', (error: any) => {
 		if (error.syscall !== 'listen') { throw error }
-		const bind = `${typeof port === 'string' ? 'Pipe' : 'Port'} ${port}`
 
 		switch (error.code) {
 		case 'EACCES':
@@ -41,18 +39,12 @@ export const setupServer = (app: Express.Application) => {
 
 }
 
-export const useCSRF = (app: Express.Application) => {
-	app.use(CookieParser())
-	app.use(CSRF({ cookie: true }))
+export const useCORS = (app: Express.Application) => {
 	app.use(Cors())
-
-	app.use((req,res, next) =>{
-		res.cookie('XSRF-TOKEN', req.csrfToken())
-		next()
-	})
 }
 
 export const useBodyParser = (app: Express.Application) => {
 	app.use(Express.json())
 	app.use(Express.urlencoded({ extended: false }))
+	app.use(CookieParser())
 }

@@ -1,6 +1,6 @@
 import Router from 'vue-router'
 
-const conf = require('../../nuxt.config')
+const conf = require('../../../nuxt.config')
 const subs = conf.subDomains.paths || []
 const root = conf.subDomains.root || 'root'
 

@@ -1,5 +1,5 @@
 module.exports = {
-	srcDir: 'src',
+	srcDir: 'src/application',
 	buildDir: 'build',
 	telemetry: false,
 	server: {

@@ -1,6 +1,6 @@
-@import './variables';
-@import '~bootstrap/scss/bootstrap.scss';
-@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import 'variables';
+@import '../../../../node_modules/bootstrap/scss/bootstrap';
+@import '../../../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome';
 
 body{
 	font-family: Montserrat, Roboto, serif;

@@ -5,3 +5,8 @@ export const signin = async (idToken: string) => {
 export const signout = async (session: string) => {
 	console.log('Unimplemented: ', session)
 }
+
+export const decodeSessionCookie = async (session: string) => {
+	console.log('Unimplemented: ', session)
+	return { id: session  }
+}

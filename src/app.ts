@@ -1,7 +1,7 @@
 import './utils/environment'
 import { buildNuxt } from './utils/nuxt'
 import { getNewApplication, setupServer, useBodyParser, useCORS } from './utils/setup'
-import { useAPI } from './api'
+import { useAPI, CheckSignedInUserMiddleware } from './api'
 import { host, isDev } from './utils/environment'
 
 const app = getNewApplication()
@@ -17,6 +17,8 @@ const setup = async () => {
 		isDev: isDev(),
 		host: host(),
 	}))
+
+	app.use(CheckSignedInUserMiddleware)
 	app.use(nuxt.render)
 
 	setupServer(app)

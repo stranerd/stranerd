@@ -3,6 +3,7 @@ import * as Express from 'express'
 import * as subdomain from 'express-subdomain'
 import { Configuration, getConfig, setConfig } from './utils/config'
 import { router } from './routes'
+import { CheckSignedInUserMiddleware } from './controllers/auth'
 
 export const useAPI = (config: Configuration) => {
 	setConfig(config)
@@ -15,3 +16,5 @@ export const useAPI = (config: Configuration) => {
 
 	return app
 }
+
+export { CheckSignedInUserMiddleware }

@@ -2,56 +2,45 @@
   "name": "nuxtserver",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "private": true,
   "scripts": {
-    "start": "node lib/app.js",
-    "watch": "nodemon --watch src --exec ts-node src/app.ts",
-    "build": "npm run lint && npm run build --prefix ./application && tsc --build",
-    "lint": "npm run lint --prefix ./application",
-    "test": "jest",
+    "dev": "nuxt-ts",
+    "build": "nuxt-ts build",
+    "start": "nuxt-ts start",
+    "generate": "nuxt-ts generate",
+    "lint": "eslint src/ --ext .ts,.js,.vue --fix",
     "gcp-build": "npm run build"
   },
   "dependencies": {
-    "consola": "^2.15.0",
+    "@fortawesome/fontawesome-free": "^5.15.0",
+    "@nuxt/typescript-runtime": "^2.0.0",
+    "@nuxtjs/composition-api": "^0.12.5",
+    "@nuxtjs/router": "^1.5.0",
+    "@nuxtjs/style-resources": "^1.0.0",
+    "D": "^1.0.0",
+    "bootstrap": "^4.5.2",
     "cookie-parser": "^1.4.5",
+    "core-js": "^3.6.5",
     "cors": "^2.8.5",
-    "csurf": "^1.11.0",
-    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-subdomain": "^1.0.5",
-    "nuxt": "^2.14.6"
+    "firebase": "^7.22.1",
+    "font-awesome": "^4.7.0",
+    "nuxt": "^2.14.5",
+    "vue": "^2.6.12",
+    "vue-router": "^3.4.5"
   },
   "devDependencies": {
-    "@nuxt/types": "^2.14.6",
-    "@types/cookie-parser": "^1.4.2",
-    "@types/cors": "^2.8.7",
-    "@types/csurf": "^1.9.36",
-    "@types/express": "^4.17.8",
-    "@types/jest": "^26.0.14",
-    "@types/node": "^14.10.1",
-    "@typescript-eslint/eslint-plugin": "^2.18.0",
-    "@typescript-eslint/parser": "^2.18.0",
+    "@nuxt/types": "^2.14.5",
+    "@nuxt/typescript-build": "^2.0.3",
+    "@nuxtjs/eslint-config-typescript": "^2.0.0",
+    "@typescript-eslint/eslint-plugin": "^2.33.0",
+    "@typescript-eslint/parser": "^2.33.0",
     "eslint": "^6.7.2",
-    "eslint-plugin-jest": "^24.0.2",
-    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-vue": "^7.0.1",
     "husky": "^4.3.0",
-    "jest": "^26.4.2",
-    "nodemon": "^2.0.4",
-    "ts-jest": "^26.4.0",
-    "ts-node": "^9.0.0",
-    "typescript": "^4.0.2"
-  },
-  "jest": {
-    "roots": [
-      "./"
-    ],
-    "testMatch": [
-      "**/tests/**/*.[jt]s?(x)",
-      "**/tests/**/?(*.)+(spec|test).[jt]s?(x)"
-    ],
-    "transform": {
-      "^.+\\.ts(x)?$": "ts-jest"
-    }
+    "node-sass": "^4.14.1",
+    "sass-loader": "^10.0.2"
   },
   "husky": {
     "hooks": {

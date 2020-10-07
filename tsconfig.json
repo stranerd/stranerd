@@ -1,18 +1,32 @@
 {
 	"compilerOptions": {
-	    "module": "commonjs",
-	    "noImplicitReturns": true,
-	    "noUnusedLocals": true,
-	    "outDir": "lib",
-	    "sourceMap": false,
-	    "strict": true,
-	    "baseUrl": "src",
-	    "target": "es2017",
-	    "removeComments": true,
-	    "noImplicitAny": true
+		"target": "ES2018",
+		"module": "ESNext",
+		"moduleResolution": "Node",
+		"lib": [
+			"ESNext",
+			"ESNext.AsyncIterable",
+			"DOM"
+		],
+		"esModuleInterop": true,
+		"allowJs": true,
+		"sourceMap": true,
+		"strict": true,
+		"noEmit": true,
+		"experimentalDecorators": true,
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["src/application/*"],
+			"~/*": ["src/application/*"]
+		},
+		"types": [
+			"@types/node",
+			"@nuxt/types"
+		]
 	},
-	"include": ["src/**/*"],
 	"exclude": [
-		"node_modules"
+		"node_modules",
+		".nuxt",
+		"dist"
 	]
 }

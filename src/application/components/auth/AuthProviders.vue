@@ -1,10 +1,10 @@
 <template>
 	<div class="grid">
 		<button class="btn-facebook btn btn-auth">
-			<img src="@/assets/images/auth/facebook.png" alt="Facebook">Facebook
+			<img src="@app/assets/images/auth/facebook.png" alt="Facebook">Facebook
 		</button>
 		<button class="btn-google btn btn-auth">
-			<img src="@/assets/images/auth/google.png" alt="Google">Google
+			<img src="@app/assets/images/auth/google.png" alt="Google">Google
 		</button>
 	</div>
 </template>

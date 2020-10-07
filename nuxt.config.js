@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = {
 	srcDir: 'src/application',
 	buildDir: 'build',
@@ -43,7 +45,13 @@ module.exports = {
 	generate: {
 		interval: 5000
 	},
-	build: {},
+	build: {
+		extend: (config) => {
+			config.resolve.alias['@app'] = path.join(__dirname, 'src/application')
+			config.resolve.alias['@modules'] = path.join(__dirname, 'src/modules')
+			config.resolve.alias['@utils'] = path.join(__dirname, 'src/utils')
+		}
+	},
 	typescript: {
 		typeCheck: {
 			eslint: {

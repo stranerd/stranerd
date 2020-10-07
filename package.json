@@ -4,11 +4,12 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "npm run build && node lib/app.js",
+    "start": "node lib/app.js",
     "watch": "nodemon --watch src --exec ts-node src/app.ts",
     "build": "npm run lint && npm run build --prefix ./application && tsc --build",
     "lint": "eslint src/ --ext .ts,.js --fix && npm run lint --prefix ./application",
-    "test": "jest"
+    "test": "jest",
+    "gcp-build": "npm run build"
   },
   "dependencies": {
     "consola": "^2.15.0",

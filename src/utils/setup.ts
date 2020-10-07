@@ -10,6 +10,7 @@ export const getNewApplication = () => Express()
 export const setupServer = (app: Express.Application) => {
 	app.set('port', port())
 	app.set('host', host())
+	app.set('trust proxy', true)
 
 	const server = http.createServer(app)
 

@@ -16,8 +16,7 @@
 		"experimentalDecorators": true,
 		"baseUrl": ".",
 		"paths": {
-			"@/*": ["src/application/*"],
-			"~/*": ["src/application/*"]
+			"@app/*": ["src/application/*"]
 		},
 		"types": [
 			"@types/node",
@@ -27,6 +26,7 @@
 	"exclude": [
 		"node_modules",
 		".nuxt",
+		"build",
 		"dist"
 	]
 }

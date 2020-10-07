@@ -26,7 +26,7 @@ module.exports = {
 		]
 	},
 	serverMiddleware: [
-		'~/api/index'
+		'@/middlewares/api/index'
 	],
 	components: true,
 	modules: [

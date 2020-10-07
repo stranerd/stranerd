@@ -13,7 +13,7 @@ export const setupServer = (app: Express.Application) => {
 
 	const server = http.createServer(app)
 
-	server.listen(port(), host())
+	server.listen(port())
 
 	const bind = `${host()}:${port()}`
 	server.on('listening', () => {

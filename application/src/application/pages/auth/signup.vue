@@ -71,8 +71,8 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import AuthProviders from '@/application/components/auth/AuthProviders.vue'
-import { usePassword } from '@/application/usecases/core/forms'
+import AuthProviders from '@/components/auth/AuthProviders.vue'
+import { usePassword } from '@/usecases/core/forms'
 export default defineComponent({
 	components: { AuthProviders },
 	layout: 'auth',

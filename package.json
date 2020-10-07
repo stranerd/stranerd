@@ -9,7 +9,8 @@
     "start": "nuxt-ts start",
     "generate": "nuxt-ts generate",
     "lint": "eslint src/ --ext .ts,.js,.vue --fix",
-    "gcp-build": "npm run build"
+    "gcp-build": "npm run build",
+    "deploy": "gcloud app deploy --project=ss-nuxtify"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.0",

@@ -1,0 +1,6 @@
+dispatch:
+  - url: "ss-nuxtify.ey.r.appspot.com/*"
+    service: default
+
+  - url: "*.ss-nuxtify.ey.r.appspot.com/*"
+    service: default

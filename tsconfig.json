@@ -16,7 +16,8 @@
 		"experimentalDecorators": true,
 		"baseUrl": ".",
 		"paths": {
-			"@app/*": ["src/application/*"]
+			"@/*": ["src/application/*"],
+			"~/*": ["src/application/*"]
 		},
 		"types": [
 			"@types/node",

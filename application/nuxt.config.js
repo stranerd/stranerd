@@ -25,6 +25,9 @@ module.exports = {
 			'@/assets/styles/variables.scss'
 		]
 	},
+	serverMiddleware: [
+		'~/api/index'
+	],
 	components: true,
 	modules: [
 		'@nuxtjs/style-resources'

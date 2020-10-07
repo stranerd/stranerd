@@ -27,7 +27,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 firebase.firestore().enablePersistence({ synchronizeTabs: true }).catch(() => {
-	console.warn('Your browser does not allow offline support, so you will need internet connection to get live data.')
+	// console.warn('Your browser does not allow offline support, so you will need internet connection to get live data.')
 })
 
 export default firebase

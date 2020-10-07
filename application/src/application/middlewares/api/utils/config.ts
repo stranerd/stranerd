@@ -6,7 +6,7 @@ let configuration = {
 	isDev: false
 }
 
-export const setConfig = (config: Configuration) =>  configuration = { ...configuration, ...config }
+export const setConfig = (config: Configuration) => configuration = { ...configuration, ...config }
 
 export const getConfig = () => configuration
 

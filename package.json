@@ -7,7 +7,7 @@
     "start": "node lib/app.js",
     "watch": "nodemon --watch src --exec ts-node src/app.ts",
     "build": "npm run lint && npm run build --prefix ./application && tsc --build",
-    "lint": "eslint src/ --ext .ts,.js --fix && npm run lint --prefix ./application",
+    "lint": "npm run lint --prefix ./application",
     "test": "jest",
     "gcp-build": "npm run build"
   },

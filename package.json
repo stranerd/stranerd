@@ -49,12 +49,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kevinand11/nuxtserver.git"
+    "url": "git+https://github.com/kevinand11/ss-nuxtify.git"
   },
   "author": "Kevin Izuchukwu",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/kevinand11/nuxtserver/issues"
+    "url": "https://github.com/kevinand11/ss-nuxtify/issues"
   },
-  "homepage": "https://github.com/kevinand11/nuxtserver#readme"
+  "homepage": "https://github.com/kevinand11/ss-nuxtify#readme"
 }

@@ -1,13 +1,19 @@
 import Router from 'vue-router'
+import config from '@@/nuxt.config'
+import { useSubdomain } from '@utils/enviroment'
 
-const conf = require('../../../nuxt.config')
-const subs = conf.subDomains.paths || []
-const root = conf.subDomains.root || 'root'
+const subs = config.subDomains.paths || []
+const root = config.subDomains.root || 'root'
 
 const subdomains = [...subs, root]
 
 export function createRouter (ssrContext, createDefaultRouter, routerOptions) {
 	const options = routerOptions || createDefaultRouter(ssrContext).options
+
+	if (!useSubdomain) return new Router({
+		...options,
+		routes: options.routes
+	})
 
 	let routesDirectory
 

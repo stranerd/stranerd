@@ -25,6 +25,7 @@ module.exports = {
 		"prefer-const": ["error"],
 		"arrow-parens": ["error", "always"],
 		"no-return-assign": "off",
+		"curly": "off",
 		"vue/html-indent": ["warn", "tab", {
 			"attribute": 1,
 			"baseIndent": 1,

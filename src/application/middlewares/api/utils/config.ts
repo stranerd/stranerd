@@ -1,5 +1,4 @@
 let configuration = {
-	useSubdomain: false,
 	path: 'api',
 	host: undefined as string | undefined,
 

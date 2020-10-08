@@ -30,7 +30,7 @@ module.exports = {
 		]
 	},
 	serverMiddleware: [
-		'@/middlewares/api/index'
+		'@@/src/server/api/index'
 	],
 	components: true,
 	modules: [

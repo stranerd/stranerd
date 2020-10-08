@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import { isDev, host } from '../../../../utils/enviroment'
+import { isDev, host } from '../../../utils/enviroment'
 import { decodeSessionCookie, signin, signout } from '../utils/firebaseAuth'
 
 const TOKEN_SESSION_NAME = 'session'

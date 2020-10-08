@@ -40,6 +40,7 @@ module.exports = {
 		'@nuxtjs/composition-api', '@nuxt/typescript-build',
 		['@nuxtjs/router', { keepDefaultRouter: true, fileName: 'router/index.js' }]
 	],
+	env: { ...process.env },
 	subDomains: {
 		paths: ['auth'],
 		root: 'root'

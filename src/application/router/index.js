@@ -10,10 +10,7 @@ const subdomains = [...subs, root]
 export function createRouter (ssrContext, createDefaultRouter, routerOptions) {
 	const options = routerOptions || createDefaultRouter(ssrContext).options
 
-	if (!useSubdomain) return new Router({
-		...options,
-		routes: options.routes
-	})
+	if (!useSubdomain) return new Router(options)
 
 	let routesDirectory
 

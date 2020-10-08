@@ -10,14 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-          registry-url: https://npm.pkg.github.com/
-      - uses: actions/gcloud/auth@master
+      - uses: actions-hub/gcloud@master
         env:
-          GCLOUD_AUTH: ${{ secrets.GCLOUD_AUTH }}
-          GCLOUD_PROJECT: ${{ secrets.GCLOUD_PROJECT }}
-      - uses: actions/gcloud/cli@master
+          PROJECT_ID: ${{secrets.GCLOUD_PROJECT}}
+          APPLICATION_CREDENTIALS: ${{secrets.GCLOUD_AUTH}}
         with:
           args: "app deploy --quiet"

@@ -13,7 +13,7 @@ jobs:
       - id: secrets
         uses: GoogleCloudPlatform/github-actions/get-secretmanager-secrets@master
         with:
-          credentials: ${{ secrets.gcp_credentials }}
+          credentials: ${{ secrets.GCLOUD_SM_AUTH }}
           secrets: |-
             vars: projects/585363008583/secrets/App_Engine_Environment_Variables
       - id: copy

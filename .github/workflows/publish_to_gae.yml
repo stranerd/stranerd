@@ -15,9 +15,9 @@ jobs:
           node-version: 12
           registry-url: https://npm.pkg.github.com/
       - uses: actions/gcloud/auth@master
-          env:
-            GCLOUD_AUTH: ${{ secrets.GCLOUD_AUTH }}
-            GCLOUD_PROJECT: ${{ secrets.GCLOUD_PROJECT }}
+        env:
+          GCLOUD_AUTH: ${{ secrets.GCLOUD_AUTH }}
+          GCLOUD_PROJECT: ${{ secrets.GCLOUD_PROJECT }}
       - uses: actions/gcloud/cli@master
         with:
           args: "app deploy --quiet"

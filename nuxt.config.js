@@ -1,11 +1,13 @@
 const path = require('path')
+require('dotenv').config()
 
 module.exports = {
 	srcDir: 'src/application',
 	buildDir: 'build',
 	telemetry: false,
 	server: {
-		port: process.env.PORT || 8080
+		port: process.env.PORT || 8080,
+		host: process.env.HOST
 	},
 	target: 'server',
 	head: {
@@ -47,6 +49,7 @@ module.exports = {
 	},
 	build: {
 		extend: (config) => {
+			config.node = { fs: 'empty' }
 			config.resolve.alias['@app'] = path.join(__dirname, 'src/application')
 			config.resolve.alias['@modules'] = path.join(__dirname, 'src/modules')
 			config.resolve.alias['@utils'] = path.join(__dirname, 'src/utils')

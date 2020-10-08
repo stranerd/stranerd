@@ -17,7 +17,7 @@ jobs:
           secrets: |-
             vars: projects/585363008583/secrets/App_Engine_Environment_Variables
       - id: copy
-        run: echo ${{ steps.secrets.outputs.vars }} > .env && cat .env
+        run: npm run copy:env:prod ${{ steps.secrets.outputs.vars }} && cat .env
 #      - id: deploys
 #        uses: actions-hub/gcloud@master
 #        env:

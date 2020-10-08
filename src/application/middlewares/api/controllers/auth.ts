@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
+import { isDev, host } from '../../../../utils/enviroment'
 import { decodeSessionCookie, signin, signout } from '../utils/firebaseAuth'
-import { getConfig } from '../utils/config'
 
 const TOKEN_SESSION_NAME = 'session'
 const USERID_SESSION_NAME = 'user-id'
@@ -24,7 +24,7 @@ export const SigninController = async (req: Request, res: Response) => {
 	let sessionValue = id
 
 	try {
-		if (!getConfig().isDev) { sessionValue = await signin(idToken) }
+		if (isDev) { sessionValue = await signin(idToken) }
 
 		setCookie(res, TOKEN_SESSION_NAME, sessionValue)
 		setCookie(res, USERID_SESSION_NAME, id)
@@ -47,7 +47,7 @@ export const SignoutController = async (req: Request, res: Response) => {
 	res.clearCookie(USERID_SESSION_NAME)
 
 	try {
-		if (!getConfig().isDev) { await signout(session) }
+		if (isDev) { await signout(session) }
 
 		return res.json({
 			success: true,
@@ -73,7 +73,7 @@ export const CheckSignedInUserMiddleware = async (req: Request, res: Response, n
 	let userId = session
 
 	try {
-		if (!getConfig().isDev) { userId = (await decodeSessionCookie(session)).id }
+		if (isDev) { userId = (await decodeSessionCookie(session)).id }
 		setCookie(res, USERID_SESSION_NAME, userId)
 		next()
 	} catch (err) {
@@ -85,7 +85,7 @@ export const CheckSignedInUserMiddleware = async (req: Request, res: Response, n
 
 const setCookie = (res: Response, key: string, value: any) => res.cookie(key, value, {
 	maxAge: 14 * 24 * 60 * 60 * 1000,
-	domain: getConfig().host,
+	domain: host,
 	httpOnly: true,
 	sameSite: 'lax'
 })

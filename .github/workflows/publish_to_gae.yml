@@ -10,14 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - id: secrets
-        uses: GoogleCloudPlatform/github-actions/get-secretmanager-secrets@master
+      - id: copy_secrets
+        uses: actions-hub/gcloud@master
+        env:
+          PROJECT_ID: ${{secrets.GCLOUD_PROJECT}}
+          APPLICATION_CREDENTIALS: ${{secrets.GCLOUD_SM_AUTH}}
         with:
-          credentials: ${{ secrets.GCLOUD_SM_AUTH }}
-          secrets: |-
-            vars: projects/585363008583/secrets/App_Engine_Environment_Variables
-      - id: copy
-        run: npm run copy:env:prod ${{ steps.secrets.outputs.vars }} && cat .env
+          args: "secrets versions access latest --secret=App_Engine_Environment_Variables | tee .env"
+      - run: ls && cat .env
 #      - id: deploys
 #        uses: actions-hub/gcloud@master
 #        env:

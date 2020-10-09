@@ -21,3 +21,11 @@ dist/
 
 .env.example
 .idea/
+
+*.log
+.editorconfig
+README.md
+
+firebase/
+firebase.json
+.firebaserc

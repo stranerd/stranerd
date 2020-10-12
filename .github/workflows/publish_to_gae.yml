@@ -9,15 +9,16 @@ jobs:
   publish-gae:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - id: copy_secrets
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Copy secrets
         uses: actions-hub/gcloud@master
         env:
           PROJECT_ID: ${{secrets.GCLOUD_PROJECT}}
           APPLICATION_CREDENTIALS: ${{secrets.GCLOUD_SM_AUTH}}
         with:
           args: "secrets versions access latest --secret=App_Engine_Environment_Variables | tee .env"
-      - id: deploys
+      - name: Deploy to GAE
         uses: actions-hub/gcloud@master
         env:
           PROJECT_ID: ${{secrets.GCLOUD_PROJECT}}

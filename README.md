@@ -1,4 +1,4 @@
-# application
+# SS Nuxtify
 
 ## Build Setup
 

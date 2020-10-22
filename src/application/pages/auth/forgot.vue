@@ -21,9 +21,9 @@
 			</button>
 		</div>
 		<div class="text-center mt-4">
-			<nuxt-link to="/signin" class="label-sm">
-				Back to /signin
-			</nuxt-link>
+			<BaseLink to="/auth/signin" class="label-sm">
+				Back to Signin
+			</BaseLink>
 		</div>
 	</form>
 </template>

@@ -62,9 +62,9 @@
 		</div>
 		<div class="text-center mt-4">
 			<span class="label-sm">Have an account?</span>
-			<nuxt-link to="/signin" class="label-sm">
+			<BaseLink to="/auth/signin" class="label-sm">
 				Sign in
-			</nuxt-link>
+			</BaseLink>
 		</div>
 	</form>
 </template>

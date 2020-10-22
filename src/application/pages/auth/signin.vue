@@ -19,7 +19,7 @@
 		<div class="form-group">
 			<label class="label d-flex" for="password">
 				<span>Password</span>
-				<nuxt-link to="/forgot" class="label-sm ml-1">Forgot?</nuxt-link>
+				<BaseLink to="/auth/forgot" class="label-sm ml-1">Forgot?</BaseLink>
 				<a class="label-sm ml-auto" @click.prevent="toggle">{{ show ? 'Hide' : 'Show' }} password</a>
 			</label>
 			<input
@@ -38,9 +38,9 @@
 		</div>
 		<div class="text-center mt-4">
 			<span class="label-sm">Not a member?</span>
-			<nuxt-link to="/signup" class="label-sm">
+			<BaseLink to="/auth/signup" class="label-sm">
 				Sign up now
-			</nuxt-link>
+			</BaseLink>
 		</div>
 	</form>
 </template>

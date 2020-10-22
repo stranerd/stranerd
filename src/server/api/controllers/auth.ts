@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import { isDev, host } from '../../../utils/enviroment'
+import { isDev, host } from '../../../utils/environment'
 import { decodeSessionCookie, signin, signout } from '../utils/firebaseAuth'
 
 const TOKEN_SESSION_NAME = 'session'
@@ -64,23 +64,18 @@ export const SignoutController = async (req: Request, res: Response) => {
 export const CheckSignedInUserMiddleware = async (req: Request, res: Response, next: NextFunction) => {
 	const session = req.cookies[TOKEN_SESSION_NAME] as string
 
-	if (!session) {
-		return res.status(400).json({
-			error: 'Must be authenticated to continue'
-		}).end()
-	}
+	if (!session) return next()
 
 	let userId = session
 
 	try {
-		if (isDev) { userId = (await decodeSessionCookie(session)).id }
+		if (isDev) userId = (await decodeSessionCookie(session)).id
 		setCookie(res, USERID_SESSION_NAME, userId)
-		next()
 	} catch (err) {
 		res.clearCookie(TOKEN_SESSION_NAME)
 		res.clearCookie(USERID_SESSION_NAME)
-		next()
 	}
+	next()
 }
 
 const setCookie = (res: Response, key: string, value: any) => res.cookie(key, value, {

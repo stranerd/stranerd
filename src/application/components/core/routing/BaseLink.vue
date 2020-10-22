@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useSubdomain } from '@utils/enviroment'
+import { useSubdomain } from '@utils/environment'
 import { useRouter } from '@app/usecases/core/router'
 export default defineComponent({
 	props: {

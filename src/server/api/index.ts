@@ -1,7 +1,7 @@
 import Express from 'express'
 // @ts-ignore
 import subdomain from 'express-subdomain'
-import { useSubdomain } from '../../utils/enviroment'
+import { useSubdomain } from '../../utils/environment'
 import { setupRoutes } from './routes'
 import { useApp, useBodyParser, useCORS } from './utils/setup'
 

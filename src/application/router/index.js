@@ -1,6 +1,6 @@
 import Router from 'vue-router'
 import config from '@@/nuxt.config'
-import { useSubdomain } from '@utils/enviroment'
+import { useSubdomain } from '@@/src/utils/environment'
 
 const subs = config.subDomains.paths || []
 const root = config.subDomains.root || 'root'

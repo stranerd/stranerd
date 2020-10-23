@@ -7,16 +7,16 @@ const isLongerThan5 = (value:string) => isLongerThan(value, 5)
 const isShorterThan17 = (value:string) => isShorterThan(value, 17)
 
 export class RegisterFactory extends BaseFactory<null, AuthUser> {
-	public readonly rules = {
+	readonly rules = {
 		name: { required: true, rules: [isLongerThan2] },
 		email: { required: true, rules: [isEmail] },
 		password: { required: true, rules: [isLongerThan5, isShorterThan17] },
 		cPassword: { required: true, rules: [(value: string) => isShallowEqualTo(value, this.password)] }
 	}
 
-	public values = { name: '', email: '', password: '', cPassword: '' }
-	public validValues = { name: '', email: '', password: '', cPassword: '' }
-	public errors = { name: undefined, email: undefined, password: undefined, cPassword: undefined }
+	values = { name: '', email: '', password: '', cPassword: '' }
+	validValues = { name: '', email: '', password: '', cPassword: '' }
+	errors = { name: undefined, email: undefined, password: undefined, cPassword: undefined }
 
 	get name () { return this.values.name }
 	set name (value: string) { this.set('name', value) }
@@ -27,7 +27,7 @@ export class RegisterFactory extends BaseFactory<null, AuthUser> {
 	get cPassword () { return this.values.cPassword }
 	set cPassword (value: string) { this.set('cPassword', value) }
 
-	public toModel = async () => {
+	toModel = async () => {
 		if (this.valid) {
 			const { name, email, password } = this.validValues
 			return { name, email, password }

@@ -2,7 +2,7 @@ import firebase, { auth } from '@modules/core/services/initFirebase'
 import { AuthBaseDataSource } from './auth-base'
 
 export class AuthFirebaseDataSource implements AuthBaseDataSource {
-	public async loginWithEmail (email: string, password: string) {
+	async loginWithEmail (email: string, password: string) {
 		try {
 			const record = await auth.signInWithEmailAndPassword(email, password)
 			const user = record.user!
@@ -21,7 +21,7 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 		}
 	}
 
-	public async loginWithGoogle () {
+	async loginWithGoogle () {
 		try {
 			const googleProvider = new firebase.auth.GoogleAuthProvider()
 			const record = await auth.signInWithPopup(googleProvider)
@@ -45,7 +45,7 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 		}
 	}
 
-	public async registerWithEmail (name: string, email: string, password: string) {
+	async registerWithEmail (name: string, email: string, password: string) {
 		try {
 			const record = await auth.createUserWithEmailAndPassword(email, password)
 			const user = record.user!
@@ -65,11 +65,7 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 		}
 	}
 
-	public async logout (): Promise<void> {
-		await auth.signOut()
-	}
-
-	public async resetPassword (email: string) {
+	async resetPassword (email: string) {
 		try {
 			await auth.sendPasswordResetEmail(email)
 		} catch (error) {
@@ -86,10 +82,11 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 		}
 	}
 
-	public async updatePassword (email: string, oldPassword: string, password: string) {
+	async updatePassword (email: string, oldPassword: string, password: string) {
 		try {
 			await auth.signInWithEmailAndPassword(email, oldPassword)
 			await auth.currentUser?.updatePassword(password)
+			await auth.signOut()
 		} catch (error) {
 			switch (error.code) {
 				case 'auth/invalid-email': throw new Error('Email address is invalid')
@@ -101,5 +98,14 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 				default: throw new Error(error.message)
 			}
 		}
+	}
+
+	async session (id: string, idToken: string): Promise<void> {
+		console.log(id, idToken)
+		throw new Error('Unimplemented')
+	}
+
+	async logout (): Promise<void> {
+		throw new Error('Unimplemented')
 	}
 }

@@ -4,12 +4,12 @@ import 'firebase/database'
 import 'firebase/firestore'
 import 'firebase/functions'
 import 'firebase/storage'
-import { isProd } from '@utils/environment'
+import { isDev, isProd } from '@utils/environment'
 
 const config = {
 	apiKey: 'AIzaSyBqkCjohNU8hh9omuGkEqmCrVphX4DpPzI',
 	authDomain: 'ss-nuxtify.firebaseapp.com',
-	databaseURL: 'https://ss-nuxtify.firebaseio.com',
+	databaseURL: isProd ? 'https://ss-nuxtify.firebaseio.com' : 'http://localhost:5003/?ns=stranerd-13084',
 	projectId: 'ss-nuxtify',
 	storageBucket: 'ss-nuxtify.appspot.com',
 	messagingSenderId: '585363008583',
@@ -19,7 +19,7 @@ const config = {
 
 if (firebase.apps.length === 0) { firebase.initializeApp(config) }
 
-if (process.env.NODE_ENV === 'development') {
+if (isDev) {
 	firebase.firestore().settings({
 		host: 'localhost:5002',
 		ssl: false

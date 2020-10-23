@@ -1,8 +1,13 @@
 import * as admin from 'firebase-admin'
+import { isDev } from '../../../utils/environment'
 
-if (admin.apps.length === 0) admin.initializeApp({
-	credential: admin.credential.applicationDefault()
-})
+if (admin.apps.length === 0) {
+	admin.initializeApp()
+	if (isDev) admin.firestore().settings({
+		host: 'localhost:5002',
+		ssl: false
+	})
+}
 
 export const signin = async (idToken: string) => {
 	// console.log('Unimplemented: ', idToken)

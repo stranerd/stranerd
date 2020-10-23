@@ -31,6 +31,7 @@
     "firebase": "^7.22.1",
     "font-awesome": "^4.7.0",
     "nuxt": "^2.14.5",
+    "sd-validate": "^1.0.4",
     "vue": "^2.6.12",
     "vue-router": "^3.4.5"
   },

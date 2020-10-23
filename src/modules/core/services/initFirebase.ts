@@ -4,6 +4,7 @@ import 'firebase/database'
 import 'firebase/firestore'
 import 'firebase/functions'
 import 'firebase/storage'
+import { isProd } from '@utils/environment'
 
 const config = {
 	apiKey: 'AIzaSyBqkCjohNU8hh9omuGkEqmCrVphX4DpPzI',
@@ -32,6 +33,7 @@ firebase.firestore().enablePersistence({ synchronizeTabs: true }).catch(() => {
 
 export default firebase
 export const auth = firebase.auth()
+export const database = firebase.database()
 export const firestore = firebase.firestore()
 export const functions = firebase.functions()
 export const storage = firebase.storage()
@@ -48,15 +50,16 @@ const uploadToMockServer = async (path: string, file: File) => {
 }
 export const uploadFile = async (path: string, file: File) => {
 	try {
-		let link = `${path}/${Date.now()}_${file.name}`
-		if (process.env.NODE_ENV === 'production') {
-			await storage.ref(link).put(file)
-			link = await storage.ref(link).getDownloadURL()
+		path = `${path}/${Date.now()}_${file.name}`
+		let link: string
+		if (isProd) {
+			await storage.ref(path).put(file)
+			link = await storage.ref(path).getDownloadURL()
 		} else {
-			link = `lfchapel/${link}`
-			await uploadToMockServer(link, file)
-			link = `http://localhost:3000/${link}`
+			path = `ss-nuxtify/${path}`
+			await uploadToMockServer(path, file)
+			link = `http://localhost:3000/${path}`
 		}
-		return { name: file.name, link, type: file.type }
+		return { name: file.name, path, link, type: file.type }
 	} catch { throw new Error(`Error uploading ${file.name}`) }
 }

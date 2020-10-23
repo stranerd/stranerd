@@ -2,7 +2,7 @@ import { Rule, Validator } from 'sd-validate'
 import { UploaderService } from '../../services/uploader'
 
 export abstract class BaseFactory<E, T> {
-	abstract readonly rules: { [key: string]: Rule[] }
+	abstract readonly rules: { [key: string]: { required: boolean, rules: Rule[] } }
 	abstract values: { [key: string]: any }
 	abstract validValues: { [key: string]: any }
 	abstract errors: { [key: string]: string | undefined }
@@ -29,7 +29,7 @@ export abstract class BaseFactory<E, T> {
 
 	private checkValidity (property: string, value: any) {
 		if (this.rules[property]) {
-			const validity = Validator.single(value, this.rules[property])
+			const validity = Validator.single(value, this.rules[property].rules, this.rules[property].required)
 			if (validity.isValid) return { isValid: validity.isValid, message: undefined }
 			else return { isValid: validity.isValid, message: validity.errors[0] }
 		} else throw new Error('Property doesn\'t exist')

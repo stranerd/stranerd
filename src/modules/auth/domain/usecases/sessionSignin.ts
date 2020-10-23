@@ -1,13 +1,13 @@
 import { IAuthRepository } from '../irepositories/iauth'
 
-export class LogoutUseCase {
+export class SessionSigninUseCase {
 	private repository: IAuthRepository
 
 	constructor (repository: IAuthRepository) {
 		this.repository = repository
 	}
 
-	async call () {
-		return await this.repository.logout()
+	async call (id: string, idToken: string) {
+		return await this.repository.session(id, idToken)
 	}
 }

@@ -62,5 +62,10 @@ module.exports = {
 				files: 'src/**/*.{ts,js,vue}'
 			}
 		}
+	},
+	render: {
+		bundleRenderer: {
+			runInNewContext: false
+		}
 	}
 }

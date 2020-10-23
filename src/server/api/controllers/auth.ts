@@ -39,8 +39,8 @@ export const SigninController = async (req: Request, res: Response) => {
 
 export const SignoutController = async (req: Request, res: Response) => {
 	const session = req.cookies[TOKEN_SESSION_NAME]
-	res.clearCookie(TOKEN_SESSION_NAME)
-	res.clearCookie(USERID_SESSION_NAME)
+	deleteCookie(res, TOKEN_SESSION_NAME)
+	deleteCookie(res, USERID_SESSION_NAME)
 
 	try {
 		if (isProd) { await signout(session) }
@@ -61,8 +61,8 @@ export const DecodeSessionCookieMiddleware = async (req: Request, res: Response,
 	const session = req.cookies[TOKEN_SESSION_NAME] as string
 
 	if (!session) {
-		res.clearCookie(TOKEN_SESSION_NAME)
-		res.clearCookie(USERID_SESSION_NAME)
+		deleteCookie(res, TOKEN_SESSION_NAME)
+		deleteCookie(res, USERID_SESSION_NAME)
 		return next()
 	}
 
@@ -72,8 +72,8 @@ export const DecodeSessionCookieMiddleware = async (req: Request, res: Response,
 		if (isProd) userId = (await decodeSessionCookie(session)).id
 		setCookie(res, USERID_SESSION_NAME, userId, false)
 	} catch (err) {
-		res.clearCookie(TOKEN_SESSION_NAME)
-		res.clearCookie(USERID_SESSION_NAME)
+		deleteCookie(res, TOKEN_SESSION_NAME)
+		deleteCookie(res, USERID_SESSION_NAME)
 	}
 	next()
 }
@@ -84,3 +84,10 @@ const setCookie = (res: Response, key: string, value: any, httpOnly: boolean = t
 	httpOnly,
 	sameSite: 'lax'
 })
+
+const deleteCookie = (res: Response, key: string) => {
+	res.clearCookie(key, {
+		domain: host,
+		sameSite: 'lax'
+	})
+}

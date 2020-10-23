@@ -1,4 +1,5 @@
 import firebase, { auth } from '@modules/core/services/initFirebase'
+import { AxiosInstance } from '@modules/core/services/http'
 import { AuthBaseDataSource } from './auth-base'
 
 export class AuthFirebaseDataSource implements AuthBaseDataSource {
@@ -100,12 +101,17 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 		}
 	}
 
-	async session (id: string, idToken: string): Promise<void> {
-		console.log(id, idToken)
-		throw new Error('Unimplemented')
+	async session (id: string, idToken: string) {
+		try {
+			const { data } = await AxiosInstance.post('/auth/signin', { id, idToken })
+			if (!data.success) throw new Error(data.error)
+		} catch (error) { throw new Error(error?.response?.data?.error ?? 'Error signing out') }
 	}
 
-	async logout (): Promise<void> {
-		throw new Error('Unimplemented')
+	async logout () {
+		try {
+			const { data } = await AxiosInstance.post('/auth/signout', {})
+			if (!data.success) throw new Error(data.error)
+		} catch (error) { throw new Error(error?.response?.data?.error ?? 'Error signing out') }
 	}
 }

@@ -1,9 +1,6 @@
-import { useSubdomain, host, port, isDev, ssl } from '@utils/environment'
+import { useSubdomain, protocol, hostname } from '@utils/environment'
 
 const getLink = ({ path, differentSubdomain, root } : { path: string, differentSubdomain?: boolean, root?: boolean }) => {
-	const hostname = isDev ? `${host}:${port}` : host
-	const protocol = `http${ssl ? 's' : ''}://`
-
 	if (!useSubdomain) return path.startsWith('/') ? path : '/' + path
 
 	if (root && differentSubdomain) return `${protocol}${hostname}/${path.startsWith('/') ? path.substr(1) : path}`

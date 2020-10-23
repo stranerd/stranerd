@@ -13,7 +13,10 @@ export const useApp = (app: Express.Router) => {
 }
 
 export const useCORS = (app: Express.Router) => {
-	app.use(Cors())
+	app.use(Cors({
+		credentials: true,
+		origin: true
+	}))
 }
 
 export const useBodyParser = (app: Express.Router) => {

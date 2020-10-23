@@ -25,7 +25,7 @@ export const SigninController = async (req: Request, res: Response) => {
 		setCookie(res, TOKEN_SESSION_NAME, sessionValue)
 		setCookie(res, USERID_SESSION_NAME, id, false)
 
-		return res.status(400).json({
+		return res.json({
 			success: true,
 			error: null
 		}).end()

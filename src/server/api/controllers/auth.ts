@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import { isDev, host } from '../../../utils/environment'
+import { isProd, host } from '../../../utils/environment'
 import { decodeSessionCookie, signin, signout } from '../utils/firebaseAuth'
 
 const TOKEN_SESSION_NAME = 'session'
@@ -8,26 +8,22 @@ const USERID_SESSION_NAME = 'user-id'
 export const SigninController = async (req: Request, res: Response) => {
 	const { idToken, id } = req.body
 
-	if (!id) {
-		return res.status(400).json({
-			success: false,
-			error: 'Id is required'
-		}).end()
-	}
-	if (!idToken) {
-		return res.status(400).json({
-			success: false,
-			error: 'Id Token is required'
-		}).end()
-	}
+	if (!id) return res.status(400).json({
+		success: false,
+		error: 'Id is required'
+	}).end()
+	if (!idToken) return res.status(400).json({
+		success: false,
+		error: 'Id Token is required'
+	}).end()
 
 	let sessionValue = id
 
 	try {
-		if (isDev) { sessionValue = await signin(idToken) }
+		if (isProd) { sessionValue = await signin(idToken) }
 
 		setCookie(res, TOKEN_SESSION_NAME, sessionValue)
-		setCookie(res, USERID_SESSION_NAME, id)
+		setCookie(res, USERID_SESSION_NAME, id, false)
 
 		return res.status(400).json({
 			success: true,
@@ -47,7 +43,7 @@ export const SignoutController = async (req: Request, res: Response) => {
 	res.clearCookie(USERID_SESSION_NAME)
 
 	try {
-		if (isDev) { await signout(session) }
+		if (isProd) { await signout(session) }
 
 		return res.json({
 			success: true,
@@ -61,16 +57,20 @@ export const SignoutController = async (req: Request, res: Response) => {
 	}
 }
 
-export const CheckSignedInUserMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+export const DecodeSessionCookieMiddleware = async (req: Request, res: Response, next: NextFunction) => {
 	const session = req.cookies[TOKEN_SESSION_NAME] as string
 
-	if (!session) return next()
+	if (!session) {
+		res.clearCookie(TOKEN_SESSION_NAME)
+		res.clearCookie(USERID_SESSION_NAME)
+		return next()
+	}
 
 	let userId = session
 
 	try {
-		if (isDev) userId = (await decodeSessionCookie(session)).id
-		setCookie(res, USERID_SESSION_NAME, userId)
+		if (isProd) userId = (await decodeSessionCookie(session)).id
+		setCookie(res, USERID_SESSION_NAME, userId, false)
 	} catch (err) {
 		res.clearCookie(TOKEN_SESSION_NAME)
 		res.clearCookie(USERID_SESSION_NAME)
@@ -78,9 +78,9 @@ export const CheckSignedInUserMiddleware = async (req: Request, res: Response, n
 	next()
 }
 
-const setCookie = (res: Response, key: string, value: any) => res.cookie(key, value, {
+const setCookie = (res: Response, key: string, value: any, httpOnly: boolean = true) => res.cookie(key, value, {
 	maxAge: 14 * 24 * 60 * 60 * 1000,
 	domain: host,
-	httpOnly: true,
+	httpOnly,
 	sameSite: 'lax'
 })

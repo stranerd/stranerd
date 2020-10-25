@@ -8,3 +8,6 @@ export const host = process.env.HOST!
 export const hostname = isDev ? `${host}:${port}` : host
 export const ssl = JSON.parse(process.env.SSL ?? 'false') as boolean
 export const protocol = `http${ssl ? 's' : ''}://`
+
+export const isServer = () => process.server
+export const isClient = () => process.client

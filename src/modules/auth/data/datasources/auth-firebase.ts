@@ -105,7 +105,7 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 		try {
 			const { data } = await AxiosInstance.post('/auth/signin', { id, idToken })
 			if (!data.success) throw new Error(data.error)
-		} catch (error) { throw new Error(error?.response?.data?.error ?? 'Error signing out') }
+		} catch (error) { throw new Error(error?.response?.data?.error ?? 'Error signing in') }
 	}
 
 	async logout () {

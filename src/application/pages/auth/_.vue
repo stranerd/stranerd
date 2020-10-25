@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { defineComponent, useContext } from '@nuxtjs/composition-api'
-import { useRouter } from '@app/usecases/core/router'
+import { useRouter } from '@utils/router'
 export default defineComponent({
 	setup: () => {
 		const router = useRouter()

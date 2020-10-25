@@ -1,9 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { isProd, host } from '../../../utils/environment'
+import { TOKEN_SESSION_NAME, USERID_SESSION_NAME } from '../../../utils/constants'
 import { decodeSessionCookie, signin, signout } from '../utils/firebaseAuth'
-
-const TOKEN_SESSION_NAME = 'session'
-const USERID_SESSION_NAME = 'user-id'
 
 export const SigninController = async (req: Request, res: Response) => {
 	const { idToken, id } = req.body

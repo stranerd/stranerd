@@ -1,6 +1,6 @@
 import { useSubdomain, protocol, hostname } from '@utils/environment'
 
-const getLink = ({ path, differentSubdomain, root } : { path: string, differentSubdomain?: boolean, root?: boolean }) => {
+export const GenerateLink = ({ path, differentSubdomain, root } : { path: string, differentSubdomain?: boolean, root?: boolean }) => {
 	if (!useSubdomain) return path.startsWith('/') ? path : '/' + path
 
 	if (root && differentSubdomain) return `${protocol}${hostname}/${path.startsWith('/') ? path.substr(1) : path}`
@@ -14,5 +14,3 @@ const getLink = ({ path, differentSubdomain, root } : { path: string, differentS
 
 	return `${protocol}${hostname}/${path.startsWith('/') ? path.substr(1) : path}`
 }
-
-export const useRouter = () => ({ getLink })

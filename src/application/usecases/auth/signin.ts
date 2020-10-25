@@ -8,11 +8,12 @@ import {
 	SessionSignin
 } from '@modules/auth'
 import { hostname, protocol } from '@utils/environment'
+import { REDIRECT_SESSION_NAME } from '@utils/constants'
 import Cookie from 'js-cookie'
 
 const createSession = async (id: string, idToken: string) => {
 	await SessionSignin.call(id, idToken)
-	const redirect = Cookie.get('redirectTo')
+	const redirect = Cookie.get(REDIRECT_SESSION_NAME)
 	window.location.assign(redirect ?? protocol + hostname)
 }
 

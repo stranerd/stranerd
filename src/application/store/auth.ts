@@ -1,21 +1,28 @@
 import { Getter, Mutation, Action } from 'vuex'
 
+type Auth = {
+	id: string,
+	email: string | null,
+	verified: boolean,
+	provider: string
+}
+
 type S = {
-	id: string | null
+	auth: Auth | null
 }
 
 export const state = () :S => ({
-	id: null
+	auth: null
 })
 
 export const getters = {
-	isLoggedIn: (state) => !!state.id
+	isLoggedIn: (state) => !!state.auth?.id
 } as { [key: string]: Getter<S, any> }
 
 export const mutations = {
-	setId: (state, id) => state.id = id
+	setAuthDetails: (state, user) => state.auth = user
 } as { [key: string]: Mutation<S> }
 
 export const actions = {
-	setId: async (ctx, id: string) => ctx.commit('setId', id)
+	setAuthDetails: async (ctx, details: Auth) => ctx.commit('setAuthDetails', details)
 } as { [key: string]: Action<S, any> }

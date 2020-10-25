@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import { isProd, host } from '../../../utils/environment'
-import { TOKEN_SESSION_NAME, USERID_SESSION_NAME } from '../../../utils/constants'
+import { TOKEN_SESSION_NAME, USER_SESSION_NAME } from '../../../utils/constants'
 import { decodeSessionCookie, signin, signout } from '../utils/firebaseAuth'
 
 export const SigninController = async (req: Request, res: Response) => {
@@ -21,7 +21,7 @@ export const SigninController = async (req: Request, res: Response) => {
 		if (isProd) { sessionValue = await signin(idToken) }
 
 		setCookie(res, TOKEN_SESSION_NAME, sessionValue)
-		setCookie(res, USERID_SESSION_NAME, id)
+		setCookie(res, USER_SESSION_NAME, id)
 
 		return res.json({
 			success: true,
@@ -38,7 +38,7 @@ export const SigninController = async (req: Request, res: Response) => {
 export const SignoutController = async (req: Request, res: Response) => {
 	const session = req.cookies[TOKEN_SESSION_NAME]
 	deleteCookie(res, TOKEN_SESSION_NAME)
-	deleteCookie(res, USERID_SESSION_NAME)
+	deleteCookie(res, USER_SESSION_NAME)
 
 	try {
 		if (isProd) { await signout(session) }
@@ -60,18 +60,20 @@ export const DecodeSessionCookieMiddleware = async (req: Request, res: Response,
 
 	if (!session) {
 		deleteCookie(res, TOKEN_SESSION_NAME)
-		deleteCookie(res, USERID_SESSION_NAME)
+		deleteCookie(res, USER_SESSION_NAME)
 		return next()
 	}
 
-	let userId = session
+	let user
 
 	try {
-		if (isProd) userId = (await decodeSessionCookie(session)).id
-		setCookie(res, USERID_SESSION_NAME, userId)
+		if (isProd) user = await decodeSessionCookie(session)
+		else user = { id: session, email: null, verified: false, provider: 'password' }
+
+		setCookie(res, USER_SESSION_NAME, JSON.stringify(user))
 	} catch (err) {
 		deleteCookie(res, TOKEN_SESSION_NAME)
-		deleteCookie(res, USERID_SESSION_NAME)
+		deleteCookie(res, USER_SESSION_NAME)
 	}
 	next()
 }
@@ -83,9 +85,7 @@ const setCookie = (res: Response, key: string, value: any) => res.cookie(key, va
 	sameSite: 'lax'
 })
 
-const deleteCookie = (res: Response, key: string) => {
-	res.clearCookie(key, {
-		domain: host,
-		sameSite: 'lax'
-	})
-}
+const deleteCookie = (res: Response, key: string) => res.clearCookie(key, {
+	domain: host,
+	sameSite: 'lax'
+})

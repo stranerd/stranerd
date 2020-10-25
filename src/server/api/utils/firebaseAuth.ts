@@ -10,16 +10,22 @@ if (admin.apps.length === 0) {
 }
 
 export const signin = async (idToken: string) => {
-	// console.log('Unimplemented: ', idToken)
-	return await Promise.resolve(idToken)
+	return await admin.auth().createSessionCookie(idToken, {
+		expiresIn: 14 * 86400 * 1000
+	})
 }
 
 export const signout = async (session: string) => {
-	// console.log('Unimplemented: ', session)
-	return await Promise.resolve(session)
+	const user = await admin.auth().verifySessionCookie(session)
+	if (user) await admin.auth().revokeRefreshTokens(user.uid)
 }
 
 export const decodeSessionCookie = async (session: string) => {
-	// console.log('Unimplemented: ', session)
-	return await Promise.resolve({ id: session })
+	const user = await admin.auth().verifySessionCookie(session)
+	return {
+		id: user.uid,
+		email: user.email ?? null,
+		verified: user.email_verified ?? false,
+		provider: user.firebase.sign_in_provider
+	}
 }

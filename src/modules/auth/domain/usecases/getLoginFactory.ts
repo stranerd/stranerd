@@ -1,5 +1,7 @@
 import { LoginFactory } from '../factories/login'
 
 export class GetLoginFactoryUseCase {
-	call = () => new LoginFactory()
+	call () {
+		return new LoginFactory()
+	}
 }

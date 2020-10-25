@@ -17,10 +17,10 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useDevLogin } from '@app/usecases/auth/signin'
+import { useDevSignin } from '@app/usecases/auth/signin'
 export default defineComponent({
 	setup () {
-		const { loading, login, id, devs, error } = useDevLogin()
+		const { loading, login, id, devs, error } = useDevSignin()
 		return { id, devs, error, login, loading }
 	}
 })

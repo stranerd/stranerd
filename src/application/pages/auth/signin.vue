@@ -59,7 +59,7 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import AuthProviders from '@app/components/auth/AuthProviders.vue'
 import DevLogin from '@app/components/auth/DevLogin.vue'
 import { usePassword } from '@app/usecases/core/forms'
-import { useLoginForm } from '@app/usecases/auth/signin'
+import { useEmailSignin } from '@app/usecases/auth/signin'
 import { isDev } from '@utils/environment'
 export default defineComponent({
 	components: { AuthProviders, DevLogin },
@@ -67,7 +67,7 @@ export default defineComponent({
 	middleware: 'isNotAuthenticated',
 	setup () {
 		const { show, toggle } = usePassword()
-		const { loading, login, factory, error } = useLoginForm()
+		const { loading, login, factory, error } = useEmailSignin()
 		return {
 			isDev, show, toggle,
 			factory, loading, error, login

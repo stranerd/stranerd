@@ -8,8 +8,8 @@
 			<BaseLink to="/page" :root="true">
 				Page
 			</BaseLink>
-			<button class="d-block mx-auto btn btn-danger mt-4" @click="logout">
-				Logout
+			<button class="d-block mx-auto btn btn-danger mt-4" @click="signout">
+				Sign Out
 			</button>
 			<span v-if="error" class="text-danger">{{ error }}</span>
 			<PageLoading v-if="loading" />
@@ -19,11 +19,11 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useLogout } from '@app/usecases/auth/signout'
+import { useSessionSignout } from '@app/usecases/auth/signout'
 export default defineComponent({
 	setup () {
-		const { loading, logout, error } = useLogout()
-		return { loading, logout, error }
+		const { loading, signout, error } = useSessionSignout()
+		return { loading, signout, error }
 	}
 })
 </script>

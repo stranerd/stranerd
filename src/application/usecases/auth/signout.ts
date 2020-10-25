@@ -2,12 +2,12 @@ import { reactive, toRefs } from '@nuxtjs/composition-api'
 import { SessionSignout } from '@modules/auth'
 import { GenerateLink } from '@utils/router'
 
-export const useLogout = () => {
+export const useSessionSignout = () => {
 	const state = reactive({
 		loading: false,
 		error: ''
 	})
-	const logout = async () => {
+	const signout = async () => {
 		state.error = ''
 		state.loading = true
 		try {
@@ -17,5 +17,5 @@ export const useLogout = () => {
 		state.loading = false
 	}
 
-	return { ...toRefs(state), logout }
+	return { ...toRefs(state), signout }
 }

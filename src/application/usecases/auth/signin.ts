@@ -22,7 +22,7 @@ const createSession = async (idToken: string) => {
 	} else window.location.assign(protocol + hostname)
 }
 
-export const useGoogleLogin = () => {
+export const useGoogleSignin = () => {
 	const state = reactive({
 		loading: false,
 		error: ''
@@ -39,7 +39,7 @@ export const useGoogleLogin = () => {
 	return { ...toRefs(state), login }
 }
 
-export const useDevLogin = () => {
+export const useDevSignin = () => {
 	const devs = ['kevin11', 'frank', 'joe', 'max']
 	const state = reactive({
 		loading: false,
@@ -58,7 +58,7 @@ export const useDevLogin = () => {
 	return { ...toRefs(state), devs, login }
 }
 
-export const useLoginForm = () => {
+export const useEmailSignin = () => {
 	const state = reactive({
 		loading: false,
 		error: '',
@@ -78,7 +78,7 @@ export const useLoginForm = () => {
 	return { ...toRefs(state), login }
 }
 
-export const useRegisterForm = () => {
+export const useEmailSignup = () => {
 	const state = reactive({
 		loading: false,
 		error: '',

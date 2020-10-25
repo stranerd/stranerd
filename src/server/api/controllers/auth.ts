@@ -21,7 +21,7 @@ export const SigninController = async (req: Request, res: Response) => {
 		if (isProd) { sessionValue = await signin(idToken) }
 
 		setCookie(res, TOKEN_SESSION_NAME, sessionValue)
-		setCookie(res, USERID_SESSION_NAME, id, false)
+		setCookie(res, USERID_SESSION_NAME, id)
 
 		return res.json({
 			success: true,
@@ -68,7 +68,7 @@ export const DecodeSessionCookieMiddleware = async (req: Request, res: Response,
 
 	try {
 		if (isProd) userId = (await decodeSessionCookie(session)).id
-		setCookie(res, USERID_SESSION_NAME, userId, false)
+		setCookie(res, USERID_SESSION_NAME, userId)
 	} catch (err) {
 		deleteCookie(res, TOKEN_SESSION_NAME)
 		deleteCookie(res, USERID_SESSION_NAME)
@@ -76,10 +76,10 @@ export const DecodeSessionCookieMiddleware = async (req: Request, res: Response,
 	next()
 }
 
-const setCookie = (res: Response, key: string, value: any, httpOnly: boolean = true) => res.cookie(key, value, {
+const setCookie = (res: Response, key: string, value: any) => res.cookie(key, value, {
 	maxAge: 14 * 24 * 60 * 60 * 1000,
 	domain: host,
-	httpOnly,
+	httpOnly: true,
 	sameSite: 'lax'
 })
 

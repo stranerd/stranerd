@@ -3,10 +3,10 @@
 		<div>
 			<Logo />
 			<h1 class="title">
-				application root
+				page
 			</h1>
-			<BaseLink to="/page" :root="true">
-				Page
+			<BaseLink to="/" :root="true">
+				Index
 			</BaseLink>
 		</div>
 	</div>
@@ -15,7 +15,9 @@
 <script lang="ts">
 import Vue from 'vue'
 
-export default Vue.extend({})
+export default Vue.extend({
+	middleware: 'isAuthenticated'
+})
 </script>
 
 <style>

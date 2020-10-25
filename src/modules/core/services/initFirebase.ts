@@ -17,19 +17,20 @@ const config = {
 	measurementId: 'G-FLWR182V4Y'
 }
 
-if (firebase.apps.length === 0) { firebase.initializeApp(config) }
-
-if (isDev) {
-	firebase.firestore().settings({
-		host: 'localhost:5002',
-		ssl: false
+if (firebase.apps.length === 0) {
+	firebase.initializeApp(config)
+	if (isDev) {
+		firebase.firestore().settings({
+			host: 'localhost:5002',
+			ssl: false
+		})
+		firebase.functions().useFunctionsEmulator('http://localhost:5001')
+	}
+	firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE)
+	firebase.firestore().enablePersistence({ synchronizeTabs: true }).catch(() => {
+		// console.warn('Your browser does not allow offline support, so you will need internet connection to get live data.')
 	})
-	firebase.functions().useFunctionsEmulator('http://localhost:5001')
 }
-firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE)
-firebase.firestore().enablePersistence({ synchronizeTabs: true }).catch(() => {
-	// console.warn('Your browser does not allow offline support, so you will need internet connection to get live data.')
-})
 
 export default firebase
 export const auth = firebase.auth()

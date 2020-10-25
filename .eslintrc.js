@@ -33,6 +33,7 @@ module.exports = {
 			"alignAttributesVertically": true,
 			"ignores": []
 		}],
+		"require-atomic-updates": "off",
 		"require-await": "off"
 	},
 	"overrides": [

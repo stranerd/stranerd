@@ -27,7 +27,7 @@ export abstract class BaseFactory<E, T> {
 
 	validateAll = () => Object.keys(this.values).forEach((key) => this.set(key, this.values[key]))
 
-	private checkValidity (property: string, value: any) {
+	public checkValidity (property: string, value: any) {
 		if (this.rules[property]) {
 			const validity = Validator.single(value, this.rules[property].rules, this.rules[property].required)
 			if (validity.isValid) return { isValid: validity.isValid, message: undefined }

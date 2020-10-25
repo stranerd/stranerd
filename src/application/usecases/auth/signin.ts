@@ -64,7 +64,7 @@ export const useEmailSignin = () => {
 		error: '',
 		factory: GetLoginFactory.call()
 	})
-	const login = async () => {
+	const signin = async () => {
 		state.error = ''
 		if (state.factory.valid && !state.loading) {
 			state.loading = true
@@ -75,7 +75,7 @@ export const useEmailSignin = () => {
 			state.loading = false
 		} else state.factory.validateAll()
 	}
-	return { ...toRefs(state), login }
+	return { ...toRefs(state), signin }
 }
 
 export const useEmailSignup = () => {
@@ -84,7 +84,7 @@ export const useEmailSignup = () => {
 		error: '',
 		factory: GetRegisterFactory.call()
 	})
-	const register = async () => {
+	const signup = async () => {
 		state.error = ''
 		if (state.factory.valid && !state.loading) {
 			state.loading = true
@@ -95,5 +95,5 @@ export const useEmailSignup = () => {
 			state.loading = false
 		} else state.factory.validateAll()
 	}
-	return { ...toRefs(state), register }
+	return { ...toRefs(state), signup }
 }

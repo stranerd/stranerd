@@ -11,7 +11,7 @@ export class RegisterFactory extends BaseFactory<null, AuthUser> {
 		name: { required: true, rules: [isLongerThan2] },
 		email: { required: true, rules: [isEmail] },
 		password: { required: true, rules: [isLongerThan5, isShorterThan17] },
-		cPassword: { required: true, rules: [(value: string) => isShallowEqualTo(value, this.password)] }
+		cPassword: { required: true, rules: [(value: string) => isShallowEqualTo(value, this.password), isLongerThan5, isShorterThan17] }
 	}
 
 	values = { name: '', email: '', password: '', cPassword: '' }

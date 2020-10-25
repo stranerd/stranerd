@@ -1,5 +1,5 @@
 <template>
-	<form @submit.prevent="login">
+	<form @submit.prevent="signin">
 		<h2 class="mb-7 text-center">
 			Sign In With
 		</h2>
@@ -67,10 +67,10 @@ export default defineComponent({
 	middleware: 'isNotAuthenticated',
 	setup () {
 		const { show, toggle } = usePassword()
-		const { loading, login, factory, error } = useEmailSignin()
+		const { loading, signin, factory, error } = useEmailSignin()
 		return {
 			isDev, show, toggle,
-			factory, loading, error, login
+			factory, loading, error, signin
 		}
 	}
 })

@@ -5,8 +5,7 @@ module.exports = {
 	buildDir: 'build',
 	telemetry: false,
 	server: {
-		port: process.env.PORT || 8080,
-		host: process.env.HOST
+		port: process.env.PORT || 8080
 	},
 	target: 'server',
 	head: {

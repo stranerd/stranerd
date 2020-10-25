@@ -76,6 +76,7 @@ import { usePassword } from '@app/usecases/core/forms'
 export default defineComponent({
 	components: { AuthProviders },
 	layout: 'auth',
+	middleware: 'isNotAuthenticated',
 	setup () {
 		const { show, toggle } = usePassword()
 		return { show, toggle }

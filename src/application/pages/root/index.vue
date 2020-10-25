@@ -1,6 +1,6 @@
 <template>
 	<div class="container">
-		<div>
+		<div class="text-center">
 			<Logo />
 			<h1 class="title">
 				application root
@@ -8,14 +8,24 @@
 			<BaseLink to="/page" :root="true">
 				Page
 			</BaseLink>
+			<button class="d-block mx-auto btn btn-danger mt-4" @click="logout">
+				Logout
+			</button>
+			<span v-if="error" class="text-danger">{{ error }}</span>
+			<PageLoading v-if="loading" />
 		</div>
 	</div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-
-export default Vue.extend({})
+import { defineComponent } from '@nuxtjs/composition-api'
+import { useLogout } from '@app/usecases/auth/signout'
+export default defineComponent({
+	setup () {
+		const { loading, logout, error } = useLogout()
+		return { loading, logout, error }
+	}
+})
 </script>
 
 <style>

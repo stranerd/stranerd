@@ -64,6 +64,7 @@ import { isDev } from '@utils/environment'
 export default defineComponent({
 	components: { AuthProviders, DevLogin },
 	layout: 'auth',
+	middleware: 'isNotAuthenticated',
 	setup () {
 		const { show, toggle } = usePassword()
 		const { loading, login, factory, error } = useLoginForm()

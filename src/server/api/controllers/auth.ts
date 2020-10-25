@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
-import { isProd, host } from '../../../utils/environment'
+import { host } from '../../../utils/environment'
 import { TOKEN_SESSION_NAME, USER_SESSION_NAME } from '../../../utils/constants'
-import { decodeSessionCookie, signin, signout } from '../utils/firebaseAuth'
+import { decodeSessionCookie, signin, signout } from '../utils/auth'
 
 export const SigninController = async (req: Request, res: Response) => {
 	const { idToken, id } = req.body
@@ -15,13 +15,11 @@ export const SigninController = async (req: Request, res: Response) => {
 		error: 'Id Token is required'
 	}).end()
 
-	let sessionValue = id
-
 	try {
-		if (isProd) { sessionValue = await signin(idToken) }
-
+		const sessionValue = await signin(idToken)
+		const user = await decodeSessionCookie(sessionValue)
 		setCookie(res, TOKEN_SESSION_NAME, sessionValue)
-		setCookie(res, USER_SESSION_NAME, id)
+		setCookie(res, USER_SESSION_NAME, JSON.stringify(user))
 
 		return res.json({
 			success: true,
@@ -41,7 +39,7 @@ export const SignoutController = async (req: Request, res: Response) => {
 	deleteCookie(res, USER_SESSION_NAME)
 
 	try {
-		if (isProd) { await signout(session) }
+		await signout(session)
 
 		return res.json({
 			success: true,
@@ -64,12 +62,8 @@ export const DecodeSessionCookieMiddleware = async (req: Request, res: Response,
 		return next()
 	}
 
-	let user
-
 	try {
-		if (isProd) user = await decodeSessionCookie(session)
-		else user = { id: session, email: null, verified: false, provider: 'password' }
-
+		const user = await decodeSessionCookie(session)
 		setCookie(res, USER_SESSION_NAME, JSON.stringify(user))
 	} catch (err) {
 		deleteCookie(res, TOKEN_SESSION_NAME)

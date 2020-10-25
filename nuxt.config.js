@@ -39,7 +39,7 @@ module.exports = {
 	],
 	buildModules: [
 		'@nuxtjs/composition-api', '@nuxt/typescript-build',
-		['@nuxtjs/router', { keepDefaultRouter: true, fileName: 'router/index.js' }]
+		['@nuxtjs/router', { keepDefaultRouter: true, fileName: 'router.js' }]
 	],
 	env: { ...process.env },
 	subDomains: {

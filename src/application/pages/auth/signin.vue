@@ -38,16 +38,30 @@
 			>
 			<span v-if="emailFactory.errors.password" class="text-danger">{{ emailFactory.errors.password }}</span>
 		</div>
-		<div class="mt-2">
+		<div class="mt-2 text-center">
 			<button type="submit" class="w-100 btn btn-dark py-2" :disabled="loading || !emailFactory.valid">
 				Sign In
 			</button>
+			<span v-if="emailError" class="text-danger">{{ emailError }}</span>
 		</div>
 		<div class="text-center mt-4">
 			<span class="label-sm">Not a member?</span>
 			<BaseLink to="/auth/signup" class="label-sm">
 				Sign up now
 			</BaseLink>
+		</div>
+		<div v-if="isDev" class="my-4 text-center">
+			<div class="d-flex justify-content-center">
+				<span v-for="dev in devs" :key="dev" class="mr-2">
+					<input v-model="devId" type="radio" :value="dev" class="mr-1">
+					<label class="text-capitalize">{{ dev }}</label>
+				</span>
+			</div>
+			<button :disabled="!devId" type="button" class="btn btn-info w-100" @click="devLogin">
+				<i class="fas fa-user-cog text-white mr-1" />
+				<span>Sign In as dev user</span>
+			</button>
+			<span v-if="devError" class="text-danger">{{ devError }}</span>
 		</div>
 	</form>
 </template>
@@ -56,17 +70,19 @@
 import { defineComponent, computed } from '@nuxtjs/composition-api'
 import AuthProviders from '@app/components/auth/AuthProviders.vue'
 import { usePassword } from '@app/usecases/core/forms'
-import { useLoginForm } from '@app/usecases/auth/signin'
+import { useLoginForm, useDevLogin } from '@app/usecases/auth/signin'
 export default defineComponent({
 	components: { AuthProviders },
 	layout: 'auth',
 	setup () {
 		const { show, toggle } = usePassword()
-		const { loading: emailLoading, login: emailLogin, factory: emailFactory } = useLoginForm()
+		const { loading: emailLoading, login: emailLogin, factory: emailFactory, error: emailError } = useLoginForm()
+		const { loading: devLoading, login: devLogin, id: devId, devs, isDev, error: devError } = useDevLogin()
 		return {
 			show, toggle,
-			emailFactory, emailLogin,
-			loading: computed(() => emailLoading.value)
+			emailFactory, emailError, emailLogin,
+			devId, devs, isDev, devError, devLogin,
+			loading: computed(() => emailLoading.value || devLoading.value)
 		}
 	}
 })

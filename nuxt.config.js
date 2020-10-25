@@ -30,6 +30,9 @@ module.exports = {
 	serverMiddleware: [
 		'@@/src/server/api/index'
 	],
+	plugins: [
+		{ mode: 'client', src: '@/plugins/firebaseClient' }
+	],
 	components: true,
 	modules: [
 		'@nuxtjs/style-resources'

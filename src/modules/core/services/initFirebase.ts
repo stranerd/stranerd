@@ -26,10 +26,6 @@ if (firebase.apps.length === 0) {
 		})
 		firebase.functions().useFunctionsEmulator('http://localhost:5001')
 	}
-	firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE)
-	firebase.firestore().enablePersistence({ synchronizeTabs: true }).catch(() => {
-		// console.warn('Your browser does not allow offline support, so you will need internet connection to get live data.')
-	})
 }
 
 export default firebase

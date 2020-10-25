@@ -7,8 +7,11 @@ export const useLogout = () => {
 		error: ''
 	})
 	const logout = async () => {
+		state.error = ''
 		state.loading = true
-		await SessionSignout.call()
+		try {
+			await SessionSignout.call()
+		} catch (error) { state.error = error }
 		state.loading = false
 	}
 

@@ -9,6 +9,7 @@ export const useResetPasswordForm = () => {
 		factory: GetResetPasswordFactory.call()
 	})
 	const resetPassword = async () => {
+		state.error = ''
 		if (state.factory.valid && !state.loading) {
 			state.loading = true
 			try {

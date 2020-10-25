@@ -28,6 +28,7 @@ export const useGoogleLogin = () => {
 		error: ''
 	})
 	const login = async () => {
+		state.error = ''
 		state.loading = true
 		try {
 			const { id, idToken } = await LoginWithGoogle.call()
@@ -46,6 +47,7 @@ export const useDevLogin = () => {
 		id: ''
 	})
 	const login = async () => {
+		state.error = ''
 		state.loading = true
 		try {
 			if (state.id) await createSession(state.id, state.id)
@@ -63,6 +65,7 @@ export const useLoginForm = () => {
 		factory: GetLoginFactory.call()
 	})
 	const login = async () => {
+		state.error = ''
 		if (state.factory.valid && !state.loading) {
 			state.loading = true
 			try {
@@ -82,6 +85,7 @@ export const useRegisterForm = () => {
 		factory: GetRegisterFactory.call()
 	})
 	const register = async () => {
+		state.error = ''
 		if (state.factory.valid && !state.loading) {
 			state.loading = true
 			try {

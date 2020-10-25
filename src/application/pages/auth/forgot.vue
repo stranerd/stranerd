@@ -1,5 +1,5 @@
 <template>
-	<form>
+	<form @submit.prevent="resetPassword">
 		<h2 class="mb-7 text-center">
 			Forgot Password
 		</h2>
@@ -7,22 +7,26 @@
 			<label for="email" class="label">Email</label>
 			<input
 				id="email"
+				v-model="factory.email"
 				type="email"
 				name="email"
+				:class="{ 'is-valid': factory.isValid('email'), 'is-invalid': factory.errors.email }"
 				required
 				class="form-control"
 				autocomplete="email"
 				autofocus
 			>
 		</div>
-		<div class="mt-2">
-			<button class="w-100 btn btn-dark py-2">
-				Submit
+		<div class="mt-2 text-center">
+			<button type="submit" class="w-100 btn btn-dark py-2" :disabled="loading || !factory.valid">
+				Send Reset Email
 			</button>
+			<span v-if="error" class="text-danger">{{ error }}</span>
+			<PageLoading v-if="loading" />
 		</div>
 		<div class="text-center mt-4">
 			<BaseLink to="/auth/signin" class="label-sm">
-				Back to Signin
+				Return to Signin
 			</BaseLink>
 		</div>
 	</form>
@@ -30,9 +34,14 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
+import { usePasswordReset } from '@app/usecases/auth/passwords'
 export default defineComponent({
 	layout: 'auth',
-	middleware: 'isNotAuthenticated'
+	middleware: 'isNotAuthenticated',
+	setup () {
+		const { factory, loading, resetPassword, error, message } = usePasswordReset()
+		return { factory, loading, resetPassword, error, message }
+	}
 })
 </script>
 

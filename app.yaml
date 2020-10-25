@@ -1,11 +1,3 @@
 runtime: nodejs12
 
 instance_class: F1
-
-env_variables:
-  FIREBASE_CONFIG: {
-    "authDomain": "ss-nuxtify.firebaseapp.com",
-    "databaseURL": "https://ss-nuxtify.firebaseio.com",
-    "projectId": "ss-nuxtify",
-    "storageBucket": "ss-nuxtify.appspot.com"
-  }

@@ -7,7 +7,7 @@ import {
 	RegisterWithEmail,
 	SessionSignin
 } from '@modules/auth'
-import { hostname, isDev, protocol } from '@utils/environment'
+import { hostname, protocol } from '@utils/environment'
 import Cookie from 'js-cookie'
 
 const createSession = async (id: string, idToken: string) => {
@@ -47,7 +47,7 @@ export const useDevLogin = () => {
 		} catch (error) { state.error = error }
 		state.loading = false
 	}
-	return { ...toRefs(state), devs, isDev, login }
+	return { ...toRefs(state), devs, login }
 }
 
 export const useLoginForm = () => {

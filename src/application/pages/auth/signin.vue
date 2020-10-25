@@ -1,24 +1,23 @@
 <template>
-	<form @submit.prevent="emailLogin">
+	<form @submit.prevent="login">
 		<h2 class="mb-7 text-center">
 			Sign In With
 		</h2>
-		<PageLoading v-if="loading" />
 		<AuthProviders class="mb-4" />
 		<div class="form-group">
 			<label for="email" class="label">Email</label>
 			<input
 				id="email"
-				v-model="emailFactory.email"
+				v-model="factory.email"
 				type="email"
 				name="email"
-				:class="{ 'is-valid': emailFactory.isValid('email'), 'is-invalid': emailFactory.errors.email }"
+				:class="{ 'is-valid': factory.isValid('email'), 'is-invalid': factory.errors.email }"
 				required
 				class="form-control"
 				autocomplete="email"
 				autofocus
 			>
-			<span v-if="emailFactory.errors.email" class="text-danger">{{ emailFactory.errors.email }}</span>
+			<span v-if="factory.errors.email" class="text-danger">{{ factory.errors.email }}</span>
 		</div>
 		<div class="form-group">
 			<label class="label d-flex" for="password">
@@ -28,21 +27,22 @@
 			</label>
 			<input
 				id="password"
-				v-model="emailFactory.password"
+				v-model="factory.password"
 				:type="show ? 'text' : 'password'"
 				name="password"
-				:class="{ 'is-valid': emailFactory.isValid('password'), 'is-invalid': emailFactory.errors.password }"
+				:class="{ 'is-valid': factory.isValid('password'), 'is-invalid': factory.errors.password }"
 				required
 				class="form-control"
 				autocomplete="current-password"
 			>
-			<span v-if="emailFactory.errors.password" class="text-danger">{{ emailFactory.errors.password }}</span>
+			<span v-if="factory.errors.password" class="text-danger">{{ factory.errors.password }}</span>
 		</div>
 		<div class="mt-2 text-center">
-			<button type="submit" class="w-100 btn btn-dark py-2" :disabled="loading || !emailFactory.valid">
+			<button type="submit" class="w-100 btn btn-dark py-2" :disabled="loading || !factory.valid">
 				Sign In
 			</button>
-			<span v-if="emailError" class="text-danger">{{ emailError }}</span>
+			<span v-if="error" class="text-danger">{{ error }}</span>
+			<PageLoading v-if="loading" />
 		</div>
 		<div class="text-center mt-4">
 			<span class="label-sm">Not a member?</span>
@@ -50,39 +50,26 @@
 				Sign up now
 			</BaseLink>
 		</div>
-		<div v-if="isDev" class="my-4 text-center">
-			<div class="d-flex justify-content-center">
-				<span v-for="dev in devs" :key="dev" class="mr-2">
-					<input v-model="devId" type="radio" :value="dev" class="mr-1">
-					<label class="text-capitalize">{{ dev }}</label>
-				</span>
-			</div>
-			<button :disabled="!devId" type="button" class="btn btn-info w-100" @click="devLogin">
-				<i class="fas fa-user-cog text-white mr-1" />
-				<span>Sign In as dev user</span>
-			</button>
-			<span v-if="devError" class="text-danger">{{ devError }}</span>
-		</div>
+		<DevLogin v-if="isDev" />
 	</form>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from '@nuxtjs/composition-api'
+import { defineComponent } from '@nuxtjs/composition-api'
 import AuthProviders from '@app/components/auth/AuthProviders.vue'
+import DevLogin from '@app/components/auth/DevLogin.vue'
 import { usePassword } from '@app/usecases/core/forms'
-import { useLoginForm, useDevLogin } from '@app/usecases/auth/signin'
+import { useLoginForm } from '@app/usecases/auth/signin'
+import { isDev } from '@utils/environment'
 export default defineComponent({
-	components: { AuthProviders },
+	components: { AuthProviders, DevLogin },
 	layout: 'auth',
 	setup () {
 		const { show, toggle } = usePassword()
-		const { loading: emailLoading, login: emailLogin, factory: emailFactory, error: emailError } = useLoginForm()
-		const { loading: devLoading, login: devLogin, id: devId, devs, isDev, error: devError } = useDevLogin()
+		const { loading, login, factory, error } = useLoginForm()
 		return {
-			show, toggle,
-			emailFactory, emailError, emailLogin,
-			devId, devs, isDev, devError, devLogin,
-			loading: computed(() => emailLoading.value || devLoading.value)
+			isDev, show, toggle,
+			factory, loading, error, login
 		}
 	}
 })

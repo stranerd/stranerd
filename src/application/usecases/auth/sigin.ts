@@ -1,9 +1,19 @@
 import { reactive, toRefs } from '@nuxtjs/composition-api'
-import { GetLoginFactory, GetRegisterFactory, LoginWithEmail, LoginWithGoogle, RegisterWithEmail } from '@modules/auth'
-import { isDev } from '@utils/environment'
+import {
+	GetLoginFactory,
+	GetRegisterFactory,
+	LoginWithEmail,
+	LoginWithGoogle,
+	RegisterWithEmail,
+	SessionSignin
+} from '@modules/auth'
+import { hostname, isDev, protocol } from '@utils/environment'
+import Cookie from 'js-cookie'
 
 const createSession = async (id: string, idToken: string) => {
-	console.log(id, idToken)
+	await SessionSignin.call(id, idToken)
+	const redirect = Cookie.get('redirectTo')
+	window.location.assign(redirect ?? protocol + hostname)
 }
 
 export const useGoogleLogin = () => {

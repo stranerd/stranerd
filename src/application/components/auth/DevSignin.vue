@@ -7,7 +7,7 @@
 				<label class="text-capitalize">{{ dev }}</label>
 			</span>
 		</div>
-		<button :disabled="!id" type="button" class="btn btn-info w-100" @click="login">
+		<button :disabled="!id" type="button" class="btn btn-info w-100" @click="signin">
 			<i class="fas fa-user-cog text-white mr-1" />
 			<span>Sign In as dev user</span>
 		</button>
@@ -20,8 +20,8 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import { useDevSignin } from '@app/usecases/auth/signin'
 export default defineComponent({
 	setup () {
-		const { loading, login, id, devs, error } = useDevSignin()
-		return { id, devs, error, login, loading }
+		const { loading, signin, id, devs, error } = useDevSignin()
+		return { id, devs, error, signin, loading }
 	}
 })
 </script>

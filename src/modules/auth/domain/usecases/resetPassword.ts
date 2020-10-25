@@ -1,5 +1,5 @@
 import { IAuthRepository } from '../irepositories/iauth'
-import { ResetPasswordFactory } from '../factories/resetPassword'
+import { PasswordResetFactory } from '../factories/passwordReset'
 
 export class ResetPasswordUseCase {
 	private repository: IAuthRepository
@@ -8,7 +8,7 @@ export class ResetPasswordUseCase {
 		this.repository = repository
 	}
 
-	async call (factory: ResetPasswordFactory) {
+	async call (factory: PasswordResetFactory) {
 		const { email } = await factory.toModel()
 		return await this.repository.resetPassword(email)
 	}

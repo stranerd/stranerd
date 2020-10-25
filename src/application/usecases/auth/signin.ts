@@ -1,10 +1,10 @@
 import { reactive, toRefs } from '@nuxtjs/composition-api'
 import {
-	GetLoginFactory,
-	GetRegisterFactory,
-	LoginWithEmail,
-	LoginWithGoogle,
-	RegisterWithEmail,
+	GetEmailSigninFactory,
+	GetEmailSignupFactory,
+	SigninWithEmail,
+	SigninWithGoogle,
+	SignupWithEmail,
 	SessionSignin
 } from '@modules/auth'
 import { hostname, isClient, protocol, host } from '@utils/environment'
@@ -27,16 +27,16 @@ export const useGoogleSignin = () => {
 		loading: false,
 		error: ''
 	})
-	const login = async () => {
+	const signin = async () => {
 		state.error = ''
 		state.loading = true
 		try {
-			const { idToken } = await LoginWithGoogle.call()
+			const { idToken } = await SigninWithGoogle.call()
 			await createSession(idToken)
 		} catch (error) { state.error = error }
 		state.loading = false
 	}
-	return { ...toRefs(state), login }
+	return { ...toRefs(state), signin }
 }
 
 export const useDevSignin = () => {
@@ -46,7 +46,7 @@ export const useDevSignin = () => {
 		error: '',
 		id: ''
 	})
-	const login = async () => {
+	const signin = async () => {
 		state.error = ''
 		state.loading = true
 		try {
@@ -55,21 +55,21 @@ export const useDevSignin = () => {
 		} catch (error) { state.error = error }
 		state.loading = false
 	}
-	return { ...toRefs(state), devs, login }
+	return { ...toRefs(state), devs, signin }
 }
 
 export const useEmailSignin = () => {
 	const state = reactive({
 		loading: false,
 		error: '',
-		factory: GetLoginFactory.call()
+		factory: GetEmailSigninFactory.call()
 	})
 	const signin = async () => {
 		state.error = ''
 		if (state.factory.valid && !state.loading) {
 			state.loading = true
 			try {
-				const { idToken } = await LoginWithEmail.call(state.factory)
+				const { idToken } = await SigninWithEmail.call(state.factory)
 				await createSession(idToken)
 			} catch (error) { state.error = error }
 			state.loading = false
@@ -82,14 +82,14 @@ export const useEmailSignup = () => {
 	const state = reactive({
 		loading: false,
 		error: '',
-		factory: GetRegisterFactory.call()
+		factory: GetEmailSignupFactory.call()
 	})
 	const signup = async () => {
 		state.error = ''
 		if (state.factory.valid && !state.loading) {
 			state.loading = true
 			try {
-				const { idToken } = await RegisterWithEmail.call(state.factory)
+				const { idToken } = await SignupWithEmail.call(state.factory)
 				await createSession(idToken)
 			} catch (error) { state.error = error }
 			state.loading = false

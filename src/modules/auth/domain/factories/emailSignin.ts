@@ -5,7 +5,7 @@ import { AuthUser } from '../entities/auth'
 const isLongerThan5 = (value:string) => isLongerThan(value, 5)
 const isNotLongerThan17 = (value:string) => isShorterThan(value, 17)
 
-export class LoginFactory extends BaseFactory<null, AuthUser> {
+export class EmailSigninFactory extends BaseFactory<null, AuthUser> {
 	readonly rules = {
 		email: { required: true, rules: [isEmail] },
 		password: { required: true, rules: [isLongerThan5, isNotLongerThan17] }

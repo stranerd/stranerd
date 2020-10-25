@@ -1,15 +1,15 @@
 import { IAuthRepository } from '../irepositories/iauth'
-import { LoginFactory } from '../factories/login'
+import { EmailSigninFactory } from '../factories/emailSignin'
 
-export class LoginWithEmailUseCase {
+export class SigninWithEmailUseCase {
 	private repository: IAuthRepository
 
 	constructor (repository: IAuthRepository) {
 		this.repository = repository
 	}
 
-	async call (factory: LoginFactory) {
+	async call (factory: EmailSigninFactory) {
 		const { email, password } = await factory.toModel()
-		return await this.repository.loginWithEmail(email, password)
+		return await this.repository.signinWithEmail(email, password)
 	}
 }

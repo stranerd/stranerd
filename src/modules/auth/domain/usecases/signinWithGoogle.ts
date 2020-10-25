@@ -1,6 +1,6 @@
 import { IAuthRepository } from '../irepositories/iauth'
 
-export class LoginWithGoogleUseCase {
+export class SigninWithGoogleUseCase {
 	private repository: IAuthRepository
 
 	constructor (repository: IAuthRepository) {
@@ -8,6 +8,6 @@ export class LoginWithGoogleUseCase {
 	}
 
 	async call () {
-		return await this.repository.loginWithGoogle()
+		return await this.repository.signinWithGoogle()
 	}
 }

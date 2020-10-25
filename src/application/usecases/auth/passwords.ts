@@ -1,12 +1,12 @@
 import { reactive, toRefs } from '@nuxtjs/composition-api'
-import { GetResetPasswordFactory, ResetPassword } from '@modules/auth'
+import { GetPasswordResetFactory, ResetPassword } from '@modules/auth'
 
 export const usePasswordReset = () => {
 	const state = reactive({
 		loading: false,
 		message: '',
 		error: '',
-		factory: GetResetPasswordFactory.call()
+		factory: GetPasswordResetFactory.call()
 	})
 	const resetPassword = async () => {
 		state.error = ''

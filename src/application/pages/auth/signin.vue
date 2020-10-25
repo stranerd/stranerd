@@ -50,19 +50,19 @@
 				Sign up now
 			</BaseLink>
 		</div>
-		<DevLogin v-if="isDev" />
+		<DevSignin v-if="isDev" />
 	</form>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import AuthProviders from '@app/components/auth/AuthProviders.vue'
-import DevLogin from '@app/components/auth/DevLogin.vue'
+import DevSignin from '@app/components/auth/DevSignin.vue'
 import { usePassword } from '@app/usecases/core/forms'
 import { useEmailSignin } from '@app/usecases/auth/signin'
 import { isDev } from '@utils/environment'
 export default defineComponent({
-	components: { AuthProviders, DevLogin },
+	components: { AuthProviders, DevSignin },
 	layout: 'auth',
 	middleware: 'isNotAuthenticated',
 	setup () {

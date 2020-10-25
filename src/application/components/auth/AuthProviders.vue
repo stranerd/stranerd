@@ -6,7 +6,7 @@
 			</button>
 		</div>
 		<div>
-			<button type="button" class="btn-google btn btn-auth" @click="googleLogin">
+			<button type="button" class="btn-google btn btn-auth" @click="googleSignin">
 				<img src="@app/assets/images/auth/google.png" alt="Google">Google
 			</button>
 			<span v-if="googleError" class="text-danger">{{ googleError }}</span>
@@ -20,8 +20,8 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import { useGoogleSignin } from '@app/usecases/auth/signin'
 export default defineComponent({
 	setup () {
-		const { loading: googleLoading, login: googleLogin, error: googleError } = useGoogleSignin()
-		return { googleError, googleLoading, googleLogin }
+		const { loading: googleLoading, signin: googleSignin, error: googleError } = useGoogleSignin()
+		return { googleError, googleLoading, googleSignin }
 	}
 })
 </script>

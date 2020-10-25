@@ -3,7 +3,7 @@ import { AxiosInstance } from '@modules/core/services/http'
 import { AuthBaseDataSource } from './auth-base'
 
 export class AuthFirebaseDataSource implements AuthBaseDataSource {
-	async loginWithEmail (email: string, password: string) {
+	async signinWithEmail (email: string, password: string) {
 		try {
 			const record = await auth.signInWithEmailAndPassword(email, password)
 			const user = record.user!
@@ -14,7 +14,7 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
-	async loginWithGoogle () {
+	async signinWithGoogle () {
 		try {
 			const googleProvider = new firebase.auth.GoogleAuthProvider()
 			const record = await auth.signInWithPopup(googleProvider)
@@ -26,7 +26,7 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
-	async registerWithEmail (name: string, email: string, password: string) {
+	async signupWithEmail (name: string, email: string, password: string) {
 		try {
 			const record = await auth.createUserWithEmailAndPassword(email, password)
 			const user = record.user!
@@ -73,7 +73,7 @@ const filterFirebaseError = (error: any) => {
 		case 'auth/network-request-failed': return new Error('Network connection failed. Ensure you have a good network connection')
 		case 'auth/user-disabled': return new Error('User account is disabled')
 		case 'auth/user-not-found': return new Error('No user with provided email exists')
-		case 'auth/wrong-password': return new Error('Incorrect password. Perhaps you used other login methods')
+		case 'auth/wrong-password': return new Error('Incorrect password. Perhaps you used other signin methods')
 
 		case 'auth/account-exists-with-different-credential': return new Error('Account already exists with different credentials. Try signing in with a different method')
 		case 'auth/auth-domain-config-required': return new Error('Auth domain configuration unsuccessful')

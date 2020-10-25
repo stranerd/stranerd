@@ -1,7 +1,7 @@
 import { BaseFactory } from '@modules/core/domains/factories/base'
 import { isEmail } from 'sd-validate/lib/rules'
 
-export class ResetPasswordFactory extends BaseFactory<null, { email: string }> {
+export class PasswordResetFactory extends BaseFactory<null, { email: string }> {
 	readonly rules = {
 		email: { required: true, rules: [isEmail] }
 	}

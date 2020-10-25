@@ -1,5 +1,5 @@
 import { IAuthRepository } from '../irepositories/iauth'
-import { UpdatePasswordFactory } from '../factories/updatePassword'
+import { PasswordUpdateFactory } from '../factories/passwordUpdate'
 
 export class UpdatePasswordUseCase {
 	private repository: IAuthRepository
@@ -8,7 +8,7 @@ export class UpdatePasswordUseCase {
 		this.repository = repository
 	}
 
-	public async call (factory: UpdatePasswordFactory) {
+	public async call (factory: PasswordUpdateFactory) {
 		const { email, password, oldPassword } = await factory.toModel()
 		return await this.repository.updatePassword(email, oldPassword, password)
 	}

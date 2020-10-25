@@ -25,11 +25,13 @@ export const signout = async (session: string) => {
 export const decodeSessionCookie = async (session: string) => {
 	if (isProd) {
 		const user = await admin.auth().verifySessionCookie(session)
+		const token = await admin.auth().createCustomToken(user.uid)
 		return {
 			id: user.uid,
 			email: user.email ?? null,
 			verified: user.email_verified ?? false,
-			provider: user.firebase.sign_in_provider
+			provider: user.firebase.sign_in_provider,
+			token
 		}
-	} else return { id: session, email: null, verified: false, provider: 'password' }
+	} else return { id: session, email: null, verified: false, provider: 'password', token: session }
 }

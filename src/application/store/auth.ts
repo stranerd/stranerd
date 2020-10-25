@@ -5,6 +5,7 @@ type Auth = {
 	email: string | null,
 	verified: boolean,
 	provider: string
+	token: string
 }
 
 type S = {
@@ -16,7 +17,8 @@ export const state = () :S => ({
 })
 
 export const getters = {
-	isLoggedIn: (state) => !!state.auth?.id
+	isLoggedIn: (state) => !!state.auth?.id,
+	getToken: (state) => state.auth?.token
 } as { [key: string]: Getter<S, any> }
 
 export const mutations = {

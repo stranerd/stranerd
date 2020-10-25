@@ -7,7 +7,7 @@ export class SessionSigninUseCase {
 		this.repository = repository
 	}
 
-	async call (id: string, idToken: string) {
-		return await this.repository.session(id, idToken)
+	async call (idToken: string) {
+		return await this.repository.session(idToken)
 	}
 }

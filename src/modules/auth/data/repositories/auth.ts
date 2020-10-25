@@ -28,8 +28,8 @@ export class AuthRepository implements IAuthRepository {
 		return await this.dataSource.updatePassword(email, oldPassword, password)
 	}
 
-	async session (id: string, idToken: string) {
-		return await this.dataSource.session(id, idToken)
+	async session (idToken: string) {
+		return await this.dataSource.session(idToken)
 	}
 
 	async logout () {

@@ -52,9 +52,9 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
-	async session (id: string, idToken: string) {
+	async session (idToken: string) {
 		try {
-			const { data } = await AxiosInstance.post('/auth/signin', { id, idToken })
+			const { data } = await AxiosInstance.post('/auth/signin', { idToken })
 			if (!data.success) throw new Error(data.error)
 		} catch (error) { throw new Error(error?.response?.data?.error ?? 'Error signing in') }
 	}

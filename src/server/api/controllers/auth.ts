@@ -4,12 +4,7 @@ import { TOKEN_SESSION_NAME, USER_SESSION_NAME } from '../../../utils/constants'
 import { decodeSessionCookie, signin, signout } from '../utils/auth'
 
 export const SigninController = async (req: Request, res: Response) => {
-	const { idToken, id } = req.body
-
-	if (!id) return res.status(400).json({
-		success: false,
-		error: 'Id is required'
-	}).end()
+	const { idToken } = req.body
 	if (!idToken) return res.status(400).json({
 		success: false,
 		error: 'Id Token is required'

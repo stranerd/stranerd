@@ -33,6 +33,7 @@ module.exports = {
 			"alignAttributesVertically": true,
 			"ignores": []
 		}],
+		"object-property-newline": "off",
 		"require-atomic-updates": "off",
 		"require-await": "off"
 	},

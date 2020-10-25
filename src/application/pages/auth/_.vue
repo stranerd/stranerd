@@ -4,11 +4,10 @@
 
 <script lang="ts">
 import { defineComponent, useContext } from '@nuxtjs/composition-api'
-import { useRouter } from '@utils/router'
+import { GenerateLink } from '@utils/router'
 export default defineComponent({
 	setup: () => {
-		const router = useRouter()
-		const signinRoute = router.getLink({ path: '/auth/signin' })
+		const signinRoute = GenerateLink({ path: '/auth/signin' })
 		useContext().redirect(signinRoute)
 		return {}
 	}

@@ -7,13 +7,14 @@ import {
 	RegisterWithEmail,
 	SessionSignin
 } from '@modules/auth'
-import { hostname, protocol } from '@utils/environment'
+import { hostname, protocol, isClient } from '@utils/environment'
 import { REDIRECT_SESSION_NAME } from '@utils/constants'
-import Cookie from 'js-cookie'
+import Cookie from 'cookie'
 
 const createSession = async (id: string, idToken: string) => {
 	await SessionSignin.call(id, idToken)
-	const redirect = Cookie.get(REDIRECT_SESSION_NAME)
+	const cookie = isClient() ? document?.cookie ?? '' : ''
+	const { [REDIRECT_SESSION_NAME]: redirect } = Cookie.parse(cookie) ?? {}
 	window.location.assign(redirect ?? protocol + hostname)
 }
 

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { environmentVariables } from './environment'
 
-export const mailingList = async (email: string) => {
+export const subscribeToMailchimpList = async (email: string) => {
 	const body = {
 		members: [
 			{ email_address: email, status: 'subscribed' }

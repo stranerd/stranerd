@@ -24,7 +24,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.0",
     "@nuxt/typescript-runtime": "^2.0.0",
-    "@nuxtjs/composition-api": "^0.12.5",
+    "@nuxtjs/composition-api": "^0.13.5",
     "@nuxtjs/router": "^1.5.0",
     "@nuxtjs/style-resources": "^1.0.0",
     "axios": "^0.20.0",
@@ -39,6 +39,7 @@
     "firebase-admin": "^9.3.0",
     "nuxt": "^2.14.5",
     "sd-validate": "^1.0.4",
+    "sweetalert2": "^10.8.1",
     "vue": "^2.6.12",
     "vue-router": "^3.4.5"
   },

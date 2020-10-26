@@ -9,7 +9,7 @@ import { isDev, isProd } from '@utils/environment'
 const config = {
 	apiKey: 'AIzaSyBqkCjohNU8hh9omuGkEqmCrVphX4DpPzI',
 	authDomain: 'ss-nuxtify.firebaseapp.com',
-	databaseURL: isProd ? 'https://ss-nuxtify.firebaseio.com' : 'http://localhost:5003/?ns=stranerd-13084',
+	databaseURL: isProd ? 'https://ss-nuxtify.firebaseio.com' : 'http://localhost:5003/?ns=ss-nuxtify',
 	projectId: 'ss-nuxtify',
 	storageBucket: 'ss-nuxtify.appspot.com',
 	messagingSenderId: '585363008583',

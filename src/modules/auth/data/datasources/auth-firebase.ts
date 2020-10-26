@@ -32,7 +32,7 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 			const record = await auth.createUserWithEmailAndPassword(email, password)
 			const user = record.user!
 			await user.updateProfile({ displayName: name })
-			await DatabaseService.update(`users/${user.uid}/profile/bio/name`, name)
+			await DatabaseService.update(`users/${user.uid}/profile/bio`, { name })
 			const idToken = await user.getIdToken(true)
 			const data = { idToken, id: user.uid, email: user.email! }
 			await auth.signOut()

@@ -43,7 +43,7 @@ module.exports = {
 	],
 	env: { ...process.env },
 	subDomains: {
-		paths: ['auth'],
+		paths: ['auth', 'admin'],
 		root: 'root'
 	},
 	generate: {

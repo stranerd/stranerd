@@ -7,11 +7,8 @@ import { Notification } from './database/notifications'
 
 const {
 	email: { email, clientId, clientSecret, refreshToken },
-	meta: { domain }
+	meta
 } = environmentVariables.admin
-
-// TODO: Add stranerd logo to nuxt static app and update this address
-const meta = { domain, logo: `${domain}/img/stranerd_logo.png` }
 
 export const sendMail = async (to: string, subject: string ,content: string) => {
 	const oauth2Client = new googleapis.google.auth.OAuth2(clientId, clientSecret, 'https://developers.google.com/oauthplayground')
@@ -24,7 +21,7 @@ export const sendMail = async (to: string, subject: string ,content: string) => 
 		tls: { rejectUnauthorized: false, }
 	})
 	await transporter.sendMail({
-		from: `Stranerd`,
+		from: environmentVariables.appName,
 		to, subject,
 		html: content
 	})

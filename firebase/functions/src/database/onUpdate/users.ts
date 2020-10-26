@@ -4,11 +4,11 @@ import * as admin from 'firebase-admin'
 export const userProfileBioUpdated = functions.database.ref('users/{userId}/profile/bio').onUpdate(async (snap, context) => {
 	const snapshot = await admin.database().ref('users')
 		.child(context.params.userId)
-		.child('profile/roles')
+		.child('profile/roles/isTutor')
 		.once('value')
-	const userRoles = snapshot.val()
+	const isTutor = snapshot.val()
 
-	if (userRoles?.isTutor) {
+	if (isTutor) {
 		const bio = snap.after.val()
 		await admin.database()
 			.ref('tutors')

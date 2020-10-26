@@ -6,6 +6,7 @@ export const isProduction = () => functions.config()?.environment?.mode === 'pro
 const environment = () => isProduction() ? 'production' : 'development'
 
 export const environmentVariables = {
+	appName: 'Stranerd',
 	paypal: {
 		clientId: functions.config().paypal[environment()]['client_id'],
 		clientSecret: functions.config().paypal[environment()]['client_secret'],
@@ -27,6 +28,8 @@ export const environmentVariables = {
 	admin: {
 		meta: {
 			domain: functions.config().admin[environment()].meta['domain'],
+			// TODO: Add stranerd logo to nuxt static app and update this address
+			logo: functions.config().admin[environment()].meta['domain'] + '/img/stranerd_logo.png'
 		},
 		email: {
 			email: functions.config().admin[environment()].email['email'],

@@ -31,6 +31,5 @@ export const updatePaymentMethodForSubscription = async (id: string, paymentMeth
 
 export const cancelSubscription = async (id: string) => await getGateway().subscription.cancel(id)
 
-type Notification = { bt_signature: string, bt_payload: string }
-export const parseNotification = async ({ bt_signature, bt_payload }: Notification) => await getGateway()
+export const parseNotification = async ({ bt_signature, bt_payload }: { bt_signature: string, bt_payload: string }) => await getGateway()
 	.webhookNotification.parse(bt_signature, bt_payload) as SubscriptionNotification

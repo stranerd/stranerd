@@ -81,11 +81,28 @@ export const DatabaseService = {
 		const doc = await ref.once('value')
 		return doc.val()
 	},
+	getMany: async (path: string, conditions?: GetClauses) => {
+		let ref: firebase.database.Query = database.ref(path)
+		ref = buildDatabaseQuery(ref, conditions)
+		const doc = await ref.once('value')
+		const values = doc.val() as { [key: string]: object }
+		return Object.entries(values ?? {}).map((e) => ({ ...e[1], id: e[0] }))
+	},
 	listen: async (path: string, callback: (doc: any) => void, conditions?: GetClauses) => {
 		let ref: firebase.database.Query = database.ref(path)
 		ref = buildDatabaseQuery(ref, conditions)
 		const listener = ref.on('value', (snapshot) => {
 			callback(snapshot.val())
+		})
+		return () => ref.off('value', listener)
+	},
+	listenToMany: async (path: string, callback: (docs: any[]) => void, conditions?: GetClauses) => {
+		let ref: firebase.database.Query = database.ref(path)
+		ref = buildDatabaseQuery(ref, conditions)
+		const listener = ref.on('value', (snapshot) => {
+			const values = snapshot.val() as { [key: string]: object }
+			const docs = Object.entries(values ?? {}).map((e) => ({ ...e[1], id: e[0] }))
+			callback(docs)
 		})
 		return () => ref.off('value', listener)
 	},

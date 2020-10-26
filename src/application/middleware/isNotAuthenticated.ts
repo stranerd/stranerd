@@ -1,9 +1,7 @@
-import { Middleware } from '@nuxt/types'
+import { defineNuxtMiddleware } from '@nuxtjs/composition-api'
 import { GenerateLink } from '@utils/router'
 
-const isNotAuthenticated: Middleware = ({ store, redirect }) => {
+export default defineNuxtMiddleware(({ store, redirect }) => {
 	const isLoggedIn = store.getters['auth/isLoggedIn']
 	if (isLoggedIn) redirect(GenerateLink({ path: '/', root: true, differentSubdomain: true }))
-}
-
-export default isNotAuthenticated
+})

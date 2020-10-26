@@ -7,7 +7,6 @@
 		Loading: {{ loading }}
 		Error: {{ error }}
 		Subjects: {{ subjects }}
-		fetched: {{ fetched }}
 	</div>
 </template>
 
@@ -17,8 +16,8 @@ import { useSubjectList } from '@app/usecases/courses/subjects'
 export default defineComponent({
 	layout: 'admin',
 	setup () {
-		const { loading, error, subjects, fetched } = useSubjectList()
-		return { loading, error, subjects, fetched }
+		const { loading, error, subjects } = useSubjectList()
+		return { loading, error, subjects }
 	}
 })
 </script>

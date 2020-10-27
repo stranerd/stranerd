@@ -19,5 +19,6 @@ export const mutations = {
 	setLoading: (state, loading) => state.loading = loading,
 	setFetched: (state, fetched) => state.fetched = fetched,
 	setError: (state, error) => state.error = error,
-	setSubjects: (state, subjects) => state.subjects = subjects
+	setSubjects: (state, subjects) => state.subjects = subjects,
+	unshiftSubjects: (state, subject) => state.subjects.unshift(subject)
 } as { [key: string]: Mutation<S> }

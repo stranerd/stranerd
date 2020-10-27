@@ -20,3 +20,5 @@ export const useSubjectList = () => {
 
 	return { ...toRefs(state) }
 }
+
+export const useCreateSubject = () => {}

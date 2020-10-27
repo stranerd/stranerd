@@ -1,12 +1,12 @@
-import { computed, ref, useContext } from '@nuxtjs/composition-api'
+import { computed } from '@nuxtjs/composition-api'
+import { useStore } from '@app/usecases/store'
 
 export const useCreateModal = () => {
-	const store = useContext().store
-	const state = ref(store.state.modals.createModal)
+	const modals = useStore().modals()
 	return {
-		isCreateModalSubject: computed(() => state.value === 'subject'),
+		isCreateModalSubject: computed(() => modals.createModal.value === 'subject'),
 
-		setCreateModalSubject: () => store.commit('setCreateModal', 'subject'),
-		closeCreateModal: () => store.commit('setCreateModal', null)
+		setCreateModalSubject: () => modals.setCreateModal('subject'),
+		closeCreateModal: () => modals.setCreateModal(null)
 	}
 }

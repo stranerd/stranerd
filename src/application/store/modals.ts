@@ -1,4 +1,4 @@
-import { Mutation } from 'vuex'
+import { MutationTree } from 'vuex'
 
 type S = {
 	createModal: string | null
@@ -8,6 +8,6 @@ export const state = () :S => ({
 	createModal: null
 })
 
-export const mutations = {
-	setCreateModal: (state, mode) => state.createModal = mode
-} as { [key: string]: Mutation<S> }
+export const mutations: MutationTree<S> = {
+	setCreateModal: (state, mode: string) => state.createModal = mode
+}

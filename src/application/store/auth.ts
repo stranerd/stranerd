@@ -1,4 +1,4 @@
-import { Getter, Mutation, Action } from 'vuex'
+import { GetterTree, MutationTree } from 'vuex'
 
 type Auth = {
 	id: string,
@@ -16,15 +16,11 @@ export const state = () :S => ({
 	auth: null
 })
 
-export const getters = {
+export const getters :GetterTree<S, any> = {
 	isLoggedIn: (state) => !!state.auth?.id,
 	getToken: (state) => state.auth?.token
-} as { [key: string]: Getter<S, any> }
+}
 
-export const mutations = {
-	setAuthDetails: (state, user) => state.auth = user
-} as { [key: string]: Mutation<S> }
-
-export const actions = {
-	setAuthDetails: async (ctx, details: Auth) => ctx.commit('setAuthDetails', details)
-} as { [key: string]: Action<S, any> }
+export const mutations :MutationTree<S> = {
+	setAuthDetails: (state, user: Auth) => state.auth = user
+}

@@ -1,5 +1,5 @@
 import { SubjectEntity } from '@modules/courses/domain/entities/subject'
-import { Mutation } from 'vuex'
+import { MutationTree } from 'vuex'
 
 type S = {
 	loading: boolean
@@ -15,10 +15,10 @@ export const state = () :S => ({
 	subjects: []
 })
 
-export const mutations = {
-	setLoading: (state, loading) => state.loading = loading,
-	setFetched: (state, fetched) => state.fetched = fetched,
-	setError: (state, error) => state.error = error,
-	setSubjects: (state, subjects) => state.subjects = subjects,
-	unshiftSubjects: (state, subject) => state.subjects.unshift(subject)
-} as { [key: string]: Mutation<S> }
+export const mutations: MutationTree<S> = {
+	setLoading: (state, loading: boolean) => state.loading = loading,
+	setFetched: (state, fetched: boolean) => state.fetched = fetched,
+	setError: (state, error: string) => state.error = error,
+	setSubjects: (state, subjects: SubjectEntity[]) => state.subjects = subjects,
+	unshiftSubjects: (state, subject: SubjectEntity) => state.subjects.unshift(subject)
+}

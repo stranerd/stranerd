@@ -5,8 +5,8 @@ import { isServer, host, protocol } from '@utils/environment'
 import { REDIRECT_SESSION_NAME } from '@utils/constants'
 import { useStore } from '@app/usecases/store'
 
-export default defineNuxtMiddleware(({ req, res, route, redirect }) => {
-	const isLoggedIn = useStore().auth().isLoggedIn
+export default defineNuxtMiddleware(({ store, req, res, route, redirect }) => {
+	const { isLoggedIn } = useStore().auth(store)
 	if (!isLoggedIn.value) {
 		if (isServer()) {
 			const path = protocol + req.headers.host + route.fullPath

@@ -1,8 +1,7 @@
 import { useContext, computed } from '@nuxtjs/composition-api'
 import { SubjectEntity } from '@modules/courses/domain/entities/subject'
 
-export const Subjects = () => {
-	const store = useContext().store
+export const Subjects = (store = useContext().store) => {
 	const state = store.state.courses.subjects
 
 	return {

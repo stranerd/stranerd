@@ -1,36 +1,36 @@
-import { reactive, toRefs, useContext, useAsync } from '@nuxtjs/composition-api'
+import { reactive, toRefs, useAsync } from '@nuxtjs/composition-api'
 import { GetSubjects, AddSubject, GetSubjectFactory, FindSubject } from '@modules/courses'
+import { useStore } from '@app/usecases/store'
 import { useCreateModal } from '@app/usecases/core/modals'
-import { SubjectEntity } from '@modules/courses/domain/entities/subject'
 
 export const useSubjectList = () => {
-	const store = useContext().store
-	const state = reactive(store.state.courses.subjects)
+	const store = useStore().courses.subjects()
+	const { loading, fetched, error, subjects } = store
 
 	const fetchSubjects = async () => {
-		store.commit('courses/subjects/setError', '')
-		if (!state.fetched) {
-			store.commit('courses/subjects/setLoading', true)
+		store.setError('')
+		if (!fetched.value) {
+			store.setLoading(true)
 			try {
-				store.commit('courses/subjects/setSubjects', await GetSubjects.call())
-				store.commit('courses/subjects/setFetched', true)
-			} catch (error) { store.commit('courses/subjects/setError', error) }
-			store.commit('courses/subjects/setLoading', false)
+				store.setSubjects(await GetSubjects.call())
+				store.setFetched(true)
+			} catch (error) { store.setError(error) }
+			store.setLoading(false)
 		}
 	}
 	useAsync(fetchSubjects)
 
-	return { ...toRefs(state) }
+	return { loading, error, subjects }
 }
 
 const fetchSubject = async (id: string) => {
-	const store = useContext().store
-	const state = reactive(store.state.courses.subjects)
+	const store = useStore().courses.subjects()
 
-	let subject = state.subjects.find((subject: SubjectEntity) => subject.id === id)
+	let subject = store.subjects.value
+		.find((subject) => subject.id === id)
 	if (subject) return subject
-	subject = await FindSubject.call(id)
-	if (subject) store.commit('courses/subjects/unshiftSubjects', subject)
+	subject = await FindSubject.call(id) ?? undefined
+	if (subject) store.unshiftSubject(subject)
 	return subject
 }
 

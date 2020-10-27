@@ -20,5 +20,5 @@ export const mutations: MutationTree<S> = {
 	setFetched: (state, fetched: boolean) => state.fetched = fetched,
 	setError: (state, error: string) => state.error = error,
 	setSubjects: (state, subjects: SubjectEntity[]) => state.subjects = subjects,
-	unshiftSubjects: (state, subject: SubjectEntity) => state.subjects.unshift(subject)
+	unshiftSubject: (state, subject: SubjectEntity) => state.subjects.unshift(subject)
 }

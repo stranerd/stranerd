@@ -1,0 +1,13 @@
+import { useContext, computed } from '@nuxtjs/composition-api'
+import { Auth as AuthDetails } from '@app/store/auth'
+
+export const Auth = () => {
+	const store = useContext().store
+
+	return {
+		auth: computed(() => store.state.auth.auth as AuthDetails | null),
+		isLoggedIn: computed(() => store.getters['auth/loading'] as boolean),
+		getToken: computed(() => store.getters['auth/getToken'] as string),
+		setAuthDetails: (auth: AuthDetails) => store.commit('auth/setAuthDetails', auth)
+	}
+}

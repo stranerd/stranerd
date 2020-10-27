@@ -1,6 +1,6 @@
 import { GetterTree, MutationTree } from 'vuex'
 
-type Auth = {
+export type Auth = {
 	id: string,
 	email: string | null,
 	verified: boolean,

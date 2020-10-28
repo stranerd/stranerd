@@ -17,10 +17,12 @@
 				<small v-if="factory.errors.name" class="small text-danger d-block">{{ factory.errors.name }}</small>
 			</div>
 			<div class="form-group my-3">
+				<label class="label d-block">Icon</label>
 				<input ref="iconInput" type="file" class="d-none" accept="image/*" @change="catchIcon">
-				<a @click.prevent="() => { $refs.iconInput.value= ''; $refs.iconInput.click() }">
-					<span v-if="factory.icon">{{ factory.icon.name }} </span>
-					<span class="text-info">{{ factory.image ? 'Change' : 'Upload' }} subject icon</span>
+				<img v-if="iconLink" :src="iconLink" class="mr-2" height="50px" alt="">
+				<span v-if="factory.icon">{{ factory.icon.name }}</span>
+				<a class="text-info d-block my-1" @click.prevent="() => { $refs.iconInput.value= ''; $refs.iconInput.click() }">
+					{{ factory.icon ? 'Change' : 'Upload' }} subject icon
 				</a>
 				<small v-if="factory.errors.icon" class="small text-danger d-block">{{ factory.errors.icon }}</small>
 			</div>
@@ -31,14 +33,18 @@
 					<span><slot name="buttonText">Submit</slot></span>
 				</button>
 			</div>
+			<p v-if="error" class="text-center text-danger">
+				{{ error }}
+			</p>
 		</form>
 	</Modal>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, ref } from '@nuxtjs/composition-api'
 import { useFileInputs } from '@app/usecases/core/forms'
 import { SubjectFactory } from '@modules/courses/domain/factories/subject'
+import { isClient } from '@utils/environment'
 export default defineComponent({
 	name: 'SubjectForm',
 	props: {
@@ -53,13 +59,21 @@ export default defineComponent({
 		loading: {
 			type: Boolean,
 			required: true
+		},
+		error: {
+			type: String,
+			required: true
 		}
 	},
 	setup (props) {
+		const iconLink = ref((props.factory.icon as any)?.link)
 		const { catchFiles: catchIcon } = useFileInputs(
-			(file:File) => props.factory.icon = file
+			(file:File) => {
+				props.factory.icon = file
+				if (isClient()) iconLink.value = window.URL.createObjectURL(file)
+			}
 		)
-		return { catchIcon }
+		return { catchIcon, iconLink }
 	}
 })
 </script>

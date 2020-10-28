@@ -1,4 +1,4 @@
-import { reqRef, computed } from '@nuxtjs/composition-api'
+import { reqSsrRef, computed } from '@nuxtjs/composition-api'
 
 type Auth = {
 	id: string,
@@ -9,7 +9,7 @@ type Auth = {
 }
 
 const global = {
-	auth: reqRef(null as Auth | null)
+	auth: reqSsrRef(null as Auth | null)
 }
 
 export const useAuth = () => {

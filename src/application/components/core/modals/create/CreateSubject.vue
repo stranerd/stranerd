@@ -1,5 +1,5 @@
 <template>
-	<SubjectForm :submit="createSubject" :loading="loading" :factory="factory">
+	<SubjectForm :submit="createSubject" :loading="loading" :factory="factory" :error="error">
 		<template slot="title">
 			<div class="d-flex align-items-baseline justify-content-between my-3 px-3">
 				<i />
@@ -21,13 +21,15 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useCreateModal } from '@app/usecases/core/modals'
 import { useCreateSubject } from '@app/usecases/courses/subjects'
+import SubjectForm from '@app/components/courses/subjects/SubjectForm.vue'
 export default defineComponent({
 	name: 'CreateModalSubject',
+	components: { SubjectForm },
 	setup () {
 		const { closeCreateModal } = useCreateModal()
-		const { loading, createSubject, factory } = useCreateSubject()
+		const { loading, createSubject, factory, error } = useCreateSubject()
 		return {
-			loading, createSubject, factory,
+			loading, createSubject, factory, error,
 			closeCreateModal
 		}
 	}

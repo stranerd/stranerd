@@ -1,22 +1,27 @@
 <template>
 	<div class="container">
-		<div>
+		<div class="text-center">
 			<Logo />
 			<h1 class="title">
-				Page 1
-			</h1>
-			<BaseLink to="/page2" :root="true">
 				Page 2
+			</h1>
+			<BaseLink to="/page" :root="true">
+				Page 1
 			</BaseLink>
 		</div>
 	</div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-export default Vue.extend({
-	name: 'RootPagePage',
-	middleware: 'isAuthenticated'
+import { defineComponent } from '@nuxtjs/composition-api'
+import { useSessionSignout } from '@app/usecases/auth/signout'
+export default defineComponent({
+	name: 'RootPage2Page',
+	middleware: 'isAuthenticated',
+	setup () {
+		const { loading, signout, error } = useSessionSignout()
+		return { loading, signout, error }
+	}
 })
 </script>
 

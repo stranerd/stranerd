@@ -2,6 +2,7 @@ import * as admin from 'firebase-admin'
 import { authUserCreated } from './auth/onCreate'
 import { authUserDeleted } from './auth/onDelete'
 import { toggleAdmin } from './onCall/roles/toggleAdmin'
+import { subscribeToMailingList } from './onCall/roles/subscribeToMailingList'
 import { userNotificationCreated } from './database/onCreate/notifications'
 import { userProfileBioUpdated } from './database/onUpdate/users'
 import { subjectIconUpdated } from './database/onUpdate/subjects'
@@ -24,4 +25,4 @@ export { subjectDeleted }
 
 // On Call
 // Roles
-export { toggleAdmin }
+export { toggleAdmin, subscribeToMailingList }

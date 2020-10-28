@@ -6,33 +6,31 @@
 			</slot>
 		</template>
 		<form class="mx-2" @submit.prevent="submit">
-			<template>
-				<div class="form-group my-3">
-					<label class="label">Name</label>
-					<input
-						v-model="factory.name"
-						class="form-control"
-						placeholder="Subject name"
-						:class="{'is-invalid': factory.errors.name, 'is-valid': factory.isValid('name')}"
-					>
-					<small v-if="factory.errors.name" class="small text-danger d-block">{{ factory.errors.name }}</small>
-				</div>
-				<div class="form-group my-3">
-					<input ref="iconInput" type="file" class="d-none" accept="image/*" @change="catchIcon">
-					<a @click.prevent="() => { $refs.iconInput.value= ''; $refs.iconInput.click() }">
-						<span v-if="factory.icon">{{ factory.icon.name }} </span>
-						<span class="text-info">{{ factory.image ? 'Change' : 'Upload' }} subject icon</span>
-					</a>
-					<small v-if="factory.errors.icon" class="small text-danger d-block">{{ factory.errors.icon }}</small>
-				</div>
-				<hr>
-				<div class="d-flex justify-content-end my-3">
-					<button class="btn btn-gold" type="submit" :disabled="loading || !factory.valid">
-						<PageLoading v-if="loading" class="mr-2" />
-						<span><slot name="buttonText">Submit</slot></span>
-					</button>
-				</div>
-			</template>
+			<div class="form-group my-3">
+				<label class="label">Name</label>
+				<input
+					v-model="factory.name"
+					class="form-control"
+					placeholder="Subject name"
+					:class="{'is-invalid': factory.errors.name, 'is-valid': factory.isValid('name')}"
+				>
+				<small v-if="factory.errors.name" class="small text-danger d-block">{{ factory.errors.name }}</small>
+			</div>
+			<div class="form-group my-3">
+				<input ref="iconInput" type="file" class="d-none" accept="image/*" @change="catchIcon">
+				<a @click.prevent="() => { $refs.iconInput.value= ''; $refs.iconInput.click() }">
+					<span v-if="factory.icon">{{ factory.icon.name }} </span>
+					<span class="text-info">{{ factory.image ? 'Change' : 'Upload' }} subject icon</span>
+				</a>
+				<small v-if="factory.errors.icon" class="small text-danger d-block">{{ factory.errors.icon }}</small>
+			</div>
+			<hr>
+			<div class="d-flex justify-content-end my-3">
+				<button class="btn btn-gold" type="submit" :disabled="loading || !factory.valid">
+					<PageLoading v-if="loading" class="mr-2" />
+					<span><slot name="buttonText">Submit</slot></span>
+				</button>
+			</div>
 		</form>
 	</Modal>
 </template>

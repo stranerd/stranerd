@@ -31,6 +31,7 @@ module.exports = {
 		'@@/src/server/api/index'
 	],
 	plugins: [
+		{ mode: 'server', src: '@/plugins/parseLoggedInUser' },
 		{ mode: 'client', src: '@/plugins/firebaseClient' }
 	],
 	components: true,

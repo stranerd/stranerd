@@ -2,6 +2,7 @@ import { reactive, toRefs, useAsync } from '@nuxtjs/composition-api'
 import { GetSubjects, AddSubject, GetSubjectFactory, FindSubject } from '@modules/courses'
 import { useStore } from '@app/usecases/store'
 import { useCreateModal } from '@app/usecases/core/modals'
+import { Notify } from '@app/usecases/core/notifications'
 
 export const useSubjectList = () => {
 	const store = useStore().courses.subjects()
@@ -49,6 +50,10 @@ export const useCreateSubject = () => {
 				await fetchSubject(id)
 				state.factory.reset()
 				useCreateModal().closeCreateModal()
+				await Notify({
+					title: 'Subject created successfully',
+					icon: 'success'
+				})
 			} catch (error) { state.error = error }
 			state.loading = false
 		} else state.factory.validateAll()

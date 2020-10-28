@@ -33,6 +33,7 @@ module.exports = {
 			"alignAttributesVertically": true,
 			"ignores": []
 		}],
+		"vue/no-mutating-props": "off",
 		"object-property-newline": "off",
 		"require-atomic-updates": "off",
 		"require-await": "off"

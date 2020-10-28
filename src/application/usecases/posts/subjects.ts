@@ -1,8 +1,8 @@
 import { reactive, reqRef, toRefs, useFetch } from '@nuxtjs/composition-api'
-import { GetSubjects, AddSubject, GetSubjectFactory, FindSubject } from '@modules/courses'
+import { GetSubjects, AddSubject, GetSubjectFactory, FindSubject } from '@modules/posts'
 import { useCreateModal } from '@app/usecases/core/modals'
 import { Notify } from '@app/usecases/core/notifications'
-import { SubjectEntity } from '@modules/courses/domain/entities/subject'
+import { SubjectEntity } from '@modules/posts/domain/entities/subject'
 
 const global = {
 	loading: reqRef(false),

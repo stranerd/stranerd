@@ -1,6 +1,5 @@
 <template>
 	<div>
-		<h2>Courses</h2>
 		<ul class="list-group">
 			<li class="list-group-item list-group-item-action mb-3">
 				<BaseLink to="/admin/subjects" class="d-flex justify-content-between align-items-center">

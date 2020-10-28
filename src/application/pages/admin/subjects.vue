@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useSubjectList } from '@app/usecases/courses/subjects'
+import { useSubjectList } from '@app/usecases/posts/subjects'
 import { useCreateModal } from '@app/usecases/core/modals'
 export default defineComponent({
 	name: 'AdminSubjectsPage',

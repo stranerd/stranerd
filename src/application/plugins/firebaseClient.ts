@@ -1,12 +1,13 @@
 import { defineNuxtPlugin } from '@nuxtjs/composition-api'
 import firebase from '@modules/core/services/initFirebase'
+import { useAuth } from '@app/usecases/auth/auth'
 
-export default defineNuxtPlugin(async ({ store }) => {
+export default defineNuxtPlugin(async () => {
 	await firebase.auth()
 		.setPersistence(firebase.auth.Auth.Persistence.NONE).catch(() => {})
-	const { 'auth/isLoggedIn': isLoggedIn, 'auth/getToken': token } = store.getters
-	if (isLoggedIn && token)
-		await firebase.auth().signInWithCustomToken(token).catch(() => {})
+	const { isLoggedIn, token } = useAuth()
+	if (isLoggedIn.value && token.value)
+		await firebase.auth().signInWithCustomToken(token.value).catch(() => {})
 	await firebase.firestore()
 		.enablePersistence({ synchronizeTabs: true })
 		.catch(() => {})

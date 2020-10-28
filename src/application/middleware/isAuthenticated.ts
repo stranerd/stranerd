@@ -3,11 +3,10 @@ import { GenerateLink } from '@utils/router'
 import Cookie from 'cookie'
 import { isServer, host, protocol } from '@utils/environment'
 import { REDIRECT_SESSION_NAME } from '@utils/constants'
-import { useStore } from '@app/usecases/store'
 
 export default defineNuxtMiddleware(({ store, req, res, route, redirect }) => {
-	const { isLoggedIn } = useStore().auth(store)
-	if (!isLoggedIn.value) {
+	const { 'auth/isLoggedIn': isLoggedIn } = store.getters
+	if (!isLoggedIn) {
 		if (isServer()) {
 			const path = protocol + req.headers.host + route.fullPath
 			res.setHeader('Set-Cookie', serialize(REDIRECT_SESSION_NAME, path))

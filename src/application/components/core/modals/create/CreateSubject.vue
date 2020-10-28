@@ -1,9 +1,11 @@
 <template>
 	<SubjectForm :submit="createSubject" :loading="loading" :factory="factory">
 		<template slot="title">
-			<div class="d-flex align-items-baseline justify-content-between my-3">
+			<div class="d-flex align-items-baseline justify-content-between my-3 px-3">
 				<i />
-				<h4>Create Subject</h4>
+				<h4 class="my-0">
+					Create Subject
+				</h4>
 				<a @click.prevent="closeCreateModal">
 					<i class="fas fa-times text-danger" />
 				</a>

@@ -1,37 +1,38 @@
-import { reactive, toRefs, useAsync } from '@nuxtjs/composition-api'
+import { reactive, reqRef, toRefs, useFetch } from '@nuxtjs/composition-api'
 import { GetSubjects, AddSubject, GetSubjectFactory, FindSubject } from '@modules/courses'
-import { useStore } from '@app/usecases/store'
 import { useCreateModal } from '@app/usecases/core/modals'
 import { Notify } from '@app/usecases/core/notifications'
+import { SubjectEntity } from '@modules/courses/domain/entities/subject'
+
+const global = {
+	loading: reqRef(false),
+	fetched: reqRef(false),
+	error: reqRef(''),
+	subjects: reqRef([] as SubjectEntity[])
+}
 
 export const useSubjectList = () => {
-	const store = useStore().courses.subjects()
-	const { loading, fetched, error, subjects } = store
-
 	const fetchSubjects = async () => {
-		store.setError('')
-		if (!fetched.value) {
-			store.setLoading(true)
+		global.error.value = ''
+		if (!global.fetched.value) {
+			global.loading.value = true
 			try {
-				store.setSubjects(await GetSubjects.call())
-				store.setFetched(true)
-			} catch (error) { store.setError(error) }
-			store.setLoading(false)
+				global.subjects.value = await GetSubjects.call()
+				global.fetched.value = true
+			} catch (error) { global.error.value = error }
+			global.loading.value = false
 		}
 	}
-	useAsync(fetchSubjects)
+	useFetch(fetchSubjects)
 
-	return { loading, error, subjects }
+	return { ...global }
 }
 
 const fetchSubject = async (id: string) => {
-	const store = useStore().courses.subjects()
-
-	let subject = store.subjects.value
-		.find((subject) => subject.id === id)
+	let subject = global.subjects.value.find((subject) => subject.id === id)
 	if (subject) return subject
 	subject = await FindSubject.call(id) ?? undefined
-	if (subject) store.unshiftSubject(subject)
+	if (subject) global.subjects.value.unshift(subject)
 	return subject
 }
 

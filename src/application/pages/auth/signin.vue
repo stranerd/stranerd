@@ -62,6 +62,7 @@ import { usePassword } from '@app/usecases/core/forms'
 import { useEmailSignin } from '@app/usecases/auth/signin'
 import { isDev } from '@utils/environment'
 export default defineComponent({
+	name: 'AuthSigninPage',
 	components: { AuthProviders, DevSignin },
 	layout: 'auth',
 	middleware: 'isNotAuthenticated',

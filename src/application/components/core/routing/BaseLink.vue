@@ -21,6 +21,7 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import { useSubdomain } from '@utils/environment'
 import { GenerateLink } from '@utils/router'
 export default defineComponent({
+	name: 'BaseLink',
 	props: {
 		to: {
 			required: true,

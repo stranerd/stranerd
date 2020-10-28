@@ -23,6 +23,7 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import { useSubjectList } from '@app/usecases/courses/subjects'
 import { useCreateModal } from '@app/usecases/core/modals'
 export default defineComponent({
+	name: 'AdminSubjectsPage',
 	layout: 'admin',
 	setup () {
 		const { loading, error, subjects } = useSubjectList()

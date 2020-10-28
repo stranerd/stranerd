@@ -21,6 +21,7 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useSessionSignout } from '@app/usecases/auth/signout'
 export default defineComponent({
+	name: 'RootIndexPage',
 	setup () {
 		const { loading, signout, error } = useSessionSignout()
 		return { loading, signout, error }

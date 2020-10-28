@@ -36,6 +36,7 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import { usePasswordReset } from '@app/usecases/auth/passwords'
 export default defineComponent({
+	name: 'AuthForgotPage',
 	layout: 'auth',
 	middleware: 'isNotAuthenticated',
 	setup () {

@@ -20,7 +20,7 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import { useCreateModal } from '@app/usecases/core/modals'
 import { useCreateSubject } from '@app/usecases/courses/subjects'
 export default defineComponent({
-	name: 'CreateSubject',
+	name: 'CreateModalSubject',
 	setup () {
 		const { closeCreateModal } = useCreateModal()
 		const { loading, createSubject, factory } = useCreateSubject()

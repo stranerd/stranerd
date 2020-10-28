@@ -16,11 +16,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from '@vue/composition-api'
+import { defineComponent } from '@nuxtjs/composition-api'
 export default defineComponent({
+	name: 'Modal',
 	props: {
 		close: {
-			type: Function as PropType<() => void>,
+			type: Function,
 			required: false,
 			default: () => null
 		},

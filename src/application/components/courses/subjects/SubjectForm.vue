@@ -42,6 +42,7 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import { useFileInputs } from '@app/usecases/core/forms'
 import { SubjectFactory } from '@modules/courses/domain/factories/subject'
 export default defineComponent({
+	name: 'SubjectForm',
 	props: {
 		factory: {
 			type: SubjectFactory,

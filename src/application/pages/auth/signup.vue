@@ -89,6 +89,7 @@ import AuthProviders from '@app/components/auth/AuthProviders.vue'
 import { usePassword } from '@app/usecases/core/forms'
 import { useEmailSignup } from '@app/usecases/auth/signin'
 export default defineComponent({
+	name: 'AuthSignupPage',
 	components: { AuthProviders },
 	layout: 'auth',
 	middleware: 'isNotAuthenticated',

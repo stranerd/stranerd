@@ -1,5 +1,7 @@
 <template>
 	<div>
+		<AdminTopNavigation />
+		<Banner />
 		<div class="container">
 			<Nuxt />
 		</div>
@@ -9,10 +11,12 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
+import AdminTopNavigation from '@app/components/admin/layouts/TopNavigation.vue'
 import ModalBase from '@app/components/core/modals/Base.vue'
 export default defineComponent({
 	name: 'AdminLayout',
 	components: {
+		AdminTopNavigation,
 		ModalBase
 	}
 })

@@ -1,12 +1,14 @@
-import { computed } from '@nuxtjs/composition-api'
-import { useStore } from '@app/usecases/store'
+import { computed, reactive } from '@nuxtjs/composition-api'
+
+const global = reactive({
+	createModal: null as string | null
+})
 
 export const useCreateModal = () => {
-	const modals = useStore().modals()
 	return {
-		isCreateModalSubject: computed(() => modals.createModal.value === 'subject'),
+		isCreateModalSubject: computed(() => global.createModal === 'subject'),
 
-		setCreateModalSubject: () => modals.setCreateModal('subject'),
-		closeCreateModal: () => modals.setCreateModal(null)
+		setCreateModalSubject: () => global.createModal = 'subject',
+		closeCreateModal: () => global.createModal = null
 	}
 }

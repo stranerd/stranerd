@@ -28,7 +28,7 @@
 						</BaseLink>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link text-danger" @click.prevent="logout">Logout</a>
+						<a class="nav-link text-danger" @click.prevent="signout">Signout</a>
 						<PageLoading v-if="loading" />
 					</li>
 				</ul>
@@ -43,8 +43,8 @@ import { useSessionSignout } from '@app/usecases/auth/signout'
 export default defineComponent({
 	name: 'AdminTopNavigation',
 	setup () {
-		const { logout, loading, error } = useSessionSignout()
-		return { logout, loading, error }
+		const { signout, loading, error } = useSessionSignout()
+		return { signout, loading, error }
 	}
 })
 </script>

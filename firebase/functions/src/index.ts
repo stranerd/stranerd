@@ -4,6 +4,8 @@ import { authUserDeleted } from './auth/onDelete'
 import { toggleAdmin } from './onCall/roles/toggleAdmin'
 import { userNotificationCreated } from './database/onCreate/notifications'
 import { userProfileBioUpdated } from './database/onUpdate/users'
+import { subjectIconUpdated } from './database/onUpdate/subjects'
+import { subjectDeleted } from './database/onDelete/subjects'
 
 admin.initializeApp()
 
@@ -15,7 +17,9 @@ export { authUserCreated, authUserDeleted }
 // On Create
 export { userNotificationCreated }
 // On Update
-export { userProfileBioUpdated }
+export { userProfileBioUpdated, subjectIconUpdated }
+// On Delete
+export { subjectDeleted }
 
 
 // On Call

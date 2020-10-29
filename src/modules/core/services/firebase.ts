@@ -17,8 +17,9 @@ const buildFirestoreQuery = (query: firebase.firestore.Query, conditions?: GetCl
 const buildDatabaseQuery = (ref: firebase.database.Query, conditions?: GetClauses) => {
 	if (conditions) {
 		if (conditions.order) ref = ref.orderByChild(conditions.order?.field)
-		else ref = ref.orderByKey()
 		if (conditions.limit) ref = ref.limitToFirst(conditions.limit)
+		if (conditions.where) conditions.where.filter((c) => c.condition === '==')
+			.forEach((c) => ref.orderByChild(c.field).equalTo(c.value))
 	}
 	return ref
 }

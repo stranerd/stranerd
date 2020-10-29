@@ -5,7 +5,22 @@
 				<BaseLink to="/admin/subjects" class="d-flex justify-content-between align-items-center">
 					<div>
 						<h4>Subjects</h4>
-						<p>Create, modify and delete subjects</p>
+						<p class="mb-0">
+							Create, modify and delete subjects.
+						</p>
+					</div>
+					<i class="fas fa-2x fa-angle-right" />
+				</BaseLink>
+			</li>
+		</ul>
+		<ul class="list-group">
+			<li class="list-group-item list-group-item-action mb-3">
+				<BaseLink to="/admin/users" class="d-flex justify-content-between align-items-center">
+					<div>
+						<h4>Users</h4>
+						<p class="mb-0">
+							Manage user roles.
+						</p>
 					</div>
 					<i class="fas fa-2x fa-angle-right" />
 				</BaseLink>

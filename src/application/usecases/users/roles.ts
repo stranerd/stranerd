@@ -31,7 +31,6 @@ export const useMailingList = () => {
 export const useAdminRoles = () => {
 	const state = reactive({
 		fetched: false,
-		upgrading: false,
 		email: '',
 		users: reactive([]) as UserEntity[]
 	})
@@ -51,25 +50,25 @@ export const useAdminRoles = () => {
 	}
 
 	const adminUser = async (user: UserEntity) => {
-		state.upgrading = true
+		setLoading(true)
 		try {
 			await MakeAdmin.call(user.id)
 			setMessage('Successfully upgraded to admin')
 			state.users
 				.find((u) => u.id === user.id)!.roles.isAdmin = true
 		} catch (error) { setError(error) }
-		state.upgrading = false
+		setLoading(false)
 	}
 
 	const deAdminUser = async (user: UserEntity) => {
-		state.upgrading = true
+		setLoading(true)
 		try {
 			await RemoveAdmin.call(user.id)
 			setMessage('Successfully downgraded from admin')
 			state.users
 				.find((u) => u.id === user.id)!.roles.isAdmin = false
 		} catch (error) { setError(error) }
-		state.upgrading = false
+		setLoading(false)
 	}
 
 	const reset = () => {

@@ -1,21 +1,22 @@
 import { reactive, toRefs } from '@nuxtjs/composition-api'
 import { SessionSignout } from '@modules/auth'
 import { GenerateLink } from '@utils/router'
+import { useErrorHandler } from '@app/usecases/core/states'
 
 export const useSessionSignout = () => {
 	const state = reactive({
-		loading: false,
-		error: ''
+		loading: false
 	})
+	const { error, setError } = useErrorHandler()
 	const signout = async () => {
-		state.error = ''
+		setError('')
 		state.loading = true
 		try {
 			await SessionSignout.call()
 			window.location.assign(GenerateLink({ path: '/auth/signin', differentSubdomain: true }))
-		} catch (error) { state.error = error }
+		} catch (error) { setError(error) }
 		state.loading = false
 	}
 
-	return { ...toRefs(state), signout }
+	return { ...toRefs(state), error, signout }
 }

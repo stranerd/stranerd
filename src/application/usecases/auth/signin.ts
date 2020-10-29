@@ -10,6 +10,7 @@ import {
 import { hostname, isClient, protocol, host } from '@utils/environment'
 import { REDIRECT_SESSION_NAME } from '@utils/constants'
 import Cookie from 'cookie'
+import { useErrorHandler } from '@app/usecases/core/states'
 
 const createSession = async (idToken: string) => {
 	await SessionSignin.call(idToken)
@@ -24,76 +25,76 @@ const createSession = async (idToken: string) => {
 
 export const useGoogleSignin = () => {
 	const state = reactive({
-		loading: false,
-		error: ''
+		loading: false
 	})
+	const { error, setError } = useErrorHandler()
 	const signin = async () => {
-		state.error = ''
+		setError('')
 		state.loading = true
 		try {
 			const { idToken } = await SigninWithGoogle.call()
 			await createSession(idToken)
-		} catch (error) { state.error = error }
+		} catch (error) { setError(error) }
 		state.loading = false
 	}
-	return { ...toRefs(state), signin }
+	return { ...toRefs(state), error, signin }
 }
 
 export const useDevSignin = () => {
 	const devs = ['kevin11', 'frank', 'joe', 'max']
 	const state = reactive({
 		loading: false,
-		error: '',
 		id: ''
 	})
+	const { error, setError } = useErrorHandler()
 	const signin = async () => {
-		state.error = ''
+		setError('')
 		state.loading = true
 		try {
 			if (state.id) await createSession(state.id)
-			else state.error = 'Select a dev id first'
-		} catch (error) { state.error = error }
+			else setError('Select a dev id first')
+		} catch (error) { setError(error) }
 		state.loading = false
 	}
-	return { ...toRefs(state), devs, signin }
+	return { ...toRefs(state), error, devs, signin }
 }
 
 export const useEmailSignin = () => {
 	const state = reactive({
 		loading: false,
-		error: '',
 		factory: GetEmailSigninFactory.call()
 	})
+	const { error, setError } = useErrorHandler()
 	const signin = async () => {
-		state.error = ''
+		setError('')
 		if (state.factory.valid && !state.loading) {
 			state.loading = true
 			try {
 				const { idToken } = await SigninWithEmail.call(state.factory)
 				await createSession(idToken)
-			} catch (error) { state.error = error }
+			} catch (error) { setError(error) }
 			state.loading = false
 		} else state.factory.validateAll()
 	}
-	return { ...toRefs(state), signin }
+	return { ...toRefs(state), error, signin }
 }
 
 export const useEmailSignup = () => {
 	const state = reactive({
 		loading: false,
-		error: '',
 		factory: GetEmailSignupFactory.call()
 	})
+	const { error, setError } = useErrorHandler()
 	const signup = async () => {
-		state.error = ''
+		setError('')
 		if (state.factory.valid && !state.loading) {
 			state.loading = true
 			try {
 				const { idToken } = await SignupWithEmail.call(state.factory)
 				await createSession(idToken)
-			} catch (error) { state.error = error }
+			} catch (error) { setError(error) }
 			state.loading = false
 		} else state.factory.validateAll()
 	}
-	return { ...toRefs(state), signup }
+	return { ...toRefs(state), error, signup }
 }

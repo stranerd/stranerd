@@ -3,29 +3,30 @@ import { GetSubjects, AddSubject, GetSubjectFactory, FindSubject } from '@module
 import { useCreateModal } from '@app/usecases/core/modals'
 import { Notify } from '@app/usecases/core/notifications'
 import { SubjectEntity } from '@modules/posts/domain/entities/subject'
+import { useErrorHandler } from '@app/usecases/core/states'
 
 const global = {
 	loading: reqRef(false),
 	fetched: reqRef(false),
-	error: reqRef(''),
 	subjects: reqRef([] as SubjectEntity[])
 }
+const { error, setError: setGlobalError } = useErrorHandler()
 
 export const useSubjectList = () => {
 	const fetchSubjects = async () => {
-		global.error.value = ''
+		setGlobalError('')
 		if (!global.fetched.value) {
 			global.loading.value = true
 			try {
 				global.subjects.value = await GetSubjects.call()
 				global.fetched.value = true
-			} catch (error) { global.error.value = error }
+			} catch (error) { setGlobalError(error) }
 			global.loading.value = false
 		}
 	}
 	useFetch(fetchSubjects)
 
-	return { ...global }
+	return { ...global, error }
 }
 
 const fetchSubject = async (id: string) => {
@@ -42,6 +43,7 @@ export const useCreateSubject = () => {
 		error: '',
 		factory: GetSubjectFactory.call()
 	})
+	const { error, setError } = useErrorHandler()
 
 	const createSubject = async () => {
 		if (state.factory.valid && !state.loading) {
@@ -55,10 +57,10 @@ export const useCreateSubject = () => {
 					title: 'Subject created successfully',
 					icon: 'success'
 				})
-			} catch (error) { state.error = error }
+			} catch (error) { setError(error) }
 			state.loading = false
 		} else state.factory.validateAll()
 	}
 
-	return { ...toRefs(state), createSubject }
+	return { ...toRefs(state), error, createSubject }
 }

@@ -7,7 +7,7 @@ export const authUserCreated = functions.auth.user().onCreate(async (user) => {
 	const data: any = {
 		'profile/bio/email': user.email,
 		'profile/roles/isStudent': true,
-		'profile/dates/registeredAt': admin.database.ServerValue.TIMESTAMP,
+		'profile/dates/signedUpAt': admin.database.ServerValue.TIMESTAMP,
 		'account/questions': 5
 	}
 

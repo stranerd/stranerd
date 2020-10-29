@@ -5,13 +5,13 @@ export class UserEntity {
 	public readonly id: string
 	public readonly roles: UserRoles
 	public readonly userBio: UserBio
-	public readonly registeredAt: Date
+	public readonly signedUpAt: Date
 
 	constructor ({ id, bio, roles, dates }: UserConstructorArgs) {
 		this.id = id
 		this.userBio = bio
 		this.roles = roles
-		this.registeredAt = dates.registeredAt
+		this.signedUpAt = dates.signedUpAt
 	}
 
 	get name () { return this.userBio.name }
@@ -24,7 +24,7 @@ type UserConstructorArgs = {
 	id: string
 	bio: UserBio
 	roles: UserRoles
-	dates: { registeredAt: Date }
+	dates: { signedUpAt: Date }
 }
 
 export interface UserBio {

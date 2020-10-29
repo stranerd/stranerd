@@ -5,7 +5,7 @@ export interface UserFromModel {
 	bio: UserBio
 	roles: UserRoles
 	dates: {
-		registeredAt: number
+		signedUpAt: number
 	}
 }
 

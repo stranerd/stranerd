@@ -8,6 +8,7 @@ import { MakeAdminUseCase } from './domain/usecases/makeAdmin'
 import { RemoveAdminUseCase } from './domain/usecases/removeAdmin'
 import { SubscribeToMailingListUseCase } from './domain/usecases/subscribeToMailingList'
 import { GetMailingListFactoryUseCase } from './domain/usecases/getMailingListFactory'
+import { GetUsersByEmailUseCase } from './domain/usecases/getUsersByEmail'
 
 const userDataSource = new UserFirebaseDataSource()
 const roleDataSource = new RoleFirebaseDataSource()
@@ -18,6 +19,7 @@ const userRepository = new UserRepository(userDataSource, userTransformer)
 const roleRepository = new RoleRepository(roleDataSource)
 
 export const FindUser = new FindUserUseCase(userRepository)
+export const GetUsersByEmail = new GetUsersByEmailUseCase(userRepository)
 
 export const MakeAdmin = new MakeAdminUseCase(roleRepository)
 export const RemoveAdmin = new RemoveAdminUseCase(roleRepository)

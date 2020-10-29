@@ -1,25 +1,23 @@
-import { reactive, toRefs } from '@nuxtjs/composition-api'
+import { reqRef } from '@nuxtjs/composition-api'
 import { GetPasswordResetFactory, ResetPassword } from '@modules/auth'
-import { useErrorHandler, useSuccessHandler } from '@app/usecases/core/states'
+import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/usecases/core/states'
 
 export const usePasswordReset = () => {
-	const state = reactive({
-		loading: false,
-		factory: GetPasswordResetFactory.call()
-	})
+	const factory = reqRef(GetPasswordResetFactory.call())
 	const { error, setError } = useErrorHandler()
 	const { message, setMessage } = useSuccessHandler()
+	const { loading, setLoading } = useLoadingHandler()
 	const resetPassword = async () => {
 		setError('')
-		if (state.factory.valid && !state.loading) {
-			state.loading = true
+		if (factory.value.valid && !loading.value) {
+			setLoading(true)
 			try {
-				await ResetPassword.call(state.factory)
-				state.factory.reset()
+				await ResetPassword.call(factory.value)
+				factory.value.reset()
 				setMessage('Proceed to your registered email to continue')
 			} catch (error) { setError(error) }
-			state.loading = false
-		} else state.factory.validateAll()
+			setLoading(false)
+		} else factory.value.validateAll()
 	}
-	return { ...toRefs(state), message, error, resetPassword }
+	return { factory, loading, message, error, resetPassword }
 }

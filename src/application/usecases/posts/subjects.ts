@@ -1,31 +1,31 @@
-import { reactive, reqRef, toRefs, useFetch } from '@nuxtjs/composition-api'
+import { reqRef, useFetch } from '@nuxtjs/composition-api'
 import { GetSubjects, AddSubject, GetSubjectFactory, FindSubject } from '@modules/posts'
-import { useCreateModal } from '@app/usecases/core/modals'
 import { SubjectEntity } from '@modules/posts/domain/entities/subject'
-import { useErrorHandler, useSuccessHandler } from '@app/usecases/core/states'
+import { useCreateModal } from '@app/usecases/core/modals'
+import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/usecases/core/states'
 
 const global = {
-	loading: reqRef(false),
 	fetched: reqRef(false),
 	subjects: reqRef([] as SubjectEntity[])
 }
 const { error, setError: setGlobalError } = useErrorHandler()
+const { loading, setLoading: setGlobalLoading } = useLoadingHandler()
 
 export const useSubjectList = () => {
 	const fetchSubjects = async () => {
 		setGlobalError('')
 		if (!global.fetched.value) {
-			global.loading.value = true
+			setGlobalLoading(true)
 			try {
 				global.subjects.value = await GetSubjects.call()
 				global.fetched.value = true
 			} catch (error) { setGlobalError(error) }
-			global.loading.value = false
+			setGlobalLoading(false)
 		}
 	}
 	useFetch(fetchSubjects)
 
-	return { ...global, error }
+	return { ...global, error, loading }
 }
 
 const fetchSubject = async (id: string) => {
@@ -37,27 +37,24 @@ const fetchSubject = async (id: string) => {
 }
 
 export const useCreateSubject = () => {
-	const state = reactive({
-		loading: false,
-		error: '',
-		factory: GetSubjectFactory.call()
-	})
+	const factory = reqRef(GetSubjectFactory.call())
 	const { error, setError } = useErrorHandler()
 	const { setMessage } = useSuccessHandler()
+	const { loading, setLoading } = useLoadingHandler()
 
 	const createSubject = async () => {
-		if (state.factory.valid && !state.loading) {
-			state.loading = true
+		if (factory.value.valid && !loading.value) {
+			setLoading(true)
 			try {
-				const id = await AddSubject.call(state.factory)
+				const id = await AddSubject.call(factory.value)
 				await fetchSubject(id)
-				state.factory.reset()
+				factory.value.reset()
 				useCreateModal().closeCreateModal()
 				setMessage('Subject created successfully')
 			} catch (error) { setError(error) }
-			state.loading = false
-		} else state.factory.validateAll()
+			setLoading(false)
+		} else factory.value.validateAll()
 	}
 
-	return { ...toRefs(state), error, createSubject }
+	return { factory, loading, error, createSubject }
 }

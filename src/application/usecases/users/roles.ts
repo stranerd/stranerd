@@ -1,38 +1,35 @@
-import { reactive, toRefs } from '@vue/composition-api'
+import { reactive, reqRef, toRefs } from '@nuxtjs/composition-api'
 import {
 	GetUsersByEmail, GetMailingListFactory, SubscribeToMailingList,
 	MakeAdmin, RemoveAdmin
 } from '@modules/users'
 import { UserEntity } from '@modules/users/domain/entities/user'
-import { useErrorHandler, useSuccessHandler } from '@app/usecases/core/states'
+import { useErrorHandler, useSuccessHandler, useLoadingHandler } from '@app/usecases/core/states'
 
 export const useMailingList = () => {
-	const state = reactive({
-		loading: false,
-		factory: GetMailingListFactory.call()
-	})
+	const factory = reqRef(GetMailingListFactory.call())
+	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
 	const { setMessage } = useSuccessHandler()
 
 	const subscribeToMailingList = async () => {
-		if (state.factory.valid && !state.loading) {
-			state.loading = true
+		if (factory.value.valid && !loading.value) {
+			setLoading(true)
 			try {
-				await SubscribeToMailingList.call(state.factory)
-				state.factory.reset()
-				state.loading = false
+				await SubscribeToMailingList.call(factory.value)
+				factory.value.reset()
+				setLoading(false)
 				setMessage('Subscribed successfully')
 			} catch (error) { setError(error) }
-			state.loading = false
-		} else state.factory.validateAll()
+			setLoading(false)
+		} else factory.value.validateAll()
 	}
 
-	return { ...toRefs(state), error, subscribeToMailingList }
+	return { factory, loading, error, subscribeToMailingList }
 }
 
 export const useAdminRoles = () => {
 	const state = reactive({
-		loading: false,
 		fetched: false,
 		upgrading: false,
 		email: '',
@@ -40,15 +37,16 @@ export const useAdminRoles = () => {
 	})
 	const { error, setError } = useErrorHandler()
 	const { setMessage } = useSuccessHandler()
+	const { loading, setLoading } = useLoadingHandler()
 
 	const getUsersByEmail = async () => {
 		if (state.email) {
-			state.loading = true
+			setLoading(true)
 			try {
 				state.users = reactive(await GetUsersByEmail.call(state.email))
 				state.fetched = true
 			} catch (error) { setError(error) }
-			state.loading = false
+			setLoading(false)
 		}
 	}
 
@@ -81,7 +79,7 @@ export const useAdminRoles = () => {
 	}
 
 	return {
-		...toRefs(state), error,
+		...toRefs(state), error, loading,
 		getUsersByEmail, adminUser, deAdminUser, reset
 	}
 }

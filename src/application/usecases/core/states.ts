@@ -1,17 +1,19 @@
 import { reqRef } from '@nuxtjs/composition-api'
 
 export const useErrorHandler = () => {
-	const errorMessage = reqRef('')
-
-	const setError = (error: any) => errorMessage.value = error.message ?? error
-
-	return { error: errorMessage, setError }
+	const errorState = reqRef('')
+	const setError = (error: any) => errorState.value = error.message ?? error
+	return { error: errorState, setError }
 }
 
 export const useSuccessHandler = () => {
-	const successMessage = reqRef('')
+	const successState = reqRef('')
+	const setMessage = (message: string) => successState.value = message
+	return { message: successState, setMessage }
+}
 
-	const setMessage = (message: string) => successMessage.value = message
-
-	return { message: successMessage, setMessage }
+export const useLoadingHandler = () => {
+	const loadingState = reqRef(false)
+	const setLoading = (loading: boolean) => loadingState.value = loading
+	return { loading: loadingState, setLoading }
 }

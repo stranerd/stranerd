@@ -6,7 +6,8 @@
     },
     "users": {
       ".read": "true",
-      ".write": "true"
+      ".write": "true",
+      ".indexOn": ["profile/bio/email"]
     },
     ".read": "false",
     ".write": "false"

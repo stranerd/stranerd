@@ -19,7 +19,7 @@ const buildDatabaseQuery = (ref: firebase.database.Query, conditions?: GetClause
 		if (conditions.order) ref = ref.orderByChild(conditions.order?.field)
 		if (conditions.limit) ref = ref.limitToFirst(conditions.limit)
 		if (conditions.where) conditions.where.filter((c) => c.condition === '==')
-			.forEach((c) => ref.orderByChild(c.field).equalTo(c.value))
+			.forEach((c) => ref = ref.orderByChild(c.field).equalTo(c.value))
 	}
 	return ref
 }

@@ -1,9 +1,8 @@
 import { reactive, reqRef, toRefs, useFetch } from '@nuxtjs/composition-api'
 import { GetSubjects, AddSubject, GetSubjectFactory, FindSubject } from '@modules/posts'
 import { useCreateModal } from '@app/usecases/core/modals'
-import { Notify } from '@app/usecases/core/notifications'
 import { SubjectEntity } from '@modules/posts/domain/entities/subject'
-import { useErrorHandler } from '@app/usecases/core/states'
+import { useErrorHandler, useSuccessHandler } from '@app/usecases/core/states'
 
 const global = {
 	loading: reqRef(false),
@@ -44,6 +43,7 @@ export const useCreateSubject = () => {
 		factory: GetSubjectFactory.call()
 	})
 	const { error, setError } = useErrorHandler()
+	const { setMessage } = useSuccessHandler()
 
 	const createSubject = async () => {
 		if (state.factory.valid && !state.loading) {
@@ -53,10 +53,7 @@ export const useCreateSubject = () => {
 				await fetchSubject(id)
 				state.factory.reset()
 				useCreateModal().closeCreateModal()
-				await Notify({
-					title: 'Subject created successfully',
-					icon: 'success'
-				})
+				setMessage('Subject created successfully')
 			} catch (error) { setError(error) }
 			state.loading = false
 		} else state.factory.validateAll()

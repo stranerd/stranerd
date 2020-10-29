@@ -3,9 +3,8 @@ import {
 	GetUsersByEmail, GetMailingListFactory, SubscribeToMailingList,
 	MakeAdmin, RemoveAdmin
 } from '@modules/users'
-import { Notify } from '@app/usecases/core/notifications'
 import { UserEntity } from '@modules/users/domain/entities/user'
-import { useErrorHandler } from '@app/usecases/core/states'
+import { useErrorHandler, useSuccessHandler } from '@app/usecases/core/states'
 
 export const useMailingList = () => {
 	const state = reactive({
@@ -13,6 +12,7 @@ export const useMailingList = () => {
 		factory: GetMailingListFactory.call()
 	})
 	const { error, setError } = useErrorHandler()
+	const { setMessage } = useSuccessHandler()
 
 	const subscribeToMailingList = async () => {
 		if (state.factory.valid && !state.loading) {
@@ -21,7 +21,7 @@ export const useMailingList = () => {
 				await SubscribeToMailingList.call(state.factory)
 				state.factory.reset()
 				state.loading = false
-				await Notify({ icon: 'success', title: 'Subscribed successfully' })
+				setMessage('Subscribed successfully')
 			} catch (error) { setError(error) }
 			state.loading = false
 		} else state.factory.validateAll()
@@ -39,6 +39,7 @@ export const useAdminRoles = () => {
 		users: reactive([]) as UserEntity[]
 	})
 	const { error, setError } = useErrorHandler()
+	const { setMessage } = useSuccessHandler()
 
 	const getUsersByEmail = async () => {
 		if (state.email) {
@@ -55,6 +56,7 @@ export const useAdminRoles = () => {
 		state.upgrading = true
 		try {
 			await MakeAdmin.call(user.id)
+			setMessage('Successfully upgraded to admin')
 			state.users
 				.find((u) => u.id === user.id)!.roles.isAdmin = true
 		} catch (error) { setError(error) }
@@ -65,6 +67,7 @@ export const useAdminRoles = () => {
 		state.upgrading = true
 		try {
 			await RemoveAdmin.call(user.id)
+			setMessage('Successfully downgraded from admin')
 			state.users
 				.find((u) => u.id === user.id)!.roles.isAdmin = false
 		} catch (error) { setError(error) }

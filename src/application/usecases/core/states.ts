@@ -7,3 +7,11 @@ export const useErrorHandler = () => {
 
 	return { error: errorMessage, setError }
 }
+
+export const useSuccessHandler = () => {
+	const successMessage = reqRef('')
+
+	const setMessage = (message: string) => successMessage.value = message
+
+	return { message: successMessage, setMessage }
+}

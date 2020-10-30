@@ -1,4 +1,4 @@
-import { reactive, reqRef, toRefs, useFetch } from '@nuxtjs/composition-api'
+import { reactive, ref, reqRef, toRefs, useFetch } from '@nuxtjs/composition-api'
 import { FindTutor, GetTutors, GetUsersByEmail, MakeTutor, RemoveTutor } from '@modules/users'
 import { TutorEntity } from '@modules/users/domain/entities/tutor'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/usecases/core/states'
@@ -93,5 +93,37 @@ export const useTutorRoles = () => {
 	return {
 		...toRefs(state), error, loading,
 		getUsersByEmail, makeTutor, removeTutor, reset
+	}
+}
+
+let currentTutor = undefined as TutorEntity | undefined
+export const setCurrentTutor = (tutor: TutorEntity) => currentTutor = tutor
+
+export const useSingleTutor = () => {
+	const tutor = ref(currentTutor)
+	const { loading, setLoading } = useLoadingHandler()
+	const { error, setError } = useErrorHandler()
+
+	const addSubject = async (subject: string) => {
+		setError('')
+		setLoading(true)
+		try {
+			console.log(subject)
+		} catch (error) { setError(error) }
+		setLoading(false)
+	}
+
+	const removeSubject = async (subject: string) => {
+		setError('')
+		setLoading(true)
+		try {
+			console.log(subject)
+		} catch (error) { setError(error) }
+		setLoading(false)
+	}
+
+	return {
+		tutor, loading, error,
+		addSubject, removeSubject
 	}
 }

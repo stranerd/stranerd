@@ -1,7 +1,8 @@
 import { computed, reactive } from '@nuxtjs/composition-api'
 
 const global = reactive({
-	createModal: null as string | null
+	createModal: null as string | null,
+	editModal: null as string | null
 })
 
 export const useCreateModal = () => {
@@ -10,5 +11,14 @@ export const useCreateModal = () => {
 
 		setCreateModalSubject: () => global.createModal = 'subject',
 		closeCreateModal: () => global.createModal = null
+	}
+}
+
+export const useEditModal = () => {
+	return {
+		isEditModalTutorSubjects: computed(() => global.editModal === 'tutor-subjects'),
+
+		setEditModalTutorSubjects: () => global.editModal = 'tutor-subjects',
+		closeEditModal: () => global.editModal = null
 	}
 }

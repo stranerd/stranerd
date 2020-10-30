@@ -1,6 +1,6 @@
 <template>
-	<SubjectForm :submit="createSubject" :loading="loading" :factory="factory" :error="error">
-		<template slot="title">
+	<Modal>
+		<template slot="header">
 			<div class="d-flex align-items-baseline justify-content-between my-3 px-3">
 				<i />
 				<h4 class="my-0">
@@ -11,10 +11,12 @@
 				</a>
 			</div>
 		</template>
-		<template slot="buttonText">
-			Create Subject
-		</template>
-	</SubjectForm>
+		<SubjectForm :submit="createSubject" :loading="loading" :factory="factory" :error="error">
+			<template slot="buttonText">
+				Create Subject
+			</template>
+		</SubjectForm>
+	</Modal>
 </template>
 
 <script lang="ts">

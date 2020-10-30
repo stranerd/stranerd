@@ -1,15 +1,19 @@
 {
   "rules": {
     "subjects": {
-      ".read": "true",
-      ".write": "true"
+      ".read": true,
+      ".write": true
+    },
+    "tutors": {
+      ".read": true,
+      ".write": true
     },
     "users": {
-      ".read": "true",
-      ".write": "true",
+      ".read": true,
+      ".write": true,
       ".indexOn": ["profile/bio/email", "profile/roles/isAdmin"]
     },
-    ".read": "false",
-    ".write": "false"
+    ".read": false,
+    ".write": false
   }
 }

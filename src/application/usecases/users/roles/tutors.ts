@@ -112,6 +112,7 @@ export const useSingleTutor = () => {
 	const tutor = ref(currentTutor)
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
+	const { setMessage } = useSuccessHandler()
 
 	const addSubject = async (subject: string) => {
 		setError('')
@@ -125,6 +126,7 @@ export const useSingleTutor = () => {
 					tutor.value = t
 					addToGlobalTutors(t)
 				}
+				setMessage('Successfully added subject')
 			}
 		} catch (error) { setError(error) }
 		setLoading(false)
@@ -149,6 +151,7 @@ export const useSingleTutor = () => {
 						tutor.value = t
 						addToGlobalTutors(t)
 					}
+					setMessage('Successfully removed subject')
 				}
 			} catch (error) { setError(error) }
 			setLoading(false)

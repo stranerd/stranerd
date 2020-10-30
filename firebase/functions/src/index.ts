@@ -1,6 +1,7 @@
 import * as admin from 'firebase-admin'
 import { authUserCreated } from './auth/onCreate'
 import { authUserDeleted } from './auth/onDelete'
+import { makeSuperAdmin } from './requests/makeSuperAdmin'
 import { toggleAdmin } from './onCall/roles/toggleAdmin'
 import { makeTutor } from './onCall/roles/makeTutor'
 import { removeTutor } from './onCall/roles/removeTutor'
@@ -14,6 +15,10 @@ admin.initializeApp()
 
 // Auth Triggers
 export { authUserCreated, authUserDeleted }
+
+
+// Request Triggers
+export { makeSuperAdmin }
 
 
 // Database Triggers

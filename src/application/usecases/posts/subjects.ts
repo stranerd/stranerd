@@ -1,7 +1,7 @@
 import { reqRef, useFetch } from '@nuxtjs/composition-api'
-import { GetSubjects, AddSubject, GetSubjectFactory, FindSubject, DeleteSubject } from '@modules/posts'
+import { GetSubjects, AddSubject, GetSubjectFactory, FindSubject, DeleteSubject, UpdateSubject } from '@modules/posts'
 import { SubjectEntity } from '@modules/posts/domain/entities/subject'
-import { useCreateModal } from '@app/usecases/core/modals'
+import { useCreateModal, useEditModal } from '@app/usecases/core/modals'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/usecases/core/states'
 import { Alert } from '@app/usecases/core/notifications'
 
@@ -60,12 +60,12 @@ export const useCreateSubject = () => {
 	return { factory, loading, error, createSubject }
 }
 
-export const useDeleteSubject = () => {
+export const useDeleteSubject = (subject: SubjectEntity) => {
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
 	const { setMessage } = useSuccessHandler()
 
-	const deleteSubject = async (subject: SubjectEntity) => {
+	const deleteSubject = async () => {
 		setError('')
 		const accepted = await Alert({
 			title: 'Are you sure you want to remove this subject?',
@@ -86,4 +86,33 @@ export const useDeleteSubject = () => {
 	}
 
 	return { loading, error, deleteSubject }
+}
+
+let currentSubject = null as SubjectEntity | null
+export const setCurrentSubject = (subject: SubjectEntity) => currentSubject = subject
+
+export const useEditSubject = (subject = currentSubject!) => {
+	const factory = reqRef(GetSubjectFactory.call())
+	const { error, setError } = useErrorHandler()
+	const { setMessage } = useSuccessHandler()
+	const { loading, setLoading } = useLoadingHandler()
+
+	if (subject) factory.value.loadEntity(subject)
+
+	const editSubject = async () => {
+		if (factory.value.valid && !loading.value) {
+			setLoading(true)
+			try {
+				if (subject.id) {
+					await UpdateSubject.call(subject.id, factory.value)
+				}
+				factory.value.reset()
+				useEditModal().closeEditModal()
+				setMessage('Subject updated successfully')
+			} catch (error) { setError(error) }
+			setLoading(false)
+		} else factory.value.validateAll()
+	}
+
+	return { factory, loading, error, editSubject }
 }

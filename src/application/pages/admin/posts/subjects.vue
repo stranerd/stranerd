@@ -7,46 +7,30 @@
 		</div>
 		<hr>
 		<div class="grid">
-			<div v-for="subject in subjects" :key="subject.hash" :subject="subject" class="d-flex flex-column align-items-center">
-				<img v-if="subject.icon" :src="subject.icon" :alt="subject.name" width="50">
-				<h5 class="text-capitalize">
-					{{ subject.name }}
-				</h5>
-				<div class="d-flex justify-content-center small flex-wrap">
-					<a class="text-warning mr-2" @click.prevent="">
-						<span>Edit</span>
-						<i class="fas fa-pen" />
-					</a>
-					<a class="text-danger" @click.prevent="deleteSubject(subject)">
-						<span>Delete</span>
-						<i class="fas fa-trash" />
-					</a>
-				</div>
-			</div>
+			<AdminSubjectCard v-for="subject in subjects" :key="subject.hash" :subject="subject" />
 		</div>
-		<PageLoading v-if="subLoading || delLoading" />
-		<p v-if="subError" class="my-3 text-danger lead text-center">
-			{{ subError }}
-		</p>
-		<p v-if="delError" class="my-3 text-danger lead text-center">
-			{{ delError }}
+		<PageLoading v-if="loading" />
+		<p v-if="error" class="my-3 text-danger lead text-center">
+			{{ error }}
 		</p>
 	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useDeleteSubject, useSubjectList } from '@app/usecases/posts/subjects'
+import { useSubjectList } from '@app/usecases/posts/subjects'
 import { useCreateModal } from '@app/usecases/core/modals'
+import AdminSubjectCard from '@app/components/admin/posts/subjects/SubjectCard.vue'
 export default defineComponent({
 	name: 'AdminSubjectsPage',
+	components: {
+		AdminSubjectCard
+	},
 	layout: 'admin',
 	setup () {
-		const { loading: subLoading, error: subError, subjects } = useSubjectList()
-		const { loading: delLoading, error: delError, deleteSubject } = useDeleteSubject()
+		const { loading, error, subjects } = useSubjectList()
 		return {
-			subLoading, subError, subjects,
-			delLoading, delError, deleteSubject,
+			loading, error, subjects,
 			setCreateModalSubject: useCreateModal().setCreateModalSubject
 		}
 	}

@@ -6,7 +6,7 @@
 			</button>
 		</div>
 		<hr>
-		<div class="grid">
+		<div class="grid mb-4">
 			<AdminSubjectCard v-for="subject in subjects" :key="subject.hash" :subject="subject" />
 		</div>
 		<PageLoading v-if="loading" />

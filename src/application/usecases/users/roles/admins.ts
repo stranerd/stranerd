@@ -36,7 +36,7 @@ export const useAdminRoles = () => {
 		try {
 			await MakeAdmin.call(user.id)
 			user.roles.isAdmin = true
-			global.admins.value.push(user)
+			addToGlobalAdmins(user)
 			reset()
 			setMessage('Successfully upgraded to admin')
 		} catch (error) { setError(error) }
@@ -67,6 +67,12 @@ const global = {
 }
 const { error, setError } = useErrorHandler()
 const { loading, setLoading } = useLoadingHandler()
+
+const addToGlobalAdmins = (user: UserEntity) => {
+	const index = global.admins.value.findIndex((u) => u.id === user.id)
+	if (index !== -1) global.admins.value.splice(index, 1, user)
+	else global.admins.value.push(user)
+}
 
 export const useAdminList = () => {
 	const fetchAdmins = async () => {

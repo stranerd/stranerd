@@ -5,11 +5,11 @@
 			{{ subject.name }}
 		</h5>
 		<div class="d-flex justify-content-center small flex-wrap">
-			<a class="text-warning mr-2" @click.prevent="">
+			<a class="text-warning mr-2" @click.prevent="openEditModal">
 				<span>Edit</span>
 				<i class="fas fa-pen" />
 			</a>
-			<a class="text-danger" @click.prevent="deleteSubject()">
+			<a class="text-danger" @click.prevent="deleteSubject">
 				<span>Delete</span>
 				<i class="fas fa-trash" />
 			</a>
@@ -24,7 +24,8 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { SubjectEntity } from '@modules/posts/domain/entities/subject'
-import { useDeleteSubject } from '@app/usecases/posts/subjects'
+import { setCurrentSubject, useDeleteSubject } from '@app/usecases/posts/subjects'
+import { useEditModal } from '@app/usecases/core/modals'
 export default defineComponent({
 	props: {
 		subject: {
@@ -34,7 +35,11 @@ export default defineComponent({
 	},
 	setup (props) {
 		const { loading, error, deleteSubject } = useDeleteSubject(props.subject)
-		return { loading, error, deleteSubject }
+		const openEditModal = () => {
+			setCurrentSubject(props.subject)
+			useEditModal().setEditModalSubject()
+		}
+		return { loading, error, deleteSubject, openEditModal }
 	}
 })
 </script>

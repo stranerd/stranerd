@@ -16,8 +16,10 @@ export const useCreateModal = () => {
 
 export const useEditModal = () => {
 	return {
+		isEditModalSubject: computed(() => global.editModal === 'subject'),
 		isEditModalTutorSubjects: computed(() => global.editModal === 'tutor-subjects'),
 
+		setEditModalSubject: () => global.editModal = 'subject',
 		setEditModalTutorSubjects: () => global.editModal = 'tutor-subjects',
 		closeEditModal: () => global.editModal = null
 	}

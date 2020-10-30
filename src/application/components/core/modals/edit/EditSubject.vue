@@ -4,16 +4,16 @@
 			<div class="d-flex align-items-baseline justify-content-between my-3 px-3">
 				<i />
 				<h4 class="my-0">
-					Create Subject
+					Edit Subject
 				</h4>
-				<a @click.prevent="closeCreateModal">
+				<a @click.prevent="closeEditModal">
 					<i class="fas fa-times text-danger" />
 				</a>
 			</div>
 		</template>
-		<SubjectForm :submit="createSubject" :loading="loading" :factory="factory" :error="error">
+		<SubjectForm :submit="editSubject" :loading="loading" :factory="factory" :error="error">
 			<template slot="buttonText">
-				Create Subject
+				Update Subject
 			</template>
 		</SubjectForm>
 	</Modal>
@@ -21,18 +21,18 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useCreateModal } from '@app/usecases/core/modals'
-import { useCreateSubject } from '@app/usecases/posts/subjects'
+import { useEditModal } from '@app/usecases/core/modals'
+import { useEditSubject } from '@app/usecases/posts/subjects'
 import SubjectForm from '@app/components/posts/subjects/SubjectForm.vue'
 export default defineComponent({
-	name: 'CreateModalSubject',
+	name: 'EditModalSubject',
 	components: { SubjectForm },
 	setup () {
-		const { closeCreateModal } = useCreateModal()
-		const { loading, createSubject, factory, error } = useCreateSubject()
+		const { closeEditModal } = useEditModal()
+		const { loading, editSubject, factory, error } = useEditSubject()
 		return {
-			loading, createSubject, factory, error,
-			closeCreateModal
+			loading, editSubject, factory, error,
+			closeEditModal
 		}
 	}
 })

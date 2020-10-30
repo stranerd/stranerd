@@ -12,6 +12,12 @@ const global = {
 const { error, setError: setGlobalError } = useErrorHandler()
 const { loading, setLoading: setGlobalLoading } = useLoadingHandler()
 
+const addToGlobalSubjects = (subject: SubjectEntity) => {
+	const index = global.subjects.value.findIndex((s) => s.id === subject.id)
+	if (index !== -1) global.subjects.value.splice(index, 1, subject)
+	else global.subjects.value.push(subject)
+}
+
 export const useSubjectList = () => {
 	const fetchSubjects = async () => {
 		setGlobalError('')
@@ -29,14 +35,6 @@ export const useSubjectList = () => {
 	return { ...global, error, loading }
 }
 
-const fetchSubject = async (id: string) => {
-	let subject = global.subjects.value.find((subject) => subject.id === id)
-	if (subject) return subject
-	subject = await FindSubject.call(id) ?? undefined
-	if (subject) global.subjects.value.unshift(subject)
-	return subject
-}
-
 export const useCreateSubject = () => {
 	const factory = reqRef(GetSubjectFactory.call())
 	const { error, setError } = useErrorHandler()
@@ -48,7 +46,8 @@ export const useCreateSubject = () => {
 			setLoading(true)
 			try {
 				const id = await AddSubject.call(factory.value)
-				await fetchSubject(id)
+				const subject = await FindSubject.call(id) ?? undefined
+				if (subject) addToGlobalSubjects(subject)
 				factory.value.reset()
 				useCreateModal().closeCreateModal()
 				setMessage('Subject created successfully')
@@ -91,7 +90,7 @@ export const useDeleteSubject = (subject: SubjectEntity) => {
 let currentSubject = null as SubjectEntity | null
 export const setCurrentSubject = (subject: SubjectEntity) => currentSubject = subject
 
-export const useEditSubject = (subject = currentSubject!) => {
+export const useEditSubject = (subject = currentSubject) => {
 	const factory = reqRef(GetSubjectFactory.call())
 	const { error, setError } = useErrorHandler()
 	const { setMessage } = useSuccessHandler()
@@ -103,8 +102,10 @@ export const useEditSubject = (subject = currentSubject!) => {
 		if (factory.value.valid && !loading.value) {
 			setLoading(true)
 			try {
-				if (subject.id) {
+				if (subject) {
 					await UpdateSubject.call(subject.id, factory.value)
+					const s = await FindSubject.call(subject.id)
+					if (s) addToGlobalSubjects(s)
 				}
 				factory.value.reset()
 				useEditModal().closeEditModal()

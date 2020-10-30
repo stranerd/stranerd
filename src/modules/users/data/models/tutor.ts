@@ -4,12 +4,9 @@ export interface TutorFromModel {
 	id: string
 	bio: UserBio
 	canTeach: boolean
-	courses: string[]
-	rating: number
-	reviews: number
-	levels: { [key: string]: number }
-	upgrades: {
-		[key:string]: {
+	courses: {
+		level: number
+		upgrades: {
 			[key:number]: {
 				score: number
 				takenAt: number
@@ -17,17 +14,16 @@ export interface TutorFromModel {
 			}
 		}
 	}
+	rating: number
+	reviews: number
 }
 
 export interface TutorToModel {
 	bio: UserBio
 	canTeach: boolean
-	courses: string[]
-	rating: number
-	reviews: number
-	levels: { [key: string]: number }
-	upgrades: {
-		[key:string]: {
+	courses: {
+		level: number
+		upgrades: {
 			[key:number]: {
 				score: number
 				takenAt: number
@@ -35,4 +31,6 @@ export interface TutorToModel {
 			}
 		}
 	}
+	rating: number
+	reviews: number
 }

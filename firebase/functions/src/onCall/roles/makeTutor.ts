@@ -14,10 +14,10 @@ export const makeTutor = functions.https.onCall(async (data, context) => {
 		if (tutor.exists())
 			throw new functions.https.HttpsError('failed-precondition', 'User is already a tutor')
 
-		const userBioRef = await admin.database().ref('users').child(data.id)
-			.child('profile/bio')
-			.once('value')
-		const bio = userBioRef.val()
+		const userRef = admin.database().ref('users')
+			.child(data.id).child('profile')
+		const user = (await userRef.once('value')).val()
+		const bio = user.bio
 
 		const tutorData = {
 			bio,
@@ -25,6 +25,7 @@ export const makeTutor = functions.https.onCall(async (data, context) => {
 			courses: [], levels: {}, upgrades: {}
 		}
 		await tutorRef.set(tutorData)
+		await userRef.child('roles').update({ isTutor: true })
 
 		return true
 	}catch(error){

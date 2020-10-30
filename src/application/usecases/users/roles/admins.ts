@@ -31,6 +31,7 @@ export const useAdminRoles = () => {
 	}
 
 	const adminUser = async (user: UserEntity) => {
+		setError('')
 		setLoading(true)
 		try {
 			await MakeAdmin.call(user.id)
@@ -43,6 +44,7 @@ export const useAdminRoles = () => {
 	}
 
 	const deAdminUser = async (user: UserEntity) => {
+		setError('')
 		setLoading(true)
 		try {
 			await RemoveAdmin.call(user.id)

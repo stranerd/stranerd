@@ -4,12 +4,11 @@ export class TutorEntity {
 	public readonly id: string
 	public readonly userBio: UserBio
 	public readonly canTeach: boolean
-	public readonly courses: string[]
 	public readonly rating: number
 	public readonly reviews: number
-	public readonly levels: { [key: string]: number }
-	public readonly upgrades: {
-		[key:string]: {
+	public readonly courses: {
+		level: number
+		upgrades: {
 			[key:number]: {
 				score: number
 				takenAt: number
@@ -18,15 +17,13 @@ export class TutorEntity {
 		}
 	}
 
-	constructor ({ id, bio, canTeach, courses, rating, reviews, levels, upgrades }: TutorConstructorArgs) {
+	constructor ({ id, bio, canTeach, courses, rating, reviews }: TutorConstructorArgs) {
 		this.id = id
 		this.userBio = bio
 		this.canTeach = canTeach
 		this.courses = courses
 		this.rating = rating
 		this.reviews = reviews
-		this.levels = levels
-		this.upgrades = upgrades
 	}
 
 	get name () { return this.userBio.name }
@@ -39,12 +36,9 @@ type TutorConstructorArgs = {
 	id: string
 	bio: UserBio
 	canTeach: boolean
-	courses: string[]
-	rating: number
-	reviews: number
-	levels: { [key: string]: number }
-	upgrades: {
-		[key:string]: {
+	courses: {
+		level: number
+		upgrades: {
 			[key:number]: {
 				score: number
 				takenAt: number
@@ -52,4 +46,6 @@ type TutorConstructorArgs = {
 			}
 		}
 	}
+	rating: number
+	reviews: number
 }

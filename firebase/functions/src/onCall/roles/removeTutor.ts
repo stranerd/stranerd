@@ -9,7 +9,13 @@ export const removeTutor = functions.https.onCall(async (data, context) => {
 		throw new functions.https.HttpsError('failed-precondition', 'Only admins can manage tutors')
 
 	try{
-		await admin.database().ref('tutors').child(data.id).remove()
+		await admin.database().ref('tutors')
+			.child(data.id)
+			.remove()
+		await admin.database().ref('users')
+			.child(data.id)
+			.child('profile/roles')
+			.update({ isTutor: false })
 
 		return true
 	}catch(error){

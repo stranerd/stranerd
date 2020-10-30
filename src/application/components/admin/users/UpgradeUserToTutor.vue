@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<h4 class="text-muted mb-2">
-			Add New Admin
+			Add New Tutor
 		</h4>
 		<div class="d-flex align-items-center">
 			<input v-model="email" type="email" class="form-control flex-grow-1" placeholder="Enter user's email address">
@@ -26,11 +26,11 @@
 							{{ user.email }}
 						</p>
 					</div>
-					<span v-if="user.roles.isAdmin" class="text-nowrap text-danger">
-						Already an admin
+					<span v-if="user.roles.isTutor" class="text-nowrap text-danger">
+						Already a tutor
 					</span>
-					<button v-else class="btn btn-sm text-nowrap btn-success" @click="adminUser(user)">
-						Make admin
+					<button v-else class="btn btn-sm text-nowrap btn-success" @click="makeTutor(user)">
+						Make tutor
 					</button>
 				</div>
 			</div>
@@ -45,16 +45,16 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useAdminRoles } from '@app/usecases/users/roles/admins'
+import { useTutorRoles } from '@app/usecases/users/roles/tutors'
 export default defineComponent({
 	setup () {
 		const {
 			loading, fetched, email, users, error,
-			getUsersByEmail, adminUser, reset
-		} = useAdminRoles()
+			getUsersByEmail, makeTutor, reset
+		} = useTutorRoles()
 		return {
 			loading, fetched, email, users, error,
-			getUsersByEmail, adminUser, reset
+			getUsersByEmail, makeTutor, reset
 		}
 	}
 })

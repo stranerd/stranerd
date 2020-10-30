@@ -13,7 +13,11 @@ export const toggleAdmin = functions.https.onCall(async (data, context) => {
 
 		if (isProduction()) await admin.auth().setCustomUserClaims(id, { isAdmin })
 
-		await admin.database().ref('users').child(id).child('profile/roles').update({ isAdmin })
+		await admin.firestore().collection('users')
+			.doc(id)
+			.set({
+				roles: { isAdmin }
+			}, { merge: true})
 
 		return true
 	}catch(error){

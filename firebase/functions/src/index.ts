@@ -6,9 +6,9 @@ import { makeTutor } from './onCall/roles/makeTutor'
 import { removeTutor } from './onCall/roles/removeTutor'
 import { subscribeToMailingList } from './onCall/roles/subscribeToMailingList'
 import { userNotificationCreated } from './database/onCreate/notifications'
-import { userProfileBioUpdated } from './database/onUpdate/users'
 import { subjectIconUpdated } from './database/onUpdate/subjects'
 import { subjectDeleted } from './database/onDelete/subjects'
+import { userProfileUpdated } from './firestore/onUpdate/users'
 
 admin.initializeApp()
 
@@ -20,9 +20,14 @@ export { authUserCreated, authUserDeleted }
 // On Create
 export { userNotificationCreated }
 // On Update
-export { userProfileBioUpdated, subjectIconUpdated }
+export { subjectIconUpdated }
 // On Delete
 export { subjectDeleted }
+
+
+// Firestore Triggers
+// On Update
+export { userProfileUpdated }
 
 
 // On Call

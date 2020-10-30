@@ -14,10 +14,9 @@ export const makeTutor = functions.https.onCall(async (data, context) => {
 		if (tutor.exists())
 			throw new functions.https.HttpsError('failed-precondition', 'User is already a tutor')
 
-		const userRef = admin.database().ref('users')
-			.child(data.id).child('profile')
-		const user = (await userRef.once('value')).val()
-		const bio = user.bio
+		const userRef = admin.firestore().collection('users').doc(data.id)
+		const user = await userRef.get()
+		const bio = user.data()?.bio
 
 		const tutorData = {
 			bio,
@@ -25,7 +24,7 @@ export const makeTutor = functions.https.onCall(async (data, context) => {
 			courses: [], levels: {}, upgrades: {}
 		}
 		await tutorRef.set(tutorData)
-		await userRef.child('roles').update({ isTutor: true })
+		await userRef.set({ roles: { isTutor: true } }, { merge: true })
 
 		return true
 	}catch(error){

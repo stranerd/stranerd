@@ -1,3 +1,4 @@
+import firebase from 'firebase'
 import { UserBio, UserRoles } from '../../domain/entities/user'
 
 export interface UserFromModel {
@@ -5,7 +6,7 @@ export interface UserFromModel {
 	bio: UserBio
 	roles: UserRoles
 	dates: {
-		signedUpAt: number
+		signedUpAt: firebase.firestore.Timestamp
 	}
 }
 

@@ -11,7 +11,7 @@ export class GetAllAdminsUseCase {
 	async call () {
 		const conditions: GetClauses = {
 			where: [
-				{ field: 'roles/isAdmin', condition: '==', value: true }
+				{ field: 'roles.isAdmin', condition: '==', value: true }
 			]
 		}
 		return await this.repository.get(conditions)

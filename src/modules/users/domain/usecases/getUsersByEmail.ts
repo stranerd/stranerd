@@ -11,7 +11,7 @@ export class GetUsersByEmailUseCase {
 	async call (email: string) {
 		const conditions: GetClauses = {
 			where: [
-				{ field: 'bio/email', condition: '==', value: email }
+				{ field: 'bio.email', condition: '==', value: email }
 			]
 		}
 		return await this.repository.get(conditions)

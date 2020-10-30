@@ -30,4 +30,8 @@ export class TutorRepository implements ITutorRepository {
 		if (model) return this.transformer.fromJSON(model)
 		return null
 	}
+
+	async updateCourse (id: string, subject: string, data: { level: number } | null) {
+		return this.dataSource.updateCourse(id, subject, data)
+	}
 }

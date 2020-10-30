@@ -80,7 +80,7 @@ export const DatabaseService = {
 		let ref: firebase.database.Query = database.ref(path)
 		ref = buildDatabaseQuery(ref, conditions)
 		const doc = await ref.once('value')
-		return doc.val()
+		return { ...doc.val(), id: doc.key! }
 	},
 	getMany: async (path: string, conditions?: GetClauses) => {
 		let ref: firebase.database.Query = database.ref(path)

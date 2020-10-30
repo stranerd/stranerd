@@ -6,4 +6,5 @@ export interface ITutorRepository {
 	get: (conditions?: GetClauses) => Promise<TutorEntity[]>
 	find: (id: string) => Promise<TutorEntity | null>
 	delete: (id: string) => Promise<void>
+	updateCourse: (id: string, subject: string, data: { level: number } | null) => Promise<void>
 }

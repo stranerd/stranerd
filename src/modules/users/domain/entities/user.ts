@@ -1,13 +1,15 @@
+import { BaseEntity } from '@modules/core/domains/entities/base'
 import { Media } from '@modules/core/data/models/base'
 export const DEFAULT_IMAGE_URL = '/images/user_profile.png'
 
-export class UserEntity {
+export class UserEntity extends BaseEntity {
 	public readonly id: string
 	public readonly roles: UserRoles
 	public readonly userBio: UserBio
 	public readonly signedUpAt: Date
 
 	constructor ({ id, bio, roles, dates }: UserConstructorArgs) {
+		super()
 		this.id = id
 		this.userBio = bio
 		this.roles = roles

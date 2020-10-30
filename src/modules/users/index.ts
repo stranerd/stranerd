@@ -17,6 +17,8 @@ import { FindTutorUseCase } from './domain/usecases/findTutor'
 import { GetTutorsUseCase } from './domain/usecases/getTutors'
 import { MakeTutorUseCase } from './domain/usecases/makeTutor'
 import { RemoveTutorUseCase } from './domain/usecases/removeTutor'
+import { AddTutorSubjectUseCase } from './domain/usecases/addTutorSubject'
+import { RemoveTutorSubjectUseCase } from './domain/usecases/removeTutorSubject'
 
 const userDataSource = new UserFirebaseDataSource()
 const roleDataSource = new RoleFirebaseDataSource()
@@ -42,3 +44,5 @@ export const FindTutor = new FindTutorUseCase(tutorRepository)
 export const GetTutors = new GetTutorsUseCase(tutorRepository)
 export const MakeTutor = new MakeTutorUseCase(tutorRepository)
 export const RemoveTutor = new RemoveTutorUseCase(tutorRepository)
+export const AddTutorSubject = new AddTutorSubjectUseCase(tutorRepository)
+export const RemoveTutorSubject = new RemoveTutorSubjectUseCase(tutorRepository)

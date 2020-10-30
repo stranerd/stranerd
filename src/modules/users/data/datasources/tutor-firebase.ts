@@ -19,4 +19,8 @@ export class TutorFirebaseDataSource implements TutorBaseDataSource {
 	async delete (id: string) {
 		return await FunctionsService.call('removeTutor', { id })
 	}
+
+	async updateCourse (id: string, subject: string, data: { level: number } | null) {
+		return await DatabaseService.update(`tutors/${id}/courses`, { [subject]: data })
+	}
 }

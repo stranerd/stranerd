@@ -1,8 +1,9 @@
 import { reqRef, useFetch } from '@nuxtjs/composition-api'
-import { GetSubjects, AddSubject, GetSubjectFactory, FindSubject } from '@modules/posts'
+import { GetSubjects, AddSubject, GetSubjectFactory, FindSubject, DeleteSubject } from '@modules/posts'
 import { SubjectEntity } from '@modules/posts/domain/entities/subject'
 import { useCreateModal } from '@app/usecases/core/modals'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/usecases/core/states'
+import { Alert } from '@app/usecases/core/notifications'
 
 const global = {
 	fetched: reqRef(false),
@@ -57,4 +58,32 @@ export const useCreateSubject = () => {
 	}
 
 	return { factory, loading, error, createSubject }
+}
+
+export const useDeleteSubject = () => {
+	const { loading, setLoading } = useLoadingHandler()
+	const { error, setError } = useErrorHandler()
+	const { setMessage } = useSuccessHandler()
+
+	const deleteSubject = async (subject: SubjectEntity) => {
+		setError('')
+		const accepted = await Alert({
+			title: 'Are you sure you want to remove this subject?',
+			text: 'This cannot be reversed',
+			icon: 'warning',
+			confirmButtonText: 'Yes, remove'
+		})
+		if (accepted) {
+			setLoading(true)
+			try {
+				await DeleteSubject.call(subject.id)
+				global.subjects.value = global.subjects.value
+					.filter((s) => s.id !== subject.id)
+				setMessage('Subject deleted successfully')
+			} catch (error) { setError(error) }
+			setLoading(false)
+		}
+	}
+
+	return { loading, error, deleteSubject }
 }

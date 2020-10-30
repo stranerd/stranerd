@@ -132,19 +132,27 @@ export const useSingleTutor = () => {
 
 	const removeSubject = async (subject: string) => {
 		setError('')
-		setLoading(true)
-		try {
-			const id = tutor.value?.id
-			if (id) {
-				await RemoveTutorSubject.call(id, subject)
-				const t = await FindTutor.call(id)
-				if (t) {
-					tutor.value = t
-					addToGlobalTutors(t)
+		const accepted = await Alert({
+			title: 'Are you sure you want to remove this subject?',
+			text: 'Note that this action will reset the tutor\'s level for this subject to 0. This cannot be reversed',
+			icon: 'warning',
+			confirmButtonText: 'Yes, remove'
+		})
+		if (accepted) {
+			setLoading(true)
+			try {
+				const id = tutor.value?.id
+				if (id) {
+					await RemoveTutorSubject.call(id, subject)
+					const t = await FindTutor.call(id)
+					if (t) {
+						tutor.value = t
+						addToGlobalTutors(t)
+					}
 				}
-			}
-		} catch (error) { setError(error) }
-		setLoading(false)
+			} catch (error) { setError(error) }
+			setLoading(false)
+		}
 	}
 
 	return {

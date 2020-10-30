@@ -1,5 +1,5 @@
 import { Media } from '@modules/core/data/models/base'
-const DEFAULT_IMAGE_URL = '/images/user_profile.png'
+export const DEFAULT_IMAGE_URL = '/images/user_profile.png'
 
 export class UserEntity {
 	public readonly id: string

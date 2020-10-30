@@ -7,7 +7,7 @@
     "users": {
       ".read": "true",
       ".write": "true",
-      ".indexOn": ["profile/bio/email"]
+      ".indexOn": ["profile/bio/email", "profile/roles/isAdmin"]
     },
     ".read": "false",
     ".write": "false"

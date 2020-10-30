@@ -1,62 +1,50 @@
 <template>
-	<div class="my-3 bg-white p-2 shadow-sm rounded-lg">
-		<h4 class="text-muted mb-2">
-			Upgrade User to Admin
-		</h4>
-		<div class="d-flex align-items-center">
-			<input v-model="email" type="email" class="form-control flex-grow-1" placeholder="Enter user's email address">
-			<a @click.prevent="reset">
-				<i class="fas fa-trash mx-2 text-danger" />
-			</a>
-		</div>
-		<button class="btn mx-0 px-2 btn-primary my-2" :disabled="!email" @click="getUsersByEmail">
-			Find User
-		</button>
-		<div v-if="fetched" class="mt-1">
-			<p v-if="users.length === 0" class="text-danger opacity-75">
-				No user with such email exists
-			</p>
-			<div v-for="user in users" :key="user.id" class="my-2">
-				<div class="d-flex flex-wrap justify-content-between align-items-center">
-					<div class="text-truncate mb-1">
-						<p class="lead mb-0 text-wrap">
-							{{ user.name }}
-						</p>
-						<p class="small mb-0 text-wrap">
-							{{ user.email }}
-						</p>
-					</div>
-					<button v-if="user.roles.isAdmin" class="btn btn-sm text-nowrap btn-danger" @click="deAdminUser(user)">
-						Remove admin
-					</button>
-					<button v-else class="btn btn-sm text-nowrap btn-success" @click="adminUser(user)">
-						Make admin
-					</button>
+	<div class="mx-auto" style="max-width:75ch;">
+		<UpgradeUserToAdmin />
+		<div v-for="user in admins" :key="user.id" class="mb-3">
+			<div class="d-flex flex-wrap justify-content-between align-items-center">
+				<div class="text-truncate mb-1">
+					<p class="lead mb-0 text-wrap">
+						{{ user.name }}
+					</p>
+					<p class="small mb-0 text-wrap">
+						{{ user.email }}
+					</p>
 				</div>
-				<hr class="mt-2">
+				<button v-if="user.roles.isAdmin" class="btn btn-sm text-nowrap btn-danger" @click="deAdminUser(user)">
+					Remove admin
+				</button>
+				<span v-else class="text-nowrap text-danger">
+					Not an admin
+				</span>
 			</div>
 		</div>
-		<p v-if="error" class="text-danger">
-			{{ error }}
+		<PageLoading v-if="listLoading || roleLoading" />
+		<p v-if="listError" class="text-danger text-center my-3">
+			{{ listError }}
 		</p>
-		<PageLoading v-if="loading" />
+		<p v-if="roleError" class="text-danger text-center my-3">
+			{{ roleError }}
+		</p>
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api'
-import { useAdminRoles } from '@app/usecases/users/roles'
+import { defineComponent } from '@nuxtjs/composition-api'
+import UpgradeUserToAdmin from '@app/components/admin/users/UpgradeUserToAdmin.vue'
+import { useAdminList, useAdminRoles } from '@app/usecases/users/roles/admins'
 export default defineComponent({
 	name: 'AdminUsersAdminsPage',
+	components: {
+		UpgradeUserToAdmin
+	},
 	layout: 'admin',
 	setup () {
-		const {
-			loading, fetched, email, users, error,
-			getUsersByEmail, adminUser, deAdminUser, reset
-		} = useAdminRoles()
+		const { loading: listLoading, error: listError, admins } = useAdminList()
+		const { loading: roleLoading, error: roleError, deAdminUser } = useAdminRoles()
 		return {
-			loading, fetched, email, users, error,
-			getUsersByEmail, adminUser, deAdminUser, reset
+			listLoading, listError, admins,
+			roleLoading, roleError, deAdminUser
 		}
 	}
 })

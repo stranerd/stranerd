@@ -17,7 +17,7 @@ export class TutorTransformer {
 		return {
 			bio: entity.userBio,
 			canTeach: entity.canTeach,
-			courses: entity.courses,
+			courses: entity.coursesData,
 			rating: entity.rating,
 			reviews: entity.reviews
 		}

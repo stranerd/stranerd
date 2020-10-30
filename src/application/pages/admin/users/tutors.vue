@@ -1,7 +1,7 @@
 <template>
 	<div class="mx-auto" style="max-width:75ch;">
 		<UpgradeUserToTutor />
-		<div v-for="tutor in tutors" :key="tutor.id" class="text-truncate mb-3">
+		<div v-for="tutor in tutors" :key="tutor.hash" class="text-truncate mb-3">
 			<p class="lead mb-0 text-wrap">
 				{{ tutor.name }}
 			</p>

@@ -5,12 +5,14 @@ export interface TutorFromModel {
 	bio: UserBio
 	canTeach: boolean
 	courses: {
-		level: number
-		upgrades: {
-			[key:number]: {
-				score: number
-				takenAt: number
-				passed: boolean
+		[key: string]: {
+			level: number
+			upgrades: {
+				[key:number]: {
+					score: number
+					takenAt: number
+					passed: boolean
+				}
 			}
 		}
 	}
@@ -22,12 +24,14 @@ export interface TutorToModel {
 	bio: UserBio
 	canTeach: boolean
 	courses: {
-		level: number
-		upgrades: {
-			[key:number]: {
-				score: number
-				takenAt: number
-				passed: boolean
+		[key: string]: {
+			level: number
+			upgrades: {
+				[key:number]: {
+					score: number
+					takenAt: number
+					passed: boolean
+				}
 			}
 		}
 	}

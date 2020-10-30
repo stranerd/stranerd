@@ -6,13 +6,15 @@ export class TutorEntity {
 	public readonly canTeach: boolean
 	public readonly rating: number
 	public readonly reviews: number
-	public readonly courses: {
-		level: number
-		upgrades: {
-			[key:number]: {
-				score: number
-				takenAt: number
-				passed: boolean
+	public readonly coursesData: {
+		[key: string]: {
+			level: number
+			upgrades: {
+				[key:number]: {
+					score: number
+					takenAt: number
+					passed: boolean
+				}
 			}
 		}
 	}
@@ -21,7 +23,7 @@ export class TutorEntity {
 		this.id = id
 		this.userBio = bio
 		this.canTeach = canTeach
-		this.courses = courses
+		this.coursesData = courses
 		this.rating = rating
 		this.reviews = reviews
 	}
@@ -30,6 +32,11 @@ export class TutorEntity {
 	get email () { return this.userBio.email }
 	get bio () { return this.userBio.bio }
 	get image () { return this.userBio.image?.link || DEFAULT_IMAGE_URL }
+
+	get courses () {
+		return Object.entries(this.coursesData ?? {})
+			.map((c) => ({ ...c[1], id: c[0] }))
+	}
 }
 
 type TutorConstructorArgs = {
@@ -37,12 +44,14 @@ type TutorConstructorArgs = {
 	bio: UserBio
 	canTeach: boolean
 	courses: {
-		level: number
-		upgrades: {
-			[key:number]: {
-				score: number
-				takenAt: number
-				passed: boolean
+		[key: string]: {
+			level: number
+			upgrades: {
+				[key:number]: {
+					score: number
+					takenAt: number
+					passed: boolean
+				}
 			}
 		}
 	}

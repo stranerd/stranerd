@@ -13,13 +13,25 @@
 				</BaseLink>
 			</li>
 		</ul>
+		<h2>Users</h2>
 		<ul class="list-group">
 			<li class="list-group-item list-group-item-action mb-3">
-				<BaseLink to="/admin/users" class="d-flex justify-content-between align-items-center">
+				<BaseLink to="/admin/users/admins" class="d-flex justify-content-between align-items-center">
 					<div>
-						<h4>Users</h4>
+						<h4>Admins</h4>
 						<p class="mb-0">
-							Manage user roles.
+							Manage admin users roles.
+						</p>
+					</div>
+					<i class="fas fa-2x fa-angle-right" />
+				</BaseLink>
+			</li>
+			<li class="list-group-item list-group-item-action mb-3">
+				<BaseLink to="/admin/users/tutors" class="d-flex justify-content-between align-items-center">
+					<div>
+						<h4>Tutors</h4>
+						<p class="mb-0">
+							Create and modify tutors roles
 						</p>
 					</div>
 					<i class="fas fa-2x fa-angle-right" />

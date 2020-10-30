@@ -47,6 +47,8 @@
 import { defineComponent } from '@vue/composition-api'
 import { useAdminRoles } from '@app/usecases/users/roles'
 export default defineComponent({
+	name: 'AdminUsersAdminsPage',
+	layout: 'admin',
 	setup () {
 		const {
 			loading, fetched, email, users, error,

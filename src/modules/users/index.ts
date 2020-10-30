@@ -16,6 +16,7 @@ import { GetAllAdminsUseCase } from './domain/usecases/getAllAdmins'
 import { FindTutorUseCase } from './domain/usecases/findTutor'
 import { GetTutorsUseCase } from './domain/usecases/getTutors'
 import { MakeTutorUseCase } from './domain/usecases/makeTutor'
+import { RemoveTutorUseCase } from './domain/usecases/removeTutor'
 
 const userDataSource = new UserFirebaseDataSource()
 const roleDataSource = new RoleFirebaseDataSource()
@@ -40,3 +41,4 @@ export const GetMailingListFactory = new GetMailingListFactoryUseCase()
 export const FindTutor = new FindTutorUseCase(tutorRepository)
 export const GetTutors = new GetTutorsUseCase(tutorRepository)
 export const MakeTutor = new MakeTutorUseCase(tutorRepository)
+export const RemoveTutor = new RemoveTutorUseCase(tutorRepository)

@@ -1,8 +1,9 @@
 import { reactive, reqRef, toRefs, useFetch } from '@nuxtjs/composition-api'
-import { FindTutor, GetTutors, GetUsersByEmail, MakeTutor } from '@modules/users'
+import { FindTutor, GetTutors, GetUsersByEmail, MakeTutor, RemoveTutor } from '@modules/users'
 import { TutorEntity } from '@modules/users/domain/entities/tutor'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/usecases/core/states'
 import { UserEntity } from '@modules/users/domain/entities/user'
+import { Alert } from '@app/usecases/core/notifications'
 
 const global = {
 	fetched: reqRef(false),
@@ -69,8 +70,28 @@ export const useTutorRoles = () => {
 		setLoading(false)
 	}
 
+	const removeTutor = async (tutor: TutorEntity) => {
+		setError('')
+		const accepted = await Alert({
+			title: 'Are you sure you want to remove this tutor?',
+			text: 'Note that this action will delete the tutor\'s records. This cannot be reversed',
+			icon: 'warning',
+			confirmButtonText: 'Yes, remove'
+		})
+		if (accepted) {
+			setLoading(true)
+			try {
+				await RemoveTutor.call(tutor.id)
+				global.tutors.value = global.tutors.value
+					.filter((t) => t.id !== tutor.id)
+				setMessage('Successfully removed tutor')
+			} catch (error) { setError(error) }
+			setLoading(false)
+		}
+	}
+
 	return {
 		...toRefs(state), error, loading,
-		getUsersByEmail, makeTutor, reset
+		getUsersByEmail, makeTutor, removeTutor, reset
 	}
 }

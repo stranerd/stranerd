@@ -7,7 +7,7 @@ import { removeTutor } from './onCall/roles/removeTutor'
 import { subscribeToMailingList } from './onCall/roles/subscribeToMailingList'
 import { subjectIconUpdated, subjectDeleted } from './database/subjects'
 import { userNotificationCreated } from './database/notifications'
-import { userProfileUpdated } from './firestore/onUpdate/users'
+import { userProfileUpdated } from './firestore/users'
 
 admin.initializeApp()
 
@@ -27,7 +27,7 @@ export { userNotificationCreated }
 
 
 // Firestore Triggers
-// On Update
+// Users
 export { userProfileUpdated }
 
 

@@ -6,6 +6,7 @@ import { makeTutor, removeTutor } from './onCall/roles/tutors'
 import { subscribeToMailingList } from './onCall/roles/mailing'
 import { subjectIconUpdated, subjectDeleted } from './database/subjects'
 import { userNotificationCreated } from './database/notifications'
+import { tutorUpdated } from './database/tutors'
 import { userProfileUpdated } from './firestore/users'
 
 admin.initializeApp()
@@ -23,6 +24,8 @@ export { makeSuperAdmin }
 export { subjectIconUpdated, subjectDeleted }
 // Notifications
 export { userNotificationCreated }
+// Tutors
+export { tutorUpdated }
 
 
 // Firestore Triggers

@@ -1,6 +1,5 @@
 import * as admin from 'firebase-admin'
-import { authUserCreated } from './auth/onCreate'
-import { authUserDeleted } from './auth/onDelete'
+import { authUserCreated, authUserDeleted } from './auth'
 import { makeSuperAdmin } from './requests/makeSuperAdmin'
 import { toggleAdmin } from './onCall/roles/toggleAdmin'
 import { makeTutor } from './onCall/roles/makeTutor'

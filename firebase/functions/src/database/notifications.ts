@@ -6,13 +6,13 @@ import { Notification } from '../../helpers/database/notifications'
 export const userNotificationCreated = functions.database.ref('users/{userId}/notifications/{id}')
 	.onCreate(async (snap, context) => {
 
-	const notification = snap.val() as Notification
+		const notification = snap.val() as Notification
 
-	const snapshot = await admin.firestore().collection('users')
-		.doc(context.params.userId)
-		.get()
+		const snapshot = await admin.firestore().collection('users')
+			.doc(context.params.userId)
+			.get()
 
-	const email = snapshot.data()?.bio?.email
+		const email = snapshot.data()?.bio?.email
 
-	if (email) await sendNewNotificationEmail(email, notification)
-})
+		if (email) await sendNewNotificationEmail(email, notification)
+	})

@@ -5,9 +5,8 @@ import { toggleAdmin } from './onCall/roles/toggleAdmin'
 import { makeTutor } from './onCall/roles/makeTutor'
 import { removeTutor } from './onCall/roles/removeTutor'
 import { subscribeToMailingList } from './onCall/roles/subscribeToMailingList'
-import { userNotificationCreated } from './database/onCreate/notifications'
-import { subjectIconUpdated } from './database/onUpdate/subjects'
-import { subjectDeleted } from './database/onDelete/subjects'
+import { subjectIconUpdated, subjectDeleted } from './database/subjects'
+import { userNotificationCreated } from './database/notifications'
 import { userProfileUpdated } from './firestore/onUpdate/users'
 
 admin.initializeApp()
@@ -21,12 +20,10 @@ export { makeSuperAdmin }
 
 
 // Database Triggers
-// On Create
+// Subjects
+export { subjectIconUpdated, subjectDeleted }
+// Notifications
 export { userNotificationCreated }
-// On Update
-export { subjectIconUpdated }
-// On Delete
-export { subjectDeleted }
 
 
 // Firestore Triggers

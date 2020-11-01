@@ -40,7 +40,7 @@ module.exports = {
 		'@nuxtjs/style-resources'
 	],
 	buildModules: [
-		'@nuxtjs/composition-api', '@nuxt/typescript-build',
+		'@nuxtjs/composition-api', '@nuxt/typescript-build', 'nuxt-purgecss',
 		['@nuxtjs/router', { keepDefaultRouter: true, fileName: 'router.js' }]
 	],
 	env: { ...process.env },

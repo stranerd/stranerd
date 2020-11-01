@@ -1,4 +1,4 @@
-import { GetClauses } from '@modules/core/data/datasources/base'
+import { FirestoreGetClauses } from '@modules/core/data/datasources/base'
 import { IUserRepository } from '../irepositories/iuser'
 
 export class GetUsersByEmailUseCase {
@@ -9,7 +9,7 @@ export class GetUsersByEmailUseCase {
 	}
 
 	async call (email: string) {
-		const conditions: GetClauses = {
+		const conditions: FirestoreGetClauses = {
 			where: [
 				{ field: 'bio.email', condition: '==', value: email }
 			]

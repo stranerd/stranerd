@@ -1,5 +1,5 @@
 import { FirestoreService } from '@modules/core/services/firebase'
-import { GetClauses } from '@modules/core/data/datasources/base'
+import { FirestoreGetClauses } from '@modules/core/data/datasources/base'
 import { UserBaseDataSource } from '../datasources/user-base'
 import { UserFromModel } from '../models/user'
 
@@ -8,7 +8,7 @@ export class UserFirebaseDataSource implements UserBaseDataSource {
 		return await FirestoreService.find('users', id) as UserFromModel | undefined
 	}
 
-	async get (conditions?: GetClauses) {
+	async get (conditions?: FirestoreGetClauses) {
 		return await FirestoreService.get('users', conditions) as UserFromModel[]
 	}
 }

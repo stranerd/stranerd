@@ -1,4 +1,4 @@
-import { GetClauses } from '@modules/core/data/datasources/base'
+import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
 import { ITutorRepository } from '../../domain/irepositories/itutor'
 import { TutorBaseDataSource } from '../datasources/tutor-base'
 import { TutorTransformer } from '../transformers/tutor'
@@ -12,7 +12,7 @@ export class TutorRepository implements ITutorRepository {
 		this.transformer = transformer
 	}
 
-	async get (conditions?: GetClauses) {
+	async get (conditions?: DatabaseGetClauses) {
 		const models = await this.dataSource.get(conditions)
 		return models.map((model) => this.transformer.fromJSON(model))
 	}

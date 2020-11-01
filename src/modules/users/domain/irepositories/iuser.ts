@@ -1,7 +1,7 @@
-import { GetClauses } from '@modules/core/data/datasources/base'
+import { FirestoreGetClauses } from '@modules/core/data/datasources/base'
 import { UserEntity } from '../entities/user'
 
 export interface IUserRepository {
 	find: (id: string) => Promise<UserEntity | undefined>,
-	get: (conditions?: GetClauses) => Promise<UserEntity[]>
+	get: (conditions?: FirestoreGetClauses) => Promise<UserEntity[]>
 }

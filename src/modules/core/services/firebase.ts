@@ -1,7 +1,7 @@
-import { GetClauses } from '../data/datasources/base'
+import { DatabaseGetClauses, FirestoreGetClauses } from '../data/datasources/base'
 import firebase, { database, firestore, functions } from './initFirebase'
 
-const buildFirestoreQuery = (query: firebase.firestore.Query, conditions?: GetClauses) => {
+const buildFirestoreQuery = (query: firebase.firestore.Query, conditions?: FirestoreGetClauses) => {
 	if (conditions) {
 		if (conditions.order) query = query.orderBy(conditions.order.field, conditions.order.desc ? 'desc' : 'asc')
 		if (conditions.where) {
@@ -14,12 +14,20 @@ const buildFirestoreQuery = (query: firebase.firestore.Query, conditions?: GetCl
 	return query
 }
 
-const buildDatabaseQuery = (ref: firebase.database.Query, conditions?: GetClauses) => {
+const buildDatabaseQuery = (ref: firebase.database.Query, conditions?: DatabaseGetClauses) => {
 	if (conditions) {
-		if (conditions.order) ref = ref.orderByChild(conditions.order?.field)
-		if (conditions.limit) ref = ref.limitToFirst(conditions.limit)
-		if (conditions.where) conditions.where.filter((c) => c.condition === '==')
-			.forEach((c) => ref = ref.orderByChild(c.field).equalTo(c.value))
+		if (conditions.order) {
+			ref = ref.orderByChild(conditions.order.field)
+			if (conditions.order.condition) {
+				const { '>': gt, '<': lt, '=': et } = conditions.order.condition
+				if (gt) ref = ref.startAt(gt)
+				if (lt) ref = ref.endAt(lt)
+				if (et) ref = ref.equalTo(et)
+			}
+		}
+		if (conditions.limit) ref = conditions.limit.bottom
+			? ref.limitToLast(conditions.limit.count)
+			: ref.limitToFirst(conditions.limit.count)
 	}
 	return ref
 }
@@ -30,7 +38,7 @@ export const FirestoreService = {
 		if (doc.exists) return { id: doc.id, ...doc.data() }
 		else return undefined
 	},
-	get: async (collection: string, conditions?: GetClauses) => {
+	get: async (collection: string, conditions?: FirestoreGetClauses) => {
 		let query: firebase.firestore.Query = firestore.collection(collection)
 		query = buildFirestoreQuery(query, conditions)
 		const docs = await query.get()
@@ -41,7 +49,7 @@ export const FirestoreService = {
 			callback(snapshot.exists ? { id: snapshot.id, ...snapshot.data() } : undefined)
 		})
 	},
-	listenToMany: async (callback: (documents: any[]) => void, collection: string, conditions?: GetClauses) => {
+	listenToMany: async (callback: (documents: any[]) => void, collection: string, conditions?: FirestoreGetClauses) => {
 		let query: firebase.firestore.Query = firestore.collection(collection)
 		query = buildFirestoreQuery(query, conditions)
 		return query.onSnapshot((snapshot) => {
@@ -76,34 +84,44 @@ export const FunctionsService = {
 }
 
 export const DatabaseService = {
-	get: async (path: string, conditions?: GetClauses) => {
+	get: async (path: string, conditions?: DatabaseGetClauses) => {
 		let ref: firebase.database.Query = database.ref(path)
 		ref = buildDatabaseQuery(ref, conditions)
 		const doc = await ref.once('value')
-		return { ...doc.val(), id: doc.key! }
+		const children: any = {}
+		doc.forEach((child) => children[child.key!] = child.val())
+		return { ...children, id: doc.key! }
 	},
-	getMany: async (path: string, conditions?: GetClauses) => {
+	getMany: async (path: string, conditions?: DatabaseGetClauses) => {
 		let ref: firebase.database.Query = database.ref(path)
 		ref = buildDatabaseQuery(ref, conditions)
 		const doc = await ref.once('value')
-		const values = doc.val() as { [key: string]: object }
-		return Object.entries(values ?? {}).map((e) => ({ ...e[1], id: e[0] }))
+		const children: any = []
+		doc.forEach((child) => {
+			children.push({ ...child.val(), id: child.key })
+		})
+		return children
 	},
-	listen: async (path: string, callback: (doc: any) => void, conditions?: GetClauses) => {
+	listen: async (path: string, callback: (doc: any) => void, conditions?: DatabaseGetClauses) => {
 		let ref: firebase.database.Query = database.ref(path)
 		ref = buildDatabaseQuery(ref, conditions)
 		const listener = ref.on('value', (snapshot) => {
-			callback(snapshot.val())
+			const children: any = {}
+			snapshot.forEach((child) => children[child.key!] = child.val())
+			const doc = { ...children, id: snapshot.key! }
+			callback(doc)
 		})
 		return () => ref.off('value', listener)
 	},
-	listenToMany: async (path: string, callback: (docs: any[]) => void, conditions?: GetClauses) => {
+	listenToMany: async (path: string, callback: (docs: any[]) => void, conditions?: DatabaseGetClauses) => {
 		let ref: firebase.database.Query = database.ref(path)
 		ref = buildDatabaseQuery(ref, conditions)
 		const listener = ref.on('value', (snapshot) => {
-			const values = snapshot.val() as { [key: string]: object }
-			const docs = Object.entries(values ?? {}).map((e) => ({ ...e[1], id: e[0] }))
-			callback(docs)
+			const children: any = []
+			snapshot.forEach((child) => {
+				children.push({ ...child.val(), id: child.key })
+			})
+			callback(children)
 		})
 		return () => ref.off('value', listener)
 	},

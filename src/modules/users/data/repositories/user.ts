@@ -1,4 +1,4 @@
-import { GetClauses } from '@modules/core/data/datasources/base'
+import { FirestoreGetClauses } from '@modules/core/data/datasources/base'
 import { IUserRepository } from '../../domain/irepositories/iuser'
 import { UserBaseDataSource } from '../datasources/user-base'
 import { UserTransformer } from '../transformers/user'
@@ -18,7 +18,7 @@ export class UserRepository implements IUserRepository {
 		else return undefined
 	}
 
-	async get (conditions?: GetClauses) {
+	async get (conditions?: FirestoreGetClauses) {
 		const models = await this.dataSource.get(conditions)
 		return models.map((model) => this.transformer.fromJSON(model))
 	}

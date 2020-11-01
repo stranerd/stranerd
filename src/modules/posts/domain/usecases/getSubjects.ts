@@ -1,4 +1,4 @@
-import { GetClauses } from '@modules/core/data/datasources/base'
+import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
 import { ISubjectRepository } from '../irepositories/isubject'
 import { SubjectEntity } from '../entities/subject'
 
@@ -10,11 +10,8 @@ export class GetSubjectsUseCase {
 	}
 
 	async call () :Promise<SubjectEntity[]> {
-		const conditions: GetClauses = {
-			order: {
-				field: 'name',
-				desc: false
-			}
+		const conditions: DatabaseGetClauses = {
+			order: { field: 'name' }
 		}
 		return await this.repository.get(conditions)
 	}

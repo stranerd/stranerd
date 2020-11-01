@@ -2,7 +2,8 @@
 	"rules": {
 		"subjects": {
 			".read": true,
-			".write": true
+			".write": true,
+			".indexOn": ["name"]
 		},
 		"tutors": {
 			".read": true,

@@ -1,5 +1,5 @@
 import { DatabaseService, FunctionsService } from '@modules/core/services/firebase'
-import { GetClauses } from '@modules/core/data/datasources/base'
+import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
 import { TutorBaseDataSource } from '../datasources/tutor-base'
 import { TutorFromModel } from '../models/tutor'
 
@@ -8,7 +8,7 @@ export class TutorFirebaseDataSource implements TutorBaseDataSource {
 		return await DatabaseService.get(`tutors/${id}`) as TutorFromModel | undefined
 	}
 
-	async get (conditions?: GetClauses) {
+	async get (conditions?: DatabaseGetClauses) {
 		return await DatabaseService.getMany('tutors', conditions) as TutorFromModel[]
 	}
 

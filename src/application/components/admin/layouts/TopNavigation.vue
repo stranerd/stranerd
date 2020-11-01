@@ -48,9 +48,3 @@ export default defineComponent({
 	}
 })
 </script>
-
-<style lang="scss" scoped>
-.nav-link{
-	padding: 0.5rem 0;
-}
-</style>

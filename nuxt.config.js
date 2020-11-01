@@ -32,7 +32,8 @@ module.exports = {
 	],
 	plugins: [
 		{ mode: 'server', src: '@/plugins/parseLoggedInUser' },
-		{ mode: 'client', src: '@/plugins/firebaseClient' }
+		{ mode: 'client', src: '@/plugins/firebaseClient' },
+		{ mode: 'client', src: '@/plugins/registerClientScripts' }
 	],
 	components: true,
 	modules: [

@@ -2,7 +2,7 @@
 	<div>
 		<ul class="list-group">
 			<li class="list-group-item list-group-item-action mb-3">
-				<BaseLink to="/admin/posts/subjects" class="d-flex justify-content-between align-items-center">
+				<BaseLink to="/admin/questions/subjects" class="d-flex justify-content-between align-items-center">
 					<div>
 						<h4>Subjects</h4>
 						<p class="mb-0">

@@ -1,6 +1,6 @@
 import { reqRef, useFetch } from '@nuxtjs/composition-api'
-import { GetSubjects, AddSubject, GetSubjectFactory, FindSubject, DeleteSubject, UpdateSubject } from '@modules/posts'
-import { SubjectEntity } from '@modules/posts/domain/entities/subject'
+import { GetSubjects, AddSubject, GetSubjectFactory, FindSubject, DeleteSubject, UpdateSubject } from '@modules/questions'
+import { SubjectEntity } from '@modules/questions/domain/entities/subject'
 import { useCreateModal, useEditModal } from '@app/usecases/core/modals'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/usecases/core/states'
 import { Alert } from '@app/usecases/core/notifications'

@@ -2,7 +2,7 @@
 	<header class="bg-dark">
 		<nav class="navbar navbar-expand container bg-dark navbar-dark d-flex flex-row align-items-center">
 			<BaseLink class="navbar-brand" to="/admin/">
-				<img src="@app/static/images/stranerd_logo.png" alt="Stranerd" height="40">
+				<img src="static/images/stranerd_logo.png" alt="Stranerd" height="40">
 			</BaseLink>
 			<button
 				class="navbar-toggler border border-white"

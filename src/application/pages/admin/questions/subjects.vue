@@ -18,9 +18,9 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useSubjectList } from '@app/usecases/posts/subjects'
+import { useSubjectList } from '@app/usecases/questions/subjects'
 import { useCreateModal } from '@app/usecases/core/modals'
-import AdminSubjectCard from '@app/components/admin/posts/subjects/SubjectCard.vue'
+import AdminSubjectCard from '@app/components/admin/questions/subjects/SubjectCard.vue'
 export default defineComponent({
 	name: 'AdminSubjectsPage',
 	components: {

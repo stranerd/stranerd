@@ -7,25 +7,14 @@ export class TutorEntity extends BaseEntity {
 	public readonly canTeach: boolean
 	public readonly rating: number
 	public readonly reviews: number
-	public readonly coursesData: {
-		[key: string]: {
-			level: number
-			upgrades: {
-				[key:number]: {
-					score: number
-					takenAt: number
-					passed: boolean
-				}
-			}
-		}
-	}
+	public readonly subjectsData: TutorSubjects
 
-	constructor ({ id, bio, canTeach, courses, rating, reviews }: TutorConstructorArgs) {
+	constructor ({ id, bio, canTeach, subjects, rating, reviews }: TutorConstructorArgs) {
 		super()
 		this.id = id
 		this.userBio = bio
 		this.canTeach = canTeach
-		this.coursesData = courses ?? {}
+		this.subjectsData = subjects ?? {}
 		this.rating = rating
 		this.reviews = reviews
 	}
@@ -35,8 +24,8 @@ export class TutorEntity extends BaseEntity {
 	get bio () { return this.userBio.bio }
 	get image () { return this.userBio.image?.link || DEFAULT_IMAGE_URL }
 
-	get courses () {
-		return Object.entries(this.coursesData ?? {})
+	get subjects () {
+		return Object.entries(this.subjectsData ?? {})
 			.map((c) => ({ ...c[1], id: c[0] }))
 	}
 }
@@ -45,18 +34,20 @@ type TutorConstructorArgs = {
 	id: string
 	bio: UserBio
 	canTeach: boolean
-	courses: {
-		[key: string]: {
-			level: number
-			upgrades: {
-				[key:number]: {
-					score: number
-					takenAt: number
-					passed: boolean
-				}
+	subjects: TutorSubjects
+	rating: number
+	reviews: number
+}
+
+export interface TutorSubjects {
+	[key: string]: {
+		level: number
+		upgrades: {
+			[key:number]: {
+				score: number
+				takenAt: number
+				passed: boolean
 			}
 		}
 	}
-	rating: number
-	reviews: number
 }

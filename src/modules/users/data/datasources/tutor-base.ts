@@ -6,5 +6,5 @@ export abstract class TutorBaseDataSource {
 	public abstract get: (condition?: DatabaseGetClauses) => Promise<TutorFromModel[]>
 	abstract add: (id: string) => Promise<void>
 	abstract delete: (id: string) => Promise<void>
-	abstract updateCourse: (id: string, subject: string, data: { level: number } | null) => Promise<void>
+	abstract update: (id: string, data: object) => Promise<void>
 }

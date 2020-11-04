@@ -1,21 +1,11 @@
 import { UserBio } from '../../domain/entities/user'
+import { TutorSubjects } from '../../domain/entities/tutor'
 
 export interface TutorFromModel {
 	id: string
 	bio: UserBio
 	canTeach: boolean
-	courses: {
-		[key: string]: {
-			level: number
-			upgrades: {
-				[key:number]: {
-					score: number
-					takenAt: number
-					passed: boolean
-				}
-			}
-		}
-	}
+	subjects: TutorSubjects
 	rating: number
 	reviews: number
 }
@@ -23,18 +13,7 @@ export interface TutorFromModel {
 export interface TutorToModel {
 	bio: UserBio
 	canTeach: boolean
-	courses: {
-		[key: string]: {
-			level: number
-			upgrades: {
-				[key:number]: {
-					score: number
-					takenAt: number
-					passed: boolean
-				}
-			}
-		}
-	}
+	subjects: TutorSubjects
 	rating: number
 	reviews: number
 }

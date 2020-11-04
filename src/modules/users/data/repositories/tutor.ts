@@ -31,7 +31,7 @@ export class TutorRepository implements ITutorRepository {
 		return null
 	}
 
-	async updateCourse (id: string, subject: string, data: { level: number } | null) {
-		return this.dataSource.updateCourse(id, subject, data)
+	async update (id: string, data: object) {
+		return await this.dataSource.update(id, data)
 	}
 }

@@ -8,6 +8,6 @@ export class RemoveTutorSubjectUseCase {
 	}
 
 	async call (id: string, subject: string) {
-		return await this.repository.updateCourse(id, subject, null)
+		return await this.repository.update(id, { [`subjects/${subject}`]: null })
 	}
 }

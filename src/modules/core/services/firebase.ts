@@ -89,7 +89,9 @@ export const DatabaseService = {
 		ref = buildDatabaseQuery(ref, conditions)
 		const doc = await ref.once('value')
 		const children: any = {}
-		doc.forEach((child) => children[child.key!] = child.val())
+		doc.forEach((child) => {
+			children[child.key!] = child.val()
+		})
 		return { ...children, id: doc.key! }
 	},
 	getMany: async (path: string, conditions?: DatabaseGetClauses) => {
@@ -107,7 +109,9 @@ export const DatabaseService = {
 		ref = buildDatabaseQuery(ref, conditions)
 		const listener = ref.on('value', (snapshot) => {
 			const children: any = {}
-			snapshot.forEach((child) => children[child.key!] = child.val())
+			snapshot.forEach((child) => {
+				children[child.key!] = child.val()
+			})
 			const doc = { ...children, id: snapshot.key! }
 			callback(doc)
 		})

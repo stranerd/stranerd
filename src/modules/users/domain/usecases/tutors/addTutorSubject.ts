@@ -8,6 +8,6 @@ export class AddTutorSubjectUseCase {
 	}
 
 	async call (id: string, subject: string) {
-		return await this.repository.updateCourse(id, subject, { level: 0 })
+		return await this.repository.update(id, { [`subjects/${subject}/level`]: 0 })
 	}
 }

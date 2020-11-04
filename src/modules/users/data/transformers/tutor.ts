@@ -4,11 +4,11 @@ import { TutorEntity } from '../../domain/entities/tutor'
 export class TutorTransformer {
 	fromJSON (model: TutorFromModel) {
 		const {
-			id, bio, canTeach, courses,
+			id, bio, canTeach, subjects,
 			 rating, reviews
 		} = model
 		return new TutorEntity({
-			id, bio, canTeach, courses,
+			id, bio, canTeach, subjects,
 			rating, reviews
 		})
 	}
@@ -17,7 +17,7 @@ export class TutorTransformer {
 		return {
 			bio: entity.userBio,
 			canTeach: entity.canTeach,
-			courses: entity.coursesData,
+			subjects: entity.subjectsData,
 			rating: entity.rating,
 			reviews: entity.reviews
 		}

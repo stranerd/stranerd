@@ -5,33 +5,29 @@ import { subscribeToMailchimpList } from './helpers/mailingList'
 
 export const authUserCreated = functions.auth.user().onCreate(async (user) => {
 	const data: any = {
-		bio: { email: user.email, image: {} },
-		roles: { isStudent: true },
-		dates:{ registeredAt: admin.firestore.FieldValue.serverTimestamp() },
-		account: { questions: 5 }
+		'bio/email': user.email,
+		'roles/isStudent': true,
+		'dates/signedUpAt': admin.database.ServerValue.TIMESTAMP,
+		'account/questions': 5
 	}
 
-	if(user.displayName) data.bio.name = user.displayName
-	if(user.photoURL) data.bio.image.link = user.photoURL
+	if(user.displayName) data['bio/name'] = user.displayName
+	if(user.photoURL) data['bio/image/link'] = user.photoURL
 
 	try {
 		const result = await createCustomer(user.displayName ?? '', user.email!)
-		if(result.success) data.account.customer_id = result.customer.id
+		if(result.success) data['account/customerId'] = result.customer.id
 	}catch(error){ console.log(error, user.uid,user.email) }
 
 	try{
 		await subscribeToMailchimpList(user.email!)
 	}catch (error) { console.log(error, user.uid, user.email) }
 
-	await admin.firestore().collection('users').doc(user.uid)
-		.set(data, { merge: true })
+	await admin.database().ref('profiles').child(user.uid).update(data)
 })
 
 export const authUserDeleted = functions.auth.user().onDelete(async (user) => {
-	await admin.firestore().collection('users').doc(user.uid)
-		.set({
-			dates: {
-				deletedAt: admin.firestore.FieldValue.serverTimestamp()
-			}
-		}, { merge: true })
+	await admin.database().ref('profiles').child(user.uid)
+		.child('dates/deletedAt')
+		.set(admin.database.ServerValue.TIMESTAMP)
 })

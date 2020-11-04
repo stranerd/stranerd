@@ -42,9 +42,9 @@ export const removeTutor = functions.https.onCall(async (data, context) => {
 		await admin.database().ref('tutors')
 			.child(data.id)
 			.remove()
-		await admin.firestore().collection('users')
-			.doc(data.id)
-			.set({ roles: { isTutor: false } }, { merge: true })
+		await admin.database().ref('profiles')
+			.child(data.id).child('roles/isTutor')
+			.set(false)
 
 		return true
 	}catch(error){

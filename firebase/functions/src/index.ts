@@ -7,7 +7,7 @@ import { subscribeToMailingList } from './onCall/roles/mailing'
 import { subjectIconUpdated, subjectDeleted } from './database/subjects'
 import { userNotificationCreated } from './database/notifications'
 import { tutorUpdated } from './database/tutors'
-import { userProfileUpdated } from './firestore/users'
+import { userProfileUpdated } from './database/users'
 
 admin.initializeApp()
 
@@ -26,9 +26,6 @@ export { subjectIconUpdated, subjectDeleted }
 export { userNotificationCreated }
 // Tutors
 export { tutorUpdated }
-
-
-// Firestore Triggers
 // Users
 export { userProfileUpdated }
 

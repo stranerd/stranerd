@@ -8,11 +8,10 @@ export const userNotificationCreated = functions.database.ref('users/{userId}/no
 
 		const notification = snap.val() as Notification
 
-		const snapshot = await admin.firestore().collection('users')
-			.doc(context.params.userId)
-			.get()
-
-		const email = snapshot.data()?.bio?.email
+		const snapshot = await admin.database().ref('profiles')
+			.child(context.params.userId).child('bio/email')
+			.once('value')
+		const email = snapshot.val()
 
 		if (email) await sendNewNotificationEmail(email, notification)
 	})

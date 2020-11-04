@@ -6,13 +6,15 @@ export class UserEntity extends BaseEntity {
 	public readonly id: string
 	public readonly roles: UserRoles
 	public readonly userBio: UserBio
+	public readonly account: UserAccount
 	public readonly signedUpAt: Date
 
-	constructor ({ id, bio, roles, dates }: UserConstructorArgs) {
+	constructor ({ id, bio, roles, account, dates }: UserConstructorArgs) {
 		super()
 		this.id = id
 		this.userBio = bio
 		this.roles = roles
+		this.account = account
 		this.signedUpAt = dates.signedUpAt
 	}
 
@@ -26,6 +28,7 @@ type UserConstructorArgs = {
 	id: string
 	bio: UserBio
 	roles: UserRoles
+	account: UserAccount
 	dates: { signedUpAt: Date }
 }
 
@@ -39,4 +42,8 @@ export interface UserRoles {
 	isStudent: boolean
 	isTutor?: boolean
 	isAdmin?: boolean
+}
+export interface UserAccount {
+	customerId: string
+	questions: number
 }

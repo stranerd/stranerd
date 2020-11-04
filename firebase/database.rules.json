@@ -1,5 +1,10 @@
 {
 	"rules": {
+		"profiles": {
+			".read": true,
+			".write": true,
+			".indexOn": ["roles/isAdmin","bio/email"]
+		},
 		"subjects": {
 			".read": true,
 			".write": true,

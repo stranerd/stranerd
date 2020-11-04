@@ -1,12 +1,12 @@
 import { SubjectFirebaseDataSource } from './data/datasources/subject-firebase'
 import { SubjectTransformer } from './data/transformers/subject'
 import { SubjectRepository } from './data/repositories/subject'
-import { GetSubjectsUseCase } from './domain/useCases/getSubjects'
-import { DeleteSubjectUseCase } from './domain/useCases/deleteSubject'
-import { GetSubjectFactoryUseCase } from './domain/useCases/getSubjectFactory'
-import { AddSubjectUseCase } from './domain/useCases/addSubject'
-import { UpdateSubjectUseCase } from './domain/useCases/updateSubject'
-import { FindSubjectUseCase } from './domain/useCases/findSubject'
+import { GetSubjectsUseCase } from './domain/usecases/subjects/getSubjects'
+import { DeleteSubjectUseCase } from './domain/usecases/subjects/deleteSubject'
+import { GetSubjectFactoryUseCase } from './domain/usecases/subjects/getSubjectFactory'
+import { AddSubjectUseCase } from './domain/usecases/subjects/addSubject'
+import { UpdateSubjectUseCase } from './domain/usecases/subjects/updateSubject'
+import { FindSubjectUseCase } from './domain/usecases/subjects/findSubject'
 
 const subjectDataSource = new SubjectFirebaseDataSource()
 

@@ -1,11 +1,9 @@
 import { reactive, ref, reqRef, toRefs, useFetch } from '@nuxtjs/composition-api'
 import {
 	AddTutorSubject, FindTutor, GetTutors, GetUsersByEmail,
-	MakeTutor, RemoveTutor, RemoveTutorSubject
+	MakeTutor, RemoveTutor, RemoveTutorSubject, UserEntity, TutorEntity
 } from '@modules/users'
-import { TutorEntity } from '@modules/users/domain/entities/tutor'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/usecases/core/states'
-import { UserEntity } from '@modules/users/domain/entities/user'
 import { Alert } from '@app/usecases/core/notifications'
 
 const global = {

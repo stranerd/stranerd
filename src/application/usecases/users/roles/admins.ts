@@ -1,7 +1,6 @@
 import { reactive, reqRef, toRefs, useFetch } from '@nuxtjs/composition-api'
-import { UserEntity } from '@modules/users/domain/entities/user'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/usecases/core/states'
-import { GetAllAdmins, GetUsersByEmail, MakeAdmin, RemoveAdmin } from '@modules/users'
+import { GetAllAdmins, GetUsersByEmail, MakeAdmin, RemoveAdmin, UserEntity } from '@modules/users'
 
 export const useAdminRoles = () => {
 	const state = reactive({

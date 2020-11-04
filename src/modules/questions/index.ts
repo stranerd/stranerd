@@ -7,6 +7,8 @@ import { GetSubjectFactoryUseCase } from './domain/usecases/subjects/getSubjectF
 import { AddSubjectUseCase } from './domain/usecases/subjects/addSubject'
 import { UpdateSubjectUseCase } from './domain/usecases/subjects/updateSubject'
 import { FindSubjectUseCase } from './domain/usecases/subjects/findSubject'
+import { SubjectEntity } from './domain/entities/subject'
+import { SubjectFactory } from './domain/factories/subject'
 
 const subjectDataSource = new SubjectFirebaseDataSource()
 
@@ -20,3 +22,5 @@ export const AddSubject = new AddSubjectUseCase(subjectRepository)
 export const UpdateSubject = new UpdateSubjectUseCase(subjectRepository)
 export const FindSubject = new FindSubjectUseCase(subjectRepository)
 export const GetSubjectFactory = new GetSubjectFactoryUseCase()
+
+export { SubjectEntity, SubjectFactory }

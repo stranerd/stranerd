@@ -7,22 +7,21 @@ export const createQuestion = functions.https.onCall(async ({ question }, contex
 		throw new functions.https.HttpsError('unauthenticated', 'Only authenticated users can create posts')
 
 	try {
-		const id = question.userId
-		const userRef = await admin.database().ref('profile').child(id)
-		const user = (await userRef.once('value')).val()
-
-		if (!user) throw new Error('No user with the userid provided exists.')
-
-		const { credits } = user
-		if (question > credits) throw new Error('You do not have sufficient credits for this question')
-
 		const questionRef = admin.firestore().collection('questions').doc()
+		const userRef = admin.database().ref('profile').child(question.userId)
+		const bio = (await userRef.child('bio').once('value')).val()
 
-		await Promise.all([
-			userRef.update({ credits: credits - question.credits }),
-			questionRef.set({ ...question, user: user.bio })
-		])
-		return questionRef.id
+		const res = await userRef.child('credits')
+			.transaction( (credits) => {
+				if (credits === null) return null
+				const diffInCredits = credits - question.credits
+				return diffInCredits > 0 ? diffInCredits : undefined
+			})
+		if (res.committed) {
+			await questionRef.set({ ...question, user: bio })
+			return questionRef.id
+		} else throw new Error('You do not have sufficient credits.')
+
 	} catch (error) {
 		throw new functions.https.HttpsError('unknown', error.message)
 	}

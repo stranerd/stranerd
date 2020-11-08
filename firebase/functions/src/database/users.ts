@@ -20,3 +20,18 @@ export const userProfileUpdated = functions.database.ref('profiles/{userId}/bio'
 	if(!equal(oldBio.image, newBio.image))
 		await deleteFromStorage(oldBio.image?.path)
 })
+
+export const userCreditsUpdated = functions.database.ref('profiles/{userId}/credits').onUpdate(async (snap, context) => {
+	const diffInCredits = (snap.after.val() ?? 0) - (snap.before.val() ?? 0)
+
+	if (diffInCredits > 0) {
+		const { userId } = context.params
+		await admin.database().ref('rankings').update({
+			[`daily/${userId}`]: admin.database.ServerValue.increment(diffInCredits),
+			[`weekly/${userId}`]: admin.database.ServerValue.increment(diffInCredits),
+			[`monthly/${userId}`]: admin.database.ServerValue.increment(diffInCredits),
+			[`quarterly/${userId}`]: admin.database.ServerValue.increment(diffInCredits),
+			[`yearly/${userId}`]: admin.database.ServerValue.increment(diffInCredits),
+		})
+	}
+})

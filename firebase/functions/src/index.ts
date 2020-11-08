@@ -8,7 +8,7 @@ import { createQuestion } from './onCall/questions/createQuestion'
 import { subjectIconUpdated, subjectDeleted } from './database/subjects'
 import { userNotificationCreated } from './database/notifications'
 import { tutorUpdated } from './database/tutors'
-import { userProfileUpdated } from './database/users'
+import { userProfileUpdated, userCreditsUpdated } from './database/users'
 
 admin.initializeApp()
 
@@ -28,7 +28,7 @@ export { userNotificationCreated }
 // Tutors
 export { tutorUpdated }
 // Users
-export { userProfileUpdated }
+export { userProfileUpdated, userCreditsUpdated }
 
 
 // On Call

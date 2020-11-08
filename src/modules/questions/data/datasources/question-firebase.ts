@@ -8,6 +8,10 @@ export class QuestionFirebaseDataSource implements QuestionBaseDataSource {
 		return await FunctionsService.call('createQuestion', { question }) as string
 	}
 
+	async update (id: string, question: Partial<QuestionToModel>) {
+		await FirestoreService.update('questions', id, question)
+	}
+
 	async find (id: string) {
 		return await FirestoreService.find('questions', id) as QuestionFromModel | null
 	}

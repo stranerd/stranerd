@@ -15,6 +15,7 @@ import { SubjectFactory } from './domain/factories/subject'
 import { FindQuestionUseCase } from './domain/usecases/questions/findQuestion'
 import { GetQuestionsUseCase } from './domain/usecases/questions/getQuestions'
 import { AddQuestionUseCase } from './domain/usecases/questions/addQuestion'
+import { MarkQuestionAnsweredUseCase } from './domain/usecases/questions/markQuestionAnswered'
 import { GetQuestionFactoryUseCase } from './domain/usecases/questions/getQuestionFactory'
 import { QuestionEntity } from './domain/entities/question'
 import { QuestionFactory } from './domain/factories/question'
@@ -38,6 +39,7 @@ export const GetSubjectFactory = new GetSubjectFactoryUseCase()
 export const GetQuestions = new GetQuestionsUseCase(questionRepository)
 export const AddQuestion = new AddQuestionUseCase(questionRepository)
 export const FindQuestion = new FindQuestionUseCase(questionRepository)
+export const MarkQuestionAnswered = new MarkQuestionAnsweredUseCase(questionRepository)
 export const GetQuestionFactory = new GetQuestionFactoryUseCase()
 
 export { SubjectEntity, SubjectFactory }

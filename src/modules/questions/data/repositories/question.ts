@@ -35,4 +35,8 @@ export class QuestionRepository implements IQuestionRepository {
 		const model = await this.dataSource.find(id)
 		return model ? this.transformer.fromJSON(model) : null
 	}
+
+	async update (id: string, data: Partial<QuestionToModel>) {
+		return this.dataSource.update(id, data)
+	}
 }

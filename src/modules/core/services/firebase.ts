@@ -36,7 +36,7 @@ export const FirestoreService = {
 	find: async (collection: string, id: string) => {
 		const doc = await firestore.collection(collection).doc(id).get()
 		if (doc.exists) return { id: doc.id, ...doc.data() }
-		else return undefined
+		else return null
 	},
 	get: async (collection: string, conditions?: FirestoreGetClauses) => {
 		let query: firebase.firestore.Query = firestore.collection(collection)

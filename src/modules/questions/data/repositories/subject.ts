@@ -32,7 +32,6 @@ export class SubjectRepository implements ISubjectRepository {
 
 	async find (id: string) {
 		const model = await this.dataSource.find(id)
-		if (model) return this.transformer.fromJSON(model)
-		return null
+		return model ? this.transformer.fromJSON(model) : null
 	}
 }

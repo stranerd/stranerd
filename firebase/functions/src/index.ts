@@ -4,6 +4,7 @@ import { makeSuperAdmin } from './requests/makeSuperAdmin'
 import { toggleAdmin } from './onCall/roles/admins'
 import { makeTutor, removeTutor } from './onCall/roles/tutors'
 import { subscribeToMailingList } from './onCall/roles/mailing'
+import { createQuestion } from './onCall/questions/createQuestion'
 import { subjectIconUpdated, subjectDeleted } from './database/subjects'
 import { userNotificationCreated } from './database/notifications'
 import { tutorUpdated } from './database/tutors'
@@ -33,3 +34,5 @@ export { userProfileUpdated }
 // On Call
 // Roles
 export { toggleAdmin, makeTutor, removeTutor, subscribeToMailingList }
+// Questions
+export { createQuestion }

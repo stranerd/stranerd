@@ -19,22 +19,25 @@ export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel
 	readonly rules = {
 		body: { required: true, rules: [isLongerThan2] },
 		attachments: { required: true, rules: [containsOnlyImages] },
+		credits: { required: true, rules: [] },
 		subjectId: { required: true, rules: [isLongerThan0] },
 		userId: { required: true, rules: [isLongerThan0] },
 		answerId: { required: false, rules: [] },
 		user: { required: false, rules: [] }
 	}
 
-	values: { body: string, attachments: Content[], subjectId: string, userId: string, user: UserBio | undefined, answerId: string | undefined } =
-		{ body: '', attachments: [], subjectId: '', userId: '', user: undefined, answerId: undefined }
+	values: { body: string, attachments: Content[], credits: number, subjectId: string, userId: string, user: UserBio | undefined, answerId: string | undefined } =
+		{ body: '', attachments: [], credits: 10, subjectId: '', userId: '', user: undefined, answerId: undefined }
 
-	validValues: { body: string, attachments: Content[], subjectId: string, userId: string, user: UserBio | undefined, answerId: string | undefined } =
-		{ body: '', attachments: [], subjectId: '', userId: '', user: undefined, answerId: undefined }
+	validValues: { body: string, attachments: Content[], credits: number, subjectId: string, userId: string, user: UserBio | undefined, answerId: string | undefined } =
+		{ body: '', attachments: [], credits: 10, subjectId: '', userId: '', user: undefined, answerId: undefined }
 
 	errors = { body: undefined, attachments: undefined, subjectId: undefined, userId: undefined, user: undefined, answerId: undefined }
 
 	get body () { return this.values.body }
 	set body (value: string) { this.set('body', value) }
+	get credits () { return this.values.credits }
+	set credits (value: number) { this.set('credits', value) }
 	get subjectId () { return this.values.subjectId }
 	set subjectId (value: string) { this.set('subject', value) }
 	get userId () { return this.values.userId }
@@ -45,6 +48,7 @@ export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel
 
 	loadEntity = (entity: QuestionEntity) => {
 		this.body = entity.body
+		this.credits = entity.credits
 		this.subjectId = entity.subjectId
 		this.userId = entity.userId
 		this.set('attachments', entity.attachments)
@@ -60,8 +64,8 @@ export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel
 			}))
 			this.set('attachments', docs)
 
-			const { body, subjectId, userId, attachments, user, answerId } = this.validValues
-			return { body, subjectId, userId, attachments: attachments as Media[], user, answerId }
+			const { body, credits, subjectId, userId, attachments, user, answerId } = this.validValues
+			return { body, credits, subjectId, userId, attachments: attachments as Media[], user, answerId }
 		} else {
 			throw new Error('Validation errors')
 		}

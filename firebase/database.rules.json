@@ -1,5 +1,10 @@
 {
 	"rules": {
+		"answers": {
+			".read": true,
+			".write": true,
+			".indexOn": ["questionId", "userId"]
+		},
 		"profiles": {
 			".read": true,
 			".write": true,

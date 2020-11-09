@@ -68,7 +68,6 @@ export const FirestoreService = {
 		data.dates = { updatedAt: firebase.firestore.FieldValue.serverTimestamp() }
 		const ref = firestore.collection(collection).doc(id)
 		await ref.set(data, { merge: true })
-		return ref.id
 	},
 	delete: async (collection: string, id: string) => {
 		return await firestore.collection(collection).doc(id).delete()

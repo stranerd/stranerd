@@ -1,15 +1,15 @@
-import { DatabaseService, FunctionsService } from '@modules/core/services/firebase'
-import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { FirestoreService, FunctionsService } from '@modules/core/services/firebase'
+import { FirestoreGetClauses } from '@modules/core/data/datasources/base'
 import { TutorBaseDataSource } from '../datasources/tutor-base'
-import { TutorFromModel } from '../models/tutor'
+import { TutorFromModel, TutorToModel } from '../models/tutor'
 
 export class TutorFirebaseDataSource implements TutorBaseDataSource {
 	async find (id: string) {
-		return await DatabaseService.get(`tutors/${id}`) as TutorFromModel | undefined
+		return await FirestoreService.find('tutors', id) as TutorFromModel | undefined
 	}
 
-	async get (conditions?: DatabaseGetClauses) {
-		return await DatabaseService.getMany('tutors', conditions) as TutorFromModel[]
+	async get (conditions?: FirestoreGetClauses) {
+		return await FirestoreService.get('tutors', conditions) as TutorFromModel[]
 	}
 
 	async add (id: string) {
@@ -20,7 +20,7 @@ export class TutorFirebaseDataSource implements TutorBaseDataSource {
 		return await FunctionsService.call('removeTutor', { id })
 	}
 
-	async update (id: string, data: object) {
-		return await DatabaseService.update(`tutors/${id}`, data)
+	async update (id: string, data: Partial<TutorToModel>) {
+		return await FirestoreService.update('tutors', id, data)
 	}
 }

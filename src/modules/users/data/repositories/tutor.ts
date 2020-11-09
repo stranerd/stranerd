@@ -1,7 +1,8 @@
-import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { FirestoreGetClauses } from '@modules/core/data/datasources/base'
 import { ITutorRepository } from '../../domain/irepositories/itutor'
 import { TutorBaseDataSource } from '../datasources/tutor-base'
 import { TutorTransformer } from '../transformers/tutor'
+import { TutorToModel } from '../models/tutor'
 
 export class TutorRepository implements ITutorRepository {
 	private dataSource: TutorBaseDataSource
@@ -12,7 +13,7 @@ export class TutorRepository implements ITutorRepository {
 		this.transformer = transformer
 	}
 
-	async get (conditions?: DatabaseGetClauses) {
+	async get (conditions?: FirestoreGetClauses) {
 		const models = await this.dataSource.get(conditions)
 		return models.map((model) => this.transformer.fromJSON(model))
 	}
@@ -31,7 +32,7 @@ export class TutorRepository implements ITutorRepository {
 		return null
 	}
 
-	async update (id: string, data: object) {
+	async update (id: string, data: Partial<TutorToModel>) {
 		return await this.dataSource.update(id, data)
 	}
 }

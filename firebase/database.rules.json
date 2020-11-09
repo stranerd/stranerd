@@ -15,10 +15,6 @@
 			".write": true,
 			".indexOn": ["name"]
 		},
-		"tutors": {
-			".read": true,
-			".write": true
-		},
 		"users": {
 			"$id": {
 				".read": true,

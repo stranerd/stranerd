@@ -7,8 +7,8 @@ import { subscribeToMailingList } from './onCall/roles/mailing'
 import { createQuestion } from './onCall/questions/createQuestion'
 import { subjectIconUpdated, subjectDeleted } from './database/subjects'
 import { userNotificationCreated } from './database/notifications'
-import { tutorUpdated } from './database/tutors'
 import { userProfileUpdated, userCreditsUpdated } from './database/users'
+import { tutorUpdated } from './firestore/tutors'
 
 admin.initializeApp()
 
@@ -25,10 +25,13 @@ export { makeSuperAdmin }
 export { subjectIconUpdated, subjectDeleted }
 // Notifications
 export { userNotificationCreated }
-// Tutors
-export { tutorUpdated }
 // Users
 export { userProfileUpdated, userCreditsUpdated }
+
+
+// Firestore Triggers
+// Tutors
+export { tutorUpdated }
 
 
 // On Call

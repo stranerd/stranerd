@@ -6,6 +6,11 @@ service cloud.firestore {
             allow update, delete: if isMine(resource.data.userId)
         }
 
+        match /tutors/{id} {
+            allow read: if isAuthenticated();
+            allow write: if isAdmin()
+        }
+
 		match /{document=**} {
 			allow read, write: if false;
 		}

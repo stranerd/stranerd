@@ -1,5 +1,5 @@
 import { BaseEntity } from '@modules/core/domains/entities/base'
-import { DEFAULT_IMAGE_URL, UserBio } from './user'
+import { UserBio, generateDefaultBio } from './user'
 
 export class TutorEntity extends BaseEntity {
 	public readonly id: string
@@ -12,7 +12,7 @@ export class TutorEntity extends BaseEntity {
 	constructor ({ id, bio, canTeach, subjects, rating, reviews }: TutorConstructorArgs) {
 		super()
 		this.id = id
-		this.userBio = bio
+		this.userBio = generateDefaultBio(bio)
 		this.canTeach = canTeach
 		this.subjectsData = subjects ?? {}
 		this.rating = rating
@@ -21,8 +21,7 @@ export class TutorEntity extends BaseEntity {
 
 	get name () { return this.userBio.name }
 	get email () { return this.userBio.email }
-	get bio () { return this.userBio.bio }
-	get image () { return this.userBio.image?.link || DEFAULT_IMAGE_URL }
+	get image () { return this.userBio.image.link }
 
 	get subjects () {
 		return Object.entries(this.subjectsData ?? {})

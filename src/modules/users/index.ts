@@ -19,7 +19,7 @@ import { MakeTutorUseCase } from './domain/usecases/tutors/makeTutor'
 import { RemoveTutorUseCase } from './domain/usecases/tutors/removeTutor'
 import { AddTutorSubjectUseCase } from './domain/usecases/tutors/addTutorSubject'
 import { RemoveTutorSubjectUseCase } from './domain/usecases/tutors/removeTutorSubject'
-import { UserEntity, UserBio as Bio } from './domain/entities/user'
+import { UserEntity, UserBio as Bio, generateDefaultBio } from './domain/entities/user'
 import { TutorEntity } from './domain/entities/tutor'
 
 const userDataSource = new UserFirebaseDataSource()
@@ -49,5 +49,5 @@ export const RemoveTutor = new RemoveTutorUseCase(tutorRepository)
 export const AddTutorSubject = new AddTutorSubjectUseCase(tutorRepository)
 export const RemoveTutorSubject = new RemoveTutorSubjectUseCase(tutorRepository)
 
-export { UserEntity, TutorEntity }
-export type UserBio = Bio
+export { UserEntity, generateDefaultBio, TutorEntity }
+export interface UserBio extends Bio {}

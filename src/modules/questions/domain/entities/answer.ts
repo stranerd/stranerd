@@ -1,5 +1,5 @@
 import { Media } from '@modules/core/data/models/base'
-import { UserBio } from '@modules/users'
+import { UserBio, generateDefaultBio } from '@modules/users'
 import { BaseEntity } from '@modules/core/domains/entities/base'
 
 export class AnswerEntity extends BaseEntity {
@@ -20,7 +20,7 @@ export class AnswerEntity extends BaseEntity {
 		this.attachments = attachments
 		this.questionId = questionId
 		this.userId = userId
-		this.user = user
+		this.user = generateDefaultBio(user)
 		this.createdAt = createdAt
 	}
 }

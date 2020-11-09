@@ -12,7 +12,7 @@ export class UserEntity extends BaseEntity {
 	constructor ({ id, bio, roles, account, dates }: UserConstructorArgs) {
 		super()
 		this.id = id
-		this.userBio = bio
+		this.userBio = generateDefaultBio(bio)
 		this.roles = roles
 		this.account = account
 		this.signedUpAt = dates.signedUpAt
@@ -20,7 +20,6 @@ export class UserEntity extends BaseEntity {
 
 	get name () { return this.userBio.name }
 	get email () { return this.userBio.email }
-	get bio () { return this.userBio.bio }
 	get image () { return this.userBio.image?.link || DEFAULT_IMAGE_URL }
 }
 
@@ -35,7 +34,6 @@ type UserConstructorArgs = {
 export interface UserBio {
 	name: string
 	email: string
-	bio: string
 	image: Media
 }
 export interface UserRoles {
@@ -46,4 +44,9 @@ export interface UserRoles {
 export interface UserAccount {
 	customerId: string
 	questions: number
+}
+export const generateDefaultBio = ({ name, email, image }: UserBio) :UserBio => {
+	name = name || 'Anonymous'
+	image = image || { link: DEFAULT_IMAGE_URL } as Media
+	return { name, email, image }
 }

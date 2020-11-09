@@ -17,7 +17,7 @@ export class AnswerTransformer {
 			body: entity.body,
 			attachments: entity.attachments,
 			credits: entity.credits,
-			questionId: entity.postId,
+			questionId: entity.questionId,
 			userId: entity.userId,
 			user: entity.user
 		}

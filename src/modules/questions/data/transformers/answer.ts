@@ -13,7 +13,7 @@ export class AnswerTransformer {
 			id, body, attachments, credits,
 			questionId, userId, user,
 			likes, ratings,
-			createdAt: timestampToDate(createdAt)!
+			createdAt: timestampToDate(createdAt)
 		})
 	}
 

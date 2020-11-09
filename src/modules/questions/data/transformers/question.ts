@@ -8,7 +8,7 @@ export class QuestionTransformer {
 		return new QuestionEntity({
 			id, body, attachments, credits,
 			subjectId, answerId, userId, user,
-			createdAt: timestampToDate(createdAt)!
+			createdAt: timestampToDate(createdAt)
 		})
 	}
 

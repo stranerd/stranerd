@@ -10,9 +10,11 @@ export class AnswerEntity extends BaseEntity {
 	public readonly questionId: string
 	public readonly userId: string
 	public readonly user: UserBio
+	public readonly likes: { [key: string]: boolean }
+	public readonly ratings: { [key: string]: number }
 	public readonly createdAt: Date
 
-	constructor ({ id, body, credits, questionId, attachments, createdAt, userId, user }: AnswerConstructorArgs) {
+	constructor ({ id, body, credits, questionId, attachments, createdAt, userId, user, likes, ratings }: AnswerConstructorArgs) {
 		super()
 		this.id = id
 		this.body = body
@@ -21,6 +23,8 @@ export class AnswerEntity extends BaseEntity {
 		this.questionId = questionId
 		this.userId = userId
 		this.user = generateDefaultBio(user)
+		this.likes = likes
+		this.ratings = ratings
 		this.createdAt = createdAt
 	}
 }
@@ -34,4 +38,6 @@ type AnswerConstructorArgs = {
 	createdAt: Date
 	userId: string
 	user: UserBio
+	likes: { [key: string]: boolean }
+	ratings: { [key: string]: number }
 }

@@ -22,16 +22,27 @@ export class AnswerFactory extends BaseFactory<AnswerEntity, AnswerToModel> {
 		credits: { required: true, rules: [] },
 		postId: { required: true, rules: [isLongerThan0] },
 		userId: { required: true, rules: [isLongerThan0] },
-		user: { required: false, rules: [] }
+		user: { required: false, rules: [] },
+		likes: { required: false, rules: [] },
+		ratings: { required: false, rules: [] }
 	}
 
-	validValues: { body: string, attachments: Content[], credits: number, questionId: string, userId: string, user: UserBio | undefined } =
-		{ body: '', attachments: [], credits: 10, questionId: '', userId: '', user: undefined }
+	values: {
+		body: string, attachments: Content[], credits: number, questionId: string,
+		userId: string, user: UserBio | undefined, likes: { [key: string]: boolean }, ratings: { [key: string]: number }
+	} =
+		{ body: '', attachments: [], credits: 10, questionId: '', userId: '', user: undefined, likes: {}, ratings: {} }
 
-	values: { body: string, attachments: Content[], credits: number, questionId: string, userId: string, user: UserBio | undefined } =
-		{ body: '', attachments: [], credits: 10, questionId: '', userId: '', user: undefined }
+	validValues: {
+		body: string, attachments: Content[], credits: number, questionId: string,
+		userId: string, user: UserBio | undefined, likes: { [key: string]: boolean }, ratings: { [key: string]: number }
+	} =
+		{ body: '', attachments: [], credits: 10, questionId: '', userId: '', user: undefined, likes: {}, ratings: {} }
 
-	errors = { body: undefined, attachments: undefined, questionId: undefined, userId: undefined, user: undefined }
+	errors = {
+		body: undefined, attachments: undefined, likes: undefined, ratings: undefined,
+		questionId: undefined, userId: undefined, user: undefined
+	}
 
 	get body () { return this.values.body }
 	set body (value: string) { this.set('body', value) }
@@ -52,6 +63,8 @@ export class AnswerFactory extends BaseFactory<AnswerEntity, AnswerToModel> {
 		this.userId = entity.userId
 		this.set('attachments', entity.attachments)
 		this.set('user', entity.user)
+		this.set('likes', entity.likes)
+		this.set('ratings', entity.ratings)
 	}
 
 	toModel = async () => {
@@ -62,8 +75,11 @@ export class AnswerFactory extends BaseFactory<AnswerEntity, AnswerToModel> {
 			}))
 			this.set('attachments', docs)
 
-			const { body, credits, questionId, userId, attachments, user } = this.validValues
-			return { body, credits, questionId, userId, attachments: attachments as Media[], user }
+			const { body, credits, questionId, userId, attachments, user, likes, ratings } = this.validValues
+			return {
+				body, credits, questionId, userId, ratings, likes,
+				attachments: attachments as Media[], user
+			}
 		} else {
 			throw new Error('Validation errors')
 		}

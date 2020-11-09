@@ -9,6 +9,8 @@ export interface AnswerFromModel {
 	questionId: string
 	userId: string
 	user: UserBio
+	likes: { [key: string]: boolean }
+	ratings: { [key: string]: number }
 	dates: {
 		createdAt: number
 	}
@@ -21,4 +23,6 @@ export interface AnswerToModel {
 	questionId: string
 	userId: string
 	user?: UserBio
+	likes: { [key: string]: boolean }
+	ratings: { [key: string]: number }
 }

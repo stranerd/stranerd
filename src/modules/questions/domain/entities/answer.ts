@@ -23,10 +23,14 @@ export class AnswerEntity extends BaseEntity {
 		this.questionId = questionId
 		this.userId = userId
 		this.user = generateDefaultBio(user)
-		this.likes = likes
-		this.ratings = ratings
+		this.likes = likes ?? {}
+		this.ratings = ratings ?? {}
 		this.createdAt = createdAt
 	}
+
+	get likesCount () { return Object.values(this.likes).filter((l) => l).length }
+
+	get ratingsCount () { return Object.values(this.ratings).filter((r) => r).length }
 }
 
 type AnswerConstructorArgs = {

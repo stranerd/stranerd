@@ -22,6 +22,8 @@ import { ListenToQuestionsUseCase } from './domain/usecases/questions/listenToQu
 import { FindAnswerUseCase } from './domain/usecases/answers/findAnswer'
 import { GetAnswersUseCase } from './domain/usecases/answers/getAnswers'
 import { AddAnswerUseCase } from './domain/usecases/answers/addAnswer'
+import { LikeAnswerUseCase } from './domain/usecases/answers/likeAnswer'
+import { RateAnswerUseCase } from './domain/usecases/answers/rateAnswer'
 import { GetAnswerFactoryUseCase } from './domain/usecases/answers/getAnswerFactory'
 import { ListenToAnswersUseCase } from './domain/usecases/answers/listenToAnswers'
 import { SubjectEntity } from './domain/entities/subject'
@@ -61,6 +63,8 @@ export const GetAnswers = new GetAnswersUseCase(answerRepository)
 export const ListenToAnswers = new ListenToAnswersUseCase(answerRepository)
 export const AddAnswer = new AddAnswerUseCase(answerRepository)
 export const FindAnswer = new FindAnswerUseCase(answerRepository)
+export const LikeAnswer = new LikeAnswerUseCase(answerRepository)
+export const RateAnswer = new RateAnswerUseCase(answerRepository)
 export const GetAnswerFactory = new GetAnswerFactoryUseCase()
 
 export { SubjectEntity, SubjectFactory }

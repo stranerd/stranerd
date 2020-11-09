@@ -6,4 +6,5 @@ export abstract class AnswerBaseDataSource {
     abstract get: (condition?: DatabaseGetClauses) => Promise<AnswerFromModel[]>
     abstract listen: (callback: (documents: AnswerFromModel[]) => void, condition?: DatabaseGetClauses) => Promise<() => void>
     abstract find: (id: string) => Promise<AnswerFromModel | null>
+    abstract update: (id: string, data: object) => Promise<void>
 }

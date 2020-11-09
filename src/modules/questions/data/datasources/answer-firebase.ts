@@ -19,4 +19,8 @@ export class AnswerFirebaseDataSource implements AnswerBaseDataSource {
 	async listen (callback: (documents: AnswerFromModel[]) => void, conditions?: DatabaseGetClauses) {
 		return await DatabaseService.listenToMany('answers', callback, conditions)
 	}
+
+	async update (id: string, data: object) {
+		return await DatabaseService.update(`answers/${id}`, data)
+	}
 }

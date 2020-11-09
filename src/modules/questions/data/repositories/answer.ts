@@ -35,4 +35,8 @@ export class AnswerRepository implements IAnswerRepository {
 		const model = await this.dataSource.find(id)
 		return model ? this.transformer.fromJSON(model) : null
 	}
+
+	async update (id: string, data: object) {
+		return await this.dataSource.update(id, data)
+	}
 }

@@ -4,7 +4,7 @@ import { isProduction } from '../../helpers/environment'
 
 export const createQuestion = functions.https.onCall(async ({ question }, context) => {
 	if (isProduction() && !context.auth)
-		throw new functions.https.HttpsError('unauthenticated', 'Only authenticated users can create posts')
+		throw new functions.https.HttpsError('unauthenticated', 'Only authenticated users can ask questions.')
 
 	try {
 		const questionRef = admin.firestore().collection('questions').doc()

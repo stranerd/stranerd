@@ -21,7 +21,8 @@ export const userProfileUpdated = functions.database.ref('profiles/{userId}/bio'
 		await deleteFromStorage(oldBio.image?.path)
 })
 
-export const userCreditsUpdated = functions.database.ref('profiles/{userId}/credits').onUpdate(async (snap, context) => {
+export const userCreditsUpdated = functions.database.ref('profiles/{userId}/account/credits')
+	.onUpdate(async (snap, context) => {
 	const diffInCredits = (snap.after.val() ?? 0) - (snap.before.val() ?? 0)
 
 	if (diffInCredits > 0) {

@@ -8,10 +8,10 @@ export const createQuestion = functions.https.onCall(async ({ question }, contex
 
 	try {
 		const questionRef = admin.firestore().collection('questions').doc()
-		const userRef = admin.database().ref('profile').child(question.userId)
+		const userRef = admin.database().ref('profiles').child(question.userId)
 		const bio = (await userRef.child('bio').once('value')).val()
 
-		const res = await userRef.child('credits')
+		const res = await userRef.child('account/credits')
 			.transaction( (credits) => {
 				if (credits === null) return null
 				const diffInCredits = credits - question.credits

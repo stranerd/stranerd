@@ -43,7 +43,7 @@ export interface UserRoles {
 }
 export interface UserAccount {
 	customerId: string
-	questions: number
+	credits: number
 }
 export const generateDefaultBio = ({ name, email, image }: UserBio) :UserBio => {
 	name = name || 'Anonymous'

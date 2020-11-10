@@ -8,7 +8,7 @@ import { subjectIconUpdated, subjectDeleted } from './database/subjects'
 import { userNotificationCreated } from './database/notifications'
 import { userProfileUpdated, userCreditsUpdated } from './database/users'
 import { answerCreated } from './database/answers'
-import { questionCreated } from './firestore/questions'
+import { questionCreated, questionUpdated, questionDeleted } from './firestore/questions'
 import { tutorUpdated } from './firestore/tutors'
 
 admin.initializeApp()
@@ -36,7 +36,7 @@ export { answerCreated }
 // Tutors
 export { tutorUpdated }
 // Questions
-export { questionCreated }
+export { questionCreated, questionUpdated, questionDeleted }
 
 
 // On Call

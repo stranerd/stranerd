@@ -1,11 +1,11 @@
-import { DatabaseService, FunctionsService } from '@modules/core/services/firebase'
+import { DatabaseService } from '@modules/core/services/firebase'
 import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
 import { AnswerFromModel, AnswerToModel } from '../models/answer'
 import { AnswerBaseDataSource } from './answer-base'
 
 export class AnswerFirebaseDataSource implements AnswerBaseDataSource {
 	async create (answer: AnswerToModel) {
-		return await FunctionsService.call('createAnswer', { answer }) as string
+		return await DatabaseService.create('answers', answer) as string
 	}
 
 	async find (id: string) {

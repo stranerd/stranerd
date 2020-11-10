@@ -1,11 +1,11 @@
-import { FirestoreService, FunctionsService } from '@modules/core/services/firebase'
+import { FirestoreService } from '@modules/core/services/firebase'
 import { FirestoreGetClauses } from '@modules/core/data/datasources/base'
 import { QuestionFromModel, QuestionToModel } from '../models/question'
 import { QuestionBaseDataSource } from './question-base'
 
 export class QuestionFirebaseDataSource implements QuestionBaseDataSource {
 	async create (question: QuestionToModel) {
-		return await FunctionsService.call('createQuestion', { question }) as string
+		return await FirestoreService.create('questions', question) as string
 	}
 
 	async update (id: string, question: Partial<QuestionToModel>) {

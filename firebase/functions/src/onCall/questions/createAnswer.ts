@@ -7,15 +7,12 @@ export const createAnswer = functions.https.onCall(async ({ answer }, context) =
 		throw new functions.https.HttpsError('unauthenticated', 'Only authenticated users can answer questions.')
 
 	try {
-		const userRef = admin.database().ref('profiles').child(answer.userId)
-		const bio = (await userRef.child('bio').once('value')).val()
-
-		await userRef.child('account/credits')
+		await admin.database().ref('profiles')
+			.child(answer.userId)
+			.child('account/credits')
 			.set(admin.database.ServerValue.increment(answer.credits ?? 0)
 		)
-		const answerRef = await admin.database().ref('answers').push({
-			...answer, bio
-		})
+		const answerRef = await admin.database().ref('answers').push(answer)
 
 		return answerRef.key
 

@@ -50,8 +50,11 @@ export class AnswerFactory extends BaseFactory<AnswerEntity, AnswerToModel> {
 	set credits (value: number) { this.set('credits', value) }
 	get questionId () { return this.values.questionId }
 	set questionId (value: string) { this.set('questionId', value) }
-	get userId () { return this.values.userId }
-	set userId (value: string) { this.set('userId', value) }
+	set userBioAndId (value: { id: string, user: UserBio }) {
+		this.set('userId', value.id)
+		this.set('user', value.user)
+	}
+
 	get attachments () { return this.values.attachments }
 	addAttachment (value: Content) { return this.set('attachments', [...this.values.attachments, value]) }
 	removeAttachment (value: Content) { return this.set('attachments', this.values.attachments.filter((doc) => doc.name !== value.name)) }
@@ -60,7 +63,7 @@ export class AnswerFactory extends BaseFactory<AnswerEntity, AnswerToModel> {
 		this.body = entity.body
 		this.credits = entity.credits
 		this.questionId = entity.questionId
-		this.userId = entity.userId
+		this.userBioAndId = { id: entity.userId, user: entity.user }
 		this.set('attachments', entity.attachments)
 		this.set('user', entity.user)
 		this.set('likes', entity.likes)

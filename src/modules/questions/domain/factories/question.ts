@@ -40,8 +40,11 @@ export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel
 	set credits (value: number) { this.set('credits', value) }
 	get subjectId () { return this.values.subjectId }
 	set subjectId (value: string) { this.set('subjectId', value) }
-	get userId () { return this.values.userId }
-	set userId (value: string) { this.set('userId', value) }
+	set userBioAndId (value: { id: string, user: UserBio }) {
+		this.set('userId', value.id)
+		this.set('user', value.user)
+	}
+
 	get attachments () { return this.values.attachments }
 	addAttachment (value: Content) { return this.set('attachments', [...this.values.attachments, value]) }
 	removeAttachment (value: Content) { return this.set('attachments', this.values.attachments.filter((doc) => doc.name !== value.name)) }
@@ -50,7 +53,7 @@ export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel
 		this.body = entity.body
 		this.credits = entity.credits
 		this.subjectId = entity.subjectId
-		this.userId = entity.userId
+		this.userBioAndId = { id: entity.userId, user: entity.user }
 		this.set('attachments', entity.attachments)
 		this.set('user', entity.user)
 		this.set('answerId', entity.answerId)

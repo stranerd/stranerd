@@ -8,17 +8,17 @@ export const createQuestion = functions.https.onCall(async ({ question }, contex
 
 	try {
 		const questionRef = admin.firestore().collection('questions').doc()
-		const userRef = admin.database().ref('profiles').child(question.userId)
-		const bio = (await userRef.child('bio').once('value')).val()
 
-		const res = await userRef.child('account/credits')
+		const res = await admin.database().ref('profiles')
+			.child(question.userId)
+			.child('account/credits')
 			.transaction( (credits) => {
 				if (credits === null) return null
 				const diffInCredits = credits - question.credits
 				return diffInCredits > 0 ? diffInCredits : undefined
 			})
 		if (res.committed) {
-			await questionRef.set({ ...question, user: bio })
+			await questionRef.set(question)
 			return questionRef.id
 		} else throw new Error('You do not have sufficient credits.')
 

@@ -55,7 +55,6 @@ export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel
 		this.subjectId = entity.subjectId
 		this.userBioAndId = { id: entity.userId, user: entity.user }
 		this.set('attachments', entity.attachments)
-		this.set('user', entity.user)
 		this.set('answerId', entity.answerId)
 	}
 

@@ -1,12 +1,15 @@
 import { SubjectFirebaseDataSource } from './data/datasources/subject-firebase'
 import { QuestionFirebaseDataSource } from './data/datasources/question-firebase'
 import { AnswerFirebaseDataSource } from './data/datasources/answer-firebase'
+import { QuestionCommentFirebaseDataSource, AnswerCommentFirebaseDataSource } from './data/datasources/comment-firebase'
 import { SubjectTransformer } from './data/transformers/subject'
 import { QuestionTransformer } from './data/transformers/question'
 import { AnswerTransformer } from './data/transformers/answer'
+import { CommentTransformer } from './data/transformers/comment'
 import { SubjectRepository } from './data/repositories/subject'
 import { QuestionRepository } from './data/repositories/question'
 import { AnswerRepository } from './data/repositories/answer'
+import { CommentRepository } from './data/repositories/comment'
 import { GetSubjectsUseCase } from './domain/usecases/subjects/getSubjects'
 import { DeleteSubjectUseCase } from './domain/usecases/subjects/deleteSubject'
 import { GetSubjectFactoryUseCase } from './domain/usecases/subjects/getSubjectFactory'
@@ -26,24 +29,33 @@ import { LikeAnswerUseCase } from './domain/usecases/answers/likeAnswer'
 import { RateAnswerUseCase } from './domain/usecases/answers/rateAnswer'
 import { GetAnswerFactoryUseCase } from './domain/usecases/answers/getAnswerFactory'
 import { ListenToAnswersUseCase } from './domain/usecases/answers/listenToAnswers'
+import { AddQuestionCommentUseCase, AddAnswerCommentUseCase } from './domain/usecases/comments/addComment'
+import { GetCommentFactoryUseCase } from './domain/usecases/comments/getCommentFactory'
 import { SubjectEntity } from './domain/entities/subject'
 import { SubjectFactory } from './domain/factories/subject'
 import { QuestionEntity } from './domain/entities/question'
 import { QuestionFactory } from './domain/factories/question'
 import { AnswerEntity } from './domain/entities/answer'
 import { AnswerFactory } from './domain/factories/answer'
+import { CommentEntity } from './domain/entities/comment'
+import { CommentFactory } from './domain/factories/comment'
 
 const subjectDataSource = new SubjectFirebaseDataSource()
 const questionDataSource = new QuestionFirebaseDataSource()
 const answerDataSource = new AnswerFirebaseDataSource()
+const questionCommentDataSource = new QuestionCommentFirebaseDataSource()
+const answerCommentDataSource = new AnswerCommentFirebaseDataSource()
 
 const subjectTransformer = new SubjectTransformer()
 const questionTransformer = new QuestionTransformer()
 const answerTransformer = new AnswerTransformer()
+const commentTransformer = new CommentTransformer()
 
 const subjectRepository = new SubjectRepository(subjectDataSource, subjectTransformer)
 const questionRepository = new QuestionRepository(questionDataSource, questionTransformer)
 const answerRepository = new AnswerRepository(answerDataSource, answerTransformer)
+const questionCommentRepository = new CommentRepository(questionCommentDataSource, commentTransformer)
+const answerCommentRepository = new CommentRepository(answerCommentDataSource, commentTransformer)
 
 export const GetSubjects = new GetSubjectsUseCase(subjectRepository)
 export const DeleteSubject = new DeleteSubjectUseCase(subjectRepository)
@@ -67,6 +79,11 @@ export const LikeAnswer = new LikeAnswerUseCase(answerRepository)
 export const RateAnswer = new RateAnswerUseCase(answerRepository)
 export const GetAnswerFactory = new GetAnswerFactoryUseCase()
 
+export const AddQuestionComment = new AddQuestionCommentUseCase(questionCommentRepository)
+export const AddAnswerComment = new AddAnswerCommentUseCase(answerCommentRepository)
+export const GetCommentFactory = new GetCommentFactoryUseCase()
+
 export { SubjectEntity, SubjectFactory }
 export { QuestionEntity, QuestionFactory }
 export { AnswerEntity, AnswerFactory }
+export { CommentEntity, CommentFactory }

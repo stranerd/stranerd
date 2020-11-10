@@ -65,7 +65,6 @@ export class AnswerFactory extends BaseFactory<AnswerEntity, AnswerToModel> {
 		this.questionId = entity.questionId
 		this.userBioAndId = { id: entity.userId, user: entity.user }
 		this.set('attachments', entity.attachments)
-		this.set('user', entity.user)
 		this.set('likes', entity.likes)
 		this.set('ratings', entity.ratings)
 	}

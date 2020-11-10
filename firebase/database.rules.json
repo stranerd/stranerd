@@ -5,6 +5,20 @@
 			".write": true,
 			".indexOn": ["questionId", "userId"]
 		},
+		"comments": {
+			"answers": {
+				"$answerId": {
+					".read": true,
+					".write": true
+				}
+			},
+			"questions": {
+				"$questionId": {
+					".read": true,
+					".write": true
+				}
+			}
+		},
 		"profiles": {
 			".read": true,
 			".write": true,
@@ -16,7 +30,7 @@
 			".indexOn": ["name"]
 		},
 		"users": {
-			"$id": {
+			"$userId": {
 				".read": true,
 				".write": true
 			}

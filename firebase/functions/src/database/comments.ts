@@ -5,29 +5,33 @@ export const questionCommentModified = functions.database.ref('comments/question
 	.onWrite(async (snap, context) => {
 		const { questionId } = context.params
 
-		const last5CommentsArray = Object.entries(snap.after.val() ?? {})
+		const comments = Object.entries(snap.after.val() ?? {})
 			.sort((a, b) => a > b ? 1 : -1)
-			.slice(-5)
-
-		const last5Comments = Object.fromEntries(last5CommentsArray)
+		const last5Comments = Object.fromEntries(comments.slice(-5))
 
 		await admin.firestore().collection('questions')
 			.doc(questionId)
-			.set({ comments: last5Comments }, { merge: true })
+			.set({
+				comments: {
+					count: comments.length,
+					last: last5Comments
+				}
+			}, { merge: true })
 	})
 
 export const answerCommentModified = functions.database.ref('comments/answers/{answerId}')
 	.onWrite(async (snap, context) => {
 		const { answerId } = context.params
 
-		const last5CommentsArray = Object.entries(snap.after.val() ?? {})
+		const comments = Object.entries(snap.after.val() ?? {})
 			.sort((a, b) => a > b ? 1 : -1)
-			.slice(-5)
-
-		const last5Comments = Object.fromEntries(last5CommentsArray)
+		const last5Comments = Object.fromEntries(comments.slice(-5))
 
 		await admin.database().ref('answers')
 			.child(answerId)
 			.child('comments')
-			.set(last5Comments)
+			.update({
+				count: comments.length,
+				last: last5Comments
+			})
 	})

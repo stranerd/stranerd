@@ -12,9 +12,14 @@ export class AnswerEntity extends BaseEntity {
 	public readonly user: UserBio
 	public readonly likes: { [key: string]: boolean }
 	public readonly ratings: { [key: string]: number }
+	public readonly comments: { id: string, body: string, userId: string, user: UserBio }[]
+	public readonly commentsCount: number
 	public readonly createdAt: Date
 
-	constructor ({ id, body, credits, questionId, attachments, createdAt, userId, user, likes, ratings }: AnswerConstructorArgs) {
+	constructor ({
+		id, body, credits, questionId, attachments,
+		createdAt, userId, user, likes, ratings, comments
+	}: AnswerConstructorArgs) {
 		super()
 		this.id = id
 		this.body = body
@@ -25,6 +30,13 @@ export class AnswerEntity extends BaseEntity {
 		this.user = generateDefaultBio(user)
 		this.likes = likes ?? {}
 		this.ratings = ratings ?? {}
+		this.commentsCount = comments?.count ?? 0
+		this.comments = Object.entries(comments?.last ?? {})
+			.sort((a, b) => a > b ? 1 : -1)
+			.map((c) => ({
+				id: c[0], body: c[1].body, userId: c[1].userId,
+				user: generateDefaultBio(c[1].user)
+			}))
 		this.createdAt = createdAt
 	}
 
@@ -44,4 +56,12 @@ type AnswerConstructorArgs = {
 	user: UserBio
 	likes: { [key: string]: boolean }
 	ratings: { [key: string]: number }
+	comments?: {
+		count: number
+		last: { [id: string]: {
+				body: string,
+				userId: string,
+				user: UserBio
+			} }
+	}
 }

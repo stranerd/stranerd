@@ -27,7 +27,7 @@ export abstract class BaseFactory<E, T> {
 
 	validateAll = () => Object.keys(this.values).forEach((key) => this.set(key, this.values[key]))
 
-	public checkValidity (property: string, value: any) {
+	checkValidity (property: string, value: any) {
 		if (this.rules[property]) {
 			const validity = Validator.single(value, this.rules[property].rules, this.rules[property].required)
 			if (validity.isValid) return { isValid: validity.isValid, message: undefined }
@@ -36,13 +36,14 @@ export abstract class BaseFactory<E, T> {
 	}
 
 	reset = () => {
-		const reserved = ['user', 'userId', 'from']
-		Object.keys(this.values).filter((key) => !reserved.includes(key)).forEach((key) => {
-			this.values[key] = undefined
-			this.validValues[key] = undefined
-			this.errors[key] = undefined
-		})
+		const reserved = ['userId', 'user']
+		Object.keys(this.values).filter((key) => !reserved.includes(key))
+			.forEach((key) => {
+				this.values[key] = undefined
+				this.validValues[key] = undefined
+				this.errors[key] = undefined
+			})
 	}
 
-	uploadFile = async (link: string, file: File) => await UploaderService.call(link, file)
+	uploadFile = async (path: string, file: File) => await UploaderService.call(path, file)
 }

@@ -1,5 +1,8 @@
 import { reqRef, useFetch, watch } from '@nuxtjs/composition-api'
-import { AddQuestion, GetQuestions, ListenToQuestions, QuestionEntity, QuestionFactory } from '@modules/questions'
+import {
+	AddQuestion, FindQuestion, GetQuestions, ListenToQuestion,
+	ListenToQuestions, QuestionEntity, QuestionFactory
+} from '@modules/questions'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { PAGINATION_LIMIT } from '@utils/constants'
 import { useAuth } from '@app/hooks/auth/auth'
@@ -85,5 +88,46 @@ export const createQuestion = () => {
 	return {
 		error, loading, factory,
 		createQuestion
+	}
+}
+
+const fetchQuestion = async (id: string) => {
+	let question = global.questions.value.find((q) => q.id === id) ?? null
+	if (question) return question
+	question = await FindQuestion.call(id)
+	if (question) unshiftToQuestionList(question)
+	return question
+}
+export const useQuestion = (questionId: string) => {
+	const { error, setError } = useErrorHandler()
+	const { loading, setLoading } = useLoadingHandler()
+	const question = reqRef(null as QuestionEntity | null)
+	const listener = reqRef(null as null | (() => void))
+
+	const findQuestion = async () => {
+		setError('')
+		try {
+			setLoading(true)
+			question.value = await fetchQuestion(questionId)
+		} catch (error) { setError(error) }
+		setLoading(false)
+	}
+
+	const startListener = async () => {
+		const callback = (q: QuestionEntity | null) => {
+			if (q) {
+				question.value = q
+				unshiftToQuestionList(q)
+			}
+		}
+		listener.value = await ListenToQuestion.call(questionId, callback)
+	}
+
+	useFetch(findQuestion)
+
+	return {
+		error, loading, question,
+		startListener,
+		closeListener: () => listener.value?.()
 	}
 }

@@ -28,6 +28,7 @@ import { LikeAnswerUseCase } from './domain/usecases/answers/likeAnswer'
 import { RateAnswerUseCase } from './domain/usecases/answers/rateAnswer'
 import { ListenToAnswersUseCase } from './domain/usecases/answers/listenToAnswers'
 import { AddQuestionCommentUseCase, AddAnswerCommentUseCase } from './domain/usecases/comments/addComment'
+import { ListenToQuestionCommentsUseCase, ListenToAnswerCommentsUseCase } from './domain/usecases/comments/listenToComments'
 import { SubjectEntity } from './domain/entities/subject'
 import { SubjectFactory } from './domain/factories/subject'
 import { QuestionEntity } from './domain/entities/question'
@@ -76,6 +77,8 @@ export const RateAnswer = new RateAnswerUseCase(answerRepository)
 
 export const AddQuestionComment = new AddQuestionCommentUseCase(questionCommentRepository)
 export const AddAnswerComment = new AddAnswerCommentUseCase(answerCommentRepository)
+export const ListenToQuestionComments = new ListenToQuestionCommentsUseCase(questionCommentRepository)
+export const ListenToAnswerComments = new ListenToAnswerCommentsUseCase(answerCommentRepository)
 
 export { SubjectEntity, SubjectFactory }
 export { QuestionEntity, QuestionFactory }

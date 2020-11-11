@@ -1,5 +1,8 @@
 import { Ref, reqRef, watch } from '@nuxtjs/composition-api'
-import { AddAnswer, AnswerEntity, AnswerFactory, ListenToAnswers, QuestionEntity } from '@modules/questions'
+import {
+	AddAnswer, AnswerEntity, AnswerFactory, LikeAnswer,
+	ListenToAnswers, QuestionEntity, RateAnswer
+} from '@modules/questions'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
 
@@ -64,5 +67,36 @@ export const createAnswer = (question: QuestionEntity) => {
 	return {
 		factory, error, loading,
 		createAnswer
+	}
+}
+
+export const useAnswer = (answer: AnswerEntity) => {
+	const { loading, setLoading } = useLoadingHandler()
+	const { error, setError } = useErrorHandler()
+
+	const likeAnswer = async () => {
+		const userId = useAuth().id.value!
+		setError('')
+		if (answer.likes[userId]) return
+		try {
+			setLoading(true)
+			await LikeAnswer.call(answer.id, userId)
+		} catch (error) { setError(error) }
+		setLoading(false)
+	}
+	const rateAnswer = async (rating: number) => {
+		const userId = useAuth().id.value!
+		setError('')
+		if (answer.ratings[userId]) return
+		try {
+			setLoading(true)
+			await RateAnswer.call(answer.id, userId, rating)
+		} catch (error) { setError(error) }
+		setLoading(false)
+	}
+
+	return {
+		loading, error,
+		likeAnswer, rateAnswer
 	}
 }

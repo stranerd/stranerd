@@ -1,7 +1,8 @@
 import { reqRef, useFetch } from '@nuxtjs/composition-api'
-import { GetQuestions, ListenToQuestions, QuestionEntity } from '@modules/questions'
-import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
+import { AddQuestion, GetQuestions, ListenToQuestions, QuestionEntity, QuestionFactory } from '@modules/questions'
+import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { PAGINATION_LIMIT } from '@utils/constants'
+import { useAuth } from '@app/hooks/auth/auth'
 
 const global = {
 	questions: reqRef([] as QuestionEntity[]),
@@ -53,5 +54,33 @@ export const useQuestionList = () => {
 		fetchOlderQuestions: fetchQuestions,
 		startQuestionListener,
 		closeQuestionListener: () => global.listener.value?.()
+	}
+}
+
+const factory = reqRef(new QuestionFactory())
+export const createQuestion = () => {
+	const { id, bio } = useAuth()
+	const { error, setError } = useErrorHandler()
+	const { loading, setLoading } = useLoadingHandler()
+	const { setMessage } = useSuccessHandler()
+	factory.value.userBioAndId = { id: id.value!, user: bio.value! }
+
+	const createQuestion = async () => {
+		setError('')
+		if (factory.value.valid && !loading.value) {
+			try {
+				setLoading(true)
+				factory.value.userBioAndId = { id: id.value!, user: bio.value! }
+				const questionId = await AddQuestion.call(factory.value)
+				setMessage(`Question asked successfully with id: ${questionId}`)
+				factory.value.reset()
+			} catch (error) { setError(error) }
+			setLoading(false)
+		} else factory.value.validateAll()
+	}
+
+	return {
+		error, loading, factory,
+		createQuestion
 	}
 }

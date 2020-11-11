@@ -23,7 +23,7 @@ export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel
 		subjectId: { required: true, rules: [isLongerThan0] },
 		userId: { required: true, rules: [isLongerThan0] },
 		answerId: { required: false, rules: [] },
-		user: { required: false, rules: [] }
+		user: { required: true, rules: [] }
 	}
 
 	values: { body: string, attachments: Content[], credits: number, subjectId: string, userId: string, user: UserBio | undefined, answerId: string | undefined } =

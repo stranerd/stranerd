@@ -6,7 +6,7 @@ import {
 import { hostname, isClient, protocol, host } from '@utils/environment'
 import { REDIRECT_SESSION_NAME } from '@utils/constants'
 import Cookie from 'cookie'
-import { useErrorHandler, useLoadingHandler } from '@app/usecases/core/states'
+import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 
 const createSession = async (idToken: string) => {
 	await SessionSignin.call(idToken)

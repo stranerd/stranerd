@@ -1,5 +1,5 @@
 import { reqRef, watch } from '@nuxtjs/composition-api'
-import { Notify } from '@app/usecases/core/notifications'
+import { Notify } from '@app/hooks/core/notifications'
 
 export const useErrorHandler = () => {
 	const errorState = reqRef('')

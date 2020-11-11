@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useCreateModal } from '@app/usecases/core/modals'
+import { useCreateModal } from '@app/hooks/core/modals'
 import CreateSubject from '@app/components/core/modals/create/CreateSubject.vue'
 export default defineComponent({
 	name: 'CreateModalIndex',

@@ -3,8 +3,8 @@ import {
 	AddTutorSubject, FindTutor, GetTutors, GetUsersByEmail,
 	MakeTutor, RemoveTutor, RemoveTutorSubject, UserEntity, TutorEntity
 } from '@modules/users'
-import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/usecases/core/states'
-import { Alert } from '@app/usecases/core/notifications'
+import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
+import { Alert } from '@app/hooks/core/notifications'
 
 const global = {
 	fetched: reqRef(false),

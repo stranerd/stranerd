@@ -35,7 +35,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from '@nuxtjs/composition-api'
-import { useFileInputs } from '@app/usecases/core/forms'
+import { useFileInputs } from '@app/hooks/core/forms'
 import { SubjectFactory } from '@modules/questions'
 import { isClient } from '@utils/environment'
 export default defineComponent({

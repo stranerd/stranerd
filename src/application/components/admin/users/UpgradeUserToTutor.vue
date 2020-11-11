@@ -45,7 +45,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useTutorRoles } from '@app/usecases/users/roles/tutors'
+import { useTutorRoles } from '@app/hooks/users/roles/tutors'
 export default defineComponent({
 	setup () {
 		const {

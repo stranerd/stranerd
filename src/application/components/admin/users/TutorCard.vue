@@ -26,8 +26,8 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { TutorEntity } from '@modules/users'
-import { setCurrentTutor, useTutorRoles } from '@app/usecases/users/roles/tutors'
-import { useEditModal } from '@app/usecases/core/modals'
+import { setCurrentTutor, useTutorRoles } from '@app/hooks/users/roles/tutors'
+import { useEditModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	props: {
 		tutor: {

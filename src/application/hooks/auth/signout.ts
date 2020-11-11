@@ -1,6 +1,6 @@
 import { SessionSignout } from '@modules/auth'
 import { GenerateLink } from '@utils/router'
-import { useErrorHandler, useLoadingHandler } from '@app/usecases/core/states'
+import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 
 export const useSessionSignout = () => {
 	const { error, setError } = useErrorHandler()

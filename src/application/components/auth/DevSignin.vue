@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useDevSignin } from '@app/usecases/auth/signin'
+import { useDevSignin } from '@app/hooks/auth/signin'
 export default defineComponent({
 	setup () {
 		const { loading, signin, id, devs, error } = useDevSignin()

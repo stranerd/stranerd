@@ -58,8 +58,8 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import AuthProviders from '@app/components/auth/AuthProviders.vue'
 import DevSignin from '@app/components/auth/DevSignin.vue'
-import { usePassword } from '@app/usecases/core/forms'
-import { useEmailSignin } from '@app/usecases/auth/signin'
+import { usePassword } from '@app/hooks/core/forms'
+import { useEmailSignin } from '@app/hooks/auth/signin'
 import { isDev } from '@utils/environment'
 export default defineComponent({
 	name: 'AuthSigninPage',

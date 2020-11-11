@@ -1,5 +1,5 @@
 import { reactive, reqRef, toRefs, useFetch } from '@nuxtjs/composition-api'
-import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/usecases/core/states'
+import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { GetAllAdmins, GetUsersByEmail, MakeAdmin, RemoveAdmin, UserEntity } from '@modules/users'
 
 export const useAdminRoles = () => {

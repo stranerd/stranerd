@@ -24,8 +24,8 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { SubjectEntity } from '@modules/questions'
-import { setCurrentSubject, useDeleteSubject } from '@app/usecases/questions/subjects'
-import { useEditModal } from '@app/usecases/core/modals'
+import { setCurrentSubject, useDeleteSubject } from '@app/hooks/questions/subjects'
+import { useEditModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	props: {
 		subject: {

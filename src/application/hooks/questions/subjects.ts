@@ -1,8 +1,8 @@
 import { reqRef, useFetch } from '@nuxtjs/composition-api'
 import { GetSubjects, AddSubject, GetSubjectFactory, FindSubject, DeleteSubject, UpdateSubject, SubjectEntity } from '@modules/questions'
-import { useCreateModal, useEditModal } from '@app/usecases/core/modals'
-import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/usecases/core/states'
-import { Alert } from '@app/usecases/core/notifications'
+import { useCreateModal, useEditModal } from '@app/hooks/core/modals'
+import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
+import { Alert } from '@app/hooks/core/notifications'
 
 const global = {
 	fetched: reqRef(false),

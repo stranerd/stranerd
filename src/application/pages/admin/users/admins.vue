@@ -32,7 +32,7 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import UpgradeUserToAdmin from '@app/components/admin/users/UpgradeUserToAdmin.vue'
-import { useAdminList, useAdminRoles } from '@app/usecases/users/roles/admins'
+import { useAdminList, useAdminRoles } from '@app/hooks/users/roles/admins'
 export default defineComponent({
 	name: 'AdminUsersAdminsPage',
 	components: {

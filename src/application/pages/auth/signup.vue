@@ -86,8 +86,8 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import AuthProviders from '@app/components/auth/AuthProviders.vue'
-import { usePassword } from '@app/usecases/core/forms'
-import { useEmailSignup } from '@app/usecases/auth/signin'
+import { usePassword } from '@app/hooks/core/forms'
+import { useEmailSignup } from '@app/hooks/auth/signin'
 export default defineComponent({
 	name: 'AuthSignupPage',
 	components: { AuthProviders },

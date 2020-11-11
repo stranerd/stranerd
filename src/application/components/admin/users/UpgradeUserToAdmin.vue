@@ -45,7 +45,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useAdminRoles } from '@app/usecases/users/roles/admins'
+import { useAdminRoles } from '@app/hooks/users/roles/admins'
 export default defineComponent({
 	setup () {
 		const {

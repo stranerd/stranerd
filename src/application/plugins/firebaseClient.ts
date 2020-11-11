@@ -1,6 +1,6 @@
 import { defineNuxtPlugin } from '@nuxtjs/composition-api'
 import firebase from '@modules/core/services/initFirebase'
-import { useAuth } from '@app/usecases/auth/auth'
+import { useAuth } from '@app/hooks/auth/auth'
 
 export default defineNuxtPlugin(async () => {
 	await firebase.auth()

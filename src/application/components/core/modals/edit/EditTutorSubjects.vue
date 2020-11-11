@@ -49,9 +49,9 @@
 
 <script lang="ts">
 import { defineComponent, computed } from '@nuxtjs/composition-api'
-import { useEditModal } from '@app/usecases/core/modals'
-import { useSubjectList } from '@app/usecases/questions/subjects'
-import { useSingleTutor } from '@app/usecases/users/roles/tutors'
+import { useEditModal } from '@app/hooks/core/modals'
+import { useSubjectList } from '@app/hooks/questions/subjects'
+import { useSingleTutor } from '@app/hooks/users/roles/tutors'
 export default defineComponent({
 	name: 'EditModalTutorSubject',
 	setup () {

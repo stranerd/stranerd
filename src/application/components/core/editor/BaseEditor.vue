@@ -16,7 +16,7 @@
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
 import { VueEditor } from 'vue2-editor'
-import { Notify } from '@app/usecases/core/notifications'
+import { Notify } from '@app/hooks/core/notifications'
 import { UploaderService } from '@modules/core/services/uploader'
 
 /* const customToolBar = [

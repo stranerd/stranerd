@@ -21,8 +21,8 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useCreateModal } from '@app/usecases/core/modals'
-import { useCreateSubject } from '@app/usecases/questions/subjects'
+import { useCreateModal } from '@app/hooks/core/modals'
+import { useCreateSubject } from '@app/hooks/questions/subjects'
 import SubjectForm from '@app/components/questions/subjects/SubjectForm.vue'
 export default defineComponent({
 	name: 'CreateModalSubject',

@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useTutorList } from '@app/usecases/users/roles/tutors'
+import { useTutorList } from '@app/hooks/users/roles/tutors'
 import UpgradeUserToTutor from '@app/components/admin/users/UpgradeUserToTutor.vue'
 import AdminTutorCard from '@app/components/admin/users/TutorCard.vue'
 export default defineComponent({

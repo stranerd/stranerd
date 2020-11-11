@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useGoogleSignin } from '@app/usecases/auth/signin'
+import { useGoogleSignin } from '@app/hooks/auth/signin'
 export default defineComponent({
 	setup () {
 		const { loading: googleLoading, signin: googleSignin, error: googleError } = useGoogleSignin()

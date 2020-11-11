@@ -3,7 +3,7 @@ import { GenerateLink } from '@utils/router'
 import Cookie from 'cookie'
 import { isServer, host, protocol } from '@utils/environment'
 import { REDIRECT_SESSION_NAME } from '@utils/constants'
-import { useAuth } from '@app/usecases/auth/auth'
+import { useAuth } from '@app/hooks/auth/auth'
 
 export default defineNuxtMiddleware(({ req, res, route, redirect }) => {
 	if (!useAuth().isLoggedIn.value) {

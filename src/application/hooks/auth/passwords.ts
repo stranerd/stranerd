@@ -1,6 +1,6 @@
 import { reqRef } from '@nuxtjs/composition-api'
 import { GetPasswordResetFactory, ResetPassword } from '@modules/auth'
-import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/usecases/core/states'
+import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 
 export const usePasswordReset = () => {
 	const factory = reqRef(GetPasswordResetFactory.call())

@@ -15,6 +15,6 @@ export class ListenToQuestionsUseCase {
 	    }
 	    if (date) conditions.where = [{ field: 'dates.createdAt', condition: '>', value: date }]
 
-	    return await this.repository.listen(callback, conditions)
+	    return await this.repository.listenToMany(callback, conditions)
     }
 }

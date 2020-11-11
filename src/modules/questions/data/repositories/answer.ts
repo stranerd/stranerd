@@ -16,12 +16,12 @@ export class AnswerRepository implements IAnswerRepository {
 
 	async get (conditions?: DatabaseGetClauses) {
 		const models = await this.dataSource.get(conditions)
-		return models.map((model) => this.transformer.fromJSON(model))
+		return models.map(this.transformer.fromJSON)
 	}
 
 	async listen (callback: (entities: AnswerEntity[]) => void, conditions?: DatabaseGetClauses) {
 		const cb = (documents: AnswerFromModel[]) => {
-			const entities = documents.map((doc) => this.transformer.fromJSON(doc))
+			const entities = documents.map(this.transformer.fromJSON)
 			callback(entities)
 		}
 		return this.dataSource.listen(cb, conditions)

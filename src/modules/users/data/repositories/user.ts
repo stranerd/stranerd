@@ -22,7 +22,7 @@ export class UserRepository implements IUserRepository {
 
 	async get (conditions?: DatabaseGetClauses) {
 		const models = await this.dataSource.get(conditions)
-		return models.map((model) => this.transformer.fromJSON(model))
+		return models.map(this.transformer.fromJSON)
 	}
 
 	async listen (id: string, callback: (entity: UserEntity | null) => void) {

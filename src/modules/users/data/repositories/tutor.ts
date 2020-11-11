@@ -15,7 +15,7 @@ export class TutorRepository implements ITutorRepository {
 
 	async get (conditions?: FirestoreGetClauses) {
 		const models = await this.dataSource.get(conditions)
-		return models.map((model) => this.transformer.fromJSON(model))
+		return models.map(this.transformer.fromJSON)
 	}
 
 	async delete (id: string) {

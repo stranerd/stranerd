@@ -16,12 +16,12 @@ export class CommentRepository implements ICommentRepository {
 
 	async get (baseId: string, conditions?: DatabaseGetClauses) {
 		const models = await this.dataSource.get(baseId, conditions)
-		return models.map((model) => this.transformer.fromJSON(model))
+		return models.map(this.transformer.fromJSON)
 	}
 
 	async listen (baseId: string, callback: (entities: CommentEntity[]) => void, conditions?: DatabaseGetClauses) {
 		const cb = (documents: CommentFromModel[]) => {
-			const entities = documents.map((doc) => this.transformer.fromJSON(doc))
+			const entities = documents.map(this.transformer.fromJSON)
 			callback(entities)
 		}
 		return this.dataSource.listen(baseId, cb, conditions)

@@ -16,15 +16,22 @@ export class QuestionRepository implements IQuestionRepository {
 
 	async get (conditions?: FirestoreGetClauses) {
 		const models = await this.dataSource.get(conditions)
-		return models.map((model) => this.transformer.fromJSON(model))
+		return models.map(this.transformer.fromJSON)
 	}
 
-	async listen (callback: (entities: QuestionEntity[]) => void, conditions?: FirestoreGetClauses) {
+	async listenToOne (id: string, callback: (entity: QuestionEntity | null) => void) {
+		const cb = (document: QuestionFromModel | null) => {
+			callback(document ? this.transformer.fromJSON(document) : null)
+		}
+		return this.dataSource.listenToOne(id, cb)
+	}
+
+	async listenToMany (callback: (entities: QuestionEntity[]) => void, conditions?: FirestoreGetClauses) {
 		const cb = (documents: QuestionFromModel[]) => {
-			const entities = documents.map((doc) => this.transformer.fromJSON(doc))
+			const entities = documents.map(this.transformer.fromJSON)
 			callback(entities)
 		}
-		return this.dataSource.listen(cb, conditions)
+		return this.dataSource.listenToMany(cb, conditions)
 	}
 
 	async add (data: QuestionToModel) {

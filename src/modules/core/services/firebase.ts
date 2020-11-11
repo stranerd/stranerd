@@ -46,7 +46,7 @@ export const FirestoreService = {
 	},
 	listenToOne: async (callback: (document: any) => void, collection: string, id: string) => {
 		return firestore.collection(collection).doc(id).onSnapshot((snapshot) => {
-			callback(snapshot.exists ? { id: snapshot.id, ...snapshot.data() } : undefined)
+			callback(snapshot.exists ? { id: snapshot.id, ...snapshot.data() } : null)
 		})
 	},
 	listenToMany: async (callback: (documents: any[]) => void, collection: string, conditions?: FirestoreGetClauses) => {

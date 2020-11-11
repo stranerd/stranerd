@@ -1,4 +1,4 @@
-import { reqRef, useFetch } from '@nuxtjs/composition-api'
+import { reqRef, useFetch, watch } from '@nuxtjs/composition-api'
 import { AddQuestion, GetQuestions, ListenToQuestions, QuestionEntity, QuestionFactory } from '@modules/questions'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { PAGINATION_LIMIT } from '@utils/constants'
@@ -64,6 +64,9 @@ export const createQuestion = () => {
 	const { loading, setLoading } = useLoadingHandler()
 	const { setMessage } = useSuccessHandler()
 	factory.value.userBioAndId = { id: id.value!, user: bio.value! }
+
+	watch(() => id.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
+	watch(() => bio.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
 
 	const createQuestion = async () => {
 		setError('')

@@ -66,8 +66,8 @@ export const createQuestion = () => {
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const { setMessage } = useSuccessHandler()
-	factory.value.userBioAndId = { id: id.value!, user: bio.value! }
 
+	factory.value.userBioAndId = { id: id.value!, user: bio.value! }
 	watch(() => id.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
 	watch(() => bio.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
 
@@ -76,7 +76,6 @@ export const createQuestion = () => {
 		if (factory.value.valid && !loading.value) {
 			try {
 				setLoading(true)
-				factory.value.userBioAndId = { id: id.value!, user: bio.value! }
 				const questionId = await AddQuestion.call(factory.value)
 				setMessage(`Question asked successfully with id: ${questionId}`)
 				factory.value.reset()

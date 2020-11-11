@@ -16,6 +16,7 @@ export class SubjectFactory extends BaseFactory<SubjectEntity, SubjectToModel> {
 	values: { name: string, icon: Content | undefined } = { name: '', icon: undefined }
 	validValues: { name: string, icon: Content | undefined } = { name: '', icon: undefined }
 	errors = { name: undefined, icon: undefined }
+	reserved = []
 
 	get name () { return this.values.name }
 	set name (value: string) { this.set('name', value.toLowerCase()) }

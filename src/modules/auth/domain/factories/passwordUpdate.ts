@@ -15,6 +15,7 @@ export class PasswordUpdateFactory extends BaseFactory<null, { email: string, ol
 	values = { email: '', oldPassword: '', password: '', cPassword: '' }
 	validValues = { email: '', oldPassword: '', password: '', cPassword: '' }
 	errors = { email: '', oldPassword: '', password: undefined, cPassword: undefined }
+	reserved = []
 
 	get email () { return this.values.email }
 	set email (value: string) { this.set('email', value) }

@@ -14,6 +14,7 @@ export class EmailSigninFactory extends BaseFactory<null, AuthUser> {
 	values = { email: '', password: '' }
 	validValues = { email: '', password: '' }
 	errors = { email: undefined, password: undefined }
+	reserved = []
 
 	get email () { return this.values.email }
 	set email (value: string) { this.set('email', value) }

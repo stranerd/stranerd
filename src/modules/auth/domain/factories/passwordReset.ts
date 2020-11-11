@@ -9,6 +9,7 @@ export class PasswordResetFactory extends BaseFactory<null, { email: string }> {
 	values = { email: '' }
 	validValues = { email: '' }
 	errors = { email: undefined }
+	reserved = []
 
 	get email () { return this.values.email }
 	set email (value: string) { this.set('email', value) }

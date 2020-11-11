@@ -21,6 +21,7 @@ export class CommentFactory extends BaseFactory<CommentEntity, CommentToModel> {
 		{ body: '', userId: '', user: undefined }
 
 	errors = { body: undefined, userId: undefined, user: undefined }
+	reserved = []
 
 	get body () { return this.values.body }
 	set body (value: string) { this.set('body', value) }

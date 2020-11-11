@@ -33,6 +33,7 @@ export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel
 		{ body: '', attachments: [], credits: 10, subjectId: '', userId: '', user: undefined, answerId: undefined }
 
 	errors = { body: undefined, attachments: undefined, subjectId: undefined, userId: undefined, user: undefined, answerId: undefined }
+	reserved = []
 
 	get body () { return this.values.body }
 	set body (value: string) { this.set('body', value) }

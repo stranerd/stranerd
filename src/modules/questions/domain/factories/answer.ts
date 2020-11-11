@@ -20,7 +20,7 @@ export class AnswerFactory extends BaseFactory<AnswerEntity, AnswerToModel> {
 		body: { required: true, rules: [isLongerThan2] },
 		attachments: { required: true, rules: [containsOnlyImages] },
 		credits: { required: true, rules: [] },
-		postId: { required: true, rules: [isLongerThan0] },
+		questionId: { required: true, rules: [isLongerThan0] },
 		userId: { required: true, rules: [isLongerThan0] },
 		user: { required: false, rules: [] },
 		likes: { required: false, rules: [] },
@@ -41,8 +41,10 @@ export class AnswerFactory extends BaseFactory<AnswerEntity, AnswerToModel> {
 
 	errors = {
 		body: undefined, attachments: undefined, likes: undefined, ratings: undefined,
-		questionId: undefined, userId: undefined, user: undefined
+		questionId: undefined, userId: undefined, user: undefined, credits: undefined
 	}
+
+	reserved = ['questionId', 'credits']
 
 	get body () { return this.values.body }
 	set body (value: string) { this.set('body', value) }

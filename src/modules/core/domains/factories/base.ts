@@ -8,6 +8,7 @@ export abstract class BaseFactory<E, T> {
 	abstract errors: { [key: string]: string | undefined }
 	abstract toModel: () => Promise<T>
 	abstract loadEntity: (entity: E) => void
+	abstract reserved: string[]
 
 	set (property: string, value: any) {
 		const check = this.checkValidity(property, value)
@@ -37,7 +38,7 @@ export abstract class BaseFactory<E, T> {
 
 	reset = () => {
 		const reserved = ['userId', 'user']
-		Object.keys(this.values).filter((key) => !reserved.includes(key))
+		Object.keys(this.values).filter((key) => !reserved.concat(this.reserved ?? []).includes(key))
 			.forEach((key) => {
 				this.values[key] = undefined
 				this.validValues[key] = undefined

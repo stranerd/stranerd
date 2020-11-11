@@ -6,10 +6,19 @@
     "outDir": "lib",
     "sourceMap": true,
     "strict": true,
-    "target": "es2017"
+  	"baseUrl": ".",
+    "target": "es2017",
+    "lib": ["esnext"],
+	"typeRoots": [
+	  "./node_modules/@types"
+	]
   },
   "compileOnSave": true,
   "include": [
     "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "lib"
   ]
 }

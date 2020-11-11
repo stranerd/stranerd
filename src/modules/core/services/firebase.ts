@@ -107,6 +107,8 @@ export const DatabaseService = {
 		let ref: firebase.database.Query = database.ref(path)
 		ref = buildDatabaseQuery(ref, conditions)
 		const listener = ref.on('value', (snapshot) => {
+			if (!snapshot.exists) return callback(null)
+
 			const children: any = {}
 			snapshot.forEach((child) => {
 				children[child.key!] = child.val()

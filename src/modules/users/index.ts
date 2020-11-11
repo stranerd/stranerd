@@ -13,13 +13,14 @@ import { SubscribeToMailingListUseCase } from './domain/usecases/roles/subscribe
 import { GetMailingListFactoryUseCase } from './domain/usecases/roles/getMailingListFactory'
 import { GetUsersByEmailUseCase } from './domain/usecases/users/getUsersByEmail'
 import { GetAllAdminsUseCase } from './domain/usecases/users/getAllAdmins'
+import { ListenToUserUseCase } from './domain/usecases/users/listenToUser'
 import { FindTutorUseCase } from './domain/usecases/tutors/findTutor'
 import { GetTutorsUseCase } from './domain/usecases/tutors/getTutors'
 import { MakeTutorUseCase } from './domain/usecases/tutors/makeTutor'
 import { RemoveTutorUseCase } from './domain/usecases/tutors/removeTutor'
 import { AddTutorSubjectUseCase } from './domain/usecases/tutors/addTutorSubject'
 import { RemoveTutorSubjectUseCase } from './domain/usecases/tutors/removeTutorSubject'
-import { UserEntity, UserBio as Bio, generateDefaultBio } from './domain/entities/user'
+import { UserEntity, UserBio, generateDefaultBio } from './domain/entities/user'
 import { TutorEntity } from './domain/entities/tutor'
 
 const userDataSource = new UserFirebaseDataSource()
@@ -36,6 +37,7 @@ const tutorRepository = new TutorRepository(tutorDataSource, tutorTransformer)
 export const FindUser = new FindUserUseCase(userRepository)
 export const GetUsersByEmail = new GetUsersByEmailUseCase(userRepository)
 export const GetAllAdmins = new GetAllAdminsUseCase(userRepository)
+export const ListenToUser = new ListenToUserUseCase(userRepository)
 
 export const MakeAdmin = new MakeAdminUseCase(roleRepository)
 export const RemoveAdmin = new RemoveAdminUseCase(roleRepository)
@@ -50,4 +52,4 @@ export const AddTutorSubject = new AddTutorSubjectUseCase(tutorRepository)
 export const RemoveTutorSubject = new RemoveTutorSubjectUseCase(tutorRepository)
 
 export { UserEntity, generateDefaultBio, TutorEntity }
-export interface UserBio extends Bio {}
+export type { UserBio }

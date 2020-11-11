@@ -2,6 +2,8 @@ import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
 import { IUserRepository } from '../../domain/irepositories/iuser'
 import { UserBaseDataSource } from '../datasources/user-base'
 import { UserTransformer } from '../transformers/user'
+import { UserFromModel } from '../models/user'
+import { UserEntity } from '../../domain/entities/user'
 
 export class UserRepository implements IUserRepository {
 	private dataSource: UserBaseDataSource
@@ -21,5 +23,13 @@ export class UserRepository implements IUserRepository {
 	async get (conditions?: DatabaseGetClauses) {
 		const models = await this.dataSource.get(conditions)
 		return models.map((model) => this.transformer.fromJSON(model))
+	}
+
+	async listen (id: string, callback: (entity: UserEntity | null) => void) {
+		const cb = (model: UserFromModel | null) => {
+			const user = model ? this.transformer.fromJSON(model) : null
+			callback(user)
+		}
+		return this.dataSource.listen(id, cb)
 	}
 }

@@ -1,7 +1,7 @@
 import { reqRef } from '@nuxtjs/composition-api'
 import {
-	GetEmailSigninFactory, GetEmailSignupFactory, SigninWithEmail,
-	SigninWithGoogle, SignupWithEmail, SessionSignin
+	SigninWithEmail, SigninWithGoogle, SignupWithEmail,
+	SessionSignin, EmailSignupFactory, EmailSigninFactory
 } from '@modules/auth'
 import { hostname, isClient, protocol, host } from '@utils/environment'
 import { REDIRECT_SESSION_NAME } from '@utils/constants'
@@ -52,7 +52,7 @@ export const useDevSignin = () => {
 }
 
 export const useEmailSignin = () => {
-	const factory = reqRef(GetEmailSigninFactory.call())
+	const factory = reqRef(new EmailSigninFactory())
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const signin = async () => {
@@ -70,7 +70,7 @@ export const useEmailSignin = () => {
 }
 
 export const useEmailSignup = () => {
-	const factory = reqRef(GetEmailSignupFactory.call())
+	const factory = reqRef(new EmailSignupFactory())
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const signup = async () => {

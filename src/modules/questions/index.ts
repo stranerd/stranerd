@@ -12,7 +12,6 @@ import { AnswerRepository } from './data/repositories/answer'
 import { CommentRepository } from './data/repositories/comment'
 import { GetSubjectsUseCase } from './domain/usecases/subjects/getSubjects'
 import { DeleteSubjectUseCase } from './domain/usecases/subjects/deleteSubject'
-import { GetSubjectFactoryUseCase } from './domain/usecases/subjects/getSubjectFactory'
 import { AddSubjectUseCase } from './domain/usecases/subjects/addSubject'
 import { UpdateSubjectUseCase } from './domain/usecases/subjects/updateSubject'
 import { FindSubjectUseCase } from './domain/usecases/subjects/findSubject'
@@ -20,17 +19,14 @@ import { FindQuestionUseCase } from './domain/usecases/questions/findQuestion'
 import { GetQuestionsUseCase } from './domain/usecases/questions/getQuestions'
 import { AddQuestionUseCase } from './domain/usecases/questions/addQuestion'
 import { MarkQuestionAnsweredUseCase } from './domain/usecases/questions/markQuestionAnswered'
-import { GetQuestionFactoryUseCase } from './domain/usecases/questions/getQuestionFactory'
 import { ListenToQuestionsUseCase } from './domain/usecases/questions/listenToQuestions'
 import { FindAnswerUseCase } from './domain/usecases/answers/findAnswer'
 import { GetAnswersUseCase } from './domain/usecases/answers/getAnswers'
 import { AddAnswerUseCase } from './domain/usecases/answers/addAnswer'
 import { LikeAnswerUseCase } from './domain/usecases/answers/likeAnswer'
 import { RateAnswerUseCase } from './domain/usecases/answers/rateAnswer'
-import { GetAnswerFactoryUseCase } from './domain/usecases/answers/getAnswerFactory'
 import { ListenToAnswersUseCase } from './domain/usecases/answers/listenToAnswers'
 import { AddQuestionCommentUseCase, AddAnswerCommentUseCase } from './domain/usecases/comments/addComment'
-import { GetCommentFactoryUseCase } from './domain/usecases/comments/getCommentFactory'
 import { SubjectEntity } from './domain/entities/subject'
 import { SubjectFactory } from './domain/factories/subject'
 import { QuestionEntity } from './domain/entities/question'
@@ -62,14 +58,12 @@ export const DeleteSubject = new DeleteSubjectUseCase(subjectRepository)
 export const AddSubject = new AddSubjectUseCase(subjectRepository)
 export const UpdateSubject = new UpdateSubjectUseCase(subjectRepository)
 export const FindSubject = new FindSubjectUseCase(subjectRepository)
-export const GetSubjectFactory = new GetSubjectFactoryUseCase()
 
 export const GetQuestions = new GetQuestionsUseCase(questionRepository)
 export const ListenToQuestions = new ListenToQuestionsUseCase(questionRepository)
 export const AddQuestion = new AddQuestionUseCase(questionRepository)
 export const FindQuestion = new FindQuestionUseCase(questionRepository)
 export const MarkQuestionAnswered = new MarkQuestionAnsweredUseCase(questionRepository)
-export const GetQuestionFactory = new GetQuestionFactoryUseCase()
 
 export const GetAnswers = new GetAnswersUseCase(answerRepository)
 export const ListenToAnswers = new ListenToAnswersUseCase(answerRepository)
@@ -77,11 +71,9 @@ export const AddAnswer = new AddAnswerUseCase(answerRepository)
 export const FindAnswer = new FindAnswerUseCase(answerRepository)
 export const LikeAnswer = new LikeAnswerUseCase(answerRepository)
 export const RateAnswer = new RateAnswerUseCase(answerRepository)
-export const GetAnswerFactory = new GetAnswerFactoryUseCase()
 
 export const AddQuestionComment = new AddQuestionCommentUseCase(questionCommentRepository)
 export const AddAnswerComment = new AddAnswerCommentUseCase(answerCommentRepository)
-export const GetCommentFactory = new GetCommentFactoryUseCase()
 
 export { SubjectEntity, SubjectFactory }
 export { QuestionEntity, QuestionFactory }

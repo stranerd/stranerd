@@ -1,5 +1,8 @@
 import { reqRef, useFetch } from '@nuxtjs/composition-api'
-import { GetSubjects, AddSubject, GetSubjectFactory, FindSubject, DeleteSubject, UpdateSubject, SubjectEntity } from '@modules/questions'
+import {
+	GetSubjects, AddSubject, FindSubject, DeleteSubject,
+	UpdateSubject, SubjectEntity, SubjectFactory
+} from '@modules/questions'
 import { useCreateModal, useEditModal } from '@app/hooks/core/modals'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { Alert } from '@app/hooks/core/notifications'
@@ -35,7 +38,7 @@ export const useSubjectList = () => {
 }
 
 export const useCreateSubject = () => {
-	const factory = reqRef(GetSubjectFactory.call())
+	const factory = reqRef(new SubjectFactory())
 	const { error, setError } = useErrorHandler()
 	const { setMessage } = useSuccessHandler()
 	const { loading, setLoading } = useLoadingHandler()
@@ -90,7 +93,7 @@ let currentSubject = null as SubjectEntity | null
 export const setCurrentSubject = (subject: SubjectEntity) => currentSubject = subject
 
 export const useEditSubject = (subject = currentSubject) => {
-	const factory = reqRef(GetSubjectFactory.call())
+	const factory = reqRef(new SubjectFactory())
 	const { error, setError } = useErrorHandler()
 	const { setMessage } = useSuccessHandler()
 	const { loading, setLoading } = useLoadingHandler()

@@ -5,9 +5,13 @@ import { useAuth } from '@app/usecases/auth/auth'
 export default defineNuxtPlugin(async () => {
 	await firebase.auth()
 		.setPersistence(firebase.auth.Auth.Persistence.NONE).catch(() => {})
-	const { isLoggedIn, token } = useAuth()
-	if (isLoggedIn.value && token.value)
+
+	const { isLoggedIn, token, startProfileListener } = useAuth()
+	if (isLoggedIn.value && token.value) {
+		await startProfileListener()
 		await firebase.auth().signInWithCustomToken(token.value).catch(() => {})
+	}
+
 	await firebase.firestore()
 		.enablePersistence({ synchronizeTabs: true })
 		.catch(() => {})

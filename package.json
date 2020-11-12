@@ -1,5 +1,5 @@
 {
-  "name": "ss-nuxtify",
+  "name": "ss-nuxt",
   "version": "1.0.0",
   "description": "",
   "private": true,
@@ -80,12 +80,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kevinand11/ss-nuxtify.git"
+    "url": "git+https://github.com/kevinand11/ss-nuxt.git"
   },
   "author": "Kevin Izuchukwu",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/kevinand11/ss-nuxtify/issues"
+    "url": "https://github.com/kevinand11/ss-nuxt/issues"
   },
-  "homepage": "https://github.com/kevinand11/ss-nuxtify#readme"
+  "homepage": "https://github.com/kevinand11/ss-nuxt#readme"
 }

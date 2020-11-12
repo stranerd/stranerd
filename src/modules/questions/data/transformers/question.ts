@@ -6,12 +6,12 @@ export class QuestionTransformer {
 	fromJSON (model: QuestionFromModel) {
 		const {
 			id, body, attachments, credits, subjectId,
-			answerId, userId, user, comments,
+			answerId, userId, user, comments, answers,
 			dates: { createdAt }
 		} = model
 		return new QuestionEntity({
 			id, body, attachments, credits, subjectId,
-			answerId, userId, user, comments,
+			answerId, userId, user, comments, answers,
 			createdAt: timestampToDate(createdAt)
 		})
 	}

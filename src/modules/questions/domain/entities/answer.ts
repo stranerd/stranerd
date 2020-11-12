@@ -32,10 +32,10 @@ export class AnswerEntity extends BaseEntity {
 		this.ratings = ratings ?? {}
 		this.commentsCount = comments?.count ?? 0
 		this.comments = Object.entries(comments?.last ?? {})
-			.sort((a, b) => a > b ? 1 : -1)
-			.map((c) => ({
-				id: c[0], body: c[1].body, userId: c[1].userId,
-				user: generateDefaultBio(c[1].user)
+			.sort((a, b) => a[0] > b[0] ? 1 : -1)
+			.map(([id, { body, userId, user }]) => ({
+				id, body, userId,
+				user: generateDefaultBio(user)
 			}))
 		this.createdAt = createdAt
 	}

@@ -11,13 +11,15 @@ export class QuestionEntity extends BaseEntity {
 	public readonly answerId: string | undefined
 	public readonly userId: string
 	public readonly user: UserBio
+	public readonly answers: number
 	public readonly comments: { id: string, body: string, userId: string, user: UserBio }[]
 	public readonly commentsCount: number
 	public readonly createdAt: Date
 
 	constructor ({
 		id, body, credits, attachments, subjectId,
-		answerId, createdAt, userId, user, comments
+		answerId, createdAt, userId, user, comments,
+		answers
 	}: QuestionConstructorArgs) {
 		super()
 		this.id = id
@@ -28,12 +30,13 @@ export class QuestionEntity extends BaseEntity {
 		this.answerId = answerId
 		this.userId = userId
 		this.user = generateDefaultBio(user)
+		this.answers = answers ?? 0
 		this.commentsCount = comments?.count ?? 0
 		this.comments = Object.entries(comments?.last ?? {})
-			.sort((a, b) => a > b ? 1 : -1)
-			.map((c) => ({
-				id: c[0], body: c[1].body, userId: c[1].userId,
-				user: generateDefaultBio(c[1].user)
+			.sort((a, b) => a[0] > b[0] ? 1 : -1)
+			.map(([id, { body, userId, user }]) => ({
+				id, body, userId,
+				user: generateDefaultBio(user)
 			}))
 		this.createdAt = createdAt
 	}
@@ -49,6 +52,7 @@ type QuestionConstructorArgs = {
 	createdAt: Date
 	userId: string
 	user: UserBio
+	answers?: number
 	comments?: {
 		count: number
 		last: { [id: string]: {

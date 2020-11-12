@@ -12,6 +12,7 @@ export interface QuestionFromModel {
 	userId: string
 	user: UserBio
 	answerId?: string
+	answers?: number
 	comments?: {
 		count: number
 		last: { [id: string]: CommentFromModel }

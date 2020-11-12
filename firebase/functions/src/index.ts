@@ -7,7 +7,7 @@ import { subscribeToMailingList } from './onCall/roles/mailing'
 import { subjectIconUpdated, subjectDeleted } from './database/subjects'
 import { userNotificationCreated } from './database/notifications'
 import { userProfileUpdated, userCreditsUpdated } from './database/users'
-import { answerCreated } from './database/answers'
+import { answerCreated, answerDeleted } from './database/answers'
 import { questionCommentModified, answerCommentModified } from './database/comments'
 import { questionCreated, questionUpdated, questionDeleted } from './firestore/questions'
 import { tutorUpdated } from './firestore/tutors'
@@ -30,7 +30,7 @@ export { userNotificationCreated }
 // Users
 export { userProfileUpdated, userCreditsUpdated }
 // Answers
-export { answerCreated }
+export { answerCreated, answerDeleted }
 // Comments
 export { questionCommentModified, answerCommentModified }
 

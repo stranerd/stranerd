@@ -41,6 +41,7 @@ module.exports = {
 	],
 	buildModules: [
 		'@nuxtjs/composition-api', '@nuxt/typescript-build', 'nuxt-purgecss',
+		['nuxt-compress', { gzip: { cache: true }, brotli: { threshold: 10240 } }],
 		['@nuxtjs/router', { keepDefaultRouter: true, fileName: 'router.js' }]
 	],
 	env: { ...process.env },

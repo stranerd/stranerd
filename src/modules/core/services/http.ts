@@ -1,12 +1,8 @@
 import axios from 'axios'
-import { protocol, hostname, useSubdomain } from '@utils/environment'
-
-const getBaseURL = () => {
-	return useSubdomain ? protocol + 'api.' + hostname : protocol + hostname + '/api'
-}
+import { GenerateLink } from '@utils/router'
 
 const client = axios.create({
-	baseURL: getBaseURL(),
+	baseURL: GenerateLink({ path: '/api', differentSubdomain: true }),
 	withCredentials: true
 })
 

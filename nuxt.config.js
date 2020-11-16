@@ -17,7 +17,7 @@ module.exports = {
 		],
 		link: [
 			{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-			{ rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap' }
+			process.env.NODE_ENV === 'production' && { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap' }
 		]
 	},
 	css: [
@@ -80,10 +80,49 @@ module.exports = {
 		meta: {
 			theme_color: '#FFC000',
 			ogHost: 'https://stranerd.com',
-			ogImage: '/banner.jpg',
-			twitterCard: '/banner.jpg',
+			ogImage: 'https://stranerd.com/images/banner.jpg',
+			twitterCard: 'https://stranerd.com/images/banner.jpg',
 			twitterSite: 'https://stranerd.com'
 		},
-		manifest: {}
+		manifest: {},
+		workbox: {
+			runtimeCaching: [
+				{
+					urlPattern: 'https://fonts.googleapis.com/*',
+					handler: 'staleWhileRevalidate',
+					strategyOptions: { cacheName: 'fonts-stylesheets' }
+				},
+				{
+					urlPattern: 'https://fonts.gstatic.com/*',
+					handler: 'cacheFirst',
+					strategyOptions: { cacheName: 'fonts' },
+					strategyPlugins: [
+						{
+							use: 'CacheableResponse',
+							config: { statuses: [0, 200] }
+						},
+						{
+							use: 'Expiration',
+							config: { maxEntries: 50, maxAgeSeconds: 365 * 24 * 60 * 60 }
+						}
+					]
+				},
+				{
+					urlPattern: 'https://firebasestorage.googleapis.com/*',
+					handler: 'cacheFirst',
+					strategyOptions: { cacheName: 'storage' },
+					strategyPlugins: [
+						{
+							use: 'CacheableResponse',
+							config: { statuses: [0, 200] }
+						},
+						{
+							use: 'Expiration',
+							config: { maxEntries: 100, maxAgeSeconds: 14 * 24 * 60 * 60 }
+						}
+					]
+				}
+			]
+		}
 	}
 }

@@ -1,6 +1,5 @@
 import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
 import { ISubjectRepository } from '../../irepositories/isubject'
-import { SubjectEntity } from '../../entities/subject'
 
 export class GetSubjectsUseCase {
 	private repository: ISubjectRepository
@@ -9,7 +8,7 @@ export class GetSubjectsUseCase {
 		this.repository = repository
 	}
 
-	async call () :Promise<SubjectEntity[]> {
+	async call () {
 		const conditions: DatabaseGetClauses = {
 			order: { field: 'name' }
 		}

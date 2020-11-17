@@ -24,6 +24,15 @@
 			".write": true,
 			".indexOn": ["roles/isAdmin","bio/email"]
 		},
+		"sessions": {
+			"$id": {
+				"chats": {
+					".read": true,
+					".write": true,
+					".indexOn": ["dates/createdAt"]
+				}
+			}
+		},
 		"subjects": {
 			".read": true,
 			".write": true,

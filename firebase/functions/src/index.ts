@@ -9,6 +9,7 @@ import { userNotificationCreated } from './database/notifications'
 import { userProfileUpdated, userCreditsUpdated } from './database/users'
 import { answerCreated, answerDeleted } from './database/answers'
 import { questionCommentModified, answerCommentModified } from './database/comments'
+import { sessionChatMediaDeleted } from './database/chats'
 import { questionCreated, questionUpdated, questionDeleted } from './firestore/questions'
 import { tutorUpdated } from './firestore/tutors'
 
@@ -33,6 +34,8 @@ export { userProfileUpdated, userCreditsUpdated }
 export { answerCreated, answerDeleted }
 // Comments
 export { questionCommentModified, answerCommentModified }
+// Chats
+export { sessionChatMediaDeleted }
 
 
 // Firestore Triggers

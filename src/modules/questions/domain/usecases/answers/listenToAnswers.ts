@@ -13,7 +13,7 @@ export class ListenToAnswersUseCase {
 	    const conditions: DatabaseGetClauses = {
 		    order: {
 			    field: 'questionId',
-			    condition: { '=': questionId }
+			    condition: { equal: questionId }
 		    }
 	    }
 

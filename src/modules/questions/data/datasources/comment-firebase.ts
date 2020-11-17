@@ -13,7 +13,7 @@ export class QuestionCommentFirebaseDataSource implements CommentBaseDataSource 
 	}
 
 	async get (baseId: string, conditions?: DatabaseGetClauses) {
-		return await DatabaseService.get(`comments/questions/${baseId}`, conditions) as CommentFromModel[]
+		return await DatabaseService.getMany(`comments/questions/${baseId}`, conditions) as CommentFromModel[]
 	}
 
 	async listen (baseId: string, callback: (documents: CommentFromModel[]) => void, conditions?: DatabaseGetClauses) {

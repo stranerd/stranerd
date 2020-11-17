@@ -13,7 +13,7 @@ export class AnswerFirebaseDataSource implements AnswerBaseDataSource {
 	}
 
 	async get (conditions?: DatabaseGetClauses) {
-		return await DatabaseService.get('answers', conditions) as AnswerFromModel[]
+		return await DatabaseService.getMany('answers', conditions) as AnswerFromModel[]
 	}
 
 	async listen (callback: (documents: AnswerFromModel[]) => void, conditions?: DatabaseGetClauses) {

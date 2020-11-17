@@ -4,8 +4,8 @@ import { SessionFromModel, SessionToModel } from '../models/session'
 import { SessionBaseDataSource } from './session-base'
 
 export class SessionFirebaseDataSource implements SessionBaseDataSource {
-	async create (data: SessionToModel): Promise<string> {
-		return await FunctionsService.call('startSession', data)
+	async create (data: Partial<SessionToModel>): Promise<string> {
+		return await FunctionsService.call('requestNewSession', data)
 	}
 
 	async find (id: string) {

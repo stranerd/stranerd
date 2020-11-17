@@ -1,13 +1,30 @@
 <template>
 	<div class="grid">
-		<button class="btn-facebook btn btn-auth">
-			<img src="@app/assets/images/auth/facebook.png" alt="Facebook">Facebook
-		</button>
-		<button class="btn-google btn btn-auth">
-			<img src="@app/assets/images/auth/google.png" alt="Google">Google
-		</button>
+		<div>
+			<button type="button" class="btn-facebook btn btn-auth">
+				<img src="@app/assets/images/auth/facebook.png" alt="Facebook">Facebook
+			</button>
+		</div>
+		<div>
+			<button type="button" class="btn-google btn btn-auth" @click="googleSignin">
+				<img src="@app/assets/images/auth/google.png" alt="Google">Google
+			</button>
+			<span v-if="googleError" class="text-danger">{{ googleError }}</span>
+			<PageLoading v-if="googleLoading" />
+		</div>
 	</div>
 </template>
+
+<script lang="ts">
+import { defineComponent } from '@nuxtjs/composition-api'
+import { useGoogleSignin } from '@app/hooks/auth/signin'
+export default defineComponent({
+	setup () {
+		const { loading: googleLoading, signin: googleSignin, error: googleError } = useGoogleSignin()
+		return { googleError, googleLoading, googleSignin }
+	}
+})
+</script>
 
 <style lang="scss" scoped>
 .grid{

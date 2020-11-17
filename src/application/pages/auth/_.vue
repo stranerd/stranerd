@@ -3,11 +3,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext } from '@nuxtjs/composition-api'
+import { defineComponent } from '@nuxtjs/composition-api'
+import { GenerateLink } from '@utils/router'
 export default defineComponent({
-	setup () {
-		const { redirect } = useContext()
-		return redirect('/signin')
-	}
+	name: 'Auth404Page',
+	middleware: [
+		'isNotAuthenticated',
+		({ redirect }) => redirect(GenerateLink({ path: '/auth/signin' }))
+	]
 })
 </script>

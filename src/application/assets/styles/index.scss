@@ -1,6 +1,9 @@
 @import 'variables';
-@import '../../../../node_modules/bootstrap/scss/bootstrap';
-@import '../../../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~bootstrap/scss/bootstrap';
+
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/solid';
 
 body{
 	font-family: Montserrat, Roboto, serif;
@@ -23,8 +26,32 @@ body{
 	font-weight: 500;
 }
 
+.form-group {
+	min-width: auto;
+	max-width: 100%;
+}
+
 .form-control {
 	font-size: 1.125em;
 	padding: 1.25em;
 	min-height: 3em;
+}
+
+a {
+	cursor: pointer;
+}
+
+.dropdown-menu-full{
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100vw;
+	min-height: 100vh;
+}
+
+.editor-container {
+	margin-bottom: 0.5rem;
+	*{
+		max-width: 100%;
+	}
 }

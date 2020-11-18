@@ -12,13 +12,14 @@
     "gcp-build": "npm run build",
     "deploy": "gcloud app deploy --quiet --project=ss-nuxtify",
     "copy:env": "copy .env.example .env",
-    "start:firebase": "npm run build:functions && cross-env NODE_ENV=development firebase emulators:start --import ./firebase/docs/exports",
+    "start:firebase": "npm run build:functions && npm run copy:env:functions && cross-env NODE_ENV=development firebase emulators:start --import ./firebase/docs/exports",
     "save:firebase": "firebase emulators:export ./firebase/docs/exports",
     "deploy:firebase": "firebase deploy",
     "watch:functions": "npm run watch --prefix ./firebase/functions",
     "build:functions": "npm run build --prefix ./firebase/functions",
     "lint:functions": "npm run lint --prefix ./firebase/functions",
-    "config:functions:set": "firebase functions:config:unset env && firebase functions:config:set env=\"${cat env.json}\""
+    "config:functions:set": "firebase functions:config:unset env && firebase functions:config:set env=\"${cat env.json}\"",
+    "copy:env:functions": "copy env.json firebase\\functions\\.runtimeconfig.json"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.0",

@@ -13,6 +13,13 @@ jobs:
         uses: actions/checkout@master
       - name: Install Functions Dependencies
         run: cd firebase/functions && npm install && cd ../../
+      - name: Fetch secrets
+        uses: actions-hub/gcloud@master
+        env:
+          PROJECT_ID: ${{secrets.GCLOUD_PROJECT}}
+          APPLICATION_CREDENTIALS: ${{secrets.GCLOUD_SM_AUTH}}
+        with:
+          args: "secrets versions access latest --secret=App_Engine_Environment_Variables | tee env.json"
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:

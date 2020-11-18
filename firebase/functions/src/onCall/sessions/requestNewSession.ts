@@ -7,7 +7,7 @@ export const requestNewSession = functions.https.onCall(async (session, context)
 	if (isProduction() && !context.auth)
 		throw new functions.https.HttpsError('unauthenticated', 'Only authenticated users can request sessions')
 
-	const { tutorId, studentId, price, duration } = session
+	const { tutorId, studentId, price, duration, studentBio, tutorBio } = session
 
 	const createdAt = admin.firestore.Timestamp.now()
 	const tutorCurrentSessions = await admin.firestore().collection('sessions')
@@ -36,7 +36,8 @@ export const requestNewSession = functions.https.onCall(async (session, context)
 
 	try{
 		const session = {
-			duration, studentId, tutorId, price,
+			duration, price,
+			studentId, tutorId, studentBio, tutorBio,
 			accepted: false, paid: false,
 			cancelled: { student: false, tutor: false },
 			dates: { createdAt },
@@ -45,13 +46,8 @@ export const requestNewSession = functions.https.onCall(async (session, context)
 
 		const doc = await admin.firestore().collection('sessions').add(session)
 
-		const tutorEmailDoc = await admin.database().ref('profiles').child(tutorId).child('bio/email').once('value')
-		const studentBioDoc = await admin.database().ref('profiles').child(studentId).child('bio').once('value')
-		const tutorEmail = tutorEmailDoc.val() ?? ''
-		const studentBio = studentBioDoc.val() ?? { name: '' }
 		const timeFormatted = duration < 1 ? `${duration * 60} minutes` : `${duration} ${duration === 1 ? 'hour': 'hours'}`
-
-		await sendSessionRequestEmail(tutorEmail, studentBio, timeFormatted)
+		await sendSessionRequestEmail(tutorBio.email ?? '', studentBio ?? { name: '' }, timeFormatted)
 
 		return doc.id
 	}catch (error) {

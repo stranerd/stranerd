@@ -1,9 +1,12 @@
 import firebase from 'firebase'
+import { UserBio } from '@modules/users'
 
 export interface SessionFromModel {
 	id: string
 	studentId: string
+	studentBio: UserBio
 	tutorId: string
+	tutorBio: UserBio
 	duration: number
 	accepted: boolean
 	price: number
@@ -21,7 +24,9 @@ export interface SessionFromModel {
 
 export interface SessionToModel {
 	studentId: string
+	studentBio: UserBio
 	tutorId: string
+	tutorBio: UserBio
 	duration: number
 	price: number
 	paid: boolean

@@ -15,9 +15,7 @@
 			</a>
 		</div>
 		<PageLoading v-if="loading" />
-		<p v-if="error" class="my-3 text-danger lead text-center">
-			{{ error }}
-		</p>
+		<DisplayError :error="error" />
 	</div>
 </template>
 

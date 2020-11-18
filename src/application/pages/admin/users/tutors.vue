@@ -3,9 +3,7 @@
 		<UpgradeUserToTutor />
 		<AdminTutorCard v-for="tutor in tutors" :key="tutor.hash" :tutor="tutor" />
 		<PageLoading v-if="loading" />
-		<p v-if="error" class="text-danger text-center my-3">
-			{{ error }}
-		</p>
+		<DisplayError :error="error" />
 	</div>
 </template>
 

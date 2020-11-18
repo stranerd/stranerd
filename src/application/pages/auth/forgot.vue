@@ -21,7 +21,7 @@
 			<button type="submit" class="w-100 btn btn-dark py-2" :disabled="loading || !factory.valid">
 				Send Reset Email
 			</button>
-			<span v-if="error" class="text-danger">{{ error }}</span>
+			<DisplayError :error="error" />
 			<PageLoading v-if="loading" />
 		</div>
 		<div class="text-center mt-4">

@@ -11,7 +11,7 @@
 			<i class="fas fa-user-cog text-white mr-1" />
 			<span>Sign In as dev user</span>
 		</button>
-		<span v-if="error" class="text-danger">{{ error }}</span>
+		<DisplayError :error="error" />
 	</div>
 </template>
 

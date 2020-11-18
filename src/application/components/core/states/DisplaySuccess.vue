@@ -1,6 +1,6 @@
 <template>
-	<div v-if="error" class="alert alert-danger mx-auto my-1" role="alert">
-		{{ error }}
+	<div v-if="message" class="alert alert-success mx-auto my-1" role="alert">
+		<span>{{ message }}</span>
 	</div>
 </template>
 
@@ -8,7 +8,7 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 export default defineComponent({
 	props: {
-		error: {
+		message: {
 			type: String,
 			required: true
 		}

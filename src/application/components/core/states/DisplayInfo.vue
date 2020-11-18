@@ -1,6 +1,6 @@
 <template>
-	<div v-if="message" class="alert alert-success mx-auto my-1" role="alert">
-		{{ message }}
+	<div v-if="message" class="alert alert-info mx-auto my-1" role="alert">
+		<span>{{ message }}</span>
 	</div>
 </template>
 

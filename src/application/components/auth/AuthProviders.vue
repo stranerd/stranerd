@@ -9,7 +9,7 @@
 			<button type="button" class="btn-google btn btn-auth" @click="googleSignin">
 				<img src="@app/assets/images/auth/google.png" alt="Google">Google
 			</button>
-			<span v-if="googleError" class="text-danger">{{ googleError }}</span>
+			<DisplayError :error="googleError" />
 			<PageLoading v-if="googleLoading" />
 		</div>
 	</div>

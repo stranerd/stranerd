@@ -27,9 +27,7 @@
 				<span><slot name="buttonText">Submit</slot></span>
 			</button>
 		</div>
-		<p v-if="error" class="text-center text-danger">
-			{{ error }}
-		</p>
+		<DisplayError :error="error" />
 	</form>
 </template>
 

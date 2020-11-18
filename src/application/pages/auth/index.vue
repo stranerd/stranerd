@@ -30,8 +30,8 @@
 			<button type="submit" class="w-100 btn btn-dark py-2" :disabled="loading || !factory.valid">
 				Send Email
 			</button>
-			<span v-if="error" class="text-danger">{{ error }}</span>
-			<span v-if="message" class="text-success">{{ message }}</span>
+			<DisplayError :error="error" />
+			<DisplaySuccess :message="message" />
 			<PageLoading v-if="loading" />
 		</div>
 		<DevSignin v-if="isDev" />

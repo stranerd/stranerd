@@ -11,7 +11,7 @@
 			<button class="d-block mx-auto btn btn-danger mt-4" @click="signout">
 				Sign Out
 			</button>
-			<span v-if="error" class="text-danger">{{ error }}</span>
+			<DisplayError :error="error" />
 			<PageLoading v-if="loading" />
 		</div>
 	</div>

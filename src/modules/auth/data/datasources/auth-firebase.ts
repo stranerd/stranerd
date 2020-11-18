@@ -9,7 +9,7 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 			const record = await auth.signInWithEmailAndPassword(email, password)
 			const user = record.user!
 			const idToken = await user.getIdToken(true)
-			const data = { idToken, id: user.uid, email: user.email! }
+			const data = { idToken, id: user.uid }
 			await auth.signOut()
 			return data
 		} catch (error) { throw filterFirebaseError(error) }
@@ -21,7 +21,7 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 			const record = await auth.signInWithPopup(googleProvider)
 			const user = record.user!
 			const idToken = await user.getIdToken(true)
-			const data = { idToken, id: user.uid, email: user.email! }
+			const data = { idToken, id: user.uid }
 			await auth.signOut()
 			return data
 		} catch (error) { throw filterFirebaseError(error) }
@@ -34,7 +34,27 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 			await user.updateProfile({ displayName: name })
 			await DatabaseService.update(`users/${user.uid}/profile/bio`, { name })
 			const idToken = await user.getIdToken(true)
-			const data = { idToken, id: user.uid, email: user.email! }
+			const data = { idToken, id: user.uid }
+			await auth.signOut()
+			return data
+		} catch (error) { throw filterFirebaseError(error) }
+	}
+
+	async sendSigninEmail (email: string, redirectUrl: string) {
+		try {
+			await auth.sendSignInLinkToEmail(email, {
+				url: redirectUrl,
+				handleCodeInApp: true
+			})
+		} catch (error) { throw filterFirebaseError(error) }
+	}
+
+	async signinWithEmailLink (email: string, redirectUrl: string) {
+		try {
+			const record = await auth.signInWithEmailLink(email, redirectUrl)
+			const user = record.user!
+			const idToken = await user.getIdToken(true)
+			const data = { idToken, id: user.uid }
 			await auth.signOut()
 			return data
 		} catch (error) { throw filterFirebaseError(error) }
@@ -89,13 +109,14 @@ const filterFirebaseError = (error: any) => {
 		case 'auth/email-already-in-use': return new Error('An account already exists with this email address')
 		case 'auth/weak-password': return new Error('Password is not strong enough')
 
-		case 'auth/auth/invalid-continue-uri': return new Error('Continue URI is invalid')
+		case 'auth/invalid-continue-uri': return new Error('Continue URI is invalid')
 		case 'auth/unauthorized-continue-uri': return new Error('Continue URI is not permitted')
 		case 'auth/missing-continue-uri': return new Error('Continue URI is not provided')
 		case 'auth/missing-android-pkg-name': return new Error('Android package name is not provided')
 		case 'auth/missing-ios-bundle-id': return new Error('IOS bundle id is not provided')
 
 		case 'auth/requires-recent-login': return new Error('Current activity requires you to have logged in recently')
+		case 'auth/expired-action-code': return new Error('Link has expired')
 
 		default: return new Error(error.message)
 	}

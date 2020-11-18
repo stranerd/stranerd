@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { environmentVariables } from './environment'
+import { mailchimp } from './environment'
 
 export const subscribeToMailchimpList = async (email: string) => {
 	const body = {
@@ -8,7 +8,7 @@ export const subscribeToMailchimpList = async (email: string) => {
 		]
 	}
 	const bodyJSON = JSON.stringify(body)
-	const { audienceId, apiKey, dataCenter } = environmentVariables.mailchimp
+	const { audienceId, apiKey, dataCenter } = mailchimp()
 	const url = `https://${dataCenter}.api.mailchimp.com/3.0/lists/${audienceId}`
 
 	try{

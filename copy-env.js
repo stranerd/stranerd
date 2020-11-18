@@ -6,7 +6,7 @@ if (fs.existsSync('env.json')) {
 	const entries = Object.entries(envs).map(([key, value]) => ([key, JSON.stringify(value)]))
 	const envFormattedEntries = entries.reduce((accumulator, currentValue) => {
 		const [key, value] = currentValue
-		return accumulator + `${key}=${value}\n`
+		return accumulator + `${key.toUpperCase()}=${value}\n`
 	}, '')
 	fs.writeFileSync('.env', envFormattedEntries)
 } else {

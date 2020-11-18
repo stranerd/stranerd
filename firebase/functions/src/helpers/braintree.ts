@@ -1,12 +1,13 @@
 import { connect, Environment, SubscriptionNotification } from 'braintree'
-import { isProduction, environmentVariables } from './environment'
+import { isProduction, braintree } from './environment'
 
-const getGateway = () => connect({
-	environment: Environment[isProduction() ? 'Production' : 'Sandbox'],
-	merchantId: environmentVariables.braintree.merchantId,
-	publicKey: environmentVariables.braintree.publicKey,
-	privateKey: environmentVariables.braintree.privateKey
-})
+const getGateway = () => {
+	const { merchantId, privateKey, publicKey } = braintree()
+	return connect({
+		environment: Environment[isProduction() ? 'Production' : 'Sandbox'],
+		merchantId, publicKey, privateKey
+	})
+}
 
 export const createCustomer = async (name: string, email: string) => await getGateway().customer
 	.create({ firstName: name, email })

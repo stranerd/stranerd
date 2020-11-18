@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useSessionSignout } from '@app/hooks/auth/signout'
+import { useSessionSignout } from '@app/hooks/auth/session'
 export default defineComponent({
 	name: 'RootIndexPage',
 	setup () {

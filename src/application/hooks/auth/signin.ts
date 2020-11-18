@@ -1,23 +1,10 @@
 import { reqRef } from '@nuxtjs/composition-api'
 import {
 	SigninWithEmail, SigninWithGoogle, SignupWithEmail,
-	SessionSignin, EmailSignupFactory, EmailSigninFactory
+	EmailSignupFactory, EmailSigninFactory
 } from '@modules/auth'
-import { hostname, isClient, protocol, host } from '@utils/environment'
-import { REDIRECT_SESSION_NAME } from '@utils/constants'
-import Cookie from 'cookie'
 import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
-
-const createSession = async (idToken: string) => {
-	await SessionSignin.call(idToken)
-	if (isClient()) {
-		const { [REDIRECT_SESSION_NAME]: redirect } = Cookie.parse(document?.cookie ?? '') ?? {}
-		document.cookie = Cookie.serialize(REDIRECT_SESSION_NAME, '', {
-			domain: host, expires: new Date(0)
-		})
-		window.location.assign(redirect ?? protocol + hostname)
-	} else window.location.assign(protocol + hostname)
-}
+import { createSession } from '@app/hooks/auth/session'
 
 export const useGoogleSignin = () => {
 	const { error, setError } = useErrorHandler()

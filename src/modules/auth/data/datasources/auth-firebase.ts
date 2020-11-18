@@ -49,9 +49,10 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
-	async signinWithEmailLink (email: string, redirectUrl: string) {
+	async signinWithEmailLink (email: string, emailUrl: string) {
+		if (!auth.isSignInWithEmailLink(emailUrl)) throw new Error('Url is not a valid email link')
 		try {
-			const record = await auth.signInWithEmailLink(email, redirectUrl)
+			const record = await auth.signInWithEmailLink(email, emailUrl)
 			const user = record.user!
 			const idToken = await user.getIdToken(true)
 			const data = { idToken, id: user.uid }

@@ -6,6 +6,6 @@ export abstract class SessionBaseDataSource {
 	public abstract get: (condition?: FirestoreGetClauses) => Promise<SessionFromModel[]>
 	public abstract listenToOne: (id: string, callback: (session: SessionFromModel | null) => void) => Promise<() => void>
 	public abstract find: (id: string) => Promise<SessionFromModel | null>
-	public abstract update: (id: string, data: SessionToModel) => Promise<void>
+	public abstract update: (id: string, data: Partial<SessionToModel>) => Promise<void>
 	public abstract delete: (id: string) => Promise<void>
 }

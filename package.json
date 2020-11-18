@@ -18,8 +18,7 @@
     "watch:functions": "npm run watch --prefix ./firebase/functions",
     "build:functions": "npm run build --prefix ./firebase/functions",
     "lint:functions": "npm run lint --prefix ./firebase/functions",
-    "config:functions:get": "firebase functions:config:get > firebase/functions/.runtimeconfig.json",
-    "config:functions:set": "firebase functions:config:set"
+    "config:functions:set": "firebase functions:config:unset env && firebase functions:config:set env=\"${cat env.json}\""
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.0",

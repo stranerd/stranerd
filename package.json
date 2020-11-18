@@ -4,9 +4,9 @@
   "description": "welcome to the stranerd official page",
   "private": true,
   "scripts": {
-    "dev": "nuxt-ts",
+    "dev": "npm run env:copy:app && nuxt-ts",
     "build": "nuxt-ts build",
-    "start": "nuxt-ts start",
+    "start": "npm run env:copy:app && nuxt-ts start",
     "generate": "nuxt-ts generate",
     "lint": "eslint src/ --ext .ts,.js,.vue --fix",
     "gcp-build": "npm run build",

@@ -2,13 +2,22 @@ rules_version = '2';
 service cloud.firestore {
 	match /databases/{database}/documents {
 		match /questions/{id} {
-            allow read, create: if isAuthenticated();
+            allow read: if true;
+            allow create: if isAuthenticated();
             allow update, delete: if isMine(resource.data.userId)
         }
 
+        match /sessions/{id} {
+            allow read: if true;
+            allow create: if isAuthenticated();
+            allow update: if request.auth.uid == resource.data.tutorId || request.auth.uid == resource.data.studentId;
+            allow delete: if isAdmin();
+        }
+
         match /tutors/{id} {
-            allow read: if isAuthenticated();
-            allow write: if isAdmin()
+            allow read: if true;
+            allow create: if isAuthenticated();
+            allow update, delete: if isAdmin();
         }
 
 		match /{document=**} {

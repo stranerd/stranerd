@@ -1,4 +1,41 @@
 {
-	"indexes": [],
+	"indexes": [
+		{
+			"collectionGroup": "sessions",
+			"queryScope": "COLLECTION",
+			"fields": [
+				{
+					"fieldPath": "cancelled.student",
+					"order": "ASCENDING"
+				},
+				{
+					"fieldPath": "cancelled.tutor",
+					"order": "ASCENDING"
+				},
+				{
+					"fieldPath": "paid",
+					"order": "ASCENDING"
+				},
+				{
+					"fieldPath": "tutorId",
+					"order": "ASCENDING"
+				}
+			]
+		},
+		{
+			"collectionGroup": "sessions",
+			"queryScope": "COLLECTION",
+			"fields": [
+				{
+					"fieldPath": "tutorId",
+					"order": "ASCENDING"
+				},
+				{
+					"fieldPath": "dates.endedAt",
+					"order": "ASCENDING"
+				}
+			]
+		}
+	],
 	"fieldOverrides": []
 }

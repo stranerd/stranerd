@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { isProduction } from '../../helpers/environment'
-// import { sendSessionRequestEmail } from '../../helpers/email'
+import { sendSessionRequestEmail } from '../../helpers/email'
 
 export const requestNewSession = functions.https.onCall(async (session, context) => {
 	if (isProduction() && !context.auth)
@@ -28,7 +28,7 @@ export const requestNewSession = functions.https.onCall(async (session, context)
 		.where('paid','==', false)
 		.limit(1)
 		.get()
-	if(!tutorPendingSessions.empty){
+	if (!tutorPendingSessions.empty) {
 		const session = tutorPendingSessions.docs[0].data()
 		const time = session.duration > 1 ? `${session.duration} hours` : `${session.duration} hour`
 		throw new functions.https.HttpsError('failed-precondition',`Tutor is currently in a ${time} session. Try again later.`)
@@ -45,13 +45,13 @@ export const requestNewSession = functions.https.onCall(async (session, context)
 
 		const doc = await admin.firestore().collection('sessions').add(session)
 
-		/*const tutorEmailDoc = await admin.database().ref('profiles').child(tutorId).child('bio/email').once('value')
+		const tutorEmailDoc = await admin.database().ref('profiles').child(tutorId).child('bio/email').once('value')
 		const studentBioDoc = await admin.database().ref('profiles').child(studentId).child('bio').once('value')
 		const tutorEmail = tutorEmailDoc.val() ?? ''
 		const studentBio = studentBioDoc.val() ?? { name: '' }
 		const timeFormatted = duration < 1 ? `${duration * 60} minutes` : `${duration} ${duration === 1 ? 'hour': 'hours'}`
 
-		await sendSessionRequestEmail(tutorEmail, studentBio, timeFormatted) */
+		await sendSessionRequestEmail(tutorEmail, studentBio, timeFormatted)
 
 		return doc.id
 	}catch (error) {

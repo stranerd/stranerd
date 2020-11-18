@@ -11,6 +11,7 @@ import { ResetPasswordUseCase } from './domain/usecases/auth/resetPassword'
 import { UpdatePasswordUseCase } from './domain/usecases/auth/updatePassword'
 import { EmailSigninFactory } from './domain/factories/emailSignin'
 import { EmailSignupFactory } from './domain/factories/emailSignup'
+import { EmailLinkSigninFactory } from './domain/factories/emailLinkSignin'
 import { PasswordResetFactory } from './domain/factories/passwordReset'
 import { PasswordUpdateFactory } from './domain/factories/passwordUpdate'
 
@@ -28,4 +29,4 @@ export const UpdatePassword = new UpdatePasswordUseCase(authRepository)
 export const SessionSignin = new SessionSigninUseCase(authRepository)
 export const SessionSignout = new SessionSignoutUseCase(authRepository)
 
-export { EmailSigninFactory, EmailSignupFactory, PasswordResetFactory, PasswordUpdateFactory }
+export { EmailSigninFactory, EmailSignupFactory, EmailLinkSigninFactory, PasswordResetFactory, PasswordUpdateFactory }

@@ -19,7 +19,7 @@ node_modules/
 build/
 dist/
 
-.env.example
+env.example.json
 .idea/
 
 *.log

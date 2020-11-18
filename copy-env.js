@@ -3,7 +3,7 @@ const fs = require('fs')
 if (fs.existsSync('env.json')) {
 	const content = fs.readFileSync('env.json').toString()
 	const envs = JSON.parse(content)
-	const entries = Object.entries(envs).map(([key, value]) => ([key, JSON.stringify(value)]))
+	const entries = Object.entries(envs).map(([key, value]) => ([key, typeof value === 'string' ? value : JSON.stringify(value)]))
 	const envFormattedEntries = entries.reduce((accumulator, currentValue) => {
 		const [key, value] = currentValue
 		return accumulator + `${key.toUpperCase()}=${value}\n`

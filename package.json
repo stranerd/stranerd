@@ -11,7 +11,7 @@
     "lint": "eslint src/ --ext .ts,.js,.vue --fix",
     "gcp-build": "npm run build",
     "deploy": "gcloud app deploy --quiet --project=ss-nuxtify",
-    "copy:env": "copy .env.example .env",
+    "copy:env": "copy env.example.json env.json",
     "start:firebase": "npm run build:functions && npm run copy:env:functions && cross-env NODE_ENV=development firebase emulators:start --import ./firebase/docs/exports",
     "save:firebase": "firebase emulators:export ./firebase/docs/exports",
     "deploy:firebase": "firebase deploy",

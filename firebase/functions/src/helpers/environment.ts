@@ -19,7 +19,7 @@ export const braintree = () => ({
 
 export const algolia = () => ({
 	appId: environment()?.algolia?.['app_id'],
-	apiKey: environment()?.algolia?.['api_key']
+	apiKey: environment()?.algolia?.['admin_api_key']
 })
 
 export const mailchimp = () => ({

@@ -20,7 +20,8 @@
     "env:set:functions": "firebase functions:config:unset env && firebase functions:config:set env=\"${cat env.json}\"",
     "env:copy:example": "copy env.example.json env.json",
     "env:copy:functions": "copy env.json firebase\\functions\\.runtimeconfig.json",
-    "env:copy:app": "node copy-env"
+    "env:copy:app": "node bin/copy-env",
+    "dispatch:build": "node bin/create-dispatch"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.0",

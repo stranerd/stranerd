@@ -10,6 +10,6 @@ if (fs.existsSync('env.json')) {
 	}, '')
 	fs.writeFileSync('.env', envFormattedEntries)
 } else {
-	console.log('Env.json doesnt exist. Try creating one by running npm env:copy:example')
+	console.error('Env.json doesnt exist. Try creating one by running npm env:copy:example')
 	process.exit(1)
 }

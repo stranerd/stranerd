@@ -1,49 +1,49 @@
 name: Publish to GCloud App Engine & Firebase production environment
 
 on:
-    push:
-        branches:
-            release
+  push:
+    branches:
+      release
 
 jobs:
-    publish-gae:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout Repo
-                uses: actions/checkout@master
-            - name: Fetch secrets
-                uses: actions-hub/gcloud@master
-                env:
-                    PROJECT_ID: ${{ secrets.GCLOUD_PROJECT_PRODUCTION }}
-                    APPLICATION_CREDENTIALS: ${{ secrets.GCLOUD_AUTH_PRODUCTION }}
-                with:
-                    args: "secrets versions access latest --secret=App_Engine_Environment_Variables | tee env.json"
-            - name: Create Dispatch File
-                run: npm run dispatch:create ${{ secrets.GCLOUD_PROJECT_PRODUCTION }}
-            - name: Deploy to GAE
-                uses: actions-hub/gcloud@master
-                env:
-                    PROJECT_ID: ${{ secrets.GCLOUD_PROJECT_PRODUCTION }}
-                    APPLICATION_CREDENTIALS: ${{ secrets.GCLOUD_AUTH_PRODUCTION }}
-                with:
-                    args: "app deploy --quiet"
-    publish-fb:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout Repo
-                uses: actions/checkout@master
-            - name: Install Functions Dependencies
-                run: cd firebase/functions && npm install && cd ../../
-            - name: Fetch secrets
-                uses: actions-hub/gcloud@master
-                env:
-                    PROJECT_ID: ${{ secrets.GCLOUD_PROJECT_PRODUCTION }}
-                    APPLICATION_CREDENTIALS: ${{ secrets.GCLOUD_AUTH_PRODUCTION }}
-                with:
-                    args: "secrets versions access latest --secret=App_Engine_Environment_Variables | tee env.json"
-            - name: Deploy to Firebase
-                uses: w9jds/firebase-action@master
-                with:
-                    args: "deploy"
-                env:
-                    FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN_PRODUCTION }}
+  publish-gae:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Fetch secrets
+        uses: actions-hub/gcloud@master
+        env:
+          PROJECT_ID: ${{ secrets.GCLOUD_PROJECT_PRODUCTION }}
+          APPLICATION_CREDENTIALS: ${{ secrets.GCLOUD_AUTH_PRODUCTION }}
+        with:
+          args: "secrets versions access latest --secret=App_Engine_Environment_Variables | tee env.json"
+      - name: Create Dispatch File
+        run: npm run dispatch:create ${{ secrets.GCLOUD_PROJECT_PRODUCTION }}
+      - name: Deploy to GAE
+        uses: actions-hub/gcloud@master
+        env:
+          PROJECT_ID: ${{ secrets.GCLOUD_PROJECT_PRODUCTION }}
+          APPLICATION_CREDENTIALS: ${{ secrets.GCLOUD_AUTH_PRODUCTION }}
+        with:
+          args: "app deploy --quiet"
+  publish-fb:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Install Functions Dependencies
+        run: cd firebase/functions && npm install && cd ../../
+      - name: Fetch secrets
+        uses: actions-hub/gcloud@master
+        env:
+          PROJECT_ID: ${{ secrets.GCLOUD_PROJECT_PRODUCTION }}
+          APPLICATION_CREDENTIALS: ${{ secrets.GCLOUD_AUTH_PRODUCTION }}
+        with:
+          args: "secrets versions access latest --secret=App_Engine_Environment_Variables | tee env.json"
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: "deploy"
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN_PRODUCTION }}

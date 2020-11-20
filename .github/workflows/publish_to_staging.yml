@@ -19,7 +19,7 @@ jobs:
         with:
           args: "secrets versions access latest --secret=App_Engine_Environment_Variables | tee env.json"
       - name: Create Dispatch File
-        run: npm run dispatch:create ${{ secrets.GCLOUD_PROJECT_STAGING }}
+        run: npm run dispatch:build ${{ secrets.GCLOUD_PROJECT_STAGING }}
       - name: Deploy to GAE
         uses: actions-hub/gcloud@master
         env:

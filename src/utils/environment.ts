@@ -1,5 +1,5 @@
-export const isDev = process.env.ENVIRONMENT === 'development'
-export const isProd = process.env.ENVIRONMENT === 'production'
+export const isDev = process.env.NODE_ENV === 'development'
+export const isProd = process.env.NODE_ENV === 'production'
 
 export const useSubdomain = JSON.parse(process.env.USE_SUBDOMAIN ?? 'false') as boolean
 

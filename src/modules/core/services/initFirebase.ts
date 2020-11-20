@@ -42,7 +42,7 @@ export const uploadFile = async (path: string, file: File) => {
 			await storage.ref(path).put(file)
 			link = await storage.ref(path).getDownloadURL()
 		} else {
-			path = `ss-nuxtify/${path}`
+			path = `stranerd-dev/${path}`
 			await uploadToMockServer(path, file)
 			link = `http://localhost:3000/${path}`
 		}

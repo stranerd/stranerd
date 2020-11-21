@@ -20,12 +20,8 @@
 			</div>
 		</div>
 		<PageLoading v-if="listLoading || roleLoading" />
-		<p v-if="listError" class="text-danger text-center my-3">
-			{{ listError }}
-		</p>
-		<p v-if="roleError" class="text-danger text-center my-3">
-			{{ roleError }}
-		</p>
+		<DisplayError :error="listError" />
+		<DisplayError :error="roleError" />
 	</div>
 </template>
 

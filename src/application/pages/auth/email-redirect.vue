@@ -1,8 +1,13 @@
 <template>
-	<form @submit.prevent="resetPassword">
-		<h2 class="mb-7 text-center">
-			Forgot Password
-		</h2>
+	<form @submit.prevent="signin">
+		<div class="mb-5 text-center">
+			<h2>
+				Confirm Email Address
+			</h2>
+			<h4>
+				to continue with authentication
+			</h4>
+		</div>
 		<div class="form-group">
 			<label for="email" class="label">Email</label>
 			<input
@@ -16,39 +21,42 @@
 				autocomplete="email"
 				autofocus
 			>
+			<span v-if="factory.errors.email" class="text-danger">{{ factory.errors.email }}</span>
 		</div>
 		<div class="mt-2 text-center">
 			<button type="submit" class="w-100 btn btn-dark py-2" :disabled="loading || !factory.valid">
-				Send Reset Email
+				Continue
 			</button>
 			<DisplayError :error="error" />
 			<PageLoading v-if="loading" />
-		</div>
-		<div class="text-center mt-4">
-			<BaseLink to="/auth/signin" class="label-sm">
-				Return to Signin
-			</BaseLink>
 		</div>
 	</form>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
-import { usePasswordReset } from '@app/hooks/auth/passwords'
+import { defineComponent, onMounted } from '@nuxtjs/composition-api'
+import { useEmailLinkSignin } from '@app/hooks/auth/signin'
+import { isDev } from '@utils/environment'
 export default defineComponent({
-	name: 'AuthForgotPage',
+	name: 'AuthEmailRedirectPage',
 	layout: 'auth',
 	middleware: 'isNotAuthenticated',
 	setup () {
-		const { factory, loading, resetPassword, error, message } = usePasswordReset()
-		return { factory, loading, resetPassword, error, message }
+		const { loading, signin, factory, error, checkCachedEmail } = useEmailLinkSignin()
+
+		onMounted(checkCachedEmail)
+
+		return {
+			isDev,
+			factory, loading, error, signin
+		}
 	}
 })
 </script>
 
 <style lang="scss" scoped>
 h2{
-	font-size: 2.0rem;
+	font-size: 2.5rem;
 	color: $black;
 	line-height: 1.2;
 }

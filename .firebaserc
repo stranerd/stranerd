@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "ss-nuxtify"
+    "development": "ss-nuxtify",
+    "staging": "stranerd-staging",
+    "production": "stranerd"
   }
 }

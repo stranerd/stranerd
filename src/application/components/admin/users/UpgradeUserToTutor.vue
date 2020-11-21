@@ -35,9 +35,7 @@
 				</div>
 			</div>
 		</div>
-		<p v-if="error" class="text-danger">
-			{{ error }}
-		</p>
+		<DisplayError :error="error" />
 		<PageLoading v-if="loading" />
 		<hr>
 	</div>

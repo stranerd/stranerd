@@ -11,7 +11,7 @@
 			<button class="d-block mx-auto btn btn-danger mt-4" @click="signout">
 				Sign Out
 			</button>
-			<span v-if="error" class="text-danger">{{ error }}</span>
+			<DisplayError :error="error" />
 			<PageLoading v-if="loading" />
 		</div>
 	</div>
@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useSessionSignout } from '@app/hooks/auth/signout'
+import { useSessionSignout } from '@app/hooks/auth/session'
 export default defineComponent({
 	name: 'RootIndexPage',
 	setup () {

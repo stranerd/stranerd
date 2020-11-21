@@ -92,3 +92,4 @@ sw.*
 
 firebase/docs/
 .firebase
+env.json

@@ -1,9 +1,16 @@
 <template>
-	<form @submit.prevent="signin">
+	<form @submit.prevent="sendSigninEmail">
 		<h2 class="mb-7 text-center">
 			Sign In With
 		</h2>
 		<AuthProviders class="mb-4" />
+		<hr class="w-75 mx-auto my-4">
+		<div class="text-center mb-2">
+			<h3>Or send auth link to your email</h3>
+			<p class="w-75 mx-auto">
+				No need to manage passwords anymore. A link will be sent to your email which will be used to authenticate you.
+			</p>
+		</div>
 		<div class="form-group">
 			<label for="email" class="label">Email</label>
 			<input
@@ -19,36 +26,13 @@
 			>
 			<span v-if="factory.errors.email" class="text-danger">{{ factory.errors.email }}</span>
 		</div>
-		<div class="form-group">
-			<label class="label d-flex" for="password">
-				<span>Password</span>
-				<BaseLink to="/auth/forgot" class="label-sm ml-1">Forgot?</BaseLink>
-				<a class="label-sm ml-auto" @click.prevent="toggle">{{ show ? 'Hide' : 'Show' }} password</a>
-			</label>
-			<input
-				id="password"
-				v-model="factory.password"
-				:type="show ? 'text' : 'password'"
-				name="password"
-				:class="{ 'is-valid': factory.isValid('password'), 'is-invalid': factory.errors.password }"
-				required
-				class="form-control"
-				autocomplete="current-password"
-			>
-			<span v-if="factory.errors.password" class="text-danger">{{ factory.errors.password }}</span>
-		</div>
 		<div class="mt-2 text-center">
 			<button type="submit" class="w-100 btn btn-dark py-2" :disabled="loading || !factory.valid">
-				Sign In
+				Send Email
 			</button>
 			<DisplayError :error="error" />
+			<DisplaySuccess :message="message" />
 			<PageLoading v-if="loading" />
-		</div>
-		<div class="text-center mt-4">
-			<span class="label-sm">Not a member?</span>
-			<BaseLink to="/auth/signup" class="label-sm">
-				Sign up now
-			</BaseLink>
 		</div>
 		<DevSignin v-if="isDev" />
 	</form>
@@ -58,20 +42,18 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import AuthProviders from '@app/components/auth/AuthProviders.vue'
 import DevSignin from '@app/components/auth/DevSignin.vue'
-import { usePassword } from '@app/hooks/core/forms'
-import { useEmailSignin } from '@app/hooks/auth/signin'
+import { useSendEmailLink } from '@app/hooks/auth/signin'
 import { isDev } from '@utils/environment'
 export default defineComponent({
-	name: 'AuthSigninPage',
+	name: 'AuthIndexPage',
 	components: { AuthProviders, DevSignin },
 	layout: 'auth',
 	middleware: 'isNotAuthenticated',
 	setup () {
-		const { show, toggle } = usePassword()
-		const { loading, signin, factory, error } = useEmailSignin()
+		const { loading, sendSigninEmail, factory, error, message } = useSendEmailLink()
 		return {
-			isDev, show, toggle,
-			factory, loading, error, signin
+			isDev,
+			factory, loading, error, sendSigninEmail, message
 		}
 	}
 })

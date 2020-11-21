@@ -9,7 +9,7 @@ export default defineComponent({
 	name: 'Auth404Page',
 	middleware: [
 		'isNotAuthenticated',
-		({ redirect }) => redirect(GenerateLink({ path: '/auth/signin' }))
+		({ redirect }) => redirect(GenerateLink({ path: '/auth/' }))
 	]
 })
 </script>

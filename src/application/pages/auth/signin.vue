@@ -61,11 +61,15 @@ import DevSignin from '@app/components/auth/DevSignin.vue'
 import { usePassword } from '@app/hooks/core/forms'
 import { useEmailSignin } from '@app/hooks/auth/signin'
 import { isDev } from '@utils/environment'
+import { GenerateLink } from '@utils/router'
 export default defineComponent({
 	name: 'AuthSigninPage',
 	components: { AuthProviders, DevSignin },
 	layout: 'auth',
-	middleware: 'isNotAuthenticated',
+	middleware: [
+		'isNotAuthenticated',
+		({ redirect }) => redirect(GenerateLink({ path: '/auth/' }))
+	],
 	setup () {
 		const { show, toggle } = usePassword()
 		const { loading, signin, factory, error } = useEmailSignin()

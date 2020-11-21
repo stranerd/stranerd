@@ -14,7 +14,7 @@ export default defineNuxtMiddleware(({ req, res, route, redirect }) => {
 			const path = window.location.origin + route.fullPath
 			document.cookie = serialize(REDIRECT_SESSION_NAME, path)
 		}
-		redirect(GenerateLink({ path: '/auth/signin', differentSubdomain: true }))
+		redirect(GenerateLink({ path: '/auth/', differentSubdomain: true }))
 	}
 })
 

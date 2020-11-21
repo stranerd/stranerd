@@ -35,10 +35,14 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import { usePasswordReset } from '@app/hooks/auth/passwords'
+import { GenerateLink } from '@utils/router'
 export default defineComponent({
 	name: 'AuthForgotPage',
 	layout: 'auth',
-	middleware: 'isNotAuthenticated',
+	middleware: [
+		'isNotAuthenticated',
+		({ redirect }) => redirect(GenerateLink({ path: '/auth/' }))
+	],
 	setup () {
 		const { factory, loading, resetPassword, error, message } = usePasswordReset()
 		return { factory, loading, resetPassword, error, message }

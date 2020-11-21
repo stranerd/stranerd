@@ -88,11 +88,15 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import AuthProviders from '@app/components/auth/AuthProviders.vue'
 import { usePassword } from '@app/hooks/core/forms'
 import { useEmailSignup } from '@app/hooks/auth/signin'
+import { GenerateLink } from '@utils/router'
 export default defineComponent({
 	name: 'AuthSignupPage',
 	components: { AuthProviders },
 	layout: 'auth',
-	middleware: 'isNotAuthenticated',
+	middleware: [
+		'isNotAuthenticated',
+		({ redirect }) => redirect(GenerateLink({ path: '/auth/' }))
+	],
 	setup () {
 		const { show, toggle } = usePassword()
 		const { factory, loading, error, signup } = useEmailSignup()

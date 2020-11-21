@@ -13,12 +13,12 @@ export const isServer = () => process.server
 export const isClient = () => process.client
 
 export const firebaseConfig = {
-	apiKey: JSON.parse(process.env.FIREBASE_CONFIG ?? '{}').apiKey,
-	authDomain: JSON.parse(process.env.FIREBASE_CONFIG ?? '{}').authDomain,
-	databaseURL: JSON.parse(process.env.FIREBASE_CONFIG ?? '{}').databaseURL,
-	projectId: JSON.parse(process.env.FIREBASE_CONFIG ?? '{}').projectId,
-	storageBucket: JSON.parse(process.env.FIREBASE_CONFIG ?? '{}').storageBucket,
-	messagingSenderId: JSON.parse(process.env.FIREBASE_CONFIG ?? '{}').messagingSenderId,
-	appId: JSON.parse(process.env.FIREBASE_CONFIG ?? '{}').appId,
-	measurementId: JSON.parse(process.env.FIREBASE_CONFIG ?? '{}').measurementId
+	apiKey: JSON.parse(process.env.FIREBASE_CONFIG ?? '{}').api_key,
+	authDomain: JSON.parse(process.env.FIREBASE_CONFIG ?? '{}').auth_domain,
+	databaseURL: JSON.parse(process.env.FIREBASE_CONFIG ?? '{}').database_url,
+	projectId: JSON.parse(process.env.FIREBASE_CONFIG ?? '{}').project_id,
+	storageBucket: JSON.parse(process.env.FIREBASE_CONFIG ?? '{}').storage_bucket,
+	messagingSenderId: JSON.parse(process.env.FIREBASE_CONFIG ?? '{}').messaging_sender_id,
+	appId: JSON.parse(process.env.FIREBASE_CONFIG ?? '{}').app_id,
+	measurementId: JSON.parse(process.env.FIREBASE_CONFIG ?? '{}').measurement_id
 }

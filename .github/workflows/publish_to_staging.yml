@@ -32,10 +32,6 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
-      - name: Install Dependencies
-        run: npm install
-      - name: Install Functions Dependencies
-        run: cd firebase\functions && npm install && cd ..\..\
       - name: Fetch secrets
         uses: actions-hub/gcloud@master
         env:
@@ -43,6 +39,10 @@ jobs:
           APPLICATION_CREDENTIALS: ${{ secrets.GCLOUD_AUTH_STAGING }}
         with:
           args: "secrets versions access latest --secret=App_Engine_Environment_Variables > env.json"
+      - name: Install Dependencies
+        run: npm install
+      - name: Install Functions Dependencies
+        run: cd firebase/functions && npm install && cd ../../
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:

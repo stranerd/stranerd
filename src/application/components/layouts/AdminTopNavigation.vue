@@ -1,6 +1,6 @@
 <template>
 	<header class="bg-dark">
-		<nav class="navbar navbar-expand container bg-dark navbar-dark d-flex flex-row align-items-center">
+		<nav class="navbar navbar-expand-md container bg-dark navbar-dark d-flex flex-row">
 			<BaseLink class="navbar-brand" to="/admin/">
 				<img src="/images/stranerd_logo.png" alt="Stranerd" height="40">
 			</BaseLink>

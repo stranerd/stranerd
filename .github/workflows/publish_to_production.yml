@@ -17,7 +17,7 @@ jobs:
           PROJECT_ID: ${{ secrets.GCLOUD_PROJECT_PRODUCTION }}
           APPLICATION_CREDENTIALS: ${{ secrets.GCLOUD_AUTH_PRODUCTION }}
         with:
-          args: "secrets versions access latest --secret=App_Engine_Environment_Variables | tee env.json"
+          args: "secrets versions access latest --secret=App_Engine_Environment_Variables > env.json"
       - name: Create Dispatch File
         run: npm run dispatch:build ${{ secrets.GCLOUD_PROJECT_PRODUCTION }}
       - name: Deploy to GAE
@@ -32,8 +32,10 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
+      - name: Install Dependencies
+        run: npm install
       - name: Install Functions Dependencies
-        run: cd firebase/functions && npm install && cd ../../
+        run: cd firebase\functions && npm install && cd ..\..\
       - name: Fetch secrets
         uses: actions-hub/gcloud@master
         env:

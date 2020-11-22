@@ -12,13 +12,14 @@ export const protocol = `http${ssl ? 's' : ''}://`
 export const isServer = () => process.server
 export const isClient = () => process.client
 
+const config = JSON.parse(process.env.FIREBASE_CONFIG ?? '{}')
 export const firebaseConfig = {
-	apiKey: JSON.parse(process.env.FIREBASE_CONFIG ?? '{}').api_key,
-	authDomain: JSON.parse(process.env.FIREBASE_CONFIG ?? '{}').auth_domain,
-	databaseURL: JSON.parse(process.env.FIREBASE_CONFIG ?? '{}').database_url,
-	projectId: JSON.parse(process.env.FIREBASE_CONFIG ?? '{}').project_id,
-	storageBucket: JSON.parse(process.env.FIREBASE_CONFIG ?? '{}').storage_bucket,
-	messagingSenderId: JSON.parse(process.env.FIREBASE_CONFIG ?? '{}').messaging_sender_id,
-	appId: JSON.parse(process.env.FIREBASE_CONFIG ?? '{}').app_id,
-	measurementId: JSON.parse(process.env.FIREBASE_CONFIG ?? '{}').measurement_id
+	apiKey: config.api_key,
+	authDomain: config.auth_domain,
+	databaseURL: config.database_url,
+	projectId: config.project_id,
+	storageBucket: config.storage_bucket,
+	messagingSenderId: config.messaging_sender_id,
+	appId: config.app_id,
+	measurementId: config.measurement_id
 }

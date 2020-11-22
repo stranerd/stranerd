@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { FirestoreGetClauses } from '@modules/core/data/datasources/base'
 import { ISubjectRepository } from '../../domain/irepositories/isubject'
 import { SubjectBaseDataSource } from '../datasources/subject-base'
 import { SubjectTransformer } from '../transformers/subject'
@@ -13,7 +13,7 @@ export class SubjectRepository implements ISubjectRepository {
 		this.transformer = transformer
 	}
 
-	async get (conditions?: DatabaseGetClauses) {
+	async get (conditions?: FirestoreGetClauses) {
 		const models = await this.dataSource.get(conditions)
 		return models.map(this.transformer.fromJSON)
 	}

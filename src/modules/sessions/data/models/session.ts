@@ -1,4 +1,4 @@
-import firebase from 'firebase'
+import { Timestamp } from '@modules/core/data/models/base'
 
 export interface SessionFromModel {
 	id: string
@@ -17,7 +17,7 @@ export interface SessionFromModel {
 		tutor: { rating?: number, comment?: string }
 	}
 	dates: {
-		createdAt: firebase.firestore.Timestamp
+		createdAt: Timestamp
 	}
 }
 

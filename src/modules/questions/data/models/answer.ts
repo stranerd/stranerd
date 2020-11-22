@@ -1,5 +1,5 @@
 import { UserBio } from '@modules/users'
-import { Media } from '@modules/core/data/models/base'
+import { Media, Timestamp } from '@modules/core/data/models/base'
 import { CommentFromModel } from '@modules/questions/data/models/comment'
 
 export interface AnswerFromModel {
@@ -17,7 +17,7 @@ export interface AnswerFromModel {
 		last: { [id: string]: CommentFromModel }
 	}
 	dates: {
-		createdAt: number
+		createdAt: Timestamp
 	}
 }
 

@@ -23,6 +23,7 @@ export const database = firebase.database()
 export const firestore = firebase.firestore()
 export const functions = firebase.functions()
 export const storage = firebase.storage()
+export type Timestamp = firebase.firestore.Timestamp
 
 const uploadToMockServer = async (path: string, file: File) => {
 	const data = new FormData()

@@ -4,3 +4,5 @@ export interface Media {
     link: string
     type: string
 }
+
+export { Timestamp } from '../../services/initFirebase'

@@ -20,7 +20,7 @@ export class AnswerFirebaseDataSource implements AnswerBaseDataSource {
 		return await FirestoreService.listenToMany(callback, 'answers', conditions)
 	}
 
-	async update (id: string, data: object) {
+	async update (id: string, data: Partial<AnswerToModel>) {
 		return await FirestoreService.update('answers', id, data)
 	}
 

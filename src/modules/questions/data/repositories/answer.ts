@@ -36,7 +36,7 @@ export class AnswerRepository implements IAnswerRepository {
 		return model ? this.transformer.fromJSON(model) : null
 	}
 
-	async update (id: string, data: object) {
+	async update (id: string, data: Partial<AnswerToModel>) {
 		return await this.dataSource.update(id, data)
 	}
 

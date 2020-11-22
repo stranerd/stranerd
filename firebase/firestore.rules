@@ -2,13 +2,13 @@ rules_version = '2';
 service cloud.firestore {
 	match /databases/{database}/documents {
 		match /answers/{id} {
-            allow read: if true();
+            allow read: if true;
             allow create: if isAuthenticated();
             allow update, delete: if isMine(resource.data.userId)
         }
 
 		match /questions/{id} {
-            allow read: if true();
+            allow read: if true;
             allow create: if isAuthenticated();
             allow update, delete: if isMine(resource.data.userId)
         }

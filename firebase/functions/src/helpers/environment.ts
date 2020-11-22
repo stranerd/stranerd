@@ -1,6 +1,6 @@
 import * as functions from 'firebase-functions'
 
-const environment = () => JSON.parse(functions.config().env)
+const environment = () => functions.config().env ?? {}
 
 export const appName = 'Stranerd'
 export const isDev = () => environment()?.environment === 'development'

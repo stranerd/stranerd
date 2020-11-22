@@ -14,3 +14,11 @@ export const GenerateLink = ({ path, differentSubdomain, root } : { path: string
 
 	return `${protocol}${hostname}/${path.startsWith('/') ? path.substr(1) : path}`
 }
+
+export const GetFullLink = ({ path } : { path: string }) => {
+	if (!useSubdomain) return `${protocol}${hostname}/${path.startsWith('/') ? path.substr(1) : path}`
+
+	const [subdomain, ...rem] = path.split('/').filter((str) => !!str)
+
+	return `${protocol}${subdomain}.${hostname}/${rem?.join('/')}`
+}

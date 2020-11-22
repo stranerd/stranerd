@@ -5,7 +5,7 @@ import {
 } from '@modules/auth'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { createSession } from '@app/hooks/auth/session'
-import { GenerateLink } from '@utils/router'
+import { GetFullLink } from '@utils/router'
 import { isClient } from '@utils/environment'
 import { EMAIL_SIGNIN_STORAGE_KEY } from '@utils/constants'
 
@@ -88,7 +88,7 @@ export const useSendEmailLink = () => {
 			setLoading(true)
 			try {
 				const email = factory.value.email
-				const redirectUrl = GenerateLink({ path: '/auth/email-redirect', differentSubdomain: true })
+				const redirectUrl = GetFullLink({ path: '/auth/email-redirect' })
 				await SendSigninEmail.call(factory.value, redirectUrl)
 				if (isClient()) window.localStorage.setItem(EMAIL_SIGNIN_STORAGE_KEY, email)
 				setMessage(`An email with a link to proceed has been sent to ${email}`)

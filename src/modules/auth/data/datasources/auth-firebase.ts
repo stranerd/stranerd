@@ -7,11 +7,7 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 	async signinWithEmail (email: string, password: string) {
 		try {
 			const record = await auth.signInWithEmailAndPassword(email, password)
-			const user = record.user!
-			const idToken = await user.getIdToken(true)
-			const data = { idToken, id: user.uid }
-			await auth.signOut()
-			return data
+			return await getUserDetails(record.user!)
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
@@ -19,11 +15,7 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 		try {
 			const googleProvider = new firebase.auth.GoogleAuthProvider()
 			const record = await auth.signInWithPopup(googleProvider)
-			const user = record.user!
-			const idToken = await user.getIdToken(true)
-			const data = { idToken, id: user.uid }
-			await auth.signOut()
-			return data
+			return await getUserDetails(record.user!)
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
@@ -32,11 +24,8 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 			const record = await auth.createUserWithEmailAndPassword(email, password)
 			const user = record.user!
 			await user.updateProfile({ displayName: name })
-			await DatabaseService.update(`users/${user.uid}/profile/bio`, { name })
-			const idToken = await user.getIdToken(true)
-			const data = { idToken, id: user.uid }
-			await auth.signOut()
-			return data
+			await DatabaseService.update(`profiles/${user.uid}/bio`, { name })
+			return await getUserDetails(user)
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
@@ -53,11 +42,7 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 		if (!auth.isSignInWithEmailLink(emailUrl)) throw new Error('Url is not a valid email link')
 		try {
 			const record = await auth.signInWithEmailLink(email, emailUrl)
-			const user = record.user!
-			const idToken = await user.getIdToken(true)
-			const data = { idToken, id: user.uid }
-			await auth.signOut()
-			return data
+			return await getUserDetails(record.user!)
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
@@ -88,6 +73,13 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 			if (!data.success) throw new Error(data.error)
 		} catch (error) { throw new Error(error?.response?.data?.error ?? 'Error signing out') }
 	}
+}
+
+const getUserDetails = async (user: firebase.User) => {
+	const idToken = await user.getIdToken(true)
+	const data = { idToken, id: user.uid }
+	await auth.signOut()
+	return data
 }
 
 const filterFirebaseError = (error: any) => {

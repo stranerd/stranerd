@@ -30,6 +30,17 @@ export const questionUpdated = functions.firestore.document('questions/{question
 			if(!wasNotRemoved) await deleteFromStorage(attachment?.path)
 		}))
 
+		if (before.answerId !== after.answerId) {
+			const { answerId, credits } = after
+			const answerRef = admin.database().ref('answers').child(answerId)
+			const userRef = await answerRef.child('userId').once('value')
+			await admin.database().ref('profiles')
+				.child(userRef.val())
+				.child('account/credits')
+				.set(admin.database.ServerValue.increment(Math.floor(credits / 2)))
+			await answerRef.child('best').set(true)
+		}
+
 		await saveToAlgolia('questions', snap.after.id, after)
 	})
 

@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
-import { saveToAlgolia, deleteFromAlgolia } from '../helpers/algolia'
-import { deleteFromStorage } from '../helpers/storage'
+import { saveToAlgolia, deleteFromAlgolia } from '../../helpers/algolia'
+import { deleteFromStorage } from '../../helpers/storage'
 const equal = require('deep-equal')
 
 export const questionCreated = functions.firestore.document('questions/{questionId}')

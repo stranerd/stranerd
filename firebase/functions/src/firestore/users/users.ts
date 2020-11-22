@@ -1,6 +1,6 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
-import { deleteFromStorage } from '../helpers/storage'
+import { deleteFromStorage } from '../../helpers/storage'
 const equal = require('deep-equal')
 
 export const userProfileUpdated = functions.database.ref('profiles/{userId}/bio').onUpdate(async (snap, context) => {

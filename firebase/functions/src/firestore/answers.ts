@@ -1,8 +1,8 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 
-export const answerCreated = functions.database.ref('answers/{answerId}').onCreate(async (snap) => {
-	const { credits, userId, questionId } = snap.val()
+export const answerCreated = functions.firestore.document('answers/{answerId}').onCreate(async (snap) => {
+	const { credits, userId, questionId } = snap.data()
 
 	if (credits && userId) await admin.database().ref('profiles')
 		.child(userId)
@@ -16,8 +16,8 @@ export const answerCreated = functions.database.ref('answers/{answerId}').onCrea
 		}, { merge: true})
 })
 
-export const answerDeleted = functions.database.ref('answers/{answerId}').onDelete(async (snap) => {
-	const { questionId } = snap.val()
+export const answerDeleted = functions.firestore.document('answers/{answerId}').onDelete(async (snap) => {
+	const { questionId } = snap.data()
 
 	await admin.firestore().collection('questions')
 		.doc(questionId)

@@ -7,10 +7,10 @@ import { subscribeToMailingList } from './onCall/roles/mailing'
 import { subjectIconUpdated, subjectDeleted } from './database/subjects'
 import { userNotificationCreated } from './database/notifications'
 import { userProfileUpdated, userCreditsUpdated } from './database/users'
-import { answerCreated, answerDeleted } from './database/answers'
 import { questionCommentModified, answerCommentModified } from './database/comments'
 import { sessionChatMediaDeleted } from './database/chats'
 import { questionCreated, questionUpdated, questionDeleted } from './firestore/questions'
+import { answerCreated, answerDeleted } from './firestore/answers'
 import { tutorUpdated } from './firestore/tutors'
 
 admin.initializeApp()
@@ -30,8 +30,6 @@ export { subjectIconUpdated, subjectDeleted }
 export { userNotificationCreated }
 // Users
 export { userProfileUpdated, userCreditsUpdated }
-// Answers
-export { answerCreated, answerDeleted }
 // Comments
 export { questionCommentModified, answerCommentModified }
 // Chats
@@ -43,6 +41,8 @@ export { sessionChatMediaDeleted }
 export { tutorUpdated }
 // Questions
 export { questionCreated, questionUpdated, questionDeleted }
+// Answers
+export { answerCreated, answerDeleted }
 
 
 // On Call

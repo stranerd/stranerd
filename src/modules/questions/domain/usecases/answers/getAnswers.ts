@@ -1,6 +1,5 @@
-import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { FirestoreGetClauses } from '@modules/core/data/datasources/base'
 import { IAnswerRepository } from '../../irepositories/ianswer'
-import { AnswerEntity } from '../../entities/answer'
 
 export class GetAnswersUseCase {
 	private repository: IAnswerRepository
@@ -9,12 +8,11 @@ export class GetAnswersUseCase {
 		this.repository = repository
 	}
 
-	async call (questionId: string) :Promise<AnswerEntity[]> {
-		const conditions: DatabaseGetClauses = {
-			order: {
-				field: 'questionId',
-				condition: { equal: questionId }
-			}
+	async call (questionId: string) {
+		const conditions: FirestoreGetClauses = {
+			where: [
+				{ field: 'questionId', condition: '==', value: questionId }
+			]
 		}
 
 		return await this.repository.get(conditions)

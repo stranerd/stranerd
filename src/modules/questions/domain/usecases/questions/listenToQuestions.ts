@@ -9,7 +9,7 @@ export class ListenToQuestionsUseCase {
 	    this.repository = repository
     }
 
-    async call (callback: (entities: QuestionEntity[]) => void, date?: Date) :Promise<() => void > {
+    async call (callback: (entities: QuestionEntity[]) => void, date?: Date) {
 	    const conditions: FirestoreGetClauses = {
 		    order: { field: 'dates.createdAt', desc: true }
 	    }

@@ -26,8 +26,8 @@ export const questionUpdated = functions.firestore.document('questions/{question
 		const newAttachments = after.attachments as any[]
 
 		await Promise.all(oldAttachments.map(async attachment => {
-			const wasNotRemoved = newAttachments.find(doc => equal(doc, attachment))
-			if(!wasNotRemoved) await deleteFromStorage(attachment?.path)
+			const wasLeftBehind = newAttachments.find(doc => equal(doc, attachment))
+			if(!wasLeftBehind) await deleteFromStorage(attachment?.path)
 		}))
 
 		if (before.answerId !== after.answerId) {
@@ -46,5 +46,8 @@ export const questionUpdated = functions.firestore.document('questions/{question
 
 export const questionDeleted = functions.firestore.document('questions/{questionId}')
 	.onDelete(async (snap) => {
+		const { attachments } = snap.data()
+		attachments.map(async (attachment: any) => await deleteFromStorage(attachment.path))
+
 		await deleteFromAlgolia('questions', snap.id)
 	})

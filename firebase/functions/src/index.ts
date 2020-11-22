@@ -10,7 +10,7 @@ import { userProfileUpdated, userCreditsUpdated } from './database/users'
 import { questionCommentModified, answerCommentModified } from './database/comments'
 import { sessionChatMediaDeleted } from './database/chats'
 import { questionCreated, questionUpdated, questionDeleted } from './firestore/questions'
-import { answerCreated, answerDeleted } from './firestore/answers'
+import { answerCreated, answerUpdated, answerDeleted } from './firestore/answers'
 import { tutorUpdated } from './firestore/tutors'
 
 admin.initializeApp()
@@ -42,7 +42,7 @@ export { tutorUpdated }
 // Questions
 export { questionCreated, questionUpdated, questionDeleted }
 // Answers
-export { answerCreated, answerDeleted }
+export { answerCreated, answerUpdated, answerDeleted }
 
 
 // On Call

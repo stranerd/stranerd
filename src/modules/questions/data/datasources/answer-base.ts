@@ -1,10 +1,10 @@
-import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { FirestoreGetClauses } from '@modules/core/data/datasources/base'
 import { AnswerFromModel, AnswerToModel } from '../models/answer'
 
 export abstract class AnswerBaseDataSource {
     abstract create: (data: AnswerToModel) => Promise<string>
-    abstract get: (condition?: DatabaseGetClauses) => Promise<AnswerFromModel[]>
-    abstract listen: (callback: (documents: AnswerFromModel[]) => void, condition?: DatabaseGetClauses) => Promise<() => void>
+    abstract get: (condition?: FirestoreGetClauses) => Promise<AnswerFromModel[]>
+    abstract listen: (callback: (documents: AnswerFromModel[]) => void, condition?: FirestoreGetClauses) => Promise<() => void>
     abstract find: (id: string) => Promise<AnswerFromModel | null>
     abstract update: (id: string, data: object) => Promise<void>
 }

@@ -4,12 +4,15 @@ import { useAuth } from '@app/hooks/auth/auth'
 
 export default defineNuxtPlugin(async () => {
 	await firebase.auth()
-		.setPersistence(firebase.auth.Auth.Persistence.NONE).catch(() => {})
+		.setPersistence(firebase.auth.Auth.Persistence.NONE)
+		.catch(() => {})
 
 	const { isLoggedIn, token, startProfileListener } = useAuth()
 	if (isLoggedIn.value && token.value) {
 		await startProfileListener()
-		await firebase.auth().signInWithCustomToken(token.value).catch(() => {})
+		await firebase.auth()
+			.signInWithCustomToken(token.value)
+			.catch(() => {})
 	}
 
 	await firebase.firestore()

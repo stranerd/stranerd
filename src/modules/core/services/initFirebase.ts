@@ -14,7 +14,7 @@ if (firebase.apps.length === 0) {
 			host: 'localhost:5002',
 			ssl: false
 		})
-		firebase.functions().useFunctionsEmulator('http://localhost:5001')
+		firebase.functions().useEmulator('localhost', 5001)
 	}
 }
 
@@ -44,7 +44,7 @@ export const uploadFile = async (path: string, file: File) => {
 			await storage.ref(path).put(file)
 			link = await storage.ref(path).getDownloadURL()
 		} else {
-			path = `stranerd-dev/${path}`
+			path = `${firebaseConfig.projectId}/${path}`
 			await uploadToMockServer(path, file)
 			link = `http://localhost:3000/${path}`
 		}

@@ -29,15 +29,15 @@ export class AnswerFactory extends BaseFactory<AnswerEntity, AnswerToModel> {
 
 	values: {
 		body: string, attachments: Content[], credits: number, questionId: string,
-		userId: string, user: UserBio | undefined, likes: { [key: string]: boolean }, ratings: { [key: string]: number }
+		userId: string, user: UserBio | undefined, likes: number, ratings: number
 	} =
-		{ body: '', attachments: [], credits: 10, questionId: '', userId: '', user: undefined, likes: {}, ratings: {} }
+		{ body: '', attachments: [], credits: 10, questionId: '', userId: '', user: undefined, likes: 0, ratings: 0 }
 
 	validValues: {
 		body: string, attachments: Content[], credits: number, questionId: string,
-		userId: string, user: UserBio | undefined, likes: { [key: string]: boolean }, ratings: { [key: string]: number }
+		userId: string, user: UserBio | undefined, likes: number, ratings: number
 	} =
-		{ body: '', attachments: [], credits: 10, questionId: '', userId: '', user: undefined, likes: {}, ratings: {} }
+		{ body: '', attachments: [], credits: 10, questionId: '', userId: '', user: undefined, likes: 0, ratings: 0 }
 
 	errors = {
 		body: undefined, attachments: undefined, likes: undefined, ratings: undefined,

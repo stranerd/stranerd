@@ -8,8 +8,6 @@ export class RateAnswerUseCase {
 	}
 
 	async call (id: string, userId: string, rating: number) {
-		return await this.repository.update(id, {
-			[`ratings/${userId}`]: rating
-		})
+		return await this.repository.rate(id, userId, rating)
 	}
 }

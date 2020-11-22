@@ -7,4 +7,6 @@ export abstract class AnswerBaseDataSource {
     abstract listen: (callback: (documents: AnswerFromModel[]) => void, condition?: FirestoreGetClauses) => Promise<() => void>
     abstract find: (id: string) => Promise<AnswerFromModel | null>
     abstract update: (id: string, data: object) => Promise<void>
+    abstract like: (id: string, userId: string) => Promise<void>
+    abstract rate: (id: string, userId: string, rating: number) => Promise<void>
 }

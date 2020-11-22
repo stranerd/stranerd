@@ -42,3 +42,31 @@ export const answerDeleted = functions.firestore.document('answers/{answerId}').
 			answers: admin.firestore.FieldValue.increment(-1)
 		}, { merge: true})
 })
+
+
+export const answerLikeCreated = functions.database.ref('answers/{answerId}/likes').onWrite(async (snap, context) => {
+	const { answerId } = context.params
+
+	const likesCount = Object.values(snap.after.val())
+		.filter((liked) => liked)
+		.length
+
+	await admin.firestore().collection('answers')
+		.doc(answerId)
+		.set({
+			likes: likesCount
+		}, { merge: true})
+})
+
+export const answerRatingCreated = functions.database.ref('answers/{answerId}/ratings').onWrite(async (snap, context) => {
+	const { answerId } = context.params
+
+	const ratings = Object.values(snap.after.val()) as number[]
+	const averageRating = Number(ratings.reduce((acc, curr) => acc + curr, 0) / ratings.length).toFixed(2)
+
+	await admin.firestore().collection('answers')
+		.doc(answerId)
+		.set({
+			rating: averageRating
+		}, { merge: true})
+})

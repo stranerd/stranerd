@@ -8,4 +8,6 @@ export interface IAnswerRepository {
 	listen: (callback: (entities: AnswerEntity[]) => void, conditions?: FirestoreGetClauses) => Promise<() => void>
 	find: (id: string) => Promise<AnswerEntity | null>
 	update: (id: string, data: object) => Promise<void>
+	like: (id: string, userId: string) => Promise<void>
+	rate: (id: string, userId: string, rating: number) => Promise<void>
 }

@@ -10,8 +10,8 @@ export interface AnswerFromModel {
 	questionId: string
 	userId: string
 	user: UserBio
-	likes: { [key: string]: boolean }
-	ratings: { [key: string]: number }
+	likes: number
+	ratings: number
 	comments?: {
 		count: number
 		last: { [id: string]: CommentFromModel }
@@ -28,6 +28,6 @@ export interface AnswerToModel {
 	questionId: string
 	userId: string
 	user?: UserBio
-	likes: { [key: string]: boolean }
-	ratings: { [key: string]: number }
+	likes: number
+	ratings: number
 }

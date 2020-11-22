@@ -1,12 +1,14 @@
 import * as admin from 'firebase-admin'
-import { isDev, isProd } from '../../../utils/environment'
+import { isDev, isProd, firebaseConfig } from '../../../utils/environment'
 
 if (admin.apps.length === 0) {
-	admin.initializeApp()
-	if (isDev) admin.firestore().settings({
-		host: 'localhost:5002',
-		ssl: false
-	})
+	admin.initializeApp({ projectId: firebaseConfig.projectId })
+	if (isDev) {
+		admin.firestore().settings({
+			host: 'localhost:5002',
+			ssl: false
+		})
+	}
 }
 
 export const signin = async (idToken: string) => {

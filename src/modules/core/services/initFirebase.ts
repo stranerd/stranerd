@@ -9,6 +9,7 @@ import { isDev, isProd, firebaseConfig } from '@utils/environment'
 if (firebase.apps.length === 0) {
 	firebase.initializeApp(firebaseConfig)
 	if (isDev) {
+		firebase.auth().useEmulator('http://localhost:5004')
 		firebase.firestore().settings({
 			host: 'localhost:5002',
 			ssl: false

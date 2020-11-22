@@ -16,7 +16,7 @@ export const authUserCreated = functions.auth.user().onCreate(async (user) => {
 
 	try {
 		const result = await createCustomer(user.displayName ?? '', user.email!)
-		if(result.success) data['account/customerId'] = result.customer.id
+		if(result.success) data['account/braintreeId'] = result.customer.id
 	}catch(error){ console.log(error, user.uid,user.email) }
 
 	try{

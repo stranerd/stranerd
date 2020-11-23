@@ -12,7 +12,7 @@ export const protocol = `http${ssl ? 's' : ''}://`
 export const isServer = () => process.server
 export const isClient = () => process.client
 
-const config = JSON.parse(process.env.FIREBASE_CONFIG ?? '{}')
+const config = JSON.parse(process.env.FIREBASE_CLIENT_CONFIG ?? '{}')
 export const firebaseConfig = {
 	apiKey: config.api_key,
 	authDomain: config.auth_domain,

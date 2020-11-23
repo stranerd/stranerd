@@ -16,8 +16,8 @@ export const useGoogleSignin = () => {
 		setError('')
 		setLoading(true)
 		try {
-			const { idToken } = await SigninWithGoogle.call()
-			await createSession(idToken)
+			const user = await SigninWithGoogle.call()
+			await createSession(user)
 		} catch (error) { setError(error) }
 		setLoading(false)
 	}
@@ -33,7 +33,7 @@ export const useDevSignin = () => {
 		setError('')
 		setLoading(true)
 		try {
-			if (id.value) await createSession(id.value)
+			if (id.value) await createSession({ id: id.value, idToken: id.value })
 			else setError('Select a dev id first')
 		} catch (error) { setError(error) }
 		setLoading(false)
@@ -50,8 +50,8 @@ export const useEmailSignin = () => {
 		if (factory.value.valid && !loading.value) {
 			setLoading(true)
 			try {
-				const { idToken } = await SigninWithEmail.call(factory.value)
-				await createSession(idToken)
+				const user = await SigninWithEmail.call(factory.value)
+				await createSession(user)
 			} catch (error) { setError(error) }
 			setLoading(false)
 		} else factory.value.validateAll()
@@ -68,8 +68,8 @@ export const useEmailSignup = () => {
 		if (factory.value.valid && !loading.value) {
 			setLoading(true)
 			try {
-				const { idToken } = await SignupWithEmail.call(factory.value)
-				await createSession(idToken)
+				const user = await SignupWithEmail.call(factory.value)
+				await createSession(user)
 			} catch (error) { setError(error) }
 			setLoading(false)
 		} else factory.value.validateAll()
@@ -118,8 +118,8 @@ export const useEmailLinkSignin = () => {
 			setLoading(true)
 			try {
 				const url = isClient() ? window.location.href : ''
-				const { idToken } = await SigninWithEmailLink.call(factory.value, url)
-				await createSession(idToken)
+				const user = await SigninWithEmailLink.call(factory.value, url)
+				await createSession(user)
 			} catch (error) { setError(error) }
 			setLoading(false)
 		} else factory.value.validateAll()

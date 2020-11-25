@@ -8,7 +8,7 @@ export class ListenToQuestionUseCase {
 	    this.repository = repository
     }
 
-    async call (id: string, callback: (entity: QuestionEntity | null) => void) :Promise<() => void > {
+    async call (id: string, callback: (entity: QuestionEntity | null) => void) {
 	    return await this.repository.listenToOne(id, callback)
     }
 }

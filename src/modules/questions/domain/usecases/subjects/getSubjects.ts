@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { FirestoreGetClauses } from '@modules/core/data/datasources/base'
 import { ISubjectRepository } from '../../irepositories/isubject'
 
 export class GetSubjectsUseCase {
@@ -9,8 +9,8 @@ export class GetSubjectsUseCase {
 	}
 
 	async call () {
-		const conditions: DatabaseGetClauses = {
-			order: { field: 'name' }
+		const conditions: FirestoreGetClauses = {
+			order: { field: 'name', desc: false }
 		}
 		return await this.repository.get(conditions)
 	}

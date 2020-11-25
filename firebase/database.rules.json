@@ -1,10 +1,5 @@
 {
 	"rules": {
-		"answers": {
-			".read": true,
-			".write": true,
-			".indexOn": ["questionId", "userId"]
-		},
 		"comments": {
 			"answers": {
 				"$answerId": {
@@ -32,11 +27,6 @@
 					".indexOn": ["dates/createdAt"]
 				}
 			}
-		},
-		"subjects": {
-			".read": true,
-			".write": true,
-			".indexOn": ["name"]
 		},
 		"users": {
 			"$userId": {

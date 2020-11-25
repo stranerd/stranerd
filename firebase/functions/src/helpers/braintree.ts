@@ -1,9 +1,9 @@
-import { connect, Environment, SubscriptionNotification } from 'braintree'
+import { BraintreeGateway, Environment, SubscriptionNotification } from 'braintree'
 import { isProduction, braintree } from './environment'
 
 const getGateway = () => {
 	const { merchantId, privateKey, publicKey } = braintree()
-	return connect({
+	return new BraintreeGateway({
 		environment: Environment[isProduction() ? 'Production' : 'Sandbox'],
 		merchantId, publicKey, privateKey
 	})

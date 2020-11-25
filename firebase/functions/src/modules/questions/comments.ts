@@ -27,11 +27,12 @@ export const answerCommentModified = functions.database.ref('comments/answers/{a
 			.sort((a, b) => a > b ? 1 : -1)
 		const last5Comments = Object.fromEntries(comments.slice(-5))
 
-		await admin.database().ref('answers')
-			.child(answerId)
-			.child('comments')
-			.update({
-				count: comments.length,
-				last: last5Comments
-			})
+		await admin.firestore().collection('answers')
+			.doc(answerId)
+			.set({
+				comments: {
+					count: comments.length,
+					last: last5Comments
+				}
+			}, { merge: true })
 	})

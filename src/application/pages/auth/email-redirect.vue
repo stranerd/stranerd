@@ -30,6 +30,11 @@
 			<DisplayError :error="error" />
 			<PageLoading v-if="loading" />
 		</div>
+		<div class="text-center mt-4">
+			<BaseLink to="/auth/" class="label-sm">
+				Back To Auth Page
+			</BaseLink>
+		</div>
 	</form>
 </template>
 

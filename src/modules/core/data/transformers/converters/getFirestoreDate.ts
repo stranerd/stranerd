@@ -1,11 +1,12 @@
 import firebase from 'firebase'
+import { Timestamp } from '@modules/core/data/models/base'
 
-export const timestampToDate = (timestamp: firebase.firestore.Timestamp | number | undefined) :Date => {
+export const timestampToDate = (timestamp: Timestamp | number | undefined) :Date => {
 	if (typeof timestamp === 'number') return new Date(timestamp)
 	return timestamp?.toDate() ?? new Date()
 }
 
-export const dateToTimestamp = (date: Date) :firebase.firestore.Timestamp => {
+export const dateToTimestamp = (date: Date) :Timestamp => {
 	return firebase.firestore.Timestamp.fromDate(date)
 }
 

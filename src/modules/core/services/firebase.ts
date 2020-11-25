@@ -135,7 +135,7 @@ export const DatabaseService = {
 		const doc = await database.ref(path).push(data)
 		return doc.key!
 	},
-	update: async (path: string, data: any) => {
+	update: async (path: string, data: { [key: string]: any }) => {
 		await database.ref(path).update(data)
 	},
 	delete: async (path: string) => {

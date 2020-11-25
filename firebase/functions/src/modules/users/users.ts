@@ -1,6 +1,6 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
-import { deleteFromStorage } from '../helpers/storage'
+import { deleteFromStorage } from '../../helpers/storage'
 const equal = require('deep-equal')
 
 export const userProfileUpdated = functions.database.ref('profiles/{userId}/bio').onUpdate(async (snap, context) => {
@@ -23,16 +23,16 @@ export const userProfileUpdated = functions.database.ref('profiles/{userId}/bio'
 
 export const userCreditsUpdated = functions.database.ref('profiles/{userId}/account/credits')
 	.onUpdate(async (snap, context) => {
-	const diffInCredits = (snap.after.val() ?? 0) - (snap.before.val() ?? 0)
+		const diffInCredits = (snap.after.val() ?? 0) - (snap.before.val() ?? 0)
 
-	if (diffInCredits > 0) {
-		const { userId } = context.params
-		await admin.database().ref('rankings').update({
-			[`daily/${userId}`]: admin.database.ServerValue.increment(diffInCredits),
-			[`weekly/${userId}`]: admin.database.ServerValue.increment(diffInCredits),
-			[`monthly/${userId}`]: admin.database.ServerValue.increment(diffInCredits),
-			[`quarterly/${userId}`]: admin.database.ServerValue.increment(diffInCredits),
-			[`yearly/${userId}`]: admin.database.ServerValue.increment(diffInCredits),
-		})
-	}
-})
+		if (diffInCredits > 0) {
+			const { userId } = context.params
+			await admin.database().ref('rankings').update({
+				[`daily/${userId}`]: admin.database.ServerValue.increment(diffInCredits),
+				[`weekly/${userId}`]: admin.database.ServerValue.increment(diffInCredits),
+				[`monthly/${userId}`]: admin.database.ServerValue.increment(diffInCredits),
+				[`quarterly/${userId}`]: admin.database.ServerValue.increment(diffInCredits),
+				[`yearly/${userId}`]: admin.database.ServerValue.increment(diffInCredits),
+			})
+		}
+	})

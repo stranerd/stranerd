@@ -8,8 +8,6 @@ export class LikeAnswerUseCase {
 	}
 
 	async call (id: string, userId: string) {
-		return await this.repository.update(id, {
-			[`likes/${userId}`]: true
-		})
+		return await this.repository.like(id, userId)
 	}
 }

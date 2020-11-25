@@ -9,11 +9,12 @@ import { isDev, isProd, firebaseConfig } from '@utils/environment'
 if (firebase.apps.length === 0) {
 	firebase.initializeApp(firebaseConfig)
 	if (isDev) {
+		firebase.auth().useEmulator('http://localhost:5004')
 		firebase.firestore().settings({
 			host: 'localhost:5002',
 			ssl: false
 		})
-		firebase.functions().useFunctionsEmulator('http://localhost:5001')
+		firebase.functions().useEmulator('localhost', 5001)
 	}
 }
 
@@ -23,6 +24,7 @@ export const database = firebase.database()
 export const firestore = firebase.firestore()
 export const functions = firebase.functions()
 export const storage = firebase.storage()
+export type Timestamp = firebase.firestore.Timestamp
 
 const uploadToMockServer = async (path: string, file: File) => {
 	const data = new FormData()
@@ -42,7 +44,7 @@ export const uploadFile = async (path: string, file: File) => {
 			await storage.ref(path).put(file)
 			link = await storage.ref(path).getDownloadURL()
 		} else {
-			path = `stranerd-dev/${path}`
+			path = `${firebaseConfig.projectId}/${path}`
 			await uploadToMockServer(path, file)
 			link = `http://localhost:3000/${path}`
 		}

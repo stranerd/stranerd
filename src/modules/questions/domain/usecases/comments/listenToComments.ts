@@ -8,7 +8,7 @@ export class ListenToQuestionCommentsUseCase {
 	    this.repository = repository
     }
 
-    async call (questionId: string, callback: (entities: CommentEntity[]) => void) :Promise<() => void > {
+    async call (questionId: string, callback: (entities: CommentEntity[]) => void) {
 	    return await this.repository.listen(questionId, callback)
     }
 }
@@ -20,7 +20,7 @@ export class ListenToAnswerCommentsUseCase {
 		this.repository = repository
 	}
 
-	async call (answerId: string, callback: (entities: CommentEntity[]) => void) :Promise<() => void > {
+	async call (answerId: string, callback: (entities: CommentEntity[]) => void) {
 		return await this.repository.listen(answerId, callback)
 	}
 }

@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { FirestoreGetClauses } from '@modules/core/data/datasources/base'
 import { IAnswerRepository } from '../../domain/irepositories/ianswer'
 import { AnswerEntity } from '../../domain/entities/answer'
 import { AnswerBaseDataSource } from '../datasources/answer-base'
@@ -14,12 +14,12 @@ export class AnswerRepository implements IAnswerRepository {
 		this.transformer = transformer
 	}
 
-	async get (conditions?: DatabaseGetClauses) {
+	async get (conditions?: FirestoreGetClauses) {
 		const models = await this.dataSource.get(conditions)
 		return models.map(this.transformer.fromJSON)
 	}
 
-	async listen (callback: (entities: AnswerEntity[]) => void, conditions?: DatabaseGetClauses) {
+	async listen (callback: (entities: AnswerEntity[]) => void, conditions?: FirestoreGetClauses) {
 		const cb = (documents: AnswerFromModel[]) => {
 			const entities = documents.map(this.transformer.fromJSON)
 			callback(entities)
@@ -36,7 +36,15 @@ export class AnswerRepository implements IAnswerRepository {
 		return model ? this.transformer.fromJSON(model) : null
 	}
 
-	async update (id: string, data: object) {
+	async update (id: string, data: Partial<AnswerToModel>) {
 		return await this.dataSource.update(id, data)
+	}
+
+	async like (id: string, userId: string) {
+		return await this.dataSource.like(id, userId)
+	}
+
+	async rate (id: string, userId: string, rating: number) {
+		return await this.dataSource.rate(id, userId, rating)
 	}
 }

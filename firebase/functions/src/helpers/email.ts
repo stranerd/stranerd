@@ -45,6 +45,7 @@ export const sendNewNotificationEmail = async (to: string, notification: Notific
 }
 
 export const sendSessionRequestEmail = async (to: string, student: any, time: string) => {
+	const meta = { domain: domain() }
 	const content = await new Template({ message:{} }).render('sessionRequestEmail.pug',
 		{ student, meta, time })
 	return await sendMailAndCatchErrors(to, 'Session Request', content)

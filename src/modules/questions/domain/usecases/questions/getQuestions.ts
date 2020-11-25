@@ -1,7 +1,6 @@
 import { FirestoreGetClauses } from '@modules/core/data/datasources/base'
 import { PAGINATION_LIMIT } from '@utils/constants'
 import { IQuestionRepository } from '../../irepositories/iquestion'
-import { QuestionEntity } from '../../entities/question'
 
 export class GetQuestionsUseCase {
 	private repository: IQuestionRepository
@@ -10,7 +9,7 @@ export class GetQuestionsUseCase {
 		this.repository = repository
 	}
 
-	async call (date?: Date) :Promise<QuestionEntity[]> {
+	async call (date?: Date) {
 		const conditions: FirestoreGetClauses = {
 			order: { field: 'dates.createdAt', desc: true },
 			limit: PAGINATION_LIMIT + 1

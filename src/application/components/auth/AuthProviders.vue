@@ -1,6 +1,6 @@
 <template>
 	<div class="grid">
-		<div>
+		<div class="d-none">
 			<button type="button" class="btn-facebook btn btn-auth">
 				<img src="@app/assets/images/auth/facebook.png" alt="Facebook">Facebook
 			</button>
@@ -34,7 +34,7 @@ export default defineComponent({
 	grid-row-gap: 1rem;
 }
 @media (min-width: $sm) {
-	.grid{ grid-template-columns: repeat(2, 1fr);}
+	.grid{ grid-template-columns: repeat(1, 1fr);}
 }
 .btn-auth{
 	color: #fff;

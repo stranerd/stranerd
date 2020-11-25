@@ -5,14 +5,14 @@ import { toggleAdmin } from './onCall/roles/admins'
 import { makeTutor, removeTutor } from './onCall/roles/tutors'
 import { subscribeToMailingList } from './onCall/roles/mailing'
 import { requestNewSession } from './onCall/sessions/requestNewSession'
-import { subjectIconUpdated, subjectDeleted } from './database/subjects'
-import { userNotificationCreated } from './database/notifications'
-import { userProfileUpdated, userCreditsUpdated } from './database/users'
-import { answerCreated, answerDeleted } from './database/answers'
-import { questionCommentModified, answerCommentModified } from './database/comments'
-import { sessionChatMediaDeleted } from './database/chats'
-import { questionCreated, questionUpdated, questionDeleted } from './firestore/questions'
-import { tutorUpdated } from './firestore/tutors'
+import { userNotificationCreated } from './modules/users/notifications'
+import { userProfileUpdated, userCreditsUpdated } from './modules/users/users'
+import { tutorUpdated } from './modules/users/tutors'
+import { sessionChatMediaDeleted } from './modules/sessions/chats'
+import { questionCommentModified, answerCommentModified } from './modules/questions/comments'
+import { subjectUpdated, subjectDeleted } from './modules/questions/subjects'
+import { questionCreated, questionUpdated, questionDeleted } from './modules/questions/questions'
+import { answerCreated, answerUpdated, answerDeleted, answerLikeCreated, answerRatingCreated } from './modules/questions/answers'
 
 admin.initializeApp()
 
@@ -23,27 +23,28 @@ export { authUserCreated, authUserDeleted }
 // Request Triggers
 export { makeSuperAdmin }
 
-
-// Database Triggers
-// Subjects
-export { subjectIconUpdated, subjectDeleted }
-// Notifications
-export { userNotificationCreated }
+// Users Module
 // Users
 export { userProfileUpdated, userCreditsUpdated }
-// Answers
-export { answerCreated, answerDeleted }
-// Comments
-export { questionCommentModified, answerCommentModified }
+// Tutors
+export { tutorUpdated }
+// Notifications
+export { userNotificationCreated }
+
+// Sessions Module
 // Chats
 export { sessionChatMediaDeleted }
 
 
-// Firestore Triggers
-// Tutors
-export { tutorUpdated }
+// Questions Module
+// Subjects
+export { subjectUpdated, subjectDeleted }
 // Questions
 export { questionCreated, questionUpdated, questionDeleted }
+// Answers
+export { answerCreated, answerUpdated, answerDeleted, answerLikeCreated, answerRatingCreated }
+// Comments
+export { questionCommentModified, answerCommentModified }
 
 
 // On Call

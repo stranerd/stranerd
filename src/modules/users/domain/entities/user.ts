@@ -42,7 +42,7 @@ export interface UserRoles {
 	isAdmin?: boolean
 }
 export interface UserAccount {
-	customerId: string
+	braintreeId: string
 	credits: number
 }
 export const generateDefaultBio = ({ name, email, image }: UserBio) :UserBio => {

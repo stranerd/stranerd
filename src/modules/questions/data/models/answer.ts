@@ -1,5 +1,5 @@
 import { UserBio } from '@modules/users'
-import { Media } from '@modules/core/data/models/base'
+import { Media, Timestamp } from '@modules/core/data/models/base'
 import { CommentFromModel } from '@modules/questions/data/models/comment'
 
 export interface AnswerFromModel {
@@ -10,14 +10,14 @@ export interface AnswerFromModel {
 	questionId: string
 	userId: string
 	user: UserBio
-	likes: { [key: string]: boolean }
-	ratings: { [key: string]: number }
+	likes: number
+	ratings: number
 	comments?: {
 		count: number
 		last: { [id: string]: CommentFromModel }
 	}
 	dates: {
-		createdAt: number
+		createdAt: Timestamp
 	}
 }
 
@@ -28,6 +28,6 @@ export interface AnswerToModel {
 	questionId: string
 	userId: string
 	user?: UserBio
-	likes: { [key: string]: boolean }
-	ratings: { [key: string]: number }
+	likes: number
+	ratings: number
 }

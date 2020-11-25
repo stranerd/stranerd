@@ -12,7 +12,7 @@ module.exports = {
 		"parser": "@typescript-eslint/parser"
 	},
 	"rules": {
-		"no-console": "warn",
+		"no-console": "off",
 		"no-debugger": "warn",
 		"no-tabs": "off",
 		"no-var": "error",

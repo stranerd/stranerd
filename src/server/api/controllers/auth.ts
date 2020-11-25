@@ -21,6 +21,7 @@ export const SigninController = async (req: Request, res: Response) => {
 			error: null
 		}).end()
 	} catch (err) {
+		console.log(err)
 		return res.status(400).json({
 			success: false,
 			error: 'Failed to sign in'
@@ -41,6 +42,7 @@ export const SignoutController = async (req: Request, res: Response) => {
 			error: null
 		}).end()
 	} catch (err) {
+		console.log(err)
 		return res.status(400).json({
 			success: false,
 			error: 'Failed to sign out!'
@@ -61,6 +63,7 @@ export const DecodeSessionCookieMiddleware = async (req: Request, res: Response,
 		const user = await decodeSessionCookie(session)
 		setCookie(res, USER_SESSION_NAME, JSON.stringify(user))
 	} catch (err) {
+		console.log(err)
 		deleteCookie(res, TOKEN_SESSION_NAME)
 		deleteCookie(res, USER_SESSION_NAME)
 	}

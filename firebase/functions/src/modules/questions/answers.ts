@@ -25,8 +25,8 @@ export const answerUpdated = functions.firestore.document('answers/{answerId}').
 	const oldAttachments = before.attachments as any[]
 	const newAttachments = after.attachments as any[]
 
-	await Promise.all(oldAttachments.map(async attachment => {
-		const wasNotRemoved = newAttachments.find(doc => equal(doc, attachment))
+	await Promise.all(oldAttachments.map(async (attachment) => {
+		const wasNotRemoved = newAttachments.find((doc) => equal(doc, attachment))
 		if(!wasNotRemoved) await deleteFromStorage(attachment?.path)
 	}))
 })

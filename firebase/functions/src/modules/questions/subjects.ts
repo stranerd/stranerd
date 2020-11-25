@@ -7,7 +7,7 @@ export const subjectUpdated = functions.firestore.document('subjects/{subjectId}
 		const before = snap.before.data()
 		const after = snap.after.data()
 		if (!equal(before.icon, after.icon))
-		await deleteFromStorage(before.icon?.path)
+			await deleteFromStorage(before.icon?.path)
 	})
 
 export const subjectDeleted = functions.firestore.document('subjects/{subjectId}')

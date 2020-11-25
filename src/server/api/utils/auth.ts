@@ -1,5 +1,5 @@
 import * as admin from 'firebase-admin'
-import { isDev } from '../../../utils/environment'
+import { isDev, isProd } from '../../../utils/environment'
 
 const getAdmin = () => {
 	if (admin.apps.length === 0) {
@@ -15,24 +15,38 @@ const getAdmin = () => {
 }
 
 export const signin = async (idToken: string) => {
-	return await getAdmin().auth().createSessionCookie(idToken, {
+	return isProd ? await getAdmin().auth().createSessionCookie(idToken, {
 		expiresIn: 14 * 86400 * 1000
-	})
+	}) : idToken
 }
 
 export const signout = async (session: string) => {
-	const user = await getAdmin().auth().verifySessionCookie(session)
-	if (user) await getAdmin().auth().revokeRefreshTokens(user.uid)
+	if (isProd) {
+		const user = await getAdmin().auth().verifySessionCookie(session)
+		if (user) await getAdmin().auth().revokeRefreshTokens(user.uid)
+	}
 }
 
 export const decodeSessionCookie = async (session: string) => {
-	const user = await getAdmin().auth().verifySessionCookie(session)
-	const token = await getAdmin().auth().createCustomToken(user.uid)
-	return {
-		id: user.uid,
-		email: user.email ?? null,
-		verified: user.email_verified ?? false,
-		provider: user.firebase.sign_in_provider,
-		token
+	if (isProd) {
+		const user = await getAdmin().auth().verifySessionCookie(session)
+		const token = await getAdmin().auth().createCustomToken(user.uid)
+		return {
+			id: user.uid,
+			email: user.email ?? null,
+			verified: user.email_verified ?? false,
+			provider: user.firebase.sign_in_provider,
+			token
+		}
+	} else {
+		const user = await getAdmin().auth().getUser(session)
+		const token = await getAdmin().auth().createCustomToken(user.uid)
+		return {
+			id: user.uid,
+			email: user.email ?? null,
+			verified: user.emailVerified,
+			provider: user.providerData.find((p) => !!p.providerId)?.providerId,
+			token
+		}
 	}
 }

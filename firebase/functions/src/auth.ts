@@ -11,17 +11,23 @@ export const authUserCreated = functions.auth.user().onCreate(async (user) => {
 		'account/credits': 100
 	}
 
-	if(user.displayName) data['bio/name'] = user.displayName
-	if(user.photoURL) data['bio/image/link'] = user.photoURL
+	if (user.displayName) data['bio/name'] = user.displayName
+	if (user.photoURL) data['bio/image/link'] = user.photoURL
 
 	try {
 		const result = await createCustomer(user.displayName ?? '', user.email!)
 		if(result.success) data['account/braintreeId'] = result.customer.id
-	} catch (error) { console.log('Failed to create user: ', user.uid, user.email) }
+	} catch (error) {
+		console.log(error.message)
+		console.log('Failed to create user: ', user.uid, user.email)
+	}
 
-	try{
+	try {
 		await subscribeToMailchimpList(user.email!)
-	}catch (error) { console.log('Failed to subscribe user to mailchimp: ', user.uid, user.email) }
+	} catch (error) {
+		console.log(error.message)
+		console.log('Failed to subscribe user to mailchimp: ', user.uid, user.email)
+	}
 
 	await admin.database().ref('profiles').child(user.uid).update(data)
 })

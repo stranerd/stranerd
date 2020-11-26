@@ -38,6 +38,7 @@ export const useQuestionList = () => {
 			const questions = await GetQuestions.call(lastDate)
 			global.hasMore.value = questions.length === PAGINATION_LIMIT + 1
 			questions.slice(0, PAGINATION_LIMIT).forEach(pushToQuestionList)
+			global.fetched.value = true
 		} catch (error) { setGlobalError(error) }
 		setGlobalLoading(false)
 	}

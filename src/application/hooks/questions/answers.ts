@@ -1,14 +1,21 @@
-import { Ref, reqRef, watch } from '@nuxtjs/composition-api'
+import { Ref, reqRef, useFetch, watch } from '@nuxtjs/composition-api'
 import {
-	AddAnswer, AnswerEntity, AnswerFactory, LikeAnswer,
-	ListenToAnswers, QuestionEntity, RateAnswer
+	AddAnswer,
+	AnswerEntity,
+	AnswerFactory,
+	GetAnswers,
+	LikeAnswer,
+	ListenToAnswers,
+	QuestionEntity,
+	RateAnswer
 } from '@modules/questions'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
 
 const global: { [questionId: string] : {
 	answers: Ref<AnswerEntity[]>,
-	listener: Ref<(() => void) | null>
+	listener: Ref<(() => void) | null>,
+	fetched: Ref<boolean>
 }} = {}
 
 export const useAnswerList = (questionId: string) => {
@@ -17,7 +24,18 @@ export const useAnswerList = (questionId: string) => {
 
 	if (global[questionId] === undefined) global[questionId] = {
 		answers: reqRef([]),
-		listener: reqRef(null)
+		listener: reqRef(null),
+		fetched: reqRef(false)
+	}
+
+	const fetchAnswers = async () => {
+		setError('')
+		try {
+			setLoading(true)
+			global[questionId].answers.value = await GetAnswers.call(questionId)
+			global[questionId].fetched.value = true
+		} catch (error) { setError(error) }
+		setLoading(false)
 	}
 
 	const startListener = async () => {
@@ -29,6 +47,8 @@ export const useAnswerList = (questionId: string) => {
 		} catch (error) { setError(error) }
 		setLoading(false)
 	}
+
+	if (!global[questionId].fetched.value) useFetch(fetchAnswers)
 
 	return {
 		error, loading,
@@ -77,7 +97,6 @@ export const useAnswer = (answer: AnswerEntity) => {
 	const likeAnswer = async () => {
 		const userId = useAuth().id.value!
 		setError('')
-		if (answer.likes[userId]) return
 		try {
 			setLoading(true)
 			await LikeAnswer.call(answer.id, userId)
@@ -87,7 +106,6 @@ export const useAnswer = (answer: AnswerEntity) => {
 	const rateAnswer = async (rating: number) => {
 		const userId = useAuth().id.value!
 		setError('')
-		if (answer.ratings[userId]) return
 		try {
 			setLoading(true)
 			await RateAnswer.call(answer.id, userId, rating)

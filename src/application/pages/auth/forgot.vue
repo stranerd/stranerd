@@ -40,7 +40,6 @@ export default defineComponent({
 	name: 'AuthForgotPage',
 	layout: 'auth',
 	middleware: [
-		'isNotAuthenticated',
 		({ redirect }) => redirect(GenerateLink({ path: '/auth/' }))
 	],
 	setup () {

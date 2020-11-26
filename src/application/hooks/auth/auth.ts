@@ -21,8 +21,10 @@ export const useAuth = () => {
 
 	const isLoggedIn = computed({ get: () => !!id.value, set: () => {} })
 	const token = computed({ get: () => global.auth.value?.token, set: () => {} })
+	const isAdmin = computed({ get: () => global.user.value?.roles.isAdmin, set: () => {} })
 
 	const setAuthDetails = (details: Auth | null) => global.auth.value = details
+	const setUser = (user: UserEntity | null) => global.user.value = user
 
 	const startProfileListener = async () => {
 		if (global.listener) global.listener()
@@ -34,7 +36,7 @@ export const useAuth = () => {
 
 	return {
 		id, bio,
-		isLoggedIn, token,
-		setAuthDetails, startProfileListener
+		isLoggedIn, token, isAdmin,
+		setAuthDetails, setUser, startProfileListener
 	}
 }

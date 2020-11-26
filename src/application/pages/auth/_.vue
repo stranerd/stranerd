@@ -8,7 +8,6 @@ import { GenerateLink } from '@utils/router'
 export default defineComponent({
 	name: 'Auth404Page',
 	middleware: [
-		'isNotAuthenticated',
 		({ redirect }) => redirect(GenerateLink({ path: '/auth/' }))
 	]
 })

@@ -67,7 +67,6 @@ export default defineComponent({
 	components: { AuthProviders, DevSignin },
 	layout: 'auth',
 	middleware: [
-		'isNotAuthenticated',
 		({ redirect }) => redirect(GenerateLink({ path: '/auth/' }))
 	],
 	setup () {

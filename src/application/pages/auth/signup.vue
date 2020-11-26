@@ -94,7 +94,6 @@ export default defineComponent({
 	components: { AuthProviders },
 	layout: 'auth',
 	middleware: [
-		'isNotAuthenticated',
 		({ redirect }) => redirect(GenerateLink({ path: '/auth/' }))
 	],
 	setup () {

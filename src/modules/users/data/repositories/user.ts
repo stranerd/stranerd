@@ -17,7 +17,7 @@ export class UserRepository implements IUserRepository {
 	async find (id: string) {
 		const model = await this.dataSource.find(id)
 		if (model) return this.transformer.fromJSON(model)
-		else return undefined
+		else return null
 	}
 
 	async get (conditions?: DatabaseGetClauses) {

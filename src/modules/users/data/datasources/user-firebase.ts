@@ -5,7 +5,7 @@ import { UserFromModel } from '../models/user'
 
 export class UserFirebaseDataSource implements UserBaseDataSource {
 	async find (id: string) {
-		return await DatabaseService.get(`profiles/${id}`) as UserFromModel | undefined
+		return await DatabaseService.get(`profiles/${id}`) as UserFromModel | null
 	}
 
 	async get (conditions?: DatabaseGetClauses) {

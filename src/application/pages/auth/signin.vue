@@ -50,21 +50,18 @@
 				Sign up now
 			</BaseLink>
 		</div>
-		<DevSignin v-if="isDev" />
 	</form>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import AuthProviders from '@app/components/auth/AuthProviders.vue'
-import DevSignin from '@app/components/auth/DevSignin.vue'
 import { usePassword } from '@app/hooks/core/forms'
 import { useEmailSignin } from '@app/hooks/auth/signin'
-import { isDev } from '@utils/environment'
 import { GenerateLink } from '@utils/router'
 export default defineComponent({
 	name: 'AuthSigninPage',
-	components: { AuthProviders, DevSignin },
+	components: { AuthProviders },
 	layout: 'auth',
 	middleware: [
 		({ redirect }) => redirect(GenerateLink({ path: '/auth/' }))
@@ -73,7 +70,7 @@ export default defineComponent({
 		const { show, toggle } = usePassword()
 		const { loading, signin, factory, error } = useEmailSignin()
 		return {
-			isDev, show, toggle,
+			show, toggle,
 			factory, loading, error, signin
 		}
 	}

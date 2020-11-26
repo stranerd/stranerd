@@ -24,23 +24,6 @@ export const useGoogleSignin = () => {
 	return { loading, error, signin }
 }
 
-export const useDevSignin = () => {
-	const devs = ['kevin11', 'frank', 'joe', 'max']
-	const id = reqRef('')
-	const { error, setError } = useErrorHandler()
-	const { loading, setLoading } = useLoadingHandler()
-	const signin = async () => {
-		setError('')
-		setLoading(true)
-		try {
-			if (id.value) await createSession({ id: id.value, idToken: id.value })
-			else setError('Select a dev id first')
-		} catch (error) { setError(error) }
-		setLoading(false)
-	}
-	return { id, loading, error, devs, signin }
-}
-
 export const useEmailSignin = () => {
 	const factory = reqRef(new EmailSigninFactory())
 	const { error, setError } = useErrorHandler()

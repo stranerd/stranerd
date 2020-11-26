@@ -34,27 +34,21 @@
 			<DisplaySuccess :message="message" />
 			<PageLoading v-if="loading" />
 		</div>
-		<DevSignin v-if="isDev" />
 	</form>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import AuthProviders from '@app/components/auth/AuthProviders.vue'
-import DevSignin from '@app/components/auth/DevSignin.vue'
 import { useSendEmailLink } from '@app/hooks/auth/signin'
-import { isDev } from '@utils/environment'
 export default defineComponent({
 	name: 'AuthIndexPage',
-	components: { AuthProviders, DevSignin },
+	components: { AuthProviders },
 	layout: 'auth',
 	middleware: 'isNotAuthenticated',
 	setup () {
 		const { loading, sendSigninEmail, factory, error, message } = useSendEmailLink()
-		return {
-			isDev,
-			factory, loading, error, sendSigninEmail, message
-		}
+		return { factory, loading, error, sendSigninEmail, message }
 	}
 })
 </script>

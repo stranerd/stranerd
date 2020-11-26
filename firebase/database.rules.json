@@ -2,28 +2,33 @@
 	"rules": {
 		"comments": {
 			"answers": {
+				".read": true,
 				"$answerId": {
 					".read": true,
-					".write": true
+					".write": "auth.uid != null"
 				}
 			},
 			"questions": {
+				".read": true,
 				"$questionId": {
 					".read": true,
-					".write": true
+					".write": "auth.uid != null"
 				}
 			}
 		},
 		"profiles": {
 			".read": true,
-			".write": true,
-			".indexOn": ["roles/isAdmin","bio/email"]
+			".indexOn": ["roles/isAdmin","bio/email"],
+			"$userId": {
+				".read": true,
+				".write": "auth.uid != null"
+			}
 		},
 		"sessions": {
 			"$id": {
 				"chats": {
 					".read": true,
-					".write": true,
+					".write": "auth.uid != null",
 					".indexOn": ["dates/createdAt"]
 				}
 			}
@@ -31,7 +36,7 @@
 		"users": {
 			"$userId": {
 				".read": true,
-				".write": true
+				".write": "auth.uid != null"
 			}
 		},
 		".read": false,

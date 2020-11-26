@@ -50,3 +50,32 @@ export const decodeSessionCookie = async (session: string) => {
 		}
 	}
 }
+
+export const importUsers = async (users: any[]) => {
+	try {
+		await Promise.all(
+			users.map(async (user: any) => {
+				await getAdmin().auth().createUser({
+					uid: user.uid,
+					email: user.email,
+					emailVerified: true
+				})
+			})
+		)
+	} catch (error) {
+		console.log(error)
+		throw new Error(error)
+	}
+}
+
+export const exportUsers = async (uids: string[]) => {
+	return await Promise.all(
+		uids.map(async (uid) => {
+			const user = await getAdmin().auth().getUser(uid)
+			return {
+				uid: user.uid,
+				email: user.email
+			}
+		})
+	)
+}

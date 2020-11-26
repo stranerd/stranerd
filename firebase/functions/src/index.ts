@@ -7,6 +7,7 @@ import { subscribeToMailingList } from './onCall/roles/mailing'
 import { userNotificationCreated } from './modules/users/notifications'
 import { userProfileUpdated, userCreditsUpdated } from './modules/users/users'
 import { tutorUpdated } from './modules/users/tutors'
+import { resetDailyRankings, resetWeeklyRankings, resetMonthlyRankings, resetQuarterlyRankings } from './modules/users/rankings'
 import { sessionChatMediaDeleted } from './modules/sessions/chats'
 import { questionCommentModified, answerCommentModified } from './modules/questions/comments'
 import { subjectUpdated, subjectDeleted } from './modules/questions/subjects'
@@ -29,6 +30,8 @@ export { userProfileUpdated, userCreditsUpdated }
 export { tutorUpdated }
 // Notifications
 export { userNotificationCreated }
+// Rankings
+export { resetDailyRankings, resetWeeklyRankings, resetMonthlyRankings, resetQuarterlyRankings }
 
 // Sessions Module
 // Chats

@@ -15,43 +15,45 @@ import { useAuth } from '@app/hooks/auth/auth'
 const global: { [questionId: string] : {
 	answers: Ref<AnswerEntity[]>,
 	listener: Ref<(() => void) | null>,
-	fetched: Ref<boolean>
+	fetched: Ref<boolean>,
+	error: Ref<string>, setError: (error: any) => void,
+	loading: Ref<boolean>, setLoading: (loading: boolean) => void
 }} = {}
 
 export const useAnswerList = (questionId: string) => {
-	const { error, setError } = useErrorHandler()
-	const { loading, setLoading } = useLoadingHandler()
-
 	if (global[questionId] === undefined) global[questionId] = {
 		answers: reqRef([]),
 		listener: reqRef(null),
-		fetched: reqRef(false)
+		fetched: reqRef(false),
+		...useErrorHandler(),
+		...useLoadingHandler()
 	}
 
 	const fetchAnswers = async () => {
-		setError('')
+		global[questionId].setError('')
 		try {
-			setLoading(true)
+			global[questionId].setLoading(true)
 			global[questionId].answers.value = await GetAnswers.call(questionId)
 			global[questionId].fetched.value = true
-		} catch (error) { setError(error) }
-		setLoading(false)
+		} catch (error) { global[questionId].setError(error) }
+		global[questionId].setLoading(false)
 	}
 
 	const startListener = async () => {
-		setError('')
+		global[questionId].setError('')
 		try {
-			setLoading(true)
+			global[questionId].setLoading(true)
 			const callback = (answers: AnswerEntity[]) => global[questionId].answers.value = answers
 			global[questionId].listener.value = await ListenToAnswers.call(questionId, callback)
-		} catch (error) { setError(error) }
-		setLoading(false)
+		} catch (error) { global[questionId].setError(error) }
+		global[questionId].setLoading(false)
 	}
 
 	if (!global[questionId].fetched.value) useFetch(fetchAnswers)
 
 	return {
-		error, loading,
+		error: global[questionId].error,
+		loading: global[questionId].loading,
 		answers: global[questionId].answers,
 		startListener,
 		closeListener: () => global[questionId].listener.value?.()

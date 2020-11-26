@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import { host, firebaseConfig, isDev } from '../../../utils/environment'
+import { host } from '../../../utils/environment'
 import { TOKEN_SESSION_NAME, USER_SESSION_NAME } from '../../../utils/constants'
 import { decodeSessionCookie, exportUsers, importUsers, signin, signout } from '../utils/auth'
 

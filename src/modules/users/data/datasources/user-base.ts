@@ -5,4 +5,5 @@ export abstract class UserBaseDataSource {
 	public abstract find: (id: string) => Promise<UserFromModel | undefined>
 	public abstract get: (condition?: DatabaseGetClauses) => Promise<UserFromModel[]>
 	public abstract listen: (id: string, callback: (user: UserFromModel | null) => void) => Promise<() => void>
+	public abstract listenToMany: (callback: (users: UserFromModel[]) => void, condition?: DatabaseGetClauses) => Promise<() => void>
 }

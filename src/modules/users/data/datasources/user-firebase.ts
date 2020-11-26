@@ -15,4 +15,8 @@ export class UserFirebaseDataSource implements UserBaseDataSource {
 	async listen (id: string, callback: (model: UserFromModel | null) => void) {
 		return await DatabaseService.listen(`profiles/${id}`, callback)
 	}
+
+	async listenToMany (callback: (models: UserFromModel[]) => void, conditions?: DatabaseGetClauses) {
+		return await DatabaseService.listenToMany('profiles', callback, conditions)
+	}
 }

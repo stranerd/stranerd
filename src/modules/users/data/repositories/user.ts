@@ -32,4 +32,11 @@ export class UserRepository implements IUserRepository {
 		}
 		return this.dataSource.listen(id, cb)
 	}
+
+	async listenToMany (callback: (entities: UserEntity[]) => void, conditions?: DatabaseGetClauses) {
+		const cb = (models: UserFromModel[]) => {
+			callback(models.map(this.transformer.fromJSON))
+		}
+		return this.dataSource.listenToMany(cb, conditions)
+	}
 }

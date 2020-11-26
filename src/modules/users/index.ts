@@ -19,6 +19,10 @@ import { MakeTutorUseCase } from './domain/usecases/tutors/makeTutor'
 import { RemoveTutorUseCase } from './domain/usecases/tutors/removeTutor'
 import { AddTutorSubjectUseCase } from './domain/usecases/tutors/addTutorSubject'
 import { RemoveTutorSubjectUseCase } from './domain/usecases/tutors/removeTutorSubject'
+import { ListenToTopDailyUsersUseCase } from './domain/usecases/rankings/listenToTopDailyUsers'
+import { ListenToTopWeeklyUsersUseCase } from './domain/usecases/rankings/listenToTopWeeklyUsers'
+import { ListenToTopMonthlyUsersUseCase } from './domain/usecases/rankings/listenToTopMonthlyUsers'
+import { ListenToTopQuarterlyUsersUseCase } from './domain/usecases/rankings/listenToTopQuarterlyUsers'
 import { UserEntity, UserBio, generateDefaultBio } from './domain/entities/user'
 import { TutorEntity } from './domain/entities/tutor'
 import { MailingListFactory } from './domain/factories/mailingList'
@@ -49,6 +53,11 @@ export const MakeTutor = new MakeTutorUseCase(tutorRepository)
 export const RemoveTutor = new RemoveTutorUseCase(tutorRepository)
 export const AddTutorSubject = new AddTutorSubjectUseCase(tutorRepository)
 export const RemoveTutorSubject = new RemoveTutorSubjectUseCase(tutorRepository)
+
+export const ListenToTopDailyUsers = new ListenToTopDailyUsersUseCase(userRepository)
+export const ListenToTopWeeklyUsers = new ListenToTopWeeklyUsersUseCase(userRepository)
+export const ListenToTopMonthlyUsers = new ListenToTopMonthlyUsersUseCase(userRepository)
+export const ListenToTopQuarterlyUsers = new ListenToTopQuarterlyUsersUseCase(userRepository)
 
 export { UserEntity, generateDefaultBio, TutorEntity }
 export { MailingListFactory }

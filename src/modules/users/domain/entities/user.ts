@@ -7,14 +7,21 @@ export class UserEntity extends BaseEntity {
 	public readonly roles: UserRoles
 	public readonly userBio: UserBio
 	public readonly account: UserAccount
+	public readonly rankings: UserRankings
 	public readonly signedUpAt: Date
 
-	constructor ({ id, bio, roles, account, dates }: UserConstructorArgs) {
+	constructor ({ id, bio, roles, account, rankings, dates }: UserConstructorArgs) {
 		super()
 		this.id = id
 		this.userBio = generateDefaultBio(bio)
 		this.roles = roles
 		this.account = account
+		this.rankings = {
+			daily: rankings?.daily ?? 0,
+			weekly: rankings?.weekly ?? 0,
+			monthly: rankings?.monthly ?? 0,
+			quarterly: rankings?.quarterly ?? 0
+		}
 		this.signedUpAt = dates.signedUpAt
 	}
 
@@ -28,6 +35,7 @@ type UserConstructorArgs = {
 	bio: UserBio
 	roles: UserRoles
 	account: UserAccount
+	rankings?: UserRankings
 	dates: { signedUpAt: Date }
 }
 
@@ -45,8 +53,14 @@ export interface UserAccount {
 	braintreeId: string
 	credits: number
 }
+export interface UserRankings {
+	daily?: number
+	weekly?: number
+	monthly?: number
+	quarterly?: number
+}
 export const generateDefaultBio = ({ name, email, image }: UserBio) :UserBio => {
 	name = name || 'Anonymous'
-	image = image || { link: DEFAULT_IMAGE_URL } as Media
+	image = image || { name: 'user_profile.png', link: DEFAULT_IMAGE_URL, type: 'image/png', path: DEFAULT_IMAGE_URL }
 	return { name, email, image }
 }

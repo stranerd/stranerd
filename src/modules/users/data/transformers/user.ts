@@ -4,9 +4,9 @@ import { UserEntity } from '../../domain/entities/user'
 
 export class UserTransformer {
 	fromJSON (model: UserFromModel) {
-		const { id, bio, roles, account, dates } = model
+		const { id, bio, roles, account, rankings, dates } = model
 		return new UserEntity({
-			id, bio, roles, account,
+			id, bio, roles, account, rankings,
 			dates: {
 				signedUpAt: timestampToDate(dates.signedUpAt)
 			}
@@ -15,9 +15,7 @@ export class UserTransformer {
 
 	toJSON (entity: UserEntity) :UserToModel {
 		return {
-			bio: entity.userBio,
-			roles: entity.roles,
-			account: entity.account
+			bio: entity.userBio
 		}
 	}
 }

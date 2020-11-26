@@ -23,7 +23,7 @@ export const userProfileUpdated = functions.database.ref('profiles/{userId}/bio'
 	})
 
 export const userCreditsUpdated = functions.database.ref('profiles/{userId}/account/credits')
-	.onWrite(async (snap, context) => {
+	.onUpdate(async (snap, context) => {
 		const diffInCredits = (snap.after.val() ?? 0) - (snap.before.val() ?? 0)
 
 		if (diffInCredits > 0) {

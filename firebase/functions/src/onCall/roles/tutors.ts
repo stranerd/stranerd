@@ -1,11 +1,10 @@
 import * as functions from 'firebase-functions'
 import * as admin from'firebase-admin'
-import { isDev } from '../../helpers/environment'
 
 export const makeTutor = functions.https.onCall(async (data, context) => {
-	if (!isDev() && !context.auth)
+	if (!context.auth)
 		throw new functions.https.HttpsError('unauthenticated', 'Only authenticated users can manage tutors')
-	if (!isDev() && !context.auth?.token.isAdmin)
+	if (!context.auth?.token.isAdmin)
 		throw new functions.https.HttpsError('failed-precondition', 'Only admins can manage tutors')
 
 	try{
@@ -30,9 +29,9 @@ export const makeTutor = functions.https.onCall(async (data, context) => {
 })
 
 export const removeTutor = functions.https.onCall(async (data, context) => {
-	if (!isDev() && !context.auth)
+	if (!context.auth)
 		throw new functions.https.HttpsError('unauthenticated', 'Only authenticated users can manage tutors')
-	if (!isDev() && !context.auth?.token.isAdmin)
+	if (!context.auth?.token.isAdmin)
 		throw new functions.https.HttpsError('failed-precondition', 'Only admins can manage tutors')
 
 	try{

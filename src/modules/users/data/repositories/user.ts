@@ -17,7 +17,7 @@ export class UserRepository implements IUserRepository {
 	async find (id: string) {
 		const model = await this.dataSource.find(id)
 		if (model) return this.transformer.fromJSON(model)
-		else return undefined
+		else return null
 	}
 
 	async get (conditions?: DatabaseGetClauses) {
@@ -31,5 +31,12 @@ export class UserRepository implements IUserRepository {
 			callback(user)
 		}
 		return this.dataSource.listen(id, cb)
+	}
+
+	async listenToMany (callback: (entities: UserEntity[]) => void, conditions?: DatabaseGetClauses) {
+		const cb = (models: UserFromModel[]) => {
+			callback(models.map(this.transformer.fromJSON))
+		}
+		return this.dataSource.listenToMany(cb, conditions)
 	}
 }

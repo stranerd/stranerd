@@ -14,7 +14,8 @@ export default defineComponent({
 	name: 'AuthLayout',
 	components: {
 		ModalBase
-	}
+	},
+	middleware: ['isNotAuthenticated']
 })
 </script>
 

@@ -29,11 +29,21 @@ export const authUserCreated = functions.auth.user().onCreate(async (user) => {
 		console.log('Failed to subscribe user to mailchimp: ', user.uid, user.email)
 	}
 
-	await admin.database().ref('profiles').child(user.uid).update(data)
+	await admin.database().ref('profiles')
+		.child(user.uid)
+		.update(data)
+
+	await admin.database().ref('userIds')
+		.child(user.uid)
+		.set(true)
 })
 
 export const authUserDeleted = functions.auth.user().onDelete(async (user) => {
-	await admin.database().ref('profiles').child(user.uid)
+	await admin.database().ref('profiles')
+		.child(user.uid)
 		.child('dates/deletedAt')
 		.set(admin.database.ServerValue.TIMESTAMP)
+	await admin.database().ref('userIds')
+		.child(user.uid)
+		.set(false)
 })

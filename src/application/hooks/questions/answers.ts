@@ -1,37 +1,59 @@
-import { Ref, reqRef, watch } from '@nuxtjs/composition-api'
+import { Ref, reqRef, useFetch, watch } from '@nuxtjs/composition-api'
 import {
-	AddAnswer, AnswerEntity, AnswerFactory, LikeAnswer,
-	ListenToAnswers, QuestionEntity, RateAnswer
+	AddAnswer,
+	AnswerEntity,
+	AnswerFactory,
+	GetAnswers,
+	LikeAnswer,
+	ListenToAnswers,
+	QuestionEntity,
+	RateAnswer
 } from '@modules/questions'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
 
 const global: { [questionId: string] : {
 	answers: Ref<AnswerEntity[]>,
-	listener: Ref<(() => void) | null>
+	listener: Ref<(() => void) | null>,
+	fetched: Ref<boolean>,
+	error: Ref<string>, setError: (error: any) => void,
+	loading: Ref<boolean>, setLoading: (loading: boolean) => void
 }} = {}
 
 export const useAnswerList = (questionId: string) => {
-	const { error, setError } = useErrorHandler()
-	const { loading, setLoading } = useLoadingHandler()
-
 	if (global[questionId] === undefined) global[questionId] = {
 		answers: reqRef([]),
-		listener: reqRef(null)
+		listener: reqRef(null),
+		fetched: reqRef(false),
+		...useErrorHandler(),
+		...useLoadingHandler()
+	}
+
+	const fetchAnswers = async () => {
+		global[questionId].setError('')
+		try {
+			global[questionId].setLoading(true)
+			global[questionId].answers.value = await GetAnswers.call(questionId)
+			global[questionId].fetched.value = true
+		} catch (error) { global[questionId].setError(error) }
+		global[questionId].setLoading(false)
 	}
 
 	const startListener = async () => {
-		setError('')
+		global[questionId].setError('')
 		try {
-			setLoading(true)
+			global[questionId].setLoading(true)
 			const callback = (answers: AnswerEntity[]) => global[questionId].answers.value = answers
 			global[questionId].listener.value = await ListenToAnswers.call(questionId, callback)
-		} catch (error) { setError(error) }
-		setLoading(false)
+		} catch (error) { global[questionId].setError(error) }
+		global[questionId].setLoading(false)
 	}
 
+	if (!global[questionId].fetched.value) useFetch(fetchAnswers)
+
 	return {
-		error, loading,
+		error: global[questionId].error,
+		loading: global[questionId].loading,
 		answers: global[questionId].answers,
 		startListener,
 		closeListener: () => global[questionId].listener.value?.()
@@ -77,7 +99,6 @@ export const useAnswer = (answer: AnswerEntity) => {
 	const likeAnswer = async () => {
 		const userId = useAuth().id.value!
 		setError('')
-		if (answer.likes[userId]) return
 		try {
 			setLoading(true)
 			await LikeAnswer.call(answer.id, userId)
@@ -87,7 +108,6 @@ export const useAnswer = (answer: AnswerEntity) => {
 	const rateAnswer = async (rating: number) => {
 		const userId = useAuth().id.value!
 		setError('')
-		if (answer.ratings[userId]) return
 		try {
 			setLoading(true)
 			await RateAnswer.call(answer.id, userId, rating)

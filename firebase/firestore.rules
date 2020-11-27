@@ -4,19 +4,19 @@ service cloud.firestore {
 		match /answers/{id} {
             allow read: if true;
             allow create: if isAuthenticated();
-            allow update, delete: if isMine(resource.data.userId);
+			allow update, delete: if isAdmin();
         }
 
 		match /questions/{id} {
             allow read: if true;
             allow create: if isAuthenticated();
-            allow update, delete: if isMine(resource.data.userId);
+            allow update, delete: if isAdmin();
         }
 
         match /sessions/{id} {
             allow read: if true;
             allow create: if isAuthenticated();
-            allow update: if request.auth.uid == resource.data.tutorId || request.auth.uid == resource.data.studentId;
+            allow update: if isMine(resource.data.tutorId) || isMine(resource.data.studentId);
             allow delete: if isAdmin();
         }
 
@@ -35,15 +35,15 @@ service cloud.firestore {
 		}
 
 		function isAuthenticated() {
-		    return true //request.auth != null;
+		    return request.auth != null;
 		}
 
 		function isAdmin() {
-            return true // request.auth.token.isAdmin == true;
+            return request.auth.token.isAdmin == true;
         }
 
         function isMine(id) {
-            return true //request.auth.uid == id;
+            return request.auth.uid == id;
         }
 	}
 }

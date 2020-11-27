@@ -87,6 +87,7 @@ export const DatabaseService = {
 		let ref: firebase.database.Query = database.ref(path)
 		ref = buildDatabaseQuery(ref, conditions)
 		const doc = await ref.once('value')
+		if (!doc.exists) return null
 		const children: any = {}
 		doc.forEach((child) => {
 			children[child.key!] = child.val()
@@ -97,6 +98,7 @@ export const DatabaseService = {
 		let ref: firebase.database.Query = database.ref(path)
 		ref = buildDatabaseQuery(ref, conditions)
 		const doc = await ref.once('value')
+		if (!doc.exists) return []
 		const children: any = []
 		doc.forEach((child) => {
 			children.push({ ...child.val(), id: child.key })
@@ -118,15 +120,16 @@ export const DatabaseService = {
 		})
 		return () => ref.off('value', listener)
 	},
-	listenToMany: async (path: string, callback: (docs: any[]) => void, conditions?: DatabaseGetClauses) => {
+	listenToMany: async (path: string, caller: (docs: any[]) => void, conditions?: DatabaseGetClauses) => {
 		let ref: firebase.database.Query = database.ref(path)
 		ref = buildDatabaseQuery(ref, conditions)
 		const listener = ref.on('value', (snapshot) => {
+			if (!snapshot.exists) return caller([])
 			const children: any = []
 			snapshot.forEach((child) => {
 				children.push({ ...child.val(), id: child.key })
 			})
-			callback(children)
+			caller(children)
 		})
 		return () => ref.off('value', listener)
 	},

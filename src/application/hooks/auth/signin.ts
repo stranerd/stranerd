@@ -1,7 +1,6 @@
 import { reqRef } from '@nuxtjs/composition-api'
 import {
-	EmailLinkSigninFactory, EmailSignupFactory, EmailSigninFactory,
-	SendSigninEmail, SigninWithEmail, SigninWithGoogle, SignupWithEmail, SigninWithEmailLink
+	EmailLinkSigninFactory, SendSigninEmail, SigninWithGoogle, SigninWithEmailLink
 } from '@modules/auth'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { createSession } from '@app/hooks/auth/session'
@@ -22,42 +21,6 @@ export const useGoogleSignin = () => {
 		setLoading(false)
 	}
 	return { loading, error, signin }
-}
-
-export const useEmailSignin = () => {
-	const factory = reqRef(new EmailSigninFactory())
-	const { error, setError } = useErrorHandler()
-	const { loading, setLoading } = useLoadingHandler()
-	const signin = async () => {
-		setError('')
-		if (factory.value.valid && !loading.value) {
-			setLoading(true)
-			try {
-				const user = await SigninWithEmail.call(factory.value)
-				await createSession(user)
-			} catch (error) { setError(error) }
-			setLoading(false)
-		} else factory.value.validateAll()
-	}
-	return { factory, loading, error, signin }
-}
-
-export const useEmailSignup = () => {
-	const factory = reqRef(new EmailSignupFactory())
-	const { error, setError } = useErrorHandler()
-	const { loading, setLoading } = useLoadingHandler()
-	const signup = async () => {
-		setError('')
-		if (factory.value.valid && !loading.value) {
-			setLoading(true)
-			try {
-				const user = await SignupWithEmail.call(factory.value)
-				await createSession(user)
-			} catch (error) { setError(error) }
-			setLoading(false)
-		} else factory.value.validateAll()
-	}
-	return { factory, loading, error, signup }
 }
 
 export const useSendEmailLink = () => {

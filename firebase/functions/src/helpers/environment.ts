@@ -4,6 +4,7 @@ const environment = () => functions.config().env ?? {}
 
 export const appName = 'Stranerd'
 export const isDev = () => environment()?.environment === 'development'
+export const isStaging = () => environment()?.environment === 'staging'
 export const isProduction = () => environment()?.environment === 'production'
 
 export const paypal = () => ({

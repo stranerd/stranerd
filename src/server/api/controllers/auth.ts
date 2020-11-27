@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
-import { host } from '../../../utils/environment'
+import { host, firebaseConfig, isDev } from '../../../utils/environment'
 import { TOKEN_SESSION_NAME, USER_SESSION_NAME } from '../../../utils/constants'
-import { decodeSessionCookie, signin, signout } from '../utils/auth'
+import { decodeSessionCookie, exportUsers, importUsers, signin, signout } from '../utils/auth'
 
 export const SigninController = async (req: Request, res: Response) => {
 	const { idToken } = req.body
@@ -21,6 +21,7 @@ export const SigninController = async (req: Request, res: Response) => {
 			error: null
 		}).end()
 	} catch (err) {
+		console.log(err)
 		return res.status(400).json({
 			success: false,
 			error: 'Failed to sign in'
@@ -41,6 +42,7 @@ export const SignoutController = async (req: Request, res: Response) => {
 			error: null
 		}).end()
 	} catch (err) {
+		console.log(err)
 		return res.status(400).json({
 			success: false,
 			error: 'Failed to sign out!'
@@ -61,10 +63,49 @@ export const DecodeSessionCookieMiddleware = async (req: Request, res: Response,
 		const user = await decodeSessionCookie(session)
 		setCookie(res, USER_SESSION_NAME, JSON.stringify(user))
 	} catch (err) {
+		console.log(err)
 		deleteCookie(res, TOKEN_SESSION_NAME)
 		deleteCookie(res, USER_SESSION_NAME)
 	}
 	next()
+}
+
+export const ImportUsersController = async (req: Request, res: Response) => {
+	const { users } = req.body
+
+	try {
+		await importUsers(users)
+
+		return res.json({
+			success: true,
+			error: null
+		}).end()
+	} catch (err) {
+		return res.status(400).json({
+			success: false,
+			error: 'Failed to import users!'
+		}).end()
+	}
+}
+
+export const ExportUsersController = async (req: Request, res: Response) => {
+	const { userIds } = req.body
+
+	try {
+		const users = await exportUsers(userIds)
+
+		return res.json({
+			success: true,
+			error: null,
+			users
+		}).end()
+	} catch (err) {
+		console.log(err)
+		return res.status(400).json({
+			success: false,
+			error: 'Failed to export users!'
+		}).end()
+	}
 }
 
 const setCookie = (res: Response, key: string, value: any) => res.cookie(key, value, {

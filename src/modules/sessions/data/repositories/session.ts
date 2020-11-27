@@ -35,6 +35,13 @@ export class SessionRepository implements ISessionRepository {
 		return await this.dataSource.listenToOne(id, listenCB)
 	}
 
+	async listenToMany (callback: (entities: SessionEntity[]) => void, conditions?: FirestoreGetClauses) {
+		const listenCB = (documents: SessionFromModel[]) => callback(
+			documents.map(this.transformer.fromJSON)
+		)
+		return await this.dataSource.listenToMany(listenCB, conditions)
+	}
+
 	async update (id: string, data: Partial<SessionToModel>) {
 		return await this.dataSource.update(id, data)
 	}

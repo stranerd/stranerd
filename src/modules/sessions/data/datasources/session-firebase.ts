@@ -20,6 +20,10 @@ export class SessionFirebaseDataSource implements SessionBaseDataSource {
 		return await FirestoreService.listenToOne(callback, 'sessions', id)
 	}
 
+	async listenToMany (callback: (sessions: SessionFromModel[]) => void, conditions?: FirestoreGetClauses): Promise<() => void> {
+		return await FirestoreService.listenToMany(callback, 'sessions', conditions)
+	}
+
 	async update (id: string, data: Partial<SessionToModel>) {
 		return await FirestoreService.update('sessions', id, data)
 	}

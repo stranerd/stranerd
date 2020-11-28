@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import { host } from '../../../utils/environment'
+import { domain } from '../../../utils/environment'
 import { TOKEN_SESSION_NAME, USER_SESSION_NAME } from '../../../utils/constants'
 import { decodeSessionCookie, exportUsers, importUsers, signin, signout } from '../utils/auth'
 
@@ -110,12 +110,11 @@ export const ExportUsersController = async (req: Request, res: Response) => {
 
 const setCookie = (res: Response, key: string, value: any) => res.cookie(key, value, {
 	maxAge: 14 * 24 * 60 * 60 * 1000,
-	domain: host,
+	domain,
 	httpOnly: true,
 	sameSite: 'lax'
 })
 
 const deleteCookie = (res: Response, key: string) => res.clearCookie(key, {
-	domain: host,
-	sameSite: 'lax'
+	domain, sameSite: 'lax'
 })

@@ -1,8 +1,8 @@
 const fs = require('fs')
 const axios = require('axios')
-const { host, port, use_subdomain: useSubdomain, ssl } = require('../env.json')
+const { domain, port, use_subdomain: useSubdomain, ssl } = require('../env.json')
 
-const baseURL = useSubdomain ? `http${ssl ? 's' : ''}://api.${host}:${port}/` : `http${ssl ? 's' : ''}://${host}:${port}/api/`
+const baseURL = useSubdomain ? `http${ssl ? 's' : ''}://api.${domain}:${port}/` : `http${ssl ? 's' : ''}://${domain}:${port}/api/`
 const client = axios.create({ baseURL })
 
 const fetchUsers = async () => {

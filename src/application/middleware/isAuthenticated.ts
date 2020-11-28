@@ -1,7 +1,7 @@
 import { defineNuxtMiddleware } from '@nuxtjs/composition-api'
 import { GenerateLink } from '@utils/router'
 import Cookie from 'cookie'
-import { isServer, host, protocol } from '@utils/environment'
+import { isServer, domain, protocol } from '@utils/environment'
 import { REDIRECT_SESSION_NAME } from '@utils/constants'
 import { useAuth } from '@app/hooks/auth/auth'
 
@@ -19,7 +19,7 @@ export default defineNuxtMiddleware(({ req, res, route, redirect }) => {
 })
 
 const serialize = (name: string, value: string) => Cookie.serialize(name, value, {
-	domain: host,
+	domain,
 	maxAge: 3600,
 	sameSite: 'lax'
 })

@@ -5,8 +5,12 @@ import * as Template from 'email-templates'
 import { email, domain, appName } from './environment'
 import { Notification } from './database/notifications'
 
-export const sendMail = async (to: string, subject: string ,content: string) => {
-	const { email: user, clientId, clientSecret, refreshToken } = email()
+enum EMAILS {
+	NOREPLY = 'no-reply'
+}
+
+export const sendMail = async (to: string, subject: string ,content: string, from = EMAILS.NOREPLY) => {
+	const { email: user, clientId, clientSecret, refreshToken } = email()[from]
 	const oauth2Client = new googleapis.google.auth.OAuth2(clientId, clientSecret, 'https://developers.google.com/oauthplayground')
 	oauth2Client.setCredentials({ refresh_token: refreshToken })
 	const accessToken = (await oauth2Client.getAccessToken()).token!
@@ -23,9 +27,9 @@ export const sendMail = async (to: string, subject: string ,content: string) => 
 	})
 }
 
-export const sendMailAndCatchErrors = async (to: string, subject: string ,content: string) => {
+export const sendMailAndCatchErrors = async (to: string, subject: string ,content: string, from = EMAILS.NOREPLY) => {
 	try{
-		await sendMail(to, subject, content)
+		await sendMail(to, subject, content, from)
 		return true
 	}catch(e){
 		await admin.database().ref('errors/emails').push({
@@ -41,5 +45,5 @@ export const sendNewNotificationEmail = async (to: string, notification: Notific
 	const meta = { domain: domain() }
 	const content = await new Template({ message:{} }).render('newNotification.pug',
 		{ notification, meta })
-	return await sendMailAndCatchErrors(to, notification.title, content)
+	return await sendMailAndCatchErrors(to, notification.title, content, EMAILS.NOREPLY)
 }

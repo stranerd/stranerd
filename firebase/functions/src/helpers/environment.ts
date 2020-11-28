@@ -30,13 +30,15 @@ export const mailchimp = () => ({
 })
 
 export const email = () => ({
-	email: environment()?.email?.['email'],
-	clientId: environment()?.email?.['client_id'],
-	clientSecret: environment()?.email?.['client_secret'],
-	refreshToken: environment()?.email?.['refresh_token']
+	'no-reply': {
+		email: environment()?.email?.['no-reply']?.['email'],
+		clientId: environment()?.email?.['no-reply']?.['client_id'],
+		clientSecret: environment()?.email?.['no-reply']?.['client_secret'],
+		refreshToken: environment()?.email?.['no-reply']?.['refresh_token']
+	}
 })
 
-export const host = () => environment()?.host
+const host = () => environment()?.domain
 export const ssl = () => environment()?.ssl
 
 export const domain = () => `${ssl() ? 'https://' : 'http://'}${host()}`

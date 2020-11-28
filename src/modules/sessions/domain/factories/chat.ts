@@ -5,7 +5,7 @@ import { ChatToModel } from '../../data/models/chat'
 import { ChatEntity } from '../entities/chat'
 
 type Content = Media | File | undefined
-const isLongerThan0 = (value: string) => isLongerThan(value, 1)
+const isLongerThan0 = (value: string) => isLongerThan(value, 0)
 
 export class ChatFactory extends BaseFactory<ChatEntity, ChatToModel> {
 	readonly rules = {

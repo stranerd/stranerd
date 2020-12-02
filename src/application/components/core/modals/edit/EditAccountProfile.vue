@@ -26,9 +26,20 @@
 					v-model="factory.name"
 					class="form-control"
 					placeholder="Eg. John Doe"
-					:class="{'is-invalid': factory.errors.name, 'is-valid': factory.isValid('name')}"
+					:class="{'is-invalid': factory.errors.name}"
 				>
 				<small v-if="factory.errors.name" class="small text-danger d-block">{{ factory.errors.name }}</small>
+			</div>
+			<div class="form-group my-3">
+				<label class="label">Tell us a little about yourself <i>(optional)</i></label>
+				<textarea
+					v-model="factory.description"
+					class="form-control"
+					placeholder=""
+					:class="{'is-invalid': factory.errors.description}"
+					rows="3"
+				/>
+				<small v-if="factory.errors.description" class="small text-danger d-block">{{ factory.errors.description }}</small>
 			</div>
 			<div class="d-flex justify-content-end my-3">
 				<button class="btn btn-gold" type="submit" :disabled="loading || !factory.valid">

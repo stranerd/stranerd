@@ -15,7 +15,7 @@ body{
 
 .label {
 	font-size: 1em;
-	color: darken($black, 100%);
+	color: lighten($black, 25%);
 	line-height: 1.5;
 	font-weight: 600;
 }

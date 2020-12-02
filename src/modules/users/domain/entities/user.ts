@@ -44,6 +44,7 @@ type UserConstructorArgs = {
 export interface UserBio {
 	name: string
 	email: string
+	description: string
 	image: Media
 }
 export interface UserRoles {
@@ -61,8 +62,9 @@ export interface UserRankings {
 	monthly?: number
 	quarterly?: number
 }
-export const generateDefaultBio = ({ name, email, image }: UserBio) :UserBio => {
-	name = name || 'Anonymous'
-	image = image || { name: 'user_profile.png', link: DEFAULT_IMAGE_URL, type: 'image/png', path: DEFAULT_IMAGE_URL }
-	return { name, email, image }
+export const generateDefaultBio = ({ name, email, image, description }: UserBio) :UserBio => {
+	name = name ?? 'Anonymous'
+	description = description ?? ''
+	image = image ?? { name: 'user_profile.png', link: DEFAULT_IMAGE_URL, type: 'image/png', path: DEFAULT_IMAGE_URL }
+	return { name, email, description, image }
 }

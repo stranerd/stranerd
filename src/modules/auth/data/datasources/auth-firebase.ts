@@ -61,7 +61,7 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
-	async updateProfile (id: string, bio: Partial<UserBio>) {
+	async updateProfile (id: string, bio: UserBio) {
 		await DatabaseService.update(`profiles/${id}/bio`, bio)
 	}
 

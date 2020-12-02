@@ -2,7 +2,7 @@ import * as admin from 'firebase-admin'
 import * as googleapis from 'googleapis'
 import { createTransport } from 'nodemailer'
 import * as Template from 'email-templates'
-import { email, domain, appName } from './environment'
+import { email, domain, logo, appName } from './environment'
 import { Notification } from './database/notifications'
 
 enum EMAILS {
@@ -42,15 +42,22 @@ export const sendMailAndCatchErrors = async (to: string, subject: string ,conten
 }
 
 export const sendNewNotificationEmail = async (to: string, notification: Notification) => {
-	const meta = { domain: domain() }
+	const meta = { domain: domain(), logo: logo() }
 	const content = await new Template({ message:{} }).render('newNotification.pug',
 		{ notification, meta })
 	return await sendMailAndCatchErrors(to, notification.title, content, EMAILS.NOREPLY)
 }
 
 export const sendSessionRequestEmail = async (to: string, student: any, time: string) => {
-	const meta = { domain: domain() }
+	const meta = { domain: domain(), logo: logo() }
 	const content = await new Template({ message:{} }).render('sessionRequestEmail.pug',
 		{ student, meta, time })
 	return await sendMailAndCatchErrors(to, 'Session Request', content)
+}
+
+export const sendTopUsersEmail = async (period: string, users: { email: string, name: string, id: string, credits: number }[]) => {
+	const meta = { domain: domain(), logo: logo() }
+	const content = await new Template({ message:{} }).render('topUsersEmail.pug',
+		{ meta, period, users })
+	return await sendMailAndCatchErrors('support@stranerd.com', `Top ${period} users`, content)
 }

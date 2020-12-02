@@ -1,12 +1,12 @@
 import { BaseFactory } from '@modules/core/domains/factories/base'
 import { isLongerThan, isEmail, isImage } from 'sd-validate/lib/rules'
-import { UserBio, UserEntity } from '@modules/users'
+import { UserBio } from '@modules/users'
 import { Media } from '@modules/core/data/models/base'
 
 type Content = File | Media
 const isLongerThan2 = (value:string) => isLongerThan(value, 2)
 
-export class ProfileUpdateFactory extends BaseFactory<UserEntity, UserBio> {
+export class ProfileUpdateFactory extends BaseFactory<UserBio, UserBio> {
 	readonly rules = {
 		name: { required: true, rules: [isLongerThan2] },
 		email: { required: true, rules: [isEmail] },
@@ -34,9 +34,9 @@ export class ProfileUpdateFactory extends BaseFactory<UserEntity, UserBio> {
 		} else throw new Error('Validation errors')
 	}
 
-	loadEntity = (entity: UserEntity) => {
-		this.name = entity.userBio.name
-		this.email = entity.userBio.email
-		this.image = entity.userBio.image
+	loadEntity = (bio: UserBio) => {
+		this.name = bio.name
+		this.email = bio.email
+		this.image = bio.image
 	}
 }

@@ -8,7 +8,7 @@ export class UserTransformer {
 		return new UserEntity({
 			id, bio, roles, account, rankings,
 			dates: {
-				signedUpAt: timestampToDate(dates.signedUpAt)
+				signedUpAt: timestampToDate(dates?.signedUpAt)
 			}
 		})
 	}

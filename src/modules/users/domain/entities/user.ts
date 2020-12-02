@@ -29,7 +29,7 @@ export class UserEntity extends BaseEntity {
 
 	get name () { return this.userBio.name }
 	get email () { return this.userBio.email }
-	get image () { return this.userBio.image?.link || DEFAULT_IMAGE_URL }
+	get image () { return this.userBio.image?.link }
 }
 
 type UserConstructorArgs = {

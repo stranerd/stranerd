@@ -4,9 +4,6 @@ import { useEditModal } from '@app/hooks/core/modals'
 
 type Auth = {
 	id: string,
-	email: string | null,
-	verified: boolean,
-	provider: string
 	token: string
 }
 

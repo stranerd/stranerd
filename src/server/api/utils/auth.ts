@@ -33,9 +33,6 @@ export const decodeSessionCookie = async (session: string) => {
 		const token = await getAdmin().auth().createCustomToken(user.uid)
 		return {
 			id: user.uid,
-			email: user.email ?? null,
-			verified: user.email_verified ?? false,
-			provider: user.firebase.sign_in_provider,
 			token
 		}
 	} else {
@@ -43,9 +40,6 @@ export const decodeSessionCookie = async (session: string) => {
 		const token = await getAdmin().auth().createCustomToken(user.uid)
 		return {
 			id: user.uid,
-			email: user.email ?? null,
-			verified: user.emailVerified,
-			provider: user.providerData.find((p) => !!p.providerId)?.providerId,
 			token
 		}
 	}

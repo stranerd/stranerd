@@ -1,6 +1,7 @@
 import * as admin from 'firebase-admin'
 import { authUserCreated, authUserDeleted } from './auth'
 import { makeSuperAdmin } from './requests/makeSuperAdmin'
+import { resendEmails } from './requests/resendEmails'
 import { toggleAdmin } from './onCall/roles/admins'
 import { makeTutor, removeTutor } from './onCall/roles/tutors'
 import { subscribeToMailingList } from './onCall/roles/mailing'
@@ -22,7 +23,7 @@ export { authUserCreated, authUserDeleted }
 
 
 // Request Triggers
-export { makeSuperAdmin }
+export { makeSuperAdmin, resendEmails }
 
 // Users Module
 // Users

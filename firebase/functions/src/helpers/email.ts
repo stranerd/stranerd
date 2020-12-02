@@ -5,7 +5,7 @@ import * as Template from 'email-templates'
 import { email, domain, logo, appName } from './environment'
 import { Notification } from './database/notifications'
 
-enum EMAILS {
+export enum EMAILS {
 	NOREPLY = 'no-reply'
 }
 
@@ -34,7 +34,7 @@ export const sendMailAndCatchErrors = async (to: string, subject: string ,conten
 	}catch(e){
 		await admin.database().ref('errors/emails').push({
 			error: e.message,
-			subject, to, content,
+			subject, to, content, from,
 			dates: { triedAt: admin.database.ServerValue.TIMESTAMP }
 		})
 		return false

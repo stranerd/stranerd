@@ -9,10 +9,12 @@ export class UserEntity extends BaseEntity {
 	public readonly account: UserAccount
 	public readonly rankings: UserRankings
 	public readonly signedUpAt: Date
+	public readonly hasSetProfile: boolean
 
 	constructor ({ id, bio, roles, account, rankings, dates }: UserConstructorArgs) {
 		super()
 		this.id = id
+		this.hasSetProfile = !!bio?.name
 		this.userBio = generateDefaultBio(bio)
 		this.roles = roles
 		this.account = account
@@ -27,7 +29,7 @@ export class UserEntity extends BaseEntity {
 
 	get name () { return this.userBio.name }
 	get email () { return this.userBio.email }
-	get image () { return this.userBio.image?.link || DEFAULT_IMAGE_URL }
+	get image () { return this.userBio.image?.link }
 }
 
 type UserConstructorArgs = {
@@ -42,6 +44,7 @@ type UserConstructorArgs = {
 export interface UserBio {
 	name: string
 	email: string
+	description: string
 	image: Media
 }
 export interface UserRoles {
@@ -59,8 +62,9 @@ export interface UserRankings {
 	monthly?: number
 	quarterly?: number
 }
-export const generateDefaultBio = ({ name, email, image }: UserBio) :UserBio => {
-	name = name || 'Anonymous'
-	image = image || { name: 'user_profile.png', link: DEFAULT_IMAGE_URL, type: 'image/png', path: DEFAULT_IMAGE_URL }
-	return { name, email, image }
+export const generateDefaultBio = ({ name, email, image, description }: UserBio) :UserBio => {
+	name = name ?? 'Anonymous'
+	description = description ?? ''
+	image = image ?? { name: 'user_profile.png', link: DEFAULT_IMAGE_URL, type: 'image/png', path: DEFAULT_IMAGE_URL }
+	return { name, email, description, image }
 }

@@ -1,11 +1,9 @@
 import { computed, reqSsrRef } from '@nuxtjs/composition-api'
 import { ListenToUser, UserEntity } from '@modules/users'
+import { useEditModal } from '@app/hooks/core/modals'
 
 type Auth = {
 	id: string,
-	email: string | null,
-	verified: boolean,
-	provider: string
 	token: string
 }
 
@@ -24,14 +22,16 @@ export const useAuth = () => {
 	const isAdmin = computed({ get: () => global.user.value?.roles.isAdmin, set: () => {} })
 
 	const setAuthDetails = (details: Auth | null) => global.auth.value = details
-	const setUser = (user: UserEntity | null) => global.user.value = user
+	const setUser = (user: UserEntity | null) => {
+		global.user.value = user
+		if (user && !user.hasSetProfile) useEditModal().setEditModalAccountProfile()
+	}
 
 	const startProfileListener = async () => {
 		if (global.listener) global.listener()
 
-		const callback = (user: UserEntity | null) => global.user.value = user
 		const id = global.auth.value?.id
-		if (id) global.listener = await ListenToUser.call(id, callback)
+		if (id) global.listener = await ListenToUser.call(id, setUser)
 	}
 
 	return {

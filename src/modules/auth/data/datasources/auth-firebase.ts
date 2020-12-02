@@ -1,6 +1,7 @@
 import firebase, { auth } from '@modules/core/services/initFirebase'
 import { AxiosInstance } from '@modules/core/services/http'
 import { DatabaseService } from '@modules/core/services/firebase'
+import { UserBio } from '@modules/users'
 import { AuthBaseDataSource } from './auth-base'
 
 export class AuthFirebaseDataSource implements AuthBaseDataSource {
@@ -58,6 +59,10 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 			await auth.currentUser?.updatePassword(password)
 			await auth.signOut()
 		} catch (error) { throw filterFirebaseError(error) }
+	}
+
+	async updateProfile (id: string, bio: UserBio) {
+		await DatabaseService.update(`profiles/${id}/bio`, bio)
 	}
 
 	async session (idToken: string) {

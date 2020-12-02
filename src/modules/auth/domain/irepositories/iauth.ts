@@ -1,3 +1,4 @@
+import { UserBio } from '@modules/users'
 import { AfterAuthUser } from '../entities/auth'
 
 export interface IAuthRepository {
@@ -8,6 +9,7 @@ export interface IAuthRepository {
 	signinWithEmailLink: (email: string, emailUrl: string) => Promise<AfterAuthUser>
 	resetPassword: (email: string) => Promise<void>
 	updatePassword: (email: string, oldPassword: string, password: string) => Promise<void>
+	updateProfile: (id: string, bio: Partial<UserBio>) => Promise<void>
 	session: (idToken: string) => Promise<void>
 	logout: () => Promise<void>
 }

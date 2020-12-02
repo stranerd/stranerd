@@ -10,7 +10,7 @@ export class GetTopQuarterlyUsersUseCase {
 
 	async call () {
 		const conditions: DatabaseGetClauses = {
-			order: { field: 'rankings/quarterly' },
+			order: { field: 'rankings/quarterly', condition: { start: 0 } },
 			limit: { count: 20, bottom: false }
 		}
 		return await this.repository.get(conditions)

@@ -26,12 +26,13 @@ const getTop5Users = async (period: string) => {
 	const ref = await admin.database().ref('profiles')
 		.orderByChild(`rankings/${period}`)
 		.limitToFirst(5)
+		.startAt(0)
 		.once('value')
 	const users = [] as { email: string, name: string, id: string, credits: number }[]
 	ref.forEach((child) => {
 		const user = child.val()
 		const { email, name } = user.bio
-		const credits = user.rankings[period]
+		const credits = user.rankings?.[period]
 
 		users.push({
 			email, credits,

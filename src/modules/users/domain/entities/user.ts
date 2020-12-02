@@ -9,10 +9,12 @@ export class UserEntity extends BaseEntity {
 	public readonly account: UserAccount
 	public readonly rankings: UserRankings
 	public readonly signedUpAt: Date
+	public readonly hasSetProfile: boolean
 
 	constructor ({ id, bio, roles, account, rankings, dates }: UserConstructorArgs) {
 		super()
 		this.id = id
+		this.hasSetProfile = !!bio?.name
 		this.userBio = generateDefaultBio(bio)
 		this.roles = roles
 		this.account = account

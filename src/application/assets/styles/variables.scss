@@ -1,12 +1,11 @@
-$gold: #DAB100;
-$main-red: #910B0B;
-$red: $main-red;
-$blue: #062a54;
-$green: #3c925a;
-$accent: $green;
-$white: #FEFEFE;
-$black: #131313;
-$blackTransparent: rgba($black, .75);
+$color-gold: #DAB100;
+$color-red: #910B0B;
+$color-blue: #062a54;
+$color-green: #3c925a;
+$color-accent: $color-green;
+$color-white: #FEFEFE;
+$color-black: #131313;
+$color-black-transparent: rgba($color-black, .75);
 
 $sm: 576px;
 $md: 768px;
@@ -14,7 +13,7 @@ $lg: 992px;
 $xl: 1200px;
 
 $theme-colors: (
-	'gold': $gold
+	'gold': $color-gold
 );
 
 $spacers: (

@@ -37,14 +37,14 @@ export default defineComponent({
 	.grid{ grid-template-columns: repeat(1, 1fr);}
 }
 .btn-auth{
-	color: #fff;
+	color: $color-white;
 	width: 100%;
 	font-size: 18px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	border-radius: 10px;
-	box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+	box-shadow: 0 1px 5px 0 opacify($color-black, 0.2);
 	transition: all 0.4s;
 	z-index: 1;
 	img {
@@ -53,8 +53,8 @@ export default defineComponent({
 	}
 }
 .btn-auth:hover {
-	background: $white;
-	color: $black;
+	background: $color-white;
+	color: $color-black;
 }
 .btn-facebook { background-color: #3b5998; }
 .btn-google { background-color: lighten(#db4437, 10%); }

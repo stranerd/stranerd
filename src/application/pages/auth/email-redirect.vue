@@ -62,7 +62,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 h2{
 	font-size: 2.5rem;
-	color: $black;
+	color: $color-black;
 	line-height: 1.2;
 }
 </style>

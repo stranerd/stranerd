@@ -73,7 +73,7 @@ export default defineComponent({
 
 <style lang="scss">
 .quillWrapper{
-	background: $white;
+	background: $color-white;
 	box-sizing: border-box;
 	max-width: 90vw !important;
 	position: relative;
@@ -90,7 +90,7 @@ export default defineComponent({
 		overflow-y: hidden;
 		padding: 4px !important;
 		.ql-formats{
-			border-right: 1px solid $black;
+			border-right: 1px solid $color-black;
 			display: flex;
 			margin: 4px !important;
 			.ql-expanded{

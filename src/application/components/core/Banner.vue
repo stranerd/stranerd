@@ -20,7 +20,7 @@
 .head{
 	background: url('../../assets/images/header.jpg') no-repeat center center;
 	background-size: cover;
-	color: $white;
+	color: $color-white;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -36,7 +36,7 @@
 	bottom: 0;
 	left: 0;
 	top: 0;
-	background: rgba($accent, 0.6);
+	background: rgba($color-accent, 0.6);
 }
 .custom-divider {
 	position: absolute;

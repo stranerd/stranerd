@@ -15,13 +15,13 @@ body{
 
 .label {
 	font-size: 1em;
-	color: lighten($black, 25%);
+	color: lighten($color-black, 25%);
 	line-height: 1.5;
 	font-weight: 600;
 }
 .label-sm {
 	font-size: .875rem;
-	color: lighten($black, 10%);
+	color: lighten($color-black, 10%);
 	line-height: 1.5;
 	font-weight: 500;
 }

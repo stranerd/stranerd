@@ -63,7 +63,7 @@ export default defineComponent({
 	padding: 1rem;
 	position: absolute;
 	background: #ffffff;
-	box-shadow: 0 4px 8px #000000;
+	box-shadow: 0 4px 8px $color-black;
 	z-index: 1051;
 	overflow-y: auto;
 	-ms-overflow-style: none;

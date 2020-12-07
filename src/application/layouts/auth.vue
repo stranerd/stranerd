@@ -29,7 +29,7 @@ export default defineComponent({
 	.content{
 		width: 100%;
 		max-width: 720px;
-		background: $white;
+		background: $color-white;
 		border-radius: .75rem;
 	}
 	@media (min-width: $md) {

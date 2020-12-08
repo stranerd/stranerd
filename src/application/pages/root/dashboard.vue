@@ -17,21 +17,14 @@
 			</div>
 		</section>
 		<section class="side-right d-flex flex-column flex-md-row flex-lg-column">
-			<div class="section mr-md-1 mr-lg-0">
+			<div class="content mr-md-1 mr-lg-0">
 				<h4 class="d-none d-lg-block text-center">
 					Challenges
 				</h4>
-				<div class="content">
-					<h4>challenges</h4>
-				</div>
+				<h4>challenges</h4>
 			</div>
-			<div class="section">
-				<h4 class="d-none d-lg-block text-center">
-					Rankings
-				</h4>
-				<div class="content">
-					<h4>rankings</h4>
-				</div>
+			<div class="content">
+				<TopUsers />
 			</div>
 		</section>
 	</div>
@@ -40,7 +33,8 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 export default defineComponent({
-	name: 'RootDashboardPage'
+	name: 'RootDashboardPage',
+	middleware: ['isAuthenticated']
 })
 </script>
 
@@ -86,13 +80,10 @@ export default defineComponent({
 		width: 25%;
 		margin: 0 0 0 auto;
 	}
-	.section {
-		margin: 0.5rem 0;
-		flex-grow: 1;
-	}
 	.content {
+		flex-grow: 1;
 		background-color: $color-white;
-		padding: 0.5rem;
+		margin: 0.5rem;
 		@media (min-width: $md) {
 			padding: 0.75rem;
 			border-radius: 0.5rem;

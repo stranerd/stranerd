@@ -1,8 +1,8 @@
 <template>
 	<div class="d-flex my-1">
 		<img :src="user.image" alt="" width="24" height="24">
-		<span>{{ user.name }}</span>
-		<span class="ml-auto">
+		<span class="mx-1">{{ user.name }}</span>
+		<span class="ml-auto d-flex align-items-center">
 			<span>{{ user.rankings[period] }}</span>
 			<img src="@/assets/images/icons/credits.svg" width="16" height="16" alt="">
 		</span>

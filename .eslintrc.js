@@ -12,6 +12,7 @@ module.exports = {
 		"parser": "@typescript-eslint/parser"
 	},
 	"rules": {
+		"vue/no-v-html": "off",
 		"no-console": "off",
 		"no-debugger": "warn",
 		"no-tabs": "off",

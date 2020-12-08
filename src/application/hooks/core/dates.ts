@@ -16,6 +16,7 @@ const startInterval = (dif: number, caller: (time: number) => void) => {
 }
 
 export const useTimeDifference = (date: Date) => {
+	date = new Date(date)
 	const diffInSec = ref(Math.floor((Date.now() - date.getTime()) / 1000))
 	let interval = undefined as number | undefined
 
@@ -28,29 +29,31 @@ export const useTimeDifference = (date: Date) => {
 		}
 	})
 
-	const time = computed(() => {
-		if (diffInSec.value < TIMES.minute) {
-			return `${diffInSec.value} ${diffInSec.value === 1 ? 'second' : 'seconds'} ago`
-		} else if (diffInSec.value < TIMES.hour) {
-			const minutes = Math.floor(diffInSec.value / TIMES.minute)
-			return `${minutes} ${minutes === 1 ? 'minute' : 'minutes'} ago`
-		} else if (diffInSec.value < TIMES.day) {
-			const hours = Math.floor(diffInSec.value / TIMES.hour)
-			return `${hours} ${hours === 1 ? 'hour' : 'hours'} ago`
-		} else if (diffInSec.value < TIMES.month) {
-			const days = Math.floor(diffInSec.value / TIMES.day)
-			return `${days} ${days === 1 ? 'day' : 'days'} ago`
-		} else if (diffInSec.value < TIMES.year) { // Less than a year
-			const months = Math.floor(diffInSec.value / TIMES.month)
-			return `${months} ${months === 1 ? 'month' : 'months'} ago`
-		} else {
-			const year = date.getFullYear()
-			const month = [
-				'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-				'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'
-			][date.getMonth()]
-			return `${month} ${year}`
-		}
+	const time = computed({
+		get: () => {
+			if (diffInSec.value < TIMES.minute) {
+				return `${diffInSec.value} ${diffInSec.value === 1 ? 'second' : 'seconds'} ago`
+			} else if (diffInSec.value < TIMES.hour) {
+				const minutes = Math.floor(diffInSec.value / TIMES.minute)
+				return `${minutes} ${minutes === 1 ? 'minute' : 'minutes'} ago`
+			} else if (diffInSec.value < TIMES.day) {
+				const hours = Math.floor(diffInSec.value / TIMES.hour)
+				return `${hours} ${hours === 1 ? 'hour' : 'hours'} ago`
+			} else if (diffInSec.value < TIMES.month) {
+				const days = Math.floor(diffInSec.value / TIMES.day)
+				return `${days} ${days === 1 ? 'day' : 'days'} ago`
+			} else if (diffInSec.value < TIMES.year) { // Less than a year
+				const months = Math.floor(diffInSec.value / TIMES.month)
+				return `${months} ${months === 1 ? 'month' : 'months'} ago`
+			} else {
+				const year = date.getFullYear()
+				const month = [
+					'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+					'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'
+				][date.getMonth()]
+				return `${month} ${year}`
+			}
+		}, set: () => {}
 	})
 
 	const startTimer = () => {

@@ -1,4 +1,4 @@
-import { reqRef, useFetch } from '@nuxtjs/composition-api'
+import { ref, reqRef, useFetch } from '@nuxtjs/composition-api'
 import {
 	GetSubjects, AddSubject, FindSubject, DeleteSubject,
 	UpdateSubject, SubjectEntity, SubjectFactory
@@ -20,21 +20,34 @@ const addToGlobalSubjects = (subject: SubjectEntity) => {
 	else global.subjects.value.push(subject)
 }
 
-export const useSubjectList = () => {
-	const fetchSubjects = async () => {
-		setGlobalError('')
-		if (!global.fetched.value) {
-			setGlobalLoading(true)
-			try {
-				global.subjects.value = await GetSubjects.call()
-				global.fetched.value = true
-			} catch (error) { setGlobalError(error) }
-			setGlobalLoading(false)
-		}
+const fetchSubjects = async () => {
+	setGlobalError('')
+	if (!global.fetched.value) {
+		setGlobalLoading(true)
+		try {
+			global.subjects.value = await GetSubjects.call()
+			global.fetched.value = true
+		} catch (error) { setGlobalError(error) }
+		setGlobalLoading(false)
 	}
+}
+
+export const useSubjectList = () => {
 	useFetch(fetchSubjects)
 
 	return { ...global, error, loading }
+}
+
+export const useSubject = (id: string) => {
+	const subject = ref(null as SubjectEntity | null)
+	const fetchSubject = async () => {
+		if (!global.fetched.value) await fetchSubjects()
+		const s = global.subjects.value.find((s) => s.id === id)
+		subject.value = s ?? null
+	}
+	useFetch(fetchSubject)
+
+	return { subject }
 }
 
 export const useCreateSubject = () => {
@@ -44,6 +57,7 @@ export const useCreateSubject = () => {
 	const { loading, setLoading } = useLoadingHandler()
 
 	const createSubject = async () => {
+		setError('')
 		if (factory.value.valid && !loading.value) {
 			setLoading(true)
 			try {
@@ -101,6 +115,7 @@ export const useEditSubject = (subject = currentSubject) => {
 	if (subject) factory.value.loadEntity(subject)
 
 	const editSubject = async () => {
+		setError('')
 		if (factory.value.valid && !loading.value) {
 			setLoading(true)
 			try {

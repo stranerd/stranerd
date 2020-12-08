@@ -29,34 +29,29 @@
 				<QuestionCard :question="question" />
 				<hr class="thick bg-light-grey">
 			</div>
-			<div class="text-center py-1 text-18">
-				<a class="font-weight-bold text-grey" @click.prevent="">LOAD MORE</a>
+			<div v-if="hasMore" class="text-center py-1 text-18">
+				<a class="font-weight-bold text-grey" @click.prevent="fetchOlderQuestions">LOAD MORE</a>
 			</div>
 		</div>
+		<DisplayError :error="error" />
+		<PageLoading v-if="loading" />
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, onMounted, onBeforeUnmount } from '@nuxtjs/composition-api'
 import QuestionCard from '@app/components/questions/questions/QuestionsListCard.vue'
+import { useQuestionList } from '@app/hooks/questions/questions'
 export default defineComponent({
 	name: 'QuestionsList',
 	components: { QuestionCard },
 	setup () {
-		const question = {
-			hash: Math.random().toString(36).substr(2, 12),
-			body: 'From the top of a building with a height of 16m, a ball is thrown at an angle of 30 degree to the horizontal plane at a speed of 21 m/s. Calculate the total time the ball is in the air?',
-			credits: 15,
-			subjectId: 'Physics',
-			user: {
-				name: 'John Doe',
-				image: {
-					link: '/images/user_profile.png'
-				}
-			}
+		const { questions, error, loading, hasMore, fetchOlderQuestions, startQuestionListener, closeQuestionListener } = useQuestionList()
+		onMounted(startQuestionListener)
+		onBeforeUnmount(closeQuestionListener)
+		return {
+			questions, error, loading, hasMore, fetchOlderQuestions
 		}
-		const questions = [question, question, question]
-		return { questions }
 	}
 })
 </script>

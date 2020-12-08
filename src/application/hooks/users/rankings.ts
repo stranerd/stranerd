@@ -1,4 +1,4 @@
-import { reqRef, useFetch } from '@nuxtjs/composition-api'
+import { computed, ref, reqRef, useFetch } from '@nuxtjs/composition-api'
 import {
 	GetTopDailyUsers, GetTopMonthlyUsers, GetTopQuarterlyUsers, GetTopWeeklyUsers, ListenToTopDailyUsers,
 	ListenToTopMonthlyUsers, ListenToTopQuarterlyUsers, ListenToTopWeeklyUsers, UserEntity
@@ -162,4 +162,26 @@ export const useTopQuarterlyUsers = () => {
 		startListener,
 		closeListener: () => global.quarterly.listener.value?.()
 	}
+}
+
+export const useTopUsers = () => {
+	const options = ['daily', 'weekly', 'monthly', 'quarterly']
+	const option = ref(options[0])
+	const isDaily = computed({
+		get: () => option.value === 'daily',
+		set: () => {}
+	})
+	const isWeekly = computed({
+		get: () => option.value === 'weekly',
+		set: () => {}
+	})
+	const isMonthly = computed({
+		get: () => option.value === 'monthly',
+		set: () => {}
+	})
+	const isQuarterly = computed({
+		get: () => option.value === 'quarterly',
+		set: () => {}
+	})
+	return { options, option, isDaily, isWeekly, isMonthly, isQuarterly }
 }

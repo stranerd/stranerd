@@ -36,6 +36,7 @@ export const useAuth = () => {
 
 	return {
 		id, bio,
+		user: global.user,
 		isLoggedIn, token, isAdmin,
 		setAuthDetails, setUser, startProfileListener
 	}

@@ -22,8 +22,8 @@
 				Answer
 			</button>
 		</div>
-		<BaseLink class="text-grey" :to="`/questions/${question.id}`" :root="true">
-			{{ question.body }}
+		<BaseLink class="text-grey d-none" :to="`/questions/${question.id}`" :root="true">
+			<p v-html="question.body" />
 		</BaseLink>
 	</div>
 </template>

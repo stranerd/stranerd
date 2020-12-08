@@ -4,12 +4,14 @@
 			<TopUserCard :user="user" period="quarterly" />
 			<hr class="thin">
 		</div>
-		<h6 class="mt-2">
-			Your Ranking
-		</h6>
-		<hr class="thin">
-		<TopUserCard :user="user" period="quarterly" />
-		<hr class="thick">
+		<div v-if="isLoggedIn">
+			<h6 class="mt-2">
+				Your Ranking
+			</h6>
+			<hr class="thin">
+			<TopUserCard :user="user" period="quarterly" />
+			<hr class="thick">
+		</div>
 		<DisplayError :error="error" />
 		<PageLoading v-if="loading" />
 	</div>
@@ -26,11 +28,11 @@ export default defineComponent({
 		TopUserCard
 	},
 	setup () {
-		const { user } = useAuth()
+		const { user, isLoggedIn } = useAuth()
 		const { users, error, loading, startListener, closeListener } = useTopQuarterlyUsers()
 		onMounted(startListener)
 		onBeforeUnmount(closeListener)
-		return { user, users, error, loading }
+		return { user, isLoggedIn, users, error, loading }
 	}
 })
 </script>

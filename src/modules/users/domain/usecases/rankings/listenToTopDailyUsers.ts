@@ -11,7 +11,7 @@ export class ListenToTopDailyUsersUseCase {
 
 	async call (callback: (entities: UserEntity[]) => void) {
 		const conditions: DatabaseGetClauses = {
-			order: { field: 'rankings/daily', condition: { start: 0 } },
+			order: { field: 'rankings/daily', condition: { start: 1 } },
 			limit: { count: 20, bottom: false }
 		}
 		return await this.repository.listenToMany(callback, conditions)

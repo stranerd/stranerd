@@ -57,7 +57,8 @@ export const useTopDailyUsers = () => {
 		global.daily.setLoading(false)
 	}
 
-	if (!global.daily.fetched.value) useFetch(fetchUsers)
+	// TODO: Figure out why useFetch hook doesn't work
+	if (!global.daily.fetched.value) fetchUsers()
 
 	return {
 		error: global.daily.error,

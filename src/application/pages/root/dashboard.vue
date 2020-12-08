@@ -17,7 +17,7 @@
 			</div>
 		</section>
 		<section class="side-right d-flex flex-column flex-md-row flex-lg-column">
-			<div class="content mr-md-1 mr-lg-0">
+			<div class="content mr-md-1 mr-lg-0 mb-1 mb-lg-0">
 				<h4 class="d-none d-lg-block text-center">
 					Challenges
 				</h4>
@@ -82,15 +82,13 @@ export default defineComponent({
 	}
 	.content {
 		flex-grow: 1;
+		padding: 0.5rem;
 		background-color: $color-white;
-		margin: 0.5rem;
 		@media (min-width: $md) {
-			padding: 0.75rem;
 			border-radius: 0.5rem;
 		}
 		@media (min-width: $lg) {
 			border-radius: 1.0rem;
-			padding: 1rem;
 		}
 	}
 }

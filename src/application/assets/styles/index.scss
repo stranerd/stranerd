@@ -31,7 +31,7 @@ body{
 	max-width: 100%;
 }
 
-.form-control {
+input.form-control, textarea.form-control {
 	font-size: 1.125em;
 	padding: 1.25em;
 	min-height: 3em;
@@ -53,5 +53,28 @@ a {
 	margin-bottom: 0.5rem;
 	*{
 		max-width: 100%;
+	}
+}
+
+hr.thick {
+	height: 2px;
+}
+
+.text-18 {
+	font-size: 18px;
+}
+
+.profile-image {
+	border-radius: 10rem;
+	border: 1.5px solid rgba($color-black,0.25);
+	width: 1.75rem;
+	height: 1.75rem;
+	@media (min-width: $md) {
+		width: 2rem;
+		height: 2rem;
+	}
+	@media (min-width: $lg) {
+		width: 2.5rem;
+		height: 2.5rem;
 	}
 }

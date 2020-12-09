@@ -22,9 +22,13 @@
 				Answer
 			</button>
 		</div>
-		<BaseLink class="text-grey d-none" :to="`/questions/${question.id}`" :root="true">
+		<BaseLink class="text-grey" :to="`/questions/${question.id}`" :root="true">
 			<p v-html="question.body" />
 		</BaseLink>
+		<span v-if="question.attachments.length">
+			<span>{{ question.attachments.length }}</span>
+			<i class="fas fa-paperclip" />
+		</span>
 	</div>
 </template>
 

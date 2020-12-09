@@ -55,7 +55,7 @@ export default defineComponent({
 		background-color: inherit;
 	}
 	@media (min-width: $lg) {
-		flex-grow: 1;
+		width: 55%;
 		padding: 1rem;
 	}
 	.content {

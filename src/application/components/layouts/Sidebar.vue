@@ -14,24 +14,24 @@
 				View Profile
 			</button>
 		</div>
-		<div class="my-2 d-flex flex-column">
-			<BaseLink class="d-flex align-content-center py-1 px-2 text-grey" to="/dashboard" :root="true">
+		<div class="my-2 d-flex flex-column links py-0">
+			<BaseLink class="link" to="/dashboard" :root="true">
 				<img src="@/assets/images/icons/dashboard.svg" alt="" width="24" height="24">
 				<span class="ml-1 text-18">Dashboard</span>
 			</BaseLink>
-			<BaseLink class="d-flex align-content-center py-1 px-2 text-grey" to="/tutors" :root="true">
+			<BaseLink class="link" to="/tutors" :root="true">
 				<img src="@/assets/images/icons/tutors.svg" alt="" width="24" height="24">
 				<span class="ml-1 text-18">Tutors</span>
 			</BaseLink>
-			<BaseLink class="d-flex align-content-center py-1 px-2 text-grey" to="/flashcards" :root="true">
+			<BaseLink class="link" to="/flashcards" :root="true">
 				<img src="@/assets/images/icons/flashcards.svg" alt="" width="24" height="24">
 				<span class="ml-1 text-18">Flashcards</span>
 			</BaseLink>
-			<BaseLink class="d-flex align-content-center py-1 px-2 text-grey" to="/test-preps" :root="true">
+			<BaseLink class="link" to="/test-preps" :root="true">
 				<img src="@/assets/images/icons/testprep.svg" alt="" width="24" height="24">
 				<span class="ml-1 text-18">Test Preps</span>
 			</BaseLink>
-			<BaseLink class="d-flex align-content-center py-1 px-2 text-grey" to="/shop" :root="true">
+			<BaseLink class="link" to="/shop" :root="true">
 				<img src="@/assets/images/icons/shop.svg" alt="" width="24" height="24">
 				<span class="ml-1 text-18">Shop</span>
 			</BaseLink>
@@ -52,7 +52,20 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.nuxt-link-exact-active {
-	background: lighten($color-accent, 10);
+.links {
+	.link {
+		color: darken($color-light-grey, 10);
+		padding: 0.75rem 1rem;
+		display: flex;
+		align-items: center;
+		font-weight: 500;
+	}
+	.nuxt-link-exact-active {
+		font-weight: 600;
+		color: darken($color-grey, 20);
+		background: lighten($color-accent, 10);
+		margin: 0 -0.5rem;
+		padding: 0.75rem 1.5rem;
+	}
 }
 </style>

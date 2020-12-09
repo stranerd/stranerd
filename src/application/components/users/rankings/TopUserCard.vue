@@ -2,7 +2,7 @@
 	<div class="d-flex my-1">
 		<img :src="user.image" alt="" class="profile-image" style="width:24px;height:24px;">
 		<span class="mx-1">{{ user.name }}</span>
-		<span class="ml-auto d-flex align-items-center">
+		<span class="ml-auto">
 			<span>{{ user.rankings[period] }}</span>
 			<img src="@/assets/images/icons/credits.svg" width="16" height="16" alt="">
 		</span>

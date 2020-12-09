@@ -14,7 +14,7 @@
 				View Profile
 			</button>
 		</div>
-		<div class="my-2 d-flex flex-column links py-0">
+		<div class="my-2 d-flex flex-column links">
 			<BaseLink class="link" to="/dashboard" :root="true">
 				<img src="@/assets/images/icons/dashboard.svg" alt="" width="24" height="24">
 				<span class="ml-1 text-18">Dashboard</span>
@@ -51,7 +51,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .links {
 	.link {
 		color: darken($color-light-grey, 10);

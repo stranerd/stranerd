@@ -4,6 +4,7 @@
 			<Sidebar />
 		</section>
 		<section class="main-view">
+			<DashboardTopNavigation />
 			<div class="content mb-3 py-4 text-center d-none d-md-block">
 				<h1 class="display-4 mb-2 font-weight-bold text-grey">
 					Get your answer today

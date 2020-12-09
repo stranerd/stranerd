@@ -23,7 +23,7 @@
 			</button>
 		</div>
 		<BaseLink class="text-grey" :to="`/questions/${question.id}`" :root="true">
-			<p v-html="question.body" />
+			<p class="mb-1" v-html="question.body" />
 		</BaseLink>
 		<span v-if="question.attachments.length">
 			<span>{{ question.attachments.length }}</span>

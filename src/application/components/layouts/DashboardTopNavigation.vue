@@ -1,0 +1,74 @@
+<template>
+	<header class="d-flex align-items-center">
+		<button class="navbar-toggler rounded-0 d-lg-none mr-1" type="button">
+			<span class="fas fa-bars text-grey" />
+		</button>
+		<img src="@/assets/images/stranerd_logo.png" alt="Stranerd" height="50" class="d-lg-none">
+		<div class="links ml-auto d-flex">
+			<BaseLink class="link" to="/">
+				<img src="@/assets/images/icons/search.svg" alt="">
+			</BaseLink>
+			<BaseLink class="link d-none d-md-inline" to="/">
+				<img src="@/assets/images/icons/chat.svg" alt="">
+			</BaseLink>
+			<BaseLink class="link d-none d-md-inline" to="/">
+				<img src="@/assets/images/icons/users.svg" alt="">
+			</BaseLink>
+			<BaseLink class="link" to="/">
+				<img src="@/assets/images/icons/notification.svg" alt="">
+			</BaseLink>
+			<BaseLink class="link d-none d-md-inline" to="/">
+				<img src="@/assets/images/icons/signout.svg" alt="">
+			</BaseLink>
+		</div>
+	</header>
+</template>
+
+<script lang="ts">
+import { defineComponent } from '@nuxtjs/composition-api'
+export default defineComponent({
+	name: 'DashboardTopNavigation'
+})
+</script>
+
+<style lang="scss" scoped>
+header {
+	background: $color-white;
+	padding: 0.5rem 0.75rem;
+	@media (min-width: $md) {
+		margin: -1rem -1rem 0.5rem;
+	}
+	@media (min-width: $lg) {
+		margin: 0 0 0.5rem;
+		background: unset;
+	}
+	.links {
+		.link {
+			color: $color-grey;
+			margin: 0 1rem;
+			img {
+				width: 24px;
+				height: 24px;
+			}
+			@media (min-width: $md) {
+				img {
+					width: 28px;
+					height: 28px;
+				}
+			}
+			@media (min-width: $lg) {
+				width: 36px;
+				height: 36px;
+				background: $color-white;
+				border-radius: 10rem;
+				margin: 0 0.5rem;
+				img {
+					margin: 8px;
+					width: 20px;
+					height: 20px;
+				}
+			}
+		}
+	}
+}
+</style>

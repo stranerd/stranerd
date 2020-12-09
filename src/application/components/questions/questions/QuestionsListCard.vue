@@ -18,7 +18,7 @@
 					+{{ question.credits }}
 				</span>
 			</div>
-			<button class="btn btn-sm rounded-pill py-0 px-1 btn-accent ml-1 text-white">
+			<button class="btn btn-sm rounded-pill py-0 px-1 btn-accent ml-1 text-white" @click="openAnswerModal">
 				Answer
 			</button>
 		</div>
@@ -37,7 +37,7 @@ import { defineComponent, PropType, onMounted, onBeforeUnmount } from '@nuxtjs/c
 import { QuestionEntity } from '@modules/questions'
 import { useSubject } from '@app/hooks/questions/subjects'
 import { useTimeDifference } from '@app/hooks/core/dates'
-
+import { openAnswerModal } from '@app/hooks/questions/answers'
 export default defineComponent({
 	name: 'QuestionsCard',
 	props: {
@@ -51,7 +51,10 @@ export default defineComponent({
 		const { time, startTimer, stopTimer } = useTimeDifference(props.question.createdAt)
 		onMounted(startTimer)
 		onBeforeUnmount(stopTimer)
-		return { subject, time }
+		return {
+			subject, time,
+			openAnswerModal: () => openAnswerModal(props.question)
+		}
 	}
 })
 </script>

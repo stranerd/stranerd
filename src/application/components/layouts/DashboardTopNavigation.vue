@@ -1,23 +1,39 @@
 <template>
-	<header class="d-flex align-items-center">
-		<button class="navbar-toggler rounded-0 d-lg-none mr-1" type="button" @click="setMenuModalSidebar">
-			<span class="fas fa-bars text-grey" />
-		</button>
-		<img src="@/assets/images/stranerd_logo.png" alt="Stranerd" height="50" class="d-lg-none">
-		<div class="links ml-auto d-flex">
-			<BaseLink class="link" to="/">
-				<img src="@/assets/images/icons/search.svg" alt="">
-			</BaseLink>
-			<BaseLink class="link d-none d-md-inline" to="/">
+	<header>
+		<nav class="d-flex align-items-center">
+			<button class="navbar-toggler rounded-0 d-lg-none mr-1" type="button" @click="setMenuModalSidebar">
+				<span class="fas fa-bars text-grey" />
+			</button>
+			<img src="@/assets/images/stranerd_logo.png" alt="Stranerd" height="50" class="d-lg-none">
+			<div class="links ml-auto d-flex">
+				<BaseLink class="link" to="/">
+					<img src="@/assets/images/icons/search.svg" alt="">
+				</BaseLink>
+				<BaseLink class="link d-none d-md-inline" to="/">
+					<img src="@/assets/images/icons/chat.svg" alt="">
+				</BaseLink>
+				<BaseLink class="link d-none d-md-inline" to="/">
+					<img src="@/assets/images/icons/users.svg" alt="">
+				</BaseLink>
+				<BaseLink class="link" to="/">
+					<img src="@/assets/images/icons/notification.svg" alt="">
+				</BaseLink>
+				<BaseLink class="link d-none d-md-inline" to="/">
+					<img src="@/assets/images/icons/signout.svg" alt="">
+				</BaseLink>
+			</div>
+		</nav>
+		<div class="d-md-none d-flex justify-content-center m-2">
+			<a class="bg-accent text-white link-sm p-1" @click.prevent="setCreateModalQuestion">
+				<span class="fas fa-plus" style="font-size: 22px;" />
+			</a>
+			<BaseLink class="link-sm" to="/">
 				<img src="@/assets/images/icons/chat.svg" alt="">
 			</BaseLink>
-			<BaseLink class="link d-none d-md-inline" to="/">
+			<BaseLink class="link-sm" to="/">
 				<img src="@/assets/images/icons/users.svg" alt="">
 			</BaseLink>
-			<BaseLink class="link" to="/">
-				<img src="@/assets/images/icons/notification.svg" alt="">
-			</BaseLink>
-			<BaseLink class="link d-none d-md-inline" to="/">
+			<BaseLink class="link-sm" to="/">
 				<img src="@/assets/images/icons/signout.svg" alt="">
 			</BaseLink>
 		</div>
@@ -26,18 +42,19 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useMenuModal } from '@app/hooks/core/modals'
+import { useCreateModal, useMenuModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'DashboardTopNavigation',
 	setup () {
+		const { setCreateModalQuestion } = useCreateModal()
 		const { setMenuModalSidebar } = useMenuModal()
-		return { setMenuModalSidebar }
+		return { setCreateModalQuestion, setMenuModalSidebar }
 	}
 })
 </script>
 
 <style lang="scss" scoped>
-header {
+nav {
 	background: $color-white;
 	padding: 0.5rem 0.75rem;
 	@media (min-width: $md) {
@@ -74,6 +91,19 @@ header {
 				}
 			}
 		}
+	}
+}
+.link-sm {
+	color: $color-white;
+	width: 36px;
+	height: 36px;
+	background: $color-grey;
+	border-radius: 10rem;
+	margin: 0 0.5rem;
+	img {
+		margin: 8px;
+		width: 20px;
+		height: 20px;
 	}
 }
 </style>

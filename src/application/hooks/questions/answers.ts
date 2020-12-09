@@ -11,6 +11,7 @@ import {
 } from '@modules/questions'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
+import { useCreateModal } from '@app/hooks/core/modals'
 
 const global: { [questionId: string] : {
 	answers: Ref<AnswerEntity[]>,
@@ -60,15 +61,21 @@ export const useAnswerList = (questionId: string) => {
 	}
 }
 
-export const createAnswer = (question: QuestionEntity) => {
+let answeringQuestion = null as QuestionEntity | null
+export const openAnswerModal = (question: QuestionEntity) => {
+	answeringQuestion = question
+	useCreateModal().setCreateModalAnswer()
+}
+
+export const createAnswer = () => {
 	const { id, bio } = useAuth()
 	const factory = reqRef(new AnswerFactory())
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
 	const { setMessage } = useSuccessHandler()
 
-	factory.value.questionId = question.id
-	factory.value.credits = Math.round(question.credits * 0.25)
+	factory.value.questionId = answeringQuestion!.id
+	factory.value.credits = Math.round(answeringQuestion!.credits * 0.25)
 	factory.value.userBioAndId = { id: id.value!, user: bio.value! }
 	watch(() => id.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
 	watch(() => bio.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })

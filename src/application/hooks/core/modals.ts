@@ -9,8 +9,12 @@ const global = {
 export const useCreateModal = () => {
 	return {
 		isCreateModalSubject: computed(() => global.createModal.value === 'subject'),
+		isCreateModalQuestion: computed(() => global.createModal.value === 'question'),
+		isCreateModalAnswer: computed(() => global.createModal.value === 'answer'),
 
 		setCreateModalSubject: () => global.createModal.value = 'subject',
+		setCreateModalQuestion: () => global.createModal.value = 'question',
+		setCreateModalAnswer: () => global.createModal.value = 'answer',
 		closeCreateModal: () => global.createModal.value = null
 	}
 }

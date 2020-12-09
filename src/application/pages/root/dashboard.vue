@@ -9,7 +9,7 @@
 				<h1 class="display-4 mb-2 font-weight-bold text-grey">
 					Get your answer today
 				</h1>
-				<button class="btn btn-red text-white font-weight-bold rounded-pill px-6">
+				<button class="btn btn-red text-white font-weight-bold rounded-pill px-6" @click="setCreateModalQuestion">
 					ASK A QUESTION
 				</button>
 			</div>
@@ -33,9 +33,14 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
+import { useCreateModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'RootDashboardPage',
-	middleware: ['isAuthenticated']
+	middleware: ['isAuthenticated'],
+	setup () {
+		const { setCreateModalQuestion } = useCreateModal()
+		return { setCreateModalQuestion }
+	}
 })
 </script>
 

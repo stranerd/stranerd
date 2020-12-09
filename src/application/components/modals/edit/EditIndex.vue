@@ -9,9 +9,9 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useEditModal } from '@app/hooks/core/modals'
-import EditSubject from '@app/components/core/modals/edit/EditSubject.vue'
-import EditTutorSubjects from '@app/components/core/modals/edit/EditTutorSubjects.vue'
-import EditAccountProfile from '@app/components/core/modals/edit/EditAccountProfile.vue'
+import EditSubject from '@app/components/modals/edit/EditSubject.vue'
+import EditTutorSubjects from '@app/components/modals/edit/EditTutorSubjects.vue'
+import EditAccountProfile from '@app/components/modals/edit/EditAccountProfile.vue'
 export default defineComponent({
 	name: 'EditModalIndex',
 	components: {

@@ -9,9 +9,9 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useCreateModal } from '@app/hooks/core/modals'
-import CreateSubject from '@app/components/core/modals/create/CreateSubject.vue'
-import CreateQuestion from '@app/components/core/modals/create/CreateQuestion.vue'
-import CreateAnswer from '@app/components/core/modals/create/CreateAnswer.vue'
+import CreateSubject from '@app/components/modals/create/CreateSubject.vue'
+import CreateQuestion from '@app/components/modals/create/CreateQuestion.vue'
+import CreateAnswer from '@app/components/modals/create/CreateAnswer.vue'
 export default defineComponent({
 	name: 'CreateModalIndex',
 	components: {

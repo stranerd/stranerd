@@ -4,7 +4,7 @@
 			<Sidebar />
 		</section>
 		<section class="main-view">
-			<DashboardTopNavigation />
+			<DashboardTopNavigation class="mx-n1" />
 			<div class="content mb-3 py-4 text-center d-none d-md-block">
 				<h1 class="display-4 mb-2 font-weight-bold text-grey">
 					Get your answer today
@@ -18,7 +18,7 @@
 			</div>
 		</section>
 		<section class="side-right d-flex flex-column flex-md-row flex-lg-column">
-			<div class="content mr-md-1 mr-lg-0 mb-1 mb-lg-0">
+			<div class="content mr-md-1 mr-lg-0 mb-2 mb-lg-0">
 				<h4 class="d-none d-lg-block text-center">
 					Challenges
 				</h4>
@@ -57,6 +57,7 @@ export default defineComponent({
 }
 .main-view {
 	flex-grow: 0;
+	padding: 0 0.25rem;
 	@media (min-width: $md) {
 		background-color: inherit;
 	}
@@ -81,6 +82,7 @@ export default defineComponent({
 .side-right {
 	width: 100%;
 	margin: 0.5rem 0;
+	padding: 0 0.25rem;
 	@media (min-width: $lg) {
 		background-color: $color-white;
 		padding: 0.5rem;

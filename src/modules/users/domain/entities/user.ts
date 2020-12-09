@@ -8,10 +8,9 @@ export class UserEntity extends BaseEntity {
 	public readonly userBio: UserBio
 	public readonly account: UserAccount
 	public readonly rankings: UserRankings
-	public readonly signedUpAt: Date
 	public readonly hasSetProfile: boolean
 
-	constructor ({ id, bio, roles, account, rankings, dates }: UserConstructorArgs) {
+	constructor ({ id, bio, roles, account, rankings }: UserConstructorArgs) {
 		super()
 		this.id = id
 		this.hasSetProfile = !!bio?.name
@@ -24,7 +23,7 @@ export class UserEntity extends BaseEntity {
 			monthly: rankings?.monthly ?? 0,
 			quarterly: rankings?.quarterly ?? 0
 		}
-		this.signedUpAt = dates.signedUpAt
+		// TODO: Figure out why adding signedUpDate throws nuxt error
 	}
 
 	get name () { return this.userBio.name }

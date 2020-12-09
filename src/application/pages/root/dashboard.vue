@@ -1,7 +1,7 @@
 <template>
 	<div class="d-flex flex-column flex-lg-row bg-light-grey min-vh-100 p-md-2 p-lg-0">
 		<section class="side-left">
-			<h1>Sidebar</h1>
+			<Sidebar />
 		</section>
 		<section class="main-view">
 			<div class="content mb-3 py-4 text-center d-none d-md-block">
@@ -42,6 +42,7 @@ export default defineComponent({
 .side-left {
 	display: none;
 	background-color: $color-white;
+	padding: 0.5rem;
 	@media (min-width: $lg) {
 		display: block;
 		width: 20%;

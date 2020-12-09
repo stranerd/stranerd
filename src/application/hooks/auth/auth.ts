@@ -1,4 +1,4 @@
-import { computed, reqSsrRef } from '@nuxtjs/composition-api'
+import { computed, ssrRef } from '@nuxtjs/composition-api'
 import { ListenToUser, UserEntity } from '@modules/users'
 import { useEditModal } from '@app/hooks/core/modals'
 
@@ -8,8 +8,8 @@ type Auth = {
 }
 
 const global = {
-	auth: reqSsrRef(null as Auth | null),
-	user: reqSsrRef(null as UserEntity | null),
+	auth: ssrRef(null as Auth | null),
+	user: ssrRef(null as UserEntity | null),
 	listener: null as null | (() => void)
 }
 

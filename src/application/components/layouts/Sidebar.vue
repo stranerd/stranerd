@@ -1,9 +1,9 @@
 <template>
 	<div>
-		<div class="text-center my-2">
+		<div class="text-center my-1 d-none d-lg-block">
 			<img src="@/assets/images/stranerd_logo.png" height="50" alt="Stranerd">
 		</div>
-		<div v-if="isLoggedIn" class="d-flex flex-column align-items-center my-2">
+		<div v-if="isLoggedIn" class="d-flex flex-column align-items-center my-1">
 			<img :src="user.image" alt="" class="profile-image" style="width:90px;height:90px;">
 			<span class="text-18">{{ user.name }}</span>
 			<span>
@@ -14,7 +14,7 @@
 				View Profile
 			</button>
 		</div>
-		<div class="my-2 d-flex flex-column links">
+		<div class="my-1 d-flex flex-column links">
 			<BaseLink class="link" to="/dashboard" :root="true">
 				<img src="@/assets/images/icons/dashboard.svg" alt="" width="24" height="24">
 				<span class="ml-1 text-18">Dashboard</span>
@@ -62,7 +62,7 @@ export default defineComponent({
 	}
 	.nuxt-link-exact-active {
 		font-weight: 600;
-		color: darken($color-grey, 20);
+		color: $color-grey;
 		background: lighten($color-accent, 10);
 		margin: 0 -0.5rem;
 		padding: 0.75rem 1.5rem;

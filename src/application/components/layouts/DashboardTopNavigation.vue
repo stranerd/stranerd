@@ -1,6 +1,6 @@
 <template>
 	<header class="d-flex align-items-center">
-		<button class="navbar-toggler rounded-0 d-lg-none mr-1" type="button">
+		<button class="navbar-toggler rounded-0 d-lg-none mr-1" type="button" @click="setMenuModalSidebar">
 			<span class="fas fa-bars text-grey" />
 		</button>
 		<img src="@/assets/images/stranerd_logo.png" alt="Stranerd" height="50" class="d-lg-none">
@@ -26,8 +26,13 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
+import { useMenuModal } from '@app/hooks/core/modals'
 export default defineComponent({
-	name: 'DashboardTopNavigation'
+	name: 'DashboardTopNavigation',
+	setup () {
+		const { setMenuModalSidebar } = useMenuModal()
+		return { setMenuModalSidebar }
+	}
 })
 </script>
 

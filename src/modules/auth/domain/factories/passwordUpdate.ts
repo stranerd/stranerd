@@ -1,10 +1,11 @@
 import { BaseFactory } from '@modules/core/domains/factories/base'
 import { isShorterThan, isLongerThan, isEmail, isShallowEqualTo } from 'sd-validate/lib/rules'
 
+type Keys = { email: string, oldPassword: string, password: string, cPassword: string }
 const isLongerThan5 = (value:string) => isLongerThan(value, 5)
 const isShorterThan17 = (value:string) => isShorterThan(value, 17)
 
-export class PasswordUpdateFactory extends BaseFactory<null, { email: string, oldPassword: string, password: string }> {
+export class PasswordUpdateFactory extends BaseFactory<null, { email: string, oldPassword: string, password: string }, Keys> {
 	readonly rules = {
 		email: { required: true, rules: [isEmail] },
 		oldPassword: { required: true, rules: [] },
@@ -12,9 +13,10 @@ export class PasswordUpdateFactory extends BaseFactory<null, { email: string, ol
 		cPassword: { required: true, rules: [(value: string) => isShallowEqualTo(value, this.password)] }
 	}
 
-	values = { email: '', oldPassword: '', password: '', cPassword: '' }
-	validValues = { email: '', oldPassword: '', password: '', cPassword: '' }
-	errors = { email: '', oldPassword: '', password: undefined, cPassword: undefined }
+	constructor () {
+		super({ email: '', oldPassword: '', password: '', cPassword: '' })
+	}
+
 	reserved = []
 
 	get email () { return this.values.email }

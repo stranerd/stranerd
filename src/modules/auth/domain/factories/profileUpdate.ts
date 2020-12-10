@@ -4,9 +4,10 @@ import { UserBio } from '@modules/users'
 import { Media } from '@modules/core/data/models/base'
 
 type Content = File | Media
+type Keys = { name: string, email: string, description: string, image: Content | undefined }
 const isLongerThan2 = (value:string) => isLongerThan(value, 2)
 
-export class ProfileUpdateFactory extends BaseFactory<UserBio, UserBio> {
+export class ProfileUpdateFactory extends BaseFactory<UserBio, UserBio, Keys> {
 	readonly rules = {
 		name: { required: true, rules: [isLongerThan2] },
 		email: { required: true, rules: [isEmail] },
@@ -14,13 +15,10 @@ export class ProfileUpdateFactory extends BaseFactory<UserBio, UserBio> {
 		image: { required: true, rules: [isImage] }
 	}
 
-	values: { name: string, email: string, description: string, image: Content | undefined } =
-		{ name: '', email: '', description: '', image: undefined }
+	constructor () {
+		super({ name: '', email: '', description: '', image: undefined })
+	}
 
-	validValues: { name: string, email: string, description: string, image: Content | undefined } =
-		{ name: '', email: '', description: '', image: undefined }
-
-	errors = { name: undefined, email: undefined, description: undefined, image: undefined }
 	reserved = []
 
 	get name () { return this.values.name }

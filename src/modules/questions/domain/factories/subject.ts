@@ -5,17 +5,19 @@ import { SubjectEntity } from '../entities/subject'
 import { SubjectToModel } from '../../data/models/subject'
 
 type Content = File | Media
+interface Keys { name: string, icon: Content | undefined }
 const isLongerThan2 = (value: string) => isLongerThan(value, 2)
 
-export class SubjectFactory extends BaseFactory<SubjectEntity, SubjectToModel> {
+export class SubjectFactory extends BaseFactory<SubjectEntity, SubjectToModel, Keys> {
 	readonly rules = {
 		name: { required: true, rules: [isLongerThan2] },
 		icon: { required: true, rules: [isImage] }
 	}
 
-	values: { name: string, icon: Content | undefined } = { name: '', icon: undefined }
-	validValues: { name: string, icon: Content | undefined } = { name: '', icon: undefined }
-	errors = { name: undefined, icon: undefined }
+	constructor () {
+		super({ name: '', icon: undefined })
+	}
+
 	reserved = []
 
 	get name () { return this.values.name }

@@ -4,23 +4,21 @@ import { UserBio } from '@modules/users'
 import { CommentEntity } from '../entities/comment'
 import { CommentToModel } from '../../data/models/comment'
 
+type Keys = { body: string, userId: string, user: UserBio | undefined }
 const isLongerThan0 = (value: string) => isLongerThan(value, 0)
 const isLongerThan2 = (value: string) => isLongerThan(value, 2)
 
-export class CommentFactory extends BaseFactory<CommentEntity, CommentToModel> {
+export class CommentFactory extends BaseFactory<CommentEntity, CommentToModel, Keys> {
 	readonly rules = {
 		body: { required: true, rules: [isLongerThan2] },
 		userId: { required: true, rules: [isLongerThan0] },
 		user: { required: false, rules: [] }
 	}
 
-	values: { body: string, userId: string, user: UserBio | undefined } =
-		{ body: '', userId: '', user: undefined }
+	constructor () {
+		super({ body: '', userId: '', user: undefined })
+	}
 
-	validValues: { body: string, userId: string, user: UserBio | undefined } =
-		{ body: '', userId: '', user: undefined }
-
-	errors = { body: undefined, userId: undefined, user: undefined }
 	reserved = []
 
 	get body () { return this.values.body }

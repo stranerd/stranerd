@@ -4,10 +4,14 @@ import { UserBio } from '@modules/users'
 import { SessionToModel } from '../../data/models/session'
 import { SessionEntity } from '../entities/session'
 
+type Keys = {
+	price: number, duration: number, studentId: string, tutorId: string,
+	studentBio: UserBio | undefined, tutorBio: UserBio | undefined
+}
 const isLongerThan0 = (value: string) => isLongerThan(value, 0)
 const isMoreThan0 = (value: number) => isMoreThan(value, 0)
 
-export class SessionFactory extends BaseFactory<SessionEntity, Partial<SessionToModel>> {
+export class SessionFactory extends BaseFactory<SessionEntity, Partial<SessionToModel>, Keys> {
 	readonly rules = {
 		price: { required: true, rules: [isMoreThan0] },
 		duration: { required: true, rules: [isMoreThan0] },
@@ -17,25 +21,11 @@ export class SessionFactory extends BaseFactory<SessionEntity, Partial<SessionTo
 		tutorBio: { required: true, rules: [] }
 	}
 
-	values: {
-		price: number, duration: number, studentId: string, tutorId: string,
-		studentBio: UserBio | undefined, tutorBio: UserBio | undefined
-	} = {
-		price: 0, duration: 0, studentId: '', tutorId: '',
-		studentBio: undefined, tutorBio: undefined
-	}
-
-	validValues: {
-		price: number, duration: number, studentId: string, tutorId: string,
-		studentBio: UserBio | undefined, tutorBio: UserBio | undefined
-	} = {
-		price: 0, duration: 0, studentId: '', tutorId: '',
-		studentBio: undefined, tutorBio: undefined
-	}
-
-	errors = {
-		price: undefined, duration: undefined, studentId: undefined, tutorId: undefined,
-		studentBio: undefined, tutorBio: undefined
+	constructor () {
+		super({
+			price: 0, duration: 0, studentId: '', tutorId: '',
+			studentBio: undefined, tutorBio: undefined
+		})
 	}
 
 	reserved = ['studentId', 'studentBio']

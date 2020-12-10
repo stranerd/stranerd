@@ -5,22 +5,20 @@ import { ChatToModel } from '../../data/models/chat'
 import { ChatEntity } from '../entities/chat'
 
 type Content = Media | File | undefined
+type Keys = { content: string | undefined, from: string, media: Content | undefined }
 const isLongerThan0 = (value: string) => isLongerThan(value, 0)
 
-export class ChatFactory extends BaseFactory<ChatEntity, ChatToModel> {
+export class ChatFactory extends BaseFactory<ChatEntity, ChatToModel, Keys> {
 	readonly rules = {
 		content: { required: false, rules: [(val: string) => isRequiredIf(val, !this.media), isLongerThan0] },
 		from: { required: true, rules: [isLongerThan0] },
 		media: { required: false, rules: [(val: Content) => isRequiredIf(val, !this.content), isFile] }
 	}
 
-	values: { content: string | undefined, from: string, media: Content | undefined}
-		= { content: undefined, from: '', media: undefined }
+	constructor () {
+		super({ content: undefined, from: '', media: undefined })
+	}
 
-	validValues: { content: string | undefined, from: string, media: Content | undefined }
-		= { content: undefined, from: '', media: undefined }
-
-	errors = { content: undefined, from: undefined, media: undefined }
 	reserved = ['from']
 
 	get content () { return this.values.content }

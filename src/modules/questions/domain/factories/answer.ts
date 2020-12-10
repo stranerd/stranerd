@@ -6,16 +6,20 @@ import { AnswerEntity } from '../entities/answer'
 import { AnswerToModel } from '../../data/models/answer'
 
 type Content = File | Media
+type Keys = {
+	body: string, attachments: Content[], credits: number, questionId: string,
+	userId: string, user: UserBio | undefined, likes: number, ratings: number
+}
 const isLongerThan0 = (value: string) => isLongerThan(value, 0)
 const isLongerThan2 = (value: string) => isLongerThan(value, 2)
 const containsOnlyImages = (values: any[]) => {
-	const checks = values?.map(isImage)
-	const valid = checks?.every((c) => c.valid)
+	const checks = values.map(isImage)
+	const valid = checks.every((c) => c.valid)
 	const error = valid ? undefined : 'contains invalid images'
 	return { valid, error }
 }
 
-export class AnswerFactory extends BaseFactory<AnswerEntity, AnswerToModel> {
+export class AnswerFactory extends BaseFactory<AnswerEntity, AnswerToModel, Keys> {
 	readonly rules = {
 		body: { required: true, rules: [isLongerThan2] },
 		attachments: { required: true, rules: [containsOnlyImages] },
@@ -27,21 +31,8 @@ export class AnswerFactory extends BaseFactory<AnswerEntity, AnswerToModel> {
 		ratings: { required: false, rules: [] }
 	}
 
-	values: {
-		body: string, attachments: Content[], credits: number, questionId: string,
-		userId: string, user: UserBio | undefined, likes: number, ratings: number
-	} =
-		{ body: '', attachments: [], credits: 10, questionId: '', userId: '', user: undefined, likes: 0, ratings: 0 }
-
-	validValues: {
-		body: string, attachments: Content[], credits: number, questionId: string,
-		userId: string, user: UserBio | undefined, likes: number, ratings: number
-	} =
-		{ body: '', attachments: [], credits: 10, questionId: '', userId: '', user: undefined, likes: 0, ratings: 0 }
-
-	errors = {
-		body: undefined, attachments: undefined, likes: undefined, ratings: undefined,
-		questionId: undefined, userId: undefined, user: undefined, credits: undefined
+	constructor () {
+		super({ body: '', attachments: [], credits: 10, questionId: '', userId: '', user: undefined, likes: 0, ratings: 0 })
 	}
 
 	reserved = ['questionId', 'credits']

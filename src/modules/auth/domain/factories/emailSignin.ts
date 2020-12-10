@@ -2,18 +2,20 @@ import { BaseFactory } from '@modules/core/domains/factories/base'
 import { isLongerThan, isShorterThan, isEmail } from 'sd-validate/lib/rules'
 import { AuthUser } from '../entities/auth'
 
+type Keys = { email: string, password: string }
 const isLongerThan5 = (value:string) => isLongerThan(value, 5)
 const isNotLongerThan17 = (value:string) => isShorterThan(value, 17)
 
-export class EmailSigninFactory extends BaseFactory<null, AuthUser> {
+export class EmailSigninFactory extends BaseFactory<null, AuthUser, Keys> {
 	readonly rules = {
 		email: { required: true, rules: [isEmail] },
 		password: { required: true, rules: [isLongerThan5, isNotLongerThan17] }
 	}
 
-	values = { email: '', password: '' }
-	validValues = { email: '', password: '' }
-	errors = { email: undefined, password: undefined }
+	constructor () {
+		super({ email: '', password: '' })
+	}
+
 	reserved = []
 
 	get email () { return this.values.email }

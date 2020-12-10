@@ -1,14 +1,17 @@
 import { BaseFactory } from '@modules/core/domains/factories/base'
 import { isEmail } from 'sd-validate/lib/rules'
 
-export class PasswordResetFactory extends BaseFactory<null, { email: string }> {
+type Keys = { email: string }
+
+export class PasswordResetFactory extends BaseFactory<null, Keys, Keys> {
 	readonly rules = {
 		email: { required: true, rules: [isEmail] }
 	}
 
-	values = { email: '' }
-	validValues = { email: '' }
-	errors = { email: undefined }
+	constructor () {
+		super({ email: '' })
+	}
+
 	reserved = []
 
 	get email () { return this.values.email }

@@ -6,6 +6,10 @@ import { QuestionEntity } from '../entities/question'
 import { QuestionToModel } from '../../data/models/question'
 
 type Content = File | Media
+type Keys = {
+	body: string, attachments: Content[], credits: number, subjectId: string,
+	userId: string, user: UserBio | undefined, answerId: string | undefined
+}
 const isLongerThan0 = (value: string) => isLongerThan(value, 0)
 const isLongerThan2 = (value: string) => isLongerThan(value, 2)
 const containsOnlyImages = (values: any[]) => {
@@ -15,7 +19,7 @@ const containsOnlyImages = (values: any[]) => {
 	return { valid, error }
 }
 
-export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel> {
+export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel, Keys> {
 	readonly rules = {
 		body: { required: true, rules: [isLongerThan2] },
 		attachments: { required: true, rules: [containsOnlyImages] },
@@ -26,13 +30,10 @@ export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel
 		user: { required: true, rules: [] }
 	}
 
-	values: { body: string, attachments: Content[], credits: number, subjectId: string, userId: string, user: UserBio | undefined, answerId: string | undefined } =
-		{ body: '', attachments: [], credits: 10, subjectId: '', userId: '', user: undefined, answerId: undefined }
+	constructor () {
+		super({ body: '', attachments: [], credits: 10, subjectId: '', userId: '', user: undefined, answerId: undefined })
+	}
 
-	validValues: { body: string, attachments: Content[], credits: number, subjectId: string, userId: string, user: UserBio | undefined, answerId: string | undefined } =
-		{ body: '', attachments: [], credits: 10, subjectId: '', userId: '', user: undefined, answerId: undefined }
-
-	errors = { body: undefined, attachments: undefined, subjectId: undefined, userId: undefined, user: undefined, answerId: undefined }
 	reserved = []
 
 	get body () { return this.values.body }

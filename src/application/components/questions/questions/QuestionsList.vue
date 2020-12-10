@@ -5,20 +5,17 @@
 				Questions
 			</h1>
 			<form class="form-inline mx-auto mr-md-0 ml-md-auto">
-				<select class="form-control form-control-sm rounded-pill mr-1 my-1">
-					<option disabled :value="null">
-						Please
-					</option>
-					<option v-for="(option, index) in ['All', 'Answered', 'Unanswered']" :key="index" :value="option">
-						{{ option }}
+				<select v-model="answered" class="form-control form-control-sm rounded-pill mr-1 my-1">
+					<option v-for="choice in answeredChoices" :key="choice.val" :value="choice.val">
+						{{ choice.key }}
 					</option>
 				</select>
-				<select class="form-control form-control-sm rounded-pill my-1">
-					<option disabled :value="null">
-						Please
+				<select v-model="subjectId" class="form-control form-control-sm rounded-pill my-1">
+					<option value="">
+						All
 					</option>
-					<option v-for="(option, index) in ['All', 'Answered', 'Unanswered']" :key="index" :value="option">
-						{{ option }}
+					<option v-for="subject in subjects" :key="subject.id" :value="subject.id">
+						{{ subject.name }}
 					</option>
 				</select>
 			</form>
@@ -34,7 +31,9 @@
 			</div>
 		</div>
 		<DisplayError :error="error" />
+		<DisplayError :error="subError" />
 		<PageLoading v-if="loading" />
+		<PageLoading v-if="subLoading" />
 	</div>
 </template>
 
@@ -42,15 +41,23 @@
 import { defineComponent, onMounted, onBeforeUnmount } from '@nuxtjs/composition-api'
 import QuestionCard from '@app/components/questions/questions/QuestionsListCard.vue'
 import { useQuestionList } from '@app/hooks/questions/questions'
+import { useSubjectList } from '@app/hooks/questions/subjects'
 export default defineComponent({
 	name: 'QuestionsList',
 	components: { QuestionCard },
 	setup () {
-		const { questions, error, loading, hasMore, fetchOlderQuestions, startQuestionListener, closeQuestionListener } = useQuestionList()
+		const { subjects, error: subError, loading: subLoading } = useSubjectList()
+		const {
+			filteredQuestions, error, loading, hasMore,
+			answeredChoices, answered, subjectId,
+			fetchOlderQuestions, startQuestionListener, closeQuestionListener
+		} = useQuestionList()
 		onMounted(startQuestionListener)
 		onBeforeUnmount(closeQuestionListener)
 		return {
-			questions, error, loading, hasMore, fetchOlderQuestions
+			subjects, subError, subLoading,
+			questions: filteredQuestions, error, loading, hasMore, fetchOlderQuestions,
+			answeredChoices, answered, subjectId
 		}
 	}
 })

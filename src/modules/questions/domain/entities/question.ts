@@ -40,6 +40,8 @@ export class QuestionEntity extends BaseEntity {
 			}))
 		this.createdAt = createdAt
 	}
+
+	get isAnswered () { return !!this.answerId }
 }
 
 type QuestionConstructorArgs = {

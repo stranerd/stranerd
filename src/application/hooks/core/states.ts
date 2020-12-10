@@ -1,8 +1,8 @@
-import { reqRef, watch } from '@nuxtjs/composition-api'
+import { ssrRef, watch } from '@nuxtjs/composition-api'
 import { Notify } from '@app/hooks/core/notifications'
 
 export const useErrorHandler = () => {
-	const errorState = reqRef('')
+	const errorState = ssrRef('')
 	watch(() => errorState.value, async () => {
 		if (errorState.value) await Notify({
 			title: errorState.value,
@@ -14,7 +14,7 @@ export const useErrorHandler = () => {
 }
 
 export const useSuccessHandler = () => {
-	const successState = reqRef('')
+	const successState = ssrRef('')
 	watch(() => successState.value, async () => {
 		if (successState.value) await Notify({
 			title: successState.value,
@@ -26,7 +26,7 @@ export const useSuccessHandler = () => {
 }
 
 export const useLoadingHandler = () => {
-	const loadingState = reqRef(false)
+	const loadingState = ssrRef(false)
 	const setLoading = (loading: boolean) => loadingState.value = loading
 	return { loading: loadingState, setLoading }
 }

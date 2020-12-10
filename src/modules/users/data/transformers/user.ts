@@ -1,4 +1,4 @@
-import { timestampToDate } from '@modules/core/data/transformers/converters/getFirestoreDate'
+import { timestampToDateString } from '@modules/core/data/transformers/converters/getFirestoreDate'
 import { UserFromModel, UserToModel } from '../models/user'
 import { UserEntity } from '../../domain/entities/user'
 
@@ -8,7 +8,7 @@ export class UserTransformer {
 		return new UserEntity({
 			id, bio, roles, account, rankings,
 			dates: {
-				signedUpAt: timestampToDate(dates?.signedUpAt)
+				signedUpAt: timestampToDateString(dates?.signedUpAt)
 			}
 		})
 	}

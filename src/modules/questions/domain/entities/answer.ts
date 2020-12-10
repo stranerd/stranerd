@@ -14,7 +14,7 @@ export class AnswerEntity extends BaseEntity {
 	public readonly ratings: number
 	public readonly comments: { id: string, body: string, userId: string, user: UserBio }[]
 	public readonly commentsCount: number
-	public readonly createdAt: Date
+	public readonly createdAt: string
 
 	constructor ({
 		id, body, credits, questionId, attachments,
@@ -47,7 +47,7 @@ type AnswerConstructorArgs = {
 	attachments: Media[]
 	credits: number
 	questionId: string
-	createdAt: Date
+	createdAt: string
 	userId: string
 	user: UserBio
 	likes: number

@@ -1,4 +1,4 @@
-import { timestampToDate } from '@modules/core/data/transformers/converters/getFirestoreDate'
+import { timestampToDateString } from '@modules/core/data/transformers/converters/getFirestoreDate'
 import { CommentFromModel, CommentToModel } from '../models/comment'
 import { CommentEntity } from '../../domain/entities/comment'
 
@@ -10,7 +10,7 @@ export class CommentTransformer {
 		} = model
 		return new CommentEntity({
 			id, body, userId, user,
-			createdAt: timestampToDate(createdAt)
+			createdAt: timestampToDateString(createdAt)
 		})
 	}
 

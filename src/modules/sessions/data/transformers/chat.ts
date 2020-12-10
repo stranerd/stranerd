@@ -1,4 +1,4 @@
-import { dateToMilliseconds, timestampToDate } from '@modules/core/data/transformers/converters/getFirestoreDate'
+import { dateToMilliseconds, timestampToDateString } from '@modules/core/data/transformers/converters/getFirestoreDate'
 import { ChatFromModel, ChatToModel } from '../models/chat'
 import { ChatEntity } from '../../domain/entities/chat'
 
@@ -8,8 +8,8 @@ export class ChatTransformer {
 		return new ChatEntity({
 			id,
 			content, media, from,
-			createdAt: timestampToDate(createdAt)!,
-			readAt: timestampToDate(readAt)!
+			createdAt: timestampToDateString(createdAt)!,
+			readAt: timestampToDateString(readAt)!
 		})
 	}
 
@@ -18,7 +18,7 @@ export class ChatTransformer {
 			from: entity.from,
 			...(entity.content ? { content: entity.content } : {}),
 			...(entity.media ? { media: entity.media } : {}),
-			...(entity.readAt ? { readAt: dateToMilliseconds(entity.readAt) } : {})
+			...(entity.readAt ? { readAt: dateToMilliseconds(new Date(entity.readAt)) } : {})
 		}
 	}
 }

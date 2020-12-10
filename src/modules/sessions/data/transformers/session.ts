@@ -1,4 +1,4 @@
-import { timestampToDate } from '@modules/core/data/transformers/converters/getFirestoreDate'
+import { timestampToDateString } from '@modules/core/data/transformers/converters/getFirestoreDate'
 import { SessionFromModel, SessionToModel } from '../models/Session'
 import { SessionEntity } from '../../domain/entities/Session'
 
@@ -13,8 +13,8 @@ export class SessionTransformer {
 		return new SessionEntity({
 			id, studentId, tutorId, studentBio, tutorBio,
 			duration, price, paid, accepted, cancelled, reviews,
-			createdAt: timestampToDate(createdAt)!,
-			endedAt: endedAt ? timestampToDate(endedAt)! : undefined
+			createdAt: timestampToDateString(createdAt)!,
+			endedAt: endedAt ? timestampToDateString(endedAt)! : undefined
 		})
 	}
 

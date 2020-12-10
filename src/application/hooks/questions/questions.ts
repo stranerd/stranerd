@@ -38,8 +38,8 @@ export const useQuestionList = () => {
 			setGlobalLoading(true)
 			const lastDate = global.questions
 				.value[global.questions.value.length]
-				?.createdAt ?? undefined
-			const questions = await GetQuestions.call(lastDate)
+				?.createdAt
+			const questions = await GetQuestions.call(lastDate ? new Date(lastDate) : undefined)
 			global.hasMore.value = questions.length === PAGINATION_LIMIT + 1
 			questions.slice(0, PAGINATION_LIMIT).forEach(pushToQuestionList)
 			global.fetched.value = true
@@ -52,7 +52,7 @@ export const useQuestionList = () => {
 			.value[global.questions.value.length]
 			?.createdAt ?? undefined
 		global.listener = await ListenToQuestions
-			.call(appendQuestions, lastDate)
+			.call(appendQuestions, lastDate ? new Date(lastDate) : undefined)
 	}
 	const filteredQuestions = computed({
 		get: () => global.questions.value.filter((q) => {

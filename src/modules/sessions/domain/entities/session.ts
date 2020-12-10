@@ -17,8 +17,8 @@ export class SessionEntity extends BaseEntity {
 		tutor?: { rating: number, comment: string }
 	}
 
-	readonly createdAt: Date
-	readonly endedAt?: Date
+	readonly createdAt: string
+	readonly endedAt?: string
 
 	constructor ({
 		id, duration, price, paid,
@@ -50,5 +50,5 @@ type SessionConstructorArgs = {
 		student?: { rating: number, comment: string }
 		tutor?: { rating: number, comment: string }
 	},
-	createdAt: Date, endedAt?: Date,
+	createdAt: string, endedAt?: string,
 }

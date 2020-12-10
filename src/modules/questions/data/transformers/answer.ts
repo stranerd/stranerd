@@ -1,4 +1,4 @@
-import { timestampToDate } from '@modules/core/data/transformers/converters/getFirestoreDate'
+import { timestampToDateString } from '@modules/core/data/transformers/converters/getFirestoreDate'
 import { AnswerFromModel, AnswerToModel } from '../models/answer'
 import { AnswerEntity } from '../../domain/entities/answer'
 
@@ -13,7 +13,7 @@ export class AnswerTransformer {
 			id, body, attachments, credits,
 			questionId, userId, user,
 			likes, ratings, comments,
-			createdAt: timestampToDate(createdAt)
+			createdAt: timestampToDateString(createdAt)
 		})
 	}
 

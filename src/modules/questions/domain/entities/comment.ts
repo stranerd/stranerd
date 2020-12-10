@@ -6,7 +6,7 @@ export class CommentEntity extends BaseEntity {
 	public readonly body: string
 	public readonly userId: string
 	public readonly user: UserBio
-	public readonly createdAt: Date
+	public readonly createdAt: string
 
 	constructor ({ id, body, createdAt, userId, user }: CommentConstructorArgs) {
 		super()
@@ -23,5 +23,5 @@ type CommentConstructorArgs = {
 	body: string
 	userId: string
 	user: UserBio
-	createdAt: Date
+	createdAt: string
 }

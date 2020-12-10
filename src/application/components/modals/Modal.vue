@@ -60,7 +60,7 @@ export default defineComponent({
 	width: 100vw;
 	//height: 100vh;
 	max-width: 800px;
-	padding: 1rem;
+	padding: 0.5rem;
 	position: absolute;
 	background: #ffffff;
 	box-shadow: 0 4px 8px $color-black;
@@ -73,6 +73,7 @@ export default defineComponent({
 }
 @media (min-width: $sm){
 	.modal-inner{
+		padding: 1rem;
 		width: 95%;
 		height: auto;
 		max-height: 95%;

@@ -9,9 +9,9 @@ type Content = File | Media
 const isLongerThan0 = (value: string) => isLongerThan(value, 0)
 const isLongerThan2 = (value: string) => isLongerThan(value, 2)
 const containsOnlyImages = (values: any[]) => {
-	const checks = values.map(isImage)
-	const valid = checks.every((c) => c.valid)
-	const error = checks.find((c) => c.error)?.error
+	const checks = values?.map(isImage)
+	const valid = checks?.every((c) => c.valid)
+	const error = valid ? undefined : 'contains invalid images'
 	return { valid, error }
 }
 
@@ -58,8 +58,8 @@ export class AnswerFactory extends BaseFactory<AnswerEntity, AnswerToModel> {
 	}
 
 	get attachments () { return this.values.attachments }
-	addAttachment (value: Content) { return this.set('attachments', [...this.values.attachments, value]) }
-	removeAttachment (value: Content) { return this.set('attachments', this.values.attachments.filter((doc) => doc.name !== value.name)) }
+	addAttachment = (value: Content) => this.set('attachments', [...this.values.attachments, value])
+	removeAttachment = (value: Content) => this.set('attachments', this.values.attachments.filter((doc) => doc.name !== value.name))
 
 	loadEntity = (entity: AnswerEntity) => {
 		this.body = entity.body

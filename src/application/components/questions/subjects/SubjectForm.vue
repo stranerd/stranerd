@@ -15,7 +15,7 @@
 			<input ref="iconInput" type="file" class="d-none" accept="image/*" @change="catchIcon">
 			<img v-if="iconLink" :src="iconLink" class="mr-2" height="50px" alt="">
 			<span v-if="factory.icon">{{ factory.icon.name }}</span>
-			<a class="text-info d-block my-1" @click.prevent="() => { $refs.iconInput.value= ''; $refs.iconInput.click() }">
+			<a class="text-info my-1" @click.prevent="() => { $refs.iconInput.value= ''; $refs.iconInput.click() }">
 				{{ factory.icon ? 'Change' : 'Upload' }} subject icon
 			</a>
 			<small v-if="factory.errors.icon" class="small text-danger d-block">{{ factory.errors.icon }}</small>

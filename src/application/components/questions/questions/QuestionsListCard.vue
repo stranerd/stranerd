@@ -18,7 +18,7 @@
 					+{{ question.credits }}
 				</span>
 			</div>
-			<button class="btn btn-sm rounded-pill py-0 px-1 btn-accent ml-1 text-white" @click="openAnswerModal">
+			<button v-if="!question.answerId" class="btn btn-sm rounded-pill py-0 px-1 btn-accent ml-1 text-white" @click="openAnswerModal">
 				Answer
 			</button>
 		</div>

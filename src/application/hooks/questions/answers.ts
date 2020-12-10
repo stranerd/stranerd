@@ -67,7 +67,7 @@ export const openAnswerModal = (question: QuestionEntity) => {
 	useCreateModal().setCreateModalAnswer()
 }
 
-export const createAnswer = () => {
+export const useCreateAnswer = () => {
 	const { id, bio } = useAuth()
 	const factory = reqRef(new AnswerFactory())
 	const { loading, setLoading } = useLoadingHandler()

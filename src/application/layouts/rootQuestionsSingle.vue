@@ -1,9 +1,9 @@
 <template>
-	<div>
-		<h1>Single</h1>
+	<section>
+		<DefaultTopNavigation class="shadowed" />
 		<Nuxt />
 		<ModalBase />
-	</div>
+	</section>
 </template>
 
 <script lang="ts">
@@ -16,3 +16,9 @@ export default defineComponent({
 	}
 })
 </script>
+
+<style lang="scss" scoped>
+.shadowed {
+	box-shadow: 0 3px 10px rgba($color-black, 0.1);
+}
+</style>

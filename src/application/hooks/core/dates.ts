@@ -15,8 +15,8 @@ const startInterval = (dif: number, caller: (time: number) => void) => {
 	else return undefined
 }
 
-export const useTimeDifference = (date: Date) => {
-	date = new Date(date) // In cases where date is serialized to a string in backend, this is done to get back a date
+export const useTimeDifference = (dateString: string) => {
+	const date = new Date(dateString)
 	const diffInSec = ref(Math.floor((Date.now() - date.getTime()) / 1000))
 	let interval = undefined as number | undefined
 

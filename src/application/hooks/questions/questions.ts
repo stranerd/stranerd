@@ -61,6 +61,8 @@ export const useQuestionList = () => {
 			if (answered.value === 1 && !q.isAnswered) matched = false
 			if (answered.value === 2 && q.isAnswered) matched = false
 			return matched
+		}).sort((a, b) => {
+			return new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
 		}), set: () => {}
 	})
 

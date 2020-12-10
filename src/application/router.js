@@ -20,13 +20,17 @@ export const createRouter = (ssrContext, createDefaultRouter, routerOptions) => 
 		const routes = options.routes
 		const nonRootRoutes = routes.filter((route) => !isUnderDirectory(route, root))
 
+		const getNewRoute = (route) => {
+			return {
+				...route,
+				path: route.path?.substr(root.length + 1) ?? '/',
+				name: route.name?.substr(root.length + 1) ?? 'index',
+				children: route.children?.map(getNewRoute) ?? []
+			}
+		}
 		const rootRoutes = routes
 			.filter((route) => isUnderDirectory(route, root))
-			.map((route) => ({
-				...route,
-				path: route.path.substr(root.length + 1) || '/',
-				name: route.name.substr(root.length + 1) || 'index'
-			}))
+			.map(getNewRoute)
 
 		return new Router({
 			...options,

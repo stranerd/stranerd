@@ -5,9 +5,6 @@
 			<h1 class="title">
 				application root
 			</h1>
-			<BaseLink to="/page" :root="true">
-				Page
-			</BaseLink>
 			<div v-if="isLoggedIn">
 				<button class="d-block mx-auto btn btn-danger mt-4" @click="signout">
 					Sign Out

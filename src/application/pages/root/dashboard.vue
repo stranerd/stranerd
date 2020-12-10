@@ -36,6 +36,7 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import { useCreateModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'RootDashboardPage',
+	layout: 'dashboard',
 	middleware: ['isAuthenticated'],
 	setup () {
 		const { setCreateModalQuestion } = useCreateModal()

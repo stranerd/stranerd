@@ -1,6 +1,6 @@
 <template>
 	<form class="mx-2" @submit.prevent="submit">
-		<div class="form-group my-3">
+		<div class="form-group my-2">
 			<label class="label">Name</label>
 			<input
 				v-model="factory.name"
@@ -10,7 +10,7 @@
 			>
 			<small v-if="factory.errors.name" class="small text-danger d-block">{{ factory.errors.name }}</small>
 		</div>
-		<div class="form-group my-3">
+		<div class="form-group my-2">
 			<label class="label d-block">Icon</label>
 			<input ref="iconInput" type="file" class="d-none" accept="image/*" @change="catchIcon">
 			<img v-if="iconLink" :src="iconLink" class="mr-2" height="50px" alt="">
@@ -21,9 +21,9 @@
 			<small v-if="factory.errors.icon" class="small text-danger d-block">{{ factory.errors.icon }}</small>
 		</div>
 		<hr>
-		<div class="d-flex justify-content-end my-3">
+		<div class="d-flex justify-content-end my-2">
 			<button class="btn btn-gold" type="submit" :disabled="loading || !factory.valid">
-				<PageLoading v-if="loading" class="mr-2" />
+				<PageLoading v-if="loading" />
 				<span><slot name="buttonText">Submit</slot></span>
 			</button>
 		</div>

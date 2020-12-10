@@ -4,11 +4,29 @@
 			<textarea
 				v-model="factory.body"
 				class="form-control"
-				placeholder="Answer"
+				placeholder="Question"
 				rows="4"
 				:class="{'is-invalid': factory.errors.body, 'is-valid': factory.isValid('body')}"
 			/>
 			<small v-if="factory.errors.body" class="small text-danger d-block">{{ factory.errors.body }}</small>
+		</div>
+		<div class="form-group d-flex flex-column flex-sm-row my-2">
+			<select v-model="factory.subjectId" class="form-control form-control-sm rounded-pill">
+				<option disabled value="">
+					Select a subject
+				</option>
+				<option v-for="subject in subjects" :key="subject.id" :value="subject.id">
+					{{ subject.name }}
+				</option>
+			</select>
+			<select v-model="factory.credits" class="form-control form-control-sm rounded-pill">
+				<option disabled value="0">
+					Select credits
+				</option>
+				<option v-for="credit in credits" :key="credit" :value="credit">
+					{{ credit }}
+				</option>
+			</select>
 		</div>
 		<div class="form-group my-2">
 			<label class="label d-block">Attachments</label>
@@ -35,25 +53,32 @@
 			<small v-if="factory.errors.attachments" class="small text-danger d-block">{{ factory.errors.attachments }}</small>
 		</div>
 		<hr>
-		<div class="d-flex justify-content-end my-2">
+		<div class="d-flex justify-content-end my-3">
 			<button class="btn btn-red text-white" type="submit" :disabled="loading || !factory.valid">
 				<PageLoading v-if="loading" />
 				<span><slot name="buttonText">Submit</slot></span>
 			</button>
 		</div>
+		<PageLoading v-if="subLoading" />
 		<DisplayError :error="error" />
+		<DisplayError :error="subError" />
 	</form>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useMultipleFileInputs } from '@app/hooks/core/forms'
-import { AnswerFactory } from '@modules/questions'
+import { QuestionFactory } from '@modules/questions'
+import { useSubjectList } from '@app/hooks/questions/subjects'
 export default defineComponent({
-	name: 'AnswerForm',
+	name: 'QuestionForm',
 	props: {
 		factory: {
-			type: AnswerFactory,
+			type: QuestionFactory,
+			required: true
+		},
+		credits: {
+			type: Array,
 			required: true
 		},
 		submit: {
@@ -70,10 +95,14 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
+		const { subjects, loading: subLoading, error: subError } = useSubjectList()
 		const { catchMultipleFiles: catchAttachments } = useMultipleFileInputs(
 			(files: File[]) => files.map(props.factory.addAttachment)
 		)
-		return { catchAttachments }
+		return {
+			subjects, subLoading, subError,
+			catchAttachments
+		}
 	}
 })
 </script>

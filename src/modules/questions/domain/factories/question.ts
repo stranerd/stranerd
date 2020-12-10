@@ -1,17 +1,20 @@
-import { isLongerThan, isImage } from 'sd-validate/lib/rules'
+import { isLongerThan, isImage, isMoreThan, isLessThan } from 'sd-validate/lib/rules'
 import { BaseFactory } from '@modules/core/domains/factories/base'
 import { Media } from '@modules/core/data/models/base'
 import { UserBio } from '@modules/users'
+import { MAXIMUM_CREDITS, MINIMUM_CREDITS } from '@utils/constants'
 import { QuestionEntity } from '../entities/question'
 import { QuestionToModel } from '../../data/models/question'
 
 type Content = File | Media
 type Keys = {
 	body: string, attachments: Content[], credits: number, subjectId: string,
-	userId: string, user: UserBio | undefined, answerId: string | undefined
+	userId: string, user: UserBio | undefined, answerId: string
 }
 const isLongerThan0 = (value: string) => isLongerThan(value, 0)
 const isLongerThan2 = (value: string) => isLongerThan(value, 2)
+const isMoreThanMinimum = (value: number) => isMoreThan(value, MINIMUM_CREDITS - 1)
+const isLessThanMaximum = (value: number) => isLessThan(value, MAXIMUM_CREDITS + 1)
 const containsOnlyImages = (values: any[]) => {
 	const checks = values.map(isImage)
 	const valid = checks.every((c) => c.valid)
@@ -23,7 +26,7 @@ export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel
 	readonly rules = {
 		body: { required: true, rules: [isLongerThan2] },
 		attachments: { required: true, rules: [containsOnlyImages] },
-		credits: { required: true, rules: [] },
+		credits: { required: true, rules: [isMoreThanMinimum, isLessThanMaximum] },
 		subjectId: { required: true, rules: [isLongerThan0] },
 		userId: { required: true, rules: [isLongerThan0] },
 		answerId: { required: false, rules: [] },
@@ -31,7 +34,7 @@ export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel
 	}
 
 	constructor () {
-		super({ body: '', attachments: [], credits: 10, subjectId: '', userId: '', user: undefined, answerId: undefined })
+		super({ body: '', attachments: [], credits: MINIMUM_CREDITS, subjectId: '', userId: '', user: undefined, answerId: '' })
 	}
 
 	reserved = []

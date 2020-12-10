@@ -1,11 +1,12 @@
-import { reqRef, useFetch, watch } from '@nuxtjs/composition-api'
+import { reqRef, useFetch, watch, computed, useContext } from '@nuxtjs/composition-api'
 import {
 	AddQuestion, FindQuestion, GetQuestions, ListenToQuestion,
 	ListenToQuestions, QuestionEntity, QuestionFactory
 } from '@modules/questions'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
-import { PAGINATION_LIMIT } from '@utils/constants'
+import { MINIMUM_CREDITS, PAGINATION_LIMIT } from '@utils/constants'
 import { useAuth } from '@app/hooks/auth/auth'
+import { useCreateModal } from '@app/hooks/core/modals'
 
 const global = {
 	questions: reqRef([] as QuestionEntity[]),
@@ -62,11 +63,28 @@ export const useQuestionList = () => {
 }
 
 const factory = reqRef(new QuestionFactory())
-export const createQuestion = () => {
-	const { id, bio } = useAuth()
+export const useCreateQuestion = () => {
+	const { id, bio, user, isLoggedIn } = useAuth()
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const { setMessage } = useSuccessHandler()
+	const router = useContext().app.router
+	const credits = computed({
+		get: () => {
+			if (!isLoggedIn) {
+				setError('Login to continue')
+				return []
+			}
+			if (user.value!.account.credits < MINIMUM_CREDITS) {
+				setError(`You need at least ${MINIMUM_CREDITS} credits to ask a question`)
+				return []
+			}
+			const credits = []
+			const maximum = user.value!.account.credits <= 100 ? user.value!.account.credits : 100
+			for (let i = MINIMUM_CREDITS; i <= maximum; i = i + 5) credits.push(i)
+			return credits
+		}, set: () => {}
+	})
 
 	factory.value.userBioAndId = { id: id.value!, user: bio.value! }
 	watch(() => id.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
@@ -78,7 +96,9 @@ export const createQuestion = () => {
 			try {
 				setLoading(true)
 				const questionId = await AddQuestion.call(factory.value)
-				setMessage(`Question asked successfully with id: ${questionId}`)
+				setMessage('Question submitted successfully')
+				useCreateModal().closeCreateModal()
+				await router?.push(`/questions/${questionId}`)
 				factory.value.reset()
 			} catch (error) { setError(error) }
 			setLoading(false)
@@ -86,7 +106,7 @@ export const createQuestion = () => {
 	}
 
 	return {
-		error, loading, factory,
+		error, loading, factory, credits,
 		createQuestion
 	}
 }

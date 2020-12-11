@@ -1,9 +1,6 @@
 <template>
 	<div>
-		<div v-for="answer in answers" :key="answer.hash">
-			<AnswerCard :question-id="questionId" :answer="answer" />
-			<hr class="thick">
-		</div>
+		<AnswerCard v-for="answer in answers" :key="answer.hash" :question-id="questionId" :answer="answer" />
 		<DisplayError v-if="answers.length === 0" error="This question doesn't have any answers yet." />
 		<DisplayError :error="error" />
 		<PageLoading v-if="loading" />

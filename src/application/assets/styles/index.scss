@@ -40,6 +40,10 @@ input.form-control, textarea.form-control {
 
 a {
 	cursor: pointer;
+	color: inherit;
+	&:hover {
+		color: $color-red;
+	}
 }
 
 .dropdown-menu-full{

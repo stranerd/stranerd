@@ -24,14 +24,18 @@
 				<span>{{ answer.commentsCount }}</span>
 				<i class="fas fa-envelope" />
 			</span>
-			<span class="mr-1">
+			<a class="mr-1" @click="likeAnswer">
 				<i class="fas fa-heart" />
 				<span class="text-danger">LIKES {{ answer.likes }}</span>
-			</span>
+			</a>
 			<span class="mr-1">
-				<i class="fas fa-star" />
-				<span class="text-gold">{{ answer.ratings }}</span>
+				<SelectRating :rating="0" :set-rating="rateAnswer" />
+				<span class="text-gold">{{ answer.formattedRating }}</span>
 			</span>
+		</div>
+		<div class="my-1 px-1 px-md-2">
+			<DisplayError :error="error" />
+			<PageLoading v-if="loading" />
 		</div>
 	</div>
 </template>
@@ -41,8 +45,13 @@ import { computed, defineComponent, onBeforeUnmount, onMounted, PropType } from 
 import { AnswerEntity } from '@modules/questions'
 import { useQuestionList } from '@app/hooks/questions/questions'
 import { useTimeDifference } from '@app/hooks/core/dates'
+import { useAnswer } from '@app/hooks/questions/answers'
+import SelectRating from '@app/components/core/SelectRating.vue'
 export default defineComponent({
 	name: 'AnswerListCard',
+	components: {
+		SelectRating
+	},
 	props: {
 		questionId: {
 			required: true,
@@ -60,9 +69,13 @@ export default defineComponent({
 			set: () => {}
 		})
 		const { time, startTimer, stopTimer } = useTimeDifference(props.answer.createdAt)
+		const { error, loading, rateAnswer, likeAnswer } = useAnswer(props.answer)
 		onMounted(startTimer)
 		onBeforeUnmount(stopTimer)
-		return { question, time }
+		return {
+			question, time,
+			error, loading, rateAnswer, likeAnswer
+		}
 	}
 })
 </script>

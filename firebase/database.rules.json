@@ -1,18 +1,35 @@
 {
 	"rules": {
+		"answers": {
+			"$answerId": {
+				".read": false,
+				"likes": {
+					"$userId": {
+						".write": "auth.uid != null"
+					}
+				},
+				"ratings": {
+					"$userId": {
+						".write": "auth.uid != null"
+					}
+				}
+			}
+		},
 		"comments": {
 			"answers": {
 				".read": true,
 				"$answerId": {
-					".read": true,
-					".write": "auth.uid != null"
+					"$userId": {
+						".write": "auth.uid != null"
+					}
 				}
 			},
 			"questions": {
 				".read": true,
 				"$questionId": {
-					".read": true,
-					".write": "auth.uid != null"
+					"$userId": {
+						".write": "auth.uid != null"
+					}
 				}
 			}
 		},

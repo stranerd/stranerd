@@ -39,6 +39,8 @@ export class AnswerEntity extends BaseEntity {
 			}))
 		this.createdAt = createdAt
 	}
+
+	get formattedRating () { return Number(this.ratings).toFixed(1) }
 }
 
 type AnswerConstructorArgs = {

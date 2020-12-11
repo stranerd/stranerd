@@ -14,7 +14,7 @@ import { sessionChatMediaDeleted } from './modules/sessions/chats'
 import { questionCommentModified, answerCommentModified } from './modules/questions/comments'
 import { subjectUpdated, subjectDeleted } from './modules/questions/subjects'
 import { questionCreated, questionUpdated, questionDeleted } from './modules/questions/questions'
-import { answerCreated, answerUpdated, answerDeleted, answerLikeCreated, answerRatingCreated } from './modules/questions/answers'
+import { answerCreated, answerUpdated, answerDeleted, answerLiked, answerRated } from './modules/questions/answers'
 
 admin.initializeApp()
 
@@ -46,7 +46,7 @@ export { subjectUpdated, subjectDeleted }
 // Questions
 export { questionCreated, questionUpdated, questionDeleted }
 // Answers
-export { answerCreated, answerUpdated, answerDeleted, answerLikeCreated, answerRatingCreated }
+export { answerCreated, answerUpdated, answerDeleted, answerLiked, answerRated }
 // Comments
 export { questionCommentModified, answerCommentModified }
 

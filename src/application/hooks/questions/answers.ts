@@ -108,6 +108,7 @@ export const useAnswer = (answer: AnswerEntity) => {
 		setLoading(false)
 	}
 	const rateAnswer = async (rating: number) => {
+		if (rating > 5 || rating < 0) return
 		const userId = useAuth().id.value!
 		setError('')
 		try {

@@ -4,7 +4,7 @@ import {
 	ListenToQuestions, QuestionEntity, QuestionFactory
 } from '@modules/questions'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
-import { MINIMUM_CREDITS, PAGINATION_LIMIT } from '@utils/constants'
+import { CREDITS_GAP, MAXIMUM_CREDITS, MINIMUM_CREDITS, PAGINATION_LIMIT } from '@utils/constants'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useCreateModal } from '@app/hooks/core/modals'
 
@@ -95,8 +95,8 @@ export const useCreateQuestion = () => {
 				return []
 			}
 			const credits = []
-			const maximum = user.value!.account.credits <= 100 ? user.value!.account.credits : 100
-			for (let i = MINIMUM_CREDITS; i <= maximum; i = i + 5) credits.push(i)
+			const maximum = user.value!.account.credits <= MAXIMUM_CREDITS ? user.value!.account.credits : MAXIMUM_CREDITS
+			for (let i = MINIMUM_CREDITS; i <= maximum; i = i + CREDITS_GAP) credits.push(i)
 			return credits
 		}, set: () => {}
 	})

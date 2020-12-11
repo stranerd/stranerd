@@ -21,9 +21,13 @@
 		</div>
 		<div>
 			<p class="mb-1" v-html="question.body" />
-			<span v-if="question.attachments.length">
+			<span v-if="question.attachments.length" class="mr-2">
 				<span>{{ question.attachments.length }}</span>
 				<i class="fas fa-paperclip" />
+			</span>
+			<span v-if="question.answers > 0" class="mr-2">
+				<span>{{ question.answers }}</span>
+				<i class="fas fa-scroll" />
 			</span>
 		</div>
 		<hr class="thick">

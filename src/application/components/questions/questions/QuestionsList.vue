@@ -24,7 +24,7 @@
 		<div>
 			<div v-for="question in questions" :key="question.hash">
 				<QuestionCard :question="question" />
-				<hr class="thick bg-light-grey">
+				<hr class="thick">
 			</div>
 			<div v-if="hasMore" class="text-center py-1 text-18">
 				<a class="font-weight-bold text-grey" @click.prevent="fetchOlderQuestions">LOAD MORE</a>

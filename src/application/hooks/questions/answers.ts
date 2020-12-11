@@ -88,6 +88,7 @@ export const useCreateAnswer = () => {
 				await AddAnswer.call(factory.value)
 				setMessage('Answer submitted successfully.')
 				factory.value.reset()
+				useCreateModal().closeCreateModal()
 			} catch (error) { setError(error) }
 			setLoading(false)
 		} else factory.value.validateAll()

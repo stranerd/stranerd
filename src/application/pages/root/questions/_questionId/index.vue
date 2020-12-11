@@ -9,10 +9,11 @@
 			<PageLoading v-if="loading" />
 		</div>
 		<div v-if="question && question.answers > 0" class="content my-1 my-md-2 my-lg-4">
-			<h1>Answers</h1>
+			<h2>Answers</h2>
+			<AnswersList :question="question" />
 		</div>
 		<div class="content my-1 my-md-2 my-lg-4">
-			<h1>Recent Questions</h1>
+			<h2>Recent Questions</h2>
 		</div>
 	</div>
 </template>
@@ -20,14 +21,15 @@
 <script lang="ts">
 import { defineComponent, onBeforeUnmount, onMounted, useContext } from '@nuxtjs/composition-api'
 import QuestionPageCard from '@app/components/questions/questions/QuestionPageCard.vue'
+import AnswersList from '@app/components/questions/answers/AnswersList.vue'
 import { useQuestion } from '@app/hooks/questions/questions'
 export default defineComponent({
 	name: 'RootQuestionPage',
 	components: {
-		QuestionPageCard
+		QuestionPageCard,
+		AnswersList
 	},
 	layout: 'rootQuestionsSingle',
-	middleware: [],
 	setup () {
 		const { questionId } = useContext().route.value.params
 		const { question, error, loading, startListener, closeListener } = useQuestion(questionId)

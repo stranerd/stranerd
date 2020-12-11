@@ -1,5 +1,5 @@
 <template>
-	<div class="d-flex flex-column flex-lg-row bg-light-grey min-vh-100 p-md-2 p-lg-0">
+	<div class="d-flex flex-column flex-lg-row min-vh-100 p-md-2 p-lg-0">
 		<section class="side-left">
 			<Sidebar />
 		</section>
@@ -59,9 +59,6 @@ export default defineComponent({
 .main-view {
 	flex-grow: 0;
 	padding: 0 0.25rem;
-	@media (min-width: $md) {
-		background-color: inherit;
-	}
 	@media (min-width: $lg) {
 		width: 55%;
 		padding: 1rem;

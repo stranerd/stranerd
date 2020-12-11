@@ -3,12 +3,13 @@
 		<PageLoading v-if="loading" />
 		<div class="content">
 			<QuestionPageCard v-if="question" :question="question" />
+			<DisplayError v-else error="No such question found!" />
 			<DisplayError :error="error" />
 		</div>
-		<!--<div v-if="question && question.answers > 0" class="content">
+		<div class="content">
 			<h2>Answers</h2>
-			<AnswersList :question="question" />
-		</div>-->
+			<AnswersList :question-id="questionId" />
+		</div>
 		<div class="content">
 			<h2>Recent Questions</h2>
 			<hr class="thin">

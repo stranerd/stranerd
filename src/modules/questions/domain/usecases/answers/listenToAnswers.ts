@@ -11,6 +11,7 @@ export class ListenToAnswersUseCase {
 
     async call (questionId: string, callback: (entities: AnswerEntity[]) => void) {
 	    const conditions: FirestoreGetClauses = {
+		    order: { field: 'dates.createdAt', desc: false },
 		    where: [
 			    { field: 'questionId', condition: '==', value: questionId }
 		    ]

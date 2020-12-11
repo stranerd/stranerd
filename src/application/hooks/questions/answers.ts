@@ -1,4 +1,4 @@
-import { Ref, ssrRef, useFetch, watch } from '@nuxtjs/composition-api'
+import { Ref, reqSsrRef, useFetch, watch } from '@nuxtjs/composition-api'
 import {
 	AddAnswer,
 	AnswerEntity,
@@ -9,7 +9,7 @@ import {
 	QuestionEntity,
 	RateAnswer
 } from '@modules/questions'
-import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
+import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useCreateModal } from '@app/hooks/core/modals'
 
@@ -23,9 +23,9 @@ const global: { [questionId: string] : {
 
 export const useAnswerList = (questionId: string) => {
 	if (global[questionId] === undefined) global[questionId] = {
-		answers: ssrRef([]),
-		listener: ssrRef(null),
-		fetched: ssrRef(false),
+		answers: reqSsrRef([]),
+		listener: reqSsrRef(null),
+		fetched: reqSsrRef(false),
 		...useErrorHandler(),
 		...useLoadingHandler()
 	}
@@ -40,15 +40,10 @@ export const useAnswerList = (questionId: string) => {
 		global[questionId].setLoading(false)
 	}
 
-	const startListener = async () => {
-		global[questionId].setError('')
-		try {
-			global[questionId].setLoading(true)
-			const callback = (answers: AnswerEntity[]) => global[questionId].answers.value = answers
-			global[questionId].listener.value = await ListenToAnswers.call(questionId, callback)
-		} catch (error) { global[questionId].setError(error) }
-		global[questionId].setLoading(false)
-	}
+	const listener = useListener(async () => {
+		const callback = (answers: AnswerEntity[]) => global[questionId].answers.value = answers
+		return await ListenToAnswers.call(questionId, callback)
+	})
 
 	if (!global[questionId].fetched.value) useFetch(fetchAnswers)
 
@@ -56,8 +51,7 @@ export const useAnswerList = (questionId: string) => {
 		error: global[questionId].error,
 		loading: global[questionId].loading,
 		answers: global[questionId].answers,
-		startListener,
-		closeListener: () => global[questionId].listener.value?.()
+		listener
 	}
 }
 
@@ -69,7 +63,7 @@ export const openAnswerModal = (question: QuestionEntity) => {
 
 export const useCreateAnswer = () => {
 	const { id, bio } = useAuth()
-	const factory = ssrRef(new AnswerFactory())
+	const factory = reqSsrRef(new AnswerFactory())
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
 	const { setMessage } = useSuccessHandler()

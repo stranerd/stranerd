@@ -35,6 +35,20 @@
 					"order": "ASCENDING"
 				}
 			]
+		},
+		{
+			"collectionGroup": "answers",
+			"queryScope": "COLLECTION",
+			"fields": [
+				{
+					"fieldPath": "questionId",
+					"order": "ASCENDING"
+				},
+				{
+					"fieldPath": "dates.createdAt",
+					"order": "ASCENDING"
+				}
+			]
 		}
 	],
 	"fieldOverrides": []

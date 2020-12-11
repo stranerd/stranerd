@@ -1,23 +1,32 @@
 <template>
-	<div>
+	<div :id="answer.id">
 		{{ answer }}
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from '@nuxtjs/composition-api'
-import { AnswerEntity, QuestionEntity } from '@modules/questions'
+import { computed, defineComponent, PropType } from '@nuxtjs/composition-api'
+import { AnswerEntity } from '@modules/questions'
+import { useQuestionList } from '@app/hooks/questions/questions'
 export default defineComponent({
 	name: 'AnswerListCard',
 	props: {
-		question: {
+		questionId: {
 			required: true,
-			type: Object as PropType<QuestionEntity>
+			type: String
 		},
 		answer: {
 			required: true,
 			type: Object as PropType<AnswerEntity>
 		}
+	},
+	setup (props) {
+		const { questions } = useQuestionList()
+		const question = computed({
+			get: () => questions.value.find((q) => q.id === props.questionId) ?? null,
+			set: () => {}
+		})
+		return { question }
 	}
 })
 </script>

@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div :id="question.id">
 		<BaseLink class="text-grey" :to="`/questions/${question.id}`" :root="true">
 			<p class="mb-1" v-html="question.body" />
 		</BaseLink>

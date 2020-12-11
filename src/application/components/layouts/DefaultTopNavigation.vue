@@ -1,9 +1,9 @@
 <template>
 	<nav class="d-flex align-items-center">
-		<button class="navbar-toggler rounded-0 mr-1" :class="{hideLogo: 'd-lg-none'}" type="button" @click="setMenuModalSidebar">
+		<button class="navbar-toggler rounded-0 mr-1" :class="{'d-lg-none': hideLogo}" type="button" @click="setMenuModalSidebar">
 			<span class="fas fa-bars text-grey" />
 		</button>
-		<img src="@/assets/images/stranerd_logo.png" alt="Stranerd" height="50" :class="{hideLogo: 'd-lg-none'}">
+		<img src="@/assets/images/stranerd_logo.png" alt="Stranerd" height="50" :class="{'d-lg-none': hideLogo}">
 		<div class="links ml-auto d-flex">
 			<BaseLink class="link" to="/">
 				<img src="@/assets/images/icons/search.svg" alt="">

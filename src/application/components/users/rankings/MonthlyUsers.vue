@@ -29,9 +29,9 @@ export default defineComponent({
 	},
 	setup () {
 		const { user, isLoggedIn } = useAuth()
-		const { users, error, loading, startListener, closeListener } = useTopMonthlyUsers()
-		onMounted(startListener)
-		onBeforeUnmount(closeListener)
+		const { users, error, loading, listener } = useTopMonthlyUsers()
+		onMounted(listener.startListener)
+		onBeforeUnmount(listener.closeListener)
 		return { user, isLoggedIn, users, error, loading }
 	}
 })

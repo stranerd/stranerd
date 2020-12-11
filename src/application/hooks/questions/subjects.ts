@@ -1,4 +1,4 @@
-import { ref, reqRef, useFetch } from '@nuxtjs/composition-api'
+import { ref, reqSsrRef, useFetch } from '@nuxtjs/composition-api'
 import {
 	GetSubjects, AddSubject, FindSubject, DeleteSubject,
 	UpdateSubject, SubjectEntity, SubjectFactory
@@ -8,8 +8,8 @@ import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hook
 import { Alert } from '@app/hooks/core/notifications'
 
 const global = {
-	fetched: reqRef(false),
-	subjects: reqRef([] as SubjectEntity[])
+	fetched: reqSsrRef(false),
+	subjects: reqSsrRef([] as SubjectEntity[])
 }
 const { error, setError: setGlobalError } = useErrorHandler()
 const { loading, setLoading: setGlobalLoading } = useLoadingHandler()
@@ -51,7 +51,7 @@ export const useSubject = (id: string) => {
 }
 
 export const useCreateSubject = () => {
-	const factory = reqRef(new SubjectFactory())
+	const factory = reqSsrRef(new SubjectFactory())
 	const { error, setError } = useErrorHandler()
 	const { setMessage } = useSuccessHandler()
 	const { loading, setLoading } = useLoadingHandler()
@@ -107,7 +107,7 @@ let currentSubject = null as SubjectEntity | null
 export const setCurrentSubject = (subject: SubjectEntity) => currentSubject = subject
 
 export const useEditSubject = (subject = currentSubject) => {
-	const factory = reqRef(new SubjectFactory())
+	const factory = reqSsrRef(new SubjectFactory())
 	const { error, setError } = useErrorHandler()
 	const { setMessage } = useSuccessHandler()
 	const { loading, setLoading } = useLoadingHandler()

@@ -1,36 +1,32 @@
-import { computed, ref, reqRef, useFetch } from '@nuxtjs/composition-api'
+import { computed, ref, reqSsrRef, useFetch } from '@nuxtjs/composition-api'
 import {
 	GetTopDailyUsers, GetTopMonthlyUsers, GetTopQuarterlyUsers, GetTopWeeklyUsers, ListenToTopDailyUsers,
 	ListenToTopMonthlyUsers, ListenToTopQuarterlyUsers, ListenToTopWeeklyUsers, UserEntity
 } from '@modules/users'
-import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
+import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 
 const global = {
 	daily: {
-		users: reqRef([] as UserEntity[]),
-		listener: reqRef(null as null | (() => void)),
-		fetched: reqRef(false),
+		users: reqSsrRef([] as UserEntity[]),
+		fetched: reqSsrRef(false),
 		...useErrorHandler(),
 		...useLoadingHandler()
 	},
 	weekly: {
-		users: reqRef([] as UserEntity[]),
-		listener: reqRef(null as null | (() => void)),
-		fetched: reqRef(false),
+		users: reqSsrRef([] as UserEntity[]),
+		fetched: reqSsrRef(false),
 		...useErrorHandler(),
 		...useLoadingHandler()
 	},
 	monthly: {
-		users: reqRef([] as UserEntity[]),
-		listener: reqRef(null as null | (() => void)),
-		fetched: reqRef(false),
+		users: reqSsrRef([] as UserEntity[]),
+		fetched: reqSsrRef(false),
 		...useErrorHandler(),
 		...useLoadingHandler()
 	},
 	quarterly: {
-		users: reqRef([] as UserEntity[]),
-		listener: reqRef(null as null | (() => void)),
-		fetched: reqRef(false),
+		users: reqSsrRef([] as UserEntity[]),
+		fetched: reqSsrRef(false),
 		...useErrorHandler(),
 		...useLoadingHandler()
 	}
@@ -47,15 +43,10 @@ export const useTopDailyUsers = () => {
 		global.daily.setLoading(false)
 	}
 
-	const startListener = async () => {
-		global.daily.setError('')
-		try {
-			global.daily.setLoading(true)
-			const callback = (users: UserEntity[]) => global.daily.users.value = users
-			global.daily.listener.value = await ListenToTopDailyUsers.call(callback)
-		} catch (error) { global.daily.setError(error) }
-		global.daily.setLoading(false)
-	}
+	const listener = useListener(async () => {
+		const callback = (users: UserEntity[]) => global.daily.users.value = users
+		return await ListenToTopDailyUsers.call(callback)
+	})
 
 	if (!global.daily.fetched.value) useFetch(fetchUsers)
 
@@ -63,8 +54,7 @@ export const useTopDailyUsers = () => {
 		error: global.daily.error,
 		loading: global.daily.loading,
 		users: global.daily.users,
-		startListener,
-		closeListener: () => global.daily.listener.value?.()
+		listener
 	}
 }
 
@@ -79,15 +69,10 @@ export const useTopWeeklyUsers = () => {
 		global.weekly.setLoading(false)
 	}
 
-	const startListener = async () => {
-		global.weekly.setError('')
-		try {
-			global.weekly.setLoading(true)
-			const callback = (users: UserEntity[]) => global.weekly.users.value = users
-			global.weekly.listener.value = await ListenToTopWeeklyUsers.call(callback)
-		} catch (error) { global.weekly.setError(error) }
-		global.weekly.setLoading(false)
-	}
+	const listener = useListener(async () => {
+		const callback = (users: UserEntity[]) => global.weekly.users.value = users
+		return await ListenToTopWeeklyUsers.call(callback)
+	})
 
 	if (!global.weekly.fetched.value) useFetch(fetchUsers)
 
@@ -95,8 +80,7 @@ export const useTopWeeklyUsers = () => {
 		error: global.weekly.error,
 		loading: global.weekly.loading,
 		users: global.weekly.users,
-		startListener,
-		closeListener: () => global.weekly.listener.value?.()
+		listener
 	}
 }
 
@@ -111,15 +95,10 @@ export const useTopMonthlyUsers = () => {
 		global.monthly.setLoading(false)
 	}
 
-	const startListener = async () => {
-		global.monthly.setError('')
-		try {
-			global.monthly.setLoading(true)
-			const callback = (users: UserEntity[]) => global.monthly.users.value = users
-			global.monthly.listener.value = await ListenToTopMonthlyUsers.call(callback)
-		} catch (error) { global.monthly.setError(error) }
-		global.monthly.setLoading(false)
-	}
+	const listener = useListener(async () => {
+		const callback = (users: UserEntity[]) => global.monthly.users.value = users
+		return await ListenToTopMonthlyUsers.call(callback)
+	})
 
 	if (!global.monthly.fetched.value) useFetch(fetchUsers)
 
@@ -127,8 +106,7 @@ export const useTopMonthlyUsers = () => {
 		error: global.monthly.error,
 		loading: global.monthly.loading,
 		users: global.monthly.users,
-		startListener,
-		closeListener: () => global.monthly.listener.value?.()
+		listener
 	}
 }
 
@@ -143,15 +121,10 @@ export const useTopQuarterlyUsers = () => {
 		global.quarterly.setLoading(false)
 	}
 
-	const startListener = async () => {
-		global.quarterly.setError('')
-		try {
-			global.quarterly.setLoading(true)
-			const callback = (users: UserEntity[]) => global.quarterly.users.value = users
-			global.quarterly.listener.value = await ListenToTopQuarterlyUsers.call(callback)
-		} catch (error) { global.quarterly.setError(error) }
-		global.quarterly.setLoading(false)
-	}
+	const listener = useListener(async () => {
+		const callback = (users: UserEntity[]) => global.quarterly.users.value = users
+		return await ListenToTopQuarterlyUsers.call(callback)
+	})
 
 	if (!global.quarterly.fetched.value) useFetch(fetchUsers)
 
@@ -159,8 +132,7 @@ export const useTopQuarterlyUsers = () => {
 		error: global.quarterly.error,
 		loading: global.quarterly.loading,
 		users: global.quarterly.users,
-		startListener,
-		closeListener: () => global.quarterly.listener.value?.()
+		listener
 	}
 }
 

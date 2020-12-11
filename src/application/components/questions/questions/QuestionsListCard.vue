@@ -1,6 +1,6 @@
 <template>
-	<div class="text-grey">
-		<div class="d-flex align-items-start">
+	<div>
+		<div class="d-flex align-items-start mb-1">
 			<img :src="question.user.image.link" alt="" class="profile-image">
 			<div class="mx-1">
 				<span class="d-block text-red font-weight-bold text-wrap">
@@ -18,7 +18,7 @@
 					+{{ question.credits }}
 				</span>
 			</div>
-			<button v-if="!question.answerId" class="btn btn-sm rounded-pill py-0 px-1 btn-accent ml-1 text-white" @click="openAnswerModal">
+			<button v-if="!question.isAnswered" class="btn btn-sm rounded-pill py-0 px-1 btn-accent ml-1 text-white" @click="openAnswerModal">
 				Answer
 			</button>
 		</div>

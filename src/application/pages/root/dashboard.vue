@@ -66,6 +66,7 @@ export default defineComponent({
 	.content {
 		background-color: $color-white;
 		padding: 0.5rem;
+		border-radius: 0.5rem;
 		box-shadow: 0 3px 10px rgba($color-black, 0.1);
 		@media (min-width: $md) {
 			padding: 0.75rem;
@@ -91,10 +92,8 @@ export default defineComponent({
 		flex-grow: 1;
 		padding: 0.5rem;
 		background-color: $color-white;
+		border-radius: 0.5rem;
 		@media (min-width: $md) {
-			border-radius: 0.5rem;
-		}
-		@media (min-width: $lg) {
 			border-radius: 1.0rem;
 		}
 	}

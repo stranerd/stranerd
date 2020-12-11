@@ -28,7 +28,7 @@
 		</div>
 		<hr class="thick">
 		<div class="d-flex justify-content-center my-1">
-			<button v-if="question.isAnswered" class="btn rounded-pill py-1 px-4 btn-accent text-white" @click="openAnswerModal">
+			<button v-if="!question.isAnswered" class="btn rounded-pill py-1 px-4 btn-accent text-white" @click="openAnswerModal">
 				Add Answer
 			</button>
 			<span v-else class="mb-0 h5 text-accent">

@@ -64,6 +64,9 @@ module.exports = {
 			config.resolve.alias['@utils'] = path.join(__dirname, 'src/utils')
 		}
 	},
+	router: {
+		middleware: ['closeMenus']
+	},
 	typescript: {
 		typeCheck: {
 			eslint: {

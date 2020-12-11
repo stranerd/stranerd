@@ -14,6 +14,8 @@
 		</div>
 		<div class="content my-1 my-md-2 my-lg-4">
 			<h2>Recent Questions</h2>
+			<hr class="thin">
+			<QuestionsList :question-id="question && question.id" />
 		</div>
 	</div>
 </template>
@@ -22,12 +24,14 @@
 import { defineComponent, onBeforeUnmount, onMounted, useContext } from '@nuxtjs/composition-api'
 import QuestionPageCard from '@app/components/questions/questions/QuestionPageCard.vue'
 import AnswersList from '@app/components/questions/answers/AnswersList.vue'
+import QuestionsList from '@app/components/questions/questions/RecentQuestionsList.vue'
 import { useQuestion } from '@app/hooks/questions/questions'
 export default defineComponent({
 	name: 'RootQuestionPage',
 	components: {
 		QuestionPageCard,
-		AnswersList
+		AnswersList,
+		QuestionsList
 	},
 	layout: 'rootQuestionsSingle',
 	setup () {

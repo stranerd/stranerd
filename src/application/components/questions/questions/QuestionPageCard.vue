@@ -15,7 +15,7 @@
 			<div class="d-flex align-items-center position-relative ml-auto">
 				<img src="@/assets/images/icons/credits.svg" width="20" height="20" alt="" style="z-index:1;">
 				<span class="rounded-pill ml-n2 pr-1 border border-grey small" style="padding-left: 1.25rem;">
-					+{{ question.credits }}
+					+{{ question.creditable }}
 				</span>
 			</div>
 		</div>

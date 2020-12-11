@@ -1,4 +1,4 @@
-import { Ref, reqRef, useFetch, watch } from '@nuxtjs/composition-api'
+import { Ref, ssrRef, useFetch, watch } from '@nuxtjs/composition-api'
 import {
 	AddAnswer,
 	AnswerEntity,
@@ -23,9 +23,9 @@ const global: { [questionId: string] : {
 
 export const useAnswerList = (questionId: string) => {
 	if (global[questionId] === undefined) global[questionId] = {
-		answers: reqRef([]),
-		listener: reqRef(null),
-		fetched: reqRef(false),
+		answers: ssrRef([]),
+		listener: ssrRef(null),
+		fetched: ssrRef(false),
 		...useErrorHandler(),
 		...useLoadingHandler()
 	}
@@ -69,13 +69,13 @@ export const openAnswerModal = (question: QuestionEntity) => {
 
 export const useCreateAnswer = () => {
 	const { id, bio } = useAuth()
-	const factory = reqRef(new AnswerFactory())
+	const factory = ssrRef(new AnswerFactory())
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
 	const { setMessage } = useSuccessHandler()
 
 	factory.value.questionId = answeringQuestion!.id
-	factory.value.credits = Math.round(answeringQuestion!.credits * 0.25)
+	factory.value.credits = answeringQuestion!.creditable
 	factory.value.userBioAndId = { id: id.value!, user: bio.value! }
 	watch(() => id.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
 	watch(() => bio.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })

@@ -50,10 +50,10 @@ export default defineComponent({
 		const {
 			filteredQuestions, error, loading, hasMore,
 			answeredChoices, answered, subjectId,
-			fetchOlderQuestions, startQuestionListener, closeQuestionListener
+			fetchOlderQuestions, listener
 		} = useQuestionList()
-		onMounted(startQuestionListener)
-		onBeforeUnmount(closeQuestionListener)
+		onMounted(listener.startListener)
+		onBeforeUnmount(listener.closeListener)
 		return {
 			subjects, subError, subLoading,
 			questions: filteredQuestions, error, loading, hasMore, fetchOlderQuestions,

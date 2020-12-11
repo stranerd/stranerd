@@ -1,17 +1,17 @@
-import { ref, ssrRef, useFetch, watch, computed, useContext } from '@nuxtjs/composition-api'
+import { ref, reqSsrRef, watch, computed, useContext, useFetch } from '@nuxtjs/composition-api'
 import {
 	AddQuestion, FindQuestion, GetQuestions, ListenToQuestion,
 	ListenToQuestions, QuestionEntity, QuestionFactory
 } from '@modules/questions'
-import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
+import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { CREDITS_GAP, MAXIMUM_CREDITS, MINIMUM_CREDITS, PAGINATION_LIMIT } from '@utils/constants'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useCreateModal } from '@app/hooks/core/modals'
 
 const global = {
-	questions: ssrRef([] as QuestionEntity[]),
-	fetched: ssrRef(false),
-	hasMore: ssrRef(false),
+	questions: reqSsrRef([] as QuestionEntity[]),
+	fetched: reqSsrRef(false),
+	hasMore: reqSsrRef(true),
 	listener: (null as null | (() => void))
 }
 const { error, setError: setGlobalError } = useErrorHandler()
@@ -46,14 +46,14 @@ export const useQuestionList = () => {
 		} catch (error) { setGlobalError(error) }
 		setGlobalLoading(false)
 	}
-	const startQuestionListener = async () => {
+	const listener = useListener(async () => {
 		const appendQuestions = (questions: QuestionEntity[]) => { questions.map(unshiftToQuestionList) }
 		const lastDate = global.questions
 			.value[global.questions.value.length]
 			?.createdAt ?? undefined
-		global.listener = await ListenToQuestions
+		return await ListenToQuestions
 			.call(appendQuestions, lastDate ? new Date(lastDate) : undefined)
-	}
+	})
 	const filteredQuestions = computed({
 		get: () => global.questions.value.filter((q) => {
 			let matched = true
@@ -69,15 +69,13 @@ export const useQuestionList = () => {
 	if (!global.fetched.value) useFetch(fetchQuestions)
 
 	return {
-		...global, error, loading,
+		...global, error, loading, listener,
 		filteredQuestions, subjectId, answeredChoices, answered,
-		fetchOlderQuestions: fetchQuestions,
-		startQuestionListener,
-		closeQuestionListener: () => global.listener?.()
+		fetchOlderQuestions: fetchQuestions
 	}
 }
 
-const factory = ssrRef(new QuestionFactory())
+const factory = reqSsrRef(new QuestionFactory())
 export const useCreateQuestion = () => {
 	const { id, bio, user, isLoggedIn } = useAuth()
 	const { error, setError } = useErrorHandler()
@@ -126,45 +124,38 @@ export const useCreateQuestion = () => {
 	}
 }
 
-const fetchQuestion = async (id: string) => {
-	let question = global.questions.value.find((q) => q.id === id) ?? null
-	if (question) return question
-	question = await FindQuestion.call(id)
-	if (question) unshiftToQuestionList(question)
-	return question
-}
 export const useQuestion = (questionId: string) => {
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
-	const question = ref(null as QuestionEntity | null)
-	let listener = (null as null | (() => void))
-	const nuxtError = useContext().error
+	const question = computed({
+		get: () => global.questions.value.find((q) => q.id === questionId) ?? null,
+		set: () => {}
+	})
 
-	const findQuestion = async () => {
+	const fetchQuestion = async () => {
 		setError('')
 		try {
 			setLoading(true)
-			question.value = await fetchQuestion(questionId)
-			if (!question.value) nuxtError({ message: 'This question couldn\'t be found', statusCode: 404 })
+			let question = global.questions.value.find((q) => q.id === questionId) ?? null
+			if (question) {
+				setLoading(false)
+				return
+			}
+			question = await FindQuestion.call(questionId)
+			if (question) unshiftToQuestionList(question)
 		} catch (error) { setError(error) }
 		setLoading(false)
 	}
-
-	const startListener = async () => {
+	const listener = useListener(async () => {
+		let listener = () => {}
 		const callback = (q: QuestionEntity | null) => {
-			if (q) {
-				question.value = q
-				unshiftToQuestionList(q)
-			}
+			if (q) unshiftToQuestionList(q)
 		}
 		if (question.value) listener = await ListenToQuestion.call(questionId, callback)
-	}
+		return listener
+	})
 
-	useFetch(findQuestion)
+	useFetch(fetchQuestion)
 
-	return {
-		error, loading, question,
-		startListener,
-		closeListener: () => listener?.()
-	}
+	return { error, loading, question, listener }
 }

@@ -10,16 +10,17 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, onBeforeUnmount } from '@nuxtjs/composition-api'
+import { computed, defineComponent, onMounted, onBeforeUnmount, PropType } from '@nuxtjs/composition-api'
 import QuestionCard from '@app/components/questions/questions/RecentQuestionsListCard.vue'
 import { useQuestionList } from '@app/hooks/questions/questions'
+import { QuestionEntity } from '@modules/questions'
 export default defineComponent({
-	name: 'QuestionsList',
+	name: 'RecentQuestionsList',
 	components: { QuestionCard },
 	props: {
-		questionId: {
+		question: {
 			required: true,
-			type: [String, null]
+			type: Object as PropType<QuestionEntity>
 		}
 	},
 	setup (props) {
@@ -31,7 +32,7 @@ export default defineComponent({
 		onMounted(startQuestionListener)
 		onBeforeUnmount(closeQuestionListener)
 		const recentQuestions = computed(() => filteredQuestions.value
-			.filter((q) => q.id !== props.questionId)
+			.filter((q) => q.id !== props.question?.id)
 			.slice(0, 5))
 		return {
 			questions: recentQuestions, error, loading,

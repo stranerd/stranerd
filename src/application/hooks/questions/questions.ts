@@ -138,12 +138,14 @@ export const useQuestion = (questionId: string) => {
 	const { loading, setLoading } = useLoadingHandler()
 	const question = ref(null as QuestionEntity | null)
 	let listener = (null as null | (() => void))
+	const nuxtError = useContext().error
 
 	const findQuestion = async () => {
 		setError('')
 		try {
 			setLoading(true)
 			question.value = await fetchQuestion(questionId)
+			if (!question.value) nuxtError({ message: 'This question couldn\'t be found', statusCode: 404 })
 		} catch (error) { setError(error) }
 		setLoading(false)
 	}
@@ -155,7 +157,7 @@ export const useQuestion = (questionId: string) => {
 				unshiftToQuestionList(q)
 			}
 		}
-		listener = await ListenToQuestion.call(questionId, callback)
+		if (question.value) listener = await ListenToQuestion.call(questionId, callback)
 	}
 
 	useFetch(findQuestion)

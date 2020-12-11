@@ -2,9 +2,6 @@
 	<div class="px-1">
 		<div class="content my-1 my-md-2 my-lg-4">
 			<QuestionPageCard v-if="question" :question="question" />
-			<div v-else>
-				<p>Question doesn't exist</p>
-			</div>
 			<DisplayError :error="error" />
 			<PageLoading v-if="loading" />
 		</div>
@@ -12,10 +9,10 @@
 			<h2>Answers</h2>
 			<AnswersList :question="question" />
 		</div>
-		<div class="content my-1 my-md-2 my-lg-4">
+		<div v-if="question" class="content my-1 my-md-2 my-lg-4">
 			<h2>Recent Questions</h2>
 			<hr class="thin">
-			<QuestionsList :question-id="question && question.id" />
+			<QuestionsList :question="question" />
 		</div>
 	</div>
 </template>

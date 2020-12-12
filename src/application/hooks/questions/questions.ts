@@ -11,7 +11,7 @@ import { useCreateModal } from '@app/hooks/core/modals'
 const global = {
 	questions: reqSsrRef([] as QuestionEntity[]),
 	fetched: reqSsrRef(false),
-	hasMore: reqSsrRef(true)
+	hasMore: reqSsrRef(false)
 }
 const { error, setError: setGlobalError } = useErrorHandler()
 const { loading, setLoading: setGlobalLoading } = useLoadingHandler()

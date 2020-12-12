@@ -7,7 +7,7 @@
 		<div v-if="hasMore" class="text-center py-1 text-18">
 			<a class="font-weight-bold" @click.prevent="fetchOlderQuestions">LOAD MORE</a>
 		</div>
-		<DisplayError v-if="questions.length === 0" error="You have not asked any questions yet." />
+		<DisplayError v-if="!loading && questions.length === 0" error="You have not asked any questions yet." />
 		<DisplayError :error="error" />
 		<PageLoading v-if="loading" />
 	</div>

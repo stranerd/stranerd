@@ -7,7 +7,7 @@ import { useAuth } from '@app/hooks/auth/auth'
 const global = {
 	answers: reqSsrRef([] as AnswerEntity[]),
 	fetched: reqSsrRef(false),
-	hasMore: reqSsrRef(true)
+	hasMore: reqSsrRef(false)
 }
 const { error, setError: setGlobalError } = useErrorHandler()
 const { loading, setLoading: setGlobalLoading } = useLoadingHandler()

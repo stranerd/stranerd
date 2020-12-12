@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<AnswerCard v-for="answer in answers" :key="answer.hash" :answer="answer" />
-		<DisplayError v-if="answers.length === 0" error="This question doesn't have any answers yet." />
+		<DisplayError v-if="!loading && answers.length === 0" error="This question doesn't have any answers yet." />
 		<DisplayError :error="error" />
 		<PageLoading v-if="loading" />
 	</div>

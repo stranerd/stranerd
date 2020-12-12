@@ -11,8 +11,6 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useSessionSignout } from '@app/hooks/auth/session'
-import { useAuth } from '@app/hooks/auth/auth'
 export default defineComponent({
 	name: 'RootIndexPage',
 	middleware: 'isNotAuthenticated'

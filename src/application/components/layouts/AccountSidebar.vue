@@ -99,6 +99,7 @@ export default defineComponent({
 		background: lighten($color-accent, 10);
 		margin: 0 -0.5rem;
 		padding: 0.75rem 1.5rem;
+		img { filter: brightness(50%); }
 	}
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
 	<div :id="answer.id" class="answer">
-		<div class="mb-1 d-flex align-items-start">
+		<div class="px-1 px-md-2 d-flex align-items-start my-1">
 			<img :src="answer.user.image.link" alt="" class="profile-image">
 			<div class="mx-1">
 				<span class="d-block text-red font-weight-bold text-wrap">
@@ -21,7 +21,6 @@
 				<i class="fas fa-paperclip" />
 			</span>
 			<BaseLink
-				v-if="answer.commentsCount"
 				class="mr-2"
 				:to="`/questions/${questionId}/answers/${answer.id}/comments`"
 				:root="true"

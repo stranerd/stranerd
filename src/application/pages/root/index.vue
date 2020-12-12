@@ -22,6 +22,7 @@ import { useSessionSignout } from '@app/hooks/auth/session'
 import { useAuth } from '@app/hooks/auth/auth'
 export default defineComponent({
 	name: 'RootIndexPage',
+	middleware: 'isNotAuthenticated',
 	setup () {
 		const { isLoggedIn } = useAuth()
 		const { loading, signout, error } = useSessionSignout()

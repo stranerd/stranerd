@@ -4,5 +4,5 @@ import { useAuth } from '@app/hooks/auth/auth'
 
 export default defineNuxtMiddleware(({ redirect }) => {
 	if (useAuth().isLoggedIn.value)
-		redirect(GenerateLink({ path: '/', root: true, differentSubdomain: true }))
+		redirect(GenerateLink({ path: '/dashboard', root: true, differentSubdomain: true }))
 })

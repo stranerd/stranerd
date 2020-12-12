@@ -11,8 +11,10 @@ export const questionCreated = functions.firestore.document('questions/{question
 
 		if (credits && userId) await admin.database().ref('profiles')
 			.child(userId)
-			.child('account/credits')
-			.set(admin.database.ServerValue.increment(0 - credits))
+			.update({
+				'account/credits': admin.database.ServerValue.increment(0 - credits),
+				'meta/questionCount': admin.database.ServerValue.increment(1)
+			})
 
 		await saveToAlgolia('questions', snap.id, question)
 	})
@@ -46,7 +48,12 @@ export const questionUpdated = functions.firestore.document('questions/{question
 
 export const questionDeleted = functions.firestore.document('questions/{questionId}')
 	.onDelete(async (snap) => {
-		const { attachments } = snap.data()
+		const { attachments, userId } = snap.data()
+		await admin.database().ref('profiles')
+			.child(userId)
+			.child('meta/questionCount')
+			.set(admin.database.ServerValue.increment(-1))
+
 		attachments.map(async (attachment: any) => await deleteFromStorage(attachment.path))
 
 		await deleteFromAlgolia('questions', snap.id)

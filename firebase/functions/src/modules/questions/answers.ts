@@ -9,8 +9,10 @@ export const answerCreated = functions.firestore.document('answers/{answerId}')
 
 		if (credits && userId) await admin.database().ref('profiles')
 			.child(userId)
-			.child('account/credits')
-			.set(admin.database.ServerValue.increment(credits ?? 0))
+			.update({
+				'account/credits': admin.database.ServerValue.increment(credits ?? 0),
+				'meta/answerCount': admin.database.ServerValue.increment(1)
+			})
 
 		await admin.firestore().collection('questions')
 			.doc(questionId)
@@ -35,9 +37,14 @@ export const answerUpdated = functions.firestore.document('answers/{answerId}')
 
 export const answerDeleted = functions.firestore.document('answers/{answerId}')
 	.onDelete(async (snap) => {
-		const { questionId, attachments } = snap.data()
+		const { questionId, attachments, userId } = snap.data()
 
 		attachments.map(async (attachment: any) => await deleteFromStorage(attachment.path))
+
+		await admin.database().ref('profiles')
+			.child(userId)
+			.child('meta/answerCount')
+			.set(admin.database.ServerValue.increment(-1))
 
 		await admin.firestore().collection('questions')
 			.doc(questionId)

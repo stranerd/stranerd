@@ -8,10 +8,11 @@ export class UserEntity extends BaseEntity {
 	public readonly userBio: UserBio
 	public readonly account: UserAccount
 	public readonly rankings: UserRankings
+	public readonly meta: UserMeta
 	public readonly hasSetProfile: boolean
 	public readonly signedUpAt: string
 
-	constructor ({ id, bio, roles, account, rankings, dates }: UserConstructorArgs) {
+	constructor ({ id, bio, roles, account, rankings, meta, dates }: UserConstructorArgs) {
 		super()
 		this.id = id
 		this.hasSetProfile = !!bio?.name
@@ -23,6 +24,10 @@ export class UserEntity extends BaseEntity {
 			weekly: rankings?.weekly ?? 0,
 			monthly: rankings?.monthly ?? 0,
 			quarterly: rankings?.quarterly ?? 0
+		}
+		this.meta = {
+			answerCount: meta?.answerCount ?? 0,
+			questionCount: meta?.questionCount ?? 0
 		}
 		this.signedUpAt = dates.signedUpAt
 	}
@@ -38,6 +43,7 @@ type UserConstructorArgs = {
 	roles: UserRoles
 	account: UserAccount
 	rankings?: UserRankings
+	meta?: UserMeta
 	dates: { signedUpAt: string }
 }
 
@@ -61,6 +67,10 @@ export interface UserRankings {
 	weekly?: number
 	monthly?: number
 	quarterly?: number
+}
+export interface UserMeta {
+	answerCount?: number
+	questionCount?: number
 }
 export const generateDefaultBio = ({ name, email, image, description }: UserBio) :UserBio => {
 	name = name ?? 'Anonymous'

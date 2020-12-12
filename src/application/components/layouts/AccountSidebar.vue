@@ -6,34 +6,27 @@
 		<div v-if="isLoggedIn" class="d-flex flex-column align-items-center my-1">
 			<img :src="user.image" alt="" class="profile-image" style="width:90px;height:90px;">
 			<span class="text-18">{{ user.name }}</span>
-			<span>
-				<span>{{ user.account.credits }}</span>
-				<img src="@/assets/images/icons/credits.svg" width="16" height="16" alt="">
-			</span>
-			<BaseLink to="/account/" :root="true" class="btn my-2 btn-outline-accent rounded-pill px-3 py-1">
-				View Profile
-			</BaseLink>
 		</div>
 		<div class="my-1 d-flex flex-column links">
-			<BaseLink class="link" to="/dashboard" :root="true">
+			<BaseLink class="link" to="/account/questions" :root="true">
 				<img src="@/assets/images/icons/dashboard.svg" alt="" width="24" height="24">
-				<span class="ml-1 text-18">Dashboard</span>
+				<span class="ml-1 text-18">Questions</span>
 			</BaseLink>
-			<BaseLink class="link" to="/tutors" :root="true">
+			<BaseLink class="link" to="/account/answers" :root="true">
 				<img src="@/assets/images/icons/tutors.svg" alt="" width="24" height="24">
-				<span class="ml-1 text-18">Tutors</span>
+				<span class="ml-1 text-18">Answers</span>
 			</BaseLink>
-			<BaseLink class="link" to="/flashcards" :root="true">
+			<BaseLink class="link" to="/account/friends" :root="true">
 				<img src="@/assets/images/icons/flashcards.svg" alt="" width="24" height="24">
-				<span class="ml-1 text-18">Flashcards</span>
+				<span class="ml-1 text-18">Friends</span>
 			</BaseLink>
-			<BaseLink class="link" to="/test-preps" :root="true">
+			<BaseLink class="link" to="/account/projects" :root="true">
 				<img src="@/assets/images/icons/testprep.svg" alt="" width="24" height="24">
-				<span class="ml-1 text-18">Test Preps</span>
+				<span class="ml-1 text-18">Projects</span>
 			</BaseLink>
-			<BaseLink class="link" to="/shop" :root="true">
+			<BaseLink class="link" to="/account/e-wallet" :root="true">
 				<img src="@/assets/images/icons/shop.svg" alt="" width="24" height="24">
-				<span class="ml-1 text-18">Shop</span>
+				<span class="ml-1 text-18">E-Wallet</span>
 			</BaseLink>
 		</div>
 	</div>
@@ -43,7 +36,7 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
 export default defineComponent({
-	name: 'Sidebar',
+	name: 'AccountSidebar',
 	setup () {
 		const { isLoggedIn, user } = useAuth()
 		return { isLoggedIn, user }

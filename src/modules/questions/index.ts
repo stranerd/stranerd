@@ -17,12 +17,14 @@ import { UpdateSubjectUseCase } from './domain/usecases/subjects/updateSubject'
 import { FindSubjectUseCase } from './domain/usecases/subjects/findSubject'
 import { FindQuestionUseCase } from './domain/usecases/questions/findQuestion'
 import { GetQuestionsUseCase } from './domain/usecases/questions/getQuestions'
+import { GetMyQuestionsUseCase } from './domain/usecases/questions/getMyQuestions'
 import { AddQuestionUseCase } from './domain/usecases/questions/addQuestion'
 import { MarkQuestionAnsweredUseCase } from './domain/usecases/questions/markQuestionAnswered'
 import { ListenToQuestionUseCase } from './domain/usecases/questions/listenToQuestion'
 import { ListenToQuestionsUseCase } from './domain/usecases/questions/listenToQuestions'
 import { FindAnswerUseCase } from './domain/usecases/answers/findAnswer'
 import { GetAnswersUseCase } from './domain/usecases/answers/getAnswers'
+import { GetMyAnswersUseCase } from './domain/usecases/answers/getMyAnswers'
 import { AddAnswerUseCase } from './domain/usecases/answers/addAnswer'
 import { LikeAnswerUseCase } from './domain/usecases/answers/likeAnswer'
 import { RateAnswerUseCase } from './domain/usecases/answers/rateAnswer'
@@ -63,6 +65,7 @@ export const UpdateSubject = new UpdateSubjectUseCase(subjectRepository)
 export const FindSubject = new FindSubjectUseCase(subjectRepository)
 
 export const GetQuestions = new GetQuestionsUseCase(questionRepository)
+export const GetMyQuestions = new GetMyQuestionsUseCase(questionRepository)
 export const ListenToQuestion = new ListenToQuestionUseCase(questionRepository)
 export const ListenToQuestions = new ListenToQuestionsUseCase(questionRepository)
 export const AddQuestion = new AddQuestionUseCase(questionRepository)
@@ -70,6 +73,7 @@ export const FindQuestion = new FindQuestionUseCase(questionRepository)
 export const MarkQuestionAnswered = new MarkQuestionAnsweredUseCase(questionRepository)
 
 export const GetAnswers = new GetAnswersUseCase(answerRepository)
+export const GetMyAnswers = new GetMyAnswersUseCase(answerRepository)
 export const ListenToAnswers = new ListenToAnswersUseCase(answerRepository)
 export const AddAnswer = new AddAnswerUseCase(answerRepository)
 export const FindAnswer = new FindAnswerUseCase(answerRepository)

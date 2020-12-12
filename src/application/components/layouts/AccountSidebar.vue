@@ -1,8 +1,5 @@
 <template>
 	<div>
-		<div class="text-center my-1 d-none d-lg-block">
-			<img src="@/assets/images/stranerd_logo.png" height="50" alt="Stranerd">
-		</div>
 		<div v-if="isLoggedIn" class="d-flex flex-column align-items-center my-1">
 			<img :src="user.image" alt="" class="profile-image" style="width:90px;height:90px;">
 			<span class="text-18">{{ user.name }}</span>

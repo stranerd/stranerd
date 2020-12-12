@@ -1,43 +1,51 @@
-import { Ref, reqRef, watch } from '@nuxtjs/composition-api'
+import { reqRef, Ref, reqSsrRef, useFetch, watch } from '@nuxtjs/composition-api'
 import {
-	AddQuestionComment, CommentEntity, CommentFactory, ListenToQuestionComments
+	AddQuestionComment, CommentEntity, CommentFactory, GetQuestionComments, ListenToQuestionComments
 } from '@modules/questions'
-import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
+import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
 
 const questionsGlobal: { [questionId: string] : {
 	comments: Ref<CommentEntity[]>,
-	listener: Ref<(() => void) | null>
+	fetched: Ref<boolean>,
+	error: Ref<string>, setError: (error: any) => void,
+	loading: Ref<boolean>, setLoading: (loading: boolean) => void
 }} = {}
 
 export const useQuestionCommentList = (questionId: string) => {
-	const { error, setError } = useErrorHandler()
-	const { loading, setLoading } = useLoadingHandler()
-
 	if (questionsGlobal[questionId] === undefined) questionsGlobal[questionId] = {
-		comments: reqRef([]),
-		listener: reqRef(null)
+		comments: reqSsrRef([]),
+		fetched: reqSsrRef(false),
+		...useErrorHandler(),
+		...useLoadingHandler()
 	}
 
-	const startListener = async () => {
-		setError('')
+	const fetchComments = async () => {
+		questionsGlobal[questionId].setError('')
 		try {
-			setLoading(true)
-			const callback = (comments: CommentEntity[]) => questionsGlobal[questionId].comments.value = comments
-			questionsGlobal[questionId].listener.value = await ListenToQuestionComments.call(questionId, callback)
-		} catch (error) { setError(error) }
-		setLoading(false)
+			questionsGlobal[questionId].setLoading(true)
+			questionsGlobal[questionId].comments.value = await GetQuestionComments.call(questionId)
+			questionsGlobal[questionId].fetched.value = true
+		} catch (error) { questionsGlobal[questionId].setError(error) }
+		questionsGlobal[questionId].setLoading(false)
 	}
+
+	const listener = useListener(async () => {
+		const callback = (comments: CommentEntity[]) => questionsGlobal[questionId].comments.value = comments
+		return await ListenToQuestionComments.call(questionId, callback)
+	})
+
+	if (!questionsGlobal[questionId].fetched.value) useFetch(fetchComments)
 
 	return {
-		error, loading,
+		error: questionsGlobal[questionId].error,
+		loading: questionsGlobal[questionId].loading,
 		comments: questionsGlobal[questionId].comments,
-		startListener,
-		closeListener: () => questionsGlobal[questionId].listener.value?.()
+		listener
 	}
 }
 
-export const createQuestionComments = (questionId: string) => {
+export const useCreateQuestionComments = (questionId: string) => {
 	const { id, bio } = useAuth()
 	const factory = reqRef(new CommentFactory())
 	const { loading, setLoading } = useLoadingHandler()

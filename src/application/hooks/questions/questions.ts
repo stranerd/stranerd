@@ -1,4 +1,4 @@
-import { ref, reqSsrRef, watch, computed, useContext, useFetch, reqRef } from '@nuxtjs/composition-api'
+import { reqRef, reqSsrRef, watch, computed, useContext, useFetch } from '@nuxtjs/composition-api'
 import {
 	AddQuestion, FindQuestion, GetQuestions, ListenToQuestion,
 	ListenToQuestions, QuestionEntity, QuestionFactory
@@ -29,9 +29,9 @@ const unshiftToQuestionList = (question: QuestionEntity) => {
 }
 
 export const useQuestionList = () => {
-	const subjectId = ref('')
+	const subjectId = reqRef('')
 	const answeredChoices = [{ val: 0, key: 'All' }, { val: 1, key: 'Answered' }, { val: 2, key: 'Unanswered' }]
-	const answered = ref(answeredChoices[0].val)
+	const answered = reqRef(answeredChoices[0].val)
 	const fetchQuestions = async () => {
 		setGlobalError('')
 		try {

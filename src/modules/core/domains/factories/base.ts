@@ -12,12 +12,13 @@ export abstract class BaseFactory<E, T, K extends Record<string, any>> {
 	abstract reserved: string[]
 
 	protected constructor (keys: K) {
-		this.values = this.validValues = this.defaults = keys
+		this.defaults = { ...keys }
+		this.values = { ...keys }
+		this.validValues = { ...keys }
 		this.errors = Object.keys(keys)
-			.reduce((acc, value: keyof K) => {
-				acc[value] = undefined
-				return acc
-			}, {} as Record<keyof K, string | undefined>)
+			.reduce((acc, value: keyof K) => ({
+				...acc, [value]: undefined
+			}), {} as Record<keyof K, string | undefined>)
 	}
 
 	set (property: keyof K, value: any) {

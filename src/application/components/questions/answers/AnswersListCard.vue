@@ -22,7 +22,7 @@
 			</span>
 			<BaseLink
 				class="mr-2"
-				:to="`/questions/${questionId}/answers/${answer.id}/comments`"
+				:to="`/questions/${answer.questionId}/answers/${answer.id}/comments`"
 				:root="true"
 			>
 				<span>{{ answer.commentsCount }}</span>
@@ -43,7 +43,7 @@
 				:id="comment.id"
 				:key="comment.id"
 				class="ml-2 d-block"
-				:to="`/questions/${questionId}/answers/${answer.id}/comments#${comment.id}`"
+				:to="`/questions/${answer.questionId}/answers/${answer.id}/comments#${comment.id}`"
 				:root="true"
 			>
 				{{ comment.body }}
@@ -69,10 +69,6 @@ export default defineComponent({
 		SelectRating
 	},
 	props: {
-		questionId: {
-			required: true,
-			type: String
-		},
 		answer: {
 			required: true,
 			type: Object as PropType<AnswerEntity>
@@ -81,7 +77,7 @@ export default defineComponent({
 	setup (props) {
 		const { questions } = useQuestionList()
 		const question = computed({
-			get: () => questions.value.find((q) => q.id === props.questionId) ?? null,
+			get: () => questions.value.find((q) => q.id === props.answer.questionId) ?? null,
 			set: () => {}
 		})
 		const { time, startTimer, stopTimer } = useTimeDifference(props.answer.createdAt)

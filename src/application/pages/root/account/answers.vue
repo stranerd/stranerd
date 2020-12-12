@@ -4,7 +4,7 @@
 			<AccountSidebar />
 		</div>
 		<div class="content flex-grow-1">
-			<MyQuestionsList />
+			<MyAnswersList />
 		</div>
 	</div>
 </template>
@@ -12,10 +12,10 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import AccountSidebar from '@app/components/layouts/AccountSidebar.vue'
-import MyQuestionsList from '@app/components/questions/questions/MyQuestionsList.vue'
+import MyAnswersList from '@app/components/questions/answers/MyAnswersList.vue'
 export default defineComponent({
-	name: 'AccountQuestionsPage',
-	components: { AccountSidebar, MyQuestionsList },
+	name: 'AccountAnswersPage',
+	components: { AccountSidebar, MyAnswersList },
 	layout: 'account'
 })
 </script>

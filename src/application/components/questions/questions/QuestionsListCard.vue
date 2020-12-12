@@ -39,7 +39,7 @@ import { useSubject } from '@app/hooks/questions/subjects'
 import { useTimeDifference } from '@app/hooks/core/dates'
 import { openAnswerModal } from '@app/hooks/questions/answers'
 export default defineComponent({
-	name: 'QuestionsCard',
+	name: 'QuestionsListCard',
 	props: {
 		question: {
 			required: true,

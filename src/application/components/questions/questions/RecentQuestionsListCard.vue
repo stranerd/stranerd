@@ -18,7 +18,7 @@
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { QuestionEntity } from '@modules/questions'
 export default defineComponent({
-	name: 'QuestionsCard',
+	name: 'RecentQuestionsListCard',
 	props: {
 		question: {
 			required: true,

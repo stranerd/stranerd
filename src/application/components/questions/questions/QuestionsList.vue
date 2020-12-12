@@ -21,15 +21,14 @@
 			</form>
 		</section>
 		<hr class="thick bg-light-grey">
-		<div>
-			<div v-for="question in questions" :key="question.hash">
-				<QuestionCard :question="question" />
-				<hr class="thick">
-			</div>
-			<div v-if="hasMore" class="text-center py-1 text-18">
-				<a class="font-weight-bold text-grey" @click.prevent="fetchOlderQuestions">LOAD MORE</a>
-			</div>
+		<div v-for="question in questions" :key="question.hash">
+			<QuestionCard :question="question" />
+			<hr class="thick">
 		</div>
+		<div v-if="hasMore" class="text-center py-1 text-18">
+			<a class="font-weight-bold text-grey" @click.prevent="fetchOlderQuestions">LOAD MORE</a>
+		</div>
+		<DisplayError v-if="questions.length === 0" error="Not questions have been asked yet." />
 		<DisplayError :error="error" />
 		<DisplayError :error="subError" />
 		<PageLoading v-if="loading" />

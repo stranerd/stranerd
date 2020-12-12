@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<AnswerCard v-for="answer in answers" :key="answer.hash" :question-id="questionId" :answer="answer" />
+		<AnswerCard v-for="answer in answers" :key="answer.hash" :answer="answer" />
 		<DisplayError v-if="answers.length === 0" error="This question doesn't have any answers yet." />
 		<DisplayError :error="error" />
 		<PageLoading v-if="loading" />
@@ -10,7 +10,7 @@
 <script lang="ts">
 import { defineComponent, onBeforeUnmount, onMounted } from '@nuxtjs/composition-api'
 import { useAnswerList } from '@app/hooks/questions/answers'
-import AnswerCard from '@app/components/questions/answers/AnswerListCard.vue'
+import AnswerCard from '@app/components/questions/answers/AnswersListCard.vue'
 export default defineComponent({
 	name: 'AnswersList',
 	components: {

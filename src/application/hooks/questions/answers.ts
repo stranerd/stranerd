@@ -15,7 +15,6 @@ import { useCreateModal } from '@app/hooks/core/modals'
 
 const global: { [questionId: string] : {
 	answers: Ref<AnswerEntity[]>,
-	listener: Ref<(() => void) | null>,
 	fetched: Ref<boolean>,
 	error: Ref<string>, setError: (error: any) => void,
 	loading: Ref<boolean>, setLoading: (loading: boolean) => void
@@ -24,7 +23,6 @@ const global: { [questionId: string] : {
 export const useAnswerList = (questionId: string) => {
 	if (global[questionId] === undefined) global[questionId] = {
 		answers: reqSsrRef([]),
-		listener: reqSsrRef(null),
 		fetched: reqSsrRef(false),
 		...useErrorHandler(),
 		...useLoadingHandler()

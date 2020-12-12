@@ -25,14 +25,14 @@ export const answerCommentModified = functions.database.ref('comments/answers/{a
 
 		const comments = Object.entries(snap.after.val() ?? {})
 			.sort((a, b) => a > b ? 1 : -1)
-		const last5Comments = Object.fromEntries(comments.slice(-5))
+		const last3Comments = Object.fromEntries(comments.slice(-3))
 
 		await admin.firestore().collection('answers')
 			.doc(answerId)
 			.set({
 				comments: {
 					count: comments.length,
-					last: last5Comments
+					last: last3Comments
 				}
 			}, { merge: true })
 	})

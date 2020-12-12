@@ -1,6 +1,6 @@
 <template>
 	<div :id="answer.id" class="answer">
-		<div class="px-1 px-md-2 my-1 d-flex align-items-start">
+		<div class="mb-1 d-flex align-items-start">
 			<img :src="answer.user.image.link" alt="" class="profile-image">
 			<div class="mx-1">
 				<span class="d-block text-red font-weight-bold text-wrap">
@@ -15,16 +15,21 @@
 		<div class="my-1 px-1 px-md-2">
 			<p class="mb-0" v-html="answer.body" />
 		</div>
-		<div class="my-1 px-1 px-md-2 d-flex icons">
-			<span v-if="answer.attachments.length" class="mr-1">
+		<div class="my-1 px-1 px-md-2 d-flex flex-wrap icons">
+			<span v-if="answer.attachments.length" class="mr-2">
 				<span>{{ answer.attachments.length }}</span>
 				<i class="fas fa-paperclip" />
 			</span>
-			<span v-if="answer.commentsCount" class="mr-1">
+			<BaseLink
+				v-if="answer.commentsCount"
+				class="mr-2"
+				:to="`/questions/${questionId}/answers/${answer.id}/comments`"
+				:root="true"
+			>
 				<span>{{ answer.commentsCount }}</span>
 				<i class="fas fa-envelope" />
-			</span>
-			<a class="mr-1" @click="likeAnswer">
+			</BaseLink>
+			<a class="mr-2" @click="likeAnswer">
 				<i class="fas fa-heart" />
 				<span class="text-danger">LIKES {{ answer.likes }}</span>
 			</a>
@@ -32,6 +37,18 @@
 				<SelectRating :rating="0" :set-rating="rateAnswer" />
 				<span class="text-gold">{{ answer.formattedRating }}</span>
 			</span>
+		</div>
+		<div v-if="answer.commentsCount" class="my-1 px-1 px-md-2 small">
+			<BaseLink
+				v-for="c in answer.comments"
+				:id="c.id"
+				:key="c.id"
+				class="ml-2 d-block"
+				:to="`/questions/${questionId}/answers/${answer.id}/comments#${c.id}`"
+				:root="true"
+			>
+				{{ comment.body }}
+			</BaseLink>
 		</div>
 		<div class="my-1 px-1 px-md-2">
 			<DisplayError :error="error" />

@@ -34,8 +34,18 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useCreateModal } from '@app/hooks/core/modals'
+import Sidebar from '@app/components/layouts/Sidebar.vue'
+import DashboardTopNavigation from '@app/components/layouts/DashboardTopNavigation.vue'
+import QuestionsList from '@app/components/questions/questions/QuestionsList.vue'
+import TopUsers from '@app/components/users/rankings/TopUsers.vue'
 export default defineComponent({
 	name: 'RootDashboardPage',
+	components: {
+		Sidebar,
+		DashboardTopNavigation,
+		QuestionsList,
+		TopUsers
+	},
 	layout: 'rootDashboard',
 	middleware: ['isAuthenticated'],
 	setup () {

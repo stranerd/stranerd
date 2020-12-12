@@ -1,7 +1,9 @@
 <template>
 	<section>
 		<AccountTopNavigation class="shadowed" />
-		<Nuxt />
+		<div class="content">
+			<Nuxt />
+		</div>
 		<ModalBase />
 	</section>
 </template>
@@ -22,5 +24,9 @@ export default defineComponent({
 <style lang="scss" scoped>
 .shadowed {
 	box-shadow: 0 3px 10px rgba($color-black, 0.1);
+}
+.content {
+	margin: 0 auto;
+	max-width: $xl;
 }
 </style>

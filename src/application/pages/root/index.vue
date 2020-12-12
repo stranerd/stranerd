@@ -5,13 +5,6 @@
 			<h1 class="title">
 				application root
 			</h1>
-			<div v-if="isLoggedIn">
-				<button class="d-block mx-auto btn btn-danger mt-4" @click="signout">
-					Sign Out
-				</button>
-				<DisplayError :error="error" />
-				<PageLoading v-if="loading" />
-			</div>
 		</div>
 	</div>
 </template>
@@ -22,12 +15,7 @@ import { useSessionSignout } from '@app/hooks/auth/session'
 import { useAuth } from '@app/hooks/auth/auth'
 export default defineComponent({
 	name: 'RootIndexPage',
-	middleware: 'isNotAuthenticated',
-	setup () {
-		const { isLoggedIn } = useAuth()
-		const { loading, signout, error } = useSessionSignout()
-		return { isLoggedIn, loading, signout, error }
-	}
+	middleware: 'isNotAuthenticated'
 })
 </script>
 

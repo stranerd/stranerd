@@ -9,7 +9,7 @@ import { QuestionToModel } from '../../data/models/question'
 type Content = File | Media
 type Keys = {
 	body: string, attachments: Content[], credits: number, subjectId: string,
-	userId: string, user: UserBio | undefined, answerId: string
+	userId: string, user: UserBio | undefined
 }
 const isLongerThan0 = (value: string) => isLongerThan(value, 0)
 const isLongerThan2 = (value: string) => isLongerThan(value, 2)
@@ -34,7 +34,7 @@ export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel
 	}
 
 	constructor () {
-		super({ body: '', attachments: [], credits: MINIMUM_CREDITS, subjectId: '', userId: '', user: undefined, answerId: '' })
+		super({ body: '', attachments: [], credits: MINIMUM_CREDITS, subjectId: '', userId: '', user: undefined })
 	}
 
 	reserved = []
@@ -60,7 +60,6 @@ export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel
 		this.subjectId = entity.subjectId
 		this.userBioAndId = { id: entity.userId, user: entity.user }
 		this.set('attachments', entity.attachments)
-		this.set('answerId', entity.answerId)
 	}
 
 	toModel = async () => {
@@ -71,8 +70,8 @@ export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel
 			}))
 			this.set('attachments', docs)
 
-			const { body, credits, subjectId, userId, attachments, user, answerId } = this.validValues
-			return { body, credits, subjectId, userId, attachments: attachments as Media[], user, answerId }
+			const { body, credits, subjectId, userId, attachments, user } = this.validValues
+			return { body, credits, subjectId, userId, attachments: attachments as Media[], user: user! }
 		} else {
 			throw new Error('Validation errors')
 		}

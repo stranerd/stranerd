@@ -36,7 +36,7 @@ export class CommentFactory extends BaseFactory<CommentEntity, CommentToModel, K
 	toModel = async () => {
 		if (this.valid) {
 			const { body, userId, user } = this.validValues
-			return { body, userId, user }
+			return { body, userId, user: user! }
 		} else {
 			throw new Error('Validation errors')
 		}

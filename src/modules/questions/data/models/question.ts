@@ -25,8 +25,7 @@ export interface QuestionToModel {
 	body: string
 	attachments: Media[]
 	credits: number
-	answerId?: string
 	subjectId: string
 	userId: string
-	user?: UserBio
+	user: UserBio
 }

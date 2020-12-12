@@ -8,9 +8,9 @@ export class QuestionEntity extends BaseEntity {
 	public readonly attachments: Media[]
 	public readonly credits: number
 	public readonly subjectId: string
-	public readonly answerId: string | undefined
 	public readonly userId: string
 	public readonly user: UserBio
+	public readonly answerId: string | undefined
 	public readonly answers: number
 	public readonly comments: { id: string, body: string, userId: string, user: UserBio }[]
 	public readonly commentsCount: number
@@ -27,9 +27,9 @@ export class QuestionEntity extends BaseEntity {
 		this.attachments = attachments
 		this.credits = credits
 		this.subjectId = subjectId
-		this.answerId = answerId
 		this.userId = userId
 		this.user = generateDefaultBio(user)
+		this.answerId = answerId
 		this.answers = answers ?? 0
 		this.commentsCount = comments?.count ?? 0
 		this.comments = Object.entries(comments?.last ?? {})
@@ -51,10 +51,10 @@ type QuestionConstructorArgs = {
 	attachments: Media[]
 	credits: number
 	subjectId: string
-	answerId: string | undefined
 	createdAt: string
 	userId: string
 	user: UserBio
+	answerId?: string
 	answers?: number
 	comments?: {
 		count: number

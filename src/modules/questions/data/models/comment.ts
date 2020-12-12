@@ -13,5 +13,5 @@ export interface CommentFromModel {
 export interface CommentToModel {
 	body: string
 	userId: string
-	user?: UserBio
+	user: UserBio
 }

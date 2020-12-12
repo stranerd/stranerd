@@ -7,6 +7,7 @@ export class AnswerEntity extends BaseEntity {
 	public readonly body: string
 	public readonly attachments: Media[]
 	public readonly credits: number
+	public readonly best: boolean
 	public readonly questionId: string
 	public readonly userId: string
 	public readonly user: UserBio
@@ -18,7 +19,8 @@ export class AnswerEntity extends BaseEntity {
 
 	constructor ({
 		id, body, credits, questionId, attachments,
-		createdAt, userId, user, likes, ratings, comments
+		createdAt, userId, user,
+		best, likes, ratings, comments
 	}: AnswerConstructorArgs) {
 		super()
 		this.id = id
@@ -28,6 +30,7 @@ export class AnswerEntity extends BaseEntity {
 		this.questionId = questionId
 		this.userId = userId
 		this.user = generateDefaultBio(user)
+		this.best = best ?? false
 		this.likes = likes ?? 0
 		this.ratings = ratings ?? 0
 		this.commentsCount = comments?.count ?? 0
@@ -52,8 +55,9 @@ type AnswerConstructorArgs = {
 	createdAt: string
 	userId: string
 	user: UserBio
-	likes: number
-	ratings: number
+	best?: boolean
+	likes?: number
+	ratings?: number
 	comments?: {
 		count: number
 		last: { [id: string]: {

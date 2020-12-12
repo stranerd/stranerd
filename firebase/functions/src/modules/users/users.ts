@@ -7,16 +7,49 @@ export const userProfileUpdated = functions.database.ref('profiles/{userId}/bio'
 	.onUpdate(async (snap, context) => {
 		const oldBio = snap.before.val()
 		const newBio = snap.after.val()
+		const { userId } = context.params
 
-		const isTutor = await admin.database().ref('profiles')
-			.child(context.params.userId)
-			.child('roles/isTutor')
-			.once('value')
-		if (isTutor.val())
-			await admin.database()
-				.ref('tutors')
-				.child(context.params.userId)
-				.update({ bio: newBio })
+		try {
+			const questionIdRefs = await admin.database().ref('users')
+				.child(userId)
+				.child('questions')
+				.once('value')
+			const questionIds = Object.keys(questionIdRefs.val() ?? {})
+			await Promise.all(
+				questionIds.map((questionId) => admin.firestore()
+					.collection('questions')
+					.doc(questionId)
+					.set({ user: newBio }, { merge: true })
+				)
+			)
+		} catch (error) { console.log(`Error setting questions user bio of ${userId}`) }
+
+		try {
+			const answerIdRefs = await admin.database().ref('users')
+				.child(userId)
+				.child('answers')
+				.once('value')
+			const answerIds = Object.keys(answerIdRefs.val() ?? {})
+			await Promise.all(
+				answerIds.map((answerId) => admin.firestore()
+					.collection('answers')
+					.doc(answerId)
+					.set({ user: newBio }, { merge: true })
+				)
+			)
+		} catch (error) { console.log(`Error setting answers user bio of ${userId}`) }
+
+		try {
+			const isTutor = await admin.database().ref('profiles')
+				.child(userId)
+				.child('roles/isTutor')
+				.once('value')
+			if (isTutor.val())
+				await admin.database()
+					.ref('tutors')
+					.child(userId)
+					.update({ bio: newBio })
+		} catch (error) { console.log(`Error setting tutor user bio of ${userId}`) }
 
 		if(!equal(oldBio.image, newBio.image))
 			await deleteFromStorage(oldBio.image?.path)

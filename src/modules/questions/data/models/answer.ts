@@ -6,6 +6,7 @@ export interface AnswerFromModel {
 	id: string
 	body: string
 	attachments: Media[]
+	best?: boolean
 	credits: number
 	questionId: string
 	userId: string
@@ -27,7 +28,5 @@ export interface AnswerToModel {
 	credits: number
 	questionId: string
 	userId: string
-	user?: UserBio
-	likes: number
-	ratings: number
+	user: UserBio
 }

@@ -7,12 +7,18 @@ export const answerCreated = functions.firestore.document('answers/{answerId}')
 	.onCreate(async (snap) => {
 		const { credits, userId, questionId } = snap.data()
 
-		if (credits && userId) await admin.database().ref('profiles')
-			.child(userId)
-			.update({
-				'account/credits': admin.database.ServerValue.increment(credits ?? 0),
-				'meta/answerCount': admin.database.ServerValue.increment(1)
-			})
+		if (credits && userId) {
+			await admin.database().ref('profiles')
+				.child(userId)
+				.update({
+					'account/credits': admin.database.ServerValue.increment(credits ?? 0),
+					'meta/answerCount': admin.database.ServerValue.increment(1)
+				})
+			await admin.database().ref('users')
+				.child(userId)
+				.child('answers')
+				.update({ [snap.id]: true })
+		}
 
 		await admin.firestore().collection('questions')
 			.doc(questionId)
@@ -46,11 +52,16 @@ export const answerDeleted = functions.firestore.document('answers/{answerId}')
 			.child('meta/answerCount')
 			.set(admin.database.ServerValue.increment(-1))
 
+		await admin.database().ref('users')
+			.child(userId)
+			.child('answers')
+			.update({ [snap.id]: null })
+
 		await admin.firestore().collection('questions')
 			.doc(questionId)
 			.set({
 				answers: admin.firestore.FieldValue.increment(-1)
-			}, { merge: true})
+			}, { merge: true })
 	})
 
 export const answerLiked = functions.database.ref('answers/{answerId}/likes')

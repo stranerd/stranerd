@@ -8,7 +8,7 @@ import { AnswerToModel } from '../../data/models/answer'
 type Content = File | Media
 type Keys = {
 	body: string, attachments: Content[], credits: number, questionId: string,
-	userId: string, user: UserBio | undefined, likes: number, ratings: number
+	userId: string, user: UserBio | undefined
 }
 const isLongerThan0 = (value: string) => isLongerThan(value, 0)
 const isLongerThan2 = (value: string) => isLongerThan(value, 2)
@@ -26,13 +26,11 @@ export class AnswerFactory extends BaseFactory<AnswerEntity, AnswerToModel, Keys
 		credits: { required: true, rules: [] },
 		questionId: { required: true, rules: [isLongerThan0] },
 		userId: { required: true, rules: [isLongerThan0] },
-		user: { required: false, rules: [] },
-		likes: { required: false, rules: [] },
-		ratings: { required: false, rules: [] }
+		user: { required: false, rules: [] }
 	}
 
 	constructor () {
-		super({ body: '', attachments: [], credits: 10, questionId: '', userId: '', user: undefined, likes: 0, ratings: 0 })
+		super({ body: '', attachments: [], credits: 10, questionId: '', userId: '', user: undefined })
 	}
 
 	reserved = ['questionId', 'credits']
@@ -58,8 +56,6 @@ export class AnswerFactory extends BaseFactory<AnswerEntity, AnswerToModel, Keys
 		this.questionId = entity.questionId
 		this.userBioAndId = { id: entity.userId, user: entity.user }
 		this.set('attachments', entity.attachments)
-		this.set('likes', entity.likes)
-		this.set('ratings', entity.ratings)
 	}
 
 	toModel = async () => {
@@ -70,10 +66,10 @@ export class AnswerFactory extends BaseFactory<AnswerEntity, AnswerToModel, Keys
 			}))
 			this.set('attachments', docs)
 
-			const { body, credits, questionId, userId, attachments, user, likes, ratings } = this.validValues
+			const { body, credits, questionId, userId, attachments, user } = this.validValues
 			return {
-				body, credits, questionId, userId, ratings, likes,
-				attachments: attachments as Media[], user
+				body, credits, questionId, userId,
+				attachments: attachments as Media[], user: user!
 			}
 		} else {
 			throw new Error('Validation errors')

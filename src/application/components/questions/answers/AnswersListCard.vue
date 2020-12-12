@@ -26,7 +26,7 @@
 				:root="true"
 			>
 				<span>{{ answer.commentsCount }}</span>
-				<i class="fas fa-envelope" />
+				<i class="fas fa-comments" />
 			</BaseLink>
 			<a class="mr-2" @click="likeAnswer">
 				<i class="fas fa-heart" />

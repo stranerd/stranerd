@@ -27,7 +27,7 @@
 			</span>
 			<span v-if="question.answers > 0" class="mr-2">
 				<span>{{ question.answers }}</span>
-				<i class="fas fa-scroll" />
+				<i class="fas fa-newspaper" />
 			</span>
 		</div>
 		<hr class="thick">

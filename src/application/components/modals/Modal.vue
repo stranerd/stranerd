@@ -1,5 +1,6 @@
 <template>
 	<div class="modal-background">
+		<div class="under" @click="close" />
 		<div class="modal-inner">
 			<slot name="header">
 				<h3>Header</h3>
@@ -11,7 +12,6 @@
 				</slot>
 			</div>
 		</div>
-		<div class="under" @click="close" />
 	</div>
 </template>
 
@@ -36,60 +36,46 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .modal-background{
-	width: 100vw;
-	height: 100vh;
 	position: fixed;
 	left: 0;
+	right: 0;
 	top: 0;
+	bottom: 0;
 	display: flex;
-	justify-content: center;
-	align-items: center;
 	z-index: 1050;
-	background: #777777DD;
+	background: rgba($color-black, 0.8);
 }
 
 .under{
-	width: 100vw;
-	height: 100vh;
+	width: 100%;
+	height: 100%;
 	position: absolute;
 	left: 0;
 	top: 0;
 }
 
 .modal-inner{
-	width: 100vw;
-	//height: 100vh;
+	width: 100%;
+	margin: auto;
+	max-height: 99.9%;
 	max-width: 800px;
 	padding: 0.5rem;
-	position: absolute;
 	background: #ffffff;
 	box-shadow: 0 4px 8px $color-black;
-	z-index: 1051;
+	z-index: 1;
 	overflow-y: auto;
-	-ms-overflow-style: none;
-	&::-webkit-scrollbar{
-		display: none;
-	}
 }
 @media (min-width: $sm){
 	.modal-inner{
 		padding: 1rem;
 		width: 95%;
-		height: auto;
-		max-height: 95%;
-		border-radius: 10px;
+		border-radius: 0.5rem;
 	}
 }
 
 @media (min-width: $md){
 	.modal-inner{
 		width: 90%;
-		max-height: 90%;
-	}
-}
-@media (min-height: 650px){
-	.modal-inner{
-		height: auto;
 	}
 }
 

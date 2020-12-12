@@ -8,6 +8,7 @@
 			<CommentCard v-for="comment in comments" :key="comment.hash" :comment="comment" />
 			<DisplayError v-if="comments.length === 0" error="No comments found." />
 			<DisplayError :error="error" />
+			<CommentForm :answer-id="answerId" class="my-3" />
 		</div>
 	</div>
 </template>
@@ -16,16 +17,17 @@
 import { defineComponent, onBeforeUnmount, onMounted, useContext } from '@nuxtjs/composition-api'
 import { useAnswerCommentList } from '@app/hooks/questions/answer-comments'
 import CommentCard from '@app/components/questions/comments/CommentsListCard.vue'
+import CommentForm from '@app/components/questions/comments/AnswerCommentForm.vue'
 export default defineComponent({
 	name: 'RootQuestionAnswerCommentsPage',
-	components: { CommentCard },
+	components: { CommentCard, CommentForm },
 	layout: 'rootQuestionsSingle',
 	setup () {
 		const { answerId } = useContext().route.value.params
 		const { error, loading, comments, listener } = useAnswerCommentList(answerId)
 		onMounted(listener.startListener)
 		onBeforeUnmount(listener.closeListener)
-		return { error, loading, comments }
+		return { answerId, error, loading, comments }
 	}
 })
 </script>

@@ -1,4 +1,4 @@
-import { Ref, reqSsrRef, useFetch, watch } from '@nuxtjs/composition-api'
+import { reqRef, Ref, reqSsrRef, useFetch, watch } from '@nuxtjs/composition-api'
 import {
 	AddAnswerComment, CommentEntity, CommentFactory, GetAnswerComments, ListenToAnswerComments
 } from '@modules/questions'
@@ -45,9 +45,9 @@ export const useAnswerCommentList = (answerId: string) => {
 	}
 }
 
-export const createAnswerComments = (answerId: string) => {
+export const useCreateAnswerComments = (answerId: string) => {
 	const { id, bio } = useAuth()
-	const factory = reqSsrRef(new CommentFactory())
+	const factory = reqRef(new CommentFactory())
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
 

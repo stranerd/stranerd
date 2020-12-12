@@ -40,11 +40,11 @@
 		</div>
 		<div v-if="answer.commentsCount" class="my-1 px-1 px-md-2 small">
 			<BaseLink
-				v-for="c in answer.comments"
-				:id="c.id"
-				:key="c.id"
+				v-for="comment in answer.comments"
+				:id="comment.id"
+				:key="comment.id"
 				class="ml-2 d-block"
-				:to="`/questions/${questionId}/answers/${answer.id}/comments#${c.id}`"
+				:to="`/questions/${questionId}/answers/${answer.id}/comments#${comment.id}`"
 				:root="true"
 			>
 				{{ comment.body }}

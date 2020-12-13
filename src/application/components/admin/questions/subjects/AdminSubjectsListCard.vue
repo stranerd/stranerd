@@ -5,11 +5,11 @@
 			{{ subject.name }}
 		</h5>
 		<div class="d-flex justify-content-center small flex-wrap">
-			<a class="text-warning mr-2" @click.prevent="openEditModal">
+			<a class="text-accent mr-2" @click.prevent="openEditModal">
 				<span>Edit</span>
 				<i class="fas fa-pen" />
 			</a>
-			<a class="text-danger" @click.prevent="deleteSubject">
+			<a class="text-red" @click.prevent="deleteSubject">
 				<span>Delete</span>
 				<i class="fas fa-trash" />
 			</a>
@@ -25,6 +25,7 @@ import { SubjectEntity } from '@modules/questions'
 import { setCurrentSubject, useDeleteSubject } from '@app/hooks/questions/subjects'
 import { useEditModal } from '@app/hooks/core/modals'
 export default defineComponent({
+	name: 'AdminSubjectsListCard',
 	props: {
 		subject: {
 			type: Object as PropType<SubjectEntity>,

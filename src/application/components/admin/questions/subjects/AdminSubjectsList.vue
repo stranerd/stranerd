@@ -1,0 +1,43 @@
+<template>
+	<div>
+		<div class="grid my-2">
+			<SubjectCard v-for="subject in subjects" :key="subject.hash" :subject="subject" />
+		</div>
+		<PageLoading v-if="loading" />
+		<DisplayError :error="error" />
+	</div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from '@nuxtjs/composition-api'
+import { useSubjectList } from '@app/hooks/questions/subjects'
+import SubjectCard from '@app/components/admin/questions/subjects/AdminSubjectsListCard.vue'
+export default defineComponent({
+	name: 'AdminSubjectsList',
+	components: { SubjectCard },
+	layout: 'admin',
+	setup () {
+		const { loading, error, subjects } = useSubjectList()
+		return { loading, error, subjects }
+	}
+})
+</script>
+
+<style lang="scss" scoped>
+.grid{
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-column-gap: 1rem;
+	grid-row-gap: 2rem;
+}
+@media (min-width: $sm) {
+	.grid{
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+@media (min-width: $md) {
+	.grid{
+		grid-template-columns: repeat(4, 1fr);
+	}
+}
+</style>

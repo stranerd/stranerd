@@ -22,11 +22,11 @@
 		</div>
 		<hr>
 		<div class="d-flex justify-content-end my-2">
-			<button class="btn btn-gold" type="submit" :disabled="loading || !factory.valid">
-				<PageLoading v-if="loading" />
+			<button class="btn btn-accent text-white" type="submit" :disabled="loading || !factory.valid">
 				<span><slot name="buttonText">Submit</slot></span>
 			</button>
 		</div>
+		<PageLoading v-if="loading" />
 		<DisplayError :error="error" />
 	</form>
 </template>
@@ -57,7 +57,7 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
-		const iconLink = ref((props.factory.icon as any)?.link)
+		const iconLink = ref(props.factory.icon?.link ?? '')
 		const { catchFiles: catchIcon } = useFileInputs(
 			(file:File) => {
 				props.factory.icon = file

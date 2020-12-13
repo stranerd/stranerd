@@ -1,55 +1,25 @@
 <template>
 	<div>
-		<div class="d-flex justify-content-end mb-4">
-			<button class="btn btn-lg btn-success" @click="setCreateModalSubject">
+		<div class="d-flex justify-content-end">
+			<button class="btn btn-lg btn-accent text-white" @click="setCreateModalSubject">
 				Add New Subject
 			</button>
 		</div>
-		<hr>
-		<div class="grid mb-4">
-			<AdminSubjectCard v-for="subject in subjects" :key="subject.hash" :subject="subject" />
-		</div>
-		<PageLoading v-if="loading" />
-		<DisplayError :error="error" />
+		<hr class="thick mb-4">
+		<SubjectsList />
 	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useSubjectList } from '@app/hooks/questions/subjects'
+import SubjectsList from '@app/components/admin/questions/subjects/AdminSubjectsList.vue'
 import { useCreateModal } from '@app/hooks/core/modals'
-import AdminSubjectCard from '@app/components/admin/questions/subjects/SubjectCard.vue'
 export default defineComponent({
-	name: 'AdminSubjectsPage',
-	components: {
-		AdminSubjectCard
-	},
+	name: 'AdminQuestionsSubjectsPage',
+	components: { SubjectsList },
 	layout: 'admin',
 	setup () {
-		const { loading, error, subjects } = useSubjectList()
-		return {
-			loading, error, subjects,
-			setCreateModalSubject: useCreateModal().setCreateModalSubject
-		}
+		return { setCreateModalSubject: useCreateModal().setCreateModalSubject }
 	}
 })
 </script>
-
-<style lang="scss" scoped>
-.grid{
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	grid-column-gap: 1rem;
-	grid-row-gap: 2rem;
-}
-@media (min-width: $md) {
-	.grid{
-		grid-template-columns: repeat(3, 1fr);
-	}
-}
-@media (min-width: $lg) {
-	.grid{
-		grid-template-columns: repeat(4, 1fr);
-	}
-}
-</style>

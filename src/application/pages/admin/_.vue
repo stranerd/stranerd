@@ -7,7 +7,7 @@ import { defineComponent } from '@nuxtjs/composition-api'
 export default defineComponent({
 	name: 'Admin404Page',
 	middleware: [
-		({ redirect }) => redirect('/admin/')
+		({ redirect }) => redirect('/admin/questions/subjects')
 	]
 })
 </script>

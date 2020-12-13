@@ -6,25 +6,25 @@
 			<span>Admin</span>
 		</div>
 		<div class="my-1 d-flex flex-column links">
-			<NuxtLink class="link" to="/admin/questions">
-				<img src="@/assets/images/icons/questions.svg" alt="" width="24" height="24">
-				<span class="ml-1 text-18">Questions</span>
+			<NuxtLink class="link" to="/admin/questions/subjects">
+				<img src="@/assets/images/icons/subjects.svg" alt="" width="24" height="24">
+				<span class="ml-1 text-18">Subjects</span>
 			</NuxtLink>
-			<NuxtLink class="link" to="/admin/answers">
+			<NuxtLink class="link" to="/admin/users/admins">
+				<img src="@/assets/images/icons/users.svg" alt="" width="24" height="24">
+				<span class="ml-1 text-18">Admins</span>
+			</NuxtLink>
+			<NuxtLink class="link" to="/admin/users/tutors">
+				<img src="@/assets/images/icons/users.svg" alt="" width="24" height="24">
+				<span class="ml-1 text-18">Tutors</span>
+			</NuxtLink>
+			<NuxtLink class="link" to="/admin/blog/articles">
+				<img src="@/assets/images/icons/articles.svg" alt="" width="24" height="24">
+				<span class="ml-1 text-18">Articles</span>
+			</NuxtLink>
+			<NuxtLink class="link" to="/admin/shop/notes">
 				<img src="@/assets/images/icons/answers.svg" alt="" width="24" height="24">
-				<span class="ml-1 text-18">Answers</span>
-			</NuxtLink>
-			<NuxtLink class="link" to="/admin/friends">
-				<img src="@/assets/images/icons/friends.svg" alt="" width="24" height="24">
-				<span class="ml-1 text-18">Friends</span>
-			</NuxtLink>
-			<NuxtLink class="link" to="/admin/projects">
-				<img src="@/assets/images/icons/projects.svg" alt="" width="24" height="24">
-				<span class="ml-1 text-18">Projects</span>
-			</NuxtLink>
-			<NuxtLink class="link" to="/admin/e-wallet">
-				<img src="@/assets/images/icons/e-wallet.svg" alt="" width="24" height="24">
-				<span class="ml-1 text-18">E-Wallet</span>
+				<span class="ml-1 text-18">Shop Notes</span>
 			</NuxtLink>
 		</div>
 	</div>

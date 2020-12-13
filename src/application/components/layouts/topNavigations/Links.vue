@@ -7,7 +7,7 @@
 			<img src="@/assets/images/icons/chat.svg" alt="">
 		</NuxtLink>
 		<NuxtLink class="link d-none d-md-inline" to="/">
-			<img src="@/assets/images/icons/users.svg" alt="">
+			<img src="@/assets/images/icons/friends.svg" alt="">
 		</NuxtLink>
 		<NuxtLink class="link" to="/">
 			<img src="@/assets/images/icons/notification.svg" alt="">

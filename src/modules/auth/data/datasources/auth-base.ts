@@ -1,5 +1,5 @@
 import { UserBio } from '@modules/users'
-import { AfterAuthUser } from '../../domain/entities/auth'
+import { AfterAuthUser, AuthDetails } from '../../domain/entities/auth'
 
 export abstract class AuthBaseDataSource {
 	abstract signinWithEmail: (email: string, password: string) => Promise<AfterAuthUser>
@@ -10,6 +10,6 @@ export abstract class AuthBaseDataSource {
 	abstract resetPassword: (email: string) => Promise<void>
 	abstract updatePassword: (email: string, oldPassword: string, password: string) => Promise<void>
 	abstract updateProfile: (id: string, bio: UserBio) => Promise<void>
-	abstract session: (idToken: string) => Promise<void>
+	abstract session: (idToken: string) => Promise<AuthDetails>
 	abstract logout: () => Promise<void>
 }

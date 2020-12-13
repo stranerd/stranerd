@@ -9,7 +9,7 @@
 				<h1 class="display-4 mb-2 font-weight-bold text-grey">
 					Get your answer today
 				</h1>
-				<button class="btn btn-red text-white font-weight-bold rounded-pill px-6" @click="setCreateModalQuestion">
+				<button class="btn btn-red text-white font-weight-bold rounded-pill px-6" @click="openQuestionModal">
 					ASK A QUESTION
 				</button>
 			</div>
@@ -38,6 +38,8 @@ import Sidebar from '@app/components/layouts/sidebars/DefaultSidebar.vue'
 import DashboardTopNavigation from '@app/components/layouts/topNavigations/DashboardTopNavigation.vue'
 import QuestionsList from '@app/components/questions/questions/QuestionsList.vue'
 import TopUsers from '@app/components/users/rankings/TopUsers.vue'
+import { useAuth } from '@app/hooks/auth/auth'
+import { useRedirectToAuth } from '@app/hooks/auth/session'
 export default defineComponent({
 	name: 'RootDashboardPage',
 	components: {
@@ -48,8 +50,16 @@ export default defineComponent({
 	},
 	layout: 'dashboard',
 	setup () {
+		const { isLoggedIn } = useAuth()
+		const { redirect } = useRedirectToAuth()
 		const { setCreateModalQuestion } = useCreateModal()
-		return { setCreateModalQuestion }
+		return {
+			setCreateModalQuestion,
+			openQuestionModal: () => {
+				if (!isLoggedIn.value) redirect()
+				else setCreateModalQuestion()
+			}
+		}
 	}
 })
 </script>

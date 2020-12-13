@@ -18,9 +18,9 @@
 					+{{ question.creditable }}
 				</span>
 			</div>
-			<button v-if="!question.isAnswered" class="btn btn-sm rounded-pill py-0 px-1 btn-accent ml-1 text-white" @click="openAnswerModal">
+			<NuxtLink v-if="question.userId !== id && !question.isAnswered" class="btn btn-sm rounded-pill py-0 px-1 btn-accent ml-1 text-white" :to="`/questions/${question.id}#answer`">
 				Answer
-			</button>
+			</NuxtLink>
 		</div>
 		<NuxtLink class="text-grey" :to="`/questions/${question.id}`">
 			<p class="mb-1" v-html="question.body" />
@@ -37,9 +37,7 @@ import { defineComponent, PropType, onMounted, onBeforeUnmount } from '@nuxtjs/c
 import { QuestionEntity } from '@modules/questions'
 import { useSubject } from '@app/hooks/questions/subjects'
 import { useTimeDifference } from '@app/hooks/core/dates'
-import { openAnswerModal } from '@app/hooks/questions/answers'
 import { useAuth } from '@app/hooks/auth/auth'
-import { useRedirectToAuth } from '@app/hooks/auth/session'
 export default defineComponent({
 	name: 'QuestionsListCard',
 	props: {
@@ -49,19 +47,12 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
-		const { id, isLoggedIn } = useAuth()
-		const { redirect } = useRedirectToAuth()
+		const { id } = useAuth()
 		const { subject } = useSubject(props.question.subjectId)
 		const { time, startTimer, stopTimer } = useTimeDifference(props.question.createdAt)
 		onMounted(startTimer)
 		onBeforeUnmount(stopTimer)
-		return {
-			id, subject, time,
-			openAnswerModal: () => {
-				if (!isLoggedIn.value) redirect()
-				else openAnswerModal(props.question)
-			}
-		}
+		return { id, subject, time }
 	}
 })
 </script>

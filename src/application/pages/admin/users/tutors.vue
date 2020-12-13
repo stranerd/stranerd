@@ -1,27 +1,20 @@
 <template>
-	<div class="mx-auto" style="max-width:75ch;">
+	<div>
 		<UpgradeUserToTutor />
-		<AdminTutorCard v-for="tutor in tutors" :key="tutor.hash" :tutor="tutor" />
-		<PageLoading v-if="loading" />
-		<DisplayError :error="error" />
+		<TutorsList />
 	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useTutorList } from '@app/hooks/users/roles/tutors'
 import UpgradeUserToTutor from '@app/components/admin/users/UpgradeUserToTutor.vue'
-import AdminTutorCard from '@app/components/admin/users/TutorCard.vue'
+import TutorsList from '@app/components/admin/users/TutorsList.vue'
 export default defineComponent({
-	name: 'AdminUsersTutorsPage',
+	name: 'TutorUsersTutorsPage',
 	components: {
 		UpgradeUserToTutor,
-		AdminTutorCard
+		TutorsList
 	},
-	layout: 'admin',
-	setup () {
-		const { loading, error, tutors } = useTutorList()
-		return { loading, error, tutors }
-	}
+	layout: 'admin'
 })
 </script>

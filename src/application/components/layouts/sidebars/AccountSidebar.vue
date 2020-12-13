@@ -39,26 +39,26 @@
 			</div>
 		</div>
 		<div class="my-1 d-flex flex-column links">
-			<BaseLink class="link" to="/account/questions" :root="true">
+			<NuxtLink class="link" to="/account/questions">
 				<img src="@/assets/images/icons/questions.svg" alt="" width="24" height="24">
 				<span class="ml-1 text-18">Questions</span>
-			</BaseLink>
-			<BaseLink class="link" to="/account/answers" :root="true">
+			</NuxtLink>
+			<NuxtLink class="link" to="/account/answers">
 				<img src="@/assets/images/icons/answers.svg" alt="" width="24" height="24">
 				<span class="ml-1 text-18">Answers</span>
-			</BaseLink>
-			<BaseLink class="link" to="/account/friends" :root="true">
+			</NuxtLink>
+			<NuxtLink class="link" to="/account/friends">
 				<img src="@/assets/images/icons/friends.svg" alt="" width="24" height="24">
 				<span class="ml-1 text-18">Friends</span>
-			</BaseLink>
-			<BaseLink class="link" to="/account/projects" :root="true">
+			</NuxtLink>
+			<NuxtLink class="link" to="/account/projects">
 				<img src="@/assets/images/icons/projects.svg" alt="" width="24" height="24">
 				<span class="ml-1 text-18">Projects</span>
-			</BaseLink>
-			<BaseLink class="link" to="/account/e-wallet" :root="true">
+			</NuxtLink>
+			<NuxtLink class="link" to="/account/e-wallet">
 				<img src="@/assets/images/icons/e-wallet.svg" alt="" width="24" height="24">
 				<span class="ml-1 text-18">E-Wallet</span>
-			</BaseLink>
+			</NuxtLink>
 			<a class="link" @click.prevent="openEditProfileModal">
 				<img src="@/assets/images/icons/edit-profile.svg" alt="" width="24" height="24">
 				<span class="ml-1 text-18">Edit Profile</span>

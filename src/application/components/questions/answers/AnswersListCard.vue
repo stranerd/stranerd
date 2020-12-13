@@ -20,14 +20,13 @@
 				<span>{{ answer.attachments.length }}</span>
 				<i class="fas fa-paperclip" />
 			</span>
-			<BaseLink
+			<NuxtLink
 				class="mr-2"
 				:to="`/questions/${answer.questionId}/answers/${answer.id}/comments`"
-				:root="true"
 			>
 				<span>{{ answer.commentsCount }}</span>
 				<i class="fas fa-comments" />
-			</BaseLink>
+			</NuxtLink>
 			<a class="mr-2" @click="likeAnswer">
 				<i class="fas fa-heart" />
 				<span class="text-danger">LIKES {{ answer.likes }}</span>
@@ -38,16 +37,15 @@
 			</span>
 		</div>
 		<div v-if="answer.commentsCount" class="my-1 px-1 px-md-2 small">
-			<BaseLink
+			<NuxtLink
 				v-for="comment in answer.comments"
 				:id="comment.id"
 				:key="comment.id"
 				class="ml-2 d-block"
 				:to="`/questions/${answer.questionId}/answers/${answer.id}/comments#${comment.id}`"
-				:root="true"
 			>
 				{{ comment.body }}
-			</BaseLink>
+			</NuxtLink>
 		</div>
 		<div class="my-1 px-1 px-md-2">
 			<DisplayError :error="error" />

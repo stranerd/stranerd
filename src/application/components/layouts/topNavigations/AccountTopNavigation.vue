@@ -5,21 +5,21 @@
 		</button>
 		<img src="@/assets/images/stranerd_logo.png" alt="Stranerd" height="50">
 		<div class="links ml-auto d-flex">
-			<BaseLink class="link" to="/">
+			<NuxtLink class="link" to="/">
 				<img src="@/assets/images/icons/search.svg" alt="">
-			</BaseLink>
-			<BaseLink class="link d-none d-md-inline" to="/">
+			</NuxtLink>
+			<NuxtLink class="link d-none d-md-inline" to="/">
 				<img src="@/assets/images/icons/chat.svg" alt="">
-			</BaseLink>
-			<BaseLink class="link d-none d-md-inline" to="/">
+			</NuxtLink>
+			<NuxtLink class="link d-none d-md-inline" to="/">
 				<img src="@/assets/images/icons/users.svg" alt="">
-			</BaseLink>
-			<BaseLink class="link" to="/">
+			</NuxtLink>
+			<NuxtLink class="link" to="/">
 				<img src="@/assets/images/icons/notification.svg" alt="">
-			</BaseLink>
-			<BaseLink class="link d-none d-md-inline" to="/">
+			</NuxtLink>
+			<NuxtLink class="link d-none d-md-inline" to="/">
 				<img src="@/assets/images/icons/signout.svg" alt="">
-			</BaseLink>
+			</NuxtLink>
 		</div>
 	</nav>
 </template>

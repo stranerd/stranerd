@@ -10,31 +10,31 @@
 				<span>{{ user.account.credits }}</span>
 				<img src="@/assets/images/icons/credits.svg" width="16" height="16" alt="">
 			</span>
-			<BaseLink to="/account/" :root="true" class="btn my-2 btn-outline-accent rounded-pill px-3 py-1">
+			<NuxtLink to="/account/" class="btn my-2 btn-outline-accent rounded-pill px-3 py-1">
 				View Profile
-			</BaseLink>
+			</NuxtLink>
 		</div>
 		<div class="my-1 d-flex flex-column links">
-			<BaseLink class="link" to="/dashboard" :root="true">
+			<NuxtLink class="link" to="/dashboard">
 				<img src="@/assets/images/icons/dashboard.svg" alt="" width="24" height="24">
 				<span class="ml-1 text-18">Dashboard</span>
-			</BaseLink>
-			<BaseLink class="link" to="/tutors" :root="true">
+			</NuxtLink>
+			<NuxtLink class="link" to="/tutors">
 				<img src="@/assets/images/icons/tutors.svg" alt="" width="24" height="24">
 				<span class="ml-1 text-18">Tutors</span>
-			</BaseLink>
-			<BaseLink class="link" to="/flashcards" :root="true">
+			</NuxtLink>
+			<NuxtLink class="link" to="/flashcards">
 				<img src="@/assets/images/icons/flashcards.svg" alt="" width="24" height="24">
 				<span class="ml-1 text-18">Flashcards</span>
-			</BaseLink>
-			<BaseLink class="link" to="/test-preps" :root="true">
+			</NuxtLink>
+			<NuxtLink class="link" to="/test-preps">
 				<img src="@/assets/images/icons/testprep.svg" alt="" width="24" height="24">
 				<span class="ml-1 text-18">Test Preps</span>
-			</BaseLink>
-			<BaseLink class="link" to="/shop" :root="true">
+			</NuxtLink>
+			<NuxtLink class="link" to="/shop">
 				<img src="@/assets/images/icons/shop.svg" alt="" width="24" height="24">
 				<span class="ml-1 text-18">Shop</span>
-			</BaseLink>
+			</NuxtLink>
 		</div>
 	</div>
 </template>

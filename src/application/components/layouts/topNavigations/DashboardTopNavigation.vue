@@ -5,15 +5,15 @@
 			<a class="bg-accent text-white link-sm p-1" @click.prevent="setCreateModalQuestion">
 				<span class="fas fa-plus" style="font-size: 22px;" />
 			</a>
-			<BaseLink class="link-sm" to="/">
+			<NuxtLink class="link-sm" to="/">
 				<img src="@/assets/images/icons/chat.svg" alt="">
-			</BaseLink>
-			<BaseLink class="link-sm" to="/">
+			</NuxtLink>
+			<NuxtLink class="link-sm" to="/">
 				<img src="@/assets/images/icons/users.svg" alt="">
-			</BaseLink>
-			<BaseLink class="link-sm" to="/">
+			</NuxtLink>
+			<NuxtLink class="link-sm" to="/">
 				<img src="@/assets/images/icons/signout.svg" alt="">
-			</BaseLink>
+			</NuxtLink>
 		</div>
 	</section>
 </template>

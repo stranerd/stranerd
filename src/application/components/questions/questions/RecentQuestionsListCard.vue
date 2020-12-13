@@ -1,8 +1,8 @@
 <template>
 	<div :id="question.id">
-		<BaseLink class="text-grey" :to="`/questions/${question.id}`" :root="true">
+		<NuxtLink class="text-grey" :to="`/questions/${question.id}`">
 			<p class="mb-1" v-html="question.body" />
-		</BaseLink>
+		</NuxtLink>
 		<span class="mr-2">
 			<span>+{{ question.creditable }}</span>
 			<img src="@/assets/images/icons/credits.svg" width="16" height="16" alt="">

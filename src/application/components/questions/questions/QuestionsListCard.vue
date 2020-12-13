@@ -22,9 +22,9 @@
 				Answer
 			</button>
 		</div>
-		<BaseLink class="text-grey" :to="`/questions/${question.id}`" :root="true">
+		<NuxtLink class="text-grey" :to="`/questions/${question.id}`">
 			<p class="mb-1" v-html="question.body" />
-		</BaseLink>
+		</NuxtLink>
 		<span v-if="question.attachments.length">
 			<span>{{ question.attachments.length }}</span>
 			<i class="fas fa-paperclip" />

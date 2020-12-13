@@ -33,9 +33,9 @@
 		<hr class="thick">
 		<div class="d-flex justify-content-center my-1">
 			<template v-if="!isLoggedIn">
-				<BaseLink class="btn rounded-pill py-1 px-4 btn-accent text-white" to="/auth/" :different-subdomain="true">
+				<NuxtLink class="btn rounded-pill py-1 px-4 btn-accent text-white" to="/auth/">
 					Login To Answer
-				</BaseLink>
+				</NuxtLink>
 			</template>
 			<template v-else>
 				<template v-if="question.userId === id">

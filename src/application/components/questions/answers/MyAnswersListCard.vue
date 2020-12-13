@@ -1,8 +1,8 @@
 <template>
 	<div :id="answer.id">
-		<BaseLink class="text-18" :to="`/questions/${answer.questionId}#${answer.id}`" :root="true">
+		<NuxtLink class="text-18" :to="`/questions/${answer.questionId}#${answer.id}`">
 			<p class="mb-1" v-html="answer.body" />
-		</BaseLink>
+		</NuxtLink>
 		<div class="d-flex">
 			<span class="text-wrap">
 				{{ time }}

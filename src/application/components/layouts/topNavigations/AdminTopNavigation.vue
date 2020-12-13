@@ -1,9 +1,9 @@
 <template>
 	<header class="bg-dark">
 		<nav class="navbar navbar-expand-md container bg-dark navbar-dark d-flex flex-row">
-			<BaseLink class="navbar-brand" to="/admin/">
+			<NuxtLink class="navbar-brand" to="/admin/">
 				<img src="@app/assets/images/stranerd_logo.png" alt="Stranerd" height="40">
-			</BaseLink>
+			</NuxtLink>
 			<button
 				class="navbar-toggler border border-white"
 				type="button"
@@ -18,14 +18,14 @@
 			<div id="navbar" class="collapse navbar-collapse flex-grow-0 font-weight-bold ml-auto">
 				<ul class="navbar-nav">
 					<li class="nav-item d-none d-sm-inline">
-						<BaseLink class="nav-link" to="/admin/">
+						<NuxtLink class="nav-link" to="/admin/">
 							Dashboard
-						</BaseLink>
+						</NuxtLink>
 					</li>
 					<li class="nav-item">
-						<BaseLink class="nav-link" to="/" :root="true" :different="true">
+						<NuxtLink class="nav-link" to="/" :root="true" :different="true">
 							Main site
-						</BaseLink>
+						</NuxtLink>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link text-danger" @click.prevent="signout">Signout</a>

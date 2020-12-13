@@ -38,8 +38,5 @@ export const email = () => ({
 	}
 })
 
-const host = () => environment()?.domain
-export const ssl = () => environment()?.ssl
-
-export const domain = () => `${ssl() ? 'https://' : 'http://'}${host()}`
+export const domain = () => `http${!isDev() ? 's' : ''}://${environment()?.domain}`
 export const logo = () => `${domain()}/images/stranerd_logo.png`

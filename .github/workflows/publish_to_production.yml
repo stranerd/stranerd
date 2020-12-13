@@ -20,8 +20,6 @@ jobs:
           args: "secrets versions access latest --secret=App_Engine_Environment_Variables > env.json"
       - name: Create .env File
         run: npm run env:copy:app
-      - name: Create Dispatch File
-        run: npm run dispatch:build ${{ secrets.GCLOUD_PROJECT_PRODUCTION }}
       - name: Deploy to GAE
         uses: actions-hub/gcloud@master
         env:

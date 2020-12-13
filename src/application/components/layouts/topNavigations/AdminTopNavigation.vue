@@ -1,50 +1,30 @@
 <template>
-	<header class="bg-dark">
-		<nav class="navbar navbar-expand-md container bg-dark navbar-dark d-flex flex-row">
-			<NuxtLink class="navbar-brand" to="/admin/">
-				<img src="@app/assets/images/stranerd_logo.png" alt="Stranerd" height="40">
-			</NuxtLink>
-			<button
-				class="navbar-toggler border border-white"
-				type="button"
-				data-toggle="collapse"
-				data-target="#navbar"
-				aria-controls="navbar"
-				aria-expanded="false"
-				aria-label="Toggle navigation"
-			>
-				<span class="navbar-toggler-icon" />
-			</button>
-			<div id="navbar" class="collapse navbar-collapse flex-grow-0 font-weight-bold ml-auto">
-				<ul class="navbar-nav">
-					<li class="nav-item d-none d-sm-inline">
-						<NuxtLink class="nav-link" to="/admin/">
-							Dashboard
-						</NuxtLink>
-					</li>
-					<li class="nav-item">
-						<NuxtLink class="nav-link" to="/" :root="true" :different="true">
-							Main site
-						</NuxtLink>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link text-danger" @click.prevent="signout">Signout</a>
-						<PageLoading v-if="loading" />
-					</li>
-				</ul>
-			</div>
-		</nav>
-	</header>
+	<nav class="d-flex align-items-center">
+		<button class="navbar-toggler rounded-0 mr-1 d-lg-none" type="button" @click="setMenuModalAdminSidebar">
+			<span class="fas fa-bars text-grey" />
+		</button>
+		<img src="@/assets/images/stranerd_logo.png" alt="Stranerd" height="50">
+		<Links class="ml-auto" />
+	</nav>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useSessionSignout } from '@app/hooks/auth/session'
+import { useMenuModal } from '@app/hooks/core/modals'
+import Links from '@app/components/layouts/topNavigations/Links.vue'
 export default defineComponent({
 	name: 'AdminTopNavigation',
+	components: { Links },
 	setup () {
-		const { signout, loading, error } = useSessionSignout()
-		return { signout, loading, error }
+		const { setMenuModalAdminSidebar } = useMenuModal()
+		return { setMenuModalAdminSidebar }
 	}
 })
 </script>
+
+<style lang="scss" scoped>
+nav {
+	background: $color-white;
+	padding: 0.5rem 0.75rem;
+}
+</style>

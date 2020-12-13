@@ -1,5 +1,5 @@
 <template>
-	<nav class="d-flex align-items-center px-lg-3">
+	<nav class="d-flex align-items-center">
 		<button class="navbar-toggler rounded-0 mr-1 d-lg-none" type="button" @click="setMenuModalAccountSidebar">
 			<span class="fas fa-bars text-grey" />
 		</button>

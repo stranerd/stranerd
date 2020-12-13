@@ -1,5 +1,5 @@
 <template>
-	<div class="px-1">
+	<div>
 		<PageLoading v-if="loading" />
 		<div class="content">
 			<h2 class="text-center mb-3">
@@ -21,7 +21,7 @@ import CommentForm from '@app/components/questions/comments/QuestionCommentForm.
 export default defineComponent({
 	name: 'RootQuestionQuestionCommentsPage',
 	components: { CommentCard, CommentForm },
-	layout: 'rootQuestionsSingle',
+	layout: 'question',
 	setup () {
 		const { questionId } = useContext().route.value.params
 		const { error, loading, comments, listener } = useQuestionCommentList(questionId)

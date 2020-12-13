@@ -21,7 +21,7 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useCreateModal } from '@app/hooks/core/modals'
-import DefaultTopNavigation from '@app/components/layouts/DefaultTopNavigation.vue'
+import DefaultTopNavigation from '@app/components/layouts/topNavigations/DefaultTopNavigation.vue'
 export default defineComponent({
 	name: 'DashboardTopNavigation',
 	components: {

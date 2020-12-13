@@ -34,8 +34,8 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useCreateModal } from '@app/hooks/core/modals'
-import Sidebar from '@app/components/layouts/Sidebar.vue'
-import DashboardTopNavigation from '@app/components/layouts/DashboardTopNavigation.vue'
+import Sidebar from '@app/components/layouts/sidebars/DefaultSidebar.vue'
+import DashboardTopNavigation from '@app/components/layouts/topNavigations/DashboardTopNavigation.vue'
 import QuestionsList from '@app/components/questions/questions/QuestionsList.vue'
 import TopUsers from '@app/components/users/rankings/TopUsers.vue'
 export default defineComponent({
@@ -46,7 +46,7 @@ export default defineComponent({
 		QuestionsList,
 		TopUsers
 	},
-	layout: 'rootDashboard',
+	layout: 'dashboard',
 	middleware: ['isAuthenticated'],
 	setup () {
 		const { setCreateModalQuestion } = useCreateModal()

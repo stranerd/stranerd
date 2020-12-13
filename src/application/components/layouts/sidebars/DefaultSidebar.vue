@@ -43,7 +43,7 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
 export default defineComponent({
-	name: 'Sidebar',
+	name: 'DefaultSidebar',
 	setup () {
 		const { isLoggedIn, user } = useAuth()
 		return { isLoggedIn, user }

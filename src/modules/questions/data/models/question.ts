@@ -28,4 +28,5 @@ export interface QuestionToModel {
 	subjectId: string
 	userId: string
 	user: UserBio
+	answerId?: string
 }

@@ -16,7 +16,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import Sidebar from '@app/components/layouts/Sidebar.vue'
+import Sidebar from '@app/components/layouts/sidebars/DefaultSidebar.vue'
 import { useMenuModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'SidebarMenu',

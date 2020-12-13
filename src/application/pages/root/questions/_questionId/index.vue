@@ -1,5 +1,5 @@
 <template>
-	<div class="px-1">
+	<div>
 		<PageLoading v-if="loading" />
 		<div class="content">
 			<QuestionPageCard v-if="question" :question="question" />
@@ -31,7 +31,7 @@ export default defineComponent({
 		AnswersList,
 		QuestionsList
 	},
-	layout: 'rootQuestionsSingle',
+	layout: 'question',
 	setup () {
 		const { questionId } = useContext().route.value.params
 		const { error, loading, question, listener } = useQuestion(questionId)

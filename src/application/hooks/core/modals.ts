@@ -1,9 +1,9 @@
-import { computed, ssrRef } from '@nuxtjs/composition-api'
+import { computed, reqSsrRef } from '@nuxtjs/composition-api'
 
 const global = {
-	createModal: ssrRef(null as string | null),
-	editModal: ssrRef(null as string | null),
-	menuModal: ssrRef(null as string | null)
+	createModal: reqSsrRef(null as string | null),
+	editModal: reqSsrRef(null as string | null),
+	menuModal: reqSsrRef(null as string | null)
 }
 
 export const useCreateModal = () => {

@@ -1,4 +1,4 @@
-import { reqRef } from '@nuxtjs/composition-api'
+import { reqRef, useContext } from '@nuxtjs/composition-api'
 import {
 	EmailLinkSigninFactory, SendSigninEmail, SigninWithGoogle, SigninWithEmailLink
 } from '@modules/auth'
@@ -8,6 +8,7 @@ import { isClient } from '@utils/environment'
 import { EMAIL_SIGNIN_STORAGE_KEY } from '@utils/constants'
 
 export const useGoogleSignin = () => {
+	const { app } = useContext()
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const signin = async () => {
@@ -15,7 +16,7 @@ export const useGoogleSignin = () => {
 		setLoading(true)
 		try {
 			const user = await SigninWithGoogle.call()
-			await createSession(user)
+			await createSession(user, app.router!)
 		} catch (error) { setError(error) }
 		setLoading(false)
 	}
@@ -45,6 +46,7 @@ export const useSendEmailLink = () => {
 }
 
 export const useEmailLinkSignin = () => {
+	const { app } = useContext()
 	const factory = reqRef(new EmailLinkSigninFactory())
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
@@ -64,7 +66,7 @@ export const useEmailLinkSignin = () => {
 			try {
 				const url = isClient() ? window.location.href : ''
 				const user = await SigninWithEmailLink.call(factory.value, url)
-				await createSession(user)
+				await createSession(user, app.router!)
 			} catch (error) { setError(error) }
 			setLoading(false)
 		} else factory.value.validateAll()

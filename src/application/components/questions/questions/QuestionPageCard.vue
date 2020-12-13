@@ -33,9 +33,9 @@
 		<hr class="thick">
 		<div class="d-flex justify-content-center my-1">
 			<template v-if="!isLoggedIn">
-				<NuxtLink class="btn rounded-pill py-1 px-4 btn-accent text-white" to="/auth/">
+				<a class="btn rounded-pill py-1 px-4 btn-accent text-white" @click.prevent="openAnswerModal">
 					Login To Answer
-				</NuxtLink>
+				</a>
 			</template>
 			<template v-else>
 				<template v-if="question.userId === id">
@@ -50,7 +50,7 @@
 					</span>
 				</template>
 				<template v-else>
-					<button v-if="!question.isAnswered" class="btn rounded-pill py-1 px-4 btn-accent text-white" @click="openAnswerModal">
+					<button v-if="!question.isAnswered" id="answer" class="btn rounded-pill py-1 px-4 btn-accent text-white" @click="openAnswerModal">
 						Add Answer
 					</button>
 					<span v-else class="mb-0 h5 text-accent">
@@ -69,6 +69,7 @@ import { useSubject } from '@app/hooks/questions/subjects'
 import { useTimeDifference } from '@app/hooks/core/dates'
 import { openAnswerModal } from '@app/hooks/questions/answers'
 import { useAuth } from '@app/hooks/auth/auth'
+import { useRedirectToAuth } from '@app/hooks/auth/session'
 export default defineComponent({
 	name: 'QuestionPageCard',
 	props: {
@@ -79,6 +80,7 @@ export default defineComponent({
 	},
 	setup (props) {
 		const { isLoggedIn, id } = useAuth()
+		const { redirect } = useRedirectToAuth()
 		const { subject } = useSubject(props.question.subjectId)
 		const { time, startTimer, stopTimer } = useTimeDifference(props.question.createdAt)
 		onMounted(startTimer)
@@ -86,7 +88,10 @@ export default defineComponent({
 		return {
 			isLoggedIn, id,
 			subject, time,
-			openAnswerModal: () => openAnswerModal(props.question)
+			openAnswerModal: () => {
+				if (!isLoggedIn.value) redirect()
+				else openAnswerModal(props.question)
+			}
 		}
 	}
 })

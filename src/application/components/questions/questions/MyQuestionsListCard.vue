@@ -26,7 +26,6 @@ import { defineComponent, onBeforeUnmount, onMounted, PropType } from '@nuxtjs/c
 import { QuestionEntity } from '@modules/questions'
 import { useSubject } from '@app/hooks/questions/subjects'
 import { useTimeDifference } from '@app/hooks/core/dates'
-import { openAnswerModal } from '@app/hooks/questions/answers'
 export default defineComponent({
 	name: 'MyQuestionsListCard',
 	props: {
@@ -40,10 +39,7 @@ export default defineComponent({
 		const { time, startTimer, stopTimer } = useTimeDifference(props.question.createdAt)
 		onMounted(startTimer)
 		onBeforeUnmount(stopTimer)
-		return {
-			subject, time,
-			openAnswerModal: () => openAnswerModal(props.question)
-		}
+		return { subject, time }
 	}
 })
 </script>

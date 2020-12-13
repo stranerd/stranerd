@@ -66,6 +66,7 @@ export const useCreateAnswer = () => {
 	const { error, setError } = useErrorHandler()
 	const { setMessage } = useSuccessHandler()
 
+	if (!answeringQuestion) useCreateModal().closeCreateModal()
 	factory.value.questionId = answeringQuestion!.id
 	factory.value.credits = answeringQuestion!.creditable
 	factory.value.userBioAndId = { id: id.value!, user: bio.value! }

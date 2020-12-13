@@ -38,6 +38,8 @@ import { QuestionEntity } from '@modules/questions'
 import { useSubject } from '@app/hooks/questions/subjects'
 import { useTimeDifference } from '@app/hooks/core/dates'
 import { openAnswerModal } from '@app/hooks/questions/answers'
+import { useAuth } from '@app/hooks/auth/auth'
+import { useRedirectToAuth } from '@app/hooks/auth/session'
 export default defineComponent({
 	name: 'QuestionsListCard',
 	props: {
@@ -47,13 +49,18 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
+		const { id, isLoggedIn } = useAuth()
+		const { redirect } = useRedirectToAuth()
 		const { subject } = useSubject(props.question.subjectId)
 		const { time, startTimer, stopTimer } = useTimeDifference(props.question.createdAt)
 		onMounted(startTimer)
 		onBeforeUnmount(stopTimer)
 		return {
-			subject, time,
-			openAnswerModal: () => openAnswerModal(props.question)
+			id, subject, time,
+			openAnswerModal: () => {
+				if (!isLoggedIn.value) redirect()
+				else openAnswerModal(props.question)
+			}
 		}
 	}
 })

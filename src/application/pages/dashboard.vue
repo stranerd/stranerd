@@ -47,7 +47,6 @@ export default defineComponent({
 		TopUsers
 	},
 	layout: 'dashboard',
-	middleware: ['isAuthenticated'],
 	setup () {
 		const { setCreateModalQuestion } = useCreateModal()
 		return { setCreateModalQuestion }

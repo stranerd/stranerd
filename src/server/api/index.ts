@@ -1,7 +1,4 @@
 import Express from 'express'
-// @ts-ignore
-import subdomain from 'express-subdomain'
-import { useSubdomain } from '../../utils/environment'
 import { setupRoutes } from './routes'
 import { useApp, useBodyParser, useCORS } from './utils/setup'
 import { DecodeSessionCookieMiddleware } from './controllers/auth'
@@ -14,8 +11,7 @@ useCORS(app)
 
 app.use(DecodeSessionCookieMiddleware)
 
-if (useSubdomain) app.use(subdomain('api', setupRoutes()))
-else app.use('/api', setupRoutes())
+app.use('/api', setupRoutes())
 
 export default {
 	path: '/',

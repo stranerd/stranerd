@@ -45,14 +45,9 @@ module.exports = {
 	],
 	buildModules: [
 		'@nuxtjs/composition-api', '@nuxt/typescript-build', 'nuxt-purgecss', '@nuxtjs/pwa',
-		['nuxt-compress', { gzip: { cache: true }, brotli: { threshold: 10240 } }],
-		['@nuxtjs/router', { keepDefaultRouter: true, fileName: 'router.js' }]
+		['nuxt-compress', { gzip: { cache: true }, brotli: { threshold: 10240 } }]
 	],
 	env: { ...process.env },
-	subDomains: {
-		paths: ['auth', 'admin'],
-		root: 'root'
-	},
 	generate: {
 		interval: 5000
 	},

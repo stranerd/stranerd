@@ -28,7 +28,6 @@
     "@nuxt/typescript-runtime": "^2.0.0",
     "@nuxtjs/composition-api": "^0.16.4",
     "@nuxtjs/pwa": "^3.2.2",
-    "@nuxtjs/router": "^1.5.0",
     "@nuxtjs/style-resources": "^1.0.0",
     "@types/vue2-editor": "^2.6.1",
     "axios": "^0.20.0",
@@ -38,7 +37,6 @@
     "core-js": "^3.6.5",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "express-subdomain": "^1.0.5",
     "firebase": "^8.1.1",
     "firebase-admin": "^9.4.1",
     "jquery": "^3.5.1",
@@ -48,7 +46,6 @@
     "sd-validate": "^1.0.4",
     "sweetalert2": "^10.8.1",
     "vue": "^2.6.12",
-    "vue-router": "^3.4.5",
     "vue2-editor": "^2.10.2"
   },
   "devDependencies": {

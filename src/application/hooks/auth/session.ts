@@ -1,23 +1,25 @@
 import { SessionSignin, SessionSignout } from '@modules/auth'
-import { GenerateLink } from '@utils/router'
 import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
-import { domain, hostname, isClient, protocol, isDev } from '@utils/environment'
+import { isClient, isDev } from '@utils/environment'
 import { REDIRECT_SESSION_NAME } from '@utils/constants'
 import Cookie from 'cookie'
 import { AfterAuthUser } from '@modules/auth/domain/entities/auth'
+import { useContext } from '@nuxtjs/composition-api'
 
 export const createSession = async (user: AfterAuthUser) => {
+	const { app } = useContext()
 	await SessionSignin.call(isDev ? user.id : user.idToken)
 	if (isClient()) {
 		const { [REDIRECT_SESSION_NAME]: redirect } = Cookie.parse(document?.cookie ?? '') ?? {}
 		document.cookie = Cookie.serialize(REDIRECT_SESSION_NAME, '', {
-			domain, expires: new Date(0)
+			expires: new Date(0)
 		})
-		window.location.assign(redirect ?? protocol + hostname)
+		if (app.router) await app.router.push(redirect ?? '')
 	}
 }
 
 export const useSessionSignout = () => {
+	const { app } = useContext()
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const signout = async () => {
@@ -25,7 +27,7 @@ export const useSessionSignout = () => {
 		setLoading(true)
 		try {
 			await SessionSignout.call()
-			window.location.assign(GenerateLink({ path: '/auth/signin', differentSubdomain: true }))
+			if (app.router) await app.router.push('/auth/signin')
 		} catch (error) { setError(error) }
 		setLoading(false)
 	}

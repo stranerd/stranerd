@@ -6,7 +6,7 @@ export const useAdminRoles = () => {
 	const state = reactive({
 		fetched: false,
 		email: '',
-		users: reactive([]) as UserEntity[]
+		users: [] as UserEntity[]
 	})
 	const { error, setError } = useErrorHandler()
 	const { setMessage } = useSuccessHandler()
@@ -25,7 +25,7 @@ export const useAdminRoles = () => {
 
 	const reset = () => {
 		state.email = ''
-		state.users = reactive([])
+		state.users.length = 0
 		state.fetched = false
 	}
 

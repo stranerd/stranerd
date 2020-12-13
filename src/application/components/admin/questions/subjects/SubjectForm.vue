@@ -57,7 +57,7 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
-		const iconLink = ref(props.factory.icon?.link ?? '')
+		const iconLink = ref((props.factory.icon as any)?.link ?? '')
 		const { catchFiles: catchIcon } = useFileInputs(
 			(file:File) => {
 				props.factory.icon = file

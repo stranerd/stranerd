@@ -8,15 +8,13 @@ import { useContext } from '@nuxtjs/composition-api'
 import VueRouter from 'vue-router'
 import { useAuth } from '@app/hooks/auth/auth'
 import firebase from '@modules/core/services/initFirebase'
-import { FindUser } from '@modules/users'
 
 export const createSession = async (user: AfterAuthUser, router: VueRouter) => {
 	const authDetails = await SessionSignin.call(isDev ? user.id : user.idToken)
 	if (isClient()) {
 		if (authDetails) {
-			const { token, setAuthDetails, setUser, startProfileListener } = useAuth()
-			setAuthDetails(authDetails)
-			setUser(await FindUser.call(authDetails.id))
+			const { token, setAuthUser, startProfileListener } = useAuth()
+			await setAuthUser(authDetails)
 			await startProfileListener()
 			if (token.value) await firebase.auth()
 				.signInWithCustomToken(token.value)
@@ -40,6 +38,7 @@ export const useSessionSignout = () => {
 		setLoading(true)
 		try {
 			await SessionSignout.call()
+			await useAuth().signout()
 			if (app.router) await app.router.push('/auth/signin')
 		} catch (error) { setError(error) }
 		setLoading(false)

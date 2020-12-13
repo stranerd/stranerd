@@ -1,4 +1,4 @@
-import firebase from 'firebase'
+import firebase from '@modules/core/services/initFirebase'
 import { ITutorRepository } from '../../irepositories/itutor'
 
 export class RemoveTutorSubjectUseCase {

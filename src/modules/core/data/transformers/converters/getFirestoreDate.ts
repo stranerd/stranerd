@@ -1,4 +1,4 @@
-import firebase from 'firebase'
+import firebase from '@modules/core/services/initFirebase'
 import { Timestamp } from '@modules/core/data/models/base'
 
 export const timestampToDateString = (timestamp: Timestamp | number | undefined) => {

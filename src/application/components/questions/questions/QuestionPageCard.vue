@@ -32,12 +32,32 @@
 		</div>
 		<hr class="thick">
 		<div class="d-flex justify-content-center my-1">
-			<button v-if="!question.isAnswered" class="btn rounded-pill py-1 px-4 btn-accent text-white" @click="openAnswerModal">
-				Add Answer
-			</button>
-			<span v-else class="mb-0 h5 text-accent">
-				Already Answered
-			</span>
+			<template v-if="!isLoggedIn">
+				<BaseLink class="btn rounded-pill py-1 px-4 btn-accent text-white" to="/auth/" :different-subdomain="true">
+					Login To Answer
+				</BaseLink>
+			</template>
+			<template v-else>
+				<template v-if="question.userId === id">
+					<span v-if="question.isAnswered" class="mb-0 h5 text-accent">
+						Answer selected
+					</span>
+					<span v-else-if="question.answers > 0" class="mb-0 h5 text-accent">
+						Select an answer
+					</span>
+					<span v-else class="mb-0 h5 text-accent">
+						No answers yet.
+					</span>
+				</template>
+				<template v-else>
+					<button v-if="!question.isAnswered" class="btn rounded-pill py-1 px-4 btn-accent text-white" @click="openAnswerModal">
+						Add Answer
+					</button>
+					<span v-else class="mb-0 h5 text-accent">
+						Already Answered
+					</span>
+				</template>
+			</template>
 		</div>
 	</div>
 </template>
@@ -48,6 +68,7 @@ import { QuestionEntity } from '@modules/questions'
 import { useSubject } from '@app/hooks/questions/subjects'
 import { useTimeDifference } from '@app/hooks/core/dates'
 import { openAnswerModal } from '@app/hooks/questions/answers'
+import { useAuth } from '@app/hooks/auth/auth'
 export default defineComponent({
 	name: 'QuestionPageCard',
 	props: {
@@ -57,11 +78,13 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
+		const { isLoggedIn, id } = useAuth()
 		const { subject } = useSubject(props.question.subjectId)
 		const { time, startTimer, stopTimer } = useTimeDifference(props.question.createdAt)
 		onMounted(startTimer)
 		onBeforeUnmount(stopTimer)
 		return {
+			isLoggedIn, id,
 			subject, time,
 			openAnswerModal: () => openAnswerModal(props.question)
 		}

@@ -10,9 +10,10 @@
 					{{ time }}
 				</span>
 			</div>
+			<ShowRatings class="ml-auto my-auto" :rating="answer.ratings" />
 		</div>
 		<hr class="thick my-1">
-		<div class="my-1 px-1 px-md-2">
+		<div class="my-1 px-1 px-md-2 lead">
 			<p class="mb-0" v-html="answer.body" />
 		</div>
 		<div class="my-1 px-1 px-md-2 d-flex flex-wrap icons">
@@ -27,24 +28,34 @@
 				<span>{{ answer.commentsCount }}</span>
 				<i class="fas fa-comments" />
 			</NuxtLink>
-			<a class="mr-2" @click="likeAnswer">
+			<a v-if="answer.userId !== id" class="mr-2" @click="likeAnswer">
 				<i class="fas fa-heart" />
 				<span class="text-danger">LIKES {{ answer.likes }}</span>
 			</a>
-			<span class="mr-1">
+			<span v-if="answer.userId !== id" class="mr-1">
 				<SelectRating :rating="0" :set-rating="rateAnswer" />
 				<span class="text-gold">{{ answer.formattedRating }}</span>
 			</span>
+			<a v-if="!question.isAnswered && question.userId === id" class="mr-1 text-accent" @click.prevent="markBestAnswer">
+				<i class="fas fa-check" />
+				<span>Mark Best Answer</span>
+			</a>
+			<span v-if="question.isAnswered && answer.best" class="mr-1 text-accent">
+				<span>Best Answer</span>
+			</span>
 		</div>
-		<div v-if="answer.commentsCount" class="my-1 px-1 px-md-2 small">
+		<div class="my-1 px-1 px-md-2 small d-flex flex-column align-items-start">
 			<NuxtLink
 				v-for="comment in answer.comments"
 				:id="comment.id"
 				:key="comment.id"
-				class="ml-2 d-block"
+				class="ml-2"
 				:to="`/questions/${answer.questionId}/answers/${answer.id}/comments#${comment.id}`"
 			>
 				{{ comment.body }}
+			</NuxtLink>
+			<NuxtLink class="ml-2 text-red" :to="`/questions/${answer.questionId}/answers/${answer.id}/comments#add`">
+				+ Add Comment
 			</NuxtLink>
 		</div>
 		<div class="my-1 px-1 px-md-2">
@@ -61,10 +72,13 @@ import { useQuestionList } from '@app/hooks/questions/questions'
 import { useTimeDifference } from '@app/hooks/core/dates'
 import { useAnswer } from '@app/hooks/questions/answers'
 import SelectRating from '@app/components/core/SelectRating.vue'
+import ShowRatings from '@app/components/core/ShowRatings.vue'
+import { useAuth } from '@app/hooks/auth/auth'
 export default defineComponent({
 	name: 'AnswerListCard',
 	components: {
-		SelectRating
+		SelectRating,
+		ShowRatings
 	},
 	props: {
 		answer: {
@@ -73,18 +87,21 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
+		const { id } = useAuth()
 		const { questions } = useQuestionList()
 		const question = computed({
 			get: () => questions.value.find((q) => q.id === props.answer.questionId) ?? null,
 			set: () => {}
 		})
 		const { time, startTimer, stopTimer } = useTimeDifference(props.answer.createdAt)
-		const { error, loading, rateAnswer, likeAnswer } = useAnswer(props.answer)
+		const { error, loading, rateAnswer, likeAnswer, markBestAnswer } = useAnswer(props.answer)
 		onMounted(startTimer)
 		onBeforeUnmount(stopTimer)
 		return {
+			id,
 			question, time,
-			error, loading, rateAnswer, likeAnswer
+			error, loading, rateAnswer, likeAnswer,
+			markBestAnswer: () => markBestAnswer(question.value)
 		}
 	}
 })

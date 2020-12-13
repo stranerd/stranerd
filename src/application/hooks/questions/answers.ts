@@ -5,7 +5,7 @@ import {
 	AnswerFactory,
 	GetAnswers,
 	LikeAnswer,
-	ListenToAnswers,
+	ListenToAnswers, MarkQuestionAnswered,
 	QuestionEntity,
 	RateAnswer
 } from '@modules/questions'
@@ -94,6 +94,7 @@ export const useCreateAnswer = () => {
 }
 
 export const useAnswer = (answer: AnswerEntity) => {
+	const { id } = useAuth()
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
 
@@ -117,8 +118,19 @@ export const useAnswer = (answer: AnswerEntity) => {
 		setLoading(false)
 	}
 
+	const markBestAnswer = async (question: QuestionEntity | null) => {
+		if (!question || question.isAnswered) return
+		if (question.userId !== id.value) return
+		setError('')
+		try {
+			setLoading(true)
+			await MarkQuestionAnswered.call(question.id, answer.id)
+		} catch (error) { setError(error) }
+		setLoading(false)
+	}
+
 	return {
 		loading, error,
-		likeAnswer, rateAnswer
+		likeAnswer, rateAnswer, markBestAnswer
 	}
 }

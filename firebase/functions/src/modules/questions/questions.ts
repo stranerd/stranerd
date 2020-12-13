@@ -41,12 +41,12 @@ export const questionUpdated = functions.firestore.document('questions/{question
 		if (before.answerId !== after.answerId) {
 			const { answerId, credits } = after
 			const answerRef = admin.firestore().collection('answers').doc(answerId)
+			await answerRef.set({ best: true }, { merge: true })
 			const { userId } = (await answerRef.get()).data()!
 			await admin.database().ref('profiles')
 				.child(userId)
 				.child('account/credits')
 				.set(admin.database.ServerValue.increment(Math.floor(credits / 2)))
-			await answerRef.set({ best: true }, { merge: true })
 		}
 
 		await saveToAlgolia('questions', snap.after.id, after)

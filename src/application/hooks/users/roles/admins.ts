@@ -1,4 +1,4 @@
-import { reactive, reqRef, toRefs, useFetch } from '@nuxtjs/composition-api'
+import { reactive, reqSsrRef, toRefs, useFetch } from '@nuxtjs/composition-api'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { GetAllAdmins, GetUsersByEmail, MakeAdmin, RemoveAdmin, UserEntity } from '@modules/users'
 
@@ -61,8 +61,8 @@ export const useAdminRoles = () => {
 }
 
 const global = {
-	fetched: reqRef(false),
-	admins: reqRef([] as UserEntity[])
+	fetched: reqSsrRef(false),
+	admins: reqSsrRef([] as UserEntity[])
 }
 const { error, setError } = useErrorHandler()
 const { loading, setLoading } = useLoadingHandler()

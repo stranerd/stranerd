@@ -1,10 +1,10 @@
 <template>
-	<div class="d-inline-block">
-		<i class="fas mx-1 fa-star" :class="rating > 0 ? 'text-gold' : 'text-secondary'" />
-		<i class="fas mx-1 fa-star" :class="rating > 1 ? 'text-gold' : 'text-secondary'" />
-		<i class="fas mx-1 fa-star" :class="rating > 2 ? 'text-gold' : 'text-secondary'" />
-		<i class="fas mx-1 fa-star" :class="rating > 3 ? 'text-gold' : 'text-secondary'" />
-		<i class="fas mx-1 fa-star" :class="rating > 4 ? 'text-gold' : 'text-secondary'" />
+	<div class="d-inline-flex">
+		<i class="fas fa-star" :class="rating > 0 ? 'text-gold' : 'text-secondary'" />
+		<i class="fas fa-star" :class="rating > 1 ? 'text-gold' : 'text-secondary'" />
+		<i class="fas fa-star" :class="rating > 2 ? 'text-gold' : 'text-secondary'" />
+		<i class="fas fa-star" :class="rating > 3 ? 'text-gold' : 'text-secondary'" />
+		<i class="fa fa-star" :class="rating > 4 ? 'text-gold' : 'text-secondary'" />
 	</div>
 </template>
 
@@ -19,3 +19,7 @@ export default defineComponent({
 	}
 })
 </script>
+
+<style lang="scss" scoped>
+i { margin: 0 0rem; }
+</style>

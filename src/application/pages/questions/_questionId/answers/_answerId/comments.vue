@@ -8,7 +8,7 @@
 			<CommentCard v-for="comment in comments" :key="comment.hash" :comment="comment" />
 			<DisplayError v-if="comments.length === 0" error="No comments found." />
 			<DisplayError :error="error" />
-			<CommentForm :answer-id="answerId" class="my-3" />
+			<CommentForm id="add" :answer-id="answerId" class="my-3" />
 		</div>
 	</div>
 </template>

@@ -1,7 +1,6 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { deleteFromStorage } from '../../helpers/storage'
-const equal = require('deep-equal')
 
 export const answerCreated = functions.firestore.document('answers/{answerId}')
 	.onCreate(async (snap) => {
@@ -36,7 +35,7 @@ export const answerUpdated = functions.firestore.document('answers/{answerId}')
 		const newAttachments = after.attachments as any[]
 
 		await Promise.all(oldAttachments.map(async (attachment) => {
-			const wasNotRemoved = newAttachments.find((doc) => equal(doc, attachment))
+			const wasNotRemoved = newAttachments.find((doc) => attachment?.path === doc?.path)
 			if(!wasNotRemoved) await deleteFromStorage(attachment?.path)
 		}))
 	})

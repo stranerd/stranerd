@@ -2,7 +2,6 @@ import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { deleteFromStorage } from '../../helpers/storage'
 import { updateCustomerName } from '../../helpers/braintree'
-const equal = require('deep-equal')
 
 export const userProfileUpdated = functions.database.ref('profiles/{userId}/bio')
 	.onUpdate(async (snap, context) => {
@@ -62,7 +61,7 @@ export const userProfileUpdated = functions.database.ref('profiles/{userId}/bio'
 			}
 		} catch (error) { console.log(`Error updating braintree user name of ${userId}`) }
 
-		if(!equal(oldBio.image, newBio.image))
+		if(oldBio?.image?.path !== newBio?.image?.path)
 			await deleteFromStorage(oldBio.image?.path)
 	})
 

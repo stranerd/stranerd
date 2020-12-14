@@ -1,12 +1,11 @@
 import * as functions from 'firebase-functions'
 import { deleteFromStorage } from '../../helpers/storage'
-const equal = require('deep-equal')
 
 export const subjectUpdated = functions.firestore.document('subjects/{subjectId}')
 	.onUpdate(async (snap) => {
 		const before = snap.before.data()
 		const after = snap.after.data()
-		if (!equal(before.icon, after.icon))
+		if (before.icon?.path !== after.icon?.path)
 			await deleteFromStorage(before.icon?.path)
 	})
 

@@ -2,7 +2,6 @@ import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { saveToAlgolia, deleteFromAlgolia } from '../../helpers/algolia'
 import { deleteFromStorage } from '../../helpers/storage'
-const equal = require('deep-equal')
 
 export const questionCreated = functions.firestore.document('questions/{questionId}')
 	.onCreate(async (snap) => {
@@ -34,7 +33,7 @@ export const questionUpdated = functions.firestore.document('questions/{question
 		const newAttachments = after.attachments as any[]
 
 		await Promise.all(oldAttachments.map(async (attachment) => {
-			const wasLeftBehind = newAttachments.find((doc) => equal(doc, attachment))
+			const wasLeftBehind = newAttachments.find((doc) => doc?.path === attachment?.path)
 			if(!wasLeftBehind) await deleteFromStorage(attachment?.path)
 		}))
 

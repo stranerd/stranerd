@@ -54,7 +54,6 @@ export default defineComponent({
 		const { redirect } = useRedirectToAuth()
 		const { setCreateModalQuestion } = useCreateModal()
 		return {
-			setCreateModalQuestion,
 			openQuestionModal: () => {
 				if (!isLoggedIn.value) redirect()
 				else setCreateModalQuestion()

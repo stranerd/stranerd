@@ -2,7 +2,7 @@
 	<section>
 		<DefaultTopNavigation :hide-logo="true" class="top-nav" />
 		<div class="d-md-none d-flex justify-content-center m-2">
-			<a class="bg-accent text-white link-sm p-1" @click.prevent="setCreateModalQuestion">
+			<a class="bg-accent text-white link-sm p-1" @click.prevent="openQuestionModal">
 				<span class="fas fa-plus" style="font-size: 22px;" />
 			</a>
 			<NuxtLink class="link-sm" to="/">
@@ -22,14 +22,23 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useCreateModal } from '@app/hooks/core/modals'
 import DefaultTopNavigation from '@app/components/layouts/topNavigations/DefaultTopNavigation.vue'
+import { useAuth } from '@app/hooks/auth/auth'
+import { useRedirectToAuth } from '@app/hooks/auth/session'
 export default defineComponent({
 	name: 'DashboardTopNavigation',
 	components: {
 		DefaultTopNavigation
 	},
 	setup () {
+		const { isLoggedIn } = useAuth()
+		const { redirect } = useRedirectToAuth()
 		const { setCreateModalQuestion } = useCreateModal()
-		return { setCreateModalQuestion }
+		return {
+			openQuestionModal: () => {
+				if (!isLoggedIn.value) redirect()
+				else setCreateModalQuestion()
+			}
+		}
 	}
 })
 </script>

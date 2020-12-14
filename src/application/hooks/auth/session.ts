@@ -39,7 +39,7 @@ export const useSessionSignout = () => {
 		try {
 			await SessionSignout.call()
 			await useAuth().signout()
-			if (app.router) await app.router.push('/auth/signin')
+			if (app.router) await app.router.push('/auth/')
 		} catch (error) { setError(error) }
 		setLoading(false)
 	}

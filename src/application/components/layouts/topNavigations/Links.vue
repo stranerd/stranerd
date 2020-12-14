@@ -12,11 +12,26 @@
 		<NuxtLink class="link" to="/">
 			<img src="@/assets/images/icons/notification.svg" alt="">
 		</NuxtLink>
-		<NuxtLink class="link d-none d-md-inline" to="/">
+		<a v-if="isLoggedIn" class="link d-none d-md-inline" @click.prevent="signout">
+			<PageLoading v-if="loading" />
 			<img src="@/assets/images/icons/signout.svg" alt="">
-		</NuxtLink>
+		</a>
 	</div>
 </template>
+
+<script lang="ts">
+import { defineComponent } from '@nuxtjs/composition-api'
+import { useAuth } from '@app/hooks/auth/auth'
+import { useSessionSignout } from '@app/hooks/auth/session'
+export default defineComponent({
+	name: 'Links',
+	setup () {
+		const { isLoggedIn } = useAuth()
+		const { loading, signout } = useSessionSignout()
+		return { isLoggedIn, loading, signout }
+	}
+})
+</script>
 
 <style lang="scss" scoped>
 .links {

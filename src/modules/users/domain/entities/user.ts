@@ -7,7 +7,7 @@ export class UserEntity extends BaseEntity {
 	public readonly roles: UserRoles
 	public readonly userBio: UserBio
 	public readonly account: UserAccount
-	public readonly rankings: UserRankings
+	public readonly rankings: Required<UserRankings>
 	public readonly meta: UserMeta
 	public readonly hasSetProfile: boolean
 	public readonly signedUpAt: string

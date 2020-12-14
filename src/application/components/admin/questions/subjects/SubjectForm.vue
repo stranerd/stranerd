@@ -1,5 +1,5 @@
 <template>
-	<form class="mx-2" @submit.prevent="submit">
+	<form @submit.prevent="submit">
 		<div class="form-group my-2">
 			<label class="label">Name</label>
 			<input

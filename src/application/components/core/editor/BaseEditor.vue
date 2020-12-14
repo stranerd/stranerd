@@ -1,6 +1,7 @@
 <template>
 	<div>
 		<vue-editor
+			v-if="isClient"
 			:value="value"
 			use-custom-image-handler
 			:placeholder="placeholder"
@@ -15,10 +16,12 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
-import { VueEditor } from 'vue2-editor'
 import { Notify } from '@app/hooks/core/notifications'
 import { UploaderService } from '@modules/core/services/uploader'
+import { isClient } from '@utils/environment'
 
+let VueEditor
+if (isClient()) VueEditor = require('vue2-editor').VueEditor
 /* const customToolBar = [
 	[{ size: ['small', false, 'large', 'huge'] }],
 	[{header: [false,1,2,3,4,5,6]}], ['bold', 'italic', 'underline', 'strike'],
@@ -30,6 +33,7 @@ import { UploaderService } from '@modules/core/services/uploader'
 ] */
 
 export default defineComponent({
+	name: 'BaseEditor',
 	components: { 'vue-editor': VueEditor },
 	props: {
 		value: {
@@ -59,6 +63,7 @@ export default defineComponent({
 	},
 	setup (props) {
 		return {
+			isClient: isClient(),
 			handleImageUpload: async (file: File, editor: any, cursorLocation: any, resetUploader: any) => {
 				try {
 					const res = await UploaderService.call(props.path, file)
@@ -79,6 +84,7 @@ export default defineComponent({
 	position: relative;
 	display: flex;
 	flex-direction: column-reverse;
+	font-family: Ubuntu, Roboto, sans-serif !important;
 	.ql-toolbar{
 		//z-index: 10;
 		width: 100% !important;
@@ -89,6 +95,7 @@ export default defineComponent({
 		overflow-x: auto;
 		overflow-y: hidden;
 		padding: 4px !important;
+		font-family: inherit !important;
 		.ql-formats{
 			border-right: 1px solid $color-black;
 			display: flex;

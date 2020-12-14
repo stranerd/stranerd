@@ -1,17 +1,10 @@
 <template>
-	<form class="mx-2" @submit.prevent="submit">
+	<form @submit.prevent="submit">
 		<div class="form-group my-2">
-			<textarea
-				v-model="factory.body"
-				class="form-control"
-				placeholder="Question"
-				rows="4"
-				:class="{'is-invalid': factory.errors.body, 'is-valid': factory.isValid('body')}"
-			/>
-			<small v-if="factory.errors.body" class="small text-danger d-block">{{ factory.errors.body }}</small>
+			<QuestionEditor :model.sync="factory.body" :error="factory.errors.body" :valid="factory.isValid('body')" />
 		</div>
-		<div class="form-group d-flex flex-column flex-sm-row my-2">
-			<select v-model="factory.subjectId" class="form-control form-control-sm rounded-pill">
+		<div class="form-group d-flex flex-column flex-sm-row">
+			<select v-model="factory.subjectId" class="form-control form-control-sm rounded-pill my-1 mx-sm-1">
 				<option disabled value="">
 					Select a subject
 				</option>
@@ -19,7 +12,7 @@
 					{{ subject.name }}
 				</option>
 			</select>
-			<select v-model="factory.credits" class="form-control form-control-sm rounded-pill">
+			<select v-model="factory.credits" class="form-control form-control-sm rounded-pill my-1 mx-sm-1">
 				<option disabled value="0">
 					Select credits
 				</option>
@@ -48,7 +41,7 @@
 			</p>
 			<span v-if="factory.icon">{{ factory.icon.name }}</span>
 			<a class="text-info my-1" @click.prevent="() => { $refs.attachments.value= ''; $refs.attachments.click() }">
-				Upload attachments
+				{{ factory.attachments.length > 0 ? 'Add' : 'Upload' }} attachments
 			</a>
 			<small v-if="factory.errors.attachments" class="small text-danger d-block">{{ factory.errors.attachments }}</small>
 		</div>
@@ -70,8 +63,10 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import { useMultipleFileInputs } from '@app/hooks/core/forms'
 import { QuestionFactory } from '@modules/questions'
 import { useSubjectList } from '@app/hooks/questions/subjects'
+import QuestionEditor from '@app/components/core/editor/QuestionEditor.vue'
 export default defineComponent({
 	name: 'QuestionForm',
+	components: { QuestionEditor },
 	props: {
 		factory: {
 			type: QuestionFactory,

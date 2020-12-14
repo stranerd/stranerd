@@ -1,4 +1,4 @@
-import { isLongerThan, isImage } from 'sd-validate/lib/rules'
+import { isLongerThan, isImage, isExtractedHTMLLongerThan } from 'sd-validate/lib/rules'
 import { BaseFactory } from '@modules/core/domains/factories/base'
 import { Media } from '@modules/core/data/models/base'
 import { UserBio } from '@modules/users'
@@ -11,7 +11,7 @@ type Keys = {
 	userId: string, user: UserBio | undefined
 }
 const isLongerThan0 = (value: string) => isLongerThan(value, 0)
-const isLongerThan2 = (value: string) => isLongerThan(value, 2)
+const isLongerThan2 = (value: string) => isExtractedHTMLLongerThan(value, 2)
 const containsOnlyImages = (values: any[]) => {
 	const checks = values.map(isImage)
 	const valid = checks.every((c) => c.valid)

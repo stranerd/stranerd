@@ -53,7 +53,10 @@ export const useTopDailyUsers = () => {
 	return {
 		error: global.daily.error,
 		loading: global.daily.loading,
-		users: global.daily.users,
+		users: computed({
+			get: () => global.daily.users.value.sort((a, b) => b.rankings.daily - a.rankings.daily),
+			set: () => {}
+		}),
 		listener
 	}
 }
@@ -79,7 +82,10 @@ export const useTopWeeklyUsers = () => {
 	return {
 		error: global.weekly.error,
 		loading: global.weekly.loading,
-		users: global.weekly.users,
+		users: computed({
+			get: () => global.weekly.users.value.sort((a, b) => b.rankings.weekly - a.rankings.weekly),
+			set: () => {}
+		}),
 		listener
 	}
 }
@@ -105,7 +111,10 @@ export const useTopMonthlyUsers = () => {
 	return {
 		error: global.monthly.error,
 		loading: global.monthly.loading,
-		users: global.monthly.users,
+		users: computed({
+			get: () => global.monthly.users.value.sort((a, b) => b.rankings.monthly - a.rankings.monthly),
+			set: () => {}
+		}),
 		listener
 	}
 }
@@ -131,7 +140,10 @@ export const useTopQuarterlyUsers = () => {
 	return {
 		error: global.quarterly.error,
 		loading: global.quarterly.loading,
-		users: global.quarterly.users,
+		users: computed({
+			get: () => global.quarterly.users.value.sort((a, b) => b.rankings.quarterly - a.rankings.quarterly),
+			set: () => {}
+		}),
 		listener
 	}
 }

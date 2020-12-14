@@ -1,14 +1,7 @@
 <template>
-	<form class="mx-2" @submit.prevent="submit">
+	<form @submit.prevent="submit">
 		<div class="form-group my-2">
-			<textarea
-				v-model="factory.body"
-				class="form-control"
-				placeholder="Answer"
-				rows="4"
-				:class="{'is-invalid': factory.errors.body, 'is-valid': factory.isValid('body')}"
-			/>
-			<small v-if="factory.errors.body" class="small text-danger d-block">{{ factory.errors.body }}</small>
+			<AnswerEditor :model.sync="factory.body" :error="factory.errors.body" :valid="factory.isValid('body')" />
 		</div>
 		<div class="form-group my-2">
 			<label class="label d-block">Attachments</label>
@@ -49,8 +42,10 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useMultipleFileInputs } from '@app/hooks/core/forms'
 import { AnswerFactory } from '@modules/questions'
+import AnswerEditor from '@app/components/core/editor/AnswerEditor.vue'
 export default defineComponent({
 	name: 'AnswerForm',
+	components: { AnswerEditor },
 	props: {
 		factory: {
 			type: AnswerFactory,

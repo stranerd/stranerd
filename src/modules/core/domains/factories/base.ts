@@ -6,7 +6,7 @@ export abstract class BaseFactory<E, T, K extends Record<string, any>> {
 	protected readonly defaults: K
 	protected values: K
 	protected validValues: K
-	errors: Record<keyof K, string | undefined>
+	errors: Record<keyof K, string>
 	abstract toModel: () => Promise<T>
 	abstract loadEntity: (entity: E) => void
 	abstract reserved: string[]
@@ -17,8 +17,8 @@ export abstract class BaseFactory<E, T, K extends Record<string, any>> {
 		this.validValues = { ...keys }
 		this.errors = Object.keys(keys)
 			.reduce((acc, value: keyof K) => ({
-				...acc, [value]: undefined
-			}), {} as Record<keyof K, string | undefined>)
+				...acc, [value]: ''
+			}), {} as Record<keyof K, string>)
 	}
 
 	set (property: keyof K, value: any) {
@@ -26,7 +26,7 @@ export abstract class BaseFactory<E, T, K extends Record<string, any>> {
 
 		this.values[property] = value
 		this.validValues[property] = check.isValid ? value : this.defaults[property]
-		this.errors[property] = check.message
+		this.errors[property] = check.message ?? ''
 
 		return check.isValid
 	}
@@ -55,7 +55,7 @@ export abstract class BaseFactory<E, T, K extends Record<string, any>> {
 			.forEach((key: keyof K) => {
 				this.values[key] = this.defaults[key]
 				this.validValues[key] = this.defaults[key]
-				this.errors[key] = undefined
+				this.errors[key] = ''
 			})
 	}
 

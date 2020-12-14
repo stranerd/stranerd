@@ -1,4 +1,4 @@
-import { isLongerThan, isImage, isMoreThan, isLessThan } from 'sd-validate/lib/rules'
+import { isLongerThan, isImage, isMoreThan, isLessThan, isExtractedHTMLLongerThan } from 'sd-validate/lib/rules'
 import { BaseFactory } from '@modules/core/domains/factories/base'
 import { Media } from '@modules/core/data/models/base'
 import { UserBio } from '@modules/users'
@@ -12,7 +12,7 @@ type Keys = {
 	userId: string, user: UserBio | undefined
 }
 const isLongerThan0 = (value: string) => isLongerThan(value, 0)
-const isLongerThan2 = (value: string) => isLongerThan(value, 2)
+const isLongerThan2 = (value: string) => isExtractedHTMLLongerThan(value, 2)
 const isMoreThanMinimum = (value: number) => isMoreThan(value, MINIMUM_CREDITS - 1)
 const isLessThanMaximum = (value: number) => isLessThan(value, MAXIMUM_CREDITS + 1)
 const containsOnlyImages = (values: any[]) => {
@@ -34,7 +34,7 @@ export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel
 	}
 
 	constructor () {
-		super({ body: '', attachments: [], credits: MINIMUM_CREDITS, subjectId: '', userId: '', user: undefined })
+		super({ body: '', attachments: [], credits: 0, subjectId: '', userId: '', user: undefined })
 	}
 
 	reserved = []
@@ -51,8 +51,8 @@ export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel
 	}
 
 	get attachments () { return this.values.attachments }
-	addAttachment (value: Content) { return this.set('attachments', [...this.values.attachments, value]) }
-	removeAttachment (value: Content) { return this.set('attachments', this.values.attachments.filter((doc) => doc.name !== value.name)) }
+	addAttachment = (value: Content) => this.set('attachments', [...this.values.attachments, value])
+	removeAttachment = (value: Content) => this.set('attachments', this.values.attachments.filter((doc) => doc.name !== value.name))
 
 	loadEntity = (entity: QuestionEntity) => {
 		this.body = entity.body

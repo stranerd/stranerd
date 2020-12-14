@@ -5,7 +5,7 @@
 		:valid="valid"
 		:toolbar="toolbar"
 		path="questions"
-		placeholder="Explain your question in full detail."
+		placeholder="Explain your answer in full detail."
 		@update:value="$emit('update:model',$event)"
 	/>
 </template>
@@ -14,7 +14,7 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import BaseEditor from '@app/components/core/editor/BaseEditor.vue'
 export default defineComponent({
-	name: 'QuestionEditor',
+	name: 'AnswerEditor',
 	components: { BaseEditor },
 	props: {
 		model: {

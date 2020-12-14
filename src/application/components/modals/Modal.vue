@@ -64,6 +64,10 @@ export default defineComponent({
 	box-shadow: 0 4px 8px $color-black;
 	z-index: 1;
 	overflow-y: auto;
+	-ms-overflow-style: none;
+	&::-webkit-scrollbar{
+		display: none;
+	}
 }
 @media (min-width: $sm){
 	.modal-inner{

@@ -15,7 +15,7 @@ export const authUserCreated = functions.auth.user().onCreate(async (user) => {
 	if (user.photoURL) data['bio/image/link'] = user.photoURL
 
 	try {
-		const result = await createCustomer(user.displayName ?? '', user.email!)
+		const result = await createCustomer(user.displayName ?? 'Unnamed', user.email!)
 		if(result.success) data['account/braintreeId'] = result.customer.id
 	} catch (error) {
 		console.log(error.message)

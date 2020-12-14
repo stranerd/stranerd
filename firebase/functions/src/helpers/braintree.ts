@@ -12,6 +12,9 @@ const getGateway = () => {
 export const createCustomer = async (name: string, email: string) => await getGateway().customer
 	.create({ firstName: name, email })
 
+export const updateCustomerName = async (customerId: string, name: string) => await getGateway().customer
+	.update(customerId, { firstName: name })
+
 export const getClientToken = async () => await getGateway().clientToken.generate({})
 
 export const createPaymentMethod = async (customerId: string, paymentMethodNonce: string) => await getGateway().paymentMethod

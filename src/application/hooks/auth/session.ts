@@ -8,6 +8,7 @@ import { useContext } from '@nuxtjs/composition-api'
 import VueRouter from 'vue-router'
 import { useAuth } from '@app/hooks/auth/auth'
 import firebase from '@modules/core/services/initFirebase'
+import { Alert } from '@app/hooks/core/notifications'
 
 export const createSession = async (user: AfterAuthUser, router: VueRouter) => {
 	const authDetails = await SessionSignin.call(isDev ? user.id : user.idToken)
@@ -35,13 +36,21 @@ export const useSessionSignout = () => {
 	const { loading, setLoading } = useLoadingHandler()
 	const signout = async () => {
 		setError('')
-		setLoading(true)
-		try {
-			await SessionSignout.call()
-			await useAuth().signout()
-			if (app.router) await app.router.push('/auth/')
-		} catch (error) { setError(error) }
-		setLoading(false)
+		const accepted = await Alert({
+			title: 'Are you sure you want to sign out?',
+			text: '',
+			icon: 'info',
+			confirmButtonText: 'Yes, signout'
+		})
+		if (accepted) {
+			setLoading(true)
+			try {
+				await SessionSignout.call()
+				await useAuth().signout()
+				if (app.router) await app.router.push('/auth/')
+			} catch (error) { setError(error) }
+			setLoading(false)
+		}
 	}
 
 	return { loading, error, signout }

@@ -25,7 +25,7 @@ import AnswersList from '@app/components/questions/answers/AnswersList.vue'
 import QuestionsList from '@app/components/questions/questions/RecentQuestionsList.vue'
 import { useQuestion } from '@app/hooks/questions/questions'
 export default defineComponent({
-	name: 'RootQuestionPage',
+	name: 'QuestionPage',
 	components: {
 		QuestionPageCard,
 		AnswersList,

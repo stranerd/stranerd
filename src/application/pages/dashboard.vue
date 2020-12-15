@@ -41,7 +41,7 @@ import TopUsers from '@app/components/users/rankings/TopUsers.vue'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useRedirectToAuth } from '@app/hooks/auth/session'
 export default defineComponent({
-	name: 'RootDashboardPage',
+	name: 'DashboardPage',
 	components: {
 		Sidebar,
 		DashboardTopNavigation,

@@ -1,45 +1,30 @@
 <template>
-	<div>
-		<PageLoading v-if="loading" />
-		<div class="content">
-			<h2 class="text-center mb-3">
-				Comments
-			</h2>
-			<CommentCard v-for="comment in comments" :key="comment.hash" :comment="comment" />
-			<DisplayWarning v-if="comments.length === 0" message="No comments found." />
-			<DisplayError :error="error" />
-			<CommentForm v-if="isLoggedIn" :answer-id="answerId" class="my-3" />
-			<div v-else class="d-flex justify-content-center">
-				<button class="btn btn-accent text-white" @click="redirect">
-					Login To Add A Comment
-				</button>
-			</div>
+	<div class="content">
+		<CommentsList :answer-id="answerId" />
+		<CommentForm v-if="isLoggedIn" :answer-id="answerId" class="my-3" />
+		<div v-else class="d-flex justify-content-center">
+			<button class="btn btn-accent text-white" @click="redirect">
+				Login To Add A Comment
+			</button>
 		</div>
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeUnmount, onMounted, useContext } from '@nuxtjs/composition-api'
-import { useAnswerCommentList } from '@app/hooks/questions/answer-comments'
-import CommentCard from '@app/components/questions/comments/CommentsListCard.vue'
+import { defineComponent, useContext } from '@nuxtjs/composition-api'
+import CommentsList from '@app/components/questions/comments/AnswerCommentsList.vue'
 import CommentForm from '@app/components/questions/comments/AnswerCommentForm.vue'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useRedirectToAuth } from '@app/hooks/auth/session'
 export default defineComponent({
-	name: 'RootQuestionAnswerCommentsPage',
-	components: { CommentCard, CommentForm },
-	layout: 'question',
+	name: 'QuestionAnswerCommentsPage',
+	components: { CommentsList, CommentForm },
+	layout: 'answer',
 	setup () {
 		const { isLoggedIn } = useAuth()
 		const { redirect } = useRedirectToAuth()
 		const { answerId } = useContext().route.value.params
-		const { error, loading, comments, listener } = useAnswerCommentList(answerId)
-		onMounted(listener.startListener)
-		onBeforeUnmount(listener.closeListener)
-		return {
-			isLoggedIn, redirect,
-			answerId, error, loading, comments
-		}
+		return { isLoggedIn, redirect, answerId }
 	}
 })
 </script>

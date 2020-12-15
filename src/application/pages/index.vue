@@ -12,7 +12,7 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 export default defineComponent({
-	name: 'RootIndexPage',
+	name: 'IndexPage',
 	middleware: 'isNotAuthenticated'
 })
 </script>

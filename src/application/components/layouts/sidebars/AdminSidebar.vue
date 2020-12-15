@@ -26,6 +26,10 @@
 				<img src="@/assets/images/icons/answers.svg" alt="" width="24" height="24">
 				<span class="ml-1 text-18">Shop Notes</span>
 			</NuxtLink>
+			<NuxtLink class="link" to="/dashboard">
+				<img src="@/assets/images/icons/dashboard.svg" alt="" width="24" height="24">
+				<span class="ml-1 text-18">Main SIte</span>
+			</NuxtLink>
 		</div>
 	</div>
 </template>

@@ -19,7 +19,7 @@ export const useAuth = () => {
 
 	const isLoggedIn = computed({ get: () => !!id.value, set: () => {} })
 	const token = computed({ get: () => global.auth.value?.token, set: () => {} })
-	const isAdmin = computed({ get: () => global.user.value?.roles.isAdmin, set: () => {} })
+	const isAdmin = computed({ get: () => !!global.user.value?.roles.isAdmin, set: () => {} })
 
 	const setAuthUser = async (details: Auth | null) => {
 		if (global.listener) global.listener()

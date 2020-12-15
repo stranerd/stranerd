@@ -35,6 +35,10 @@
 				<img src="@/assets/images/icons/shop.svg" alt="" width="24" height="24">
 				<span class="ml-1 text-18">Shop</span>
 			</NuxtLink>
+			<NuxtLink v-if="isAdmin" class="link" to="/admin/">
+				<img src="@/assets/images/icons/users.svg" alt="" width="24" height="24">
+				<span class="ml-1 text-18">Admin Site</span>
+			</NuxtLink>
 		</div>
 	</div>
 </template>
@@ -45,8 +49,8 @@ import { useAuth } from '@app/hooks/auth/auth'
 export default defineComponent({
 	name: 'DefaultSidebar',
 	setup () {
-		const { isLoggedIn, user } = useAuth()
-		return { isLoggedIn, user }
+		const { isLoggedIn, user, isAdmin } = useAuth()
+		return { isLoggedIn, user, isAdmin }
 	}
 })
 </script>

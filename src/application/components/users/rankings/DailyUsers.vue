@@ -4,7 +4,7 @@
 			<TopUserCard :user="user" period="daily" />
 			<hr class="thin">
 		</div>
-		<DisplayError v-if="!loading && users.length === 0" error="No users found." />
+		<DisplayWarning v-if="!loading && users.length === 0" message="No users found." />
 		<div v-if="isLoggedIn">
 			<h6 class="mt-2">
 				Your Ranking

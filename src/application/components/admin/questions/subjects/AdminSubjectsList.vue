@@ -3,6 +3,7 @@
 		<div class="grid my-2">
 			<SubjectCard v-for="subject in subjects" :key="subject.hash" :subject="subject" />
 		</div>
+		<DisplayWarning v-if="loading && subjects.length === 0" message="No subjects found" />
 		<PageLoading v-if="loading" />
 		<DisplayError :error="error" />
 	</div>

@@ -1,5 +1,5 @@
 <template>
-	<div v-if="message" class="alert alert-info mx-auto my-1 text-center" role="alert">
+	<div v-if="message" class="alert alert-warning mx-auto my-1 text-center" role="alert">
 		<span>{{ message }}</span>
 	</div>
 </template>
@@ -7,7 +7,7 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 export default defineComponent({
-	name: 'DisplayInfo',
+	name: 'DisplayWarning',
 	props: {
 		message: {
 			type: String,

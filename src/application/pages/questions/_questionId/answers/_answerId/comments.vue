@@ -6,7 +6,7 @@
 				Comments
 			</h2>
 			<CommentCard v-for="comment in comments" :key="comment.hash" :comment="comment" />
-			<DisplayError v-if="comments.length === 0" error="No comments found." />
+			<DisplayWarning v-if="comments.length === 0" message="No comments found." />
 			<DisplayError :error="error" />
 			<CommentForm v-if="isLoggedIn" :answer-id="answerId" class="my-3" />
 			<div v-else class="d-flex justify-content-center">

@@ -5,7 +5,7 @@
 			Comments
 		</h2>
 		<CommentCard v-for="comment in comments" :key="comment.hash" :comment="comment" />
-		<DisplayWarning v-if="comments.length === 0" message="No comments found." />
+		<DisplayWarning v-if="!loading && comments.length === 0" message="No comments found." />
 		<DisplayError :error="error" />
 	</div>
 </template>

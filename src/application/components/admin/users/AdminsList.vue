@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<AdminsListCard v-for="admin in admins" :key="admin.id" :admin="admin" />
-		<DisplayWarning v-if="loading && admins.length === 0" message="No admins found" />
+		<DisplayWarning v-if="!loading && admins.length === 0" message="No admins found apart from you" />
 		<PageLoading v-if="loading" />
 		<DisplayError :error="error" />
 	</div>

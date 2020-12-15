@@ -8,7 +8,7 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 	async signinWithEmail (email: string, password: string) {
 		try {
 			const record = await auth.signInWithEmailAndPassword(email, password)
-			return await getUserDetails(record.user!)
+			return await getUserDetails(record.user!, record.additionalUserInfo?.isNewUser ?? false)
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
@@ -16,7 +16,7 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 		try {
 			const googleProvider = new firebase.auth.GoogleAuthProvider()
 			const record = await auth.signInWithPopup(googleProvider)
-			return await getUserDetails(record.user!)
+			return await getUserDetails(record.user!, record.additionalUserInfo?.isNewUser ?? false)
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
@@ -26,7 +26,7 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 			const user = record.user!
 			await user.updateProfile({ displayName: name })
 			await DatabaseService.update(`profiles/${user.uid}/bio`, { name })
-			return await getUserDetails(user)
+			return await getUserDetails(user, record.additionalUserInfo?.isNewUser ?? false)
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
@@ -43,7 +43,7 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 		if (!auth.isSignInWithEmailLink(emailUrl)) throw new Error('Url is not a valid email link')
 		try {
 			const record = await auth.signInWithEmailLink(email, emailUrl)
-			return await getUserDetails(record.user!)
+			return await getUserDetails(record.user!, record.additionalUserInfo?.isNewUser ?? false)
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
@@ -82,9 +82,9 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 	}
 }
 
-const getUserDetails = async (user: firebase.User) => {
+const getUserDetails = async (user: firebase.User, isNew: boolean) => {
 	const idToken = await user.getIdToken(true)
-	const data = { idToken, id: user.uid }
+	const data = { idToken, id: user.uid, isNew }
 	await auth.signOut()
 	return data
 }

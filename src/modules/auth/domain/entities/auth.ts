@@ -6,7 +6,8 @@ export type AuthUser = {
 
 export type AfterAuthUser = {
 	idToken: string
-	id: string
+	id: string,
+	isNew: boolean
 }
 
 export type AuthDetails = {

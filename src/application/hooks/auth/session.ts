@@ -9,9 +9,11 @@ import VueRouter from 'vue-router'
 import { useAuth } from '@app/hooks/auth/auth'
 import firebase from '@modules/core/services/initFirebase'
 import { Alert } from '@app/hooks/core/notifications'
+import { useEditModal } from '@app/hooks/core/modals'
 
 export const createSession = async (user: AfterAuthUser, router: VueRouter) => {
 	const authDetails = await SessionSignin.call(isDev ? user.id : user.idToken)
+	if (user.isNew) useEditModal().setEditModalAccountProfile()
 	if (isClient()) {
 		if (authDetails) {
 			const { token, setAuthUser, startProfileListener } = useAuth()

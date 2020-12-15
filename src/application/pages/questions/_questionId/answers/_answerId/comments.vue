@@ -8,7 +8,12 @@
 			<CommentCard v-for="comment in comments" :key="comment.hash" :comment="comment" />
 			<DisplayError v-if="comments.length === 0" error="No comments found." />
 			<DisplayError :error="error" />
-			<CommentForm id="add" :answer-id="answerId" class="my-3" />
+			<CommentForm v-if="isLoggedIn" :answer-id="answerId" class="my-3" />
+			<div v-else class="d-flex justify-content-center">
+				<button class="btn btn-accent text-white" @click="redirect">
+					Login To Add A Comment
+				</button>
+			</div>
 		</div>
 	</div>
 </template>
@@ -18,16 +23,23 @@ import { defineComponent, onBeforeUnmount, onMounted, useContext } from '@nuxtjs
 import { useAnswerCommentList } from '@app/hooks/questions/answer-comments'
 import CommentCard from '@app/components/questions/comments/CommentsListCard.vue'
 import CommentForm from '@app/components/questions/comments/AnswerCommentForm.vue'
+import { useAuth } from '@app/hooks/auth/auth'
+import { useRedirectToAuth } from '@app/hooks/auth/session'
 export default defineComponent({
 	name: 'RootQuestionAnswerCommentsPage',
 	components: { CommentCard, CommentForm },
 	layout: 'question',
 	setup () {
+		const { isLoggedIn } = useAuth()
+		const { redirect } = useRedirectToAuth()
 		const { answerId } = useContext().route.value.params
 		const { error, loading, comments, listener } = useAnswerCommentList(answerId)
 		onMounted(listener.startListener)
 		onBeforeUnmount(listener.closeListener)
-		return { answerId, error, loading, comments }
+		return {
+			isLoggedIn, redirect,
+			answerId, error, loading, comments
+		}
 	}
 })
 </script>

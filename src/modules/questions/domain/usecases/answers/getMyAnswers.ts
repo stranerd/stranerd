@@ -10,7 +10,7 @@ export class GetMyAnswersUseCase {
 
 	async call (userId: string, date?: Date) {
 		const conditions: FirestoreGetClauses = {
-			order: { field: 'dates.createdAt', desc: false },
+			order: { field: 'dates.createdAt', desc: true },
 			where: [
 				{ field: 'userId', condition: '==', value: userId }
 			]

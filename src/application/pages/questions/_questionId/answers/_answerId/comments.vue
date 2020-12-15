@@ -19,7 +19,7 @@ import { useRedirectToAuth } from '@app/hooks/auth/session'
 export default defineComponent({
 	name: 'QuestionAnswerCommentsPage',
 	components: { CommentsList, CommentForm },
-	layout: 'answer',
+	layout: 'question',
 	setup () {
 		const { isLoggedIn } = useAuth()
 		const { redirect } = useRedirectToAuth()

@@ -4,7 +4,7 @@
 			<QuestionCard :question="rQuestion" />
 			<hr class="thin">
 		</div>
-		<DisplayWarning v-if="!loading && questions.length === 0" message="No questions found." />
+		<DisplayWarning v-if="!loading && !error && questions.length === 0" message="No questions found." />
 		<DisplayError :error="error" />
 		<PageLoading v-if="loading" />
 	</div>

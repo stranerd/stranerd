@@ -1,6 +1,6 @@
 import { BaseEntity } from '@modules/core/domains/entities/base'
 
-enum ChallengeTypes {
+export enum ChallengeTypes {
 	answers = 'answers'
 }
 

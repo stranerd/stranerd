@@ -36,7 +36,7 @@
 				<span class="ml-1 text-18">Shop</span>
 			</NuxtLink>
 			<NuxtLink v-if="isAdmin" class="link" to="/admin/">
-				<img src="@/assets/images/icons/users.svg" alt="" width="24" height="24">
+				<img src="@/assets/images/icons/admin.svg" alt="" width="24" height="24">
 				<span class="ml-1 text-18">Admin Site</span>
 			</NuxtLink>
 		</div>

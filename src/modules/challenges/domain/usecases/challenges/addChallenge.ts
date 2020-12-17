@@ -8,7 +8,7 @@ export class AddChallengeUseCase {
 		this.repository = repository
 	}
 
-	async call (factory: ChallengeFactory<Record<string, any>>) {
+	async call (factory: ChallengeFactory<Record<any, any>>) {
 		return await this.repository.add(await factory.toModel())
 	}
 }

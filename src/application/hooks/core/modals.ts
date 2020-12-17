@@ -11,10 +11,12 @@ export const useCreateModal = () => {
 		isCreateModalSubject: computed(() => global.createModal.value === 'subject'),
 		isCreateModalQuestion: computed(() => global.createModal.value === 'question'),
 		isCreateModalAnswer: computed(() => global.createModal.value === 'answer'),
+		isCreateModalAnswerChallenge: computed(() => global.createModal.value === 'answer-challenge'),
 
 		setCreateModalSubject: () => global.createModal.value = 'subject',
 		setCreateModalQuestion: () => global.createModal.value = 'question',
 		setCreateModalAnswer: () => global.createModal.value = 'answer',
+		setCreateModalAnswerChallenge: () => global.createModal.value = 'answer-challenge',
 		closeCreateModal: () => global.createModal.value = null
 	}
 }

@@ -1,9 +1,9 @@
 <template>
 	<div>
 		<div class="grid my-2">
-			<SubjectCard v-for="subject in subjects" :key="subject.hash" :subject="subject" />
+			<ChallengeCard v-for="challenge in challenges" :key="challenge.hash" :challenge="challenge" />
 		</div>
-		<DisplayWarning v-if="!loading && !error && subjects.length === 0" message="No subjects found" />
+		<DisplayWarning v-if="!loading && !error && challenges.length === 0" message="No challenges found" />
 		<PageLoading v-if="loading" />
 		<DisplayError :error="error" />
 	</div>
@@ -11,15 +11,15 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useSubjectList } from '@app/hooks/questions/subjects'
-import SubjectCard from '@app/components/admin/questions/subjects/AdminSubjectsListCard.vue'
+import { useChallengeList } from '@app/hooks/challenges/challenges'
+import ChallengeCard from '@app/components/admin/questions/challenges/AdminChallengesListCard.vue'
 export default defineComponent({
-	name: 'AdminSubjectsList',
-	components: { SubjectCard },
+	name: 'AdminChallengesList',
+	components: { ChallengeCard },
 	layout: 'admin',
 	setup () {
-		const { loading, error, subjects } = useSubjectList()
-		return { loading, error, subjects }
+		const { loading, error, challenges } = useChallengeList()
+		return { loading, error, challenges }
 	}
 })
 </script>

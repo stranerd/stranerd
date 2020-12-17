@@ -9,6 +9,7 @@ export interface AnswerFromModel {
 	best?: boolean
 	credits: number
 	questionId: string
+	subjectId: string
 	userId: string
 	user: UserBio
 	likes: number
@@ -27,6 +28,7 @@ export interface AnswerToModel {
 	attachments: Media[]
 	credits: number
 	questionId: string
+	subjectId: string
 	userId: string
 	user: UserBio
 }

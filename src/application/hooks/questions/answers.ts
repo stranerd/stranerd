@@ -68,6 +68,7 @@ export const useCreateAnswer = () => {
 
 	if (!answeringQuestion) useCreateModal().closeCreateModal()
 	factory.value.questionId = answeringQuestion!.id
+	factory.value.subjectId = answeringQuestion!.subjectId
 	factory.value.credits = answeringQuestion!.creditable
 	factory.value.userBioAndId = { id: id.value!, user: bio.value! }
 	watch(() => id.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })

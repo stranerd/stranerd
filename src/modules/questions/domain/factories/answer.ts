@@ -8,7 +8,7 @@ import { AnswerToModel } from '../../data/models/answer'
 type Content = File | Media
 type Keys = {
 	body: string, attachments: Content[], credits: number, questionId: string,
-	userId: string, user: UserBio | undefined
+	subjectId: string, userId: string, user: UserBio | undefined
 }
 const isLongerThan0 = (value: string) => isLongerThan(value, 0)
 const isLongerThan2 = (value: string) => isExtractedHTMLLongerThan(value, 2)
@@ -25,12 +25,13 @@ export class AnswerFactory extends BaseFactory<AnswerEntity, AnswerToModel, Keys
 		attachments: { required: true, rules: [containsOnlyImages] },
 		credits: { required: true, rules: [] },
 		questionId: { required: true, rules: [isLongerThan0] },
+		subjectId: { required: true, rules: [isLongerThan0] },
 		userId: { required: true, rules: [isLongerThan0] },
 		user: { required: false, rules: [] }
 	}
 
 	constructor () {
-		super({ body: '', attachments: [], credits: 10, questionId: '', userId: '', user: undefined })
+		super({ body: '', attachments: [], credits: 10, questionId: '', subjectId: '', userId: '', user: undefined })
 	}
 
 	reserved = ['questionId', 'credits']
@@ -41,6 +42,8 @@ export class AnswerFactory extends BaseFactory<AnswerEntity, AnswerToModel, Keys
 	set credits (value: number) { this.set('credits', value) }
 	get questionId () { return this.values.questionId }
 	set questionId (value: string) { this.set('questionId', value) }
+	get subjectId () { return this.values.subjectId }
+	set subjectId (value: string) { this.set('subjectId', value) }
 	set userBioAndId (value: { id: string, user: UserBio }) {
 		this.set('userId', value.id)
 		this.set('user', value.user)
@@ -54,6 +57,7 @@ export class AnswerFactory extends BaseFactory<AnswerEntity, AnswerToModel, Keys
 		this.body = entity.body
 		this.credits = entity.credits
 		this.questionId = entity.questionId
+		this.subjectId = entity.subjectId
 		this.userBioAndId = { id: entity.userId, user: entity.user }
 		this.set('attachments', entity.attachments)
 	}
@@ -66,9 +70,9 @@ export class AnswerFactory extends BaseFactory<AnswerEntity, AnswerToModel, Keys
 			}))
 			this.set('attachments', docs)
 
-			const { body, credits, questionId, userId, attachments, user } = this.validValues
+			const { body, credits, questionId, subjectId, userId, attachments, user } = this.validValues
 			return {
-				body, credits, questionId, userId,
+				body, credits, questionId, subjectId, userId,
 				attachments: attachments as Media[], user: user!
 			}
 		} else {

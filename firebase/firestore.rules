@@ -7,6 +7,11 @@ service cloud.firestore {
 			allow update, delete: if isAdmin();
         }
 
+        match /challenges/{id} {
+            allow read: if true;
+            allow write: if isAdmin();
+        }
+
 		match /questions/{id} {
             allow read: if true;
             allow create: if isAuthenticated();

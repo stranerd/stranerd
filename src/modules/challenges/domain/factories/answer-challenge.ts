@@ -4,7 +4,7 @@ import { ChallengeFactory } from './challenge'
 
 interface Keys { description: string, reward: number, time: number, subjectId: string, quantity: number }
 const isLongerThan2 = (value: string) => isLongerThan(value, 2)
-const isMoreThan0 = (value: number) => isMoreThan(value, 2)
+const isMoreThan0 = (value: number) => isMoreThan(value, 0)
 
 export class AnswerChallengeFactory extends ChallengeFactory<Keys> {
 	readonly rules = {

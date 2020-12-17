@@ -6,15 +6,17 @@
 			</button>
 		</div>
 		<hr class="thick mb-4">
+		<ChallengesList />
 	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useCreateModal } from '@app/hooks/core/modals'
+import ChallengesList from '@app/components/admin/challenges/AdminChallengesList.vue'
 export default defineComponent({
 	name: 'AdminChallengesPage',
-	components: {},
+	components: { ChallengesList },
 	layout: 'admin',
 	setup () {
 		return { setCreateModalAnswerChallenge: useCreateModal().setCreateModalAnswerChallenge }

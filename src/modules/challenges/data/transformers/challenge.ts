@@ -17,7 +17,7 @@ export class ChallengeTransformer {
 			description: entity.description,
 			reward: entity.reward,
 			time: entity.time,
-			meta: entity.meta,
+			meta: entity.meta
 		}
 	}
 }

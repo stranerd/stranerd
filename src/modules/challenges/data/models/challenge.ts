@@ -5,6 +5,7 @@ export interface ChallengeFromModel {
 	type: string
 	description: string
 	reward: number
+	count: number
 	time: number
 	meta: Record<string, any>
 	dates: {
@@ -16,6 +17,7 @@ export interface ChallengeToModel {
 	type: string
 	description: string
 	reward: number
+	count: number
 	time: number
 	meta: Record<string, any>
 }

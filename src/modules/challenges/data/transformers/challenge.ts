@@ -4,9 +4,9 @@ import { ChallengeEntity } from '../../domain/entities/challenge'
 
 export class ChallengeTransformer {
 	fromJSON (model: ChallengeFromModel) {
-		const { id, type, description, reward, time, meta, dates: { createdAt } } = model
+		const { id, type, description, reward, count, time, meta, dates: { createdAt } } = model
 		return new ChallengeEntity({
-			id, type, description, reward, time, meta,
+			id, type, description, reward, count, time, meta,
 			createdAt: timestampToDateString(createdAt)
 		})
 	}
@@ -16,6 +16,7 @@ export class ChallengeTransformer {
 			type: entity.type,
 			description: entity.description,
 			reward: entity.reward,
+			count: entity.count,
 			time: entity.time,
 			meta: entity.meta
 		}

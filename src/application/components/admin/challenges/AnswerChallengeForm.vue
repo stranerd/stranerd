@@ -46,16 +46,16 @@
 			<small v-if="factory.errors.subjectId" class="small text-danger d-block">{{ factory.errors.subjectId }}</small>
 		</div>
 		<div class="form-group my-2">
-			<label class="label">Quantity</label>
+			<label class="label">Count</label>
 			<input
-				v-model.number="factory.quantity"
+				v-model.number="factory.count"
 				type="number"
 				min="0"
 				class="form-control"
 				placeholder="No of questions to answer"
-				:class="{'is-invalid': factory.errors.quantity, 'is-valid': factory.isValid('quantity')}"
+				:class="{'is-invalid': factory.errors.count, 'is-valid': factory.isValid('count')}"
 			>
-			<small v-if="factory.errors.quantity" class="small text-danger d-block">{{ factory.errors.quantity }}</small>
+			<small v-if="factory.errors.count" class="small text-danger d-block">{{ factory.errors.count }}</small>
 		</div>
 		<hr>
 		<div class="d-flex justify-content-end my-2">

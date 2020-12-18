@@ -1,10 +1,17 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { deleteFromStorage } from '../../helpers/storage'
+import { progressPersonalChallenge } from '../../helpers/modules/personal-challenge'
 
 export const answerCreated = functions.firestore.document('answers/{answerId}')
 	.onCreate(async (snap) => {
 		const { credits, userId, questionId } = snap.data()
+
+		await admin.firestore().collection('questions')
+			.doc(questionId)
+			.set({
+				answers: admin.firestore.FieldValue.increment(1)
+			}, { merge: true })
 
 		if (credits && userId) {
 			await admin.database().ref('profiles')
@@ -19,11 +26,7 @@ export const answerCreated = functions.firestore.document('answers/{answerId}')
 				.update({ [snap.id]: true })
 		}
 
-		await admin.firestore().collection('questions')
-			.doc(questionId)
-			.set({
-				answers: admin.firestore.FieldValue.increment(1)
-			}, { merge: true})
+		await progressPersonalChallenge(userId, snap.data())
 	})
 
 export const answerUpdated = functions.firestore.document('answers/{answerId}')

@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { sendNewNotificationEmail } from '../../helpers/email'
-import { Notification } from '../../helpers/database/notifications'
+import { Notification } from '../../helpers/modules/notifications'
 
 export const userNotificationCreated = functions.database.ref('users/{userId}/notifications/{id}')
 	.onCreate(async (snap, context) => {

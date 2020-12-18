@@ -30,15 +30,23 @@ export class ChallengeEntity extends BaseEntity {
 		if (this.type === ChallengeTypes.answers) return { subjectId: this.meta?.subjectId ?? '' }
 		return this.meta
 	}
+
+	get clone () :ChallengeClone {
+		const { type, description, reward, count, time, meta } = this
+		return { type, description, reward, count, time, meta }
+	}
 }
 
-type ChallengeConstructorArgs = {
+type ChallengeConstructorArgs = ChallengeClone & {
 	id: string,
+	createdAt: string
+}
+
+export type ChallengeClone = {
 	type: string,
 	description: string,
 	reward: number,
 	count: number,
 	time: number,
 	meta: Record<string, any>
-	createdAt: string
 }

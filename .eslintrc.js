@@ -13,7 +13,7 @@ module.exports = {
 	},
 	"rules": {
 		"vue/no-v-html": "off",
-		"no-console": "off",
+		"no-console": process.env.NODE_ENV === "development" ? "warn" : "error",
 		"no-debugger": "warn",
 		"no-tabs": "off",
 		"no-var": "error",

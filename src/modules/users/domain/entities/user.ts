@@ -25,7 +25,8 @@ export class UserEntity extends BaseEntity {
 		}
 		this.meta = {
 			answerCount: meta?.answerCount ?? 0,
-			questionCount: meta?.questionCount ?? 0
+			questionCount: meta?.questionCount ?? 0,
+			currentChallenge: meta?.currentChallenge
 		}
 		this.signedUpAt = dates.signedUpAt
 	}
@@ -69,6 +70,7 @@ export interface UserRankings {
 export interface UserMeta {
 	answerCount?: number
 	questionCount?: number
+	currentChallenge?: string
 }
 export const generateDefaultBio = (bio: UserBio) :UserBio => {
 	const name = bio?.name ?? 'Anonymous'

@@ -2,19 +2,26 @@ import * as admin from 'firebase-admin'
 import { authUserCreated, authUserDeleted } from './auth'
 import { makeSuperAdmin } from './requests/makeSuperAdmin'
 import { resendEmails } from './requests/resendEmails'
+import { cancelChallenge } from './requests/cancelChallenge'
+
 import { toggleAdmin } from './onCall/roles/admins'
 import { makeTutor, removeTutor } from './onCall/roles/tutors'
 import { subscribeToMailingList } from './onCall/roles/mailing'
 import { requestNewSession } from './onCall/sessions/requestNewSession'
+
 import { userNotificationCreated } from './modules/users/notifications'
 import { userProfileUpdated, userCreditsUpdated } from './modules/users/users'
 import { tutorUpdated } from './modules/users/tutors'
 import { resetDailyRankings, resetWeeklyRankings, resetMonthlyRankings, resetQuarterlyRankings } from './modules/users/rankings'
+
 import { sessionChatMediaDeleted } from './modules/sessions/chats'
+
 import { questionCommentModified, answerCommentModified } from './modules/questions/comments'
 import { subjectUpdated, subjectDeleted } from './modules/questions/subjects'
 import { questionCreated, questionUpdated, questionDeleted } from './modules/questions/questions'
 import { answerCreated, answerUpdated, answerDeleted, answerLiked, answerRated } from './modules/questions/answers'
+
+import { personalChallengeCreated } from './modules/challenges/personal-challenges'
 
 admin.initializeApp()
 
@@ -23,7 +30,7 @@ export { authUserCreated, authUserDeleted }
 
 
 // Request Triggers
-export { makeSuperAdmin, resendEmails }
+export { makeSuperAdmin, resendEmails, cancelChallenge }
 
 // Users Module
 // Users
@@ -49,6 +56,11 @@ export { questionCreated, questionUpdated, questionDeleted }
 export { answerCreated, answerUpdated, answerDeleted, answerLiked, answerRated }
 // Comments
 export { questionCommentModified, answerCommentModified }
+
+
+// Challenges Module
+// Personal Challenges
+export { personalChallengeCreated }
 
 
 // On Call

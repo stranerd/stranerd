@@ -38,5 +38,10 @@ export const email = () => ({
 	}
 })
 
+export const firebase = () => ({
+	projectId: environment()?.firebase_client_config?.['project_id'],
+	location: environment()?.firebase_meta?.['loc_long']
+})
+
 export const domain = () => `http${!isDev() ? 's' : ''}://${environment()?.domain}`
 export const logo = () => `${domain()}/images/stranerd_logo.png`

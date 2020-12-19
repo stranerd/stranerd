@@ -2,7 +2,8 @@ import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
 import { IPersonalChallengeRepository } from '../../domain/irepositories/ipersonal-challenge'
 import { PersonalChallengeBaseDataSource } from '../datasources/personal-challenge-base'
 import { PersonalChallengeTransformer } from '../transformers/personal-challenge'
-import { PersonalChallengeToModel } from '../models/personal-challenge'
+import { PersonalChallengeFromModel, PersonalChallengeToModel } from '../models/personal-challenge'
+import { PersonalChallengeEntity } from '../../domain/entities/personal-challenge'
 
 export class PersonalChallengeRepository implements IPersonalChallengeRepository {
 	private dataSource: PersonalChallengeBaseDataSource
@@ -16,6 +17,14 @@ export class PersonalChallengeRepository implements IPersonalChallengeRepository
 	async get (userId: string, conditions?: DatabaseGetClauses) {
 		const models = await this.dataSource.get(userId, conditions)
 		return models.map(this.transformer.fromJSON)
+	}
+
+	async listenToMany (userId: string, callback: (challenges: PersonalChallengeEntity[]) => void, conditions?: DatabaseGetClauses) {
+		const cb = (challenges: PersonalChallengeFromModel[]) => {
+			const entities = challenges.map(this.transformer.fromJSON)
+			callback(entities)
+		}
+		return await this.dataSource.listenToMany(userId, cb, conditions)
 	}
 
 	async delete (userId: string, id: string) {

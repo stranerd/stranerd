@@ -9,7 +9,7 @@ export class PersonalChallengeFirebaseDataSource implements PersonalChallengeBas
 	}
 
 	async get (userId: string, conditions?: DatabaseGetClauses) {
-		return await DatabaseService.get(`users/${userId}/challenges`, conditions) as PersonalChallengeFromModel[]
+		return await DatabaseService.getMany(`users/${userId}/challenges`, conditions) as PersonalChallengeFromModel[]
 	}
 
 	async listenToMany (userId: string, callback: (challenges: PersonalChallengeFromModel[]) => void, conditions?: DatabaseGetClauses) {

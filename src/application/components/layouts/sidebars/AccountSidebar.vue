@@ -63,6 +63,10 @@
 				<img src="@/assets/images/icons/edit-profile.svg" alt="" width="24" height="24">
 				<span class="ml-1 text-18">Edit Profile</span>
 			</a>
+			<NuxtLink class="link" to="/dashboard">
+				<img src="@/assets/images/icons/dashboard.svg" alt="" width="24" height="24">
+				<span class="ml-1 text-18">Dashboard</span>
+			</NuxtLink>
 		</div>
 	</div>
 </template>

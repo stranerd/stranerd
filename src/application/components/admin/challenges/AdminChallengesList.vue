@@ -14,7 +14,6 @@ import ChallengeCard from '@app/components/admin/challenges/AdminChallengesListC
 export default defineComponent({
 	name: 'AdminChallengesList',
 	components: { ChallengeCard },
-	layout: 'admin',
 	setup () {
 		const { loading, error, challenges } = useChallengeList()
 		return { loading, error, challenges }

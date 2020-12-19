@@ -5,7 +5,7 @@
 			<div class="p-1 d-none d-lg-block content mr-4 w-25">
 				<AccountSidebar />
 			</div>
-			<div class="content flex-grow-1">
+			<div class="content w-grow">
 				<Nuxt />
 			</div>
 		</div>
@@ -38,6 +38,10 @@ export default defineComponent({
 	max-width: $xl;
 	padding: 0 0.5rem;
 	display: flex;
+}
+.w-grow {
+	width: 100%;
+	@media (min-width: $lg) { width: calc(75% - 2rem); }
 }
 .content {
 	background: $color-white;

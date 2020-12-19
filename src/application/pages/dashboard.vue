@@ -19,10 +19,8 @@
 		</section>
 		<section class="side-right d-flex flex-column flex-md-row flex-lg-column">
 			<div class="content mr-md-1 mr-lg-0 mb-2 mb-lg-0">
-				<h4 class="d-none d-lg-block text-center">
-					Challenges
-				</h4>
-				<h4>challenges</h4>
+				<h5>Challenges</h5>
+				<ChallengesList />
 			</div>
 			<div class="content">
 				<TopUsers />
@@ -38,6 +36,7 @@ import Sidebar from '@app/components/layouts/sidebars/DefaultSidebar.vue'
 import DashboardTopNavigation from '@app/components/layouts/topNavigations/DashboardTopNavigation.vue'
 import QuestionsList from '@app/components/questions/questions/QuestionsList.vue'
 import TopUsers from '@app/components/users/rankings/TopUsers.vue'
+import ChallengesList from '@app/components/challenges/ChallengesList.vue'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useRedirectToAuth } from '@app/hooks/auth/session'
 export default defineComponent({
@@ -46,7 +45,8 @@ export default defineComponent({
 		Sidebar,
 		DashboardTopNavigation,
 		QuestionsList,
-		TopUsers
+		TopUsers,
+		ChallengesList
 	},
 	layout: 'dashboard',
 	setup () {

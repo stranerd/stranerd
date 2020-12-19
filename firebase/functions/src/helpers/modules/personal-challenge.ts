@@ -10,6 +10,7 @@ type Challenge = {
 	clone: {
 		type: ChallengeTypes
 		count: number
+		reward: number
 		meta: Record<string, any>
 	}
 }
@@ -43,8 +44,10 @@ export const progressPersonalChallenge = async (userId: string, payload: any) =>
 	if (isLastTask(challenge) && challenge.taskName) {
 		await admin.database().ref('profiles')
 			.child(userId)
-			.child('meta/currentChallenge')
-			.set(null)
+			.update({
+				'meta/currentChallenge': null,
+				'account/credits': admin.database.ServerValue.increment(challenge.clone.reward)
+			})
 		await deleteTask(challenge.taskName)
 	}
 }

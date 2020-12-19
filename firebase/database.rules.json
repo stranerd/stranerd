@@ -56,7 +56,7 @@
 		"users": {
 			"$userId": {
 				".read": true,
-				".write": "auth.uid != null"
+				".write": "auth.uid != $userId"
 			}
 		},
 		".read": false,

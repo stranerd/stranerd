@@ -15,6 +15,7 @@ const global = {
 export const useAuth = () => {
 	const id = computed({ get: () => global.auth.value?.id, set: () => {} })
 	const bio = computed({ get: () => global.user.value?.userBio, set: () => {} })
+	const currentChallenge = computed({ get: () => global.user.value?.meta.currentChallenge ?? null, set: () => {} })
 
 	const isLoggedIn = computed({ get: () => !!id.value, set: () => {} })
 	const token = computed({ get: () => global.auth.value?.token, set: () => {} })
@@ -40,7 +41,7 @@ export const useAuth = () => {
 	return {
 		id, bio,
 		user: global.user,
-		isLoggedIn, token, isAdmin,
+		isLoggedIn, token, isAdmin, currentChallenge,
 		setAuthUser, startProfileListener,
 		signout
 	}

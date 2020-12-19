@@ -1,10 +1,10 @@
-import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
-import { reqSsrRef, useFetch } from '@nuxtjs/composition-api'
-import { GetAllPersonalChallenges, PersonalChallengeEntity } from '@modules/challenges'
+import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
+import { reqSsrRef, useFetch, computed } from '@nuxtjs/composition-api'
+import { GetAllPersonalChallenges, ListenToPersonalChallenges, PersonalChallengeEntity } from '@modules/challenges'
 import { useAuth } from '@app/hooks/auth/auth'
 
 const global = {
-	userId: '',
+	userId: null as string | null,
 	fetched: reqSsrRef(false),
 	challenges: reqSsrRef([] as PersonalChallengeEntity[])
 }
@@ -24,17 +24,27 @@ const fetchChallenges = async (userId: string) => {
 }
 
 export const usePersonalChallengesList = () => {
-	const { id } = useAuth()
+	const { id, currentChallenge } = useAuth()
 	useFetch(async () => {
 		if (id.value && global.userId !== id.value) {
 			await fetchChallenges(id.value)
 			global.userId = id.value
-		} else if (!id.value) global.challenges.value = []
+		} else if (!id.value) {
+			global.challenges.value = []
+			global.userId = null
+		}
 	})
 
-	/* const listener = useListener(async () => {
-		return await
-	}) */
+	const listener = useListener(async () => {
+		if (!id.value) return () => {}
+		const cb = (challenges: PersonalChallengeEntity[]) => global.challenges.value = challenges
+		return await ListenToPersonalChallenges.call(id.value, cb)
+	})
 
-	return { ...global, error, loading }
+	const current = computed({
+		get: () => global.challenges.value.find((c) => c.id === currentChallenge.value) ?? null,
+		set: () => {}
+	})
+
+	return { ...global, error, loading, listener, current }
 }

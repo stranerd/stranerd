@@ -5,6 +5,8 @@
 		</NuxtLink>
 		<div class="d-flex">
 			<span class="text-wrap">
+				{{ subject ? subject.name : 'Subject' }}
+				|
 				{{ time }}
 			</span>
 			<span class="ml-auto">
@@ -23,6 +25,7 @@
 import { defineComponent, onBeforeUnmount, onMounted, PropType } from '@nuxtjs/composition-api'
 import { AnswerEntity } from '@modules/questions'
 import { useTimeDifference } from '@app/hooks/core/dates'
+import { useSubject } from '@app/hooks/questions/subjects'
 export default defineComponent({
 	name: 'MyAnswerListCard',
 	props: {
@@ -32,10 +35,11 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
+		const { subject } = useSubject(props.answer.subjectId)
 		const { time, startTimer, stopTimer } = useTimeDifference(props.answer.createdAt)
 		onMounted(startTimer)
 		onBeforeUnmount(stopTimer)
-		return { time }
+		return { subject, time }
 	}
 })
 </script>

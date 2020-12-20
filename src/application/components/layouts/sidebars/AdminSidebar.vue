@@ -2,7 +2,9 @@
 	<div>
 		<div v-if="isLoggedIn" class="d-flex flex-column align-items-center my-1">
 			<img :src="user.image" alt="" class="profile-image" style="width:90px;height:90px;">
-			<span class="text-18">{{ user.name }}</span>
+			<NuxtLink to="/account" class="text-18">
+				{{ user.name }}
+			</NuxtLink>
 			<span>Admin</span>
 		</div>
 		<div class="my-1 d-flex flex-column links">

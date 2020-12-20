@@ -11,7 +11,8 @@ export class StartPersonalChallengeUseCase {
 	async call (userId: string, challenge: ChallengeEntity) {
 		const pChallenge = {
 			progress: 0,
-			clone: challenge.clone
+			clone: challenge.clone,
+			cancelled: false
 		}
 		return await this.repository.add(userId, pChallenge)
 	}

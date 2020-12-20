@@ -11,7 +11,8 @@ export class RetryPersonalChallengeUseCase {
 	async call (userId: string, challenge: PersonalChallengeEntity) {
 		const pChallenge = {
 			progress: 0,
-			clone: challenge.clone
+			clone: challenge.clone,
+			cancelled: false
 		}
 		const id = await this.repository.add(userId, pChallenge)
 		await this.repository.delete(userId, challenge.id)

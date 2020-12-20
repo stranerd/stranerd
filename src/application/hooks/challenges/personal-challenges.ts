@@ -1,10 +1,12 @@
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 import { reqSsrRef, useFetch, computed } from '@nuxtjs/composition-api'
 import {
+	CancelPersonalChallenge,
 	ChallengeEntity, GetAllPersonalChallenges, ListenToPersonalChallenges,
 	PersonalChallengeEntity, RetryPersonalChallenge, StartPersonalChallenge
 } from '@modules/challenges'
 import { useAuth } from '@app/hooks/auth/auth'
+import { Alert } from '@app/hooks/core/notifications'
 
 const global = {
 	userId: null as string | null,
@@ -84,4 +86,29 @@ export const useRetryPersonalChallenge = () => {
 	}
 
 	return { error, loading, retryChallenge }
+}
+
+export const useCancelPersonalChallenge = () => {
+	const { id } = useAuth()
+	const { error, setError } = useErrorHandler()
+	const { loading, setLoading } = useLoadingHandler()
+
+	const cancelChallenge = async (challenge: PersonalChallengeEntity) => {
+		setError('')
+		const accepted = await Alert({
+			title: 'Are you sure you want to cancel this challenge?',
+			text: 'This cannot be undone',
+			icon: 'warning',
+			confirmButtonText: 'Yes, cancel'
+		})
+		if (accepted) {
+			try {
+				setLoading(true)
+				if (id.value) await CancelPersonalChallenge.call(id.value, challenge.id)
+			} catch (error) { setError(error) }
+			setLoading(false)
+		}
+	}
+
+	return { error, loading, cancelChallenge }
 }

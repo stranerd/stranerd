@@ -5,10 +5,15 @@
 				<span class="text-capitalize mr-1 text-wrap">
 					{{ challenge.clone.description }}
 				</span>
-				<span class="d-flex align-items-center">
-					<span>+{{ challenge.clone.reward }}</span>
-					<img src="@/assets/images/icons/credits.svg" alt="" width="16" height="16">
-				</span>
+				<div class="d-flex align-items-center">
+					<span class="d-flex align-items-center">
+						<span>+{{ challenge.clone.reward }}</span>
+						<img src="@/assets/images/icons/credits.svg" alt="" width="16" height="16">
+					</span>
+					<a class="ml-2 text-red" @click="cancel">
+						Cancel challenge
+					</a>
+				</div>
 			</div>
 			<span class="ml-auto d-flex align-items-center">
 				<i class="fas fa-clock" style="margin-right: 2px;" />
@@ -19,6 +24,8 @@
 				<span class="text">{{ challenge.progress }} / {{ challenge.clone.count }}</span>
 			</div>
 		</div>
+		<DisplayError :error="error" />
+		<PageLoading v-if="loading" />
 	</div>
 </template>
 
@@ -26,6 +33,7 @@
 import { defineComponent, onBeforeUnmount, onMounted, PropType } from '@nuxtjs/composition-api'
 import { PersonalChallengeEntity } from '@modules/challenges'
 import { useCountdown } from '@app/hooks/core/dates'
+import { useCancelPersonalChallenge } from '@app/hooks/challenges/personal-challenges'
 export default defineComponent({
 	name: 'CurrentChallengeCard',
 	props: {
@@ -35,10 +43,12 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
+		const { error, loading, cancelChallenge } = useCancelPersonalChallenge()
+		const cancel = () => cancelChallenge(props.challenge)
 		const { time, startTimer, stopTimer } = useCountdown(props.challenge.endedAt)
 		onMounted(startTimer)
 		onBeforeUnmount(stopTimer)
-		return { time }
+		return { time, error, loading, cancel }
 	}
 })
 </script>

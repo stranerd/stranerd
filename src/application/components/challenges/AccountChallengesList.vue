@@ -64,18 +64,16 @@ export default defineComponent({
 		const failedChallenges = computed({
 			get: () => nChallenges.value.filter((c) => {
 				const p = pChallenges.value.find((p) => p.clone.id === c.id)
-				if (!p) return false
-				if (p.id === current.value?.id) return false
-				return p.progress < p.clone.count && p.endedAt < Date.now()
+				if (!p || p.id === current.value?.id) return false
+				return p.cancelled || !p.isCompleted
 			}),
 			set: () => {}
 		})
 		const passedChallenges = computed({
 			get: () => nChallenges.value.filter((c) => {
 				const p = pChallenges.value.find((p) => p.clone.id === c.id)
-				if (!p) return false
-				if (p.id === current.value?.id) return false
-				return p.progress === p.clone.count && p.endedAt < Date.now()
+				if (!p || p.id === current.value?.id) return false
+				return p.isCompleted
 			}),
 			set: () => {}
 		})

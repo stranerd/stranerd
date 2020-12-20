@@ -42,9 +42,9 @@ export default defineComponent({
 		const challenges = computed({
 			get: () => nChallenges.value.filter((c) => {
 				const p = pChallenges.value.find((p) => p.clone.id === c.id)
-				if (!p) return true // challenge not attempted before
-				if (p.id === current.value?.id) return false // current ongoing challenge
-				return true // failed or cancelled challenge
+				if (!p) return true
+				if (p.id === current.value?.id) return false
+				return p.cancelled || !p.isCompleted
 			}).slice(0, 5),
 			set: () => {}
 		})

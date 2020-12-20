@@ -35,7 +35,7 @@ export class PersonalChallengeRepository implements IPersonalChallengeRepository
 		return await this.dataSource.add(userId, data)
 	}
 
-	async update (userId: string, id: string, data: PersonalChallengeToModel) {
+	async update (userId: string, id: string, data: Partial<PersonalChallengeToModel>) {
 		return await this.dataSource.update(userId, id, data)
 	}
 

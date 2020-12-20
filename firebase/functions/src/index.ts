@@ -21,7 +21,7 @@ import { subjectUpdated, subjectDeleted } from './modules/questions/subjects'
 import { questionCreated, questionUpdated, questionDeleted } from './modules/questions/questions'
 import { answerCreated, answerUpdated, answerDeleted, answerLiked, answerRated } from './modules/questions/answers'
 
-import { personalChallengeCreated } from './modules/challenges/personal-challenges'
+import { personalChallengeCreated, personalChallengeCancelled } from './modules/challenges/personal-challenges'
 
 admin.initializeApp()
 
@@ -60,7 +60,7 @@ export { questionCommentModified, answerCommentModified }
 
 // Challenges Module
 // Personal Challenges
-export { personalChallengeCreated }
+export { personalChallengeCreated, personalChallengeCancelled }
 
 
 // On Call

@@ -4,6 +4,7 @@ export interface PersonalChallengeFromModel {
 	id: string
 	progress: number
 	clone: ChallengeClone
+	cancelled: boolean
 	dates: {
 		createdAt: number
 	}
@@ -12,4 +13,5 @@ export interface PersonalChallengeFromModel {
 export interface PersonalChallengeToModel {
 	progress: number
 	clone: ChallengeClone
+	cancelled: boolean
 }

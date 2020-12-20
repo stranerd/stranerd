@@ -20,7 +20,7 @@ export class PersonalChallengeFirebaseDataSource implements PersonalChallengeBas
 		return await DatabaseService.create(`users/${userId}/challenges`, data)
 	}
 
-	async update (userId: string, id: string, data: PersonalChallengeToModel) {
+	async update (userId: string, id: string, data: Partial<PersonalChallengeToModel>) {
 		return await DatabaseService.update(`users/${userId}/challenges/${id}`, data)
 	}
 

@@ -82,6 +82,10 @@ export const useCountdown = (timeInMs: number) => {
 				diffInSec.value -= time
 			})
 		}
+		if (diffInSec.value <= 0) {
+			clearInterval(interval)
+			if (diffInSec.value < 0) diffInSec.value = 0
+		}
 	})
 
 	const time = computed({

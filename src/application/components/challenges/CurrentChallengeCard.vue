@@ -16,9 +16,7 @@
 			</span>
 			<div class="progress ml-1">
 				<div class="progress-level" :style="`width: ${100 * challenge.progress / challenge.clone.count}%`" />
-				<span class="text">
-					<span>{{ challenge.progress }}</span>
-				</span>
+				<span class="text">{{ challenge.progress }} / {{ challenge.clone.count }}</span>
 			</div>
 		</div>
 	</div>

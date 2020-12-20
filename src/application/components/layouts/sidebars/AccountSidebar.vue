@@ -47,6 +47,10 @@
 				<img src="@/assets/images/icons/answers.svg" alt="" width="24" height="24">
 				<span class="ml-1 text-18">Answers</span>
 			</NuxtLink>
+			<NuxtLink class="link" to="/account/challenges">
+				<img src="@/assets/images/icons/challenge.svg" alt="" width="24" height="24">
+				<span class="ml-1 text-18">Challenges</span>
+			</NuxtLink>
 			<NuxtLink class="link" to="/account/friends">
 				<img src="@/assets/images/icons/friends.svg" alt="" width="24" height="24">
 				<span class="ml-1 text-18">Friends</span>

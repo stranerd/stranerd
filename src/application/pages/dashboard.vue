@@ -18,7 +18,7 @@
 			</div>
 		</section>
 		<section class="side-right d-flex flex-column flex-md-row flex-lg-column">
-			<div class="content mr-md-1 mr-lg-0 mb-2 mb-lg-0">
+			<div class="content mr-md-1 mr-lg-0 mb-2 mb-lg-4">
 				<h5>Challenges</h5>
 				<ChallengesList />
 			</div>
@@ -67,11 +67,11 @@ export default defineComponent({
 .side-left {
 	display: none;
 	background-color: $color-white;
-	padding: 0.5rem;
+	padding: 1rem 0.5rem;
+	width: 20%;
+	box-shadow: 3px 0 10px rgba($color-black, 0.1);
 	@media (min-width: $lg) {
 		display: block;
-		width: 20%;
-		box-shadow: 3px 0 10px rgba($color-black, 0.1);
 	}
 }
 .main-view {
@@ -102,20 +102,21 @@ export default defineComponent({
 	padding: 0 0.25rem;
 	@media (min-width: $lg) {
 		background-color: $color-white;
-		padding: 0.5rem;
+		padding: 1rem 0.5rem;
 		width: 25%;
 		margin: 0 0 0 auto;
 	}
 	.content {
-		flex-grow: 1;
 		padding: 0.5rem;
 		background-color: $color-white;
 		border-radius: 0.5rem;
 		@media (min-width: $md) {
+			flex-grow: 1;
 			border-radius: 1.0rem;
 			max-width: 50%;
 		}
 		@media (min-width: $lg) {
+			flex-grow: 0;
 			max-width: 100%;
 		}
 	}

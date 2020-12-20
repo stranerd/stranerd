@@ -1,6 +1,7 @@
 <template>
 	<div class="text-grey">
 		<div v-if="current">
+			<h6>Current Challenge</h6>
 			<CurrentChallengeCard :challenge="current" />
 			<hr class="thin">
 		</div>

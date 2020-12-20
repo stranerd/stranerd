@@ -28,7 +28,7 @@ import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { ChallengeEntity } from '@modules/challenges'
 import { useStartPersonalChallenge } from '@app/hooks/challenges/personal-challenges'
 import { useAuth } from '@app/hooks/auth/auth'
-import { useTimeString } from '@app/hooks/core/dates'
+import { getTimeFormatted } from '@app/hooks/core/dates'
 export default defineComponent({
 	name: 'StartChallengeCard',
 	props: {
@@ -40,7 +40,7 @@ export default defineComponent({
 	setup (props) {
 		const { currentChallenge } = useAuth()
 		const { error, loading, startChallenge } = useStartPersonalChallenge()
-		const time = useTimeString(props.challenge.time)
+		const time = getTimeFormatted(props.challenge.time * 60 * 60)
 		const start = () => startChallenge(props.challenge)
 		return { error, loading, start, currentChallenge, time }
 	}

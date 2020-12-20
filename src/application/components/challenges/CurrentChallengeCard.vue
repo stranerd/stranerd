@@ -12,7 +12,7 @@
 			</div>
 			<span class="ml-auto d-flex align-items-center">
 				<i class="fas fa-clock" style="margin-right: 2px;" />
-				<span>{{ challenge.clone.time }}</span>
+				<span>{{ time }}</span>
 			</span>
 			<div class="progress ml-1">
 				<div class="progress-level" :style="`width: ${100 * challenge.progress / challenge.clone.count}%`" />
@@ -25,8 +25,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from '@nuxtjs/composition-api'
+import { defineComponent, onBeforeUnmount, onMounted, PropType } from '@nuxtjs/composition-api'
 import { PersonalChallengeEntity } from '@modules/challenges'
+import { useCountdown } from '@app/hooks/core/dates'
 export default defineComponent({
 	name: 'CurrentChallengeCard',
 	props: {
@@ -34,6 +35,12 @@ export default defineComponent({
 			type: Object as PropType<PersonalChallengeEntity>,
 			required: true
 		}
+	},
+	setup (props) {
+		const { time, startTimer, stopTimer } = useCountdown(props.challenge.endedAt)
+		onMounted(startTimer)
+		onBeforeUnmount(stopTimer)
+		return { time }
 	}
 })
 </script>

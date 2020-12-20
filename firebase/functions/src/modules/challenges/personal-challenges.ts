@@ -18,7 +18,7 @@ export const personalChallengeCreated = functions.database.ref('users/{userId}/c
 				queue: 'challenges',
 				endpoint: 'cancelChallenge',
 				payload: { userId, id },
-				timeInSecs: (challenge?.clone?.time ?? 10) * 60
+				timeInSecs: (challenge?.clone?.time ?? 1) * 60 * 60
 			})
 
 			await admin.database().ref('users')

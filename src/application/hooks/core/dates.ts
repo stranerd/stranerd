@@ -65,3 +65,14 @@ export const useTimeDifference = (dateString: string) => {
 
 	return { time, startTimer, stopTimer }
 }
+
+export const useTimeString = (timeInHrs: number) => {
+	if (timeInHrs < 1) {
+		const mins = Math.round(timeInHrs * 60)
+		return `${mins} min${mins > 1 ? 's' : ''}`
+	} else if (timeInHrs < 24) return `${timeInHrs} hr${timeInHrs > 1 ? 's' : ''}`
+	else {
+		const days = Math.round(timeInHrs / 24)
+		return `${days} day${days > 1 ? 's' : ''}`
+	}
+}

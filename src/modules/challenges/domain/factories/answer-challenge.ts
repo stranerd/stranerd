@@ -1,24 +1,25 @@
-import { isLongerThan, isMoreThan } from 'sd-validate/lib/rules'
+import { isLessThan, isLongerThan, isMoreThan } from 'sd-validate/lib/rules'
 import { ChallengeEntity, ChallengeTypes } from '../entities/challenge'
 import { ChallengeFactory } from './challenge'
 
 interface Keys { description: string, reward: number, count: number, time: number, subjectId: string }
 const isLongerThan2 = (value: string) => isLongerThan(value, 2)
 const isMoreThan0 = (value: number) => isMoreThan(value, 0)
+const isLessThan30days = (value: number) => isLessThan(value, 24 * 30)
 
 export class AnswerChallengeFactory extends ChallengeFactory<Keys> {
 	readonly rules = {
 		description: { required: true, rules: [isLongerThan2] },
 		reward: { required: true, rules: [isMoreThan0] },
 		count: { required: true, rules: [isMoreThan0] },
-		time: { required: true, rules: [isMoreThan0] },
+		time: { required: true, rules: [isMoreThan0, isLessThan30days] },
 		subjectId: { required: true, rules: [] }
 	}
 
 	constructor () {
 		super({
 			description: '', reward: 0, count: 0,
-			time: 0, subjectId: ''
+			time: 1, subjectId: ''
 		})
 	}
 

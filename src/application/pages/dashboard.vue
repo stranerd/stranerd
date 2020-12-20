@@ -113,6 +113,10 @@ export default defineComponent({
 		border-radius: 0.5rem;
 		@media (min-width: $md) {
 			border-radius: 1.0rem;
+			max-width: 50%;
+		}
+		@media (min-width: $lg) {
+			max-width: 100%;
 		}
 	}
 }

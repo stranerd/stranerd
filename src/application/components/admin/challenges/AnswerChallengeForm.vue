@@ -29,7 +29,7 @@
 				type="number"
 				min="0"
 				class="form-control"
-				placeholder="Time for completion in minutes"
+				placeholder="Time for completion in hours"
 				:class="{'is-invalid': factory.errors.time, 'is-valid': factory.isValid('time')}"
 			>
 			<small v-if="factory.errors.time" class="small text-danger d-block">{{ factory.errors.time }}</small>

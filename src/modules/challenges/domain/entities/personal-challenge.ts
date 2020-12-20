@@ -16,7 +16,7 @@ export class PersonalChallengeEntity extends BaseEntity {
 	}
 
 	get endedAt () {
-		return this.createdAt + (60 * 1000 * this.clone.time ?? 1)
+		return this.createdAt + (60 * 60 * 1000 * this.clone.time ?? 1)
 	}
 }
 

@@ -12,7 +12,7 @@
 			</div>
 			<span class="ml-auto d-flex align-items-center">
 				<i class="fas fa-clock" style="margin-right: 2px;" />
-				<span>{{ challenge.time }}</span>
+				<span class="small">{{ time }}</span>
 			</span>
 			<button v-if="!currentChallenge" class="ml-1 btn btn-small rounded-pill btn-accent text-white px-2 py-0" @click="start">
 				Start
@@ -28,6 +28,7 @@ import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { ChallengeEntity } from '@modules/challenges'
 import { useStartPersonalChallenge } from '@app/hooks/challenges/personal-challenges'
 import { useAuth } from '@app/hooks/auth/auth'
+import { useTimeString } from '@app/hooks/core/dates'
 export default defineComponent({
 	name: 'StartChallengeCard',
 	props: {
@@ -39,8 +40,9 @@ export default defineComponent({
 	setup (props) {
 		const { currentChallenge } = useAuth()
 		const { error, loading, startChallenge } = useStartPersonalChallenge()
+		const time = useTimeString(props.challenge.time)
 		const start = () => startChallenge(props.challenge)
-		return { error, loading, start, currentChallenge }
+		return { error, loading, start, currentChallenge, time }
 	}
 })
 </script>

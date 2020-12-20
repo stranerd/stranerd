@@ -6,7 +6,7 @@
 					{{ challenge.clone.description }}
 				</span>
 				<span class="d-flex align-items-center">
-					<span>{{ challenge.clone.reward }}</span>
+					<span>+{{ challenge.clone.reward }}</span>
 					<img src="@/assets/images/icons/credits.svg" alt="" width="16" height="16">
 				</span>
 			</div>

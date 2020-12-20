@@ -20,7 +20,7 @@
 				<i class="fas fa-clock" style="margin-right: 2px;" />
 				<span class="small">{{ time }}</span>
 			</span>
-			<button v-if="!currentChallenge" class="ml-1 btn btn-small rounded-pill btn-red text-white px-2 py-0" @click="start">
+			<button v-if="!currentChallenge" class="ml-1 btn btn-small rounded-pill btn-red text-white px-2 py-0" @click="retry">
 				Retry
 			</button>
 		</div>
@@ -32,7 +32,7 @@
 <script lang="ts">
 import { computed, defineComponent, PropType } from '@nuxtjs/composition-api'
 import { ChallengeEntity, PersonalChallengeEntity } from '@modules/challenges'
-import { useStartPersonalChallenge } from '@app/hooks/challenges/personal-challenges'
+import { useRetryPersonalChallenge } from '@app/hooks/challenges/personal-challenges'
 import { useAuth } from '@app/hooks/auth/auth'
 import { getTimeFormatted } from '@app/hooks/core/dates'
 export default defineComponent({
@@ -49,14 +49,14 @@ export default defineComponent({
 	},
 	setup (props) {
 		const { currentChallenge } = useAuth()
-		const { error, loading, startChallenge } = useStartPersonalChallenge()
+		const { error, loading, retryChallenge } = useRetryPersonalChallenge()
 		const personal = computed({
 			get: () => props.personalChallenges.find((p) => p.clone.id === props.challenge.id),
 			set: () => {}
 		})
 		const time = getTimeFormatted(props.challenge.time * 60 * 60)
-		const start = () => startChallenge(props.challenge)
-		return { error, loading, start, currentChallenge, time, personal }
+		const retry = () => personal.value && retryChallenge(personal.value)
+		return { error, loading, retry, currentChallenge, time, personal }
 	}
 })
 </script>
@@ -66,7 +66,7 @@ export default defineComponent({
 	border-radius: 10rem;
 	width: clamp(100px, 25%, 200px);
 	position: relative;
-	color: $color-white;
+	color: $color-black;
 	display: flex;
 	align-items: center;
 	.progress-level {

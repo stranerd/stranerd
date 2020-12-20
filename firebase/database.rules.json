@@ -5,12 +5,12 @@
 				".read": false,
 				"likes": {
 					"$userId": {
-						".write": "auth.uid != null"
+						".write": "auth.uid === $userId"
 					}
 				},
 				"ratings": {
 					"$userId": {
-						".write": "auth.uid != null"
+						".write": "auth.uid === $userId"
 					}
 				}
 			}
@@ -20,7 +20,7 @@
 				".read": true,
 				"$answerId": {
 					"$userId": {
-						".write": "auth.uid != null"
+						".write": "auth.uid === $userId"
 					}
 				}
 			},
@@ -28,7 +28,7 @@
 				".read": true,
 				"$questionId": {
 					"$userId": {
-						".write": "auth.uid != null"
+						".write": "auth.uid === $userId"
 					}
 				}
 			}
@@ -41,7 +41,7 @@
 			],
 			"$userId": {
 				".read": true,
-				".write": "auth.uid != null"
+				".write": "auth.uid === $userId"
 			}
 		},
 		"sessions": {
@@ -56,7 +56,7 @@
 		"users": {
 			"$userId": {
 				".read": true,
-				".write": "auth.uid != $userId"
+				".write": "auth.uid === $userId"
 			}
 		},
 		".read": false,

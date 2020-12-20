@@ -10,6 +10,7 @@ import { AddChallengeUseCase } from './domain/usecases/challenges/addChallenge'
 import { FindChallengeUseCase } from './domain/usecases/challenges/findChallenge'
 import { GetAllPersonalChallengesUseCase } from './domain/usecases/personal-challenges/getAllPersonalChallenges'
 import { ListenToPersonalChallengesUseCase } from './domain/usecases/personal-challenges/listenToPersonalChallenges'
+import { StartPersonalChallengeUseCase } from './domain/usecases/personal-challenges/startPersonalChallenge'
 import { ChallengeEntity } from './domain/entities/challenge'
 import { AnswerChallengeFactory } from './domain/factories/answer-challenge'
 import { PersonalChallengeEntity } from './domain/entities/personal-challenge'
@@ -30,5 +31,6 @@ export const FindChallenge = new FindChallengeUseCase(challengeRepository)
 
 export const GetAllPersonalChallenges = new GetAllPersonalChallengesUseCase(personalChallengeRepository)
 export const ListenToPersonalChallenges = new ListenToPersonalChallengesUseCase(personalChallengeRepository)
+export const StartPersonalChallenge = new StartPersonalChallengeUseCase(personalChallengeRepository)
 
 export { ChallengeEntity, AnswerChallengeFactory, PersonalChallengeEntity }

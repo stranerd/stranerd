@@ -1,6 +1,11 @@
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 import { reqSsrRef, useFetch, computed } from '@nuxtjs/composition-api'
-import { GetAllPersonalChallenges, ListenToPersonalChallenges, PersonalChallengeEntity } from '@modules/challenges'
+import {
+	ChallengeEntity,
+	GetAllPersonalChallenges,
+	ListenToPersonalChallenges,
+	PersonalChallengeEntity, StartPersonalChallenge
+} from '@modules/challenges'
 import { useAuth } from '@app/hooks/auth/auth'
 
 const global = {
@@ -47,4 +52,21 @@ export const usePersonalChallengesList = () => {
 	})
 
 	return { ...global, error, loading, listener, current }
+}
+
+export const useStartPersonalChallenge = () => {
+	const { id } = useAuth()
+	const { error, setError } = useErrorHandler()
+	const { loading, setLoading } = useLoadingHandler()
+
+	const startChallenge = async (challenge: ChallengeEntity) => {
+		setError('')
+		try {
+			setLoading(true)
+			if (id.value) await StartPersonalChallenge.call(id.value, challenge)
+		} catch (error) { setError(error) }
+		setLoading(false)
+	}
+
+	return { error, loading, startChallenge }
 }

@@ -28,15 +28,15 @@
 				<span>{{ answer.commentsCount }}</span>
 				<i class="fas fa-comments" />
 			</NuxtLink>
-			<a v-if="answer.userId !== id" class="mr-2" @click="likeAnswer">
+			<a v-if="isLoggedIn && answer.userId !== id" class="mr-2" @click="likeAnswer">
 				<i class="fas fa-heart" />
 				<span class="text-danger">LIKES {{ answer.likes }}</span>
 			</a>
-			<span v-if="answer.userId !== id" class="mr-1">
+			<span v-if="isLoggedIn && answer.userId !== id" class="mr-1">
 				<SelectRating :rating="0" :set-rating="rateAnswer" />
 				<span class="text-gold">{{ answer.formattedRating }}</span>
 			</span>
-			<a v-if="!question.isAnswered && question.userId === id" class="mr-1 text-accent" @click.prevent="markBestAnswer">
+			<a v-if="isLoggedIn && !question.isAnswered && question.userId === id" class="mr-1 text-accent" @click.prevent="markBestAnswer">
 				<i class="fas fa-check" />
 				<span>Mark Best Answer</span>
 			</a>
@@ -87,7 +87,7 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
-		const { id } = useAuth()
+		const { id, isLoggedIn } = useAuth()
 		const { questions } = useQuestionList()
 		const question = computed({
 			get: () => questions.value.find((q) => q.id === props.answer.questionId) ?? null,
@@ -98,7 +98,7 @@ export default defineComponent({
 		onMounted(startTimer)
 		onBeforeUnmount(stopTimer)
 		return {
-			id,
+			id, isLoggedIn,
 			question, time,
 			error, loading, rateAnswer, likeAnswer,
 			markBestAnswer: () => markBestAnswer(question.value)

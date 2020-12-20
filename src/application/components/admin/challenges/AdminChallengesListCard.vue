@@ -1,16 +1,26 @@
 <template>
-	<div class="d-flex flex-column align-items-center">
-		<h5 class="text-capitalize">
+	<div>
+		<p class="text-capitalize mb-1">
 			{{ challenge.description }}
-		</h5>
-		<div class="d-flex justify-content-center small flex-wrap">
-			<a class="text-red" @click.prevent="deleteChallenge">
+		</p>
+		<div class="d-flex flex-wrap">
+			<span class="d-flex align-items-center">
+				<span>+{{ challenge.reward }}</span>
+				<img src="@/assets/images/icons/credits.svg" alt="" width="16" height="16">
+			</span>
+			<span class="mx-1">x{{ challenge.count }}</span>
+			<span class="mx-1 d-flex align-items-center">
+				<i class="fas fa-clock" />
+				<span>{{ time }}</span>
+			</span>
+			<a class="text-red ml-auto" @click.prevent="deleteChallenge">
 				<span>Delete</span>
 				<i class="fas fa-trash" />
 			</a>
 		</div>
 		<PageLoading v-if="loading" />
 		<DisplayError :error="error" />
+		<hr class="thin">
 	</div>
 </template>
 
@@ -18,6 +28,7 @@
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { ChallengeEntity } from '@modules/challenges'
 import { useDeleteChallenge } from '@app/hooks/challenges/challenges'
+import { getTimeFormatted } from '@app/hooks/core/dates'
 export default defineComponent({
 	name: 'AdminChallengesListCard',
 	props: {
@@ -27,8 +38,9 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
+		const time = getTimeFormatted(props.challenge.time * 60 * 60)
 		const { loading, error, deleteChallenge } = useDeleteChallenge(props.challenge)
-		return { loading, error, deleteChallenge }
+		return { time, loading, error, deleteChallenge }
 	}
 })
 </script>

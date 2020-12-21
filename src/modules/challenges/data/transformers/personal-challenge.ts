@@ -3,15 +3,16 @@ import { PersonalChallengeEntity } from '../../domain/entities/personal-challeng
 
 export class PersonalChallengeTransformer {
 	fromJSON (model: PersonalChallengeFromModel) {
-		const { id, progress, clone, dates: { createdAt } } = model
+		const { id, progress, clone, cancelled, dates: { createdAt } } = model
 		return new PersonalChallengeEntity({
-			id, progress, clone, createdAt
+			id, progress, clone, cancelled, createdAt
 		})
 	}
 
 	toJSON (entity: PersonalChallengeEntity) :PersonalChallengeToModel {
 		return {
 			progress: entity.progress,
+			cancelled: entity.cancelled,
 			clone: entity.clone
 		}
 	}

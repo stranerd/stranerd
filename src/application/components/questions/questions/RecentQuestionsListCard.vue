@@ -5,7 +5,7 @@
 		</NuxtLink>
 		<span class="mr-2">
 			<span>+{{ question.creditable }}</span>
-			<img src="@/assets/images/icons/credits.svg" width="16" height="16" alt="">
+			<Credits :size="16" />
 		</span>
 		<span v-if="question.attachments.length">
 			<span>{{ question.attachments.length }}</span>

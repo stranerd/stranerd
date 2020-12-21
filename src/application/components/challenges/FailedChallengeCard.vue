@@ -8,7 +8,7 @@
 				<div class="d-flex align-items-center">
 					<span class="d-flex align-items-center">
 						<span>+{{ challenge.reward }}</span>
-						<img src="@/assets/images/icons/credits.svg" alt="" width="16" height="16">
+						<Credits :size="16" />
 					</span>
 					<div class="progress ml-2">
 						<div class="progress-level" :style="`width: ${100 * personal.progress / personal.clone.count}%`" />

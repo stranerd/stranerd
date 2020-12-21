@@ -53,6 +53,9 @@ module.exports = {
 	},
 	build: {
 		extend: (config) => {
+			const reg = /\.(png|jpe?g|gif|svg|webp|avif)$/i
+			const rule = config.module.rules.find((r) => r.test.toString() === reg.toString())
+			if (rule) rule.use[0].options.limit = 1024 * 4
 			config.node = { fs: 'empty' }
 			config.resolve.alias['@app'] = path.join(__dirname, 'src/application')
 			config.resolve.alias['@modules'] = path.join(__dirname, 'src/modules')

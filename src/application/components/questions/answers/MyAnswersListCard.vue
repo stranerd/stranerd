@@ -11,7 +11,7 @@
 			</span>
 			<span class="ml-auto">
 				<span>+{{ answer.credits }}</span>
-				<img src="@/assets/images/icons/credits.svg" width="16" height="16" alt="">
+				<Credits :size="16" />
 			</span>
 			<span v-if="answer.attachments.length" class="mr-2">
 				<span>{{ answer.attachments.length }}</span>

@@ -8,7 +8,7 @@
 				<div class="d-flex align-items-center">
 					<span class="d-flex align-items-center">
 						<span>+{{ challenge.clone.reward }}</span>
-						<img src="@/assets/images/icons/credits.svg" alt="" width="16" height="16">
+						<Credits :size="16" />
 					</span>
 					<a class="ml-2 text-red" @click="cancel">
 						Cancel challenge

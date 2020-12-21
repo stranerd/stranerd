@@ -8,7 +8,7 @@
 			<span class="text-18">{{ user.name }}</span>
 			<span>
 				<span>{{ user.account.credits }}</span>
-				<img src="@/assets/images/icons/credits.svg" width="16" height="16" alt="">
+				<Credits :size="16" />
 			</span>
 			<NuxtLink to="/account/" class="btn my-2 btn-outline-accent rounded-pill px-3 py-1">
 				View Profile

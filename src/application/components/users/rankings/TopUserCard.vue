@@ -4,7 +4,7 @@
 		<span class="mx-1">{{ user.name }}</span>
 		<span class="ml-auto">
 			<span>{{ user.rankings[period] }}</span>
-			<img src="@/assets/images/icons/credits.svg" width="16" height="16" alt="">
+			<Credits :size="16" />
 		</span>
 	</div>
 </template>

@@ -10,7 +10,7 @@
 			</span>
 			<span class="ml-1 d-flex align-items-center">
 				<span>+{{ challenge.reward }}</span>
-				<img src="@/assets/images/icons/credits.svg" alt="" width="16" height="16">
+				<Credits :size="16" />
 			</span>
 		</div>
 	</div>

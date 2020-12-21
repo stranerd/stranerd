@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div :id="challenge.id">
 		<div class="d-flex align-items-center">
 			<div class="d-flex flex-column">
 				<span class="text-capitalize mr-1 text-wrap">

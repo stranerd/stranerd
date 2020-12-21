@@ -1,5 +1,5 @@
 <template>
-	<div class="d-flex flex-column align-items-center">
+	<div :id="subject.id" class="d-flex flex-column align-items-center">
 		<img v-if="subject.icon" :src="subject.icon" :alt="subject.name" width="50">
 		<h5 class="text-capitalize">
 			{{ subject.name }}

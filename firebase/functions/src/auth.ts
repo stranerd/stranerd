@@ -2,6 +2,7 @@ import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { createCustomer } from './helpers/braintree'
 import { subscribeToMailchimpList } from './helpers/mailingList'
+import { isProduction } from './helpers/environment'
 
 export const authUserCreated = functions.auth.user().onCreate(async (user) => {
 	const data: any = {
@@ -23,7 +24,7 @@ export const authUserCreated = functions.auth.user().onCreate(async (user) => {
 	}
 
 	try {
-		await subscribeToMailchimpList(user.email!)
+		if (isProduction()) await subscribeToMailchimpList(user.email!)
 	} catch (error) {
 		console.log(error)
 		console.log('Failed to subscribe user to mailchimp: ', user.uid, user.email)

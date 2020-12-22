@@ -9,7 +9,7 @@ type TaskArgs = {
 }
 
 export const createTask = async (args: TaskArgs) => {
-	const { projectId, location } = firebase()
+	const { projectId, location, taskEmail } = firebase()
 	const tasksClient = new CloudTasksClient()
 	const queuePath = tasksClient.queuePath(projectId, location, args.queue)
 
@@ -22,7 +22,10 @@ export const createTask = async (args: TaskArgs) => {
 				httpMethod: 'POST',
 				url,
 				body: Buffer.from(JSON.stringify(args.payload)).toString('base64'),
-				headers: { 'Content-Type': 'application/json' }
+				headers: { 'Content-Type': 'application/json' },
+				oidcToken: {
+					serviceAccountEmail: `${taskEmail}@${projectId}.iam.gserviceaccount.com`
+				}
 			},
 			scheduleTime: { seconds: args.timeInSecs }
 		}

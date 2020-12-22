@@ -40,7 +40,8 @@ export const email = () => ({
 
 export const firebase = () => ({
 	projectId: environment()?.firebase_client_config?.['project_id'],
-	location: environment()?.firebase_meta?.['loc_long']
+	location: environment()?.firebase_meta?.['loc_long'],
+	taskEmail: environment()?.firebase_meta?.['task_email'],
 })
 
 export const domain = () => `http${!isDev() ? 's' : ''}://${environment()?.domain}`

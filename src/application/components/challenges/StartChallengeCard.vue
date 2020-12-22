@@ -19,14 +19,16 @@
 			</button>
 		</div>
 		<DisplayError :error="error" />
+		<DisplayError :error="rError" />
 		<PageLoading v-if="loading" />
+		<PageLoading v-if="rLoading" />
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from '@nuxtjs/composition-api'
-import { ChallengeEntity } from '@modules/challenges'
-import { useStartPersonalChallenge } from '@app/hooks/challenges/personal-challenges'
+import { defineComponent, computed, PropType } from '@nuxtjs/composition-api'
+import { ChallengeEntity, PersonalChallengeEntity } from '@modules/challenges'
+import { useRetryPersonalChallenge, useStartPersonalChallenge } from '@app/hooks/challenges/personal-challenges'
 import { useAuth } from '@app/hooks/auth/auth'
 import { getTimeFormatted } from '@app/hooks/core/dates'
 export default defineComponent({
@@ -35,14 +37,28 @@ export default defineComponent({
 		challenge: {
 			type: Object as PropType<ChallengeEntity>,
 			required: true
+		},
+		personalChallenges: {
+			type: Array as PropType<PersonalChallengeEntity[]>,
+			required: false,
+			default: () => []
 		}
 	},
 	setup (props) {
 		const { currentChallenge } = useAuth()
 		const { error, loading, startChallenge } = useStartPersonalChallenge()
+		const { error: rError, loading: rLoading, retryChallenge } = useRetryPersonalChallenge()
 		const time = getTimeFormatted(props.challenge.time * 60 * 60)
-		const start = () => startChallenge(props.challenge)
-		return { error, loading, start, currentChallenge, time }
+		const failed = computed({
+			get: () => props.personalChallenges.find((p) => p.clone.id === props.challenge.id) ?? null,
+			set: () => {}
+		})
+		const start = () => failed.value ? retryChallenge(failed.value) : startChallenge(props.challenge)
+		return {
+			error, loading, rError, rLoading,
+			start, currentChallenge, time,
+			failed
+		}
 	}
 })
 </script>

@@ -9,9 +9,9 @@ enum TIMES {
 }
 
 const startInterval = (dif: number, caller: (time: number) => void) => {
-	if (dif < TIMES.minute) return window.setInterval(() => caller(1), 1000)
-	else if (dif < TIMES.hour) return window.setInterval(() => caller(TIMES.minute), 1000 * TIMES.minute)
-	else if (dif < TIMES.day) return window.setInterval(() => caller(TIMES.hour), 1000 * TIMES.hour)
+	if (dif <= TIMES.minute) return window.setInterval(() => caller(1), 1000)
+	else if (dif <= TIMES.hour) return window.setInterval(() => caller(TIMES.minute), 1000 * TIMES.minute)
+	else if (dif <= TIMES.day) return window.setInterval(() => caller(TIMES.hour), 1000 * TIMES.hour)
 	else return undefined
 }
 
@@ -39,7 +39,7 @@ export const useTimeDifference = (dateString: string) => {
 	let interval = undefined as number | undefined
 
 	watch(() => diffInSec.value, () => {
-		if ([TIMES.minute, TIMES.hour, TIMES.day].includes(diffInSec.value)) {
+		if ([TIMES.minute, TIMES.hour, TIMES.day, TIMES.month, TIMES.year].includes(diffInSec.value)) {
 			clearInterval(interval)
 			interval = startInterval(diffInSec.value, (time: number) => {
 				diffInSec.value += time
@@ -76,7 +76,7 @@ export const useCountdown = (timeInMs: number) => {
 	let interval = undefined as number | undefined
 
 	watch(() => diffInSec.value, () => {
-		if ([TIMES.minute, TIMES.hour, TIMES.day].includes(diffInSec.value)) {
+		if ([TIMES.minute, TIMES.hour, TIMES.day, TIMES.month, TIMES.year].includes(diffInSec.value)) {
 			clearInterval(interval)
 			interval = startInterval(diffInSec.value, (time: number) => {
 				diffInSec.value -= time
@@ -94,7 +94,7 @@ export const useCountdown = (timeInMs: number) => {
 	})
 
 	const startTimer = () => {
-		interval = startInterval(diffInSec.value, (time: number) => {
+		interval = startInterval(1, (time: number) => {
 			diffInSec.value -= time
 		})
 	}

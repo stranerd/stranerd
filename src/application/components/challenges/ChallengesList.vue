@@ -6,7 +6,7 @@
 			<hr class="thin">
 		</div>
 		<div v-for="challenge in challenges" :key="challenge.hash">
-			<StartChallengeCard :challenge="challenge" class="my-2" />
+			<StartChallengeCard :challenge="challenge" :personal-challenges="pChallenges" class="my-2" />
 			<hr class="thin">
 		</div>
 		<DisplayWarning v-if="!loading && !error && !current && challenges.length === 0" message="No challenges found" />
@@ -50,7 +50,7 @@ export default defineComponent({
 		})
 		return {
 			loading, error, challenges,
-			current,
+			current, pChallenges,
 			pLoading, pError
 		}
 	}

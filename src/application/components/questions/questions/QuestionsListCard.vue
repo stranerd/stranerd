@@ -22,9 +22,7 @@
 				Answer
 			</NuxtLink>
 		</div>
-		<NuxtLink class="text-grey" :to="`/questions/${question.id}`">
-			<p class="mb-1" v-html="question.body" />
-		</NuxtLink>
+		<NuxtLink class="text-grey editor-body mb-1" :to="`/questions/${question.id}`" v-html="question.body" />
 		<span v-if="question.attachments.length">
 			<span>{{ question.attachments.length }}</span>
 			<i class="fas fa-paperclip" />

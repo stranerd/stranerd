@@ -20,7 +20,7 @@
 			</div>
 		</div>
 		<div>
-			<p class="mb-1" v-html="question.body" />
+			<div class="mb-1 editor-body" v-html="question.body" />
 			<span v-if="question.attachments.length" class="mr-2">
 				<span>{{ question.attachments.length }}</span>
 				<i class="fas fa-paperclip" />

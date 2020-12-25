@@ -1,8 +1,6 @@
 <template>
 	<div :id="question.id">
-		<NuxtLink class="text-18" :to="`/questions/${question.id}`">
-			<p class="mb-1" v-html="question.body" />
-		</NuxtLink>
+		<NuxtLink class="text-18 mb-1 editor-body" :to="`/questions/${question.id}`" v-html="question.body" />
 		<div class="d-flex">
 			<span class="text-wrap">
 				{{ subject ? subject.name : 'Subject' }}

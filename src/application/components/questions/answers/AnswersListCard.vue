@@ -13,9 +13,7 @@
 			<ShowRatings class="ml-auto my-auto" :rating="answer.ratings" />
 		</div>
 		<hr class="thick my-1">
-		<div class="my-1 px-1 px-md-2 lead">
-			<p class="mb-0" v-html="answer.body" />
-		</div>
+		<div class="my-1 px-1 px-md-2 lead editor-body" v-html="answer.body" />
 		<div class="my-1 px-1 px-md-2 d-flex flex-wrap icons">
 			<span v-if="answer.attachments.length" class="mr-2">
 				<span>{{ answer.attachments.length }}</span>

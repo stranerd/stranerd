@@ -19,17 +19,13 @@
 			"answers": {
 				".read": true,
 				"$answerId": {
-					"$userId": {
-						".write": "auth.uid === $userId"
-					}
+					".write": "auth.uid === $userId"
 				}
 			},
 			"questions": {
 				".read": true,
 				"$questionId": {
-					"$userId": {
-						".write": "auth.uid === $userId"
-					}
+					".write": "auth.uid === $userId"
 				}
 			}
 		},

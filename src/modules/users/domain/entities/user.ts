@@ -15,8 +15,8 @@ export class UserEntity extends BaseEntity {
 		super()
 		this.id = id
 		this.userBio = generateDefaultBio(bio)
-		this.roles = roles
-		this.account = account
+		this.roles = roles ?? { isStudent: true }
+		this.account = account ?? { credits: 0 }
 		this.rankings = {
 			daily: rankings?.daily ?? 0,
 			weekly: rankings?.weekly ?? 0,
@@ -58,7 +58,6 @@ export interface UserRoles {
 	isAdmin?: boolean
 }
 export interface UserAccount {
-	braintreeId: string
 	credits: number
 }
 export interface UserRankings {

@@ -5,6 +5,11 @@
 			<h1 class="title">
 				application root
 			</h1>
+			<div class="text-center">
+				<NuxtLink to="/dashboard">
+					To Dashboard
+				</NuxtLink>
+			</div>
 		</div>
 	</div>
 </template>

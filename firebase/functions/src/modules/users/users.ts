@@ -9,6 +9,10 @@ export const userProfileUpdated = functions.database.ref('profiles/{userId}/bio'
 		const newBio = snap.after.val()
 		const { userId } = context.params
 
+		await admin.auth().updateUser(context.params.userId, {
+			displayName: newBio.name
+		})
+
 		try {
 			const questionIdRefs = await admin.database().ref('users')
 				.child(userId)

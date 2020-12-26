@@ -11,7 +11,7 @@
 				<span>+{{ answer.credits }}</span>
 				<Credits :size="16" />
 			</span>
-			<span v-if="answer.attachments.length" class="mr-2">
+			<span v-if="answer.attachments.length" class="ml-1">
 				<span>{{ answer.attachments.length }}</span>
 				<i class="fas fa-paperclip" />
 			</span>

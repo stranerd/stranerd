@@ -7,10 +7,8 @@ const client = axios.create({ baseURL })
 
 const fetchUsers = async () => {
 	const userIds = [
-		'AnvGH8M7puPI9G3YWqZbga9Y2SIu',
-		'lFRSwFfCR8IXiiQ2YlsTDgPktcOf',
-		'RIzWHZvK1dSInQGACNV9TkGYhSDS',
-		'JKpm7EUxG5CCYfAGALclOpAHbA5H'
+		'N3SDMjFSeUC9e5JCR7xYKwdWXO1h',
+		'Voh7NxSi36PPMnHvSubqJ3i0PvNO'
 	]
 
 	try {

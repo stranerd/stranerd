@@ -1,27 +1,27 @@
-import { reqRef, watch } from '@nuxtjs/composition-api'
+import { reqRef } from '@nuxtjs/composition-api'
 import { Notify } from '@app/hooks/core/notifications'
 
 export const useErrorHandler = () => {
 	const errorState = reqRef('')
-	watch(() => errorState.value, async () => {
-		if (errorState.value) await Notify({
+	const setError = (error: any) => {
+		errorState.value = error.message ?? error
+		if (errorState.value) Notify({
 			title: errorState.value,
 			icon: 'error'
 		})
-	})
-	const setError = (error: any) => errorState.value = error.message ?? error
+	}
 	return { error: errorState, setError }
 }
 
 export const useSuccessHandler = () => {
 	const successState = reqRef('')
-	watch(() => successState.value, async () => {
-		if (successState.value) await Notify({
+	const setMessage = (message: string) => {
+		successState.value = message
+		if (successState.value) Notify({
 			title: successState.value,
 			icon: 'success'
 		})
-	})
-	const setMessage = (message: string) => successState.value = message
+	}
 	return { message: successState, setMessage }
 }
 

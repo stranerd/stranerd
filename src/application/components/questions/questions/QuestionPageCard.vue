@@ -19,44 +19,38 @@
 				</span>
 			</div>
 		</div>
+		<div class="mb-1 editor-body" v-html="question.body" />
 		<div>
-			<div class="mb-1 editor-body" v-html="question.body" />
 			<span v-if="question.attachments.length" class="mr-2">
 				<span>{{ question.attachments.length }}</span>
 				<i class="fas fa-paperclip" />
 			</span>
-			<span v-if="question.answers > 0" class="mr-2">
+			<a v-if="question.answers > 0" href="#answers" class="mr-2">
 				<span>{{ question.answers }}</span>
 				<i class="fas fa-newspaper" />
-			</span>
+			</a>
 		</div>
+		<DisplayAttachments v-if="question.attachments.length" id="attachments" :attachments="question.attachments" />
 		<hr class="thick">
 		<div class="d-flex justify-content-center my-1">
-			<template v-if="!isLoggedIn">
-				<a class="btn rounded-pill py-1 px-4 btn-accent text-white" @click.prevent="openAnswerModal">
-					Login To Answer
-				</a>
+			<template v-if="question.userId === id">
+				<span v-if="question.isAnswered" class="mb-0 h5 text-accent">
+					Answer selected
+				</span>
+				<span v-else-if="question.answers > 0" class="mb-0 h5 text-accent">
+					Select an answer
+				</span>
+				<span v-else class="mb-0 h5 text-accent">
+					No answers yet.
+				</span>
 			</template>
 			<template v-else>
-				<template v-if="question.userId === id">
-					<span v-if="question.isAnswered" class="mb-0 h5 text-accent">
-						Answer selected
-					</span>
-					<span v-else-if="question.answers > 0" class="mb-0 h5 text-accent">
-						Select an answer
-					</span>
-					<span v-else class="mb-0 h5 text-accent">
-						No answers yet.
-					</span>
-				</template>
-				<template v-else>
-					<button v-if="!question.isAnswered" id="answer" class="btn rounded-pill py-1 px-4 btn-accent text-white" @click="openAnswerModal">
-						Add Answer
-					</button>
-					<span v-else class="mb-0 h5 text-accent">
-						Already Answered
-					</span>
-				</template>
+				<button v-if="!question.isAnswered" id="answer" class="btn rounded-pill py-1 px-4 btn-accent text-white" @click="openAnswerModal">
+					Add Answer
+				</button>
+				<span v-else class="mb-0 h5 text-accent">
+					Already Answered
+				</span>
 			</template>
 		</div>
 	</div>
@@ -70,8 +64,10 @@ import { useTimeDifference } from '@app/hooks/core/dates'
 import { openAnswerModal } from '@app/hooks/questions/answers'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useRedirectToAuth } from '@app/hooks/auth/session'
+import DisplayAttachments from '@app/components/questions/DisplayAttachments.vue'
 export default defineComponent({
 	name: 'QuestionPageCard',
+	components: { DisplayAttachments },
 	props: {
 		question: {
 			required: true,

@@ -42,17 +42,17 @@
 				<span>Best Answer</span>
 			</span>
 		</div>
-		<div class="my-1 px-1 px-md-2 small d-flex flex-column align-items-start">
+		<DisplayAttachments v-if="answer.attachments.length" id="attachments" :attachments="answer.attachments" />
+		<div class="my-1 px-1 px-md-2 pl-2 small d-flex flex-column align-items-start">
 			<NuxtLink
 				v-for="comment in answer.comments"
 				:id="comment.id"
 				:key="comment.id"
-				class="ml-2"
 				:to="`/questions/${answer.questionId}/answers/${answer.id}/comments#${comment.id}`"
 			>
 				{{ comment.body }}
 			</NuxtLink>
-			<NuxtLink class="ml-2 text-red" :to="`/questions/${answer.questionId}/answers/${answer.id}/comments#add`">
+			<NuxtLink class="text-red" :to="`/questions/${answer.questionId}/answers/${answer.id}/comments#add`">
 				+ Add Comment
 			</NuxtLink>
 		</div>
@@ -72,11 +72,13 @@ import { useAnswer } from '@app/hooks/questions/answers'
 import SelectRating from '@app/components/core/SelectRating.vue'
 import ShowRatings from '@app/components/core/ShowRatings.vue'
 import { useAuth } from '@app/hooks/auth/auth'
+import DisplayAttachments from '@app/components/questions/DisplayAttachments.vue'
 export default defineComponent({
 	name: 'AnswerListCard',
 	components: {
 		SelectRating,
-		ShowRatings
+		ShowRatings,
+		DisplayAttachments
 	},
 	props: {
 		answer: {

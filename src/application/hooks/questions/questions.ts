@@ -128,7 +128,9 @@ export const useQuestion = (questionId: string) => {
 	const { loading, setLoading } = useLoadingHandler()
 	const question = computed({
 		get: () => global.questions.value.find((q) => q.id === questionId) ?? null,
-		set: () => {}
+		set: (q) => {
+			if (q) pushToQuestionList(q)
+		}
 	})
 
 	const fetchQuestion = async () => {

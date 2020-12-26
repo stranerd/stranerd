@@ -1,15 +1,18 @@
 <template>
 	<div class="text-grey">
-		<div v-if="current">
+		<div v-if="current" class="mb-4">
 			<h6>Current Challenge</h6>
 			<CurrentChallengeCard :challenge="current" />
 			<hr class="thin">
 		</div>
-		<div v-for="challenge in challenges" :key="challenge.hash">
-			<StartChallengeCard :challenge="challenge" :personal-challenges="pChallenges" class="my-2" />
-			<hr class="thin">
+		<div class="my-2">
+			<h6>New Challenges</h6>
+			<div v-for="challenge in challenges" :key="challenge.hash">
+				<StartChallengeCard :challenge="challenge" :personal-challenges="pChallenges" class="my-2" />
+				<hr class="thin">
+			</div>
 		</div>
-		<DisplayWarning v-if="!loading && !error && !current && challenges.length === 0" message="No challenges found" />
+		<DisplayWarning v-if="!loading && !error && !current && challenges.length === 0" message="No new challenges found" />
 		<div v-else class="text-center py-1 text-18">
 			<NuxtLink to="/account/challenges" class="font-weight-bold text-grey">
 				SEE MORE

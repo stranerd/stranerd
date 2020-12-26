@@ -4,9 +4,9 @@
 			<span class="text-capitalize mr-1 text-wrap">
 				{{ challenge.description }}
 			</span>
-			<span class="ml-auto d-flex align-items-center">
+			<span class="ml-auto flex-no-wrap d-flex align-items-center">
 				<i class="fas fa-clock" style="margin-right: 2px;" />
-				<span class="small">{{ time }}</span>
+				<span class="small text-nowrap">{{ time }}</span>
 			</span>
 			<span class="ml-1 d-flex align-items-center">
 				<span>+{{ challenge.reward }}</span>

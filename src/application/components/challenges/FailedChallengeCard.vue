@@ -1,7 +1,7 @@
 <template>
 	<div :id="challenge.id">
 		<div class="d-flex align-items-center">
-			<div class="d-flex flex-column">
+			<div class="d-flex flex-column mr-1">
 				<span class="text-capitalize mr-1 mb-1 text-wrap">
 					{{ challenge.description }}
 				</span>
@@ -16,9 +16,9 @@
 					</div>
 				</div>
 			</div>
-			<span class="ml-auto d-flex align-items-center">
+			<span class="ml-auto flex-no-wrap d-flex align-items-center">
 				<i class="fas fa-clock" style="margin-right: 2px;" />
-				<span class="small">{{ time }}</span>
+				<span class="small text-nowrap">{{ time }}</span>
 			</span>
 			<button v-if="!currentChallenge" class="ml-1 btn btn-small rounded-pill btn-red text-white px-2 py-0" @click="retry">
 				Retry

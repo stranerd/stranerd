@@ -14,6 +14,11 @@
 				View Profile
 			</NuxtLink>
 		</div>
+		<div class="d-flex justify-content-center my-3 text-light-grey">
+			<i class="fas fa-circle mx-1" />
+			<i class="fas fa-circle mx-1" />
+			<i class="fas fa-circle mx-1" />
+		</div>
 		<div class="my-1 d-flex flex-column links">
 			<NuxtLink class="link" to="/dashboard">
 				<img src="@/assets/images/icons/dashboard.svg" alt="" width="24" height="24">

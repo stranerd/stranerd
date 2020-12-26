@@ -1,6 +1,6 @@
 <template>
 	<div class="text-grey">
-		<div v-if="current">
+		<div v-if="current" class="mb-4">
 			<h5>Current Challenge</h5>
 			<CurrentChallengeCard :challenge="current" />
 			<hr class="thin">

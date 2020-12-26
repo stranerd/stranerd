@@ -1,7 +1,7 @@
 <template>
 	<div :id="challenge.id">
 		<div class="d-flex align-items-center">
-			<div class="d-flex flex-column">
+			<div class="d-flex flex-column mr-1">
 				<span class="text-capitalize mr-1 text-wrap">
 					{{ challenge.clone.description }}
 				</span>
@@ -15,9 +15,9 @@
 					</a>
 				</div>
 			</div>
-			<span class="ml-auto d-flex align-items-center">
+			<span class="ml-auto flex-no-wrap d-flex align-items-center">
 				<i class="fas fa-clock" style="margin-right: 2px;" />
-				<span>{{ time }}</span>
+				<span class="text-nowrap">{{ time }}</span>
 			</span>
 			<div class="progress ml-1">
 				<div class="progress-level" :style="`width: ${100 * challenge.progress / challenge.clone.count}%`" />

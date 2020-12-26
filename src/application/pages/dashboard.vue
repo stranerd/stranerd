@@ -19,11 +19,20 @@
 		</section>
 		<section class="side-right d-flex flex-column flex-md-row flex-lg-column">
 			<div class="content mr-md-1 mr-lg-0 mb-2 mb-lg-4">
-				<h5>Challenges</h5>
-				<ChallengesList />
+				<h3 class="d-none d-lg-block text-center">
+					Challenges
+				</h3>
+				<div class="body">
+					<ChallengesList />
+				</div>
 			</div>
 			<div class="content">
-				<TopUsers />
+				<h3 class="d-none d-lg-block text-center">
+					Rankings
+				</h3>
+				<div class="body">
+					<TopUsers />
+				</div>
 			</div>
 		</section>
 	</div>
@@ -116,8 +125,16 @@ export default defineComponent({
 			max-width: 50%;
 		}
 		@media (min-width: $lg) {
+			padding: 0;
 			flex-grow: 0;
 			max-width: 100%;
+		}
+		.body {
+			@media (min-width: $lg) {
+				background-color: lighten($color-light-grey, 5);
+				padding: 0.5rem;
+				border-radius: 1rem;
+			}
 		}
 	}
 }

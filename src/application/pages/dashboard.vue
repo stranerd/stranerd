@@ -18,6 +18,20 @@
 			</div>
 		</section>
 		<section class="side-right d-flex flex-column flex-md-row flex-lg-column">
+			<div v-if="isLoggedIn" class="d-none d-lg-block">
+				<div class="d-flex flex-column align-items-center">
+					<img :src="user.image" alt="" class="profile-image" style="width:90px;height:90px;">
+					<span class="text-18">{{ user.name }}</span>
+					<span>
+						<span>{{ user.account.credits }}</span>
+						<Credits :size="16" />
+					</span>
+					<NuxtLink to="/account/" class="btn my-2 btn-outline-accent rounded-pill px-3 py-1">
+						View Profile
+					</NuxtLink>
+				</div>
+				<hr class="thick my-2 mx-n1">
+			</div>
 			<div class="content mr-md-1 mr-lg-0 mb-2 mb-lg-4">
 				<h3 class="d-none d-lg-block text-center">
 					Challenges
@@ -41,7 +55,7 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useCreateModal } from '@app/hooks/core/modals'
-import Sidebar from '@app/components/layouts/sidebars/DefaultSidebar.vue'
+import Sidebar from '@app/components/layouts/sidebars/DashboardSidebar.vue'
 import DashboardTopNavigation from '@app/components/layouts/topNavigations/DashboardTopNavigation.vue'
 import QuestionsList from '@app/components/questions/questions/QuestionsList.vue'
 import TopUsers from '@app/components/users/rankings/TopUsers.vue'
@@ -59,10 +73,11 @@ export default defineComponent({
 	},
 	layout: 'dashboard',
 	setup () {
-		const { isLoggedIn } = useAuth()
+		const { isLoggedIn, user } = useAuth()
 		const { redirect } = useRedirectToAuth()
 		const { setCreateModalQuestion } = useCreateModal()
 		return {
+			isLoggedIn, user,
 			openQuestionModal: () => {
 				if (!isLoggedIn.value) redirect()
 				else setCreateModalQuestion()

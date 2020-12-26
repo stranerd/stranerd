@@ -3,18 +3,7 @@
 		<div class="text-center my-1 d-none d-lg-block">
 			<img src="@/assets/images/stranerd_logo.png" height="50" alt="Stranerd">
 		</div>
-		<div v-if="isLoggedIn" class="d-flex flex-column align-items-center my-1">
-			<img :src="user.image" alt="" class="profile-image" style="width:90px;height:90px;">
-			<span class="text-18">{{ user.name }}</span>
-			<span class="mb-1">
-				<span>{{ user.account.credits }}</span>
-				<Credits :size="16" />
-			</span>
-			<NuxtLink to="/account/" class="btn btn-outline-accent rounded-pill px-3 py-1">
-				View Profile
-			</NuxtLink>
-		</div>
-		<div class="d-flex justify-content-center my-3 text-light-grey">
+		<div class="d-flex justify-content-center mb-3 text-light-grey">
 			<i class="fas fa-circle mx-1" />
 			<i class="fas fa-circle mx-1" />
 			<i class="fas fa-circle mx-1" />
@@ -54,8 +43,8 @@ import { useAuth } from '@app/hooks/auth/auth'
 export default defineComponent({
 	name: 'DefaultSidebar',
 	setup () {
-		const { isLoggedIn, user, isAdmin } = useAuth()
-		return { isLoggedIn, user, isAdmin }
+		const { isAdmin } = useAuth()
+		return { isAdmin }
 	}
 })
 </script>

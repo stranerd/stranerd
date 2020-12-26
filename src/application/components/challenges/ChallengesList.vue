@@ -48,7 +48,7 @@ export default defineComponent({
 				if (!p) return true
 				if (p.id === current.value?.id) return false
 				return p.cancelled || !p.isCompleted
-			}).slice(0, 5),
+			}).slice(0, 3),
 			set: () => {}
 		})
 		return {

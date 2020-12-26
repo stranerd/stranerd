@@ -2,12 +2,13 @@ import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hook
 import { reqRef, watch } from '@nuxtjs/composition-api'
 import { ProfileUpdateFactory, UpdateProfile } from '@modules/auth'
 import { useAuth } from '@app/hooks/auth/auth'
+import { useEditModal } from '@app/hooks/core/modals'
 
 export const useUpdateProfile = () => {
 	const factory = reqRef(new ProfileUpdateFactory())
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
-	const { message, setMessage } = useSuccessHandler()
+	const { setMessage } = useSuccessHandler()
 	const { id, bio } = useAuth()
 
 	if (bio.value) factory.value.loadEntity(bio.value)
@@ -22,6 +23,7 @@ export const useUpdateProfile = () => {
 			try {
 				setLoading(true)
 				await UpdateProfile.call(id.value, factory.value)
+				useEditModal().closeEditModal()
 				setMessage('Profile updated successfully!')
 			} catch (error) { setError(error) }
 			setLoading(false)
@@ -29,7 +31,7 @@ export const useUpdateProfile = () => {
 	}
 
 	return {
-		error, loading, message,
+		error, loading,
 		factory,
 		updateProfile
 	}

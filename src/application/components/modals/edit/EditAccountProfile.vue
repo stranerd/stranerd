@@ -48,7 +48,6 @@
 			</div>
 			<PageLoading v-if="loading" class="mr-2" />
 			<DisplayError :error="error" />
-			<DisplaySuccess :message="message" />
 		</form>
 	</Modal>
 </template>
@@ -62,7 +61,7 @@ import { isClient } from '@utils/environment'
 export default defineComponent({
 	name: 'EditAccountProfile',
 	setup () {
-		const { factory, error, loading, message, updateProfile } = useUpdateProfile()
+		const { factory, error, loading, updateProfile } = useUpdateProfile()
 		const { closeEditModal } = useEditModal()
 		const imageLink = ref((factory.value.image as any)?.link)
 		const { catchFiles: catchImage } = useFileInputs(
@@ -72,7 +71,7 @@ export default defineComponent({
 			}
 		)
 		return {
-			factory, error, loading, message, updateProfile,
+			factory, error, loading, updateProfile,
 			catchImage, imageLink,
 			closeEditModal
 		}

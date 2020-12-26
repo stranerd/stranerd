@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<a :href="current.link" target="_blank">
-			<img :src="current.link" alt="" class="w-100">
+		<a :href="current.link" target="_blank" class="d-flex">
+			<img :src="current.link" alt="" class="major">
 		</a>
 		<div class="d-flex justify-content-center flex-wrap">
 			<img
@@ -48,6 +48,10 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.major {
+	width: clamp(200px, 75%, 500px);
+	margin: 0 auto;
+}
 .minor {
 	width: clamp(60px, 20%, 150px);
 	margin: 0.5rem;

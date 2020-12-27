@@ -53,6 +53,22 @@
 				</span>
 			</template>
 		</div>
+		<div class="my-1 px-1 px-md-2 pl-2 d-flex flex-column align-items-start">
+			<h6>
+				<NuxtLink :to="`/questions/${question.id}/comments`">
+					Comments
+				</NuxtLink>
+			</h6>
+			<NuxtLink
+				v-for="comment in question.comments"
+				:id="comment.id"
+				:key="comment.id"
+				:to="`/questions/${question.id}/comments#${comment.id}`"
+			>
+				&#11044; {{ comment.body }}
+			</NuxtLink>
+			<CommentForm v-if="isLoggedIn" class="w-100" :question-id="question.id" />
+		</div>
 	</div>
 </template>
 
@@ -65,9 +81,10 @@ import { openAnswerModal } from '@app/hooks/questions/answers'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useRedirectToAuth } from '@app/hooks/auth/session'
 import DisplayAttachments from '@app/components/questions/DisplayAttachments.vue'
+import CommentForm from '@app/components/questions/comments/QuestionCommentForm.vue'
 export default defineComponent({
 	name: 'QuestionPageCard',
-	components: { DisplayAttachments },
+	components: { DisplayAttachments, CommentForm },
 	props: {
 		question: {
 			required: true,

@@ -43,18 +43,21 @@
 			</span>
 		</div>
 		<DisplayAttachments v-if="answer.attachments.length" id="attachments" :attachments="answer.attachments" />
-		<div class="my-1 px-1 px-md-2 pl-2 small d-flex flex-column align-items-start">
+		<div class="my-1 px-1 px-md-2 pl-2 d-flex flex-column align-items-start">
+			<h6>
+				<NuxtLink :to="`/questions/${answer.questionId}/answers/${answer.id}/comments`">
+					Comments
+				</NuxtLink>
+			</h6>
 			<NuxtLink
 				v-for="comment in answer.comments"
 				:id="comment.id"
 				:key="comment.id"
 				:to="`/questions/${answer.questionId}/answers/${answer.id}/comments#${comment.id}`"
 			>
-				{{ comment.body }}
+				&#11044; {{ comment.body }}
 			</NuxtLink>
-			<NuxtLink class="text-red" :to="`/questions/${answer.questionId}/answers/${answer.id}/comments#add`">
-				+ Add Comment
-			</NuxtLink>
+			<CommentForm v-if="isLoggedIn" class="w-100" :answer-id="answer.id" />
 		</div>
 		<div class="my-1 px-1 px-md-2">
 			<DisplayError :error="error" />
@@ -73,12 +76,14 @@ import SelectRating from '@app/components/core/SelectRating.vue'
 import ShowRatings from '@app/components/core/ShowRatings.vue'
 import { useAuth } from '@app/hooks/auth/auth'
 import DisplayAttachments from '@app/components/questions/DisplayAttachments.vue'
+import CommentForm from '@app/components/questions/comments/AnswerCommentForm.vue'
 export default defineComponent({
 	name: 'AnswerListCard',
 	components: {
 		SelectRating,
 		ShowRatings,
-		DisplayAttachments
+		DisplayAttachments,
+		CommentForm
 	},
 	props: {
 		answer: {

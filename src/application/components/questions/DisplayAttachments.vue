@@ -1,8 +1,10 @@
 <template>
 	<div>
-		<a :href="current.link" target="_blank" class="d-flex">
-			<img :src="current.link" alt="" class="major">
-		</a>
+		<div class="d-flex">
+			<a :href="current.link" target="_blank" class="major">
+				<img :src="current.link" alt="" class="w-100">
+			</a>
+		</div>
 		<div class="d-flex justify-content-center flex-wrap">
 			<img
 				v-for="file in others"

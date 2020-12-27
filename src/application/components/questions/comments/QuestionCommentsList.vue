@@ -1,9 +1,6 @@
 <template>
 	<div>
 		<PageLoading v-if="loading" />
-		<h2 class="text-center mb-3">
-			Comments
-		</h2>
 		<CommentCard v-for="comment in comments" :key="comment.hash" :comment="comment" />
 		<DisplayWarning v-if="!loading && !error && comments.length === 0" message="No comments found." />
 		<DisplayError :error="error" />

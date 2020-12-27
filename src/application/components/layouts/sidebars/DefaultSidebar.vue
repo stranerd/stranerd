@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="text-center my-1 d-none d-lg-block">
+		<div class="text-center">
 			<img src="@/assets/images/stranerd_logo.png" height="50" alt="Stranerd">
 		</div>
 		<div v-if="isLoggedIn" class="d-flex flex-column align-items-center my-1">
@@ -14,7 +14,7 @@
 				View Profile
 			</NuxtLink>
 		</div>
-		<div class="d-flex justify-content-center my-3 text-light-grey">
+		<div class="d-flex justify-content-center mt-2 mb-3 text-light-grey">
 			<i class="fas fa-circle mx-1" />
 			<i class="fas fa-circle mx-1" />
 			<i class="fas fa-circle mx-1" />

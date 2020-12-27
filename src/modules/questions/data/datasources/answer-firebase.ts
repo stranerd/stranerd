@@ -16,7 +16,11 @@ export class AnswerFirebaseDataSource implements AnswerBaseDataSource {
 		return await FirestoreService.get('answers', conditions) as AnswerFromModel[]
 	}
 
-	async listen (callback: (documents: AnswerFromModel[]) => void, conditions?: FirestoreGetClauses) {
+	async listenToOne (id: string, callback: (document: AnswerFromModel | null) => void) {
+		return await FirestoreService.listenToOne(callback, 'answers', id)
+	}
+
+	async listenToMany (callback: (documents: AnswerFromModel[]) => void, conditions?: FirestoreGetClauses) {
 		return await FirestoreService.listenToMany(callback, 'answers', conditions)
 	}
 

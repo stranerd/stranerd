@@ -29,6 +29,7 @@ import { AddAnswerUseCase } from './domain/usecases/answers/addAnswer'
 import { LikeAnswerUseCase } from './domain/usecases/answers/likeAnswer'
 import { RateAnswerUseCase } from './domain/usecases/answers/rateAnswer'
 import { ListenToAnswersUseCase } from './domain/usecases/answers/listenToAnswers'
+import { ListenToAnswerUseCase } from './domain/usecases/answers/listenToAnswer'
 import { AddQuestionCommentUseCase, AddAnswerCommentUseCase } from './domain/usecases/comments/addComment'
 import { GetQuestionCommentsUseCase, GetAnswerCommentsUseCase } from './domain/usecases/comments/getComments'
 import { ListenToQuestionCommentsUseCase, ListenToAnswerCommentsUseCase } from './domain/usecases/comments/listenToComments'
@@ -75,6 +76,7 @@ export const MarkQuestionAnswered = new MarkQuestionAnsweredUseCase(questionRepo
 export const GetAnswers = new GetAnswersUseCase(answerRepository)
 export const GetMyAnswers = new GetMyAnswersUseCase(answerRepository)
 export const ListenToAnswers = new ListenToAnswersUseCase(answerRepository)
+export const ListenToAnswer = new ListenToAnswerUseCase(answerRepository)
 export const AddAnswer = new AddAnswerUseCase(answerRepository)
 export const FindAnswer = new FindAnswerUseCase(answerRepository)
 export const LikeAnswer = new LikeAnswerUseCase(answerRepository)

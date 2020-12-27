@@ -17,6 +17,6 @@ export class ListenToAnswersUseCase {
 		    ]
 	    }
 
-	    return await this.repository.listen(callback, conditions)
+	    return await this.repository.listenToMany(callback, conditions)
     }
 }

@@ -19,12 +19,20 @@ export class AnswerRepository implements IAnswerRepository {
 		return models.map(this.transformer.fromJSON)
 	}
 
-	async listen (callback: (entities: AnswerEntity[]) => void, conditions?: FirestoreGetClauses) {
+	async listenToOne (id: string, callback: (entity: AnswerEntity | null) => void) {
+		const cb = (document: AnswerFromModel | null) => {
+			const entity = document ? this.transformer.fromJSON(document) : null
+			callback(entity)
+		}
+		return this.dataSource.listenToOne(id, cb)
+	}
+
+	async listenToMany (callback: (entities: AnswerEntity[]) => void, conditions?: FirestoreGetClauses) {
 		const cb = (documents: AnswerFromModel[]) => {
 			const entities = documents.map(this.transformer.fromJSON)
 			callback(entities)
 		}
-		return this.dataSource.listen(cb, conditions)
+		return this.dataSource.listenToMany(cb, conditions)
 	}
 
 	async add (data: AnswerToModel) {

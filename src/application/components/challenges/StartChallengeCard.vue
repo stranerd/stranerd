@@ -5,7 +5,7 @@
 				<span class="text-capitalize mr-1 text-wrap">
 					{{ challenge.description }}
 				</span>
-				<span class="d-flex align-items-center">
+				<span class="d-none align-items-center">
 					<span>+{{ challenge.reward }}</span>
 					<Credits :size="16" />
 				</span>

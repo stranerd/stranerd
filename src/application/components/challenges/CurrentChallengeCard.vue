@@ -6,7 +6,7 @@
 					{{ challenge.clone.description }}
 				</span>
 				<div class="d-flex align-items-center">
-					<span class="d-flex align-items-center">
+					<span class="d-none align-items-center">
 						<span>+{{ challenge.clone.reward }}</span>
 						<Credits :size="16" />
 					</span>

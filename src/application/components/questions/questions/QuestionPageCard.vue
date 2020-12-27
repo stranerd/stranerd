@@ -53,7 +53,7 @@
 				</span>
 			</template>
 		</div>
-		<div class="my-1 px-1 px-md-2 pl-2 d-flex flex-column align-items-start">
+		<div v-if="question.comments.length > 0" class="my-1 px-1 px-md-2 pl-2 d-flex flex-column align-items-start">
 			<h6>
 				<NuxtLink :to="`/questions/${question.id}/comments`">
 					Comments
@@ -67,8 +67,8 @@
 			>
 				&#11044; {{ comment.body }}
 			</NuxtLink>
-			<CommentForm v-if="isLoggedIn" class="w-100" :question-id="question.id" />
 		</div>
+		<CommentForm v-if="isLoggedIn" class="w-100" :question-id="question.id" />
 	</div>
 </template>
 

@@ -34,16 +34,16 @@
 				<SelectRating :rating="0" :set-rating="rateAnswer" />
 				<span class="text-gold">{{ answer.formattedRating }}</span>
 			</span>
-			<a v-if="isLoggedIn && !question.isAnswered && question.userId === id" class="mr-1 text-accent" @click.prevent="markBestAnswer">
+			<a v-if="isLoggedIn && question && !question.isAnswered && question.userId === id" class="mr-1 text-accent" @click.prevent="markBestAnswer">
 				<i class="fas fa-check" />
 				<span>Mark Best Answer</span>
 			</a>
-			<span v-if="question.isAnswered && answer.best" class="mr-1 text-accent">
+			<span v-if="question && question.isAnswered && answer.best" class="mr-1 text-accent">
 				<span>Best Answer</span>
 			</span>
 		</div>
 		<DisplayAttachments v-if="answer.attachments.length" id="attachments" :attachments="answer.attachments" />
-		<div class="my-1 px-1 px-md-2 pl-2 d-flex flex-column align-items-start">
+		<div v-if="answer.comments.length > 0" class="my-1 px-1 px-md-2 pl-2 d-flex flex-column align-items-start">
 			<h6>
 				<NuxtLink :to="`/questions/${answer.questionId}/answers/${answer.id}/comments`">
 					Comments
@@ -57,8 +57,8 @@
 			>
 				&#11044; {{ comment.body }}
 			</NuxtLink>
-			<CommentForm v-if="isLoggedIn" class="w-100" :answer-id="answer.id" />
 		</div>
+		<CommentForm v-if="isLoggedIn" class="my-1 w-100" :answer-id="answer.id" />
 		<div class="my-1 px-1 px-md-2">
 			<DisplayError :error="error" />
 			<PageLoading v-if="loading" />

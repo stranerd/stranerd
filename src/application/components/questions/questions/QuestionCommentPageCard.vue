@@ -19,7 +19,7 @@
 				</span>
 			</div>
 		</div>
-		<div class="mb-1 editor-body" v-html="question.body" />
+		<div class="mb-1 editor-body lead" v-html="question.body" />
 		<div>
 			<span v-if="question.attachments.length" class="mr-2">
 				<span>{{ question.attachments.length }}</span>
@@ -45,7 +45,7 @@ import { useSubject } from '@app/hooks/questions/subjects'
 import { useTimeDifference } from '@app/hooks/core/dates'
 import DisplayAttachments from '@app/components/questions/DisplayAttachments.vue'
 export default defineComponent({
-	name: 'QuestionPageCard',
+	name: 'QuestionCommentPageCard',
 	components: { DisplayAttachments },
 	props: {
 		question: {

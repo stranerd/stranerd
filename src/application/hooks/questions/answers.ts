@@ -1,13 +1,7 @@
 import { Ref, reqRef, reqSsrRef, useFetch, watch } from '@nuxtjs/composition-api'
 import {
-	AddAnswer,
-	AnswerEntity,
-	AnswerFactory,
-	GetAnswers,
-	LikeAnswer,
-	ListenToAnswers, MarkQuestionAnswered,
-	QuestionEntity,
-	RateAnswer
+	AddAnswer, AnswerEntity, AnswerFactory, FindAnswer, GetAnswers, LikeAnswer, ListenToAnswer,
+	ListenToAnswers, MarkQuestionAnswered, QuestionEntity, RateAnswer
 } from '@modules/questions'
 import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
@@ -134,4 +128,51 @@ export const useAnswer = (answer: AnswerEntity) => {
 		loading, error,
 		likeAnswer, rateAnswer, markBestAnswer
 	}
+}
+
+export const useAnswerById = (questionId: string, id: string) => {
+	const { loading, setLoading } = useLoadingHandler()
+	const { error, setError } = useErrorHandler()
+	const answer = reqRef(null as AnswerEntity | null)
+
+	const setAnswer = (answer: AnswerEntity) => {
+		if (global[questionId] === undefined) global[questionId] = {
+			answers: reqSsrRef([]),
+			fetched: reqSsrRef(false),
+			...useErrorHandler(),
+			...useLoadingHandler()
+		}
+		const index = global[questionId].answers.value.findIndex((a) => a.id === answer.id)
+		if (index > -1) global[questionId].answers.value.splice(index, 1, answer)
+		else global[questionId].answers.value.push(answer)
+	}
+	const fetchAnswer = async () => {
+		setError('')
+		try {
+			setLoading(true)
+			const a = global[questionId]?.answers.value.find((a) => a.id === id) ?? null
+			if (a) {
+				answer.value = a
+				setAnswer(a)
+				setLoading(false)
+				return
+			}
+			answer.value = await FindAnswer.call(id)
+		} catch (error) { setError(error) }
+		setLoading(false)
+	}
+
+	useFetch(fetchAnswer)
+
+	const listener = useListener(async () => {
+		const cb = (a: AnswerEntity | null) => {
+			if (a) {
+				answer.value = a
+				setAnswer(a)
+			}
+		}
+		return await ListenToAnswer.call(id, cb)
+	})
+
+	return { loading, error, answer, listener }
 }

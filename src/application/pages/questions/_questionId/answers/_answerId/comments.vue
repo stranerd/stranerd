@@ -1,23 +1,39 @@
 <template>
 	<div>
 		<PageLoading v-if="loading" />
-		<div class="content">
-			<QuestionCommentPageCard v-if="question" :question="question" />
-			<DisplayError v-else error="Question not found" />
-			<DisplayError :error="error" />
-		</div>
-		<div v-if="question" class="content">
-			<h2 class="mb-3">
-				Comments
-			</h2>
-			<CommentsList :answer-id="answerId" />
-			<CommentForm v-if="isLoggedIn" :answer-id="answerId" class="my-3" />
-			<div v-else class="d-flex justify-content-center">
-				<button class="btn btn-accent text-white" @click="redirect">
-					Login To Add A Comment
-				</button>
+		<PageLoading v-if="aLoading" />
+		<template v-if="!question">
+			<div class="content">
+				<DisplayError error="Question not found" />
 			</div>
-		</div>
+		</template>
+		<template v-else-if="!answer || answer.questionId !== question.id">
+			<div class="content">
+				<DisplayError error="Answer not found" />
+			</div>
+		</template>
+		<template v-else>
+			<div class="content">
+				<QuestionCommentPageCard :question="question" />
+				<DisplayError :error="error" />
+			</div>
+			<div class="content">
+				<AnswerCommentPageCard :answer="answer" />
+				<DisplayError :error="aError" />
+			</div>
+			<div class="content">
+				<h2 class="mb-3">
+					Comments
+				</h2>
+				<CommentsList :answer-id="answerId" />
+				<CommentForm v-if="isLoggedIn" :answer-id="answerId" class="my-3" />
+				<div v-else class="d-flex justify-content-center">
+					<button class="btn btn-accent text-white" @click="redirect">
+						Login To Add A Comment
+					</button>
+				</div>
+			</div>
+		</template>
 	</div>
 </template>
 
@@ -29,20 +45,30 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { useRedirectToAuth } from '@app/hooks/auth/session'
 import { useQuestion } from '@app/hooks/questions/questions'
 import QuestionCommentPageCard from '@app/components/questions/questions/QuestionCommentPageCard.vue'
+import { useAnswerById } from '@app/hooks/questions/answers'
+import AnswerCommentPageCard from '@app/components/questions/answers/AnswerCommentPageCard.vue'
 export default defineComponent({
 	name: 'QuestionAnswerCommentsPage',
-	components: { CommentsList, CommentForm, QuestionCommentPageCard },
+	components: { CommentsList, CommentForm, QuestionCommentPageCard, AnswerCommentPageCard },
 	layout: 'question',
 	setup () {
 		const { isLoggedIn } = useAuth()
 		const { redirect } = useRedirectToAuth()
 		const { questionId, answerId } = useContext().route.value.params
 		const { question, error, loading, listener } = useQuestion(questionId)
-		onMounted(listener.startListener)
-		onBeforeUnmount(listener.closeListener)
+		const { answer, error: aError, loading: aLoading, listener: aListener } = useAnswerById(questionId, answerId)
+		onMounted(() => {
+			listener.startListener()
+			aListener.startListener()
+		})
+		onBeforeUnmount(() => {
+			listener.closeListener()
+			aListener.closeListener()
+		})
 		return {
 			isLoggedIn, redirect, answerId,
-			question, error, loading
+			question, error, loading,
+			answer, aError, aLoading
 		}
 	}
 })

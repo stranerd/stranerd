@@ -19,7 +19,7 @@
 				</span>
 			</div>
 		</div>
-		<div class="mb-1 editor-body" v-html="question.body" />
+		<div class="mb-1 editor-body lead" v-html="question.body" />
 		<div>
 			<span v-if="question.attachments.length" class="mr-2">
 				<span>{{ question.attachments.length }}</span>

@@ -35,7 +35,7 @@
 			<small v-if="factory.errors.time" class="small text-danger d-block">{{ factory.errors.time }}</small>
 		</div>
 		<div class="form-group my-2">
-			<select v-model="factory.subjectId" class="form-control form-control rounded-pill">
+			<select v-model="factory.subjectId" class="form-control form-control">
 				<option value="">
 					All subjects
 				</option>

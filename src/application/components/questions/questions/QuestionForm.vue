@@ -4,7 +4,7 @@
 			<QuestionEditor :model.sync="factory.body" :error="factory.errors.body" :valid="factory.isValid('body')" />
 		</div>
 		<div class="form-group d-flex flex-column flex-sm-row">
-			<select v-model="factory.subjectId" class="form-control form-control-sm rounded-pill my-1 mx-sm-1">
+			<select v-model="factory.subjectId" class="form-control form-control-sm my-1 mx-sm-1">
 				<option disabled value="">
 					Select a subject
 				</option>
@@ -12,7 +12,7 @@
 					{{ subject.name }}
 				</option>
 			</select>
-			<select v-model="factory.credits" class="form-control form-control-sm rounded-pill my-1 mx-sm-1">
+			<select v-model="factory.credits" class="form-control form-control-sm my-1 mx-sm-1">
 				<option disabled value="0">
 					Select credits
 				</option>

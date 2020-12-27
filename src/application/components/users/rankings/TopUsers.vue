@@ -5,7 +5,7 @@
 				Top Users
 			</h5>
 			<form class="form-inline ml-auto">
-				<select v-model="option" class="form-control form-control-sm rounded-pill my-1">
+				<select v-model="option" class="form-control form-control-sm my-1">
 					<option v-for="option in options" :key="option" :value="option">
 						{{ option }}
 					</option>

@@ -5,7 +5,7 @@
 				Questions
 			</h1>
 			<form class="form-inline mx-auto mr-md-0 ml-md-auto">
-				<select v-model="answered" class="form-control form-control-sm mr-1 my-1">
+				<select v-model="answered" class="form-control form-control-sm mr-sm-1 my-1">
 					<option v-for="choice in answeredChoices" :key="choice.val" :value="choice.val">
 						{{ choice.key }}
 					</option>

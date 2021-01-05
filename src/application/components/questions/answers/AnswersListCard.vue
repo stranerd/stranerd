@@ -1,6 +1,6 @@
 <template>
 	<div :id="answer.id" class="answer">
-		<div class="px-1 px-md-2 d-flex align-items-start my-1">
+		<div class="my-1 d-flex align-items-start">
 			<img :src="answer.user.image.link" alt="" class="profile-image">
 			<div class="mx-1">
 				<span class="d-block text-red font-weight-bold text-wrap">
@@ -12,9 +12,9 @@
 			</div>
 			<ShowRatings class="ml-auto my-auto" :rating="answer.ratings" />
 		</div>
-		<hr class="thick my-1">
-		<div class="my-1 px-1 px-md-2 lead editor-body" v-html="answer.body" />
-		<div class="my-1 px-1 px-md-2 d-flex flex-wrap icons">
+		<hr class="thin">
+		<div class="my-1 lead editor-body" v-html="answer.body" />
+		<div class="my-1 d-flex flex-wrap icons">
 			<span v-if="answer.attachments.length" class="mr-2">
 				<span>{{ answer.attachments.length }}</span>
 				<i class="fas fa-paperclip" />
@@ -43,23 +43,17 @@
 			</span>
 		</div>
 		<DisplayAttachments v-if="answer.attachments.length" id="attachments" :attachments="answer.attachments" />
-		<div v-if="answer.comments.length > 0" class="my-1 px-1 px-md-2 pl-2 d-flex flex-column align-items-start">
-			<h6>
-				<NuxtLink :to="`/questions/${answer.questionId}/answers/${answer.id}/comments`">
+		<hr class="thin">
+		<NuxtLink :to="`/questions/${answer.questionId}/answers/${answer.id}/comments#add`">
+			<div class="d-flex align-items-end">
+				<h5 class="mb-0 mr-1">
 					Comments
-				</NuxtLink>
-			</h6>
-			<NuxtLink
-				v-for="comment in answer.comments"
-				:id="comment.id"
-				:key="comment.id"
-				:to="`/questions/${answer.questionId}/answers/${answer.id}/comments#${comment.id}`"
-			>
-				&#11044; {{ comment.body }}
-			</NuxtLink>
-		</div>
-		<CommentForm v-if="isLoggedIn" class="my-1 w-100" :answer-id="answer.id" />
-		<div class="my-1 px-1 px-md-2">
+				</h5>
+				<span>{{ answer.commentsCount }}</span>
+			</div>
+			<CommentForm class="w-100" :answer-id="answer.id" />
+		</NuxtLink>
+		<div class="my-1">
 			<DisplayError :error="error" />
 			<PageLoading v-if="loading" />
 		</div>
@@ -115,10 +109,13 @@ export default defineComponent({
 <style lang="scss" scoped>
 .answer {
 	border-radius: 0.5rem;
-	border: 3px solid $color-light-grey;
-	margin: 0 0 1rem;
+	border: 2px solid $color-light-grey;
+	padding: 0.5rem 0.5rem;
+	margin: 0 0 2.5rem;
 	@media (min-width: $md) {
+		border-width: 3px;
 		border-radius: 1.0rem;
+		padding: 0.5rem 1rem;
 	}
 	@media (min-width: $lg) {
 		border-radius: 1.5rem;

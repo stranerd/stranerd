@@ -53,22 +53,16 @@
 				</span>
 			</template>
 		</div>
-		<div v-if="question.comments.length > 0" class="my-1 px-1 px-md-2 pl-2 d-flex flex-column align-items-start">
-			<h6>
-				<NuxtLink :to="`/questions/${question.id}/comments`">
+		<hr class="thick">
+		<NuxtLink :to="`/questions/${question.id}/comments#add`">
+			<div class="d-flex align-items-end">
+				<h5 class="mb-0 mr-1">
 					Comments
-				</NuxtLink>
-			</h6>
-			<NuxtLink
-				v-for="comment in question.comments"
-				:id="comment.id"
-				:key="comment.id"
-				:to="`/questions/${question.id}/comments#${comment.id}`"
-			>
-				&#11044; {{ comment.body }}
-			</NuxtLink>
-		</div>
-		<CommentForm v-if="isLoggedIn" class="w-100" :question-id="question.id" />
+				</h5>
+				<span>{{ question.commentsCount }}</span>
+			</div>
+			<CommentForm class="w-100" :question-id="question.id" />
+		</NuxtLink>
 	</div>
 </template>
 
@@ -99,7 +93,7 @@ export default defineComponent({
 		onMounted(startTimer)
 		onBeforeUnmount(stopTimer)
 		return {
-			isLoggedIn, id,
+			id,
 			subject, time,
 			openAnswerModal: () => {
 				if (!isLoggedIn.value) redirect()

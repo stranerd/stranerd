@@ -87,6 +87,21 @@ hr.thin {
 .profile-image {
 	border-radius: 10rem;
 	border: 1.5px solid rgba($color-black,0.25);
+	width: 2.5rem;
+	height: 2.5rem;
+	@media (min-width: $md) {
+		width: 3.0rem;
+		height: 3.0rem;
+	}
+	@media (min-width: $lg) {
+		width: 3.5rem;
+		height: 3.5rem;
+	}
+}
+
+.profile-image-sm {
+	border-radius: 10rem;
+	border: 1.5px solid rgba($color-black,0.25);
 	width: 2rem;
 	height: 2rem;
 	@media (min-width: $md) {
@@ -94,8 +109,8 @@ hr.thin {
 		height: 2.5rem;
 	}
 	@media (min-width: $lg) {
-		width: 3.5rem;
-		height: 3.5rem;
+		width: 3.0rem;
+		height: 3.0rem;
 	}
 }
 

@@ -22,13 +22,11 @@
 				<DisplayError :error="aError" />
 			</div>
 			<div class="content">
-				<h2 class="mb-3">
-					Comments
-				</h2>
+				<h2>Comments</h2>
 				<CommentsList :answer-id="answerId" />
-				<CommentForm v-if="isLoggedIn" :answer-id="answerId" class="my-3" />
+				<CommentForm v-if="isLoggedIn" id="add" :answer-id="answerId" class="my-3" />
 				<div v-else class="d-flex justify-content-center">
-					<button class="btn btn-accent text-white" @click="redirect">
+					<button class="btn btn-accent text-white px-4" @click="redirect">
 						Login To Add A Comment
 					</button>
 				</div>

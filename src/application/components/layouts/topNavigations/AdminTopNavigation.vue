@@ -3,7 +3,9 @@
 		<button class="navbar-toggler rounded-0 mr-1 d-lg-none" type="button" @click="setMenuModalAdminSidebar">
 			<span class="fas fa-bars text-grey" />
 		</button>
-		<img src="@/assets/images/stranerd_logo.png" alt="Stranerd" height="50">
+		<NuxtLink to="/admin/">
+			<img src="@/assets/images/stranerd_logo.png" alt="Stranerd" height="50">
+		</NuxtLink>
 		<Links class="ml-auto" />
 	</nav>
 </template>

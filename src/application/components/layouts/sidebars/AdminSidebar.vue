@@ -85,7 +85,7 @@ export default defineComponent({
 		img { filter: brightness(50%); }
 	}
 	.logout {
-		color: $color-white;
+		color: $color-white !important;
 		background: $color-red;
 		margin: 0 -0.5rem;
 		padding: 0.75rem 1.5rem;

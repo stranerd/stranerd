@@ -3,7 +3,9 @@
 		<button class="navbar-toggler rounded-0 mr-1" :class="{'d-lg-none': hideLogo}" type="button" @click="setMenuModalSidebar">
 			<span class="fas fa-bars text-grey" />
 		</button>
-		<img src="@/assets/images/stranerd_logo.png" alt="Stranerd" height="50" :class="{'d-lg-none': hideLogo}">
+		<NuxtLink to="/" :class="{'d-lg-none': hideLogo}">
+			<img src="@/assets/images/stranerd_logo.png" alt="Stranerd" height="50">
+		</NuxtLink>
 		<Links class="ml-auto" />
 	</nav>
 </template>

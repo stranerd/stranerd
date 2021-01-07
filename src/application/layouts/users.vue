@@ -20,13 +20,12 @@ export default defineComponent({
 		ModalBase
 	},
 	middleware: [
-		(ctx) => {
+		({ route, redirect }) => {
 			const { isLoggedIn, id } = useAuth()
-			const path = ctx.route.fullPath
-			const { userId } = ctx.route.params
+			const { userId } = route.params
 			if (!userId || !isLoggedIn.value) return
-			if (userId === id.value) return ctx.redirect(
-				path.replace(`users/${userId}`, 'account')
+			if (userId === id.value) return redirect(
+				route.fullPath.replace(`users/${userId}`, 'account')
 			)
 		}
 	]

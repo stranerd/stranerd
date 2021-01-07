@@ -11,10 +11,6 @@
 			<NuxtLink class="link-sm" to="/">
 				<img src="@/assets/images/icons/friends.svg" alt="">
 			</NuxtLink>
-			<a v-if="isLoggedIn" class="link-sm" @click.prevent="signout">
-				<PageLoading v-if="loading" />
-				<img src="@/assets/images/icons/signout.svg" alt="">
-			</a>
 		</div>
 	</section>
 </template>
@@ -24,7 +20,7 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import { useCreateModal } from '@app/hooks/core/modals'
 import DefaultTopNavigation from '@app/components/layouts/topNavigations/DefaultTopNavigation.vue'
 import { useAuth } from '@app/hooks/auth/auth'
-import { useRedirectToAuth, useSessionSignout } from '@app/hooks/auth/session'
+import { useRedirectToAuth } from '@app/hooks/auth/session'
 export default defineComponent({
 	name: 'DashboardTopNavigation',
 	components: {
@@ -32,11 +28,9 @@ export default defineComponent({
 	},
 	setup () {
 		const { isLoggedIn } = useAuth()
-		const { loading, signout } = useSessionSignout()
 		const { redirect } = useRedirectToAuth()
 		const { setCreateModalQuestion } = useCreateModal()
 		return {
-			isLoggedIn, loading, signout,
 			openQuestionModal: () => {
 				if (!isLoggedIn.value) redirect()
 				else setCreateModalQuestion()

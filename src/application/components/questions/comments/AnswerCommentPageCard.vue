@@ -14,7 +14,7 @@
 			</div>
 			<ShowRatings class="ml-auto my-auto" :rating="answer.ratings" />
 		</div>
-		<div class="my-1 lead editor-body" v-html="answer.body" />
+		<NuxtLink :to="`/questions/${answer.questionId}#${answer.id}`" class="my-1 lead editor-body" v-html="answer.body" />
 		<div class="my-1 d-flex flex-wrap icons">
 			<span v-if="answer.attachments.length" class="mr-2">
 				<span>{{ answer.attachments.length }}</span>

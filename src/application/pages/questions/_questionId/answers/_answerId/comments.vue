@@ -48,7 +48,7 @@ import AnswerCommentPageCard from '@app/components/questions/answers/AnswerComme
 export default defineComponent({
 	name: 'QuestionAnswerCommentsPage',
 	components: { CommentsList, CommentForm, QuestionCommentPageCard, AnswerCommentPageCard },
-	layout: 'question',
+	layout: 'questions',
 	setup () {
 		const { isLoggedIn } = useAuth()
 		const { redirect } = useRedirectToAuth()

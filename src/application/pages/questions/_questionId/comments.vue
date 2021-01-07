@@ -30,7 +30,7 @@ import { useQuestion } from '@app/hooks/questions/questions'
 export default defineComponent({
 	name: 'QuestionCommentsPage',
 	components: { CommentsList, CommentForm, QuestionCommentPageCard },
-	layout: 'question',
+	layout: 'questions',
 	setup () {
 		const { isLoggedIn } = useAuth()
 		const { redirect } = useRedirectToAuth()

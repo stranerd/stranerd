@@ -31,7 +31,7 @@ export default defineComponent({
 		AnswersList,
 		QuestionsList
 	},
-	layout: 'question',
+	layout: 'questions',
 	setup () {
 		const { questionId } = useContext().route.value.params
 		const { error, loading, question, listener } = useQuestion(questionId)

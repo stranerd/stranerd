@@ -1,6 +1,5 @@
 import { UserBio } from '@modules/users'
 import { Media, Timestamp } from '@modules/core/data/models/base'
-import { CommentFromModel } from '../models/comment'
 
 export interface QuestionFromModel {
 	id: string
@@ -14,7 +13,6 @@ export interface QuestionFromModel {
 	answers?: number
 	comments?: {
 		count: number
-		last: { [id: string]: CommentFromModel }
 	}
 	dates: {
 		createdAt: Timestamp

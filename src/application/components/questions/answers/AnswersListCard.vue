@@ -38,7 +38,7 @@
 			</span>
 			<a v-if="isLoggedIn && question && !question.isAnswered && question.userId === id" class="mr-1 text-accent" @click.prevent="markBestAnswer">
 				<i class="fas fa-check" />
-				<span>Mark Best Answer</span>
+				<span>Mark as Best Answer</span>
 			</a>
 			<span v-if="question && question.isAnswered && answer.best" class="mr-1 text-accent">
 				<span>Best Answer</span>

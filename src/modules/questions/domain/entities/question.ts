@@ -12,7 +12,6 @@ export class QuestionEntity extends BaseEntity {
 	public readonly user: UserBio
 	public readonly answerId: string | undefined
 	public readonly answers: number
-	public readonly comments: { id: string, body: string, userId: string, user: UserBio }[]
 	public readonly commentsCount: number
 	public readonly createdAt: string
 
@@ -32,12 +31,6 @@ export class QuestionEntity extends BaseEntity {
 		this.answerId = answerId
 		this.answers = answers ?? 0
 		this.commentsCount = comments?.count ?? 0
-		this.comments = Object.entries(comments?.last ?? {})
-			.sort((a, b) => a[0] > b[0] ? 1 : -1)
-			.map(([id, { body, userId, user }]) => ({
-				id, body, userId,
-				user: generateDefaultBio(user)
-			}))
 		this.createdAt = createdAt
 	}
 
@@ -56,12 +49,5 @@ type QuestionConstructorArgs = {
 	user: UserBio
 	answerId?: string
 	answers?: number
-	comments?: {
-		count: number
-		last: { [id: string]: {
-			body: string,
-			userId: string,
-			user: UserBio
-		} }
-	}
+	comments?: { count: number }
 }

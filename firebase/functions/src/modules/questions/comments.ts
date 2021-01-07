@@ -1,38 +1,86 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 
-export const questionCommentModified = functions.database.ref('comments/questions/{questionId}')
-	.onWrite(async (snap, context) => {
-		const { questionId } = context.params
-
-		const comments = Object.entries(snap.after.val() ?? {})
-			.sort((a, b) => a > b ? 1 : -1)
-		const last5Comments = Object.fromEntries(comments.slice(-5))
+export const questionCommentCreated = functions.database.ref('comments/questions/{questionId}/{commentId}')
+	.onCreate(async (snap, context) => {
+		const { questionId, commentId } = context.params
 
 		await admin.firestore().collection('questions')
 			.doc(questionId)
 			.set({
 				comments: {
-					count: comments.length,
-					last: last5Comments
+					count: admin.firestore.FieldValue.increment(1),
 				}
 			}, { merge: true })
+
+		const { userId } = snap.val()
+
+		await admin.database().ref('users')
+			.child(userId)
+			.child('question-comments')
+			.child(`${questionId}--${commentId}`)
+			.set(true)
 	})
 
-export const answerCommentModified = functions.database.ref('comments/answers/{answerId}')
-	.onWrite(async (snap, context) => {
-		const { answerId } = context.params
-
-		const comments = Object.entries(snap.after.val() ?? {})
-			.sort((a, b) => a > b ? 1 : -1)
-		const last3Comments = Object.fromEntries(comments.slice(-3))
+export const answerCommentCreated = functions.database.ref('comments/answers/{answerId}/{commentId}')
+	.onCreate(async (snap, context) => {
+		const { answerId, commentId } = context.params
 
 		await admin.firestore().collection('answers')
 			.doc(answerId)
 			.set({
 				comments: {
-					count: comments.length,
-					last: last3Comments
+					count: admin.firestore.FieldValue.increment(1),
 				}
 			}, { merge: true })
+
+		const { userId } = snap.val()
+
+		await admin.database().ref('users')
+			.child(userId)
+			.child('answer-comments')
+			.child(`${answerId}--${commentId}`)
+			.set(true)
+	})
+
+export const questionCommentDeleted = functions.database.ref('comments/questions/{questionId}/{commentId}')
+	.onDelete(async (snap, context) => {
+		const { questionId, commentId } = context.params
+
+		await admin.firestore().collection('questions')
+			.doc(questionId)
+			.set({
+				comments: {
+					count: admin.firestore.FieldValue.increment(-1),
+				}
+			}, { merge: true })
+
+		const { userId } = snap.val()
+
+		await admin.database().ref('users')
+			.child(userId)
+			.child('question-comments')
+			.child(`${questionId}--${commentId}`)
+			.set(null)
+	})
+
+export const answerCommentDeleted = functions.database.ref('comments/answers/{answerId}/{commentId}')
+	.onDelete(async (snap, context) => {
+		const { answerId, commentId } = context.params
+
+		await admin.firestore().collection('answers')
+			.doc(answerId)
+			.set({
+				comments: {
+					count: admin.firestore.FieldValue.increment(1),
+				}
+			}, { merge: true })
+
+		const { userId } = snap.val()
+
+		await admin.database().ref('users')
+			.child(userId)
+			.child('answer-comments')
+			.child(`${answerId}--${commentId}`)
+			.set(null)
 	})

@@ -1,11 +1,13 @@
 <template>
 	<div :id="answer.id" class="answer">
 		<div class="my-1 d-flex align-items-start">
-			<img :src="answer.user.image.link" alt="" class="profile-image">
+			<NuxtLink :to="`/users/${answer.userId}`">
+				<img :src="answer.user.image.link" alt="" class="profile-image">
+			</NuxtLink>
 			<div class="mx-1">
-				<span class="d-block text-red font-weight-bold text-wrap">
-					{{ answer.user.name }}
-				</span>
+				<NuxtLink :to="`/users/${answer.userId}`" class="d-block text-red font-weight-bold text-wrap">
+					<span>{{ answer.user.name }}</span>
+				</NuxtLink>
 				<span class="small text-wrap">
 					{{ time }}
 				</span>
@@ -44,7 +46,7 @@
 		</div>
 		<DisplayAttachments v-if="answer.attachments.length" id="attachments" :attachments="answer.attachments" />
 		<hr class="thin">
-		<NuxtLink :to="`/questions/${answer.questionId}/answers/${answer.id}/comments#add`">
+		<NuxtLink :to="`/questions/${answer.questionId}/answers/${answer.id}/comments#add`" class="text-decoration-none">
 			<div class="d-flex align-items-end">
 				<h5 class="mb-0 mr-1">
 					Comments

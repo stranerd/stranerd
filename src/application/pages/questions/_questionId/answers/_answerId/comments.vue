@@ -42,9 +42,9 @@ import CommentForm from '@app/components/questions/comments/AnswerCommentForm.vu
 import { useAuth } from '@app/hooks/auth/auth'
 import { useRedirectToAuth } from '@app/hooks/auth/session'
 import { useQuestion } from '@app/hooks/questions/questions'
-import QuestionCommentPageCard from '@app/components/questions/questions/QuestionCommentPageCard.vue'
+import QuestionCommentPageCard from '@app/components/questions/comments/QuestionCommentPageCard.vue'
 import { useAnswerById } from '@app/hooks/questions/answers'
-import AnswerCommentPageCard from '@app/components/questions/answers/AnswerCommentPageCard.vue'
+import AnswerCommentPageCard from '@app/components/questions/comments/AnswerCommentPageCard.vue'
 export default defineComponent({
 	name: 'QuestionAnswerCommentsPage',
 	components: { CommentsList, CommentForm, QuestionCommentPageCard, AnswerCommentPageCard },

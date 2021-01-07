@@ -1,11 +1,13 @@
 <template>
 	<div>
 		<div class="d-flex align-items-start mb-1">
-			<img :src="question.user.image.link" alt="" class="profile-image">
+			<NuxtLink :to="`/users/${question.userId}`">
+				<img :src="question.user.image.link" alt="" class="profile-image">
+			</NuxtLink>
 			<div class="mx-1">
-				<span class="d-block text-red font-weight-bold text-wrap">
-					{{ question.user.name }}
-				</span>
+				<NuxtLink :to="`/users/${question.userId}`" class="d-block text-red font-weight-bold text-wrap">
+					<span>{{ question.user.name }}</span>
+				</NuxtLink>
 				<span class="small text-wrap">
 					{{ subject ? subject.name : 'Subject' }}
 					|
@@ -54,7 +56,7 @@
 			</template>
 		</div>
 		<hr class="thick">
-		<NuxtLink :to="`/questions/${question.id}/comments#add`">
+		<NuxtLink :to="`/questions/${question.id}/comments#add`" class="text-decoration-none">
 			<div class="d-flex align-items-end">
 				<h5 class="mb-0 mr-1">
 					Comments

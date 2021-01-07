@@ -1,11 +1,13 @@
 <template>
 	<div>
 		<div class="d-flex align-items-start my-1">
-			<img :src="answer.user.image.link" alt="" class="profile-image">
+			<NuxtLink :to="`/users/${answer.userId}`">
+				<img :src="answer.user.image.link" alt="" class="profile-image">
+			</NuxtLink>
 			<div class="mx-1">
-				<span class="d-block text-red font-weight-bold text-wrap">
-					{{ answer.user.name }}
-				</span>
+				<NuxtLink :to="`/users/${answer.userId}`" class="d-block text-red font-weight-bold text-wrap">
+					<span>{{ answer.user.name }}</span>
+				</NuxtLink>
 				<span class="small text-wrap">
 					{{ time }}
 				</span>

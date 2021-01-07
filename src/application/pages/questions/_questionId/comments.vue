@@ -23,7 +23,7 @@
 import { defineComponent, onBeforeUnmount, onMounted, useContext } from '@nuxtjs/composition-api'
 import CommentsList from '@app/components/questions/comments/QuestionCommentsList.vue'
 import CommentForm from '@app/components/questions/comments/QuestionCommentForm.vue'
-import QuestionCommentPageCard from '@app/components/questions/questions/QuestionCommentPageCard.vue'
+import QuestionCommentPageCard from '@app/components/questions/comments/QuestionCommentPageCard.vue'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useRedirectToAuth } from '@app/hooks/auth/session'
 import { useQuestion } from '@app/hooks/questions/questions'

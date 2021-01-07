@@ -1,11 +1,13 @@
 <template>
 	<div :id="comment.id">
 		<div class="mb-1 d-flex align-items-start">
-			<img :src="comment.user.image.link" alt="" class="profile-image">
+			<NuxtLink :to="`/users/${comment.userId}`">
+				<img :src="comment.user.image.link" alt="" class="profile-image">
+			</NuxtLink>
 			<div class="mx-1">
-				<span class="d-block text-red font-weight-bold text-wrap">
-					{{ comment.user.name }}
-				</span>
+				<NuxtLink :to="`/users/${comment.userId}`" class="d-block text-red font-weight-bold text-wrap">
+					<span>{{ comment.user.name }}</span>
+				</NuxtLink>
 				<span class="small text-wrap">
 					{{ time }}
 				</span>

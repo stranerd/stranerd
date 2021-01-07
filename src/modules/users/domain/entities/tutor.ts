@@ -38,15 +38,11 @@ type TutorConstructorArgs = {
 	reviews: number
 }
 
-export interface TutorSubjects {
-	[key: string]: {
-		level: number
-		upgrades: {
-			[key:number]: {
-				score: number
-				takenAt: number
-				passed: boolean
-			}
-		}
-	}
-}
+export type TutorSubjects = Record<string, {
+	level: number
+	upgrades: Record<number, {
+		score: number
+		takenAt: number
+		passed: boolean
+	}>
+}>

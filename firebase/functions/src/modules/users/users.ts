@@ -49,13 +49,18 @@ const updateMyQuestionsBio = async (userId: string, user: any) => {
 			.child(userId)
 			.child('questions')
 			.once('value')
-		const batch = admin.firestore().batch()
 		const questionIds = Object.keys(questionIdRefs.val() ?? {})
-		questionIds.forEach((questionId) => {
-			const ref = admin.firestore().collection('questions').doc(questionId)
-			batch.set(ref, { user }, { merge: true })
-		})
-		if (questionIds.length > 0) await batch.commit()
+		const chunks = chunkArray(questionIds, 500)
+		await Promise.all(
+			chunks.map(async (chunk) => {
+				const batch = admin.firestore().batch()
+				chunk.forEach((questionId) => {
+					const ref = admin.firestore().collection('questions').doc(questionId)
+					batch.set(ref, { user }, { merge: true })
+				})
+				if (chunk.length > 0) await batch.commit()
+			})
+		)
 	} catch (error) { console.log(`Error updating bios of ${userId} questions`) }
 }
 
@@ -65,13 +70,18 @@ const updateMyAnswersBio = async (userId: string, user: any) => {
 			.child(userId)
 			.child('answers')
 			.once('value')
-		const batch = admin.firestore().batch()
 		const answerIds = Object.keys(answerIdRefs.val() ?? {})
-		answerIds.forEach((answerId) => {
-			const ref = admin.firestore().collection('answers').doc(answerId)
-			batch.set(ref, { user }, { merge: true })
-		})
-		if (answerIds.length > 0) await batch.commit()
+		const chunks = chunkArray(answerIds, 500)
+		await Promise.all(
+			chunks.map(async (chunk) => {
+				const batch = admin.firestore().batch()
+				chunk.forEach((answerId) => {
+					const ref = admin.firestore().collection('answers').doc(answerId)
+					batch.set(ref, { user }, { merge: true })
+				})
+				if (chunk.length > 0) await batch.commit()
+			})
+		)
 	} catch (error) { console.log(`Error updating bios of ${userId} answers`) }
 }
 
@@ -132,3 +142,7 @@ const updateBraintreeBio = async (userId: string, oldBio: any, bio: any) => {
 		}
 	} catch (error) { console.log(`Error updating braintree bio of ${userId}`) }
 }
+
+const chunkArray = <T>(arr: T[], size: number) => new Array(Math.ceil(arr.length / size))
+	.fill([])
+	.map((_, index) => arr.slice(index * size, (index + 1) * size))

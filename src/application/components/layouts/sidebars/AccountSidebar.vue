@@ -39,38 +39,43 @@
 			</div>
 		</div>
 		<div class="my-1 d-flex flex-column links">
+			<NuxtLink class="link" to="/dashboard">
+				<img src="@/assets/images/icons/dashboard.svg" alt="">
+				<span>Dashboard</span>
+			</NuxtLink>
 			<NuxtLink class="link" to="/account/questions">
-				<img src="@/assets/images/icons/questions.svg" alt="" width="24" height="24">
-				<span class="ml-1 text-18">Questions</span>
+				<img src="@/assets/images/icons/questions.svg" alt="">
+				<span>Questions</span>
 			</NuxtLink>
 			<NuxtLink class="link" to="/account/answers">
-				<img src="@/assets/images/icons/answers.svg" alt="" width="24" height="24">
-				<span class="ml-1 text-18">Answers</span>
+				<img src="@/assets/images/icons/answers.svg" alt="">
+				<span>Answers</span>
 			</NuxtLink>
 			<NuxtLink class="link" to="/account/challenges">
-				<img src="@/assets/images/icons/challenge.svg" alt="" width="24" height="24">
-				<span class="ml-1 text-18">Challenges</span>
+				<img src="@/assets/images/icons/challenge.svg" alt="">
+				<span>Challenges</span>
 			</NuxtLink>
 			<NuxtLink class="link" to="/account/friends">
-				<img src="@/assets/images/icons/friends.svg" alt="" width="24" height="24">
-				<span class="ml-1 text-18">Friends</span>
+				<img src="@/assets/images/icons/friends.svg" alt="">
+				<span>Friends</span>
 			</NuxtLink>
 			<NuxtLink class="link" to="/account/projects">
-				<img src="@/assets/images/icons/projects.svg" alt="" width="24" height="24">
-				<span class="ml-1 text-18">Projects</span>
+				<img src="@/assets/images/icons/projects.svg" alt="">
+				<span>Projects</span>
 			</NuxtLink>
 			<NuxtLink class="link" to="/account/e-wallet">
-				<img src="@/assets/images/icons/e-wallet.svg" alt="" width="24" height="24">
-				<span class="ml-1 text-18">E-Wallet</span>
+				<img src="@/assets/images/icons/e-wallet.svg" alt="">
+				<span>E-Wallet</span>
 			</NuxtLink>
 			<a class="link" @click.prevent="openEditProfileModal">
-				<img src="@/assets/images/icons/edit-profile.svg" alt="" width="24" height="24">
-				<span class="ml-1 text-18">Edit Profile</span>
+				<img src="@/assets/images/icons/edit-profile.svg" alt="">
+				<span>Edit Profile</span>
 			</a>
-			<NuxtLink class="link" to="/dashboard">
-				<img src="@/assets/images/icons/dashboard.svg" alt="" width="24" height="24">
-				<span class="ml-1 text-18">Dashboard</span>
-			</NuxtLink>
+			<a v-if="isLoggedIn" class="link logout" @click="signout">
+				<PageLoading v-if="loading" />
+				<img src="@/assets/images/icons/signout.svg" alt="">
+				<span>Signout</span>
+			</a>
 		</div>
 	</div>
 </template>
@@ -79,15 +84,17 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useEditModal, useMenuModal } from '@app/hooks/core/modals'
+import { useSessionSignout } from '@app/hooks/auth/session'
 export default defineComponent({
 	name: 'AccountSidebar',
 	setup () {
 		const { isLoggedIn, user } = useAuth()
+		const { loading, signout } = useSessionSignout()
 		const openEditProfileModal = () => {
 			useMenuModal().closeMenuModal()
 			useEditModal().setEditModalAccountProfile()
 		}
-		return { isLoggedIn, user, openEditProfileModal }
+		return { isLoggedIn, user, openEditProfileModal, loading, signout }
 	}
 })
 </script>
@@ -100,6 +107,14 @@ export default defineComponent({
 		display: flex;
 		align-items: center;
 		font-weight: 500;
+		img {
+			height: 24px;
+			width: 24px;
+		}
+		span {
+			font-size: 18px;
+			margin-left: 0.5rem;
+		}
 	}
 	.nuxt-link-exact-active {
 		font-weight: 600;
@@ -108,6 +123,15 @@ export default defineComponent({
 		margin: 0 -0.5rem;
 		padding: 0.75rem 1.5rem;
 		img { filter: brightness(50%); }
+	}
+	.logout {
+		color: $color-white;
+		background: $color-red;
+		margin: 0 -0.5rem;
+		padding: 0.75rem 1.5rem;
+		@media (min-width: $md) {
+			display: none;
+		}
 	}
 }
 </style>

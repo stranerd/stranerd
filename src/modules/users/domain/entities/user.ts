@@ -8,7 +8,7 @@ export class UserEntity extends BaseEntity {
 	public readonly userBio: UserBio
 	public readonly account: UserAccount
 	public readonly rankings: Required<UserRankings>
-	public readonly meta: UserMeta
+	public readonly meta: Required<UserMeta>
 	public readonly signedUpAt: string
 
 	constructor ({ id, bio, roles, account, rankings, meta, dates }: UserConstructorArgs) {
@@ -26,7 +26,9 @@ export class UserEntity extends BaseEntity {
 		this.meta = {
 			answerCount: meta?.answerCount ?? 0,
 			questionCount: meta?.questionCount ?? 0,
-			currentChallenge: meta?.currentChallenge
+			questionCommentCount: meta?.questionCommentCount ?? 0,
+			answerCommentCount: meta?.answerCommentCount ?? 0,
+			currentChallenge: meta?.currentChallenge ?? null
 		}
 		this.signedUpAt = dates.signedUpAt
 	}
@@ -69,7 +71,9 @@ export interface UserRankings {
 export interface UserMeta {
 	answerCount?: number
 	questionCount?: number
-	currentChallenge?: string
+	questionCommentCount?: number
+	answerCommentCount?: number
+	currentChallenge?: string | null
 }
 export const generateDefaultBio = (bio: UserBio) :UserBio => {
 	const name = bio?.name ?? 'Anonymous'

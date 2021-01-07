@@ -15,6 +15,11 @@ export const questionCommentCreated = functions.database.ref('comments/questions
 
 		const { userId } = snap.val()
 
+		await admin.database().ref('profiles')
+			.child(userId)
+			.child('meta/questionCommentCount')
+			.set(admin.database.ServerValue.increment(1))
+
 		await admin.database().ref('users')
 			.child(userId)
 			.child('question-comments')
@@ -35,6 +40,11 @@ export const answerCommentCreated = functions.database.ref('comments/answers/{an
 			}, { merge: true })
 
 		const { userId } = snap.val()
+
+		await admin.database().ref('profiles')
+			.child(userId)
+			.child('meta/answerCommentCount')
+			.set(admin.database.ServerValue.increment(1))
 
 		await admin.database().ref('users')
 			.child(userId)
@@ -57,6 +67,11 @@ export const questionCommentDeleted = functions.database.ref('comments/questions
 
 		const { userId } = snap.val()
 
+		await admin.database().ref('profiles')
+			.child(userId)
+			.child('meta/questionCommentCount')
+			.set(admin.database.ServerValue.increment(-1))
+
 		await admin.database().ref('users')
 			.child(userId)
 			.child('question-comments')
@@ -77,6 +92,11 @@ export const answerCommentDeleted = functions.database.ref('comments/answers/{an
 			}, { merge: true })
 
 		const { userId } = snap.val()
+
+		await admin.database().ref('profiles')
+			.child(userId)
+			.child('meta/answerCommentCount')
+			.set(admin.database.ServerValue.increment(-1))
 
 		await admin.database().ref('users')
 			.child(userId)

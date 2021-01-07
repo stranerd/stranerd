@@ -2,6 +2,8 @@ import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { sendTopUsersEmail } from '../../helpers/email'
 
+type User = { email: string, name: string, id: string, credits: number }
+
 const DAILY_CRONTAB_SYNTAX = '0 0 * * *'
 const WEEKLY_CRONTAB_SYNTAX = '0 0 * * 0'
 const MONTHLY_CRONTAB_SYNTAX = '0 0 1 * *'
@@ -13,11 +15,11 @@ const getAllUserIds = async () => {
 	return Object.keys(userIdsObjects ?? {})
 }
 
-const updateRankings = async (userPaths: string[]) => {
+const resetRankings = async (userPaths: string[]) => {
 	const data = userPaths.reduce((acc, curr) => {
 		acc[curr] = null
 		return acc
-	}, {} as {[key: string]: null})
+	}, {} as Record<string, null>)
 
 	await admin.database().ref('profiles').update(data)
 }
@@ -28,7 +30,7 @@ const getTop5Users = async (period: string) => {
 		.limitToFirst(5)
 		.startAt(0)
 		.once('value')
-	const users = [] as { email: string, name: string, id: string, credits: number }[]
+	const users = [] as User[]
 	ref.forEach((child) => {
 		const user = child.val()
 		const { email, name } = user.bio
@@ -44,7 +46,7 @@ const getTop5Users = async (period: string) => {
 	return users
 }
 
-const saveTopUsers = async (period: string, users: { email: string, name: string, id: string, credits: number }[]) => {
+const saveTopUsers = async (period: string, users: User[]) => {
 	await admin.database().ref('rankings')
 		.child(period)
 		.set(users)
@@ -57,7 +59,7 @@ export const resetDailyRankings = functions.pubsub.schedule(DAILY_CRONTAB_SYNTAX
 	const userIds = await getAllUserIds()
 	const paths = userIds.map((userId) => `${userId}/rankings/daily`)
 
-	await updateRankings(paths)
+	await resetRankings(paths)
 })
 
 export const resetWeeklyRankings = functions.pubsub.schedule(WEEKLY_CRONTAB_SYNTAX).onRun(async () => {
@@ -68,7 +70,7 @@ export const resetWeeklyRankings = functions.pubsub.schedule(WEEKLY_CRONTAB_SYNT
 	const userIds = await getAllUserIds()
 	const paths = userIds.map((userId) => `${userId}/rankings/weekly`)
 
-	await updateRankings(paths)
+	await resetRankings(paths)
 })
 
 export const resetMonthlyRankings = functions.pubsub.schedule(MONTHLY_CRONTAB_SYNTAX).onRun(async () => {
@@ -79,7 +81,7 @@ export const resetMonthlyRankings = functions.pubsub.schedule(MONTHLY_CRONTAB_SY
 	const userIds = await getAllUserIds()
 	const paths = userIds.map((userId) => `${userId}/rankings/monthly`)
 
-	await updateRankings(paths)
+	await resetRankings(paths)
 })
 
 export const resetQuarterlyRankings = functions.pubsub.schedule(QUARTERLY_CRONTAB_SYNTAX).onRun(async () => {
@@ -90,5 +92,5 @@ export const resetQuarterlyRankings = functions.pubsub.schedule(QUARTERLY_CRONTA
 	const userIds = await getAllUserIds()
 	const paths = userIds.map((userId) => `${userId}/rankings/quarterly`)
 
-	await updateRankings(paths)
+	await resetRankings(paths)
 })

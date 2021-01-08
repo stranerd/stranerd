@@ -1,17 +1,22 @@
 import { BaseEntity } from '@modules/core/domains/entities/base'
 import { Media } from '@modules/core/data/models/base'
 export const DEFAULT_IMAGE_URL = '/images/user_profile.png'
+export enum Status {
+	OFFLINE = 0,
+	ONLINE = 1
+}
 
 export class UserEntity extends BaseEntity {
 	public readonly id: string
 	public readonly roles: UserRoles
-	public readonly userBio: UserBio
+	public readonly userBio: Required<UserBio>
 	public readonly account: UserAccount
 	public readonly rankings: Required<UserRankings>
 	public readonly meta: Required<UserMeta>
+	public readonly status: Required<UserStatus>
 	public readonly signedUpAt: string
 
-	constructor ({ id, bio, roles, account, rankings, meta, dates }: UserConstructorArgs) {
+	constructor ({ id, bio, roles, account, rankings, meta, status, dates }: UserConstructorArgs) {
 		super()
 		this.id = id
 		this.userBio = generateDefaultBio(bio)
@@ -30,12 +35,18 @@ export class UserEntity extends BaseEntity {
 			answerCommentCount: meta?.answerCommentCount ?? 0,
 			currentChallenge: meta?.currentChallenge ?? null
 		}
+		this.status = {
+			mode: status?.mode ?? Status.OFFLINE,
+			updatedAt: status?.updatedAt ?? 0
+		}
 		this.signedUpAt = dates.signedUpAt
 	}
 
 	get name () { return this.userBio.name }
 	get email () { return this.userBio.email }
-	get image () { return this.userBio.image?.link }
+	get image () { return this.userBio.image.link }
+
+	get isOnline () { return this.status.mode === Status.ONLINE }
 }
 
 type UserConstructorArgs = {
@@ -45,6 +56,7 @@ type UserConstructorArgs = {
 	account: UserAccount
 	rankings?: UserRankings
 	meta?: UserMeta
+	status?: UserStatus
 	dates: { signedUpAt: string }
 }
 
@@ -74,6 +86,10 @@ export interface UserMeta {
 	questionCommentCount?: number
 	answerCommentCount?: number
 	currentChallenge?: string | null
+}
+export interface UserStatus {
+	mode: Status
+	updatedAt: number
 }
 export const generateDefaultBio = (bio: UserBio) :UserBio => {
 	const name = bio?.name ?? 'Anonymous'

@@ -9,10 +9,10 @@ export default defineNuxtPlugin(async () => {
 
 	const { isLoggedIn, token, startProfileListener } = useAuth()
 	if (isLoggedIn.value && token.value) {
-		await startProfileListener()
 		await firebase.auth()
 			.signInWithCustomToken(token.value)
 			.catch(() => {})
+		await startProfileListener()
 	}
 
 	await firebase.firestore()

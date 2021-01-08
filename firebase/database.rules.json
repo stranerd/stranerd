@@ -37,7 +37,10 @@
 			],
 			"$userId": {
 				".read": true,
-				".write": "auth.uid === $userId"
+				".write": "auth.uid === $userId",
+				"status": {
+					".write": "auth.uid === $userId || auth.uid === null"
+				}
 			}
 		},
 		"sessions": {

@@ -27,7 +27,7 @@ import { ListenToTopDailyUsersUseCase } from './domain/usecases/rankings/listenT
 import { ListenToTopWeeklyUsersUseCase } from './domain/usecases/rankings/listenToTopWeeklyUsers'
 import { ListenToTopMonthlyUsersUseCase } from './domain/usecases/rankings/listenToTopMonthlyUsers'
 import { ListenToTopQuarterlyUsersUseCase } from './domain/usecases/rankings/listenToTopQuarterlyUsers'
-import { UserEntity, UserBio, generateDefaultBio } from './domain/entities/user'
+import { UserEntity, UserBio, Status, generateDefaultBio } from './domain/entities/user'
 import { TutorEntity } from './domain/entities/tutor'
 import { MailingListFactory } from './domain/factories/mailingList'
 
@@ -67,6 +67,6 @@ export const ListenToTopWeeklyUsers = new ListenToTopWeeklyUsersUseCase(userRepo
 export const ListenToTopMonthlyUsers = new ListenToTopMonthlyUsersUseCase(userRepository)
 export const ListenToTopQuarterlyUsers = new ListenToTopQuarterlyUsersUseCase(userRepository)
 
-export { UserEntity, generateDefaultBio, TutorEntity }
+export { UserEntity, generateDefaultBio, TutorEntity, Status }
 export { MailingListFactory }
 export type { UserBio }

@@ -18,10 +18,10 @@ export const createSession = async (user: AfterAuthUser, router: VueRouter) => {
 		if (authDetails) {
 			const { token, setAuthUser, startProfileListener } = useAuth()
 			await setAuthUser(authDetails)
-			await startProfileListener()
 			if (token.value) await firebase.auth()
 				.signInWithCustomToken(token.value)
 				.catch(() => {})
+			await startProfileListener()
 		}
 
 		const { [REDIRECT_SESSION_NAME]: redirect } = Cookie.parse(document.cookie ?? '')
@@ -33,7 +33,6 @@ export const createSession = async (user: AfterAuthUser, router: VueRouter) => {
 }
 
 export const useSessionSignout = () => {
-	const { app } = useContext()
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const signout = async () => {
@@ -49,7 +48,7 @@ export const useSessionSignout = () => {
 			try {
 				await SessionSignout.call()
 				await useAuth().signout()
-				if (app.router) await app.router.push('/auth/')
+				if (isClient()) window.location.assign('/auth/')
 			} catch (error) { setError(error) }
 			setLoading(false)
 		}

@@ -1,5 +1,6 @@
 import { computed, reqSsrRef } from '@nuxtjs/composition-api'
-import { FindUser, ListenToUser, UserEntity } from '@modules/users'
+import { FindUser, ListenToUser, Status, UserEntity } from '@modules/users'
+import firebase from '@modules/core/services/initFirebase'
 
 type Auth = {
 	id: string,
@@ -33,7 +34,10 @@ export const useAuth = () => {
 
 		const id = global.auth.value?.id
 		const setUser = (user: UserEntity | null) => global.user.value = user
-		if (id) global.listener = await ListenToUser.call(id, setUser)
+		if (id) {
+			await setOnlineStatus(id)
+			global.listener = await ListenToUser.call(id, setUser)
+		}
 	}
 
 	const signout = async () => setAuthUser(null)
@@ -45,4 +49,23 @@ export const useAuth = () => {
 		setAuthUser, startProfileListener,
 		signout
 	}
+}
+
+export const setOnlineStatus = async (uid: string) => {
+	firebase.database().ref('.info/connected')
+		.on('value', async (snapshot) => {
+			if (!uid || !snapshot.val()) return
+
+			const statusRef = firebase.database().ref('profiles').child(uid).child('status')
+
+			await statusRef.onDisconnect().set({
+				mode: Status.OFFLINE,
+				updatedAt: firebase.database.ServerValue.TIMESTAMP
+			})
+
+			await statusRef.set({
+				mode: Status.ONLINE,
+				updatedAt: firebase.database.ServerValue.TIMESTAMP
+			})
+		})
 }

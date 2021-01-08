@@ -37,7 +37,7 @@
 					Challenges
 				</h3>
 				<div class="body">
-					<ChallengesList />
+					<ChallengesList :user-id="id || ''" />
 				</div>
 			</div>
 			<div class="content">
@@ -73,11 +73,11 @@ export default defineComponent({
 	},
 	layout: 'dashboard',
 	setup () {
-		const { isLoggedIn, user } = useAuth()
+		const { id, isLoggedIn, user } = useAuth()
 		const { redirect } = useRedirectToAuth()
 		const { setCreateModalQuestion } = useCreateModal()
 		return {
-			isLoggedIn, user,
+			id, isLoggedIn, user,
 			openQuestionModal: () => {
 				if (!isLoggedIn.value) redirect()
 				else setCreateModalQuestion()

@@ -37,9 +37,15 @@ export default defineComponent({
 		StartChallengeCard,
 		CurrentChallengeCard
 	},
-	setup () {
+	props: {
+		userId: {
+			type: String,
+			required: true
+		}
+	},
+	setup (props) {
 		const { loading, error, challenges: nChallenges } = useChallengeList()
-		const { loading: pLoading, error: pError, challenges: pChallenges, listener, current } = usePersonalChallengesList()
+		const { loading: pLoading, error: pError, challenges: pChallenges, listener, current } = usePersonalChallengesList(props.userId)
 		onMounted(listener.startListener)
 		onBeforeUnmount(listener.closeListener)
 		const challenges = computed({

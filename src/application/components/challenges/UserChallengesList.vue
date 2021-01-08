@@ -43,16 +43,22 @@ import FailedChallengeCard from '@app/components/challenges/FailedChallengeCard.
 import PassedChallengeCard from '@app/components/challenges/PassedChallengeCard.vue'
 import { usePersonalChallengesList } from '@app/hooks/challenges/personal-challenges'
 export default defineComponent({
-	name: 'AccountChallengesList',
+	name: 'UserChallengesList',
 	components: {
 		StartChallengeCard,
 		CurrentChallengeCard,
 		FailedChallengeCard,
 		PassedChallengeCard
 	},
-	setup () {
+	props: {
+		userId: {
+			type: String,
+			required: true
+		}
+	},
+	setup (props) {
 		const { loading, error, challenges: nChallenges } = useChallengeList()
-		const { loading: pLoading, error: pError, challenges: pChallenges, listener, current } = usePersonalChallengesList()
+		const { loading: pLoading, error: pError, challenges: pChallenges, listener, current } = usePersonalChallengesList(props.userId)
 		onMounted(listener.startListener)
 		onBeforeUnmount(listener.closeListener)
 		const newChallenges = computed({

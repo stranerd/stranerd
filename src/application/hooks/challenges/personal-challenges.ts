@@ -1,5 +1,5 @@
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
-import { reqSsrRef, useFetch, computed } from '@nuxtjs/composition-api'
+import { reqSsrRef, useFetch, computed, Ref } from '@nuxtjs/composition-api'
 import {
 	CancelPersonalChallenge,
 	ChallengeEntity, GetAllPersonalChallenges, ListenToPersonalChallenges,
@@ -8,50 +8,50 @@ import {
 import { useAuth } from '@app/hooks/auth/auth'
 import { Alert } from '@app/hooks/core/notifications'
 
-const global = {
-	userId: null as string | null,
-	fetched: reqSsrRef(false),
-	challenges: reqSsrRef([] as PersonalChallengeEntity[])
-}
-const { error, setError: setGlobalError } = useErrorHandler()
-const { loading, setLoading: setGlobalLoading } = useLoadingHandler()
+const global = {} as Record<string, {
+	fetched: Ref<boolean>
+	challenges: Ref<PersonalChallengeEntity[]>,
+	error: Ref<string>, setError: (error: any) => void
+	loading: Ref<boolean>, setLoading: (boolean: any) => void
+}>
 
-const fetchChallenges = async (userId: string) => {
-	setGlobalError('')
-	if (!global.fetched.value) {
-		setGlobalLoading(true)
-		try {
-			global.challenges.value = await GetAllPersonalChallenges.call(userId)
-			global.fetched.value = true
-		} catch (error) { setGlobalError(error) }
-		setGlobalLoading(false)
-	}
-}
-
-export const usePersonalChallengesList = () => {
-	const { id, currentChallenge } = useAuth()
-	useFetch(async () => {
-		if (id.value && global.userId !== id.value) {
-			await fetchChallenges(id.value)
-			global.userId = id.value
-		} else if (!id.value) {
-			global.challenges.value = []
-			global.userId = null
+export const usePersonalChallengesList = (userId: string) => {
+	const { currentChallenge } = useAuth()
+	if (global[userId] === undefined) {
+		global[userId] = {
+			fetched: reqSsrRef(false),
+			challenges: reqSsrRef([]),
+			...useErrorHandler(),
+			...useLoadingHandler()
 		}
-	})
+	}
+
+	const fetchChallenges = async () => {
+		global[userId].setError('')
+		if (!global[userId].fetched.value && userId) {
+			global[userId].setLoading(true)
+			try {
+				global[userId].challenges.value = await GetAllPersonalChallenges.call(userId)
+				global[userId].fetched.value = true
+			} catch (error) { global[userId].setError(error) }
+			global[userId].setLoading(false)
+		}
+	}
+
+	useFetch(fetchChallenges)
 
 	const listener = useListener(async () => {
-		if (!id.value) return () => {}
-		const cb = (challenges: PersonalChallengeEntity[]) => global.challenges.value = challenges
-		return await ListenToPersonalChallenges.call(id.value, cb)
+		const cb = (challenges: PersonalChallengeEntity[]) => global[userId].challenges.value = challenges
+		return userId ? await ListenToPersonalChallenges.call(userId, cb) : () => {}
 	})
 
 	const current = computed({
-		get: () => global.challenges.value.find((c) => c.id === currentChallenge.value) ?? null,
+		get: () => global[userId].challenges.value
+			.find((c) => c.id === currentChallenge.value) ?? null,
 		set: () => {}
 	})
 
-	return { ...global, error, loading, listener, current }
+	return { ...global[userId], listener, current }
 }
 
 export const useStartPersonalChallenge = () => {

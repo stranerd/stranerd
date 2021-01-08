@@ -14,7 +14,7 @@ export class UserEntity extends BaseEntity {
 	public readonly rankings: Required<UserRankings>
 	public readonly meta: Required<UserMeta>
 	public readonly status: Required<UserStatus>
-	public readonly signedUpAt: number
+	public readonly dates: UserDates
 
 	constructor ({ id, bio, roles, account, rankings, meta, status, dates }: UserConstructorArgs) {
 		super()
@@ -39,7 +39,7 @@ export class UserEntity extends BaseEntity {
 			mode: status?.mode ?? Status.OFFLINE,
 			updatedAt: status?.updatedAt ?? 0
 		}
-		this.signedUpAt = dates.signedUpAt
+		this.dates = dates
 	}
 
 	get name () { return this.userBio.name }
@@ -47,6 +47,7 @@ export class UserEntity extends BaseEntity {
 	get image () { return this.userBio.image.link }
 
 	get isOnline () { return this.status.mode === Status.ONLINE }
+	get lastSeen () { return this.isOnline ? Date.now() : this.status.updatedAt }
 }
 
 type UserConstructorArgs = {
@@ -57,7 +58,7 @@ type UserConstructorArgs = {
 	rankings?: UserRankings
 	meta?: UserMeta
 	status?: UserStatus
-	dates: { signedUpAt: number }
+	dates: UserDates
 }
 
 export interface UserBio {
@@ -91,6 +92,10 @@ export interface UserStatus {
 	mode: Status
 	updatedAt: number
 }
+export interface UserDates {
+	signedUpAt: number
+}
+
 export const generateDefaultBio = (bio: UserBio) :UserBio => {
 	const name = bio?.name ?? 'Anonymous'
 	const email = bio?.email ?? 'anon@ymous.com'

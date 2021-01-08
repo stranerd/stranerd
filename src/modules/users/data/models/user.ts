@@ -1,4 +1,4 @@
-import { UserBio, UserRoles, UserAccount, UserRankings, UserMeta, UserStatus } from '../../domain/entities/user'
+import { UserBio, UserRoles, UserAccount, UserRankings, UserMeta, UserStatus, UserDates } from '../../domain/entities/user'
 
 export interface UserFromModel {
 	id: string
@@ -8,9 +8,7 @@ export interface UserFromModel {
 	rankings?: UserRankings
 	meta?: UserMeta
 	status?: UserStatus
-	dates: {
-		signedUpAt: number
-	}
+	dates: UserDates
 }
 
 export interface UserToModel {

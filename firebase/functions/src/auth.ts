@@ -19,15 +19,13 @@ export const authUserCreated = functions.auth.user().onCreate(async (user) => {
 		const result = await createCustomer(user.displayName ?? 'Unnamed', user.email!)
 		if(result.success) data['account/braintreeId'] = result.customer.id
 	} catch (error) {
-		console.log(error)
-		console.log('Failed to create user: ', user.uid, user.email)
+		console.log(`Failed to create braintree user: ${user.uid}-${user.email}.\n${error.message}`)
 	}
 
 	try {
 		if (isProduction()) await subscribeToMailchimpList(user.email!)
 	} catch (error) {
-		console.log(error)
-		console.log('Failed to subscribe user to mailchimp: ', user.uid, user.email)
+		console.log(`Failed to create mailchimp user: ${user.uid}-${user.email}.\n${error.message}`)
 	}
 
 	await admin.database().ref('profiles')

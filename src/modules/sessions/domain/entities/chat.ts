@@ -6,8 +6,8 @@ export class ChatEntity extends BaseEntity {
 	readonly content: string | undefined
 	readonly media: Media | undefined
 	readonly from: string
-	readonly createdAt: string
-	readonly readAt: string | undefined
+	readonly createdAt: number
+	readonly readAt: number | undefined
 
 	constructor ({ id, content, media, from, createdAt, readAt }: ChatConstructorArgs) {
 		super()
@@ -28,7 +28,7 @@ type ChatConstructorArgs = {
 	id: string,
 	content?: string,
 	media?: Media,
-	createdAt: string
-	readAt?: string
+	createdAt: number
+	readAt?: number
 	from: string
 }

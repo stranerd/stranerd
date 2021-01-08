@@ -12,7 +12,7 @@ export class ChallengeEntity extends BaseEntity {
 	public readonly count: number
 	public readonly time: number
 	public readonly meta: Record<string, any>
-	public readonly createdAt: string
+	public readonly createdAt: number
 
 	constructor ({ id, type, description, reward, count, time, meta, createdAt }: ChallengeConstructorArgs) {
 		super()
@@ -38,7 +38,7 @@ export class ChallengeEntity extends BaseEntity {
 }
 
 type ChallengeConstructorArgs = ChallengeClone & {
-	createdAt: string
+	createdAt: number
 }
 
 export type ChallengeClone = {

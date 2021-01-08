@@ -33,8 +33,8 @@ export const getTimeFormatted = (timeInSecs: number) => {
 	}
 }
 
-export const useTimeDifference = (dateString: string) => {
-	const date = new Date(dateString)
+export const useTimeDifference = (timeInMs: number) => {
+	const date = new Date(timeInMs)
 	const diffInSec = ref(Math.floor((Date.now() - date.getTime()) / 1000))
 	let interval = undefined as number | undefined
 

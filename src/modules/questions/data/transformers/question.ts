@@ -1,4 +1,4 @@
-import { timestampToDateString } from '@modules/core/data/transformers/converters/getFirestoreDate'
+import { timestampToMs } from '@modules/core/data/transformers/converters/getFirestoreDate'
 import { QuestionFromModel, QuestionToModel } from '../models/question'
 import { QuestionEntity } from '../../domain/entities/question'
 
@@ -12,7 +12,7 @@ export class QuestionTransformer {
 		return new QuestionEntity({
 			id, body, attachments, credits, subjectId,
 			answerId, userId, user, comments, answers,
-			createdAt: timestampToDateString(createdAt)
+			createdAt: timestampToMs(createdAt)
 		})
 	}
 

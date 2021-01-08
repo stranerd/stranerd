@@ -5,7 +5,7 @@ export class SubjectEntity extends BaseEntity {
 	public readonly id: string
 	public readonly name: string
 	public readonly iconData: Media
-	public readonly createdAt: string
+	public readonly createdAt: number
 
 	constructor ({ id, name, iconData, createdAt }: SubjectConstructorArgs) {
 		super()
@@ -18,7 +18,7 @@ export class SubjectEntity extends BaseEntity {
 	get icon () { return this.iconData?.link ?? undefined }
 }
 
-type SubjectConstructorArgs = { id: string, name: string, iconData: Media, createdAt: string }
+type SubjectConstructorArgs = { id: string, name: string, iconData: Media, createdAt: number }
 const capitalize = (value: string) => {
 	const c = (v: string) => v[0].toUpperCase() + v.slice(1)
 	return value.split(' ').map(c).join(' ')

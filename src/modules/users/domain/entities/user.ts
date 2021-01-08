@@ -14,7 +14,7 @@ export class UserEntity extends BaseEntity {
 	public readonly rankings: Required<UserRankings>
 	public readonly meta: Required<UserMeta>
 	public readonly status: Required<UserStatus>
-	public readonly signedUpAt: string
+	public readonly signedUpAt: number
 
 	constructor ({ id, bio, roles, account, rankings, meta, status, dates }: UserConstructorArgs) {
 		super()
@@ -57,7 +57,7 @@ type UserConstructorArgs = {
 	rankings?: UserRankings
 	meta?: UserMeta
 	status?: UserStatus
-	dates: { signedUpAt: string }
+	dates: { signedUpAt: number }
 }
 
 export interface UserBio {

@@ -2,7 +2,7 @@ import { FirestoreGetClauses } from '@modules/core/data/datasources/base'
 import { PAGINATION_LIMIT } from '@utils/constants'
 import { IQuestionRepository } from '../../irepositories/iquestion'
 
-export class GetMyQuestionsUseCase {
+export class GetUserQuestionsUseCase {
 	private repository: IQuestionRepository
 
 	constructor (repository: IQuestionRepository) {

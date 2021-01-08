@@ -5,7 +5,7 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 export default defineComponent({
-	name: '404Page',
+	name: 'Root404Page',
 	middleware: [
 		({ redirect }) => redirect('/')
 	]

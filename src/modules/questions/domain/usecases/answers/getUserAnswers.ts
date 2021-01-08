@@ -1,7 +1,7 @@
 import { FirestoreGetClauses } from '@modules/core/data/datasources/base'
 import { IAnswerRepository } from '../../irepositories/ianswer'
 
-export class GetMyAnswersUseCase {
+export class GetUserAnswersUseCase {
 	private repository: IAnswerRepository
 
 	constructor (repository: IAnswerRepository) {

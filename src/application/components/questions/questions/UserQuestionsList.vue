@@ -15,13 +15,19 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import QuestionCard from '@app/components/questions/questions/MyQuestionsListCard.vue'
-import { useMyQuestionList } from '@app/hooks/account/questions'
+import QuestionCard from '@app/components/questions/questions/UserQuestionsListCard.vue'
+import { useUserQuestionList } from '@app/hooks/users/user/questions'
 export default defineComponent({
-	name: 'MyQuestionsList',
+	name: 'UserQuestionsList',
 	components: { QuestionCard },
-	setup () {
-		const { questions, error, loading, hasMore, fetchOlderQuestions } = useMyQuestionList()
+	props: {
+		userId: {
+			type: String,
+			required: true
+		}
+	},
+	setup (props) {
+		const { questions, error, loading, hasMore, fetchOlderQuestions } = useUserQuestionList(props.userId)
 		return {
 			questions, error, loading, hasMore,
 			fetchOlderQuestions

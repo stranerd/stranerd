@@ -31,6 +31,7 @@ import { ChallengeEntity, PersonalChallengeEntity } from '@modules/challenges'
 import { useRetryPersonalChallenge, useStartPersonalChallenge } from '@app/hooks/challenges/personal-challenges'
 import { useAuth } from '@app/hooks/auth/auth'
 import { getTimeFormatted } from '@app/hooks/core/dates'
+import { useRedirectToAuth } from '@app/hooks/auth/session'
 export default defineComponent({
 	name: 'StartChallengeCard',
 	props: {
@@ -45,7 +46,8 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
-		const { currentChallenge } = useAuth()
+		const { isLoggedIn, currentChallenge } = useAuth()
+		const { redirect } = useRedirectToAuth()
 		const { error, loading, startChallenge } = useStartPersonalChallenge()
 		const { error: rError, loading: rLoading, retryChallenge } = useRetryPersonalChallenge()
 		const time = getTimeFormatted(props.challenge.time * 60 * 60)
@@ -53,7 +55,10 @@ export default defineComponent({
 			get: () => props.personalChallenges.find((p) => p.clone.id === props.challenge.id) ?? null,
 			set: () => {}
 		})
-		const start = () => failed.value ? retryChallenge(failed.value) : startChallenge(props.challenge)
+		const start = () => {
+			if (!isLoggedIn.value) return redirect()
+			failed.value ? retryChallenge(failed.value) : startChallenge(props.challenge)
+		}
 		return {
 			error, loading, rError, rLoading,
 			start, currentChallenge, time,

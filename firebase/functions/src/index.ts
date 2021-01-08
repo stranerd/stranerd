@@ -17,7 +17,7 @@ import { resetDailyRankings, resetWeeklyRankings, resetMonthlyRankings, resetQua
 import { sessionChatMediaDeleted } from './modules/sessions/chats'
 
 import { questionCommentCreated, questionCommentDeleted, answerCommentCreated, answerCommentDeleted } from './modules/questions/comments'
-import { subjectUpdated, subjectDeleted } from './modules/questions/subjects'
+import { subjectIconUpdated, subjectDeleted } from './modules/questions/subjects'
 import { questionCreated, questionUpdated, questionDeleted } from './modules/questions/questions'
 import { answerCreated, answerUpdated, answerDeleted, answerLiked, answerRated } from './modules/questions/answers'
 
@@ -49,7 +49,7 @@ export { sessionChatMediaDeleted }
 
 // Questions Module
 // Subjects
-export { subjectUpdated, subjectDeleted }
+export { subjectIconUpdated, subjectDeleted }
 // Questions
 export { questionCreated, questionUpdated, questionDeleted }
 // Answers

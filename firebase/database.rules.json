@@ -49,6 +49,13 @@
 				}
 			}
 		},
+		"subjects": {
+			".read": true,
+			"$id": {
+				".read": true,
+				".write": "auth.token.isAdmin === true"
+			}
+		},
 		"users": {
 			"$userId": {
 				".read": true,

@@ -25,11 +25,6 @@ service cloud.firestore {
             allow delete: if isAdmin();
         }
 
-        match /subjects/{id} {
-            allow read: if true;
-            allow write: if isAdmin();
-        }
-
         match /tutors/{id} {
             allow read: if true;
             allow write: if isAdmin();

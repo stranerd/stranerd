@@ -1,15 +1,12 @@
 import * as functions from 'firebase-functions'
 import { deleteFromStorage } from '../../helpers/storage'
 
-export const subjectUpdated = functions.firestore.document('subjects/{subjectId}')
+export const subjectIconUpdated = functions.database.ref('subjects/{subjectId}/icon')
 	.onUpdate(async (snap) => {
-		const before = snap.before.data()
-		const after = snap.after.data()
-		if (before.icon?.path !== after.icon?.path)
-			await deleteFromStorage(before.icon?.path)
+		await deleteFromStorage(snap.before.val()?.path)
 	})
 
-export const subjectDeleted = functions.firestore.document('subjects/{subjectId}')
+export const subjectDeleted = functions.database.ref('subjects/{subjectId}')
 	.onDelete(async (snap) => {
-		await deleteFromStorage(snap.data().icon?.path)
+		await deleteFromStorage(snap.val().icon?.path)
 	})

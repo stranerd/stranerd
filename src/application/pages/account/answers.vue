@@ -1,5 +1,5 @@
 <template>
-	<UserAnswersList :user-id="id" />
+	<UserAnswersList v-if="isLoggedIn" :user-id="id" />
 </template>
 
 <script lang="ts">
@@ -11,8 +11,8 @@ export default defineComponent({
 	components: { UserAnswersList },
 	layout: 'account',
 	setup () {
-		const { id } = useAuth()
-		return { id }
+		const { id, isLoggedIn } = useAuth()
+		return { id, isLoggedIn }
 	}
 })
 </script>

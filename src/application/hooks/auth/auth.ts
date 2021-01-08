@@ -47,7 +47,7 @@ export const useAuth = () => {
 		user: global.user,
 		isLoggedIn, token, isAdmin, currentChallenge,
 		setAuthUser, startProfileListener,
-		signout
+		signout, closeProfileListener: () => global.listener?.()
 	}
 }
 

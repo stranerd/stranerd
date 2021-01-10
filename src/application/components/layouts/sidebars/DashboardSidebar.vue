@@ -13,6 +13,10 @@
 				<img src="@/assets/images/icons/dashboard.svg" alt="">
 				<span>Dashboard</span>
 			</NuxtLink>
+			<NuxtLink class="link" to="/questions">
+				<img src="@/assets/images/icons/questions.svg" alt="">
+				<span>Questions</span>
+			</NuxtLink>
 			<NuxtLink class="link" to="/tutors">
 				<img src="@/assets/images/icons/tutors.svg" alt="">
 				<span>Tutors</span>

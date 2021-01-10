@@ -36,7 +36,7 @@ export const useQuestionList = () => {
 		try {
 			setGlobalLoading(true)
 			const lastDate = global.questions
-				.value[global.questions.value.length]
+				.value[global.questions.value.length - 1]
 				?.createdAt
 			const questions = await GetQuestions.call(lastDate ? new Date(lastDate) : undefined)
 			global.hasMore.value = questions.length === PAGINATION_LIMIT + 1
@@ -48,7 +48,7 @@ export const useQuestionList = () => {
 	const listener = useListener(async () => {
 		const appendQuestions = (questions: QuestionEntity[]) => { questions.map(unshiftToQuestionList) }
 		const lastDate = global.questions
-			.value[global.questions.value.length]
+			.value[global.questions.value.length - 1]
 			?.createdAt ?? undefined
 		return await ListenToQuestions
 			.call(appendQuestions, lastDate ? new Date(lastDate) : undefined)

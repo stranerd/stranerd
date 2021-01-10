@@ -33,7 +33,7 @@ export const useUserQuestionList = (id: string) => {
 		try {
 			global[id].setLoading(true)
 			const lastDate = global[id].questions
-				.value[global[id].questions.value.length]
+				.value[global[id].questions.value.length - 1]
 				?.createdAt
 			const questions = await GetUserQuestions.call(id, lastDate ? new Date(lastDate) : undefined)
 			global[id].hasMore.value = questions.length === PAGINATION_LIMIT + 1

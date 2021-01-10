@@ -4,8 +4,9 @@ import {
 } from '@modules/questions'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
+import { isServer } from '@utils/environment'
 
-const answersGlobal: { [answerId: string] : {
+const global: { [answerId: string] : {
 	comments: Ref<CommentEntity[]>,
 	fetched: Ref<boolean>,
 	error: Ref<string>, setError: (error: any) => void,
@@ -13,7 +14,7 @@ const answersGlobal: { [answerId: string] : {
 }} = {}
 
 export const useAnswerCommentList = (answerId: string) => {
-	if (answersGlobal[answerId] === undefined) answersGlobal[answerId] = {
+	if (global[answerId] === undefined) global[answerId] = {
 		comments: ssrRef([]),
 		fetched: ssrRef(false),
 		...useErrorHandler(),
@@ -21,26 +22,27 @@ export const useAnswerCommentList = (answerId: string) => {
 	}
 
 	const fetchComments = async () => {
-		answersGlobal[answerId].setError('')
+		global[answerId].setError('')
+		if (isServer()) global[answerId].comments.value = []
 		try {
-			answersGlobal[answerId].setLoading(true)
-			answersGlobal[answerId].comments.value = await GetAnswerComments.call(answerId)
-			answersGlobal[answerId].fetched.value = true
-		} catch (error) { answersGlobal[answerId].setError(error) }
-		answersGlobal[answerId].setLoading(false)
+			global[answerId].setLoading(true)
+			global[answerId].comments.value = await GetAnswerComments.call(answerId)
+			global[answerId].fetched.value = true
+		} catch (error) { global[answerId].setError(error) }
+		global[answerId].setLoading(false)
 	}
 
 	const listener = useListener(async () => {
-		const callback = (comments: CommentEntity[]) => answersGlobal[answerId].comments.value = comments
+		const callback = (comments: CommentEntity[]) => global[answerId].comments.value = comments
 		return await ListenToAnswerComments.call(answerId, callback)
 	})
 
-	if (!answersGlobal[answerId].fetched.value) useFetch(fetchComments)
+	if (!global[answerId].fetched.value || isServer()) useFetch(fetchComments)
 
 	return {
-		error: answersGlobal[answerId].error,
-		loading: answersGlobal[answerId].loading,
-		comments: answersGlobal[answerId].comments,
+		error: global[answerId].error,
+		loading: global[answerId].loading,
+		comments: global[answerId].comments,
 		listener
 	}
 }

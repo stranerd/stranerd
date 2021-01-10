@@ -1,12 +1,13 @@
-import { reqSsrRef, useFetch } from '@nuxtjs/composition-api'
+import { ssrRef, useFetch } from '@nuxtjs/composition-api'
 import { GetTopRankingUsers, ListenToTopRankingUsers, UserEntity, RankingPeriods } from '@modules/users'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
+import { isServer } from '@utils/environment'
 
 const global = Object.fromEntries(
 	Object.keys(RankingPeriods)
 		.map((key) => [key, {
-			users: reqSsrRef([] as UserEntity[]),
-			fetched: reqSsrRef(false),
+			users: ssrRef([] as UserEntity[]),
+			fetched: ssrRef(false),
 			...useErrorHandler(),
 			...useLoadingHandler()
 		}])
@@ -17,6 +18,7 @@ const sortUsers = (users: UserEntity[], period: RankingPeriods) => users.sort((a
 export const useTopUsersByPeriod = (period: RankingPeriods) => {
 	const fetchUsers = async () => {
 		global[period].setError('')
+		if (isServer()) global[period].users.value = []
 		try {
 			global[period].setLoading(true)
 			global[period].users.value = sortUsers(await GetTopRankingUsers.call(period), period)
@@ -30,7 +32,7 @@ export const useTopUsersByPeriod = (period: RankingPeriods) => {
 		return await ListenToTopRankingUsers.call(period, callback)
 	})
 
-	if (!global[period].fetched.value) useFetch(fetchUsers)
+	if (!global[period].fetched.value || isServer()) useFetch(fetchUsers)
 
 	return {
 		error: global[period].error,

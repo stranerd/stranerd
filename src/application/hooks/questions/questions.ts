@@ -7,6 +7,7 @@ import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } fr
 import { CREDITS_GAP, MAXIMUM_CREDITS, MINIMUM_CREDITS, PAGINATION_LIMIT } from '@utils/constants'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useCreateModal } from '@app/hooks/core/modals'
+import { isServer } from '@utils/environment'
 
 const global = {
 	questions: ssrRef([] as QuestionEntity[]),
@@ -42,6 +43,7 @@ export const useQuestionList = () => {
 	const answered = ssrRef(answeredChoices[0].val)
 	const fetchQuestions = async () => {
 		global.setError('')
+		if (isServer()) global.questions.value = []
 		try {
 			global.setLoading(true)
 			const lastDate = global.questions
@@ -76,7 +78,7 @@ export const useQuestionList = () => {
 		}
 	})
 
-	if (!global.fetched.value) useFetch(fetchQuestions)
+	if (!global.fetched.value || isServer()) useFetch(fetchQuestions)
 
 	return {
 		...global, listener,

@@ -6,6 +6,7 @@ import {
 import { useCreateModal } from '@app/hooks/core/modals'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { Alert } from '@app/hooks/core/notifications'
+import { isServer } from '@utils/environment'
 
 const global = {
 	fetched: ssrRef(false),
@@ -22,6 +23,7 @@ export const addToGlobalChallenges = (challenge: ChallengeEntity) => {
 
 const fetchChallenges = async () => {
 	setGlobalError('')
+	if (isServer()) global.challenges.value = []
 	setGlobalLoading(true)
 	try {
 		global.challenges.value = await GetAllChallenges.call()
@@ -31,7 +33,7 @@ const fetchChallenges = async () => {
 }
 
 export const useChallengeList = () => {
-	if (!global.fetched.value) useFetch(fetchChallenges)
+	if (!global.fetched.value || isServer()) useFetch(fetchChallenges)
 
 	return { ...global, error, loading }
 }
@@ -39,7 +41,7 @@ export const useChallengeList = () => {
 export const useChallenge = (id: string) => {
 	const challenge = ssrRef(null as ChallengeEntity | null)
 	const fetchChallenge = async () => {
-		if (!global.fetched.value) await fetchChallenges()
+		if (!global.fetched.value || isServer()) await fetchChallenges()
 		const s = global.challenges.value.find((s) => s.id === id)
 		challenge.value = s ?? null
 	}

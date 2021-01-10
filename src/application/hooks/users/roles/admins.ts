@@ -2,6 +2,7 @@ import { computed, reactive, ssrRef, toRefs, useFetch } from '@nuxtjs/compositio
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { GetAllAdmins, GetUsersByEmail, MakeAdmin, RemoveAdmin, UserEntity } from '@modules/users'
 import { useAuth } from '@app/hooks/auth/auth'
+import { isServer } from '@utils/environment'
 
 export const useAdminRoles = () => {
 	const state = reactive({
@@ -78,16 +79,15 @@ export const useAdminList = () => {
 	const { id } = useAuth()
 	const fetchAdmins = async () => {
 		setError('')
-		if (!global.fetched.value) {
-			setLoading(true)
-			try {
-				global.admins.value = await GetAllAdmins.call()
-				global.fetched.value = true
-			} catch (error) { setError(error) }
-			setLoading(false)
-		}
+		if (isServer()) global.admins.value = []
+		setLoading(true)
+		try {
+			global.admins.value = await GetAllAdmins.call()
+			global.fetched.value = true
+		} catch (error) { setError(error) }
+		setLoading(false)
 	}
-	useFetch(fetchAdmins)
+	if (!global.fetched.value || isServer()) useFetch(fetchAdmins)
 	const admins = computed({
 		get: () => global.admins.value.filter((u) => u.id !== id.value),
 		set: () => {}

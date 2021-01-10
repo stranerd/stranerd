@@ -4,8 +4,9 @@ import {
 } from '@modules/questions'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
+import { isServer } from '@utils/environment'
 
-const questionsGlobal: { [questionId: string] : {
+const global: { [questionId: string] : {
 	comments: Ref<CommentEntity[]>,
 	fetched: Ref<boolean>,
 	error: Ref<string>, setError: (error: any) => void,
@@ -13,7 +14,7 @@ const questionsGlobal: { [questionId: string] : {
 }} = {}
 
 export const useQuestionCommentList = (questionId: string) => {
-	if (questionsGlobal[questionId] === undefined) questionsGlobal[questionId] = {
+	if (global[questionId] === undefined) global[questionId] = {
 		comments: ssrRef([]),
 		fetched: ssrRef(false),
 		...useErrorHandler(),
@@ -21,26 +22,27 @@ export const useQuestionCommentList = (questionId: string) => {
 	}
 
 	const fetchComments = async () => {
-		questionsGlobal[questionId].setError('')
+		global[questionId].setError('')
+		if (isServer()) global[questionId].comments.value = []
 		try {
-			questionsGlobal[questionId].setLoading(true)
-			questionsGlobal[questionId].comments.value = await GetQuestionComments.call(questionId)
-			questionsGlobal[questionId].fetched.value = true
-		} catch (error) { questionsGlobal[questionId].setError(error) }
-		questionsGlobal[questionId].setLoading(false)
+			global[questionId].setLoading(true)
+			global[questionId].comments.value = await GetQuestionComments.call(questionId)
+			global[questionId].fetched.value = true
+		} catch (error) { global[questionId].setError(error) }
+		global[questionId].setLoading(false)
 	}
 
 	const listener = useListener(async () => {
-		const callback = (comments: CommentEntity[]) => questionsGlobal[questionId].comments.value = comments
+		const callback = (comments: CommentEntity[]) => global[questionId].comments.value = comments
 		return await ListenToQuestionComments.call(questionId, callback)
 	})
 
-	if (!questionsGlobal[questionId].fetched.value) useFetch(fetchComments)
+	if (!global[questionId].fetched.value || isServer()) useFetch(fetchComments)
 
 	return {
-		error: questionsGlobal[questionId].error,
-		loading: questionsGlobal[questionId].loading,
-		comments: questionsGlobal[questionId].comments,
+		error: global[questionId].error,
+		loading: global[questionId].loading,
+		comments: global[questionId].comments,
 		listener
 	}
 }

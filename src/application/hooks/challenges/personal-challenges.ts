@@ -7,6 +7,7 @@ import {
 } from '@modules/challenges'
 import { useAuth } from '@app/hooks/auth/auth'
 import { Alert } from '@app/hooks/core/notifications'
+import { isServer } from '@utils/environment'
 
 const global = {} as Record<string, {
 	fetched: Ref<boolean>
@@ -28,21 +29,20 @@ export const usePersonalChallengesList = (userId: string) => {
 
 	const fetchChallenges = async () => {
 		global[userId].setError('')
-		if (!global[userId].fetched.value && userId) {
-			global[userId].setLoading(true)
-			try {
-				global[userId].challenges.value = await GetAllPersonalChallenges.call(userId)
-				global[userId].fetched.value = true
-			} catch (error) { global[userId].setError(error) }
-			global[userId].setLoading(false)
-		}
+		if (isServer()) global[userId].challenges.value = []
+		global[userId].setLoading(true)
+		try {
+			global[userId].challenges.value = await GetAllPersonalChallenges.call(userId)
+			global[userId].fetched.value = true
+		} catch (error) { global[userId].setError(error) }
+		global[userId].setLoading(false)
 	}
 
-	useFetch(fetchChallenges)
+	if (!global[userId].fetched.value || isServer()) useFetch(fetchChallenges)
 
 	const listener = useListener(async () => {
 		const cb = (challenges: PersonalChallengeEntity[]) => global[userId].challenges.value = challenges
-		return userId ? await ListenToPersonalChallenges.call(userId, cb) : () => {}
+		return await ListenToPersonalChallenges.call(userId, cb)
 	})
 
 	const current = computed({

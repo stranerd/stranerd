@@ -27,7 +27,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, onBeforeUnmount, onMounted } from '@nuxtjs/composition-api'
-import { useChallengeList } from '@app/hooks/challenges/challenges'
+import { useChallengeList, addToGlobalChallenges } from '@app/hooks/challenges/challenges'
 import StartChallengeCard from '@app/components/challenges/StartChallengeCard.vue'
 import CurrentChallengeCard from '@app/components/challenges/CurrentChallengeCard.vue'
 import { usePersonalChallengesList } from '@app/hooks/challenges/personal-challenges'
@@ -55,7 +55,9 @@ export default defineComponent({
 				if (p.id === current.value?.id) return false
 				return p.cancelled || !p.isCompleted
 			}).slice(0, 3),
-			set: () => {}
+			set: (challenges) => {
+				challenges.forEach(addToGlobalChallenges)
+			}
 		})
 		return {
 			loading, error, challenges,

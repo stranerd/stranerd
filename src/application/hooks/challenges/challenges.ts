@@ -14,7 +14,7 @@ const global = {
 const { error, setError: setGlobalError } = useErrorHandler()
 const { loading, setLoading: setGlobalLoading } = useLoadingHandler()
 
-const addToGlobalChallenges = (challenge: ChallengeEntity) => {
+export const addToGlobalChallenges = (challenge: ChallengeEntity) => {
 	const index = global.challenges.value.findIndex((s) => s.id === challenge.id)
 	if (index !== -1) global.challenges.value.splice(index, 1, challenge)
 	else global.challenges.value.push(challenge)
@@ -22,18 +22,16 @@ const addToGlobalChallenges = (challenge: ChallengeEntity) => {
 
 const fetchChallenges = async () => {
 	setGlobalError('')
-	if (!global.fetched.value) {
-		setGlobalLoading(true)
-		try {
-			global.challenges.value = await GetAllChallenges.call()
-			global.fetched.value = true
-		} catch (error) { setGlobalError(error) }
-		setGlobalLoading(false)
-	}
+	setGlobalLoading(true)
+	try {
+		global.challenges.value = await GetAllChallenges.call()
+		global.fetched.value = true
+	} catch (error) { setGlobalError(error) }
+	setGlobalLoading(false)
 }
 
 export const useChallengeList = () => {
-	useFetch(fetchChallenges)
+	if (!global.fetched.value) useFetch(fetchChallenges)
 
 	return { ...global, error, loading }
 }

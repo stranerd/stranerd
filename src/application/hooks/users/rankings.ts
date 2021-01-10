@@ -1,171 +1,41 @@
-import { computed, ssrRef, useFetch } from '@nuxtjs/composition-api'
-import {
-	GetTopDailyUsers, GetTopMonthlyUsers, GetTopQuarterlyUsers, GetTopWeeklyUsers, ListenToTopDailyUsers,
-	ListenToTopMonthlyUsers, ListenToTopQuarterlyUsers, ListenToTopWeeklyUsers, UserEntity
-} from '@modules/users'
+import { reqSsrRef, useFetch } from '@nuxtjs/composition-api'
+import { GetTopRankingUsers, ListenToTopRankingUsers, UserEntity, RankingPeriods } from '@modules/users'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 
-const global = {
-	daily: {
-		users: ssrRef([] as UserEntity[]),
-		fetched: ssrRef(false),
-		...useErrorHandler(),
-		...useLoadingHandler()
-	},
-	weekly: {
-		users: ssrRef([] as UserEntity[]),
-		fetched: ssrRef(false),
-		...useErrorHandler(),
-		...useLoadingHandler()
-	},
-	monthly: {
-		users: ssrRef([] as UserEntity[]),
-		fetched: ssrRef(false),
-		...useErrorHandler(),
-		...useLoadingHandler()
-	},
-	quarterly: {
-		users: ssrRef([] as UserEntity[]),
-		fetched: ssrRef(false),
-		...useErrorHandler(),
-		...useLoadingHandler()
-	}
-}
+const global = Object.fromEntries(
+	Object.keys(RankingPeriods)
+		.map((key) => [key, {
+			users: reqSsrRef([] as UserEntity[]),
+			fetched: reqSsrRef(false),
+			...useErrorHandler(),
+			...useLoadingHandler()
+		}])
+)
 
-export const useTopDailyUsers = () => {
+const sortUsers = (users: UserEntity[], period: RankingPeriods) => users.sort((a, b) => b.rankings[period] - a.rankings[period])
+
+export const useTopUsersByPeriod = (period: RankingPeriods) => {
 	const fetchUsers = async () => {
-		global.daily.setError('')
+		global[period].setError('')
 		try {
-			global.daily.setLoading(true)
-			global.daily.users.value = await GetTopDailyUsers.call()
-			global.daily.fetched.value = true
-		} catch (error) { global.daily.setError(error) }
-		global.daily.setLoading(false)
+			global[period].setLoading(true)
+			global[period].users.value = sortUsers(await GetTopRankingUsers.call(period), period)
+			global[period].fetched.value = true
+		} catch (error) { global[period].setError(error) }
+		global[period].setLoading(false)
 	}
 
 	const listener = useListener(async () => {
-		const callback = (users: UserEntity[]) => global.daily.users.value = users
-		return await ListenToTopDailyUsers.call(callback)
+		const callback = (users: UserEntity[]) => global[period].users.value = sortUsers(users, period)
+		return await ListenToTopRankingUsers.call(period, callback)
 	})
 
-	if (!global.daily.fetched.value) useFetch(fetchUsers)
+	if (!global[period].fetched.value) useFetch(fetchUsers)
 
 	return {
-		error: global.daily.error,
-		loading: global.daily.loading,
-		users: computed({
-			get: () => global.daily.users.value.sort((a, b) => b.rankings.daily - a.rankings.daily),
-			set: () => {}
-		}),
+		error: global[period].error,
+		loading: global[period].loading,
+		users: global[period].users,
 		listener
 	}
-}
-
-export const useTopWeeklyUsers = () => {
-	const fetchUsers = async () => {
-		global.weekly.setError('')
-		try {
-			global.weekly.setLoading(true)
-			global.weekly.users.value = await GetTopWeeklyUsers.call()
-			global.weekly.fetched.value = true
-		} catch (error) { global.weekly.setError(error) }
-		global.weekly.setLoading(false)
-	}
-
-	const listener = useListener(async () => {
-		const callback = (users: UserEntity[]) => global.weekly.users.value = users
-		return await ListenToTopWeeklyUsers.call(callback)
-	})
-
-	if (!global.weekly.fetched.value) useFetch(fetchUsers)
-
-	return {
-		error: global.weekly.error,
-		loading: global.weekly.loading,
-		users: computed({
-			get: () => global.weekly.users.value.sort((a, b) => b.rankings.weekly - a.rankings.weekly),
-			set: () => {}
-		}),
-		listener
-	}
-}
-
-export const useTopMonthlyUsers = () => {
-	const fetchUsers = async () => {
-		global.monthly.setError('')
-		try {
-			global.monthly.setLoading(true)
-			global.monthly.users.value = await GetTopMonthlyUsers.call()
-			global.monthly.fetched.value = true
-		} catch (error) { global.monthly.setError(error) }
-		global.monthly.setLoading(false)
-	}
-
-	const listener = useListener(async () => {
-		const callback = (users: UserEntity[]) => global.monthly.users.value = users
-		return await ListenToTopMonthlyUsers.call(callback)
-	})
-
-	if (!global.monthly.fetched.value) useFetch(fetchUsers)
-
-	return {
-		error: global.monthly.error,
-		loading: global.monthly.loading,
-		users: computed({
-			get: () => global.monthly.users.value.sort((a, b) => b.rankings.monthly - a.rankings.monthly),
-			set: () => {}
-		}),
-		listener
-	}
-}
-
-export const useTopQuarterlyUsers = () => {
-	const fetchUsers = async () => {
-		global.quarterly.setError('')
-		try {
-			global.quarterly.setLoading(true)
-			global.quarterly.users.value = await GetTopQuarterlyUsers.call()
-			global.quarterly.fetched.value = true
-		} catch (error) { global.quarterly.setError(error) }
-		global.quarterly.setLoading(false)
-	}
-
-	const listener = useListener(async () => {
-		const callback = (users: UserEntity[]) => global.quarterly.users.value = users
-		return await ListenToTopQuarterlyUsers.call(callback)
-	})
-
-	if (!global.quarterly.fetched.value) useFetch(fetchUsers)
-
-	return {
-		error: global.quarterly.error,
-		loading: global.quarterly.loading,
-		users: computed({
-			get: () => global.quarterly.users.value.sort((a, b) => b.rankings.quarterly - a.rankings.quarterly),
-			set: () => {}
-		}),
-		listener
-	}
-}
-
-export const useTopUsers = () => {
-	const options = ['daily', 'weekly', 'monthly', 'quarterly']
-	const option = ssrRef(options[0])
-	const isDaily = computed({
-		get: () => option.value === 'daily',
-		set: () => {}
-	})
-	const isWeekly = computed({
-		get: () => option.value === 'weekly',
-		set: () => {}
-	})
-	const isMonthly = computed({
-		get: () => option.value === 'monthly',
-		set: () => {}
-	})
-	const isQuarterly = computed({
-		get: () => option.value === 'quarterly',
-		set: () => {}
-	})
-	return { options, option, isDaily, isWeekly, isMonthly, isQuarterly }
 }

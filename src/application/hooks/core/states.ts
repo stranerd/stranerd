@@ -1,11 +1,12 @@
 import { ssrRef } from '@nuxtjs/composition-api'
 import { Notify } from '@app/hooks/core/notifications'
+import { isClient } from '@utils/environment'
 
 export const useErrorHandler = () => {
 	const errorState = ssrRef('')
 	const setError = (error: any) => {
 		errorState.value = error.message ?? error
-		if (errorState.value) Notify({
+		if (isClient() && errorState.value) Notify({
 			title: errorState.value,
 			icon: 'error'
 		})
@@ -17,7 +18,7 @@ export const useSuccessHandler = () => {
 	const successState = ssrRef('')
 	const setMessage = (message: string) => {
 		successState.value = message
-		if (successState.value) Notify({
+		if (isClient() && successState.value) Notify({
 			title: successState.value,
 			icon: 'success'
 		})

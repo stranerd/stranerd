@@ -11,10 +11,10 @@ import { useCreateModal } from '@app/hooks/core/modals'
 const global = {
 	questions: ssrRef([] as QuestionEntity[]),
 	fetched: ssrRef(false),
-	hasMore: ssrRef(false)
+	hasMore: ssrRef(false),
+	...useErrorHandler(),
+	...useLoadingHandler()
 }
-const { error, setError: setGlobalError } = useErrorHandler()
-const { loading, setLoading: setGlobalLoading } = useLoadingHandler()
 
 const pushToQuestionList = (question: QuestionEntity) => {
 	const index = global.questions.value.findIndex((q) => q.id === question.id)
@@ -41,9 +41,9 @@ export const useQuestionList = () => {
 	]
 	const answered = ssrRef(answeredChoices[0].val)
 	const fetchQuestions = async () => {
-		setGlobalError('')
+		global.setError('')
 		try {
-			setGlobalLoading(true)
+			global.setLoading(true)
 			const lastDate = global.questions
 				.value[global.questions.value.length - 1]
 				?.createdAt
@@ -51,8 +51,8 @@ export const useQuestionList = () => {
 			global.hasMore.value = questions.length === PAGINATION_LIMIT + 1
 			questions.slice(0, PAGINATION_LIMIT).forEach(pushToQuestionList)
 			global.fetched.value = true
-		} catch (error) { setGlobalError(error) }
-		setGlobalLoading(false)
+		} catch (error) { global.setError(error) }
+		global.setLoading(false)
 	}
 	const listener = useListener(async () => {
 		const appendQuestions = (questions: QuestionEntity[]) => { questions.map(unshiftToQuestionList) }
@@ -79,7 +79,7 @@ export const useQuestionList = () => {
 	if (!global.fetched.value) useFetch(fetchQuestions)
 
 	return {
-		...global, error, loading, listener,
+		...global, listener,
 		filteredQuestions, subjectId, answeredChoices, answered,
 		fetchOlderQuestions: fetchQuestions
 	}

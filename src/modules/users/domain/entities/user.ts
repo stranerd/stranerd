@@ -5,6 +5,12 @@ export enum Status {
 	OFFLINE = 0,
 	ONLINE = 1
 }
+export enum RankingPeriods {
+	daily = 'daily',
+	weekly = 'weekly',
+	monthly = 'monthly',
+	quarterly = 'quarterly',
+}
 
 export class UserEntity extends BaseEntity {
 	public readonly id: string
@@ -22,12 +28,10 @@ export class UserEntity extends BaseEntity {
 		this.userBio = generateDefaultBio(bio)
 		this.roles = roles ?? { isStudent: true }
 		this.account = account ?? { credits: 0 }
-		this.rankings = {
-			daily: rankings?.daily ?? 0,
-			weekly: rankings?.weekly ?? 0,
-			monthly: rankings?.monthly ?? 0,
-			quarterly: rankings?.quarterly ?? 0
-		}
+		this.rankings = Object.fromEntries(
+			Object.keys(RankingPeriods)
+				.map((key) => [key, rankings?.[key as RankingPeriods] ?? 0])
+		) as Required<UserRankings>
 		this.meta = {
 			answerCount: meta?.answerCount ?? 0,
 			questionCount: meta?.questionCount ?? 0,
@@ -75,12 +79,7 @@ export interface UserRoles {
 export interface UserAccount {
 	credits: number
 }
-export interface UserRankings {
-	daily?: number
-	weekly?: number
-	monthly?: number
-	quarterly?: number
-}
+export interface UserRankings extends Record<RankingPeriods, number> {}
 export interface UserMeta {
 	answerCount?: number
 	questionCount?: number

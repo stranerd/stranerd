@@ -23,11 +23,13 @@ import { GetTopDailyUsersUseCase } from './domain/usecases/rankings/getTopDailyU
 import { GetTopWeeklyUsersUseCase } from './domain/usecases/rankings/getTopWeeklyUsers'
 import { GetTopMonthlyUsersUseCase } from './domain/usecases/rankings/getTopMonthlyUsers'
 import { GetTopQuarterlyUsersUseCase } from './domain/usecases/rankings/getTopQuarterlyUsers'
+import { GetTopRankingUsersUseCase } from './domain/usecases/rankings/getTopRankingUsers'
+import { ListenToTopRankingUsersUseCase } from './domain/usecases/rankings/listenToTopRankingUsers'
 import { ListenToTopDailyUsersUseCase } from './domain/usecases/rankings/listenToTopDailyUsers'
 import { ListenToTopWeeklyUsersUseCase } from './domain/usecases/rankings/listenToTopWeeklyUsers'
 import { ListenToTopMonthlyUsersUseCase } from './domain/usecases/rankings/listenToTopMonthlyUsers'
 import { ListenToTopQuarterlyUsersUseCase } from './domain/usecases/rankings/listenToTopQuarterlyUsers'
-import { UserEntity, UserBio, Status, generateDefaultBio } from './domain/entities/user'
+import { UserEntity, UserBio, Status, generateDefaultBio, RankingPeriods } from './domain/entities/user'
 import { TutorEntity } from './domain/entities/tutor'
 import { MailingListFactory } from './domain/factories/mailingList'
 
@@ -62,11 +64,13 @@ export const GetTopDailyUsers = new GetTopDailyUsersUseCase(userRepository)
 export const GetTopWeeklyUsers = new GetTopWeeklyUsersUseCase(userRepository)
 export const GetTopMonthlyUsers = new GetTopMonthlyUsersUseCase(userRepository)
 export const GetTopQuarterlyUsers = new GetTopQuarterlyUsersUseCase(userRepository)
+export const GetTopRankingUsers = new GetTopRankingUsersUseCase(userRepository)
 export const ListenToTopDailyUsers = new ListenToTopDailyUsersUseCase(userRepository)
 export const ListenToTopWeeklyUsers = new ListenToTopWeeklyUsersUseCase(userRepository)
 export const ListenToTopMonthlyUsers = new ListenToTopMonthlyUsersUseCase(userRepository)
 export const ListenToTopQuarterlyUsers = new ListenToTopQuarterlyUsersUseCase(userRepository)
+export const ListenToTopRankingUsers = new ListenToTopRankingUsersUseCase(userRepository)
 
-export { UserEntity, generateDefaultBio, TutorEntity, Status }
+export { UserEntity, generateDefaultBio, TutorEntity, Status, RankingPeriods }
 export { MailingListFactory }
 export type { UserBio }

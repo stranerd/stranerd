@@ -31,9 +31,12 @@ export default defineComponent({
 		} = useQuestionList()
 		onMounted(listener.startListener)
 		onBeforeUnmount(listener.closeListener)
-		const recentQuestions = computed(() => filteredQuestions.value
-			.filter((q) => q.id !== props.questionId)
-			.slice(0, 5))
+		const recentQuestions = computed({
+			get: () => filteredQuestions.value
+				.filter((q) => q.id !== props.questionId)
+				.slice(0, 5),
+			set: () => {}
+		})
 		return {
 			questions: recentQuestions, error, loading,
 			answeredChoices, answered, subjectId

@@ -41,12 +41,7 @@ export const useSubjectList = () => {
 export const useSubject = (id: string) => {
 	const subject = computed({
 		get: () => global.subjects.value.find((s) => s.id === id) ?? null,
-		set: (subject) => {
-			if (!subject) return
-			const index = global.subjects.value.findIndex((s) => s.id === subject.id)
-			if (index !== -1) global.subjects.value.splice(index, 1, subject)
-			else global.subjects.value.push(subject)
-		}
+		set: () => {}
 	})
 	if (!global.fetched.value || isServer()) useFetch(fetchSubjects)
 

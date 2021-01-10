@@ -60,14 +60,19 @@ export default defineComponent({
 			loading: tutLoading, tutor, error: tutError,
 			addSubject, removeSubject
 		} = useSingleTutor()
-		const tutorSubjects = computed(() => tutor.value?.subjects?.map?.((c) => {
-			const subject = subjects.value.find((s) => c.id === s.id)
-			if (!subject) return null
-			return { ...c, subject }
-		})?.filter?.((c) => !!c) ?? [])
-		const nonTutorSubjects = computed(() => subjects.value.filter((s) => !tutor
-			.value?.subjects?.find?.((c) => c.id === s.id)
-		))
+		const tutorSubjects = computed({
+			get: () => tutor.value?.subjects?.map?.((c) => {
+				const subject = subjects.value.find((s) => c.id === s.id)
+				if (!subject) return null
+				return { ...c, subject }
+			})?.filter?.((c) => !!c) ?? [],
+			set: () => {}
+		})
+		const nonTutorSubjects = computed({
+			get: () => subjects.value.filter((s) => !tutor
+				.value?.subjects?.find?.((c) => c.id === s.id)
+			), set: () => {}
+		})
 		const { closeEditModal } = useEditModal()
 		return {
 			tutLoading, tutError, addSubject, removeSubject,

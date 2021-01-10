@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<Nuxt />
+		<Nuxt class="content" />
 		<ModalBase />
 	</div>
 </template>
@@ -15,3 +15,10 @@ export default defineComponent({
 	}
 })
 </script>
+
+<style lang="scss" scoped>
+.content {
+	margin: 0 auto;
+	max-width: 2000px;
+}
+</style>

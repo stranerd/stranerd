@@ -1,7 +1,7 @@
-import { ref } from '@nuxtjs/composition-api'
+import { ssrRef } from '@nuxtjs/composition-api'
 
 export const usePassword = () => {
-	const show = ref(false)
+	const show = ssrRef(false)
 	const toggle = () => show.value = !show.value
 
 	return { show, toggle }

@@ -1,4 +1,4 @@
-import { reqRef, Ref, reqSsrRef, useFetch, watch } from '@nuxtjs/composition-api'
+import { Ref, ssrRef, useFetch, watch } from '@nuxtjs/composition-api'
 import {
 	AddAnswerComment, CommentEntity, CommentFactory, GetAnswerComments, ListenToAnswerComments
 } from '@modules/questions'
@@ -14,8 +14,8 @@ const answersGlobal: { [answerId: string] : {
 
 export const useAnswerCommentList = (answerId: string) => {
 	if (answersGlobal[answerId] === undefined) answersGlobal[answerId] = {
-		comments: reqSsrRef([]),
-		fetched: reqSsrRef(false),
+		comments: ssrRef([]),
+		fetched: ssrRef(false),
 		...useErrorHandler(),
 		...useLoadingHandler()
 	}
@@ -47,7 +47,7 @@ export const useAnswerCommentList = (answerId: string) => {
 
 export const useCreateAnswerComments = (answerId: string) => {
 	const { id, bio } = useAuth()
-	const factory = reqRef(new CommentFactory())
+	const factory = ssrRef(new CommentFactory())
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
 

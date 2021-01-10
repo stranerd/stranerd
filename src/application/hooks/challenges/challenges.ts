@@ -1,4 +1,4 @@
-import { ref, reqSsrRef, useFetch } from '@nuxtjs/composition-api'
+import { ssrRef, useFetch } from '@nuxtjs/composition-api'
 import {
 	GetAllChallenges, AddChallenge, FindChallenge, DeleteChallenge,
 	ChallengeEntity, AnswerChallengeFactory
@@ -8,8 +8,8 @@ import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hook
 import { Alert } from '@app/hooks/core/notifications'
 
 const global = {
-	fetched: reqSsrRef(false),
-	challenges: reqSsrRef([] as ChallengeEntity[])
+	fetched: ssrRef(false),
+	challenges: ssrRef([] as ChallengeEntity[])
 }
 const { error, setError: setGlobalError } = useErrorHandler()
 const { loading, setLoading: setGlobalLoading } = useLoadingHandler()
@@ -39,7 +39,7 @@ export const useChallengeList = () => {
 }
 
 export const useChallenge = (id: string) => {
-	const challenge = ref(null as ChallengeEntity | null)
+	const challenge = ssrRef(null as ChallengeEntity | null)
 	const fetchChallenge = async () => {
 		if (!global.fetched.value) await fetchChallenges()
 		const s = global.challenges.value.find((s) => s.id === id)
@@ -51,7 +51,7 @@ export const useChallenge = (id: string) => {
 }
 
 export const useCreateChallenge = () => {
-	const factory = reqSsrRef(new AnswerChallengeFactory())
+	const factory = ssrRef(new AnswerChallengeFactory())
 	const { error, setError } = useErrorHandler()
 	const { setMessage } = useSuccessHandler()
 	const { loading, setLoading } = useLoadingHandler()

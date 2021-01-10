@@ -1,4 +1,4 @@
-import { computed, reqSsrRef } from '@nuxtjs/composition-api'
+import { computed, ssrRef } from '@nuxtjs/composition-api'
 import { FindUser, ListenToUser, Status, UserEntity } from '@modules/users'
 import firebase from '@modules/core/services/initFirebase'
 
@@ -8,8 +8,8 @@ type Auth = {
 }
 
 const global = {
-	auth: reqSsrRef(null as Auth | null),
-	user: reqSsrRef(null as UserEntity | null),
+	auth: ssrRef(null as Auth | null),
+	user: ssrRef(null as UserEntity | null),
 	listener: null as null | (() => void)
 }
 

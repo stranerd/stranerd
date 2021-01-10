@@ -1,11 +1,11 @@
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
-import { reqRef, watch } from '@nuxtjs/composition-api'
+import { ssrRef, watch } from '@nuxtjs/composition-api'
 import { ProfileUpdateFactory, UpdateProfile } from '@modules/auth'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useEditModal } from '@app/hooks/core/modals'
 
 export const useUpdateProfile = () => {
-	const factory = reqRef(new ProfileUpdateFactory())
+	const factory = ssrRef(new ProfileUpdateFactory())
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const { setMessage } = useSuccessHandler()

@@ -1,5 +1,5 @@
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
-import { reqSsrRef, useFetch, computed, Ref } from '@nuxtjs/composition-api'
+import { ssrRef, useFetch, computed, Ref } from '@nuxtjs/composition-api'
 import {
 	CancelPersonalChallenge,
 	ChallengeEntity, GetAllPersonalChallenges, ListenToPersonalChallenges,
@@ -19,8 +19,8 @@ export const usePersonalChallengesList = (userId: string) => {
 	const { currentChallenge } = useAuth()
 	if (global[userId] === undefined) {
 		global[userId] = {
-			fetched: reqSsrRef(false),
-			challenges: reqSsrRef([]),
+			fetched: ssrRef(false),
+			challenges: ssrRef([]),
 			...useErrorHandler(),
 			...useLoadingHandler()
 		}

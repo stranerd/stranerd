@@ -1,4 +1,4 @@
-import { ref, reqSsrRef, useFetch } from '@nuxtjs/composition-api'
+import { computed, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import {
 	GetSubjects, AddSubject, FindSubject, DeleteSubject,
 	UpdateSubject, SubjectEntity, SubjectFactory
@@ -8,8 +8,8 @@ import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hook
 import { Alert } from '@app/hooks/core/notifications'
 
 const global = {
-	fetched: reqSsrRef(false),
-	subjects: reqSsrRef([] as SubjectEntity[])
+	fetched: ssrRef(false),
+	subjects: ssrRef([] as SubjectEntity[])
 }
 const { error, setError: setGlobalError } = useErrorHandler()
 const { loading, setLoading: setGlobalLoading } = useLoadingHandler()
@@ -39,19 +39,22 @@ export const useSubjectList = () => {
 }
 
 export const useSubject = (id: string) => {
-	const subject = ref(null as SubjectEntity | null)
-	const fetchSubject = async () => {
-		if (!global.fetched.value) await fetchSubjects()
-		const s = global.subjects.value.find((s) => s.id === id)
-		subject.value = s ?? null
-	}
-	useFetch(fetchSubject)
+	const subject = computed({
+		get: () => global.subjects.value.find((s) => s.id === id) ?? null,
+		set: (subject) => {
+			if (!subject) return
+			const index = global.subjects.value.findIndex((s) => s.id === subject.id)
+			if (index !== -1) global.subjects.value.splice(index, 1, subject)
+			else global.subjects.value.push(subject)
+		}
+	})
+	if (!global.fetched.value) useFetch(fetchSubjects)
 
 	return { subject }
 }
 
 export const useCreateSubject = () => {
-	const factory = reqSsrRef(new SubjectFactory())
+	const factory = ssrRef(new SubjectFactory())
 	const { error, setError } = useErrorHandler()
 	const { setMessage } = useSuccessHandler()
 	const { loading, setLoading } = useLoadingHandler()
@@ -107,7 +110,7 @@ let currentSubject = null as SubjectEntity | null
 export const setCurrentSubject = (subject: SubjectEntity) => currentSubject = subject
 
 export const useEditSubject = (subject = currentSubject) => {
-	const factory = reqSsrRef(new SubjectFactory())
+	const factory = ssrRef(new SubjectFactory())
 	const { error, setError } = useErrorHandler()
 	const { setMessage } = useSuccessHandler()
 	const { loading, setLoading } = useLoadingHandler()

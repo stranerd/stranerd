@@ -1,4 +1,4 @@
-import { computed, ref, reqSsrRef, useFetch } from '@nuxtjs/composition-api'
+import { computed, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import {
 	GetTopDailyUsers, GetTopMonthlyUsers, GetTopQuarterlyUsers, GetTopWeeklyUsers, ListenToTopDailyUsers,
 	ListenToTopMonthlyUsers, ListenToTopQuarterlyUsers, ListenToTopWeeklyUsers, UserEntity
@@ -7,26 +7,26 @@ import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core
 
 const global = {
 	daily: {
-		users: reqSsrRef([] as UserEntity[]),
-		fetched: reqSsrRef(false),
+		users: ssrRef([] as UserEntity[]),
+		fetched: ssrRef(false),
 		...useErrorHandler(),
 		...useLoadingHandler()
 	},
 	weekly: {
-		users: reqSsrRef([] as UserEntity[]),
-		fetched: reqSsrRef(false),
+		users: ssrRef([] as UserEntity[]),
+		fetched: ssrRef(false),
 		...useErrorHandler(),
 		...useLoadingHandler()
 	},
 	monthly: {
-		users: reqSsrRef([] as UserEntity[]),
-		fetched: reqSsrRef(false),
+		users: ssrRef([] as UserEntity[]),
+		fetched: ssrRef(false),
 		...useErrorHandler(),
 		...useLoadingHandler()
 	},
 	quarterly: {
-		users: reqSsrRef([] as UserEntity[]),
-		fetched: reqSsrRef(false),
+		users: ssrRef([] as UserEntity[]),
+		fetched: ssrRef(false),
 		...useErrorHandler(),
 		...useLoadingHandler()
 	}
@@ -150,7 +150,7 @@ export const useTopQuarterlyUsers = () => {
 
 export const useTopUsers = () => {
 	const options = ['daily', 'weekly', 'monthly', 'quarterly']
-	const option = ref(options[0])
+	const option = ssrRef(options[0])
 	const isDaily = computed({
 		get: () => option.value === 'daily',
 		set: () => {}

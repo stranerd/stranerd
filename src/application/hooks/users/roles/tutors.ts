@@ -1,4 +1,4 @@
-import { reactive, ref, reqSsrRef, toRefs, useFetch } from '@nuxtjs/composition-api'
+import { reactive, ssrRef, toRefs, useFetch } from '@nuxtjs/composition-api'
 import {
 	AddTutorSubject, FindTutor, GetTutors, GetUsersByEmail,
 	MakeTutor, RemoveTutor, RemoveTutorSubject, UserEntity, TutorEntity
@@ -7,8 +7,8 @@ import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hook
 import { Alert } from '@app/hooks/core/notifications'
 
 const global = {
-	fetched: reqSsrRef(false),
-	tutors: reqSsrRef([] as TutorEntity[])
+	fetched: ssrRef(false),
+	tutors: ssrRef([] as TutorEntity[])
 }
 const { error, setError } = useErrorHandler()
 const { loading, setLoading } = useLoadingHandler()
@@ -107,7 +107,7 @@ let currentTutor = null as TutorEntity | null
 export const setCurrentTutor = (tutor: TutorEntity) => currentTutor = tutor
 
 export const useSingleTutor = () => {
-	const tutor = ref(currentTutor)
+	const tutor = ssrRef(currentTutor)
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
 	const { setMessage } = useSuccessHandler()

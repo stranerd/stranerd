@@ -1,4 +1,4 @@
-import { reqRef, reqSsrRef, watch, computed, useContext, useFetch } from '@nuxtjs/composition-api'
+import { ssrRef, watch, computed, useContext, useFetch } from '@nuxtjs/composition-api'
 import {
 	AddQuestion, FindQuestion, GetQuestions, ListenToQuestion,
 	ListenToQuestions, QuestionEntity, QuestionFactory
@@ -9,9 +9,9 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { useCreateModal } from '@app/hooks/core/modals'
 
 const global = {
-	questions: reqSsrRef([] as QuestionEntity[]),
-	fetched: reqSsrRef(false),
-	hasMore: reqSsrRef(false)
+	questions: ssrRef([] as QuestionEntity[]),
+	fetched: ssrRef(false),
+	hasMore: ssrRef(false)
 }
 const { error, setError: setGlobalError } = useErrorHandler()
 const { loading, setLoading: setGlobalLoading } = useLoadingHandler()
@@ -28,9 +28,18 @@ const unshiftToQuestionList = (question: QuestionEntity) => {
 }
 
 export const useQuestionList = () => {
-	const subjectId = reqRef('')
-	const answeredChoices = [{ val: 0, key: 'All' }, { val: 1, key: 'Answered' }, { val: 2, key: 'Unanswered' }]
-	const answered = reqRef(answeredChoices[0].val)
+	const subjectId = ssrRef('')
+	enum Answered {
+		All,
+		Answered,
+		Unanswered
+	}
+	const answeredChoices = [
+		{ val: Answered.All, key: 'All' },
+		{ val: Answered.Answered, key: 'Answered' },
+		{ val: Answered.Unanswered, key: 'Unanswered' }
+	]
+	const answered = ssrRef(answeredChoices[0].val)
 	const fetchQuestions = async () => {
 		setGlobalError('')
 		try {
@@ -57,12 +66,14 @@ export const useQuestionList = () => {
 		get: () => global.questions.value.filter((q) => {
 			let matched = true
 			if (subjectId.value && q.subjectId !== subjectId.value) matched = false
-			if (answered.value === 1 && !q.isAnswered) matched = false
-			if (answered.value === 2 && q.isAnswered) matched = false
+			if (answered.value === Answered.Answered && !q.isAnswered) matched = false
+			if (answered.value === Answered.Unanswered && q.isAnswered) matched = false
 			return matched
 		}).sort((a, b) => {
 			return new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
-		}), set: () => {}
+		}), set: (questions: QuestionEntity[]) => {
+			questions.forEach(unshiftToQuestionList)
+		}
 	})
 
 	if (!global.fetched.value) useFetch(fetchQuestions)
@@ -74,7 +85,7 @@ export const useQuestionList = () => {
 	}
 }
 
-const factory = reqRef(new QuestionFactory())
+const factory = ssrRef(new QuestionFactory())
 export const useCreateQuestion = () => {
 	const { id, bio, user, isLoggedIn } = useAuth()
 	const { error, setError } = useErrorHandler()

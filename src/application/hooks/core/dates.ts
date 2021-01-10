@@ -1,4 +1,4 @@
-import { ref, watch, computed } from '@nuxtjs/composition-api'
+import { ssrRef, watch, computed } from '@nuxtjs/composition-api'
 
 enum TIMES {
 	minute = 60,
@@ -35,7 +35,7 @@ export const getTimeFormatted = (timeInSecs: number) => {
 
 export const useTimeDifference = (timeInMs: number) => {
 	const date = new Date(timeInMs)
-	const diffInSec = ref(Math.floor((Date.now() - date.getTime()) / 1000))
+	const diffInSec = ssrRef(Math.floor((Date.now() - date.getTime()) / 1000))
 	let interval = undefined as number | undefined
 
 	watch(() => diffInSec.value, () => {
@@ -72,7 +72,7 @@ export const useTimeDifference = (timeInMs: number) => {
 }
 
 export const useCountdown = (timeInMs: number) => {
-	const diffInSec = ref(Math.floor((timeInMs - Date.now()) / 1000))
+	const diffInSec = ssrRef(Math.floor((timeInMs - Date.now()) / 1000))
 	let interval = undefined as number | undefined
 
 	watch(() => diffInSec.value, () => {

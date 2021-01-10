@@ -1,4 +1,4 @@
-import { reqRef, useContext } from '@nuxtjs/composition-api'
+import { ssrRef, useContext } from '@nuxtjs/composition-api'
 import {
 	EmailLinkSigninFactory, SendSigninEmail, SigninWithGoogle, SigninWithEmailLink
 } from '@modules/auth'
@@ -24,7 +24,7 @@ export const useGoogleSignin = () => {
 }
 
 export const useSendEmailLink = () => {
-	const factory = reqRef(new EmailLinkSigninFactory())
+	const factory = ssrRef(new EmailLinkSigninFactory())
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const { message, setMessage } = useSuccessHandler()
@@ -47,7 +47,7 @@ export const useSendEmailLink = () => {
 
 export const useEmailLinkSignin = () => {
 	const { app } = useContext()
-	const factory = reqRef(new EmailLinkSigninFactory())
+	const factory = ssrRef(new EmailLinkSigninFactory())
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 

@@ -1,4 +1,4 @@
-import { ssrRef, watch, computed, useContext, useFetch } from '@nuxtjs/composition-api'
+import { ssrRef, watch, computed, useContext, useFetch, ref } from '@nuxtjs/composition-api'
 import {
 	AddQuestion, FindQuestion, GetQuestions, ListenToQuestion,
 	ListenToQuestions, QuestionEntity, QuestionFactory
@@ -29,7 +29,7 @@ const unshiftToQuestionList = (question: QuestionEntity) => {
 }
 
 export const useQuestionList = () => {
-	const subjectId = ssrRef('')
+	const subjectId = ref('')
 	enum Answered {
 		All,
 		Answered,
@@ -40,7 +40,7 @@ export const useQuestionList = () => {
 		{ val: Answered.Answered, key: 'Answered' },
 		{ val: Answered.Unanswered, key: 'Unanswered' }
 	]
-	const answered = ssrRef(answeredChoices[0].val)
+	const answered = ref(answeredChoices[0].val)
 	const fetchQuestions = async () => {
 		global.setError('')
 		if (isServer()) global.questions.value = []

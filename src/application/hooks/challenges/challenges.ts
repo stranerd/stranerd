@@ -1,4 +1,4 @@
-import { ssrRef, useFetch } from '@nuxtjs/composition-api'
+import { Ref, ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import {
 	GetAllChallenges, AddChallenge, FindChallenge, DeleteChallenge,
 	ChallengeEntity, AnswerChallengeFactory
@@ -38,20 +38,8 @@ export const useChallengeList = () => {
 	return { ...global, error, loading }
 }
 
-export const useChallenge = (id: string) => {
-	const challenge = ssrRef(null as ChallengeEntity | null)
-	const fetchChallenge = async () => {
-		if (!global.fetched.value || isServer()) await fetchChallenges()
-		const s = global.challenges.value.find((s) => s.id === id)
-		challenge.value = s ?? null
-	}
-	useFetch(fetchChallenge)
-
-	return { challenge }
-}
-
 export const useCreateChallenge = () => {
-	const factory = ssrRef(new AnswerChallengeFactory())
+	const factory = ref(new AnswerChallengeFactory()) as Ref<AnswerChallengeFactory>
 	const { error, setError } = useErrorHandler()
 	const { setMessage } = useSuccessHandler()
 	const { loading, setLoading } = useLoadingHandler()

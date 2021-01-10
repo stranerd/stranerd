@@ -1,4 +1,4 @@
-import { computed, ssrRef, useFetch } from '@nuxtjs/composition-api'
+import { computed, Ref, ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import {
 	GetSubjects, AddSubject, FindSubject, DeleteSubject,
 	UpdateSubject, SubjectEntity, SubjectFactory
@@ -54,7 +54,7 @@ export const useSubject = (id: string) => {
 }
 
 export const useCreateSubject = () => {
-	const factory = ssrRef(new SubjectFactory())
+	const factory = ref(new SubjectFactory()) as Ref<SubjectFactory>
 	const { error, setError } = useErrorHandler()
 	const { setMessage } = useSuccessHandler()
 	const { loading, setLoading } = useLoadingHandler()
@@ -110,7 +110,7 @@ let currentSubject = null as SubjectEntity | null
 export const setCurrentSubject = (subject: SubjectEntity) => currentSubject = subject
 
 export const useEditSubject = (subject = currentSubject) => {
-	const factory = ssrRef(new SubjectFactory())
+	const factory = ref(new SubjectFactory()) as Ref<SubjectFactory>
 	const { error, setError } = useErrorHandler()
 	const { setMessage } = useSuccessHandler()
 	const { loading, setLoading } = useLoadingHandler()

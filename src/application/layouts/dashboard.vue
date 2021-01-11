@@ -1,8 +1,8 @@
 <template>
-	<div>
+	<section>
 		<Nuxt class="content" />
 		<ModalBase />
-	</div>
+	</section>
 </template>
 
 <script lang="ts">
@@ -17,6 +17,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+section {
+  min-height: 100vh;
+}
 .content {
 	margin: 0 auto;
 	max-width: 2000px;

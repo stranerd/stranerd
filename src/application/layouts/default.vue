@@ -1,8 +1,8 @@
 <template>
-	<div>
+	<section>
 		<Nuxt />
 		<ModalBase />
-	</div>
+	</section>
 </template>
 
 <script lang="ts">
@@ -15,3 +15,9 @@ export default defineComponent({
 	}
 })
 </script>
+
+<style lang="scss" scoped>
+section {
+  min-height: 100vh;
+}
+</style>

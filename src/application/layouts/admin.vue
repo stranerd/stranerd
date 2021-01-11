@@ -30,6 +30,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+section {
+  min-height: 100vh;
+}
 .shadowed {
 	box-shadow: 0 3px 10px rgba($color-black, 0.1);
 }

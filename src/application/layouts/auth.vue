@@ -1,10 +1,10 @@
 <template>
-	<div class="body w-100 d-flex justify-content-center align-items-center flex-wrap">
+	<section class="body w-100 d-flex justify-content-center align-items-center flex-wrap">
 		<div class="content pt-8 pb-4 px-2 px-sm-8">
 			<Nuxt />
 		</div>
 		<ModalBase />
-	</div>
+	</section>
 </template>
 
 <script lang="ts">

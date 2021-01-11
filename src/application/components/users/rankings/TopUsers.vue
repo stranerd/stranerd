@@ -12,9 +12,7 @@
 				</select>
 			</form>
 		</section>
-		<div>
-			<TopUsersByPeriod :period="period" />
-		</div>
+		<TopUsersByPeriod v-for="period in [period]" :key="period" :period="period" />
 	</div>
 </template>
 
@@ -26,7 +24,7 @@ export default defineComponent({
 	name: 'TopUsers',
 	components: { TopUsersByPeriod },
 	setup () {
-		const periods = Object.values(RankingPeriods)
+		const periods = Object.keys(RankingPeriods)
 		const period = ssrRef(periods[0])
 		return { periods, period }
 	}

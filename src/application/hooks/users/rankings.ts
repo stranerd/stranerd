@@ -28,8 +28,8 @@ export const useTopUsersByPeriod = (period: RankingPeriods) => {
 		if (isServer()) global[period].users.value = []
 		try {
 			global[period].setLoading(true)
-			await new Promise((resolve) => setTimeout(resolve, 5000))
-			global[period].users.value = sortUsers(await GetTopRankingUsers.call(period), period)
+			const users = await GetTopRankingUsers.call(period)
+			global[period].users.value = sortUsers(users, period)
 			global[period].fetched.value = true
 		} catch (error) { global[period].setError(error) }
 		global[period].setLoading(false)

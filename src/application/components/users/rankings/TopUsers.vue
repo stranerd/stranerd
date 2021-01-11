@@ -12,7 +12,7 @@
 				</select>
 			</form>
 		</section>
-		<TopUsersByPeriod v-for="period in [period]" :key="period" :period="period" />
+		<TopUsersByPeriod :key="period" :period="period" />
 	</div>
 </template>
 

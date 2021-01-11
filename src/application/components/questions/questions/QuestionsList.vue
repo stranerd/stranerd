@@ -14,7 +14,7 @@
 					<option value="">
 						All Subjects
 					</option>
-					<option v-for="subject in subjects" :key="subject.id" :value="subject.id">
+					<option v-for="subject in subjects" :key="subject.hash" :value="subject.id">
 						{{ subject.name }}
 					</option>
 				</select>

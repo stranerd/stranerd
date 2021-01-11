@@ -16,7 +16,7 @@
 			<p v-if="users.length === 0" class="text-danger opacity-75">
 				No user with such email exists
 			</p>
-			<div v-for="user in users" :key="user.id" class="mb-3">
+			<div v-for="user in users" :key="user.hash" class="mb-3">
 				<div class="d-flex flex-wrap justify-content-between align-items-center">
 					<div class="text-truncate mb-1">
 						<p class="lead mb-0 text-wrap">

@@ -1,10 +1,10 @@
-import { computed, ssrRef } from '@nuxtjs/composition-api'
+import { computed, reqSsrRef } from '@nuxtjs/composition-api'
 import { FindUser, ListenToUser, UserEntity } from '@modules/users'
 import { AuthDetails } from '@modules/auth/domain/entities/auth'
 
 const global = {
-	auth: ssrRef(null as AuthDetails | null),
-	user: ssrRef(null as UserEntity | null),
+	auth: reqSsrRef(null as AuthDetails | null),
+	user: reqSsrRef(null as UserEntity | null),
 	listener: null as null | (() => void)
 }
 

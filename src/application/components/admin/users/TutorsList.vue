@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<TutorsListCard v-for="tutor in tutors" :key="tutor.id" :tutor="tutor" />
+		<TutorsListCard v-for="tutor in tutors" :key="tutor.hash" :tutor="tutor" />
 		<DisplayWarning v-if="!loading && !error && tutors.length === 0" message="No tutors found" />
 		<PageLoading v-if="loading" />
 		<DisplayError :error="error" />

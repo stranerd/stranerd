@@ -1,3 +1,4 @@
+import { Status } from '@modules/users'
 import { DatabaseGetClauses, FirestoreGetClauses } from '../data/datasources/base'
 import firebase, { database, firestore, functions } from './initFirebase'
 
@@ -84,10 +85,9 @@ export const FunctionsService = {
 
 export const DatabaseService = {
 	get: async (path: string, conditions?: DatabaseGetClauses) => {
-		let ref: firebase.database.Query = database.ref(path)
-		ref = buildDatabaseQuery(ref, conditions)
-		const doc = await ref.once('value')
-		if (!doc.exists) return null
+		const ref = database.ref(path)
+		const doc = await buildDatabaseQuery(ref, conditions).once('value')
+		if (!doc.exists()) return null
 		const children: any = {}
 		doc.forEach((child) => {
 			children[child.key!] = child.val()
@@ -95,42 +95,57 @@ export const DatabaseService = {
 		return { ...children, id: doc.key! }
 	},
 	getMany: async (path: string, conditions?: DatabaseGetClauses) => {
-		let ref: firebase.database.Query = database.ref(path)
-		ref = buildDatabaseQuery(ref, conditions)
-		const doc = await ref.once('value')
-		if (!doc.exists) return []
+		const ref = database.ref(path)
+		const doc = await buildDatabaseQuery(ref, conditions).once('value')
+		if (!doc.exists()) return []
 		const children: any = []
 		doc.forEach((child) => {
 			children.push({ ...child.val(), id: child.key })
 		})
 		return children
 	},
-	listen: async (path: string, callback: (doc: any) => void, conditions?: DatabaseGetClauses) => {
-		let ref: firebase.database.Query = database.ref(path)
-		ref = buildDatabaseQuery(ref, conditions)
-		const listener = ref.on('value', (snapshot) => {
-			if (!snapshot.exists) return callback(null)
+	listen: async (path: string, callback: (doc: any) => void, conditions?: DatabaseGetClauses, updateStatus = false) => {
+		const ref = database.ref(path)
+		const listener = buildDatabaseQuery(ref, conditions)
+			.on('value', (snapshot) => {
+				if (!snapshot.exists()) return callback(null)
 
-			const children: any = {}
-			snapshot.forEach((child) => {
-				children[child.key!] = child.val()
+				const children: any = {}
+				snapshot.forEach((child) => {
+					children[child.key!] = child.val()
+				})
+				const doc = { ...children, id: snapshot.key! }
+				callback(doc)
 			})
-			const doc = { ...children, id: snapshot.key! }
-			callback(doc)
-		})
+		if (updateStatus) firebase.database().ref('.info/connected')
+			.on('value', async (snapshot) => {
+				if (!snapshot.val()) return
+				await ref.onDisconnect().update({
+					status: {
+						mode: Status.OFFLINE,
+						updatedAt: firebase.database.ServerValue.TIMESTAMP
+					}
+				})
+				await ref.update({
+					status: {
+						mode: Status.ONLINE,
+						updatedAt: firebase.database.ServerValue.TIMESTAMP
+					}
+				})
+			})
 		return () => ref.off('value', listener)
 	},
 	listenToMany: async (path: string, caller: (docs: any[]) => void, conditions?: DatabaseGetClauses) => {
-		let ref: firebase.database.Query = database.ref(path)
-		ref = buildDatabaseQuery(ref, conditions)
-		const listener = ref.on('value', (snapshot) => {
-			if (!snapshot.exists) return caller([])
-			const children: any = []
-			snapshot.forEach((child) => {
-				children.push({ ...child.val(), id: child.key })
+		const ref = database.ref(path)
+		const listener = buildDatabaseQuery(ref, conditions)
+			.on('value', (snapshot) => {
+				if (!snapshot.exists()) return caller([])
+				const children: any = []
+				snapshot.forEach((child) => {
+					children.push({ ...child.val(), id: child.key })
+				})
+				caller(children)
 			})
-			caller(children)
-		})
 		return () => ref.off('value', listener)
 	},
 	create: async (path: string, data: any) => {

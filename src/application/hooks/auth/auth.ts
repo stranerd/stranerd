@@ -1,14 +1,9 @@
 import { computed, ssrRef } from '@nuxtjs/composition-api'
-import { FindUser, ListenToUser, Status, UserEntity } from '@modules/users'
-import firebase from '@modules/core/services/initFirebase'
-
-type Auth = {
-	id: string,
-	token: string
-}
+import { FindUser, ListenToUser, UserEntity } from '@modules/users'
+import { AuthDetails } from '@modules/auth/domain/entities/auth'
 
 const global = {
-	auth: ssrRef(null as Auth | null),
+	auth: ssrRef(null as AuthDetails | null),
 	user: ssrRef(null as UserEntity | null),
 	listener: null as null | (() => void)
 }
@@ -22,7 +17,7 @@ export const useAuth = () => {
 	const token = computed({ get: () => global.auth.value?.token, set: () => {} })
 	const isAdmin = computed({ get: () => !!global.user.value?.roles.isAdmin, set: () => {} })
 
-	const setAuthUser = async (details: Auth | null) => {
+	const setAuthUser = async (details: AuthDetails | null) => {
 		if (global.listener) global.listener()
 		if (details?.id) global.user.value = await FindUser.call(details.id)
 		else global.user.value = null
@@ -34,10 +29,7 @@ export const useAuth = () => {
 
 		const id = global.auth.value?.id
 		const setUser = (user: UserEntity | null) => global.user.value = user
-		if (id) {
-			await setOnlineStatus(id)
-			global.listener = await ListenToUser.call(id, setUser)
-		}
+		if (id) global.listener = await ListenToUser.call(id, setUser, true)
 	}
 
 	const signout = async () => setAuthUser(null)
@@ -49,23 +41,4 @@ export const useAuth = () => {
 		setAuthUser, startProfileListener,
 		signout, closeProfileListener: () => global.listener?.()
 	}
-}
-
-export const setOnlineStatus = async (uid: string) => {
-	firebase.database().ref('.info/connected')
-		.on('value', async (snapshot) => {
-			if (!uid || !snapshot.val()) return
-
-			const statusRef = firebase.database().ref('profiles').child(uid).child('status')
-
-			await statusRef.onDisconnect().set({
-				mode: Status.OFFLINE,
-				updatedAt: firebase.database.ServerValue.TIMESTAMP
-			})
-
-			await statusRef.set({
-				mode: Status.ONLINE,
-				updatedAt: firebase.database.ServerValue.TIMESTAMP
-			})
-		})
 }

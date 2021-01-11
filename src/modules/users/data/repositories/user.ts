@@ -25,12 +25,12 @@ export class UserRepository implements IUserRepository {
 		return models.map(this.transformer.fromJSON)
 	}
 
-	async listen (id: string, callback: (entity: UserEntity | null) => void) {
+	async listen (id: string, callback: (entity: UserEntity | null) => void, updateStatus = false) {
 		const cb = (model: UserFromModel | null) => {
 			const user = model ? this.transformer.fromJSON(model) : null
 			callback(user)
 		}
-		return this.dataSource.listen(id, cb)
+		return this.dataSource.listen(id, cb, updateStatus)
 	}
 
 	async listenToMany (callback: (entities: UserEntity[]) => void, conditions?: DatabaseGetClauses) {

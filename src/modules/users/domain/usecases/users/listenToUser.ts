@@ -8,7 +8,7 @@ export class ListenToUserUseCase {
 		this.repository = repository
 	}
 
-	async call (id: string, callback: (user: UserEntity | null) => void) {
-		return await this.repository.listen(id, callback)
+	async call (id: string, callback: (user: UserEntity | null) => void, updateStatus = false) {
+		return await this.repository.listen(id, callback, updateStatus)
 	}
 }

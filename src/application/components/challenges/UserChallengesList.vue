@@ -7,6 +7,7 @@
 		</div>
 		<div v-if="newChallenges.length > 0" class="mb-4">
 			<h5>New Challenges</h5>
+			<hr class="thin">
 			<div v-for="challenge in newChallenges" :key="challenge.hash">
 				<StartChallengeCard :challenge="challenge" class="my-2" />
 				<hr class="thin">
@@ -15,6 +16,7 @@
 		<DisplayWarning v-if="!loading && !error && !current && newChallenges.length === 0" message="No new challenges found" />
 		<div v-if="failedChallenges.length > 0" class="mb-4">
 			<h5>Failed Challenges</h5>
+			<hr class="thin">
 			<div v-for="challenge in failedChallenges" :key="challenge.hash">
 				<FailedChallengeCard :challenge="challenge" :personal-challenges="pChallenges" class="my-2" />
 				<hr class="thin">
@@ -22,6 +24,7 @@
 		</div>
 		<div v-if="passedChallenges.length > 0" class="mb-4">
 			<h5>Passed Challenges</h5>
+			<hr class="thin">
 			<div v-for="challenge in passedChallenges" :key="challenge.hash">
 				<PassedChallengeCard :challenge="challenge" class="my-2" />
 				<hr class="thin">

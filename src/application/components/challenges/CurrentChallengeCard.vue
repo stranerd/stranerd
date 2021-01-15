@@ -16,7 +16,7 @@
 				</div>
 			</div>
 			<span class="ml-auto flex-no-wrap d-flex align-items-center">
-				<i class="fas fa-clock" style="margin-right: 2px;" />
+				<i class="fas fa-clock mr-quarter" />
 				<span class="text-nowrap">{{ time }}</span>
 			</span>
 			<div class="progress ml-1">

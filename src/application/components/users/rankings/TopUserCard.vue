@@ -1,13 +1,13 @@
 <template>
-	<div class="d-flex my-1">
+	<div class="d-flex align-items-center my-1">
 		<NuxtLink :to="`/users/${user.id}`">
 			<img :src="user.image" alt="" class="profile-image" style="width:24px;height:24px;">
 		</NuxtLink>
 		<NuxtLink :to="`/users/${user.id}`" class="mx-1">
 			<span>{{ user.name }}</span>
 		</NuxtLink>
-		<span class="ml-auto">
-			<span>{{ user.rankings[period] }}</span>
+		<span class="ml-auto d-flex align-items-center">
+			<span class="mr-half">{{ user.rankings[period] }}</span>
 			<Credits :size="16" />
 		</span>
 	</div>

@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<hr class="thin">
 		<div v-for="user in users" :key="user.hash">
 			<TopUserCard :user="user" :period="period" />
 			<hr class="thin">
@@ -11,7 +12,7 @@
 			</h6>
 			<hr class="thin">
 			<TopUserCard :user="user" :period="period" />
-			<hr class="thick">
+			<hr class="thin">
 		</div>
 		<DisplayError :error="error" />
 		<PageLoading v-if="loading" />

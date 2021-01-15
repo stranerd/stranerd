@@ -5,7 +5,7 @@
 				{{ challenge.description }}
 			</span>
 			<span class="ml-auto flex-no-wrap d-flex align-items-center">
-				<i class="fas fa-clock" style="margin-right: 2px;" />
+				<i class="fas fa-clock mr-quarter" />
 				<span class="small text-nowrap">{{ time }}</span>
 			</span>
 			<span class="ml-1 d-flex align-items-center">

@@ -33,7 +33,7 @@
 			>
 			<p>
 				<span v-for="attachment in factory.attachments" :key="attachment.name" class="mr-1">
-					<span style="margin-right:0.25rem;">{{ attachment.name }}</span>
+					<span class="mr-half">{{ attachment.name }}</span>
 					<a class="text-danger" @click.prevent="factory.removeAttachment(attachment)">
 						<i class="fas fa-times" />
 					</a>

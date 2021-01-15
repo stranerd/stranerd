@@ -11,7 +11,7 @@
 				</span>
 			</div>
 			<span class="ml-auto flex-no-wrap d-flex align-items-center">
-				<i class="fas fa-clock" style="margin-right: 2px;" />
+				<i class="fas fa-clock mr-quarter" />
 				<span class="small text-nowrap">{{ time }}</span>
 			</span>
 			<button v-if="!currentChallenge" class="ml-1 btn btn-small rounded-pill btn-accent text-white px-2 py-0" @click="start">

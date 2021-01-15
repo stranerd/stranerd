@@ -128,6 +128,7 @@ export default defineComponent({
 		background-color: $color-white;
 		padding: 1rem 0.5rem;
 		width: 25%;
+		font-size: 0.9rem;
 		margin: 0 0 0 auto;
 	}
 	.content {

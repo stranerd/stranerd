@@ -7,6 +7,7 @@
 		</div>
 		<div class="my-2">
 			<h6>New Challenges</h6>
+			<hr class="thin">
 			<div v-for="challenge in challenges" :key="challenge.hash">
 				<StartChallengeCard :challenge="challenge" :personal-challenges="pChallenges" class="my-2" />
 				<hr class="thin">

@@ -1,9 +1,9 @@
 <template>
 	<nav class="d-flex align-items-center">
-		<button class="navbar-toggler rounded-0 mr-1 d-lg-none" type="button" @click="setMenuModalSidebar">
+		<button class="navbar-toggler rounded-0 mr-1 d-lg-none" type="button" @click="setMenuModalUserSidebar">
 			<span class="fas fa-bars text-grey" />
 		</button>
-		<NuxtLink to="/account/">
+		<NuxtLink to="/">
 			<img src="@/assets/images/stranerd_logo.png" alt="Stranerd" height="50">
 		</NuxtLink>
 		<Links class="ml-auto" />
@@ -18,8 +18,8 @@ export default defineComponent({
 	name: 'UserTopNavigation',
 	components: { Links },
 	setup () {
-		const { setMenuModalSidebar } = useMenuModal()
-		return { setMenuModalSidebar }
+		const { setMenuModalUserSidebar } = useMenuModal()
+		return { setMenuModalUserSidebar }
 	}
 })
 </script>

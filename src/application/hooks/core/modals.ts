@@ -38,10 +38,12 @@ export const useMenuModal = () => {
 	return {
 		isMenuModalSidebar: computed(() => global.menuModal.value === 'sidebar'),
 		isMenuModalAccountSidebar: computed(() => global.menuModal.value === 'account-sidebar'),
+		isMenuModalUserSidebar: computed(() => global.menuModal.value === 'user-sidebar'),
 		isMenuModalAdminSidebar: computed(() => global.menuModal.value === 'admin-sidebar'),
 
 		setMenuModalSidebar: () => global.menuModal.value = 'sidebar',
 		setMenuModalAccountSidebar: () => global.menuModal.value = 'account-sidebar',
+		setMenuModalUserSidebar: () => global.menuModal.value = 'user-sidebar',
 		setMenuModalAdminSidebar: () => global.menuModal.value = 'admin-sidebar',
 		closeMenuModal: () => global.menuModal.value = null
 	}

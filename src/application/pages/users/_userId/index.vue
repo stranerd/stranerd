@@ -1,13 +1,13 @@
 <template>
-	<div>
-		<h1>Index Page</h1>
-	</div>
+	<div />
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 export default defineComponent({
 	name: 'UserSingleIndexPage',
-	layout: 'users'
+	middleware: [
+		({ redirect, route }) => redirect(`/users/${route.params.userId}/questions`)
+	]
 })
 </script>

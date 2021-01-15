@@ -12,6 +12,7 @@
 						{{ user.account.credits }}
 					</span>
 				</div>
+				<div class="bg-grey" style="width: 1px;" />
 				<div class="d-flex flex-column align-items-center">
 					<span class="small">
 						Friends
@@ -20,6 +21,7 @@
 						0
 					</span>
 				</div>
+				<div class="bg-grey" style="width: 1px;" />
 				<div class="d-flex flex-column align-items-center">
 					<span class="small">
 						Questions
@@ -28,6 +30,7 @@
 						{{ user.meta.questionCount }}
 					</span>
 				</div>
+				<div class="bg-grey" style="width: 1px;" />
 				<div class="d-flex flex-column align-items-center">
 					<span class="small">
 						Answers

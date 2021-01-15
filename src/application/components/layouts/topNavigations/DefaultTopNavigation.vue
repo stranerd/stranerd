@@ -1,9 +1,9 @@
 <template>
 	<nav class="d-flex align-items-center">
-		<button class="navbar-toggler rounded-0 mr-1" :class="{'d-lg-none': hideLogo}" type="button" @click="setMenuModalSidebar">
+		<button class="navbar-toggler rounded-0 mr-1" type="button" @click="setMenuModalSidebar">
 			<span class="fas fa-bars text-grey" />
 		</button>
-		<NuxtLink to="/" :class="{'d-lg-none': hideLogo}">
+		<NuxtLink to="/">
 			<img src="@/assets/images/stranerd_logo.png" alt="Stranerd" height="50">
 		</NuxtLink>
 		<Links class="ml-auto" />
@@ -17,13 +17,6 @@ import Links from '@app/components/layouts/topNavigations/Links.vue'
 export default defineComponent({
 	name: 'DashboardTopNavigation',
 	components: { Links },
-	props: {
-		hideLogo: {
-			required: false,
-			default: false,
-			type: Boolean
-		}
-	},
 	setup () {
 		const { setMenuModalSidebar } = useMenuModal()
 		return { setMenuModalSidebar }

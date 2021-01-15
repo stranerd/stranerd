@@ -1,6 +1,14 @@
 <template>
 	<section>
-		<DefaultTopNavigation :hide-logo="true" class="top-nav" />
+		<nav class="d-flex align-items-center">
+			<button class="navbar-toggler rounded-0 mr-1 d-lg-none" type="button" @click="setMenuModalSidebar">
+				<span class="fas fa-bars text-grey" />
+			</button>
+			<NuxtLink to="/" class="d-lg-none">
+				<img src="@/assets/images/stranerd_logo.png" alt="Stranerd" height="50">
+			</NuxtLink>
+			<Links class="ml-auto" />
+		</nav>
 		<div class="d-md-none d-flex justify-content-center m-2">
 			<a class="bg-accent text-white link-sm p-1" @click.prevent="openQuestionModal">
 				<span class="fas fa-plus" style="font-size: 22px;" />
@@ -17,20 +25,20 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useCreateModal } from '@app/hooks/core/modals'
-import DefaultTopNavigation from '@app/components/layouts/topNavigations/DefaultTopNavigation.vue'
+import { useCreateModal, useMenuModal } from '@app/hooks/core/modals'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useRedirectToAuth } from '@app/hooks/auth/session'
+import Links from '@app/components/layouts/topNavigations/Links.vue'
 export default defineComponent({
 	name: 'DashboardTopNavigation',
-	components: {
-		DefaultTopNavigation
-	},
+	components: { Links },
 	setup () {
 		const { isLoggedIn } = useAuth()
 		const { redirect } = useRedirectToAuth()
 		const { setCreateModalQuestion } = useCreateModal()
+		const { setMenuModalSidebar } = useMenuModal()
 		return {
+			setMenuModalSidebar,
 			openQuestionModal: () => {
 				if (!isLoggedIn.value) redirect()
 				else setCreateModalQuestion()
@@ -41,7 +49,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.top-nav {
+nav {
+	background: $color-white;
+	padding: 0.5rem 0.75rem;
 	@media (min-width: $md) {
 		margin: -1rem -1rem 0.5rem;
 	}

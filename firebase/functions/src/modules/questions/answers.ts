@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { deleteFromStorage } from '../../helpers/storage'
-import { progressPersonalChallenge } from '../../helpers/modules/personal-challenge'
+import { progressPersonalChallenge } from '../../helpers/modules/challenges/personal-challenge'
 
 export const answerCreated = functions.firestore.document('answers/{answerId}')
 	.onCreate(async (snap) => {

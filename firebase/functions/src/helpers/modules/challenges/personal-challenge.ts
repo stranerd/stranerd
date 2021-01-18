@@ -1,5 +1,5 @@
 import * as admin from 'firebase-admin'
-import { deleteTask } from '../cloud-task'
+import { deleteTask } from '../../cloud-task'
 
 enum ChallengeTypes {
 	answers = 'answers'

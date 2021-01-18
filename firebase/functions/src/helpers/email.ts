@@ -3,8 +3,8 @@ import * as googleapis from 'googleapis'
 import { createTransport } from 'nodemailer'
 import * as Template from 'email-templates'
 import { email, domain, logo, appName } from './environment'
-import { Notification } from './modules/notifications'
-import { TopUser } from './modules/rankings'
+import { Notification } from './modules/users/notifications'
+import { TopUser } from './modules/users/rankings'
 
 export enum EMAILS {
 	NOREPLY = 'no-reply'

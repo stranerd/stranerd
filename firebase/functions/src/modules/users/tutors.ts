@@ -1,6 +1,6 @@
 import * as functions from 'firebase-functions'
 import { deleteFromAlgolia, saveToAlgolia } from '../../helpers/algolia'
-import { createNotification, NotificationType } from '../../helpers/modules/notifications'
+import { createNotification, NotificationType } from '../../helpers/modules/users/notifications'
 
 export const tutorCreated = functions.firestore.document('tutors/{id}')
 	.onCreate(async(snap, context) => {
@@ -10,10 +10,9 @@ export const tutorCreated = functions.firestore.document('tutors/{id}')
 		await saveToAlgolia('tutors', id, data)
 
 		await createNotification(id, {
-			title: 'Tutor Privileges Modified',
 			type: NotificationType.INFO,
 			action: '/account',
-			description: 'Your account has successfully being granted tutoring privileges'
+			body: 'Your account has successfully being granted tutoring privileges'
 		})
 	})
 
@@ -32,9 +31,8 @@ export const tutorDeleted = functions.firestore.document('tutors/{id}')
 		await deleteFromAlgolia('tutors', id)
 
 		await createNotification(id, {
-			title: 'Tutor Privileges Modified',
 			type: NotificationType.INFO,
 			action: '/account',
-			description: 'Your tutoring privileges has been removed. Contact an admin if this was a mistake'
+			body: 'Your tutoring privileges has been removed. Contact an admin if this was a mistake'
 		})
 	})

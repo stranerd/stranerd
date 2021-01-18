@@ -1,11 +1,16 @@
 import * as admin from 'firebase-admin'
-import { sendTopUsersEmail } from '../email'
+import { sendTopUsersEmail } from '../../email'
 import { getAllUserIds } from './users'
 
-type Period = 'daily' | 'weekly' | 'monthly' | 'quarterly'
+export enum RankingPeriods {
+	daily = 'daily',
+	weekly = 'weekly',
+	monthly = 'monthly',
+	quarterly = 'quarterly',
+}
 export type TopUser = { email: string, name: string, id: string, credits: number }
 
-const getTop5Users = async (period: Period) => {
+const getTop5Users = async (period: RankingPeriods) => {
 	const ref = await admin.database().ref('profiles')
 		.orderByChild(`rankings/${period}`)
 		.startAt(0)
@@ -26,7 +31,7 @@ const getTop5Users = async (period: Period) => {
 	return users
 }
 
-const saveTopUsers = async (period: Period, users: TopUser[]) => {
+const saveTopUsers = async (period: RankingPeriods, users: TopUser[]) => {
 	await admin.database().ref('rankings')
 		.child(period)
 		.set(users)
@@ -41,7 +46,7 @@ const resetRankings = async (userPaths: string[]) => {
 	await admin.database().ref('profiles').update(data)
 }
 
-export const resetRankingsByPeriod = async (period: Period, sendMail = false) => {
+export const resetRankingsByPeriod = async (period: RankingPeriods, sendMail = false) => {
 	const topUsers = await getTop5Users(period)
 	await saveTopUsers(period, topUsers)
 	if (sendMail) await sendTopUsersEmail(period, topUsers)

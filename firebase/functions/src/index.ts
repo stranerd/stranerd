@@ -9,9 +9,8 @@ import { makeTutor, removeTutor } from './onCall/roles/tutors'
 import { subscribeToMailingList } from './onCall/roles/mailing'
 import { requestNewSession } from './onCall/sessions/requestNewSession'
 
-import { userNotificationCreated } from './modules/users/notifications'
 import { userProfileUpdated, userCreditsUpdated } from './modules/users/users'
-import { tutorUpdated } from './modules/users/tutors'
+import { tutorCreated, tutorUpdated, tutorDeleted } from './modules/users/tutors'
 import { resetDailyRankings, resetWeeklyRankings, resetMonthlyRankings, resetQuarterlyRankings } from './modules/users/rankings'
 
 import { sessionChatMediaDeleted } from './modules/sessions/chats'
@@ -36,9 +35,7 @@ export { makeSuperAdmin, resendEmails, cancelChallenge }
 // Users
 export { userProfileUpdated, userCreditsUpdated }
 // Tutors
-export { tutorUpdated }
-// Notifications
-export { userNotificationCreated }
+export { tutorCreated, tutorUpdated, tutorDeleted }
 // Rankings
 export { resetDailyRankings, resetWeeklyRankings, resetMonthlyRankings, resetQuarterlyRankings }
 

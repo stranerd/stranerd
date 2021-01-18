@@ -1,26 +1,34 @@
 import * as admin from 'firebase-admin'
 
-type Type = 'info' | 'warning' | 'error' | 'success'
+export enum NotificationType {
+	SUCCESS,
+	INFO,
+	WARNING,
+	ERROR
+}
 
-export type Notification = {
+type CreateNotification = {
 	title: string
 	description: string
-	seen: boolean
-	type: Type
+	type: NotificationType
 	action: string
+}
+export type Notification = CreateNotification & {
+	seen: boolean
 	dates: {
-		createdAt: Object
+		createdAt: number
 	}
 }
 
-export const createNotification = async (userId: string, data: { title: string, description: string, type: Type, action: string }) => {
+export const createNotification = async (userId: string, data: CreateNotification) => {
 	try{
-		const notification: Notification = {
-			...data, seen: false,
-			dates: { createdAt: admin.database.ServerValue.TIMESTAMP }
-		}
-
-		await admin.database().ref(`users/${userId}/notifications`).push(notification)
-	}catch(e){ console.log(e.message) }
+		await admin.database().ref(`users/${userId}/notifications`)
+			.push({
+				...data, seen: false,
+				dates: { createdAt: admin.database.ServerValue.TIMESTAMP }
+			})
+	} catch (e) {
+		console.log(`Failed to create notification for: ${userId}.\n${e.message}`)
+	}
 }
 

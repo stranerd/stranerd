@@ -1,4 +1,9 @@
-export type NotificationType = 'info' | 'warning' | 'error' | 'success'
+export enum NotificationType {
+	SUCCESS,
+	INFO,
+	WARNING,
+	ERROR
+}
 
 export class NotificationEntity {
 	public readonly id: string

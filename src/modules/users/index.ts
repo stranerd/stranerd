@@ -1,11 +1,14 @@
 import { UserFirebaseDataSource } from './data/datasources/user-firebase'
 import { RoleFirebaseDataSource } from './data/datasources/role-firebase'
 import { TutorFirebaseDataSource } from './data/datasources/tutor-firebase'
+import { NotificationFirebaseDataSource } from './data/datasources/notification-firebase'
 import { UserTransformer } from './data/transformers/user'
 import { TutorTransformer } from './data/transformers/tutor'
+import { NotificationTransformer } from './data/transformers/notification'
 import { UserRepository } from './data/repositories/user'
 import { RoleRepository } from './data/repositories/role'
 import { TutorRepository } from './data/repositories/tutor'
+import { NotificationRepository } from './data/repositories/notification'
 import { FindUserUseCase } from './domain/usecases/users/findUser'
 import { MakeAdminUseCase } from './domain/usecases/roles/makeAdmin'
 import { RemoveAdminUseCase } from './domain/usecases/roles/removeAdmin'
@@ -29,20 +32,29 @@ import { ListenToTopDailyUsersUseCase } from './domain/usecases/rankings/listenT
 import { ListenToTopWeeklyUsersUseCase } from './domain/usecases/rankings/listenToTopWeeklyUsers'
 import { ListenToTopMonthlyUsersUseCase } from './domain/usecases/rankings/listenToTopMonthlyUsers'
 import { ListenToTopQuarterlyUsersUseCase } from './domain/usecases/rankings/listenToTopQuarterlyUsers'
+import { AddNotificationUseCase } from './domain/usecases/notifications/addNotification'
+import { ListenToNotificationsUseCase } from './domain/usecases/notifications/listenToNotifications'
+import { FindNotificationUseCase } from './domain/usecases/notifications/findNotification'
+import { MarkNotificationSeenUseCase } from './domain/usecases/notifications/markNotificationSeen'
+import { DeleteNotificationUseCase } from './domain/usecases/notifications/deleteNotification'
 import { UserEntity, UserBio, Status, generateDefaultBio, RankingPeriods } from './domain/entities/user'
 import { TutorEntity } from './domain/entities/tutor'
+import { NotificationEntity } from './domain/entities/notification'
 import { MailingListFactory } from './domain/factories/mailingList'
 
 const userDataSource = new UserFirebaseDataSource()
 const roleDataSource = new RoleFirebaseDataSource()
 const tutorDataSource = new TutorFirebaseDataSource()
+const notificationDataSource = new NotificationFirebaseDataSource()
 
 const userTransformer = new UserTransformer()
 const tutorTransformer = new TutorTransformer()
+const notificationTransformer = new NotificationTransformer()
 
 const userRepository = new UserRepository(userDataSource, userTransformer)
 const roleRepository = new RoleRepository(roleDataSource)
 const tutorRepository = new TutorRepository(tutorDataSource, tutorTransformer)
+const notificationRepository = new NotificationRepository(notificationDataSource, notificationTransformer)
 
 export const FindUser = new FindUserUseCase(userRepository)
 export const GetUsersByEmail = new GetUsersByEmailUseCase(userRepository)
@@ -71,6 +83,12 @@ export const ListenToTopMonthlyUsers = new ListenToTopMonthlyUsersUseCase(userRe
 export const ListenToTopQuarterlyUsers = new ListenToTopQuarterlyUsersUseCase(userRepository)
 export const ListenToTopRankingUsers = new ListenToTopRankingUsersUseCase(userRepository)
 
-export { UserEntity, generateDefaultBio, TutorEntity, Status, RankingPeriods }
+export const AddNotification = new AddNotificationUseCase(notificationRepository)
+export const FindNotification = new FindNotificationUseCase(notificationRepository)
+export const ListenToNotifications = new ListenToNotificationsUseCase(notificationRepository)
+export const MarkNotificationSeen = new MarkNotificationSeenUseCase(notificationRepository)
+export const DeleteNotification = new DeleteNotificationUseCase(notificationRepository)
+
+export { UserEntity, generateDefaultBio, TutorEntity, Status, RankingPeriods, NotificationEntity }
 export { MailingListFactory }
 export type { UserBio }

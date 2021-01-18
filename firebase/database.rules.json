@@ -62,7 +62,10 @@
 		"users": {
 			"$userId": {
 				".read": true,
-				".write": "auth.uid === $userId"
+				".write": "auth.uid === $userId",
+				"notifications": {
+					".indexOn": ["dates/createdAt", "seen"]
+				}
 			}
 		},
 		".read": false,

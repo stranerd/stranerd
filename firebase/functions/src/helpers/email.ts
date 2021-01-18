@@ -4,6 +4,7 @@ import { createTransport } from 'nodemailer'
 import * as Template from 'email-templates'
 import { email, domain, logo, appName } from './environment'
 import { Notification } from './modules/notifications'
+import { TopUser } from './modules/rankings'
 
 export enum EMAILS {
 	NOREPLY = 'no-reply'
@@ -55,7 +56,7 @@ export const sendSessionRequestEmail = async (to: string, student: any, time: st
 	return await sendMailAndCatchErrors(to, 'Session Request', content)
 }
 
-export const sendTopUsersEmail = async (period: string, users: { email: string, name: string, id: string, credits: number }[]) => {
+export const sendTopUsersEmail = async (period: string, users: TopUser[]) => {
 	const meta = { domain: domain(), logo: logo() }
 	const content = await new Template({ message:{} }).render('topUsersEmail.pug',
 		{ meta, period, users })

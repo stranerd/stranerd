@@ -4,6 +4,8 @@ import { makeSuperAdmin } from './requests/makeSuperAdmin'
 import { resendEmails } from './requests/resendEmails'
 import { cancelChallenge } from './requests/cancelChallenge'
 
+import { runDaily, runWeekly, runMonthly, runQuarterly } from './pubsub'
+
 import { toggleAdmin } from './onCall/roles/admins'
 import { makeTutor, removeTutor } from './onCall/roles/tutors'
 import { subscribeToMailingList } from './onCall/roles/mailing'
@@ -11,7 +13,6 @@ import { requestNewSession } from './onCall/sessions/requestNewSession'
 
 import { userProfileUpdated, userCreditsUpdated } from './modules/users/users'
 import { tutorCreated, tutorUpdated, tutorDeleted } from './modules/users/tutors'
-import { resetDailyRankings, resetWeeklyRankings, resetMonthlyRankings, resetQuarterlyRankings } from './modules/users/rankings'
 
 import { sessionChatMediaDeleted } from './modules/sessions/chats'
 
@@ -27,6 +28,8 @@ admin.initializeApp()
 // Auth Triggers
 export { authUserCreated, authUserDeleted }
 
+// Pub-sub Triggers
+export { runDaily, runWeekly, runMonthly, runQuarterly }
 
 // Request Triggers
 export { makeSuperAdmin, resendEmails, cancelChallenge }
@@ -36,8 +39,6 @@ export { makeSuperAdmin, resendEmails, cancelChallenge }
 export { userProfileUpdated, userCreditsUpdated }
 // Tutors
 export { tutorCreated, tutorUpdated, tutorDeleted }
-// Rankings
-export { resetDailyRankings, resetWeeklyRankings, resetMonthlyRankings, resetQuarterlyRankings }
 
 // Sessions Module
 // Chats

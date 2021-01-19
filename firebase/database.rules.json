@@ -32,7 +32,7 @@
 		"profiles": {
 			".read": true,
 			".indexOn": [
-				"roles/isAdmin","bio/email",
+				"roles/isAdmin","roles/isTutor","bio/email",
 				"rankings/daily","rankings/weekly","rankings/monthly","rankings/quarterly"
 			],
 			"$userId": {
@@ -40,6 +40,9 @@
 				".write": "auth.uid === $userId",
 				"status": {
 					".write": "auth.uid === $userId || auth.uid === null"
+				},
+				"tutor": {
+					".write": "auth.token.isAdmin === true"
 				}
 			}
 		},

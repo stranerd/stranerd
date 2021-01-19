@@ -1,7 +1,7 @@
 import { DatabaseService } from '@modules/core/services/firebase'
 import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
 import { UserBaseDataSource } from '../datasources/user-base'
-import { UserFromModel } from '../models/user'
+import { UserFromModel, UserToModel } from '../models/user'
 
 export class UserFirebaseDataSource implements UserBaseDataSource {
 	async find (id: string) {
@@ -18,5 +18,10 @@ export class UserFirebaseDataSource implements UserBaseDataSource {
 
 	async listenToMany (callback: (models: UserFromModel[]) => void, conditions?: DatabaseGetClauses) {
 		return await DatabaseService.listenToMany('profiles', callback, conditions)
+	}
+
+	async update (id: string, data: Partial<UserToModel>) {
+		await DatabaseService.update(`profiles/${id}`, data)
+		return id
 	}
 }

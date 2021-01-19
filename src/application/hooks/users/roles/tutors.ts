@@ -1,6 +1,6 @@
 import { reactive, ssrRef, toRefs, useFetch } from '@nuxtjs/composition-api'
 import {
-	AddTutorSubject, FindTutor, GetTutors, GetUsersByEmail,
+	AddTutorSubject, FindUser, GetAllTutors, GetUsersByEmail,
 	MakeTutor, RemoveTutor, RemoveTutorSubject, UserEntity, TutorEntity
 } from '@modules/users'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
@@ -9,12 +9,12 @@ import { isServer } from '@utils/environment'
 
 const global = {
 	fetched: ssrRef(false),
-	tutors: ssrRef([] as TutorEntity[])
+	tutors: ssrRef([] as UserEntity[])
 }
 const { error, setError } = useErrorHandler()
 const { loading, setLoading } = useLoadingHandler()
 
-const addToGlobalTutors = (tutor: TutorEntity) => {
+const addToGlobalTutors = (tutor: UserEntity) => {
 	const index = global.tutors.value.findIndex((t) => t.id === tutor.id)
 	if (index !== -1) global.tutors.value.splice(index, 1, tutor)
 	else global.tutors.value.push(tutor)
@@ -26,7 +26,7 @@ export const useTutorList = () => {
 		if (isServer()) global.tutors.value = []
 		setLoading(true)
 		try {
-			global.tutors.value = await GetTutors.call()
+			global.tutors.value = await GetAllTutors.call()
 			global.fetched.value = true
 		} catch (error) { setError(error) }
 		setLoading(false)
@@ -69,7 +69,7 @@ export const useTutorRoles = () => {
 		try {
 			await MakeTutor.call(user.id)
 			user.roles.isTutor = true
-			const tutor = await FindTutor.call(user.id)
+			const tutor = await FindUser.call(user.id)
 			if (tutor) addToGlobalTutors(tutor)
 			reset()
 			setMessage('Successfully made a tutor')
@@ -103,8 +103,8 @@ export const useTutorRoles = () => {
 	}
 }
 
-let currentTutor = null as TutorEntity | null
-export const setCurrentTutor = (tutor: TutorEntity) => currentTutor = tutor
+let currentTutor = null as UserEntity | null
+export const setCurrentTutor = (tutor: UserEntity) => currentTutor = tutor
 
 export const useSingleTutor = () => {
 	const tutor = ssrRef(currentTutor)
@@ -119,7 +119,7 @@ export const useSingleTutor = () => {
 			const id = tutor.value?.id
 			if (id) {
 				await AddTutorSubject.call(id, subject)
-				const t = await FindTutor.call(id)
+				const t = await FindUser.call(id)
 				if (t) {
 					tutor.value = t
 					addToGlobalTutors(t)
@@ -144,7 +144,7 @@ export const useSingleTutor = () => {
 				const id = tutor.value?.id
 				if (id) {
 					await RemoveTutorSubject.call(id, subject)
-					const t = await FindTutor.call(id)
+					const t = await FindUser.call(id)
 					if (t) {
 						tutor.value = t
 						addToGlobalTutors(t)

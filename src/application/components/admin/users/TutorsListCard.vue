@@ -23,14 +23,14 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
-import { TutorEntity } from '@modules/users'
+import { UserEntity } from '@modules/users'
 import { setCurrentTutor, useTutorRoles } from '@app/hooks/users/roles/tutors'
 import { useEditModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'TutorsListCard',
 	props: {
 		tutor: {
-			type: Object as PropType<TutorEntity>,
+			type: Object as PropType<UserEntity>,
 			required: true
 		}
 	},

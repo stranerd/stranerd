@@ -2,7 +2,7 @@ import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { deleteFromStorage } from '../../helpers/storage'
 import {
-	updateBioIfTutor, updateBraintreeBio, updateMyAnswerCommentsBio,
+	updateBraintreeBio, updateMyAnswerCommentsBio,
 	updateMyAnswersBio, updateMyQuestionCommentsBio, updateMyQuestionsBio
 } from '../../helpers/modules/users/users'
 import { RankingPeriods } from '../../helpers/modules/users/rankings'
@@ -18,7 +18,6 @@ export const userProfileUpdated = functions.database.ref('profiles/{userId}/bio'
 		})
 
 		await updateBraintreeBio(userId, oldBio, newBio)
-		await updateBioIfTutor(userId, newBio)
 		await updateMyQuestionsBio(userId, newBio)
 		await updateMyAnswersBio(userId, newBio)
 		await updateMyQuestionCommentsBio(userId, newBio)

@@ -2,7 +2,7 @@ import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
 import { IUserRepository } from '../../domain/irepositories/iuser'
 import { UserBaseDataSource } from '../datasources/user-base'
 import { UserTransformer } from '../transformers/user'
-import { UserFromModel } from '../models/user'
+import { UserFromModel, UserToModel } from '../models/user'
 import { UserEntity } from '../../domain/entities/user'
 
 export class UserRepository implements IUserRepository {
@@ -38,5 +38,9 @@ export class UserRepository implements IUserRepository {
 			callback(models.map(this.transformer.fromJSON))
 		}
 		return this.dataSource.listenToMany(cb, conditions)
+	}
+
+	async update (id: string, data: Partial<UserToModel>) {
+		return this.dataSource.update(id, data)
 	}
 }

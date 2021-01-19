@@ -85,20 +85,6 @@ export const updateMyAnswerCommentsBio = async (userId: string, user: any) => {
 	} catch (error) { console.log(`Error setting bios of ${userId} answer-comments`) }
 }
 
-export const updateBioIfTutor = async (userId: string, bio: any) => {
-	try {
-		const isTutor = await admin.database().ref('profiles')
-			.child(userId)
-			.child('roles/isTutor')
-			.once('value')
-		if (isTutor.val()) await admin.database()
-			.ref('tutors')
-			.child(userId)
-			.child('bio')
-			.set(bio)
-	} catch (error) { console.log(`Error updating tutor ${userId} bio`) }
-}
-
 export const updateBraintreeBio = async (userId: string, oldBio: any, bio: any) => {
 	try {
 		if (bio.name !== oldBio.name) {

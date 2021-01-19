@@ -1,46 +1,43 @@
 import * as functions from 'firebase-functions'
 import * as admin from'firebase-admin'
+import { createNotification, NotificationType } from '../../helpers/modules/users/notifications'
 
-export const makeTutor = functions.https.onCall(async (data, context) => {
+export const toggleTutor = functions.https.onCall(async (data, context) => {
 	if (!context.auth)
 		throw new functions.https.HttpsError('unauthenticated', 'Only authenticated users can manage tutors')
 	if (!context.auth?.token.isAdmin)
 		throw new functions.https.HttpsError('failed-precondition', 'Only admins can manage tutors')
 
 	try{
-		const tutorRef = admin.firestore().collection('tutors').doc(data.id)
-		const tutor = await tutorRef.get()
-		if (tutor.exists)
-			throw new functions.https.HttpsError('failed-precondition', 'User is already a tutor')
-
-		const userRef = admin.database().ref('profiles').child(data.id)
-		const bio = (await userRef.child('bio').once('value')).val()
-
-		await tutorRef.set({
-			canTeach: false, rating: 0, reviews: 0,
-			subjects: {}, bio
-		})
-		await userRef.child('roles/isTutor').set(true)
-
-		return true
-	}catch(error){
-		throw new functions.https.HttpsError('unknown', error.message)
-	}
-})
-
-export const removeTutor = functions.https.onCall(async (data, context) => {
-	if (!context.auth)
-		throw new functions.https.HttpsError('unauthenticated', 'Only authenticated users can manage tutors')
-	if (!context.auth?.token.isAdmin)
-		throw new functions.https.HttpsError('failed-precondition', 'Only admins can manage tutors')
-
-	try{
-		await admin.firestore().collection('tutors')
-			.doc(data.id)
-			.delete()
-		await admin.database().ref('profiles')
-			.child(data.id).child('roles/isTutor')
-			.set(false)
+		const { id, isTutor } = data
+		if (isTutor) {
+			await admin.database().ref('profiles')
+				.child(id)
+				.update({
+					'roles/isTutor': true,
+					'tutor': {
+						canTeach: false, rating: 0, reviews: 0,
+						subjects: {}
+					}
+				})
+			await createNotification(id, {
+				type: NotificationType.INFO,
+				action: '/account',
+				body: 'Your account has successfully being granted tutoring privileges'
+			})
+		} else {
+			await admin.database().ref('profiles')
+				.child(id)
+				.update({
+					'roles/isTutor': false,
+					'tutor': null
+				})
+			await createNotification(id, {
+				type: NotificationType.INFO,
+				action: '/account',
+				body: 'Your tutoring privileges has been removed. Contact an admin if this was a mistake'
+			})
+		}
 
 		return true
 	}catch(error){

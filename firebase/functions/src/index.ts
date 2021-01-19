@@ -7,12 +7,11 @@ import { cancelChallenge } from './requests/cancelChallenge'
 import { runDaily, runWeekly, runMonthly, runQuarterly } from './pubsub'
 
 import { toggleAdmin } from './onCall/roles/admins'
-import { makeTutor, removeTutor } from './onCall/roles/tutors'
+import { toggleTutor } from './onCall/roles/tutors'
 import { subscribeToMailingList } from './onCall/roles/mailing'
 import { requestNewSession } from './onCall/sessions/requestNewSession'
 
 import { userProfileUpdated, userCreditsUpdated } from './modules/users/users'
-import { tutorCreated, tutorUpdated, tutorDeleted } from './modules/users/tutors'
 
 import { sessionChatMediaDeleted } from './modules/sessions/chats'
 
@@ -37,8 +36,6 @@ export { makeSuperAdmin, resendEmails, cancelChallenge }
 // Users Module
 // Users
 export { userProfileUpdated, userCreditsUpdated }
-// Tutors
-export { tutorCreated, tutorUpdated, tutorDeleted }
 
 // Sessions Module
 // Chats
@@ -63,6 +60,6 @@ export { personalChallengeCreated, personalChallengeCancelled }
 
 // On Call
 // Roles
-export { toggleAdmin, makeTutor, removeTutor, subscribeToMailingList }
+export { toggleAdmin, toggleTutor, subscribeToMailingList }
 // Sessions
 export { requestNewSession }

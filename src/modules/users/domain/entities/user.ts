@@ -20,9 +20,10 @@ export class UserEntity extends BaseEntity {
 	public readonly rankings: Required<UserRankings>
 	public readonly meta: Required<UserMeta>
 	public readonly status: Required<UserStatus>
+	public readonly tutor: UserTutor | undefined
 	public readonly dates: UserDates
 
-	constructor ({ id, bio, roles, account, rankings, meta, status, dates }: UserConstructorArgs) {
+	constructor ({ id, bio, roles, account, rankings, meta, status, tutor, dates }: UserConstructorArgs) {
 		super()
 		this.id = id
 		this.userBio = generateDefaultBio(bio)
@@ -43,6 +44,7 @@ export class UserEntity extends BaseEntity {
 			mode: status?.mode ?? Status.OFFLINE,
 			updatedAt: status?.updatedAt ?? 0
 		}
+		this.tutor = tutor
 		this.dates = dates
 	}
 
@@ -52,6 +54,11 @@ export class UserEntity extends BaseEntity {
 
 	get isOnline () { return this.status.mode === Status.ONLINE }
 	get lastSeen () { return this.isOnline ? Date.now() : this.status.updatedAt }
+
+	get subjects () {
+		return Object.entries(this.tutor?.subjects ?? {})
+			.map((c) => ({ ...c[1], id: c[0] }))
+	}
 }
 
 type UserConstructorArgs = {
@@ -62,6 +69,7 @@ type UserConstructorArgs = {
 	rankings?: UserRankings
 	meta?: UserMeta
 	status?: UserStatus
+	tutor?: UserTutor
 	dates: UserDates
 }
 
@@ -93,6 +101,19 @@ export interface UserStatus {
 }
 export interface UserDates {
 	signedUpAt: number
+}
+export interface UserTutor {
+	canTeach: boolean
+	rating: number
+	reviews: number
+	subjects: Record<string, {
+		level: number
+		upgrades: Record<number, {
+			score: number
+			takenAt: number
+			passed: boolean
+		}>
+	}>
 }
 
 export const generateDefaultBio = (bio: UserBio) :UserBio => {

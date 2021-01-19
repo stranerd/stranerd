@@ -1,5 +1,5 @@
 <template>
-	<UserAnswersList v-if="isLoggedIn" :user-id="id" />
+	<UserAnswersList v-if="isLoggedIn" class="page-content" :user-id="id" />
 </template>
 
 <script lang="ts">

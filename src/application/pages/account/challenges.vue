@@ -1,5 +1,5 @@
 <template>
-	<UserChallengesList v-if="isLoggedIn" :user-id="id" />
+	<UserChallengesList v-if="isLoggedIn" class="page-content" :user-id="id" />
 </template>
 
 <script lang="ts">

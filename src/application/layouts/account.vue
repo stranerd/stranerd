@@ -2,10 +2,10 @@
 	<section>
 		<AccountTopNavigation class="shadowed px-lg-4" />
 		<div class="body">
-			<div class="p-1 d-none d-lg-block content mr-4 w-25">
+			<div class="p-1 d-none d-lg-block page-content mr-4 w-25">
 				<AccountSidebar />
 			</div>
-			<div class="content w-grow">
+			<div class="w-grow">
 				<Nuxt />
 			</div>
 		</div>
@@ -45,22 +45,5 @@ section {
 .w-grow {
 	width: 100%;
 	@media (min-width: $lg) { width: calc(75% - 2rem); }
-}
-.content {
-	background: $color-white;
-	margin: 0.5rem 0;
-	padding: 0.5rem;
-	border-radius: 0.5rem;
-	box-shadow: 0 0 12px rgba($color-black, 0.1);
-	@media (min-width: $md) {
-		margin: 1rem 0;
-		padding: 1.5rem;
-		border-radius: 1rem;
-	}
-	@media (min-width: $lg) {
-		margin: 2rem 0;
-		padding: 2.0rem;
-		border-radius: 1.5rem;
-	}
 }
 </style>

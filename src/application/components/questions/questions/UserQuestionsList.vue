@@ -1,5 +1,7 @@
 <template>
 	<div>
+		<h5>{{ id === userId ? 'My' : 'User' }} Questions</h5>
+		<hr class="thick">
 		<div v-for="question in questions" :key="question.hash">
 			<QuestionCard :question="question" />
 			<hr class="thick">
@@ -17,6 +19,7 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import QuestionCard from '@app/components/questions/questions/UserQuestionsListCard.vue'
 import { useUserQuestionList } from '@app/hooks/users/user/questions'
+import { useAuth } from '@app/hooks/auth/auth'
 export default defineComponent({
 	name: 'UserQuestionsList',
 	components: { QuestionCard },
@@ -27,8 +30,10 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
+		const { id } = useAuth()
 		const { questions, error, loading, hasMore, fetchOlderQuestions } = useUserQuestionList(props.userId)
 		return {
+			id,
 			questions, error, loading, hasMore,
 			fetchOlderQuestions
 		}

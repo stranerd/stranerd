@@ -1,12 +1,12 @@
 <template>
 	<div>
 		<PageLoading v-if="loading" />
-		<div class="content">
+		<div class="page-content">
 			<QuestionCommentPageCard v-if="question" :question="question" />
 			<DisplayError v-else error="Question not found" />
 			<DisplayError :error="error" />
 		</div>
-		<div v-if="question" class="content">
+		<div v-if="question" class="page-content">
 			<h2>Comments</h2>
 			<CommentsList :question-id="questionId" />
 			<CommentForm v-if="isLoggedIn" id="add" :question-id="questionId" class="my-3" />
@@ -45,23 +45,3 @@ export default defineComponent({
 	}
 })
 </script>
-
-<style lang="scss" scoped>
-.content {
-	background: $color-white;
-	padding: 0.5rem;
-	margin: 0.5rem 0;
-	border-radius: 0.5rem;
-	box-shadow: 0 0 12px rgba($color-black, 0.1);
-	@media (min-width: $md) {
-		padding: 1.5rem;
-		margin: 1rem 0;
-		border-radius: 1rem;
-	}
-	@media (min-width: $lg) {
-		padding: 2.0rem;
-		margin: 2rem 0;
-		border-radius: 1.5rem;
-	}
-}
-</style>

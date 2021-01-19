@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="page-content">
 		<div class="d-flex justify-content-end">
 			<button class="btn btn-lg btn-accent text-white" @click="setCreateModalSubject">
 				Add New Subject

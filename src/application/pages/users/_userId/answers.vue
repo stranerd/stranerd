@@ -1,5 +1,5 @@
 <template>
-	<UserAnswersList :user-id="userId" />
+	<UserAnswersList class="page-content" :user-id="userId" />
 </template>
 
 <script lang="ts">

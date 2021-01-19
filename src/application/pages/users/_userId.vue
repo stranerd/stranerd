@@ -1,8 +1,12 @@
 <template>
 	<div>
 		<NuxtChild v-if="user" />
-		<DisplayError v-else error="No such user exists!" />
-		<DisplayError :error="error" />
+		<div v-else class="page-content">
+			<DisplayError error="No such user exists!" />
+		</div>
+		<div v-if="error" class="page-content">
+			<DisplayError :error="error" />
+		</div>
 		<PageLoading v-if="loading" />
 	</div>
 </template>

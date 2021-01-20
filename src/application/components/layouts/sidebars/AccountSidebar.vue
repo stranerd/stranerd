@@ -1,45 +1,7 @@
 <template>
 	<div>
-		<div v-if="isLoggedIn" class="d-flex flex-column align-items-center my-1">
-			<img :src="user.image" alt="" class="profile-image" style="width:90px;height:90px;">
-			<span class="text-18">{{ user.name }}</span>
-			<div class="d-flex justify-content-around my-2 w-100">
-				<div class="d-flex flex-column align-items-center">
-					<span class="small">
-						Credits
-					</span>
-					<span class="font-weight-bold">
-						{{ user.account.credits }}
-					</span>
-				</div>
-				<div class="bg-grey" style="width: 1px;" />
-				<div class="d-flex flex-column align-items-center">
-					<span class="small">
-						Friends
-					</span>
-					<span class="font-weight-bold">
-						0
-					</span>
-				</div>
-				<div class="bg-grey" style="width: 1px;" />
-				<div class="d-flex flex-column align-items-center">
-					<span class="small">
-						Questions
-					</span>
-					<span class="font-weight-bold">
-						{{ user.meta.questionCount }}
-					</span>
-				</div>
-				<div class="bg-grey" style="width: 1px;" />
-				<div class="d-flex flex-column align-items-center">
-					<span class="small">
-						Answers
-					</span>
-					<span class="font-weight-bold">
-						{{ user.meta.answerCount }}
-					</span>
-				</div>
-			</div>
+		<div v-if="isLoggedIn" class="d-none d-lg-block">
+			<AccountHeadCard :user="user" />
 		</div>
 		<div class="my-1 d-flex flex-column links">
 			<NuxtLink class="link" to="/dashboard">
@@ -96,8 +58,10 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useEditModal, useMenuModal } from '@app/hooks/core/modals'
 import { useSessionSignout } from '@app/hooks/auth/session'
+import AccountHeadCard from '@app/components/users/user/AccountHeadCard.vue'
 export default defineComponent({
 	name: 'AccountSidebar',
+	components: { AccountHeadCard },
 	setup () {
 		const { isLoggedIn, user } = useAuth()
 		const { loading, signout } = useSessionSignout()

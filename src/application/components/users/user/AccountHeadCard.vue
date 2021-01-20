@@ -1,0 +1,57 @@
+<template>
+	<div class="d-flex flex-column align-items-center my-1">
+		<img :src="user.image" alt="" class="profile-image" style="width:90px;height:90px;">
+		<span class="text-18">{{ user.name }}</span>
+		<div class="d-flex justify-content-around mx-auto my-2 w-100" style="max-width: 300px;">
+			<div class="d-flex flex-column align-items-center">
+				<span class="small">
+					Credits
+				</span>
+				<span class="font-weight-bold">
+					{{ user.account.credits }}
+				</span>
+			</div>
+			<div class="bg-grey" style="width: 1px;" />
+			<div class="d-flex flex-column align-items-center">
+				<span class="small">
+					Friends
+				</span>
+				<span class="font-weight-bold">
+					0
+				</span>
+			</div>
+			<div class="bg-grey" style="width: 1px;" />
+			<div class="d-flex flex-column align-items-center">
+				<span class="small">
+					Questions
+				</span>
+				<span class="font-weight-bold">
+					{{ user.meta.questionCount }}
+				</span>
+			</div>
+			<div class="bg-grey" style="width: 1px;" />
+			<div class="d-flex flex-column align-items-center">
+				<span class="small">
+					Answers
+				</span>
+				<span class="font-weight-bold">
+					{{ user.meta.answerCount }}
+				</span>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script lang="ts">
+import { defineComponent, PropType } from '@nuxtjs/composition-api'
+import { UserEntity } from '@modules/users'
+export default defineComponent({
+	name: 'AccountHeadCard',
+	props: {
+		user: {
+			required: true,
+			type: Object as PropType<UserEntity>
+		}
+	}
+})
+</script>

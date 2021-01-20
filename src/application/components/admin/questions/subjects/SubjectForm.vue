@@ -22,7 +22,7 @@
 		</div>
 		<hr>
 		<div class="d-flex justify-content-end my-2">
-			<button class="btn btn-accent text-white" type="submit" :disabled="loading || !factory.valid">
+			<button class="btn btn-primary text-white" type="submit" :disabled="loading || !factory.valid">
 				<span><slot name="buttonText">Submit</slot></span>
 			</button>
 		</div>

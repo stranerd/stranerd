@@ -10,6 +10,9 @@ $color-black: #131313;
 $color-black-transparent: rgba($color-black, .75);
 
 $body-color: $color-grey;
+$yiq-contrasted-threshold: 170;
+$yiq-text-dark: $color-grey;
+$yiq-text-light: $color-white;
 
 $sm: 576px;
 $md: 768px;

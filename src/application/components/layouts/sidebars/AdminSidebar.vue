@@ -78,11 +78,11 @@ export default defineComponent({
 	}
 	.nuxt-link-exact-active {
 		font-weight: 600;
-		color: $color-grey;
-		background: lighten($color-accent, 10);
+		color: $color-white;
+		background: lighten($color-blue, 30);
 		margin: 0 -0.5rem;
 		padding: 0.75rem 1.5rem;
-		img { filter: brightness(50%); }
+		img { filter: brightness(100%); }
 	}
 	.logout {
 		color: $color-white !important;

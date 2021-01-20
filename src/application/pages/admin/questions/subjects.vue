@@ -1,7 +1,7 @@
 <template>
 	<div class="page-content">
 		<div class="d-flex justify-content-end">
-			<button class="btn btn-lg btn-accent text-white" @click="setCreateModalSubject">
+			<button class="btn btn-lg btn-primary text-white" @click="setCreateModalSubject">
 				Add New Subject
 			</button>
 		</div>

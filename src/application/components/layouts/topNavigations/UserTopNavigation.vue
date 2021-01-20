@@ -4,7 +4,7 @@
 			<span class="fas fa-bars text-grey" />
 		</button>
 		<NuxtLink to="/">
-			<img src="@/assets/images/stranerd_logo.png" alt="Stranerd" height="50">
+			<Logo />
 		</NuxtLink>
 		<Links class="ml-auto" />
 	</nav>

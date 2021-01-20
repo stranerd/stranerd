@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="text-center my-1">
-			<img src="@/assets/images/stranerd_logo.png" height="50" alt="Stranerd">
+			<Logo />
 		</div>
 		<div class="d-flex justify-content-center mb-3 text-light-grey">
 			<i class="fas fa-circle mx-1" />

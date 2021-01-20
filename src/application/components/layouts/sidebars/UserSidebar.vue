@@ -45,7 +45,7 @@
 				<img src="@/assets/images/icons/answers.svg" alt="">
 				<span>Answers</span>
 			</NuxtLink>
-			<NuxtLink v-if="user.roles.isTutor" class="link" :to="`/users/${userId}/sessions`">
+			<NuxtLink v-if="user && user.roles.isTutor" class="link" :to="`/users/${userId}/sessions`">
 				<img src="@/assets/images/icons/chat.svg" alt="">
 				<span>Sessions</span>
 			</NuxtLink>

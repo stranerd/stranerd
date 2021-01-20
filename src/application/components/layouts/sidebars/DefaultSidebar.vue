@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="text-center">
-			<img src="@/assets/images/stranerd_logo.png" height="50" alt="Stranerd">
+			<Logo />
 		</div>
 		<div v-if="isLoggedIn" class="d-flex flex-column align-items-center my-1">
 			<img :src="user.image" alt="" class="profile-image" style="width:90px;height:90px;">

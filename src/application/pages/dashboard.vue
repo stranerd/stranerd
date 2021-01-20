@@ -149,7 +149,9 @@ export default defineComponent({
 			@media (min-width: $lg) {
 				background-color: lighten($color-light-grey, 5);
 				padding: 0.5rem;
-				border-radius: 1rem;
+				border-radius: 0.75rem;
+				border: 1px solid lighten($color-light-grey, 0);
+				box-shadow: 0 3px 6px rgba($color-black, 0.1);
 			}
 		}
 	}

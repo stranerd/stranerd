@@ -1,36 +1,7 @@
 <template>
 	<div>
-		<div v-if="user" class="d-flex flex-column align-items-center my-1">
-			<img :src="user.image" alt="" class="profile-image" style="width:90px;height:90px;">
-			<span class="text-18">{{ user.name }}</span>
-			<div class="d-flex justify-content-around my-2 w-100">
-				<div class="d-flex flex-column align-items-center">
-					<span class="small">
-						Friends
-					</span>
-					<span class="font-weight-bold">
-						0
-					</span>
-				</div>
-				<div class="bg-grey" style="width: 1px;" />
-				<div class="d-flex flex-column align-items-center">
-					<span class="small">
-						Questions
-					</span>
-					<span class="font-weight-bold">
-						{{ user.meta.questionCount }}
-					</span>
-				</div>
-				<div class="bg-grey" style="width: 1px;" />
-				<div class="d-flex flex-column align-items-center">
-					<span class="small">
-						Answers
-					</span>
-					<span class="font-weight-bold">
-						{{ user.meta.answerCount }}
-					</span>
-				</div>
-			</div>
+		<div v-if="user" class="d-none d-lg-block">
+			<UserHeadCard :user="user" />
 		</div>
 		<div class="my-1 d-flex flex-column links">
 			<NuxtLink class="link" to="/dashboard">
@@ -39,19 +10,23 @@
 			</NuxtLink>
 			<NuxtLink class="link" :to="`/users/${userId}/questions`">
 				<img src="@/assets/images/icons/questions.svg" alt="">
-				<span>Questions</span>
+				<span><span class="d-lg-none">User's </span>Questions</span>
 			</NuxtLink>
 			<NuxtLink class="link" :to="`/users/${userId}/answers`">
 				<img src="@/assets/images/icons/answers.svg" alt="">
-				<span>Answers</span>
+				<span><span class="d-lg-none">User's </span>Answers</span>
 			</NuxtLink>
 			<NuxtLink v-if="user && user.roles.isTutor" class="link" :to="`/users/${userId}/sessions`">
 				<img src="@/assets/images/icons/chat.svg" alt="">
-				<span>Sessions</span>
+				<span><span class="d-lg-none">User's </span>Sessions</span>
+			</NuxtLink>
+			<NuxtLink class="link" :to="`/users/${userId}/about`">
+				<img src="@/assets/images/icons/about.svg" alt="">
+				<span><span class="d-lg-none">User's </span>About</span>
 			</NuxtLink>
 			<NuxtLink class="link" :to="`/users/${userId}/projects`">
 				<img src="@/assets/images/icons/projects.svg" alt="">
-				<span>Projects</span>
+				<span><span class="d-lg-none">User's </span>Projects</span>
 			</NuxtLink>
 		</div>
 	</div>
@@ -60,8 +35,10 @@
 <script lang="ts">
 import { defineComponent, useContext } from '@nuxtjs/composition-api'
 import { useUser } from '@app/hooks/users/user'
+import UserHeadCard from '@app/components/users/user/UserHeadCard.vue'
 export default defineComponent({
 	name: 'UserSidebar',
+	components: { UserHeadCard },
 	setup () {
 		const { route } = useContext()
 		const { userId } = route.value.params

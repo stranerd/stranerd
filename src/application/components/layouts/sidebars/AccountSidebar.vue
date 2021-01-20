@@ -48,31 +48,35 @@
 			</NuxtLink>
 			<NuxtLink class="link" to="/account/questions">
 				<img src="@/assets/images/icons/questions.svg" alt="">
-				<span>Questions</span>
+				<span><span class="d-lg-none">My </span>Questions</span>
 			</NuxtLink>
 			<NuxtLink class="link" to="/account/answers">
 				<img src="@/assets/images/icons/answers.svg" alt="">
-				<span>Answers</span>
+				<span><span class="d-lg-none">My </span>Answers</span>
 			</NuxtLink>
 			<NuxtLink v-if="user.roles.isTutor" class="link" to="/account/sessions">
 				<img src="@/assets/images/icons/chat.svg" alt="">
-				<span>Sessions</span>
+				<span><span class="d-lg-none">My </span>Sessions</span>
 			</NuxtLink>
 			<NuxtLink class="link" to="/account/challenges">
 				<img src="@/assets/images/icons/challenge.svg" alt="">
-				<span>Challenges</span>
+				<span><span class="d-lg-none">My </span>Challenges</span>
 			</NuxtLink>
 			<NuxtLink class="link" to="/account/friends">
 				<img src="@/assets/images/icons/friends.svg" alt="">
-				<span>Friends</span>
+				<span><span class="d-lg-none">My </span>Friends</span>
 			</NuxtLink>
 			<NuxtLink class="link" to="/account/projects">
 				<img src="@/assets/images/icons/projects.svg" alt="">
-				<span>Projects</span>
+				<span><span class="d-lg-none">My </span>Projects</span>
 			</NuxtLink>
 			<NuxtLink class="link" to="/account/e-wallet">
 				<img src="@/assets/images/icons/e-wallet.svg" alt="">
-				<span>E-Wallet</span>
+				<span><span class="d-lg-none">My </span>E-Wallet</span>
+			</NuxtLink>
+			<NuxtLink class="link" to="/account/about">
+				<img src="@/assets/images/icons/about.svg" alt="">
+				<span><span class="d-lg-none">My </span>About</span>
 			</NuxtLink>
 			<a class="link" @click.prevent="openEditProfileModal">
 				<img src="@/assets/images/icons/edit-profile.svg" alt="">

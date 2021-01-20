@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h5>{{ id === userId ? 'My' : 'User' }} Answers</h5>
+		<h5>Answers</h5>
 		<hr class="thick">
 		<div v-for="answer in answers" :key="answer.hash">
 			<AnswerCard :answer="answer" />

@@ -54,6 +54,10 @@
 				<img src="@/assets/images/icons/answers.svg" alt="">
 				<span>Answers</span>
 			</NuxtLink>
+			<NuxtLink v-if="user.roles.isTutor" class="link" to="/account/sessions">
+				<img src="@/assets/images/icons/chat.svg" alt="">
+				<span>Sessions</span>
+			</NuxtLink>
 			<NuxtLink class="link" to="/account/challenges">
 				<img src="@/assets/images/icons/challenge.svg" alt="">
 				<span>Challenges</span>

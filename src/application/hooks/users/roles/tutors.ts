@@ -1,7 +1,7 @@
 import { reactive, ssrRef, toRefs, useFetch } from '@nuxtjs/composition-api'
 import {
 	AddTutorSubject, FindUser, GetAllTutors, GetUsersByEmail,
-	MakeTutor, RemoveTutor, RemoveTutorSubject, UserEntity, TutorEntity
+	MakeTutor, RemoveTutor, RemoveTutorSubject, UserEntity
 } from '@modules/users'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { Alert } from '@app/hooks/core/notifications'
@@ -77,7 +77,7 @@ export const useTutorRoles = () => {
 		setLoading(false)
 	}
 
-	const removeTutor = async (tutor: TutorEntity) => {
+	const removeTutor = async (tutor: UserEntity) => {
 		setError('')
 		const accepted = await Alert({
 			title: 'Are you sure you want to remove this tutor?',

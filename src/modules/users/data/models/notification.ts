@@ -2,6 +2,7 @@ import { NotificationType } from '../../domain/entities/notification'
 
 export interface NotificationFromModel {
 	id: string
+	title: string
 	body: string
 	seen: boolean
 	type: NotificationType
@@ -12,6 +13,7 @@ export interface NotificationFromModel {
 }
 
 export interface NotificationToModel {
+	title: string
 	body: string
 	seen: boolean
 	type: NotificationType

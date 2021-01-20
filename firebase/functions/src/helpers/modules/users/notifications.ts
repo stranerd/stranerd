@@ -8,6 +8,7 @@ export enum NotificationType {
 	ERROR
 }
 type CreateNotification = {
+	title: string
 	body: string
 	type: NotificationType
 	action: string

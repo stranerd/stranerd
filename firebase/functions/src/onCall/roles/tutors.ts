@@ -23,6 +23,7 @@ export const toggleTutor = functions.https.onCall(async (data, context) => {
 			await createNotification(id, {
 				type: NotificationType.INFO,
 				action: '/account',
+				title: 'Tutoring Privileges Modified',
 				body: 'Your account has successfully being granted tutoring privileges'
 			})
 		} else {
@@ -35,6 +36,7 @@ export const toggleTutor = functions.https.onCall(async (data, context) => {
 			await createNotification(id, {
 				type: NotificationType.INFO,
 				action: '/account',
+				title: 'Tutoring Privileges Modified',
 				body: 'Your tutoring privileges has been removed. Contact an admin if this was a mistake'
 			})
 		}

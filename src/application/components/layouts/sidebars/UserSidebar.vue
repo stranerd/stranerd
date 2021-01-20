@@ -45,21 +45,13 @@
 				<img src="@/assets/images/icons/answers.svg" alt="">
 				<span>Answers</span>
 			</NuxtLink>
-			<NuxtLink class="link" :to="`/users/${userId}/challenges`">
-				<img src="@/assets/images/icons/challenge.svg" alt="">
-				<span>Challenges</span>
-			</NuxtLink>
-			<NuxtLink class="link" :to="`/users/${userId}/friends`">
-				<img src="@/assets/images/icons/friends.svg" alt="">
-				<span>Friends</span>
+			<NuxtLink v-if="user.roles.isTutor" class="link" :to="`/users/${userId}/sessions`">
+				<img src="@/assets/images/icons/chat.svg" alt="">
+				<span>Sessions</span>
 			</NuxtLink>
 			<NuxtLink class="link" :to="`/users/${userId}/projects`">
 				<img src="@/assets/images/icons/projects.svg" alt="">
 				<span>Projects</span>
-			</NuxtLink>
-			<NuxtLink class="link" :to="`/users/${userId}/e-wallet`">
-				<img src="@/assets/images/icons/e-wallet.svg" alt="">
-				<span>E-Wallet</span>
 			</NuxtLink>
 		</div>
 	</div>

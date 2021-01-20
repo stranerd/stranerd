@@ -4,16 +4,17 @@ import { NotificationEntity } from '../../domain/entities/notification'
 
 export class NotificationTransformer {
 	fromJSON (model: NotificationFromModel) {
-		const { id, body, action, type, seen, dates: { createdAt } } = model
+		const { id, title, body, action, type, seen, dates: { createdAt } } = model
 		return new NotificationEntity({
 			id,
-			body, action, type, seen,
+			title, body, action, type, seen,
 			createdAt: timestampToMs(createdAt)
 		})
 	}
 
 	toJSON (entity: NotificationEntity) :NotificationToModel {
 		return {
+			title: entity.title,
 			body: entity.body,
 			action: entity.action,
 			type: entity.type,

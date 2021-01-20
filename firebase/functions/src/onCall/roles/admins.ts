@@ -24,6 +24,7 @@ export const toggleAdmin = functions.https.onCall(async (data, context) => {
 		await createNotification(id, {
 			type: NotificationType.INFO,
 			action: '/admin',
+			title: 'Admin Privileges Modified',
 			body
 		})
 

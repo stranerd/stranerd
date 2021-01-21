@@ -33,6 +33,18 @@ export const userCreditsUpdated = functions.database.ref('profiles/{userId}/acco
 
 		if (diffInCredits > 0) {
 			const { userId } = context.params
+			let shouldSkip = false
+
+			await admin.database().ref('profiles')
+				.child(userId)
+				.child('account/shouldSkipCreditForRankings')
+				.transaction((skip) => {
+					if (skip) shouldSkip = true
+					return null
+				})
+
+			if (shouldSkip) return
+
 			await admin.database().ref('profiles')
 				.child(userId)
 				.child('rankings')

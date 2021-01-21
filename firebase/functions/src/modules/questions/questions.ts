@@ -2,6 +2,7 @@ import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { saveToAlgolia, deleteFromAlgolia } from '../../helpers/algolia'
 import { deleteFromStorage } from '../../helpers/storage'
+import { createTransaction, CURRENCY_PlURAL } from '../../helpers/modules/payments/transactions'
 
 export const questionCreated = functions.firestore.document('questions/{questionId}')
 	.onCreate(async (snap) => {
@@ -20,6 +21,10 @@ export const questionCreated = functions.firestore.document('questions/{question
 				.child('questions')
 				.child(snap.id)
 				.set(true)
+			await createTransaction(userId, {
+				amount: 0 - credits,
+				event: `You paid ${credits} ${CURRENCY_PlURAL} to ask a question`
+			})
 		}
 
 		await saveToAlgolia('questions', snap.id, question)

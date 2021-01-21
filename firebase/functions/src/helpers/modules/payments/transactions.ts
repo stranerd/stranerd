@@ -1,5 +1,8 @@
 import * as admin from 'firebase-admin'
 
+export const CURRENCY_SINGULAR = 'coin'
+export const CURRENCY_PlURAL = 'coins'
+
 type CreateTransaction = {
 	amount: number
 	event: string

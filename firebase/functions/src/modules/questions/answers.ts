@@ -2,6 +2,7 @@ import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { deleteFromStorage } from '../../helpers/storage'
 import { progressPersonalChallenge } from '../../helpers/modules/challenges/personal-challenge'
+import { createTransaction, CURRENCY_PlURAL } from '../../helpers/modules/payments/transactions'
 
 export const answerCreated = functions.firestore.document('answers/{answerId}')
 	.onCreate(async (snap) => {
@@ -25,6 +26,10 @@ export const answerCreated = functions.firestore.document('answers/{answerId}')
 				.child('answers')
 				.child(snap.id)
 				.set(true)
+			await createTransaction(userId, {
+				amount: credits,
+				event: `You got ${credits} ${CURRENCY_PlURAL} from answering a question`
+			})
 		}
 
 		await progressPersonalChallenge(userId, snap.data())

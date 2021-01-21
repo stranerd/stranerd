@@ -43,7 +43,7 @@ type ChallengeConstructorArgs = ChallengeClone & {
 
 export type ChallengeClone = {
 	id: string,
-	type: string,
+	type: ChallengeTypes,
 	description: string,
 	reward: number,
 	count: number,

@@ -45,4 +45,4 @@ export const firebase = () => ({
 })
 
 export const domain = () => `http${!isDev() ? 's' : ''}://${environment()?.domain}`
-export const logo = () => `${domain()}/images/stranerd_logo.png`
+export const logo = () => `${domain()}/images/stranerd_logo.svg`

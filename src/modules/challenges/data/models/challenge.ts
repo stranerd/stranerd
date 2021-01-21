@@ -1,8 +1,9 @@
 import { Timestamp } from '@modules/core/services/initFirebase'
+import { ChallengeTypes } from '../../domain/entities/challenge'
 
 export interface ChallengeFromModel {
 	id: string
-	type: string
+	type: ChallengeTypes
 	description: string
 	reward: number
 	count: number

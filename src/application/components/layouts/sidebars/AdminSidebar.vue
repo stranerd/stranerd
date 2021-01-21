@@ -79,7 +79,7 @@ export default defineComponent({
 	.nuxt-link-exact-active {
 		font-weight: 600;
 		color: $color-white;
-		background: lighten($color-blue, 30);
+		background: lighten($color-blue, 10);
 		margin: 0 -0.5rem;
 		padding: 0.75rem 1.5rem;
 		img { filter: brightness(100%); }

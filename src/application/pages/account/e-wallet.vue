@@ -1,20 +1,20 @@
 <template>
 	<div class="page-content">
-		<UserAboutCard :user="user" />
+		<UserTransactionList :user-id="id" />
 	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
+import UserTransactionList from '@app/components/payment/transactions/UserTransactionList.vue'
 import { useAuth } from '@app/hooks/auth/auth'
-import UserAboutCard from '@app/components/users/user/UserAboutCard.vue'
 export default defineComponent({
-	name: 'AccountAboutPage',
-	components: { UserAboutCard },
+	name: 'AccountEWalletPage',
+	components: { UserTransactionList },
 	layout: 'account',
 	setup () {
-		const { user } = useAuth()
-		return { user }
+		const { id } = useAuth()
+		return { id }
 	}
 })
 </script>

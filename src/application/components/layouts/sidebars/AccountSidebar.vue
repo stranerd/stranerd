@@ -58,7 +58,7 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useEditModal, useMenuModal } from '@app/hooks/core/modals'
 import { useSessionSignout } from '@app/hooks/auth/session'
-import AccountHeadCard from '@app/components/users/user/AccountHeadCard.vue'
+import AccountHeadCard from '@app/components/users/account/AccountHeadCard.vue'
 export default defineComponent({
 	name: 'AccountSidebar',
 	components: { AccountHeadCard },

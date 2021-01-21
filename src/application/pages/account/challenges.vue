@@ -1,5 +1,5 @@
 <template>
-	<UserChallengesList v-if="isLoggedIn" class="page-content" :user-id="id" />
+	<UserChallengesList class="page-content" :user-id="id" />
 </template>
 
 <script lang="ts">
@@ -11,8 +11,8 @@ export default defineComponent({
 	components: { UserChallengesList },
 	layout: 'account',
 	setup () {
-		const { id, isLoggedIn } = useAuth()
-		return { id, isLoggedIn }
+		const { id } = useAuth()
+		return { id }
 	}
 })
 </script>

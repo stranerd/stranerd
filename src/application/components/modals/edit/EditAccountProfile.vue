@@ -18,7 +18,7 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useEditModal } from '@app/hooks/core/modals'
-import AccountProfileForm from '@app/components/users/user/AccountProfileForm.vue'
+import AccountProfileForm from '@app/components/users/account/AccountProfileForm.vue'
 export default defineComponent({
 	name: 'EditAccountProfile',
 	components: { AccountProfileForm },

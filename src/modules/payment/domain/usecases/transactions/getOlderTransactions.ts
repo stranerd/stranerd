@@ -1,4 +1,5 @@
 import { FirestoreGetClauses } from '@modules/core/data/datasources/base'
+import { PAGINATION_LIMIT } from '@utils/constants'
 import { ITransactionRepository } from '../../irepositories/itransaction'
 
 export class GetOlderTransactionsUseCase {
@@ -11,9 +12,10 @@ export class GetOlderTransactionsUseCase {
 	async call (userId: string, date?: Date) {
 		const conditions: FirestoreGetClauses = {
 			order: {
-				field: 'dates/createdAt',
+				field: 'dates.createdAt',
 				desc: true
-			}
+			},
+			limit: PAGINATION_LIMIT + 1
 		}
 		if (date) conditions.where = [{ field: 'dates.createdAt', condition: '<', value: date }]
 

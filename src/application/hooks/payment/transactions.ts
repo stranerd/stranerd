@@ -22,7 +22,7 @@ const unshiftToTransactionList = (userId: string, transaction: TransactionEntity
 	else global[userId].transactions.value.unshift(transaction)
 }
 
-export const useTransactionList = async (userId: string) => {
+export const useTransactionList = (userId: string) => {
 	if (global[userId] === undefined) global[userId] = {
 		transactions: ssrRef([]),
 		hasMore: ssrRef(false),
@@ -37,8 +37,9 @@ export const useTransactionList = async (userId: string) => {
 			const lastDate = global[userId].transactions.value[0]?.createdAt
 			const transactions = await GetTransactions.call(userId, lastDate ? new Date(lastDate) : undefined)
 			global[userId].hasMore.value = transactions.length === PAGINATION_LIMIT + 1
-			transactions.reverse().forEach((t) => unshiftToTransactionList(userId, t))
-		} catch (e) { global[userId].setLoading(false) }
+			transactions.slice(0, PAGINATION_LIMIT).reverse().forEach((t) => unshiftToTransactionList(userId, t))
+		} catch (e) { global[userId].setError(e) }
+		global[userId].setLoading(false)
 	}
 
 	const fetchOlderTransactions = async () => {
@@ -50,8 +51,9 @@ export const useTransactionList = async (userId: string) => {
 				?.createdAt
 			const transactions = await GetOlderTransactions.call(userId, lastDate ? new Date(lastDate) : undefined)
 			global[userId].hasMore.value = transactions.length === PAGINATION_LIMIT + 1
-			transactions.forEach((t) => pushToTransactionList(userId, t))
-		} catch (e) { global[userId].setLoading(false) }
+			transactions.slice(0, PAGINATION_LIMIT).forEach((t) => pushToTransactionList(userId, t))
+		} catch (e) { global[userId].setError(e) }
+		global[userId].setLoading(false)
 	}
 
 	useFetch(fetchTransactions)

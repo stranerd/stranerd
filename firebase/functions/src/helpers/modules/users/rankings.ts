@@ -13,7 +13,7 @@ export type TopUser = { email: string, name: string, id: string, credits: number
 const getTop5Users = async (period: RankingPeriods) => {
 	const ref = await admin.database().ref('profiles')
 		.orderByChild(`rankings/${period}`)
-		.startAt(0)
+		.startAt(1)
 		.limitToLast(5)
 		.once('value')
 	const users = [] as TopUser[]
@@ -39,9 +39,9 @@ const saveTopUsers = async (period: RankingPeriods, users: TopUser[]) => {
 
 const resetRankings = async (userPaths: string[]) => {
 	const data = userPaths.reduce((acc, curr) => {
-		acc[curr] = null
+		acc[curr] = 0
 		return acc
-	}, {} as Record<string, null>)
+	}, {} as Record<string, number>)
 
 	await admin.database().ref('profiles').update(data)
 }

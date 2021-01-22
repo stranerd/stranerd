@@ -96,3 +96,39 @@ export const updateBraintreeBio = async (userId: string, oldBio: any, bio: any) 
 		}
 	} catch (error) { console.log(`Error updating braintree bio of ${userId}`) }
 }
+
+export const updateUserStreak = async (userId: string) => {
+	const userRef = await admin.database().ref('users').child(userId)
+	const status = await userRef.child('status').once('value')
+	const { lastSignIn } = status.val()
+	const date = new Date(lastSignIn ?? 0)
+	const now = new Date()
+	const { isLessThan, isNextDay } = getDateDifference(date, now)
+	if (isLessThan) return false
+	if (!isNextDay) {
+		// send notification that streak has ended
+	}
+	await userRef
+		.update({
+			'account/credits': 5,
+			'status/streak': isNextDay ? admin.database.ServerValue.increment(1) : 1,
+			'status/lastSignIn': admin.database.ServerValue.TIMESTAMP
+		})
+
+	return true
+}
+
+const getDateDifference = (date1: Date, date2: Date) => {
+	const isSameDay = (date1: Date, date2: Date) => date1.getDate() === date2.getDate() &&
+		date1.getMonth() === date2.getMonth() &&
+		date1.getFullYear() === date2.getFullYear()
+	const res = { isLessThan: false, isNextDay: false }
+	res.isLessThan = date2 <= date1 || isSameDay(date1, date2)
+	const start = new Date(
+		date1.getFullYear(),
+		date1.getMonth(),
+		date1.getDate() + 2,
+		0, 0, 0)
+	res.isNextDay = date2 < start
+	return res
+}

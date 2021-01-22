@@ -35,9 +35,9 @@ export const userCreditsUpdated = functions.database.ref('profiles/{userId}/acco
 			const { userId } = context.params
 			let shouldSkip = false
 
-			await admin.database().ref('profiles')
-				.child(userId)
-				.child('account/shouldSkipCreditForRankings')
+			const userRef = admin.database().ref('profiles').child(userId)
+
+			await userRef.child('account/shouldSkipCreditRankings')
 				.transaction((skip) => {
 					if (skip) shouldSkip = true
 					return null
@@ -45,9 +45,7 @@ export const userCreditsUpdated = functions.database.ref('profiles/{userId}/acco
 
 			if (shouldSkip) return
 
-			await admin.database().ref('profiles')
-				.child(userId)
-				.child('rankings')
+			await userRef.child('rankings')
 				.update(
 					Object.values(RankingPeriods)
 						.reduce((acc, cur) => {

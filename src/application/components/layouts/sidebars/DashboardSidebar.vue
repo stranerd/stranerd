@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="text-center my-1">
+		<div class="text-center">
 			<Logo />
 		</div>
 		<div class="d-flex justify-content-center mb-3 text-light-grey">

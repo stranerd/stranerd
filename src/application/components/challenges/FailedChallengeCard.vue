@@ -1,16 +1,16 @@
 <template>
 	<div :id="challenge.id">
-		<div class="d-flex align-items-center">
+		<div class="d-flex align-items-start">
 			<div class="d-flex flex-column mr-1">
 				<span class="text-capitalize mr-1 mb-1 text-wrap">
 					{{ challenge.description }}
 				</span>
 				<div class="d-flex align-items-center">
-					<span class="d-none align-items-center">
+					<span class="mr-2">
 						<span>+{{ formatNumber(challenge.reward) }}</span>
 						<Credits :size="16" />
 					</span>
-					<div class="progress ml-2">
+					<div class="progress">
 						<div class="progress-level" :style="`width: ${100 * personal.progress / personal.clone.count}%`" />
 						<span class="text">{{ personal.progress }} / {{ personal.clone.count }}</span>
 					</div>

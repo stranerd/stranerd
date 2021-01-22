@@ -1,6 +1,6 @@
 <template>
 	<div :id="challenge.id">
-		<div class="d-flex align-items-center">
+		<div class="d-flex align-items-start">
 			<span class="text-capitalize mr-1 text-wrap">
 				{{ challenge.description }}
 			</span>

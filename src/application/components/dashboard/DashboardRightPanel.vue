@@ -1,6 +1,6 @@
 <template>
-	<div class="d-flex flex-column flex-md-row flex-lg-column">
-		<div v-if="isLoggedIn" class="d-none d-lg-block">
+	<div class="d-flex flex-column flex-md-row flex-lg-column align-items-start">
+		<div v-if="isLoggedIn" class="d-none d-lg-block w-100">
 			<div class="d-flex flex-column align-items-center">
 				<img :src="user.image" alt="" class="profile-image" style="width:90px;height:90px;">
 				<span class="text-18 font-weight-bold">{{ user.name }}</span>
@@ -12,18 +12,19 @@
 					View Profile
 				</NuxtLink>
 			</div>
-			<hr class="thick my-2 mx-n1">
+			<div class="my-2 bg-light-grey mx-n1" style="height: 8px;" />
 		</div>
-		<div class="content mr-md-1 mr-lg-0 mb-2 mb-lg-4">
-			<h3 class="d-none d-lg-block text-center font-weight-bold">
+		<div class="content mr-md-1 mr-lg-0 mb-2">
+			<h3 class="d-none d-lg-block mb-2 text-center font-weight-bold">
 				Challenges
 			</h3>
 			<div class="body">
 				<ChallengesList :user-id="id || ''" />
 			</div>
+			<div class="d-none d-lg-block mx-n2 mt-2 bg-light-grey" style="height: 8px;" />
 		</div>
 		<div class="content">
-			<h3 class="d-none d-lg-block text-center font-weight-bold">
+			<h3 class="d-none d-lg-block mb-2 text-center font-weight-bold">
 				Rankings
 			</h3>
 			<div class="body">
@@ -50,9 +51,9 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .content {
-	padding: 0.5rem;
 	background-color: $color-white;
 	border-radius: 0.5rem;
+	width: 100%;
 	@media (min-width: $md) {
 		flex-grow: 1;
 		border-radius: 1.0rem;
@@ -65,9 +66,8 @@ export default defineComponent({
 	}
 	.body {
 		@media (min-width: $lg) {
-			background-color: lighten($color-light-grey, 5);
-			padding: 0.5rem;
-			border-radius: 0.75rem;
+			background-color: lighten($color-light-grey, 7);
+			border-radius: 0.25rem;
 			border: 1px solid lighten($color-light-grey, 0);
 			box-shadow: 0 3px 6px rgba($color-black, 0.1);
 		}

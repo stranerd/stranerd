@@ -1,19 +1,20 @@
 <template>
 	<div>
 		<hr class="thin">
-		<div v-for="user in users" :key="user.hash">
+		<div v-for="(user, index) in users" :key="user.hash">
 			<TopUserCard :user="user" :period="period" />
-			<hr class="thin">
+			<hr v-if="index !== users.length - 1 || !isLoggedIn" class="thin">
 		</div>
-		<DisplayWarning v-if="!loading && !error && users.length === 0" message="No users found." />
 		<div v-if="isLoggedIn">
-			<h6 class="mt-2">
+			<div class="my-2 mx-n1 bg-light-grey" style="height: 8px;" />
+			<h6 class="font-weight-bold">
 				Your Ranking
 			</h6>
 			<hr class="thin">
 			<TopUserCard :user="user" :period="period" />
 			<hr class="thin">
 		</div>
+		<DisplayWarning v-if="!loading && !error && users.length === 0" message="No users found." />
 		<DisplayError :error="error" />
 		<PageLoading v-if="loading" />
 	</div>

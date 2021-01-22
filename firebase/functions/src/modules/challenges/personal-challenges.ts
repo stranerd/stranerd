@@ -26,7 +26,7 @@ export const personalChallengeCreated = functions.database.ref('users/{userId}/c
 				.child(id)
 				.child('taskName')
 				.set(name)
-		} catch (error) { console.log('Failed creating task ', id, error) }
+		} catch (error) { console.log('Failed creating task ', id, './n',error.message) }
 	})
 
 export const personalChallengeCancelled = functions.database.ref('users/{userId}/challenges/{id}/cancelled')

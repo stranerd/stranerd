@@ -1,11 +1,11 @@
 <template>
-	<div>
+	<div class="p-1">
 		<section class="d-flex text-center align-items-center flex-wrap">
-			<h5 class="text-grey mb-0">
+			<h5 class=" font-weight-bold mb-0">
 				Top Users
 			</h5>
 			<form class="form-inline ml-auto">
-				<select v-model="period" class="form-control form-control-sm my-1">
+				<select v-model="period" class="form-control form-control-sm">
 					<option v-for="period in periods" :key="period" :value="period">
 						{{ period }}
 					</option>

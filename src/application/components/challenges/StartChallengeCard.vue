@@ -1,11 +1,11 @@
 <template>
 	<div :id="challenge.id">
-		<div class="d-flex align-items-center">
+		<div class="d-flex align-items-start">
 			<div class="d-flex flex-column mr-1">
 				<span class="text-capitalize mr-1 text-wrap">
 					{{ challenge.description }}
 				</span>
-				<span class="d-none align-items-center">
+				<span>
 					<span>+{{ formatNumber(challenge.reward) }}</span>
 					<Credits :size="16" />
 				</span>

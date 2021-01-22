@@ -1,12 +1,19 @@
 <template>
 	<div class="text-grey">
-		<div v-if="current" class="mb-4">
-			<h6>Current Challenge</h6>
-			<CurrentChallengeCard :challenge="current" />
-			<hr class="thin">
-		</div>
-		<div class="my-2">
-			<h6>New Challenges</h6>
+		<template v-if="current">
+			<div class="m-1">
+				<h5 class="font-weight-bold">
+					Current Challenge
+				</h5>
+				<hr class="thin">
+				<CurrentChallengeCard :challenge="current" />
+			</div>
+			<div class="my-2 bg-light-grey" style="height: 8px;" />
+		</template>
+		<div class="m-1">
+			<h5 class="font-weight-bold">
+				New Challenges
+			</h5>
 			<hr class="thin">
 			<div v-for="challenge in challenges" :key="challenge.hash">
 				<StartChallengeCard :challenge="challenge" :personal-challenges="pChallenges" class="my-2" />
@@ -14,15 +21,17 @@
 			</div>
 		</div>
 		<DisplayWarning v-if="!loading && !error && !current && challenges.length === 0" message="No new challenges found" />
-		<div v-else class="text-center py-1 text-18">
-			<NuxtLink to="/account/challenges" class="font-weight-bold text-grey">
+		<div v-else class="text-center m-2 text-18">
+			<NuxtLink to="/account/challenges" class="font-weight-bold">
 				SEE MORE
 			</NuxtLink>
 		</div>
 		<PageLoading v-if="loading" />
 		<PageLoading v-if="pLoading" />
-		<DisplayError :error="error" />
-		<DisplayError :error="pError" />
+		<div class="mx-1">
+			<DisplayError :error="error" />
+			<DisplayError :error="pError" />
+		</div>
 	</div>
 </template>
 

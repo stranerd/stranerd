@@ -1,28 +1,26 @@
 <template>
 	<div :id="challenge.id">
-		<div class="d-flex align-items-center">
-			<div class="d-flex flex-column mr-1">
-				<span class="text-capitalize mr-1 text-wrap">
-					{{ challenge.clone.description }}
-				</span>
-				<div class="d-flex align-items-center">
-					<span class="d-none align-items-center">
-						<span>+{{ formatNumber(challenge.clone.reward) }}</span>
-						<Credits :size="16" />
-					</span>
-					<a class="ml-2 text-red" @click="cancel">
-						Cancel challenge
-					</a>
-				</div>
-			</div>
+		<div class="d-flex align-items-start">
+			<span class="text-capitalize mr-1 text-wrap">
+				{{ challenge.clone.description }}
+			</span>
 			<span class="ml-auto flex-no-wrap d-flex align-items-center">
 				<i class="fas fa-clock mr-quarter" />
 				<span class="text-nowrap">{{ time }}</span>
 			</span>
-			<div class="progress ml-1">
-				<div class="progress-level" :style="`width: ${100 * challenge.progress / challenge.clone.count}%`" />
-				<span class="text">{{ challenge.progress }} / {{ challenge.clone.count }}</span>
-			</div>
+		</div>
+		<div class="progress my-1">
+			<div class="progress-level" :style="`width: ${100 * challenge.progress / challenge.clone.count}%`" />
+			<span class="text">{{ challenge.progress }} / {{ challenge.clone.count }}</span>
+		</div>
+		<div class="d-flex align-items-center">
+			<span class="mr-2">
+				<span>+{{ formatNumber(challenge.clone.reward) }}</span>
+				<Credits :size="16" />
+			</span>
+			<a class="text-red" @click="cancel">
+				Cancel challenge
+			</a>
 		</div>
 		<DisplayError :error="error" />
 		<PageLoading v-if="loading" />
@@ -57,7 +55,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 .progress {
 	border-radius: 10rem;
-	width: clamp(60px, 25%, 150px);
 	position: relative;
 	color: $color-white;
 	display: flex;

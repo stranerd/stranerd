@@ -17,7 +17,7 @@
 			<div class="d-flex align-items-center position-relative ml-auto">
 				<Credits :size="20" style="z-index:1;" />
 				<span class="rounded-pill ml-n2 pr-1 border border-grey small" style="padding-left: 1.25rem;">
-					+{{ question.creditable }}
+					+{{ formatNumber(question.creditable) }}
 				</span>
 			</div>
 		</div>
@@ -46,6 +46,7 @@ import { QuestionEntity } from '@modules/questions'
 import { useSubject } from '@app/hooks/questions/subjects'
 import { useTimeDifference } from '@app/hooks/core/dates'
 import DisplayAttachments from '@app/components/questions/DisplayAttachments.vue'
+import { formatNumber } from '@app/hooks/core/numbers'
 export default defineComponent({
 	name: 'QuestionCommentPageCard',
 	components: { DisplayAttachments },
@@ -60,7 +61,7 @@ export default defineComponent({
 		const { time, startTimer, stopTimer } = useTimeDifference(props.question.createdAt)
 		onMounted(startTimer)
 		onBeforeUnmount(stopTimer)
-		return { subject, time }
+		return { subject, time, formatNumber }
 	}
 })
 </script>

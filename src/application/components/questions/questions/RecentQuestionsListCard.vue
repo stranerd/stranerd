@@ -2,7 +2,7 @@
 	<div :id="question.id">
 		<NuxtLink class="text-grey editor-body mb-1" :to="`/questions/${question.id}`" v-html="question.body" />
 		<span class="mr-2">
-			<span>+{{ question.creditable }}</span>
+			<span>+{{ formatNumber(question.creditable) }}</span>
 			<Credits :size="16" />
 		</span>
 		<span v-if="question.attachments.length">
@@ -15,6 +15,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { QuestionEntity } from '@modules/questions'
+import { formatNumber } from '@app/hooks/core/numbers'
 export default defineComponent({
 	name: 'RecentQuestionsListCard',
 	props: {
@@ -22,6 +23,9 @@ export default defineComponent({
 			required: true,
 			type: Object as PropType<QuestionEntity>
 		}
+	},
+	setup () {
+		return { formatNumber }
 	}
 })
 </script>

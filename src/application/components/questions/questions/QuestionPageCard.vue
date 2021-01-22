@@ -17,7 +17,7 @@
 			<div class="d-flex align-items-center position-relative ml-auto">
 				<Credits :size="20" style="z-index:1;" />
 				<span class="rounded-pill ml-n2 pr-1 border border-grey small" style="padding-left: 1.25rem;">
-					+{{ question.creditable }}
+					+{{ formatNumber(question.creditable) }}
 				</span>
 			</div>
 		</div>
@@ -78,6 +78,7 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { useRedirectToAuth } from '@app/hooks/auth/session'
 import DisplayAttachments from '@app/components/questions/DisplayAttachments.vue'
 import CommentForm from '@app/components/questions/comments/QuestionCommentForm.vue'
+import { formatNumber } from '@app/hooks/core/numbers'
 export default defineComponent({
 	name: 'QuestionPageCard',
 	components: { DisplayAttachments, CommentForm },
@@ -95,7 +96,7 @@ export default defineComponent({
 		onMounted(startTimer)
 		onBeforeUnmount(stopTimer)
 		return {
-			id,
+			id, formatNumber,
 			subject, time,
 			openAnswerModal: () => {
 				if (!isLoggedIn.value) redirect()

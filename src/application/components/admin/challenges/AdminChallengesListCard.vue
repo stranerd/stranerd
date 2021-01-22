@@ -5,7 +5,7 @@
 		</p>
 		<div class="d-flex flex-wrap">
 			<span class="d-flex align-items-center">
-				<span>+{{ challenge.reward }}</span>
+				<span>+{{ formatNumber(challenge.reward) }}</span>
 				<Credits :size="16" />
 			</span>
 			<span class="mx-1">x{{ challenge.count }}</span>
@@ -29,6 +29,7 @@ import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { ChallengeEntity } from '@modules/challenges'
 import { useDeleteChallenge } from '@app/hooks/challenges/challenges'
 import { getTimeFormatted } from '@app/hooks/core/dates'
+import { formatNumber } from '@app/hooks/core/numbers'
 export default defineComponent({
 	name: 'AdminChallengesListCard',
 	props: {
@@ -40,7 +41,7 @@ export default defineComponent({
 	setup (props) {
 		const time = getTimeFormatted(props.challenge.time * 60 * 60)
 		const { loading, error, deleteChallenge } = useDeleteChallenge(props.challenge)
-		return { time, loading, error, deleteChallenge }
+		return { formatNumber, time, loading, error, deleteChallenge }
 	}
 })
 </script>

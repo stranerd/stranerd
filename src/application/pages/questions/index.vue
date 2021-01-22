@@ -1,5 +1,5 @@
 <template>
-	<div class="pagecontent">
+	<div class="page-content">
 		<QuestionsList />
 	</div>
 </template>

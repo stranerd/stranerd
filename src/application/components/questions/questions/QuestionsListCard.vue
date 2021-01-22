@@ -17,7 +17,7 @@
 			<div class="d-flex align-items-center position-relative ml-auto">
 				<Credits :size="20" style="z-index:1;" />
 				<span class="rounded-pill ml-n2 pr-1 border border-grey small" style="padding-left: 1.25rem;">
-					+{{ question.creditable }}
+					+{{ formatNumber(question.creditable) }}
 				</span>
 			</div>
 			<NuxtLink v-if="question.userId !== id && !question.isAnswered" class="btn btn-sm rounded-pill py-0 px-1 btn-accent ml-1 text-white" :to="`/questions/${question.id}#answer`">
@@ -38,6 +38,7 @@ import { QuestionEntity } from '@modules/questions'
 import { useSubject } from '@app/hooks/questions/subjects'
 import { useTimeDifference } from '@app/hooks/core/dates'
 import { useAuth } from '@app/hooks/auth/auth'
+import { formatNumber } from '@app/hooks/core/numbers'
 export default defineComponent({
 	name: 'QuestionsListCard',
 	props: {
@@ -52,7 +53,7 @@ export default defineComponent({
 		const { time, startTimer, stopTimer } = useTimeDifference(props.question.createdAt)
 		onMounted(startTimer)
 		onBeforeUnmount(stopTimer)
-		return { id, subject, time }
+		return { id, subject, time, formatNumber }
 	}
 })
 </script>

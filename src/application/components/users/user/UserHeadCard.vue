@@ -17,7 +17,7 @@
 					Questions
 				</span>
 				<span class="font-weight-bold">
-					{{ user.meta.questionCount }}
+					{{ formatNumber(user.meta.questionCount) }}
 				</span>
 			</div>
 			<div class="bg-grey" style="width: 1px;" />
@@ -26,7 +26,7 @@
 					Answers
 				</span>
 				<span class="font-weight-bold">
-					{{ user.meta.answerCount }}
+					{{ formatNumber(user.meta.answerCount) }}
 				</span>
 			</div>
 		</div>
@@ -36,6 +36,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { UserEntity } from '@modules/users'
+import { formatNumber } from '@app/hooks/core/numbers'
 export default defineComponent({
 	name: 'UserHeadCard',
 	props: {
@@ -43,6 +44,9 @@ export default defineComponent({
 			required: true,
 			type: Object as PropType<UserEntity>
 		}
+	},
+	setup () {
+		return { formatNumber }
 	}
 })
 </script>

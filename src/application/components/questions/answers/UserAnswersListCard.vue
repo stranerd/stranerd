@@ -8,7 +8,7 @@
 				{{ time }}
 			</span>
 			<span class="ml-auto">
-				<span>+{{ answer.credits }}</span>
+				<span>+{{ formatNumber(answer.credits) }}</span>
 				<Credits :size="16" />
 			</span>
 			<span v-if="answer.attachments.length" class="ml-1">
@@ -24,6 +24,7 @@ import { defineComponent, onBeforeUnmount, onMounted, PropType } from '@nuxtjs/c
 import { AnswerEntity } from '@modules/questions'
 import { useTimeDifference } from '@app/hooks/core/dates'
 import { useSubject } from '@app/hooks/questions/subjects'
+import { formatNumber } from '@app/hooks/core/numbers'
 export default defineComponent({
 	name: 'UserAnswerListCard',
 	props: {
@@ -37,7 +38,7 @@ export default defineComponent({
 		const { time, startTimer, stopTimer } = useTimeDifference(props.answer.createdAt)
 		onMounted(startTimer)
 		onBeforeUnmount(stopTimer)
-		return { subject, time }
+		return { subject, time, formatNumber }
 	}
 })
 </script>

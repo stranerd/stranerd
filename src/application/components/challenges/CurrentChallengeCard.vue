@@ -7,7 +7,7 @@
 				</span>
 				<div class="d-flex align-items-center">
 					<span class="d-none align-items-center">
-						<span>+{{ challenge.clone.reward }}</span>
+						<span>+{{ formatNumber(challenge.clone.reward) }}</span>
 						<Credits :size="16" />
 					</span>
 					<a class="ml-2 text-red" @click="cancel">
@@ -34,6 +34,7 @@ import { defineComponent, onBeforeUnmount, onMounted, PropType } from '@nuxtjs/c
 import { PersonalChallengeEntity } from '@modules/challenges'
 import { useCountdown } from '@app/hooks/core/dates'
 import { useCancelPersonalChallenge } from '@app/hooks/challenges/personal-challenges'
+import { formatNumber } from '@app/hooks/core/numbers'
 export default defineComponent({
 	name: 'CurrentChallengeCard',
 	props: {
@@ -48,7 +49,7 @@ export default defineComponent({
 		const { time, startTimer, stopTimer } = useCountdown(props.challenge.endedAt)
 		onMounted(startTimer)
 		onBeforeUnmount(stopTimer)
-		return { time, error, loading, cancel }
+		return { formatNumber, time, error, loading, cancel }
 	}
 })
 </script>

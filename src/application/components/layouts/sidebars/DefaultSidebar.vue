@@ -7,7 +7,7 @@
 			<img :src="user.image" alt="" class="profile-image" style="width:90px;height:90px;">
 			<span class="text-18">{{ user.name }}</span>
 			<span class="mb-1">
-				<span>{{ user.account.credits }}</span>
+				<span>{{ formatNumber(user.account.credits) }}</span>
 				<Credits :size="16" />
 			</span>
 			<NuxtLink to="/account/" class="btn btn-outline-accent rounded-pill px-3 py-1">
@@ -61,12 +61,13 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useSessionSignout } from '@app/hooks/auth/session'
+import { formatNumber } from '@app/hooks/core/numbers'
 export default defineComponent({
 	name: 'DefaultSidebar',
 	setup () {
 		const { isLoggedIn, user, isAdmin } = useAuth()
 		const { loading, signout } = useSessionSignout()
-		return { isLoggedIn, user, isAdmin, loading, signout }
+		return { isLoggedIn, user, isAdmin, loading, signout, formatNumber }
 	}
 })
 </script>

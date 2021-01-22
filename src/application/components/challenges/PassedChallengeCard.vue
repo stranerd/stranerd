@@ -9,7 +9,7 @@
 				<span class="small text-nowrap">{{ time }}</span>
 			</span>
 			<span class="ml-1 d-flex align-items-center">
-				<span>+{{ challenge.reward }}</span>
+				<span>+{{ formatNumber(challenge.reward) }}</span>
 				<Credits :size="16" />
 			</span>
 		</div>
@@ -20,6 +20,7 @@
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { ChallengeEntity } from '@modules/challenges'
 import { getTimeFormatted } from '@app/hooks/core/dates'
+import { formatNumber } from '@app/hooks/core/numbers'
 export default defineComponent({
 	name: 'PassedChallengeCard',
 	props: {
@@ -30,7 +31,7 @@ export default defineComponent({
 	},
 	setup (props) {
 		const time = getTimeFormatted(props.challenge.time * 60 * 60)
-		return { time }
+		return { time, formatNumber }
 	}
 })
 </script>

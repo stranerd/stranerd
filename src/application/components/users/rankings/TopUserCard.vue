@@ -7,7 +7,7 @@
 			<span>{{ user.name }}</span>
 		</NuxtLink>
 		<span class="ml-auto d-flex align-items-center">
-			<span class="mr-half">{{ user.rankings[period] }}</span>
+			<span class="mr-half">{{ formatNumber(user.rankings[period]) }}</span>
 			<Credits :size="16" />
 		</span>
 	</div>
@@ -16,6 +16,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { UserEntity } from '@modules/users'
+import { formatNumber } from '@app/hooks/core/numbers'
 export default defineComponent({
 	name: 'TopUserCard',
 	props: {
@@ -27,6 +28,9 @@ export default defineComponent({
 			required: true,
 			type: String
 		}
+	},
+	setup () {
+		return { formatNumber }
 	}
 })
 </script>

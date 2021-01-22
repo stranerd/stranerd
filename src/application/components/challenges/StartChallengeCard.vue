@@ -6,7 +6,7 @@
 					{{ challenge.description }}
 				</span>
 				<span class="d-none align-items-center">
-					<span>+{{ challenge.reward }}</span>
+					<span>+{{ formatNumber(challenge.reward) }}</span>
 					<Credits :size="16" />
 				</span>
 			</div>
@@ -32,6 +32,7 @@ import { useRetryPersonalChallenge, useStartPersonalChallenge } from '@app/hooks
 import { useAuth } from '@app/hooks/auth/auth'
 import { getTimeFormatted } from '@app/hooks/core/dates'
 import { useRedirectToAuth } from '@app/hooks/auth/session'
+import { formatNumber } from '@app/hooks/core/numbers'
 export default defineComponent({
 	name: 'StartChallengeCard',
 	props: {
@@ -62,7 +63,7 @@ export default defineComponent({
 		return {
 			error, loading, rError, rLoading,
 			start, currentChallenge, time,
-			failed
+			failed, formatNumber
 		}
 	}
 })

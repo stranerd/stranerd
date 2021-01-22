@@ -7,7 +7,7 @@
 				</span>
 				<div class="d-flex align-items-center">
 					<span class="d-none align-items-center">
-						<span>+{{ challenge.reward }}</span>
+						<span>+{{ formatNumber(challenge.reward) }}</span>
 						<Credits :size="16" />
 					</span>
 					<div class="progress ml-2">
@@ -35,6 +35,7 @@ import { ChallengeEntity, PersonalChallengeEntity } from '@modules/challenges'
 import { useRetryPersonalChallenge } from '@app/hooks/challenges/personal-challenges'
 import { useAuth } from '@app/hooks/auth/auth'
 import { getTimeFormatted } from '@app/hooks/core/dates'
+import { formatNumber } from '@app/hooks/core/numbers'
 export default defineComponent({
 	name: 'FailedChallengeCard',
 	props: {
@@ -56,7 +57,7 @@ export default defineComponent({
 		})
 		const time = getTimeFormatted(props.challenge.time * 60 * 60)
 		const retry = () => personal.value && retryChallenge(personal.value)
-		return { error, loading, retry, currentChallenge, time, personal }
+		return { formatNumber, error, loading, retry, currentChallenge, time, personal }
 	}
 })
 </script>

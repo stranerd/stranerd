@@ -33,20 +33,21 @@
 			</a>
 		</div>
 		<DisplayAttachments v-if="question.attachments.length" id="attachments" :attachments="question.attachments" />
-		<hr class="thick">
-		<div class="d-flex justify-content-center my-1">
+		<div class="d-flex flex-column align-items-center my-1">
 			<template v-if="question.userId === id">
+				<hr class="thick w-100">
 				<span v-if="question.isAnswered" class="mb-0 h5 text-accent">
 					Answer selected
 				</span>
 				<span v-else-if="question.answers > 0" class="mb-0 h5 text-accent">
-					Select an answer
+					Select an answer as best
 				</span>
 				<span v-else class="mb-0 h5 text-accent">
 					No answers yet.
 				</span>
 			</template>
-			<template v-else>
+			<template v-else-if="isTutor">
+				<hr class="thick w-100">
 				<button v-if="!question.isAnswered" id="answer" class="btn rounded-pill py-1 px-4 btn-accent text-white" @click="openAnswerModal">
 					Add Answer
 				</button>
@@ -89,14 +90,14 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
-		const { isLoggedIn, id } = useAuth()
+		const { isLoggedIn, id, isTutor } = useAuth()
 		const { redirect } = useRedirectToAuth()
 		const { subject } = useSubject(props.question.subjectId)
 		const { time, startTimer, stopTimer } = useTimeDifference(props.question.createdAt)
 		onMounted(startTimer)
 		onBeforeUnmount(stopTimer)
 		return {
-			id, formatNumber,
+			id, formatNumber, isTutor,
 			subject, time,
 			openAnswerModal: () => {
 				if (!isLoggedIn.value) redirect()

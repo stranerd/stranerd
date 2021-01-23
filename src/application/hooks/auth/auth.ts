@@ -16,6 +16,7 @@ export const useAuth = () => {
 	const isLoggedIn = computed({ get: () => !!id.value, set: () => {} })
 	const token = computed({ get: () => global.auth.value?.token, set: () => {} })
 	const isAdmin = computed({ get: () => !!global.user.value?.roles.isAdmin, set: () => {} })
+	const isTutor = computed({ get: () => !!global.user.value?.roles.isTutor, set: () => {} })
 
 	const setAuthUser = async (details: AuthDetails | null) => {
 		if (global.listener) global.listener()
@@ -37,7 +38,7 @@ export const useAuth = () => {
 	return {
 		id, bio,
 		user: global.user,
-		isLoggedIn, token, isAdmin, currentChallenge,
+		isLoggedIn, token, isAdmin, isTutor, currentChallenge,
 		setAuthUser, startProfileListener,
 		signout, closeProfileListener: () => global.listener?.()
 	}

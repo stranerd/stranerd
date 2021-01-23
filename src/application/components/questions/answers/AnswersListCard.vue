@@ -28,12 +28,12 @@
 				<span>{{ answer.commentsCount }}</span>
 				<i class="fas fa-comments" />
 			</NuxtLink>
-			<a v-if="isLoggedIn && answer.userId !== id" class="mr-2" @click="likeAnswer">
-				<i class="fas fa-heart" />
+			<span class="mr-2">
+				<a v-if="isLoggedIn && answer.userId !== id" class="fas fa-heart" @click="likeAnswer" />
 				<span class="text-danger">LIKES {{ answer.likes }}</span>
-			</a>
-			<span v-if="isLoggedIn && answer.userId !== id" class="mr-1">
-				<SelectRating :rating="0" :set-rating="rateAnswer" />
+			</span>
+			<span class="mr-1">
+				<SelectRating v-if="isLoggedIn && answer.userId !== id" :rating="0" :set-rating="rateAnswer" />
 				<span class="text-gold">{{ answer.formattedRating }}</span>
 			</span>
 			<a v-if="isLoggedIn && question && !question.isAnswered && question.userId === id" class="mr-1 text-accent" @click.prevent="markBestAnswer">

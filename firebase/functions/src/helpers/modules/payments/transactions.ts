@@ -1,7 +1,9 @@
 import * as admin from 'firebase-admin'
 
 export const CURRENCY_SINGULAR = 'coin'
-export const CURRENCY_PlURAL = 'coins'
+export const CURRENCY_PLURAL = 'coins'
+export const GOLD_CURRENCY_SINGULAR = 'gold coin'
+export const GOLD_CURRENCY_PLURAL = 'gold coins'
 
 type CreateTransaction = {
 	amount: number

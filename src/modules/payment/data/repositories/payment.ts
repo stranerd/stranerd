@@ -15,4 +15,8 @@ export class PaymentRepository implements IPaymentRepository {
 	async makePayment (userId: string, amount: number, token: string) {
 		return await this.dataSource.makePayment({ amount, token, userId })
 	}
+
+	async buyCoins (userId: string, amount: number) {
+		return await this.dataSource.buyCoins({ amount, userId })
+	}
 }

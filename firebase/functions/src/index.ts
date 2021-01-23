@@ -12,6 +12,7 @@ import { subscribeToMailingList } from './onCall/roles/mailing'
 import { requestNewSession } from './onCall/sessions/requestNewSession'
 import { getClientToken } from './onCall/payments/getClientToken'
 import { makePayment } from './onCall/payments/makePayment'
+import { buyCoins } from './onCall/payments/buyCoins'
 
 import { userProfileUpdated, userCreditsUpdated } from './modules/users/users'
 
@@ -66,4 +67,4 @@ export { toggleAdmin, toggleTutor, subscribeToMailingList }
 // Sessions
 export { requestNewSession }
 // Payments
-export { getClientToken, makePayment }
+export { getClientToken, makePayment, buyCoins }

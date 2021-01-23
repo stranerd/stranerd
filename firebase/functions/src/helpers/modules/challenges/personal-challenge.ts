@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin'
 import { deleteTask } from '../../cloud-task'
-import { createTransaction, CURRENCY_PlURAL } from '../payments/transactions'
+import { createTransaction, CURRENCY_PLURAL } from '../payments/transactions'
 import { createNotification, NotificationType } from '../users/notifications'
 
 enum ChallengeTypes {
@@ -56,13 +56,13 @@ export const progressPersonalChallenge = async (userId: string, payload: any) =>
 		await deleteTask(challenge.taskName)
 		await createNotification(userId, {
 			title: 'Challenge completed',
-			body: `You just completed the challenge '${challenge.clone.description}' and earned ${challenge.clone.reward} ${CURRENCY_PlURAL}`,
+			body: `You just completed the challenge '${challenge.clone.description}' and earned ${challenge.clone.reward} ${CURRENCY_PLURAL}`,
 			type: NotificationType.INFO,
 			action: '/account/challenges'
 		})
 		await createTransaction(userId, {
 			amount: challenge.clone.reward,
-			event: `You earned ${challenge.clone.reward} ${CURRENCY_PlURAL} for completing a challenge`
+			event: `You earned ${challenge.clone.reward} ${CURRENCY_PLURAL} for completing a challenge`
 		})
 	}
 }

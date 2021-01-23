@@ -14,7 +14,7 @@
 			</div>
 			<ShowRatings class="ml-auto my-auto" :rating="answer.ratings" />
 		</div>
-		<hr class="thin">
+		<hr class="thin mx-n1 mx-md-n2">
 		<div class="my-1 lead editor-body" v-html="answer.body" />
 		<div class="my-1 d-flex flex-wrap icons">
 			<span v-if="answer.attachments.length" class="mr-2">
@@ -45,7 +45,7 @@
 			</span>
 		</div>
 		<DisplayAttachments v-if="answer.attachments.length" id="attachments" :attachments="answer.attachments" />
-		<hr class="thin">
+		<hr class="thin mx-n1 mx-md-n2">
 		<NuxtLink :to="`/questions/${answer.questionId}/answers/${answer.id}/comments#add`" class="text-decoration-none">
 			<div class="d-flex align-items-end">
 				<h5 class="mb-0 mr-1">

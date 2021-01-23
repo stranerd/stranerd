@@ -21,6 +21,7 @@
 				</span>
 			</div>
 		</div>
+		<hr class="thick mx-n1 mx-md-n3 mx-lg-n4">
 		<div class="mb-1 editor-body lead" v-html="question.body" />
 		<div>
 			<span v-if="question.attachments.length" class="mr-2">
@@ -33,30 +34,32 @@
 			</a>
 		</div>
 		<DisplayAttachments v-if="question.attachments.length" id="attachments" :attachments="question.attachments" />
-		<div class="d-flex flex-column align-items-center my-1">
-			<template v-if="question.userId === id">
-				<hr class="thick w-100">
+		<template v-if="question.userId === id">
+			<hr class="thick mx-n1 mx-md-n3 mx-lg-n4">
+			<div class="d-flex justify-content-center my-1">
 				<span v-if="question.isAnswered" class="mb-0 h5 text-accent">
 					Answer selected
 				</span>
-				<span v-else-if="question.answers > 0" class="mb-0 h5 text-accent">
+				<a v-else-if="question.answers > 0" href="#answers" class="mb-0 h5 text-accent">
 					Select an answer as best
-				</span>
+				</a>
 				<span v-else class="mb-0 h5 text-accent">
 					No answers yet.
 				</span>
-			</template>
-			<template v-else-if="isTutor">
-				<hr class="thick w-100">
+			</div>
+		</template>
+		<template v-else-if="isTutor">
+			<hr class="thick mx-n1 mx-md-n3 mx-lg-n4">
+			<div class="d-flex justify-content-center my-1">
 				<button v-if="!question.isAnswered" id="answer" class="btn rounded-pill py-1 px-4 btn-accent text-white" @click="openAnswerModal">
 					Add Answer
 				</button>
 				<span v-else class="mb-0 h5 text-accent">
 					Already Answered
 				</span>
-			</template>
-		</div>
-		<hr class="thick">
+			</div>
+		</template>
+		<hr class="thick mx-n1 mx-md-n3 mx-lg-n4">
 		<NuxtLink :to="`/questions/${question.id}/comments#add`" class="text-decoration-none">
 			<div class="d-flex align-items-end">
 				<h5 class="mb-0 mr-1">

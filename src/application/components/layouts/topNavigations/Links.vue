@@ -9,9 +9,9 @@
 		<NuxtLink class="link d-none d-md-inline" to="/">
 			<img src="@/assets/images/icons/friends.svg" alt="">
 		</NuxtLink>
-		<NuxtLink class="link" to="/">
+		<a class="link" @click="setNavigationModalNotification">
 			<img src="@/assets/images/icons/notification.svg" alt="">
-		</NuxtLink>
+		</a>
 		<a v-if="isLoggedIn" class="link d-none d-md-inline" @click.prevent="signout">
 			<PageLoading v-if="loading" />
 			<img src="@/assets/images/icons/signout.svg" alt="">
@@ -23,12 +23,14 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useSessionSignout } from '@app/hooks/auth/session'
+import { useNavigationModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'Links',
 	setup () {
 		const { isLoggedIn } = useAuth()
+		const { setNavigationModalNotification } = useNavigationModal()
 		const { loading, signout } = useSessionSignout()
-		return { isLoggedIn, loading, signout }
+		return { isLoggedIn, loading, signout, setNavigationModalNotification }
 	}
 })
 </script>

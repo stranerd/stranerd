@@ -4,7 +4,8 @@ const global = {
 	createModal: ssrRef(null as string | null),
 	editModal: ssrRef(null as string | null),
 	accountModal: ssrRef(null as string | null),
-	menuModal: ssrRef(null as string | null)
+	menuModal: ssrRef(null as string | null),
+	navigationModal: ssrRef(null as string | null)
 }
 
 export const useCreateModal = () => {
@@ -56,5 +57,13 @@ export const useMenuModal = () => {
 		setMenuModalUserSidebar: () => global.menuModal.value = 'user-sidebar',
 		setMenuModalAdminSidebar: () => global.menuModal.value = 'admin-sidebar',
 		closeMenuModal: () => global.menuModal.value = null
+	}
+}
+
+export const useNavigationModal = () => {
+	return {
+		isNavigationModalNotification: computed(() => global.navigationModal.value === 'notification'),
+		setNavigationModalNotification: () => global.navigationModal.value = 'notification',
+		closeNavigationModal: () => global.navigationModal.value = null
 	}
 }

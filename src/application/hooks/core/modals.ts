@@ -3,6 +3,7 @@ import { computed, ssrRef } from '@nuxtjs/composition-api'
 const global = {
 	createModal: ssrRef(null as string | null),
 	editModal: ssrRef(null as string | null),
+	accountModal: ssrRef(null as string | null),
 	menuModal: ssrRef(null as string | null)
 }
 
@@ -31,6 +32,15 @@ export const useEditModal = () => {
 		setEditModalTutorSubjects: () => global.editModal.value = 'tutor-subjects',
 		setEditModalAccountProfile: () => global.editModal.value = 'account-profile',
 		closeEditModal: () => global.editModal.value = null
+	}
+}
+
+export const useAccountModal = () => {
+	return {
+		isAccountModalBuyCoins: computed(() => global.accountModal.value === 'buy-coins'),
+
+		setAccountModalBuyCoins: () => global.accountModal.value = 'buy-coins',
+		closeAccountModal: () => global.accountModal.value = null
 	}
 }
 

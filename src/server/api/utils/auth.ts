@@ -44,29 +44,3 @@ export const decodeSessionCookie = async (session: string) => {
 		}
 	}
 }
-
-export const importUsers = async (users: any[]) => {
-	return await Promise.all(
-		users.map(async (user: any) => {
-			await getAdmin().auth().createUser({
-				uid: user.uid,
-				displayName: user.displayName,
-				email: user.email,
-				emailVerified: true
-			})
-		})
-	)
-}
-
-export const exportUsers = async (uids: string[]) => {
-	return await Promise.all(
-		uids.map(async (uid) => {
-			const user = await getAdmin().auth().getUser(uid)
-			return {
-				uid: user.uid,
-				displayName: user.displayName,
-				email: user.email
-			}
-		})
-	)
-}

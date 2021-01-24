@@ -67,43 +67,6 @@ export const DecodeSessionCookieMiddleware = async (req: Request, res: Response,
 	next()
 }
 
-export const ImportUsersController = async (req: Request, res: Response) => {
-	const { users } = req.body
-
-	try {
-		await importUsers(users)
-
-		return res.json({
-			success: true,
-			error: null
-		}).end()
-	} catch (err) {
-		return res.status(400).json({
-			success: false,
-			error: 'Failed to import users!'
-		}).end()
-	}
-}
-
-export const ExportUsersController = async (req: Request, res: Response) => {
-	const { userIds } = req.body
-
-	try {
-		const users = await exportUsers(userIds)
-
-		return res.json({
-			success: true,
-			error: null,
-			users
-		}).end()
-	} catch (err) {
-		return res.status(400).json({
-			success: false,
-			error: 'Failed to export users!'
-		}).end()
-	}
-}
-
 const setCookie = (res: Response, key: string, value: any) => res.cookie(key, value, {
 	maxAge: 14 * 24 * 60 * 60 * 1000,
 	httpOnly: true,

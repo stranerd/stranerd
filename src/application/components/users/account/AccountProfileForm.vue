@@ -8,15 +8,27 @@
 			</a>
 			<small v-if="factory.errors.image" class="small text-danger d-block">{{ factory.errors.image }}</small>
 		</div>
-		<div class="form-group my-3">
-			<label class="label">Your Name</label>
-			<input
-				v-model="factory.name"
-				class="form-control"
-				placeholder="Eg. John Doe"
-				:class="{'is-invalid': factory.errors.name}"
-			>
-			<small v-if="factory.errors.name" class="small text-danger d-block">{{ factory.errors.name }}</small>
+		<div class="form-group d-flex flex-column flex-md-row my-3">
+			<div class="mb-3 mb-md-0 mr-md-2 flex-grow-1">
+				<label class="label">First Name</label>
+				<input
+					v-model="factory.first"
+					class="form-control"
+					placeholder="Eg. John"
+					:class="{'is-invalid': factory.errors.first}"
+				>
+				<small v-if="factory.errors.name" class="small text-danger d-block">{{ factory.errors.first }}</small>
+			</div>
+			<div class="flex-grow-1">
+				<label class="label">Last Name</label>
+				<input
+					v-model="factory.last"
+					class="form-control"
+					placeholder="Eg. Doe"
+					:class="{'is-invalid': factory.errors.last}"
+				>
+				<small v-if="factory.errors.name" class="small text-danger d-block">{{ factory.errors.last }}</small>
+			</div>
 		</div>
 		<div class="form-group my-3">
 			<label class="label">Tell us a little about yourself <i>(optional)</i></label>

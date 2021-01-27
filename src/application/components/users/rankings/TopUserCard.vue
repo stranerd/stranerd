@@ -4,7 +4,7 @@
 			<img :src="user.image" alt="" class="profile-image" style="width:24px;height:24px;">
 		</NuxtLink>
 		<NuxtLink :to="`/users/${user.id}`" class="mx-1">
-			<span>{{ user.name }}</span>
+			<span>{{ user.fullName }}</span>
 		</NuxtLink>
 		<span class="ml-auto d-flex align-items-center">
 			<span class="mr-half">{{ formatNumber(user.rankings[period]) }}</span>

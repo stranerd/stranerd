@@ -4,25 +4,28 @@ import { UserBio } from '@modules/users'
 import { Media } from '@modules/core/data/models/base'
 
 type Content = File | Media
-type Keys = { name: string, email: string, description: string, image: Content | undefined }
+type Keys = { first: string, last: string, email: string, description: string, image: Content | undefined }
 const isLongerThan2 = (value:string) => isLongerThan(value, 2)
 
 export class ProfileUpdateFactory extends BaseFactory<UserBio, UserBio, Keys> {
 	readonly rules = {
-		name: { required: true, rules: [isLongerThan2] },
+		first: { required: true, rules: [isLongerThan2] },
+		last: { required: true, rules: [isLongerThan2] },
 		email: { required: true, rules: [isEmail] },
 		description: { required: true, rules: [] },
 		image: { required: true, rules: [isImage] }
 	}
 
 	constructor () {
-		super({ name: '', email: '', description: '', image: undefined })
+		super({ first: '', last: '', email: '', description: '', image: undefined })
 	}
 
 	reserved = []
 
-	get name () { return this.values.name }
-	set name (value: string) { this.set('name', value) }
+	get first () { return this.values.first }
+	set first (value: string) { this.set('first', value) }
+	get last () { return this.values.last }
+	set last (value: string) { this.set('last', value) }
 	get email () { return this.values.email }
 	set email (value: string) { this.set('email', value) }
 	get description () { return this.values.description }
@@ -34,13 +37,14 @@ export class ProfileUpdateFactory extends BaseFactory<UserBio, UserBio, Keys> {
 		if (this.valid) {
 			if (this.image instanceof File) this.image = await this.uploadFile('profiles', this.image)
 
-			const { name, email, description, image } = this.validValues
-			return { name, email, description, image: image as Media }
+			const { first, last, email, description, image } = this.validValues
+			return { name: { first, last }, email, description, image: image as Media }
 		} else throw new Error('Validation errors')
 	}
 
 	loadEntity = (bio: UserBio) => {
-		this.name = bio.name
+		this.first = bio.name.first
+		this.last = bio.name.last
 		this.email = bio.email
 		this.description = bio.description
 		this.image = bio.image

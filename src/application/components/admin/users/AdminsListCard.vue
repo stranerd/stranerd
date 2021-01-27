@@ -3,7 +3,7 @@
 		<div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
 			<div class="text-truncate mb-1">
 				<p class="lead mb-0 text-wrap">
-					{{ admin.name }}
+					{{ admin.fullName }}
 				</p>
 				<p class="small mb-0 text-wrap">
 					{{ admin.email }}

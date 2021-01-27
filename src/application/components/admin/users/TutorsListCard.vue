@@ -1,7 +1,7 @@
 <template>
 	<div :id="tutor.id" class="text-truncate mb-3">
 		<p class="lead mb-0 text-wrap">
-			{{ tutor.name }}
+			{{ tutor.fullName }}
 		</p>
 		<p class="small mb-1 text-wrap">
 			{{ tutor.email }}

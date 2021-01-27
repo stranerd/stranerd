@@ -6,7 +6,7 @@
 			</NuxtLink>
 			<div class="mx-1">
 				<NuxtLink :to="`/users/${answer.userId}`" class="d-block text-red font-weight-bold text-wrap">
-					<span>{{ answer.user.name }}</span>
+					<span>{{ answer.user.name.fullName }}</span>
 				</NuxtLink>
 				<span class="small text-wrap">
 					{{ time }}

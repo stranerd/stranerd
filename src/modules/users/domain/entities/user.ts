@@ -48,7 +48,9 @@ export class UserEntity extends BaseEntity {
 		this.dates = dates
 	}
 
-	get name () { return this.userBio.name }
+	get firstName () { return this.userBio.name.first }
+	get lastName () { return this.userBio.name.last }
+	get fullName () { return this.userBio.name.first + ' ' + this.userBio.name.last }
 	get email () { return this.userBio.email }
 	get image () { return this.userBio.image.link }
 
@@ -74,7 +76,11 @@ type UserConstructorArgs = {
 }
 
 export interface UserBio {
-	name: string
+	name: {
+		first: string
+		last: string
+		fullName: string
+	}
 	email: string
 	description: string
 	image: Media
@@ -117,9 +123,11 @@ export interface UserTutor {
 }
 
 export const generateDefaultBio = (bio: UserBio) :UserBio => {
-	const name = bio?.name ?? 'Anonymous'
+	const first = bio?.name?.first ?? 'Anon'
+	const last = bio?.name?.last ?? 'Ymous'
+	const fullName = first + ' ' + last
 	const email = bio?.email ?? 'anon@ymous.com'
 	const description = bio?.description ?? ''
 	const image = bio?.image ?? { name: 'user_profile.png', link: DEFAULT_IMAGE_URL, type: 'image/png', path: DEFAULT_IMAGE_URL }
-	return { name, email, description, image }
+	return { name: { first, last, fullName }, email, description, image }
 }

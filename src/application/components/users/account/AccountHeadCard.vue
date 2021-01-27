@@ -1,7 +1,7 @@
 <template>
 	<div class="d-flex flex-column align-items-center my-1">
 		<img :src="user.image" alt="" class="profile-image" style="width:90px;height:90px;">
-		<span class="text-18">{{ user.name }}</span>
+		<span class="text-18">{{ user.firstName }}</span>
 		<div class="d-flex justify-content-around mx-auto my-2 w-100" style="max-width: 300px;">
 			<div class="d-flex flex-column align-items-center">
 				<span class="small">

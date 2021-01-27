@@ -20,7 +20,7 @@
 				<div class="d-flex flex-wrap justify-content-between align-items-center">
 					<div class="text-truncate mb-1">
 						<p class="lead mb-0 text-wrap">
-							{{ user.name }}
+							{{ user.fullName }}
 						</p>
 						<p class="small mb-0 text-wrap">
 							{{ user.email }}

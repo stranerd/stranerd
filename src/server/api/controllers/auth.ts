@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import { TOKEN_SESSION_NAME, USER_SESSION_NAME } from '../../../utils/constants'
-import { decodeSessionCookie, exportUsers, importUsers, signin, signout } from '../utils/auth'
+import { decodeSessionCookie, signin, signout } from '../utils/auth'
 
 export const SigninController = async (req: Request, res: Response) => {
 	const { idToken } = req.body

@@ -3,7 +3,7 @@
 		<NuxtLink class="text-grey editor-body mb-1" :to="`/questions/${question.id}`" v-html="question.body" />
 		<span class="mr-2">
 			<span>+{{ formatNumber(question.creditable) }}</span>
-			<Credits :size="16" />
+			<Coins :size="16" />
 		</span>
 		<span v-if="question.attachments.length">
 			<span>{{ question.attachments.length }}</span>

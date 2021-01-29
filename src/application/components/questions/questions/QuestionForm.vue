@@ -12,11 +12,11 @@
 					{{ subject.name }}
 				</option>
 			</select>
-			<select v-model="factory.credits" class="form-control form-control-sm my-1 mx-sm-1">
+			<select v-model="factory.coins" class="form-control form-control-sm my-1 mx-sm-1">
 				<option disabled value="0">
-					Select credits
+					Select coins
 				</option>
-				<option v-for="credit in credits" :key="credit" :value="credit">
+				<option v-for="credit in coins" :key="credit" :value="credit">
 					{{ credit }}
 				</option>
 			</select>
@@ -72,7 +72,7 @@ export default defineComponent({
 			type: QuestionFactory,
 			required: true
 		},
-		credits: {
+		coins: {
 			type: Array,
 			required: true
 		},

@@ -5,12 +5,12 @@ import { QuestionEntity } from '../../domain/entities/question'
 export class QuestionTransformer {
 	fromJSON (model: QuestionFromModel) {
 		const {
-			id, body, attachments, credits, subjectId,
+			id, body, attachments, coins, subjectId,
 			answerId, userId, user, comments, answers,
 			dates: { createdAt }
 		} = model
 		return new QuestionEntity({
-			id, body, attachments, credits, subjectId,
+			id, body, attachments, coins, subjectId,
 			answerId, userId, user, comments, answers,
 			createdAt: timestampToMs(createdAt)
 		})
@@ -20,7 +20,7 @@ export class QuestionTransformer {
 		return {
 			body: entity.body,
 			attachments: entity.attachments,
-			credits: entity.credits,
+			coins: entity.coins,
 			subjectId: entity.subjectId,
 			answerId: entity.answerId,
 			userId: entity.userId,

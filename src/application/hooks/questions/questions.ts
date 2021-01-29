@@ -4,7 +4,7 @@ import {
 	ListenToQuestions, QuestionEntity, QuestionFactory
 } from '@modules/questions'
 import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
-import { CREDITS_GAP, MAXIMUM_CREDITS, MINIMUM_CREDITS, PAGINATION_LIMIT } from '@utils/constants'
+import { COINS_GAP, MAXIMUM_COINS, MINIMUM_COINS, PAGINATION_LIMIT } from '@utils/constants'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useCreateModal } from '@app/hooks/core/modals'
 import { isServer } from '@utils/environment'
@@ -92,20 +92,20 @@ export const useCreateQuestion = () => {
 	const { loading, setLoading } = useLoadingHandler()
 	const { setMessage } = useSuccessHandler()
 	const router = useContext().app.router
-	const credits = computed({
+	const coins = computed({
 		get: () => {
 			if (!isLoggedIn) {
 				setError('Login to continue')
 				return []
 			}
-			if (user.value!.account.credits < MINIMUM_CREDITS) {
-				setError(`You need at least ${MINIMUM_CREDITS} credits to ask a question`)
+			if (user.value!.account.coins < MINIMUM_COINS) {
+				setError(`You need at least ${MINIMUM_COINS} coins to ask a question`)
 				return []
 			}
-			const credits = []
-			const maximum = user.value!.account.credits <= MAXIMUM_CREDITS ? user.value!.account.credits : MAXIMUM_CREDITS
-			for (let i = MINIMUM_CREDITS; i <= maximum; i = i + CREDITS_GAP) credits.push(i)
-			return credits
+			const coins = []
+			const maximum = user.value!.account.coins <= MAXIMUM_COINS ? user.value!.account.coins : MAXIMUM_COINS
+			for (let i = MINIMUM_COINS; i <= maximum; i = i + COINS_GAP) coins.push(i)
+			return coins
 		}, set: () => {}
 	})
 
@@ -129,7 +129,7 @@ export const useCreateQuestion = () => {
 	}
 
 	return {
-		error, loading, factory, credits,
+		error, loading, factory, coins,
 		createQuestion
 	}
 }

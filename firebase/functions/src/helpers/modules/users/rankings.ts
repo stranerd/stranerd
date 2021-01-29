@@ -8,7 +8,7 @@ export enum RankingPeriods {
 	monthly = 'monthly',
 	quarterly = 'quarterly',
 }
-export type TopUser = { email: string, fullName: string, id: string, credits: number }
+export type TopUser = { email: string, fullName: string, id: string, coins: number }
 
 const getTop5Users = async (period: RankingPeriods) => {
 	const ref = await admin.database().ref('profiles')
@@ -21,10 +21,10 @@ const getTop5Users = async (period: RankingPeriods) => {
 		const user = child.val()
 		const { email, name } = user.bio
 		const fullName = name?.first ?? 'Anon' + ' ' + name?.last ?? 'Ymous'
-		const credits = user.rankings?.[period] ?? 0
+		const coins = user.rankings?.[period] ?? 0
 
 		users.push({
-			email, credits,
+			email, coins,
 			fullName,
 			id: child.key!
 		})

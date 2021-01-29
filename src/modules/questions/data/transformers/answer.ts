@@ -5,12 +5,12 @@ import { AnswerEntity } from '../../domain/entities/answer'
 export class AnswerTransformer {
 	fromJSON (model: AnswerFromModel) {
 		const {
-			id, body, attachments, credits, questionId, subjectId,
+			id, body, attachments, coins, questionId, subjectId,
 			userId, user, best, likes, ratings, comments,
 			dates: { createdAt }
 		} = model
 		return new AnswerEntity({
-			id, body, attachments, credits,
+			id, body, attachments, coins,
 			questionId, userId, user, subjectId,
 			best, likes, ratings, comments,
 			createdAt: timestampToMs(createdAt)
@@ -21,7 +21,7 @@ export class AnswerTransformer {
 		return {
 			body: entity.body,
 			attachments: entity.attachments,
-			credits: entity.credits,
+			coins: entity.coins,
 			questionId: entity.questionId,
 			subjectId: entity.subjectId,
 			userId: entity.userId,

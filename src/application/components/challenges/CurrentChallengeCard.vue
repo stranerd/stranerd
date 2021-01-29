@@ -16,7 +16,7 @@
 		<div class="d-flex align-items-center">
 			<span class="mr-2">
 				<span>+{{ formatNumber(challenge.clone.reward) }}</span>
-				<Credits :size="16" />
+				<Coins :size="16" />
 			</span>
 			<a class="text-red" @click="cancel">
 				Cancel challenge

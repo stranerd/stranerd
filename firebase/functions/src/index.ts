@@ -14,7 +14,7 @@ import { getClientToken } from './onCall/payments/getClientToken'
 import { makePayment } from './onCall/payments/makePayment'
 import { buyCoins } from './onCall/payments/buyCoins'
 
-import { userProfileUpdated, userCreditsUpdated } from './modules/users/users'
+import { userProfileUpdated, userCoinsUpdated } from './modules/users/users'
 
 import { sessionChatMediaDeleted } from './modules/sessions/chats'
 
@@ -38,7 +38,7 @@ export { makeSuperAdmin, resendEmails, cancelChallenge }
 
 // Users Module
 // Users
-export { userProfileUpdated, userCreditsUpdated }
+export { userProfileUpdated, userCoinsUpdated }
 
 // Sessions Module
 // Chats

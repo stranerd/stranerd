@@ -7,8 +7,8 @@
 			<img :src="user.image" alt="" class="profile-image" style="width:90px;height:90px;">
 			<span class="text-18">{{ user.firstName }}</span>
 			<span class="mb-1">
-				<span>{{ formatNumber(user.account.credits) }}</span>
-				<Credits :size="16" />
+				<span>{{ formatNumber(user.account.coins) }}</span>
+				<Coins :size="16" />
 			</span>
 			<NuxtLink to="/account/" class="btn btn-outline-accent rounded-pill px-3 py-1">
 				View Profile

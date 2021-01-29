@@ -10,7 +10,7 @@
 			</span>
 			<span class="ml-1 d-flex align-items-center">
 				<span>+{{ formatNumber(challenge.reward) }}</span>
-				<Credits :size="16" />
+				<Coins :size="16" />
 			</span>
 		</div>
 	</div>

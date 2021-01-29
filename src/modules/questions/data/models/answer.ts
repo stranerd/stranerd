@@ -6,7 +6,7 @@ export interface AnswerFromModel {
 	body: string
 	attachments: Media[]
 	best?: boolean
-	credits: number
+	coins: number
 	questionId: string
 	subjectId: string
 	userId: string
@@ -24,7 +24,7 @@ export interface AnswerFromModel {
 export interface AnswerToModel {
 	body: string
 	attachments: Media[]
-	credits: number
+	coins: number
 	questionId: string
 	subjectId: string
 	userId: string

@@ -15,7 +15,7 @@
 				</span>
 			</div>
 			<div class="d-flex align-items-center position-relative ml-auto">
-				<Credits :size="20" style="z-index:1;" />
+				<Coins :size="20" style="z-index:1;" />
 				<span class="rounded-pill ml-n2 pr-1 border border-grey small" style="padding-left: 1.25rem;">
 					+{{ formatNumber(question.creditable) }}
 				</span>

@@ -6,7 +6,7 @@ export class AnswerEntity extends BaseEntity {
 	public readonly id: string
 	public readonly body: string
 	public readonly attachments: Media[]
-	public readonly credits: number
+	public readonly coins: number
 	public readonly best: boolean
 	public readonly questionId: string
 	public readonly subjectId: string
@@ -18,14 +18,14 @@ export class AnswerEntity extends BaseEntity {
 	public readonly createdAt: number
 
 	constructor ({
-		id, body, credits, questionId, attachments,
+		id, body, coins, questionId, attachments,
 		subjectId, createdAt, userId, user,
 		best, likes, ratings, comments
 	}: AnswerConstructorArgs) {
 		super()
 		this.id = id
 		this.body = body
-		this.credits = credits
+		this.coins = coins
 		this.attachments = attachments
 		this.questionId = questionId
 		this.subjectId = subjectId
@@ -45,7 +45,7 @@ type AnswerConstructorArgs = {
 	id: string
 	body: string
 	attachments: Media[]
-	credits: number
+	coins: number
 	questionId: string
 	subjectId: string
 	createdAt: number

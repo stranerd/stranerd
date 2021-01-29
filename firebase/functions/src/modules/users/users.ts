@@ -27,11 +27,11 @@ export const userProfileUpdated = functions.database.ref('profiles/{userId}/bio'
 			await deleteFromStorage(oldBio.image?.path)
 	})
 
-export const userCreditsUpdated = functions.database.ref('profiles/{userId}/account/credits')
+export const userCoinsUpdated = functions.database.ref('profiles/{userId}/account/coins')
 	.onUpdate(async (snap, context) => {
-		const diffInCredits = (snap.after.val() ?? 0) - (snap.before.val() ?? 0)
+		const diffInCoins = (snap.after.val() ?? 0) - (snap.before.val() ?? 0)
 
-		if (diffInCredits > 0) {
+		if (diffInCoins > 0) {
 			const { userId } = context.params
 			let shouldSkip = false
 
@@ -49,7 +49,7 @@ export const userCreditsUpdated = functions.database.ref('profiles/{userId}/acco
 				.update(
 					Object.values(RankingPeriods)
 						.reduce((acc, cur) => {
-							acc[cur] = admin.database.ServerValue.increment(diffInCredits)
+							acc[cur] = admin.database.ServerValue.increment(diffInCoins)
 							return acc
 						}, {} as Record<string, any>)
 				)

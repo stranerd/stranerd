@@ -6,7 +6,7 @@
 		<div class="d-flex flex-wrap">
 			<span class="d-flex align-items-center">
 				<span>+{{ formatNumber(challenge.reward) }}</span>
-				<Credits :size="16" />
+				<Coins :size="16" />
 			</span>
 			<span class="mx-1">x{{ challenge.count }}</span>
 			<span class="mx-1 d-flex align-items-center">

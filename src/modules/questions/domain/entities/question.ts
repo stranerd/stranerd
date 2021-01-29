@@ -6,7 +6,7 @@ export class QuestionEntity extends BaseEntity {
 	public readonly id: string
 	public readonly body: string
 	public readonly attachments: Media[]
-	public readonly credits: number
+	public readonly coins: number
 	public readonly subjectId: string
 	public readonly userId: string
 	public readonly user: UserBio
@@ -16,7 +16,7 @@ export class QuestionEntity extends BaseEntity {
 	public readonly createdAt: number
 
 	constructor ({
-		id, body, credits, attachments, subjectId,
+		id, body, coins, attachments, subjectId,
 		answerId, createdAt, userId, user, comments,
 		answers
 	}: QuestionConstructorArgs) {
@@ -24,7 +24,7 @@ export class QuestionEntity extends BaseEntity {
 		this.id = id
 		this.body = body
 		this.attachments = attachments
-		this.credits = credits
+		this.coins = coins
 		this.subjectId = subjectId
 		this.userId = userId
 		this.user = generateDefaultBio(user)
@@ -35,14 +35,14 @@ export class QuestionEntity extends BaseEntity {
 	}
 
 	get isAnswered () { return !!this.answerId }
-	get creditable () { return Math.round(this.credits / 4) }
+	get creditable () { return Math.round(this.coins / 4) }
 }
 
 type QuestionConstructorArgs = {
 	id: string
 	body: string
 	attachments: Media[]
-	credits: number
+	coins: number
 	subjectId: string
 	createdAt: number
 	userId: string

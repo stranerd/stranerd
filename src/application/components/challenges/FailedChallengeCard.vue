@@ -8,7 +8,7 @@
 				<div class="d-flex align-items-center">
 					<span class="mr-2">
 						<span>+{{ formatNumber(challenge.reward) }}</span>
-						<Credits :size="16" />
+						<Coins :size="16" />
 					</span>
 					<div class="progress">
 						<div class="progress-level" :style="`width: ${100 * personal.progress / personal.clone.count}%`" />

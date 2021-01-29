@@ -4,7 +4,7 @@
 			Current Balance
 		</h2>
 		<div class="bg-light-grey d-inline-block px-8 py-6" style="border-radius: 1.25rem;">
-			<span class="font-weight-bold display-3">${{ formatNumber(user.account.credits) }}</span>
+			<span class="font-weight-bold display-3">${{ formatNumber(user.account.coins) }}</span>
 		</div>
 	</div>
 </template>

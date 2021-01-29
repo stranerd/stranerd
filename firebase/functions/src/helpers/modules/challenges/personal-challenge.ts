@@ -51,7 +51,7 @@ export const progressPersonalChallenge = async (userId: string, payload: any) =>
 			.child(userId)
 			.update({
 				'meta/currentChallenge': null,
-				'account/credits': admin.database.ServerValue.increment(challenge.clone.reward)
+				'account/coins': admin.database.ServerValue.increment(challenge.clone.reward)
 			})
 		await deleteTask(challenge.taskName)
 		await createNotification(userId, {

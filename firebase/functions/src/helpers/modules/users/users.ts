@@ -110,7 +110,7 @@ export const updateUserStreak = async (userId: string) => {
 	}
 	await userRef
 		.update({
-			'account/credits': 5,
+			'account/coins': 5,
 			'status/streak': isNextDay ? admin.database.ServerValue.increment(1) : 1,
 			'status/lastSignIn': admin.database.ServerValue.TIMESTAMP
 		})

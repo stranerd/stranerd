@@ -6,7 +6,7 @@ import { createTransaction, CURRENCY_PLURAL } from '../../helpers/modules/paymen
 
 export const answerCreated = functions.firestore.document('answers/{answerId}')
 	.onCreate(async (snap) => {
-		const { credits, userId, questionId } = snap.data()
+		const { coins, userId, questionId } = snap.data()
 
 		await admin.firestore().collection('questions')
 			.doc(questionId)
@@ -14,11 +14,11 @@ export const answerCreated = functions.firestore.document('answers/{answerId}')
 				answers: admin.firestore.FieldValue.increment(1)
 			}, { merge: true })
 
-		if (credits && userId) {
+		if (coins && userId) {
 			await admin.database().ref('profiles')
 				.child(userId)
 				.update({
-					'account/credits': admin.database.ServerValue.increment(credits ?? 0),
+					'account/coins': admin.database.ServerValue.increment(coins ?? 0),
 					'meta/answerCount': admin.database.ServerValue.increment(1)
 				})
 			await admin.database().ref('users')
@@ -27,8 +27,8 @@ export const answerCreated = functions.firestore.document('answers/{answerId}')
 				.child(snap.id)
 				.set(true)
 			await createTransaction(userId, {
-				amount: credits,
-				event: `You got ${credits} ${CURRENCY_PLURAL} from answering a question`
+				amount: coins,
+				event: `You got ${coins} ${CURRENCY_PLURAL} from answering a question`
 			})
 		}
 

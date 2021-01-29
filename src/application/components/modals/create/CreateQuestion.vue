@@ -11,7 +11,7 @@
 				</a>
 			</div>
 		</template>
-		<QuestionForm :submit="createQuestion" :loading="loading" :factory="factory" :error="error" :credits="credits" />
+		<QuestionForm :submit="createQuestion" :loading="loading" :factory="factory" :error="error" :coins="coins" />
 	</Modal>
 </template>
 
@@ -25,9 +25,9 @@ export default defineComponent({
 	components: { QuestionForm },
 	setup () {
 		const { closeCreateModal } = useCreateModal()
-		const { loading, createQuestion, factory, error, credits } = useCreateQuestion()
+		const { loading, createQuestion, factory, error, coins } = useCreateQuestion()
 		return {
-			loading, createQuestion, factory, error, credits,
+			loading, createQuestion, factory, error, coins,
 			closeCreateModal
 		}
 	}

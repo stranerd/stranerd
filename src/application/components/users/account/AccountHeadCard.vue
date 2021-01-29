@@ -5,10 +5,10 @@
 		<div class="d-flex justify-content-around mx-auto my-2 w-100" style="max-width: 300px;">
 			<div class="d-flex flex-column align-items-center">
 				<span class="small">
-					Credits
+					Coins
 				</span>
 				<span class="font-weight-bold">
-					{{ formatNumber(user.account.credits) }}
+					{{ formatNumber(user.account.coins) }}
 				</span>
 			</div>
 			<div class="bg-grey" style="width: 1px;" />

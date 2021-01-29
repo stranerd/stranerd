@@ -8,8 +8,8 @@
 				{{ time }}
 			</span>
 			<span class="ml-auto">
-				<span>+{{ formatNumber(answer.credits) }}</span>
-				<Credits :size="16" />
+				<span>+{{ formatNumber(answer.coins) }}</span>
+				<Coins :size="16" />
 			</span>
 			<span v-if="answer.attachments.length" class="ml-1">
 				<span>{{ answer.attachments.length }}</span>

@@ -5,8 +5,8 @@
 				<img :src="user.image" alt="" class="profile-image" style="width:90px;height:90px;">
 				<span class="text-18 font-weight-bold">{{ user.name }}</span>
 				<span>
-					<span>{{ user.account.credits }}</span>
-					<Credits :size="16" />
+					<span>{{ user.account.coins }}</span>
+					<Coins :size="16" />
 				</span>
 				<NuxtLink to="/account/" class="btn my-2 btn-outline-accent rounded-pill px-3 py-1">
 					View Profile

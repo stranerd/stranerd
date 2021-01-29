@@ -7,7 +7,7 @@
 				</span>
 				<span>
 					<span>+{{ formatNumber(challenge.reward) }}</span>
-					<Credits :size="16" />
+					<Coins :size="16" />
 				</span>
 			</div>
 			<span class="ml-auto flex-no-wrap d-flex align-items-center">

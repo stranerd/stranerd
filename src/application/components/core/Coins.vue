@@ -1,16 +1,21 @@
 <template>
-	<img src="@/assets/images/icons/credits.svg" alt="" :width="size" :height="size">
+	<img src="@/assets/images/icons/bronze-coin.svg" alt="" :width="size" :height="size">
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 export default defineComponent({
-	name: 'Credits',
+	name: 'Coins',
 	props: {
 		size: {
 			type: Number,
 			required: false,
 			default: 16
+		},
+		rare: {
+			type: Boolean,
+			required: false,
+			default: false
 		}
 	}
 })

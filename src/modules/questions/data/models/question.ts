@@ -5,7 +5,7 @@ export interface QuestionFromModel {
 	id: string
 	body: string
 	attachments: Media[]
-	credits: number
+	coins: number
 	subjectId: string
 	userId: string
 	user: UserBio
@@ -22,7 +22,7 @@ export interface QuestionFromModel {
 export interface QuestionToModel {
 	body: string
 	attachments: Media[]
-	credits: number
+	coins: number
 	subjectId: string
 	userId: string
 	user: UserBio

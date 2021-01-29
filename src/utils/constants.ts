@@ -6,6 +6,6 @@ export const EMAIL_SIGNIN_STORAGE_KEY = 'email-for-password-less-signin'
 
 export const PAGINATION_LIMIT = 10
 
-export const MINIMUM_CREDITS = 4
-export const CREDITS_GAP = 4
-export const MAXIMUM_CREDITS = 20
+export const MINIMUM_COINS = 4
+export const COINS_GAP = 4
+export const MAXIMUM_COINS = 20

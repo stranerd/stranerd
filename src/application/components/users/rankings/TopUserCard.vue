@@ -8,7 +8,7 @@
 		</NuxtLink>
 		<span class="ml-auto d-flex align-items-center">
 			<span class="mr-half">{{ formatNumber(user.rankings[period]) }}</span>
-			<Credits :size="16" />
+			<Coins :size="16" />
 		</span>
 	</div>
 </template>

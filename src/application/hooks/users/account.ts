@@ -12,7 +12,8 @@ export const useUpdateProfile = () => {
 	const { id, bio } = useAuth()
 
 	if (bio.value) factory.value.loadEntity(bio.value)
-	watch(() => bio.value?.name, () => bio.value?.name ? factory.value.name = bio.value.name : null)
+	watch(() => bio.value?.name.first, () => bio.value?.name ? factory.value.first = bio.value.name.first : null)
+	watch(() => bio.value?.name.last, () => bio.value?.name ? factory.value.last = bio.value.name.last : null)
 	watch(() => bio.value?.email, () => bio.value?.email ? factory.value.email = bio.value.email : null)
 	watch(() => bio.value?.description, () => bio.value?.description ? factory.value.description = bio.value.description : null)
 	watch(() => bio.value?.image, () => bio.value?.image ? factory.value.image = bio.value.image : null)

@@ -79,7 +79,7 @@ export interface UserBio {
 	name: {
 		first: string
 		last: string
-		fullName: string
+		fullName?: string
 	}
 	email: string
 	description: string

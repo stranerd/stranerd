@@ -1,7 +1,7 @@
 <template>
 	<div class="page-content">
 		<div class="d-flex justify-content-end">
-			<button class="btn btn-lg btn-primary text-white" @click="setCreateModalAnswerChallenge">
+			<button class="btn btn-lg btn-blue text-white" @click="setCreateModalAnswerChallenge">
 				Add New Challenge
 			</button>
 		</div>

@@ -6,7 +6,7 @@
 			<DisplayError v-else error="No such question found!" />
 			<DisplayError :error="error" />
 		</div>
-		<div id="answers" class="page-content">
+		<div v-if="question" id="answers" class="page-content">
 			<h2>Answers</h2>
 			<AnswersList :question-id="questionId" />
 		</div>

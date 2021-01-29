@@ -3,7 +3,7 @@
 		<div v-if="isLoggedIn" class="d-none d-lg-block w-100">
 			<div class="d-flex flex-column align-items-center">
 				<img :src="user.image" alt="" class="profile-image" style="width:90px;height:90px;">
-				<span class="text-18 font-weight-bold">{{ user.name }}</span>
+				<span class="text-18 font-weight-bold">{{ user.firstName }}</span>
 				<span>
 					<span>{{ user.account.coins }}</span>
 					<Coins :size="16" />

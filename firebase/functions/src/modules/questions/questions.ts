@@ -38,8 +38,8 @@ export const questionUpdated = functions.firestore.document('questions/{question
 		const oldAttachments = before.attachments as any[]
 		const newAttachments = after.attachments as any[]
 
-		await Promise.all(oldAttachments.map(async (attachment) => {
-			const wasLeftBehind = newAttachments.find((doc) => doc?.path === attachment?.path)
+		await Promise.all(oldAttachments?.map(async (attachment) => {
+			const wasLeftBehind = newAttachments?.find((doc) => doc?.path === attachment?.path)
 			if(!wasLeftBehind) await deleteFromStorage(attachment?.path)
 		}))
 
@@ -70,7 +70,7 @@ export const questionDeleted = functions.firestore.document('questions/{question
 			.child(snap.id)
 			.set(null)
 
-		attachments.map(async (attachment: any) => await deleteFromStorage(attachment.path))
+		attachments?.map(async (attachment: any) => await deleteFromStorage(attachment.path))
 
 		await deleteFromAlgolia('questions', snap.id)
 	})

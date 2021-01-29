@@ -51,11 +51,14 @@
 		<template v-else-if="isTutor">
 			<hr class="thick mx-n1 mx-md-n3 mx-lg-n4">
 			<div class="d-flex justify-content-center my-1">
-				<button v-if="!question.isAnswered" id="answer" class="btn rounded-pill py-1 px-4 btn-accent text-white" @click="openAnswerModal">
+				<span v-if="question.isAnswered" class="mb-0 h5 text-accent">
+					Already Answered
+				</span>
+				<button v-else-if="showAnswerButton" id="answer" class="btn rounded-pill py-1 px-4 btn-accent text-white" @click="openAnswerModal">
 					Add Answer
 				</button>
 				<span v-else class="mb-0 h5 text-accent">
-					Already Answered
+					You have already answered the question
 				</span>
 			</div>
 		</template>
@@ -73,11 +76,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeUnmount, onMounted, PropType } from '@nuxtjs/composition-api'
+import { computed, defineComponent, onBeforeUnmount, onMounted, PropType } from '@nuxtjs/composition-api'
 import { QuestionEntity } from '@modules/questions'
 import { useSubject } from '@app/hooks/questions/subjects'
 import { useTimeDifference } from '@app/hooks/core/dates'
-import { openAnswerModal } from '@app/hooks/questions/answers'
+import { openAnswerModal, useAnswerList } from '@app/hooks/questions/answers'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useRedirectToAuth } from '@app/hooks/auth/session'
 import DisplayAttachments from '@app/components/questions/DisplayAttachments.vue'
@@ -97,10 +100,15 @@ export default defineComponent({
 		const { redirect } = useRedirectToAuth()
 		const { subject } = useSubject(props.question.subjectId)
 		const { time, startTimer, stopTimer } = useTimeDifference(props.question.createdAt)
+		const { answers } = useAnswerList(props.question.id)
+		const showAnswerButton = computed({
+			get: () => isTutor.value && !answers.value.find((a) => a.userId === id.value),
+			set: () => {}
+		})
 		onMounted(startTimer)
 		onBeforeUnmount(stopTimer)
 		return {
-			id, formatNumber, isTutor,
+			id, formatNumber, isTutor, showAnswerButton,
 			subject, time,
 			openAnswerModal: () => {
 				if (!isLoggedIn.value) redirect()

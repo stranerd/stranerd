@@ -5,7 +5,7 @@
 		</div>
 		<div v-if="isLoggedIn" class="d-flex flex-column align-items-center my-1">
 			<img :src="user.image" alt="" class="profile-image" style="width:90px;height:90px;">
-			<span class="text-18">{{ user.firstName }}</span>
+			<span class="text-18 font-weight-bold">{{ user.firstName }}</span>
 			<span class="mb-1">
 				<span>{{ formatNumber(user.account.coins) }}</span>
 				<Coins :size="16" />

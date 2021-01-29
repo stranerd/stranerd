@@ -43,8 +43,8 @@ export const answerUpdated = functions.firestore.document('answers/{answerId}')
 		const oldAttachments = before.attachments as any[]
 		const newAttachments = after.attachments as any[]
 
-		await Promise.all(oldAttachments.map(async (attachment) => {
-			const wasNotRemoved = newAttachments.find((doc) => attachment?.path === doc?.path)
+		await Promise.all(oldAttachments?.map(async (attachment) => {
+			const wasNotRemoved = newAttachments?.find((doc) => attachment?.path === doc?.path)
 			if(!wasNotRemoved) await deleteFromStorage(attachment?.path)
 		}))
 	})
@@ -53,7 +53,7 @@ export const answerDeleted = functions.firestore.document('answers/{answerId}')
 	.onDelete(async (snap) => {
 		const { questionId, attachments, userId } = snap.data()
 
-		attachments.map(async (attachment: any) => await deleteFromStorage(attachment.path))
+		attachments?.map(async (attachment: any) => await deleteFromStorage(attachment.path))
 
 		await admin.database().ref('profiles')
 			.child(userId)

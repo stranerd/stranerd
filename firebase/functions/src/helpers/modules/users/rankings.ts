@@ -47,10 +47,10 @@ const resetRankings = async (userPaths: string[]) => {
 	await admin.database().ref('profiles').update(data)
 }
 
-export const resetRankingsByPeriod = async (period: RankingPeriods, sendMail = false) => {
+export const resetRankingsByPeriod = async (period: RankingPeriods) => {
 	const topUsers = await getTop5Users(period)
 	await saveTopUsers(period, topUsers)
-	if (sendMail) await sendTopUsersEmail(period, topUsers)
+	if (topUsers.length > 0) await sendTopUsersEmail(period, topUsers)
 
 	const userIds = await getAllUserIds()
 	const paths = userIds.map((userId) => `${userId}/rankings/${period}`)

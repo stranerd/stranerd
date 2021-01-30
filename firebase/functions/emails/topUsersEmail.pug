@@ -1,11 +1,11 @@
 doctype(html)
 html(lang="en")
 	head
-		title Top #{period} users
+		title Last top #{period} users
 		meta(name="viewport", content="width=device-width, initial-scale=1.0")
 	body(style="font-family: Roboto;margin:0;padding:1rem;width:100vw;min-height:100vh;box-sizing: border-box;")
 		img(src=meta.logo, alt="", style="height:40px;")
-		h1 Top #{period} users
+		h1 Last top #{period} users
 		ul
 			each user in users
 				li

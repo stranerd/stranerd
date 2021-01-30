@@ -1,5 +1,4 @@
 import * as admin from 'firebase-admin'
-import * as googleapis from 'googleapis'
 import { createTransport } from 'nodemailer'
 import * as Template from 'email-templates'
 import { email, domain, logo, appName } from './environment'
@@ -7,20 +6,18 @@ import { Notification } from './modules/users/notifications'
 import { TopUser } from './modules/users/rankings'
 
 export enum EMAILS {
-	NOREPLY = 'no-reply'
+	NOREPLY = 'no-reply@stranerd.com'
 }
 
 export const sendMail = async (to: string, subject: string ,content: string, from = EMAILS.NOREPLY) => {
-	const { email: user, clientId, clientSecret, refreshToken } = email()[from]
-	const oauth2Client = new googleapis.google.auth.OAuth2(clientId, clientSecret, 'https://developers.google.com/oauthplayground')
-	oauth2Client.setCredentials({ refresh_token: refreshToken })
-	const accessToken = (await oauth2Client.getAccessToken()).token!
+	const { clientId, privateKey } = email()
 
 	const transporter = createTransport({
 		service: 'gmail',
-		auth: { type: 'OAuth2', user, clientId, clientSecret, refreshToken, accessToken, },
-		tls: { rejectUnauthorized: false, }
+		auth: { type: 'OAuth2', user: from, serviceClient: clientId, privateKey },
+		tls: { rejectUnauthorized: false }
 	})
+	await transporter.verify()
 	await transporter.sendMail({
 		from: appName,
 		to, subject,

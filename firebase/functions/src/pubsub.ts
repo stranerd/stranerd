@@ -12,14 +12,14 @@ export const runDaily = functions.pubsub.schedule(DAILY_CRONTAB_SYNTAX).onRun(as
 })
 
 export const runWeekly = functions.pubsub.schedule(WEEKLY_CRONTAB_SYNTAX).onRun(async () => {
-	await resetRankingsByPeriod(RankingPeriods.weekly, true)
+	await resetRankingsByPeriod(RankingPeriods.weekly)
 	await deleteOlderNotifications()
 })
 
 export const runMonthly = functions.pubsub.schedule(MONTHLY_CRONTAB_SYNTAX).onRun(async () => {
-	await resetRankingsByPeriod(RankingPeriods.monthly, true)
+	await resetRankingsByPeriod(RankingPeriods.monthly)
 })
 
 export const runQuarterly = functions.pubsub.schedule(QUARTERLY_CRONTAB_SYNTAX).onRun(async () => {
-	await resetRankingsByPeriod(RankingPeriods.quarterly, true)
+	await resetRankingsByPeriod(RankingPeriods.quarterly)
 })

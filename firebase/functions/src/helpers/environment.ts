@@ -30,12 +30,8 @@ export const mailchimp = () => ({
 })
 
 export const email = () => ({
-	'no-reply': {
-		email: environment()?.email?.['no-reply']?.['email'],
-		clientId: environment()?.email?.['no-reply']?.['client_id'],
-		clientSecret: environment()?.email?.['no-reply']?.['client_secret'],
-		refreshToken: environment()?.email?.['no-reply']?.['refresh_token']
-	}
+	privateKey: environment()?.email?.['private_key'],
+	clientId: environment()?.email?.['client_id'],
 })
 
 export const firebase = () => ({

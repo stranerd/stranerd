@@ -47,6 +47,12 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
+	async sendVerificationEmail () {
+		try {
+			await auth.currentUser?.sendEmailVerification()
+		} catch (error) { throw filterFirebaseError(error) }
+	}
+
 	async resetPassword (email: string) {
 		try {
 			await auth.sendPasswordResetEmail(email)

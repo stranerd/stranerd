@@ -45,6 +45,7 @@ import { isDev } from '@utils/environment'
 export default defineComponent({
 	name: 'AuthEmailRedirectPage',
 	layout: 'auth',
+	middleware: ['isNotAuthenticated'],
 	setup () {
 		const { loading, signin, factory, error, checkCachedEmail } = useEmailLinkSignin()
 

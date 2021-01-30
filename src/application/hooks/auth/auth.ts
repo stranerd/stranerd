@@ -15,6 +15,7 @@ export const useAuth = () => {
 
 	const isLoggedIn = computed({ get: () => !!id.value, set: () => {} })
 	const token = computed({ get: () => global.auth.value?.token, set: () => {} })
+	const isVerified = computed({ get: () => !!global.auth.value?.isVerified, set: () => {} })
 	const isAdmin = computed({ get: () => !!global.user.value?.roles.isAdmin, set: () => {} })
 	const isTutor = computed({ get: () => !!global.user.value?.roles.isTutor, set: () => {} })
 
@@ -38,7 +39,7 @@ export const useAuth = () => {
 	return {
 		id, bio,
 		user: global.user,
-		isLoggedIn, token, isAdmin, isTutor, currentChallenge,
+		isLoggedIn, token, isVerified, isAdmin, isTutor, currentChallenge,
 		setAuthUser, startProfileListener,
 		signout, closeProfileListener: () => global.listener?.()
 	}

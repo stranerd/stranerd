@@ -20,12 +20,10 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
-	async signupWithEmail (name: string, email: string, password: string) {
+	async signupWithEmail (email: string, password: string) {
 		try {
 			const record = await auth.createUserWithEmailAndPassword(email, password)
 			const user = record.user!
-			await user.updateProfile({ displayName: name })
-			await DatabaseService.update(`profiles/${user.uid}/bio`, { name })
 			return await getUserDetails(user, record.additionalUserInfo?.isNewUser ?? false)
 		} catch (error) { throw filterFirebaseError(error) }
 	}

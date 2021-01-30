@@ -62,6 +62,7 @@ export default defineComponent({
 	name: 'AuthSigninPage',
 	components: { AuthProviders },
 	layout: 'auth',
+	middleware: ['isNotAuthenticated'],
 	setup () {
 		const { show, toggle } = usePassword()
 		const { loading, signin, factory, error } = useEmailSignin()

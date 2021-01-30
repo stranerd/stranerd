@@ -4,7 +4,7 @@ import { AfterAuthUser, AuthDetails } from '../entities/auth'
 export interface IAuthRepository {
 	signinWithEmail: (email: string, password: string) => Promise<AfterAuthUser>
 	signinWithGoogle: () => Promise<AfterAuthUser>
-	signupWithEmail: (name: string, email: string, password: string) => Promise<AfterAuthUser>
+	signupWithEmail: (email: string, password: string) => Promise<AfterAuthUser>
 	sendSigninEmail: (email: string, redirectUrl: string) => Promise<void>
 	signinWithEmailLink: (email: string, emailUrl: string) => Promise<AfterAuthUser>
 	sendVerificationEmail: () => Promise<void>

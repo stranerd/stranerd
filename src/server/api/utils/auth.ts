@@ -33,6 +33,7 @@ export const decodeSessionCookie = async (session: string) => {
 		const token = await getAdmin().auth().createCustomToken(user.uid)
 		return {
 			id: user.uid,
+			isVerified: user.email_verified,
 			token
 		}
 	} else {
@@ -40,6 +41,7 @@ export const decodeSessionCookie = async (session: string) => {
 		const token = await getAdmin().auth().createCustomToken(user.uid)
 		return {
 			id: user.uid,
+			isVerified: user.emailVerified,
 			token
 		}
 	}

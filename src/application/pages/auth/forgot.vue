@@ -38,6 +38,7 @@ import { usePasswordReset } from '@app/hooks/auth/passwords'
 export default defineComponent({
 	name: 'AuthForgotPage',
 	layout: 'auth',
+	middleware: ['isNotAuthenticated'],
 	setup () {
 		const { factory, loading, resetPassword, error, message } = usePasswordReset()
 		return { factory, loading, resetPassword, error, message }

@@ -13,4 +13,5 @@ export type AfterAuthUser = {
 export type AuthDetails = {
 	id: string
 	token: string
+	isVerified: boolean
 }

@@ -5,21 +5,6 @@
 		</h2>
 		<AuthProviders class="mb-4" />
 		<div class="form-group">
-			<label for="name" class="label">Full Name</label>
-			<input
-				id="name"
-				v-model="factory.name"
-				type="text"
-				name="name"
-				:class="{ 'is-valid': factory.isValid('name'), 'is-invalid': factory.errors.name }"
-				required
-				class="form-control"
-				autocomplete="name"
-				autofocus
-			>
-			<span v-if="factory.errors.name" class="text-danger">{{ factory.errors.name }}</span>
-		</div>
-		<div class="form-group">
 			<label for="email" class="label">Email</label>
 			<input
 				id="email"
@@ -92,6 +77,7 @@ export default defineComponent({
 	name: 'AuthSignupPage',
 	components: { AuthProviders },
 	layout: 'auth',
+	middleware: ['isNotAuthenticated'],
 	setup () {
 		const { show, toggle } = usePassword()
 		const { factory, loading, error, signup } = useEmailSignup()

@@ -21,7 +21,7 @@ export const createSession = async (user: AfterAuthUser, router: VueRouter) => {
 			if (token.value) await firebase.auth()
 				.signInWithCustomToken(token.value)
 				.catch(() => {})
-			await startProfileListener()
+			authDetails.isVerified ? await startProfileListener() : await router.push('/auth/verify')
 		}
 
 		const { [REDIRECT_SESSION_NAME]: redirect } = Cookie.parse(document.cookie ?? '')

@@ -10,6 +10,7 @@ import { useAuth } from '@app/hooks/auth/auth'
 import firebase from '@modules/core/services/initFirebase'
 import { Alert } from '@app/hooks/core/notifications'
 import { useEditModal } from '@app/hooks/core/modals'
+import { serialize } from '@utils/cookie'
 
 export const createSession = async (user: AfterAuthUser, router: VueRouter) => {
 	const authDetails = await SessionSignin.call(isDev ? user.id : user.idToken)
@@ -21,7 +22,7 @@ export const createSession = async (user: AfterAuthUser, router: VueRouter) => {
 			if (token.value) await firebase.auth()
 				.signInWithCustomToken(token.value)
 				.catch(() => {})
-			authDetails.isVerified ? await startProfileListener() : await router.push('/auth/verify')
+			await startProfileListener()
 		}
 
 		const { [REDIRECT_SESSION_NAME]: redirect } = Cookie.parse(document.cookie ?? '')
@@ -69,8 +70,3 @@ export const useRedirectToAuth = () => {
 
 	return { redirect }
 }
-
-const serialize = (name: string, value: string) => Cookie.serialize(name, value, {
-	maxAge: 3600,
-	sameSite: 'lax'
-})

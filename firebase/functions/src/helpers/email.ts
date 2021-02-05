@@ -46,13 +46,6 @@ export const sendNewNotificationEmail = async (to: string, notification: Notific
 	return await sendMailAndCatchErrors(to, notification.title, content, EMAILS.NOREPLY)
 }
 
-export const sendSessionRequestEmail = async (to: string, student: any, time: string) => {
-	const meta = { domain: domain(), logo: logo() }
-	const content = await new Template({ message:{} }).render('sessionRequestEmail.pug',
-		{ student, meta, time })
-	return await sendMailAndCatchErrors(to, 'Session Request', content)
-}
-
 export const sendTopUsersEmail = async (period: string, users: TopUser[]) => {
 	const meta = { domain: domain(), logo: logo() }
 	const content = await new Template({ message:{} }).render('topUsersEmail.pug',

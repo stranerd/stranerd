@@ -5,14 +5,16 @@ import { SessionToModel } from '../../data/models/session'
 import { SessionEntity } from '../entities/session'
 
 type Keys = {
-	price: number, duration: number, studentId: string, tutorId: string,
+	message: string, price: number, duration: number, studentId: string, tutorId: string,
 	studentBio: UserBio | undefined, tutorBio: UserBio | undefined
 }
+const isLongerThan2 = (value: string) => isLongerThan(value, 2)
 const isLongerThan0 = (value: string) => isLongerThan(value, 0)
 const isMoreThan0 = (value: number) => isMoreThan(value, 0)
 
 export class SessionFactory extends BaseFactory<SessionEntity, Partial<SessionToModel>, Keys> {
 	readonly rules = {
+		message: { required: true, rules: [isLongerThan2] },
 		price: { required: true, rules: [isMoreThan0] },
 		duration: { required: true, rules: [isMoreThan0] },
 		studentId: { required: true, rules: [isLongerThan0] },
@@ -23,13 +25,15 @@ export class SessionFactory extends BaseFactory<SessionEntity, Partial<SessionTo
 
 	constructor () {
 		super({
-			price: 0, duration: 0, studentId: '', tutorId: '',
+			message: '', price: 0, duration: 0, studentId: '', tutorId: '',
 			studentBio: undefined, tutorBio: undefined
 		})
 	}
 
 	reserved = ['studentId', 'studentBio']
 
+	get message () { return this.values.message }
+	set message (value: string) { this.set('message', value) }
 	get price () { return this.values.price }
 	set price (value: number) { this.set('price', value) }
 	get duration () { return this.values.duration }
@@ -46,8 +50,8 @@ export class SessionFactory extends BaseFactory<SessionEntity, Partial<SessionTo
 
 	toModel = async () => {
 		if (this.valid) {
-			const { price, duration, studentId, tutorId, studentBio, tutorBio } = this.validValues
-			return { price, duration, studentId, tutorId, studentBio, tutorBio }
+			const { message, price, duration, studentId, tutorId, studentBio, tutorBio } = this.validValues
+			return { message, price, duration, studentId, tutorId, studentBio, tutorBio }
 		} else {
 			throw new Error('Validation errors')
 		}

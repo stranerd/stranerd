@@ -1,12 +1,11 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
-import { sendSessionRequestEmail } from '../../helpers/email'
 
 export const requestNewSession = functions.https.onCall(async (session, context) => {
 	if (!context.auth)
 		throw new functions.https.HttpsError('unauthenticated', 'Only authenticated users can request sessions')
 
-	const { tutorId, studentId, price, duration, studentBio, tutorBio } = session
+	const { tutorId, studentId, message, price, duration, studentBio, tutorBio } = session
 
 	const createdAt = admin.firestore.Timestamp.now()
 	const tutorCurrentSessions = await admin.firestore().collection('sessions')
@@ -35,7 +34,7 @@ export const requestNewSession = functions.https.onCall(async (session, context)
 
 	try{
 		const session = {
-			duration, price,
+			duration, price, message,
 			studentId, tutorId, studentBio, tutorBio,
 			accepted: false, paid: false,
 			cancelled: { student: false, tutor: false },
@@ -44,10 +43,6 @@ export const requestNewSession = functions.https.onCall(async (session, context)
 		}
 
 		const doc = await admin.firestore().collection('sessions').add(session)
-
-		const timeFormatted = duration < 1 ? `${duration * 60} minutes` : `${duration} ${duration === 1 ? 'hour': 'hours'}`
-		await sendSessionRequestEmail(tutorBio.email ?? '', studentBio ?? { name: '' }, timeFormatted)
-
 		return doc.id
 	}catch (error) {
 		throw new functions.https.HttpsError('unknown', error.message)

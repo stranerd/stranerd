@@ -1,4 +1,5 @@
-import { ChatFirebaseDataSource } from './data/datasources/chat-firebase'
+import { PersonalChatFirebaseDataSource } from './data/datasources/personal-chat-firebase'
+import { SessionChatFirebaseDataSource } from './data/datasources/session-chat-firebase'
 import { SessionFirebaseDataSource } from './data/datasources/session-firebase'
 import { ChatTransformer } from './data/transformers/chat'
 import { SessionTransformer } from './data/transformers/session'
@@ -16,19 +17,26 @@ import { ChatFactory } from './domain/factories/chat'
 import { SessionEntity } from './domain/entities/session'
 import { SessionFactory } from './domain/factories/session'
 
-const chatDataSource = new ChatFirebaseDataSource()
+const personalChatDataSource = new PersonalChatFirebaseDataSource()
+const sessionChatDataSource = new SessionChatFirebaseDataSource()
 const sessionDataSource = new SessionFirebaseDataSource()
 
 const chatTransformer = new ChatTransformer()
 const sessionTransformer = new SessionTransformer()
 
-const chatRepository = new ChatRepository(chatDataSource, chatTransformer)
+const personalChatRepository = new ChatRepository(personalChatDataSource, chatTransformer)
+const sessionChatRepository = new ChatRepository(sessionChatDataSource, chatTransformer)
 const sessionRepository = new SessionRepository(sessionDataSource, sessionTransformer)
 
-export const GetChats = new GetChatsUseCase(chatRepository)
-export const ListenToChats = new ListenToChatsUseCase(chatRepository)
-export const AddChat = new AddChatUseCase(chatRepository)
-export const FindChat = new FindChatUseCase(chatRepository)
+export const GetPersonalChats = new GetChatsUseCase(personalChatRepository)
+export const ListenToPersonalChats = new ListenToChatsUseCase(personalChatRepository)
+export const AddPersonalChat = new AddChatUseCase(personalChatRepository)
+export const FindPersonalChat = new FindChatUseCase(personalChatRepository)
+
+export const GetSessionChats = new GetChatsUseCase(sessionChatRepository)
+export const ListenToSessionChats = new ListenToChatsUseCase(sessionChatRepository)
+export const AddSessionChat = new AddChatUseCase(sessionChatRepository)
+export const FindSessionChat = new FindChatUseCase(sessionChatRepository)
 
 export const FindSession = new FindSessionUseCase(sessionRepository)
 export const ListenToSession = new ListenToSessionUseCase(sessionRepository)

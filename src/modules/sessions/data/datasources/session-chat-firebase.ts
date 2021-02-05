@@ -3,7 +3,7 @@ import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
 import { ChatFromModel, ChatToModel } from '../models/chat'
 import { ChatBaseDataSource } from './chat-base'
 
-export class ChatFirebaseDataSource implements ChatBaseDataSource {
+export class SessionChatFirebaseDataSource implements ChatBaseDataSource {
 	public async create (sessionId: string, data: ChatToModel) {
 		return await DatabaseService.create(`sessions/${sessionId}/chats`, data)
 	}

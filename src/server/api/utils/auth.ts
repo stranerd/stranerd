@@ -1,5 +1,5 @@
 import * as admin from 'firebase-admin'
-import { isDev, isProd } from '../../../utils/environment'
+import { isDev } from '../../../utils/environment'
 
 const getAdmin = () => {
 	if (admin.apps.length === 0) {
@@ -15,34 +15,22 @@ const getAdmin = () => {
 }
 
 export const signin = async (idToken: string) => {
-	return isProd ? await getAdmin().auth().createSessionCookie(idToken, {
+	return await getAdmin().auth().createSessionCookie(idToken, {
 		expiresIn: 14 * 86400 * 1000
-	}) : idToken
+	})
 }
 
 export const signout = async (session: string) => {
-	if (isProd) {
-		const user = await getAdmin().auth().verifySessionCookie(session)
-		if (user) await getAdmin().auth().revokeRefreshTokens(user.uid)
-	}
+	const user = await getAdmin().auth().verifySessionCookie(session)
+	if (user) await getAdmin().auth().revokeRefreshTokens(user.uid)
 }
 
 export const decodeSessionCookie = async (session: string) => {
-	if (isProd) {
-		const user = await getAdmin().auth().verifySessionCookie(session)
-		const token = await getAdmin().auth().createCustomToken(user.uid)
-		return {
-			id: user.uid,
-			isVerified: user.email_verified,
-			token
-		}
-	} else {
-		const user = await getAdmin().auth().getUser(session)
-		const token = await getAdmin().auth().createCustomToken(user.uid)
-		return {
-			id: user.uid,
-			isVerified: user.emailVerified,
-			token
-		}
+	const user = await getAdmin().auth().verifySessionCookie(session)
+	const token = await getAdmin().auth().createCustomToken(user.uid)
+	return {
+		id: user.uid,
+		isVerified: user.email_verified,
+		token
 	}
 }

@@ -1,6 +1,6 @@
 import { SessionSignin, SessionSignout } from '@modules/auth'
 import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
-import { isClient, isDev, isServer } from '@utils/environment'
+import { isClient, isServer } from '@utils/environment'
 import { REDIRECT_SESSION_NAME } from '@utils/constants'
 import Cookie from 'cookie'
 import { AfterAuthUser } from '@modules/auth/domain/entities/auth'
@@ -13,7 +13,7 @@ import { useEditModal } from '@app/hooks/core/modals'
 import { serialize } from '@utils/cookie'
 
 export const createSession = async (user: AfterAuthUser, router: VueRouter) => {
-	const authDetails = await SessionSignin.call(isDev ? user.id : user.idToken)
+	const authDetails = await SessionSignin.call(user.idToken)
 	if (user.isNew) useEditModal().setEditModalAccountProfile()
 	if (isClient()) {
 		if (authDetails) {

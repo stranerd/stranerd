@@ -19,7 +19,7 @@ export const requestNewSession = functions.https.onCall(async (session, context)
 		const session = {
 			duration, price, message,
 			studentId, tutorId, studentBio, tutorBio,
-			accepted: false, paid: false,
+			accepted: false,
 			cancelled: { student: false, tutor: false },
 			dates: { createdAt: admin.firestore.Timestamp.now() },
 			reviews: {}

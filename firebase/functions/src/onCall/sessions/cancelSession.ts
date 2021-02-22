@@ -1,5 +1,6 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
+import { deleteTask } from '../../helpers/cloud-task'
 
 export const cancelSession = functions.https.onCall(async ({ id }, context) => {
 	if (!context.auth)
@@ -7,17 +8,35 @@ export const cancelSession = functions.https.onCall(async ({ id }, context) => {
 
 	const ref = admin.firestore().collection('sessions').doc(id)
 	const session = (await ref.get()).data()
+	const { tutorId, studentId, taskName } = session!
 
-	if (context.auth.uid !== session?.studentId || context.auth.uid !== session?.tutorId)
+	if (context.auth.uid !== studentId || context.auth.uid !== tutorId)
 		throw new functions.https.HttpsError('failed-precondition', 'Only the student or nerd can cancel it')
 
 	try {
 		await ref.set({
 			cancelled: {
-				[context.auth.uid === session.studentId ? 'student' : 'tutor']: true
+				[context.auth.uid === studentId ? 'student' : 'tutor']: true
 			}
 		}, { merge: true })
-		// Cancel session task
+
+		await admin.database().ref('profiles')
+			.child(studentId)
+			.child('meta/currentSession')
+			.transaction((session) => {
+				if (session === id) return null
+				return session
+			})
+
+		await admin.database().ref('profiles')
+			.child(tutorId)
+			.child('tutor/currentSession')
+			.transaction((session) => {
+				if (session === id) return null
+				return session
+			})
+
+		if (taskName) await deleteTask(taskName)
 	} catch(error) {
 		throw new functions.https.HttpsError('unknown', error.message)
 	}

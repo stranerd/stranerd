@@ -5,14 +5,14 @@ import { SessionEntity } from '../../domain/entities/session'
 export class SessionTransformer {
 	fromJSON (model: SessionFromModel) {
 		const {
-			id, message, duration, price, paid,
+			id, message, duration, price,
 			studentId, tutorId, studentBio, tutorBio,
 			accepted, cancelled, reviews,
 			dates: { createdAt, endedAt }
 		} = model
 		return new SessionEntity({
 			id, message, studentId, tutorId, studentBio, tutorBio,
-			duration, price, paid, accepted, cancelled, reviews,
+			duration, price, accepted, cancelled, reviews,
 			createdAt: timestampToMs(createdAt),
 			endedAt: endedAt ? timestampToMs(endedAt) : undefined
 		})
@@ -27,7 +27,6 @@ export class SessionTransformer {
 			tutorBio: entity.tutorBio,
 			duration: entity.duration,
 			price: entity.price,
-			paid: entity.paid,
 			accepted: entity.accepted,
 			cancelled: entity.cancelled,
 			reviews: entity.reviews

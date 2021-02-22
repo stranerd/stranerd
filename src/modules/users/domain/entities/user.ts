@@ -38,6 +38,7 @@ export class UserEntity extends BaseEntity {
 			questionCount: meta?.questionCount ?? 0,
 			questionCommentCount: meta?.questionCommentCount ?? 0,
 			answerCommentCount: meta?.answerCommentCount ?? 0,
+			sessionCount: meta?.sessionCount ?? 0,
 			currentChallenge: meta?.currentChallenge ?? null,
 			currentSession: meta?.currentSession ?? null
 		}
@@ -50,7 +51,8 @@ export class UserEntity extends BaseEntity {
 			rating: tutor?.rating ?? 0,
 			reviews: tutor?.reviews ?? 0,
 			subjects: tutor?.subjects ?? {},
-			currentSession: tutor?.currentSession ?? null
+			currentSession: tutor?.currentSession ?? null,
+			sessionCount: tutor?.sessionCount ?? 0
 		}
 		this.dates = dates
 	}
@@ -106,6 +108,7 @@ export interface UserMeta {
 	questionCount?: number
 	questionCommentCount?: number
 	answerCommentCount?: number
+	sessionCount?: number
 	currentChallenge?: string | null
 	currentSession?: string | null
 }
@@ -129,6 +132,7 @@ export interface UserTutor {
 		}>
 	}>
 	currentSession?: string | null
+	sessionCount?: number
 }
 
 export const generateDefaultBio = (bio: UserBio) :UserBio => {

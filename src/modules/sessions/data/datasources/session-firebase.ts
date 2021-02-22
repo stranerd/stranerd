@@ -9,7 +9,7 @@ export class SessionFirebaseDataSource implements SessionBaseDataSource {
 	}
 
 	async begin (id: string): Promise<void> {
-		return await FunctionsService.call('beginSession', { id })
+		return await FunctionsService.call('acceptSession', { id })
 	}
 
 	async cancel (id: string): Promise<void> {

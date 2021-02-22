@@ -3,6 +3,7 @@ import { authUserCreated, authUserDeleted } from './auth'
 import { makeSuperAdmin } from './requests/makeSuperAdmin'
 import { resendEmails } from './requests/resendEmails'
 import { cancelChallenge } from './requests/cancelChallenge'
+import { endSession } from './requests/endSession'
 
 import { runDaily, runWeekly, runMonthly, runQuarterly } from './pubsub'
 
@@ -10,7 +11,7 @@ import { toggleAdmin } from './onCall/roles/admins'
 import { toggleTutor } from './onCall/roles/tutors'
 import { subscribeToMailingList } from './onCall/roles/mailing'
 import { requestNewSession } from './onCall/sessions/requestNewSession'
-import { beginSession } from './onCall/sessions/beginSession'
+import { acceptSession } from './onCall/sessions/acceptSession'
 import { cancelSession } from './onCall/sessions/cancelSession'
 import { getClientToken } from './onCall/payments/getClientToken'
 import { makePayment } from './onCall/payments/makePayment'
@@ -36,7 +37,7 @@ export { authUserCreated, authUserDeleted }
 export { runDaily, runWeekly, runMonthly, runQuarterly }
 
 // Request Triggers
-export { makeSuperAdmin, resendEmails, cancelChallenge }
+export { makeSuperAdmin, resendEmails, cancelChallenge, endSession }
 
 // Users Module
 // Users
@@ -67,6 +68,6 @@ export { personalChallengeCreated, personalChallengeCancelled }
 // Roles
 export { toggleAdmin, toggleTutor, subscribeToMailingList }
 // Sessions
-export { requestNewSession, beginSession, cancelSession }
+export { requestNewSession, acceptSession, cancelSession }
 // Payments
 export { getClientToken, makePayment, buyCoins }

@@ -7,30 +7,13 @@ export const requestNewSession = functions.https.onCall(async (session, context)
 
 	const { tutorId, studentId, message, price, duration, studentBio, tutorBio } = session
 
-	const createdAt = admin.firestore.Timestamp.now()
-	const tutorCurrentSessions = await admin.firestore().collection('sessions')
-		.where('tutorId','==', tutorId)
-		.where('dates.endedAt','>', createdAt)
-		.limit(1)
-		.get()
-	if(!tutorCurrentSessions.empty){
-		const session = tutorCurrentSessions.docs[0].data()
-		const time = session.duration > 1 ? `${session.duration} hours` : `${session.duration} hour`
-		throw new functions.https.HttpsError('failed-precondition',`Tutor is currently in a ${time} session. Try again later.`)
-	}
+	const sessionRef = await admin.database().ref('profiles')
+		.child(tutorId).child('tutor/currentSession')
+		.once('value')
+	const currentSession = sessionRef.val()
 
-	const tutorPendingSessions = await admin.firestore().collection('sessions')
-		.where('tutorId','==', tutorId)
-		.where('cancelled.tutor','==', false)
-		.where('cancelled.student','==', false)
-		.where('paid','==', false)
-		.limit(1)
-		.get()
-	if (!tutorPendingSessions.empty) {
-		const session = tutorPendingSessions.docs[0].data()
-		const time = session.duration > 1 ? `${session.duration} hours` : `${session.duration} hour`
-		throw new functions.https.HttpsError('failed-precondition',`Tutor is currently in a ${time} session. Try again later.`)
-	}
+	if(currentSession)
+		throw new functions.https.HttpsError('failed-precondition','Tutor is currently in a session. Try again later.')
 
 	try{
 		const session = {
@@ -38,12 +21,20 @@ export const requestNewSession = functions.https.onCall(async (session, context)
 			studentId, tutorId, studentBio, tutorBio,
 			accepted: false, paid: false,
 			cancelled: { student: false, tutor: false },
-			dates: { createdAt },
+			dates: { createdAt: admin.firestore.Timestamp.now() },
 			reviews: {}
 		}
 
 		const doc = await admin.firestore().collection('sessions').add(session)
-		return doc.id
+		const sessionId = doc.id
+
+		await admin.database().ref('profiles')
+			.update({
+				[`${tutorId}/tutor/currentSession`]: sessionId,
+				[`${studentId}/meta/currentSession`]: sessionId
+			})
+
+		return sessionId
 	}catch (error) {
 		throw new functions.https.HttpsError('unknown', error.message)
 	}

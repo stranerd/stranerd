@@ -10,6 +10,8 @@ import { toggleAdmin } from './onCall/roles/admins'
 import { toggleTutor } from './onCall/roles/tutors'
 import { subscribeToMailingList } from './onCall/roles/mailing'
 import { requestNewSession } from './onCall/sessions/requestNewSession'
+import { beginSession } from './onCall/sessions/beginSession'
+import { cancelSession } from './onCall/sessions/cancelSession'
 import { getClientToken } from './onCall/payments/getClientToken'
 import { makePayment } from './onCall/payments/makePayment'
 import { buyCoins } from './onCall/payments/buyCoins'
@@ -65,6 +67,6 @@ export { personalChallengeCreated, personalChallengeCancelled }
 // Roles
 export { toggleAdmin, toggleTutor, subscribeToMailingList }
 // Sessions
-export { requestNewSession }
+export { requestNewSession, beginSession, cancelSession }
 // Payments
 export { getClientToken, makePayment, buyCoins }

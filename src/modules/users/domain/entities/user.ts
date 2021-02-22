@@ -20,7 +20,7 @@ export class UserEntity extends BaseEntity {
 	public readonly rankings: Required<UserRankings>
 	public readonly meta: Required<UserMeta>
 	public readonly status: Required<UserStatus>
-	public readonly tutor: UserTutor | undefined
+	public readonly tutor: Required<UserTutor> | undefined
 	public readonly dates: UserDates
 
 	constructor ({ id, bio, roles, account, rankings, meta, status, tutor, dates }: UserConstructorArgs) {
@@ -38,13 +38,20 @@ export class UserEntity extends BaseEntity {
 			questionCount: meta?.questionCount ?? 0,
 			questionCommentCount: meta?.questionCommentCount ?? 0,
 			answerCommentCount: meta?.answerCommentCount ?? 0,
-			currentChallenge: meta?.currentChallenge ?? null
+			currentChallenge: meta?.currentChallenge ?? null,
+			currentSession: meta?.currentSession ?? null
 		}
 		this.status = {
 			mode: status?.mode ?? Status.OFFLINE,
 			updatedAt: status?.updatedAt ?? 0
 		}
-		this.tutor = tutor
+		this.tutor = {
+			canTeach: tutor?.canTeach ?? false,
+			rating: tutor?.rating ?? 0,
+			reviews: tutor?.reviews ?? 0,
+			subjects: tutor?.subjects ?? {},
+			currentSession: tutor?.currentSession ?? null
+		}
 		this.dates = dates
 	}
 
@@ -100,6 +107,7 @@ export interface UserMeta {
 	questionCommentCount?: number
 	answerCommentCount?: number
 	currentChallenge?: string | null
+	currentSession?: string | null
 }
 export interface UserStatus {
 	mode: Status
@@ -120,6 +128,7 @@ export interface UserTutor {
 			passed: boolean
 		}>
 	}>
+	currentSession?: string | null
 }
 
 export const generateDefaultBio = (bio: UserBio) :UserBio => {

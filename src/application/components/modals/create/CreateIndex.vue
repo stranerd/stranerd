@@ -3,7 +3,6 @@
 		<CreateSubject v-if="isCreateModalSubject" />
 		<CreateQuestion v-if="isCreateModalQuestion" />
 		<CreateAnswer v-if="isCreateModalAnswer" />
-		<CreateAnswerChallenge v-if="isCreateModalAnswerChallenge" />
 	</div>
 </template>
 
@@ -13,18 +12,16 @@ import { useCreateModal } from '@app/hooks/core/modals'
 import CreateSubject from '@app/components/modals/create/CreateSubject.vue'
 import CreateQuestion from '@app/components/modals/create/CreateQuestion.vue'
 import CreateAnswer from '@app/components/modals/create/CreateAnswer.vue'
-import CreateAnswerChallenge from '@app/components/modals/create/CreateAnswerChallenge.vue'
 export default defineComponent({
 	name: 'CreateModalIndex',
 	components: {
 		CreateSubject,
 		CreateQuestion,
-		CreateAnswer,
-		CreateAnswerChallenge
+		CreateAnswer
 	},
 	setup () {
-		const { isCreateModalSubject, isCreateModalQuestion, isCreateModalAnswer, isCreateModalAnswerChallenge } = useCreateModal()
-		return { isCreateModalSubject, isCreateModalQuestion, isCreateModalAnswer, isCreateModalAnswerChallenge }
+		const { isCreateModalSubject, isCreateModalQuestion, isCreateModalAnswer } = useCreateModal()
+		return { isCreateModalSubject, isCreateModalQuestion, isCreateModalAnswer }
 	}
 })
 </script>

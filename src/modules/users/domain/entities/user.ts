@@ -37,8 +37,7 @@ export class UserEntity extends BaseEntity {
 			answerCount: meta?.answerCount ?? 0,
 			questionCount: meta?.questionCount ?? 0,
 			questionCommentCount: meta?.questionCommentCount ?? 0,
-			answerCommentCount: meta?.answerCommentCount ?? 0,
-			currentChallenge: meta?.currentChallenge ?? null
+			answerCommentCount: meta?.answerCommentCount ?? 0
 		}
 		this.status = {
 			mode: status?.mode ?? Status.OFFLINE,
@@ -99,7 +98,6 @@ export interface UserMeta {
 	questionCount?: number
 	questionCommentCount?: number
 	answerCommentCount?: number
-	currentChallenge?: string | null
 }
 export interface UserStatus {
 	mode: Status

@@ -32,10 +32,6 @@
 				<img src="@/assets/images/icons/answers.svg" alt="">
 				<span>Shop Notes</span>
 			</NuxtLink>
-			<NuxtLink class="link" to="/admin/challenges">
-				<img src="@/assets/images/icons/challenge.svg" alt="">
-				<span>Challenges</span>
-			</NuxtLink>
 			<a v-if="isLoggedIn" class="link logout" @click="signout">
 				<PageLoading v-if="loading" />
 				<img src="@/assets/images/icons/signout.svg" alt="">

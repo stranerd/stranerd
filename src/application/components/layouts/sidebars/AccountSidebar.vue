@@ -20,10 +20,6 @@
 				<img src="@/assets/images/icons/chat.svg" alt="">
 				<span><span class="d-lg-none">My </span>Sessions</span>
 			</NuxtLink>
-			<NuxtLink class="link" to="/account/challenges">
-				<img src="@/assets/images/icons/challenge.svg" alt="">
-				<span><span class="d-lg-none">My </span>Challenges</span>
-			</NuxtLink>
 			<NuxtLink class="link" to="/account/friends">
 				<img src="@/assets/images/icons/friends.svg" alt="">
 				<span><span class="d-lg-none">My </span>Friends</span>

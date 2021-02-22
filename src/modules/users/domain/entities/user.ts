@@ -39,7 +39,6 @@ export class UserEntity extends BaseEntity {
 			questionCommentCount: meta?.questionCommentCount ?? 0,
 			answerCommentCount: meta?.answerCommentCount ?? 0,
 			sessionCount: meta?.sessionCount ?? 0,
-			currentChallenge: meta?.currentChallenge ?? null,
 			currentSession: meta?.currentSession ?? null
 		}
 		this.status = {
@@ -109,7 +108,6 @@ export interface UserMeta {
 	questionCommentCount?: number
 	answerCommentCount?: number
 	sessionCount?: number
-	currentChallenge?: string | null
 	currentSession?: string | null
 }
 export interface UserStatus {

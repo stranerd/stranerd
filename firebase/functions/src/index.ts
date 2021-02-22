@@ -2,9 +2,7 @@ import * as admin from 'firebase-admin'
 import { authUserCreated, authUserDeleted } from './auth'
 import { makeSuperAdmin } from './requests/makeSuperAdmin'
 import { resendEmails } from './requests/resendEmails'
-import { cancelChallenge } from './requests/cancelChallenge'
 import { endSession } from './requests/endSession'
-
 import { runDaily, runWeekly, runMonthly, runQuarterly } from './pubsub'
 
 import { toggleAdmin } from './onCall/roles/admins'
@@ -26,8 +24,6 @@ import { subjectIconUpdated, subjectDeleted } from './modules/questions/subjects
 import { questionCreated, questionUpdated, questionDeleted } from './modules/questions/questions'
 import { answerCreated, answerUpdated, answerDeleted, answerLiked, answerRated } from './modules/questions/answers'
 
-import { personalChallengeCreated, personalChallengeCancelled } from './modules/challenges/personal-challenges'
-
 admin.initializeApp()
 
 // Auth Triggers
@@ -37,7 +33,7 @@ export { authUserCreated, authUserDeleted }
 export { runDaily, runWeekly, runMonthly, runQuarterly }
 
 // Request Triggers
-export { makeSuperAdmin, resendEmails, cancelChallenge, endSession }
+export { makeSuperAdmin, resendEmails, endSession }
 
 // Users Module
 // Users
@@ -57,11 +53,6 @@ export { questionCreated, questionUpdated, questionDeleted }
 export { answerCreated, answerUpdated, answerDeleted, answerLiked, answerRated }
 // Comments
 export { questionCommentCreated, questionCommentDeleted, answerCommentCreated, answerCommentDeleted }
-
-
-// Challenges Module
-// Personal Challenges
-export { personalChallengeCreated, personalChallengeCancelled }
 
 
 // On Call

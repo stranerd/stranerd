@@ -14,15 +14,6 @@
 			</div>
 			<div class="my-2 bg-light-grey mx-n1" style="height: 8px;" />
 		</div>
-		<div class="content mr-md-1 mr-lg-0 mb-2">
-			<h3 class="d-none d-lg-block mb-2 text-center font-weight-bold">
-				Challenges
-			</h3>
-			<div class="body">
-				<ChallengesList :user-id="id || ''" />
-			</div>
-			<div class="d-none d-lg-block mx-n2 mt-2 bg-light-grey" style="height: 8px;" />
-		</div>
 		<div class="content">
 			<h3 class="d-none d-lg-block mb-2 text-center font-weight-bold">
 				Rankings
@@ -37,11 +28,10 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
-import ChallengesList from '@app/components/challenges/ChallengesList.vue'
 import TopUsers from '@app/components/users/rankings/TopUsers.vue'
 export default defineComponent({
 	name: 'DashboardRightPanel',
-	components: { TopUsers, ChallengesList },
+	components: { TopUsers },
 	setup () {
 		const { id, isLoggedIn, user } = useAuth()
 		return { id, isLoggedIn, user }

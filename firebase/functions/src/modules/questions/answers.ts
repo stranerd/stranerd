@@ -1,7 +1,6 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { deleteFromStorage } from '../../helpers/storage'
-import { progressPersonalChallenge } from '../../helpers/modules/challenges/personal-challenge'
 import { createTransaction, CURRENCY_PLURAL } from '../../helpers/modules/payments/transactions'
 
 export const answerCreated = functions.firestore.document('answers/{answerId}')
@@ -31,8 +30,6 @@ export const answerCreated = functions.firestore.document('answers/{answerId}')
 				event: `You got ${coins} ${CURRENCY_PLURAL} from answering a question`
 			})
 		}
-
-		await progressPersonalChallenge(userId, snap.data())
 	})
 
 export const answerUpdated = functions.firestore.document('answers/{answerId}')

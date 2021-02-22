@@ -12,6 +12,8 @@ import { ListenToChatsUseCase } from './domain/usecases/chats/listenToChats'
 import { FindSessionUseCase } from './domain/usecases/sessions/findSession'
 import { ListenToSessionUseCase } from './domain/usecases/sessions/listenToSession'
 import { AddSessionUseCase } from './domain/usecases/sessions/addSession'
+import { BeginSessionUseCase } from './domain/usecases/sessions/beginSession'
+import { CancelSessionUseCase } from './domain/usecases/sessions/cancelSession'
 import { ChatEntity } from './domain/entities/chat'
 import { ChatFactory } from './domain/factories/chat'
 import { SessionEntity } from './domain/entities/session'
@@ -41,6 +43,8 @@ export const FindSessionChat = new FindChatUseCase(sessionChatRepository)
 export const FindSession = new FindSessionUseCase(sessionRepository)
 export const ListenToSession = new ListenToSessionUseCase(sessionRepository)
 export const AddSession = new AddSessionUseCase(sessionRepository)
+export const BeginSession = new BeginSessionUseCase(sessionRepository)
+export const CancelSession = new CancelSessionUseCase(sessionRepository)
 
 export { ChatEntity, ChatFactory }
 export { SessionEntity, SessionFactory }

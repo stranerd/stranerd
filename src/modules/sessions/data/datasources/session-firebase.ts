@@ -8,6 +8,14 @@ export class SessionFirebaseDataSource implements SessionBaseDataSource {
 		return await FunctionsService.call('requestNewSession', data)
 	}
 
+	async begin (id: string): Promise<void> {
+		return await FunctionsService.call('beginSession', { id })
+	}
+
+	async cancel (id: string): Promise<void> {
+		return await FunctionsService.call('cancelSession', { id })
+	}
+
 	async find (id: string) {
 		return await FirestoreService.find('sessions', id) as SessionFromModel | null
 	}
@@ -22,13 +30,5 @@ export class SessionFirebaseDataSource implements SessionBaseDataSource {
 
 	async listenToMany (callback: (sessions: SessionFromModel[]) => void, conditions?: FirestoreGetClauses): Promise<() => void> {
 		return await FirestoreService.listenToMany(callback, 'sessions', conditions)
-	}
-
-	async update (id: string, data: Partial<SessionToModel>) {
-		return await FirestoreService.update('sessions', id, data)
-	}
-
-	async delete (id: string) {
-		return await FirestoreService.delete('sessions', id)
 	}
 }

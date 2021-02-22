@@ -42,11 +42,11 @@ export class SessionRepository implements ISessionRepository {
 		return await this.dataSource.listenToMany(listenCB, conditions)
 	}
 
-	async update (id: string, data: Partial<SessionToModel>) {
-		return await this.dataSource.update(id, data)
+	async begin (id: string) {
+		return await this.dataSource.begin(id)
 	}
 
-	async delete (id: string) {
-		return await this.dataSource.delete(id)
+	async cancel (id: string) {
+		return await this.dataSource.cancel(id)
 	}
 }

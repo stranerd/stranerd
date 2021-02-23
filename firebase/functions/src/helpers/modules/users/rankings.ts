@@ -1,6 +1,5 @@
 import * as admin from 'firebase-admin'
 import { sendTopUsersEmail } from '../../email'
-import { getAllUserIds } from './users'
 
 export enum RankingPeriods {
 	daily = 'daily',
@@ -10,11 +9,10 @@ export enum RankingPeriods {
 }
 export type TopUser = { email: string, fullName: string, id: string, coins: number }
 
-const getTop5Users = async (period: RankingPeriods) => {
+const getTopUsers = async (period: RankingPeriods) => {
 	const ref = await admin.database().ref('profiles')
 		.orderByChild(`rankings/${period}`)
 		.startAt(1)
-		.limitToLast(5)
 		.once('value')
 	const users = [] as TopUser[]
 	ref.forEach((child) => {
@@ -29,6 +27,9 @@ const getTop5Users = async (period: RankingPeriods) => {
 			id: child.key!
 		})
 	})
+
+	users.sort((a, b) => b.coins - a.coins)
+
 	return users
 }
 
@@ -48,11 +49,12 @@ const resetRankings = async (userPaths: string[]) => {
 }
 
 export const resetRankingsByPeriod = async (period: RankingPeriods) => {
-	const topUsers = await getTop5Users(period)
-	await saveTopUsers(period, topUsers)
-	if (topUsers.length > 0) await sendTopUsersEmail(period, topUsers)
+	const topUsers = await getTopUsers(period)
+	const top5users = topUsers.slice(0, 5)
+	await saveTopUsers(period, top5users)
+	if (top5users.length > 0) await sendTopUsersEmail(period, top5users)
 
-	const userIds = await getAllUserIds()
+	const userIds = topUsers.map((user) => user.id)
 	const paths = userIds.map((userId) => `${userId}/rankings/${period}`)
 
 	await resetRankings(paths)

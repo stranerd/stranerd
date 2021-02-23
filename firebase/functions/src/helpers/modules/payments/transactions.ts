@@ -4,6 +4,7 @@ export const BRONZE_CURRENCY_SINGULAR = 'bronze coin'
 export const BRONZE_CURRENCY_PLURAL = 'bronze coins'
 export const GOLD_CURRENCY_SINGULAR = 'gold coin'
 export const GOLD_CURRENCY_PLURAL = 'gold coins'
+export const XP = 'xp'
 
 type CreateTransaction = {
 	amount: number

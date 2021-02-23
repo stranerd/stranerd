@@ -35,7 +35,7 @@ export class QuestionEntity extends BaseEntity {
 	}
 
 	get isAnswered () { return !!this.answerId }
-	get creditable () { return Math.round(this.coins / 4) }
+	get creditable () { return Math.round(this.coins * 0.25) }
 }
 
 type QuestionConstructorArgs = {

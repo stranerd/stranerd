@@ -1,7 +1,7 @@
 import * as admin from 'firebase-admin'
 
-export const CURRENCY_SINGULAR = 'coin'
-export const CURRENCY_PLURAL = 'coins'
+export const BRONZE_CURRENCY_SINGULAR = 'bronze coin'
+export const BRONZE_CURRENCY_PLURAL = 'bronze coins'
 export const GOLD_CURRENCY_SINGULAR = 'gold coin'
 export const GOLD_CURRENCY_PLURAL = 'gold coins'
 

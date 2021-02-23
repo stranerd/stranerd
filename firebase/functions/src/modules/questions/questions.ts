@@ -2,7 +2,7 @@ import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { saveToAlgolia, deleteFromAlgolia } from '../../helpers/algolia'
 import { deleteFromStorage } from '../../helpers/storage'
-import { createTransaction, CURRENCY_PLURAL } from '../../helpers/modules/payments/transactions'
+import { createTransaction, BRONZE_CURRENCY_PLURAL } from '../../helpers/modules/payments/transactions'
 
 export const questionCreated = functions.firestore.document('questions/{questionId}')
 	.onCreate(async (snap) => {
@@ -13,7 +13,7 @@ export const questionCreated = functions.firestore.document('questions/{question
 			await admin.database().ref('profiles')
 				.child(userId)
 				.update({
-					'account/coins': admin.database.ServerValue.increment(0 - coins),
+					'account/coins/bronze': admin.database.ServerValue.increment(0 - coins),
 					'meta/questionCount': admin.database.ServerValue.increment(1)
 				})
 			await admin.database().ref('users')
@@ -23,7 +23,7 @@ export const questionCreated = functions.firestore.document('questions/{question
 				.set(true)
 			await createTransaction(userId, {
 				amount: 0 - coins,
-				event: `You paid ${coins} ${CURRENCY_PLURAL} to ask a question`
+				event: `You paid ${coins} ${BRONZE_CURRENCY_PLURAL} to ask a question`
 			})
 		}
 
@@ -50,8 +50,8 @@ export const questionUpdated = functions.firestore.document('questions/{question
 			const { userId } = (await answerRef.get()).data()!
 			await admin.database().ref('profiles')
 				.child(userId)
-				.child('account/coins')
-				.set(admin.database.ServerValue.increment(Math.floor(coins / 2)))
+				.child('account/coins/bronze')
+				.set(admin.database.ServerValue.increment(Math.floor(coins * 0.75)))
 		}
 
 		await saveToAlgolia('questions', snap.after.id, after)

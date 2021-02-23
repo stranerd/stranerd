@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { deleteFromStorage } from '../../helpers/storage'
-import { createTransaction, CURRENCY_PLURAL } from '../../helpers/modules/payments/transactions'
+import { createTransaction, BRONZE_CURRENCY_PLURAL } from '../../helpers/modules/payments/transactions'
 
 export const answerCreated = functions.firestore.document('answers/{answerId}')
 	.onCreate(async (snap) => {
@@ -17,7 +17,7 @@ export const answerCreated = functions.firestore.document('answers/{answerId}')
 			await admin.database().ref('profiles')
 				.child(userId)
 				.update({
-					'account/coins': admin.database.ServerValue.increment(coins ?? 0),
+					'account/coins/bronze': admin.database.ServerValue.increment(coins ?? 0),
 					'meta/answerCount': admin.database.ServerValue.increment(1)
 				})
 			await admin.database().ref('users')
@@ -27,7 +27,7 @@ export const answerCreated = functions.firestore.document('answers/{answerId}')
 				.set(true)
 			await createTransaction(userId, {
 				amount: coins,
-				event: `You got ${coins} ${CURRENCY_PLURAL} from answering a question`
+				event: `You got ${coins} ${BRONZE_CURRENCY_PLURAL} from answering a question`
 			})
 		}
 	})

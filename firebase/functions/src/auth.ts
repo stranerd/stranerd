@@ -9,7 +9,8 @@ export const authUserCreated = functions.auth.user().onCreate(async (user) => {
 		'bio/email': user.email,
 		'roles/isStudent': true,
 		'dates/signedUpAt': admin.database.ServerValue.TIMESTAMP,
-		'account/coins': 100
+		'account/coins/bronze': 100,
+		'account/coins/gold': 100
 	}
 
 	if (user.displayName) data['bio/name'] = user.displayName

@@ -1,5 +1,6 @@
 import * as admin from 'firebase-admin'
 import { updateCustomerName } from '../../braintree'
+import { RankingPeriods } from './rankings'
 
 export const getAllUserIds = async () => {
 	const userIdsRef = await admin.database().ref('userIds').once('value')
@@ -110,7 +111,7 @@ export const updateUserStreak = async (userId: string) => {
 	}
 	await userRef
 		.update({
-			'account/coins': 5,
+			'account/coins/bronze': 5,
 			'status/streak': isNextDay ? admin.database.ServerValue.increment(1) : 1,
 			'status/lastSignIn': admin.database.ServerValue.TIMESTAMP
 		})
@@ -131,4 +132,17 @@ const getDateDifference = (date1: Date, date2: Date) => {
 		0, 0, 0)
 	res.isNextDay = date2 < start
 	return res
+}
+
+export const addUserXp = async (userId: string, xp: number, shouldSkipForRanking = false) => {
+	const data = {
+		'account/xp': admin.database.ServerValue.increment(xp)
+	} as Record<string, object>
+
+	if (!shouldSkipForRanking) Object.values(RankingPeriods)
+		.forEach((period) => {
+			data[`ranking/${period}`] =  admin.database.ServerValue.increment(xp)
+		})
+
+	await admin.database().ref('profiles').child(userId).update(data)
 }

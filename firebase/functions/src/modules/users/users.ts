@@ -5,7 +5,6 @@ import {
 	updateBraintreeBio, updateMyAnswerCommentsBio,
 	updateMyAnswersBio, updateMyQuestionCommentsBio, updateMyQuestionsBio
 } from '../../helpers/modules/users/users'
-import { RankingPeriods } from '../../helpers/modules/users/rankings'
 
 export const userProfileUpdated = functions.database.ref('profiles/{userId}/bio')
 	.onUpdate(async (snap, context) => {
@@ -25,33 +24,4 @@ export const userProfileUpdated = functions.database.ref('profiles/{userId}/bio'
 
 		if(oldBio?.image?.path !== newBio?.image?.path)
 			await deleteFromStorage(oldBio.image?.path)
-	})
-
-export const userCoinsUpdated = functions.database.ref('profiles/{userId}/account/coins')
-	.onUpdate(async (snap, context) => {
-		const diffInCoins = (snap.after.val() ?? 0) - (snap.before.val() ?? 0)
-
-		if (diffInCoins > 0) {
-			const { userId } = context.params
-			let shouldSkip = false
-
-			const userRef = admin.database().ref('profiles').child(userId)
-
-			await userRef.child('account/shouldSkipCreditRankings')
-				.transaction((skip) => {
-					if (skip) shouldSkip = true
-					return null
-				})
-
-			if (shouldSkip) return
-
-			await userRef.child('rankings')
-				.update(
-					Object.values(RankingPeriods)
-						.reduce((acc, cur) => {
-							acc[cur] = admin.database.ServerValue.increment(diffInCoins)
-							return acc
-						}, {} as Record<string, any>)
-				)
-		}
 	})

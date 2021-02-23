@@ -6,9 +6,15 @@
 		<div v-if="isLoggedIn" class="d-flex flex-column align-items-center my-1">
 			<img :src="user.image" alt="" class="profile-image" style="width:90px;height:90px;">
 			<span class="text-18 font-weight-bold">{{ user.firstName }}</span>
-			<span class="mb-1">
-				<span>{{ formatNumber(user.account.coins) }}</span>
-				<Coins :size="16" />
+			<span class="mb-1 d-flex justify-content-center">
+				<span class="mx-1">
+					<span>{{ formatNumber(user.account.coins.bronze) }}</span>
+					<Coins :size="16" />
+				</span>
+				<span class="mx-1">
+					<span>{{ formatNumber(user.account.coins.gold) }}</span>
+					<Coins :gold="true" :size="16" />
+				</span>
 			</span>
 			<NuxtLink to="/account/" class="btn btn-outline-accent rounded-pill px-3 py-1">
 				View Profile

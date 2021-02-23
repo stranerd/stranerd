@@ -3,8 +3,15 @@
 		<h2 class="mb-3">
 			Current Balance
 		</h2>
-		<div class="bg-light-grey d-inline-block px-8 py-6" style="border-radius: 1.25rem;">
-			<span class="font-weight-bold display-3">${{ formatNumber(user.account.coins) }}</span>
+		<div class="bg-light-grey d-flex px-8 py-6 justify-content-around" style="border-radius: 1.25rem;">
+			<span>
+				<span class="font-weight-bold display-3">{{ formatNumber(user.account.coins.bronze) }}</span>
+				<Coins :size="32" />
+			</span>
+			<span>
+				<span class="font-weight-bold display-3">{{ formatNumber(user.account.coins.gold) }}</span>
+				<Coins :gold="true" :size="32" />
+			</span>
 		</div>
 	</div>
 </template>

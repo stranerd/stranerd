@@ -12,7 +12,7 @@ export default defineComponent({
 			required: false,
 			default: 16
 		},
-		rare: {
+		gold: {
 			type: Boolean,
 			required: false,
 			default: false

@@ -5,10 +5,18 @@
 		<div class="d-flex justify-content-around mx-auto my-2 w-100" style="max-width: 300px;">
 			<div class="d-flex flex-column align-items-center">
 				<span class="small">
-					Coins
+					Bronze
 				</span>
 				<span class="font-weight-bold">
-					{{ formatNumber(user.account.coins) }}
+					{{ formatNumber(user.account.coins.bronze) }}
+				</span>
+			</div>
+			<div class="d-flex flex-column align-items-center">
+				<span class="small">
+					Gold
+				</span>
+				<span class="font-weight-bold">
+					{{ formatNumber(user.account.coins.gold) }}
 				</span>
 			</div>
 			<div class="bg-grey" style="width: 1px;" />

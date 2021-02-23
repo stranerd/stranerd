@@ -28,7 +28,7 @@ export class UserEntity extends BaseEntity {
 		this.id = id
 		this.userBio = generateDefaultBio(bio)
 		this.roles = roles ?? { isStudent: true }
-		this.account = account ?? { coins: 0 }
+		this.account = account ?? { coins: { bronze: 0, gold: 0 } }
 		this.rankings = Object.fromEntries(
 			Object.keys(RankingPeriods)
 				.map((key) => [key, rankings?.[key as RankingPeriods] ?? 0])
@@ -99,7 +99,10 @@ export interface UserRoles {
 	isAdmin?: boolean
 }
 export interface UserAccount {
-	coins: number
+	coins: {
+		bronze: number
+		gold: number
+	}
 }
 export interface UserRankings extends Record<RankingPeriods, number> {}
 export interface UserMeta {

@@ -98,12 +98,12 @@ export const useCreateQuestion = () => {
 				setError('Login to continue')
 				return []
 			}
-			if (user.value!.account.coins < MINIMUM_COINS) {
+			if (user.value!.account.coins.bronze < MINIMUM_COINS) {
 				setError(`You need at least ${MINIMUM_COINS} coins to ask a question`)
 				return []
 			}
 			const coins = []
-			const maximum = user.value!.account.coins <= MAXIMUM_COINS ? user.value!.account.coins : MAXIMUM_COINS
+			const maximum = user.value!.account.coins.bronze <= MAXIMUM_COINS ? user.value!.account.coins.bronze : MAXIMUM_COINS
 			for (let i = MINIMUM_COINS; i <= maximum; i = i + COINS_GAP) coins.push(i)
 			return coins
 		}, set: () => {}

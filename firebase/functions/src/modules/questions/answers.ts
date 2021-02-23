@@ -27,7 +27,7 @@ export const answerCreated = functions.firestore.document('answers/{answerId}')
 				.set(true)
 			await createTransaction(userId, {
 				amount: coins,
-				event: `You got ${coins} ${BRONZE_CURRENCY_PLURAL} from answering a question`
+				event: `You got ${coins} ${BRONZE_CURRENCY_PLURAL} for answering a question`
 			})
 		}
 	})

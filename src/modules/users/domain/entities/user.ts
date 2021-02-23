@@ -35,6 +35,7 @@ export class UserEntity extends BaseEntity {
 		) as Required<UserRankings>
 		this.meta = {
 			answerCount: meta?.answerCount ?? 0,
+			bestAnswerCount: meta?.bestAnswerCount ?? 0,
 			questionCount: meta?.questionCount ?? 0,
 			questionCommentCount: meta?.questionCommentCount ?? 0,
 			answerCommentCount: meta?.answerCommentCount ?? 0,
@@ -42,6 +43,7 @@ export class UserEntity extends BaseEntity {
 			currentSession: meta?.currentSession ?? null
 		}
 		this.status = {
+			streak: status?.streak ?? 0,
 			mode: status?.mode ?? Status.OFFLINE,
 			updatedAt: status?.updatedAt ?? 0
 		}
@@ -106,6 +108,7 @@ export interface UserAccount {
 export interface UserRankings extends Record<RankingPeriods, number> {}
 export interface UserMeta {
 	answerCount?: number
+	bestAnswerCount?: number
 	questionCount?: number
 	questionCommentCount?: number
 	answerCommentCount?: number
@@ -115,6 +118,7 @@ export interface UserMeta {
 export interface UserStatus {
 	mode: Status
 	updatedAt: number
+	streak: number
 }
 export interface UserDates {
 	signedUpAt: number

@@ -22,6 +22,7 @@ export type Notification = CreateNotification & {
 }
 
 export const createNotification = async (userId: string, data: CreateNotification) => {
+	// TODO: Update all action links after implementing ui
 	try{
 		await admin.database().ref(`users/${userId}/notifications`)
 			.push({

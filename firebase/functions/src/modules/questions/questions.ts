@@ -44,6 +44,11 @@ export const questionUpdated = functions.firestore.document('questions/{question
 			await addUserCoins(userId, { bronze: coins * 0.75, gold: 0 },
 				`You got ${coins} ${BRONZE_CURRENCY_PLURAL} for a best answer`
 			)
+			await admin.database().ref()
+				.update({
+					[`profiles/${userId}/meta/bestAnswerCount`]: admin.database.ServerValue.increment(1),
+					[`users/${userId}/bestAnswers/${answerId}`]: true
+				})
 		}
 
 		await saveToAlgolia('questions', snap.after.id, after)

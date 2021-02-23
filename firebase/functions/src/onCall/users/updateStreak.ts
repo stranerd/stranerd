@@ -15,21 +15,25 @@ export const updateStreak = functions.https.onCall(async (_, context) => {
 const updateUserStreak = async (userId: string) => {
 	const userStatusRef = await admin.database().ref('users').child(userId).child('status')
 	const status = await userStatusRef.once('value')
-	const { lastSignIn } = status.val()
-	const date = new Date(lastSignIn ?? 0)
-	const now = new Date()
-	const { isLessThan, isNextDay } = getDateDifference(date, now)
-	if (isLessThan) return false
-	if (!isNextDay) {
-		// send notification that streak has ended
+	const { lastStreakCheck, streak } = status.val()
+
+	const { isLessThan, isNextDay } = getDateDifference(new Date(lastStreakCheck ?? Date.now()), new Date())
+	const res = { isLessThan, isNextDay, streak }
+
+	if (isLessThan) return res
+
+	if (isNextDay) {
+		// add xp
+		// run streak achievement logic
 	}
+
 	await userStatusRef
 		.update({
 			'streak': isNextDay ? admin.database.ServerValue.increment(1) : 1,
-			'lastSignIn': admin.database.ServerValue.TIMESTAMP
+			'lastStreakCheck': admin.database.ServerValue.TIMESTAMP
 		})
 
-	return true
+	return res
 }
 
 const getDateDifference = (date1: Date, date2: Date) => {

@@ -9,7 +9,9 @@ export const authUserCreated = functions.auth.user().onCreate(async (user) => {
 		'bio/email': user.email,
 		'roles/isStudent': true,
 		'dates/signedUpAt': admin.database.ServerValue.TIMESTAMP,
-		'account/coins/bronze': admin.database.ServerValue.increment(100)
+		'account/coins/bronze': admin.database.ServerValue.increment(100),
+		'status/streak': 1,
+		'status/lastStreakCheck': admin.database.ServerValue.TIMESTAMP
 	}
 
 	try {

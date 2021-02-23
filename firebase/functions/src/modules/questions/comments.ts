@@ -15,16 +15,11 @@ export const questionCommentCreated = functions.database.ref('comments/questions
 
 		const { userId } = snap.val()
 
-		await admin.database().ref('profiles')
-			.child(userId)
-			.child('meta/questionCommentCount')
-			.set(admin.database.ServerValue.increment(1))
-
-		await admin.database().ref('users')
-			.child(userId)
-			.child('question-comments')
-			.child(`${questionId}--${commentId}`)
-			.set(true)
+		await admin.database().ref()
+			.update({
+				[`profiles/${userId}/meta/questionCommentCount`]: admin.database.ServerValue.increment(1),
+				[`users/${userId}/question-comments/${questionId}--${commentId}`]: true
+			})
 	})
 
 export const answerCommentCreated = functions.database.ref('comments/answers/{answerId}/{commentId}')
@@ -41,16 +36,11 @@ export const answerCommentCreated = functions.database.ref('comments/answers/{an
 
 		const { userId } = snap.val()
 
-		await admin.database().ref('profiles')
-			.child(userId)
-			.child('meta/answerCommentCount')
-			.set(admin.database.ServerValue.increment(1))
-
-		await admin.database().ref('users')
-			.child(userId)
-			.child('answer-comments')
-			.child(`${answerId}--${commentId}`)
-			.set(true)
+		await admin.database().ref()
+			.update({
+				[`profiles/${userId}/meta/answerCommentCount`]: admin.database.ServerValue.increment(1),
+				[`users/${userId}/answer-comments/${answerId}--${commentId}`]: true
+			})
 	})
 
 export const questionCommentDeleted = functions.database.ref('comments/questions/{questionId}/{commentId}')
@@ -67,16 +57,11 @@ export const questionCommentDeleted = functions.database.ref('comments/questions
 
 		const { userId } = snap.val()
 
-		await admin.database().ref('profiles')
-			.child(userId)
-			.child('meta/questionCommentCount')
-			.set(admin.database.ServerValue.increment(-1))
-
-		await admin.database().ref('users')
-			.child(userId)
-			.child('question-comments')
-			.child(`${questionId}--${commentId}`)
-			.set(null)
+		await admin.database().ref()
+			.update({
+				[`profiles/${userId}/meta/questionCommentCount`]: admin.database.ServerValue.increment(-1),
+				[`users/${userId}/question-comments/${questionId}--${commentId}`]: null
+			})
 	})
 
 export const answerCommentDeleted = functions.database.ref('comments/answers/{answerId}/{commentId}')
@@ -93,14 +78,9 @@ export const answerCommentDeleted = functions.database.ref('comments/answers/{an
 
 		const { userId } = snap.val()
 
-		await admin.database().ref('profiles')
-			.child(userId)
-			.child('meta/answerCommentCount')
-			.set(admin.database.ServerValue.increment(-1))
-
-		await admin.database().ref('users')
-			.child(userId)
-			.child('answer-comments')
-			.child(`${answerId}--${commentId}`)
-			.set(null)
+		await admin.database().ref()
+			.update({
+				[`profiles/${userId}/meta/answerCommentCount`]: admin.database.ServerValue.increment(-1),
+				[`users/${userId}/answer-comments/${answerId}--${commentId}`]: null
+			})
 	})

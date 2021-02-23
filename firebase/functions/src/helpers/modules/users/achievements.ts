@@ -1,5 +1,5 @@
 import * as admin from 'firebase-admin'
-import { BRONZE_CURRENCY_PLURAL, createTransaction, GOLD_CURRENCY_PLURAL, XP } from '../payments/transactions'
+import { addUserCoins, BRONZE_CURRENCY_PLURAL, GOLD_CURRENCY_PLURAL, XP } from '../payments/transactions'
 import { addUserXp } from './users'
 
 type Achievement = {
@@ -103,7 +103,7 @@ export const Achievements = {
 			xp: 100
 		}
 	}
-} as const // Record<string, Achievement>
+} as const
 
 const getAchievementProgress = async (userId: string, id: string) => {
 	const ref = admin.database().ref('profiles')
@@ -117,22 +117,14 @@ const getAchievementProgress = async (userId: string, id: string) => {
 
 const runAfterAchievement = async (userId: string, achievement: Achievement) => {
 	const { name, price: { gold, bronze, xp } } = achievement
-	await createTransaction(userId, {
-		amount: gold + bronze,
-		event: 'You earned ' +
-			(gold > 0 ? `${gold} ${GOLD_CURRENCY_PLURAL}` : '') +
-			(gold > 0 && bronze > 0 ? ', ' : '') +
-			(bronze > 0 ? `${bronze} ${BRONZE_CURRENCY_PLURAL}` : '') +
-			` and ${xp} ${XP} for completing the achievement: ` + name
-	})
 	await addUserXp(userId, xp)
-	await admin.database().ref('profiles')
-		.child(userId)
-		.child('account/coins')
-		.update({
-			gold: admin.database.ServerValue.increment(gold),
-			bronze: admin.database.ServerValue.increment(bronze)
-		})
+	await addUserCoins(userId, { bronze, gold },
+		'You earned ' +
+		(gold > 0 ? `${gold} ${GOLD_CURRENCY_PLURAL}` : '') +
+		(gold > 0 && bronze > 0 ? ', ' : '') +
+		(bronze > 0 ? `${bronze} ${BRONZE_CURRENCY_PLURAL}` : '') +
+		` and ${xp} ${XP} for completing the achievement: ` + name
+	)
 }
 
 export const checkAskQuestionsAchievement = async (userId: string) => {

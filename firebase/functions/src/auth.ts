@@ -9,12 +9,8 @@ export const authUserCreated = functions.auth.user().onCreate(async (user) => {
 		'bio/email': user.email,
 		'roles/isStudent': true,
 		'dates/signedUpAt': admin.database.ServerValue.TIMESTAMP,
-		'account/coins/bronze': 100,
-		'account/coins/gold': 100
+		'account/coins/bronze': admin.database.ServerValue.increment(100)
 	}
-
-	if (user.displayName) data['bio/name'] = user.displayName
-	if (user.photoURL) data['bio/image/link'] = user.photoURL
 
 	try {
 		const result = await createCustomer(user.displayName ?? 'Unnamed', user.email!)
@@ -23,27 +19,28 @@ export const authUserCreated = functions.auth.user().onCreate(async (user) => {
 		console.log(`Failed to create braintree user: ${user.uid}-${user.email}.\n${error.message}`)
 	}
 
+	const profileData = Object.fromEntries(
+		Object.entries(data)
+			.map((entry) => [`profiles/${user.uid}/${entry[0]}`, entry[1]])
+	)
+
+	await admin.database().ref()
+		.update({
+			...profileData,
+			[`userIds/${user.uid}`]: true
+		})
+
 	try {
 		if (isProduction()) await subscribeToMailchimpList(user.email!)
 	} catch (error) {
 		console.log(`Failed to create mailchimp user: ${user.uid}-${user.email}.\n${error.message}`)
 	}
-
-	await admin.database().ref('profiles')
-		.child(user.uid)
-		.update(data)
-
-	await admin.database().ref('userIds')
-		.child(user.uid)
-		.set(true)
 })
 
 export const authUserDeleted = functions.auth.user().onDelete(async (user) => {
-	await admin.database().ref('profiles')
-		.child(user.uid)
-		.child('dates/deletedAt')
-		.set(admin.database.ServerValue.TIMESTAMP)
-	await admin.database().ref('userIds')
-		.child(user.uid)
-		.set(false)
+	await admin.database().ref()
+		.update({
+			[`profiles/${user.uid}/dates/deletedAt`]: admin.database.ServerValue.TIMESTAMP,
+			[`userIds/${user.uid}`]: false
+		})
 })

@@ -12,7 +12,7 @@ export const requestNewSession = functions.https.onCall(async (session, context)
 		.once('value')
 	const currentSession = sessionRef.val()
 
-	if(currentSession)
+	if (currentSession)
 		throw new functions.https.HttpsError('failed-precondition','Tutor is currently in a session. Try again later.')
 
 	try{

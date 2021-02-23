@@ -46,7 +46,6 @@ export class UserEntity extends BaseEntity {
 			updatedAt: status?.updatedAt ?? 0
 		}
 		this.tutor = {
-			canTeach: tutor?.canTeach ?? false,
 			rating: tutor?.rating ?? 0,
 			reviews: tutor?.reviews ?? 0,
 			subjects: tutor?.subjects ?? {},
@@ -121,7 +120,6 @@ export interface UserDates {
 	signedUpAt: number
 }
 export interface UserTutor {
-	canTeach: boolean
 	rating: number
 	reviews: number
 	subjects: Record<string, {

@@ -10,36 +10,22 @@ export const toggleTutor = functions.https.onCall(async (data, context) => {
 
 	try{
 		const { id, isTutor } = data
-		if (isTutor) {
-			await admin.database().ref('profiles')
-				.child(id)
-				.update({
-					'roles/isTutor': true,
-					'tutor': {
-						canTeach: false, rating: 0, reviews: 0,
-						subjects: {}
-					}
-				})
-			await createNotification(id, {
-				type: NotificationType.INFO,
-				action: '/account',
-				title: 'Tutoring Privileges Modified',
-				body: 'Your account has successfully being granted tutoring privileges'
+
+		await admin.database().ref('profiles')
+			.child(id)
+			.update({
+				'roles/isTutor': isTutor,
+				'tutor': isTutor ? { rating: 0, reviews: 0, subjects: {} } : null
 			})
-		} else {
-			await admin.database().ref('profiles')
-				.child(id)
-				.update({
-					'roles/isTutor': false,
-					'tutor': null
-				})
-			await createNotification(id, {
-				type: NotificationType.INFO,
-				action: '/account',
-				title: 'Tutoring Privileges Modified',
-				body: 'Your tutoring privileges has been removed. Contact an admin if this was a mistake'
-			})
-		}
+
+		await createNotification(id, {
+			type: NotificationType.INFO,
+			action: '/account',
+			title: 'Tutoring Privileges Modified',
+			body: isTutor
+				? 'Your account has successfully being granted tutoring privileges'
+				: 'Your tutoring privileges has been removed. Contact an admin if this was a mistake'
+		})
 
 		return true
 	}catch(error){

@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { deleteFromStorage } from '../../helpers/storage'
-import { createTransaction, BRONZE_CURRENCY_PLURAL } from '../../helpers/modules/payments/transactions'
+import { addUserCoins, BRONZE_CURRENCY_PLURAL } from '../../helpers/modules/payments/transactions'
 
 export const answerCreated = functions.firestore.document('answers/{answerId}')
 	.onCreate(async (snap) => {
@@ -14,21 +14,14 @@ export const answerCreated = functions.firestore.document('answers/{answerId}')
 			}, { merge: true })
 
 		if (coins && userId) {
-			await admin.database().ref('profiles')
-				.child(userId)
+			await admin.database().ref()
 				.update({
-					'account/coins/bronze': admin.database.ServerValue.increment(coins ?? 0),
-					'meta/answerCount': admin.database.ServerValue.increment(1)
+					[`profiles/${userId}/meta/answerCount`]: admin.database.ServerValue.increment(1),
+					[`users/${userId}/answers/${snap.id}`]: true
 				})
-			await admin.database().ref('users')
-				.child(userId)
-				.child('answers')
-				.child(snap.id)
-				.set(true)
-			await createTransaction(userId, {
-				amount: coins,
-				event: `You got ${coins} ${BRONZE_CURRENCY_PLURAL} for answering a question`
-			})
+			await addUserCoins(userId, { bronze: coins, gold: 0 },
+				`You got ${coins} ${BRONZE_CURRENCY_PLURAL} for answering a question`
+			)
 		}
 	})
 
@@ -52,22 +45,17 @@ export const answerDeleted = functions.firestore.document('answers/{answerId}')
 
 		attachments?.map(async (attachment: any) => await deleteFromStorage(attachment.path))
 
-		await admin.database().ref('profiles')
-			.child(userId)
-			.child('meta/answerCount')
-			.set(admin.database.ServerValue.increment(-1))
-
-		await admin.database().ref('users')
-			.child(userId)
-			.child('answers')
-			.child(snap.id)
-			.set(null)
-
 		await admin.firestore().collection('questions')
 			.doc(questionId)
 			.set({
 				answers: admin.firestore.FieldValue.increment(-1)
 			}, { merge: true })
+
+		await admin.database().ref()
+			.update({
+				[`profiles/${userId}/meta/answerCount`]: admin.database.ServerValue.increment(-1),
+				[`users/${userId}/answers/${snap.id}`]: null
+			})
 	})
 
 export const answerLiked = functions.database.ref('answers/{answerId}/likes')

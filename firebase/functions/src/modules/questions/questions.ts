@@ -2,7 +2,7 @@ import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { saveToAlgolia, deleteFromAlgolia } from '../../helpers/algolia'
 import { deleteFromStorage } from '../../helpers/storage'
-import { createTransaction, BRONZE_CURRENCY_PLURAL } from '../../helpers/modules/payments/transactions'
+import { addUserCoins, BRONZE_CURRENCY_PLURAL } from '../../helpers/modules/payments/transactions'
 
 export const questionCreated = functions.firestore.document('questions/{questionId}')
 	.onCreate(async (snap) => {
@@ -10,21 +10,14 @@ export const questionCreated = functions.firestore.document('questions/{question
 		const { coins, userId } = question
 
 		if (coins && userId) {
-			await admin.database().ref('profiles')
-				.child(userId)
+			await admin.database().ref()
 				.update({
-					'account/coins/bronze': admin.database.ServerValue.increment(0 - coins),
-					'meta/questionCount': admin.database.ServerValue.increment(1)
+					[`profiles/${userId}/meta/questionCount`]: admin.database.ServerValue.increment(1),
+					[`users/${userId}/questions/${snap.id}`]: true
 				})
-			await admin.database().ref('users')
-				.child(userId)
-				.child('questions')
-				.child(snap.id)
-				.set(true)
-			await createTransaction(userId, {
-				amount: 0 - coins,
-				event: `You paid ${coins} ${BRONZE_CURRENCY_PLURAL} to ask a question`
-			})
+			await addUserCoins(userId, { bronze: 0 - coins, gold: 0 },
+				`You paid ${coins} ${BRONZE_CURRENCY_PLURAL} to ask a question`
+			)
 		}
 
 		await saveToAlgolia('questions', snap.id, question)
@@ -48,10 +41,9 @@ export const questionUpdated = functions.firestore.document('questions/{question
 			const answerRef = admin.firestore().collection('answers').doc(answerId)
 			await answerRef.set({ best: true }, { merge: true })
 			const { userId } = (await answerRef.get()).data()!
-			await admin.database().ref('profiles')
-				.child(userId)
-				.child('account/coins/bronze')
-				.set(admin.database.ServerValue.increment(Math.floor(coins * 0.75)))
+			await addUserCoins(userId, { bronze: coins * 0.75, gold: 0 },
+				`You got ${coins} ${BRONZE_CURRENCY_PLURAL} for a best answer`
+			)
 		}
 
 		await saveToAlgolia('questions', snap.after.id, after)
@@ -60,15 +52,12 @@ export const questionUpdated = functions.firestore.document('questions/{question
 export const questionDeleted = functions.firestore.document('questions/{questionId}')
 	.onDelete(async (snap) => {
 		const { attachments, userId } = snap.data()
-		await admin.database().ref('profiles')
-			.child(userId)
-			.child('meta/questionCount')
-			.set(admin.database.ServerValue.increment(-1))
-		await admin.database().ref('users')
-			.child(userId)
-			.child('questions')
-			.child(snap.id)
-			.set(null)
+
+		await admin.database().ref()
+			.update({
+				[`profiles/${userId}/meta/questionCount`]: admin.database.ServerValue.increment(-1),
+				[`users/${userId}/questions/${snap.id}`]: null
+			})
 
 		attachments?.map(async (attachment: any) => await deleteFromStorage(attachment.path))
 

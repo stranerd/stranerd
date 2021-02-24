@@ -1,13 +1,13 @@
 import { BaseEntity } from '@modules/core/domains/entities/base'
-import { UserBio } from '@modules/users'
+import { Avatars, generateDefaultBio, UserBio } from '@modules/users'
 
 export class SessionEntity extends BaseEntity {
 	readonly id: string
 	readonly message: string
 	readonly studentId: string
-	readonly studentBio: UserBio
+	readonly studentBio: Required<UserBio>
 	readonly tutorId: string
-	readonly tutorBio: UserBio
+	readonly tutorBio: Required<UserBio>
 	readonly duration: number
 	readonly price: number
 	readonly accepted: boolean
@@ -29,9 +29,9 @@ export class SessionEntity extends BaseEntity {
 		this.id = id
 		this.message = message
 		this.studentId = studentId
-		this.studentBio = studentBio
+		this.studentBio = generateDefaultBio(studentBio)
 		this.tutorId = tutorId
-		this.tutorBio = tutorBio
+		this.tutorBio = generateDefaultBio(tutorBio)
 		this.duration = duration
 		this.price = price
 		this.accepted = accepted
@@ -40,6 +40,9 @@ export class SessionEntity extends BaseEntity {
 		this.createdAt = createdAt
 		this.endedAt = endedAt
 	}
+
+	get studentAvatar () { return Avatars[this.studentBio.avatar].link }
+	get tutorAvatar () { return Avatars[this.tutorBio.avatar].link }
 }
 
 type SessionConstructorArgs = {

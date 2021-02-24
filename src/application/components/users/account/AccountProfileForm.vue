@@ -1,13 +1,5 @@
 <template>
 	<form @submit.prevent="updateProfile">
-		<div class="form-group my-3 d-flex flex-column align-items-center">
-			<img v-if="imageLink" :src="imageLink" alt="Profile Image" class="profile-image mb-1" style="width: 150px; height:150px;">
-			<input ref="image" type="file" class="d-none" accept="image/*" @change="catchImage">
-			<a @click.prevent="() => { $refs.image.value= ''; $refs.image.click() }">
-				<span class="text-info">Change Profile Image</span>
-			</a>
-			<small v-if="factory.errors.image" class="small text-danger d-block">{{ factory.errors.image }}</small>
-		</div>
 		<div class="form-group d-flex flex-column flex-md-row my-3">
 			<div class="mb-3 mb-md-0 mr-md-2 flex-grow-1">
 				<label class="label">First Name</label>
@@ -55,10 +47,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref } from '@nuxtjs/composition-api'
+import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { useUpdateProfile } from '@app/hooks/users/account'
-import { useFileInputs } from '@app/hooks/core/forms'
-import { isClient } from '@utils/environment'
 export default defineComponent({
 	name: 'AccountProfileForm',
 	props: {
@@ -69,17 +59,7 @@ export default defineComponent({
 	},
 	setup () {
 		const { factory, error, loading, updateProfile } = useUpdateProfile()
-		const imageLink = ref((factory.value.image as any)?.link)
-		const { catchFiles: catchImage } = useFileInputs(
-			(file:File) => {
-				factory.value.image = file
-				if (isClient()) imageLink.value = window.URL.createObjectURL(file)
-			}
-		)
-		return {
-			factory, error, loading, updateProfile,
-			catchImage, imageLink
-		}
+		return { factory, error, loading, updateProfile }
 	}
 })
 </script>

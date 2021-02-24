@@ -1,5 +1,5 @@
 import { Media } from '@modules/core/data/models/base'
-import { UserBio, generateDefaultBio } from '@modules/users'
+import { UserBio, generateDefaultBio, Avatars } from '@modules/users'
 import { BaseEntity } from '@modules/core/domains/entities/base'
 
 export class AnswerEntity extends BaseEntity {
@@ -11,7 +11,7 @@ export class AnswerEntity extends BaseEntity {
 	public readonly questionId: string
 	public readonly subjectId: string
 	public readonly userId: string
-	public readonly user: UserBio
+	public readonly user: Required<UserBio>
 	public readonly likes: number
 	public readonly ratings: number
 	public readonly commentsCount: number
@@ -39,6 +39,7 @@ export class AnswerEntity extends BaseEntity {
 	}
 
 	get formattedRating () { return Number(this.ratings).toFixed(1) }
+	get avatar () { return Avatars[this.user.avatar].link }
 }
 
 type AnswerConstructorArgs = {

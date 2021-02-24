@@ -1,5 +1,5 @@
 import { Media } from '@modules/core/data/models/base'
-import { UserBio, generateDefaultBio } from '@modules/users'
+import { UserBio, generateDefaultBio, Avatars } from '@modules/users'
 import { BaseEntity } from '@modules/core/domains/entities/base'
 
 export class QuestionEntity extends BaseEntity {
@@ -9,7 +9,7 @@ export class QuestionEntity extends BaseEntity {
 	public readonly coins: number
 	public readonly subjectId: string
 	public readonly userId: string
-	public readonly user: UserBio
+	public readonly user: Required<UserBio>
 	public readonly answerId: string | undefined
 	public readonly answers: number
 	public readonly commentsCount: number
@@ -36,6 +36,7 @@ export class QuestionEntity extends BaseEntity {
 
 	get isAnswered () { return !!this.answerId }
 	get creditable () { return Math.round(this.coins * 0.25) }
+	get avatar () { return Avatars[this.user.avatar].link }
 }
 
 type QuestionConstructorArgs = {

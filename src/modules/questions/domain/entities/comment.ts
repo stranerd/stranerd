@@ -1,11 +1,11 @@
-import { UserBio, generateDefaultBio } from '@modules/users'
+import { UserBio, generateDefaultBio, Avatars } from '@modules/users'
 import { BaseEntity } from '@modules/core/domains/entities/base'
 
 export class CommentEntity extends BaseEntity {
 	public readonly id: string
 	public readonly body: string
 	public readonly userId: string
-	public readonly user: UserBio
+	public readonly user: Required<UserBio>
 	public readonly createdAt: number
 
 	constructor ({ id, body, createdAt, userId, user }: CommentConstructorArgs) {
@@ -16,6 +16,8 @@ export class CommentEntity extends BaseEntity {
 		this.user = generateDefaultBio(user)
 		this.createdAt = createdAt
 	}
+
+	get avatar () { return Avatars[this.user.avatar].link }
 }
 
 type CommentConstructorArgs = {

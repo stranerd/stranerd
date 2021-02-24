@@ -1,10 +1,8 @@
 import { BaseFactory } from '@modules/core/domains/factories/base'
-import { isLongerThan, isEmail, isImage } from 'sd-validate/lib/rules'
-import { UserBio } from '@modules/users'
-import { Media } from '@modules/core/data/models/base'
+import { isLongerThan, isEmail } from 'sd-validate/lib/rules'
+import { Avatar, UserBio } from '@modules/users'
 
-type Content = File | Media
-type Keys = { first: string, last: string, email: string, description: string, image: Content | undefined }
+type Keys = { first: string, last: string, email: string, description: string, avatar: Avatar | undefined }
 const isLongerThan2 = (value:string) => isLongerThan(value, 2)
 
 export class ProfileUpdateFactory extends BaseFactory<UserBio, UserBio, Keys> {
@@ -13,11 +11,11 @@ export class ProfileUpdateFactory extends BaseFactory<UserBio, UserBio, Keys> {
 		last: { required: true, rules: [isLongerThan2] },
 		email: { required: true, rules: [isEmail] },
 		description: { required: true, rules: [] },
-		image: { required: true, rules: [isImage] }
+		avatar: { required: false, rules: [] }
 	}
 
 	constructor () {
-		super({ first: '', last: '', email: '', description: '', image: undefined })
+		super({ first: '', last: '', email: '', description: '', avatar: undefined })
 	}
 
 	reserved = []
@@ -30,15 +28,17 @@ export class ProfileUpdateFactory extends BaseFactory<UserBio, UserBio, Keys> {
 	set email (value: string) { this.set('email', value) }
 	get description () { return this.values.description }
 	set description (value: string) { this.set('description', value) }
-	get image () { return this.values.image! }
-	set image (file: Content) { this.set('image', file) }
+	get avatar () { return this.values.avatar! }
+	set avatar (avatarId: Avatar | undefined) { this.set('avatar', avatarId) }
 
 	toModel = async () => {
 		if (this.valid) {
-			if (this.image instanceof File) this.image = await this.uploadFile('profiles', this.image)
-
-			const { first, last, email, description, image } = this.validValues
-			return { name: { first, last }, email, description, image: image as Media }
+			const { first, last, email, description, avatar } = this.validValues
+			return {
+				name: { first, last },
+				email, description,
+				...(avatar ? { avatar } : {})
+			}
 		} else throw new Error('Validation errors')
 	}
 
@@ -47,6 +47,6 @@ export class ProfileUpdateFactory extends BaseFactory<UserBio, UserBio, Keys> {
 		this.last = bio.name.last
 		this.email = bio.email
 		this.description = bio.description
-		this.image = bio.image
+		this.avatar = bio.avatar
 	}
 }

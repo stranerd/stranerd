@@ -1,6 +1,5 @@
 import { BaseEntity } from '@modules/core/domains/entities/base'
-import { Media } from '@modules/core/data/models/base'
-export const DEFAULT_IMAGE_URL = '/images/user_profile.png'
+import { Avatars } from '@modules/users/domain/entities/avatar'
 export enum Status {
 	OFFLINE = 0,
 	ONLINE = 1
@@ -61,7 +60,7 @@ export class UserEntity extends BaseEntity {
 	get lastName () { return this.userBio.name.last }
 	get fullName () { return this.userBio.name.first + ' ' + this.userBio.name.last }
 	get email () { return this.userBio.email }
-	get image () { return this.userBio.image.link }
+	get avatar () { return Avatars[this.userBio.avatar].link }
 
 	get isOnline () { return this.status.mode === Status.ONLINE }
 	get lastSeen () { return this.isOnline ? Date.now() : this.status.updatedAt }
@@ -92,7 +91,7 @@ export interface UserBio {
 	}
 	email: string
 	description: string
-	image: Media
+	avatar?: keyof typeof Avatars
 }
 export interface UserRoles {
 	isStudent: boolean
@@ -138,12 +137,12 @@ export interface UserTutor {
 	sessionCount?: number
 }
 
-export const generateDefaultBio = (bio: UserBio) :UserBio => {
+export const generateDefaultBio = (bio: UserBio) :Required<UserBio> => {
 	const first = bio?.name?.first ?? 'Anon'
 	const last = bio?.name?.last ?? 'Ymous'
 	const fullName = first + ' ' + last
 	const email = bio?.email ?? 'anon@ymous.com'
 	const description = bio?.description ?? ''
-	const image = bio?.image ?? { name: 'user_profile.png', link: DEFAULT_IMAGE_URL, type: 'image/png', path: DEFAULT_IMAGE_URL }
-	return { name: { first, last, fullName }, email, description, image }
+	const avatar = Avatars[bio?.avatar!] ? bio?.avatar! : Avatars.default.id
+	return { name: { first, last, fullName }, email, description, avatar }
 }

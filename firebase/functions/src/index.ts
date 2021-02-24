@@ -17,7 +17,7 @@ import { buyCoins } from './onCall/payments/buyCoins'
 import { updateStreak } from './onCall/users/updateStreak'
 import { tipNerd } from './onCall/users/tipNerd'
 
-import { userProfileUpdated } from './modules/users/users'
+import { userProfileUpdated, userAvatarCreated } from './modules/users/users'
 
 import { personalChatMediaDeleted, sessionChatMediaDeleted } from './modules/sessions/chats'
 
@@ -39,7 +39,7 @@ export { makeSuperAdmin, resendEmails, endSession }
 
 // Users Module
 // Users
-export { userProfileUpdated }
+export { userProfileUpdated, userAvatarCreated }
 
 // Sessions Module
 // Chats

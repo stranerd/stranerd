@@ -1,4 +1,5 @@
 import * as functions from 'firebase-functions'
+import * as admin from 'firebase-admin'
 import {
 	addUserXp, updateBraintreeBio, updateMyAnswerCommentsBio, updateMyAnswersBio, updateMyQuestionCommentsBio,
 	updateMyQuestionsBio, updateMySessionsBio, updateMyTutorSessionsBio, XpGainList
@@ -22,5 +23,15 @@ export const userProfileUpdated = functions.database.ref('profiles/{userId}/bio'
 export const userAvatarCreated = functions.database.ref('profiles/{userId}/bio/avatar')
 	.onCreate(async (_, context) => {
 		const { userId } = context.params
-		await addUserXp(userId, XpGainList.PICK_AVATAR)
+		let hasSetAvatarBefore = true
+
+		await admin.database().ref('users')
+			.child(userId)
+			.child('hasSetAvatarBefore')
+			.transaction((setAvatarBefore: boolean | null) => {
+				hasSetAvatarBefore = setAvatarBefore ?? false
+				return true
+			})
+
+		if (!hasSetAvatarBefore) await addUserXp(userId, XpGainList.PICK_AVATAR)
 	})

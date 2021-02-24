@@ -5,7 +5,8 @@ const global = {
 	editModal: ssrRef(null as string | null),
 	accountModal: ssrRef(null as string | null),
 	menuModal: ssrRef(null as string | null),
-	navigationModal: ssrRef(null as string | null)
+	navigationModal: ssrRef(null as string | null),
+	sessionModal: ssrRef(null as string | null)
 }
 
 export const useCreateModal = () => {
@@ -63,5 +64,21 @@ export const useNavigationModal = () => {
 		isNavigationModalNotification: computed(() => global.navigationModal.value === 'notification'),
 		setNavigationModalNotification: () => global.navigationModal.value = 'notification',
 		closeNavigationModal: () => global.navigationModal.value = null
+	}
+}
+
+export const useSessionModal = () => {
+	return {
+		isSessionModalNewSessionRequest: computed(() => global.sessionModal.value === 'new-session-request'),
+		isSessionModalStudentWaiting: computed(() => global.sessionModal.value === 'student-waiting'),
+		isSessionModalTutorCancelled: computed(() => global.sessionModal.value === 'tutor-cancelled'),
+		isSessionModalUnknown: computed(() => global.sessionModal.value === 'unknown'),
+
+		setSessionModalNewSessionRequest: () => global.sessionModal.value = 'new-session-request',
+		setSessionModalStudentWaiting: () => global.sessionModal.value = 'student-waiting',
+		setSessionModalTutorCancelled: () => global.sessionModal.value = 'tutor-cancelled',
+		setSessionModalUnknown: () => global.sessionModal.value = 'unknown',
+
+		closeSessionModal: () => global.sessionModal.value = null
 	}
 }

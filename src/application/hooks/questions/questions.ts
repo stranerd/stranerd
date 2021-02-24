@@ -1,4 +1,4 @@
-import { ssrRef, watch, computed, useContext, useFetch, ref } from '@nuxtjs/composition-api'
+import { ssrRef, watch, computed, useRouter, useFetch, ref } from '@nuxtjs/composition-api'
 import {
 	AddQuestion, FindQuestion, GetQuestions, ListenToQuestion,
 	ListenToQuestions, QuestionEntity, QuestionFactory
@@ -91,7 +91,7 @@ export const useCreateQuestion = () => {
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const { setMessage } = useSuccessHandler()
-	const router = useContext().app.router
+	const router = useRouter()
 	const coins = computed({
 		get: () => {
 			if (!isLoggedIn) {
@@ -121,7 +121,7 @@ export const useCreateQuestion = () => {
 				const questionId = await AddQuestion.call(factory.value)
 				setMessage('Question submitted successfully')
 				useCreateModal().closeCreateModal()
-				await router?.push(`/questions/${questionId}`)
+				await router.push(`/questions/${questionId}`)
 				factory.value.reset()
 			} catch (error) { setError(error) }
 			setLoading(false)

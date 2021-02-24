@@ -33,15 +33,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext } from '@nuxtjs/composition-api'
+import { defineComponent, useRoute } from '@nuxtjs/composition-api'
 import { useUser } from '@app/hooks/users/user'
 import UserHeadCard from '@app/components/users/user/UserHeadCard.vue'
 export default defineComponent({
 	name: 'UserSidebar',
 	components: { UserHeadCard },
 	setup () {
-		const { route } = useContext()
-		const { userId } = route.value.params
+		const { userId } = useRoute().value.params
 		const { error, loading, user } = useUser(userId)
 		return { userId, error, loading, user }
 	}

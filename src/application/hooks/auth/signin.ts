@@ -1,4 +1,4 @@
-import { Ref, ref, ssrRef, useContext } from '@nuxtjs/composition-api'
+import { Ref, ref, ssrRef, useRouter } from '@nuxtjs/composition-api'
 import {
 	EmailLinkSigninFactory, SendSigninEmail, SigninWithGoogle, SigninWithEmailLink,
 	EmailSigninFactory, SigninWithEmail, EmailSignupFactory, SignupWithEmail
@@ -9,7 +9,7 @@ import { isClient } from '@utils/environment'
 import { EMAIL_SIGNIN_STORAGE_KEY } from '@utils/constants'
 
 export const useGoogleSignin = () => {
-	const { app } = useContext()
+	const router = useRouter()
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const signin = async () => {
@@ -18,7 +18,7 @@ export const useGoogleSignin = () => {
 			setLoading(true)
 			try {
 				const user = await SigninWithGoogle.call()
-				await createSession(user, app.router!)
+				await createSession(user, router)
 			} catch (error) { setError(error) }
 			setLoading(false)
 		}
@@ -49,7 +49,7 @@ export const useSendEmailLink = () => {
 }
 
 export const useEmailLinkSignin = () => {
-	const { app } = useContext()
+	const router = useRouter()
 	const factory = ssrRef(new EmailLinkSigninFactory())
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
@@ -69,7 +69,7 @@ export const useEmailLinkSignin = () => {
 			try {
 				const url = isClient() ? window.location.href : ''
 				const user = await SigninWithEmailLink.call(factory.value, url)
-				await createSession(user, app.router!)
+				await createSession(user, router)
 			} catch (error) { setError(error) }
 			setLoading(false)
 		} else factory.value.validateAll()
@@ -78,7 +78,7 @@ export const useEmailLinkSignin = () => {
 }
 
 export const useEmailSignin = () => {
-	const { app } = useContext()
+	const router = useRouter()
 	const factory = ref(new EmailSigninFactory()) as Ref<EmailSigninFactory>
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
@@ -88,7 +88,7 @@ export const useEmailSignin = () => {
 			setLoading(true)
 			try {
 				const user = await SigninWithEmail.call(factory.value)
-				await createSession(user, app.router!)
+				await createSession(user, router)
 			} catch (error) { setError(error) }
 			setLoading(false)
 		} else factory.value.validateAll()
@@ -97,7 +97,7 @@ export const useEmailSignin = () => {
 }
 
 export const useEmailSignup = () => {
-	const { app } = useContext()
+	const router = useRouter()
 	const factory = ref(new EmailSignupFactory()) as Ref<EmailSignupFactory>
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
@@ -107,7 +107,7 @@ export const useEmailSignup = () => {
 			setLoading(true)
 			try {
 				const user = await SignupWithEmail.call(factory.value)
-				await createSession(user, app.router!)
+				await createSession(user, router)
 			} catch (error) { setError(error) }
 			setLoading(false)
 		} else factory.value.validateAll()

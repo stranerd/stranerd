@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeUnmount, onMounted, useContext } from '@nuxtjs/composition-api'
+import { defineComponent, onBeforeUnmount, onMounted, useRoute } from '@nuxtjs/composition-api'
 import CommentsList from '@app/components/questions/comments/AnswerCommentsList.vue'
 import CommentForm from '@app/components/questions/comments/AnswerCommentForm.vue'
 import { useAuth } from '@app/hooks/auth/auth'
@@ -52,7 +52,7 @@ export default defineComponent({
 	setup () {
 		const { isLoggedIn } = useAuth()
 		const { redirect } = useRedirectToAuth()
-		const { questionId, answerId } = useContext().route.value.params
+		const { questionId, answerId } = useRoute().value.params
 		const { question, error, loading, listener } = useQuestion(questionId)
 		const { answer, error: aError, loading: aLoading, listener: aListener } = useAnswerById(questionId, answerId)
 		onMounted(() => {

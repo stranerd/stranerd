@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext } from '@nuxtjs/composition-api'
+import { defineComponent, useRoute } from '@nuxtjs/composition-api'
 import { CommentFactory } from '@modules/questions'
 import { useAuth } from '@app/hooks/auth/auth'
 import { Avatars } from '@modules/users'
@@ -44,7 +44,7 @@ export default defineComponent({
 	},
 	setup () {
 		const { isLoggedIn, user } = useAuth()
-		const isCommentsPage = useContext().route.value.path.includes('comments')
+		const isCommentsPage = useRoute().value.path.includes('comments')
 		return { isLoggedIn, user, isCommentsPage, Avatars }
 	}
 })

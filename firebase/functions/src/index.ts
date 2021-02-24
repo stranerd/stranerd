@@ -14,15 +14,17 @@ import { cancelSession } from './onCall/sessions/cancelSession'
 import { getClientToken } from './onCall/payments/getClientToken'
 import { makePayment } from './onCall/payments/makePayment'
 import { buyCoins } from './onCall/payments/buyCoins'
+import { updateStreak } from './onCall/users/updateStreak'
+import { tipNerd } from './onCall/users/tipNerd'
 
 import { userProfileUpdated } from './modules/users/users'
 
-import { sessionChatMediaDeleted } from './modules/sessions/chats'
+import { personalChatMediaDeleted, sessionChatMediaDeleted } from './modules/sessions/chats'
 
 import { questionCommentCreated, questionCommentDeleted, answerCommentCreated, answerCommentDeleted } from './modules/questions/comments'
 import { subjectIconUpdated, subjectDeleted } from './modules/questions/subjects'
 import { questionCreated, questionUpdated, questionDeleted } from './modules/questions/questions'
-import { answerCreated, answerUpdated, answerDeleted, answerLiked, answerRated } from './modules/questions/answers'
+import { answerCreated, answerDeleted, answerLiked, answerRated } from './modules/questions/answers'
 
 admin.initializeApp()
 
@@ -41,8 +43,7 @@ export { userProfileUpdated }
 
 // Sessions Module
 // Chats
-export { sessionChatMediaDeleted }
-
+export { personalChatMediaDeleted, sessionChatMediaDeleted }
 
 // Questions Module
 // Subjects
@@ -50,7 +51,7 @@ export { subjectIconUpdated, subjectDeleted }
 // Questions
 export { questionCreated, questionUpdated, questionDeleted }
 // Answers
-export { answerCreated, answerUpdated, answerDeleted, answerLiked, answerRated }
+export { answerCreated, answerDeleted, answerLiked, answerRated }
 // Comments
 export { questionCommentCreated, questionCommentDeleted, answerCommentCreated, answerCommentDeleted }
 
@@ -62,3 +63,5 @@ export { toggleAdmin, toggleTutor, subscribeToMailingList }
 export { requestNewSession, acceptSession, cancelSession }
 // Payments
 export { getClientToken, makePayment, buyCoins }
+// Users
+export { updateStreak, tipNerd }

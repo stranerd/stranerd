@@ -1,11 +1,13 @@
 export class TransactionEntity {
 	public readonly id: string
+	public readonly isGold: boolean
 	public readonly event: string
 	public readonly amount: number
 	public readonly createdAt: number
 
-	constructor ({ id, event, amount, createdAt }: TransactionConstructorArgs) {
+	constructor ({ id, isGold, event, amount, createdAt }: TransactionConstructorArgs) {
 		this.id = id
+		this.isGold = isGold
 		this.event = event
 		this.amount = amount
 		this.createdAt = createdAt
@@ -13,5 +15,5 @@ export class TransactionEntity {
 }
 
 type TransactionConstructorArgs = {
-	id: string, event: string, amount: number, createdAt: number
+	id: string, isGold: boolean, event: string, amount: number, createdAt: number
 }

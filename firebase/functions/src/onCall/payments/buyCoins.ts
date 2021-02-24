@@ -1,5 +1,5 @@
 import * as functions from 'firebase-functions'
-import { addUserCoins, BRONZE_CURRENCY_PLURAL, GOLD_CURRENCY_PLURAL } from '../../helpers/modules/payments/transactions'
+import { addUserCoins } from '../../helpers/modules/payments/transactions'
 import { Achievement } from '../../helpers/modules/users/achievements'
 import { addUserXp, XpGainList } from '../../helpers/modules/users/users'
 
@@ -12,7 +12,7 @@ export const buyCoins = functions.https.onCall(async (data, context) => {
 	try{
 		await addUserCoins(userId,
 			{ bronze: isGold ? 0 : amount, gold: isGold ? amount : 0 },
-			`You purchased ${amount} ${isGold ? GOLD_CURRENCY_PLURAL: BRONZE_CURRENCY_PLURAL}`
+			`You purchased ${amount} coins`
 		)
 		if (isGold) {
 			await addUserXp(userId, XpGainList.BUY_GOLD * amount)

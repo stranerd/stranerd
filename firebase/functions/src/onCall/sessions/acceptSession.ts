@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { createTask } from '../../helpers/cloud-task'
-import { addUserCoins, BRONZE_CURRENCY_PLURAL } from '../../helpers/modules/payments/transactions'
+import { addUserCoins } from '../../helpers/modules/payments/transactions'
 import { Achievement } from '../../helpers/modules/users/achievements'
 import { addUserXp, XpGainList } from '../../helpers/modules/users/users'
 
@@ -29,10 +29,10 @@ export const acceptSession = functions.https.onCall(async ({ id }, context) => {
 		await ref.set({ dates: { endedAt }, accepted: true, taskName }, { merge: true })
 
 		await addUserCoins(studentId, { bronze: 0 - price, gold: 0 },
-			`You paid ${price} ${BRONZE_CURRENCY_PLURAL} for a session`
+			`You paid ${price} coins for a session`
 		)
 		await addUserCoins(tutorId, { bronze: price, gold: 0 },
-			`You got ${price} ${BRONZE_CURRENCY_PLURAL} for a session`
+			`You got ${price} coins for a session`
 		)
 
 		await admin.database().ref('profiles')

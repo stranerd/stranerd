@@ -1,14 +1,9 @@
 import * as admin from 'firebase-admin'
 
-export const BRONZE_CURRENCY_SINGULAR = 'bronze coin'
-export const BRONZE_CURRENCY_PLURAL = 'bronze coins'
-export const GOLD_CURRENCY_SINGULAR = 'gold coin'
-export const GOLD_CURRENCY_PLURAL = 'gold coins'
-export const XP = 'xp'
-
 type CreateTransaction = {
 	amount: number
 	event: string
+	isGold: boolean
 }
 
 const createTransaction = async (userId: string, data: CreateTransaction) => {
@@ -32,8 +27,14 @@ export const addUserCoins = async (userId: string, coins: { bronze: number, gold
 			bronze: admin.database.ServerValue.increment(coins.bronze ?? 0)
 		})
 
-	if (transactionDetails) await createTransaction(userId, {
-		amount: coins.bronze + coins.gold,
-		event: transactionDetails
+	if (transactionDetails && coins.gold) await createTransaction(userId, {
+		amount: coins.gold,
+		event: transactionDetails,
+		isGold: true
+	})
+	if (transactionDetails && coins.bronze) await createTransaction(userId, {
+		amount: coins.bronze,
+		event: transactionDetails,
+		isGold: false
 	})
 }

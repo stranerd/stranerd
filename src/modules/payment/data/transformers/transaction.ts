@@ -4,9 +4,9 @@ import { TransactionEntity } from '../../domain/entities/transaction'
 
 export class TransactionTransformer {
 	fromJSON (model: TransactionFromModel) {
-		const { id, event, amount, dates: { createdAt } } = model
+		const { id, isGold, event, amount, dates: { createdAt } } = model
 		return new TransactionEntity({
-			id, event, amount,
+			id, event, amount, isGold,
 			createdAt: timestampToMs(createdAt)
 		})
 	}

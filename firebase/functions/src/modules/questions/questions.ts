@@ -2,7 +2,7 @@ import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { saveToAlgolia, deleteFromAlgolia } from '../../helpers/algolia'
 import { deleteFromStorage } from '../../helpers/storage'
-import { addUserCoins, BRONZE_CURRENCY_PLURAL } from '../../helpers/modules/payments/transactions'
+import { addUserCoins } from '../../helpers/modules/payments/transactions'
 import { Achievement } from '../../helpers/modules/users/achievements'
 import { addUserXp, XpGainList } from '../../helpers/modules/users/users'
 
@@ -18,7 +18,7 @@ export const questionCreated = functions.firestore.document('questions/{question
 					[`users/${userId}/questions/${snap.id}`]: true
 				})
 			await addUserCoins(userId, { bronze: 0 - coins, gold: 0 },
-				`You paid ${coins} ${BRONZE_CURRENCY_PLURAL} to ask a question`
+				`You paid ${coins} coins to ask a question`
 			)
 		}
 
@@ -49,7 +49,7 @@ export const questionUpdated = functions.firestore.document('questions/{question
 			await answerRef.set({ best: true }, { merge: true })
 			const { userId } = (await answerRef.get()).data()!
 			await addUserCoins(userId, { bronze: coins * 0.75, gold: 0 },
-				`You got ${coins} ${BRONZE_CURRENCY_PLURAL} for a best answer`
+				`You got ${coins} coins for a best answer`
 			)
 			await admin.database().ref()
 				.update({

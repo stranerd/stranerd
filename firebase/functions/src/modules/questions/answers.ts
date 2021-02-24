@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { deleteFromStorage } from '../../helpers/storage'
-import { addUserCoins, BRONZE_CURRENCY_PLURAL } from '../../helpers/modules/payments/transactions'
+import { addUserCoins } from '../../helpers/modules/payments/transactions'
 import { addUserXp, XpGainList } from '../../helpers/modules/users/users'
 
 export const answerCreated = functions.firestore.document('answers/{answerId}')
@@ -21,7 +21,7 @@ export const answerCreated = functions.firestore.document('answers/{answerId}')
 					[`users/${userId}/answers/${snap.id}`]: true
 				})
 			await addUserCoins(userId, { bronze: coins, gold: 0 },
-				`You got ${coins} ${BRONZE_CURRENCY_PLURAL} for answering a question`
+				`You got ${coins} coins for answering a question`
 			)
 		}
 

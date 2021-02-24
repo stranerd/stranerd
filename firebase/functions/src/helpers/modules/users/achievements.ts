@@ -1,5 +1,5 @@
 import * as admin from 'firebase-admin'
-import { addUserCoins, BRONZE_CURRENCY_PLURAL, GOLD_CURRENCY_PLURAL, XP } from '../payments/transactions'
+import { addUserCoins } from '../payments/transactions'
 import { addUserXp } from './users'
 
 type Achievement = {
@@ -9,7 +9,6 @@ type Achievement = {
 	limit: number
 	price: {
 		bronze: number
-		gold: number
 		xp: number
 	}
 }
@@ -22,7 +21,6 @@ const Achievements = {
 		limit: 100,
 		price: {
 			bronze: 40,
-			gold: 0,
 			xp: 50
 		}
 	},
@@ -33,7 +31,6 @@ const Achievements = {
 		limit: 100,
 		price: {
 			bronze: 35,
-			gold: 0,
 			xp: 25
 		}
 	},
@@ -44,7 +41,6 @@ const Achievements = {
 		limit: 100,
 		price: {
 			bronze: 20,
-			gold: 0,
 			xp: 100
 		}
 	},
@@ -55,7 +51,6 @@ const Achievements = {
 		limit: 100,
 		price: {
 			bronze: 20,
-			gold: 0,
 			xp: 50
 		}
 	},
@@ -66,7 +61,6 @@ const Achievements = {
 		limit: 25,
 		price: {
 			bronze: 25,
-			gold: 0,
 			xp: 100
 		}
 	},
@@ -77,7 +71,6 @@ const Achievements = {
 		limit: 15,
 		price: {
 			bronze: 50,
-			gold: 0,
 			xp: 50
 		}
 	},
@@ -88,7 +81,6 @@ const Achievements = {
 		limit: 1,
 		price: {
 			bronze: 5,
-			gold: 0,
 			xp: 50
 		}
 	},
@@ -99,7 +91,6 @@ const Achievements = {
 		limit: 1,
 		price: {
 			bronze: 25,
-			gold: 0,
 			xp: 100
 		}
 	}
@@ -116,14 +107,10 @@ const getAchievementProgress = async (userId: string, id: string) => {
 }
 
 const runAfterAchievement = async (userId: string, achievement: Achievement) => {
-	const { name, price: { gold, bronze, xp } } = achievement
+	const { name, price: { bronze, xp } } = achievement
 	await addUserXp(userId, xp)
-	await addUserCoins(userId, { bronze, gold },
-		'You earned ' +
-		(gold > 0 ? `${gold} ${GOLD_CURRENCY_PLURAL}` : '') +
-		(gold > 0 && bronze > 0 ? ', ' : '') +
-		(bronze > 0 ? `${bronze} ${BRONZE_CURRENCY_PLURAL}` : '') +
-		` and ${xp} ${XP} for completing the achievement: ` + name
+	await addUserCoins(userId, { bronze, gold: 0 },
+		`You earned ${bronze} coins and ${xp} xp for completing the achievement: ${name}`
 	)
 }
 

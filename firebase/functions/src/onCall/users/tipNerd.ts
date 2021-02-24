@@ -1,5 +1,5 @@
 import * as functions from 'firebase-functions'
-import { addUserCoins, GOLD_CURRENCY_PLURAL } from '../../helpers/modules/payments/transactions'
+import { addUserCoins } from '../../helpers/modules/payments/transactions'
 import { Achievement } from '../../helpers/modules/users/achievements'
 import { addUserXp, XpGainList } from '../../helpers/modules/users/users'
 
@@ -17,10 +17,10 @@ export const tipNerd = functions.https.onCall(async (data, context) => {
 
 const tipTutor = async (userId: string, tutorId: string, amount: number) => {
 	await addUserCoins(userId, { bronze: 0, gold: 0 - amount },
-		`You tipped a nerd ${amount} ${GOLD_CURRENCY_PLURAL}`
+		`You tipped a nerd ${amount} coins`
 	)
 	await addUserCoins(tutorId, { bronze: 0, gold: amount },
-		`You were tipped ${amount} ${GOLD_CURRENCY_PLURAL}`
+		`You were tipped ${amount} coins`
 	)
 	await addUserXp(userId, XpGainList.TIP_NERD)
 	await Achievement.checkTipNerdsAchievement(userId)

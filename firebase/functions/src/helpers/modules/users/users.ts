@@ -104,6 +104,48 @@ export const updateBraintreeBio = async (userId: string, oldBio: any, bio: any) 
 	} catch (error) { console.log(`Error updating braintree bio of ${userId}`) }
 }
 
+export const updateMySessionsBio = async (userId: string, user: any) => {
+	try {
+		const sessionIdRefs = await admin.database().ref('users')
+			.child(userId)
+			.child('sessions')
+			.once('value')
+		const sessionIds = Object.keys(sessionIdRefs.val() ?? {})
+		const chunks = chunkArray(sessionIds, 500)
+		await Promise.all(
+			chunks.map(async (chunk) => {
+				const batch = admin.firestore().batch()
+				chunk.forEach((sessionId) => {
+					const ref = admin.firestore().collection('sessions').doc(sessionId)
+					batch.set(ref, { studentBio: user }, { merge: true })
+				})
+				if (chunk.length > 0) await batch.commit()
+			})
+		)
+	} catch (error) { console.log(`Error updating bios of ${userId} sessions`) }
+}
+
+export const updateMyTutorSessionsBio = async (userId: string, user: any) => {
+	try {
+		const sessionIdRefs = await admin.database().ref('users')
+			.child(userId)
+			.child('tutorSessions')
+			.once('value')
+		const sessionIds = Object.keys(sessionIdRefs.val() ?? {})
+		const chunks = chunkArray(sessionIds, 500)
+		await Promise.all(
+			chunks.map(async (chunk) => {
+				const batch = admin.firestore().batch()
+				chunk.forEach((sessionId) => {
+					const ref = admin.firestore().collection('sessions').doc(sessionId)
+					batch.set(ref, { tutorBio: user }, { merge: true })
+				})
+				if (chunk.length > 0) await batch.commit()
+			})
+		)
+	} catch (error) { console.log(`Error updating bios of ${userId} tutor sessions`) }
+}
+
 export const addUserXp = async (userId: string, xp: number, shouldSkipForRanking = false) => {
 	const data = {
 		'account/xp': admin.database.ServerValue.increment(xp)

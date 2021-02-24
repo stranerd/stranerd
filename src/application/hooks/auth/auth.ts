@@ -1,7 +1,6 @@
-import { computed, reqSsrRef, watch } from '@nuxtjs/composition-api'
+import { computed, reqSsrRef } from '@nuxtjs/composition-api'
 import { FindUser, ListenToUser, UserEntity } from '@modules/users'
 import { AuthDetails } from '@modules/auth/domain/entities/auth'
-import { setStudentSession, setTutorSession } from '@app/hooks/sessions/session'
 
 const global = {
 	auth: reqSsrRef(null as AuthDetails | null),
@@ -45,9 +44,15 @@ export const useAuth = () => {
 	}
 }
 
-watch(() => global.user.value?.meta?.currentSession, () => {
-	if (global.user.value?.meta?.currentSession) setStudentSession(global.auth.value?.id!, global.user.value.meta.currentSession)
+export const getId = computed({
+	get: () => global.auth.value?.id ?? null,
+	set: () => {}
 })
-watch(() => global.user.value?.tutor?.currentSession, () => {
-	if (global.user.value?.tutor?.currentSession) setTutorSession(global.auth.value?.id!, global.user.value.tutor.currentSession)
+export const getStudentCurrentSession = computed({
+	get: () => global.user.value?.meta?.currentSession ?? null,
+	set: () => {}
+})
+export const getTutorCurrentSession = computed({
+	get: () => global.user.value?.tutor?.currentSession ?? null,
+	set: () => {}
 })

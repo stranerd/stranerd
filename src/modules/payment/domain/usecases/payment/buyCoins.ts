@@ -7,7 +7,7 @@ export class BuyCoinsUseCase {
 		this.repository = repository
 	}
 
-	async call (userId: string, amount: number) {
-		return await this.repository.buyCoins(userId, amount)
+	async call (amount: number, isGold: boolean) {
+		return await this.repository.buyCoins(amount, isGold)
 	}
 }

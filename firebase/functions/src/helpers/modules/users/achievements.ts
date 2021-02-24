@@ -14,7 +14,7 @@ type Achievement = {
 	}
 }
 
-export const Achievements = {
+const Achievements = {
 	ASK_QUESTIONS: {
 		id: 'ASK_QUESTIONS',
 		name: 'Scholar',
@@ -26,10 +26,10 @@ export const Achievements = {
 			xp: 50
 		}
 	},
-	EARN_BRONZE: {
-		id: 'EARN_BRONZE',
-		name: 'Crown',
-		description: 'Earn 100 bronze coins',
+	STREAK_7_DAYS: {
+		id: 'STREAK_7_DAYS',
+		name: '7 Day Streak',
+		description: 'Complete a 7 day streak',
 		limit: 100,
 		price: {
 			bronze: 0,
@@ -127,7 +127,7 @@ const runAfterAchievement = async (userId: string, achievement: Achievement) => 
 	)
 }
 
-export const checkAskQuestionsAchievement = async (userId: string) => {
+const checkAskQuestionsAchievement = async (userId: string) => {
 	const { ref, progress, completed } = await getAchievementProgress(userId, Achievements.ASK_QUESTIONS.id)
 
 	if (!completed && progress + 1 >= Achievements.ASK_QUESTIONS.limit) {
@@ -136,16 +136,19 @@ export const checkAskQuestionsAchievement = async (userId: string) => {
 	} else await ref.update({ progress: admin.database.ServerValue.increment(1) })
 }
 
-export const checkEarnBronzeAchievement = async (userId: string, coins: number) => {
-	const { ref, progress, completed } = await getAchievementProgress(userId, Achievements.EARN_BRONZE.id)
+const checkStreak7Day = async (userId: string, streak: number) => {
+	const { ref, progress, completed } = await getAchievementProgress(userId, Achievements.STREAK_7_DAYS.id)
 
-	if (!completed && progress + coins >= Achievements.EARN_BRONZE.limit) {
-		await ref.update({ completed: true, progress: admin.database.ServerValue.increment(coins) })
-		await runAfterAchievement(userId, Achievements.EARN_BRONZE)
-	} else	await ref.update({ progress: admin.database.ServerValue.increment(coins) })
+	if (completed && streak > progress) await ref.update({ progress: streak })
+	if (!completed) {
+		if (streak >= Achievements.STREAK_7_DAYS.limit && streak >= progress) {
+			await ref.update({ completed: true, progress: streak })
+			await runAfterAchievement(userId, Achievements.STREAK_7_DAYS)
+		} else await ref.update({ progress: streak })
+	}
 }
 
-export const checkBuyGoldAchievement = async (userId: string, coins: number) => {
+const checkBuyGoldAchievement = async (userId: string, coins: number) => {
 	const { ref, progress, completed } = await getAchievementProgress(userId, Achievements.BUY_GOLD.id)
 
 	if (!completed && progress + coins >= Achievements.BUY_GOLD.limit) {
@@ -154,7 +157,7 @@ export const checkBuyGoldAchievement = async (userId: string, coins: number) => 
 	} else await ref.update({ progress: admin.database.ServerValue.increment(coins) })
 }
 
-export const checkBuyBronzeAchievement = async (userId: string, coins: number) => {
+const checkBuyBronzeAchievement = async (userId: string, coins: number) => {
 	const { ref, progress, completed } = await getAchievementProgress(userId, Achievements.BUY_BRONZE.id)
 
 	if (!completed && progress + coins >= Achievements.BUY_BRONZE.limit) {
@@ -163,7 +166,7 @@ export const checkBuyBronzeAchievement = async (userId: string, coins: number) =
 	} else await ref.update({ progress: admin.database.ServerValue.increment(coins) })
 }
 
-export const checkAttendSessionsAchievement = async (userId: string) => {
+const checkAttendSessionsAchievement = async (userId: string) => {
 	const { ref, progress, completed } = await getAchievementProgress(userId, Achievements.ATTEND_SESSIONS.id)
 
 	if (!completed && progress + 1 >= Achievements.ATTEND_SESSIONS.limit) {
@@ -172,7 +175,7 @@ export const checkAttendSessionsAchievement = async (userId: string) => {
 	} else await ref.update({ progress: admin.database.ServerValue.increment(1) })
 }
 
-export const checkTipNerdsAchievement = async (userId: string) => {
+const checkTipNerdsAchievement = async (userId: string) => {
 	const { ref, progress, completed } = await getAchievementProgress(userId, Achievements.TIP_NERDS.id)
 
 	if (!completed && progress + 1 >= Achievements.TIP_NERDS.limit){
@@ -181,7 +184,7 @@ export const checkTipNerdsAchievement = async (userId: string) => {
 	} else await ref.update({ progress: admin.database.ServerValue.increment(1) })
 }
 
-export const checkDailyFinishAchievement = async (userId: string, rank: number) => {
+const checkDailyFinishAchievement = async (userId: string, rank: number) => {
 	const { ref, progress, completed } = await getAchievementProgress(userId, Achievements.DAILY_FINISH.id)
 	const oldRank = progress === 0 ? Infinity : progress
 
@@ -193,7 +196,7 @@ export const checkDailyFinishAchievement = async (userId: string, rank: number) 
 	}
 }
 
-export const checkWeeklyFinishAchievement = async (userId: string, rank: number) => {
+const checkWeeklyFinishAchievement = async (userId: string, rank: number) => {
 	const { ref, progress, completed } = await getAchievementProgress(userId, Achievements.WEEKLY_FINISH.id)
 	const oldRank = progress === 0 ? Infinity : progress
 
@@ -204,3 +207,14 @@ export const checkWeeklyFinishAchievement = async (userId: string, rank: number)
 		} else await ref.update({ progress: rank })
 	}
 }
+
+export const Achievement = {
+	checkAskQuestionsAchievement,
+	checkStreak7Day,
+	checkBuyGoldAchievement,
+	checkBuyBronzeAchievement,
+	checkAttendSessionsAchievement,
+	checkTipNerdsAchievement,
+	checkDailyFinishAchievement,
+	checkWeeklyFinishAchievement
+} as const

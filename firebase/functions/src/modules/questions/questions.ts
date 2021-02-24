@@ -3,6 +3,7 @@ import * as admin from 'firebase-admin'
 import { saveToAlgolia, deleteFromAlgolia } from '../../helpers/algolia'
 import { deleteFromStorage } from '../../helpers/storage'
 import { addUserCoins, BRONZE_CURRENCY_PLURAL } from '../../helpers/modules/payments/transactions'
+import { Achievement } from '../../helpers/modules/users/achievements'
 
 export const questionCreated = functions.firestore.document('questions/{questionId}')
 	.onCreate(async (snap) => {
@@ -21,6 +22,8 @@ export const questionCreated = functions.firestore.document('questions/{question
 		}
 
 		await saveToAlgolia('questions', snap.id, question)
+
+		if (userId) await Achievement.checkAskQuestionsAchievement(userId)
 	})
 
 export const questionUpdated = functions.firestore.document('questions/{questionId}')

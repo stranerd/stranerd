@@ -5,9 +5,9 @@ export class SessionEntity extends BaseEntity {
 	readonly id: string
 	readonly message: string
 	readonly studentId: string
-	readonly studentBio: Required<UserBio>
+	readonly studentBio: UserBio
 	readonly tutorId: string
-	readonly tutorBio: Required<UserBio>
+	readonly tutorBio: UserBio
 	readonly duration: number
 	readonly price: number
 	readonly accepted: boolean
@@ -41,8 +41,8 @@ export class SessionEntity extends BaseEntity {
 		this.endedAt = endedAt
 	}
 
-	get studentAvatar () { return Avatars[this.studentBio.avatar].link }
-	get tutorAvatar () { return Avatars[this.tutorBio.avatar].link }
+	get studentAvatar () { return Avatars[this.studentBio.avatar!]?.link ?? Avatars.default.link }
+	get tutorAvatar () { return Avatars[this.tutorBio.avatar!]?.link ?? Avatars.default.link }
 }
 
 type SessionConstructorArgs = {

@@ -14,7 +14,7 @@ export enum RankingPeriods {
 export class UserEntity extends BaseEntity {
 	public readonly id: string
 	public readonly roles: UserRoles
-	public readonly userBio: Required<UserBio>
+	public readonly userBio: UserBio
 	public readonly account: UserAccount
 	public readonly rankings: Required<UserRankings>
 	public readonly meta: Required<UserMeta>
@@ -60,7 +60,7 @@ export class UserEntity extends BaseEntity {
 	get lastName () { return this.userBio.name.last }
 	get fullName () { return this.userBio.name.first + ' ' + this.userBio.name.last }
 	get email () { return this.userBio.email }
-	get avatar () { return Avatars[this.userBio.avatar].link }
+	get avatar () { return Avatars[this.userBio.avatar!]?.link ?? Avatars.default.link }
 
 	get isOnline () { return this.status.mode === Status.ONLINE }
 	get lastSeen () { return this.isOnline ? Date.now() : this.status.updatedAt }
@@ -137,12 +137,12 @@ export interface UserTutor {
 	sessionCount?: number
 }
 
-export const generateDefaultBio = (bio: UserBio) :Required<UserBio> => {
+export const generateDefaultBio = (bio: UserBio) :UserBio => {
 	const first = bio?.name?.first ?? 'Anon'
 	const last = bio?.name?.last ?? 'Ymous'
 	const fullName = first + ' ' + last
 	const email = bio?.email ?? 'anon@ymous.com'
 	const description = bio?.description ?? ''
-	const avatar = Avatars[bio?.avatar!] ? bio?.avatar! : Avatars.default.id
+	const avatar = Avatars[bio?.avatar!] ? bio?.avatar! : undefined
 	return { name: { first, last, fullName }, email, description, avatar }
 }

@@ -11,7 +11,7 @@ export class AnswerEntity extends BaseEntity {
 	public readonly questionId: string
 	public readonly subjectId: string
 	public readonly userId: string
-	public readonly user: Required<UserBio>
+	public readonly user: UserBio
 	public readonly likes: number
 	public readonly ratings: number
 	public readonly commentsCount: number
@@ -40,7 +40,7 @@ export class AnswerEntity extends BaseEntity {
 
 	get formattedRating () { return Number(this.ratings).toFixed(1) }
 	get userName () { return this.user.name.fullName }
-	get avatar () { return Avatars[this.user.avatar].link }
+	get avatar () { return Avatars[this.user.avatar!]?.link ?? Avatars.default.link }
 }
 
 type AnswerConstructorArgs = {

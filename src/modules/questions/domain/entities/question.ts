@@ -9,7 +9,7 @@ export class QuestionEntity extends BaseEntity {
 	public readonly coins: number
 	public readonly subjectId: string
 	public readonly userId: string
-	public readonly user: Required<UserBio>
+	public readonly user: UserBio
 	public readonly answerId: string | undefined
 	public readonly answers: number
 	public readonly commentsCount: number
@@ -37,7 +37,7 @@ export class QuestionEntity extends BaseEntity {
 	get isAnswered () { return !!this.answerId }
 	get creditable () { return Math.round(this.coins * 0.25) }
 	get userName () { return this.user.name.fullName }
-	get avatar () { return Avatars[this.user.avatar].link }
+	get avatar () { return Avatars[this.user.avatar!]?.link ?? Avatars.default.link }
 }
 
 type QuestionConstructorArgs = {

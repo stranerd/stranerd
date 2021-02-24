@@ -5,7 +5,7 @@ export class CommentEntity extends BaseEntity {
 	public readonly id: string
 	public readonly body: string
 	public readonly userId: string
-	public readonly user: Required<UserBio>
+	public readonly user: UserBio
 	public readonly createdAt: number
 
 	constructor ({ id, body, createdAt, userId, user }: CommentConstructorArgs) {
@@ -18,7 +18,7 @@ export class CommentEntity extends BaseEntity {
 	}
 
 	get userName () { return this.user.name.fullName }
-	get avatar () { return Avatars[this.user.avatar].link }
+	get avatar () { return Avatars[this.user.avatar!]?.link ?? Avatars.default.link }
 }
 
 type CommentConstructorArgs = {

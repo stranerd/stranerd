@@ -2,8 +2,7 @@
 	<form @submit.prevent="submit">
 		<div class="form-group my-1">
 			<div class="d-flex align-items-center">
-				<!-- TODO: Replace empty link with default avatar link -->
-				<img :src="isLoggedIn ? user.image : ''" alt="" class="mr-1" :class="isCommentsPage ? 'profile-image' : 'profile-image-sm'">
+				<img :src="isLoggedIn ? user.avatar : Avatars.default.link" alt="" class="mr-1" :class="isCommentsPage ? 'profile-image' : 'profile-image-sm'">
 				<input
 					v-model="factory.body"
 					class="form-control form-control-sm flex-grow-1"
@@ -22,6 +21,7 @@
 import { defineComponent, useContext } from '@nuxtjs/composition-api'
 import { CommentFactory } from '@modules/questions'
 import { useAuth } from '@app/hooks/auth/auth'
+import { Avatars } from '@modules/users'
 export default defineComponent({
 	name: 'CommentForm',
 	props: {
@@ -45,7 +45,7 @@ export default defineComponent({
 	setup () {
 		const { isLoggedIn, user } = useAuth()
 		const isCommentsPage = useContext().route.value.path.includes('comments')
-		return { isLoggedIn, user, isCommentsPage }
+		return { isLoggedIn, user, isCommentsPage, Avatars }
 	}
 })
 </script>

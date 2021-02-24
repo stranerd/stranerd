@@ -2,11 +2,11 @@
 	<div :id="comment.id">
 		<div class="mb-1 d-flex align-items-start">
 			<NuxtLink :to="`/users/${comment.userId}`">
-				<img :src="comment.user.image.link" alt="" class="profile-image">
+				<img :src="comment.avatar" alt="" class="profile-image">
 			</NuxtLink>
 			<div class="mx-1">
 				<NuxtLink :to="`/users/${comment.userId}`" class="d-block text-red font-weight-bold text-wrap">
-					<span>{{ comment.user.name.fullName }}</span>
+					<span>{{ comment.userName }}</span>
 				</NuxtLink>
 				<span class="small text-wrap">
 					{{ time }}

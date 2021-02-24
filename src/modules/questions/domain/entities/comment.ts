@@ -17,6 +17,7 @@ export class CommentEntity extends BaseEntity {
 		this.createdAt = createdAt
 	}
 
+	get userName () { return this.user.name.fullName }
 	get avatar () { return Avatars[this.user.avatar].link }
 }
 

@@ -2,7 +2,7 @@
 	<div class="d-flex flex-column flex-md-row flex-lg-column align-items-start">
 		<div v-if="isLoggedIn" class="d-none d-lg-block w-100">
 			<div class="d-flex flex-column align-items-center">
-				<img :src="user.image" alt="" class="profile-image" style="width:90px;height:90px;">
+				<img :src="user.avatar" alt="" class="profile-image" style="width:90px;height:90px;">
 				<span class="text-18 font-weight-bold">{{ user.firstName }}</span>
 				<div class="d-flex justify-content-center">
 					<span>

@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div v-if="isLoggedIn" class="d-flex flex-column align-items-center my-1">
-			<img :src="user.image" alt="" class="profile-image" style="width:90px;height:90px;">
+			<img :src="user.avatar" alt="" class="profile-image" style="width:90px;height:90px;">
 			<NuxtLink to="/account" class="text-18 font-weight-bold">
 				{{ user.firstName }}
 			</NuxtLink>

@@ -2,11 +2,11 @@
 	<div :id="answer.id" class="answer">
 		<div class="my-1 d-flex align-items-start">
 			<NuxtLink :to="`/users/${answer.userId}`">
-				<img :src="answer.user.image.link" alt="" class="profile-image">
+				<img :src="answer.avatar" alt="" class="profile-image">
 			</NuxtLink>
 			<div class="mx-1">
 				<NuxtLink :to="`/users/${answer.userId}`" class="d-block text-red font-weight-bold text-wrap">
-					<span>{{ answer.user.name.fullName }}</span>
+					<span>{{ answer.userName }}</span>
 				</NuxtLink>
 				<span class="small text-wrap">
 					{{ time }}

@@ -36,6 +36,7 @@ export class QuestionEntity extends BaseEntity {
 
 	get isAnswered () { return !!this.answerId }
 	get creditable () { return Math.round(this.coins * 0.25) }
+	get userName () { return this.user.name.fullName }
 	get avatar () { return Avatars[this.user.avatar].link }
 }
 

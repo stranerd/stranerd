@@ -39,6 +39,7 @@ export class AnswerEntity extends BaseEntity {
 	}
 
 	get formattedRating () { return Number(this.ratings).toFixed(1) }
+	get userName () { return this.user.name.fullName }
 	get avatar () { return Avatars[this.user.avatar].link }
 }
 

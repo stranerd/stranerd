@@ -1,6 +1,7 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { Achievement } from '../../helpers/modules/users/achievements'
+import { addUserXp, XpGainList } from '../../helpers/modules/users/users'
 
 export const updateStreak = functions.https.onCall(async (_, context) => {
 	if (!context.auth)
@@ -23,16 +24,14 @@ const updateUserStreak = async (userId: string) => {
 
 	if (isLessThan) return res
 
-	if (isNextDay) {
-		// add xp
-		await Achievement.checkStreak7Day(userId, streak + 1)
-	}
-
 	await userStatusRef
 		.update({
 			'streak': isNextDay ? admin.database.ServerValue.increment(1) : 1,
 			'lastStreakCheck': admin.database.ServerValue.TIMESTAMP
 		})
+
+	await addUserXp(userId, XpGainList.LOGGING_IN)
+	if (isNextDay) await Achievement.checkStreak7Day(userId, streak + 1)
 
 	return res
 }

@@ -3,6 +3,7 @@ import * as admin from 'firebase-admin'
 import { createTask } from '../../helpers/cloud-task'
 import { addUserCoins, BRONZE_CURRENCY_PLURAL } from '../../helpers/modules/payments/transactions'
 import { Achievement } from '../../helpers/modules/users/achievements'
+import { addUserXp, XpGainList } from '../../helpers/modules/users/users'
 
 export const acceptSession = functions.https.onCall(async ({ id }, context) => {
 	if (!context.auth)
@@ -40,6 +41,7 @@ export const acceptSession = functions.https.onCall(async ({ id }, context) => {
 				[`${tutorId}/tutor/sessionCount`]: admin.database.ServerValue.increment(1)
 			})
 
+		await addUserXp(studentId, XpGainList.BOOK_NERD)
 		await Achievement.checkAttendSessionsAchievement(studentId)
 	} catch(error) {
 		throw new functions.https.HttpsError('unknown', error.message)

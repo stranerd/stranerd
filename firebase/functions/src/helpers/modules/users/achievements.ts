@@ -32,9 +32,9 @@ const Achievements = {
 		description: 'Complete a 7 day streak',
 		limit: 100,
 		price: {
-			bronze: 0,
-			gold: 10,
-			xp: 20
+			bronze: 100,
+			gold: 0,
+			xp: 25
 		}
 	},
 	BUY_GOLD: {

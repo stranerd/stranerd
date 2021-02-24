@@ -2,6 +2,7 @@ import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { deleteFromStorage } from '../../helpers/storage'
 import { addUserCoins, BRONZE_CURRENCY_PLURAL } from '../../helpers/modules/payments/transactions'
+import { addUserXp, XpGainList } from '../../helpers/modules/users/users'
 
 export const answerCreated = functions.firestore.document('answers/{answerId}')
 	.onCreate(async (snap) => {
@@ -23,6 +24,8 @@ export const answerCreated = functions.firestore.document('answers/{answerId}')
 				`You got ${coins} ${BRONZE_CURRENCY_PLURAL} for answering a question`
 			)
 		}
+
+		if (userId) await addUserXp(userId, XpGainList.ANSWER_QUESTION, true)
 	})
 
 export const answerUpdated = functions.firestore.document('answers/{answerId}')

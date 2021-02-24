@@ -1,6 +1,7 @@
 import * as functions from 'firebase-functions'
 import { addUserCoins, BRONZE_CURRENCY_PLURAL, GOLD_CURRENCY_PLURAL } from '../../helpers/modules/payments/transactions'
 import { Achievement } from '../../helpers/modules/users/achievements'
+import { addUserXp, XpGainList } from '../../helpers/modules/users/users'
 
 export const buyCoins = functions.https.onCall(async (data, context) => {
 	if (!context.auth)
@@ -13,8 +14,14 @@ export const buyCoins = functions.https.onCall(async (data, context) => {
 			{ bronze: isGold ? 0 : amount, gold: isGold ? amount : 0 },
 			`You purchased ${amount} ${isGold ? GOLD_CURRENCY_PLURAL: BRONZE_CURRENCY_PLURAL}`
 		)
-		if (isGold) await Achievement.checkBuyGoldAchievement(userId, amount)
-		else await Achievement.checkBuyBronzeAchievement(userId, amount)
+		if (isGold) {
+			await addUserXp(userId, XpGainList.BUY_GOLD * amount)
+			await Achievement.checkBuyGoldAchievement(userId, amount)
+		}
+		else {
+			await addUserXp(userId, XpGainList.BUY_BRONZE * amount)
+			await Achievement.checkBuyBronzeAchievement(userId, amount)
+		}
 	} catch (error) {
 		throw new functions.https.HttpsError('unknown', error.message)
 	}

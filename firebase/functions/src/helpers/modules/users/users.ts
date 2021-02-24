@@ -116,3 +116,14 @@ export const addUserXp = async (userId: string, xp: number, shouldSkipForRanking
 
 	await admin.database().ref('profiles').child(userId).update(data)
 }
+
+export enum XpGainList {
+	LOGGING_IN = 3,
+	ASK_QUESTION = 5,
+	ANSWER_QUESTION = 5,
+	BUY_BRONZE = 1,
+	BUY_GOLD= 5,
+	TIP_NERD = 10,
+	BOOK_NERD = 10,
+	PICK_AVATAR = 50
+}

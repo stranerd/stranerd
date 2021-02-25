@@ -1,5 +1,6 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
+import { PATH_SEPARATOR } from '../../helpers'
 
 export const questionCommentCreated = functions.database.ref('comments/questions/{questionId}/{commentId}')
 	.onCreate(async (snap, context) => {
@@ -18,7 +19,7 @@ export const questionCommentCreated = functions.database.ref('comments/questions
 		await admin.database().ref()
 			.update({
 				[`profiles/${userId}/meta/questionCommentCount`]: admin.database.ServerValue.increment(1),
-				[`users/${userId}/question-comments/${questionId}--${commentId}`]: true
+				[`users/${userId}/question-comments/${questionId}${PATH_SEPARATOR}${commentId}`]: true
 			})
 	})
 
@@ -39,7 +40,7 @@ export const answerCommentCreated = functions.database.ref('comments/answers/{an
 		await admin.database().ref()
 			.update({
 				[`profiles/${userId}/meta/answerCommentCount`]: admin.database.ServerValue.increment(1),
-				[`users/${userId}/answer-comments/${answerId}--${commentId}`]: true
+				[`users/${userId}/answer-comments/${answerId}${PATH_SEPARATOR}${commentId}`]: true
 			})
 	})
 
@@ -60,7 +61,7 @@ export const questionCommentDeleted = functions.database.ref('comments/questions
 		await admin.database().ref()
 			.update({
 				[`profiles/${userId}/meta/questionCommentCount`]: admin.database.ServerValue.increment(-1),
-				[`users/${userId}/question-comments/${questionId}--${commentId}`]: null
+				[`users/${userId}/question-comments/${questionId}${PATH_SEPARATOR}${commentId}`]: null
 			})
 	})
 
@@ -81,6 +82,6 @@ export const answerCommentDeleted = functions.database.ref('comments/answers/{an
 		await admin.database().ref()
 			.update({
 				[`profiles/${userId}/meta/answerCommentCount`]: admin.database.ServerValue.increment(-1),
-				[`users/${userId}/answer-comments/${answerId}--${commentId}`]: null
+				[`users/${userId}/answer-comments/${answerId}${PATH_SEPARATOR}${commentId}`]: null
 			})
 	})

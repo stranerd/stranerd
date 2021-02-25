@@ -1,5 +1,6 @@
 import * as admin from 'firebase-admin'
 import { updateCustomerName } from '../../braintree'
+import { PATH_SEPARATOR } from '../../index'
 
 export const getAllUserIds = async () => {
 	const userIdsRef = await admin.database().ref('userIds').once('value')
@@ -61,7 +62,7 @@ export const updateMyQuestionCommentsBio = async (userId: string, user: any) => 
 			.once('value')
 		const commentIds = Object.keys(commentIdRefs.val() ?? {})
 		const data = Object.fromEntries(
-			commentIds.map((id) => [id.replace('--', '/') + '/user', user])
+			commentIds.map((id) => [id.replace(PATH_SEPARATOR, '/') + '/user', user])
 		)
 		await admin.database().ref('comments/questions').update(data)
 	} catch (error) { console.log(`Error updating bios of ${userId} question-comments`) }
@@ -75,7 +76,7 @@ export const updateMyAnswerCommentsBio = async (userId: string, user: any) => {
 			.once('value')
 		const commentIds = Object.keys(commentIdRefs.val() ?? {})
 		const data = Object.fromEntries(
-			commentIds.map((id) => [id.replace('--', '/') + '/user', user])
+			commentIds.map((id) => [id.replace(PATH_SEPARATOR, '/') + '/user', user])
 		)
 		await admin.database().ref('comments/answers').update(data)
 	} catch (error) { console.log(`Error setting bios of ${userId} answer-comments`) }

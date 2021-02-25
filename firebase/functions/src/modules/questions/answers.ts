@@ -1,8 +1,7 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { deleteFromStorage } from '../../helpers/storage'
-import { addUserCoins } from '../../helpers/modules/payments/transactions'
-import { addUserXp, XpGainList } from '../../helpers/modules/users/users'
+import { addUserCoins, addUserXp, XpGainList } from '../../helpers/modules/payments/transactions'
 
 export const answerCreated = functions.firestore.document('answers/{answerId}')
 	.onCreate(async (snap) => {

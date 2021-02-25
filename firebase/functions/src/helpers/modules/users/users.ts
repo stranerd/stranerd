@@ -1,6 +1,5 @@
 import * as admin from 'firebase-admin'
 import { updateCustomerName } from '../../braintree'
-import { RankingPeriods } from './rankings'
 
 export const getAllUserIds = async () => {
 	const userIdsRef = await admin.database().ref('userIds').once('value')
@@ -60,12 +59,10 @@ export const updateMyQuestionCommentsBio = async (userId: string, user: any) => 
 			.child(userId)
 			.child('question-comments')
 			.once('value')
-		const data = Object.keys(commentIdRefs.val() ?? {})
-			.map((id) => id.replace('--', '/') + '/user')
-			.reduce((acc, curr) => {
-				acc[curr] = user
-				return acc
-			}, {} as Record<string, any>)
+		const commentIds = Object.keys(commentIdRefs.val() ?? {})
+		const data = Object.fromEntries(
+			commentIds.map((id) => [id.replace('--', '/') + '/user', user])
+		)
 		await admin.database().ref('comments/questions').update(data)
 	} catch (error) { console.log(`Error updating bios of ${userId} question-comments`) }
 }
@@ -76,12 +73,10 @@ export const updateMyAnswerCommentsBio = async (userId: string, user: any) => {
 			.child(userId)
 			.child('answer-comments')
 			.once('value')
-		const data = Object.keys(commentIdRefs.val() ?? {})
-			.map((id) => id.replace('--', '/') + '/user')
-			.reduce((acc, curr) => {
-				acc[curr] = user
-				return acc
-			}, {} as Record<string, any>)
+		const commentIds = Object.keys(commentIdRefs.val() ?? {})
+		const data = Object.fromEntries(
+			commentIds.map((id) => [id.replace('--', '/') + '/user', user])
+		)
 		await admin.database().ref('comments/answers').update(data)
 	} catch (error) { console.log(`Error setting bios of ${userId} answer-comments`) }
 }
@@ -146,26 +141,14 @@ export const updateMyTutorSessionsBio = async (userId: string, user: any) => {
 	} catch (error) { console.log(`Error updating bios of ${userId} tutor sessions`) }
 }
 
-export const addUserXp = async (userId: string, xp: number, shouldSkipForRanking = false) => {
-	const data = {
-		'account/xp': admin.database.ServerValue.increment(xp)
-	} as Record<string, object>
-
-	if (!shouldSkipForRanking) Object.values(RankingPeriods)
-		.forEach((period) => {
-			data[`ranking/${period}`] =  admin.database.ServerValue.increment(xp)
-		})
-
-	await admin.database().ref('profiles').child(userId).update(data)
-}
-
-export enum XpGainList {
-	LOGGING_IN = 3,
-	ASK_QUESTION = 5,
-	ANSWER_QUESTION = 5,
-	BUY_BRONZE = 1,
-	BUY_GOLD= 5,
-	TIP_NERD = 10,
-	BOOK_NERD = 10,
-	PICK_AVATAR = 50
+export const updateMyChatsBio = async (userId: string, user: any) => {
+	try {
+		const chatRefs = await admin.database().ref('profiles')
+			.child(userId)
+			.child('chats')
+			.once('value')
+		const chatIds = Object.keys(chatRefs.val() ?? {})
+		const data = Object.fromEntries(chatIds.map((id) => [`${id}/chats/${userId}`, user]))
+		await admin.database().ref('profiles').update(data)
+	} catch (error) { console.log(`Error updating bios of ${userId} chats`) }
 }

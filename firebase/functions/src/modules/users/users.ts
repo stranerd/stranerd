@@ -1,9 +1,10 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import {
-	addUserXp, updateBraintreeBio, updateMyAnswerCommentsBio, updateMyAnswersBio, updateMyQuestionCommentsBio,
-	updateMyQuestionsBio, updateMySessionsBio, updateMyTutorSessionsBio, XpGainList
+	updateBraintreeBio, updateMyAnswerCommentsBio, updateMyAnswersBio, updateMyChatsBio,
+	updateMyQuestionCommentsBio, updateMyQuestionsBio, updateMySessionsBio, updateMyTutorSessionsBio
 } from '../../helpers/modules/users/users'
+import { addUserXp, XpGainList } from '../../helpers/modules/payments/transactions'
 
 export const userProfileUpdated = functions.database.ref('profiles/{userId}/bio')
 	.onUpdate(async (snap, context) => {
@@ -11,13 +12,14 @@ export const userProfileUpdated = functions.database.ref('profiles/{userId}/bio'
 		const newBio = snap.after.val()
 		const { userId } = context.params
 
-		await updateBraintreeBio(userId, oldBio, newBio)
+		await updateMyChatsBio(userId, newBio)
+		await updateMySessionsBio(userId, newBio)
+		await updateMyTutorSessionsBio(userId, newBio)
 		await updateMyQuestionsBio(userId, newBio)
 		await updateMyAnswersBio(userId, newBio)
 		await updateMyQuestionCommentsBio(userId, newBio)
 		await updateMyAnswerCommentsBio(userId, newBio)
-		await updateMySessionsBio(userId, newBio)
-		await updateMyTutorSessionsBio(userId, newBio)
+		await updateBraintreeBio(userId, oldBio, newBio)
 	})
 
 export const userAvatarCreated = functions.database.ref('profiles/{userId}/bio/avatar')

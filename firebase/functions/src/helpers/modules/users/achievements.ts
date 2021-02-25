@@ -1,6 +1,5 @@
 import * as admin from 'firebase-admin'
-import { addUserCoins } from '../payments/transactions'
-import { addUserXp } from './users'
+import { addUserCoins, addUserXp } from '../payments/transactions'
 
 type Achievement = {
 	id: string

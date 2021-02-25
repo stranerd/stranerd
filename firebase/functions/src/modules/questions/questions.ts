@@ -2,9 +2,8 @@ import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { saveToAlgolia, deleteFromAlgolia } from '../../helpers/algolia'
 import { deleteFromStorage } from '../../helpers/storage'
-import { addUserCoins } from '../../helpers/modules/payments/transactions'
+import { addUserCoins, addUserXp, XpGainList } from '../../helpers/modules/payments/transactions'
 import { Achievement } from '../../helpers/modules/users/achievements'
-import { addUserXp, XpGainList } from '../../helpers/modules/users/users'
 
 export const questionCreated = functions.firestore.document('questions/{questionId}')
 	.onCreate(async (snap) => {

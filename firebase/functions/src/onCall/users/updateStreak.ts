@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { Achievement } from '../../helpers/modules/users/achievements'
-import { addUserXp, XpGainList } from '../../helpers/modules/users/users'
+import { addUserXp, XpGainList } from '../../helpers/modules/payments/transactions'
 
 export const updateStreak = functions.https.onCall(async (_, context) => {
 	if (!context.auth)

@@ -1,9 +1,8 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { createTask } from '../../helpers/cloud-task'
-import { addUserCoins } from '../../helpers/modules/payments/transactions'
+import { addUserCoins, addUserXp, XpGainList } from '../../helpers/modules/payments/transactions'
 import { Achievement } from '../../helpers/modules/users/achievements'
-import { addUserXp, XpGainList } from '../../helpers/modules/users/users'
 
 export const acceptSession = functions.https.onCall(async ({ id }, context) => {
 	if (!context.auth)

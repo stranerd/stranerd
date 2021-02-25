@@ -19,7 +19,7 @@ import { tipNerd } from './onCall/users/tipNerd'
 
 import { userProfileUpdated, userAvatarCreated } from './modules/users/users'
 
-import { personalChatMediaDeleted, sessionChatMediaDeleted } from './modules/sessions/chats'
+import { personalChatsCreated, personalChatMediaDeleted, sessionChatMediaDeleted } from './modules/sessions/chats'
 
 import { questionCommentCreated, questionCommentDeleted, answerCommentCreated, answerCommentDeleted } from './modules/questions/comments'
 import { subjectIconUpdated, subjectDeleted } from './modules/questions/subjects'
@@ -43,7 +43,7 @@ export { userProfileUpdated, userAvatarCreated }
 
 // Sessions Module
 // Chats
-export { personalChatMediaDeleted, sessionChatMediaDeleted }
+export { personalChatsCreated, personalChatMediaDeleted, sessionChatMediaDeleted }
 
 // Questions Module
 // Subjects

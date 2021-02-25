@@ -18,19 +18,19 @@ export class UserEntity extends BaseEntity {
 	public readonly account: UserAccount
 	public readonly rankings: Required<UserRankings>
 	public readonly meta: Required<UserMeta>
+	public readonly chats: { id: string, bio: UserBio }[]
 	public readonly status: Required<UserStatus>
 	public readonly tutor: Required<UserTutor> | undefined
 	public readonly dates: UserDates
 
-	constructor ({ id, bio, roles, account, rankings, meta, status, tutor, dates }: UserConstructorArgs) {
+	constructor ({ id, bio, roles, account, rankings, meta, chats, status, tutor, dates }: UserConstructorArgs) {
 		super()
 		this.id = id
 		this.userBio = generateDefaultBio(bio)
 		this.roles = roles ?? { isStudent: true }
 		this.account = account ?? { coins: { bronze: 0, gold: 0 } }
 		this.rankings = Object.fromEntries(
-			Object.keys(RankingPeriods)
-				.map((key) => [key, rankings?.[key as RankingPeriods] ?? 0])
+			Object.keys(RankingPeriods).map((key) => [key, rankings?.[key as RankingPeriods] ?? 0])
 		) as Required<UserRankings>
 		this.meta = {
 			answerCount: meta?.answerCount ?? 0,
@@ -41,6 +41,8 @@ export class UserEntity extends BaseEntity {
 			sessionCount: meta?.sessionCount ?? 0,
 			currentSession: meta?.currentSession ?? null
 		}
+		this.chats = Object.entries(chats ?? {})
+			.map(([id, bio]) => ({ id, bio: generateDefaultBio(bio) }))
 		this.status = {
 			streak: status?.streak ?? 0,
 			mode: status?.mode ?? Status.OFFLINE,
@@ -78,6 +80,7 @@ type UserConstructorArgs = {
 	account: UserAccount
 	rankings?: UserRankings
 	meta?: UserMeta
+	chats?: UserChats
 	status?: UserStatus
 	tutor?: UserTutor
 	dates: UserDates
@@ -114,6 +117,7 @@ export interface UserMeta {
 	sessionCount?: number
 	currentSession?: string | null
 }
+export interface UserChats extends Record<string, UserBio> {}
 export interface UserStatus {
 	mode: Status
 	updatedAt: number

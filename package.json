@@ -23,7 +23,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.0",
     "@nuxt/typescript-runtime": "^2.0.0",
-    "@nuxtjs/composition-api": "^0.20.1",
+    "@nuxtjs/composition-api": "^0.20.2",
     "@nuxtjs/pwa": "^3.2.2",
     "@nuxtjs/style-resources": "^1.0.0",
     "@types/vue2-editor": "^2.6.1",

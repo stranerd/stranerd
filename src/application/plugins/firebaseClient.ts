@@ -1,7 +1,7 @@
 import { defineNuxtPlugin, onGlobalSetup, watch } from '@nuxtjs/composition-api'
 import firebase from '@modules/core/services/initFirebase'
 import { useAuth, getId, getStudentCurrentSession, getTutorCurrentSession } from '@app/hooks/auth/auth'
-import { setStudentSession, setTutorSession } from '@app/hooks/sessions/session'
+import { setSession } from '@app/hooks/sessions/session'
 
 export default defineNuxtPlugin(async ({ app }) => {
 	const router = app.router!
@@ -24,10 +24,10 @@ export default defineNuxtPlugin(async ({ app }) => {
 
 	onGlobalSetup(() => {
 		watch(() => getStudentCurrentSession.value, () => {
-			if (getStudentCurrentSession.value && getId.value) setStudentSession(getId.value, getStudentCurrentSession.value, router)
+			if (getId.value) setSession(getId.value, 'student', getStudentCurrentSession.value, router)
 		})
 		watch(() => getTutorCurrentSession.value, () => {
-			if (getTutorCurrentSession.value && getId.value) setTutorSession(getId.value, getTutorCurrentSession.value, router)
+			if (getId.value) setSession(getId.value, 'tutor', getTutorCurrentSession.value, router)
 		})
 	})
 })

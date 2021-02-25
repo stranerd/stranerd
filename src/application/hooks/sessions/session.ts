@@ -6,38 +6,28 @@ import { Notify } from '@app/hooks/core/notifications'
 import VueRouter from 'vue-router'
 
 const global = {
-	studentSessionId: ssrRef(null as string | null),
-	tutorSessionId: ssrRef(null as string | null),
-	studentSession: ssrRef(null as SessionEntity | null),
-	tutorSession: ssrRef(null as SessionEntity | null),
-	studentListener: null as ReturnType<typeof useListener> | null,
-	tutorListener: null as ReturnType<typeof useListener> | null
-}
-
-export const setStudentSession = (userId: string, id: string, router: VueRouter) => {
-	if (global.studentSessionId.value !== id) {
-		if (global.studentListener) global.studentListener.closeListener()
-		global.studentSessionId.value = id
-		global.studentListener = useListener(async () => {
-			const runSession = async (entity: SessionEntity | null) => {
-				if (entity) {
-					global.studentSession.value = entity
-					await actOnSessionState(getSessionState(userId, entity), router)
-				}
-			}
-			return await ListenToSession.call(id, runSession)
-		})
+	student: {
+		sessionId: ssrRef(null as string | null),
+		session: ssrRef(null as SessionEntity | null),
+		listener: null as ReturnType<typeof useListener> | null
+	},
+	tutor: {
+		sessionId: ssrRef(null as string | null),
+		session: ssrRef(null as SessionEntity | null),
+		listener: null as ReturnType<typeof useListener> | null
 	}
 }
 
-export const setTutorSession = (userId: string, id: string, router: VueRouter) => {
-	if (global.tutorSessionId.value !== id) {
-		if (global.tutorListener) global.tutorListener.closeListener()
-		global.tutorSessionId.value = id
-		global.tutorListener = useListener(async () => {
+export const setSession = (userId: string, key: keyof typeof global, id: string | null, router: VueRouter) => {
+	const state = global[key]
+	if (state.sessionId.value !== id) {
+		if (state.listener) state.listener.closeListener()
+		state.sessionId.value = id
+		state.session.value = null
+		if (id && userId) state.listener = useListener(async () => {
 			const runSession = async (entity: SessionEntity | null) => {
 				if (entity) {
-					global.tutorSession.value = entity
+					state.session.value = entity
 					await actOnSessionState(getSessionState(userId, entity), router)
 				}
 			}
@@ -80,13 +70,13 @@ const actOnSessionState = async (state: SessionState, router: VueRouter) => {
 	else if (state === SessionState.TutorCancelled) useSessionModal().setSessionModalTutorCancelled()
 	else if (state === SessionState.TutorAccepts || state === SessionState.TutorAccepted) {
 		// TODO: Correct sessionId route after implementing ui
-		if (state === SessionState.TutorAccepts && global.tutorListener) {
-			await router.push(`/sessions/${global.tutorSessionId.value}`)
-			global.tutorListener.closeListener()
+		if (state === SessionState.TutorAccepts && global.tutor.listener) {
+			await router.push(`/sessions/${global.tutor.sessionId.value}`)
+			global.tutor.listener.closeListener()
 		}
-		if (state === SessionState.TutorAccepted && global.studentListener) {
-			await router.push(`/sessions/${global.studentSessionId.value}`)
-			global.studentListener.closeListener()
+		if (state === SessionState.TutorAccepted && global.student.listener) {
+			await router.push(`/sessions/${global.student.sessionId.value}`)
+			global.student.listener.closeListener()
 		}
 		await Notify({
 			icon: 'success',

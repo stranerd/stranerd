@@ -1,4 +1,4 @@
-import { DatabaseService } from '@modules/core/services/firebase'
+import { DatabaseService, FunctionsService } from '@modules/core/services/firebase'
 import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
 import { UserBaseDataSource } from '../datasources/user-base'
 import { UserFromModel, UserToModel } from '../models/user'
@@ -23,5 +23,9 @@ export class UserFirebaseDataSource implements UserBaseDataSource {
 	async update (id: string, data: Partial<UserToModel>) {
 		await DatabaseService.update(`profiles/${id}`, data)
 		return id
+	}
+
+	async updateStreak () {
+		return await FunctionsService.call('updateStreak', {})
 	}
 }

@@ -43,4 +43,8 @@ export class UserRepository implements IUserRepository {
 	async update (id: string, data: Partial<UserToModel>) {
 		return this.dataSource.update(id, data)
 	}
+
+	async updateStreak () {
+		return this.dataSource.updateStreak()
+	}
 }

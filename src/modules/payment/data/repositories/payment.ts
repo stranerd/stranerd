@@ -19,4 +19,8 @@ export class PaymentRepository implements IPaymentRepository {
 	async buyCoins (amount: number, isGold: boolean) {
 		return await this.dataSource.buyCoins({ amount, isGold })
 	}
+
+	async tipNerd (amount: number, tutorId: string) {
+		return await this.dataSource.tipNerd({ amount, tutorId })
+	}
 }

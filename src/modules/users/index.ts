@@ -18,6 +18,7 @@ import { GetAllTutorsUseCase } from './domain/usecases/users/getAllTutors'
 import { ListenToUserUseCase } from './domain/usecases/users/listenToUser'
 import { AddTutorSubjectUseCase } from './domain/usecases/users/addTutorSubject'
 import { RemoveTutorSubjectUseCase } from './domain/usecases/users/removeTutorSubject'
+import { UpdateStreakUseCase } from './domain/usecases/users/updateStreak'
 import { GetTopRankingUsersUseCase } from './domain/usecases/rankings/getTopRankingUsers'
 import { ListenToTopRankingUsersUseCase } from './domain/usecases/rankings/listenToTopRankingUsers'
 import { AddNotificationUseCase } from './domain/usecases/notifications/addNotification'
@@ -48,6 +49,7 @@ export const GetAllTutors = new GetAllTutorsUseCase(userRepository)
 export const ListenToUser = new ListenToUserUseCase(userRepository)
 export const AddTutorSubject = new AddTutorSubjectUseCase(userRepository)
 export const RemoveTutorSubject = new RemoveTutorSubjectUseCase(userRepository)
+export const UpdateStreak = new UpdateStreakUseCase(userRepository)
 
 export const MakeAdmin = new MakeAdminUseCase(roleRepository)
 export const RemoveAdmin = new RemoveAdminUseCase(roleRepository)

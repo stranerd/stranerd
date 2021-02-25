@@ -8,6 +8,7 @@ import { GetOlderTransactionsUseCase } from './domain/usecases/transactions/getO
 import { GetClientTokenUseCase } from './domain/usecases/payment/getClientToken'
 import { MakePaymentUseCase } from './domain/usecases/payment/makePayment'
 import { BuyCoinsUseCase } from './domain/usecases/payment/buyCoins'
+import { TipNerdUseCase } from './domain/usecases/payment/tipNerd'
 import { TransactionEntity } from './domain/entities/transaction'
 
 const transactionDataSource = new TransactionFirebaseDataSource()
@@ -24,5 +25,6 @@ export const GetOlderTransactions = new GetOlderTransactionsUseCase(transactionR
 export const GetClientToken = new GetClientTokenUseCase(paymentRepository)
 export const MakePayment = new MakePaymentUseCase(paymentRepository)
 export const BuyCoins = new BuyCoinsUseCase(paymentRepository)
+export const TipNerd = new TipNerdUseCase(paymentRepository)
 
 export { TransactionEntity }

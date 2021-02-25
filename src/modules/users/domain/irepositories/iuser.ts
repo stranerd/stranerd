@@ -8,4 +8,5 @@ export interface IUserRepository {
 	listen: (id: string, callback: (entity: UserEntity | null) => void, updateStatus: boolean) => Promise<() => void>
 	listenToMany: (callback: (entities: UserEntity[]) => void, conditions?: DatabaseGetClauses) => Promise<() => void>
 	update: (id: string, data: Partial<UserToModel>) => Promise<string>
+	updateStreak: () => Promise<void>
 }

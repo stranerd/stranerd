@@ -7,4 +7,5 @@ export abstract class UserBaseDataSource {
 	abstract listen: (id: string, callback: (user: UserFromModel | null) => void, updateStatus: boolean) => Promise<() => void>
 	abstract listenToMany: (callback: (users: UserFromModel[]) => void, condition?: DatabaseGetClauses) => Promise<() => void>
 	abstract update: (id: string, data: Partial<UserToModel>) => Promise<string>
+	abstract updateStreak: () => Promise<void>
 }

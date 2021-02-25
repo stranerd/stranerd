@@ -4,10 +4,10 @@ import { ChatEntity } from '../../domain/entities/chat'
 
 export class ChatTransformer {
 	fromJSON (model: ChatFromModel) {
-		const { id, content, media, from, readAt, dates: { createdAt } } = model
+		const { id, content, media, sessionId, from, readAt, dates: { createdAt } } = model
 		return new ChatEntity({
 			id,
-			content, media, from,
+			content, media, from, sessionId,
 			createdAt: timestampToMs(createdAt),
 			readAt: timestampToMs(readAt)
 		})
@@ -17,6 +17,7 @@ export class ChatTransformer {
 		return {
 			from: entity.from,
 			...(entity.content ? { content: entity.content } : {}),
+			...(entity.sessionId ? { sessionId: entity.sessionId } : {}),
 			...(entity.media ? { media: entity.media } : {}),
 			...(entity.readAt ? { readAt: entity.readAt } : {})
 		}

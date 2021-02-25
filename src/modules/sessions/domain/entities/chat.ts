@@ -6,15 +6,17 @@ export class ChatEntity extends BaseEntity {
 	readonly content: string | undefined
 	readonly media: Media | undefined
 	readonly from: string
+	readonly sessionId: string | undefined
 	readonly createdAt: number
 	readonly readAt: number | undefined
 
-	constructor ({ id, content, media, from, createdAt, readAt }: ChatConstructorArgs) {
+	constructor ({ id, content, media, from, sessionId, createdAt, readAt }: ChatConstructorArgs) {
 		super()
 		this.id = id
 		this.content = content
 		this.media = media
 		this.from = from
+		this.sessionId = sessionId
 		this.createdAt = createdAt
 		this.readAt = readAt
 	}
@@ -26,9 +28,10 @@ export class ChatEntity extends BaseEntity {
 
 type ChatConstructorArgs = {
 	id: string,
-	content?: string,
-	media?: Media,
+	content: string | undefined,
+	media: Media | undefined,
 	createdAt: number
-	readAt?: number
+	readAt: number | undefined
 	from: string
+	sessionId: string | undefined
 }

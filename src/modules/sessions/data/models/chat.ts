@@ -5,6 +5,7 @@ export interface ChatFromModel {
 	content?: string
 	media?: Media
 	from: string
+	sessionId?: string
 	readAt?: number,
 	dates: {
 		createdAt: number,
@@ -15,5 +16,6 @@ export interface ChatToModel {
 	content?: string
 	media?: Media
 	from: string
+	sessionId?: string
 	readAt?: number,
 }

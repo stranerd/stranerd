@@ -21,7 +21,7 @@
 						<img src="@/assets/images/icons/friends.svg" alt="">
 					</a>
 				</div>
-				<div class="my-2 bg-light-grey mx-n2" style="height: 5px;" />
+				<div class="thick" />
 			</div>
 			<slot />
 		</div>

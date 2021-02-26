@@ -1,6 +1,6 @@
 <template>
 	<section class="body d-flex flex-column flex-lg-row p-lg-0">
-		<section class="side-left bg-blue">
+		<section class="side-left">
 			<DashboardSidebar />
 		</section>
 		<main class="main-view">
@@ -34,7 +34,7 @@ export default defineComponent({
 }
 .side-left {
 	display: none;
-	background-color: $color-white;
+	background-color: $color-blue;
 	padding: 0.5rem;
 	width: 20%;
 	box-shadow: 3px 0 10px rgba($color-black, 0.1);
@@ -53,6 +53,7 @@ export default defineComponent({
 		background-color: $color-white;
 		padding: 1rem 0.5rem;
 		width: 25%;
+		max-width: 350px;
 		font-size: 0.9rem;
 		margin: 0 0 0 auto;
 	}
@@ -63,6 +64,7 @@ export default defineComponent({
 	@media (min-width: $lg) {
 		width: 55%;
 		padding: 1rem;
+		flex-grow: 1;
 	}
 }
 </style>

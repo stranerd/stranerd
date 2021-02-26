@@ -4,15 +4,15 @@
 			<div class="w-100 d-flex justify-content-between mb-1">
 				<div class="d-flex align-items-center position-relative ml-1">
 					<Coins :size="20" style="z-index:1;" />
-					<span class="rounded-pill ml-n2 pr-1 small bg-blue-grey text-light-blue" style="padding-left: 1.25rem;">
+					<span class="rounded-pill ml-n2 px-1 pl-3 small bg-blue-grey text-light-blue">
 						{{ formatNumber(user.account.coins.bronze) }}
 					</span>
 				</div>
 				<div class="d-flex align-items-center position-relative ml-1">
-					<Coins :gold="true" :size="20" style="z-index:1;" />
-					<span class="rounded-pill ml-n2 pr-1 small bg-blue-grey text-light-blue" style="padding-left: 1.25rem;">
+					<span class="rounded-pill ml-n2 px-1 pr-3 small bg-blue-grey text-light-blue">
 						{{ formatNumber(user.account.coins.gold) }}
 					</span>
+					<Coins :gold="true" :size="20" class="ml-n2" style="z-index:1;" />
 				</div>
 			</div>
 			<div class="d-flex">

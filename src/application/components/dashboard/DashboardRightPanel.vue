@@ -2,31 +2,31 @@
 	<div class="d-flex flex-column flex-md-row flex-lg-column align-items-start">
 		<div v-if="isLoggedIn" class="d-none d-lg-block w-100">
 			<div class="d-flex flex-column align-items-center">
-				<img :src="user.avatar" alt="" class="profile-image" style="width:90px;height:90px;">
-				<span class="text-18 font-weight-bold">{{ user.firstName }}</span>
-				<div class="d-flex justify-content-center">
-					<span>
-						<span>{{ formatNumber(user.account.coins.bronze) }}</span>
-						<Coins :size="16" />
-					</span>
-					<span>
-						<span>{{ formatNumber(user.account.coins.gold) }}</span>
-						<Coins :gold="true" :size="16" />
-					</span>
+				<div class="w-100 d-flex justify-content-between mb-1">
+					<div class="d-flex align-items-center position-relative ml-1">
+						<Coins :size="24" style="z-index:1;" />
+						<span class="rounded-pill ml-n2 px-1 pl-3 bg-blue-grey text-light-blue">
+							{{ formatNumber(user.account.coins.bronze) }}
+						</span>
+					</div>
+					<div class="d-flex align-items-center position-relative ml-1">
+						<span class="rounded-pill px-1 pr-3 bg-blue-grey text-light-blue">
+							{{ formatNumber(user.account.coins.gold) }}
+						</span>
+						<Coins :gold="true" :size="24" class="ml-n2" style="z-index:1;" />
+					</div>
 				</div>
-				<NuxtLink to="/account/" class="btn my-2 btn-outline-accent rounded-pill px-3 py-1">
-					View Profile
+				<img :src="user.avatar" alt="" class="profile-image" style="width:75px;height:75px;">
+				<span class="text-18 font-weight-bold">{{ user.fullName }}</span>
+				<NuxtLink to="/account/" class="btn btn-blue rounded-pill my-1">
+					<span>View Profile</span>
+					<i class="fas fa-arrow-right ml-1" />
 				</NuxtLink>
 			</div>
-			<div class="my-2 bg-light-grey mx-n1" style="height: 8px;" />
+			<div class="thick" />
 		</div>
 		<div class="content">
-			<h3 class="d-none d-lg-block mb-2 text-center font-weight-bold">
-				Rankings
-			</h3>
-			<div class="body">
-				<TopUsers />
-			</div>
+			<TopUsers />
 		</div>
 	</div>
 </template>
@@ -60,14 +60,6 @@ export default defineComponent({
 		padding: 0;
 		flex-grow: 0;
 		max-width: 100%;
-	}
-	.body {
-		@media (min-width: $lg) {
-			background-color: lighten($color-light-grey, 7);
-			border-radius: 0.25rem;
-			border: 1px solid lighten($color-light-grey, 0);
-			box-shadow: 0 3px 6px rgba($color-black, 0.1);
-		}
 	}
 }
 </style>

@@ -1,27 +1,23 @@
 <template>
 	<div>
-		<hr class="thin">
 		<div v-for="(user, index) in users" :key="user.hash">
-			<TopUserCard :user="user" :period="period" />
-			<hr v-if="index !== users.length - 1 || !isLoggedIn" class="thin">
+			<TopUserCard :user="user" :period="period" :rank="index + 1" />
 		</div>
+		<DisplayWarning v-if="!loading && users.length === 0" message="No user has earned any xp for this period" />
 		<div v-if="isLoggedIn">
-			<div class="my-2 mx-n1 bg-light-grey" style="height: 8px;" />
+			<div class="thick" />
 			<h6 class="font-weight-bold">
-				Your Ranking
+				You
 			</h6>
-			<hr class="thin">
-			<TopUserCard :user="user" :period="period" />
-			<hr class="thin">
+			<TopUserCard :user="user" :period="period" :rank="myRank" />
 		</div>
-		<DisplayWarning v-if="!loading && !error && users.length === 0" message="No users found." />
 		<DisplayError :error="error" />
 		<PageLoading v-if="loading" />
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onBeforeUnmount, PropType } from '@nuxtjs/composition-api'
+import { defineComponent, onMounted, onBeforeUnmount, PropType, computed } from '@nuxtjs/composition-api'
 import { useTopUsersByPeriod } from '@app/hooks/users/rankings'
 import TopUserCard from '@app/components/users/rankings/TopUserCard.vue'
 import { useAuth } from '@app/hooks/auth/auth'
@@ -38,11 +34,18 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
-		const { user, isLoggedIn } = useAuth()
+		const { id, user, isLoggedIn } = useAuth()
 		const { users, error, loading, listener } = useTopUsersByPeriod(props.period)
+		const myRank = computed({
+			get: () => {
+				const index = users.value.findIndex((user) => user.id === id.value)
+				return index !== -1 ? index + 1 : '#'
+			},
+			set: () => {}
+		})
 		onMounted(listener.startListener)
 		onBeforeUnmount(listener.closeListener)
-		return { user, isLoggedIn, users, error, loading }
+		return { myRank, user, isLoggedIn, users, error, loading }
 	}
 })
 </script>

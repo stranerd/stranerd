@@ -1,14 +1,14 @@
 <template>
 	<div class="d-flex align-items-center my-1">
+		<span>{{ rank }}.&nbsp;</span>
 		<NuxtLink :to="`/users/${user.id}`">
-			<img :src="user.avatar" alt="" class="profile-image" style="width:24px;height:24px;">
+			<img :src="user.avatar" alt="" class="profile-image" style="width:28px;height:28px;">
 		</NuxtLink>
 		<NuxtLink :to="`/users/${user.id}`" class="mx-1">
 			<span>{{ user.fullName }}</span>
 		</NuxtLink>
-		<span class="ml-auto d-flex align-items-center">
-			<span class="mr-half">{{ formatNumber(user.rankings[period]) }}</span>
-			<Coins :size="16" />
+		<span class="ml-auto">
+			{{ formatNumber(user.rankings[period]) }} xp
 		</span>
 	</div>
 </template>
@@ -27,6 +27,10 @@ export default defineComponent({
 		period: {
 			required: true,
 			type: String
+		},
+		rank: {
+			required: true,
+			type: [Number, String]
 		}
 	},
 	setup () {

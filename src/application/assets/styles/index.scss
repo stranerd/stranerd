@@ -71,6 +71,17 @@ hr {
 	background: $color-light-grey;
 }
 
+div.thick {
+	height: 4px;
+	background: $color-light-grey;
+	margin: 1rem 0;
+}
+div.thin {
+	height: 4px;
+	background: $color-light-grey;
+	margin: 0.5rem 0;
+}
+
 hr.thick {
 	height: 2px;
 }

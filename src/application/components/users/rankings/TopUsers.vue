@@ -1,6 +1,6 @@
 <template>
 	<div class="p-1">
-		<section class="d-flex text-center align-items-center flex-wrap">
+		<section class="d-flex text-center align-items-center flex-wrap mb-2">
 			<h5 class=" font-weight-bold mb-0">
 				Top Users
 			</h5>

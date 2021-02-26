@@ -1,13 +1,13 @@
 <template>
 	<div class="grid">
 		<div class="d-none">
-			<button type="button" class="btn-facebook btn btn-auth">
-				<img src="@app/assets/images/auth/facebook.png" alt="Facebook">Facebook
+			<button type="button" class="btn btn-auth">
+				<img src="@app/assets/images/auth/facebook.png" alt="">Facebook
 			</button>
 		</div>
 		<div>
-			<button type="button" class="btn-google btn btn-auth" @click="googleSignin">
-				<img src="@app/assets/images/auth/google.png" alt="Google">Google
+			<button type="button" class="btn btn-auth" @click="googleSignin">
+				<img src="@app/assets/images/auth/google.png" alt="">Google
 			</button>
 			<DisplayError :error="googleError" />
 			<PageLoading v-if="googleLoading" />
@@ -38,13 +38,13 @@ export default defineComponent({
 }
 .btn-auth{
 	color: $color-white;
+	background: $color-blue;
 	width: 100%;
 	font-size: 18px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border-radius: 10px;
-	box-shadow: 0 1px 5px 0 opacify($color-black, 0.2);
+	padding: 0.75rem 0;
 	transition: all 0.4s;
 	z-index: 1;
 	img {
@@ -53,9 +53,6 @@ export default defineComponent({
 	}
 }
 .btn-auth:hover {
-	background: $color-white;
-	color: $color-black;
+	background: lighten($color-blue, 10);
 }
-.btn-facebook { background-color: #3b5998; }
-.btn-google { background-color: lighten(#db4437, 10%); }
 </style>

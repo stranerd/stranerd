@@ -18,7 +18,7 @@
 			>
 		</div>
 		<div class="mt-2 text-center">
-			<button type="submit" class="w-100 btn btn-dark py-2" :disabled="loading || !factory.valid">
+			<button type="submit" class="w-100 btn btn-blue py-2" :disabled="loading || !factory.valid">
 				Send Reset Email
 			</button>
 			<DisplayError :error="error" />

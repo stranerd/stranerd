@@ -1,8 +1,8 @@
 <template>
-	<div class="container bg-white">
+	<div class="container min-vh-100 d-flex flex-column justify-content-center bg-blue">
 		<div class="text-center">
 			<Logo />
-			<h1 class="title">
+			<h1 class="display-4 my-4">
 				application root
 			</h1>
 			<div class="text-center">
@@ -21,34 +21,3 @@ export default defineComponent({
 	middleware: 'isNotAuthenticated'
 })
 </script>
-
-<style lang="scss" scoped>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>

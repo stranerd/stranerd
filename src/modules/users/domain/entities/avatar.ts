@@ -1,7 +1,7 @@
 export const Avatars = {
 	default: {
 		id: 'default',
-		link: '/images/user_profile.png'
+		link: '/images/user_profile.svg'
 	}
 } as const
 

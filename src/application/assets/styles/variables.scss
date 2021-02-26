@@ -1,17 +1,20 @@
-$color-gold: #DAB100;
-$color-red: #FF781F;
-$color-blue: #10a7e3;
-$color-green: #49DD49;
-$color-accent: $color-green;
-$color-white: #FEFEFE;
-$color-light-grey: #E6E6E6;
+$color-blue: #395C7F;
+$color-light-blue: #EBF3FA;
+$color-blue-grey: #748DA5;
+$color-light-grey: #E7EEf4;
 $color-grey: #808080;
+$color-white: #FEFEFE;
 $color-black: #131313;
 $color-black-transparent: rgba($color-black, .75);
 
-$body-color: $color-grey;
+$color-gold: #DAB100;
+$color-red: #FF781F;
+$color-green: #49DD49;
+$color-accent: $color-green;
+
+$body-color: $color-light-grey;
 $yiq-contrasted-threshold: 170;
-$yiq-text-dark: $color-grey;
+$yiq-text-dark: $color-blue;
 $yiq-text-light: $color-white;
 
 $sm: 576px;
@@ -22,8 +25,10 @@ $xl: 1200px;
 $theme-colors: (
 	'gold': $color-gold,
 	'red': $color-red,
-	'blue': $color-blue,
 	'accent': $color-accent,
+	'blue': $color-blue,
+	'light-blue': $color-light-blue,
+	'blue-grey': $color-blue-grey,
 	'light-grey': $color-light-grey,
 	'grey': $color-grey
 );

@@ -20,7 +20,7 @@
 			<span v-if="factory.errors.email" class="text-danger">{{ factory.errors.email }}</span>
 		</div>
 		<div class="form-group">
-			<label class="label d-flex" for="password">
+			<label class="label d-flex align-items-end" for="password">
 				<span>Password</span>
 				<NuxtLink to="/auth/forgot" class="label-sm ml-1">Forgot?</NuxtLink>
 				<a class="label-sm ml-auto" @click.prevent="toggle">{{ show ? 'Hide' : 'Show' }} password</a>
@@ -38,7 +38,7 @@
 			<span v-if="factory.errors.password" class="text-danger">{{ factory.errors.password }}</span>
 		</div>
 		<div class="mt-2 text-center">
-			<button type="submit" class="w-100 btn btn-dark py-2" :disabled="loading || !factory.valid">
+			<button type="submit" class="w-100 btn btn-blue py-2" :disabled="loading || !factory.valid">
 				Sign In
 			</button>
 			<DisplayError :error="error" />

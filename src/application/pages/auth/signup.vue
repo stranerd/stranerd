@@ -19,7 +19,7 @@
 			<span v-if="factory.errors.email" class="text-danger">{{ factory.errors.email }}</span>
 		</div>
 		<div class="form-group">
-			<label for="password" class="label d-flex">
+			<label for="password" class="label d-flex align-items-end">
 				<span>Password</span>
 				<a class="label-sm ml-auto" @click.prevent="toggle">{{ show ? 'Hide' : 'Show' }} password</a>
 			</label>
@@ -36,7 +36,7 @@
 			<span v-if="factory.errors.password" class="text-danger">{{ factory.errors.password }}</span>
 		</div>
 		<div class="form-group">
-			<label for="c-password" class="label d-flex">
+			<label for="c-password" class="label d-flex align-items-end">
 				<span>Confirm Password</span>
 				<a class="label-sm ml-auto" @click.prevent="toggle">{{ show ? 'Hide' : 'Show' }} password</a>
 			</label>
@@ -53,7 +53,7 @@
 			<span v-if="factory.errors.cPassword" class="text-danger">{{ factory.errors.cPassword }}</span>
 		</div>
 		<div class="mt-2 text-center">
-			<button type="submit" class="w-100 btn btn-dark py-2" :disabled="loading || !factory.valid">
+			<button type="submit" class="w-100 btn btn-blue py-2" :disabled="loading || !factory.valid">
 				Sign Up
 			</button>
 			<DisplayError :error="error" />

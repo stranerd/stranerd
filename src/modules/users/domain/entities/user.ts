@@ -141,7 +141,7 @@ export interface UserTutor {
 	sessionCount?: number
 }
 
-export const generateDefaultBio = (bio: UserBio) :UserBio => {
+export const generateDefaultBio = (bio: Partial<UserBio>) :UserBio => {
 	const first = bio?.name?.first ?? 'Anon'
 	const last = bio?.name?.last ?? 'Ymous'
 	const fullName = first + ' ' + last

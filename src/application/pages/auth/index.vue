@@ -6,9 +6,9 @@
 		<AuthProviders class="mb-4" />
 		<hr class="w-75 mx-auto my-4">
 		<div class="text-center mb-2">
-			<h3>Or send auth link to your email</h3>
+			<h3>Or use your email</h3>
 			<p class="w-75 mx-auto">
-				No need to manage passwords anymore. A link will be sent to your email which will be used to authenticate you.
+				No need for passwords here! Enter your email below to get an authentication link sent to your email.
 			</p>
 		</div>
 		<div class="form-group">
@@ -27,8 +27,8 @@
 			<span v-if="factory.errors.email" class="text-danger">{{ factory.errors.email }}</span>
 		</div>
 		<div class="mt-2 text-center">
-			<button type="submit" class="w-100 btn btn-dark py-2" :disabled="loading || !factory.valid">
-				Send Email
+			<button type="submit" class="w-100 btn btn-blue py-2" :disabled="loading || !factory.valid">
+				Get Link
 			</button>
 			<DisplayError :error="error" />
 			<DisplaySuccess :message="message" />

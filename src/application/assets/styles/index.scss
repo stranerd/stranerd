@@ -86,7 +86,7 @@ hr.thin {
 
 .profile-image {
 	border-radius: 10rem;
-	border: 1.5px solid rgba($color-black,0.25);
+	border: 1.5px solid transparent;
 	width: 2.5rem;
 	height: 2.5rem;
 	@media (min-width: $md) {

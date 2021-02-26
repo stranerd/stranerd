@@ -35,12 +35,13 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
 import TopUsers from '@app/components/users/rankings/TopUsers.vue'
+import { formatNumber } from '@app/hooks/core/numbers'
 export default defineComponent({
 	name: 'DashboardRightPanel',
 	components: { TopUsers },
 	setup () {
 		const { id, isLoggedIn, user } = useAuth()
-		return { id, isLoggedIn, user }
+		return { id, isLoggedIn, user, formatNumber }
 	}
 })
 </script>

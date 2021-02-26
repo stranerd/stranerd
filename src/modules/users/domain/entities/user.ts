@@ -27,8 +27,17 @@ export class UserEntity extends BaseEntity {
 		super()
 		this.id = id
 		this.userBio = generateDefaultBio(bio)
-		this.roles = roles ?? { isStudent: true }
-		this.account = account ?? { coins: { bronze: 0, gold: 0 } }
+		this.roles = {
+			isStudent: roles.isStudent ?? true,
+			isTutor: roles.isTutor ?? false,
+			isAdmin: roles.isAdmin ?? false
+		}
+		this.account = {
+			coins: {
+				bronze: account?.coins?.bronze ?? 0,
+				gold: account?.coins?.gold ?? 0
+			}
+		}
 		this.rankings = Object.fromEntries(
 			Object.keys(RankingPeriods).map((key) => [key, rankings?.[key as RankingPeriods] ?? 0])
 		) as Required<UserRankings>

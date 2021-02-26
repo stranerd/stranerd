@@ -1,10 +1,10 @@
 <template>
-	<section class="body d-flex flex-column flex-lg-row p-md-2 p-lg-0">
-		<section class="side-left">
+	<section class="body d-flex flex-column flex-lg-row p-lg-0">
+		<section class="side-left bg-blue">
 			<DashboardSidebar />
 		</section>
 		<main class="main-view">
-			<DashboardTopNavigation class="mx-n1" />
+			<DashboardTopNavigation />
 			<Nuxt />
 		</main>
 		<section class="side-right">
@@ -35,11 +35,14 @@ export default defineComponent({
 .side-left {
 	display: none;
 	background-color: $color-white;
-	padding: 1rem 0.5rem;
+	padding: 0.5rem;
 	width: 20%;
 	box-shadow: 3px 0 10px rgba($color-black, 0.1);
 	@media (min-width: $lg) {
 		display: block;
+	}
+	@media (min-width: 1050px) {
+		padding: 1rem;
 	}
 }
 .side-right {

@@ -3,7 +3,7 @@
 		<button class="navbar-toggler text-white rounded-0 mr-1 d-lg-none" type="button" @click="setMenuModalAdminSidebar">
 			<span class="fas fa-bars" />
 		</button>
-		<NuxtLink to="/admin/">
+		<NuxtLink to="/admin/" class="d-lg-none">
 			<Logo />
 		</NuxtLink>
 		<Links class="ml-auto" />
@@ -29,5 +29,11 @@ nav {
 	background: $color-blue;
 	color: $color-white;
 	padding: 0.5rem 0.75rem;
+	@media (min-width: $lg) {
+		margin: 0 0 0.5rem;
+		background: $color-white;
+		$color: $color-blue-grey;
+		border-radius: 1rem;
+	}
 }
 </style>

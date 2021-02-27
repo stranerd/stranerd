@@ -1,14 +1,7 @@
 <template>
-	<div class="d-flex flex-column">
-		<div class="text-center my-2">
-			<Logo />
-		</div>
-		<div class="d-flex justify-content-center mb-4 text-light-grey">
-			<i class="fas fa-circle mx-1" />
-			<i class="fas fa-circle mx-1" />
-			<i class="fas fa-circle mx-1" />
-		</div>
-		<div class="my-1 d-flex flex-column links">
+	<aside>
+		<SidebarLogo class="d-none d-lg-block" />
+		<div class="my-1 d-flex flex-column">
 			<NuxtLink class="link" to="/dashboard">
 				<img src="@/assets/images/icons/dashboard.svg" alt="">
 				<span>Dashboard</span>
@@ -22,14 +15,16 @@
 				<span>Admin Site</span>
 			</NuxtLink>
 		</div>
-	</div>
+	</aside>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
+import SidebarLogo from '@app/components/layouts/sidebars/SidebarLogo.vue'
 export default defineComponent({
 	name: 'DefaultSidebar',
+	components: { SidebarLogo },
 	setup () {
 		const { isLoggedIn, isAdmin } = useAuth()
 		return { isLoggedIn, isAdmin }
@@ -38,29 +33,37 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.links {
-	.link {
+aside {
+	color: $color-blue;
+	@media (min-width: $lg) {
 		color: $color-light-blue;
-		padding: 0.75rem 1rem;
-        margin: 0.25rem 0;
-		display: flex;
-		align-items: center;
-		font-weight: 500;
-		img {
-			height: 24px;
-			width: 24px;
-		}
-		span {
-			font-size: 18px;
-			margin-left: 0.75rem;
-		}
 	}
-	.nuxt-link-exact-active {
-		font-weight: 600;
-		color: $color-blue;
+}
+.link {
+	padding: 0.75rem 1rem;
+	margin: 0.25rem 0;
+	display: flex;
+	align-items: center;
+	font-weight: 500;
+	img {
+		height: 24px;
+		width: 24px;
+	}
+	span {
+		font-size: 18px;
+		margin-left: 0.75rem;
+	}
+}
+.nuxt-link-exact-active {
+	font-weight: 600;
+	color: $color-light-blue;
+	background: $color-blue;
+	border-radius: 1rem;
+	img { filter: brightness(250%); }
+	@media (min-width: $lg) {
 		background: $color-light-blue;
-        border-radius: 1rem;
-		img { filter: brightness(60%); }
+		color: $color-blue;
+		img { filter: brightness(80%); }
 	}
 }
 </style>

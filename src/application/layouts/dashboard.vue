@@ -1,9 +1,9 @@
 <template>
-	<section class="body d-flex flex-column flex-lg-row p-lg-0">
+	<section class="body">
 		<section class="side-left">
 			<DashboardSidebar />
 		</section>
-		<main class="main-view p-lg-2">
+		<main class="main-view">
 			<DashboardTopNavigation />
 			<Nuxt class="mx-half mx-lg-0" />
 		</main>
@@ -31,14 +31,19 @@ export default defineComponent({
 	min-height: 100vh;
 	margin: 0 auto;
 	max-width: 2000px;
+	display: flex;
+	flex-direction: column;
+	@media (min-width: $lg) {
+		flex-direction: row;
+	}
 }
 .side-left {
 	display: none;
 	background-color: $color-blue;
 	padding: 0.5rem;
-	width: 20%;
-	box-shadow: 3px 0 10px rgba($color-black, 0.1);
 	@media (min-width: $lg) {
+		width: 20%;
+		max-width: 400px;
 		display: block;
 	}
 	@media (min-width: 1050px) {
@@ -47,20 +52,18 @@ export default defineComponent({
 }
 .side-right {
 	width: 100%;
-	margin: 0.5rem 0;
-	padding: 0 0.25rem;
+	padding: 0.5rem;
 	@media (min-width: $lg) {
 		background-color: $color-white;
-		padding: 1rem 0.5rem;
 		width: 25%;
-		max-width: 350px;
+		max-width: 400px;
 		font-size: 0.9rem;
 		margin: 0 0 0 auto;
 	}
 }
 .main-view {
-	flex-grow: 0;
 	@media (min-width: $lg) {
+		padding: 1rem;
 		width: 55%;
 		flex-grow: 1;
 	}

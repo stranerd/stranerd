@@ -1,14 +1,12 @@
 <template>
-	<section>
-		<AdminTopNavigation class="shadowed px-lg-4" />
-		<div class="body">
-			<div class="p-1 d-none d-lg-block page-content mr-4 w-25">
-				<AdminSidebar />
-			</div>
-			<div class="w-grow">
-				<Nuxt />
-			</div>
-		</div>
+	<section class="body">
+		<section class="side-left">
+			<AdminSidebar />
+		</section>
+		<main class="main-view">
+			<AdminTopNavigation />
+			<Nuxt class="mx-half mx-lg-0" />
+		</main>
 		<ModalBase />
 	</section>
 </template>
@@ -30,20 +28,34 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-section {
-  min-height: 100vh;
-}
-.shadowed {
-	box-shadow: 0 3px 10px rgba($color-black, 0.1);
-}
 .body {
+	min-height: 100vh;
 	margin: 0 auto;
-	max-width: $xl;
-	padding: 0 0.5rem;
+	max-width: 2000px;
 	display: flex;
+	flex-direction: column;
+	@media (min-width: $lg) {
+		flex-direction: row;
+	}
 }
-.w-grow {
-	width: 100%;
-	@media (min-width: $lg) { width: calc(75% - 2rem); }
+.side-left {
+	display: none;
+	background-color: $color-blue;
+	padding: 0.5rem;
+	@media (min-width: $lg) {
+		width: 20%;
+		max-width: 400px;
+		display: block;
+	}
+	@media (min-width: 1050px) {
+		padding: 1rem;
+	}
+}
+.main-view {
+	@media (min-width: $lg) {
+		padding: 1rem;
+		width: 55%;
+		flex-grow: 1;
+	}
 }
 </style>

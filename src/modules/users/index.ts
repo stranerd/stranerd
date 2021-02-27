@@ -15,6 +15,7 @@ import { RemoveTutorUseCase } from './domain/usecases/roles/removeTutor'
 import { GetUsersByEmailUseCase } from './domain/usecases/users/getUsersByEmail'
 import { GetAllAdminsUseCase } from './domain/usecases/users/getAllAdmins'
 import { GetAllTutorsUseCase } from './domain/usecases/users/getAllTutors'
+import { ListenToTutorsUseCase } from './domain/usecases/users/listenToTutors'
 import { ListenToUserUseCase } from './domain/usecases/users/listenToUser'
 import { AddTutorSubjectUseCase } from './domain/usecases/users/addTutorSubject'
 import { RemoveTutorSubjectUseCase } from './domain/usecases/users/removeTutorSubject'
@@ -46,6 +47,7 @@ export const FindUser = new FindUserUseCase(userRepository)
 export const GetUsersByEmail = new GetUsersByEmailUseCase(userRepository)
 export const GetAllAdmins = new GetAllAdminsUseCase(userRepository)
 export const GetAllTutors = new GetAllTutorsUseCase(userRepository)
+export const ListenToTutors = new ListenToTutorsUseCase(userRepository)
 export const ListenToUser = new ListenToUserUseCase(userRepository)
 export const AddTutorSubject = new AddTutorSubjectUseCase(userRepository)
 export const RemoveTutorSubject = new RemoveTutorSubjectUseCase(userRepository)

@@ -4,10 +4,14 @@
 			<div class="background py-6 px-3">
 				<div style="max-width: 75%;">
 					<h2 class="font-weight-bold">
-						Nerd help is what you need.
+						{{ isTutor ? 'Help a student in need today!' : 'Nerd help is what you need.' }}
 					</h2>
 					<p>
-						Bringing to you the classroom method of learning from your peers. Ask a question ( public ) or Meet a nerd ( 1 on 1 private chat ).
+						{{
+							isTutor
+								? 'Earn bronze coins for questions answered & earn gold coins for sessions. Convert your coins to USD and cash in to your bank account.'
+								: 'Bringing to you the classroom method of learning from your peers. Ask a question ( public ) or Meet a nerd ( 1 on 1 private chat ).'
+						}}
 					</p>
 					<div class="d-flex flex-column flex-md-row flex-wrap align-items-start">
 						<NuxtLink v-if="isTutor" to="/questions" class="mr-1 my-1 btn btn-blue rounded-pill px-4 py-1 font-weight-bold">
@@ -24,7 +28,7 @@
 			</div>
 		</div>
 		<div id="tutors" class="page-content my-2">
-			Tutors List
+			<TutorsList />
 		</div>
 	</section>
 </template>
@@ -34,8 +38,10 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import { useCreateModal } from '@app/hooks/core/modals'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useRedirectToAuth } from '@app/hooks/auth/session'
+import TutorsList from '@app/components/users/tutors/TutorsList.vue'
 export default defineComponent({
 	name: 'DashboardPage',
+	components: { TutorsList },
 	layout: 'dashboard',
 	setup () {
 		const { isLoggedIn, isTutor } = useAuth()

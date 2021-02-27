@@ -76,6 +76,8 @@ export class UserEntity extends BaseEntity {
 	get isOnline () { return this.status.mode === Status.ONLINE }
 	get lastSeen () { return this.isOnline ? Date.now() : this.status.updatedAt }
 
+	get averageRating () { return this.tutor?.rating === 0 ? 0 : (this.tutor?.rating ?? 0) / (this.tutor?.reviews ?? 1) }
+	get ratingCount () { return this.tutor?.reviews ?? 0 }
 	get subjects () {
 		return Object.entries(this.tutor?.subjects ?? {})
 			.map((c) => ({ ...c[1], id: c[0] }))

@@ -1,6 +1,6 @@
 <template>
 	<aside class="sidebar-body">
-		<Logo class="d-none d-lg-block" />
+		<Logo class="d-none d-lg-block mb-3" />
 		<div class="my-1 sidebar-links">
 			<NuxtLink class="sidebar-link" to="/dashboard">
 				<img src="@/assets/images/icons/dashboard.svg" alt="">

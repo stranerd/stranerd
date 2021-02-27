@@ -21,5 +21,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-i { margin: 0 0rem; }
+i { margin: 0 0; }
 </style>

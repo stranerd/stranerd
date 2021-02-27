@@ -1,11 +1,11 @@
 <template>
-	<section class="body">
-		<section class="side-left">
+	<section class="layout-body">
+		<section class="layout-side-left">
 			<AdminSidebar />
 		</section>
-		<main class="main-view">
+		<main class="layout-main">
 			<AdminTopNavigation />
-			<Nuxt class="mx-half mx-lg-0" />
+			<Nuxt class="layout-content" />
 		</main>
 		<ModalBase />
 	</section>
@@ -26,36 +26,3 @@ export default defineComponent({
 	middleware: ['isAdmin']
 })
 </script>
-
-<style lang="scss" scoped>
-.body {
-	min-height: 100vh;
-	margin: 0 auto;
-	max-width: 2000px;
-	display: flex;
-	flex-direction: column;
-	@media (min-width: $lg) {
-		flex-direction: row;
-	}
-}
-.side-left {
-	display: none;
-	background-color: $color-blue;
-	padding: 0.5rem;
-	@media (min-width: $lg) {
-		width: 25%;
-		max-width: 400px;
-		display: block;
-	}
-	@media (min-width: 1050px) {
-		padding: 1rem;
-	}
-}
-.main-view {
-	@media (min-width: $lg) {
-		padding: 1rem;
-		width: 55%;
-		flex-grow: 1;
-	}
-}
-</style>

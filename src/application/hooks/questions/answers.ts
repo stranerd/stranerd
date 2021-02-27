@@ -1,7 +1,7 @@
 import { Ref, ref, ssrRef, useFetch, watch } from '@nuxtjs/composition-api'
 import {
 	AddAnswer, AnswerEntity, AnswerFactory, FindAnswer, GetAnswers, LikeAnswer, ListenToAnswer,
-	ListenToAnswers, MarkQuestionAnswered, QuestionEntity, RateAnswer
+	ListenToAnswers, MarkAsBestAnswer, QuestionEntity, RateAnswer
 } from '@modules/questions'
 import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
@@ -121,7 +121,7 @@ export const useAnswer = (answer: AnswerEntity) => {
 		setError('')
 		try {
 			setLoading(true)
-			await MarkQuestionAnswered.call(question.id, answer.id)
+			await MarkAsBestAnswer.call(question.id, answer.id)
 		} catch (error) { setError(error) }
 		setLoading(false)
 	}

@@ -11,4 +11,5 @@ export interface IAnswerRepository {
 	update: (id: string, data: Partial<AnswerToModel>) => Promise<void>
 	like: (id: string, userId: string) => Promise<void>
 	rate: (id: string, userId: string, rating: number) => Promise<void>
+	markAsBestAnswer: (questionId: string, answerId: string) => Promise<void>
 }

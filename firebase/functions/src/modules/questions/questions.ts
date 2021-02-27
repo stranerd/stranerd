@@ -42,21 +42,6 @@ export const questionUpdated = functions.firestore.document('questions/{question
 			if(!wasLeftBehind) await deleteFromStorage(attachment?.path)
 		}))
 
-		if (before.answerId !== after.answerId) {
-			const { answerId, coins } = after
-			const answerRef = admin.firestore().collection('answers').doc(answerId)
-			await answerRef.set({ best: true }, { merge: true })
-			const { userId } = (await answerRef.get()).data()!
-			await addUserCoins(userId, { bronze: coins * 0.75, gold: 0 },
-				`You got ${coins} coins for a best answer`
-			)
-			await admin.database().ref()
-				.update({
-					[`profiles/${userId}/meta/bestAnswerCount`]: admin.database.ServerValue.increment(1),
-					[`users/${userId}/bestAnswers/${answerId}`]: true
-				})
-		}
-
 		await saveToAlgolia('questions', snap.after.id, after)
 	})
 

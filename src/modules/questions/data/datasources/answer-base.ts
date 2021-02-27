@@ -10,4 +10,5 @@ export abstract class AnswerBaseDataSource {
     abstract update: (id: string, data: Partial<AnswerToModel>) => Promise<void>
     abstract like: (id: string, userId: string) => Promise<void>
     abstract rate: (id: string, userId: string, rating: number) => Promise<void>
+    abstract markAsBest: (data: { questionId: string, answerId: string }) => Promise<void>
 }

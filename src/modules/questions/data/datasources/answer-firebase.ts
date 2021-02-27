@@ -1,4 +1,4 @@
-import { FirestoreService, DatabaseService } from '@modules/core/services/firebase'
+import { FirestoreService, DatabaseService, FunctionsService } from '@modules/core/services/firebase'
 import { FirestoreGetClauses } from '@modules/core/data/datasources/base'
 import { AnswerFromModel, AnswerToModel } from '../models/answer'
 import { AnswerBaseDataSource } from './answer-base'
@@ -34,5 +34,9 @@ export class AnswerFirebaseDataSource implements AnswerBaseDataSource {
 
 	async rate (id: string, userId: string, rating: number) {
 		return await DatabaseService.update(`answers/${id}/ratings`, { [userId]: rating })
+	}
+
+	async markAsBest (data: { questionId: string, answerId: string }) {
+		return await FunctionsService.call('markAsBestAnswer', data)
 	}
 }

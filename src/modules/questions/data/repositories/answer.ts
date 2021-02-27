@@ -55,4 +55,8 @@ export class AnswerRepository implements IAnswerRepository {
 	async rate (id: string, userId: string, rating: number) {
 		return await this.dataSource.rate(id, userId, rating)
 	}
+
+	async markAsBestAnswer (questionId: string, answerId: string) {
+		return await this.dataSource.markAsBest({ questionId, answerId })
+	}
 }

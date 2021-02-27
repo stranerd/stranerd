@@ -10,10 +10,13 @@
 						Bringing to you the classroom method of learning from your peers. Ask a question ( public ) or Meet a nerd ( 1 on 1 private chat ).
 					</p>
 					<div class="d-flex flex-column flex-md-row flex-wrap align-items-start">
-						<button class="mr-1 my-1 btn btn-blue rounded-pill px-4 py-1 font-weight-bold" @click="openQuestionModal">
+						<NuxtLink v-if="isTutor" to="/questions" class="mr-1 my-1 btn btn-blue rounded-pill px-4 py-1 font-weight-bold">
+							Answer Questions
+						</NuxtLink>
+						<button v-if="!isTutor" class="mr-1 my-1 btn btn-blue rounded-pill px-4 py-1 font-weight-bold" @click="openQuestionModal">
 							Ask A Question
 						</button>
-						<a href="#tutors" class="mr-1 my-1 btn btn-outline-blue rounded-pill px-4 py-1 font-weight-bold">
+						<a v-if="!isTutor" href="#tutors" class="mr-1 my-1 btn btn-outline-blue rounded-pill px-4 py-1 font-weight-bold">
 							Meet a Nerd
 						</a>
 					</div>
@@ -35,10 +38,11 @@ export default defineComponent({
 	name: 'DashboardPage',
 	layout: 'dashboard',
 	setup () {
-		const { isLoggedIn } = useAuth()
+		const { isLoggedIn, isTutor } = useAuth()
 		const { redirect } = useRedirectToAuth()
 		const { setCreateModalQuestion } = useCreateModal()
 		return {
+			isLoggedIn, isTutor,
 			openQuestionModal: () => {
 				if (!isLoggedIn.value) redirect()
 				else setCreateModalQuestion()

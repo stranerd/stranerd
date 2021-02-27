@@ -1,11 +1,11 @@
 <template>
 	<div>
-		<section class="d-flex flex-column flex-md-row align-items-center text-center">
-			<h2>
+		<section class="d-flex mb-2 flex-column flex-md-row align-items-center text-center">
+			<h2 class="font-weight-bold">
 				Questions
 			</h2>
-			<form class="form-inline mx-auto mr-md-0 ml-md-auto">
-				<select v-model="answered" class="form-control form-control-sm mr-sm-1 my-1">
+			<form class="d-flex ml-md-auto">
+				<select v-model="answered" class="form-control form-control-sm mr-1 my-1">
 					<option v-for="choice in answeredChoices" :key="choice.val" :value="choice.val">
 						{{ choice.key }}
 					</option>
@@ -20,10 +20,10 @@
 				</select>
 			</form>
 		</section>
-		<div class="thin" />
+		<div class="thick" />
 		<div v-for="question in questions" :key="question.hash">
 			<QuestionCard :question="question" />
-			<div class="thin" />
+			<div class="thick" />
 		</div>
 		<div v-if="hasMore" class="text-center py-1 text-18">
 			<a class="font-weight-bold" @click.prevent="fetchOlderQuestions">LOAD MORE</a>

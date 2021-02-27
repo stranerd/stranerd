@@ -1,5 +1,5 @@
 <template>
-	<div class="content">
+	<div class="page-content">
 		<QuestionsList />
 	</div>
 </template>
@@ -13,20 +13,3 @@ export default defineComponent({
 	layout: 'dashboard'
 })
 </script>
-
-<style lang="scss" scoped>
-.content {
-	background-color: $color-white;
-	padding: 0.5rem;
-	border-radius: 0.5rem;
-	box-shadow: 0 3px 10px rgba($color-black, 0.1);
-	@media (min-width: $md) {
-		padding: 0.75rem;
-		border-radius: 1rem;
-	}
-	@media (min-width: $lg) {
-		border-radius: 1.5rem;
-		padding: 1rem;
-	}
-}
-</style>

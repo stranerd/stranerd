@@ -1,12 +1,12 @@
 <template>
-	<div :id="question.id">
-		<div class="d-flex align-items-start mb-1">
+	<div :id="question.id" class="my-2">
+		<div class="d-flex align-items-center mb-1">
 			<NuxtLink :to="`/users/${question.userId}`">
-				<img :src="question.avatar" alt="" class="profile-image">
+				<img :src="question.avatar" alt="" class="profile-image" style="width: 60px; height: 60px;">
 			</NuxtLink>
 			<div class="mx-1">
-				<NuxtLink :to="`/users/${question.userId}`" class="d-block text-red font-weight-bold text-wrap">
-					<span>{{ question.userName }}</span>
+				<NuxtLink :to="`/users/${question.userId}`" class="d-block text-wrap">
+					<span class="font-weight-bold">{{ question.userName }}</span>
 				</NuxtLink>
 				<span class="small text-wrap">
 					{{ subject ? subject.name : 'Subject' }}
@@ -14,21 +14,16 @@
 					{{ time }}
 				</span>
 			</div>
-			<div class="d-flex align-items-center position-relative ml-auto">
-				<Coins :size="20" style="z-index:1;" />
-				<span class="rounded-pill ml-n2 pr-1 border border-grey small" style="padding-left: 1.25rem;">
-					+{{ formatNumber(question.creditable) }}
-				</span>
-			</div>
-			<NuxtLink v-if="question.userId !== id && !question.isAnswered" class="btn btn-sm rounded-pill py-0 px-1 btn-accent ml-1 text-white" :to="`/questions/${question.id}#answer`">
-				Answer
-			</NuxtLink>
+			<span class="ml-auto">
+				<img src="@app/assets/images/icons/answers.svg" alt="" style="width: 20px; height: 20px;">
+				<span>{{ question.answers }} answers</span>
+			</span>
 		</div>
 		<NuxtLink class="text-grey editor-body mb-1" :to="`/questions/${question.id}`" v-html="question.body" />
-		<span v-if="question.attachments.length">
+		<NuxtLink v-if="question.attachments.length" :to="`/questions/${question.id}`">
 			<span>{{ question.attachments.length }}</span>
 			<i class="fas fa-paperclip" />
-		</span>
+		</NuxtLink>
 	</div>
 </template>
 

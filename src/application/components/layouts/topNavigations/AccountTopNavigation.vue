@@ -1,7 +1,7 @@
 <template>
 	<nav class="d-flex align-items-center">
-		<button class="navbar-toggler rounded-0 mr-1 d-lg-none" type="button" @click="setMenuModalAccountSidebar">
-			<span class="fas fa-bars text-grey" />
+		<button class="navbar-toggler text-white rounded-0 mr-1 d-lg-none" type="button" @click="setMenuModalAccountSidebar">
+			<span class="fas fa-bars" />
 		</button>
 		<NuxtLink to="/">
 			<Logo />
@@ -26,7 +26,8 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 nav {
-	background: $color-white;
+	background: $color-blue;
+	color: $color-white;
 	padding: 0.5rem 0.75rem;
 }
 </style>

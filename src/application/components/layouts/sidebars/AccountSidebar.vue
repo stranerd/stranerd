@@ -40,11 +40,6 @@
 				<img src="@/assets/images/icons/edit-profile.svg" alt="">
 				<span>Edit Profile</span>
 			</a>
-			<a v-if="isLoggedIn" class="link logout" @click="signout">
-				<PageLoading v-if="loading" />
-				<img src="@/assets/images/icons/signout.svg" alt="">
-				<span>Signout</span>
-			</a>
 		</div>
 	</div>
 </template>
@@ -53,19 +48,17 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useEditModal, useMenuModal } from '@app/hooks/core/modals'
-import { useSessionSignout } from '@app/hooks/auth/session'
 import AccountHeadCard from '@app/components/users/account/AccountHeadCard.vue'
 export default defineComponent({
 	name: 'AccountSidebar',
 	components: { AccountHeadCard },
 	setup () {
 		const { isLoggedIn, user } = useAuth()
-		const { loading, signout } = useSessionSignout()
 		const openEditProfileModal = () => {
 			useMenuModal().closeMenuModal()
 			useEditModal().setEditModalAccountProfile()
 		}
-		return { isLoggedIn, user, openEditProfileModal, loading, signout }
+		return { isLoggedIn, user, openEditProfileModal }
 	}
 })
 </script>

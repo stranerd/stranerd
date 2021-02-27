@@ -3,7 +3,7 @@
 		<div class="sidebar d-flex flex-column" style="min-height: 100vh;">
 			<div class="py-1 px-2 d-flex bg-blue align-items-center">
 				<a class="mr-2" @click.prevent="close">
-					<img src="@/assets/images/icons/close.svg" alt="" width="16" height="16">
+					<img src="@/assets/images/icons/close.svg" alt="" width="16" height="16" style="filter: brightness(200%);">
 				</a>
 				<Logo />
 			</div>

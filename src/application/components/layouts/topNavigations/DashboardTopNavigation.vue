@@ -1,26 +1,13 @@
 <template>
-	<section>
-		<nav class="d-flex align-items-center">
-			<button class="navbar-toggler rounded-0 mr-1 d-lg-none" type="button" @click="setMenuModalSidebar">
-				<span class="fas fa-bars text-grey" />
-			</button>
-			<NuxtLink to="/" class="d-lg-none">
-				<Logo />
-			</NuxtLink>
-			<Links class="ml-auto" />
-		</nav>
-		<div class="d-md-none d-flex justify-content-center m-2">
-			<a class="bg-accent text-white link-sm p-1" @click.prevent="openQuestionModal">
-				<span class="fas fa-plus" style="font-size: 22px;" />
-			</a>
-			<NuxtLink class="link-sm" to="/">
-				<img src="@/assets/images/icons/chat.svg" alt="">
-			</NuxtLink>
-			<NuxtLink class="link-sm" to="/">
-				<img src="@/assets/images/icons/friends.svg" alt="">
-			</NuxtLink>
-		</div>
-	</section>
+	<nav class="d-flex align-items-center">
+		<button class="navbar-toggler text-white rounded-0 mr-1 d-lg-none" type="button" @click="setMenuModalSidebar">
+			<span class="fas fa-bars" />
+		</button>
+		<NuxtLink to="/" class="d-lg-none">
+			<Logo />
+		</NuxtLink>
+		<Links class="ml-auto" />
+	</nav>
 </template>
 
 <script lang="ts">
@@ -50,27 +37,14 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 nav {
-	background: $color-white;
+	background: $color-blue;
+	color: $color-white;
 	padding: 0.5rem 0.75rem;
-	@media (min-width: $md) {
-		margin: -1rem -1rem 0.5rem;
-	}
 	@media (min-width: $lg) {
 		margin: 0 0 0.5rem;
-		background: unset;
-	}
-}
-.link-sm {
-	color: $color-white;
-	width: 36px;
-	height: 36px;
-	background: $color-grey;
-	border-radius: 10rem;
-	margin: 0 0.5rem;
-	img {
-		margin: 8px;
-		width: 20px;
-		height: 20px;
+		background: $color-white;
+		$color: $color-blue-grey;
+		border-radius: 1rem;
 	}
 }
 </style>

@@ -1,9 +1,9 @@
 <template>
 	<div>
-		<section class="d-flex flex-column flex-md-row text-center">
-			<h1 class="text-grey">
+		<section class="d-flex flex-column flex-md-row align-items-center text-center">
+			<h2>
 				Questions
-			</h1>
+			</h2>
 			<form class="form-inline mx-auto mr-md-0 ml-md-auto">
 				<select v-model="answered" class="form-control form-control-sm mr-sm-1 my-1">
 					<option v-for="choice in answeredChoices" :key="choice.val" :value="choice.val">
@@ -20,13 +20,13 @@
 				</select>
 			</form>
 		</section>
-		<hr class="thick bg-light-grey">
+		<div class="thin" />
 		<div v-for="question in questions" :key="question.hash">
 			<QuestionCard :question="question" />
-			<hr class="thick">
+			<div class="thin" />
 		</div>
 		<div v-if="hasMore" class="text-center py-1 text-18">
-			<a class="font-weight-bold text-grey" @click.prevent="fetchOlderQuestions">LOAD MORE</a>
+			<a class="font-weight-bold" @click.prevent="fetchOlderQuestions">LOAD MORE</a>
 		</div>
 		<DisplayWarning v-if="!loading && !error && questions.length === 0" message="No questions found." />
 		<DisplayError :error="error" />

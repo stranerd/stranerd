@@ -3,9 +3,9 @@
 		<section class="side-left">
 			<DashboardSidebar />
 		</section>
-		<main class="main-view">
+		<main class="main-view p-lg-2">
 			<DashboardTopNavigation />
-			<Nuxt />
+			<Nuxt class="mx-half mx-lg-0" />
 		</main>
 		<section class="side-right">
 			<DashboardRightPanel />
@@ -60,10 +60,8 @@ export default defineComponent({
 }
 .main-view {
 	flex-grow: 0;
-	padding: 0 0.25rem;
 	@media (min-width: $lg) {
 		width: 55%;
-		padding: 1rem;
 		flex-grow: 1;
 	}
 }

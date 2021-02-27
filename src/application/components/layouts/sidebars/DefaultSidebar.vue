@@ -1,29 +1,8 @@
 <template>
 	<div>
-		<div v-if="isLoggedIn" class="d-flex flex-column my-3">
-			<div class="w-100 d-flex justify-content-between mb-1">
-				<div class="d-flex align-items-center position-relative ml-1">
-					<Coins :size="20" style="z-index:1;" />
-					<span class="rounded-pill ml-n2 px-1 pl-3 small bg-blue-grey text-light-blue">
-						{{ formatNumber(user.account.coins.bronze) }}
-					</span>
-				</div>
-				<div class="d-flex align-items-center position-relative ml-1">
-					<span class="rounded-pill ml-n2 px-1 pr-3 small bg-blue-grey text-light-blue">
-						{{ formatNumber(user.account.coins.gold) }}
-					</span>
-					<Coins :gold="true" :size="20" class="ml-n2" style="z-index:1;" />
-				</div>
-			</div>
-			<div class="d-flex">
-				<img :src="user.avatar" alt="" class="profile-image" style="width:60px;height:60px;">
-				<div class="d-flex flex-column ml-1">
-					<span class="text-18 font-weight-bold">{{ user.firstName }}</span>
-					<NuxtLink to="/account/" style="text-decoration: underline;">
-						View Profile
-					</NuxtLink>
-				</div>
-			</div>
+		<div v-if="isLoggedIn" class="mt-3">
+			<ProfileHeadCard :user="user" />
+			<div class="thick bg-blue-grey mx-n1" />
 		</div>
 		<div class="my-2 d-flex flex-column links">
 			<NuxtLink class="link" to="/dashboard">
@@ -46,8 +25,10 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
 import { formatNumber } from '@app/hooks/core/numbers'
+import ProfileHeadCard from '@app/components/users/account/ProfileHeadCard.vue'
 export default defineComponent({
 	name: 'DefaultSidebar',
+	components: { ProfileHeadCard },
 	setup () {
 		const { isLoggedIn, user, isAdmin } = useAuth()
 		return { isLoggedIn, user, isAdmin, formatNumber }
@@ -78,7 +59,7 @@ export default defineComponent({
 		color: $color-light-blue;
 		background: $color-blue;
 		border-radius: 1rem;
-		img { filter: brightness(150%); }
+		img { filter: brightness(200%); }
 	}
 }
 </style>

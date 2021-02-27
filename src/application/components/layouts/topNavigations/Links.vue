@@ -1,18 +1,12 @@
 <template>
 	<div class="links d-flex">
-		<NuxtLink class="link" to="/">
+		<NuxtLink class="link d-none d-lg-inline" to="/">
 			<img src="@/assets/images/icons/search.svg" alt="">
-		</NuxtLink>
-		<NuxtLink class="link d-none d-md-inline" to="/">
-			<img src="@/assets/images/icons/chat.svg" alt="">
-		</NuxtLink>
-		<NuxtLink class="link d-none d-md-inline" to="/">
-			<img src="@/assets/images/icons/friends.svg" alt="">
 		</NuxtLink>
 		<a class="link" @click="setNavigationModalNotification">
 			<img src="@/assets/images/icons/notification.svg" alt="">
 		</a>
-		<a v-if="isLoggedIn" class="link d-none d-md-inline" @click.prevent="signout">
+		<a v-if="isLoggedIn" class="link d-none d-lg-inline" @click.prevent="signout">
 			<PageLoading v-if="loading" />
 			<img src="@/assets/images/icons/signout.svg" alt="">
 		</a>
@@ -38,28 +32,16 @@ export default defineComponent({
 <style lang="scss" scoped>
 .links {
 	.link {
-		color: $color-grey;
 		margin: 0 1rem;
 		img {
 			width: 24px;
 			height: 24px;
+			filter: brightness(250%);
 		}
 		@media (min-width: $md) {
 			img {
 				width: 28px;
 				height: 28px;
-			}
-		}
-		@media (min-width: $lg) {
-			width: 36px;
-			height: 36px;
-			background: $color-white;
-			border-radius: 10rem;
-			margin: 0 0.5rem;
-			img {
-				margin: 8px;
-				width: 20px;
-				height: 20px;
 			}
 		}
 	}

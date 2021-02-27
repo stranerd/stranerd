@@ -28,9 +28,9 @@ export class UserEntity extends BaseEntity {
 		this.id = id
 		this.userBio = generateDefaultBio(bio)
 		this.roles = {
-			isStudent: roles.isStudent ?? true,
-			isTutor: roles.isTutor ?? false,
-			isAdmin: roles.isAdmin ?? false
+			isStudent: roles?.isStudent ?? true,
+			isTutor: roles?.isTutor ?? false,
+			isAdmin: roles?.isAdmin ?? false
 		}
 		this.account = {
 			coins: {

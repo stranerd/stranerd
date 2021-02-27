@@ -1,6 +1,6 @@
 <template>
-	<div class="p-1">
-		<section class="d-flex text-center align-items-center flex-wrap mb-2">
+	<section>
+		<div class="d-flex text-center align-items-center flex-wrap mb-2">
 			<h5 class=" font-weight-bold mb-0">
 				Top Users
 			</h5>
@@ -11,9 +11,9 @@
 					</option>
 				</select>
 			</form>
-		</section>
+		</div>
 		<TopUsersByPeriod :key="period" :period="period" />
-	</div>
+	</section>
 </template>
 
 <script lang="ts">

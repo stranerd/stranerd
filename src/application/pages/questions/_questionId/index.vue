@@ -11,8 +11,8 @@
 			<AnswersList :question-id="questionId" />
 		</div>
 		<div class="page-content">
-			<h2>Recent Questions</h2>
-			<hr class="thin">
+			<h3>Recent Questions</h3>
+			<div class="thick" />
 			<QuestionsList :question-id="questionId" />
 		</div>
 	</div>

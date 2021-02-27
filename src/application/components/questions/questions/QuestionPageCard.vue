@@ -1,11 +1,11 @@
 <template>
 	<div>
-		<div class="d-flex align-items-start mb-1">
+		<div class="d-flex align-items-center mb-2">
 			<NuxtLink :to="`/users/${question.userId}`">
-				<img :src="question.avatar" alt="" class="profile-image">
+				<img :src="question.avatar" alt="" class="profile-image" style="height: 50px; width: 50px;">
 			</NuxtLink>
-			<div class="mx-1">
-				<NuxtLink :to="`/users/${question.userId}`" class="d-block text-red font-weight-bold text-wrap">
+			<div class="mx-1 mr-auto">
+				<NuxtLink :to="`/users/${question.userId}`" class="d-block font-weight-bold text-wrap">
 					<span>{{ question.userName }}</span>
 				</NuxtLink>
 				<span class="small text-wrap">
@@ -14,69 +14,68 @@
 					{{ time }}
 				</span>
 			</div>
-			<div class="d-flex align-items-center position-relative ml-auto">
-				<Coins :size="20" style="z-index:1;" />
-				<span class="rounded-pill ml-n2 pr-1 border border-grey small" style="padding-left: 1.25rem;">
-					+{{ formatNumber(question.creditable) }}
-				</span>
+			<div class="d-none d-md-inline">
+				<div class="d-flex">
+					<div v-if="isTutor" class="d-flex align-items-center position-relative mr-1">
+						<span class="rounded-pill px-1 pr-3 bg-blue-grey text-light-blue">
+							+{{ formatNumber(question.creditable) }}
+						</span>
+						<Coins :size="24" class="ml-n2" style="z-index:1;" />
+					</div>
+					<span class="mr-1">
+						<img src="@app/assets/images/icons/answers.svg" alt="" style="width: 24px; height: 24px;">
+						<span>{{ question.answers }} answers</span>
+					</span>
+				</div>
 			</div>
+			<button v-if="showAnswerButton" class="btn btn-outline-blue rounded-pill ml-1 px-3 py-half" @click="openAnswerModal">
+				Answer
+			</button>
+			<i v-if="question.isAnswered" class="fas fa-check text-green fa-2x" />
 		</div>
-		<hr class="thick mx-n1 mx-md-n3 mx-lg-n4">
-		<div class="mb-1 editor-body lead" v-html="question.body" />
-		<div>
-			<span v-if="question.attachments.length" class="mr-2">
+		<div class="thick mx-n1 mx-md-n3 mx-lg-n4" />
+		<div class="mb-2 editor-body lead" v-html="question.body" />
+		<div class="d-flex">
+			<span class="mr-1 d-md-none">
+				<img src="@app/assets/images/icons/answers.svg" alt="" style="width: 24px; height: 24px;">
+				<span>{{ question.answers }} answers</span>
+			</span>
+			<span v-if="question.attachments.length" class="mr-1">
 				<span>{{ question.attachments.length }}</span>
 				<i class="fas fa-paperclip" />
 			</span>
-			<a v-if="question.answers > 0" href="#answers" class="mr-2">
-				<span>{{ question.answers }}</span>
-				<i class="fas fa-newspaper" />
+			<a v-if="question.commentsCount" class="mr-1 d-flex align-items-center" @click.prevent="showComments = !showComments">
+				<span>
+					{{ showComments ? 'Hide' : 'Show' }} Comments
+				</span>
+				<i class="fas mx-half" :class="showComments ? 'fa-angle-up' : 'fa-angle-down'" />
 			</a>
+			<div v-if="isTutor" class="d-md-none d-flex align-items-center position-relative ml-auto">
+				<span class="rounded-pill px-1 pr-3 bg-blue-grey text-light-blue">
+					+{{ formatNumber(question.creditable) }}
+				</span>
+				<Coins :size="24" class="ml-n2" style="z-index:1;" />
+			</div>
 		</div>
-		<DisplayAttachments v-if="question.attachments.length" id="attachments" :attachments="question.attachments" />
-		<template v-if="question.userId === id">
-			<hr class="thick mx-n1 mx-md-n3 mx-lg-n4">
-			<div class="d-flex justify-content-center my-1">
-				<span v-if="question.isAnswered" class="mb-0 h5 text-accent">
-					Answer selected
-				</span>
-				<a v-else-if="question.answers > 0" href="#answers" class="mb-0 h5 text-accent">
-					Select an answer as best
-				</a>
-				<span v-else class="mb-0 h5 text-accent">
-					No answers yet.
-				</span>
-			</div>
+		<template v-if="question.attachments.length">
+			<div class="thick mx-n1 mx-md-n3 mx-lg-n4" />
+			<DisplayAttachments id="attachments" :attachments="question.attachments" />
 		</template>
-		<template v-else-if="isTutor">
-			<hr class="thick mx-n1 mx-md-n3 mx-lg-n4">
-			<div class="d-flex justify-content-center my-1">
-				<span v-if="question.isAnswered" class="mb-0 h5 text-accent">
-					Already Answered
-				</span>
-				<button v-else-if="showAnswerButton" id="answer" class="btn rounded-pill py-1 px-4 btn-accent text-white" @click="openAnswerModal">
-					Add Answer
-				</button>
-				<span v-else class="mb-0 h5 text-accent">
-					You have already answered the question
-				</span>
-			</div>
-		</template>
-		<hr class="thick mx-n1 mx-md-n3 mx-lg-n4">
-		<NuxtLink :to="`/questions/${question.id}/comments#add`" class="text-decoration-none">
+		<div class="thick mx-n1 mx-md-n3 mx-lg-n4" />
+		<div v-if="question.commentsCount">
 			<div class="d-flex align-items-end">
 				<h5 class="mb-0 mr-1">
 					Comments
 				</h5>
 				<span>{{ question.commentsCount }}</span>
 			</div>
-			<CommentForm class="w-100" :question-id="question.id" />
-		</NuxtLink>
+		</div>
+		<CommentForm class="w-100" :question-id="question.id" />
 	</div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onBeforeUnmount, onMounted, PropType } from '@nuxtjs/composition-api'
+import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, ref } from '@nuxtjs/composition-api'
 import { QuestionEntity } from '@modules/questions'
 import { useSubject } from '@app/hooks/questions/subjects'
 import { useTimeDifference } from '@app/hooks/core/dates'
@@ -96,20 +95,21 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
+		const showComments = ref(false)
 		const { isLoggedIn, id, isTutor } = useAuth()
 		const { redirect } = useRedirectToAuth()
 		const { subject } = useSubject(props.question.subjectId)
 		const { time, startTimer, stopTimer } = useTimeDifference(props.question.createdAt)
 		const { answers } = useAnswerList(props.question.id)
 		const showAnswerButton = computed({
-			get: () => isTutor.value && !answers.value.find((a) => a.userId === id.value),
+			get: () => isTutor.value && !props.question.isAnswered && !answers.value.find((a) => a.userId === id.value),
 			set: () => {}
 		})
 		onMounted(startTimer)
 		onBeforeUnmount(stopTimer)
 		return {
 			id, formatNumber, isTutor, showAnswerButton,
-			subject, time,
+			subject, time, showComments,
 			openAnswerModal: () => {
 				if (!isLoggedIn.value) redirect()
 				else openAnswerModal(props.question)

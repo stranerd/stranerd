@@ -103,7 +103,7 @@ export interface UserBio {
 	}
 	email: string
 	description: string
-	avatar?: keyof typeof Avatars
+	avatar: keyof typeof Avatars | null
 }
 export interface UserRoles {
 	isStudent: boolean
@@ -156,6 +156,6 @@ export const generateDefaultBio = (bio: Partial<UserBio>) :UserBio => {
 	const fullName = first + ' ' + last
 	const email = bio?.email ?? 'anon@ymous.com'
 	const description = bio?.description ?? ''
-	const avatar = Avatars[bio?.avatar!] ? bio?.avatar! : undefined
+	const avatar = Avatars[bio?.avatar!] ? bio?.avatar! : null
 	return { name: { first, last, fullName }, email, description, avatar }
 }

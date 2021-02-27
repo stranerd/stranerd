@@ -1,10 +1,6 @@
 <template>
 	<div :id="question.id">
-		<NuxtLink class="text-grey editor-body mb-1" :to="`/questions/${question.id}`" v-html="question.body" />
-		<span class="mr-2">
-			<span>+{{ formatNumber(question.creditable) }}</span>
-			<Coins :size="16" />
-		</span>
+		<NuxtLink class="editor-body mb-1" :to="`/questions/${question.id}`" v-html="question.body" />
 		<span v-if="question.attachments.length">
 			<span>{{ question.attachments.length }}</span>
 			<i class="fas fa-paperclip" />

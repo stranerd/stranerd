@@ -51,10 +51,10 @@ export default defineComponent({
 	width: 100vw;
 	height: 100vh;
 	z-index: 1;
-	background: $color-blue-grey;
+	background: rgba($color-blue-grey, .5);
 	overflow-y: auto;
 	.sidebar {
-		width: clamp(200px, 80%, 300px);
+		width: clamp(200px, 80%, 350px);
 		min-height: 100vh;
 		color: $color-light-blue;
 		background: $color-blue;

@@ -99,3 +99,18 @@
 		}
 	}
 }
+.question-top-nav {
+	display: flex;
+	align-items: center;
+	background: $color-blue;
+	color: $color-white;
+	padding: 0.5rem 0.75rem;
+	button.navbar-toggler {
+		border-radius: 0;
+		color: $color-white;
+		margin-right: 0.5rem;
+		@media (min-width: $lg) {
+			display: none;
+		}
+	}
+}

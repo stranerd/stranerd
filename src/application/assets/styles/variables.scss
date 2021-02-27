@@ -9,7 +9,7 @@ $color-black-transparent: rgba($color-black, .75);
 
 $color-gold: #DAB100;
 $color-red: #FF781F;
-$color-green: #49DD49;
+$color-green: #3CF078;
 $color-accent: $color-green;
 
 $body-color: $color-blue-grey;
@@ -26,6 +26,7 @@ $theme-colors: (
 	'gold': $color-gold,
 	'red': $color-red,
 	'accent': $color-accent,
+	'green': $color-green,
 	'blue': $color-blue,
 	'light-blue': $color-light-blue,
 	'blue-grey': $color-blue-grey,

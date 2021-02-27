@@ -2,7 +2,7 @@ import { BaseFactory } from '@modules/core/domains/factories/base'
 import { isLongerThan, isEmail } from 'sd-validate/lib/rules'
 import { Avatar, UserBio } from '@modules/users'
 
-type Keys = { first: string, last: string, email: string, description: string, avatar: Avatar | undefined }
+type Keys = { first: string, last: string, email: string, description: string, avatar: Avatar | null }
 const isLongerThan2 = (value:string) => isLongerThan(value, 2)
 
 export class ProfileUpdateFactory extends BaseFactory<UserBio, UserBio, Keys> {
@@ -15,7 +15,7 @@ export class ProfileUpdateFactory extends BaseFactory<UserBio, UserBio, Keys> {
 	}
 
 	constructor () {
-		super({ first: '', last: '', email: '', description: '', avatar: undefined })
+		super({ first: '', last: '', email: '', description: '', avatar: null })
 	}
 
 	reserved = []
@@ -29,15 +29,14 @@ export class ProfileUpdateFactory extends BaseFactory<UserBio, UserBio, Keys> {
 	get description () { return this.values.description }
 	set description (value: string) { this.set('description', value) }
 	get avatar () { return this.values.avatar! }
-	set avatar (avatarId: Avatar | undefined) { this.set('avatar', avatarId) }
+	set avatar (avatarId: Avatar | null) { this.set('avatar', avatarId) }
 
 	toModel = async () => {
 		if (this.valid) {
 			const { first, last, email, description, avatar } = this.validValues
 			return {
 				name: { first, last },
-				email, description,
-				...(avatar ? { avatar } : {})
+				email, description, avatar
 			}
 		} else throw new Error('Validation errors')
 	}

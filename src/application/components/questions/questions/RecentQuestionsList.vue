@@ -2,7 +2,7 @@
 	<div>
 		<div v-for="rQuestion in questions" :key="rQuestion.hash">
 			<QuestionCard :question="rQuestion" />
-			<hr class="thin">
+			<div class="thick" />
 		</div>
 		<DisplayWarning v-if="!loading && !error && questions.length === 0" message="No other questions found." />
 		<DisplayError :error="error" />

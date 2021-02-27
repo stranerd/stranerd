@@ -34,10 +34,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 aside {
-	color: $color-blue;
-	@media (min-width: $lg) {
-		color: $color-light-blue;
-	}
+	color: $color-light-blue;
 }
 .link {
 	padding: 0.75rem 1rem;
@@ -56,14 +53,9 @@ aside {
 }
 .nuxt-link-exact-active {
 	font-weight: 600;
-	color: $color-light-blue;
-	background: $color-blue;
+	background: $color-light-blue;
+	color: $color-blue;
 	border-radius: 1rem;
-	img { filter: brightness(250%); }
-	@media (min-width: $lg) {
-		background: $color-light-blue;
-		color: $color-blue;
-		img { filter: brightness(80%); }
-	}
+	img { filter: brightness(80%); }
 }
 </style>

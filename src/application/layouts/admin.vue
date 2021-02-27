@@ -43,7 +43,7 @@ export default defineComponent({
 	background-color: $color-blue;
 	padding: 0.5rem;
 	@media (min-width: $lg) {
-		width: 20%;
+		width: 25%;
 		max-width: 400px;
 		display: block;
 	}

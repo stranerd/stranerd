@@ -2,15 +2,17 @@
 	<div class="full">
 		<div class="sidebar d-flex flex-column" style="min-height: 100vh;">
 			<div class="py-1 px-2 d-flex bg-blue align-items-center">
-				<a class="mr-2" @click.prevent="close">
+				<a class="mr-2 my-1" @click.prevent="close">
 					<img src="@/assets/images/icons/close.svg" alt="" width="16" height="16" style="filter: brightness(200%);">
 				</a>
-				<Logo />
+				<Logo class="d-lg-none" />
 			</div>
+			<div class="thick mt-0" />
 			<div class="px-1">
 				<slot />
 			</div>
-			<div v-if="isLoggedIn" class="d-lg-none bg-blue mt-auto">
+			<div v-if="isLoggedIn" class="mt-auto">
+				<div class="thick mb-0" />
 				<a class="logout" @click="signout">
 					<PageLoading v-if="loading" />
 					<img src="@/assets/images/icons/signout.svg" alt="">
@@ -54,8 +56,8 @@ export default defineComponent({
 	.sidebar {
 		width: clamp(200px, 80%, 300px);
 		min-height: 100vh;
-		background: $color-light-blue;
-		color: $color-blue;
+		color: $color-light-blue;
+		background: $color-blue;
 		animation: slide-right .5s;
 	}
 }

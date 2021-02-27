@@ -1,15 +1,27 @@
 <template>
 	<section>
-		<div class="content mb-3 py-4 text-center d-none d-md-block">
-			<h1 class="display-4 mb-2 font-weight-bold text-grey">
-				Get your answer today
-			</h1>
-			<button class="btn btn-red text-white font-weight-bold rounded-pill px-6" @click="openQuestionModal">
-				ASK A QUESTION
-			</button>
+		<div class="page-content mb-2 p-0">
+			<div class="background py-6 px-3">
+				<div style="max-width: 75%;">
+					<h2 class="font-weight-bold">
+						Nerd help is what you need.
+					</h2>
+					<p>
+						Bringing to you the classroom method of learning from your peers. Ask a question ( public ) or Meet a nerd ( 1 on 1 private chat ).
+					</p>
+					<div class="d-flex flex-column flex-md-row flex-wrap align-items-start">
+						<button class="mr-1 my-1 btn btn-blue rounded-pill px-4 py-1 font-weight-bold" @click="openQuestionModal">
+							Ask A Question
+						</button>
+						<a href="#tutors" class="mr-1 my-1 btn btn-outline-blue rounded-pill px-4 py-1 font-weight-bold">
+							Meet a Nerd
+						</a>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="content my-2">
-			<QuestionsList />
+		<div id="tutors" class="page-content my-2">
+			Tutors List
 		</div>
 	</section>
 </template>
@@ -17,12 +29,10 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useCreateModal } from '@app/hooks/core/modals'
-import QuestionsList from '@app/components/questions/questions/DashboardQuestionsList.vue'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useRedirectToAuth } from '@app/hooks/auth/session'
 export default defineComponent({
 	name: 'DashboardPage',
-	components: { QuestionsList },
 	layout: 'dashboard',
 	setup () {
 		const { isLoggedIn } = useAuth()
@@ -39,18 +49,10 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.content {
-	background-color: $color-white;
-	padding: 0.5rem;
-	border-radius: 0.5rem;
-	box-shadow: 0 3px 10px rgba($color-black, 0.1);
-	@media (min-width: $md) {
-		padding: 0.75rem;
-		border-radius: 1rem;
-	}
-	@media (min-width: $lg) {
-		border-radius: 1.5rem;
-		padding: 1rem;
+.background {
+	background: url('~@app/assets/images/icons/dashboard_hero.svg') no-repeat 50px;
+	@media (min-width: 450px) {
+		background-position: right;
 	}
 }
 </style>

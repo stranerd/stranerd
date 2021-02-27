@@ -36,15 +36,15 @@
 		<div class="thick mx-n1 mx-md-n3 mx-lg-n4" />
 		<div class="mb-2 editor-body lead" v-html="question.body" />
 		<div class="d-flex">
-			<span class="mr-1 d-md-none">
+			<span class="mr-1 mr-md-2 d-md-none">
 				<img src="@app/assets/images/icons/answers.svg" alt="" style="width: 24px; height: 24px;">
 				<span>{{ question.answers }} answers</span>
 			</span>
-			<span v-if="question.attachments.length" class="mr-1">
+			<span v-if="question.attachments.length" class="mr-1 mr-md-2">
 				<span>{{ question.attachments.length }}</span>
 				<i class="fas fa-paperclip" />
 			</span>
-			<a v-if="question.commentsCount" class="mr-1 d-flex align-items-center" @click.prevent="showComments = !showComments">
+			<a v-if="question.commentsCount" class="mr-1 mr-md-2 d-flex align-items-center" @click.prevent="showComments = !showComments">
 				<span>
 					{{ showComments ? 'Hide' : 'Show' }} Comments
 				</span>
@@ -62,13 +62,14 @@
 			<DisplayAttachments id="attachments" :attachments="question.attachments" />
 		</template>
 		<div class="thick mx-n1 mx-md-n3 mx-lg-n4" />
-		<div v-if="question.commentsCount">
-			<div class="d-flex align-items-end">
+		<div v-if="showComments">
+			<div class="d-flex align-items-end mb-2">
 				<h5 class="mb-0 mr-1">
 					Comments
 				</h5>
 				<span>{{ question.commentsCount }}</span>
 			</div>
+			<CommentList :question-id="question.id" />
 		</div>
 		<CommentForm class="w-100" :question-id="question.id" />
 	</div>
@@ -84,10 +85,11 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { useRedirectToAuth } from '@app/hooks/auth/session'
 import DisplayAttachments from '@app/components/questions/DisplayAttachments.vue'
 import CommentForm from '@app/components/questions/comments/QuestionCommentForm.vue'
+import CommentList from '@app/components/questions/comments/QuestionCommentsList.vue'
 import { formatNumber } from '@app/hooks/core/numbers'
 export default defineComponent({
 	name: 'QuestionPageCard',
-	components: { DisplayAttachments, CommentForm },
+	components: { DisplayAttachments, CommentForm, CommentList },
 	props: {
 		question: {
 			required: true,

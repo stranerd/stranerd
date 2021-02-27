@@ -101,7 +101,7 @@ const getAchievementProgress = async (userId: string, id: string) => {
 		.child('achievements')
 		.child(id)
 	const data = await ref.once('value')
-	const { progress, completed } = data.val()
+	const { progress, completed } = data.val() ?? {}
 	return { progress: progress ?? 0, completed: completed ?? false, ref }
 }
 

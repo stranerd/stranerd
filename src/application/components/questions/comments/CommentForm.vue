@@ -2,7 +2,7 @@
 	<form @submit.prevent="submit">
 		<div class="form-group my-1">
 			<div class="d-flex align-items-center">
-				<img :src="isLoggedIn ? user.avatar : Avatars.default.link" alt="" class="mr-1" :class="isCommentsPage ? 'profile-image' : 'profile-image-sm'">
+				<img :src="isLoggedIn ? user.avatar : Avatars.default.link" alt="" class="mr-1" style="width: 35px;height: 35px;">
 				<input
 					v-model="factory.body"
 					class="form-control form-control-sm flex-grow-1"

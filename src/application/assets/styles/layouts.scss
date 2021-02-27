@@ -40,7 +40,10 @@
 	}
 }
 .layout-content {
-	margin: 0 0.25rem;
+	margin: 0.25rem;
+	@media (min-width: $md) {
+		margin: 0.5rem;
+	}
 	@media (min-width: $lg) {
 		margin: 0;
 	}

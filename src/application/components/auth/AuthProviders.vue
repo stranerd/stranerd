@@ -1,13 +1,8 @@
 <template>
 	<div class="grid">
-		<div class="d-none">
-			<button type="button" class="btn btn-auth">
-				<img src="@app/assets/images/auth/facebook.png" alt="">Facebook
-			</button>
-		</div>
 		<div>
 			<button type="button" class="btn btn-auth" @click="googleSignin">
-				<img src="@app/assets/images/auth/google.png" alt="">Google
+				<img src="@app/assets/images/icons/google.svg" alt="Google">
 			</button>
 			<DisplayError :error="googleError" />
 			<PageLoading v-if="googleLoading" />

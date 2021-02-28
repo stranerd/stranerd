@@ -1,6 +1,6 @@
 <template>
 	<aside class="sidebar-body">
-		<Logo class="d-none d-lg-block mb-3" />
+		<Logo class="d-none d-lg-block my-4" />
 		<div v-if="isLoggedIn">
 			<AccountHeadCard :user="user" />
 		</div>

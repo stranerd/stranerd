@@ -12,6 +12,7 @@
 				</select>
 			</form>
 		</div>
+		<div class="thick" />
 		<TopUsersByPeriod :key="period" :period="period" />
 	</section>
 </template>

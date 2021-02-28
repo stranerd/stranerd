@@ -1,6 +1,6 @@
 <template>
 	<div class="d-flex flex-column align-items-center">
-		<div class="w-100 d-flex justify-content-between mb-1">
+		<div class="w-100 d-flex justify-content-between mb-1" style="max-width: 250px;">
 			<div class="d-flex align-items-center position-relative ml-1">
 				<Coins :size="24" style="z-index:1;" />
 				<span class="rounded-pill ml-n2 px-1 pl-3 bg-blue-grey text-light-blue">

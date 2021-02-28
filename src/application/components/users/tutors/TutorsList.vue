@@ -2,7 +2,7 @@
 	<div>
 		<section class="d-flex mb-2 align-items-center text-center">
 			<h2 class="font-weight-bold">
-				Tutors
+				Top Nerds
 			</h2>
 			<form class="d-flex ml-auto">
 				<select v-model="subjectId" class="form-control form-control-sm my-1">

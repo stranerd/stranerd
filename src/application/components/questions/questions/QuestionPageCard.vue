@@ -104,7 +104,7 @@ export default defineComponent({
 		const { time, startTimer, stopTimer } = useTimeDifference(props.question.createdAt)
 		const { answers } = useAnswerList(props.question.id)
 		const showAnswerButton = computed({
-			get: () => isTutor.value && !props.question.isAnswered && !answers.value.find((a) => a.userId === id.value),
+			get: () => isTutor.value && props.question.userId !== id.value && !props.question.isAnswered && !answers.value.find((a) => a.userId === id.value),
 			set: () => {}
 		})
 		onMounted(startTimer)

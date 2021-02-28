@@ -7,14 +7,12 @@
 			<DisplayError :error="error" />
 		</div>
 		<div v-if="question" id="answers" class="page-content">
-			<h2>Answers</h2>
+			<h2 class="font-weight-bold">
+				Answers
+			</h2>
 			<AnswersList :question-id="questionId" />
 		</div>
-		<div class="page-content">
-			<h3>Recent Questions</h3>
-			<div class="thick" />
-			<QuestionsList :question-id="questionId" />
-		</div>
+		<QuestionsList class="page-content" :question-id="questionId" />
 	</div>
 </template>
 
@@ -26,21 +24,14 @@ import QuestionsList from '@app/components/questions/questions/RecentQuestionsLi
 import { useQuestion } from '@app/hooks/questions/questions'
 export default defineComponent({
 	name: 'QuestionPage',
-	components: {
-		QuestionPageCard,
-		AnswersList,
-		QuestionsList
-	},
+	components: { QuestionPageCard, AnswersList, QuestionsList },
 	layout: 'questions',
 	setup () {
 		const { questionId } = useRoute().value.params
 		const { error, loading, question, listener } = useQuestion(questionId)
 		onMounted(listener.startListener)
 		onBeforeUnmount(listener.closeListener)
-		return {
-			questionId,
-			question, error, loading
-		}
+		return { questionId, question, error, loading }
 	}
 })
 </script>

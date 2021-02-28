@@ -1,7 +1,7 @@
 <template>
 	<section class="layout-body">
-		<main class="layout-main p-0">
-			<QuestionTopNavigation />
+		<main class="layout-main py-0 px-1">
+			<QuestionTopNavigation class="mx-n1" />
 			<Nuxt class="content layout-content" />
 		</main>
 		<ModalBase />

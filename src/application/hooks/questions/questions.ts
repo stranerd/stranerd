@@ -1,4 +1,4 @@
-import { ssrRef, watch, computed, useRouter, useFetch, ref } from '@nuxtjs/composition-api'
+import { ssrRef, watch, computed, useRouter, useFetch } from '@nuxtjs/composition-api'
 import {
 	AddQuestion, FindQuestion, GetQuestions, ListenToQuestion,
 	ListenToQuestions, QuestionEntity, QuestionFactory
@@ -9,8 +9,20 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { useCreateModal } from '@app/hooks/core/modals'
 import { isServer } from '@utils/environment'
 
+enum Answered {
+	All,
+	Answered,
+	Unanswered
+}
+const answeredChoices = [
+	{ val: Answered.All, key: 'All' },
+	{ val: Answered.Answered, key: 'Answered' },
+	{ val: Answered.Unanswered, key: 'Unanswered' }
+]
 const global = {
 	questions: ssrRef([] as QuestionEntity[]),
+	subjectId: ssrRef(''),
+	answered: ssrRef(answeredChoices[0].val),
 	fetched: ssrRef(false),
 	hasMore: ssrRef(false),
 	...useErrorHandler(),
@@ -29,20 +41,9 @@ const unshiftToQuestionList = (question: QuestionEntity) => {
 }
 
 export const useQuestionList = () => {
-	const subjectId = ref('')
-	enum Answered {
-		All,
-		Answered,
-		Unanswered
-	}
-	const answeredChoices = [
-		{ val: Answered.All, key: 'All' },
-		{ val: Answered.Answered, key: 'Answered' },
-		{ val: Answered.Unanswered, key: 'Unanswered' }
-	]
-	const answered = ref(answeredChoices[0].val)
 	const fetchQuestions = async () => {
 		global.setError('')
+		// TODO: figure out logic to stop it from calling twice on server
 		if (isServer()) global.questions.value = []
 		try {
 			global.setLoading(true)
@@ -67,9 +68,9 @@ export const useQuestionList = () => {
 	const filteredQuestions = computed({
 		get: () => global.questions.value.filter((q) => {
 			let matched = true
-			if (subjectId.value && q.subjectId !== subjectId.value) matched = false
-			if (answered.value === Answered.Answered && !q.isAnswered) matched = false
-			if (answered.value === Answered.Unanswered && q.isAnswered) matched = false
+			if (global.subjectId.value && q.subjectId !== global.subjectId.value) matched = false
+			if (global.answered.value === Answered.Answered && !q.isAnswered) matched = false
+			if (global.answered.value === Answered.Unanswered && q.isAnswered) matched = false
 			return matched
 		}).sort((a, b) => {
 			return new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
@@ -80,7 +81,7 @@ export const useQuestionList = () => {
 
 	return {
 		...global, listener,
-		filteredQuestions, subjectId, answeredChoices, answered,
+		filteredQuestions, answeredChoices,
 		fetchOlderQuestions: fetchQuestions
 	}
 }

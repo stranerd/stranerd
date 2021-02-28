@@ -1,7 +1,7 @@
 import { Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import { GetTopRankingUsers, ListenToTopRankingUsers, UserEntity, RankingPeriods } from '@modules/users'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
-import { isServer } from '@utils/environment'
+import { isClient } from '@utils/environment'
 
 const global = {} as Record<RankingPeriods, {
 	users: Ref<UserEntity[]>,
@@ -25,7 +25,6 @@ export const useTopUsersByPeriod = (period: RankingPeriods) => {
 
 	const fetchUsers = async () => {
 		global[period].setError('')
-		if (isServer()) global[period].users.value = []
 		try {
 			global[period].setLoading(true)
 			const users = await GetTopRankingUsers.call(period)
@@ -40,7 +39,9 @@ export const useTopUsersByPeriod = (period: RankingPeriods) => {
 		return await ListenToTopRankingUsers.call(period, callback)
 	})
 
-	if (!global[period].fetched.value || isServer()) useFetch(fetchUsers)
+	useFetch(async () => {
+		if (!(isClient() && global[period].fetched.value)) await fetchUsers()
+	})
 
 	return {
 		error: global[period].error,

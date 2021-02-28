@@ -1,7 +1,7 @@
 import { Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import { FindUser, ListenToUser, UserEntity } from '@modules/users'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
-import { isServer } from '@utils/environment'
+import { isClient } from '@utils/environment'
 
 const global = {} as Record<string, {
 	user: Ref<UserEntity | null>,
@@ -20,7 +20,6 @@ export const useUser = (id: string) => {
 
 	const fetchUser = async () => {
 		global[id].setError('')
-		if (isServer()) global[id].user.value = null
 		try {
 			global[id].setLoading(true)
 			global[id].user.value = await FindUser.call(id)
@@ -29,7 +28,9 @@ export const useUser = (id: string) => {
 		global[id].setLoading(false)
 	}
 
-	if (!global[id].fetched.value || isServer()) useFetch(fetchUser)
+	useFetch(async () => {
+		if (!(isClient() && global[id].fetched.value)) await fetchUser()
+	})
 
 	const listener = useListener(async () => {
 		const callback = (user: UserEntity | null) => global[id].user.value = user

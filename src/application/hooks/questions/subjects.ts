@@ -6,7 +6,7 @@ import {
 import { useCreateModal, useEditModal } from '@app/hooks/core/modals'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { Alert } from '@app/hooks/core/notifications'
-import { isServer } from '@utils/environment'
+import { isClient } from '@utils/environment'
 
 const global = {
 	fetched: ssrRef(false),
@@ -23,7 +23,6 @@ const addToGlobalSubjects = (subject: SubjectEntity) => {
 
 const fetchSubjects = async () => {
 	setGlobalError('')
-	if (isServer()) global.subjects.value = []
 	setGlobalLoading(true)
 	try {
 		global.subjects.value = await GetSubjects.call()
@@ -33,7 +32,9 @@ const fetchSubjects = async () => {
 }
 
 export const useSubjectList = () => {
-	if (!global.fetched.value || isServer()) useFetch(fetchSubjects)
+	useFetch(async () => {
+		if (!(isClient() && global.fetched.value)) await fetchSubjects()
+	})
 
 	return { ...global, error, loading }
 }
@@ -43,7 +44,9 @@ export const useSubject = (id: string) => {
 		get: () => global.subjects.value.find((s) => s.id === id) ?? null,
 		set: () => {}
 	})
-	if (!global.fetched.value || isServer()) useFetch(fetchSubjects)
+	useFetch(async () => {
+		if (!(isClient() && global.fetched.value)) await fetchSubjects()
+	})
 
 	return { subject }
 }

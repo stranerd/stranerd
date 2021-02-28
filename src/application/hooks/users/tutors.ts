@@ -1,11 +1,12 @@
-import { computed, ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
+import { computed, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import { GetAllTutors, ListenToTutors, UserEntity } from '@modules/users'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
-import { isServer } from '@utils/environment'
+import { isClient } from '@utils/environment'
 
 const global = {
 	tutors: ssrRef([] as UserEntity[]),
 	fetched: ssrRef(false),
+	subjectId: ssrRef(''),
 	...useErrorHandler(),
 	...useLoadingHandler()
 }
@@ -23,10 +24,8 @@ const unshiftToTutorsList = (tutor: UserEntity) => {
 }
 
 export const useTutorsList = () => {
-	const subjectId = ref('')
 	const fetchTutors = async () => {
 		global.setError('')
-		if (isServer()) global.tutors.value = []
 		try {
 			global.setLoading(true)
 			const tutors = await GetAllTutors.call()
@@ -38,7 +37,7 @@ export const useTutorsList = () => {
 	const filteredTutors = computed({
 		get: () => global.tutors.value.filter((tutor) => {
 			let matched = true
-			if (subjectId.value && !tutor.subjects.find((s) => s.id === subjectId.value)) matched = false
+			if (global.subjectId.value && !tutor.subjects.find((s) => s.id === global.subjectId.value)) matched = false
 			return matched
 		}),
 		set: () => {}
@@ -48,10 +47,12 @@ export const useTutorsList = () => {
 		return await ListenToTutors.call(appendTutors)
 	})
 
-	if (!global.fetched.value || isServer()) useFetch(fetchTutors)
+	useFetch(async () => {
+		if (!(isClient() && global.fetched.value)) await fetchTutors()
+	})
 
 	return {
 		...global, listener,
-		subjectId, filteredTutors
+		filteredTutors
 	}
 }

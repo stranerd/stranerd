@@ -5,7 +5,7 @@ import {
 } from '@modules/users'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { Alert } from '@app/hooks/core/notifications'
-import { isServer } from '@utils/environment'
+import { isClient } from '@utils/environment'
 
 const global = {
 	fetched: ssrRef(false),
@@ -23,7 +23,6 @@ const addToGlobalTutors = (tutor: UserEntity) => {
 export const useTutorList = () => {
 	const fetchTutors = async () => {
 		setError('')
-		if (isServer()) global.tutors.value = []
 		setLoading(true)
 		try {
 			global.tutors.value = await GetAllTutors.call()
@@ -31,7 +30,9 @@ export const useTutorList = () => {
 		} catch (error) { setError(error) }
 		setLoading(false)
 	}
-	if (!global.fetched.value || isServer()) useFetch(fetchTutors)
+	useFetch(async () => {
+		if (!(isClient() && global.fetched.value)) await fetchTutors()
+	})
 
 	return { ...global, error, loading }
 }

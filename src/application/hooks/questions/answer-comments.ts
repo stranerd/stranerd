@@ -4,7 +4,7 @@ import {
 } from '@modules/questions'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
-import { isServer } from '@utils/environment'
+import { isClient } from '@utils/environment'
 
 const global: { [answerId: string] : {
 	comments: Ref<CommentEntity[]>,
@@ -23,7 +23,6 @@ export const useAnswerCommentList = (answerId: string) => {
 
 	const fetchComments = async () => {
 		global[answerId].setError('')
-		if (isServer()) global[answerId].comments.value = []
 		try {
 			global[answerId].setLoading(true)
 			global[answerId].comments.value = await GetAnswerComments.call(answerId)
@@ -37,7 +36,9 @@ export const useAnswerCommentList = (answerId: string) => {
 		return await ListenToAnswerComments.call(answerId, callback)
 	})
 
-	if (!global[answerId].fetched.value || isServer()) useFetch(fetchComments)
+	useFetch(async () => {
+		if (!(isClient() && global[answerId].fetched.value)) await fetchComments()
+	})
 
 	return {
 		error: global[answerId].error,

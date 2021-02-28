@@ -6,7 +6,7 @@ import {
 import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useCreateModal } from '@app/hooks/core/modals'
-import { isServer } from '@utils/environment'
+import { isClient } from '@utils/environment'
 
 const global: { [questionId: string] : {
 	answers: Ref<AnswerEntity[]>,
@@ -25,7 +25,6 @@ export const useAnswerList = (questionId: string) => {
 
 	const fetchAnswers = async () => {
 		global[questionId].setError('')
-		if (isServer()) global[questionId].answers.value = []
 		try {
 			global[questionId].setLoading(true)
 			global[questionId].answers.value = await GetAnswers.call(questionId)
@@ -39,7 +38,9 @@ export const useAnswerList = (questionId: string) => {
 		return await ListenToAnswers.call(questionId, callback)
 	})
 
-	if (!global[questionId].fetched.value || isServer()) useFetch(fetchAnswers)
+	useFetch(async () => {
+		if (!(isClient() && global[questionId].fetched.value)) await fetchAnswers()
+	})
 
 	return {
 		error: global[questionId].error,

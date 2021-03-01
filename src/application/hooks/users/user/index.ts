@@ -1,7 +1,6 @@
 import { Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import { FindUser, ListenToUser, UserEntity } from '@modules/users'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
-import { isClient } from '@utils/environment'
 
 const global = {} as Record<string, {
 	user: Ref<UserEntity | null>,
@@ -29,7 +28,7 @@ export const useUser = (id: string) => {
 	}
 
 	useFetch(async () => {
-		if (!(isClient() && global[id].fetched.value)) await fetchUser()
+		if (!global[id].fetched.value) await fetchUser()
 	})
 
 	const listener = useListener(async () => {

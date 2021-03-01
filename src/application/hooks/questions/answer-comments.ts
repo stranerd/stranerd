@@ -4,7 +4,6 @@ import {
 } from '@modules/questions'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
-import { isClient } from '@utils/environment'
 
 const global: { [answerId: string] : {
 	comments: Ref<CommentEntity[]>,
@@ -37,7 +36,7 @@ export const useAnswerCommentList = (answerId: string) => {
 	})
 
 	useFetch(async () => {
-		if (!(isClient() && global[answerId].fetched.value)) await fetchComments()
+		if (!global[answerId].fetched.value) await fetchComments()
 	})
 
 	return {

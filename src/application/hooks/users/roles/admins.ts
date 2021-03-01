@@ -2,7 +2,6 @@ import { computed, reactive, ssrRef, toRefs, useFetch } from '@nuxtjs/compositio
 import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { GetAllAdmins, GetUsersByEmail, MakeAdmin, RemoveAdmin, UserEntity } from '@modules/users'
 import { useAuth } from '@app/hooks/auth/auth'
-import { isClient } from '@utils/environment'
 
 const global = {
 	admins: ssrRef([] as UserEntity[]),
@@ -41,7 +40,7 @@ export const useAdminsList = () => {
 	const listener = useListener(async () => () => {})
 
 	useFetch(async () => {
-		if (!(isClient() && global.fetched.value)) await fetchAdmins()
+		if (!global.fetched.value) await fetchAdmins()
 	})
 
 	return { ...global, listener, filteredAdmins }

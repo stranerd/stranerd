@@ -5,7 +5,6 @@ import {
 } from '@modules/users'
 import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { Alert } from '@app/hooks/core/notifications'
-import { isClient } from '@utils/environment'
 
 const global = {
 	tutors: ssrRef([] as UserEntity[]),
@@ -52,7 +51,7 @@ export const useTutorsList = () => {
 	})
 
 	useFetch(async () => {
-		if (!(isClient() && global.fetched.value)) await fetchTutors()
+		if (!global.fetched.value) await fetchTutors()
 	})
 
 	return {

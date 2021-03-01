@@ -6,11 +6,12 @@ import {
 import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useCreateModal } from '@app/hooks/core/modals'
-import { isClient } from '@utils/environment'
+import { isClient, isServer } from '@utils/environment'
 
 const global: { [questionId: string] : {
 	answers: Ref<AnswerEntity[]>,
 	fetched: Ref<boolean>,
+	fetchedOnServer: Ref<boolean>,
 	error: Ref<string>, setError: (error: any) => void,
 	loading: Ref<boolean>, setLoading: (loading: boolean) => void
 }} = {}
@@ -19,16 +20,19 @@ export const useAnswerList = (questionId: string) => {
 	if (global[questionId] === undefined) global[questionId] = {
 		answers: ssrRef([]),
 		fetched: ssrRef(false),
+		fetchedOnServer: ssrRef(false),
 		...useErrorHandler(),
 		...useLoadingHandler()
 	}
 
 	const fetchAnswers = async () => {
 		global[questionId].setError('')
+		if (isServer() && global[questionId].fetchedOnServer.value) return
 		try {
 			global[questionId].setLoading(true)
 			global[questionId].answers.value = await GetAnswers.call(questionId)
 			global[questionId].fetched.value = true
+			if (isServer()) global[questionId].fetchedOnServer.value = true
 		} catch (error) { global[questionId].setError(error) }
 		global[questionId].setLoading(false)
 	}
@@ -142,6 +146,7 @@ export const useAnswerById = (questionId: string, id: string) => {
 		if (global[questionId] === undefined) global[questionId] = {
 			answers: ssrRef([]),
 			fetched: ssrRef(false),
+			fetchedOnServer: ssrRef(false),
 			...useErrorHandler(),
 			...useLoadingHandler()
 		}

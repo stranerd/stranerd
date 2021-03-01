@@ -28,10 +28,10 @@ export const acceptSession = functions.https.onCall(async ({ id }, context) => {
 		await ref.set({ dates: { endedAt }, accepted: true, taskName }, { merge: true })
 
 		await addUserCoins(studentId, { bronze: 0 - price, gold: 0 },
-			`You paid ${price} coins for a session`
+			'You paid coins for a session'
 		)
 		await addUserCoins(tutorId, { bronze: price, gold: 0 },
-			`You got ${price} coins for a session`
+			'You got coins for a session'
 		)
 
 		await admin.database().ref('profiles')

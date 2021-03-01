@@ -11,7 +11,7 @@ export const buyCoins = functions.https.onCall(async (data, context) => {
 	try{
 		await addUserCoins(userId,
 			{ bronze: isGold ? 0 : amount, gold: isGold ? amount : 0 },
-			`You purchased ${amount} coins`
+			'You purchased coins'
 		)
 		if (isGold) {
 			await addUserXp(userId, XpGainList.BUY_GOLD * amount)

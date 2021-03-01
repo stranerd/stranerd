@@ -18,7 +18,7 @@ export const markAsBestAnswer = functions.https.onCall(async (data, context) => 
 		batch.set(questionRef, { answerId }, { merge: true })
 		batch.set(answerId, { best: true }, { merge: true })
 		await addUserCoins(userId, { bronze: coins * 0.75, gold: 0 },
-			`You got ${coins} coins for a best answer`
+			'You got coins for a best answer'
 		)
 		await admin.database().ref()
 			.update({

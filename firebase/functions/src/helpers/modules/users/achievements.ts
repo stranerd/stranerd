@@ -109,7 +109,7 @@ const runAfterAchievement = async (userId: string, achievement: Achievement) => 
 	const { name, price: { bronze, xp } } = achievement
 	await addUserXp(userId, xp)
 	await addUserCoins(userId, { bronze, gold: 0 },
-		`You earned ${bronze} coins and ${xp} xp for completing the achievement: ${name}`
+		`You earned coins for completing the achievement: ${name}`
 	)
 }
 

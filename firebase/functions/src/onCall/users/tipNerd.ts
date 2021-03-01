@@ -16,10 +16,10 @@ export const tipNerd = functions.https.onCall(async (data, context) => {
 
 const tipTutor = async (userId: string, tutorId: string, amount: number) => {
 	await addUserCoins(userId, { bronze: 0, gold: 0 - amount },
-		`You tipped a nerd ${amount} coins`
+		'You tipped a nerd coins'
 	)
 	await addUserCoins(tutorId, { bronze: 0, gold: amount },
-		`You were tipped ${amount} coins`
+		'You were tipped coins'
 	)
 	await addUserXp(userId, XpGainList.TIP_NERD)
 	await Achievement.checkTipNerdsAchievement(userId)

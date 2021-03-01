@@ -17,7 +17,7 @@ export const questionCreated = functions.firestore.document('questions/{question
 					[`users/${userId}/questions/${snap.id}`]: true
 				})
 			await addUserCoins(userId, { bronze: 0 - coins, gold: 0 },
-				`You paid ${coins} coins to ask a question`
+				'You paid coins to ask a question'
 			)
 		}
 

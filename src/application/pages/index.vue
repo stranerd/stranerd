@@ -1,5 +1,5 @@
 <template>
-	<div class="container min-vh-100 d-flex flex-column justify-content-center bg-blue">
+	<div class="min-vh-100 d-flex flex-column justify-content-center bg-blue">
 		<div class="text-center">
 			<Logo />
 			<h1 class="display-4 my-4">

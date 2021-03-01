@@ -1,12 +1,16 @@
 <template>
-	<div class="links d-flex">
-		<NuxtLink class="link d-none d-lg-inline" to="/">
+	<div class="links d-flex align-items-center">
+		<NuxtLink class="link d-lg-none" to="/">
 			<img src="@/assets/images/icons/search.svg" alt="">
 		</NuxtLink>
+		<div class="link d-none d-lg-inline-flex search">
+			<img src="@/assets/images/icons/search.svg" alt="">
+			<input class="form-control" type="search" placeholder="Search for anything">
+		</div>
 		<a class="link" @click="setNavigationModalNotification">
 			<img src="@/assets/images/icons/notification.svg" alt="">
 		</a>
-		<a v-if="isLoggedIn" class="link d-none d-lg-inline" @click.prevent="signout">
+		<a class="link d-none d-lg-inline" @click.prevent="signout">
 			<PageLoading v-if="loading" />
 			<img src="@/assets/images/icons/signout.svg" alt="">
 		</a>
@@ -31,19 +35,43 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .links {
+	@media (min-width: $lg) {
+		padding: 1rem 0;
+		width: 100%;
+	}
 	.link {
-		margin: 0 1rem;
+		padding: 0 0.75rem;
 		img {
-			width: 24px;
-			height: 24px;
+			width: 18px;
+			height: 18px;
 			filter: brightness(250%);
 		}
 		@media (min-width: $md) {
+			padding: 0 1rem;
 			img {
-				width: 28px;
-				height: 28px;
+				width: 21px;
+				height: 21px;
 			}
 		}
+		@media (min-width: $lg) {
+			padding: 0 2rem;
+			border-left: 1px solid $color-blue;
+			img {
+				filter: brightness(50%);
+			}
+		}
+	}
+}
+.search {
+	align-items: center;
+	flex-grow: 1;
+	border-left: 0 !important;
+	input {
+		height: 1.5rem;
+		border: none;
+		box-shadow: none;
+		min-height: unset;
+		padding: 0 1rem;
 	}
 }
 </style>

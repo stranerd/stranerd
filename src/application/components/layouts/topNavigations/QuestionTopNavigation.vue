@@ -1,6 +1,6 @@
 <template>
 	<nav class="question-top-nav">
-		<button class="navbar-toggler d-inline" type="button" @click="setMenuModalSidebar">
+		<button class="navbar-toggler" type="button" @click="setMenuModalSidebar">
 			<span class="fas fa-bars" />
 		</button>
 		<NuxtLink to="/">
@@ -15,7 +15,7 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import { useCreateModal, useMenuModal } from '@app/hooks/core/modals'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useRedirectToAuth } from '@app/hooks/auth/session'
-import Links from '@app/components/layouts/topNavigations/Links.vue'
+import Links from '@app/components/layouts/topNavigations/QuestionLinks.vue'
 export default defineComponent({
 	name: 'QuestionTopNavigation',
 	components: { Links },

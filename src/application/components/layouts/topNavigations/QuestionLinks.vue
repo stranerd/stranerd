@@ -1,16 +1,12 @@
 <template>
 	<div class="links d-flex align-items-center">
-		<NuxtLink class="link d-lg-none" to="/">
+		<NuxtLink class="link" to="/">
 			<img src="@/assets/images/icons/search.svg" alt="">
 		</NuxtLink>
-		<div class="link d-none d-lg-inline-flex search">
-			<img src="@/assets/images/icons/search.svg" alt="">
-			<input class="form-control" type="search" placeholder="Search for anything">
-		</div>
 		<a v-if="isLoggedIn" class="link" @click="setNavigationModalNotification">
 			<img src="@/assets/images/icons/notification.svg" alt="">
 		</a>
-		<a v-if="isLoggedIn" class="link d-none d-lg-inline" @click.prevent="signout">
+		<a v-if="isLoggedIn" class="link d-none d-md-inline" @click.prevent="signout">
 			<PageLoading v-if="loading" />
 			<img src="@/assets/images/icons/signout.svg" alt="">
 		</a>
@@ -23,7 +19,7 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { useSessionSignout } from '@app/hooks/auth/session'
 import { useNavigationModal } from '@app/hooks/core/modals'
 export default defineComponent({
-	name: 'Links',
+	name: 'QuestionLinks',
 	setup () {
 		const { isLoggedIn } = useAuth()
 		const { setNavigationModalNotification } = useNavigationModal()
@@ -37,7 +33,6 @@ export default defineComponent({
 .links {
 	@media (min-width: $lg) {
 		padding: 1rem 0;
-		width: 100%;
 	}
 	.link {
 		padding: 0 0.75rem;
@@ -55,23 +50,7 @@ export default defineComponent({
 		}
 		@media (min-width: $lg) {
 			padding: 0 2rem;
-			border-left: 1px solid $color-blue;
-			img {
-				filter: brightness(60%);
-			}
 		}
-	}
-}
-.search {
-	align-items: center;
-	flex-grow: 1;
-	border-left: 0 !important;
-	input {
-		height: 1.5rem;
-		border: none;
-		box-shadow: none;
-		min-height: unset;
-		padding: 0 1rem;
 	}
 }
 </style>

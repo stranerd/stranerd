@@ -1,7 +1,7 @@
 <template>
 	<div class="position-relative">
 		<div class="center">
-			<div class="spinner-border text-info" role="status" :style="`width:${size}rem;height:${size}rem;`">
+			<div class="spinner-border text-blue" role="status" :style="`width:${size}rem;height:${size}rem;`">
 				<span class="sr-only">Loading...</span>
 			</div>
 		</div>

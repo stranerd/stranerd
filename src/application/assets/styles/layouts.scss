@@ -107,18 +107,14 @@
 	}
 }
 .question-top-nav {
-	display: flex;
-	align-items: center;
-	background: $color-blue;
-	color: $color-white;
-	padding: 0.5rem 0.75rem;
-	button.navbar-toggler {
+	@extend .top-nav;
+	@media (min-width: $lg) {
+		background: $color-blue;
+		$color: $color-white;
 		border-radius: 0;
-		color: $color-white;
-		margin-right: 0.5rem;
-		@media (min-width: $lg) {
-			display: none;
-		}
+		padding: 0.5rem 0.75rem;
+		margin: -0.5rem -0.5rem 0.5rem;
+		button.navbar-toggler { display: unset; }
 	}
 }
 .page-content {

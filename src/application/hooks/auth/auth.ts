@@ -20,9 +20,9 @@ export const useAuth = () => {
 
 	const setAuthUser = async (details: AuthDetails | null) => {
 		if (global.listener) global.listener()
-		global.auth.value = details
 		if (details?.id) global.user.value = await FindUser.call(details.id)
 		else global.user.value = null
+		global.auth.value = details
 	}
 
 	const startProfileListener = async () => {

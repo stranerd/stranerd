@@ -1,5 +1,9 @@
 <template>
 	<div>
+		<h2 class="font-weight-bold mb-0">
+			Answers
+		</h2>
+		<div class="thick" />
 		<AnswerCard v-for="answer in answers" :key="answer.hash" :answer="answer" :question="question" />
 		<DisplayWarning v-if="!loading && !error && answers.length === 0" message="This question doesn't have any answers yet." />
 		<DisplayError :error="error" />

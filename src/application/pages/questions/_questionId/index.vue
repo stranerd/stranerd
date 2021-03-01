@@ -7,9 +7,6 @@
 			<DisplayError :error="error" />
 		</div>
 		<div v-if="question" id="answers" class="page-content">
-			<h2 class="font-weight-bold">
-				Answers
-			</h2>
 			<AnswersList :question="question" />
 		</div>
 		<QuestionsList class="page-content" :question-id="questionId" />

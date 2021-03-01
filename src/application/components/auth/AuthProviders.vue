@@ -2,7 +2,7 @@
 	<div class="grid">
 		<div>
 			<button type="button" class="btn btn-auth" @click="googleSignin">
-				<img src="@app/assets/images/icons/google.svg" alt="Google">
+				<img src="@app/assets/images/icons/google.svg" alt="">Google
 			</button>
 			<DisplayError :error="googleError" />
 			<PageLoading v-if="googleLoading" />
@@ -48,6 +48,6 @@ export default defineComponent({
 	}
 }
 .btn-auth:hover {
-	background: lighten($color-blue, 10);
+	background: darken($color-blue, 10);
 }
 </style>

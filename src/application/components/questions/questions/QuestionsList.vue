@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<section class="d-flex mb-2 flex-column flex-md-row align-items-center text-center">
-			<h2 class="font-weight-bold">
+		<section class="d-flex flex-column flex-md-row align-items-center text-center">
+			<h2 class="font-weight-bold mb-0">
 				Questions
 			</h2>
 			<form class="d-flex ml-md-auto">

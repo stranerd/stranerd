@@ -25,14 +25,13 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
-import { formatNumber } from '@app/hooks/core/numbers'
 import ProfileHeadCard from '@app/components/users/account/ProfileHeadCard.vue'
 export default defineComponent({
 	name: 'DefaultSidebar',
 	components: { ProfileHeadCard },
 	setup () {
 		const { isLoggedIn, user, isAdmin } = useAuth()
-		return { isLoggedIn, user, isAdmin, formatNumber }
+		return { isLoggedIn, user, isAdmin }
 	}
 })
 </script>

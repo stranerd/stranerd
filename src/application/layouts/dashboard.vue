@@ -3,7 +3,7 @@
 		<section class="layout-side-left">
 			<DashboardSidebar />
 		</section>
-		<main class="layout-main">
+		<main class="layout-main pb-0">
 			<DashboardTopNavigation />
 			<Nuxt class="layout-content" />
 		</main>

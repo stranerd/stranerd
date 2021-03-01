@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<section class="d-flex mb-2 align-items-center text-center">
+		<section class="d-flex align-items-center text-center">
 			<h2 class="font-weight-bold">
 				Top Nerds
 			</h2>

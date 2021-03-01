@@ -1,4 +1,4 @@
-import { Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
+import { Ref, reqSsrRef, useFetch } from '@nuxtjs/composition-api'
 import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 import { GetOlderTransactions, GetTransactions, TransactionEntity } from '@modules/payment'
 import { PAGINATION_LIMIT } from '@utils/constants'
@@ -6,6 +6,7 @@ import { PAGINATION_LIMIT } from '@utils/constants'
 const global = {} as Record<string, {
 	transactions: Ref<TransactionEntity[]>
 	hasMore: Ref<boolean>
+	fetched: Ref<boolean>
 	error: Ref<string>, setError: (error: any) => void
 	loading: Ref<boolean>, setLoading: (loading: boolean) => void
 }>
@@ -24,8 +25,9 @@ const unshiftToTransactionList = (userId: string, transaction: TransactionEntity
 
 export const useTransactionList = (userId: string) => {
 	if (global[userId] === undefined) global[userId] = {
-		transactions: ssrRef([]),
-		hasMore: ssrRef(false),
+		transactions: reqSsrRef([]),
+		hasMore: reqSsrRef(false),
+		fetched: reqSsrRef(false),
 		...useErrorHandler(),
 		...useLoadingHandler()
 	}
@@ -38,6 +40,7 @@ export const useTransactionList = (userId: string) => {
 			const transactions = await GetTransactions.call(userId, lastDate ? new Date(lastDate) : undefined)
 			global[userId].hasMore.value = transactions.length === PAGINATION_LIMIT + 1
 			transactions.slice(0, PAGINATION_LIMIT).reverse().forEach((t) => unshiftToTransactionList(userId, t))
+			global[userId].fetched.value = true
 		} catch (e) { global[userId].setError(e) }
 		global[userId].setLoading(false)
 	}
@@ -46,9 +49,7 @@ export const useTransactionList = (userId: string) => {
 		global[userId].setError('')
 		global[userId].setLoading(true)
 		try {
-			const lastDate = global[userId].transactions
-				.value[global[userId].transactions.value.length - 1]
-				?.createdAt
+			const lastDate = global[userId].transactions.value[global[userId].transactions.value.length - 1]?.createdAt
 			const transactions = await GetOlderTransactions.call(userId, lastDate ? new Date(lastDate) : undefined)
 			global[userId].hasMore.value = transactions.length === PAGINATION_LIMIT + 1
 			transactions.slice(0, PAGINATION_LIMIT).forEach((t) => pushToTransactionList(userId, t))
@@ -56,13 +57,9 @@ export const useTransactionList = (userId: string) => {
 		global[userId].setLoading(false)
 	}
 
-	useFetch(fetchTransactions)
+	useFetch(async () => {
+		if (!global[userId].fetched.value) await fetchTransactions()
+	})
 
-	return {
-		transactions: global[userId].transactions,
-		hasMore: global[userId].hasMore,
-		error: global[userId].error,
-		loading: global[userId].loading,
-		fetchOlderTransactions
-	}
+	return { ...global[userId], fetchOlderTransactions }
 }

@@ -1,4 +1,4 @@
-import { Ref, ref, ssrRef, useFetch, watch } from '@nuxtjs/composition-api'
+import { Ref, reqSsrRef, useFetch, watch } from '@nuxtjs/composition-api'
 import {
 	AddAnswer, AnswerEntity, AnswerFactory, FindAnswer, GetAnswers, LikeAnswer, ListenToAnswer,
 	ListenToAnswers, MarkAsBestAnswer, QuestionEntity, RateAnswer
@@ -6,33 +6,28 @@ import {
 import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useCreateModal } from '@app/hooks/core/modals'
-import { isClient, isServer } from '@utils/environment'
 
 const global: { [questionId: string] : {
 	answers: Ref<AnswerEntity[]>,
 	fetched: Ref<boolean>,
-	fetchedOnServer: Ref<boolean>,
 	error: Ref<string>, setError: (error: any) => void,
 	loading: Ref<boolean>, setLoading: (loading: boolean) => void
 }} = {}
 
 export const useAnswerList = (questionId: string) => {
 	if (global[questionId] === undefined) global[questionId] = {
-		answers: ssrRef([]),
-		fetched: ssrRef(false),
-		fetchedOnServer: ssrRef(false),
+		answers: reqSsrRef([]),
+		fetched: reqSsrRef(false),
 		...useErrorHandler(),
 		...useLoadingHandler()
 	}
 
 	const fetchAnswers = async () => {
 		global[questionId].setError('')
-		if (isServer() && global[questionId].fetchedOnServer.value) return
 		try {
 			global[questionId].setLoading(true)
 			global[questionId].answers.value = await GetAnswers.call(questionId)
 			global[questionId].fetched.value = true
-			if (isServer()) global[questionId].fetchedOnServer.value = true
 		} catch (error) { global[questionId].setError(error) }
 		global[questionId].setLoading(false)
 	}
@@ -43,7 +38,7 @@ export const useAnswerList = (questionId: string) => {
 	})
 
 	useFetch(async () => {
-		if (!(isClient() && global[questionId].fetched.value)) await fetchAnswers()
+		if (!global[questionId].fetched.value) await fetchAnswers()
 	})
 
 	return {
@@ -62,7 +57,7 @@ export const openAnswerModal = (question: QuestionEntity) => {
 
 export const useCreateAnswer = () => {
 	const { id, bio } = useAuth()
-	const factory = ref(new AnswerFactory()) as Ref<AnswerFactory>
+	const factory = reqSsrRef(new AnswerFactory()) as Ref<AnswerFactory>
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
 	const { setMessage } = useSuccessHandler()
@@ -140,13 +135,12 @@ export const useAnswer = (answer: AnswerEntity) => {
 export const useAnswerById = (questionId: string, id: string) => {
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
-	const answer = ssrRef(null as AnswerEntity | null)
+	const answer = reqSsrRef(null as AnswerEntity | null)
 
 	const setAnswer = (answer: AnswerEntity) => {
 		if (global[questionId] === undefined) global[questionId] = {
-			answers: ssrRef([]),
-			fetched: ssrRef(false),
-			fetchedOnServer: ssrRef(false),
+			answers: reqSsrRef([]),
+			fetched: reqSsrRef(false),
 			...useErrorHandler(),
 			...useLoadingHandler()
 		}

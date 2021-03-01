@@ -1,4 +1,4 @@
-import { Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
+import { Ref, reqSsrRef, useFetch } from '@nuxtjs/composition-api'
 import { FindUser, ListenToUser, UserEntity } from '@modules/users'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 
@@ -11,8 +11,8 @@ const global = {} as Record<string, {
 
 export const useUser = (id: string) => {
 	if (global[id] === undefined) global[id] = {
-		user: ssrRef(null),
-		fetched: ssrRef(false),
+		user: reqSsrRef(null),
+		fetched: reqSsrRef(false),
 		...useLoadingHandler(),
 		...useErrorHandler()
 	}

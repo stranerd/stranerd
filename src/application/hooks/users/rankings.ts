@@ -1,4 +1,4 @@
-import { Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
+import { Ref, reqSsrRef, useFetch } from '@nuxtjs/composition-api'
 import { GetTopRankingUsers, ListenToTopRankingUsers, UserEntity, RankingPeriods } from '@modules/users'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 
@@ -15,8 +15,8 @@ const sortUsers = (users: UserEntity[], period: RankingPeriods) => users.sort((a
 export const useTopUsersByPeriod = (period: RankingPeriods) => {
 	if (global[period] === undefined) {
 		global[period] = {
-			users: ssrRef([] as UserEntity[]),
-			fetched: ssrRef(false),
+			users: reqSsrRef([] as UserEntity[]),
+			fetched: reqSsrRef(false),
 			...useErrorHandler(),
 			...useLoadingHandler()
 		}

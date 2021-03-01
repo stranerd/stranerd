@@ -1,4 +1,4 @@
-import { computed, Ref, ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
+import { computed, Ref, ref, reqSsrRef, useFetch } from '@nuxtjs/composition-api'
 import {
 	GetSubjects, AddSubject, FindSubject, DeleteSubject,
 	UpdateSubject, SubjectEntity, SubjectFactory
@@ -8,14 +8,13 @@ import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hook
 import { Alert } from '@app/hooks/core/notifications'
 
 const global = {
-	fetched: ssrRef(false),
-	fetchedOnServer: ssrRef(false),
-	subjects: ssrRef([] as SubjectEntity[])
+	fetched: reqSsrRef(false),
+	subjects: reqSsrRef([] as SubjectEntity[])
 }
 const { error, setError: setGlobalError } = useErrorHandler()
 const { loading, setLoading: setGlobalLoading } = useLoadingHandler()
 
-const addToGlobalSubjects = (subject: SubjectEntity) => {
+const pushToGlobalSubjects = (subject: SubjectEntity) => {
 	const index = global.subjects.value.findIndex((s) => s.id === subject.id)
 	if (index !== -1) global.subjects.value.splice(index, 1, subject)
 	else global.subjects.value.push(subject)
@@ -64,7 +63,7 @@ export const useCreateSubject = () => {
 			try {
 				const id = await AddSubject.call(factory.value)
 				const subject = await FindSubject.call(id) ?? undefined
-				if (subject) addToGlobalSubjects(subject)
+				if (subject) pushToGlobalSubjects(subject)
 				factory.value.reset()
 				useCreateModal().closeCreateModal()
 				setMessage('Subject created successfully')
@@ -123,7 +122,7 @@ export const useEditSubject = (subject = currentSubject) => {
 				if (subject) {
 					await UpdateSubject.call(subject.id, factory.value)
 					const s = await FindSubject.call(subject.id)
-					if (s) addToGlobalSubjects(s)
+					if (s) pushToGlobalSubjects(s)
 				}
 				factory.value.reset()
 				useEditModal().closeEditModal()

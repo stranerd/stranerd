@@ -1,4 +1,4 @@
-import { Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
+import { Ref, reqSsrRef, useFetch } from '@nuxtjs/composition-api'
 import { GetUserAnswers, AnswerEntity } from '@modules/questions'
 import { PAGINATION_LIMIT } from '@utils/constants'
 import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
@@ -21,9 +21,9 @@ const pushToAnswerList = (id: string, answer: AnswerEntity) => {
 
 export const useUserAnswerList = (id: string) => {
 	if (!global[id]) global[id] = {
-		answers: ssrRef([]),
-		fetched: ssrRef(false),
-		hasMore: ssrRef(false),
+		answers: reqSsrRef([]),
+		fetched: reqSsrRef(false),
+		hasMore: reqSsrRef(false),
 		...useErrorHandler(),
 		...useLoadingHandler()
 	}
@@ -42,7 +42,9 @@ export const useUserAnswerList = (id: string) => {
 		global[id].setLoading(false)
 	}
 
-	useFetch(fetchAnswers)
+	useFetch(async () => {
+		if (!global[id].fetched.value) await fetchAnswers()
+	})
 
 	return { ...global[id], fetchOlderAnswers: fetchAnswers }
 }

@@ -49,8 +49,8 @@ export const useSessionSignout = () => {
 			try {
 				await SessionSignout.call()
 				await useAuth().closeProfileListener()
-				if (isClient()) window.location.assign('/auth/')
 				await useAuth().signout()
+				if (isClient()) window.location.assign('/auth/')
 			} catch (error) { setError(error) }
 			setLoading(false)
 		}

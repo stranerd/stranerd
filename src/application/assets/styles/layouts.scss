@@ -1,7 +1,11 @@
+body{
+	font-family: Ubuntu, Roboto, sans-serif !important;
+	// font-size: clamp(16px, calc(1rem + 20%), 30px) !important;
+}
+
 .layout-body {
 	min-height: 100vh;
-	margin: 0 auto;
-	max-width: 2000px;
+	background: $color-light-grey;
 	display: flex;
 	flex-direction: column;
 	@media (min-width: $lg) {
@@ -13,7 +17,7 @@
 	background-color: $color-blue;
 	padding: 0.5rem;
 	@media (min-width: $lg) {
-		width: 25%;
+		width: 20%;
 		max-width: 400px;
 		display: block;
 	}
@@ -29,7 +33,7 @@
 	}
 	@media (min-width: $lg) {
 		background-color: $color-white;
-		width: 25%;
+		width: 20%;
 		padding: 0.5rem;
 		max-width: 400px;
 		font-size: 0.9rem;

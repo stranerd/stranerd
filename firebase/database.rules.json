@@ -38,6 +38,9 @@
 			"$userId": {
 				".read": true,
 				".write": "auth.uid === $userId",
+				"status": {
+					".write": true
+				},
 				"tutor": {
 					".write": "auth.token.isAdmin === true"
 				}

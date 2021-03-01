@@ -6,12 +6,13 @@
 					<h2 class="font-weight-bold">
 						{{ isTutor ? 'Help a student in need today!' : 'Nerd help is what you need.' }}
 					</h2>
-					<p>
-						{{
-							isTutor
-								? 'Earn bronze coins for questions answered & earn gold coins for sessions. Convert your coins to USD and cash in to your bank account.'
-								: 'Bringing to you the classroom method of learning from your peers. Ask a question ( public ) or Meet a nerd ( 1 on 1 private chat ).'
-						}}
+					<p v-if="isTutor">
+						Earn coins for answering questions &  sessions.<br>
+						Convert your coins to USD and cash in to your bank account.
+					</p>
+					<p v-else>
+						Bringing to you the classroom method of learning from your peers.<br>
+						Ask a question ( public ) or Meet a nerd ( 1 on 1 private chat ).
 					</p>
 					<div class="d-flex flex-column flex-md-row flex-wrap align-items-start">
 						<NuxtLink v-if="isTutor" to="/questions" class="mr-1 my-1 btn btn-blue rounded-pill px-4 py-1 font-weight-bold">

@@ -9,13 +9,13 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useTutorList } from '@app/hooks/users/roles/tutors'
+import { useTutorsList } from '@app/hooks/users/roles/tutors'
 import TutorsListCard from '@app/components/admin/users/TutorsListCard.vue'
 export default defineComponent({
 	name: 'TutorsList',
 	components: { TutorsListCard },
 	setup () {
-		const { loading, error, tutors } = useTutorList()
+		const { loading, error, tutors } = useTutorsList()
 		return { loading, error, tutors }
 	}
 })

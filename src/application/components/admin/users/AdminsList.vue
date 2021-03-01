@@ -9,14 +9,14 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useAdminList } from '@app/hooks/users/roles/admins'
+import { useAdminsList } from '@app/hooks/users/roles/admins'
 import AdminsListCard from '@app/components/admin/users/AdminsListCard.vue'
 export default defineComponent({
 	name: 'AdminsList',
 	components: { AdminsListCard },
 	setup () {
-		const { loading, error, admins } = useAdminList()
-		return { loading, error, admins }
+		const { loading, error, filteredAdmins } = useAdminsList()
+		return { loading, error, admins: filteredAdmins }
 	}
 })
 </script>

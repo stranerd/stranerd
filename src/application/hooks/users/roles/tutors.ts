@@ -1,40 +1,64 @@
-import { reactive, ssrRef, toRefs, useFetch } from '@nuxtjs/composition-api'
+import { computed, reactive, ssrRef, toRefs, useFetch } from '@nuxtjs/composition-api'
 import {
-	AddTutorSubject, FindUser, GetAllTutors, GetUsersByEmail,
+	AddTutorSubject, FindUser, GetAllTutors, GetUsersByEmail, ListenToTutors,
 	MakeTutor, RemoveTutor, RemoveTutorSubject, UserEntity
 } from '@modules/users'
-import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
+import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { Alert } from '@app/hooks/core/notifications'
 import { isClient } from '@utils/environment'
 
 const global = {
+	tutors: ssrRef([] as UserEntity[]),
 	fetched: ssrRef(false),
-	tutors: ssrRef([] as UserEntity[])
+	subjectId: ssrRef(''),
+	...useErrorHandler(),
+	...useLoadingHandler()
 }
-const { error, setError } = useErrorHandler()
-const { loading, setLoading } = useLoadingHandler()
 
-const addToGlobalTutors = (tutor: UserEntity) => {
+const pushToTutorsList = (tutor: UserEntity) => {
 	const index = global.tutors.value.findIndex((t) => t.id === tutor.id)
 	if (index !== -1) global.tutors.value.splice(index, 1, tutor)
 	else global.tutors.value.push(tutor)
 }
 
-export const useTutorList = () => {
+const unshiftToTutorsList = (tutor: UserEntity) => {
+	const index = global.tutors.value.findIndex((t) => t.id === tutor.id)
+	if (index !== -1) global.tutors.value.splice(index, 1, tutor)
+	else global.tutors.value.unshift(tutor)
+}
+
+export const useTutorsList = () => {
 	const fetchTutors = async () => {
-		setError('')
-		setLoading(true)
+		global.setError('')
 		try {
-			global.tutors.value = await GetAllTutors.call()
+			global.setLoading(true)
+			const tutors = await GetAllTutors.call()
+			tutors.forEach(pushToTutorsList)
 			global.fetched.value = true
-		} catch (error) { setError(error) }
-		setLoading(false)
+		} catch (error) { global.setError(error) }
+		global.setLoading(false)
 	}
+	const filteredTutors = computed({
+		get: () => global.tutors.value.filter((tutor) => {
+			let matched = true
+			if (global.subjectId.value && !tutor.subjects.find((s) => s.id === global.subjectId.value)) matched = false
+			return matched
+		}),
+		set: () => {}
+	})
+	const listener = useListener(async () => {
+		const appendTutors = (tutors: UserEntity[]) => { tutors.map(unshiftToTutorsList) }
+		return await ListenToTutors.call(appendTutors)
+	})
+
 	useFetch(async () => {
 		if (!(isClient() && global.fetched.value)) await fetchTutors()
 	})
 
-	return { ...global, error, loading }
+	return {
+		...global, listener,
+		filteredTutors
+	}
 }
 
 export const useTutorRoles = () => {
@@ -71,7 +95,7 @@ export const useTutorRoles = () => {
 			await MakeTutor.call(user.id)
 			user.roles.isTutor = true
 			const tutor = await FindUser.call(user.id)
-			if (tutor) addToGlobalTutors(tutor)
+			if (tutor) pushToTutorsList(tutor)
 			reset()
 			setMessage('Successfully made a tutor')
 		} catch (error) { setError(error) }
@@ -123,7 +147,7 @@ export const useSingleTutor = () => {
 				const t = await FindUser.call(id)
 				if (t) {
 					tutor.value = t
-					addToGlobalTutors(t)
+					pushToTutorsList(t)
 				}
 				setMessage('Successfully added subject')
 			}
@@ -148,7 +172,7 @@ export const useSingleTutor = () => {
 					const t = await FindUser.call(id)
 					if (t) {
 						tutor.value = t
-						addToGlobalTutors(t)
+						pushToTutorsList(t)
 					}
 					setMessage('Successfully removed subject')
 				}
@@ -157,8 +181,5 @@ export const useSingleTutor = () => {
 		}
 	}
 
-	return {
-		tutor, loading, error,
-		addSubject, removeSubject
-	}
+	return { tutor, loading, error, addSubject, removeSubject }
 }

@@ -31,7 +31,7 @@
 <script lang="ts">
 import { defineComponent, onBeforeUnmount, onMounted } from '@nuxtjs/composition-api'
 import { useSubjectList } from '@app/hooks/questions/subjects'
-import { useTutorsList } from '@app/hooks/users/tutors'
+import { useTutorsList } from '@app/hooks/users/roles/tutors'
 import TutorsListCard from '@app/components/users/tutors/TutorsListCard.vue'
 export default defineComponent({
 	name: 'TutorsList',

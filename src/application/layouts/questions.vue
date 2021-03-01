@@ -2,7 +2,9 @@
 	<section class="layout-body">
 		<main class="layout-main">
 			<QuestionTopNavigation />
-			<Nuxt class="content layout-content" />
+			<div class="content">
+				<Nuxt class="layout-content" />
+			</div>
 		</main>
 		<ModalBase />
 	</section>

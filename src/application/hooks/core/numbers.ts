@@ -9,10 +9,10 @@ enum Numbers {
 
 export const formatNumber = (num: number) => {
 	num = Math.abs(num)
-	if (num < Numbers.thousand) return num.toFixed(0).replace('.00', '')
-	else if (num < Numbers.million) return (num / Numbers.thousand).toFixed(2).replace('.00', '') + 'k'
-	else if (num < Numbers.billion) return (num / Numbers.million).toFixed(2).replace('.00', '') + 'm'
-	else if (num < Numbers.trillion) return (num / Numbers.billion).toFixed(2).replace('.00', '') + 'b'
-	else if (num < Numbers.quadrillion) return (num / Numbers.trillion).toFixed(2).replace('.00', '') + 'tr'
+	if (num < Numbers.thousand) return num.toFixed(0).replace('.0', '')
+	else if (num < Numbers.million) return (num / Numbers.thousand).toFixed(1).replace('.0', '') + 'k'
+	else if (num < Numbers.billion) return (num / Numbers.million).toFixed(1).replace('.0', '') + 'm'
+	else if (num < Numbers.trillion) return (num / Numbers.billion).toFixed(1).replace('.0', '') + 'b'
+	else if (num < Numbers.quadrillion) return (num / Numbers.trillion).toFixed(1).replace('.0', '') + 'tr'
 	else return num.toFixed(0)
 }

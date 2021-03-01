@@ -63,9 +63,8 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onBeforeUnmount, onMounted, PropType } from '@nuxtjs/composition-api'
-import { AnswerEntity } from '@modules/questions'
-import { useQuestionList } from '@app/hooks/questions/questions'
+import { defineComponent, onBeforeUnmount, onMounted, PropType } from '@nuxtjs/composition-api'
+import { AnswerEntity, QuestionEntity } from '@modules/questions'
 import { useTimeDifference } from '@app/hooks/core/dates'
 import { useAnswer } from '@app/hooks/questions/answers'
 import SelectRating from '@app/components/core/SelectRating.vue'
@@ -85,24 +84,22 @@ export default defineComponent({
 		answer: {
 			required: true,
 			type: Object as PropType<AnswerEntity>
+		},
+		question: {
+			required: true,
+			type: Object as PropType<QuestionEntity>
 		}
 	},
 	setup (props) {
 		const { id, isLoggedIn } = useAuth()
-		const { questions } = useQuestionList()
-		const question = computed({
-			get: () => questions.value.find((q) => q.id === props.answer.questionId) ?? null,
-			set: () => {}
-		})
 		const { time, startTimer, stopTimer } = useTimeDifference(props.answer.createdAt)
 		const { error, loading, rateAnswer, likeAnswer, markBestAnswer } = useAnswer(props.answer)
 		onMounted(startTimer)
 		onBeforeUnmount(stopTimer)
 		return {
-			id, isLoggedIn,
-			question, time,
+			id, isLoggedIn, time,
 			error, loading, rateAnswer, likeAnswer,
-			markBestAnswer: () => markBestAnswer(question.value)
+			markBestAnswer: () => markBestAnswer(props.question)
 		}
 	}
 })

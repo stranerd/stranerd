@@ -2,7 +2,6 @@ import { Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import { GetUserQuestions, QuestionEntity } from '@modules/questions'
 import { PAGINATION_LIMIT } from '@utils/constants'
 import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
-import { isServer } from '@utils/environment'
 
 const global = {} as Record<string, {
 	questions: Ref<QuestionEntity[]>,
@@ -31,12 +30,9 @@ export const useUserQuestionList = (id: string) => {
 
 	const fetchQuestions = async () => {
 		global[id].setError('')
-		if (isServer()) global[id].questions.value = []
 		try {
 			global[id].setLoading(true)
-			const lastDate = global[id].questions
-				.value[global[id].questions.value.length - 1]
-				?.createdAt
+			const lastDate = global[id].questions.value[global[id].questions.value.length - 1]?.createdAt
 			const questions = await GetUserQuestions.call(id, lastDate ? new Date(lastDate) : undefined)
 			global[id].hasMore.value = questions.length === PAGINATION_LIMIT + 1
 			questions.slice(0, PAGINATION_LIMIT).forEach((q) => pushToQuestionList(id, q))
@@ -45,7 +41,7 @@ export const useUserQuestionList = (id: string) => {
 		global[id].setLoading(false)
 	}
 
-	if (!global[id].fetched.value || isServer()) useFetch(fetchQuestions)
+	useFetch(fetchQuestions)
 
 	return { ...global[id], fetchOlderQuestions: fetchQuestions }
 }

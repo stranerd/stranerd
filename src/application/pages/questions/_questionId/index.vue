@@ -10,7 +10,7 @@
 			<h2 class="font-weight-bold">
 				Answers
 			</h2>
-			<AnswersList :question-id="questionId" />
+			<AnswersList :question="question" />
 		</div>
 		<QuestionsList class="page-content" :question-id="questionId" />
 	</div>

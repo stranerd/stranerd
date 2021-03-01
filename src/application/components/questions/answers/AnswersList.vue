@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<AnswerCard v-for="answer in answers" :key="answer.hash" :answer="answer" />
+		<AnswerCard v-for="answer in answers" :key="answer.hash" :answer="answer" :question="question" />
 		<DisplayWarning v-if="!loading && !error && answers.length === 0" message="This question doesn't have any answers yet." />
 		<DisplayError :error="error" />
 		<PageLoading v-if="loading" />
@@ -8,22 +8,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeUnmount, onMounted } from '@nuxtjs/composition-api'
+import { defineComponent, onBeforeUnmount, onMounted, PropType } from '@nuxtjs/composition-api'
 import { useAnswerList } from '@app/hooks/questions/answers'
 import AnswerCard from '@app/components/questions/answers/AnswersListCard.vue'
+import { QuestionEntity } from '@modules/questions'
 export default defineComponent({
 	name: 'AnswersList',
 	components: {
 		AnswerCard
 	},
 	props: {
-		questionId: {
+		question: {
 			required: true,
-			type: String
+			type: Object as PropType<QuestionEntity>
 		}
 	},
 	setup (props) {
-		const { answers, error, loading, listener } = useAnswerList(props.questionId)
+		const { answers, error, loading, listener } = useAnswerList(props.question.id)
 		onMounted(listener.startListener)
 		onBeforeUnmount(listener.closeListener)
 		return {

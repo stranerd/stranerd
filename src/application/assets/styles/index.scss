@@ -129,20 +129,3 @@ hr.thin {
 .firebase-emulator-warning {
 	display: none !important;
 }
-
-.page-content {
-	background: $color-white;
-	margin: 0.5rem 0;
-	padding: 0.5rem;
-	border-radius: 0.5rem;
-	box-shadow: 0 0 20px rgba($color-blue, 0.07);
-	@media (min-width: $md) {
-		margin: 1rem 0;
-		padding: 1rem;
-		border-radius: 0.75rem;
-	}
-	@media (min-width: $lg) {
-		padding: 1.5rem;
-		border-radius: 1rem;
-	}
-}

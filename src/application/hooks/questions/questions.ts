@@ -1,4 +1,4 @@
-import { ssrRef, watch, computed, useRouter, useFetch } from '@nuxtjs/composition-api'
+import { reqSsrRef, watch, computed, useRouter, useFetch } from '@nuxtjs/composition-api'
 import {
 	AddQuestion, FindQuestion, GetQuestions, ListenToQuestion,
 	ListenToQuestions, QuestionEntity, QuestionFactory
@@ -20,11 +20,11 @@ const answeredChoices = [
 	{ val: Answered.Unanswered, key: 'Unanswered' }
 ]
 const global = {
-	questions: ssrRef([] as QuestionEntity[]),
-	subjectId: ssrRef(''),
-	answered: ssrRef(answeredChoices[0].val),
-	fetched: ssrRef(false),
-	hasMore: ssrRef(false),
+	questions: reqSsrRef([] as QuestionEntity[]),
+	subjectId: reqSsrRef(''),
+	answered: reqSsrRef(answeredChoices[0].val),
+	fetched: reqSsrRef(false),
+	hasMore: reqSsrRef(false),
 	...useErrorHandler(),
 	...useLoadingHandler()
 }
@@ -42,9 +42,9 @@ const unshiftToQuestionList = (question: QuestionEntity) => {
 
 export const useQuestionList = () => {
 	const fetchQuestions = async () => {
-		global.setError('')
-		// TODO: figure out logic to stop it from calling twice on server
+		// TODO: Figure out why this is needed to beat ssr hydration failure
 		if (isServer()) global.questions.value = []
+		global.setError('')
 		try {
 			global.setLoading(true)
 			const lastDate = global.questions.value[global.questions.value.length - 1]?.createdAt
@@ -57,9 +57,8 @@ export const useQuestionList = () => {
 	}
 	const listener = useListener(async () => {
 		const appendQuestions = (questions: QuestionEntity[]) => { questions.map(unshiftToQuestionList) }
-		const lastDate = global.questions.value[global.questions.value.length - 1]?.createdAt ?? undefined
-		return await ListenToQuestions
-			.call(appendQuestions, lastDate ? new Date(lastDate) : undefined)
+		const lastDate = global.questions.value[global.questions.value.length - 1]?.createdAt
+		return await ListenToQuestions.call(appendQuestions, lastDate ? new Date(lastDate) : undefined)
 	})
 	const filteredQuestions = computed({
 		get: () => global.questions.value.filter((q) => {
@@ -73,7 +72,9 @@ export const useQuestionList = () => {
 		}), set: () => {}
 	})
 
-	if (!global.fetched.value || isServer()) useFetch(fetchQuestions)
+	useFetch(async () => {
+		if (!global.fetched.value) await fetchQuestions()
+	})
 
 	return {
 		...global, listener,
@@ -82,7 +83,7 @@ export const useQuestionList = () => {
 	}
 }
 
-const factory = ssrRef(new QuestionFactory())
+const factory = reqSsrRef(new QuestionFactory())
 export const useCreateQuestion = () => {
 	const { id, bio, user, isLoggedIn } = useAuth()
 	const { error, setError } = useErrorHandler()
@@ -125,10 +126,7 @@ export const useCreateQuestion = () => {
 		} else factory.value.validateAll()
 	}
 
-	return {
-		error, loading, factory, coins,
-		createQuestion
-	}
+	return { error, loading, factory, coins, createQuestion }
 }
 
 export const useQuestion = (questionId: string) => {
@@ -154,12 +152,10 @@ export const useQuestion = (questionId: string) => {
 		setLoading(false)
 	}
 	const listener = useListener(async () => {
-		let listener = () => {}
 		const callback = (q: QuestionEntity | null) => {
 			if (q) unshiftToQuestionList(q)
 		}
-		if (question.value) listener = await ListenToQuestion.call(questionId, callback)
-		return listener
+		return await ListenToQuestion.call(questionId, callback)
 	})
 
 	useFetch(fetchQuestion)

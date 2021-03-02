@@ -80,7 +80,7 @@ import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, ref } 
 import { QuestionEntity } from '@modules/questions'
 import { useSubject } from '@app/hooks/questions/subjects'
 import { useTimeDifference } from '@app/hooks/core/dates'
-import { openAnswerModal, useAnswerList } from '@app/hooks/questions/answers'
+import { openAnswerModal } from '@app/hooks/questions/answers'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useRedirectToAuth } from '@app/hooks/auth/session'
 import DisplayAttachments from '@app/components/questions/DisplayAttachments.vue'
@@ -98,13 +98,12 @@ export default defineComponent({
 	},
 	setup (props) {
 		const showComments = ref(false)
-		const { isLoggedIn, id, isTutor } = useAuth()
+		const { isLoggedIn, id, isTutor, user } = useAuth()
 		const { redirect } = useRedirectToAuth()
 		const { subject } = useSubject(props.question.subjectId)
 		const { time, startTimer, stopTimer } = useTimeDifference(props.question.createdAt)
-		const { answers } = useAnswerList(props.question.id)
 		const showAnswerButton = computed({
-			get: () => isTutor.value && props.question.userId !== id.value && !props.question.isAnswered && !answers.value.find((a) => a.userId === id.value),
+			get: () => isTutor.value && props.question.userId !== id.value && !props.question.isAnswered && !user.value?.meta.answeredQuestions[props.question.id],
 			set: () => {}
 		})
 		onMounted(startTimer)

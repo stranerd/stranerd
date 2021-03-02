@@ -15,7 +15,10 @@ export const answerCreated = functions.firestore.document('answers/{answerId}')
 
 		if (coins && userId) {
 			await admin.database().ref('profiles').child(userId)
-				.child(`meta/answers/${snap.id}`).set(true)
+				.update({
+					[`meta/answers/${snap.id}`]: true,
+					[`meta/answeredQuestions/${questionId}`]: admin.database.ServerValue.increment(1),
+				})
 			await addUserCoins(userId, { bronze: coins, gold: 0 },
 				'You got coins for answering a question'
 			)
@@ -51,7 +54,10 @@ export const answerDeleted = functions.firestore.document('answers/{answerId}')
 			}, { merge: true })
 
 		await admin.database().ref('profiles').child(userId)
-			.child(`meta/answers/${snap.id}`).set(null)
+			.update({
+				[`meta/answers/${snap.id}`]: null,
+				[`meta/answeredQuestions/${questionId}`]: admin.database.ServerValue.increment(-1),
+			})
 	})
 
 export const answerLiked = functions.database.ref('answers/{answerId}/likes')

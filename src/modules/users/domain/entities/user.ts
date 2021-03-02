@@ -45,6 +45,7 @@ export class UserEntity extends BaseEntity {
 			answers: meta?.answers ?? {},
 			bestAnswers: meta?.bestAnswers ?? {},
 			questions: meta?.questions ?? {},
+			answeredQuestions: meta?.answeredQuestions ?? {},
 			questionComments: meta?.questionComments ?? {},
 			answerComments: meta?.answerComments ?? {},
 			sessions: meta?.sessions ?? {},
@@ -123,6 +124,7 @@ export interface UserRankings extends Record<RankingPeriods, number> {}
 export interface UserMeta {
 	answers?: Record<string, boolean>
 	bestAnswers?: Record<string, boolean>
+	answeredQuestions?: Record<string, number>
 	questions?: Record<string, boolean>
 	questionComments?: Record<string, boolean>
 	answerComments?: Record<string, boolean>

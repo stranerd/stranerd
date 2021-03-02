@@ -45,7 +45,7 @@
 				</span>
 			</div>
 		</div>
-		<DisplayAttachments v-if="answer.attachments.length" id="attachments" :attachments="answer.attachments" />
+		<DisplayAttachments v-if="answer.attachments.length" id="attachments" :attachments="answer.attachments" class="my-1" />
 		<div v-if="showComments">
 			<div class="d-flex align-items-end my-1">
 				<h5 class="mb-0 mr-1">

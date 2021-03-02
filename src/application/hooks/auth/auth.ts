@@ -9,7 +9,7 @@ const global = {
 }
 
 export const useAuth = () => {
-	const id = computed({ get: () => global.auth.value?.id, set: () => {} })
+	const id = computed({ get: () => global.auth.value?.id ?? '', set: () => {} })
 	const bio = computed({ get: () => global.user.value?.userBio, set: () => {} })
 
 	const isLoggedIn = computed({ get: () => !!id.value, set: () => {} })

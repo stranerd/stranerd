@@ -1,10 +1,10 @@
 <template>
 	<div>
-		<h1>Questions</h1>
-		<hr class="thick">
+		<h2>Questions</h2>
+		<div class="thick" />
 		<div v-for="question in questions" :key="question.hash">
 			<QuestionCard :question="question" />
-			<hr class="thick">
+			<div class="thick" />
 		</div>
 		<div v-if="hasMore" class="text-center py-1 text-18">
 			<a class="font-weight-bold" @click.prevent="fetchOlderQuestions">LOAD MORE</a>

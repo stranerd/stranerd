@@ -10,6 +10,9 @@ export default defineComponent({
 	name: 'AccountAnswersPage',
 	components: { UserAnswersList },
 	layout: 'account',
+	middleware: [({ redirect }) => {
+		if (!useAuth().isTutor.value) redirect('/account/')
+	}],
 	setup () {
 		const { id } = useAuth()
 		return { id }

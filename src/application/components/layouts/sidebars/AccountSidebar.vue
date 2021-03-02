@@ -9,6 +9,14 @@
 				<img src="@/assets/images/icons/dashboard.svg" alt="">
 				<span>Dashboard</span>
 			</NuxtLink>
+			<NuxtLink class="sidebar-link" to="/account/questions">
+				<img src="@/assets/images/icons/questions.svg" alt="">
+				<span>Questions</span>
+			</NuxtLink>
+			<NuxtLink v-if="isTutor" class="sidebar-link" to="/account/answers">
+				<img src="@/assets/images/icons/answers.svg" alt="">
+				<span>Answers</span>
+			</NuxtLink>
 			<NuxtLink class="sidebar-link" to="/account/e-wallet">
 				<img src="@/assets/images/icons/e-wallet.svg" alt="">
 				<span>E-Wallet</span>
@@ -25,8 +33,8 @@ export default defineComponent({
 	name: 'AccountSidebar',
 	components: { AccountHeadCard },
 	setup () {
-		const { isLoggedIn, user } = useAuth()
-		return { isLoggedIn, user }
+		const { isLoggedIn, user, isTutor } = useAuth()
+		return { isLoggedIn, user, isTutor }
 	}
 })
 </script>

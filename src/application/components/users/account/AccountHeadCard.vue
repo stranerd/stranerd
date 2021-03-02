@@ -2,7 +2,7 @@
 	<div class="d-flex flex-column align-items-center my-1">
 		<Avatar :src="user.avatar" :size="90" />
 		<span class="text-18 font-weight-bold">{{ user.firstName }}</span>
-		<button class="btn btn-outline-light-blue rounded-pill mt-1" @click="openEditProfileModal">
+		<button class="btn btn-outline-light-blue rounded-pill mt-1 px-3" @click="openEditProfileModal">
 			Edit Profile
 		</button>
 	</div>

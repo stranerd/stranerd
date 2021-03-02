@@ -2,7 +2,7 @@
 	<div :id="answer.id">
 		<NuxtLink class="text-18 editor-body mb-1" :to="`/questions/${answer.questionId}#${answer.id}`" v-html="answer.body" />
 		<div class="d-flex">
-			<span class="text-wrap">
+			<span class="text-wrap mr-1">
 				{{ subject ? subject.name : 'Subject' }}
 				|
 				{{ time }}
@@ -14,6 +14,10 @@
 			<span v-if="answer.attachments.length" class="ml-1">
 				<span>{{ answer.attachments.length }}</span>
 				<i class="fas fa-paperclip" />
+			</span>
+			<span v-if="answer.best" class="ml-1 text-green">
+				<span>Best</span>
+				<i class="fas fa-check" />
 			</span>
 		</div>
 	</div>

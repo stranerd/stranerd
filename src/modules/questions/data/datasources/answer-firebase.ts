@@ -28,10 +28,6 @@ export class AnswerFirebaseDataSource implements AnswerBaseDataSource {
 		return await FirestoreService.update('answers', id, data)
 	}
 
-	async like (id: string, userId: string) {
-		return await DatabaseService.update(`answers/${id}/likes`, { [userId]: true })
-	}
-
 	async rate (id: string, userId: string, rating: number) {
 		return await DatabaseService.update(`answers/${id}/ratings`, { [userId]: rating })
 	}

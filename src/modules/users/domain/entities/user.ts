@@ -44,6 +44,7 @@ export class UserEntity extends BaseEntity {
 		this.meta = {
 			answers: meta?.answers ?? {},
 			bestAnswers: meta?.bestAnswers ?? {},
+			ratedAnswers: meta?.ratedAnswers ?? {},
 			questions: meta?.questions ?? {},
 			answeredQuestions: meta?.answeredQuestions ?? {},
 			questionComments: meta?.questionComments ?? {},
@@ -79,6 +80,7 @@ export class UserEntity extends BaseEntity {
 
 	get averageRating () { return this.tutor?.ratings.count === 0 ? 0 : (this.tutor?.ratings.total ?? 0) / (this.tutor?.ratings.count ?? 1) }
 	get ratingCount () { return this.tutor?.ratings.count ?? 0 }
+	get orderRating () { return Math.pow(this.tutor?.ratings.total ?? 0, this.averageRating) }
 	get subjects () {
 		return Object.entries(this.tutor?.subjects ?? {})
 			.map((c) => ({ ...c[1], id: c[0] }))
@@ -123,6 +125,7 @@ export interface UserRankings extends Record<RankingPeriods, number> {}
 export interface UserMeta {
 	answers?: Record<string, boolean>
 	bestAnswers?: Record<string, boolean>
+	ratedAnswers?: Record<string, number>
 	answeredQuestions?: Record<string, number>
 	questions?: Record<string, boolean>
 	questionComments?: Record<string, boolean>

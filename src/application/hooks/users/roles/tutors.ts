@@ -42,6 +42,11 @@ export const useTutorsList = () => {
 			let matched = true
 			if (global.subjectId.value && !tutor.subjects.find((s) => s.id === global.subjectId.value)) matched = false
 			return matched
+		}).sort((first, second) => {
+			if (first.orderRating > second.orderRating) return -1
+			else if (first.orderRating < second.orderRating) return 1
+			else if (first.ratingCount < second.ratingCount) return -1
+			else return 1
 		}),
 		set: () => {}
 	})

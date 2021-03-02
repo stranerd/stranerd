@@ -2,6 +2,7 @@ import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { deleteFromStorage } from '../../helpers/storage'
 import { addUserCoins, addUserXp, XpGainList } from '../../helpers/modules/payments/transactions'
+import { addTutorRatings } from '../../helpers/modules/users/tutors'
 
 export const answerCreated = functions.firestore.document('answers/{answerId}')
 	.onCreate(async (snap) => {
@@ -60,31 +61,26 @@ export const answerDeleted = functions.firestore.document('answers/{answerId}')
 			})
 	})
 
-export const answerLiked = functions.database.ref('answers/{answerId}/likes')
-	.onWrite(async (snap, context) => {
-		const { answerId } = context.params
+export const answerRated = functions.database.ref('answers/{answerId}/ratings/{userId}')
+	.onCreate(async (snap, context) => {
+		const { answerId, userId } = context.params
+		const ratings = snap.val() ?? 0
+		let tutorId = ''
 
-		const likesCount = Object.values(snap.after.val() ?? {})
-			.filter((liked) => liked)
-			.length
+		await admin.database().ref('profiles').child(userId)
+			.child(`meta/ratedAnswers/${answerId}`).set(ratings)
 
-		await admin.firestore().collection('answers')
-			.doc(answerId)
-			.set({
-				likes: likesCount
+		await admin.firestore().runTransaction(async (t) => {
+			const answerRef = admin.firestore().collection('answers').doc(answerId)
+			const answer = await t.get(answerRef)
+			tutorId = answer.data()?.userId ?? ''
+			t.set(answerRef, {
+				ratings: {
+					total: admin.firestore.FieldValue.increment(ratings),
+					count: admin.firestore.FieldValue.increment(1)
+				}
 			}, { merge: true })
-	})
+		})
 
-export const answerRated = functions.database.ref('answers/{answerId}/ratings')
-	.onWrite(async (snap, context) => {
-		const { answerId } = context.params
-
-		const ratings = Object.values(snap.after.val() ?? {}) as number[]
-		const averageRating = ratings.length === 0 ? 0 : ratings.reduce((acc, curr) => acc + curr, 0) / ratings.length
-
-		await admin.firestore().collection('answers')
-			.doc(answerId)
-			.set({
-				ratings: averageRating
-			}, { merge: true })
+		if (tutorId) await addTutorRatings(tutorId, ratings)
 	})

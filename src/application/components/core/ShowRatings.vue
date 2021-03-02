@@ -1,10 +1,10 @@
 <template>
 	<div class="d-inline-flex">
-		<i class="fas fa-star" :class="rating > 0 ? 'text-gold' : 'text-grey'" />
-		<i class="fas fa-star" :class="rating > 1 ? 'text-gold' : 'text-grey'" />
-		<i class="fas fa-star" :class="rating > 2 ? 'text-gold' : 'text-grey'" />
-		<i class="fas fa-star" :class="rating > 3 ? 'text-gold' : 'text-grey'" />
-		<i class="fa fa-star" :class="rating > 4 ? 'text-gold' : 'text-grey'" />
+		<i class="fas" :class="{'fa-star text-gold': rating >= 0.5, 'fa-star-half-alt text-gold': rating > 0 && rating < 0.5, 'fa-star text-grey': rating <= 0 }" />
+		<i class="fas" :class="{'fa-star text-gold': rating >= 1.5, 'fa-star-half-alt text-gold': rating > 1 && rating < 1.5, 'fa-star text-grey': rating <= 1 }" />
+		<i class="fas" :class="{'fa-star text-gold': rating >= 2.5, 'fa-star-half-alt text-gold': rating > 2 && rating < 2.5, 'fa-star text-grey': rating <= 2 }" />
+		<i class="fas" :class="{'fa-star text-gold': rating >= 3.5, 'fa-star-half-alt text-gold': rating > 3 && rating < 3.5, 'fa-star text-grey': rating <= 3 }" />
+		<i class="fas" :class="{'fa-star text-gold': rating >= 4.5, 'fa-star-half-alt text-gold': rating > 4 && rating < 4.5, 'fa-star text-grey': rating <= 4 }" />
 	</div>
 </template>
 

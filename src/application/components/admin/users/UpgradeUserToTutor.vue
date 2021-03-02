@@ -5,7 +5,7 @@
 		</h4>
 		<form @submit.prevent="getUsersByEmail">
 			<div class="d-flex align-items-center">
-				<input v-model="email" type="email" class="form-control flex-grow-1" placeholder="Enter user's email address">
+				<input v-model="email" type="email" autocomplete="email" class="form-control flex-grow-1" placeholder="Enter user's email address">
 				<a @click.prevent="reset">
 					<i class="fas fa-trash mx-2 text-danger" />
 				</a>

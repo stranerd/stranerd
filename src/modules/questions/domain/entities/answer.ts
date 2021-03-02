@@ -12,15 +12,14 @@ export class AnswerEntity extends BaseEntity {
 	public readonly subjectId: string
 	public readonly userId: string
 	public readonly user: UserBio
-	public readonly likes: number
-	public readonly ratings: number
+	public readonly ratings: { total: number, count: number }
 	public readonly commentsCount: number
 	public readonly createdAt: number
 
 	constructor ({
 		id, body, coins, questionId, attachments,
 		subjectId, createdAt, userId, user,
-		best, likes, ratings, comments
+		best, ratings, comments
 	}: AnswerConstructorArgs) {
 		super()
 		this.id = id
@@ -32,13 +31,13 @@ export class AnswerEntity extends BaseEntity {
 		this.userId = userId
 		this.user = generateDefaultBio(user)
 		this.best = best ?? false
-		this.likes = likes ?? 0
-		this.ratings = ratings ?? 0
+		this.ratings = ratings ?? { total: 0, count: 0 }
 		this.commentsCount = comments?.count ?? 0
 		this.createdAt = createdAt
 	}
 
-	get formattedRating () { return Number(this.ratings).toFixed(1) }
+	get averageRating () { return this.ratings.count === 0 ? 0 : (this.ratings.total ?? 0) / (this.ratings.count ?? 1) }
+	get formattedRating () { return Number(this.averageRating).toFixed(1) }
 	get userName () { return this.user.name.fullName }
 	get avatar () { return Avatars[this.user.avatar!]?.link ?? Avatars.default.link }
 }
@@ -54,7 +53,9 @@ type AnswerConstructorArgs = {
 	userId: string
 	user: UserBio
 	best?: boolean
-	likes?: number
-	ratings?: number
+	ratings?: {
+		total: number
+		count: number
+	}
 	comments?: { count: number }
 }

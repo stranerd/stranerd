@@ -1,11 +1,12 @@
 import { Ref, reqSsrRef, useFetch, watch } from '@nuxtjs/composition-api'
 import {
-	AddAnswer, AnswerEntity, AnswerFactory, FindAnswer, GetAnswers, LikeAnswer, ListenToAnswer,
+	AddAnswer, AnswerEntity, AnswerFactory, FindAnswer, GetAnswers, ListenToAnswer,
 	ListenToAnswers, MarkAsBestAnswer, QuestionEntity, RateAnswer
 } from '@modules/questions'
 import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useCreateModal } from '@app/hooks/core/modals'
+import { Alert } from '@app/hooks/core/notifications'
 
 const global: { [questionId: string] : {
 	answers: Ref<AnswerEntity[]>,
@@ -95,40 +96,47 @@ export const useAnswer = (answer: AnswerEntity) => {
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
 
-	const likeAnswer = async () => {
-		const userId = useAuth().id.value!
-		setError('')
-		try {
-			setLoading(true)
-			await LikeAnswer.call(answer.id, userId)
-		} catch (error) { setError(error) }
-		setLoading(false)
-	}
 	const rateAnswer = async (rating: number) => {
 		if (rating > 5 || rating < 0) return
 		const userId = useAuth().id.value!
+		if (!userId) return
 		setError('')
-		try {
-			setLoading(true)
-			await RateAnswer.call(answer.id, userId, rating)
-		} catch (error) { setError(error) }
-		setLoading(false)
+		const accepted = await Alert({
+			title: `Are you sure you want to rate this answer: ${rating} stars?`,
+			text: 'This cannot be reversed',
+			icon: 'info',
+			confirmButtonText: 'Yes, continue'
+		})
+		if (accepted) {
+			try {
+				setLoading(true)
+				await RateAnswer.call(answer.id, userId, rating)
+			} catch (error) { setError(error) }
+			setLoading(false)
+		}
 	}
 
 	const markBestAnswer = async (question: QuestionEntity | null) => {
 		if (!question || question.isAnswered) return
 		if (question.userId !== id.value) return
 		setError('')
-		try {
-			setLoading(true)
-			await MarkAsBestAnswer.call(question.id, answer.id)
-		} catch (error) { setError(error) }
-		setLoading(false)
+		const accepted = await Alert({
+			title: 'Are you sure you want to mark this answer as the best',
+			text: 'This cannot be reversed',
+			icon: 'info',
+			confirmButtonText: 'Yes, continue'
+		})
+		if (accepted) {
+			try {
+				setLoading(true)
+				await MarkAsBestAnswer.call(question.id, answer.id)
+			} catch (error) { setError(error) }
+			setLoading(false)
+		}
 	}
 
 	return {
-		loading, error,
-		likeAnswer, rateAnswer, markBestAnswer
+		loading, error, rateAnswer, markBestAnswer
 	}
 }
 

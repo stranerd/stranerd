@@ -8,7 +8,6 @@ export abstract class AnswerBaseDataSource {
     abstract listenToMany: (callback: (documents: AnswerFromModel[]) => void, condition?: FirestoreGetClauses) => Promise<() => void>
     abstract find: (id: string) => Promise<AnswerFromModel | null>
     abstract update: (id: string, data: Partial<AnswerToModel>) => Promise<void>
-    abstract like: (id: string, userId: string) => Promise<void>
     abstract rate: (id: string, userId: string, rating: number) => Promise<void>
     abstract markAsBest: (data: { questionId: string, answerId: string }) => Promise<void>
 }

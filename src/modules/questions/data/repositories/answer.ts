@@ -48,10 +48,6 @@ export class AnswerRepository implements IAnswerRepository {
 		return await this.dataSource.update(id, data)
 	}
 
-	async like (id: string, userId: string) {
-		return await this.dataSource.like(id, userId)
-	}
-
 	async rate (id: string, userId: string, rating: number) {
 		return await this.dataSource.rate(id, userId, rating)
 	}

@@ -26,7 +26,6 @@ import { FindAnswerUseCase } from './domain/usecases/answers/findAnswer'
 import { GetAnswersUseCase } from './domain/usecases/answers/getAnswers'
 import { GetUserAnswersUseCase } from './domain/usecases/answers/getUserAnswers'
 import { AddAnswerUseCase } from './domain/usecases/answers/addAnswer'
-import { LikeAnswerUseCase } from './domain/usecases/answers/likeAnswer'
 import { RateAnswerUseCase } from './domain/usecases/answers/rateAnswer'
 import { ListenToAnswersUseCase } from './domain/usecases/answers/listenToAnswers'
 import { ListenToAnswerUseCase } from './domain/usecases/answers/listenToAnswer'
@@ -78,7 +77,6 @@ export const ListenToAnswers = new ListenToAnswersUseCase(answerRepository)
 export const ListenToAnswer = new ListenToAnswerUseCase(answerRepository)
 export const AddAnswer = new AddAnswerUseCase(answerRepository)
 export const FindAnswer = new FindAnswerUseCase(answerRepository)
-export const LikeAnswer = new LikeAnswerUseCase(answerRepository)
 export const RateAnswer = new RateAnswerUseCase(answerRepository)
 export const MarkAsBestAnswer = new MarkAsBestAnswerUseCase(answerRepository)
 

@@ -12,7 +12,7 @@
 					{{ time }}
 				</span>
 			</div>
-			<ShowRatings class="ml-auto my-auto" :rating="answer.ratings" />
+			<ShowRatings class="ml-auto my-auto" :rating="answer.averageRating" />
 		</div>
 		<div class="answer-content">
 			<div class="my-1 lead editor-body" v-html="answer.body" />
@@ -27,11 +27,7 @@
 					</span>
 					<i class="fas mx-half" :class="showComments ? 'fa-angle-up' : 'fa-angle-down'" />
 				</a>
-				<span class="mr-2 d-none">
-					<a v-if="isLoggedIn && answer.userId !== id" class="fas fa-heart" @click="likeAnswer" />
-					<span class="text-red">LIKES: {{ answer.likes }}</span>
-				</span>
-				<span class="mr-1">
+				<span v-if="showRatingButton" class="mr-1">
 					<SelectRating v-if="isLoggedIn && answer.userId !== id" :rating="0" :set-rating="rateAnswer" />
 				</span>
 				<a v-if="isLoggedIn && question && !question.isAnswered && question.userId === id" class="mr-1 text-grey" @click.prevent="markBestAnswer">
@@ -39,7 +35,7 @@
 					<i class="fas fa-check" />
 				</a>
 				<span v-if="question && question.isAnswered && answer.best" class="mr-1 text-accent">
-					<span>best</span>
+					<span>Best</span>
 					<i class="fas fa-check text-green" />
 				</span>
 			</div>
@@ -63,7 +59,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeUnmount, onMounted, PropType, ref } from '@nuxtjs/composition-api'
+import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, ref } from '@nuxtjs/composition-api'
 import { AnswerEntity, QuestionEntity } from '@modules/questions'
 import { useTimeDifference } from '@app/hooks/core/dates'
 import { useAnswer } from '@app/hooks/questions/answers'
@@ -94,14 +90,18 @@ export default defineComponent({
 	},
 	setup (props) {
 		const showComments = ref(false)
-		const { id, isLoggedIn } = useAuth()
+		const { id, isLoggedIn, user } = useAuth()
+		const showRatingButton = computed({
+			get: () => isLoggedIn.value && user.value?.meta.ratedAnswers[props.answer.id] === undefined,
+			set: () => {}
+		})
 		const { time, startTimer, stopTimer } = useTimeDifference(props.answer.createdAt)
-		const { error, loading, rateAnswer, likeAnswer, markBestAnswer } = useAnswer(props.answer)
+		const { error, loading, rateAnswer, markBestAnswer } = useAnswer(props.answer)
 		onMounted(startTimer)
 		onBeforeUnmount(stopTimer)
 		return {
-			id, isLoggedIn, time, showComments,
-			error, loading, rateAnswer, likeAnswer,
+			id, isLoggedIn, user, time, showComments,
+			error, loading, rateAnswer, showRatingButton,
 			markBestAnswer: () => markBestAnswer(props.question)
 		}
 	}

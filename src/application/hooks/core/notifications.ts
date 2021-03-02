@@ -34,8 +34,8 @@ export const Alert = async (args: AlertArgs) => {
 		text: args.text,
 		icon: args.icon ?? 'info',
 		showCancelButton: true,
-		cancelButtonColor: '#3085d6',
-		confirmButtonColor: '#d33',
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
 		confirmButtonText: args.confirmButtonText,
 		cancelButtonText: args.cancelButtonText ?? 'Cancel'
 	})

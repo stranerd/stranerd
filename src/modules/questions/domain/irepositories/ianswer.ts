@@ -9,7 +9,6 @@ export interface IAnswerRepository {
 	listenToMany: (callback: (entities: AnswerEntity[]) => void, conditions?: FirestoreGetClauses) => Promise<() => void>
 	find: (id: string) => Promise<AnswerEntity | null>
 	update: (id: string, data: Partial<AnswerToModel>) => Promise<void>
-	like: (id: string, userId: string) => Promise<void>
 	rate: (id: string, userId: string, rating: number) => Promise<void>
 	markAsBestAnswer: (questionId: string, answerId: string) => Promise<void>
 }

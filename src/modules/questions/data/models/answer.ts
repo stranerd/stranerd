@@ -11,8 +11,7 @@ export interface AnswerFromModel {
 	subjectId: string
 	userId: string
 	user: UserBio
-	likes: number
-	ratings: number
+	ratings: { total: number, count: number }
 	comments?: {
 		count: number
 	}

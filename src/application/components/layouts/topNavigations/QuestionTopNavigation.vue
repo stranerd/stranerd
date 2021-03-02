@@ -1,5 +1,5 @@
 <template>
-	<nav class="question-top-nav">
+	<nav class="full-top-nav">
 		<button class="navbar-toggler" type="button" @click="setMenuModalSidebar">
 			<span class="fas fa-bars" />
 		</button>

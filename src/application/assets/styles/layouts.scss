@@ -76,7 +76,7 @@ body{
 		margin-left: 0.75rem;
 	}
 }
-.sidebar-link-active {
+.sidebar-link.nuxt-link-active {
 	font-weight: 600;
 	background: $color-light-blue;
 	color: $color-blue;
@@ -110,7 +110,7 @@ body{
 		}
 	}
 }
-.question-top-nav {
+.full-top-nav {
 	@extend .top-nav;
 	@media (min-width: $lg) {
 		background: $color-blue;

@@ -28,8 +28,3 @@ export default defineComponent({
 	name: 'AdminSidebar'
 })
 </script>
-
-<style lang="scss" scoped>
-@import '~@app/assets/styles/layouts.scss';
-.nuxt-link-exact-active { @extend .sidebar-link-active; }
-</style>

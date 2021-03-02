@@ -16,11 +16,8 @@ export const questionCommentCreated = functions.database.ref('comments/questions
 
 		const { userId } = snap.val()
 
-		await admin.database().ref()
-			.update({
-				[`profiles/${userId}/meta/questionCommentCount`]: admin.database.ServerValue.increment(1),
-				[`users/${userId}/question-comments/${questionId}${PATH_SEPARATOR}${commentId}`]: true
-			})
+		await admin.database().ref('profiles').child(userId)
+			.child(`meta/questionComments/${questionId}${PATH_SEPARATOR}${commentId}`).set(true)
 	})
 
 export const answerCommentCreated = functions.database.ref('comments/answers/{answerId}/{commentId}')
@@ -37,11 +34,8 @@ export const answerCommentCreated = functions.database.ref('comments/answers/{an
 
 		const { userId } = snap.val()
 
-		await admin.database().ref()
-			.update({
-				[`profiles/${userId}/meta/answerCommentCount`]: admin.database.ServerValue.increment(1),
-				[`users/${userId}/answer-comments/${answerId}${PATH_SEPARATOR}${commentId}`]: true
-			})
+		await admin.database().ref('profiles').child(userId)
+			.child(`meta/answerComments/${answerId}${PATH_SEPARATOR}${commentId}`).set(true)
 	})
 
 export const questionCommentDeleted = functions.database.ref('comments/questions/{questionId}/{commentId}')
@@ -58,11 +52,8 @@ export const questionCommentDeleted = functions.database.ref('comments/questions
 
 		const { userId } = snap.val()
 
-		await admin.database().ref()
-			.update({
-				[`profiles/${userId}/meta/questionCommentCount`]: admin.database.ServerValue.increment(-1),
-				[`users/${userId}/question-comments/${questionId}${PATH_SEPARATOR}${commentId}`]: null
-			})
+		await admin.database().ref('profiles').child(userId)
+			.child(`meta/questionComments/${questionId}${PATH_SEPARATOR}${commentId}`).set(null)
 	})
 
 export const answerCommentDeleted = functions.database.ref('comments/answers/{answerId}/{commentId}')
@@ -79,9 +70,6 @@ export const answerCommentDeleted = functions.database.ref('comments/answers/{an
 
 		const { userId } = snap.val()
 
-		await admin.database().ref()
-			.update({
-				[`profiles/${userId}/meta/answerCommentCount`]: admin.database.ServerValue.increment(-1),
-				[`users/${userId}/answer-comments/${answerId}${PATH_SEPARATOR}${commentId}`]: null
-			})
+		await admin.database().ref('profiles').child(userId)
+			.child(`meta/answerComments/${answerId}${PATH_SEPARATOR}${commentId}`).set(null)
 	})

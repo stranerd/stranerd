@@ -28,12 +28,10 @@ export const requestNewSession = functions.https.onCall(async (session, context)
 		const doc = await admin.firestore().collection('sessions').add(session)
 		const sessionId = doc.id
 
-		await admin.database().ref()
+		await admin.database().ref('profiles')
 			.update({
-				[`profiles/${tutorId}/tutor/currentSession`]: sessionId,
-				[`profiles/${studentId}/meta/currentSession`]: sessionId,
-				[`users/${tutorId}/tutorSessions/${sessionId}`]: true,
-				[`users/${studentId}/sessions/${sessionId}`]: true
+				[`${tutorId}/tutor/currentSession`]: sessionId,
+				[`${studentId}/meta/currentSession`]: sessionId
 			})
 
 		return sessionId

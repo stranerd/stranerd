@@ -20,10 +20,7 @@ export const markAsBestAnswer = functions.https.onCall(async (data, context) => 
 		await addUserCoins(userId, { bronze: coins * 0.75, gold: 0 },
 			'You got coins for a best answer'
 		)
-		await admin.database().ref()
-			.update({
-				[`profiles/${userId}/meta/bestAnswerCount`]: admin.database.ServerValue.increment(1),
-				[`users/${userId}/bestAnswers/${answerId}`]: true
-			})
+		await admin.database().ref('profiles').child(userId)
+			.child(`meta/bestAnswers/${answerId}`).set(true)
 	}
 })

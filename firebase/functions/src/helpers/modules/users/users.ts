@@ -14,9 +14,9 @@ const chunkArray = <T>(arr: T[], size: number) => new Array(Math.ceil(arr.length
 
 export const updateMyQuestionsBio = async (userId: string, user: any) => {
 	try {
-		const questionIdRefs = await admin.database().ref('users')
+		const questionIdRefs = await admin.database().ref('profiles')
 			.child(userId)
-			.child('questions')
+			.child('meta/questions')
 			.once('value')
 		const questionIds = Object.keys(questionIdRefs.val() ?? {})
 		const chunks = chunkArray(questionIds, 500)
@@ -35,9 +35,9 @@ export const updateMyQuestionsBio = async (userId: string, user: any) => {
 
 export const updateMyAnswersBio = async (userId: string, user: any) => {
 	try {
-		const answerIdRefs = await admin.database().ref('users')
+		const answerIdRefs = await admin.database().ref('profiles')
 			.child(userId)
-			.child('answers')
+			.child('meta/answers')
 			.once('value')
 		const answerIds = Object.keys(answerIdRefs.val() ?? {})
 		const chunks = chunkArray(answerIds, 500)
@@ -56,9 +56,9 @@ export const updateMyAnswersBio = async (userId: string, user: any) => {
 
 export const updateMyQuestionCommentsBio = async (userId: string, user: any) => {
 	try {
-		const commentIdRefs = await admin.database().ref('users')
+		const commentIdRefs = await admin.database().ref('profiles')
 			.child(userId)
-			.child('question-comments')
+			.child('meta/questionComments')
 			.once('value')
 		const commentIds = Object.keys(commentIdRefs.val() ?? {})
 		const data = Object.fromEntries(
@@ -70,9 +70,9 @@ export const updateMyQuestionCommentsBio = async (userId: string, user: any) => 
 
 export const updateMyAnswerCommentsBio = async (userId: string, user: any) => {
 	try {
-		const commentIdRefs = await admin.database().ref('users')
+		const commentIdRefs = await admin.database().ref('profiles')
 			.child(userId)
-			.child('answer-comments')
+			.child('meta/answerComments')
 			.once('value')
 		const commentIds = Object.keys(commentIdRefs.val() ?? {})
 		const data = Object.fromEntries(
@@ -102,9 +102,9 @@ export const updateBraintreeBio = async (userId: string, oldBio: any, bio: any) 
 
 export const updateMySessionsBio = async (userId: string, user: any) => {
 	try {
-		const sessionIdRefs = await admin.database().ref('users')
+		const sessionIdRefs = await admin.database().ref('profiles')
 			.child(userId)
-			.child('sessions')
+			.child('meta/sessions')
 			.once('value')
 		const sessionIds = Object.keys(sessionIdRefs.val() ?? {})
 		const chunks = chunkArray(sessionIds, 500)
@@ -123,9 +123,9 @@ export const updateMySessionsBio = async (userId: string, user: any) => {
 
 export const updateMyTutorSessionsBio = async (userId: string, user: any) => {
 	try {
-		const sessionIdRefs = await admin.database().ref('users')
+		const sessionIdRefs = await admin.database().ref('profiles')
 			.child(userId)
-			.child('tutorSessions')
+			.child('meta/tutorSessions')
 			.once('value')
 		const sessionIds = Object.keys(sessionIdRefs.val() ?? {})
 		const chunks = chunkArray(sessionIds, 500)

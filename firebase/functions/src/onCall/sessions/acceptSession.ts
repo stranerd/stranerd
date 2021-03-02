@@ -36,8 +36,8 @@ export const acceptSession = functions.https.onCall(async ({ id }, context) => {
 
 		await admin.database().ref('profiles')
 			.update({
-				[`${studentId}/meta/sessionCount`]: admin.database.ServerValue.increment(1),
-				[`${tutorId}/tutor/sessionCount`]: admin.database.ServerValue.increment(1)
+				[`${studentId}/meta/sessions/${id}`]: true,
+				[`${tutorId}/meta/tutorSessions/${id}`]: true
 			})
 
 		await addUserXp(studentId, XpGainList.BOOK_NERD)

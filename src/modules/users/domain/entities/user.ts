@@ -42,12 +42,13 @@ export class UserEntity extends BaseEntity {
 			Object.keys(RankingPeriods).map((key) => [key, rankings?.[key as RankingPeriods] ?? 0])
 		) as Required<UserRankings>
 		this.meta = {
-			answerCount: meta?.answerCount ?? 0,
-			bestAnswerCount: meta?.bestAnswerCount ?? 0,
-			questionCount: meta?.questionCount ?? 0,
-			questionCommentCount: meta?.questionCommentCount ?? 0,
-			answerCommentCount: meta?.answerCommentCount ?? 0,
-			sessionCount: meta?.sessionCount ?? 0,
+			answers: meta?.answers ?? {},
+			bestAnswers: meta?.bestAnswers ?? {},
+			questions: meta?.questions ?? {},
+			questionComments: meta?.questionComments ?? {},
+			answerComments: meta?.answerComments ?? {},
+			sessions: meta?.sessions ?? {},
+			tutorSessions: meta?.tutorSessions ?? {},
 			currentSession: meta?.currentSession ?? null
 		}
 		this.chats = Object.entries(chats ?? {})
@@ -120,12 +121,13 @@ export interface UserAccount {
 }
 export interface UserRankings extends Record<RankingPeriods, number> {}
 export interface UserMeta {
-	answerCount?: number
-	bestAnswerCount?: number
-	questionCount?: number
-	questionCommentCount?: number
-	answerCommentCount?: number
-	sessionCount?: number
+	answers?: Record<string, boolean>
+	bestAnswers?: Record<string, boolean>
+	questions?: Record<string, boolean>
+	questionComments?: Record<string, boolean>
+	answerComments?: Record<string, boolean>
+	sessions?: Record<string, boolean>
+	tutorSessions?: Record<string, boolean>
 	currentSession?: string | null
 }
 export interface UserChats extends Record<string, UserBio> {}

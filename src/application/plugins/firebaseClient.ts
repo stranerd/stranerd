@@ -2,6 +2,7 @@ import { defineNuxtPlugin, onGlobalSetup, watch } from '@nuxtjs/composition-api'
 import firebase from '@modules/core/services/initFirebase'
 import { useAuth, getId, getStudentCurrentSession, getTutorCurrentSession } from '@app/hooks/auth/auth'
 import { setSession } from '@app/hooks/sessions/session'
+import { isDev } from '@utils/environment'
 
 export default defineNuxtPlugin(async ({ app }) => {
 	const router = app.router!
@@ -18,7 +19,7 @@ export default defineNuxtPlugin(async ({ app }) => {
 		await startProfileListener()
 	}
 
-	await firebase.firestore()
+	if (!isDev) await firebase.firestore()
 		.enablePersistence({ synchronizeTabs: true })
 		.catch(() => {})
 

@@ -5,14 +5,7 @@
 				Recent Questions
 			</h3>
 			<form class="d-flex ml-auto">
-				<select v-model="subjectId" class="form-control form-control-sm my-1">
-					<option value="">
-						All Subjects
-					</option>
-					<option v-for="subject in subjects" :key="subject.hash" :value="subject.id">
-						{{ subject.name }}
-					</option>
-				</select>
+				<SelectSubject :subject-id.sync="subjectId" class="form-control-sm my-1" />
 			</form>
 		</div>
 		<div class="thick" />
@@ -30,10 +23,10 @@
 import { computed, defineComponent, onMounted, onBeforeUnmount } from '@nuxtjs/composition-api'
 import QuestionCard from '@app/components/questions/questions/RecentQuestionsListCard.vue'
 import { useQuestionList } from '@app/hooks/questions/questions'
-import { useSubjectList } from '@app/hooks/questions/subjects'
+import SelectSubject from '@app/components/questions/subjects/SelectSubject.vue'
 export default defineComponent({
 	name: 'RecentQuestionsList',
-	components: { QuestionCard },
+	components: { QuestionCard, SelectSubject },
 	props: {
 		questionId: {
 			required: true,
@@ -41,7 +34,6 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
-		const { subjects } = useSubjectList()
 		const { filteredQuestions, error, loading, listener, subjectId } = useQuestionList()
 		onMounted(listener.startListener)
 		onBeforeUnmount(listener.closeListener)
@@ -51,7 +43,7 @@ export default defineComponent({
 				.slice(0, 5),
 			set: () => {}
 		})
-		return { questions: recentQuestions, error, loading, subjects, subjectId }
+		return { questions: recentQuestions, error, loading, subjectId }
 	}
 })
 </script>

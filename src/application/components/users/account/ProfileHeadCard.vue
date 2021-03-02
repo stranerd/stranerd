@@ -14,7 +14,7 @@
 				<Coins :gold="true" :size="24" class="ml-n2" style="z-index:1;" />
 			</div>
 		</div>
-		<img :src="user.avatar" alt="" class="profile-image" style="width:75px;height:75px;">
+		<Avatar :src="user.avatar" :size="75" />
 		<span class="text-18 font-weight-bold">{{ user.fullName }}</span>
 		<NuxtLink to="/account/" class="btn btn-blue rounded-pill my-1">
 			<span>View Profile</span>

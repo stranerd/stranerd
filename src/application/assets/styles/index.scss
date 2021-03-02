@@ -12,13 +12,11 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 
 .label {
 	font-size: 1em;
-	color: lighten($color-black, 25%);
 	line-height: 1.5;
 	font-weight: 600;
 }
 .label-sm {
 	font-size: .875rem;
-	color: lighten($color-black, 10%);
 	line-height: 1.5;
 	font-weight: 500;
 }
@@ -89,36 +87,6 @@ hr.thin {
 
 .text-18 {
 	font-size: 18px;
-}
-
-.profile-image {
-	border-radius: 10rem;
-	border: 1.5px solid transparent;
-	width: 2.5rem;
-	height: 2.5rem;
-	@media (min-width: $md) {
-		width: 3.0rem;
-		height: 3.0rem;
-	}
-	@media (min-width: $lg) {
-		width: 3.5rem;
-		height: 3.5rem;
-	}
-}
-
-.profile-image-sm {
-	border-radius: 10rem;
-	border: 1.5px solid rgba($color-black,0.25);
-	width: 2rem;
-	height: 2rem;
-	@media (min-width: $md) {
-		width: 2.5rem;
-		height: 2.5rem;
-	}
-	@media (min-width: $lg) {
-		width: 3.0rem;
-		height: 3.0rem;
-	}
 }
 
 .firebase-emulator-warning {

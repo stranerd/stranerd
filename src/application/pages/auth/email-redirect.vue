@@ -1,9 +1,9 @@
 <template>
 	<form @submit.prevent="signin">
 		<div class="mb-5 text-center">
-			<h2>
+			<h1>
 				Confirm Email Address
-			</h2>
+			</h1>
 			<h4>
 				to continue with authentication
 			</h4>
@@ -58,11 +58,3 @@ export default defineComponent({
 	}
 })
 </script>
-
-<style lang="scss" scoped>
-h2{
-	font-size: 2.5rem;
-	color: $color-black;
-	line-height: 1.2;
-}
-</style>

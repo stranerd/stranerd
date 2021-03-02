@@ -1,8 +1,8 @@
 <template>
 	<form @submit.prevent="signup">
-		<h2 class="mb-7 text-center">
+		<h1 class="mb-7 text-center">
 			Sign Up With
-		</h2>
+		</h1>
 		<AuthProviders class="mb-4" />
 		<div class="form-group">
 			<label for="email" class="label">Email</label>
@@ -85,11 +85,3 @@ export default defineComponent({
 	}
 })
 </script>
-
-<style lang="scss" scoped>
-h2{
-	font-size: 2.5rem;
-	color: $color-black;
-	line-height: 1.2;
-}
-</style>

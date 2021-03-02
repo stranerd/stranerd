@@ -1,11 +1,11 @@
 <template>
 	<div :id="answer.id" class="answer">
-		<div class="my-1 d-flex align-items-start">
+		<div class="answer-head d-flex align-items-center bg-light-blue rounded">
 			<NuxtLink :to="`/users/${answer.userId}`">
-				<img :src="answer.avatar" alt="" class="profile-image">
+				<Avatar :src="answer.avatar" :size="50" />
 			</NuxtLink>
 			<div class="mx-1">
-				<NuxtLink :to="`/users/${answer.userId}`" class="d-block text-red font-weight-bold text-wrap">
+				<NuxtLink :to="`/users/${answer.userId}`" class="d-block font-weight-bold text-wrap">
 					<span>{{ answer.userName }}</span>
 				</NuxtLink>
 				<span class="small text-wrap">
@@ -118,6 +118,14 @@ export default defineComponent({
 	}
 	@media (min-width: $lg) {
 		border-radius: 1.5rem;
+	}
+	.answer-head {
+		display: flex;
+		align-items: center;
+		padding: 0.5rem;
+		@media (min-width: $md) {
+			padding: 0.5rem 1rem;
+		}
 	}
 }
 .icons {

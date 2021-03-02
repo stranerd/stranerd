@@ -1,8 +1,8 @@
 <template>
 	<form @submit.prevent="sendSigninEmail">
-		<h2 class="mb-7 text-center">
+		<h1 class="mb-7 text-center">
 			Sign In With
-		</h2>
+		</h1>
 		<AuthProviders class="mb-4" />
 		<hr class="w-75 mx-auto my-4">
 		<div class="text-center mb-2">
@@ -52,11 +52,3 @@ export default defineComponent({
 	}
 })
 </script>
-
-<style lang="scss" scoped>
-h2{
-	font-size: 2.5rem;
-	color: $color-black;
-	line-height: 1.2;
-}
-</style>

@@ -1,6 +1,6 @@
 <template>
 	<div class="d-flex flex-column align-items-center my-1">
-		<img :src="user.avatar" alt="" class="profile-image" style="width:90px;height:90px;">
+		<Avatar :src="user.avatar" :size="90" />
 		<span class="text-18 font-weight-bold">{{ user.firstName }}</span>
 		<button class="btn btn-outline-light-blue rounded-pill mt-1" @click="openEditProfileModal">
 			Edit Profile

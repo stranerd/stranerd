@@ -2,7 +2,7 @@
 	<div>
 		<div class="d-flex align-items-center mb-2">
 			<NuxtLink :to="`/users/${question.userId}`">
-				<img :src="question.avatar" alt="" class="profile-image" style="height: 50px; width: 50px;">
+				<Avatar :src="question.avatar" :size="50" />
 			</NuxtLink>
 			<div class="mx-1 mr-auto">
 				<NuxtLink :to="`/users/${question.userId}`" class="d-block font-weight-bold text-wrap">

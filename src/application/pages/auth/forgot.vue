@@ -1,8 +1,8 @@
 <template>
 	<form @submit.prevent="resetPassword">
-		<h2 class="mb-7 text-center">
+		<h1 class="mb-7 text-center">
 			Forgot Password
-		</h2>
+		</h1>
 		<div class="form-group">
 			<label for="email" class="label">Email</label>
 			<input
@@ -45,11 +45,3 @@ export default defineComponent({
 	}
 })
 </script>
-
-<style lang="scss" scoped>
-h2{
-	font-size: 2.0rem;
-	color: $color-black;
-	line-height: 1.2;
-}
-</style>

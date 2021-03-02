@@ -7,7 +7,7 @@
 						{{ isTutor ? 'Help a student in need today!' : 'Nerd help is what you need.' }}
 					</h2>
 					<p v-if="isTutor">
-						Earn coins for answering questions &  sessions.<br>
+						Earn coins for answering questions & attending sessions.<br>
 						Convert your coins to USD and cash in to your bank account.
 					</p>
 					<p v-else>

@@ -73,7 +73,7 @@ export const answerCommentDeleted = functions.database.ref('comments/answers/{an
 			.doc(answerId)
 			.set({
 				comments: {
-					count: admin.firestore.FieldValue.increment(1),
+					count: admin.firestore.FieldValue.increment(-1),
 				}
 			}, { merge: true })
 

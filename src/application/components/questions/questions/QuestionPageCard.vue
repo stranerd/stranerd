@@ -63,7 +63,7 @@
 		</template>
 		<div class="thick mx-n1 mx-md-n3 mx-lg-n4" />
 		<div v-if="showComments">
-			<div class="d-flex align-items-end mb-2">
+			<div class="d-flex align-items-end mb-1">
 				<h5 class="mb-0 mr-1">
 					Comments
 				</h5>

@@ -27,17 +27,16 @@
 					</span>
 					<i class="fas mx-half" :class="showComments ? 'fa-angle-up' : 'fa-angle-down'" />
 				</a>
-				<span class="mr-2">
+				<span class="mr-2 d-none">
 					<a v-if="isLoggedIn && answer.userId !== id" class="fas fa-heart" @click="likeAnswer" />
 					<span class="text-red">LIKES: {{ answer.likes }}</span>
 				</span>
 				<span class="mr-1">
 					<SelectRating v-if="isLoggedIn && answer.userId !== id" :rating="0" :set-rating="rateAnswer" />
-					<span class="text-gold">{{ answer.formattedRating }}</span>
 				</span>
 				<a v-if="isLoggedIn && question && !question.isAnswered && question.userId === id" class="mr-1 text-grey" @click.prevent="markBestAnswer">
-					<i class="fas fa-check" />
 					<span>Mark as Best Answer</span>
+					<i class="fas fa-check" />
 				</a>
 				<span v-if="question && question.isAnswered && answer.best" class="mr-1 text-accent">
 					<span>best</span>

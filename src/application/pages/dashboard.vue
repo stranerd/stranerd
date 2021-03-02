@@ -21,14 +21,14 @@
 						<button v-if="!isTutor" class="mr-1 my-1 btn btn-blue rounded-pill px-4 py-1 font-weight-bold" @click="openQuestionModal">
 							Ask A Question
 						</button>
-						<a v-if="!isTutor" href="#tutors" class="mr-1 my-1 btn btn-outline-blue rounded-pill px-4 py-1 font-weight-bold">
+						<NuxtLink v-if="!isTutor" to="/tutors" class="mr-1 my-1 btn btn-outline-blue rounded-pill px-4 py-1 font-weight-bold">
 							Meet a Nerd
-						</a>
+						</NuxtLink>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div id="tutors" class="page-content my-2">
+		<div class="page-content my-2">
 			<TutorsList />
 		</div>
 	</section>

@@ -22,7 +22,6 @@ import { useQuestion } from '@app/hooks/questions/questions'
 export default defineComponent({
 	name: 'QuestionPage',
 	components: { QuestionPageCard, AnswersList, QuestionsList },
-	layout: 'questions',
 	setup () {
 		const { questionId } = useRoute().value.params
 		const { error, loading, question, listener } = useQuestion(questionId)

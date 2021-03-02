@@ -60,8 +60,7 @@ export class UserEntity extends BaseEntity {
 			updatedAt: status?.updatedAt ?? 0
 		}
 		this.tutor = {
-			rating: tutor?.rating ?? 0,
-			reviews: tutor?.reviews ?? 0,
+			ratings: tutor?.ratings ?? { total: 0, count: 0 },
 			subjects: tutor?.subjects ?? {},
 			currentSession: tutor?.currentSession ?? null,
 			sessionCount: tutor?.sessionCount ?? 0
@@ -78,8 +77,8 @@ export class UserEntity extends BaseEntity {
 	get isOnline () { return this.status.mode === Status.ONLINE }
 	get lastSeen () { return this.isOnline ? Date.now() : this.status.updatedAt }
 
-	get averageRating () { return this.tutor?.rating === 0 ? 0 : (this.tutor?.rating ?? 0) / (this.tutor?.reviews ?? 1) }
-	get ratingCount () { return this.tutor?.reviews ?? 0 }
+	get averageRating () { return this.tutor?.ratings.count === 0 ? 0 : (this.tutor?.ratings.total ?? 0) / (this.tutor?.ratings.count ?? 1) }
+	get ratingCount () { return this.tutor?.ratings.count ?? 0 }
 	get subjects () {
 		return Object.entries(this.tutor?.subjects ?? {})
 			.map((c) => ({ ...c[1], id: c[0] }))
@@ -142,8 +141,10 @@ export interface UserDates {
 	signedUpAt: number
 }
 export interface UserTutor {
-	rating: number
-	reviews: number
+	ratings: {
+		total: number
+		count: number
+	}
 	subjects: Record<string, {
 		level: number
 		upgrades: Record<number, {

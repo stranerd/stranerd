@@ -15,7 +15,7 @@ export const toggleTutor = functions.https.onCall(async (data, context) => {
 			.child(id)
 			.update({
 				'roles/isTutor': isTutor,
-				'tutor': isTutor ? { rating: 0, reviews: 0, subjects: {} } : null
+				'tutor': isTutor ? { ratings: { total: 0, count: 0 }, subjects: {} } : null
 			})
 
 		await createNotification(id, {

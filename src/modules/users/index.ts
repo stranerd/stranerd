@@ -29,6 +29,7 @@ import { MarkNotificationSeenUseCase } from './domain/usecases/notifications/mar
 import { DeleteNotificationUseCase } from './domain/usecases/notifications/deleteNotification'
 import { UserEntity, UserBio, Status, generateDefaultBio, RankingPeriods } from './domain/entities/user'
 import { Avatar, Avatars } from './domain/entities/avatar'
+import { Achievements } from './domain/entities/achievement'
 import { NotificationEntity } from './domain/entities/notification'
 import { MailingListFactory } from './domain/factories/mailingList'
 
@@ -69,5 +70,5 @@ export const MarkNotificationSeen = new MarkNotificationSeenUseCase(notification
 export const DeleteNotification = new DeleteNotificationUseCase(notificationRepository)
 
 export { UserEntity, generateDefaultBio, Status, RankingPeriods, NotificationEntity, Avatars }
-export { MailingListFactory }
+export { MailingListFactory, Achievements }
 export type { UserBio, Avatar }

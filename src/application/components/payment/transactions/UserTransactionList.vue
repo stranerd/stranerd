@@ -1,17 +1,22 @@
 <template>
 	<div>
-		<h1>Transaction history</h1>
+		<h2 class="font-weight-bold">
+			Transaction history
+		</h2>
 		<table class="table">
-			<thead>
+			<thead class="bg-light-blue">
 				<tr class="py-2">
-					<th scope="col">
-						Amount
-					</th>
 					<th scope="col">
 						Date
 					</th>
 					<th scope="col">
-						Event
+						Time
+					</th>
+					<th scope="col">
+						Amount
+					</th>
+					<th scope="col">
+						Description
 					</th>
 				</tr>
 			</thead>
@@ -19,8 +24,8 @@
 				<UserTransactionListCard v-for="transaction in transactions" :key="transaction.hash" :transaction="transaction" />
 			</tbody>
 		</table>
-		<hr class="thin mt-0">
 		<div v-if="hasMore" class="text-center text-18">
+			<div class="thick my-0" />
 			<a class="font-weight-bold text-grey" @click.prevent="fetchOlderTransactions">LOAD MORE</a>
 		</div>
 		<DisplayWarning v-if="!loading && !error && transactions.length === 0" message="You haven't performed any transactions on this site yet" />

@@ -1,9 +1,11 @@
 <template>
 	<tr class="py-2">
-		<td :class="transaction.amount > 0 ? 'text-success' : 'text-danger'">
-			{{ transaction.amount > 0 ? '+' : '-' }}${{ formatNumber(transaction.amount) }}
+		<td>{{ transaction.date }}</td>
+		<td>{{ transaction.time }}</td>
+		<td class="d-flex align-items-center" :class="transaction.isGain ? 'text-success' : 'text-danger'">
+			<span class="mr-half">{{ transaction.isGain ? '+' : '-' }}{{ formatNumber(transaction.amount) }}</span>
+			<Coins :gold="transaction.isGold" :size="24" />
 		</td>
-		<td>{{ time }}</td>
 		<td>{{ transaction.event }}</td>
 	</tr>
 </template>

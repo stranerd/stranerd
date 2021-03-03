@@ -1,5 +1,5 @@
 <template>
-	<div class="d-flex align-items-center" :id="tutor.id">
+	<div :id="tutor.id" class="d-flex align-items-center">
 		<span>{{ rank }}.&nbsp;</span>
 		<NuxtLink :to="`/users/${tutor.id}`" class="position-relative">
 			<Avatar :src="tutor.avatar" :size="50" />

@@ -37,7 +37,7 @@
 		</div>
 		<DisplayError :error="error" />
 		<PageLoading v-if="loading" />
-		<hr>
+		<div class="thick mx-n4" />
 	</div>
 </template>
 

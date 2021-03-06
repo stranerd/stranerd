@@ -1,7 +1,8 @@
 <template>
 	<div :id="admin.id">
-		<div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
-			<div class="text-truncate mb-1">
+		<div class="d-flex flex-wrap align-items-center mb-3">
+			<Avatar :src="admin.avatar" :size="60" />
+			<div class="text-truncate mx-1 mb-1">
 				<p class="lead mb-0 text-wrap">
 					{{ admin.fullName }}
 				</p>
@@ -9,12 +10,9 @@
 					{{ admin.email }}
 				</p>
 			</div>
-			<button v-if="admin.roles.isAdmin" class="btn btn-sm text-nowrap btn-danger" @click="deAdminUser">
+			<button class="ml-auto btn btn-sm text-nowrap btn-danger" @click="deAdminUser">
 				Remove admin
 			</button>
-			<span v-else class="text-nowrap text-danger">
-				Not an admin
-			</span>
 		</div>
 		<PageLoading v-if="loading" />
 		<DisplayError :error="error" />

@@ -2,7 +2,7 @@ export const Achievements = {
 	ASK_QUESTIONS: {
 		id: 'ASK_QUESTIONS',
 		name: 'Scholar',
-		description: 'Ask 100 questions related to any subject',
+		description: 'Ask 100 questions',
 		limit: 100,
 		price: {
 			bronze: 40,
@@ -61,7 +61,7 @@ export const Achievements = {
 	},
 	DAILY_FINISH: {
 		id: 'DAILY_FINISH',
-		name: 'LEGENDARY',
+		name: 'Legendary',
 		description: 'Finish #1 in daily rankings',
 		limit: 1,
 		price: {
@@ -82,11 +82,9 @@ export const Achievements = {
 } as const
 
 export const getUserAchievements = (achievements: Record<keyof typeof Achievements, { completed: boolean, progress: number }>) => {
-	return Object.fromEntries(
-		Object.entries(Achievements).map(([id, achievement]) => {
-			const completed = achievements?.[achievement.id]?.completed ?? false
-			const progress = achievements?.[achievement.id]?.progress ?? 0
-			return [id, { ...achievement, completed, progress }]
-		})
-	)
+	return Object.entries(Achievements).map(([_, achievement]) => {
+		const completed = achievements?.[achievement.id]?.completed ?? false
+		const progress = achievements?.[achievement.id]?.progress ?? 0
+		return { ...achievement, completed, progress }
+	})
 }

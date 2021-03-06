@@ -1,6 +1,6 @@
 <template>
 	<section>
-		<div class="page-content mb-2 p-0">
+		<div class="page-content mb-1 p-0">
 			<div class="background py-6 px-3">
 				<div style="max-width: 75%;">
 					<h2 class="font-weight-bold">
@@ -28,7 +28,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="page-content my-2">
+		<div class="page-content my-1">
 			<TutorsList />
 		</div>
 	</section>

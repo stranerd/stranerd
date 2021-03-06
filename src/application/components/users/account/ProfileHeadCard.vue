@@ -16,6 +16,7 @@
 		</div>
 		<Avatar :src="user.avatar" :size="75" />
 		<span class="text-18 font-weight-bold">{{ user.fullName }}</span>
+		<ShowRatings v-if="user.roles.isTutor" :rating="user.averageRating" class="my-1" />
 		<NuxtLink to="/account/" class="btn btn-blue rounded-pill my-1">
 			<span>View Profile</span>
 			<i class="fas fa-arrow-right ml-1" />
@@ -27,8 +28,10 @@
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { UserEntity } from '@modules/users'
 import { formatNumber } from '@app/hooks/core/numbers'
+import ShowRatings from '@app/components/core/ShowRatings.vue'
 export default defineComponent({
 	name: 'ProfileHeadCard',
+	components: { ShowRatings },
 	props: {
 		user: {
 			required: true,

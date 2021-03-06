@@ -17,6 +17,10 @@ export const useAuth = () => {
 	const isVerified = computed({ get: () => !!global.auth.value?.isVerified, set: () => {} })
 	const isAdmin = computed({ get: () => !!global.user.value?.roles.isAdmin, set: () => {} })
 	const isTutor = computed({ get: () => !!global.user.value?.roles.isTutor, set: () => {} })
+	const ongoingAchievements = computed({
+		get: () => global.user.value?.achievements?.filter((achievement) => !achievement.completed) ?? [],
+		set: () => {}
+	})
 
 	const setAuthUser = async (details: AuthDetails | null) => {
 		if (global.listener) global.listener()
@@ -38,7 +42,7 @@ export const useAuth = () => {
 	return {
 		id, bio,
 		user: global.user,
-		isLoggedIn, token, isVerified, isAdmin, isTutor,
+		isLoggedIn, token, isVerified, isAdmin, isTutor, ongoingAchievements,
 		setAuthUser, startProfileListener,
 		signout, closeProfileListener: () => global.listener?.()
 	}

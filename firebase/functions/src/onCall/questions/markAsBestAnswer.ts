@@ -10,13 +10,16 @@ export const markAsBestAnswer = functions.https.onCall(async (data, context) => 
 
 	if (questionId && answerId) {
 		const questionRef = admin.firestore().collection('questions').doc(questionId)
-		const { coins } = (await questionRef.get()).data() ?? {}
+		const { coins, userId: questionUserId } = (await questionRef.get()).data() ?? {}
 		const answerRef = admin.firestore().collection('answers').doc(answerId)
 		const { userId } = (await answerRef.get()).data() ?? {}
 
 		const batch = admin.firestore().batch()
 		batch.set(questionRef, { answerId }, { merge: true })
 		batch.set(answerId, { best: true }, { merge: true })
+
+		await admin.database().ref('profiles').child(questionUserId)
+			.child('meta/bestAnsweredQuestions').update({ [`${questionId}`]: true })
 		await addUserCoins(userId, { bronze: coins * 0.75, gold: 0 },
 			'You got coins for a best answer'
 		)

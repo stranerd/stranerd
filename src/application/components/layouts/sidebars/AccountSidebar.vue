@@ -9,6 +9,10 @@
 				<img src="@/assets/images/icons/dashboard.svg" alt="">
 				<span>Dashboard</span>
 			</NuxtLink>
+			<NuxtLink class="sidebar-link" to="/account/">
+				<img src="@/assets/images/icons/users.svg" alt="">
+				<span>Profile</span>
+			</NuxtLink>
 			<NuxtLink class="sidebar-link" to="/account/questions">
 				<img src="@/assets/images/icons/questions.svg" alt="">
 				<span>Questions</span>

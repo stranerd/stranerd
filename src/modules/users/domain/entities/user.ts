@@ -38,7 +38,8 @@ export class UserEntity extends BaseEntity {
 			coins: {
 				bronze: account?.coins?.bronze ?? 0,
 				gold: account?.coins?.gold ?? 0
-			}
+			},
+			xp: account?.xp ?? 0
 		}
 		this.rankings = Object.fromEntries(
 			Object.keys(RankingPeriods).map((key) => [key, rankings?.[key as RankingPeriods] ?? 0])
@@ -48,6 +49,7 @@ export class UserEntity extends BaseEntity {
 			bestAnswers: meta?.bestAnswers ?? {},
 			ratedAnswers: meta?.ratedAnswers ?? {},
 			questions: meta?.questions ?? {},
+			bestAnsweredQuestions: meta?.bestAnsweredQuestions ?? {},
 			answeredQuestions: meta?.answeredQuestions ?? {},
 			questionComments: meta?.questionComments ?? {},
 			answerComments: meta?.answerComments ?? {},
@@ -123,7 +125,8 @@ export interface UserAccount {
 	coins: {
 		bronze: number
 		gold: number
-	}
+	},
+	xp: number
 }
 export interface UserRankings extends Record<RankingPeriods, number> {}
 export interface UserMeta {
@@ -132,6 +135,7 @@ export interface UserMeta {
 	ratedAnswers?: Record<string, number>
 	answeredQuestions?: Record<string, number>
 	questions?: Record<string, boolean>
+	bestAnsweredQuestions?: Record<string, boolean>
 	questionComments?: Record<string, boolean>
 	answerComments?: Record<string, boolean>
 	sessions?: Record<string, boolean>

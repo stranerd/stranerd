@@ -17,7 +17,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { UserEntity } from '@modules/users'
-import { formatNumber } from '@app/hooks/core/numbers'
+import { formatNumber } from '@utils/numbers'
 export default defineComponent({
 	name: 'UserAboutCard',
 	props: {

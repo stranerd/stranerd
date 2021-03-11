@@ -1,4 +1,4 @@
-import { Ref, reqSsrRef, useFetch, watch } from '@nuxtjs/composition-api'
+import { Ref, ssrRef, useFetch, watch } from '@nuxtjs/composition-api'
 import {
 	AddAnswer, AnswerEntity, AnswerFactory, FindAnswer, GetAnswers, ListenToAnswer,
 	ListenToAnswers, MarkAsBestAnswer, QuestionEntity, RateAnswer
@@ -17,8 +17,8 @@ const global: { [questionId: string] : {
 
 export const useAnswerList = (questionId: string) => {
 	if (global[questionId] === undefined) global[questionId] = {
-		answers: reqSsrRef([]),
-		fetched: reqSsrRef(false),
+		answers: ssrRef([]),
+		fetched: ssrRef(false),
 		...useErrorHandler(),
 		...useLoadingHandler()
 	}
@@ -58,7 +58,7 @@ export const openAnswerModal = (question: QuestionEntity) => {
 
 export const useCreateAnswer = () => {
 	const { id, bio } = useAuth()
-	const factory = reqSsrRef(new AnswerFactory()) as Ref<AnswerFactory>
+	const factory = ssrRef(new AnswerFactory()) as Ref<AnswerFactory>
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
 	const { setMessage } = useSuccessHandler()
@@ -143,12 +143,12 @@ export const useAnswer = (answer: AnswerEntity) => {
 export const useAnswerById = (questionId: string, id: string) => {
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
-	const answer = reqSsrRef(null as AnswerEntity | null)
+	const answer = ssrRef(null as AnswerEntity | null)
 
 	const setAnswer = (answer: AnswerEntity) => {
 		if (global[questionId] === undefined) global[questionId] = {
-			answers: reqSsrRef([]),
-			fetched: reqSsrRef(false),
+			answers: ssrRef([]),
+			fetched: ssrRef(false),
 			...useErrorHandler(),
 			...useLoadingHandler()
 		}

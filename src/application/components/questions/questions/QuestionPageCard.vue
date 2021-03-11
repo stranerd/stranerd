@@ -86,7 +86,7 @@ import { useRedirectToAuth } from '@app/hooks/auth/session'
 import DisplayAttachments from '@app/components/questions/DisplayAttachments.vue'
 import CommentForm from '@app/components/questions/comments/QuestionCommentForm.vue'
 import CommentList from '@app/components/questions/comments/QuestionCommentsList.vue'
-import { formatNumber } from '@app/hooks/core/numbers'
+import { formatNumber } from '@utils/numbers'
 export default defineComponent({
 	name: 'QuestionPageCard',
 	components: { DisplayAttachments, CommentForm, CommentList },

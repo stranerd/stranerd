@@ -34,7 +34,7 @@ import { QuestionEntity } from '@modules/questions'
 import { useSubject } from '@app/hooks/questions/subjects'
 import { useTimeDifference } from '@app/hooks/core/dates'
 import { useAuth } from '@app/hooks/auth/auth'
-import { formatNumber } from '@app/hooks/core/numbers'
+import { formatNumber } from '@utils/numbers'
 export default defineComponent({
 	name: 'QuestionsListCard',
 	props: {

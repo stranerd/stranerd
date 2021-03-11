@@ -27,7 +27,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { UserEntity } from '@modules/users'
-import { formatNumber } from '@app/hooks/core/numbers'
+import { formatNumber } from '@utils/numbers'
 import ShowRatings from '@app/components/core/ShowRatings.vue'
 export default defineComponent({
 	name: 'ProfileHeadCard',

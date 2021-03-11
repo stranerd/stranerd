@@ -1,9 +1,9 @@
 <template>
 	<div>
-		<div v-if="user" class="page-content">
+		<PageLoading v-if="loading" />
+		<div v-else-if="user" class="page-content">
 			<UserHeadCard :user="user" />
 			<DisplayError v-if="error" :error="error" />
-			<PageLoading v-if="loading" />
 			<div class="thick mx-n4" />
 			<UserAnswerList v-if="user.roles.isTutor" :user-id="user.id" />
 			<UserQuestionList v-else :user-id="user.id" />

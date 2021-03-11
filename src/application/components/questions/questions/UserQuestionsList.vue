@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h2>Questions</h2>
+		<h3>Questions</h3>
 		<div class="thick" />
 		<div v-for="question in questions" :key="question.hash">
 			<QuestionCard :question="question" />

@@ -1,4 +1,4 @@
-import { reqSsrRef, watch, computed, useRouter, useFetch } from '@nuxtjs/composition-api'
+import { ssrRef, watch, computed, useRouter, useFetch } from '@nuxtjs/composition-api'
 import {
 	AddQuestion, FindQuestion, GetQuestions, ListenToQuestion,
 	ListenToQuestions, QuestionEntity, QuestionFactory
@@ -7,7 +7,6 @@ import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } fr
 import { COINS_GAP, MAXIMUM_COINS, MINIMUM_COINS, PAGINATION_LIMIT } from '@utils/constants'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useCreateModal } from '@app/hooks/core/modals'
-import { isServer } from '@utils/environment'
 
 enum Answered {
 	All,
@@ -20,11 +19,11 @@ const answeredChoices = [
 	{ val: Answered.Unanswered, key: 'Unanswered' }
 ]
 const global = {
-	questions: reqSsrRef([] as QuestionEntity[]),
-	subjectId: reqSsrRef(''),
-	answered: reqSsrRef(answeredChoices[0].val),
-	fetched: reqSsrRef(false),
-	hasMore: reqSsrRef(false),
+	questions: ssrRef([] as QuestionEntity[]),
+	subjectId: ssrRef(''),
+	answered: ssrRef(answeredChoices[0].val),
+	fetched: ssrRef(false),
+	hasMore: ssrRef(false),
 	...useErrorHandler(),
 	...useLoadingHandler()
 }
@@ -42,8 +41,6 @@ const unshiftToQuestionList = (question: QuestionEntity) => {
 
 export const useQuestionList = () => {
 	const fetchQuestions = async () => {
-		// TODO: Figure out why this is needed to beat ssr hydration failure
-		if (isServer()) global.questions.value = []
 		global.setError('')
 		try {
 			global.setLoading(true)
@@ -83,7 +80,7 @@ export const useQuestionList = () => {
 	}
 }
 
-const factory = reqSsrRef(new QuestionFactory())
+const factory = ssrRef(new QuestionFactory())
 export const useCreateQuestion = () => {
 	const { id, bio, user, isLoggedIn } = useAuth()
 	const { error, setError } = useErrorHandler()

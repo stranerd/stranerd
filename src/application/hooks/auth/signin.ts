@@ -1,4 +1,4 @@
-import { Ref, ref, ssrRef, useRouter } from '@nuxtjs/composition-api'
+import { Ref, ssrRef, useRouter } from '@nuxtjs/composition-api'
 import {
 	EmailLinkSigninFactory, SendSigninEmail, SigninWithGoogle, SigninWithEmailLink,
 	EmailSigninFactory, SigninWithEmail, EmailSignupFactory, SignupWithEmail
@@ -27,7 +27,7 @@ export const useGoogleSignin = () => {
 }
 
 export const useSendEmailLink = () => {
-	const factory = ref(new EmailLinkSigninFactory()) as Ref<EmailLinkSigninFactory>
+	const factory = ssrRef(new EmailLinkSigninFactory()) as Ref<EmailLinkSigninFactory>
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const { message, setMessage } = useSuccessHandler()
@@ -79,7 +79,7 @@ export const useEmailLinkSignin = () => {
 
 export const useEmailSignin = () => {
 	const router = useRouter()
-	const factory = ref(new EmailSigninFactory()) as Ref<EmailSigninFactory>
+	const factory = ssrRef(new EmailSigninFactory()) as Ref<EmailSigninFactory>
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const signin = async () => {
@@ -98,7 +98,7 @@ export const useEmailSignin = () => {
 
 export const useEmailSignup = () => {
 	const router = useRouter()
-	const factory = ref(new EmailSignupFactory()) as Ref<EmailSignupFactory>
+	const factory = ssrRef(new EmailSignupFactory()) as Ref<EmailSignupFactory>
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const signup = async () => {

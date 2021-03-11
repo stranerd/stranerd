@@ -11,7 +11,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { QuestionEntity } from '@modules/questions'
-import { formatNumber } from '@app/hooks/core/numbers'
+import { formatNumber } from '@utils/numbers'
 export default defineComponent({
 	name: 'RecentQuestionsListCard',
 	props: {

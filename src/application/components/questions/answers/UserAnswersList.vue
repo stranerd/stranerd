@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h2>Answers</h2>
+		<h3>Answers</h3>
 		<div class="thick" />
 		<div v-for="answer in answers" :key="answer.hash">
 			<AnswerCard :answer="answer" />

@@ -14,7 +14,7 @@
 import { defineComponent, onBeforeUnmount, onMounted, PropType } from '@nuxtjs/composition-api'
 import { TransactionEntity } from '@modules/payment'
 import { useTimeDifference } from '@app/hooks/core/dates'
-import { formatNumber } from '@app/hooks/core/numbers'
+import { formatNumber } from '@utils/numbers'
 export default defineComponent({
 	name: 'UserTransactionListCard',
 	props: {

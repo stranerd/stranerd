@@ -1,4 +1,4 @@
-import { reqSsrRef } from '@nuxtjs/composition-api'
+import { ssrRef } from '@nuxtjs/composition-api'
 import { useListener } from '@app/hooks/core/states'
 import { ListenToSession, SessionEntity } from '@modules/sessions'
 import { useSessionModal } from '@app/hooks/core/modals'
@@ -7,13 +7,13 @@ import VueRouter from 'vue-router'
 
 const global = {
 	student: {
-		sessionId: reqSsrRef(null as string | null),
-		session: reqSsrRef(null as SessionEntity | null),
+		sessionId: ssrRef(null as string | null),
+		session: ssrRef(null as SessionEntity | null),
 		listener: null as ReturnType<typeof useListener> | null
 	},
 	tutor: {
-		sessionId: reqSsrRef(null as string | null),
-		session: reqSsrRef(null as SessionEntity | null),
+		sessionId: ssrRef(null as string | null),
+		session: ssrRef(null as SessionEntity | null),
 		listener: null as ReturnType<typeof useListener> | null
 	}
 }

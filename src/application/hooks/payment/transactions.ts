@@ -1,4 +1,4 @@
-import { Ref, reqSsrRef, useFetch } from '@nuxtjs/composition-api'
+import { Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 import { GetOlderTransactions, GetTransactions, TransactionEntity } from '@modules/payment'
 import { PAGINATION_LIMIT } from '@utils/constants'
@@ -25,9 +25,9 @@ const unshiftToTransactionList = (userId: string, transaction: TransactionEntity
 
 export const useTransactionList = (userId: string) => {
 	if (global[userId] === undefined) global[userId] = {
-		transactions: reqSsrRef([]),
-		hasMore: reqSsrRef(false),
-		fetched: reqSsrRef(false),
+		transactions: ssrRef([]),
+		hasMore: ssrRef(false),
+		fetched: ssrRef(false),
 		...useErrorHandler(),
 		...useLoadingHandler()
 	}

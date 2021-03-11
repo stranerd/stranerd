@@ -2,14 +2,14 @@
 	<div :id="question.id">
 		<NuxtLink class="text-18 mb-1 editor-body" :to="`/questions/${question.id}`" v-html="question.body" />
 		<div class="d-flex">
-			<span class="text-wrap mr-1">
+			<span class="text-wrap mr-auto">
 				{{ subject ? subject.name : 'Subject' }}
 				|
 				{{ time }}
 			</span>
-			<span class="ml-auto">
+			<span class="ml-1">
 				<img src="@app/assets/images/icons/answers.svg" alt="" style="width: 24px; height: 24px;">
-				<span>{{ question.answers }} answers</span>
+				<span>{{ question.answers }}</span>
 			</span>
 			<span v-if="question.attachments.length" class="ml-1">
 				<span>{{ question.attachments.length }}</span>
@@ -25,7 +25,7 @@ import { defineComponent, onBeforeUnmount, onMounted, PropType } from '@nuxtjs/c
 import { QuestionEntity } from '@modules/questions'
 import { useSubject } from '@app/hooks/questions/subjects'
 import { useTimeDifference } from '@app/hooks/core/dates'
-import { formatNumber } from '@app/hooks/core/numbers'
+import { formatNumber } from '@utils/numbers'
 export default defineComponent({
 	name: 'UserQuestionsListCard',
 	props: {

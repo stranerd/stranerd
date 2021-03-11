@@ -1,4 +1,4 @@
-import { Ref, reqSsrRef, useFetch } from '@nuxtjs/composition-api'
+import { Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import { GetUserQuestions, QuestionEntity } from '@modules/questions'
 import { PAGINATION_LIMIT } from '@utils/constants'
 import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
@@ -21,9 +21,9 @@ const pushToQuestionList = (id: string, question: QuestionEntity) => {
 
 export const useUserQuestionList = (id: string) => {
 	if (global[id] === undefined) global[id] = {
-		questions: reqSsrRef([]),
-		fetched: reqSsrRef(false),
-		hasMore: reqSsrRef(false),
+		questions: ssrRef([]),
+		fetched: ssrRef(false),
+		hasMore: ssrRef(false),
 		...useErrorHandler(),
 		...useLoadingHandler()
 	}

@@ -43,7 +43,7 @@ export default defineComponent({
 	bottom: 0;
 	display: flex;
 	z-index: 1050;
-	background: rgba($color-black, 0.8);
+	background: rgba($color-blue, 0.9);
 }
 
 .under{
@@ -60,7 +60,7 @@ export default defineComponent({
 	max-height: 99.9%;
 	max-width: 800px;
 	padding: 0.5rem;
-	background: #ffffff;
+	background: $color-light-grey;
 	box-shadow: 0 4px 8px $color-black;
 	z-index: 1;
 	overflow-y: auto;
@@ -80,6 +80,7 @@ export default defineComponent({
 @media (min-width: $md){
 	.modal-inner{
 		width: 90%;
+		border-radius: 1rem;
 	}
 }
 

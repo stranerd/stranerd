@@ -1,18 +1,18 @@
 <template>
 	<div class="links d-flex align-items-center">
 		<NuxtLink class="link d-lg-none" to="/">
-			<img src="@/assets/images/icons/search.svg" alt="">
+			<img src="@app/assets/images/icons/search.svg" alt="">
 		</NuxtLink>
 		<div class="link d-none d-lg-inline-flex search">
-			<img src="@/assets/images/icons/search.svg" alt="">
+			<img src="@app/assets/images/icons/search.svg" alt="">
 			<input class="form-control" type="search" placeholder="Search for anything">
 		</div>
-		<a v-if="isLoggedIn" class="link" @click="setNavigationModalNotification">
-			<img src="@/assets/images/icons/notification.svg" alt="">
+		<a v-if="isLoggedIn" class="link">
+			<img src="@app/assets/images/icons/notification.svg" alt="">
 		</a>
 		<a v-if="isLoggedIn" class="link d-none d-lg-inline" @click.prevent="signout">
 			<PageLoading v-if="loading" />
-			<img src="@/assets/images/icons/signout.svg" alt="">
+			<img src="@app/assets/images/icons/signout.svg" alt="">
 		</a>
 	</div>
 </template>
@@ -21,14 +21,12 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useSessionSignout } from '@app/hooks/auth/session'
-import { useNavigationModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'Links',
 	setup () {
 		const { isLoggedIn } = useAuth()
-		const { setNavigationModalNotification } = useNavigationModal()
 		const { loading, signout } = useSessionSignout()
-		return { isLoggedIn, loading, signout, setNavigationModalNotification }
+		return { isLoggedIn, loading, signout }
 	}
 })
 </script>

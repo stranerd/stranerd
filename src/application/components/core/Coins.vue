@@ -1,6 +1,6 @@
 <template>
-	<img v-if="gold" src="@/assets/images/icons/gold.svg" alt="" :width="size" :height="size">
-	<img v-else src="@/assets/images/icons/bronze.svg" alt="" :width="size" :height="size">
+	<img v-if="gold" src="@app/assets/images/icons/gold.svg" alt="" :width="size" :height="size">
+	<img v-else src="@app/assets/images/icons/bronze.svg" alt="" :width="size" :height="size">
 </template>
 
 <script lang="ts">

@@ -6,23 +6,23 @@
 		</div>
 		<div class="my-2 sidebar-links">
 			<NuxtLink class="sidebar-link" to="/dashboard">
-				<img src="@/assets/images/icons/dashboard.svg" alt="">
+				<img src="@app/assets/images/icons/dashboard.svg" alt="">
 				<span>Dashboard</span>
 			</NuxtLink>
 			<NuxtLink class="sidebar-link" to="/account/">
-				<img src="@/assets/images/icons/users.svg" alt="">
+				<img src="@app/assets/images/icons/users.svg" alt="">
 				<span>Profile</span>
 			</NuxtLink>
 			<NuxtLink class="sidebar-link" to="/account/questions">
-				<img src="@/assets/images/icons/questions.svg" alt="">
+				<img src="@app/assets/images/icons/questions.svg" alt="">
 				<span>Questions</span>
 			</NuxtLink>
 			<NuxtLink v-if="isTutor" class="sidebar-link" to="/account/answers">
-				<img src="@/assets/images/icons/answers.svg" alt="">
+				<img src="@app/assets/images/icons/answers.svg" alt="">
 				<span>Answers</span>
 			</NuxtLink>
 			<NuxtLink class="sidebar-link" to="/account/e-wallet">
-				<img src="@/assets/images/icons/e-wallet.svg" alt="">
+				<img src="@app/assets/images/icons/e-wallet.svg" alt="">
 				<span>E-Wallet</span>
 			</NuxtLink>
 		</div>

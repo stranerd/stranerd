@@ -6,6 +6,10 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 @import '~@fortawesome/fontawesome-free/scss/solid';
 
+h1, h2, h3 {
+	font-weight: bold !important;
+}
+
 .btn{
 	padding: 0.5rem 1rem;
 }

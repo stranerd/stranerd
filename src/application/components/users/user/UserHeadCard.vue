@@ -1,8 +1,13 @@
 <template>
-	<div class="d-flex flex-column align-items-center my-1">
-		<Avatar :src="user.avatar" :size="90" />
-		<span class="text-18 font-weight-bold">{{ user.fullName }}</span>
-		<div class="d-flex justify-content-around mx-auto my-2 w-100" style="max-width: 250px;">
+	<div class="d-flex flex-column flex-lg-row align-items-center my-1">
+		<div class="d-flex align-items-center">
+			<Avatar :src="user.avatar" :size="75" />
+			<div class="ml-1">
+				<span class="d-block text-18 font-weight-bold text-wrap">{{ user.fullName }}</span>
+				<ShowRatings v-if="user.roles.isTutor" :rating="user.averageRating" />
+			</div>
+		</div>
+		<div class="d-flex justify-content-around ml-lg-auto">
 			<div class="d-flex flex-column align-items-center">
 				<span class="small">
 					Friends
@@ -17,7 +22,7 @@
 					Questions
 				</span>
 				<span class="font-weight-bold">
-					{{ formatNumber(user.meta.questionCount) }}
+					{{ formatNumber(Object.entries(user.meta.questions).length) }}
 				</span>
 			</div>
 			<div class="bg-grey" style="width: 1px;" />
@@ -26,7 +31,7 @@
 					Answers
 				</span>
 				<span class="font-weight-bold">
-					{{ formatNumber(user.meta.answerCount) }}
+					{{ formatNumber(Object.entries(user.meta.answers).length) }}
 				</span>
 			</div>
 		</div>
@@ -37,8 +42,10 @@
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { UserEntity } from '@modules/users'
 import { formatNumber } from '@app/hooks/core/numbers'
+import ShowRatings from '@app/components/core/ShowRatings.vue'
 export default defineComponent({
 	name: 'UserHeadCard',
+	components: { ShowRatings },
 	props: {
 		user: {
 			required: true,

@@ -1,13 +1,13 @@
 <template>
-	<form @submit.prevent="submit">
+	<form @submit.prevent="submitComment">
 		<div class="form-group my-1">
 			<div class="d-flex align-items-center">
-				<img :src="isLoggedIn ? user.avatar : Avatars.default.link" alt="" class="mr-1" style="width: 35px;height: 35px;">
+				<Avatar :src="isLoggedIn ? user.avatar : Avatars.default.link" class="mr-1" :size="35" />
 				<input
 					v-model="factory.body"
-					class="form-control form-control-sm flex-grow-1"
+					class="form-control form-control-sm form-control-small flex-grow-1"
 					placeholder="Add a comment..."
-					:class="{'is-invalid': factory.errors.body, 'is-valid': factory.isValid('body'), 'form-control-small': !isCommentsPage}"
+					:class="{'is-invalid': factory.errors.body, 'is-valid': factory.isValid('body') }"
 				>
 			</div>
 			<small v-if="factory.errors.body" class="small text-danger d-block">{{ factory.errors.body }}</small>
@@ -18,10 +18,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useRoute } from '@nuxtjs/composition-api'
+import { defineComponent } from '@nuxtjs/composition-api'
 import { CommentFactory } from '@modules/questions'
 import { useAuth } from '@app/hooks/auth/auth'
 import { Avatars } from '@modules/users'
+import { useRedirectToAuth } from '@app/hooks/auth/session'
 export default defineComponent({
 	name: 'CommentForm',
 	props: {
@@ -42,10 +43,14 @@ export default defineComponent({
 			required: true
 		}
 	},
-	setup () {
+	setup (props) {
 		const { isLoggedIn, user } = useAuth()
-		const isCommentsPage = useRoute().value.path.includes('comments')
-		return { isLoggedIn, user, isCommentsPage, Avatars }
+		const { redirect } = useRedirectToAuth()
+		const submitComment = () => {
+			if (isLoggedIn.value) props.submit()
+			else redirect()
+		}
+		return { isLoggedIn, user, Avatars, submitComment }
 	}
 })
 </script>

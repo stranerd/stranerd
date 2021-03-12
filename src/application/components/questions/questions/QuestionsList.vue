@@ -37,14 +37,14 @@ export default defineComponent({
 	components: { SelectSubject, QuestionCard },
 	setup () {
 		const {
-			filteredQuestions, error, loading, hasMore,
+			filteredQuestions: questions, error, loading, hasMore,
 			answeredChoices, answered, subjectId,
 			fetchOlderQuestions, listener
 		} = useQuestionList()
 		onMounted(listener.startListener)
 		onBeforeUnmount(listener.closeListener)
 		return {
-			questions: filteredQuestions, error, loading, hasMore, fetchOlderQuestions,
+			questions, error, loading, hasMore, fetchOlderQuestions,
 			answeredChoices, answered, subjectId
 		}
 	}

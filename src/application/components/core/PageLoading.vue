@@ -23,7 +23,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 	.center{
-		background: $color-black-transparent;
+		background: rgba($color-blue, 0.5);
 		position: fixed;
 		left: 0;
 		top: 0;

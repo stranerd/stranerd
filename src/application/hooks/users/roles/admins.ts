@@ -34,7 +34,7 @@ export const useAdminsList = () => {
 			if (admin.id === id.value) matched = false
 			return matched
 		}),
-		set: () => {}
+		set: (admins) => { admins.map(pushToAdminsList) }
 	})
 	const listener = useListener(async () => () => {})
 

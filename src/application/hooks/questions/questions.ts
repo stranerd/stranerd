@@ -66,7 +66,7 @@ export const useQuestionList = () => {
 			return matched
 		}).sort((a, b) => {
 			return new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
-		}), set: () => {}
+		}), set: (questions) => { questions.map(pushToQuestionList) }
 	})
 
 	useFetch(async () => {
@@ -131,7 +131,7 @@ export const useQuestion = (questionId: string) => {
 	const { loading, setLoading } = useLoadingHandler()
 	const question = computed({
 		get: () => global.questions.value.find((q) => q.id === questionId) ?? null,
-		set: () => {}
+		set: (q) => { if (q) pushToQuestionList(q) }
 	})
 
 	const fetchQuestion = async () => {

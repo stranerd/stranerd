@@ -48,7 +48,7 @@ export const useTutorsList = () => {
 			else if (first.ratingCount < second.ratingCount) return -1
 			else return 1
 		}),
-		set: () => {}
+		set: (tutors) => { tutors.map(pushToTutorsList) }
 	})
 	const listener = useListener(async () => {
 		const appendTutors = (tutors: UserEntity[]) => { tutors.map(unshiftToTutorsList) }

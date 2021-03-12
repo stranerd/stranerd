@@ -117,9 +117,12 @@ export default defineComponent({
 <style lang="scss" scoped>
 .achievementList {
 	display: grid;
-	grid-template-columns: repeat(2, 1fr);
+	grid-template-columns: repeat(1, 1fr);
 	grid-column-gap: 0.5rem;
 	grid-row-gap: 0.5rem;
+	@media (min-width: $sm) {
+		grid-template-columns: repeat(2, 1fr);
+	}
 	@media (min-width: $md) {
 		grid-template-columns: repeat(4, 1fr);
 	}

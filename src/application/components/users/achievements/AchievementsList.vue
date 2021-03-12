@@ -143,7 +143,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .achievement {
 	display: flex;
 	margin: 1rem 0;

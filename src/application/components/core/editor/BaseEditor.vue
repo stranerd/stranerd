@@ -76,7 +76,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .quillWrapper{
 	background: $color-white;
 	box-sizing: border-box;

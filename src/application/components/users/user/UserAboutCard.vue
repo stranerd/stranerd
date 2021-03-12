@@ -32,7 +32,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 p{
 	font-size: 24px;
 	margin-bottom: 0.5rem;

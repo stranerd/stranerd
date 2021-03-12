@@ -32,7 +32,7 @@ export const Achievements = {
 	BUY_BRONZE: {
 		id: 'BUY_BRONZE',
 		name: 'Entrepreneur',
-		description: 'Buy 100 gold coins',
+		description: 'Buy 100 bronze coins',
 		limit: 100,
 		price: {
 			bronze: 20,

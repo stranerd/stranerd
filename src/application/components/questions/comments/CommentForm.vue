@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { CommentFactory } from '@modules/questions'
 import { useAuth } from '@app/hooks/auth/auth'
 import { Avatars } from '@modules/users'
@@ -27,11 +27,11 @@ export default defineComponent({
 	name: 'CommentForm',
 	props: {
 		factory: {
-			type: CommentFactory,
+			type: Object as PropType<CommentFactory>,
 			required: true
 		},
 		submit: {
-			type: Function,
+			type: Function as PropType<() => void>,
 			required: true
 		},
 		loading: {

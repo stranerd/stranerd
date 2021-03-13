@@ -59,7 +59,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { useMultipleFileInputs } from '@app/hooks/core/forms'
 import { QuestionFactory } from '@modules/questions'
 import { useSubjectList } from '@app/hooks/questions/subjects'
@@ -69,7 +69,7 @@ export default defineComponent({
 	components: { QuestionEditor },
 	props: {
 		factory: {
-			type: QuestionFactory,
+			type: Object as PropType<QuestionFactory>,
 			required: true
 		},
 		coins: {

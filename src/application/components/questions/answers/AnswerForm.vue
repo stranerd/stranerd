@@ -39,7 +39,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { useMultipleFileInputs } from '@app/hooks/core/forms'
 import { AnswerFactory } from '@modules/questions'
 import AnswerEditor from '@app/components/core/editor/AnswerEditor.vue'
@@ -48,7 +48,7 @@ export default defineComponent({
 	components: { AnswerEditor },
 	props: {
 		factory: {
-			type: AnswerFactory,
+			type: Object as PropType<AnswerFactory>,
 			required: true
 		},
 		submit: {

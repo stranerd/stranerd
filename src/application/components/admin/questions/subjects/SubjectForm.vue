@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@nuxtjs/composition-api'
+import { defineComponent, PropType, ref } from '@nuxtjs/composition-api'
 import { useFileInputs } from '@app/hooks/core/forms'
 import { SubjectFactory } from '@modules/questions'
 import { isClient } from '@utils/environment'
@@ -40,7 +40,7 @@ export default defineComponent({
 	name: 'SubjectForm',
 	props: {
 		factory: {
-			type: SubjectFactory,
+			type: Object as PropType<SubjectFactory>,
 			required: true
 		},
 		submit: {

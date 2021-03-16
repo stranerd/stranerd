@@ -50,7 +50,7 @@
 			<div class="page-card">
 				<div>
 					<span class="card-title">XP</span>
-					<span class="card-sub">{{ formatNumber(Object.entries(user.account.xp).length) }}</span>
+					<span class="card-sub">{{ user.account.xp }}</span>
 				</div>
 				<img src="@app/assets/images/icons/profile-rank.svg" alt="">
 			</div>

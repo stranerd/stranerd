@@ -1,38 +1,54 @@
 <template>
-	<div class="d-flex flex-column flex-lg-row align-items-center my-1">
-		<div class="d-flex align-items-center">
-			<Avatar :src="user.avatar" :size="75" />
-			<div class="ml-1">
+	<div class="d-flex flex-column flex-lg-row align-items-center">
+		<div class="d-flex flex-column flex-lg-row align-items-center my-1">
+			<div class="position-relative">
+				<Avatar :src="user.avatar" :size="75" />
+				<i class="fas fa-circle position-absolute border" style="right: 0; bottom: 8px;" :class="user.isOnline ? 'text-green' : 'text-grey'" />
+			</div>
+			<div class="ml-1 align-items-center align-items-lg-start d-flex flex-column">
 				<span class="d-block text-18 font-weight-bold text-wrap">{{ user.fullName }}</span>
 				<ShowRatings v-if="user.roles.isTutor" :rating="user.averageRating" />
 			</div>
 		</div>
-		<div class="d-flex justify-content-around ml-lg-auto">
-			<div class="d-flex flex-column align-items-center">
-				<span class="small">
-					Friends
-				</span>
-				<span class="font-weight-bold">
-					0
-				</span>
-			</div>
-			<div class="bg-grey" style="width: 1px;" />
-			<div class="d-flex flex-column align-items-center">
-				<span class="small">
-					Questions
-				</span>
-				<span class="font-weight-bold">
-					{{ formatNumber(Object.entries(user.meta.questions).length) }}
-				</span>
-			</div>
-			<div class="bg-grey" style="width: 1px;" />
-			<div class="d-flex flex-column align-items-center">
-				<span class="small">
-					Answers
-				</span>
-				<span class="font-weight-bold">
-					{{ formatNumber(Object.entries(user.meta.answers).length) }}
-				</span>
+		<div class="grid ml-lg-auto my-1">
+			<template v-if="user.roles.isTutor">
+				<div class="stats">
+					<img src="@app/assets/images/icons/profile-answers.svg" alt="">
+					<span>Answers</span>
+					<span class="count">{{ formatNumber(Object.entries(user.meta.answers).length) }}</span>
+				</div>
+				<div class="stats">
+					<img src="@app/assets/images/icons/profile-best-answers.svg" alt="">
+					<span>Best Answers</span>
+					<span class="count">{{ formatNumber(Object.entries(user.meta.bestAnswers).length) }}</span>
+				</div>
+				<div class="stats">
+					<img src="@app/assets/images/icons/profile-sessions.svg" alt="">
+					<span>Sessions</span>
+					<span class="count">{{ formatNumber(Object.entries(user.meta.tutorSessions).length) }}</span>
+				</div>
+			</template>
+			<template v-else>
+				<div class="stats">
+					<img src="@app/assets/images/icons/profile-question.svg" alt="">
+					<span>Questions</span>
+					<span class="count">{{ formatNumber(Object.entries(user.meta.questions).length) }}</span>
+				</div>
+				<div class="stats">
+					<img src="@app/assets/images/icons/profile-best-answers.svg" alt="">
+					<span>Answered</span>
+					<span class="count">{{ formatNumber(Object.entries(user.meta.bestAnsweredQuestions).length) }}</span>
+				</div>
+				<div class="stats">
+					<img src="@app/assets/images/icons/profile-sessions.svg" alt="">
+					<span>Sessions</span>
+					<span class="count">{{ formatNumber(Object.entries(user.meta.sessions).length) }}</span>
+				</div>
+			</template>
+			<div class="stats">
+				<img src="@app/assets/images/icons/profile-rank.svg" alt="">
+				<span>Xp</span>
+				<span class="count">{{ formatNumber(user.account.xp) }}</span>
 			</div>
 		</div>
 	</div>
@@ -57,3 +73,32 @@ export default defineComponent({
 	}
 })
 </script>
+
+<style lang="scss" scoped>
+.grid {
+	display: grid;
+	width: 100%;
+	grid-template-columns: repeat(2, 1fr);
+	grid-column-gap: 2rem;
+	grid-row-gap: 2rem;
+	@media (min-width: $sm) {
+		grid-template-columns: repeat(4, 1fr);
+	}
+	@media (min-width: $lg) {
+		width: auto;
+	}
+}
+.stats {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	img {
+		width: 36px;
+		height: 36px;
+		margin-bottom: 0.5rem;
+	}
+	.count {
+		font-size: 1.5rem;
+	}
+}
+</style>

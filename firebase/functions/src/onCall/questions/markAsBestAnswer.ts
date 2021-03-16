@@ -18,12 +18,13 @@ export const markAsBestAnswer = functions.https.onCall(async (data, context) => 
 		batch.set(questionRef, { answerId }, { merge: true })
 		batch.set(answerId, { best: true }, { merge: true })
 
-		await admin.database().ref('profiles').child(questionUserId)
-			.child('meta/bestAnsweredQuestions').update({ [`${questionId}`]: true })
+		await admin.database().ref('profiles')
+			.update({
+				[`${questionUserId}/meta/bestAnsweredQuestions/${questionId}`]: true,
+				[`${userId}/meta/bestAnswers/${answerId}`]: true
+			})
 		await addUserCoins(userId, { bronze: coins * 0.75, gold: 0 },
 			'You got coins for a best answer'
 		)
-		await admin.database().ref('profiles').child(userId)
-			.child(`meta/bestAnswers/${answerId}`).set(true)
 	}
 })

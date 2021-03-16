@@ -15,7 +15,7 @@
 				<span>{{ answer.attachments.length }}</span>
 				<i class="fas fa-paperclip" />
 			</span>
-			<span v-if="true" class="ml-1 text-green">
+			<span v-if="answer.best" class="ml-1 text-green">
 				<span>Best</span>
 				<i class="fas fa-check" />
 			</span>

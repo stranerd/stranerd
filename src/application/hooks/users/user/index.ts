@@ -4,10 +4,8 @@ import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core
 
 const global = {} as Record<string, {
 	user: Ref<UserEntity | null>,
-	fetched: Ref<boolean>,
-	error: Ref<string>, setError: (error: any) => void,
-	loading: Ref<boolean>, setLoading: (loading: boolean) => void
-}>
+	fetched: Ref<boolean>
+} & ReturnType<typeof useErrorHandler> & ReturnType<typeof useLoadingHandler>>
 
 export const useUser = (id: string) => {
 	if (global[id] === undefined) global[id] = {

@@ -20,10 +20,10 @@ const buildDatabaseQuery = (ref: firebase.database.Query, conditions?: DatabaseG
 		if (conditions.order) {
 			ref = ref.orderByChild(conditions.order.field)
 			if (conditions.order.condition) {
-				const { start, end, equal } = conditions.order.condition
-				if (start) ref = ref.startAt(start)
-				if (end) ref = ref.endAt(end)
-				if (equal) ref = ref.equalTo(equal)
+				const { gt, lt, eq } = conditions.order.condition
+				if (gt) ref = ref.startAfter(gt)
+				if (lt) ref = ref.endBefore(lt)
+				if (eq) ref = ref.equalTo(eq)
 			}
 		}
 		if (conditions.limit) ref = conditions.limit.bottom

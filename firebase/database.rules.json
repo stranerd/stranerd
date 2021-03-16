@@ -46,10 +46,10 @@
 				}
 			}
 		},
-		"sessions": {
-			"$id": {
-				"chats": {
-					".read": true,
+		"chats": {
+			"single": {
+				"$path": {
+					".read": "auth.uid != null",
 					".write": "auth.uid != null",
 					".indexOn": ["dates/createdAt"]
 				}

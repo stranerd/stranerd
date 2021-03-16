@@ -9,7 +9,7 @@ export class ListenToNotificationsUseCase {
     }
 
     async call (userId: string, callback: (entities: NotificationEntity[]) => void) {
-	    const cb = (entities: NotificationEntity[]) => callback(entities.reverse())
+	    const cb = (entities: NotificationEntity[]) => callback(entities)
 	    return await this.repository.listen(userId, cb, { order: { field: 'dates/createdAt' } })
     }
 }

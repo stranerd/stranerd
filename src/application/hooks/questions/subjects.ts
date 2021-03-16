@@ -9,10 +9,10 @@ import { Alert } from '@app/hooks/core/notifications'
 
 const global = {
 	fetched: ssrRef(false),
-	subjects: ssrRef([] as SubjectEntity[])
+	subjects: ssrRef([] as SubjectEntity[]),
+	...useErrorHandler(),
+	...useLoadingHandler()
 }
-const { error, setError: setGlobalError } = useErrorHandler()
-const { loading, setLoading: setGlobalLoading } = useLoadingHandler()
 
 const pushToGlobalSubjects = (subject: SubjectEntity) => {
 	const index = global.subjects.value.findIndex((s) => s.id === subject.id)
@@ -21,13 +21,13 @@ const pushToGlobalSubjects = (subject: SubjectEntity) => {
 }
 
 const fetchSubjects = async () => {
-	setGlobalError('')
-	setGlobalLoading(true)
+	global.setError('')
+	global.setLoading(true)
 	try {
 		global.subjects.value = await GetSubjects.call()
 		global.fetched.value = true
-	} catch (error) { setGlobalError(error) }
-	setGlobalLoading(false)
+	} catch (error) { global.setError(error) }
+	global.setLoading(false)
 }
 
 export const useSubjectList = () => {
@@ -35,7 +35,7 @@ export const useSubjectList = () => {
 		if (!global.fetched.value) await fetchSubjects()
 	})
 
-	return { ...global, error, loading }
+	return { ...global }
 }
 
 export const useSubject = (id: string) => {

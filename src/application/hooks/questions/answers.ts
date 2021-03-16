@@ -8,12 +8,10 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { useCreateModal } from '@app/hooks/core/modals'
 import { Alert } from '@app/hooks/core/notifications'
 
-const global: { [questionId: string] : {
+const global = {} as Record<string, {
 	answers: Ref<AnswerEntity[]>,
-	fetched: Ref<boolean>,
-	error: Ref<string>, setError: (error: any) => void,
-	loading: Ref<boolean>, setLoading: (loading: boolean) => void
-}} = {}
+	fetched: Ref<boolean>
+} & ReturnType<typeof useErrorHandler> & ReturnType<typeof useLoadingHandler>>
 
 export const useAnswerList = (questionId: string) => {
 	if (global[questionId] === undefined) global[questionId] = {

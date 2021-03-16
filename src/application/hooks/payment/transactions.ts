@@ -7,9 +7,7 @@ const global = {} as Record<string, {
 	transactions: Ref<TransactionEntity[]>
 	hasMore: Ref<boolean>
 	fetched: Ref<boolean>
-	error: Ref<string>, setError: (error: any) => void
-	loading: Ref<boolean>, setLoading: (loading: boolean) => void
-}>
+} & ReturnType<typeof useErrorHandler> & ReturnType<typeof useLoadingHandler>>
 
 const pushToTransactionList = (userId: string, transaction: TransactionEntity) => {
 	const index = global[userId].transactions.value.findIndex((t) => t.id === transaction.id)

@@ -11,7 +11,7 @@ export class GetTopRankingUsersUseCase {
 
 	async call (period: RankingPeriods) {
 		const conditions: DatabaseGetClauses = {
-			order: { field: `rankings/${period}`, condition: { start: 1 } },
+			order: { field: `rankings/${period}`, condition: { gt: 0 } },
 			limit: { count: 5, bottom: false }
 		}
 		return await this.repository.get(conditions)

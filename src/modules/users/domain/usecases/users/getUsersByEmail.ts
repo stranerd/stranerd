@@ -12,7 +12,7 @@ export class GetUsersByEmailUseCase {
 		const conditions: DatabaseGetClauses = {
 			order: {
 				field: 'bio/email',
-				condition: { equal: email }
+				condition: { eq: email }
 			}
 		}
 		return await this.repository.get(conditions)

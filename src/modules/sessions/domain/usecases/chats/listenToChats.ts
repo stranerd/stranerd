@@ -9,15 +9,15 @@ export class ListenToChatsUseCase {
 		this.repository = repository
 	}
 
-	async call (sessionId: string, callback: (entities: ChatEntity[]) => void, date?: Date) {
+	async call (path: string, callback: (entities: ChatEntity[]) => void, date?: Date) {
 		const conditions: DatabaseGetClauses = {
 			order: {
 				field: 'dates/createdAt'
 			}
 		}
 
-		if (date) conditions.order!.condition = { start: date.getTime() + 1 }
+		if (date) conditions.order!.condition = { gt: date.getTime() }
 
-		return await this.repository.listen(sessionId, callback, conditions)
+		return await this.repository.listen(path, callback, conditions)
 	}
 }

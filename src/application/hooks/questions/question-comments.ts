@@ -5,12 +5,10 @@ import {
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
 
-const global: { [questionId: string] : {
+const global = {} as Record<string, {
 	comments: Ref<CommentEntity[]>,
-	fetched: Ref<boolean>,
-	error: Ref<string>, setError: (error: any) => void,
-	loading: Ref<boolean>, setLoading: (loading: boolean) => void
-}} = {}
+	fetched: Ref<boolean>
+} & ReturnType<typeof useErrorHandler> & ReturnType<typeof useLoadingHandler>>
 
 export const useQuestionCommentList = (questionId: string) => {
 	if (global[questionId] === undefined) global[questionId] = {

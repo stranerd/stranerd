@@ -4,12 +4,8 @@ import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core
 
 const global = {} as Record<RankingPeriods, {
 	users: Ref<UserEntity[]>,
-	fetched: Ref<boolean>,
-	error: Ref<string>,
-	setError: (error: any) => void,
-	loading: Ref<boolean>,
-	setLoading: (loading: boolean) => void,
-}>
+	fetched: Ref<boolean>
+} & ReturnType<typeof useErrorHandler> & ReturnType<typeof useLoadingHandler>>
 const sortUsers = (users: UserEntity[], period: RankingPeriods) => users.sort((a, b) => b.rankings[period] - a.rankings[period])
 
 export const useTopUsersByPeriod = (period: RankingPeriods) => {

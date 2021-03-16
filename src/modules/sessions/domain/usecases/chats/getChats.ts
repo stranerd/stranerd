@@ -19,7 +19,7 @@ export class GetChatsUseCase {
 			}
 		}
 
-		if (date) conditions.order!.condition = { end: date.getTime() }
+		if (date) conditions.order!.condition = { lt: date.getTime() }
 
 		return await this.repository.get(sessionId, conditions)
 	}

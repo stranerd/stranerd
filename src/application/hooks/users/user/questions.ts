@@ -6,12 +6,8 @@ import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 const global = {} as Record<string, {
 	questions: Ref<QuestionEntity[]>,
 	fetched: Ref<boolean>,
-	hasMore: Ref<boolean>,
-	error: Ref<string>,
-	setError: (error: any) => void
-	loading: Ref<boolean>,
-	setLoading: (loading: boolean) => void
-}>
+	hasMore: Ref<boolean>
+} & ReturnType<typeof useErrorHandler> & ReturnType<typeof useLoadingHandler>>
 
 const pushToQuestionList = (id: string, question: QuestionEntity) => {
 	const index = global[id].questions.value.findIndex((q) => q.id === question.id)

@@ -13,7 +13,7 @@ export class ListenToTutorsUseCase {
 		const conditions: DatabaseGetClauses = {
 			order: {
 				field: 'roles/isTutor',
-				condition: { equal: true }
+				condition: { eq: true }
 			}
 		}
 		return await this.repository.listenToMany(callback, conditions)

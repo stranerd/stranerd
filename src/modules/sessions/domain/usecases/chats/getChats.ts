@@ -1,4 +1,5 @@
 import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { CHAT_PAGINATION_LIMIT } from '@utils/constants'
 import { IChatRepository } from '../../irepositories/ichat'
 
 export class GetChatsUseCase {
@@ -8,19 +9,19 @@ export class GetChatsUseCase {
 		this.repository = repository
 	}
 
-	async call (sessionId: string, date?: Date) {
+	async call (path: string, date?: Date) {
 		const conditions: DatabaseGetClauses = {
 			order: {
 				field: 'dates/createdAt'
 			},
 			limit: {
-				count: 50,
+				count: CHAT_PAGINATION_LIMIT + 1,
 				bottom: true
 			}
 		}
 
 		if (date) conditions.order!.condition = { lt: date.getTime() }
 
-		return await this.repository.get(sessionId, conditions)
+		return await this.repository.get(path, conditions)
 	}
 }

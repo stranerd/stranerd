@@ -14,30 +14,30 @@ export class ChatRepository implements IChatRepository {
 		this.transformer = transformer
 	}
 
-	async add (sessionId: string, data: ChatToModel) {
-		return await this.dataSource.create(sessionId, data)
+	async add (path: string, data: ChatToModel) {
+		return await this.dataSource.create(path, data)
 	}
 
-	async get (sessionId: string, conditions?: DatabaseGetClauses) {
-		const models = await this.dataSource.get(sessionId, conditions)
+	async get (path: string, conditions?: DatabaseGetClauses) {
+		const models = await this.dataSource.get(path, conditions)
 		return models.map(this.transformer.fromJSON)
 	}
 
-	async find (sessionId: string, id: string) {
-		const model = await this.dataSource.find(sessionId, id)
+	async find (path: string, id: string) {
+		const model = await this.dataSource.find(path, id)
 		return model ? this.transformer.fromJSON(model) : model
 	}
 
-	async listen (sessionId: string, callback: (entities: ChatEntity[]) => void, conditions?: DatabaseGetClauses) {
+	async listen (path: string, callback: (entities: ChatEntity[]) => void, conditions?: DatabaseGetClauses) {
 		const listenCB = (documents: ChatFromModel[]) => callback(documents.map(this.transformer.fromJSON))
-		return await this.dataSource.listen(sessionId, listenCB, conditions)
+		return await this.dataSource.listen(path, listenCB, conditions)
 	}
 
-	async update (sessionId: string, id: string, data: Partial<ChatToModel>) {
-		await this.dataSource.update(sessionId, id, data)
+	async update (path: string, id: string, data: Partial<ChatToModel>) {
+		await this.dataSource.update(path, id, data)
 	}
 
-	async delete (sessionId: string, id: string) {
-		return await this.dataSource.delete(sessionId, id)
+	async delete (path: string, id: string) {
+		return await this.dataSource.delete(path, id)
 	}
 }

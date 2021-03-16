@@ -7,7 +7,7 @@ export class MarkChatReadUseCase {
 		this.repository = repository
 	}
 
-	async call (sessionId: string, id: string) {
-		return await this.repository.update(sessionId, id, { readAt: Date.now() })
+	async call (path: string, id: string) {
+		return await this.repository.update(path, id, { readAt: Date.now() })
 	}
 }

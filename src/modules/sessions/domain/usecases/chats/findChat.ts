@@ -7,7 +7,7 @@ export class FindChatUseCase {
 		this.repository = repository
 	}
 
-	async call (sessionId: string, id: string) {
-		return await this.repository.find(sessionId, id)
+	async call (path: string, id: string) {
+		return await this.repository.find(path, id)
 	}
 }

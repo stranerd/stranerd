@@ -26,8 +26,3 @@ export const personalChatMediaDeleted = functions.database.ref('chats/single/{pa
 	.onDelete(async (snap) => {
 		await deleteFromStorage(snap.val()?.path)
 	})
-
-export const sessionChatMediaDeleted = functions.database.ref('sessions/{sessionId}/chats/{chatId}/media')
-	.onDelete(async (snap) => {
-		await deleteFromStorage(snap.val()?.path)
-	})

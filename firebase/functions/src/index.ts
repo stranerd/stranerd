@@ -20,7 +20,7 @@ import { markAsBestAnswer } from './onCall/questions/markAsBestAnswer'
 
 import { userProfileUpdated, userAvatarCreated } from './modules/users/users'
 
-import { personalChatsCreated, personalChatMediaDeleted, sessionChatMediaDeleted } from './modules/sessions/chats'
+import { personalChatsCreated, personalChatMediaDeleted } from './modules/sessions/chats'
 
 import { questionCommentCreated, questionCommentDeleted, answerCommentCreated, answerCommentDeleted } from './modules/questions/comments'
 import { subjectIconUpdated, subjectDeleted } from './modules/questions/subjects'
@@ -44,7 +44,7 @@ export { userProfileUpdated, userAvatarCreated }
 
 // Sessions Module
 // Chats
-export { personalChatsCreated, personalChatMediaDeleted, sessionChatMediaDeleted }
+export { personalChatsCreated, personalChatMediaDeleted }
 
 // Questions Module
 // Subjects

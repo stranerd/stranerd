@@ -10,6 +10,9 @@
 		<a v-if="isLoggedIn" class="link">
 			<img src="@app/assets/images/icons/notification.svg" alt="">
 		</a>
+		<NuxtLink v-if="isLoggedIn" to="/messages" class="link">
+			<img src="@app/assets/images/icons/chat.svg" alt="">
+		</NuxtLink>
 		<a v-if="isLoggedIn" class="link d-none d-lg-inline" @click.prevent="signout">
 			<PageLoading v-if="loading" />
 			<img src="@app/assets/images/icons/signout.svg" alt="">

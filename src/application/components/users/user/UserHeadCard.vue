@@ -8,6 +8,9 @@
 			<div class="ml-1 align-items-center align-items-lg-start d-flex flex-column">
 				<span class="d-block text-18 font-weight-bold text-wrap">{{ user.fullName }}</span>
 				<ShowRatings v-if="user.roles.isTutor" :rating="user.averageRating" />
+				<NuxtLink :to="`/messages/${user.id}`" class="btn btn-sm btn-blue my-1">
+					Message
+				</NuxtLink>
 			</div>
 		</div>
 		<div class="grid ml-lg-auto my-1">

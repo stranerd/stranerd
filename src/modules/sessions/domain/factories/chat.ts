@@ -36,7 +36,12 @@ export class ChatFactory extends BaseFactory<ChatEntity, ChatToModel, Keys> {
 			if (this.media instanceof File) this.media = await this.uploadFile('chats', this.media)
 
 			const { from, content, media, sessionId } = this.validValues
-			return { from, content, sessionId, media: media as Media }
+			return {
+				from,
+				...(content ? { content } : {}),
+				...(sessionId ? { sessionId } : {}),
+				...(media ? { media: media as Media } : {})
+			}
 		} else {
 			throw new Error('Validation errors')
 		}

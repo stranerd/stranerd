@@ -9,7 +9,7 @@ export class ChatTransformer {
 			id,
 			content, media, from, sessionId,
 			createdAt: timestampToMs(createdAt),
-			readAt: timestampToMs(readAt)
+			readAt: readAt ? timestampToMs(readAt) : undefined
 		})
 	}
 

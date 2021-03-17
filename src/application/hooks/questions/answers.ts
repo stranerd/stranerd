@@ -1,4 +1,4 @@
-import { Ref, ssrRef, useFetch, watch } from '@nuxtjs/composition-api'
+import { Ref, ref, ssrRef, useFetch, watch } from '@nuxtjs/composition-api'
 import {
 	AddAnswer, AnswerEntity, AnswerFactory, FindAnswer, GetAnswers, ListenToAnswer,
 	ListenToAnswers, MarkAsBestAnswer, QuestionEntity, RateAnswer
@@ -56,7 +56,7 @@ export const openAnswerModal = (question: QuestionEntity) => {
 
 export const useCreateAnswer = () => {
 	const { id, bio } = useAuth()
-	const factory = ssrRef(new AnswerFactory()) as Ref<AnswerFactory>
+	const factory = ref(new AnswerFactory()) as Ref<AnswerFactory>
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
 	const { setMessage } = useSuccessHandler()

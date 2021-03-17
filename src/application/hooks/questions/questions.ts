@@ -1,4 +1,4 @@
-import { ssrRef, watch, computed, useRouter, useFetch } from '@nuxtjs/composition-api'
+import { ssrRef, watch, computed, useRouter, useFetch, ref, Ref } from '@nuxtjs/composition-api'
 import {
 	AddQuestion, FindQuestion, GetQuestions, ListenToQuestion,
 	ListenToQuestions, QuestionEntity, QuestionFactory
@@ -80,7 +80,7 @@ export const useQuestionList = () => {
 	}
 }
 
-const factory = ssrRef(new QuestionFactory())
+const factory = ref(new QuestionFactory()) as Ref<QuestionFactory>
 export const useCreateQuestion = () => {
 	const { id, bio, user, isLoggedIn } = useAuth()
 	const { error, setError } = useErrorHandler()

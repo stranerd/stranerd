@@ -1,4 +1,4 @@
-import { computed, Ref, ssrRef, useFetch, watch } from '@nuxtjs/composition-api'
+import { computed, Ref, ssrRef, ref, useFetch, watch } from '@nuxtjs/composition-api'
 import { AddPersonalChat, ChatEntity, ChatFactory, GetPersonalChats, ListenToPersonalChats } from '@modules/sessions'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
@@ -55,7 +55,7 @@ export const useChats = (userId: string) => {
 	})
 
 	useFetch(async () => {
-		if (!global[userId].fetched) await fetchChats()
+		if (!global[userId].fetched.value) await fetchChats()
 	})
 
 	return {
@@ -68,6 +68,7 @@ export const useChats = (userId: string) => {
 		fetched: global[userId].fetched,
 		loading: global[userId].loading,
 		error: global[userId].error,
+		hasMore: global[userId].hasMore,
 		listener,
 		fetchOlderChats: fetchChats
 	}
@@ -75,14 +76,14 @@ export const useChats = (userId: string) => {
 
 export const useCreateChat = (userId: string, sessionId?: string) => {
 	const { id } = useAuth()
-	const factory = ssrRef(new ChatFactory())
+	const factory = ref(new ChatFactory()) as Ref<ChatFactory>
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 
 	factory.value.from = id.value!
 	watch(() => id.value, () => factory.value.from = id.value!)
 
-	const createChat = async () => {
+	const createTextChat = async () => {
 		if (sessionId) factory.value.sessionId = sessionId
 		const path = getChatsPath(id.value, userId)
 		setError('')
@@ -97,5 +98,22 @@ export const useCreateChat = (userId: string, sessionId?: string) => {
 		}
 	}
 
-	return { factory, error, loading, createChat }
+	const createMediaChat = async (files: File[]) => {
+		if (!loading.value) {
+			setLoading(true)
+			const path = getChatsPath(id.value, userId)
+			const promises = files.map(async (file) => {
+				const mediaFactory = new ChatFactory()
+				mediaFactory.from = id.value
+				mediaFactory.media = file
+				try {
+					await AddPersonalChat.call(path, mediaFactory)
+				} catch (error) { setError(error) }
+			})
+			await Promise.all(promises)
+			setLoading(false)
+		}
+	}
+
+	return { factory, error, loading, createTextChat, createMediaChat }
 }

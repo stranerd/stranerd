@@ -1,13 +1,24 @@
 <template>
 	<div class="page-content">
 		<h1>Single Message</h1>
+		<ChatList :user-id="userId" />
+		<ChatForm :user-id="userId" session-id="" />
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, useRoute } from '@nuxtjs/composition-api'
+import ChatList from '@app/components/sessions/chats/ChatList.vue'
+import ChatForm from '@app/components/sessions/chats/ChatForm.vue'
+import { useUser } from '@app/hooks/users/user'
 export default defineComponent({
 	name: 'MessagePage',
-	middleware: ['isAuthenticated']
+	components: { ChatList, ChatForm },
+	middleware: ['isAuthenticated'],
+	setup () {
+		const { userId } = useRoute().value.params
+		const { user, loading, error } = useUser(userId)
+		return { userId, user, loading, error }
+	}
 })
 </script>

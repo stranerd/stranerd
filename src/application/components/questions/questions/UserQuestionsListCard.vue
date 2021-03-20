@@ -9,10 +9,10 @@
 			</span>
 			<span class="ml-1">
 				<img src="@app/assets/images/icons/answers.svg" alt="" style="width: 24px; height: 24px;">
-				<span>{{ question.answers }}</span>
+				<span>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</span>
 			</span>
 			<span v-if="question.attachments.length" class="ml-1">
-				<span>{{ question.attachments.length }}</span>
+				<span>{{ formatNumber(question.attachments.length) }}</span>
 				<i class="fas fa-paperclip" />
 			</span>
 			<i v-if="question.isAnswered" class="fas fa-check text-green fa-2x ml-1" />
@@ -25,7 +25,7 @@ import { defineComponent, onBeforeUnmount, onMounted, PropType } from '@nuxtjs/c
 import { QuestionEntity } from '@modules/questions'
 import { useSubject } from '@app/hooks/questions/subjects'
 import { useTimeDifference } from '@app/hooks/core/dates'
-import { formatNumber } from '@utils/numbers'
+import { formatNumber, pluralize } from '@utils/numbers'
 export default defineComponent({
 	name: 'UserQuestionsListCard',
 	props: {
@@ -39,7 +39,7 @@ export default defineComponent({
 		const { time, startTimer, stopTimer } = useTimeDifference(props.question.createdAt)
 		onMounted(startTimer)
 		onBeforeUnmount(stopTimer)
-		return { subject, time, formatNumber }
+		return { subject, time, formatNumber, pluralize }
 	}
 })
 </script>

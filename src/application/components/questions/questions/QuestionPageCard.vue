@@ -24,7 +24,7 @@
 					</div>
 					<span class="mr-1">
 						<img src="@app/assets/images/icons/answers.svg" alt="" style="width: 24px; height: 24px;">
-						<span>{{ question.answers }} answers</span>
+						<span>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</span>
 					</span>
 				</div>
 			</div>
@@ -38,10 +38,10 @@
 		<div class="d-flex">
 			<span class="mr-1 mr-md-2 d-md-none">
 				<img src="@app/assets/images/icons/answers.svg" alt="" style="width: 24px; height: 24px;">
-				<span>{{ question.answers }} answers</span>
+				<span>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</span>
 			</span>
 			<span v-if="question.attachments.length" class="mr-1 mr-md-2">
-				<span>{{ question.attachments.length }}</span>
+				<span>{{ formatNumber(question.attachments.length) }}</span>
 				<i class="fas fa-paperclip" />
 			</span>
 			<a v-if="question.commentsCount" class="mr-1 mr-md-2 d-flex align-items-center" @click.prevent="showComments = !showComments">
@@ -67,7 +67,7 @@
 				<h5 class="mb-0 mr-1">
 					Comments
 				</h5>
-				<span>{{ question.commentsCount }}</span>
+				<span>{{ formatNumber(question.commentsCount) }}</span>
 			</div>
 			<CommentList :question-id="question.id" />
 		</div>
@@ -86,7 +86,7 @@ import { useRedirectToAuth } from '@app/hooks/auth/session'
 import DisplayAttachments from '@app/components/questions/DisplayAttachments.vue'
 import CommentForm from '@app/components/questions/comments/QuestionCommentForm.vue'
 import CommentList from '@app/components/questions/comments/QuestionCommentsList.vue'
-import { formatNumber } from '@utils/numbers'
+import { formatNumber, pluralize } from '@utils/numbers'
 export default defineComponent({
 	name: 'QuestionPageCard',
 	components: { DisplayAttachments, CommentForm, CommentList },
@@ -109,7 +109,7 @@ export default defineComponent({
 		onMounted(startTimer)
 		onBeforeUnmount(stopTimer)
 		return {
-			id, formatNumber, isTutor, showAnswerButton,
+			id, formatNumber, pluralize, isTutor, showAnswerButton,
 			subject, time, showComments,
 			openAnswerModal: () => {
 				if (!isLoggedIn.value) redirect()

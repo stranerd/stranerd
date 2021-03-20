@@ -16,13 +16,13 @@
 			</div>
 			<span class="ml-auto">
 				<img src="@app/assets/images/icons/answers.svg" alt="" style="width: 20px; height: 20px;">
-				<span>{{ question.answers }} answers</span>
+				<span>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</span>
 			</span>
 			<i v-if="question.isAnswered" class="fas fa-check text-green fa-2x ml-1" />
 		</div>
 		<NuxtLink class="editor-body mb-1" :to="`/questions/${question.id}`" v-html="question.body" />
 		<NuxtLink v-if="question.attachments.length" :to="`/questions/${question.id}`">
-			<span>{{ question.attachments.length }}</span>
+			<span>{{ formatNumber(question.attachments.length) }}</span>
 			<i class="fas fa-paperclip" />
 		</NuxtLink>
 	</div>
@@ -34,7 +34,7 @@ import { QuestionEntity } from '@modules/questions'
 import { useSubject } from '@app/hooks/questions/subjects'
 import { useTimeDifference } from '@app/hooks/core/dates'
 import { useAuth } from '@app/hooks/auth/auth'
-import { formatNumber } from '@utils/numbers'
+import { formatNumber, pluralize } from '@utils/numbers'
 export default defineComponent({
 	name: 'QuestionsListCard',
 	props: {
@@ -49,7 +49,7 @@ export default defineComponent({
 		const { time, startTimer, stopTimer } = useTimeDifference(props.question.createdAt)
 		onMounted(startTimer)
 		onBeforeUnmount(stopTimer)
-		return { id, subject, time, formatNumber }
+		return { id, subject, time, formatNumber, pluralize }
 	}
 })
 </script>

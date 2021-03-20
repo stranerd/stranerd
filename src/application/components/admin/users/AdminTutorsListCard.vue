@@ -32,7 +32,7 @@ import { UserEntity } from '@modules/users'
 import { setCurrentTutor, useTutorRoles } from '@app/hooks/users/roles/tutors'
 import { useEditModal } from '@app/hooks/core/modals'
 export default defineComponent({
-	name: 'TutorsListCard',
+	name: 'AdminTutorsListCard',
 	props: {
 		tutor: {
 			type: Object as PropType<UserEntity>,

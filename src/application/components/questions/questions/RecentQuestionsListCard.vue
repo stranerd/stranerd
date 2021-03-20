@@ -2,7 +2,7 @@
 	<div :id="question.id">
 		<NuxtLink class="editor-body mb-1" :to="`/questions/${question.id}`" v-html="question.body" />
 		<span v-if="question.attachments.length">
-			<span>{{ question.attachments.length }}</span>
+			<span>{{ formatNumber(question.attachments.length) }}</span>
 			<i class="fas fa-paperclip" />
 		</span>
 	</div>

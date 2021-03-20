@@ -16,8 +16,8 @@
 				<option disabled value="0">
 					Select coins
 				</option>
-				<option v-for="credit in coins" :key="credit" :value="credit">
-					{{ credit }}
+				<option v-for="coin in coins" :key="coin" :value="coin">
+					{{ coin }}
 				</option>
 			</select>
 		</div>

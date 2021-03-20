@@ -16,3 +16,8 @@ export const formatNumber = (num: number) => {
 	else if (num < Numbers.quadrillion) return (num / Numbers.trillion).toFixed(1).replace('.0', '') + 'tr'
 	else return num.toFixed(0)
 }
+
+export const pluralize = (count: number, singular: string, plural: string) => {
+	if (count === 1) return singular
+	return plural
+}

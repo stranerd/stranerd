@@ -19,7 +19,7 @@ export class UserTransformer {
 			roles: entity.roles,
 			account: entity.account,
 			meta: entity.meta,
-			chats: Object.fromEntries(entity.chats.map((chat) => [chat.id, chat.bio])),
+			chats: Object.fromEntries(entity.chats.map((chat) => [chat.id, chat])),
 			rankings: entity.rankings,
 			status: entity.status,
 			...(entity.tutor ? { tutor: entity.tutor } : {}),

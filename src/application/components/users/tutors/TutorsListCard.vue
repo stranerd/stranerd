@@ -19,7 +19,7 @@
 				<span>{{ tutor.isOnline ? 'Online' : 'Offline' }}</span>
 			</span>
 			<ShowRatings class="ml-1 ml-lg-2" :rating="tutor.averageRating" />
-			<span class="ml-1 ml-lg-2">{{ tutor.ratingCount }} reviews</span>
+			<span class="ml-1 ml-lg-2">{{ formatNumber(tutor.ratingCount) }} {{ pluralize(tutor.ratingCount, 'review', 'reviews') }}</span>
 		</span>
 		<button class="ml-1 ml-lg-2 btn btn-sm btn-outline-blue rounded-pill">
 			Message
@@ -31,6 +31,7 @@
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { UserEntity } from '@modules/users'
 import ShowRatings from '@app/components/core/ShowRatings.vue'
+import { formatNumber, pluralize } from '@utils/numbers'
 export default defineComponent({
 	name: 'TutorsListCard',
 	components: { ShowRatings },
@@ -43,6 +44,9 @@ export default defineComponent({
 			type: Number,
 			required: true
 		}
+	},
+	setup () {
+		return { formatNumber, pluralize }
 	}
 })
 </script>

@@ -19,7 +19,7 @@ export class UserEntity extends BaseEntity {
 	public readonly account: UserAccount
 	public readonly rankings: Required<UserRankings>
 	public readonly meta: Required<UserMeta>
-	public readonly chats: UserBio[]
+	public readonly chats: (UserBio & { id: string })[]
 	public readonly status: Required<UserStatus>
 	public readonly tutor: Required<UserTutor> | undefined
 	public readonly achievements: Required<ReturnType<typeof getUserAchievements>>
@@ -57,8 +57,8 @@ export class UserEntity extends BaseEntity {
 			tutorSessions: meta?.tutorSessions ?? {},
 			currentSession: meta?.currentSession ?? null
 		}
-		this.chats = Object.values(chats ?? {})
-			.map((bio) => generateDefaultBio(bio))
+		this.chats = Object.entries(chats ?? {})
+			.map(([id, bio]) => ({ id, ...generateDefaultBio(bio) }))
 			.sort((a, b) => a.name.first < b.name.first ? -1 : 1)
 		this.status = {
 			streak: status?.streak ?? 0,

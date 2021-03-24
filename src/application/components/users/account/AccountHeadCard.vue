@@ -14,10 +14,8 @@ import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { UserEntity } from '@modules/users'
 import { formatNumber } from '@utils/numbers'
 import { useEditModal, useMenuModal } from '@app/hooks/core/modals'
-import ShowRatings from '@app/components/core/ShowRatings.vue'
 export default defineComponent({
 	name: 'AccountHeadCard',
-	components: { ShowRatings },
 	props: {
 		user: {
 			required: true,

@@ -63,8 +63,6 @@ import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, ref } 
 import { AnswerEntity, QuestionEntity } from '@modules/questions'
 import { useTimeDifference } from '@app/hooks/core/dates'
 import { useAnswer } from '@app/hooks/questions/answers'
-import SelectRating from '@app/components/core/SelectRating.vue'
-import ShowRatings from '@app/components/core/ShowRatings.vue'
 import { useAuth } from '@app/hooks/auth/auth'
 import DisplayAttachments from '@app/components/questions/DisplayAttachments.vue'
 import CommentForm from '@app/components/questions/comments/AnswerCommentForm.vue'
@@ -72,8 +70,6 @@ import CommentList from '@app/components/questions/comments/AnswerCommentsList.v
 export default defineComponent({
 	name: 'AnswerListCard',
 	components: {
-		SelectRating,
-		ShowRatings,
 		DisplayAttachments,
 		CommentForm,
 		CommentList

@@ -51,7 +51,11 @@ export const plugins = [
 	{ mode: 'client', src: '@/plugins/registerClientScripts' }
 ]
 
-export const components = true
+export const components = [
+	'~/components',
+	{ path: '~/components/core', level: 0 },
+	{ path: '~/components/core/states', level: 0 }
+]
 
 export const modules = [
 	'@nuxtjs/style-resources'

@@ -30,11 +30,9 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { UserEntity } from '@modules/users'
-import ShowRatings from '@app/components/core/ShowRatings.vue'
 import { formatNumber, pluralize } from '@utils/numbers'
 export default defineComponent({
 	name: 'TutorsListCard',
-	components: { ShowRatings },
 	props: {
 		tutor: {
 			type: Object as PropType<UserEntity>,

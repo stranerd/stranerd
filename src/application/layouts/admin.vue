@@ -15,13 +15,11 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import AdminTopNavigation from '@app/components/layouts/topNavigations/AdminTopNavigation.vue'
 import AdminSidebar from '@app/components/layouts/sidebars/AdminSidebar.vue'
-import ModalBase from '@app/components/modals/Base.vue'
 export default defineComponent({
 	name: 'AdminLayout',
 	components: {
 		AdminTopNavigation,
-		AdminSidebar,
-		ModalBase
+		AdminSidebar
 	},
 	middleware: ['isAdmin']
 })

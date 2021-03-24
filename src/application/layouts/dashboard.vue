@@ -16,12 +16,11 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import ModalBase from '@app/components/modals/Base.vue'
 import DashboardSidebar from '@app/components/layouts/sidebars/DashboardSidebar.vue'
 import DashboardRightPanel from '@app/components/dashboard/DashboardRightPanel.vue'
 import DashboardTopNavigation from '@app/components/layouts/topNavigations/DashboardTopNavigation.vue'
 export default defineComponent({
 	name: 'DashboardLayout',
-	components: { ModalBase, DashboardSidebar, DashboardTopNavigation, DashboardRightPanel }
+	components: { DashboardSidebar, DashboardTopNavigation, DashboardRightPanel }
 })
 </script>

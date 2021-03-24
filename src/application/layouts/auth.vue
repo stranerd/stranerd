@@ -9,12 +9,8 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import ModalBase from '@app/components/modals/Base.vue'
 export default defineComponent({
-	name: 'AuthLayout',
-	components: {
-		ModalBase
-	}
+	name: 'AuthLayout'
 })
 </script>
 

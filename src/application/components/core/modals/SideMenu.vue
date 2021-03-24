@@ -54,7 +54,7 @@ export default defineComponent({
 	background: rgba($color-blue-grey, .5);
 	overflow-y: auto;
 	.sidebar {
-		width: clamp(200px, 80%, 350px);
+		width: clamp(200px, 75%, 300px);
 		min-height: 100vh;
 		color: $color-light-blue;
 		background: $color-blue;

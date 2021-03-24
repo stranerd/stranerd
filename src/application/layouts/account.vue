@@ -15,13 +15,11 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import AccountTopNavigation from '@app/components/layouts/topNavigations/AccountTopNavigation.vue'
 import AccountSidebar from '@app/components/layouts/sidebars/AccountSidebar.vue'
-import ModalBase from '@app/components/modals/Base.vue'
 export default defineComponent({
 	name: 'AccountLayout',
 	components: {
 		AccountTopNavigation,
-		AccountSidebar,
-		ModalBase
+		AccountSidebar
 	},
 	middleware: ['isAuthenticated']
 })

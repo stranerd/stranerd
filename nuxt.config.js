@@ -54,7 +54,8 @@ export const plugins = [
 export const components = [
 	'~/components',
 	{ path: '~/components/core', level: 0 },
-	{ path: '~/components/core/states', level: 0 }
+	{ path: '~/components/core/states', level: 0 },
+	{ path: '~/components/core/modals', level: 0 }
 ]
 
 export const modules = [

@@ -36,7 +36,7 @@ export const questionUpdated = functions.firestore.document('questions/{question
 
 		await Promise.all(oldAttachments?.map(async (attachment) => {
 			const wasLeftBehind = newAttachments?.find((doc) => doc?.path === attachment?.path)
-			if(!wasLeftBehind) await deleteFromStorage(attachment?.path)
+			if (!wasLeftBehind) await deleteFromStorage(attachment?.path)
 		}))
 
 		await saveToAlgolia('questions', snap.after.id, after)

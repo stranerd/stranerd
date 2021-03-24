@@ -6,7 +6,7 @@ export const makePayment = functions.https.onCall(async (data, context) => {
 		throw new functions.https.HttpsError('unauthenticated', 'Only authenticated users can make payments')
 
 	const { amount, token } = data
-	try{
+	try {
 		const result = await braintree.makePayment(amount, token)
 		return result.success
 	} catch (error) {

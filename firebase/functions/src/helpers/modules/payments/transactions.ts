@@ -8,7 +8,7 @@ type CreateTransaction = {
 }
 
 const createTransaction = async (userId: string, data: CreateTransaction) => {
-	try{
+	try {
 		await admin.firestore().collection(`users/${userId}/transactions`)
 			.add({
 				...data,
@@ -47,7 +47,7 @@ export const addUserXp = async (userId: string, xp: number, shouldSkipForRanking
 
 	if (!shouldSkipForRanking) Object.values(RankingPeriods)
 		.forEach((period) => {
-			data[`rankings/${ period }`] = admin.database.ServerValue.increment(xp)
+			data[`rankings/${period}`] = admin.database.ServerValue.increment(xp)
 		})
 
 	await admin.database().ref('profiles').child(userId).update(data)

@@ -24,4 +24,3 @@ const tipTutor = async (userId: string, tutorId: string, amount: number) => {
 	await addUserXp(userId, XpGainList.TIP_NERD)
 	await Achievement.checkTipNerdsAchievement(userId)
 }
-

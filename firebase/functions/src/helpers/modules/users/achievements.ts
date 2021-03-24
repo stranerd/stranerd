@@ -1,7 +1,7 @@
 import * as admin from 'firebase-admin'
 import { addUserCoins, addUserXp } from '../payments/transactions'
 
-type Achievement = {
+type IAchievement = {
 	id: string
 	name: string
 	description: string
@@ -105,7 +105,7 @@ const getAchievementProgress = async (userId: string, id: string) => {
 	return { progress: progress ?? 0, completed: completed ?? false, ref }
 }
 
-const runAfterAchievement = async (userId: string, achievement: Achievement) => {
+const runAfterAchievement = async (userId: string, achievement: IAchievement) => {
 	const { name, price: { bronze, xp } } = achievement
 	await addUserXp(userId, xp)
 	await addUserCoins(userId, { bronze, gold: 0 },
@@ -156,7 +156,7 @@ const checkAttendSessionsAchievement = async (userId: string) => {
 	const { ref, progress, completed } = await getAchievementProgress(userId, Achievements.ATTEND_SESSIONS.id)
 
 	if (!completed && progress + 1 >= Achievements.ATTEND_SESSIONS.limit) {
-		await ref.update({ completed:true, progress: admin.database.ServerValue.increment(1) })
+		await ref.update({ completed: true, progress: admin.database.ServerValue.increment(1) })
 		await runAfterAchievement(userId, Achievements.ATTEND_SESSIONS)
 	} else await ref.update({ progress: admin.database.ServerValue.increment(1) })
 }
@@ -164,7 +164,7 @@ const checkAttendSessionsAchievement = async (userId: string) => {
 const checkTipNerdsAchievement = async (userId: string) => {
 	const { ref, progress, completed } = await getAchievementProgress(userId, Achievements.TIP_NERDS.id)
 
-	if (!completed && progress + 1 >= Achievements.TIP_NERDS.limit){
+	if (!completed && progress + 1 >= Achievements.TIP_NERDS.limit) {
 		await ref.update({ completed: true, progress: admin.database.ServerValue.increment(1) })
 		await runAfterAchievement(userId, Achievements.TIP_NERDS)
 	} else await ref.update({ progress: admin.database.ServerValue.increment(1) })

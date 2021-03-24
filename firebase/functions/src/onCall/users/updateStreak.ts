@@ -26,8 +26,8 @@ const updateUserStreak = async (userId: string) => {
 
 	await userStatusRef
 		.update({
-			'streak': isNextDay ? admin.database.ServerValue.increment(1) : 1,
-			'lastStreakCheck': admin.database.ServerValue.TIMESTAMP
+			streak: isNextDay ? admin.database.ServerValue.increment(1) : 1,
+			lastStreakCheck: admin.database.ServerValue.TIMESTAMP
 		})
 
 	await addUserXp(userId, XpGainList.LOGGING_IN)

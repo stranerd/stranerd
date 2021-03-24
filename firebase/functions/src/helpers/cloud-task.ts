@@ -1,5 +1,5 @@
 import { firebase } from './environment'
-const { CloudTasksClient }= require('@google-cloud/tasks')
+const { CloudTasksClient } = require('@google-cloud/tasks')
 
 type TaskArgs = {
 	queue: string

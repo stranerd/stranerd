@@ -85,8 +85,8 @@ export const updateMyAnswerCommentsBio = async (userId: string, user: any) => {
 export const updateBraintreeBio = async (userId: string, oldBio: any, bio: any) => {
 	try {
 		if (
-			bio?.name?.first !== oldBio?.name?.first
-			|| bio?.name?.last !== oldBio?.name?.last
+			bio?.name?.first !== oldBio?.name?.first ||
+			bio?.name?.last !== oldBio?.name?.last
 		) {
 			const fullName = bio?.name?.first ?? 'Unnamed' + ' ' + bio?.name?.last ?? ''
 

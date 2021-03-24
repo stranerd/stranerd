@@ -6,7 +6,7 @@ export const getClientToken = functions.https.onCall(async (_, context) => {
 	if (!context.auth)
 		throw new functions.https.HttpsError('unauthenticated', 'Only authenticated users can make payments')
 
-	try{
+	try {
 		const token = await braintree.getClientToken()
 		return {
 			braintree: token.clientToken,

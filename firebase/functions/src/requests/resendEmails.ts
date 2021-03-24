@@ -1,5 +1,5 @@
 import * as functions from 'firebase-functions'
-import * as admin from'firebase-admin'
+import * as admin from 'firebase-admin'
 import { sendMail, EMAILS } from '../helpers/email'
 
 type EmailError = { subject: string, to: string, content: string, from: EMAILS }
@@ -19,7 +19,7 @@ export const resendEmails = functions.https.onRequest(async (_, res) => {
 			} catch (e) {
 				await ref.update({
 					'dates/triedAt': admin.database.ServerValue.TIMESTAMP,
-					'error': e.message
+					error: e.message
 				})
 				return false
 			}

@@ -37,7 +37,7 @@ export const cancelSession = functions.https.onCall(async ({ id }, context) => {
 			})
 
 		if (taskName) await deleteTask(taskName)
-	} catch(error) {
+	} catch (error) {
 		throw new functions.https.HttpsError('unknown', error.message)
 	}
 })

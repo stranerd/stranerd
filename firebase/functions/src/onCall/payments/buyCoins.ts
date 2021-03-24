@@ -8,7 +8,7 @@ export const buyCoins = functions.https.onCall(async (data, context) => {
 
 	const { amount, isGold } = data
 	const userId = context.auth.uid
-	try{
+	try {
 		await addUserCoins(userId,
 			{ bronze: isGold ? 0 : amount, gold: isGold ? amount : 0 },
 			'You purchased coins'
@@ -16,8 +16,7 @@ export const buyCoins = functions.https.onCall(async (data, context) => {
 		if (isGold) {
 			await addUserXp(userId, XpGainList.BUY_GOLD * amount)
 			await Achievement.checkBuyGoldAchievement(userId, amount)
-		}
-		else {
+		} else {
 			await addUserXp(userId, XpGainList.BUY_BRONZE * amount)
 			await Achievement.checkBuyBronzeAchievement(userId, amount)
 		}

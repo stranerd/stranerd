@@ -18,7 +18,7 @@ export const answerCreated = functions.firestore.document('answers/{answerId}')
 			await admin.database().ref('profiles').child(userId)
 				.update({
 					[`meta/answers/${snap.id}`]: true,
-					[`meta/answeredQuestions/${questionId}`]: admin.database.ServerValue.increment(1),
+					[`meta/answeredQuestions/${questionId}`]: admin.database.ServerValue.increment(1)
 				})
 			await addUserCoins(userId, { bronze: coins, gold: 0 },
 				'You got coins for answering a question'
@@ -38,7 +38,7 @@ export const answerUpdated = functions.firestore.document('answers/{answerId}')
 
 		await Promise.all(oldAttachments?.map(async (attachment) => {
 			const wasNotRemoved = newAttachments?.find((doc) => attachment?.path === doc?.path)
-			if(!wasNotRemoved) await deleteFromStorage(attachment?.path)
+			if (!wasNotRemoved) await deleteFromStorage(attachment?.path)
 		}))
 	})
 
@@ -57,7 +57,7 @@ export const answerDeleted = functions.firestore.document('answers/{answerId}')
 		await admin.database().ref('profiles').child(userId)
 			.update({
 				[`meta/answers/${snap.id}`]: null,
-				[`meta/answeredQuestions/${questionId}`]: admin.database.ServerValue.increment(-1),
+				[`meta/answeredQuestions/${questionId}`]: admin.database.ServerValue.increment(-1)
 			})
 	})
 

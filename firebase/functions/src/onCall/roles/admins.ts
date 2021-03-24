@@ -1,5 +1,5 @@
 import * as functions from 'firebase-functions'
-import * as admin from'firebase-admin'
+import * as admin from 'firebase-admin'
 import { createNotification, NotificationType } from '../../helpers/modules/users/notifications'
 
 export const toggleAdmin = functions.https.onCall(async (data, context) => {
@@ -8,7 +8,7 @@ export const toggleAdmin = functions.https.onCall(async (data, context) => {
 	if (!context.auth?.token.isAdmin)
 		throw new functions.https.HttpsError('failed-precondition', 'Only admins can manage user roles')
 
-	try{
+	try {
 		const { id, isAdmin } = data
 
 		await admin.auth().setCustomUserClaims(id, { isAdmin })
@@ -29,7 +29,7 @@ export const toggleAdmin = functions.https.onCall(async (data, context) => {
 		})
 
 		return true
-	}catch(error){
+	} catch (error) {
 		throw new functions.https.HttpsError('unknown', error.message)
 	}
 })

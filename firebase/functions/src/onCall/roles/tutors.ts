@@ -1,5 +1,5 @@
 import * as functions from 'firebase-functions'
-import * as admin from'firebase-admin'
+import * as admin from 'firebase-admin'
 import { createNotification, NotificationType } from '../../helpers/modules/users/notifications'
 
 export const toggleTutor = functions.https.onCall(async (data, context) => {
@@ -8,14 +8,14 @@ export const toggleTutor = functions.https.onCall(async (data, context) => {
 	if (!context.auth?.token.isAdmin)
 		throw new functions.https.HttpsError('failed-precondition', 'Only admins can manage tutors')
 
-	try{
+	try {
 		const { id, isTutor } = data
 
 		await admin.database().ref('profiles')
 			.child(id)
 			.update({
 				'roles/isTutor': isTutor,
-				'tutor': isTutor ? { ratings: { total: 0, count: 0 }, subjects: {} } : null
+				tutor: isTutor ? { ratings: { total: 0, count: 0 }, subjects: {} } : null
 			})
 
 		await createNotification(id, {
@@ -28,7 +28,7 @@ export const toggleTutor = functions.https.onCall(async (data, context) => {
 		})
 
 		return true
-	}catch(error){
+	} catch (error) {
 		throw new functions.https.HttpsError('unknown', error.message)
 	}
 })

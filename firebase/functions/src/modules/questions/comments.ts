@@ -10,7 +10,7 @@ export const questionCommentCreated = functions.database.ref('comments/questions
 			.doc(questionId)
 			.set({
 				comments: {
-					count: admin.firestore.FieldValue.increment(1),
+					count: admin.firestore.FieldValue.increment(1)
 				}
 			}, { merge: true })
 
@@ -28,7 +28,7 @@ export const answerCommentCreated = functions.database.ref('comments/answers/{an
 			.doc(answerId)
 			.set({
 				comments: {
-					count: admin.firestore.FieldValue.increment(1),
+					count: admin.firestore.FieldValue.increment(1)
 				}
 			}, { merge: true })
 
@@ -46,7 +46,7 @@ export const questionCommentDeleted = functions.database.ref('comments/questions
 			.doc(questionId)
 			.set({
 				comments: {
-					count: admin.firestore.FieldValue.increment(-1),
+					count: admin.firestore.FieldValue.increment(-1)
 				}
 			}, { merge: true })
 
@@ -64,7 +64,7 @@ export const answerCommentDeleted = functions.database.ref('comments/answers/{an
 			.doc(answerId)
 			.set({
 				comments: {
-					count: admin.firestore.FieldValue.increment(-1),
+					count: admin.firestore.FieldValue.increment(-1)
 				}
 			}, { merge: true })
 

@@ -18,7 +18,8 @@
     "env:set:functions": "node bin/set-functions-config",
     "env:copy:example": "copy env.example.json env.json",
     "env:copy:functions": "node bin/copy-env-functions",
-    "env:copy:app": "node bin/copy-env-app"
+    "env:copy:app": "node bin/copy-env-app",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.3",
@@ -66,17 +67,14 @@
     "nuxt-purgecss": "^1.0.0",
     "sass-loader": "^10.1.1"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint && npm run firebase:functions:lint",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
     ]
   },
+  "eslintIgnore": [
+    "src/application/static/sw.js"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kevinand11/ss-nuxt.git"

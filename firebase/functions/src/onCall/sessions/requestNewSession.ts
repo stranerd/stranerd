@@ -13,9 +13,9 @@ export const requestNewSession = functions.https.onCall(async (session, context)
 	const currentSession = sessionRef.val()
 
 	if (currentSession)
-		throw new functions.https.HttpsError('failed-precondition','Tutor is currently in a session. Try again later.')
+		throw new functions.https.HttpsError('failed-precondition', 'Tutor is currently in a session. Try again later.')
 
-	try{
+	try {
 		const session = {
 			duration, price, message,
 			studentId, tutorId, studentBio, tutorBio,
@@ -35,7 +35,7 @@ export const requestNewSession = functions.https.onCall(async (session, context)
 			})
 
 		return sessionId
-	}catch (error) {
+	} catch (error) {
 		throw new functions.https.HttpsError('unknown', error.message)
 	}
 })

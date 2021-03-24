@@ -23,7 +23,7 @@ export type Notification = CreateNotification & {
 
 export const createNotification = async (userId: string, data: CreateNotification) => {
 	// TODO: Update all action links after implementing ui
-	try{
+	try {
 		await admin.database().ref(`users/${userId}/notifications`)
 			.push({
 				...data, seen: false,
@@ -42,7 +42,7 @@ const getOldNotifications = async (userId: string) => {
 		.once('value')
 	const notifications = [] as Notification[]
 	notificationRefs.forEach((child) => {
-		const notification = { ... child.val(), id: child.key! } as Notification
+		const notification = { ...child.val(), id: child.key! } as Notification
 		notifications.push(notification)
 	})
 	return notifications

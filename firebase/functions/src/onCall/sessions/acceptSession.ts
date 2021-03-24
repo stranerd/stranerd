@@ -42,7 +42,7 @@ export const acceptSession = functions.https.onCall(async ({ id }, context) => {
 
 		await addUserXp(studentId, XpGainList.BOOK_NERD)
 		await Achievement.checkAttendSessionsAchievement(studentId)
-	} catch(error) {
+	} catch (error) {
 		throw new functions.https.HttpsError('unknown', error.message)
 	}
 })

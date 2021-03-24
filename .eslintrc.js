@@ -44,5 +44,8 @@ module.exports = {
 				jest: true
 			}
 		}
+	],
+	ignorePatterns: [
+		'src/application/static/sw.js'
 	]
 }

@@ -72,9 +72,6 @@
       "@commitlint/config-conventional"
     ]
   },
-  "eslintIgnore": [
-    "src/application/static/sw.js"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kevinand11/ss-nuxt.git"

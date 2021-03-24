@@ -25,6 +25,9 @@
 			"@nuxt/types"
 		]
 	},
+	"include": [
+		"src"
+	],
 	"exclude": [
 		"node_modules",
 		".nuxt",

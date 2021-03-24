@@ -1,48 +1,47 @@
 module.exports = {
-	"root": true,
-	"env": {
-		"node": true
+	root: true,
+	env: {
+		browser: true,
+		node: true
 	},
-	"extends": [
-		"eslint:recommended",
+	extends: [
 		'plugin:vue/recommended',
-		"@nuxtjs/eslint-config-typescript"
+		'plugin:nuxt/recommended',
+		'@nuxtjs/eslint-config-typescript'
 	],
-	"parserOptions": {
-		"parser": "@typescript-eslint/parser"
-	},
-	"rules": {
-		"vue/no-v-html": "off",
-		"no-console": process.env.NODE_ENV === "development" ? "warn" : "error",
-		"no-debugger": "warn",
-		"no-tabs": "off",
-		"no-var": "error",
-		"no-unused-vars": "error",
-		"indent": ["error", "tab", { "SwitchCase": 1 }],
-		"no-mixed-spaces-and-tabs": ["error", "smart-tabs"],
-		"semi": ["error", "never"],
-		"quotes": ["error", "single"],
-		"prefer-const": ["error"],
-		"arrow-parens": ["error", "always"],
-		"no-return-assign": "off",
-		"curly": "off",
-		"vue/html-indent": ["warn", "tab", {
-			"attribute": 1,
-			"baseIndent": 1,
-			"closeBracket": 0,
-			"alignAttributesVertically": true,
-			"ignores": []
+	rules: {
+		'vue/no-v-html': 'off',
+		'no-console': process.env.NODE_ENV === 'development' ? 'warn' : 'error',
+		'no-debugger': 'warn',
+		'no-tabs': 'off',
+		'no-var': 'error',
+		'accessor-pairs': 'off',
+		'no-use-before-define': 'off',
+		indent: ['error', 'tab', { SwitchCase: 1 }],
+		'no-mixed-spaces-and-tabs': ['error', 'smart-tabs'],
+		semi: ['error', 'never'],
+		quotes: ['error', 'single'],
+		'prefer-const': ['error'],
+		'arrow-parens': ['error', 'always'],
+		'no-return-assign': 'off',
+		curly: 'off',
+		'vue/html-indent': ['warn', 'tab', {
+			attribute: 1,
+			baseIndent: 1,
+			closeBracket: 0,
+			alignAttributesVertically: true,
+			ignores: []
 		}],
-		"vue/no-mutating-props": "off",
-		"object-property-newline": "off",
-		"require-atomic-updates": "off",
-		"require-await": "off"
+		'vue/no-mutating-props': 'off',
+		'object-property-newline': 'off',
+		'require-atomic-updates': 'off',
+		'require-await': 'off'
 	},
-	"overrides": [
+	overrides: [
 		{
-			"files": ["tests/**/*.[jt]s?(x)", "tests/**/*.spec.[jt]s?(x)"],
-			"env": {
-				"jest": true
+			files: ['tests/**/*.[jt]s?(x)', 'tests/**/*.spec.[jt]s?(x)'],
+			env: {
+				jest: true
 			}
 		}
 	]

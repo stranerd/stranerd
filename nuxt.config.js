@@ -14,7 +14,7 @@ export const server = {
 export const target = 'server'
 
 export const head = {
-	title: process.env.npm_package_name || '',
+	title: 'Stranerd',
 	htmlAttrs: {
 		lang: 'en'
 	},
@@ -109,7 +109,7 @@ export const pwa = {
 		source: 'src/application/static/images/icon.png'
 	},
 	meta: {
-		theme_color: '#FFC000',
+		theme_color: '#395C7F',
 		ogHost: 'https://stranerd.com',
 		ogImage: 'https://stranerd.com/images/banner.jpg',
 		twitterCard: 'https://stranerd.com/images/banner.jpg',

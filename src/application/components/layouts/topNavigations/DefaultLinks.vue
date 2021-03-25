@@ -3,9 +3,9 @@
 		<NuxtLink class="link" to="/">
 			<img src="@app/assets/images/icons/search.svg" alt="">
 		</NuxtLink>
-		<a v-if="isLoggedIn" class="link">
+		<NuxtLink v-if="isLoggedIn" to="/account/notifications" class="link">
 			<img src="@app/assets/images/icons/notification.svg" alt="">
-		</a>
+		</NuxtLink>
 		<NuxtLink v-if="isLoggedIn" to="/messages" class="link">
 			<img src="@app/assets/images/icons/chat.svg" alt="">
 		</NuxtLink>

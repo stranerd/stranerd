@@ -40,6 +40,7 @@ export const useTutorsList = () => {
 	const filteredTutors = computed({
 		get: () => global.tutors.value.filter((tutor) => {
 			let matched = true
+			if (tutor.subjects.length === 0) matched = false
 			if (global.subjectId.value && !tutor.subjects.find((s) => s.id === global.subjectId.value)) matched = false
 			return matched
 		}).sort((first, second) => {

@@ -22,13 +22,11 @@ import { AddQuestionUseCase } from './domain/usecases/questions/addQuestion'
 import { MarkAsBestAnswerUseCase } from './domain/usecases/answers/markAsBestAnswer'
 import { ListenToQuestionUseCase } from './domain/usecases/questions/listenToQuestion'
 import { ListenToQuestionsUseCase } from './domain/usecases/questions/listenToQuestions'
-import { FindAnswerUseCase } from './domain/usecases/answers/findAnswer'
 import { GetAnswersUseCase } from './domain/usecases/answers/getAnswers'
 import { GetUserAnswersUseCase } from './domain/usecases/answers/getUserAnswers'
 import { AddAnswerUseCase } from './domain/usecases/answers/addAnswer'
 import { RateAnswerUseCase } from './domain/usecases/answers/rateAnswer'
 import { ListenToAnswersUseCase } from './domain/usecases/answers/listenToAnswers'
-import { ListenToAnswerUseCase } from './domain/usecases/answers/listenToAnswer'
 import { AddQuestionCommentUseCase, AddAnswerCommentUseCase } from './domain/usecases/comments/addComment'
 import { GetQuestionCommentsUseCase, GetAnswerCommentsUseCase } from './domain/usecases/comments/getComments'
 import { ListenToQuestionCommentsUseCase, ListenToAnswerCommentsUseCase } from './domain/usecases/comments/listenToComments'
@@ -70,13 +68,11 @@ export const ListenToQuestion = new ListenToQuestionUseCase(questionRepository)
 export const ListenToQuestions = new ListenToQuestionsUseCase(questionRepository)
 export const AddQuestion = new AddQuestionUseCase(questionRepository)
 export const FindQuestion = new FindQuestionUseCase(questionRepository)
-export const GetAnswers = new GetAnswersUseCase(answerRepository)
 
+export const GetAnswers = new GetAnswersUseCase(answerRepository)
 export const GetUserAnswers = new GetUserAnswersUseCase(answerRepository)
 export const ListenToAnswers = new ListenToAnswersUseCase(answerRepository)
-export const ListenToAnswer = new ListenToAnswerUseCase(answerRepository)
 export const AddAnswer = new AddAnswerUseCase(answerRepository)
-export const FindAnswer = new FindAnswerUseCase(answerRepository)
 export const RateAnswer = new RateAnswerUseCase(answerRepository)
 export const MarkAsBestAnswer = new MarkAsBestAnswerUseCase(answerRepository)
 

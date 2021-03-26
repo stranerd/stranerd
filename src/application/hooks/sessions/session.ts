@@ -69,18 +69,17 @@ const actOnSessionState = async (state: SessionState, router: VueRouter) => {
 	else if (state === SessionState.StudentWaiting) useSessionModal().setSessionModalStudentWaiting()
 	else if (state === SessionState.TutorCancelled) useSessionModal().setSessionModalTutorCancelled()
 	else if (state === SessionState.TutorAccepts || state === SessionState.TutorAccepted) {
-		// TODO: Correct sessionId route after implementing ui
 		if (state === SessionState.TutorAccepts && global.tutor.listener) {
-			await router.push(`/sessions/${global.tutor.sessionId.value}`)
+			await router.push(`/messages/${global.tutor.sessionId.value}`)
 			global.tutor.listener.closeListener()
 		}
 		if (state === SessionState.TutorAccepted && global.student.listener) {
-			await router.push(`/sessions/${global.student.sessionId.value}`)
+			await router.push(`/messages/${global.student.sessionId.value}`)
 			global.student.listener.closeListener()
 		}
 		await Notify({
-			icon: 'success',
-			title: 'The session is beginning'
+			icon: 'info',
+			title: 'A session is ongoing'
 		})
 	} else useSessionModal().setSessionModalUnknown()
 }

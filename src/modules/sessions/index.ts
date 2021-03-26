@@ -4,11 +4,9 @@ import { ChatTransformer } from './data/transformers/chat'
 import { SessionTransformer } from './data/transformers/session'
 import { ChatRepository } from './data/repositories/chat'
 import { SessionRepository } from './data/repositories/session'
-import { FindChatUseCase } from './domain/usecases/chats/findChat'
 import { GetChatsUseCase } from './domain/usecases/chats/getChats'
 import { AddChatUseCase } from './domain/usecases/chats/addChat'
 import { ListenToChatsUseCase } from './domain/usecases/chats/listenToChats'
-import { FindSessionUseCase } from './domain/usecases/sessions/findSession'
 import { ListenToSessionUseCase } from './domain/usecases/sessions/listenToSession'
 import { AddSessionUseCase } from './domain/usecases/sessions/addSession'
 import { BeginSessionUseCase } from './domain/usecases/sessions/beginSession'
@@ -30,9 +28,7 @@ const sessionRepository = new SessionRepository(sessionDataSource, sessionTransf
 export const GetPersonalChats = new GetChatsUseCase(personalChatRepository)
 export const ListenToPersonalChats = new ListenToChatsUseCase(personalChatRepository)
 export const AddPersonalChat = new AddChatUseCase(personalChatRepository)
-export const FindPersonalChat = new FindChatUseCase(personalChatRepository)
 
-export const FindSession = new FindSessionUseCase(sessionRepository)
 export const ListenToSession = new ListenToSessionUseCase(sessionRepository)
 export const AddSession = new AddSessionUseCase(sessionRepository)
 export const BeginSession = new BeginSessionUseCase(sessionRepository)

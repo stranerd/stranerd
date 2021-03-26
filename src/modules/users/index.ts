@@ -22,11 +22,8 @@ import { RemoveTutorSubjectUseCase } from './domain/usecases/users/removeTutorSu
 import { UpdateStreakUseCase } from './domain/usecases/users/updateStreak'
 import { GetTopRankingUsersUseCase } from './domain/usecases/rankings/getTopRankingUsers'
 import { ListenToTopRankingUsersUseCase } from './domain/usecases/rankings/listenToTopRankingUsers'
-import { AddNotificationUseCase } from './domain/usecases/notifications/addNotification'
 import { ListenToNotificationsUseCase } from './domain/usecases/notifications/listenToNotifications'
-import { FindNotificationUseCase } from './domain/usecases/notifications/findNotification'
 import { MarkNotificationSeenUseCase } from './domain/usecases/notifications/markNotificationSeen'
-import { DeleteNotificationUseCase } from './domain/usecases/notifications/deleteNotification'
 import { UserEntity, UserBio, Status, generateDefaultBio, RankingPeriods } from './domain/entities/user'
 import { Avatar, Avatars } from './domain/entities/avatar'
 import { Achievements } from './domain/entities/achievement'
@@ -63,11 +60,8 @@ export const SubscribeToMailingList = new SubscribeToMailingListUseCase(roleRepo
 export const GetTopRankingUsers = new GetTopRankingUsersUseCase(userRepository)
 export const ListenToTopRankingUsers = new ListenToTopRankingUsersUseCase(userRepository)
 
-export const AddNotification = new AddNotificationUseCase(notificationRepository)
-export const FindNotification = new FindNotificationUseCase(notificationRepository)
 export const ListenToNotifications = new ListenToNotificationsUseCase(notificationRepository)
 export const MarkNotificationSeen = new MarkNotificationSeenUseCase(notificationRepository)
-export const DeleteNotification = new DeleteNotificationUseCase(notificationRepository)
 
 export { UserEntity, generateDefaultBio, Status, RankingPeriods, NotificationEntity, Avatars }
 export { MailingListFactory, Achievements }

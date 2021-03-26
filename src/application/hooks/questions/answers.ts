@@ -1,6 +1,6 @@
 import { Ref, ref, ssrRef, useFetch, watch } from '@nuxtjs/composition-api'
 import {
-	AddAnswer, AnswerEntity, AnswerFactory, FindAnswer, GetAnswers, ListenToAnswer,
+	AddAnswer, AnswerEntity, AnswerFactory, GetAnswers,
 	ListenToAnswers, MarkAsBestAnswer, QuestionEntity, RateAnswer
 } from '@modules/questions'
 import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
@@ -136,51 +136,4 @@ export const useAnswer = (answer: AnswerEntity) => {
 	return {
 		loading, error, rateAnswer, markBestAnswer
 	}
-}
-
-export const useAnswerById = (questionId: string, id: string) => {
-	const { loading, setLoading } = useLoadingHandler()
-	const { error, setError } = useErrorHandler()
-	const answer = ssrRef(null as AnswerEntity | null)
-
-	const setAnswer = (answer: AnswerEntity) => {
-		if (global[questionId] === undefined) global[questionId] = {
-			answers: ssrRef([]),
-			fetched: ssrRef(false),
-			...useErrorHandler(),
-			...useLoadingHandler()
-		}
-		const index = global[questionId].answers.value.findIndex((a) => a.id === answer.id)
-		if (index > -1) global[questionId].answers.value.splice(index, 1, answer)
-		else global[questionId].answers.value.push(answer)
-	}
-	const fetchAnswer = async () => {
-		setError('')
-		try {
-			setLoading(true)
-			const a = global[questionId]?.answers.value.find((a) => a.id === id) ?? null
-			if (a) {
-				answer.value = a
-				setAnswer(a)
-				setLoading(false)
-				return
-			}
-			answer.value = await FindAnswer.call(id)
-		} catch (error) { setError(error) }
-		setLoading(false)
-	}
-
-	useFetch(fetchAnswer)
-
-	const listener = useListener(async () => {
-		const cb = (a: AnswerEntity | null) => {
-			if (a) {
-				answer.value = a
-				setAnswer(a)
-			}
-		}
-		return await ListenToAnswer.call(id, cb)
-	})
-
-	return { loading, error, answer, listener }
 }

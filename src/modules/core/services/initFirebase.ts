@@ -4,7 +4,7 @@ import 'firebase/database'
 import 'firebase/firestore'
 import 'firebase/functions'
 import 'firebase/storage'
-import { isDev, isProd, firebaseConfig } from '@utils/environment'
+import { isDev, firebaseConfig } from '@utils/environment'
 
 if (firebase.apps.length === 0) {
 	firebase.initializeApp(firebaseConfig)
@@ -40,13 +40,13 @@ export const uploadFile = async (path: string, file: File) => {
 	try {
 		path = `${path}/${Date.now()}_${file.name}`
 		let link: string
-		if (isProd) {
-			await storage.ref(path).put(file)
-			link = await storage.ref(path).getDownloadURL()
-		} else {
+		if (isDev) {
 			path = `${firebaseConfig.projectId}/${path}`
 			await uploadToMockServer(path, file)
 			link = `http://localhost:3000/${path}`
+		} else {
+			await storage.ref(path).put(file)
+			link = await storage.ref(path).getDownloadURL()
 		}
 		return { name: file.name, path, link, type: file.type }
 	} catch { throw new Error(`Error uploading ${file.name}`) }

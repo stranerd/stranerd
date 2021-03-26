@@ -69,6 +69,15 @@ export const useQuestionList = () => {
 		}), set: (questions) => { questions.map(pushToQuestionList) }
 	})
 
+	const fetchOlderQuestions = async () => {
+		await fetchQuestions()
+		await listener.resetListener(async () => {
+			const appendQuestions = (questions: QuestionEntity[]) => { questions.map(unshiftToQuestionList) }
+			const lastDate = global.questions.value[global.questions.value.length - 1]?.createdAt
+			return await ListenToQuestions.call(appendQuestions, lastDate ? new Date(lastDate) : undefined)
+		})
+	}
+
 	useFetch(async () => {
 		if (!global.fetched.value) await fetchQuestions()
 	})
@@ -76,7 +85,7 @@ export const useQuestionList = () => {
 	return {
 		...global, listener,
 		filteredQuestions, answeredChoices,
-		fetchOlderQuestions: fetchQuestions
+		fetchOlderQuestions
 	}
 }
 

@@ -36,5 +36,12 @@ export const useListener = (start: () => Promise<() => void>) => {
 	let listener = null as null | (() => void)
 	const startListener = async () => listener = await start()
 	const closeListener = () => listener?.()
-	return { startListener, closeListener }
+	const resetListener = async (reset: () => Promise<() => void>) => {
+		start = reset
+		if (listener) {
+			closeListener()
+			await startListener()
+		}
+	}
+	return { startListener, closeListener, resetListener }
 }

@@ -41,7 +41,6 @@
 <script lang="ts">
 import { defineComponent, onMounted } from '@nuxtjs/composition-api'
 import { useEmailLinkSignin } from '@app/hooks/auth/signin'
-import { isDev } from '@utils/environment'
 export default defineComponent({
 	name: 'AuthEmailRedirectPage',
 	layout: 'auth',
@@ -52,7 +51,6 @@ export default defineComponent({
 		onMounted(checkCachedEmail)
 
 		return {
-			isDev,
 			factory, loading, error, signin
 		}
 	}

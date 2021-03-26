@@ -13,7 +13,7 @@ export class ListenToQuestionsUseCase {
 	    const conditions: FirestoreGetClauses = {
 		    order: { field: 'dates.createdAt', desc: false }
 	    }
-	    if (date) conditions.where = [{ field: 'dates.createdAt', condition: '>', value: date }]
+	    if (date) conditions.where = [{ field: 'dates.createdAt', condition: '>=', value: date }]
 
 	    return await this.repository.listenToMany(callback, conditions)
     }

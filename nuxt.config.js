@@ -63,7 +63,8 @@ export const modules = [
 ]
 
 export const buildModules = [
-	'@nuxtjs/composition-api', '@nuxt/typescript-build', 'nuxt-purgecss', '@nuxtjs/pwa',
+	'@nuxtjs/composition-api', '@nuxt/typescript-build', '@nuxtjs/pwa',
+	['nuxt-purgecss', { whitelist: ['firebase-emulator-warning'] }],
 	['nuxt-compress', { gzip: { cache: true }, brotli: { threshold: 10240 } }]
 ]
 

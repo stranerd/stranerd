@@ -4,7 +4,7 @@ $color-blue-grey: #748DA5;
 $color-light-grey: #e7eef4;
 $color-grey: #808080;
 $color-white: #FEFEFE;
-$color-black: #131313;
+$color-black: #111B25;
 $color-black-transparent: rgba($color-black, .75);
 
 $color-gold: #FFD700;
@@ -40,7 +40,9 @@ $theme-colors: (
 	'light-blue': $color-light-blue,
 	'blue-grey': $color-blue-grey,
 	'light-grey': $color-light-grey,
-	'grey': $color-grey
+	'grey': $color-grey,
+	'black': $color-black,
+	'white': $color-white
 );
 
 $spacers: (

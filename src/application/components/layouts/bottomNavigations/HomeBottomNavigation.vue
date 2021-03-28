@@ -1,0 +1,92 @@
+<template>
+	<footer class="bg-black">
+		<div class="content">
+			<div class="links">
+				<div>
+					<h4>Company</h4>
+					<NuxtLink to="/">
+						About Us
+					</NuxtLink>
+					<NuxtLink to="/">
+						Terms of Use
+					</NuxtLink>
+					<NuxtLink to="/">
+						Privacy Policy
+					</NuxtLink>
+				</div>
+				<div>
+					<h4>
+						<i class="fas fa-circle mr-half" />
+						<i class="fas fa-circle mr-half" />
+						<i class="fas fa-circle mr-half" />
+					</h4>
+					<NuxtLink to="/">
+						Terms & Conditions
+					</NuxtLink>
+					<NuxtLink to="/">
+						Nerds Terms & Conditions
+					</NuxtLink>
+				</div>
+				<div>
+					<h4>Community</h4>
+					<NuxtLink to="/">
+						Become a Nerd
+					</NuxtLink>
+					<NuxtLink to="/">
+						Blog
+					</NuxtLink>
+					<NuxtLink to="/">
+						Honor Code
+					</NuxtLink>
+				</div>
+				<div>
+					<h4>Help</h4>
+					<NuxtLink to="/">
+						FAQ
+					</NuxtLink>
+					<NuxtLink to="/">
+						Contact Us
+					</NuxtLink>
+				</div>
+			</div>
+			<p class="my-4">
+				&copy; {{ new Date().getFullYear() }} | Stranerd LLC. All Rights Reserved.
+			</p>
+		</div>
+	</footer>
+</template>
+
+<script>
+import { defineComponent } from '@nuxtjs/composition-api'
+export default defineComponent({
+	name: 'HomeBottomNavigation'
+})
+</script>
+
+<style lang="scss" scoped>
+footer {
+	padding: 2rem 1rem;
+}
+.content{
+	max-width: 1600px;
+	margin: 0 auto;
+	.links {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-column-gap: 1rem;
+		grid-row-gap: 2rem;
+		@media (min-width: $lg) {
+			grid-template-columns: repeat(4, 1fr);
+		}
+		h4 {
+			font-weight: 600;
+			font-size: 20px;
+			i { font-size: 16px; }
+		}
+		a {
+			display: block;
+			margin: 0.5rem 0;
+		}
+	}
+}
+</style>

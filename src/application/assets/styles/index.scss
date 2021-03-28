@@ -41,6 +41,8 @@ a {
 	color: inherit;
 	&:hover {
 		color: $color-red;
+		transition: all 0.2s;
+		transform: scale(1.05);
 	}
 }
 

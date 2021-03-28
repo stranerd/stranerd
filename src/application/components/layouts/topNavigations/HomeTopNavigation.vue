@@ -10,10 +10,10 @@
 			<NuxtLink to="/">
 				Home
 			</NuxtLink>
-			<NuxtLink to="/">
+			<NuxtLink to="/how-it-works">
 				How it works
 			</NuxtLink>
-			<NuxtLink to="/">
+			<NuxtLink to="/contact-us">
 				Contact us
 			</NuxtLink>
 			<NuxtLink class="btn rounded-pill btn-white" to="/auth">
@@ -24,10 +24,10 @@
 			<NuxtLink to="/">
 				Home
 			</NuxtLink>
-			<NuxtLink to="/">
+			<NuxtLink to="/how-it-works">
 				How it works
 			</NuxtLink>
-			<NuxtLink to="/">
+			<NuxtLink to="/contact-us">
 				Contact us
 			</NuxtLink>
 			<NuxtLink class="btn rounded-pill btn-white" to="/auth">

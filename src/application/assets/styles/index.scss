@@ -96,3 +96,10 @@ hr.thin {
 .firebase-emulator-warning {
 	display: none !important;
 }
+
+.hide-scrollbar {
+	-ms-overflow-style: none;
+	&::-webkit-scrollbar{
+		display: none;
+	}
+}

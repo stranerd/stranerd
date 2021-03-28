@@ -1,7 +1,7 @@
 <template>
 	<aside class="sidebar-body">
 		<Logo class="d-none d-lg-block my-4" />
-		<div v-if="isLoggedIn" class="d-flex flex-column align-items-center my-4">
+		<div v-if="isLoggedIn" class="d-flex flex-column align-items-center my-2">
 			<Avatar :src="user.avatar" :size="90" />
 			<span class="text-18 font-weight-bold">{{ user.fullName }}</span>
 			<span>Admin</span>

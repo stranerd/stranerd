@@ -1,7 +1,7 @@
 <template>
 	<aside class="sidebar-body">
 		<Logo class="d-none d-lg-block my-4" />
-		<div v-if="isLoggedIn" class="mb-4">
+		<div v-if="isLoggedIn" class="mb-2">
 			<ProfileHeadCard :user="user" />
 			<div class="thick mx-n1" />
 		</div>

@@ -1,5 +1,7 @@
 <template>
 	<form @submit.prevent="updateProfile">
+		<!-- eslint-disable vue/valid-v-bind-sync -->
+		<SelectAvatar :avatar="factory.avatar || Avatars.default.id" :set-avatar="(a) => factory.avatar = a" />
 		<div class="form-group d-flex flex-column flex-md-row my-3">
 			<div class="mb-3 mb-md-0 mr-md-2 flex-grow-1">
 				<label class="label">First Name</label>
@@ -49,8 +51,11 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { useUpdateProfile } from '@app/hooks/users/account'
+import { Avatars } from '@modules/users'
+import SelectAvatar from '@app/components/users/account/SelectAvatar.vue'
 export default defineComponent({
 	name: 'AccountProfileForm',
+	components: { SelectAvatar },
 	props: {
 		cancel: {
 			required: true,
@@ -59,7 +64,7 @@ export default defineComponent({
 	},
 	setup () {
 		const { factory, error, loading, updateProfile } = useUpdateProfile()
-		return { factory, error, loading, updateProfile }
+		return { factory, error, loading, updateProfile, Avatars }
 	}
 })
 </script>

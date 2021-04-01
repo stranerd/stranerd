@@ -15,13 +15,13 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from '@nuxtjs/composition-api'
+import { computed, defineComponent, PropType } from '@nuxtjs/composition-api'
 import { Avatars } from '@modules/users'
 export default defineComponent({
 	name: 'SelectAvatar',
 	props: {
 		avatar: {
-			type: String,
+			type: String as PropType<keyof typeof Avatars>,
 			required: true
 		},
 		setAvatar: {

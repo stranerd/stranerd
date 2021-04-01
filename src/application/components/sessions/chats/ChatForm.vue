@@ -1,14 +1,11 @@
 <template>
 	<div>
+		<div class="thin mx-n2" />
 		<PageLoading v-if="loading" />
-		<form class="d-flex align-items-center mt-1" @submit.prevent="createTextChat">
-			<input v-model="factory.content" class="form-control" placeholder="Enter message">
-			<button v-if="factory.valid" type="submit">
-				<i class="fas fa-paper-plane ml-2 text-success" />
-			</button>
-			<a v-else @click.prevent="() => { $refs.mediaInput.value= ''; $refs.mediaInput.click() }">
-				<i class="fas fa-paperclip ml-2 text-success" />
-			</a>
+		<form class="d-flex align-items-center px-1 py-half" @submit.prevent="createTextChat">
+			<input v-model="factory.content" class="form-control" placeholder="Type a message here...">
+			<a class="fas fa-paperclip" @click.prevent="() => { $refs.mediaInput.value= ''; $refs.mediaInput.click() }" />
+			<a class="fas fa-paper-plane" @click.prevent="() => { factory.content && createTextChat() }" />
 			<input ref="mediaInput" type="file" multiple class="d-none" @change.prevent="catchMultipleFiles">
 		</form>
 	</div>
@@ -37,3 +34,19 @@ export default defineComponent({
 	}
 })
 </script>
+
+<style lang="scss" scoped>
+a {
+	border-radius: 10rem;
+	font-size: 1.25rem;
+	margin-left: 1rem;
+	color: $color-blue;
+}
+input.form-control {
+	font-size: 1em;
+	border: none;
+	box-shadow: none;
+	min-height: unset;
+	padding: 0;
+}
+</style>

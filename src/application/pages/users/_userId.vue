@@ -2,10 +2,10 @@
 	<div>
 		<PageLoading v-if="loading" />
 		<div v-else-if="user" class="page-content">
-			<UserHeadCard :user="user" />
+			<UserHeadCard :key="user.hash" :user="user" />
 			<DisplayError v-if="error" :error="error" />
 			<div class="thick mx-n4" />
-			<UserAchievementsList :user="user" />
+			<UserAchievementsList :key="user.hash" :user="user" />
 			<div class="thick mx-n4" />
 			<UserAnswerList v-if="user.roles.isTutor" :user-id="user.id" />
 			<UserQuestionList v-else :user-id="user.id" />

@@ -1,14 +1,11 @@
 <template>
-	<div>
-		<div class="thin mx-n2" />
+	<form class="d-flex align-items-center py-half" @submit.prevent="createTextChat">
+		<input v-model="factory.content" class="form-control" placeholder="Type a message here...">
+		<a class="fas fa-paperclip" @click.prevent="() => { $refs.mediaInput.value= ''; $refs.mediaInput.click() }" />
+		<a class="fas fa-paper-plane" @click.prevent="() => { factory.content && createTextChat() }" />
 		<PageLoading v-if="loading" />
-		<form class="d-flex align-items-center px-1 py-half" @submit.prevent="createTextChat">
-			<input v-model="factory.content" class="form-control" placeholder="Type a message here...">
-			<a class="fas fa-paperclip" @click.prevent="() => { $refs.mediaInput.value= ''; $refs.mediaInput.click() }" />
-			<a class="fas fa-paper-plane" @click.prevent="() => { factory.content && createTextChat() }" />
-			<input ref="mediaInput" type="file" multiple class="d-none" @change.prevent="catchMultipleFiles">
-		</form>
-	</div>
+		<input ref="mediaInput" type="file" multiple class="d-none" @change.prevent="catchMultipleFiles">
+	</form>
 </template>
 
 <script lang="ts">

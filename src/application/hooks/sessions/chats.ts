@@ -3,6 +3,7 @@ import { AddPersonalChat, ChatEntity, ChatFactory, GetPersonalChats, ListenToPer
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
 import { CHAT_PAGINATION_LIMIT, PATH_SEPARATOR } from '@utils/constants'
+import { getRandomValue } from '@utils/numbers'
 
 const getChatsPath = (id1: string, id2: string) => [id1, id2].sort().join(PATH_SEPARATOR)
 
@@ -60,10 +61,10 @@ export const useChats = (userId: string) => {
 
 	return {
 		chats: computed({
-			get: () => global[userId].chats.value.sort((a, b) => {
+			get: () => orderChats(global[userId].chats.value.sort((a, b) => {
 				return a.createdAt - b.createdAt < 0 ? -1 : 1
-			}),
-			set: (chats) => chats.map((c) => pushToChats(userId, c))
+			})),
+			set: (sessions) => sessions.map((session) => session.chats.map((c) => pushToChats(userId, c)))
 		}),
 		fetched: global[userId].fetched,
 		loading: global[userId].loading,
@@ -116,4 +117,17 @@ export const useCreateChat = (userId: string, sessionId?: string) => {
 	}
 
 	return { factory, error, loading, createTextChat, createMediaChat }
+}
+
+const orderChats = (chats: ChatEntity[]) => {
+	const res = [] as ChatEntity[][]
+	chats.forEach((chat, index) => {
+		const lastChat = chats[index - 1]
+		if (index === 0 || chat.sessionId !== lastChat.sessionId) return res.push([chat])
+		else return res[res.length - 1].push(chat)
+	})
+	return res.map((chats) => {
+		const sessionId = chats[0].sessionId ?? null
+		return { chats, sessionId, hash: getRandomValue() }
+	})
 }

@@ -2,7 +2,7 @@
 	<div>
 		<PageLoading v-if="loading" />
 		<div class="page-content my-1 my-md-2">
-			<QuestionPageCard v-if="question" :question="question" />
+			<QuestionPageCard v-if="question" :key="question.hash" :question="question" />
 			<DisplayError v-else error="No such question found!" />
 			<DisplayError :error="error" />
 		</div>

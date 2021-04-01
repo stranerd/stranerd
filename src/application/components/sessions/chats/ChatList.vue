@@ -1,6 +1,11 @@
 <template>
-	<div>
-		<ChatListCard v-for="chat in chats" :key="chat.hash" :chat="chat" />
+	<div class="d-flex flex-column">
+		<p v-if="chats.length === 0" class="text-center mb-0 my-auto">
+			No messages found. Send a message now
+		</p>
+		<div v-for="session in chats" :key="session.hash">
+			<ChatListCard v-for="chat in session.chats" :key="chat.hash" :chat="chat" />
+		</div>
 		<PageLoading v-if="loading" />
 		<DisplayError :error="error" />
 	</div>

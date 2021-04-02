@@ -1,6 +1,6 @@
 import { defineNuxtPlugin, onGlobalSetup, watch } from '@nuxtjs/composition-api'
 import firebase from '@modules/core/services/initFirebase'
-import { useAuth, getId, getCurrentSessionId } from '@app/hooks/auth/auth'
+import { useAuth } from '@app/hooks/auth/auth'
 import { setSession } from '@app/hooks/sessions/session'
 import { isDev } from '@utils/environment'
 
@@ -11,7 +11,7 @@ export default defineNuxtPlugin(async ({ app }) => {
 		.setPersistence(firebase.auth.Auth.Persistence.NONE)
 		.catch(() => {})
 
-	const { isLoggedIn, token, startProfileListener } = useAuth()
+	const { id, currentSessionId, isLoggedIn, token, startProfileListener } = useAuth()
 	if (isLoggedIn.value && token.value) {
 		await firebase.auth()
 			.signInWithCustomToken(token.value)
@@ -23,9 +23,10 @@ export default defineNuxtPlugin(async ({ app }) => {
 		.enablePersistence({ synchronizeTabs: true })
 		.catch(() => {})
 
-	onGlobalSetup(() => {
-		watch(() => getCurrentSessionId.value, () => {
-			if (getId.value) setSession(getId.value, getCurrentSessionId.value, router)
+	onGlobalSetup(async () => {
+		await setSession(id.value, currentSessionId.value, router)
+		watch(() => currentSessionId.value, async () => {
+			await setSession(id.value, currentSessionId.value, router)
 		})
 	})
 })

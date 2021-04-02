@@ -2,7 +2,7 @@
 	<div class="flex-grow-1 d-flex flex-column">
 		<PageLoading v-if="loading" />
 		<div v-else-if="user" class="page-content flex-grow-1 d-flex flex-column px-2">
-			<ChatHead :key="user.hash + sessionId" :user="user" />
+			<ChatHead :key="user.hash + currentSessionHash" :user="user" />
 			<div class="thin mx-n2" />
 			<ChatList :user-id="userId" class="flex-grow-1" />
 			<div class="thin mx-n2" />
@@ -21,7 +21,7 @@ import ChatList from '@app/components/sessions/chats/ChatList.vue'
 import ChatForm from '@app/components/sessions/chats/ChatForm.vue'
 import { useUser } from '@app/hooks/users/user'
 import { useAuth } from '@app/hooks/auth/auth'
-import { getCurrentSession } from '@app/hooks/sessions/session'
+import { useCurrentSession } from '@app/hooks/sessions/session'
 export default defineComponent({
 	name: 'MessagePage',
 	components: { ChatHead, ChatList, ChatForm },
@@ -33,15 +33,17 @@ export default defineComponent({
 		}
 	],
 	setup () {
+		const { currentSessionId } = useAuth()
 		const { userId } = useRoute().value.params
 		const { user, loading, error, listener } = useUser(userId)
+		const { currentSessionHash } = useCurrentSession()
 		onMounted(listener.startListener)
 		onBeforeUnmount(listener.closeListener)
 		const sessionId = computed({
-			get: () => user.value?.currentSession === getCurrentSession.value?.id ? getCurrentSession.value?.id ?? '' : '',
+			get: () => user.value?.currentSession === currentSessionId.value ? currentSessionId.value ?? '' : '',
 			set: () => {}
 		})
-		return { userId, user, loading, error, sessionId }
+		return { userId, user, loading, error, sessionId, currentSessionHash }
 	}
 })
 </script>

@@ -9,18 +9,20 @@
 			</NuxtLink>
 			<span class="small">{{ user.isOnline ? 'Active now' : time }}</span>
 		</div>
-		<span v-if="getCurrentSession && getCurrentSession.id === user.currentSession" class="lead ml-1">{{ countDown }}</span>
+		<span v-if="isAccepted && currentSessionId === user.currentSession" class="lead ml-1">{{ countDown }}</span>
 		<div class="position-relative">
 			<button class="btn navbar-toggler ml-1" @click="show = !show">
 				<i class="fas fa-ellipsis-v" />
 			</button>
 			<div v-if="show" class="menu">
 				<template v-if="user.roles.isTutor">
-					<a v-if="!getCurrentSession && !user.currentSession" @click.prevent="requestNewSession">Request Session</a>
+					<a v-if="!currentSessionId && !user.currentSession" @click.prevent="requestNewSession">Request Session</a>
 					<a>Tip Nerd</a>
 				</template>
 				<a>Report</a>
-				<a v-if="getCurrentSession && getCurrentSession.id === user.currentSession">End Session</a>
+				<PageLoading v-if="loading" />
+				<a v-if="isAccepted && currentSessionId === user.currentSession" @click.prevent="cancelSession">End Session</a>
+				<DisplayError :error="error" />
 			</div>
 		</div>
 	</div>
@@ -30,9 +32,10 @@
 import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, ref } from '@nuxtjs/composition-api'
 import { UserEntity } from '@modules/users'
 import { useCountdown, useTimeDifference } from '@app/hooks/core/dates'
-import { getCurrentSession } from '@app/hooks/sessions/session'
-import { setNewSessionTutorIdBio } from '@app/hooks/sessions/sessions'
+import { setNewSessionTutorIdBio, useSession } from '@app/hooks/sessions/sessions'
 import { useSessionModal } from '@app/hooks/core/modals'
+import { useAuth } from '@app/hooks/auth/auth'
+import { useCurrentSession } from '@app/hooks/sessions/session'
 export default defineComponent({
 	name: 'ChatHead',
 	props: {
@@ -44,7 +47,9 @@ export default defineComponent({
 	setup (props) {
 		const show = ref(false)
 		const { time, startTimer, stopTimer } = useTimeDifference(props.user.lastSeen)
-		const { diffInSec, startTimer: startCountdown, stopTimer: stopCountdown } = useCountdown(getCurrentSession.value?.endedAt ?? 0)
+		const { currentSessionId } = useAuth()
+		const { endDate, isAccepted } = useCurrentSession()
+		const { diffInSec, startTimer: startCountdown, stopTimer: stopCountdown } = useCountdown(endDate.value)
 		onMounted(() => {
 			startTimer()
 			startCountdown()
@@ -70,7 +75,11 @@ export default defineComponent({
 			useSessionModal().setSessionModalCreateSession()
 			show.value = false
 		}
-		return { show, time, getCurrentSession, diffInSec, countDown, requestNewSession }
+		const { cancelSession, loading, error } = useSession()
+		return {
+			show, time, currentSessionId, isAccepted, diffInSec, countDown, requestNewSession,
+			cancelSession, loading, error
+		}
 	}
 })
 </script>

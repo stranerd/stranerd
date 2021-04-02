@@ -10,7 +10,7 @@ export const cancelSession = functions.https.onCall(async ({ id }, context) => {
 	const session = (await ref.get()).data()
 	const { tutorId, studentId, taskName } = session!
 
-	if (context.auth.uid !== studentId || context.auth.uid !== tutorId)
+	if (context.auth.uid !== studentId && context.auth.uid !== tutorId)
 		throw new functions.https.HttpsError('failed-precondition', 'Only the student or nerd can cancel it')
 
 	try {

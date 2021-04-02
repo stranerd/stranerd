@@ -2,29 +2,35 @@ import { computed, ssrRef } from '@nuxtjs/composition-api'
 import { useListener } from '@app/hooks/core/states'
 import { ListenToSession, SessionEntity } from '@modules/sessions'
 import { useSessionModal } from '@app/hooks/core/modals'
-import { Notify } from '@app/hooks/core/notifications'
 import VueRouter from 'vue-router'
+import { useAuth } from '@app/hooks/auth/auth'
+import { getRandomValue } from '@utils/numbers'
 
 const global = {
+	hash: ssrRef(null as string | null),
 	sessionId: ssrRef(null as string | null),
 	session: ssrRef(null as SessionEntity | null),
 	listener: null as ReturnType<typeof useListener> | null
 }
 
-export const setSession = (userId: string, id: string | null, router: VueRouter) => {
+export const setSession = async (userId: string, id: string | null, router: VueRouter) => {
 	if (global.sessionId.value !== id) {
 		if (global.listener) global.listener.closeListener()
 		global.sessionId.value = id
-		global.session.value = null
-		if (id && userId) global.listener = useListener(async () => {
-			const runSession = async (entity: SessionEntity | null) => {
-				if (entity) {
-					global.session.value = entity
-					await actOnSessionState(getSessionState(userId, entity), router)
+		global.hash.value = getRandomValue()
+		if (id && userId) {
+			global.listener = useListener(async () => {
+				const runSession = async (entity: SessionEntity | null) => {
+					if (entity) {
+						global.session.value = entity
+						global.hash.value = entity.hash
+						await actOnSessionState(getSessionState(userId, entity), router)
+					}
 				}
-			}
-			return await ListenToSession.call(id, runSession)
-		})
+				return await ListenToSession.call(id, runSession)
+			})
+			await global.listener.startListener()
+		}
 	}
 }
 
@@ -62,25 +68,51 @@ const actOnSessionState = async (state: SessionState, router: VueRouter) => {
 	if (state === SessionState.NewSessionRequest) useSessionModal().setSessionModalNewSessionRequest()
 	else if (state === SessionState.TutorCancels) useSessionModal().closeSessionModal()
 	else if (state === SessionState.StudentWaiting) useSessionModal().setSessionModalStudentWaiting()
-	else if (state === SessionState.TutorCancelled) useSessionModal().setSessionModalTutorCancelled()
-	else if (state === SessionState.StudentCancelled) useSessionModal().setSessionModalStudentCancelled()
-	else if (state === SessionState.TutorAccepts || state === SessionState.TutorAccepted) {
-		if (state === SessionState.TutorAccepts && global.listener) {
-			await router.push(`/messages/${global.sessionId.value}`)
-			global.listener.closeListener()
-		}
-		if (state === SessionState.TutorAccepted && global.listener) {
-			await router.push(`/messages/${global.sessionId.value}`)
-			global.listener.closeListener()
-		}
-		await Notify({
-			icon: 'info',
-			title: 'A session is ongoing'
-		})
+	else if (state === SessionState.TutorCancelled || state === SessionState.StudentCancelled) {
+		global.listener?.closeListener()
+		if (state === SessionState.TutorCancelled) useSessionModal().setSessionModalTutorCancelled()
+		if (state === SessionState.StudentCancelled) useSessionModal().setSessionModalStudentCancelled()
+	} else if (state === SessionState.TutorAccepts || state === SessionState.TutorAccepted) {
+		global.listener?.closeListener()
+		useSessionModal().closeSessionModal()
+		const session = global.session.value! ?? {}
+		const id = state === SessionState.TutorAccepts ? session.studentId : session.tutorId
+		await router.push(`/messages/${id}`)
 	} else useSessionModal().setSessionModalUnknown()
 }
 
-export const getCurrentSession = computed({
-	get: () => global.session.value || null,
-	set: () => {}
-})
+export const useCurrentSession = () => {
+	const { id } = useAuth()
+
+	const currentSessionHash = computed({
+		get: () => global.session.value?.hash ?? null,
+		set: () => {}
+	})
+
+	const currentSession = computed({
+		get: () => global.session.value ?? null,
+		set: () => {}
+	})
+
+	const endDate = computed({
+		get: () => global.session.value?.endedAt ?? Date.now(),
+		set: () => {}
+	})
+
+	const isAccepted = computed({
+		get: () => global.session.value?.accepted ?? false,
+		set: () => {}
+	})
+
+	const otherParticipant = computed({
+		get: () => {
+			const session = currentSession.value
+			if (!session) return {}
+			if (session.studentId === id.value) return { ...session.tutorBio, id: session.tutorId }
+			else return { ...session.studentBio, id: session.studentId }
+		},
+		set: () => {}
+	})
+
+	return { currentSession, otherParticipant, currentSessionHash, endDate, isAccepted }
+}

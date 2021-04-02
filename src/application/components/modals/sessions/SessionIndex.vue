@@ -1,6 +1,11 @@
 <template>
 	<div>
 		<SessionCreateSession v-if="isSessionModalCreateSession" />
+		<SessionNewSessionRequest v-if="isSessionModalNewSessionRequest" />
+		<SessionStudentWaiting v-if="isSessionModalStudentWaiting" />
+		<SessionTutorCancelled v-if="isSessionModalTutorCancelled" />
+		<SessionStudentCancelled v-if="isSessionModalStudentCancelled" />
+		<SessionUnknown v-if="isSessionModalUnknown" />
 	</div>
 </template>
 
@@ -8,14 +13,20 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useSessionModal } from '@app/hooks/core/modals'
 import SessionCreateSession from '@app/components/modals/sessions/SessionCreateSession.vue'
+import SessionNewSessionRequest from '@app/components/modals/sessions/SessionNewSessionRequest.vue'
+import SessionStudentWaiting from '@app/components/modals/sessions/SessionStudentWaiting.vue'
+import SessionTutorCancelled from '@app/components/modals/sessions/SessionTutorCancelled.vue'
+import SessionStudentCancelled from '@app/components/modals/sessions/SessionStudentCancelled.vue'
+import SessionUnknown from '@app/components/modals/sessions/SessionUnknown.vue'
 export default defineComponent({
 	name: 'SessionModalIndex',
 	components: {
-		SessionCreateSession
+		SessionCreateSession, SessionNewSessionRequest, SessionStudentWaiting,
+		SessionTutorCancelled, SessionStudentCancelled, SessionUnknown
 	},
 	setup () {
-		const { isSessionModalCreateSession } = useSessionModal()
-		return { isSessionModalCreateSession }
+		const { isSessionModalCreateSession, isSessionModalNewSessionRequest, isSessionModalStudentWaiting, isSessionModalStudentCancelled, isSessionModalTutorCancelled, isSessionModalUnknown } = useSessionModal()
+		return { isSessionModalCreateSession, isSessionModalNewSessionRequest, isSessionModalStudentWaiting, isSessionModalStudentCancelled, isSessionModalTutorCancelled, isSessionModalUnknown }
 	}
 })
 </script>

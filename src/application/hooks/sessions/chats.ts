@@ -34,7 +34,6 @@ export const useChats = (userId: string) => {
 		...useLoadingHandler()
 	}
 	const path = getChatsPath(id.value, userId)
-	if (!id.value) global[userId].setError('Currently not logged in')
 
 	const fetchChats = async () => {
 		global[userId].setError('')

@@ -20,7 +20,7 @@ export const acceptSession = functions.https.onCall(async ({ id }, context) => {
 			queue: 'sessions',
 			endpoint: 'endSession',
 			payload: { studentId, tutorId, id },
-			timeInSecs: ((session?.duration ?? 1) * 3600) + (Date.now() / 1000) + 5 // 5 to account for round trips to servers
+			timeInSecs: ((session?.duration ?? 15) * 60) + (Date.now() / 1000) + 5 // 5 to account for round trips to servers
 		})
 
 		const endedAt = admin.firestore.Timestamp.now().toDate()

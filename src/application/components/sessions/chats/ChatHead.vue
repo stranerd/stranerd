@@ -31,6 +31,7 @@ import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, ref } 
 import { UserEntity } from '@modules/users'
 import { useCountdown, useTimeDifference } from '@app/hooks/core/dates'
 import { getCurrentSession } from '@app/hooks/sessions/session'
+import { setNewSessionTutorIdBio } from '@app/hooks/sessions/sessions'
 import { useSessionModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'ChatHead',
@@ -65,6 +66,7 @@ export default defineComponent({
 			set: () => {}
 		})
 		const requestNewSession = () => {
+			setNewSessionTutorIdBio({ id: props.user.id, user: props.user.userBio })
 			useSessionModal().setSessionModalCreateSession()
 			show.value = false
 		}

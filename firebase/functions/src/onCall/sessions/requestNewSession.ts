@@ -7,14 +7,6 @@ export const requestNewSession = functions.https.onCall(async (session, context)
 
 	const { tutorId, studentId, message, price, duration, studentBio, tutorBio } = session
 
-	const sessionRef = await admin.database().ref('profiles')
-		.child(tutorId).child('tutor/currentSession')
-		.once('value')
-	const currentSession = sessionRef.val()
-
-	if (currentSession)
-		throw new functions.https.HttpsError('failed-precondition', 'Tutor is currently in a session. Try again later.')
-
 	try {
 		const session = {
 			duration, price, message,
@@ -28,11 +20,21 @@ export const requestNewSession = functions.https.onCall(async (session, context)
 		const doc = await admin.firestore().collection('sessions').add(session)
 		const sessionId = doc.id
 
+		let isBusy = false
 		await admin.database().ref('profiles')
-			.update({
-				[`${tutorId}/tutor/currentSession`]: sessionId,
-				[`${studentId}/meta/currentSession`]: sessionId
+			.child(tutorId).child('tutor/currentSession')
+			.transaction((id: string | null) => {
+				if (id) isBusy = true
+				return id || sessionId
 			})
+
+		if (isBusy) {
+			await doc.delete()
+			throw new functions.https.HttpsError('failed-precondition', 'Tutor is currently in a session. Try again later.')
+		}
+
+		await admin.database().ref(`profiles/${studentId}/meta/currentSession`)
+			.set(sessionId)
 
 		return sessionId
 	} catch (error) {

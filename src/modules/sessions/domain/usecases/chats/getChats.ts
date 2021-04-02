@@ -20,7 +20,10 @@ export class GetChatsUseCase {
 			}
 		}
 
-		if (date) conditions.order!.condition = { lt: date.getTime() }
+		if (date) {
+			conditions.order!.condition = { lt: date.getTime() }
+			conditions.limit!.count = CHAT_PAGINATION_LIMIT + 2 // RTDB not mixing order well with limit
+		}
 
 		return await this.repository.get(path, conditions)
 	}

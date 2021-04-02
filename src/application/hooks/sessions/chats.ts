@@ -4,6 +4,7 @@ import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core
 import { useAuth } from '@app/hooks/auth/auth'
 import { CHAT_PAGINATION_LIMIT, PATH_SEPARATOR } from '@utils/constants'
 import { getRandomValue } from '@utils/numbers'
+import { isServer } from '@utils/environment'
 
 const getChatsPath = (id1: string, id2: string) => [id1, id2].sort().join(PATH_SEPARATOR)
 
@@ -26,7 +27,7 @@ const unshiftToChats = (userId: string, chat: ChatEntity) => {
 
 export const useChats = (userId: string) => {
 	const { id } = useAuth()
-	if (global[userId] === undefined) global[userId] = {
+	if (global[userId] === undefined || isServer()) global[userId] = {
 		chats: ssrRef([]),
 		fetched: ssrRef(false),
 		hasMore: ssrRef(false),
@@ -35,21 +36,28 @@ export const useChats = (userId: string) => {
 	}
 	const path = getChatsPath(id.value, userId)
 
+	const chats = computed({
+		get: () => global[userId].chats.value.sort((a, b) => {
+			return a.createdAt - b.createdAt < 0 ? -1 : 1
+		}),
+		set: (chats) => chats.map((c) => pushToChats(userId, c))
+	})
+
 	const fetchChats = async () => {
 		global[userId].setError('')
 		try {
-			const lastDate = global[userId].chats.value[global[userId].chats.value.length - 1]?.createdAt
-			const chats = await GetPersonalChats.call(path, lastDate ? new Date(lastDate) : undefined)
-			global[userId].hasMore.value = chats.length === CHAT_PAGINATION_LIMIT + 1
-			chats.reverse().slice(0, CHAT_PAGINATION_LIMIT).map((c) => unshiftToChats(userId, c))
 			global[userId].setLoading(true)
+			const lastDate = chats.value[0]?.createdAt
+			const c = await GetPersonalChats.call(path, lastDate ? new Date(lastDate) : undefined)
+			global[userId].hasMore.value = c.length >= CHAT_PAGINATION_LIMIT + 1
+			c.slice().reverse().slice(0, CHAT_PAGINATION_LIMIT).map((c) => unshiftToChats(userId, c))
 			global[userId].fetched.value = true
 		} catch (e) { global[userId].setError(e) }
 		global[userId].setLoading(false)
 	}
 
 	const listener = useListener(async () => {
-		const lastDate = global[userId].chats.value[global[userId].chats.value.length - 1]?.createdAt
+		const lastDate = chats.value[chats.value.length - 1]?.createdAt
 		const callback = (chats: ChatEntity[]) => chats.map((c) => pushToChats(userId, c))
 		return ListenToPersonalChats.call(path, callback, lastDate ? new Date(lastDate) : undefined)
 	})
@@ -60,9 +68,7 @@ export const useChats = (userId: string) => {
 
 	return {
 		chats: computed({
-			get: () => orderChats(global[userId].chats.value.sort((a, b) => {
-				return a.createdAt - b.createdAt < 0 ? -1 : 1
-			})),
+			get: () => orderChats(chats.value),
 			set: (sessions) => sessions.map((session) => session.chats.map((c) => pushToChats(userId, c)))
 		}),
 		fetched: global[userId].fetched,

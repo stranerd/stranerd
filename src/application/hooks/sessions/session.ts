@@ -35,6 +35,7 @@ enum SessionState {
 	StudentWaiting = 200,
 	TutorAccepted = 201,
 	TutorCancelled = 202,
+	StudentCancelled = 203,
 	Unknown = 300
 }
 
@@ -45,6 +46,7 @@ const getSessionState = (id: string, session: SessionEntity) :SessionState => {
 	const tutorAcceptedSession = session.studentId === id && session.accepted && !session.cancelled.tutor && !session.cancelled.student
 	const tutorCancelsSession = session.tutorId === id && !session.accepted && session.cancelled.tutor && !session.cancelled.student
 	const tutorCancelledSession = session.studentId === id && session.cancelled.tutor && !session.cancelled.student
+	const studentCancelledSession = session.tutorId === id && session.cancelled.tutor && !session.cancelled.tutor
 
 	if (newSessionRequest) return SessionState.NewSessionRequest
 	if (studentWaiting) return SessionState.StudentWaiting
@@ -52,6 +54,7 @@ const getSessionState = (id: string, session: SessionEntity) :SessionState => {
 	if (tutorAcceptedSession) return SessionState.TutorAccepted
 	if (tutorCancelsSession) return SessionState.TutorCancels
 	if (tutorCancelledSession) return SessionState.TutorCancelled
+	if (studentCancelledSession) return SessionState.StudentCancelled
 	return SessionState.Unknown
 }
 
@@ -60,6 +63,7 @@ const actOnSessionState = async (state: SessionState, router: VueRouter) => {
 	else if (state === SessionState.TutorCancels) useSessionModal().closeSessionModal()
 	else if (state === SessionState.StudentWaiting) useSessionModal().setSessionModalStudentWaiting()
 	else if (state === SessionState.TutorCancelled) useSessionModal().setSessionModalTutorCancelled()
+	else if (state === SessionState.StudentCancelled) useSessionModal().setSessionModalStudentCancelled()
 	else if (state === SessionState.TutorAccepts || state === SessionState.TutorAccepted) {
 		if (state === SessionState.TutorAccepts && global.listener) {
 			await router.push(`/messages/${global.sessionId.value}`)

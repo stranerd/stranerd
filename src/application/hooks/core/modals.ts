@@ -59,14 +59,18 @@ export const useMenuModal = () => {
 
 export const useSessionModal = () => {
 	return {
+		isSessionModalCreateSession: computed(() => global.sessionModal.value === 'create-session'),
 		isSessionModalNewSessionRequest: computed(() => global.sessionModal.value === 'new-session-request'),
 		isSessionModalStudentWaiting: computed(() => global.sessionModal.value === 'student-waiting'),
 		isSessionModalTutorCancelled: computed(() => global.sessionModal.value === 'tutor-cancelled'),
+		isSessionModalStudentCancelled: computed(() => global.sessionModal.value === 'student-cancelled'),
 		isSessionModalUnknown: computed(() => global.sessionModal.value === 'unknown'),
 
+		setSessionModalCreateSession: () => global.sessionModal.value = 'create-session',
 		setSessionModalNewSessionRequest: () => global.sessionModal.value = 'new-session-request',
 		setSessionModalStudentWaiting: () => global.sessionModal.value = 'student-waiting',
 		setSessionModalTutorCancelled: () => global.sessionModal.value = 'tutor-cancelled',
+		setSessionModalStudentCancelled: () => global.sessionModal.value = 'student-cancelled',
 		setSessionModalUnknown: () => global.sessionModal.value = 'unknown',
 
 		closeSessionModal: () => global.sessionModal.value = null

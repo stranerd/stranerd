@@ -52,11 +52,7 @@ export const getId = computed({
 	get: () => global.auth.value?.id ?? null,
 	set: () => {}
 })
-export const getStudentCurrentSession = computed({
-	get: () => global.user.value?.meta?.currentSession ?? null,
-	set: () => {}
-})
-export const getTutorCurrentSession = computed({
-	get: () => global.user.value?.tutor?.currentSession ?? null,
+export const getCurrentSessionId = computed({
+	get: () => global.user.value?.currentSession ?? null,
 	set: () => {}
 })

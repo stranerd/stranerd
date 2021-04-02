@@ -91,6 +91,10 @@ export class UserEntity extends BaseEntity {
 		return Object.entries(this.tutor?.subjects ?? {})
 			.map((c) => ({ ...c[1], id: c[0] }))
 	}
+
+	get currentSession () {
+		return this.meta.currentSession || this.tutor?.currentSession || null
+	}
 }
 
 type UserConstructorArgs = {

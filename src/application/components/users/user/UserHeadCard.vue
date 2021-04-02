@@ -7,6 +7,7 @@
 			</div>
 			<div class="ml-1 align-items-center align-items-lg-start d-flex flex-column">
 				<span class="d-block text-18 font-weight-bold text-wrap">{{ user.fullName }}</span>
+				<span class="small mb-1">{{ user.isOnline ? 'Active now' : 'Last seen: ' + time }}</span>
 				<ShowRatings v-if="user.roles.isTutor" :rating="user.averageRating" />
 				<NuxtLink :to="`/messages/${user.id}`" class="btn btn-sm btn-blue my-1">
 					Message
@@ -58,9 +59,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from '@nuxtjs/composition-api'
+import { defineComponent, onBeforeUnmount, onMounted, PropType } from '@nuxtjs/composition-api'
 import { UserEntity } from '@modules/users'
 import { formatNumber } from '@utils/numbers'
+import { useTimeDifference } from '@app/hooks/core/dates'
 export default defineComponent({
 	name: 'UserHeadCard',
 	props: {
@@ -69,8 +71,11 @@ export default defineComponent({
 			type: Object as PropType<UserEntity>
 		}
 	},
-	setup () {
-		return { formatNumber }
+	setup (props) {
+		const { time, startTimer, stopTimer } = useTimeDifference(props.user.lastSeen)
+		onMounted(startTimer)
+		onBeforeUnmount(stopTimer)
+		return { time, formatNumber }
 	}
 })
 </script>

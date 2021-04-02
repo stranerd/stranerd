@@ -68,11 +68,12 @@ export const useTimeDifference = (timeInMs: number) => {
 	}
 	const stopTimer = () => clearInterval(interval)
 
-	return { time, startTimer, stopTimer }
+	return { time, startTimer, stopTimer, diffInSec }
 }
 
 export const useCountdown = (timeInMs: number) => {
-	const diffInSec = ssrRef(Math.floor((timeInMs - Date.now()) / 1000))
+	const val = Math.floor((timeInMs - Date.now()) / 1000)
+	const diffInSec = ssrRef(val < 0 ? 0 : val)
 	let interval = undefined as number | undefined
 
 	watch(() => diffInSec.value, () => {
@@ -100,5 +101,5 @@ export const useCountdown = (timeInMs: number) => {
 	}
 	const stopTimer = () => clearInterval(interval)
 
-	return { time, startTimer, stopTimer }
+	return { time, startTimer, stopTimer, diffInSec }
 }

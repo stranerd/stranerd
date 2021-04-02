@@ -21,7 +21,7 @@
 				</template>
 				<a>Report</a>
 				<PageLoading v-if="loading" />
-				<a v-if="isAccepted && currentSessionId === user.currentSession" @click.prevent="cancelSession">End Session</a>
+				<a v-if="isAccepted && currentSession && currentSessionId === user.currentSession && currentSession.studentId === id" @click.prevent="cancelSession">End Session</a>
 				<DisplayError :error="error" />
 			</div>
 		</div>
@@ -47,8 +47,8 @@ export default defineComponent({
 	setup (props) {
 		const show = ref(false)
 		const { time, startTimer, stopTimer } = useTimeDifference(props.user.lastSeen)
-		const { currentSessionId } = useAuth()
-		const { endDate, isAccepted } = useCurrentSession()
+		const { id, currentSessionId } = useAuth()
+		const { currentSession, endDate, isAccepted } = useCurrentSession()
 		const { diffInSec, startTimer: startCountdown, stopTimer: stopCountdown } = useCountdown(endDate.value)
 		onMounted(() => {
 			startTimer()
@@ -75,9 +75,14 @@ export default defineComponent({
 			useSessionModal().setSessionModalCreateSession()
 			show.value = false
 		}
-		const { cancelSession, loading, error } = useSession()
+		const { cancelSession: c, loading, error } = useSession()
+		const cancelSession = async () => {
+			show.value = false
+			await c()
+		}
 		return {
-			show, time, currentSessionId, isAccepted, diffInSec, countDown, requestNewSession,
+			id, currentSessionId, currentSession, isAccepted,
+			show, time, diffInSec, countDown, requestNewSession,
 			cancelSession, loading, error
 		}
 	}

@@ -37,8 +37,8 @@ import { useSession } from '@app/hooks/sessions/sessions'
 export default defineComponent({
 	name: 'SessionNewSessionRequest',
 	setup () {
-		const { currentSession, otherParticipant } = useCurrentSession()
-		const { acceptSession, cancelSession, loading, error } = useSession(currentSession.value?.id ?? '')
+		const { clone: currentSession, otherParticipant } = useCurrentSession()
+		const { acceptSession, cancelSession, loading, error } = useSession()
 		return {
 			currentSession, otherParticipant,
 			acceptSession, cancelSession, loading, error

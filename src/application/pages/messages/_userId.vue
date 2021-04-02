@@ -1,8 +1,8 @@
 <template>
 	<div class="flex-grow-1 d-flex flex-column">
 		<PageLoading v-if="loading" />
-		<div v-else-if="user" class="page-content flex-grow-1 d-flex flex-column px-2">
-			<ChatHead :key="user.hash + currentSessionHash" :user="user" />
+		<div v-else-if="user" class="page-content flex-grow-1 d-flex flex-column px-2" :class="{'bg-light-blue': sessionId}">
+			<ChatHead :key="user.hash + hash" :user="user" />
 			<div class="thin mx-n2" />
 			<ChatList :user-id="userId" class="flex-grow-1" />
 			<div class="thin mx-n2" />
@@ -22,6 +22,7 @@ import ChatForm from '@app/components/sessions/chats/ChatForm.vue'
 import { useUser } from '@app/hooks/users/user'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useCurrentSession } from '@app/hooks/sessions/session'
+import { getRandomValue } from '@utils/numbers'
 export default defineComponent({
 	name: 'MessagePage',
 	components: { ChatHead, ChatList, ChatForm },
@@ -33,17 +34,20 @@ export default defineComponent({
 		}
 	],
 	setup () {
-		const { currentSessionId } = useAuth()
 		const { userId } = useRoute().value.params
 		const { user, loading, error, listener } = useUser(userId)
-		const { currentSessionHash } = useCurrentSession()
+		const { currentSession } = useCurrentSession()
 		onMounted(listener.startListener)
 		onBeforeUnmount(listener.closeListener)
 		const sessionId = computed({
-			get: () => user.value?.currentSession === currentSessionId.value ? currentSessionId.value ?? '' : '',
+			get: () => user.value?.currentSession && user.value?.currentSession === currentSession.value?.id ? currentSession.value?.id ?? '' : '',
 			set: () => {}
 		})
-		return { userId, user, loading, error, sessionId, currentSessionHash }
+		const hash = computed({
+			get: () => user.value?.currentSession && user.value?.currentSession === currentSession.value?.id ? getRandomValue() ?? getRandomValue() : getRandomValue(),
+			set: () => {}
+		})
+		return { userId, user, loading, error, sessionId, hash }
 	}
 })
 </script>

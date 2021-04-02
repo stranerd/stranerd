@@ -29,7 +29,7 @@ import { useCurrentSession } from '@app/hooks/sessions/session'
 export default defineComponent({
 	name: 'SessionUnknown',
 	setup () {
-		const { currentSession, otherParticipant } = useCurrentSession()
+		const { clone: currentSession, otherParticipant } = useCurrentSession()
 		const { closeSessionModal } = useSessionModal()
 		return { closeSessionModal, currentSession, otherParticipant }
 	}

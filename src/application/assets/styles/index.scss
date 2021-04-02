@@ -35,6 +35,7 @@ input.form-control, textarea.form-control {
 	padding: 1.25em;
 	min-height: 3em;
 }
+.form-control, .form-control:focus{ background: inherit; }
 
 a {
 	cursor: pointer;

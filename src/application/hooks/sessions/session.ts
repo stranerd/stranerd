@@ -4,26 +4,25 @@ import { ListenToSession, SessionEntity } from '@modules/sessions'
 import { useSessionModal } from '@app/hooks/core/modals'
 import VueRouter from 'vue-router'
 import { useAuth } from '@app/hooks/auth/auth'
-import { getRandomValue } from '@utils/numbers'
 
 const global = {
-	hash: ssrRef(null as string | null),
 	sessionId: ssrRef(null as string | null),
 	session: ssrRef(null as SessionEntity | null),
+	clone: ssrRef(null as SessionEntity | null),
 	listener: null as ReturnType<typeof useListener> | null
 }
 
 export const setSession = async (userId: string, id: string | null, router: VueRouter) => {
 	if (global.sessionId.value !== id) {
-		if (global.listener) global.listener.closeListener()
+		global.listener?.closeListener()
 		global.sessionId.value = id
-		global.hash.value = getRandomValue()
+		global.session.value = null
 		if (id && userId) {
 			global.listener = useListener(async () => {
 				const runSession = async (entity: SessionEntity | null) => {
 					if (entity) {
 						global.session.value = entity
-						global.hash.value = entity.hash
+						global.clone.value = entity
 						await actOnSessionState(getSessionState(userId, entity), router)
 					}
 				}
@@ -52,7 +51,7 @@ const getSessionState = (id: string, session: SessionEntity) :SessionState => {
 	const tutorAcceptedSession = session.studentId === id && session.accepted && !session.cancelled.tutor && !session.cancelled.student
 	const tutorCancelsSession = session.tutorId === id && !session.accepted && session.cancelled.tutor && !session.cancelled.student
 	const tutorCancelledSession = session.studentId === id && session.cancelled.tutor && !session.cancelled.student
-	const studentCancelledSession = session.tutorId === id && session.cancelled.tutor && !session.cancelled.tutor
+	const studentCancelledSession = session.tutorId === id && session.cancelled.student && !session.cancelled.tutor
 
 	if (newSessionRequest) return SessionState.NewSessionRequest
 	if (studentWaiting) return SessionState.StudentWaiting
@@ -69,11 +68,9 @@ const actOnSessionState = async (state: SessionState, router: VueRouter) => {
 	else if (state === SessionState.TutorCancels) useSessionModal().closeSessionModal()
 	else if (state === SessionState.StudentWaiting) useSessionModal().setSessionModalStudentWaiting()
 	else if (state === SessionState.TutorCancelled || state === SessionState.StudentCancelled) {
-		global.listener?.closeListener()
 		if (state === SessionState.TutorCancelled) useSessionModal().setSessionModalTutorCancelled()
 		if (state === SessionState.StudentCancelled) useSessionModal().setSessionModalStudentCancelled()
 	} else if (state === SessionState.TutorAccepts || state === SessionState.TutorAccepted) {
-		global.listener?.closeListener()
 		useSessionModal().closeSessionModal()
 		const session = global.session.value! ?? {}
 		const id = state === SessionState.TutorAccepts ? session.studentId : session.tutorId
@@ -84,8 +81,8 @@ const actOnSessionState = async (state: SessionState, router: VueRouter) => {
 export const useCurrentSession = () => {
 	const { id } = useAuth()
 
-	const currentSessionHash = computed({
-		get: () => global.session.value?.hash ?? null,
+	const clone = computed({
+		get: () => global.clone.value ?? null,
 		set: () => {}
 	})
 
@@ -106,7 +103,7 @@ export const useCurrentSession = () => {
 
 	const otherParticipant = computed({
 		get: () => {
-			const session = currentSession.value
+			const session = clone.value
 			if (!session) return {}
 			if (session.studentId === id.value) return { ...session.tutorBio, id: session.tutorId }
 			else return { ...session.studentBio, id: session.studentId }
@@ -114,5 +111,5 @@ export const useCurrentSession = () => {
 		set: () => {}
 	})
 
-	return { currentSession, otherParticipant, currentSessionHash, endDate, isAccepted }
+	return { currentSession, otherParticipant, endDate, isAccepted, clone }
 }

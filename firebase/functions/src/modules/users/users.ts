@@ -5,12 +5,15 @@ import {
 	updateMyQuestionCommentsBio, updateMyQuestionsBio, updateMySessionsBio, updateMyTutorSessionsBio
 } from '../../helpers/modules/users/users'
 import { addUserXp, XpGainList } from '../../helpers/modules/payments/transactions'
+import { saveToAlgolia } from '../../helpers/algolia'
 
 export const userProfileUpdated = functions.database.ref('profiles/{userId}/bio')
 	.onUpdate(async (snap, context) => {
 		const oldBio = snap.before.val()
 		const newBio = snap.after.val()
 		const { userId } = context.params
+
+		await saveToAlgolia('users', userId, newBio)
 
 		await updateMyChatsBio(userId, newBio)
 		await updateMySessionsBio(userId, newBio)

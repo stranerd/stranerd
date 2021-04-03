@@ -2,11 +2,9 @@ import { computed, Ref, ssrRef, ref, useFetch, watch } from '@nuxtjs/composition
 import { AddPersonalChat, ChatEntity, ChatFactory, GetPersonalChats, ListenToPersonalChats } from '@modules/sessions'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
-import { CHAT_PAGINATION_LIMIT, PATH_SEPARATOR } from '@utils/constants'
+import { CHAT_PAGINATION_LIMIT, getChatsPath } from '@utils/constants'
 import { getRandomValue } from '@utils/numbers'
 import { isServer } from '@utils/environment'
-
-const getChatsPath = (id1: string, id2: string) => [id1, id2].sort().join(PATH_SEPARATOR)
 
 const global = {} as Record<string, {
 	chats: Ref<ChatEntity[]>,

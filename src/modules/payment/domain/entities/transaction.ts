@@ -1,4 +1,3 @@
-import { getMonth } from '@utils/dates'
 import { BaseEntity } from '@modules/core/domains/entities/base'
 
 export class TransactionEntity extends BaseEntity {
@@ -18,20 +17,6 @@ export class TransactionEntity extends BaseEntity {
 	}
 
 	get isGain () { return this.amount >= 0 }
-	get date () {
-		const date = new Date(this.createdAt)
-		const day = date.getDate()
-		const month = getMonth(date.getMonth())
-		const year = date.getFullYear()
-		return `${day}-${month}-${year}`
-	}
-
-	get time () {
-		const date = new Date(this.createdAt)
-		const hours = date.getHours()
-		const minutes = date.getMinutes()
-		return `${hours}:${minutes}`
-	}
 }
 
 type TransactionConstructorArgs = {

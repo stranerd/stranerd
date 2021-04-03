@@ -9,14 +9,14 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useAuth } from '@app/hooks/auth/auth'
 import UserChatCard from '@app/components/sessions/chats/UserChatCard.vue'
+import { useChatList } from '@app/hooks/sessions/chats-list'
 export default defineComponent({
 	name: 'MessagesPage',
 	components: { UserChatCard },
 	middleware: ['isAuthenticated'],
 	setup () {
-		const { chats } = useAuth()
+		const { chats } = useChatList()
 		return { chats }
 	}
 })

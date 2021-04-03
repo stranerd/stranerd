@@ -1,5 +1,8 @@
 <template>
 	<div class="d-flex py-half align-items-center">
+		<NuxtLink to="/messages" class="mr-1">
+			<i class="fas fa-arrow-left" />
+		</NuxtLink>
 		<NuxtLink :to="`/users/${user.id}`">
 			<Avatar :src="user.avatar" :size="40" />
 		</NuxtLink>

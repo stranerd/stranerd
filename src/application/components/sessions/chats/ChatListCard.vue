@@ -6,16 +6,16 @@
 				<span class="text-truncate">{{ chat.media.name }}</span>
 			</a>
 			<span v-else>{{ chat.content || 'Hello' }}</span>
-			<span class="ml-auto small">{{ time }}</span>
+			<span class="ml-auto small">{{ formatTime(chat.createdAt) }}</span>
 		</div>
 	</div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onBeforeUnmount, onMounted, PropType } from '@nuxtjs/composition-api'
+import { computed, defineComponent, PropType } from '@nuxtjs/composition-api'
 import { ChatEntity } from '@modules/sessions'
 import { useAuth } from '@app/hooks/auth/auth'
-import { useTimeDifference } from '@app/hooks/core/dates'
+import { formatTime } from '@utils/dates'
 export default defineComponent({
 	name: 'ChatListCard',
 	props: {
@@ -30,10 +30,7 @@ export default defineComponent({
 			get: () => props.chat.from === id.value,
 			set: () => {}
 		})
-		const { time, startTimer, stopTimer } = useTimeDifference(props.chat.createdAt)
-		onMounted(startTimer)
-		onBeforeUnmount(stopTimer)
-		return { isMine, time }
+		return { isMine, formatTime }
 	}
 })
 </script>

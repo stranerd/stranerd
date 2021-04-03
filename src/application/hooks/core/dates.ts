@@ -1,36 +1,11 @@
 import { ssrRef, watch, computed } from '@nuxtjs/composition-api'
-
-enum TIMES {
-	minute = 60,
-	hour = 60 * 60,
-	day = 60 * 60 * 24,
-	month = 60 * 60 * 24 * 30,
-	year = 60 * 60 * 24 * 30 * 12
-}
+import { TIMES, getTimeFormatted } from '@utils/dates'
 
 const startInterval = (dif: number, caller: (time: number) => void) => {
 	if (dif <= TIMES.minute) return window.setInterval(() => caller(1), 1000)
 	else if (dif <= TIMES.hour) return window.setInterval(() => caller(TIMES.minute), 1000 * TIMES.minute)
 	else if (dif <= TIMES.day) return window.setInterval(() => caller(TIMES.hour), 1000 * TIMES.hour)
 	else return undefined
-}
-
-export const getTimeFormatted = (timeInSecs: number) => {
-	if (timeInSecs < TIMES.minute) {
-		return `${timeInSecs} sec${timeInSecs > 1 ? 's' : ''}`
-	} else if (timeInSecs < TIMES.hour) {
-		const minutes = Math.floor(timeInSecs / TIMES.minute)
-		return `${minutes} min${minutes > 1 ? 's' : ''}`
-	} else if (timeInSecs < TIMES.day) {
-		const hours = Math.floor(timeInSecs / TIMES.hour)
-		return `${hours} hr${hours > 1 ? 's' : ''}`
-	} else if (timeInSecs < TIMES.month) {
-		const days = Math.floor(timeInSecs / TIMES.day)
-		return `${days} day${days > 1 ? 's' : ''}`
-	} else if (timeInSecs < TIMES.year) {
-		const months = Math.floor(timeInSecs / TIMES.month)
-		return `${months} mon${months > 1 ? 's' : ''}`
-	}
 }
 
 export const useTimeDifference = (timeInMs: number) => {

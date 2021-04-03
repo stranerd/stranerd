@@ -26,9 +26,7 @@ export const useAuth = () => {
 		set: () => {}
 	})
 	const chats = computed({
-		get: () => global.user.value?.chats.sort((a, b) => {
-			return a.name.first < b.name.first ? -1 : 1
-		}),
+		get: () => global.user.value?.chats ?? [],
 		set: () => {}
 	})
 

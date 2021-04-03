@@ -10,9 +10,6 @@
 						Date
 					</th>
 					<th scope="col">
-						Time
-					</th>
-					<th scope="col">
 						Amount
 					</th>
 					<th scope="col">

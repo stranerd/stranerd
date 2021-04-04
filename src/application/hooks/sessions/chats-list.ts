@@ -14,7 +14,12 @@ export const useChatList = () => {
 	const { chats: userChats } = useAuth()
 	const chats = computed({
 		get: () => userChats.value.sort((a, b) => {
-			return a.name.first < b.name.first ? -1 : 1
+			const chatA = global[a.id].chat.value
+			const chatB = global[b.id].chat.value
+			if (chatA === chatB || chatA?.createdAt === chatB?.createdAt) return 0
+			if (!chatA) return 1
+			if (!chatB) return -1
+			return chatA.createdAt - chatB.createdAt < 0 ? -1 : 1
 		}),
 		set: () => {}
 	})

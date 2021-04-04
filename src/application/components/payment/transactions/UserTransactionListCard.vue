@@ -10,9 +10,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeUnmount, onMounted, PropType } from '@nuxtjs/composition-api'
+import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { TransactionEntity } from '@modules/payment'
-import { useTimeDifference } from '@app/hooks/core/dates'
 import { formatNumber } from '@utils/numbers'
 import { formatTime } from '@utils/dates'
 export default defineComponent({
@@ -23,11 +22,8 @@ export default defineComponent({
 			type: Object as PropType<TransactionEntity>
 		}
 	},
-	setup (props) {
-		const { time, startTimer, stopTimer } = useTimeDifference(props.transaction.createdAt)
-		onMounted(startTimer)
-		onBeforeUnmount(stopTimer)
-		return { time, formatNumber, formatTime }
+	setup () {
+		return { formatNumber, formatTime }
 	}
 })
 </script>

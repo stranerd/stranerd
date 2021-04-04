@@ -9,7 +9,7 @@
 					<span>{{ answer.userName }}</span>
 				</NuxtLink>
 				<span class="small text-wrap">
-					{{ time }}
+					{{ formatTime(answer.createdAt) }}
 				</span>
 			</div>
 			<ShowRatings class="ml-auto my-auto" :rating="answer.averageRating" />
@@ -59,14 +59,14 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, ref } from '@nuxtjs/composition-api'
+import { computed, defineComponent, PropType, ref } from '@nuxtjs/composition-api'
 import { AnswerEntity, QuestionEntity } from '@modules/questions'
-import { useTimeDifference } from '@app/hooks/core/dates'
 import { useAnswer } from '@app/hooks/questions/answers'
 import { useAuth } from '@app/hooks/auth/auth'
 import DisplayAttachments from '@app/components/questions/DisplayAttachments.vue'
 import CommentForm from '@app/components/questions/comments/AnswerCommentForm.vue'
 import CommentList from '@app/components/questions/comments/AnswerCommentsList.vue'
+import { formatTime } from '@utils/dates'
 export default defineComponent({
 	name: 'AnswerListCard',
 	components: {
@@ -91,12 +91,9 @@ export default defineComponent({
 			get: () => isLoggedIn.value && user.value?.meta.ratedAnswers[props.answer.id] === undefined,
 			set: () => {}
 		})
-		const { time, startTimer, stopTimer } = useTimeDifference(props.answer.createdAt)
 		const { error, loading, rateAnswer, markBestAnswer } = useAnswer(props.answer)
-		onMounted(startTimer)
-		onBeforeUnmount(stopTimer)
 		return {
-			id, isLoggedIn, user, time, showComments,
+			id, isLoggedIn, user, formatTime, showComments,
 			error, loading, rateAnswer, showRatingButton,
 			markBestAnswer: () => markBestAnswer(props.question)
 		}

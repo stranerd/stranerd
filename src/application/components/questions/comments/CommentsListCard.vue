@@ -8,15 +8,19 @@
 				<span>{{ comment.userName }}</span>
 			</NuxtLink>
 		</div>
-		<p class="mb-0 text-wrap">
+		<p class="mr-1 mb-0 text-wrap">
 			{{ comment.body }}
 		</p>
+		<span class="ml-auto">
+			{{ formatTime(comment.createdAt) }}
+		</span>
 	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { CommentEntity } from '@modules/questions'
+import { formatTime } from '@utils/dates'
 export default defineComponent({
 	name: 'CommentsListCard',
 	props: {
@@ -24,6 +28,9 @@ export default defineComponent({
 			required: true,
 			type: Object as PropType<CommentEntity>
 		}
+	},
+	setup () {
+		return { formatTime }
 	}
 })
 </script>

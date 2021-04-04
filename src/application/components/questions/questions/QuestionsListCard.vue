@@ -11,7 +11,7 @@
 				<span class="small text-wrap">
 					{{ subject ? subject.name : 'Subject' }}
 					|
-					{{ time }}
+					{{ formatTime(question.createdAt) }}
 				</span>
 			</div>
 			<span class="ml-auto">
@@ -29,12 +29,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, onMounted, onBeforeUnmount } from '@nuxtjs/composition-api'
+import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { QuestionEntity } from '@modules/questions'
 import { useSubject } from '@app/hooks/questions/subjects'
-import { useTimeDifference } from '@app/hooks/core/dates'
 import { useAuth } from '@app/hooks/auth/auth'
 import { formatNumber, pluralize } from '@utils/numbers'
+import { formatTime } from '@utils/dates'
 export default defineComponent({
 	name: 'QuestionsListCard',
 	props: {
@@ -46,10 +46,7 @@ export default defineComponent({
 	setup (props) {
 		const { id } = useAuth()
 		const { subject } = useSubject(props.question.subjectId)
-		const { time, startTimer, stopTimer } = useTimeDifference(props.question.createdAt)
-		onMounted(startTimer)
-		onBeforeUnmount(stopTimer)
-		return { id, subject, time, formatNumber, pluralize }
+		return { id, subject, formatTime, formatNumber, pluralize }
 	}
 })
 </script>

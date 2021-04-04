@@ -11,7 +11,7 @@
 				<span class="small text-wrap">
 					{{ subject ? subject.name : 'Subject' }}
 					|
-					{{ time }}
+					{{ formatTime(question.createdAt) }}
 				</span>
 			</div>
 			<div class="d-none d-md-inline">
@@ -76,10 +76,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, ref } from '@nuxtjs/composition-api'
+import { computed, defineComponent, PropType, ref } from '@nuxtjs/composition-api'
 import { QuestionEntity } from '@modules/questions'
 import { useSubject } from '@app/hooks/questions/subjects'
-import { useTimeDifference } from '@app/hooks/core/dates'
 import { openAnswerModal } from '@app/hooks/questions/answers'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useRedirectToAuth } from '@app/hooks/auth/session'
@@ -87,6 +86,7 @@ import DisplayAttachments from '@app/components/questions/DisplayAttachments.vue
 import CommentForm from '@app/components/questions/comments/QuestionCommentForm.vue'
 import CommentList from '@app/components/questions/comments/QuestionCommentsList.vue'
 import { formatNumber, pluralize } from '@utils/numbers'
+import { formatTime } from '@utils/dates'
 export default defineComponent({
 	name: 'QuestionPageCard',
 	components: { DisplayAttachments, CommentForm, CommentList },
@@ -101,16 +101,13 @@ export default defineComponent({
 		const { isLoggedIn, id, isTutor, user } = useAuth()
 		const { redirect } = useRedirectToAuth()
 		const { subject } = useSubject(props.question.subjectId)
-		const { time, startTimer, stopTimer } = useTimeDifference(props.question.createdAt)
 		const showAnswerButton = computed({
 			get: () => isTutor.value && props.question.userId !== id.value && !props.question.isAnswered && !user.value?.meta.answeredQuestions[props.question.id],
 			set: () => {}
 		})
-		onMounted(startTimer)
-		onBeforeUnmount(stopTimer)
 		return {
 			id, formatNumber, pluralize, isTutor, showAnswerButton,
-			subject, time, showComments,
+			subject, formatTime, showComments,
 			openAnswerModal: () => {
 				if (!isLoggedIn.value) redirect()
 				else openAnswerModal(props.question)

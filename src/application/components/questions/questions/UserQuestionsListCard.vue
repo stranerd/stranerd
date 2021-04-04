@@ -5,7 +5,7 @@
 			<span class="text-wrap mr-auto">
 				{{ subject ? subject.name : 'Subject' }}
 				|
-				{{ time }}
+				{{ formatTime(question.createdAt) }}
 			</span>
 			<span class="ml-1">
 				<img src="@app/assets/images/icons/answers.svg" alt="" style="width: 24px; height: 24px;">
@@ -21,11 +21,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeUnmount, onMounted, PropType } from '@nuxtjs/composition-api'
+import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { QuestionEntity } from '@modules/questions'
 import { useSubject } from '@app/hooks/questions/subjects'
-import { useTimeDifference } from '@app/hooks/core/dates'
 import { formatNumber, pluralize } from '@utils/numbers'
+import { formatTime } from '@utils/dates'
 export default defineComponent({
 	name: 'UserQuestionsListCard',
 	props: {
@@ -36,10 +36,7 @@ export default defineComponent({
 	},
 	setup (props) {
 		const { subject } = useSubject(props.question.subjectId)
-		const { time, startTimer, stopTimer } = useTimeDifference(props.question.createdAt)
-		onMounted(startTimer)
-		onBeforeUnmount(stopTimer)
-		return { subject, time, formatNumber, pluralize }
+		return { subject, formatTime, formatNumber, pluralize }
 	}
 })
 </script>

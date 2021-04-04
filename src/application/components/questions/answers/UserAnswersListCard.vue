@@ -5,7 +5,7 @@
 			<span class="text-wrap mr-auto">
 				{{ subject ? subject.name : 'Subject' }}
 				|
-				{{ time }}
+				{{ formatTime(answer.createdAt) }}
 			</span>
 			<span class="ml-1">
 				<span>+{{ formatNumber(answer.coins) }}</span>
@@ -24,11 +24,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeUnmount, onMounted, PropType } from '@nuxtjs/composition-api'
+import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { AnswerEntity } from '@modules/questions'
-import { useTimeDifference } from '@app/hooks/core/dates'
 import { useSubject } from '@app/hooks/questions/subjects'
 import { formatNumber } from '@utils/numbers'
+import { formatTime } from '@utils/dates'
 export default defineComponent({
 	name: 'UserAnswerListCard',
 	props: {
@@ -39,10 +39,7 @@ export default defineComponent({
 	},
 	setup (props) {
 		const { subject } = useSubject(props.answer.subjectId)
-		const { time, startTimer, stopTimer } = useTimeDifference(props.answer.createdAt)
-		onMounted(startTimer)
-		onBeforeUnmount(stopTimer)
-		return { subject, time, formatNumber }
+		return { subject, formatTime, formatNumber }
 	}
 })
 </script>

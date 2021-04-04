@@ -105,6 +105,7 @@ body{
 .full-top-nav {
 	@extend .top-nav;
 	@media (min-width: $lg) {
+		margin: 0;
 		background: $color-blue;
 		$color: $color-white;
 		border-radius: 0;

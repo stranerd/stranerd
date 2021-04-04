@@ -4,7 +4,7 @@
 		<div class="ml-1 mr-auto d-flex flex-column">
 			<span class="font-weight-bold lead">{{ user.name.fullName }}</span>
 			<p v-if="chat" class="mb-0 text-truncate">
-				<i v-if="chat.isMedia" class="fas fa-paperclip mr-half"/>
+				<i v-if="chat.isMedia" class="fas fa-paperclip mr-half" />
 				<span>{{ chat.isMedia ? chat.media.name : chat.content }}</span>
 			</p>
 		</div>

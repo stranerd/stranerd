@@ -77,7 +77,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '~@app/assets/styles/layouts.scss';
+@import '../../../assets/styles/layouts.scss';
 .grid{
 	display: grid;
 	grid-template-columns: repeat(1, 1fr);
@@ -86,7 +86,13 @@ export default defineComponent({
 	@media (min-width: $sm) {
 		grid-template-columns: repeat(2, 1fr);
 	}
-	@media (min-width: 1760px) {
+	@media (min-width: 1050px) {
+		grid-template-columns: repeat(4, 1fr);
+	}
+	@media (min-width: $lg) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+	@media (min-width: 1682px) {
 		grid-template-columns: repeat(4, 1fr);
 	}
 }

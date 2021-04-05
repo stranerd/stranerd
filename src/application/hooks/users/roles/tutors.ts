@@ -46,8 +46,9 @@ export const useTutorsList = () => {
 		}).sort((first, second) => {
 			if (first.orderRating > second.orderRating) return -1
 			else if (first.orderRating < second.orderRating) return 1
-			else if (first.ratingCount < second.ratingCount) return -1
-			else return 1
+			else if (first.ratingCount > second.ratingCount) return -1
+			else if (first.ratingCount < second.ratingCount) return 1
+			else return 0
 		}),
 		set: (tutors) => { tutors.map(pushToTutorsList) }
 	})

@@ -29,6 +29,9 @@
   	"storage": {
 	  "port": 5005
   	},
+  	"pubsub": {
+	  "port": 5006
+ 	},
     "ui": {
       "enabled": true,
       "port": 4000

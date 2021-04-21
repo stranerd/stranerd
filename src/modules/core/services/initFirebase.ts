@@ -15,6 +15,7 @@ if (firebase.apps.length === 0) {
 			ssl: false
 		})
 		firebase.functions().useEmulator('localhost', 5001)
+		firebase.storage().useEmulator('localhost', 5005)
 	}
 }
 

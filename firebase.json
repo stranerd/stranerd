@@ -26,6 +26,9 @@
     "auth": {
 	  "port": 5004
     },
+  	"storage": {
+	  "port": 5005
+  	},
     "ui": {
       "enabled": true,
       "port": 4000

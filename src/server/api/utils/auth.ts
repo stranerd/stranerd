@@ -1,18 +1,4 @@
-import * as admin from 'firebase-admin'
-import { isDev } from '../../../utils/environment'
-
-const getAdmin = () => {
-	if (admin.apps.length === 0) {
-		admin.initializeApp()
-		if (isDev) {
-			admin.firestore().settings({
-				host: 'localhost:5002',
-				ssl: false
-			})
-		}
-	}
-	return admin
-}
+import { getFirebaseAdmin as getAdmin } from './firebase'
 
 export const signin = async (idToken: string) => {
 	return await getAdmin().auth().createSessionCookie(idToken, {
@@ -26,11 +12,7 @@ export const signout = async (session: string) => {
 }
 
 export const decodeSessionCookie = async (session: string) => {
-	const user = await getAdmin().auth().verifySessionCookie(session)
-	const token = await getAdmin().auth().createCustomToken(user.uid)
-	return {
-		id: user.uid,
-		isVerified: user.email_verified,
-		token
-	}
+	const { uid: id, email_verified: isVerified } = await getAdmin().auth().verifySessionCookie(session)
+	const token = await getAdmin().auth().createCustomToken(id)
+	return { id, isVerified, token }
 }

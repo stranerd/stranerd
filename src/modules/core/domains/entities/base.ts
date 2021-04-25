@@ -8,7 +8,7 @@ export class BaseEntity {
 	}
 
 	toJSON () {
-		const json = Object.assign({}, this)
+		const json = Object.assign({}, this) as Record<string, any>
 		const proto = Object.getPrototypeOf(this)
 		Object.getOwnPropertyNames(proto)
 			.filter((k) => k !== 'constructor')

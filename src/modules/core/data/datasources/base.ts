@@ -20,9 +20,9 @@ export interface DatabaseGetClauses {
 	order?: {
 		field: string,
 		condition?: {
-			'gt'?: any
-			'lt'?: any
-			'eq'?: any
+			gt?: any
+			lt?: any
+			eq?: any
 		}
 	}
 }

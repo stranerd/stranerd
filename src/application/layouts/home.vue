@@ -31,7 +31,8 @@ export default defineComponent({
 	components: {
 		HomeTopNavigation,
 		HomeBottomNavigation
-	}
+	},
+	middleware: 'isNotAuthenticated'
 })
 </script>
 

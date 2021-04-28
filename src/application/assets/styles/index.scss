@@ -41,6 +41,7 @@ a {
 	cursor: pointer;
 	color: inherit;
 	&:hover {
+		text-decoration: none;
 		color: $color-red;
 		font-size: 1.02em;
 		transition: all 0.2s;

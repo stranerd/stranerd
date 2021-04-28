@@ -7,16 +7,18 @@
 			<img src="@app/assets/images/icons/search.svg" alt="">
 			<input class="form-control" type="search" placeholder="Search for anything">
 		</div>
-		<NuxtLink v-if="isLoggedIn" to="/account/notifications" class="link">
-			<img src="@app/assets/images/icons/notification.svg" alt="">
-		</NuxtLink>
-		<NuxtLink v-if="isLoggedIn" to="/messages" class="link">
-			<img src="@app/assets/images/icons/chat.svg" alt="">
-		</NuxtLink>
-		<a v-if="isLoggedIn" class="link d-none d-lg-inline" @click.prevent="signout">
-			<PageLoading v-if="loading" />
-			<img src="@app/assets/images/icons/signout.svg" alt="">
-		</a>
+		<template v-if="isLoggedIn">
+			<NuxtLink to="/account/notifications" class="link">
+				<img src="@app/assets/images/icons/notification.svg" alt="">
+			</NuxtLink>
+			<NuxtLink to="/messages" class="link">
+				<img src="@app/assets/images/icons/chat.svg" alt="">
+			</NuxtLink>
+			<a class="link d-none d-lg-inline" @click.prevent="signout">
+				<PageLoading v-if="loading" />
+				<img src="@app/assets/images/icons/signout.svg" alt="">
+			</a>
+		</template>
 	</div>
 </template>
 

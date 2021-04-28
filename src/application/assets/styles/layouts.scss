@@ -65,11 +65,12 @@ body{
 	img {
 		height: 24px;
 		width: 24px;
-		filter: brightness(150%);
+		filter: brightness(250%);
 	}
 	span {
 		font-size: 18px;
-		margin-left: 1.5rem;
+		font-weight: 600;
+		margin-left: 1.0rem;
 	}
 }
 .sidebar-link.nuxt-link-exact-active {

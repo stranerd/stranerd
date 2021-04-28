@@ -1,6 +1,6 @@
 <template>
 	<div class="full">
-		<div class="sidebar d-flex flex-column" style="min-height: 100vh;">
+		<div class="sidebar">
 			<div class="py-1 px-2 d-flex bg-blue align-items-center">
 				<a class="mr-2 my-1" @click.prevent="close">
 					<img src="@app/assets/images/icons/close.svg" alt="" width="16" height="16" style="filter: brightness(200%);">
@@ -54,6 +54,9 @@ export default defineComponent({
 	background: rgba($color-blue-grey, .5);
 	overflow-y: auto;
 	.sidebar {
+		display: flex;
+		flex-direction: column;
+		box-shadow: 3px 0 12px rgba($color-black, 1);
 		width: clamp(200px, 75%, 300px);
 		min-height: 100vh;
 		color: $color-light-blue;

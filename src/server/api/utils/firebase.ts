@@ -1,5 +1,5 @@
 import * as admin from 'firebase-admin'
-import { isDev } from '@utils/environment'
+import { isDev } from '../../../utils/environment'
 
 export const getFirebaseAdmin = () => {
 	if (admin.apps.length === 0) {

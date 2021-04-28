@@ -20,7 +20,7 @@
 				Sign in
 			</NuxtLink>
 		</div>
-		<div v-if="show" class="d-md-none nav-links">
+		<div v-if="show" class="d-md-none nav-links slide-down">
 			<NuxtLink to="/">
 				Home
 			</NuxtLink>
@@ -74,5 +74,13 @@ export default defineComponent({
 	.nuxt-link-exact-active {
 		border-bottom: 2px solid $color-light-blue;
 	}
+}
+.slide-down {
+	position: relative;
+	animation: slide-down .25s;
+}
+@keyframes slide-down {
+	from { top: -100px; }
+	to { top: 0; }
 }
 </style>

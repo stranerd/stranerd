@@ -8,11 +8,11 @@
 					</h2>
 					<p v-if="isTutor">
 						Earn coins for answering questions & attending sessions.<br>
-						Convert your coins to USD and cash in to your bank account.
+						Convert your coins to USD and cash out to your bank account.
 					</p>
 					<p v-else>
 						Bringing to you the classroom method of learning from your peers.<br>
-						Ask a question ( public ) or Meet a nerd ( 1 on 1 private chat ).
+						Ask a public question or Meet a nerd for 1 on 1 private chat.
 					</p>
 					<div class="d-flex flex-column flex-md-row flex-wrap align-items-start">
 						<button class="mr-1 my-1 btn btn-blue rounded-pill px-4 py-1 font-weight-bold" @click="openQuestionModal">

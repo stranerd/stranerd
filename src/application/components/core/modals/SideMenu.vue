@@ -58,7 +58,8 @@ export default defineComponent({
 		min-height: 100vh;
 		color: $color-light-blue;
 		background: $color-blue;
-		animation: slide-right .5s;
+		position: relative;
+		animation: slide-right .25s;
 	}
 }
 @keyframes slide-right {

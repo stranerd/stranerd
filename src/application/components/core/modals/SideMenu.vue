@@ -5,7 +5,9 @@
 				<a class="mr-2 my-1" @click.prevent="close">
 					<img src="@app/assets/images/icons/close.svg" alt="" width="16" height="16" style="filter: brightness(200%);">
 				</a>
-				<Logo class="d-lg-none" />
+				<NuxtLink class="d-lg-none" to="/">
+					<Logo />
+				</NuxtLink>
 			</div>
 			<div class="thick mt-0" />
 			<div class="px-1">

@@ -58,6 +58,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 h1 {
 	font-size: 1.5rem;
+	z-index: 1;
 	font-weight: 600;
 	margin: 0 0 1rem;
 	@media (min-width: $md) { font-size: 2.25rem; }
@@ -84,12 +85,14 @@ h1 {
 	}
 	span {
 		font-size: 1rem;
+		z-index: 1;
 		font-weight: 600;
 		text-align: right;
 		@media (min-width: $md) { font-size: 1.40625rem; }
 		@media (min-width: $lg) { font-size: 1.875rem; }
 	}
 	.small-icons {
+		z-index: 1;
 		margin-left: 1.5em;
 		border-radius: 10rem;
 		background-color: $color-blue;

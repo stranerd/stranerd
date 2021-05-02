@@ -4,7 +4,7 @@
 			<i class="fas fa-circle text-blue border border-light-blue rounded-pill" style="font-size: 0.5rem; border-width: 0.2rem !important;" />
 			<span class="simple-text">Simple &<br>Straightforward</span>
 		</div>
-		<div class="d-flex flex-column flex-md-row text-blue">
+		<div class="d-flex flex-column flex-md-row text-blue flex-wrap">
 			<div class="meet-a-nerd">
 				<div class="meet-a-nerd-blob">
 					<h1>How it works</h1>
@@ -14,17 +14,6 @@
 				</div>
 				<div class="people">
 					<img src="@app/assets/images/blobs/people.svg" alt="">
-				</div>
-			</div>
-			<div class="coins">
-				<div class="coin">
-					<img src="@app/assets/images/blobs/coins.svg" alt="">
-				</div>
-				<div class="coins-blob">
-					<h1>Coin System</h1>
-					<p>- Buy the very cheap coins to interact.</p>
-					<p>- Bronze Coins will be used to ask questions.</p>
-					<p>- Gold Coins will be used to Tip & have 1 on 1 sessions.</p>
 				</div>
 			</div>
 			<div class="ask-a-question">
@@ -37,6 +26,17 @@
 					<p>Choose the answer you like best -</p>
 					<p>Give a Tip to Nerds who answer -</p>
 				</div>
+			</div>
+		</div>
+		<div class="coins text-blue">
+			<div class="coin">
+				<img src="@app/assets/images/blobs/coins.svg" alt="">
+			</div>
+			<div class="coins-blob">
+				<h1>Coin System</h1>
+				<p>- Buy the very cheap coins to interact.</p>
+				<p>- Bronze Coins will be used to ask questions.</p>
+				<p>- Gold Coins will be used to Tip & have 1 on 1 sessions.</p>
 			</div>
 		</div>
 	</div>
@@ -76,9 +76,12 @@ p {
 	@media (min-width: $lg) { font-size: 1.5rem; }
 }
 .meet-a-nerd {
-	order: 1;
 	display: flex;
 	flex-direction: column;
+	@media (min-width: $md) {
+		flex-grow: 1;
+		max-width: 50%;
+	}
 	margin-bottom: 1rem;
 	.meet-a-nerd-blob {
 		display: flex;
@@ -90,11 +93,10 @@ p {
 		padding: 2rem 6rem 2rem 1rem;
 		min-height: (100vw * 407.919/681.384);
 		@media (min-width: $md) {
-			flex-grow: 1;
-			padding: 2rem 6rem 2rem 1rem;
-		}
-		@media (min-width: $md) {
 			padding: 2rem 6rem 2rem 2rem;
+		}
+		@media (min-width: $lg) {
+			padding: 2rem 6rem 2rem 4rem;
 		}
 	}
 	.people {
@@ -111,46 +113,13 @@ p {
 		}
 	}
 }
-.coins {
-	order: 3;
-	@media (min-width: $md) { order: 2; }
-	display: flex;
-	margin-bottom: 1rem;
-	flex-direction: column;
-	.coins-blob {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: flex-start;
-		background: url('../assets/images/blobs/coins-blob.svg') center no-repeat;
-		background-size: cover;
-		padding: 2rem 1rem;
-		min-height: (100vw * 450.107/862.736);
-		@media (min-width: $md) {
-			flex-grow: 1;
-			padding: 2rem 1rem;
-		}
-		@media (min-width: $md) {
-			padding: 2rem 1rem;
-		}
-	}
-	.coin {
-		align-self: flex-end;
-		margin-right: 4rem;
-		width: 50%;
-		display: flex;
-		img { width: 100%; }
-		margin-bottom: -15%;
-		z-index: 1;
-	}
-}
 .ask-a-question {
 	display: flex;
-	order: 2;
-	margin-top: -25%;
+	margin-top: -20%;
 	margin-bottom: 1rem;
 	@media (min-width: $md) {
-		order: 3;
+		flex-grow: 1;
+		max-width: 50%;
 		margin-top: 0;
 	}
 	flex-direction: column;
@@ -164,13 +133,8 @@ p {
 		background-size: cover;
 		min-height: (100vw * 407.919/739.945);
 		padding: 1rem 1rem 1rem 2rem;
-		@media (min-width: $md) {
-			flex-grow: 1;
-			padding: 2rem 1rem 2rem 6rem;
-		}
-		@media (min-width: $md) {
-			padding: 2rem 2rem 2rem 6rem;
-		}
+		@media (min-width: $md) { padding: 2rem 2rem 2rem 6rem; }
+		@media (min-width: $lg) { padding: 2rem 4rem 2rem 6rem; }
 	}
 	.girl {
 		align-self: flex-start;
@@ -184,6 +148,39 @@ p {
 			align-self: flex-end;
 			margin-bottom: -25%;
 		}
+	}
+}
+.coins {
+	width: 100%;
+	@media (min-width: $md) {
+		flex-grow: 1;
+		margin: 0 auto 1rem;
+	}
+	display: flex;
+	margin-bottom: 1rem;
+	flex-direction: column;
+
+	.coins-blob {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
+		background: url('../assets/images/blobs/coins-blob.svg') center no-repeat;
+		background-size: cover;
+		min-height: (100vw * 450.107/862.736);
+		padding: 1rem 1rem;
+		@media (min-width: $md) { padding: 1rem 2rem; }
+		@media (min-width: $lg) { padding: 1rem 4rem; }
+	}
+	.coin {
+		align-self: flex-end;
+		margin-right: 4rem;
+		width: 50%;
+		display: flex;
+		img { width: 100%; }
+		margin-bottom: -15%;
+		z-index: 1;
+		@media (min-width: $md) { width: 30%; }
 	}
 }
 </style>

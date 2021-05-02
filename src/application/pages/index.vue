@@ -34,6 +34,7 @@ export default defineComponent({
 	background-size: cover;
 	padding: 2rem 1rem;
 	h1 {
+		z-index: 1;
 		font-size: 2rem;
 		font-weight: 600;
 		max-width: 75ch;
@@ -43,6 +44,7 @@ export default defineComponent({
 	}
 	h5 {
 		font-size: 1.25rem;
+		z-index: 1;
 		font-weight: 600;
 		max-width: 75ch;
 		margin: 0 0 0.5rem;
@@ -51,6 +53,7 @@ export default defineComponent({
 	}
 	p {
 		font-size: 1rem;
+		z-index: 1;
 		max-width: 65ch;
 		margin: 0;
 		@media (min-width: $md) { font-size: 1.125rem; }

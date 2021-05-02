@@ -1,6 +1,8 @@
 <template>
 	<aside class="sidebar-body">
-		<Logo class="d-none d-lg-block my-4" />
+		<NuxtLink class="d-none d-lg-block text-center my-4" to="/">
+			<Logo />
+		</NuxtLink>
 		<div v-if="isLoggedIn" class="mb-2">
 			<ProfileHeadCard :user="user" />
 			<div class="thick mx-n1" />

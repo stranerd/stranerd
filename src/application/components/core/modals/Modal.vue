@@ -1,7 +1,7 @@
 <template>
 	<div class="modal-background">
 		<div class="under" @click="close" />
-		<div class="modal-inner">
+		<div class="modal-inner slide-up">
 			<slot name="header">
 				<h3>Header</h3>
 			</slot>
@@ -83,5 +83,12 @@ export default defineComponent({
 		border-radius: 1rem;
 	}
 }
-
+.slide-up {
+	animation: slide-up 0.25s;
+	position: relative;
+}
+@keyframes slide-up {
+	from { bottom: -100px; }
+	to { bottom: 0; }
+}
 </style>

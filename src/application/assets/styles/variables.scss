@@ -18,6 +18,7 @@ $yiq-text-dark: $color-blue;
 $yiq-text-light: $color-white;
 
 $xs: 0;
+$xsm: 360px;
 $sm: 576px;
 $md: 800px;
 $lg: 1200px;
@@ -25,6 +26,7 @@ $xl: 1500px;
 
 $grid-breakpoints: (
 	xs: $xs,
+	xsm: $xsm,
 	sm: $sm,
 	md: $md,
 	lg: $lg,
@@ -56,4 +58,8 @@ $spacers: (
 	6: 3.0rem,
 	7: 3.5rem,
 	8: 4.0rem,
+	9: 4.5rem,
+	10: 5.0rem,
+	11: 5.5rem,
+	12: 6.0rem,
 );

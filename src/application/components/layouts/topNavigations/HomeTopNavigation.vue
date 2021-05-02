@@ -54,6 +54,8 @@ export default defineComponent({
 	margin: 0 auto;
 	background: unset;
 	padding: 0.5rem 1rem;
+	@media (min-width: $md) { padding: 0.5rem 2rem; }
+	@media (min-width: $lg) { padding: 0.5rem 4rem; }
 }
 .nav-links {
 	display: flex;

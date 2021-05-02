@@ -1,16 +1,21 @@
 <template>
-	<div class="d-flex flex-column align-items-center">
-		<h2 class="mb-3">
-			Current Balance
-		</h2>
-		<div class="bg-light-grey d-flex px-8 py-6 justify-content-around" style="border-radius: 1.25rem;">
-			<span>
+	<div>
+		<div class="d-flex justify-content-between align-items-center mb-3">
+			<h3 class="mb-0">
+				Current Balance
+			</h3>
+			<button class="btn btn-blue rounded btn-sm" @click="setAccountModalBuyCoins">
+				Buy coins
+			</button>
+		</div>
+		<div class="bg-light-grey d-flex flex-column flex-xsm-row px-8 py-6 justify-content-around" style="border-radius: 1.25rem;">
+			<span class="d-flex align-items-baseline">
 				<span class="font-weight-bold display-3">{{ formatNumber(user.account.coins.bronze) }}</span>
-				<Coins :size="32" />
+				<Coins :size="40" />
 			</span>
-			<span>
+			<span class="d-flex align-items-baseline">
 				<span class="font-weight-bold display-3">{{ formatNumber(user.account.coins.gold) }}</span>
-				<Coins :gold="true" :size="32" />
+				<Coins :gold="true" :size="40" />
 			</span>
 		</div>
 	</div>
@@ -20,6 +25,7 @@
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { UserEntity } from '@modules/users'
 import { formatNumber } from '@utils/numbers'
+import { useAccountModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'UserCreditBalanceCard',
 	props: {
@@ -29,7 +35,7 @@ export default defineComponent({
 		}
 	},
 	setup () {
-		return { formatNumber }
+		return { formatNumber, setAccountModalBuyCoins: useAccountModal().setAccountModalBuyCoins }
 	}
 })
 </script>

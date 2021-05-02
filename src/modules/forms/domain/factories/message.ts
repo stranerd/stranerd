@@ -6,7 +6,7 @@ import { MessageEntity } from '../entities/message'
 type Keys = { name: string, email: string, message: string }
 export class MessageFactory extends BaseFactory<MessageEntity, MessageToModel, Keys> {
 	public rules = {
-		name: { required: true, rules: [(value: string) => isLongerThan(value, 3)] },
+		name: { required: true, rules: [(value: string) => isLongerThan(value, 2)] },
 		email: { required: true, rules: [isEmail] },
 		message: { required: true, rules: [(value: string) => isLongerThan(value, 0)] }
 	}

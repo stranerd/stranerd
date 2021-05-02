@@ -27,6 +27,8 @@ import { subjectIconUpdated, subjectDeleted } from './modules/questions/subjects
 import { questionCreated, questionDeleted } from './modules/questions/questions'
 import { answerCreated, answerDeleted, answerRated } from './modules/questions/answers'
 
+import { messageCreated } from './modules/forms/messages'
+
 admin.initializeApp()
 
 // Auth Triggers
@@ -55,6 +57,10 @@ export { questionCreated, questionDeleted }
 export { answerCreated, answerDeleted, answerRated }
 // Comments
 export { questionCommentCreated, questionCommentDeleted, answerCommentCreated, answerCommentDeleted }
+
+// Forms Module
+// Message
+export { messageCreated }
 
 // On Call
 // Roles

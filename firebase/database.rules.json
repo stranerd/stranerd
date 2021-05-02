@@ -29,6 +29,11 @@
 				}
 			}
 		},
+		"forms": {
+			"messages": {
+				".write": true
+			}
+		},
 		"profiles": {
 			".read": true,
 			".indexOn": [

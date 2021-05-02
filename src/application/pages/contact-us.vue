@@ -26,31 +26,19 @@
 				<i class="fab fa-twitter" />
 			</div>
 		</div>
-		<form class="text-light-blue">
+		<div class="form-contain">
 			<h1>Send Us A Message</h1>
-			<div class="form-group mb-2">
-				<label for="name">Full Name</label>
-				<input id="name" type="text" class="form-control" placeholder="Eg. John Doe">
-			</div>
-			<div class="form-group mb-2">
-				<label for="email">Email</label>
-				<input id="email" type="text" class="form-control" placeholder="Eg. johndoe@mail.com">
-			</div>
-			<div class="form-group mb-2">
-				<label for="message">Message</label>
-				<textarea id="message" class="form-control" placeholder="Eg. Message Body" />
-			</div>
-			<button class="btn btn-blue-grey font-weight-bold" type="submit">
-				Send Message
-			</button>
-		</form>
+			<MessageForm />
+		</div>
 	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
+import MessageForm from '@app/components/forms/MessageForm.vue'
 export default defineComponent({
 	name: 'ContactUsPage',
+	components: { MessageForm },
 	layout: 'home'
 })
 </script>
@@ -100,7 +88,8 @@ h1 {
 		i { margin: 0.5em; }
 	}
 }
-form {
+.form-contain {
+	color: $color-light-blue;
 	margin-bottom: 1rem;
 	padding: 1rem;
 	@media (min-width: $md) {
@@ -110,7 +99,7 @@ form {
 	@media (min-width: $lg) {
 		padding-left: 4rem;
 	}
-	.form-control, .form-control::placeholder {
+	/deep/ .form-control, /deep/ .form-control::placeholder {
 		color: $color-light-blue;
 		padding: 0.5rem;
 		max-width: 75ch;

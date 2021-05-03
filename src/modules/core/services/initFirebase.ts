@@ -10,10 +10,8 @@ if (firebase.apps.length === 0) {
 	firebase.initializeApp(firebaseConfig)
 	if (isDev) {
 		firebase.auth().useEmulator('http://localhost:5004')
-		firebase.firestore().settings({
-			host: 'localhost:5002',
-			ssl: false
-		})
+		firebase.database().useEmulator('localhost', 5003)
+		firebase.firestore().useEmulator('localhost', 5002)
 		firebase.functions().useEmulator('localhost', 5001)
 		firebase.storage().useEmulator('localhost', 5005)
 	}

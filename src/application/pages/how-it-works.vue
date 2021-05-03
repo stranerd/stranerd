@@ -164,11 +164,11 @@ p {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		align-items: flex-start;
+		align-items: flex-end;
 		background: url('../assets/images/blobs/coins-blob.svg') center no-repeat;
 		background-size: cover;
 		min-height: (100vw * 450.107/862.736);
-		padding: 1rem 1rem;
+		padding: 6rem 1rem;
 		@media (min-width: $md) { padding: 1rem 2rem; }
 		@media (min-width: $lg) { padding: 1rem 4rem; }
 	}

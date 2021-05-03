@@ -40,5 +40,5 @@ export const firebase = () => ({
 	taskEmail: environment()?.firebase_meta?.task_email
 })
 
-export const domain = () => `http${!isDev() ? 's' : ''}://${environment()?.domain}`
+export const domain = () => `http${!isDev() ? 's' : ''}://${environment()?.domain}${isDev() ? `:${environment().port}` : ''}`
 export const logo = () => `${domain()}/images/stranerd_logo.svg`

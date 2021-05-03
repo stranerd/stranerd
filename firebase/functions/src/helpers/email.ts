@@ -52,3 +52,10 @@ export const sendTopUsersEmail = async (period: string, users: TopUser[]) => {
 		{ meta, period, users })
 	return await sendMailAndCatchErrors('support@stranerd.com', `Top ${period} users`, content)
 }
+
+export const sendNewFormMessageEmail = async (message: { name: string, email: string, message: string, date: string }) => {
+	const meta = { domain: domain(), logo: logo() }
+	const content = await new Template({ message: {} }).render('newFormMessage.pug',
+		{ meta, message })
+	return await sendMailAndCatchErrors('support@stranerd.com', 'New Message', content)
+}

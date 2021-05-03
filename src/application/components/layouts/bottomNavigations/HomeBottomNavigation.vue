@@ -7,12 +7,12 @@
 					<NuxtLink to="/how-it-works">
 						About Us
 					</NuxtLink>
-					<NuxtLink to="/">
+					<a target="_blank" href="/legal/terms-of-use.pdf">
 						Terms of Use
-					</NuxtLink>
-					<NuxtLink to="/">
+					</a>
+					<a target="_blank" href="/legal/privacy-policy.pdf">
 						Privacy Policy
-					</NuxtLink>
+					</a>
 				</div>
 				<div>
 					<h4>
@@ -20,12 +20,12 @@
 						<i class="fas fa-circle mr-half" />
 						<i class="fas fa-circle mr-half" />
 					</h4>
-					<NuxtLink to="/">
+					<a target="_blank" href="/legal/terms-and-conditions.pdf">
 						Terms & Conditions
-					</NuxtLink>
-					<NuxtLink to="/">
+					</a>
+					<a target="_blank" href="/legal/nerds-terms-and-conditions.pdf">
 						Nerds Terms & Conditions
-					</NuxtLink>
+					</a>
 				</div>
 				<div>
 					<h4>Community</h4>

@@ -1,6 +1,7 @@
 <template>
 	<div>
 		<AccountBuyCoins v-if="isAccountModalBuyCoins" />
+		<AccountReportUser v-if="isAccountModalReportUser" />
 	</div>
 </template>
 
@@ -8,14 +9,16 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useAccountModal } from '@app/hooks/core/modals'
 import AccountBuyCoins from '@app/components/modals/account/AccountBuyCoins.vue'
+import AccountReportUser from '@app/components/modals/account/AccountReportUser.vue'
 export default defineComponent({
 	name: 'AccountModalIndex',
 	components: {
-		AccountBuyCoins
+		AccountBuyCoins,
+		AccountReportUser
 	},
 	setup () {
-		const { isAccountModalBuyCoins } = useAccountModal()
-		return { isAccountModalBuyCoins }
+		const { isAccountModalBuyCoins, isAccountModalReportUser } = useAccountModal()
+		return { isAccountModalBuyCoins, isAccountModalReportUser }
 	}
 })
 </script>

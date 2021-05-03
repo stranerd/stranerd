@@ -5,6 +5,9 @@
 			No messages found. Send a message now
 		</p>
 		<div v-for="session in chats" :key="session.hash">
+			<p class="text-center small mb-0">
+				{{ formatTime(session.date, true) }}
+			</p>
 			<ChatListCard v-for="chat in session.chats" :key="chat.hash" :chat="chat" />
 		</div>
 		<PageLoading v-if="loading" />
@@ -16,6 +19,7 @@
 import { defineComponent, onBeforeUnmount, onMounted } from '@nuxtjs/composition-api'
 import { useChats } from '@app/hooks/sessions/chats'
 import ChatListCard from '@app/components/sessions/chats/ChatListCard.vue'
+import { formatTime } from '@utils/dates'
 export default defineComponent({
 	name: 'ChatList',
 	components: { ChatListCard },
@@ -29,7 +33,7 @@ export default defineComponent({
 		const { chats, listener, fetchOlderChats, hasMore, error, loading } = useChats(props.userId)
 		onMounted(listener.startListener)
 		onBeforeUnmount(listener.closeListener)
-		return { chats, error, loading, fetchOlderChats, hasMore }
+		return { chats, error, loading, fetchOlderChats, hasMore, formatTime }
 	}
 })
 </script>

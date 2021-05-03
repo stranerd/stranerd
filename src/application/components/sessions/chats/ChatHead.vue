@@ -17,12 +17,13 @@
 			<button class="btn navbar-toggler ml-1" @click="show = !show">
 				<i class="fas fa-ellipsis-v" />
 			</button>
+			<div v-if="show" class="under" @click="show = false" />
 			<div v-if="show" class="menu">
 				<template v-if="user.roles.isTutor">
 					<a v-if="!currentSessionId && !user.currentSession" @click.prevent="requestNewSession">Request Session</a>
 					<a>Tip Nerd</a>
 				</template>
-				<a>Report</a>
+				<a @click="reportUser">Report</a>
 				<PageLoading v-if="loading" />
 				<a v-if="isAccepted && currentSession && currentSessionId === user.currentSession && currentSession.studentId === id" @click.prevent="cancelSession">End Session</a>
 				<DisplayError :error="error" />
@@ -36,9 +37,10 @@ import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, ref } 
 import { UserEntity } from '@modules/users'
 import { useCountdown, useTimeDifference } from '@app/hooks/core/dates'
 import { setNewSessionTutorIdBio, useSession } from '@app/hooks/sessions/sessions'
-import { useSessionModal } from '@app/hooks/core/modals'
+import { useAccountModal, useSessionModal } from '@app/hooks/core/modals'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useCurrentSession } from '@app/hooks/sessions/session'
+import { setReportedBioAndId } from '@app/hooks/forms/reports'
 export default defineComponent({
 	name: 'ChatHead',
 	props: {
@@ -83,16 +85,27 @@ export default defineComponent({
 			show.value = false
 			await c()
 		}
+		const reportUser = () => {
+			setReportedBioAndId({ id: props.user.id, bio: props.user.bio })
+			useAccountModal().setAccountModalReportUser()
+		}
 		return {
 			id, currentSessionId, currentSession, isAccepted,
 			show, time, diffInSec, countDown, requestNewSession,
-			cancelSession, loading, error
+			cancelSession, loading, error, reportUser
 		}
 	}
 })
 </script>
 
 <style lang="scss" scoped>
+.under {
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	left: 0;
+	top: 0;
+}
 .menu {
 	padding: 0.5rem;
 	position: absolute;
@@ -112,5 +125,10 @@ export default defineComponent({
 		transform: unset;
 		background: lighten($color-blue, 5)
 	}
+	animation: slide-down 0.1s;
+}
+@keyframes slide-down {
+	from { top: -50px; }
+	to { top: 0; }
 }
 </style>

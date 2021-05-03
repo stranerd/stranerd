@@ -6,7 +6,7 @@
 				<span class="text-truncate">{{ chat.media.name }}</span>
 			</a>
 			<span v-else>{{ chat.content || 'Hello' }}</span>
-			<span class="ml-auto small">{{ formatTime(chat.createdAt) }}</span>
+			<span class="ml-auto small">{{ formatTimeAsDigits(new Date(chat.createdAt)) }}</span>
 		</div>
 	</div>
 </template>
@@ -15,7 +15,7 @@
 import { computed, defineComponent, PropType } from '@nuxtjs/composition-api'
 import { ChatEntity } from '@modules/sessions'
 import { useAuth } from '@app/hooks/auth/auth'
-import { formatTime } from '@utils/dates'
+import { formatTimeAsDigits } from '@utils/dates'
 export default defineComponent({
 	name: 'ChatListCard',
 	props: {
@@ -30,7 +30,7 @@ export default defineComponent({
 			get: () => props.chat.from === id.value,
 			set: () => {}
 		})
-		return { isMine, formatTime }
+		return { isMine, formatTimeAsDigits }
 	}
 })
 </script>

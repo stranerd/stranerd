@@ -123,14 +123,17 @@ export const useCreateChat = (userId: string, sessionId?: string) => {
 }
 
 const orderChats = (chats: ChatEntity[]) => {
+	const isSameDay = (date1: Date, date2: Date) => date1.getDate() === date2.getDate() &&
+		date1.getMonth() === date2.getMonth() &&
+		date1.getFullYear() === date2.getFullYear()
 	const res = [] as ChatEntity[][]
 	chats.forEach((chat, index) => {
 		const lastChat = chats[index - 1]
-		if (index === 0 || chat.sessionId !== lastChat.sessionId) return res.push([chat])
+		if (index === 0 || !isSameDay(new Date(chat.createdAt), new Date(lastChat.createdAt))) return res.push([chat])
 		else return res[res.length - 1].push(chat)
 	})
 	return res.map((chats) => {
-		const sessionId = chats[0].sessionId ?? null
-		return { chats, sessionId, hash: getRandomValue() }
+		const date = chats[0].createdAt
+		return { chats, date, hash: getRandomValue() }
 	})
 }

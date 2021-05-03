@@ -6,8 +6,8 @@ export enum TIMES {
 	year = 60 * 60 * 24 * 30 * 12
 }
 
-const getTwoDigits = (digit: number) => (digit < 10 ? '0' : '') + digit
-const formatTimeAsDigits = (date: Date) => {
+const getTwoDigits = (digit: number) :string => (digit < 10 ? '0' : '') + digit
+export const formatTimeAsDigits = (date: Date) => {
 	const hour = getTwoDigits(date.getHours())
 	const minute = getTwoDigits(date.getMinutes())
 	return `${hour}:${minute}`
@@ -19,14 +19,14 @@ const formatDateAsDigits = (date: Date, showYear = true) => {
 	return `${month} ${day}` + (showYear ? `, ${year}` : '')
 }
 
-export const formatTime = (time: number) => {
+export const formatTime = (time: number, withoutTime = false) => {
 	const date = new Date(time)
 	const now = new Date()
 	const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
 	const yesterday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1)
 	const lastWeek = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7)
 	const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1)
-	if (date > today) return formatTimeAsDigits(date)
+	if (date > today) return withoutTime ? 'Today' : formatTimeAsDigits(date)
 	else if (date > yesterday) return 'Yesterday'
 	else if (date > lastWeek) return ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][date.getDay()]
 	else if (date > lastMonth) return formatDateAsDigits(date, false)

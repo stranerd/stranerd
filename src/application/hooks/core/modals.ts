@@ -38,8 +38,10 @@ export const useEditModal = () => {
 export const useAccountModal = () => {
 	return {
 		isAccountModalBuyCoins: computed(() => global.accountModal.value === 'buy-coins'),
+		isAccountModalReportUser: computed(() => global.accountModal.value === 'report-user'),
 
 		setAccountModalBuyCoins: () => global.accountModal.value = 'buy-coins',
+		setAccountModalReportUser: () => global.accountModal.value = 'report-user',
 		closeAccountModal: () => global.accountModal.value = null
 	}
 }

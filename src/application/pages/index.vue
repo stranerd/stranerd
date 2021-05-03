@@ -4,9 +4,9 @@
 			<h1>A Nerd In Need Is A Friend Indeed.</h1>
 			<h5>The help every student deserves.</h5>
 			<p>We bring you a platform where you have access to learn from students who have mastery in subjects you need help with; NERDS! that’s what we call them.</p>
-			<button class="btn btn-blue mt-3 border border-light-blue btn-lg rounded-lg">
+			<NuxtLink to="/auth" class="btn btn-blue mt-3 border border-light-blue px-6 py-2 rounded-lg">
 				Join Today
-			</button>
+			</NuxtLink>
 		</div>
 		<div class="img-contain">
 			<img src="@app/assets/images/blobs/happy-boys.svg" alt="" class="w-100">

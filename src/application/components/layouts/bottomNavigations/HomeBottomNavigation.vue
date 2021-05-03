@@ -4,7 +4,7 @@
 			<div class="links">
 				<div>
 					<h4>Company</h4>
-					<NuxtLink to="/">
+					<NuxtLink to="/how-it-works">
 						About Us
 					</NuxtLink>
 					<NuxtLink to="/">
@@ -44,7 +44,7 @@
 					<NuxtLink to="/">
 						FAQ
 					</NuxtLink>
-					<NuxtLink to="/">
+					<NuxtLink to="/contact-us">
 						Contact Us
 					</NuxtLink>
 				</div>

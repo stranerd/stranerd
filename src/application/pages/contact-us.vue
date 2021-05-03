@@ -3,7 +3,7 @@
 		<div class="bg-blob">
 			<h1>Get In Touch</h1>
 			<div class="d-flex mb-2 align-items-start">
-				<span>+1 800 STRANERD</span>
+				<span>+14040435611</span>
 				<span class="small-icons">
 					<i class="fas fa-phone" />
 				</span>
@@ -21,9 +21,15 @@
 				</span>
 			</div>
 			<div class="d-flex justify-content-end fa-3x text-blue">
-				<i class="fab fa-facebook-square" />
-				<i class="fab fa-instagram mx-4" />
-				<i class="fab fa-twitter" />
+				<a href="https://facebook.com/officialstranerd">
+					<i class="fab fa-facebook-square" />
+				</a>
+				<a href="https://instagram.com/officialstranerd">
+					<i class="fab fa-instagram mx-4" />
+				</a>
+				<a href="https://twitter.com/stranerds">
+					<i class="fab fa-twitter" />
+				</a>
 			</div>
 		</div>
 		<div class="form-contain">

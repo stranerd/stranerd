@@ -32,6 +32,9 @@
 		"forms": {
 			"messages": {
 				".write": true
+			},
+			"reports": {
+				".write": "auth.uid != null"
 			}
 		},
 		"profiles": {

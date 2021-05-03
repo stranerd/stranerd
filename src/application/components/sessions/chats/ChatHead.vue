@@ -86,7 +86,7 @@ export default defineComponent({
 			await c()
 		}
 		const reportUser = () => {
-			setReportedBioAndId({ id: props.user.id, bio: props.user.bio })
+			setReportedBioAndId({ id: props.user.id, bio: props.user.userBio })
 			useAccountModal().setAccountModalReportUser()
 		}
 		return {

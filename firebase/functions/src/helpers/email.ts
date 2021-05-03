@@ -4,6 +4,7 @@ import * as Template from 'email-templates'
 import { email, domain, logo, appName } from './environment'
 import { Notification } from './modules/users/notifications'
 import { TopUser } from './modules/users/rankings'
+import { Message, Report } from './modules/forms'
 
 export enum EMAILS {
 	NOREPLY = 'no-reply@stranerd.com'
@@ -53,9 +54,16 @@ export const sendTopUsersEmail = async (period: string, users: TopUser[]) => {
 	return await sendMailAndCatchErrors('support@stranerd.com', `Top ${period} users`, content)
 }
 
-export const sendNewFormMessageEmail = async (message: { name: string, email: string, message: string, date: string }) => {
+export const sendNewFormMessageEmail = async (message: Message) => {
 	const meta = { domain: domain(), logo: logo() }
 	const content = await new Template({ message: {} }).render('newFormMessage.pug',
 		{ meta, message })
 	return await sendMailAndCatchErrors('support@stranerd.com', 'New Message', content)
+}
+
+export const sendNewFormReportEmail = async (report: Report) => {
+	const meta = { domain: domain(), logo: logo() }
+	const content = await new Template({ message: {} }).render('newFormReport.pug',
+		{ meta, report })
+	return await sendMailAndCatchErrors('support@stranerd.com', 'New Report', content)
 }

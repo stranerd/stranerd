@@ -38,9 +38,11 @@ export const useEditModal = () => {
 export const useAccountModal = () => {
 	return {
 		isAccountModalBuyCoins: computed(() => global.accountModal.value === 'buy-coins'),
+		isAccountModalTipNerd: computed(() => global.accountModal.value === 'tip-nerd'),
 		isAccountModalReportUser: computed(() => global.accountModal.value === 'report-user'),
 
 		setAccountModalBuyCoins: () => global.accountModal.value = 'buy-coins',
+		setAccountModalTipNerd: () => global.accountModal.value = 'tip-nerd',
 		setAccountModalReportUser: () => global.accountModal.value = 'report-user',
 		closeAccountModal: () => global.accountModal.value = null
 	}

@@ -1,5 +1,5 @@
 import { Media } from '@modules/core/data/models/base'
-import { UserBio, generateDefaultBio, Avatars } from '@modules/users'
+import { UserBio, generateDefaultBio } from '@modules/users'
 import { BaseEntity } from '@modules/core/domains/entities/base'
 
 export class AnswerEntity extends BaseEntity {
@@ -39,7 +39,7 @@ export class AnswerEntity extends BaseEntity {
 	get averageRating () { return this.ratings.count === 0 ? 0 : (this.ratings.total ?? 0) / (this.ratings.count ?? 1) }
 	get formattedRating () { return Number(this.averageRating).toFixed(1) }
 	get userName () { return this.user.name.fullName }
-	get avatar () { return Avatars[this.user.avatar!]?.link ?? Avatars.default.link }
+	get avatar () { return this.user.avatar }
 }
 
 type AnswerConstructorArgs = {

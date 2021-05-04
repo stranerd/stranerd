@@ -79,7 +79,7 @@ export class UserEntity extends BaseEntity {
 	get lastName () { return this.userBio.name.last }
 	get fullName () { return this.userBio.name.first + ' ' + this.userBio.name.last }
 	get email () { return this.userBio.email }
-	get avatar () { return Avatars[this.userBio.avatar!]?.link ?? Avatars.default.link }
+	get avatar () { return this.userBio.avatar }
 
 	get isOnline () { return this.status.mode === Status.ONLINE }
 	get lastSeen () { return this.isOnline ? Date.now() : this.status.updatedAt }
@@ -180,6 +180,6 @@ export const generateDefaultBio = (bio: Partial<UserBio>) :UserBio => {
 	const fullName = first + ' ' + last
 	const email = bio?.email ?? 'anon@ymous.com'
 	const description = bio?.description ?? ''
-	const avatar = Avatars[bio?.avatar!] ? bio?.avatar! : null
+	const avatar = Avatars[bio?.avatar!] ? bio?.avatar! : Avatars.default.id
 	return { name: { first, last, fullName }, email, description, avatar }
 }

@@ -7,13 +7,13 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from '@nuxtjs/composition-api'
+import { computed, defineComponent, PropType } from '@nuxtjs/composition-api'
 import { Avatars } from '@modules/users'
 export default defineComponent({
 	name: 'Avatar',
 	props: {
-		// eslint-disable-next-line vue/require-prop-types
 		src: {
+			type: String as PropType<keyof typeof Avatars>,
 			required: true
 		},
 		size: {
@@ -24,7 +24,7 @@ export default defineComponent({
 	},
 	setup (props) {
 		const source = computed({
-			get: () => Avatars[props.src as keyof typeof Avatars]?.link ?? Avatars.default.link,
+			get: () => Avatars[props.src]?.link ?? Avatars.default.link,
 			set: () => {}
 		})
 		return { source }

@@ -1,4 +1,4 @@
-import { UserBio, generateDefaultBio, Avatars } from '@modules/users'
+import { UserBio, generateDefaultBio } from '@modules/users'
 import { BaseEntity } from '@modules/core/domains/entities/base'
 
 export class CommentEntity extends BaseEntity {
@@ -18,7 +18,7 @@ export class CommentEntity extends BaseEntity {
 	}
 
 	get userName () { return this.user.name.fullName }
-	get avatar () { return Avatars[this.user.avatar!]?.link ?? Avatars.default.link }
+	get avatar () { return this.user.avatar }
 }
 
 type CommentConstructorArgs = {

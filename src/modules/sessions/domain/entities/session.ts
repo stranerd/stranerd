@@ -1,5 +1,5 @@
 import { BaseEntity } from '@modules/core/domains/entities/base'
-import { Avatars, generateDefaultBio, UserBio } from '@modules/users'
+import { generateDefaultBio, UserBio } from '@modules/users'
 
 export class SessionEntity extends BaseEntity {
 	readonly id: string
@@ -41,8 +41,8 @@ export class SessionEntity extends BaseEntity {
 		this.endedAt = endedAt
 	}
 
-	get studentAvatar () { return Avatars[this.studentBio.avatar!]?.link ?? Avatars.default.link }
-	get tutorAvatar () { return Avatars[this.tutorBio.avatar!]?.link ?? Avatars.default.link }
+	get studentAvatar () { return this.studentBio.avatar }
+	get tutorAvatar () { return this.tutorBio.avatar }
 }
 
 type SessionConstructorArgs = {

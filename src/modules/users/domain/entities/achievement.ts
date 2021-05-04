@@ -7,7 +7,8 @@ export const Achievements = {
 		price: {
 			bronze: 40,
 			xp: 50
-		}
+		},
+		link: '/images/achievements/scholar.svg'
 	},
 	STREAK_7_DAYS: {
 		id: 'STREAK_7_DAYS',
@@ -17,7 +18,8 @@ export const Achievements = {
 		price: {
 			bronze: 35,
 			xp: 25
-		}
+		},
+		link: '/images/achievements/crown.svg'
 	},
 	BUY_GOLD: {
 		id: 'BUY_GOLD',
@@ -27,7 +29,8 @@ export const Achievements = {
 		price: {
 			bronze: 20,
 			xp: 100
-		}
+		},
+		link: '/images/achievements/deep_pockets.svg'
 	},
 	BUY_BRONZE: {
 		id: 'BUY_BRONZE',
@@ -37,7 +40,8 @@ export const Achievements = {
 		price: {
 			bronze: 20,
 			xp: 50
-		}
+		},
+		link: '/images/achievements/entrepreneur.svg'
 	},
 	ATTEND_SESSIONS: {
 		id: 'ATTEND_SESSIONS',
@@ -47,7 +51,8 @@ export const Achievements = {
 		price: {
 			bronze: 25,
 			xp: 100
-		}
+		},
+		link: '/images/achievements/nerd_indeed.svg'
 	},
 	TIP_NERDS: {
 		id: 'TIP_NERDS',
@@ -57,7 +62,8 @@ export const Achievements = {
 		price: {
 			bronze: 50,
 			xp: 50
-		}
+		},
+		link: '/images/achievements/cheerful_giver.svg'
 	},
 	DAILY_FINISH: {
 		id: 'DAILY_FINISH',
@@ -67,7 +73,8 @@ export const Achievements = {
 		price: {
 			bronze: 5,
 			xp: 50
-		}
+		},
+		link: '/images/achievements/legendary.svg'
 	},
 	WEEKLY_FINISH: {
 		id: 'WEEKLY_FINISH',
@@ -77,7 +84,8 @@ export const Achievements = {
 		price: {
 			bronze: 25,
 			xp: 100
-		}
+		},
+		link: '/images/achievements/weekend_warrior.svg'
 	}
 } as const
 

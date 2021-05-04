@@ -12,6 +12,9 @@
 		<div class="thick" />
 		<div>
 			<div v-if="askQuestionAchievement" class="achievement">
+				<div class="achievement-image">
+					<img :src="askQuestionAchievement.link" alt="">
+				</div>
 				<div class="achievement-title">
 					<h6>{{ askQuestionAchievement.name }}</h6>
 					<p>{{ askQuestionAchievement.description }}</p>
@@ -22,6 +25,9 @@
 				</div>
 			</div>
 			<div v-if="streak7DaysAchievement" class="achievement">
+				<div class="achievement-image">
+					<img :src="streak7DaysAchievement.link" alt="">
+				</div>
 				<div class="achievement-title">
 					<h6>{{ streak7DaysAchievement.name }}</h6>
 					<p>{{ streak7DaysAchievement.description }}</p>
@@ -32,6 +38,9 @@
 				</div>
 			</div>
 			<div v-if="buyGoldAchievement" class="achievement">
+				<div class="achievement-image">
+					<img :src="buyGoldAchievement.link" alt="">
+				</div>
 				<div class="achievement-title">
 					<h6>{{ buyGoldAchievement.name }}</h6>
 					<p>{{ buyGoldAchievement.description }}</p>
@@ -42,6 +51,9 @@
 				</div>
 			</div>
 			<div v-if="buyBronzeAchievement" class="achievement">
+				<div class="achievement-image">
+					<img :src="buyBronzeAchievement.link" alt="">
+				</div>
 				<div class="achievement-title">
 					<h6>{{ buyBronzeAchievement.name }}</h6>
 					<p>{{ buyBronzeAchievement.description }}</p>
@@ -52,6 +64,9 @@
 				</div>
 			</div>
 			<div v-if="attendSessionsAchievement" class="achievement">
+				<div class="achievement-image">
+					<img :src="attendSessionsAchievement.link" alt="">
+				</div>
 				<div class="achievement-title">
 					<h6>{{ attendSessionsAchievement.name }}</h6>
 					<p>{{ attendSessionsAchievement.description }}</p>
@@ -62,6 +77,9 @@
 				</div>
 			</div>
 			<div v-if="tipNerdAchievement" class="achievement">
+				<div class="achievement-image">
+					<img :src="tipNerdAchievement.link" alt="">
+				</div>
 				<div class="achievement-title">
 					<h6>{{ tipNerdAchievement.name }}</h6>
 					<p>{{ tipNerdAchievement.description }}</p>
@@ -72,6 +90,9 @@
 				</div>
 			</div>
 			<div v-if="dailyFinishAchievement" class="achievement">
+				<div class="achievement-image">
+					<img :src="dailyFinishAchievement.link" alt="">
+				</div>
 				<div class="achievement-title">
 					<h6>{{ dailyFinishAchievement.name }}</h6>
 					<p>{{ dailyFinishAchievement.description }}</p>
@@ -82,6 +103,9 @@
 				</div>
 			</div>
 			<div v-if="weeklyFinishAchievement" class="achievement">
+				<div class="achievement-image">
+					<img :src="weeklyFinishAchievement.link" alt="">
+				</div>
 				<div class="achievement-title">
 					<h6>{{ weeklyFinishAchievement.name }}</h6>
 					<p>{{ weeklyFinishAchievement.description }}</p>
@@ -146,7 +170,16 @@ export default defineComponent({
 <style lang="scss" scoped>
 .achievement {
 	display: flex;
+	align-items: flex-start;
 	margin: 1rem 0;
+	.achievement-image {
+		margin-right: 0.75rem;
+		img {
+			width: 50px;
+			height: 50px;
+			border-radius: 0.75rem;
+		}
+	}
 	.achievement-title {
 		margin: 0 0.5rem 0 0;
 		h6 {

@@ -3,56 +3,72 @@
 		<h3>Achievements</h3>
 		<div class="achievementList">
 			<div class="achievement" :class="{'completed': askQuestionAchievement.completed}">
-				<div class="achievement-image" />
+				<div class="achievement-image">
+					<img :src="askQuestionAchievement.link" alt="">
+				</div>
 				<div class="achievement-title">
 					<h4>{{ askQuestionAchievement.name }}</h4>
 					<p>{{ askQuestionAchievement.description }}</p>
 				</div>
 			</div>
 			<div class="achievement" :class="{'completed': streak7DaysAchievement.completed}">
-				<div class="achievement-image" />
+				<div class="achievement-image">
+					<img :src="streak7DaysAchievement.link" alt="">
+				</div>
 				<div class="achievement-title">
 					<h4>{{ streak7DaysAchievement.name }}</h4>
 					<p>{{ streak7DaysAchievement.description }}</p>
 				</div>
 			</div>
 			<div class="achievement" :class="{'completed': buyGoldAchievement.completed}">
-				<div class="achievement-image" />
+				<div class="achievement-image">
+					<img :src="buyGoldAchievement.link" alt="">
+				</div>
 				<div class="achievement-title">
 					<h4>{{ buyGoldAchievement.name }}</h4>
 					<p>{{ buyGoldAchievement.description }}</p>
 				</div>
 			</div>
 			<div class="achievement" :class="{'completed': buyBronzeAchievement.completed}">
-				<div class="achievement-image" />
+				<div class="achievement-image">
+					<img :src="buyBronzeAchievement.link" alt="">
+				</div>
 				<div class="achievement-title">
 					<h4>{{ buyBronzeAchievement.name }}</h4>
 					<p>{{ buyBronzeAchievement.description }}</p>
 				</div>
 			</div>
 			<div class="achievement" :class="{'completed': attendSessionsAchievement.completed}">
-				<div class="achievement-image" />
+				<div class="achievement-image">
+					<img :src="attendSessionsAchievement.link" alt="">
+				</div>
 				<div class="achievement-title">
 					<h4>{{ attendSessionsAchievement.name }}</h4>
 					<p>{{ attendSessionsAchievement.description }}</p>
 				</div>
 			</div>
 			<div class="achievement" :class="{'completed': tipNerdAchievement.completed}">
-				<div class="achievement-image" />
+				<div class="achievement-image">
+					<img :src="tipNerdAchievement.link" alt="">
+				</div>
 				<div class="achievement-title">
 					<h4>{{ tipNerdAchievement.name }}</h4>
 					<p>{{ tipNerdAchievement.description }}</p>
 				</div>
 			</div>
 			<div class="achievement" :class="{'completed': dailyFinishAchievement.completed}">
-				<div class="achievement-image" />
+				<div class="achievement-image">
+					<img :src="dailyFinishAchievement.link" alt="">
+				</div>
 				<div class="achievement-title">
 					<h4>{{ dailyFinishAchievement.name }}</h4>
 					<p>{{ dailyFinishAchievement.description }}</p>
 				</div>
 			</div>
 			<div class="achievement" :class="{'completed': weeklyFinishAchievement.completed}">
-				<div class="achievement-image" />
+				<div class="achievement-image">
+					<img :src="weeklyFinishAchievement.link" alt="">
+				</div>
 				<div class="achievement-title">
 					<h4>{{ weeklyFinishAchievement.name }}</h4>
 					<p>{{ weeklyFinishAchievement.description }}</p>
@@ -131,11 +147,12 @@ export default defineComponent({
 	display: flex;
 	align-items: center;
 	.achievement-image {
-		background: lighten($color-grey, 30);
-		border-radius: 1rem;
 		margin-right: 0.5rem;
-		width: 60px;
-		height: 60px;
+		img {
+			width: 50px;
+			height: 50px;
+			border-radius: 0.75rem;
+		}
 	}
 	.achievement-title {
 		color: $color-grey;
@@ -150,7 +167,6 @@ export default defineComponent({
 	}
 }
 .completed {
-	.achievement-image { background: $color-blue-grey; }
 	color: $color-blue-grey;
 	h4 { color: $color-blue; }
 }

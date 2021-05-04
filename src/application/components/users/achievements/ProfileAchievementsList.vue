@@ -6,6 +6,9 @@
 		<div class="thick" />
 		<div>
 			<div class="achievement">
+				<div class="achievement-image">
+					<img :src="askQuestionAchievement.link" alt="">
+				</div>
 				<div class="achievement-title">
 					<h4>{{ askQuestionAchievement.name }}</h4>
 					<p>{{ askQuestionAchievement.description }}</p>
@@ -17,6 +20,9 @@
 				</div>
 			</div>
 			<div class="achievement">
+				<div class="achievement-image">
+					<img :src="streak7DaysAchievement.link" alt="">
+				</div>
 				<div class="achievement-title">
 					<h4>{{ streak7DaysAchievement.name }}</h4>
 					<p>{{ streak7DaysAchievement.description }}</p>
@@ -28,6 +34,9 @@
 				</div>
 			</div>
 			<div class="achievement">
+				<div class="achievement-image">
+					<img :src="buyGoldAchievement.link" alt="">
+				</div>
 				<div class="achievement-title">
 					<h4>{{ buyGoldAchievement.name }}</h4>
 					<p>{{ buyGoldAchievement.description }}</p>
@@ -39,6 +48,9 @@
 				</div>
 			</div>
 			<div class="achievement">
+				<div class="achievement-image">
+					<img :src="buyBronzeAchievement.link" alt="">
+				</div>
 				<div class="achievement-title">
 					<h4>{{ buyBronzeAchievement.name }}</h4>
 					<p>{{ buyBronzeAchievement.description }}</p>
@@ -50,6 +62,9 @@
 				</div>
 			</div>
 			<div class="achievement">
+				<div class="achievement-image">
+					<img :src="attendSessionsAchievement.link" alt="">
+				</div>
 				<div class="achievement-title">
 					<h4>{{ attendSessionsAchievement.name }}</h4>
 					<p>{{ attendSessionsAchievement.description }}</p>
@@ -61,6 +76,9 @@
 				</div>
 			</div>
 			<div class="achievement">
+				<div class="achievement-image">
+					<img :src="tipNerdAchievement.link" alt="">
+				</div>
 				<div class="achievement-title">
 					<h4>{{ tipNerdAchievement.name }}</h4>
 					<p>{{ tipNerdAchievement.description }}</p>
@@ -72,6 +90,9 @@
 				</div>
 			</div>
 			<div class="achievement">
+				<div class="achievement-image">
+					<img :src="dailyFinishAchievement.link" alt="">
+				</div>
 				<div class="achievement-title">
 					<h4>{{ dailyFinishAchievement.name }}</h4>
 					<p>{{ dailyFinishAchievement.description }}</p>
@@ -83,6 +104,9 @@
 				</div>
 			</div>
 			<div class="achievement">
+				<div class="achievement-image">
+					<img :src="weeklyFinishAchievement.link" alt="">
+				</div>
 				<div class="achievement-title">
 					<h4>{{ weeklyFinishAchievement.name }}</h4>
 					<p>{{ weeklyFinishAchievement.description }}</p>
@@ -152,7 +176,16 @@ export default defineComponent({
 <style lang="scss" scoped>
 .achievement {
 	display: flex;
+	align-items: flex-start;
 	margin: 1.5rem 0;
+	.achievement-image {
+		margin-right: 0.75rem;
+		img {
+			width: 50px;
+			height: 50px;
+			border-radius: 0.75rem;
+		}
+	}
 	.achievement-title {
 		margin: 0 0.5rem 0 0;
 		h4 {

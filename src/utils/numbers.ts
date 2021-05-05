@@ -20,3 +20,5 @@ export const formatNumber = (num: number) => {
 export const pluralize = (count: number, singular: string, plural: string) => count === 1 ? singular : plural
 
 export const getRandomValue = () => Math.random().toString(36).substr(2)
+
+export const capitalize = (text: string) => text[0].toUpperCase() + text.slice(1).toLowerCase()

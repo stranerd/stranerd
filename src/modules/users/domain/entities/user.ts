@@ -1,6 +1,7 @@
 import { BaseEntity } from '@modules/core/domains/entities/base'
 import { Avatars } from '@modules/users/domain/entities/avatar'
 import { Achievements, getUserAchievements } from '@modules/users/domain/entities/achievement'
+import { capitalize } from '@utils/numbers'
 export enum Status {
 	OFFLINE = 0,
 	ONLINE = 1
@@ -175,8 +176,8 @@ export interface UserTutor {
 export interface UserAchievements extends Record<keyof typeof Achievements, { completed: boolean, progress: number }> {}
 
 export const generateDefaultBio = (bio: Partial<UserBio>) :UserBio => {
-	const first = bio?.name?.first ?? 'Anon'
-	const last = bio?.name?.last ?? 'Ymous'
+	const first = capitalize(bio?.name?.first ?? 'Anon')
+	const last = capitalize(bio?.name?.last ?? 'Ymous')
 	const fullName = first + ' ' + last
 	const email = bio?.email ?? 'anon@ymous.com'
 	const description = bio?.description ?? ''

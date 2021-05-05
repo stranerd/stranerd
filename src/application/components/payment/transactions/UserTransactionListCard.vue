@@ -1,7 +1,7 @@
 <template>
 	<tr class="py-2">
 		<td>{{ formatTime(transaction.createdAt) }}</td>
-		<td class="d-flex align-items-center" :class="transaction.isGain ? 'text-success' : 'text-danger'">
+		<td class="d-flex align-items-center justify-content-end" :class="transaction.isGain ? 'text-success' : 'text-danger'">
 			<span class="mr-half">{{ transaction.isGain ? '+' : '-' }}{{ formatNumber(transaction.amount) }}</span>
 			<Coins :gold="transaction.isGold" :size="24" />
 		</td>

@@ -1,5 +1,5 @@
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
-import { Ref, ssrRef, watch } from '@nuxtjs/composition-api'
+import { ref, Ref, ssrRef, watch } from '@nuxtjs/composition-api'
 import { ProfileUpdateFactory, UpdateProfile } from '@modules/auth'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useAccountModal, useEditModal, usePaymentModal } from '@app/hooks/core/modals'
@@ -91,7 +91,25 @@ export const setNerdBioAndId = ({ id, bio }: { id: string, bio: UserBio }) => {
 }
 
 export const useTipNerd = () => {
+	const tip = ref(null as number | null)
+	const { loading, setLoading } = useLoadingHandler()
+	const { error, setError } = useErrorHandler()
+	const { message, setMessage } = useSuccessHandler()
+
+	const tipNerd = async () => {
+		if (!loading.value && tip.value) {
+			setError('')
+			try {
+				setLoading(true)
+				setMessage('Tipped successfully')
+			} catch (e) { setError(e) }
+			setLoading(false)
+		}
+	}
+
 	return {
-		nerdBioAndId
+		tip,
+		loading, error, message, nerdBioAndId,
+		tipNerd
 	}
 }

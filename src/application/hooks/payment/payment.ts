@@ -1,16 +1,15 @@
 import { Ref, ref } from '@nuxtjs/composition-api'
-// @ts-ignore
-import { client, hostedFields, /* paypalCheckout, */ HostedFields } from 'braintree-web'
+import { client, hostedFields, paypalCheckout, HostedFields } from 'braintree-web'
 import { GetClientToken, MakePayment } from '@modules/payment'
 import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 import { getTwoDigits } from '@utils/dates'
-import { isClient /*, isProd */ } from '@utils/environment'
+import { isClient, isProd } from '@utils/environment'
 import { useAuth } from '@app/hooks/auth/auth'
+import { usePaymentModal } from '@app/hooks/core/modals'
 
 let props = {
-	amount: 10 as number | null,
-	// eslint-disable-next-line no-console
-	afterPayment: ((res) => console.log(res)) as null | ((res: boolean) => void)
+	amount: null as number | null,
+	afterPayment: null as null | ((res: boolean) => Promise<void>)
 }
 export const setPaymentProps = (prop: typeof props) => props = prop
 
@@ -20,11 +19,16 @@ export const useMakePayment = () => {
 	const { error, setError } = useErrorHandler()
 	const hostedFieldsInstance = ref(null) as Ref<HostedFields | null>
 
+	const processPayment = async (nonce: string) => {
+		const res = await MakePayment.call(id.value, props.amount!, nonce)
+		await props.afterPayment?.(res)
+		usePaymentModal().closePaymentModal()
+	}
 	const initializeHostedFields = async () => {
 		if (isClient()) {
 			setLoading(true)
 			const initializeFields = async () => {
-				const { braintree: braintreeToken /*, paypal: paypalToken */ } = await GetClientToken.call()
+				const { braintree: braintreeToken, paypal: paypalToken } = await GetClientToken.call()
 				const clientInstance = await client.create({ authorization: braintreeToken })
 				const now = new Date()
 				const month = getTwoDigits(now.getMonth() + 1)
@@ -39,7 +43,7 @@ export const useMakePayment = () => {
 					}
 				}
 				hostedFieldsInstance.value = await hostedFields.create(options)
-				/* const paypal = require('paypal-checkout')
+				const paypal = require('paypal-checkout')
 				const paypalInstance = await paypalCheckout.create({ client: clientInstance, authorization: paypalToken })
 				paypal.Button.render({
 					env: isProd ? 'production' : 'sandbox',
@@ -50,16 +54,15 @@ export const useMakePayment = () => {
 						if (!loading.value) {
 							try {
 								setLoading(true)
-								const response = await paypalInstance.tokenizePayment(info)
-								const res = await MakePayment.call(id.value, props.amount!, response.nonce)
-								props.afterPayment?.(res)
+								const { nonce } = await paypalInstance.tokenizePayment(info)
+								await processPayment(nonce)
 							} catch (e) { setError(e) }
 							setLoading(false)
 						}
 					},
-					onCancel: () => setError('Account addition cancelled.'),
+					onCancel: () => setError('Payment process cancelled.'),
 					onError: setError
-				}, '#paypalButton') */
+				}, '#paypalButton')
 			}
 			await initializeFields().catch((e) => setError(e.message))
 			setLoading(false)
@@ -71,8 +74,7 @@ export const useMakePayment = () => {
 			try {
 				setLoading(true)
 				const { nonce } = await hostedFieldsInstance.value.tokenize()
-				const res = await MakePayment.call(id.value, props.amount!, nonce)
-				props.afterPayment?.(res)
+				await processPayment(nonce)
 			} catch (e) { setError(e) }
 			setLoading(false)
 		}

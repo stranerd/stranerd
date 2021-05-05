@@ -21,9 +21,6 @@
 			<span>View Profile</span>
 			<i class="fas fa-arrow-right ml-1" />
 		</NuxtLink>
-		<button class="btn btn-blue" @click="usePaymentModal().setPaymentModalMakePayment()">
-			Open Modal
-		</button>
 	</div>
 </template>
 
@@ -31,7 +28,6 @@
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { UserEntity } from '@modules/users'
 import { formatNumber } from '@utils/numbers'
-import { usePaymentModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'ProfileHeadCard',
 	props: {
@@ -41,7 +37,7 @@ export default defineComponent({
 		}
 	},
 	setup () {
-		return { formatNumber, usePaymentModal }
+		return { formatNumber }
 	}
 })
 </script>

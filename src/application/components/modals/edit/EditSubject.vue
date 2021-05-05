@@ -1,15 +1,7 @@
 <template>
-	<Modal>
-		<template slot="header">
-			<div class="d-flex align-items-baseline justify-content-between my-3 px-3">
-				<i />
-				<h4 class="my-0">
-					Edit Subject
-				</h4>
-				<a @click.prevent="closeEditModal">
-					<i class="fas fa-times text-danger" />
-				</a>
-			</div>
+	<Modal :close="closeEditModal">
+		<template slot="title">
+			Edit Subject
 		</template>
 		<SubjectForm :submit="editSubject" :loading="loading" :factory="factory" :error="error">
 			<template slot="buttonText">

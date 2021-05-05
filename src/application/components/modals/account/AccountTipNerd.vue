@@ -1,15 +1,7 @@
 <template>
-	<Modal :show-separator="false">
-		<template slot="header">
-			<div class="d-flex align-items-baseline justify-content-between my-3 px-3">
-				<i />
-				<h4 class="my-0">
-					Tip {{ nerdBioAndId.bio.name.first }}
-				</h4>
-				<a @click.prevent="closeAccountModal">
-					<i class="fas fa-times text-danger" />
-				</a>
-			</div>
+	<Modal :close="closeAccountModal">
+		<template slot="title">
+			Tip {{ nerdBioAndId.bio.name.first }}
 		</template>
 		{{ nerdBioAndId }}
 		<h1>How far</h1>

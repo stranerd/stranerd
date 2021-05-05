@@ -1,15 +1,7 @@
 <template>
-	<Modal :show-separator="false">
-		<template slot="header">
-			<div class="d-flex align-items-baseline justify-content-between my-3 px-3">
-				<i />
-				<h4 class="my-0">
-					Make Purchase of ${{ amount }}
-				</h4>
-				<a @click.prevent="closePaymentModal">
-					<i class="fas fa-times text-danger" />
-				</a>
-			</div>
+	<Modal :close="closePaymentModal">
+		<template slot="title">
+			Make Purchase of ${{ amount }}
 		</template>
 		<form>
 			<div class="form-group">
@@ -51,10 +43,11 @@ import { usePaymentModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	setup () {
 		const { loading, error, hostedFieldsInstance, amount, initializeHostedFields, pay } = useMakePayment()
+		const { closePaymentModal } = usePaymentModal()
 		onMounted(initializeHostedFields)
 		return {
 			loading, error, hostedFieldsInstance, amount,
-			pay, closePaymentModal: usePaymentModal().closePaymentModal
+			pay, closePaymentModal
 		}
 	}
 })

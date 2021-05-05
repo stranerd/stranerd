@@ -1,16 +1,24 @@
 <template>
 	<div class="modal-background">
-		<div class="under" @click="close" />
-		<div class="modal-inner slide-up">
-			<slot name="header">
-				<h3>Header</h3>
-			</slot>
-			<hr v-if="showSeparator">
-			<div :class="{'my-3': showSeparator }">
-				<slot>
-					<p>This is the default content of the modal</p>
+		<div v-if="closeOnBackground" class="under" @click="close()" />
+		<div class="modal-inner">
+			<div class="d-flex align-items-center justify-content-between my-3 px-3">
+				<slot name="pre-icon">
+					<i />
 				</slot>
+				<h3 class="my-0">
+					<slot name="title">
+						Header
+					</slot>
+				</h3>
+				<h4 class="my-0">
+					<a class="fas fa-times text-danger" @click.prevent="close" />
+				</h4>
 			</div>
+			<hr v-if="showSeparator" class="my-3">
+			<slot>
+				<p>This is the default content of the modal</p>
+			</slot>
 		</div>
 	</div>
 </template>
@@ -22,13 +30,17 @@ export default defineComponent({
 	props: {
 		close: {
 			type: Function,
-			required: false,
-			default: () => null
+			required: true
 		},
 		showSeparator: {
 			type: Boolean,
 			required: false,
-			default: true
+			default: false
+		},
+		closeOnBackground: {
+			type: Boolean,
+			required: false,
+			default: false
 		}
 	}
 })
@@ -60,6 +72,7 @@ export default defineComponent({
 	max-height: 99.9%;
 	max-width: 800px;
 	padding: 0.5rem;
+	border-radius: 0.5rem;
 	background: $color-light-grey;
 	box-shadow: 0 4px 8px $color-black;
 	z-index: 1;
@@ -68,24 +81,20 @@ export default defineComponent({
 	&::-webkit-scrollbar{
 		display: none;
 	}
+	animation: slide-up 0.25s;
+	position: relative;
 }
 @media (min-width: $sm){
 	.modal-inner{
 		padding: 1rem;
 		width: 95%;
-		border-radius: 0.5rem;
 	}
 }
-
 @media (min-width: $md){
 	.modal-inner{
 		width: 90%;
 		border-radius: 1rem;
 	}
-}
-.slide-up {
-	animation: slide-up 0.25s;
-	position: relative;
 }
 @keyframes slide-up {
 	from { bottom: -100px; }

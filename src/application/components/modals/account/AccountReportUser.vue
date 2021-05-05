@@ -1,15 +1,7 @@
 <template>
-	<Modal :show-separator="false">
-		<template slot="header">
-			<div class="d-flex align-items-baseline justify-content-between my-3 px-3">
-				<i />
-				<h4 class="my-0">
-					Report User
-				</h4>
-				<a @click.prevent="closeAccountModal">
-					<i class="fas fa-times text-danger" />
-				</a>
-			</div>
+	<Modal :close="closeAccountModal">
+		<template slot="title">
+			Report User
 		</template>
 		<ReportForm :factory="factory" :error="error" :loading="loading" :submit="createReport" />
 	</Modal>

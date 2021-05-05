@@ -1,15 +1,7 @@
 <template>
-	<Modal :show-separator="false">
-		<template slot="header">
-			<div class="d-flex align-items-baseline justify-content-between my-3 px-3">
-				<i />
-				<h4 class="my-0">
-					Buy Coins
-				</h4>
-				<a @click.prevent="closeAccountModal">
-					<i class="fas fa-times text-danger" />
-				</a>
-			</div>
+	<Modal :close="closeAccountModal">
+		<template slot="title">
+			Buy Coins
 		</template>
 		<div class="d-flex justify-content-end">
 			<div class="d-flex align-items-center position-relative ml-1">

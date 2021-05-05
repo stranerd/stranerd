@@ -1,15 +1,7 @@
 <template>
-	<Modal :show-separator="false">
-		<template slot="header">
-			<div class="d-flex align-items-baseline justify-content-between my-3 px-3">
-				<i />
-				<h4 class="my-0">
-					New Session Request
-				</h4>
-				<a @click.prevent="cancelSession">
-					<i class="fas fa-times text-danger" />
-				</a>
-			</div>
+	<Modal :close="cancelSession">
+		<template slot="title">
+			New Session Request
 		</template>
 		<div class="d-flex flex-column align-items-center">
 			<Avatar :src="otherParticipant.avatar" :size="90" />

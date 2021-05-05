@@ -28,7 +28,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="page-content my-1">
+		<div class="page-content">
 			<TutorsList />
 		</div>
 	</section>

@@ -21,8 +21,8 @@ export const useMakePayment = () => {
 
 	const processPayment = async (nonce: string) => {
 		const res = await MakePayment.call(id.value, props.amount!, nonce)
-		await props.afterPayment?.(res)
 		usePaymentModal().closePaymentModal()
+		await props.afterPayment?.(res)
 	}
 	const initializeHostedFields = async () => {
 		if (isClient()) {

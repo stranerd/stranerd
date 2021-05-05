@@ -4,7 +4,7 @@
 			<h3 class="mb-0">
 				Current Balance
 			</h3>
-			<button class="btn btn-blue rounded btn-sm" @click="setAccountModalBuyCoins">
+			<button class="btn btn-blue rounded-pill btn-sm" @click="setAccountModalBuyCoins">
 				Buy coins
 			</button>
 		</div>

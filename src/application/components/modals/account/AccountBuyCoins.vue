@@ -31,7 +31,7 @@
 				<div v-for="option in BRONZE_PRICES" :key="option.amount" class="line">
 					<img :src="option.src" alt="">
 					<span>{{ option.amount }}</span>
-					<button class="btn btn-blue" @click="buy(option, false)">
+					<button class="btn btn-blue" @click="buyCoins(option, false)">
 						{{ option.price }}
 					</button>
 				</div>
@@ -41,7 +41,7 @@
 				<div v-for="option in GOLD_PRICES" :key="option.amount" class="line">
 					<img :src="option.src" alt="">
 					<span>{{ option.amount }}</span>
-					<button class="btn btn-blue" @click="buy(option, true)">
+					<button class="btn btn-blue" @click="buyCoins(option, true)">
 						{{ option.price }}
 					</button>
 				</div>
@@ -64,14 +64,9 @@ export default defineComponent({
 		const { user } = useAuth()
 		const { loading, error, buyCoins, BRONZE_PRICES, GOLD_PRICES } = useBuyCoins()
 		const { closeAccountModal } = useAccountModal()
-		const buy = async (option: typeof BRONZE_PRICES[0], isGold: boolean) => {
-			// TODO: Initiate payment
-			await buyCoins(option.amount, isGold)
-		}
 		return {
 			user, closeAccountModal, formatNumber,
-			loading, error, buyCoins, BRONZE_PRICES, GOLD_PRICES,
-			buy
+			loading, error, buyCoins, BRONZE_PRICES, GOLD_PRICES
 		}
 	}
 })

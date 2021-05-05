@@ -2,9 +2,10 @@ import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hook
 import { Ref, ssrRef, watch } from '@nuxtjs/composition-api'
 import { ProfileUpdateFactory, UpdateProfile } from '@modules/auth'
 import { useAuth } from '@app/hooks/auth/auth'
-import { useAccountModal, useEditModal } from '@app/hooks/core/modals'
+import { useAccountModal, useEditModal, usePaymentModal } from '@app/hooks/core/modals'
 import { BuyCoins } from '@modules/payment'
 import { UserBio } from '@modules/users'
+import { setPaymentProps } from '@app/hooks/payment/payment'
 
 export const useUpdateProfile = () => {
 	const factory = ssrRef(new ProfileUpdateFactory()) as Ref<ProfileUpdateFactory>
@@ -58,16 +59,24 @@ export const useBuyCoins = () => {
 	const { error, setError } = useErrorHandler()
 	const { message, setMessage } = useSuccessHandler()
 
-	const buyCoins = async (amount: number, isGold: boolean) => {
-		if (!loading.value) {
-			try {
-				setLoading(true)
-				await BuyCoins.call(amount, isGold)
-				useAccountModal().closeAccountModal()
-				setMessage('Coins purchased successfully')
-			} catch (e) { setError(e) }
-			setLoading(false)
-		}
+	const buyCoins = async (option: typeof BRONZE_PRICES[0], isGold: boolean) => {
+		await setPaymentProps({
+			amount: option.amount,
+			afterPayment: async (res: boolean) => {
+				if (res) {
+					if (!loading.value) {
+						try {
+							setLoading(true)
+							await BuyCoins.call(option.amount, isGold)
+							useAccountModal().closeAccountModal()
+							setMessage('Coins purchased successfully')
+						} catch (e) { setError(e) }
+						setLoading(false)
+					}
+				}
+			}
+		})
+		usePaymentModal().setPaymentModalMakePayment()
 	}
 
 	return {

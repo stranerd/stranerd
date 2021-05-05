@@ -1,5 +1,5 @@
 <template>
-	<Modal>
+	<Modal :show-separator="false">
 		<template slot="header">
 			<div class="d-flex align-items-baseline justify-content-between my-3 px-3">
 				<i />

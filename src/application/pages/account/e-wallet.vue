@@ -1,9 +1,9 @@
 <template>
 	<div>
-		<div class="page-content mb-2">
+		<div class="page-content mb-1">
 			<UserCreditBalanceCard :user="user" />
 		</div>
-		<div class="page-content my-2">
+		<div class="page-content">
 			<UserTransactionList :user-id="id" />
 		</div>
 	</div>

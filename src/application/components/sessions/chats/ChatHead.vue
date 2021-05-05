@@ -41,7 +41,7 @@ import { useAccountModal, useSessionModal } from '@app/hooks/core/modals'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useCurrentSession } from '@app/hooks/sessions/session'
 import { setReportedBioAndId } from '@app/hooks/forms/reports'
-import { setNerdBioAndId } from '@app/hooks/payment/payment'
+import { setNerdBioAndId } from '@app/hooks/users/account'
 export default defineComponent({
 	name: 'ChatHead',
 	props: {

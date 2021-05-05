@@ -7,7 +7,7 @@ export class MakePaymentUseCase {
 		this.repository = repository
 	}
 
-	async call (userId: string, amount: number, token: string) {
-		return await this.repository.makePayment(userId, amount, token)
+	async call (userId: string, amount: number, nonce: string) {
+		return await this.repository.makePayment(userId, amount, nonce)
 	}
 }

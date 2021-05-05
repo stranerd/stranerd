@@ -22,8 +22,8 @@ export const createPaymentMethod = async (customerId: string, paymentMethodNonce
 
 export const removePaymentMethod = async (token: string) => await getGateway().paymentMethod.delete(token)
 
-export const makePayment = async (amount: number, paymentMethodToken: string) => getGateway().transaction
-	.sale({ amount: amount.toString(), paymentMethodToken })
+export const makePayment = async (amount: number, paymentMethodNonce: string) => getGateway().transaction
+	.sale({ amount: amount.toString(), paymentMethodNonce })
 
 export const subscribeToPlan = async (planId: string, paymentMethodToken: string) => await getGateway().subscription.create({
 	planId, paymentMethodToken

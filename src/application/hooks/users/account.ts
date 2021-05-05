@@ -4,6 +4,7 @@ import { ProfileUpdateFactory, UpdateProfile } from '@modules/auth'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useAccountModal, useEditModal } from '@app/hooks/core/modals'
 import { BuyCoins } from '@modules/payment'
+import { UserBio } from '@modules/users'
 
 export const useUpdateProfile = () => {
 	const factory = ssrRef(new ProfileUpdateFactory()) as Ref<ProfileUpdateFactory>
@@ -72,5 +73,16 @@ export const useBuyCoins = () => {
 	return {
 		loading, error, message, buyCoins,
 		BRONZE_PRICES, GOLD_PRICES
+	}
+}
+
+let nerdBioAndId = null as { id: string, bio: UserBio } | null
+export const setNerdBioAndId = ({ id, bio }: { id: string, bio: UserBio }) => {
+	nerdBioAndId = { id, bio }
+}
+
+export const useTipNerd = () => {
+	return {
+		nerdBioAndId
 	}
 }

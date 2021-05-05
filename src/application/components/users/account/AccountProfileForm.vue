@@ -1,6 +1,5 @@
 <template>
 	<form @submit.prevent="updateProfile">
-		<!-- eslint-disable vue/valid-v-bind-sync -->
 		<SelectAvatar :avatar="factory.avatar || Avatars.default.id" :set-avatar="(a) => factory.avatar = a" />
 		<div class="form-group d-flex flex-column flex-md-row my-3">
 			<div class="mb-3 mb-md-0 mr-md-2 flex-grow-1">
@@ -39,7 +38,7 @@
 			<button class="btn btn-danger mr-1" @click="cancel">
 				Cancel
 			</button>
-			<button class="btn btn-gold" type="submit" :disabled="loading || !factory.valid">
+			<button class="btn btn-blue" type="submit" :disabled="loading || !factory.valid">
 				Save Profile
 			</button>
 		</div>

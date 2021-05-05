@@ -105,9 +105,8 @@ h1 {
 	@media (min-width: $lg) {
 		padding-left: 4rem;
 	}
-	/deep/ .form-control, /deep/ .form-control::placeholder {
-		color: $color-light-blue;
-		padding: 0.5rem;
+	/deep/ .form-control {
+		color: darken($color-light-blue, 10);
 		max-width: 75ch;
 	}
 }

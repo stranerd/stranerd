@@ -2,10 +2,10 @@
 	<form @submit.prevent="submitComment">
 		<div class="form-group my-1">
 			<div class="d-flex align-items-center">
-				<Avatar :src="isLoggedIn ? user.avatar : Avatars.default.link" class="mr-1" :size="35" />
+				<Avatar :src="isLoggedIn ? user.avatar : Avatars.default.link" :size="35" />
 				<input
 					v-model="factory.body"
-					class="form-control form-control-sm form-control-small flex-grow-1"
+					class="form-control flex-grow-1"
 					placeholder="Add a comment..."
 					:class="{'is-invalid': factory.errors.body, 'is-valid': factory.isValid('body') }"
 				>
@@ -56,9 +56,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.form-control-small {
+.form-control {
 	font-size: 1rem;
-	min-height: 0;
-	padding: 1.25rem 1rem;
+	border: none !important;
+	box-shadow: none !important;
 }
 </style>

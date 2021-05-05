@@ -43,7 +43,6 @@ input.form-control {
 	font-size: 1em;
 	border: none;
 	box-shadow: none;
-	min-height: unset;
 	padding: 0;
 }
 </style>

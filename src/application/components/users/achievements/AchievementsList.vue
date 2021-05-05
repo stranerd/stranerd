@@ -4,7 +4,7 @@
 			<h5 class="font-weight-bold mb-0">
 				Achievements
 			</h5>
-			<NuxtLink to="/account" class="btn btn-outline-blue py-0 rounded ml-auto d-flex align-items-center">
+			<NuxtLink to="/account" class="ml-auto d-flex align-items-center">
 				<span>More</span>
 				<i class="fas fa-angle-right mx-half" />
 			</NuxtLink>

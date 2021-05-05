@@ -1,12 +1,13 @@
-import { computed, ssrRef } from '@nuxtjs/composition-api'
+import { computed, reqRef } from '@nuxtjs/composition-api'
 
 const global = {
-	createModal: ssrRef(null as string | null),
-	editModal: ssrRef(null as string | null),
-	accountModal: ssrRef('buy-coins' as string | null),
-	menuModal: ssrRef(null as string | null),
-	navigationModal: ssrRef(null as string | null),
-	sessionModal: ssrRef(null as string | null)
+	createModal: reqRef(null as string | null),
+	editModal: reqRef(null as string | null),
+	accountModal: reqRef(null as string | null),
+	menuModal: reqRef(null as string | null),
+	navigationModal: reqRef(null as string | null),
+	sessionModal: reqRef(null as string | null),
+	paymentModal: reqRef('make-payment' as string | null)
 }
 
 export const useCreateModal = () => {
@@ -78,5 +79,14 @@ export const useSessionModal = () => {
 		setSessionModalUnknown: () => global.sessionModal.value = 'unknown',
 
 		closeSessionModal: () => global.sessionModal.value = null
+	}
+}
+
+export const usePaymentModal = () => {
+	return {
+		isPaymentModalMakePayment: computed(() => global.paymentModal.value === 'make-payment'),
+
+		setPaymentModalMakePayment: () => global.paymentModal.value = 'make-payment',
+		closePaymentModal: () => global.paymentModal.value = null
 	}
 }

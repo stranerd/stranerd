@@ -5,6 +5,7 @@
 		<MenuModal />
 		<AccountModal />
 		<SessionModal />
+		<PaymentModal />
 	</div>
 </template>
 
@@ -15,6 +16,7 @@ import EditModal from '@app/components/modals/edit/EditIndex.vue'
 import MenuModal from '@app/components/modals/menus/MenuIndex.vue'
 import AccountModal from '@app/components/modals/account/AccountIndex.vue'
 import SessionModal from '@app/components/modals/sessions/SessionIndex.vue'
+import PaymentModal from '@app/components/modals/payments/PaymentIndex.vue'
 export default defineComponent({
 	name: 'ModalBase',
 	components: {
@@ -22,7 +24,8 @@ export default defineComponent({
 		EditModal,
 		MenuModal,
 		AccountModal,
-		SessionModal
+		SessionModal,
+		PaymentModal
 	}
 })
 </script>

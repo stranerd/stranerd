@@ -3,7 +3,7 @@ import { computed, ssrRef } from '@nuxtjs/composition-api'
 const global = {
 	createModal: ssrRef(null as string | null),
 	editModal: ssrRef(null as string | null),
-	accountModal: ssrRef(null as string | null),
+	accountModal: ssrRef('buy-coins' as string | null),
 	menuModal: ssrRef(null as string | null),
 	navigationModal: ssrRef(null as string | null),
 	sessionModal: ssrRef(null as string | null)

@@ -7,7 +7,7 @@ const global = {
 	menuModal: reqRef(null as string | null),
 	navigationModal: reqRef(null as string | null),
 	sessionModal: reqRef(null as string | null),
-	paymentModal: reqRef('make-payment' as string | null)
+	paymentModal: reqRef(null as string | null)
 }
 
 export const useCreateModal = () => {

@@ -28,6 +28,9 @@
 					</div>
 				</div>
 			</div>
+			<button class="btn btn-blue btn-block" :disabled="!hostedFieldsInstance" @click.prevent="pay">
+				Pay
+			</button>
 			<hr>
 			<div class="form-group text-center">
 				<div id="paypalButton" />
@@ -44,11 +47,11 @@ import { useMakePayment } from '@app/hooks/payment/payment'
 import { usePaymentModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	setup () {
-		const { loading, error, amount, initializeHostedFields } = useMakePayment()
+		const { loading, error, hostedFieldsInstance, amount, initializeHostedFields, pay } = useMakePayment()
 		onMounted(initializeHostedFields)
 		return {
-			loading, error, amount,
-			closePaymentModal: usePaymentModal().closePaymentModal
+			loading, error, hostedFieldsInstance, amount,
+			pay, closePaymentModal: usePaymentModal().closePaymentModal
 		}
 	}
 })

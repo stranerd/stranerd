@@ -89,10 +89,12 @@ export default defineComponent({
 		const reportUser = () => {
 			setReportedBioAndId({ id: props.user.id, bio: props.user.userBio })
 			useAccountModal().setAccountModalReportUser()
+			show.value = false
 		}
 		const tipUser = () => {
 			setNerdBioAndId({ id: props.user.id, bio: props.user.userBio })
 			useAccountModal().setAccountModalTipNerd()
+			show.value = false
 		}
 		return {
 			id, currentSessionId, currentSession, isAccepted,

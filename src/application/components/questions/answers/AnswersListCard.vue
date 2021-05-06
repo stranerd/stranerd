@@ -12,7 +12,7 @@
 					{{ formatTime(answer.createdAt) }}
 				</span>
 			</div>
-			<ShowRatings class="ml-auto my-auto" :rating="answer.averageRating" />
+			<ShowRatings class="ml-auto" :rating="answer.averageRating" />
 		</div>
 		<div class="answer-content">
 			<div class="my-1 lead editor-body" v-html="answer.body" />
@@ -30,7 +30,10 @@
 				<span v-if="showRatingButton" class="mr-1">
 					<SelectRating v-if="isLoggedIn && answer.userId !== id" :rating="0" :set-rating="rateAnswer" />
 				</span>
-				<a v-if="isLoggedIn && question && !question.isAnswered && question.userId === id" class="mr-1 text-grey" @click.prevent="markBestAnswer">
+				<a v-if="isLoggedIn && answer.userId !== id" class="mr-1" @click.prevent="tip">
+					<span>Tip Nerd</span>
+				</a>
+				<a v-if="isLoggedIn && question && !question.isAnswered && question.userId === id" class="mr-1" @click.prevent="markBestAnswer">
 					<span>Mark as Best Answer</span>
 					<i class="fas fa-check" />
 				</a>
@@ -67,6 +70,8 @@ import DisplayAttachments from '@app/components/questions/DisplayAttachments.vue
 import CommentForm from '@app/components/questions/comments/AnswerCommentForm.vue'
 import CommentList from '@app/components/questions/comments/AnswerCommentsList.vue'
 import { formatTime } from '@utils/dates'
+import { useAccountModal } from '@app/hooks/core/modals'
+import { setNerdBioAndId } from '@app/hooks/users/account'
 export default defineComponent({
 	name: 'AnswerListCard',
 	components: {
@@ -91,9 +96,13 @@ export default defineComponent({
 			get: () => isLoggedIn.value && user.value?.meta.ratedAnswers[props.answer.id] === undefined,
 			set: () => {}
 		})
+		const tip = () => {
+			setNerdBioAndId({ id: props.answer.userId, bio: props.answer.user })
+			useAccountModal().setAccountModalTipNerd()
+		}
 		const { error, loading, rateAnswer, markBestAnswer } = useAnswer(props.answer)
 		return {
-			id, isLoggedIn, user, formatTime, showComments,
+			id, isLoggedIn, user, formatTime, showComments, tip,
 			error, loading, rateAnswer, showRatingButton,
 			markBestAnswer: () => markBestAnswer(props.question)
 		}

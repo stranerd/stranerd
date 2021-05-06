@@ -37,7 +37,7 @@
 		<div class="mb-2 editor-body lead" v-html="question.body" />
 		<div class="d-flex">
 			<span class="mr-1 mr-md-2 d-md-none">
-				<img src="@app/assets/images/icons/answers.svg" alt="" style="width: 24px; height: 24px;">
+				<img src="@app/assets/images/icons/answers.svg" alt="" style="width: 20px; height: 20px;">
 				<span>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</span>
 			</span>
 			<span v-if="question.attachments.length" class="mr-1 mr-md-2">

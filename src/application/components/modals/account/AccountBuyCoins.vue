@@ -3,7 +3,7 @@
 		<template slot="title">
 			Buy Coins
 		</template>
-		<div class="d-flex justify-content-end">
+		<div class="d-flex justify-content-end px-3 mb-2">
 			<div class="d-flex align-items-center position-relative ml-1">
 				<Coins :size="24" style="z-index:1;" />
 				<span class="rounded-pill ml-n2 px-2 pl-3 bg-blue-grey text-light-blue">

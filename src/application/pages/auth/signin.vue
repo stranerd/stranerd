@@ -22,8 +22,8 @@
 		<div class="form-group">
 			<label class="label d-flex align-items-end" for="password">
 				<span>Password</span>
-				<NuxtLink to="/auth/forgot" class="label-sm ml-1">Forgot?</NuxtLink>
-				<a class="label-sm ml-auto" @click.prevent="toggle">{{ show ? 'Hide' : 'Show' }} password</a>
+				<NuxtLink to="/auth/forgot" class="label-sm ms-1">Forgot?</NuxtLink>
+				<a class="label-sm ms-auto" @click.prevent="toggle">{{ show ? 'Hide' : 'Show' }} password</a>
 			</label>
 			<input
 				id="password"

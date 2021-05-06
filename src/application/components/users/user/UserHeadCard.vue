@@ -5,7 +5,7 @@
 				<Avatar :src="user.avatar" :size="75" />
 				<i class="fas fa-circle position-absolute border" style="right: 0; bottom: 8px;" :class="user.isOnline ? 'text-green' : 'text-grey'" />
 			</div>
-			<div class="ml-1 align-items-center align-items-lg-start d-flex flex-column">
+			<div class="ms-1 align-items-center align-items-lg-start d-flex flex-column">
 				<span class="d-block text-18 font-weight-bold text-wrap">{{ user.fullName }}</span>
 				<span class="small mb-1">{{ user.isOnline ? 'Active now' : 'Last seen: ' + time }}</span>
 				<ShowRatings v-if="user.roles.isTutor" :rating="user.averageRating" />
@@ -14,7 +14,7 @@
 				</NuxtLink>
 			</div>
 		</div>
-		<div class="grid ml-lg-auto my-1">
+		<div class="grid ms-lg-auto my-1">
 			<template v-if="user.roles.isTutor">
 				<div class="stats">
 					<img src="@app/assets/images/icons/profile-answers.svg" alt="">

@@ -2,7 +2,7 @@
 	<div :id="tutor.id" class="text-truncate mb-3">
 		<div class="d-flex">
 			<Avatar :src="tutor.avatar" :size="60" />
-			<div class="ml-1">
+			<div class="ms-1">
 				<p class="lead mb-0 text-wrap">
 					{{ tutor.fullName }}
 				</p>
@@ -10,7 +10,7 @@
 					{{ tutor.email }}
 				</p>
 				<div class="d-flex flex-wrap small">
-					<a class="text-blue mb-1 mr-2" @click.prevent="openEditModal">
+					<a class="text-blue mb-1 me-2" @click.prevent="openEditModal">
 						<span>Manage tutor's subjects</span>
 						<i class="fas fa-cog" />
 					</a>

@@ -1,15 +1,15 @@
 <template>
 	<div class="full">
 		<div class="sidebar">
-			<div class="py-1 px-2 d-flex bg-blue align-items-center">
-				<a class="mr-2 my-1" @click.prevent="close">
+			<div class="pt-1 px-2 d-flex bg-blue align-items-center">
+				<a class="me-2" @click.prevent="close">
 					<img src="@app/assets/images/icons/close.svg" alt="" width="16" height="16" style="filter: brightness(200%);">
 				</a>
 				<NuxtLink class="d-lg-none" to="/">
 					<Logo />
 				</NuxtLink>
 			</div>
-			<div class="thick mt-0" />
+			<div class="thick" />
 			<div class="px-1">
 				<slot />
 			</div>

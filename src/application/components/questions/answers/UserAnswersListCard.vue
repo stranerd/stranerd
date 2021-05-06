@@ -2,20 +2,20 @@
 	<div :id="answer.id">
 		<NuxtLink class="text-18 editor-body mb-1" :to="`/questions/${answer.questionId}#${answer.id}`" v-html="answer.body" />
 		<div class="d-flex">
-			<span class="text-wrap mr-auto">
+			<span class="text-wrap me-auto">
 				{{ subject ? subject.name : 'Subject' }}
 				|
 				{{ formatTime(answer.createdAt) }}
 			</span>
-			<span class="ml-1">
+			<span class="ms-1">
 				<span>+{{ formatNumber(answer.coins) }}</span>
 				<Coins :size="16" />
 			</span>
-			<span v-if="answer.attachments.length" class="ml-1">
+			<span v-if="answer.attachments.length" class="ms-1">
 				<span>{{ answer.attachments.length }}</span>
 				<i class="fas fa-paperclip" />
 			</span>
-			<span v-if="answer.best" class="ml-1 text-green">
+			<span v-if="answer.best" class="ms-1 text-green">
 				<span>Best</span>
 				<i class="fas fa-check" />
 			</span>

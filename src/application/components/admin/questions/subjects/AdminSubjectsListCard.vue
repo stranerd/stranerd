@@ -5,7 +5,7 @@
 			{{ subject.name }}
 		</h5>
 		<div class="d-flex justify-content-center small flex-wrap">
-			<a class="text-accent mr-2" @click.prevent="openEditModal">
+			<a class="text-accent me-2" @click.prevent="openEditModal">
 				<span>Edit</span>
 				<i class="fas fa-pen" />
 			</a>

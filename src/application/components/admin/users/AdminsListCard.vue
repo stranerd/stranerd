@@ -10,7 +10,7 @@
 					{{ admin.email }}
 				</p>
 			</div>
-			<button class="ml-auto btn btn-sm text-nowrap btn-danger" @click="deAdminUser">
+			<button class="ms-auto btn btn-sm text-nowrap btn-danger" @click="deAdminUser">
 				Remove admin
 			</button>
 		</div>

@@ -4,7 +4,7 @@
 			<QuestionEditor :model.sync="factory.body" :error="factory.errors.body" :valid="factory.isValid('body')" />
 		</div>
 		<div class="form-group d-flex flex-column flex-sm-row">
-			<select v-model="factory.subjectId" class="form-control form-control-sm my-1 mx-sm-1">
+			<select v-model="factory.subjectId" class="form-select form-select-sm my-1 mx-sm-1">
 				<option disabled value="">
 					Select a subject
 				</option>
@@ -12,7 +12,7 @@
 					{{ subject.name }}
 				</option>
 			</select>
-			<select v-model="factory.coins" class="form-control form-control-sm my-1 mx-sm-1">
+			<select v-model="factory.coins" class="form-select form-select-sm my-1 mx-sm-1">
 				<option disabled value="0">
 					Select coins
 				</option>
@@ -32,8 +32,8 @@
 				@change="catchAttachments"
 			>
 			<p>
-				<span v-for="attachment in factory.attachments" :key="attachment.name" class="mr-1">
-					<span class="mr-half">{{ attachment.name }}</span>
+				<span v-for="attachment in factory.attachments" :key="attachment.name" class="me-1">
+					<span class="me-half">{{ attachment.name }}</span>
 					<a class="text-danger" @click.prevent="factory.removeAttachment(attachment)">
 						<i class="fas fa-times" />
 					</a>

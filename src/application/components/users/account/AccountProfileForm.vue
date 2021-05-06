@@ -2,7 +2,7 @@
 	<form @submit.prevent="updateProfile">
 		<SelectAvatar :avatar="factory.avatar || Avatars.default.id" :set-avatar="(a) => factory.avatar = a" />
 		<div class="form-group d-flex flex-column flex-md-row my-3">
-			<div class="mb-3 mb-md-0 mr-md-2 flex-grow-1">
+			<div class="mb-3 mb-md-0 me-md-2 flex-grow-1">
 				<label class="label">First Name</label>
 				<input
 					v-model="factory.first"
@@ -35,14 +35,14 @@
 			<small v-if="factory.errors.description" class="small text-danger d-block">{{ factory.errors.description }}</small>
 		</div>
 		<div class="d-flex justify-content-end my-3">
-			<button class="btn btn-danger mr-1" @click="cancel">
+			<button class="btn btn-danger me-1" @click="cancel">
 				Cancel
 			</button>
 			<button class="btn btn-blue" type="submit" :disabled="loading || !factory.valid">
 				Save Profile
 			</button>
 		</div>
-		<PageLoading v-if="loading" class="mr-2" />
+		<PageLoading v-if="loading" class="me-2" />
 		<DisplayError :error="error" />
 	</form>
 </template>

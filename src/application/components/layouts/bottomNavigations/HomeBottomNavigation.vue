@@ -16,9 +16,9 @@
 				</div>
 				<div>
 					<h4>
-						<i class="fas fa-circle mr-half" />
-						<i class="fas fa-circle mr-half" />
-						<i class="fas fa-circle mr-half" />
+						<i class="fas fa-circle me-half" />
+						<i class="fas fa-circle me-half" />
+						<i class="fas fa-circle me-half" />
 					</h4>
 					<a target="_blank" href="/legal/terms-and-conditions.pdf">
 						Terms & Conditions

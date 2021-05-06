@@ -15,13 +15,13 @@
 						Ask a public question or Meet a nerd for 1 on 1 private chat.
 					</p>
 					<div class="d-flex flex-column flex-md-row flex-wrap align-items-start">
-						<button class="mr-1 my-1 btn btn-blue rounded-pill px-4 py-1 font-weight-bold" @click="openQuestionModal">
+						<button class="me-1 my-1 btn btn-blue rounded-pill px-4 py-1 font-weight-bold" @click="openQuestionModal">
 							Ask A Question
 						</button>
-						<NuxtLink v-if="isTutor" to="/questions" class="mr-1 my-1 btn btn-outline-blue rounded-pill px-4 py-1 font-weight-bold">
+						<NuxtLink v-if="isTutor" to="/questions" class="me-1 my-1 btn btn-outline-blue rounded-pill px-4 py-1 font-weight-bold">
 							Answer Questions
 						</NuxtLink>
-						<NuxtLink v-if="!isTutor" to="/tutors" class="mr-1 my-1 btn btn-outline-blue rounded-pill px-4 py-1 font-weight-bold">
+						<NuxtLink v-if="!isTutor" to="/tutors" class="me-1 my-1 btn btn-outline-blue rounded-pill px-4 py-1 font-weight-bold">
 							Meet a Nerd
 						</NuxtLink>
 					</div>

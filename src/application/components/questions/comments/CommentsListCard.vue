@@ -8,10 +8,10 @@
 				<span>{{ comment.userName }}</span>
 			</NuxtLink>
 		</div>
-		<p class="mr-1 mb-0 text-wrap">
+		<p class="me-1 mb-0 text-wrap">
 			{{ comment.body }}
 		</p>
-		<span class="ml-auto">
+		<span class="ms-auto">
 			{{ formatTime(comment.createdAt) }}
 		</span>
 	</div>

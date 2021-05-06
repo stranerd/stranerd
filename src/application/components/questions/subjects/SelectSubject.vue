@@ -1,6 +1,6 @@
 <template>
 	<select
-		class="form-control text-blue-grey"
+		class="form-select text-blue-grey"
 		:value="subjectId"
 		@change="$emit('update:subjectId',$event.target.value)"
 	>

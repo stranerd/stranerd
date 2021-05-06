@@ -4,8 +4,8 @@
 			<h2 class="font-weight-bold mb-0">
 				Questions
 			</h2>
-			<form class="d-flex ml-md-auto">
-				<select v-model="answered" class="form-control form-control-sm mr-1 my-1">
+			<form class="d-flex ms-md-auto">
+				<select v-model="answered" class="form-select form-select-sm me-1 my-1">
 					<option v-for="choice in answeredChoices" :key="choice.val" :value="choice.val">
 						{{ choice.key }}
 					</option>

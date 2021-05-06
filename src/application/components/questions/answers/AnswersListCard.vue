@@ -12,32 +12,32 @@
 					{{ formatTime(answer.createdAt) }}
 				</span>
 			</div>
-			<ShowRatings class="ml-auto" :rating="answer.averageRating" />
+			<ShowRatings class="ms-auto" :rating="answer.averageRating" />
 		</div>
 		<div class="answer-content">
 			<div class="my-1 lead editor-body" v-html="answer.body" />
 			<div class="my-1 d-flex flex-wrap icons justify-content-end">
-				<span v-if="answer.attachments.length" class="mr-2">
+				<span v-if="answer.attachments.length" class="me-2">
 					<span>{{ answer.attachments.length }}</span>
 					<i class="fas fa-paperclip" />
 				</span>
-				<a v-if="answer.commentsCount" class="mr-2 d-flex align-items-center" @click.prevent="showComments = !showComments">
+				<a v-if="answer.commentsCount" class="me-2 d-flex align-items-center" @click.prevent="showComments = !showComments">
 					<span>
 						{{ showComments ? 'Hide' : 'Show' }} Comments
 					</span>
 					<i class="fas mx-half" :class="showComments ? 'fa-angle-up' : 'fa-angle-down'" />
 				</a>
-				<span v-if="showRatingButton" class="mr-1">
+				<span v-if="showRatingButton" class="me-1">
 					<SelectRating v-if="isLoggedIn && answer.userId !== id" :rating="0" :set-rating="rateAnswer" />
 				</span>
-				<a v-if="isLoggedIn && answer.userId !== id" class="mr-1" @click.prevent="tip">
+				<a v-if="isLoggedIn && answer.userId !== id" class="me-1" @click.prevent="tip">
 					<span>Tip Nerd</span>
 				</a>
-				<a v-if="isLoggedIn && question && !question.isAnswered && question.userId === id" class="mr-1" @click.prevent="markBestAnswer">
+				<a v-if="isLoggedIn && question && !question.isAnswered && question.userId === id" class="me-1" @click.prevent="markBestAnswer">
 					<span>Mark as Best Answer</span>
 					<i class="fas fa-check" />
 				</a>
-				<span v-if="question && question.isAnswered && answer.best" class="mr-1 text-green">
+				<span v-if="question && question.isAnswered && answer.best" class="me-1 text-green">
 					<span>Best</span>
 					<i class="fas fa-check" />
 				</span>
@@ -46,7 +46,7 @@
 		<DisplayAttachments v-if="answer.attachments.length" id="attachments" :attachments="answer.attachments" class="my-1" />
 		<div v-if="showComments">
 			<div class="d-flex align-items-end my-1">
-				<h5 class="mb-0 mr-1">
+				<h5 class="mb-0 me-1">
 					Comments
 				</h5>
 				<span>{{ answer.commentsCount }}</span>

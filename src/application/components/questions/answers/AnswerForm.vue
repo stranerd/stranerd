@@ -14,8 +14,8 @@
 				@change="catchAttachments"
 			>
 			<p>
-				<span v-for="attachment in factory.attachments" :key="attachment.name" class="mr-1">
-					<span class="mr-half">{{ attachment.name }}</span>
+				<span v-for="attachment in factory.attachments" :key="attachment.name" class="me-1">
+					<span class="me-half">{{ attachment.name }}</span>
 					<a class="text-danger" @click.prevent="factory.removeAttachment(attachment)">
 						<i class="fas fa-times" />
 					</a>

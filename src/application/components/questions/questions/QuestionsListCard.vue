@@ -14,11 +14,11 @@
 					{{ formatTime(question.createdAt) }}
 				</span>
 			</div>
-			<span class="ml-auto">
+			<span class="ms-auto">
 				<img src="@app/assets/images/icons/answers.svg" alt="" style="width: 20px; height: 20px;">
 				<span>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</span>
 			</span>
-			<i v-if="question.isAnswered" class="fas fa-check text-green fa-2x ml-1" />
+			<i v-if="question.isAnswered" class="fas fa-check text-green fa-2x ms-1" />
 		</div>
 		<NuxtLink class="editor-body mb-1" :to="`/questions/${question.id}`" v-html="question.body" />
 		<NuxtLink v-if="question.attachments.length" :to="`/questions/${question.id}`">

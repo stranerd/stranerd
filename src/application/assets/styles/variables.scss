@@ -14,8 +14,8 @@ $color-accent: $color-green;
 
 $body-color: $color-blue-grey;
 $yiq-contrasted-threshold: 180;
-$yiq-text-dark: $color-blue;
-$yiq-text-light: $color-white;
+$color-contrast-dark: $color-blue;
+$color-contrast-light: $color-white;
 
 $xs: 0;
 $xsm: 360px;
@@ -48,6 +48,10 @@ $theme-colors: (
 );
 
 $spacers: (
+	n4: -2.0rem,
+	n3: -1.5rem,
+	n2: -1.0rem,
+	n1: -.5rem,
 	quarter: .125rem,
 	half: .25rem,
 	1: .5rem,

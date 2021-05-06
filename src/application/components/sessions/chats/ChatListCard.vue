@@ -2,11 +2,11 @@
 	<div class="d-flex">
 		<div class="chat" :class="isMine ? 'is-mine' : 'is-not-mine'">
 			<a v-if="chat.isMedia" :href="chat.media.link" target="__blank">
-				<i class="fas fa-paperclip mr-half" />
+				<i class="fas fa-paperclip me-half" />
 				<span class="text-truncate">{{ chat.media.name }}</span>
 			</a>
 			<span v-else>{{ chat.content || 'Hello' }}</span>
-			<span class="ml-auto small">{{ formatTimeAsDigits(new Date(chat.createdAt)) }}</span>
+			<span class="ms-auto small">{{ formatTimeAsDigits(new Date(chat.createdAt)) }}</span>
 		</div>
 	</div>
 </template>

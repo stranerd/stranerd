@@ -40,6 +40,7 @@ input.form-control, textarea.form-control {
 .form-control, .form-control:focus{ background: inherit; }
 
 a {
+	text-decoration: none;
 	cursor: pointer;
 	color: inherit;
 	&:hover {

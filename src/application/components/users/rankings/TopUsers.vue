@@ -4,8 +4,8 @@
 			<h5 class="font-weight-bold mb-0">
 				Top Users
 			</h5>
-			<form class="form-inline ml-auto">
-				<select v-model="period" class="form-control form-control-sm">
+			<form class="form-inline ms-auto">
+				<select v-model="period" class="form-select form-select-sm">
 					<option v-for="period in periods" :key="period" :value="period">
 						{{ period }}
 					</option>

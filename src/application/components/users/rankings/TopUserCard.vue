@@ -7,7 +7,7 @@
 		<NuxtLink :to="`/users/${user.id}`" class="mx-1">
 			<span>{{ user.fullName }}</span>
 		</NuxtLink>
-		<span class="ml-auto">
+		<span class="ms-auto">
 			{{ formatNumber(user.rankings[period]) }} xp
 		</span>
 	</div>

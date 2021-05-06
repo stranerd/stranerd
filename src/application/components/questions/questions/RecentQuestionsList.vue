@@ -4,7 +4,7 @@
 			<h3 class="font-weight-bold mb-0">
 				Recent Questions
 			</h3>
-			<form class="d-flex ml-auto">
+			<form class="d-flex ms-auto">
 				<SelectSubject :subject-id.sync="subjectId" class="form-control-sm my-1" />
 			</form>
 		</div>

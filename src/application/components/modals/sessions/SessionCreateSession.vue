@@ -15,7 +15,7 @@
 				<small v-if="factory.errors.message" class="small text-danger d-block">{{ factory.errors.message }}</small>
 			</div>
 			<div class="form-group my-2">
-				<select v-model="factory.duration" class="form-control">
+				<select v-model="factory.duration" class="form-select">
 					<option disabled value="0">
 						Select Session Duration
 					</option>

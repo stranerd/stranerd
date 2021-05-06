@@ -21,7 +21,7 @@
 		<div class="form-group">
 			<label for="password" class="label d-flex align-items-end">
 				<span>Password</span>
-				<a class="label-sm ml-auto" @click.prevent="toggle">{{ show ? 'Hide' : 'Show' }} password</a>
+				<a class="label-sm ms-auto" @click.prevent="toggle">{{ show ? 'Hide' : 'Show' }} password</a>
 			</label>
 			<input
 				id="password"
@@ -38,7 +38,7 @@
 		<div class="form-group">
 			<label for="c-password" class="label d-flex align-items-end">
 				<span>Confirm Password</span>
-				<a class="label-sm ml-auto" @click.prevent="toggle">{{ show ? 'Hide' : 'Show' }} password</a>
+				<a class="label-sm ms-auto" @click.prevent="toggle">{{ show ? 'Hide' : 'Show' }} password</a>
 			</label>
 			<input
 				id="c-password"

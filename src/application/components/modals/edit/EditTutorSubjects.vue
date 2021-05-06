@@ -6,7 +6,7 @@
 		<div>
 			<h4>Currently Teaching</h4>
 			<div class="d-flex flex-wrap">
-				<div v-for="subject in tutorSubjects" :key="subject.subject.hash" class="d-flex flex-column align-items-center mb-3 mr-3">
+				<div v-for="subject in tutorSubjects" :key="subject.subject.hash" class="d-flex flex-column align-items-center mb-3 me-3">
 					<img v-if="subject.subject.icon" :src="subject.subject.icon" alt="" height="40px">
 					<h5 class="text-capitalize">
 						{{ subject.subject.name }}
@@ -20,7 +20,7 @@
 			<hr>
 			<h4>Currently Not Teaching</h4>
 			<div class="d-flex flex-wrap">
-				<div v-for="subject in nonTutorSubjects" :key="subject.hash" class="d-flex flex-column align-items-center mr-3 mb-3">
+				<div v-for="subject in nonTutorSubjects" :key="subject.hash" class="d-flex flex-column align-items-center me-3 mb-3">
 					<img v-if="subject.icon" :src="subject.icon" alt="" height="40px">
 					<h5 class="text-capitalize">
 						{{ subject.name }}

@@ -4,7 +4,7 @@
 			<h2 class="font-weight-bold mb-0">
 				Top Nerds
 			</h2>
-			<form class="d-flex ml-auto">
+			<form class="d-flex ms-auto">
 				<SelectSubject :subject-id.sync="subjectId" class="form-control-sm my-1" />
 			</form>
 		</div>

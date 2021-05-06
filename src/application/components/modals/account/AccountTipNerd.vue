@@ -4,15 +4,15 @@
 			Tip {{ nerdBioAndId.bio.name.first }}
 		</template>
 		<div class="d-flex justify-content-end px-3 mb-2">
-			<div class="d-flex align-items-center position-relative ml-1">
+			<div class="d-flex align-items-center position-relative ms-1">
 				<Coins :size="24" style="z-index:1;" />
-				<span class="rounded-pill ml-n2 px-2 pl-3 bg-blue-grey text-light-blue">
+				<span class="rounded-pill ms-n2 px-2 ps-3 bg-blue-grey text-light-blue">
 					{{ formatNumber(user.account.coins.bronze) }}
 				</span>
 			</div>
-			<div class="d-flex align-items-center position-relative ml-1">
+			<div class="d-flex align-items-center position-relative ms-1">
 				<Coins :gold="true" :size="24" style="z-index:1;" />
-				<span class="rounded-pill ml-n2 px-2 pl-3 bg-blue-grey text-light-blue">
+				<span class="rounded-pill ms-n2 px-2 ps-3 bg-blue-grey text-light-blue">
 					{{ formatNumber(user.account.coins.gold) }}
 				</span>
 			</div>

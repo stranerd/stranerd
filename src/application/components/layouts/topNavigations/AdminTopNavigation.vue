@@ -6,7 +6,7 @@
 		<NuxtLink to="/admin/" class="d-lg-none">
 			<Logo />
 		</NuxtLink>
-		<Links class="ml-auto" />
+		<Links class="ms-auto" />
 	</nav>
 </template>
 

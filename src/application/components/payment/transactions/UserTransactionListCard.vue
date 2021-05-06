@@ -2,7 +2,7 @@
 	<tr class="py-2">
 		<td>{{ formatTime(transaction.createdAt) }}</td>
 		<td class="d-flex align-items-center justify-content-end" :class="transaction.isGain ? 'text-success' : 'text-danger'">
-			<span class="mr-half">{{ transaction.isGain ? '+' : '-' }}{{ formatNumber(transaction.amount) }}</span>
+			<span class="me-half">{{ transaction.isGain ? '+' : '-' }}{{ formatNumber(transaction.amount) }}</span>
 			<Coins :gold="transaction.isGold" :size="24" />
 		</td>
 		<td>{{ transaction.event }}</td>

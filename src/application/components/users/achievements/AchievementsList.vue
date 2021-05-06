@@ -4,7 +4,7 @@
 			<h5 class="font-weight-bold mb-0">
 				Achievements
 			</h5>
-			<NuxtLink to="/account" class="ml-auto d-flex align-items-center">
+			<NuxtLink to="/account" class="ms-auto d-flex align-items-center">
 				<span>More</span>
 				<i class="fas fa-angle-right mx-half" />
 			</NuxtLink>
@@ -19,7 +19,7 @@
 					<h6>{{ askQuestionAchievement.name }}</h6>
 					<p>{{ askQuestionAchievement.description }}</p>
 				</div>
-				<div class="progress ml-auto">
+				<div class="progress ms-auto">
 					<div class="level" :style="`width: ${100 * askQuestionAchievement.progress / askQuestionAchievement.limit }`" />
 					<span class="text">{{ askQuestionAchievement.progress }} / {{ askQuestionAchievement.limit }}</span>
 				</div>
@@ -32,7 +32,7 @@
 					<h6>{{ streak7DaysAchievement.name }}</h6>
 					<p>{{ streak7DaysAchievement.description }}</p>
 				</div>
-				<div class="progress ml-auto">
+				<div class="progress ms-auto">
 					<div class="level" :style="`width: ${100 * streak7DaysAchievement.progress / streak7DaysAchievement.limit }`" />
 					<span class="text">{{ streak7DaysAchievement.progress }} / {{ streak7DaysAchievement.limit }}</span>
 				</div>
@@ -45,7 +45,7 @@
 					<h6>{{ buyGoldAchievement.name }}</h6>
 					<p>{{ buyGoldAchievement.description }}</p>
 				</div>
-				<div class="progress ml-auto">
+				<div class="progress ms-auto">
 					<div class="level" :style="`width: ${100 * buyGoldAchievement.progress / buyGoldAchievement.limit }`" />
 					<span class="text">{{ buyGoldAchievement.progress }} / {{ buyGoldAchievement.limit }}</span>
 				</div>
@@ -58,7 +58,7 @@
 					<h6>{{ buyBronzeAchievement.name }}</h6>
 					<p>{{ buyBronzeAchievement.description }}</p>
 				</div>
-				<div class="progress ml-auto">
+				<div class="progress ms-auto">
 					<div class="level" :style="`width: ${100 * buyBronzeAchievement.progress / buyBronzeAchievement.limit }`" />
 					<span class="text">{{ buyBronzeAchievement.progress }} / {{ buyBronzeAchievement.limit }}</span>
 				</div>
@@ -71,7 +71,7 @@
 					<h6>{{ attendSessionsAchievement.name }}</h6>
 					<p>{{ attendSessionsAchievement.description }}</p>
 				</div>
-				<div class="progress ml-auto">
+				<div class="progress ms-auto">
 					<div class="level" :style="`width: ${100 * attendSessionsAchievement.progress / attendSessionsAchievement.limit }`" />
 					<span class="text">{{ attendSessionsAchievement.progress }} / {{ attendSessionsAchievement.limit }}</span>
 				</div>
@@ -84,7 +84,7 @@
 					<h6>{{ tipNerdAchievement.name }}</h6>
 					<p>{{ tipNerdAchievement.description }}</p>
 				</div>
-				<div class="progress ml-auto">
+				<div class="progress ms-auto">
 					<div class="level" :style="`width: ${100 * tipNerdAchievement.progress / tipNerdAchievement.limit }`" />
 					<span class="text">{{ tipNerdAchievement.progress }} / {{ tipNerdAchievement.limit }}</span>
 				</div>
@@ -97,7 +97,7 @@
 					<h6>{{ dailyFinishAchievement.name }}</h6>
 					<p>{{ dailyFinishAchievement.description }}</p>
 				</div>
-				<div class="progress ml-auto">
+				<div class="progress ms-auto">
 					<div class="level" :style="`width: ${dailyFinishAchievement.progress === 0 ? 0 : 100 * dailyFinishAchievement.limit / dailyFinishAchievement.progress }`" />
 					<span class="text">{{ dailyFinishAchievement.progress }}</span>
 				</div>
@@ -110,7 +110,7 @@
 					<h6>{{ weeklyFinishAchievement.name }}</h6>
 					<p>{{ weeklyFinishAchievement.description }}</p>
 				</div>
-				<div class="progress ml-auto">
+				<div class="progress ms-auto">
 					<div class="level" :style="`width: ${weeklyFinishAchievement.progress === 0 ? 0 : 100 * weeklyFinishAchievement.limit / weeklyFinishAchievement.progress }`" />
 					<span class="text">{{ weeklyFinishAchievement.progress }}</span>
 				</div>

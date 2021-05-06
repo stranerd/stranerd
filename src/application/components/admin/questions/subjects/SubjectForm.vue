@@ -13,7 +13,7 @@
 		<div class="form-group my-2">
 			<label class="label d-block">Icon</label>
 			<input ref="iconInput" type="file" class="d-none" accept="image/*" @change="catchIcon">
-			<img v-if="iconLink" :src="iconLink" class="mr-2" height="50px" alt="">
+			<img v-if="iconLink" :src="iconLink" class="me-2" height="50px" alt="">
 			<span v-if="factory.icon">{{ factory.icon.name }}</span>
 			<a class="text-info my-1" @click.prevent="() => { $refs.iconInput.value= ''; $refs.iconInput.click() }">
 				{{ factory.icon ? 'Change' : 'Upload' }} subject icon

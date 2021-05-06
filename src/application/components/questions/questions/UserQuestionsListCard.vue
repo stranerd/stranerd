@@ -15,7 +15,7 @@
 				<span>{{ formatNumber(question.attachments.length) }}</span>
 				<i class="fas fa-paperclip" />
 			</span>
-			<i v-if="question.isAnswered" class="fas fa-check text-green fa-2x ms-1" />
+			<i v-if="question.isAnswered" class="fas fa-check text-success fa-2x ms-1" />
 		</div>
 	</div>
 </template>

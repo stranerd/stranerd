@@ -5,11 +5,11 @@
 			{{ subject.name }}
 		</h5>
 		<div class="d-flex justify-content-center small flex-wrap">
-			<a class="text-accent me-2" @click.prevent="openEditModal">
+			<a class="text-success me-2" @click.prevent="openEditModal">
 				<span>Edit</span>
 				<i class="fas fa-pen" />
 			</a>
-			<a class="text-red" @click.prevent="deleteSubject">
+			<a class="text-danger" @click.prevent="deleteSubject">
 				<span>Delete</span>
 				<i class="fas fa-trash" />
 			</a>

@@ -29,7 +29,7 @@
 		</div>
 		<hr>
 		<div class="d-flex justify-content-end my-2">
-			<button class="btn btn-red text-white" type="submit" :disabled="loading || !factory.valid">
+			<button class="btn btn-blue text-white" type="submit" :disabled="loading || !factory.valid">
 				<PageLoading v-if="loading" />
 				<span><slot name="buttonText">Submit</slot></span>
 			</button>

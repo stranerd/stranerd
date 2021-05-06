@@ -37,7 +37,7 @@
 					<span>Mark as Best Answer</span>
 					<i class="fas fa-check" />
 				</a>
-				<span v-if="question && question.isAnswered && answer.best" class="me-1 text-green">
+				<span v-if="question && question.isAnswered && answer.best" class="me-1 text-success">
 					<span>Best</span>
 					<i class="fas fa-check" />
 				</span>

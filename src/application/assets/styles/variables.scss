@@ -8,9 +8,8 @@ $color-black: #111B25;
 $color-black-transparent: rgba($color-black, .75);
 
 $color-gold: #FFD700;
-$color-red: #FF781F;
-$color-green: #3CF078;
-$color-accent: $color-green;
+$color-red: #ff1414;
+$color-green: #00fa4f;
 
 $body-color: $color-blue-grey;
 $yiq-contrasted-threshold: 180;
@@ -35,9 +34,8 @@ $grid-breakpoints: (
 
 $theme-colors: (
 	'gold': $color-gold,
-	'red': $color-red,
-	'accent': $color-accent,
-	'green': $color-green,
+	'danger': $color-red,
+	'success': $color-green,
 	'blue': $color-blue,
 	'light-blue': $color-light-blue,
 	'blue-grey': $color-blue-grey,

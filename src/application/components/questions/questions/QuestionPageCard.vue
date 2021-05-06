@@ -31,7 +31,7 @@
 			<button v-if="showAnswerButton" class="btn btn-outline-blue rounded-pill ms-1 px-3 py-half" @click="openAnswerModal">
 				Answer
 			</button>
-			<i v-if="question.isAnswered" class="fas fa-check text-green fa-2x" />
+			<i v-if="question.isAnswered" class="fas fa-check text-success fa-2x" />
 		</div>
 		<div class="thick mx-n1 mx-md-n3 mx-lg-n4" />
 		<div class="mb-2 editor-body lead" v-html="question.body" />

@@ -12,7 +12,7 @@
 				<button class="btn btn-danger my-half mx-half" @click="cancelSession">
 					Cancel Session
 				</button>
-				<button class="btn btn-green my-half mx-half" @click="acceptSession">
+				<button class="btn btn-success my-half mx-half" @click="acceptSession">
 					Accept Session
 				</button>
 			</div>

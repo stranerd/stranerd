@@ -17,7 +17,7 @@ export const updateStreak = functions.https.onCall(async (_, context) => {
 const updateUserStreak = async (userId: string) => {
 	const userStatusRef = await admin.database().ref('users').child(userId).child('status')
 	const status = await userStatusRef.once('value')
-	const { lastStreakCheck, streak } = status.val()
+	const { lastStreakCheck = undefined, streak = 0 } = status.val() ?? {}
 
 	const { isLessThan, isNextDay } = getDateDifference(new Date(lastStreakCheck ?? Date.now()), new Date())
 	const res = { isLessThan, isNextDay, streak }

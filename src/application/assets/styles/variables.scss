@@ -8,8 +8,8 @@ $color-black: #111B25;
 $color-black-transparent: rgba($color-black, .75);
 
 $color-gold: #FFD700;
-$color-red: #ff1414;
-$color-green: #00fa4f;
+$color-red: #dc3545;
+$color-green: #06f352;
 
 $body-color: $color-blue-grey;
 $yiq-contrasted-threshold: 180;
@@ -36,6 +36,8 @@ $theme-colors: (
 	'gold': $color-gold,
 	'danger': $color-red,
 	'success': $color-green,
+	'info': #0dcaf0,
+	'warning': #ffc107,
 	'blue': $color-blue,
 	'light-blue': $color-light-blue,
 	'blue-grey': $color-blue-grey,

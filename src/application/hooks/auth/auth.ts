@@ -1,5 +1,5 @@
 import { computed, reqSsrRef } from '@nuxtjs/composition-api'
-import { FindUser, ListenToUser, UpdateStreak, UserEntity } from '@modules/users'
+import { FindUser, ListenToUser, UserEntity } from '@modules/users'
 import { AuthDetails } from '@modules/auth/domain/entities/auth'
 
 const global = {
@@ -44,7 +44,8 @@ export const useAuth = () => {
 		const setUser = (user: UserEntity | null) => global.user.value = user
 		if (id) {
 			global.listener = await ListenToUser.call(id, setUser, true)
-			await UpdateStreak.call()
+			// TODO: Figure out why it throws errors
+			// await UpdateStreak.call().catch(console.log)
 		}
 	}
 

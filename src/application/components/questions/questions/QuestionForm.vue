@@ -3,8 +3,8 @@
 		<div class="form-group my-2">
 			<QuestionEditor :model.sync="factory.body" :error="factory.errors.body" :valid="factory.isValid('body')" />
 		</div>
-		<div class="form-group d-flex flex-column flex-sm-row">
-			<select v-model="factory.subjectId" class="form-select form-select-sm my-1 mx-sm-1">
+		<div class="form-group d-flex flex-column flex-sm-row gap-1">
+			<select v-model="factory.subjectId" class="form-select form-select-sm">
 				<option disabled value="">
 					Select a subject
 				</option>
@@ -12,7 +12,7 @@
 					{{ subject.name }}
 				</option>
 			</select>
-			<select v-model="factory.coins" class="form-select form-select-sm my-1 mx-sm-1">
+			<select v-model="factory.coins" class="form-select form-select-sm">
 				<option disabled value="0">
 					Select coins
 				</option>
@@ -20,6 +20,10 @@
 					{{ coin }}
 				</option>
 			</select>
+		</div>
+		<div class="my-1 text-end">
+			<span>Out of coins?&nbsp;</span>
+			<a class="fw-bold text-decoration-underline" @click="setAccountModalBuyCoins">Buy more coins</a>
 		</div>
 		<div class="form-group my-2">
 			<label class="label d-block">Attachments</label>
@@ -64,6 +68,7 @@ import { useMultipleFileInputs } from '@app/hooks/core/forms'
 import { QuestionFactory } from '@modules/questions'
 import { useSubjectList } from '@app/hooks/questions/subjects'
 import QuestionEditor from '@app/components/core/editor/QuestionEditor.vue'
+import { useAccountModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'QuestionForm',
 	components: { QuestionEditor },
@@ -94,9 +99,10 @@ export default defineComponent({
 		const { catchMultipleFiles: catchAttachments } = useMultipleFileInputs(
 			(files: File[]) => files.map(props.factory.addAttachment)
 		)
+		const { setAccountModalBuyCoins } = useAccountModal()
 		return {
 			subjects, subLoading, subError,
-			catchAttachments
+			catchAttachments, setAccountModalBuyCoins
 		}
 	}
 })

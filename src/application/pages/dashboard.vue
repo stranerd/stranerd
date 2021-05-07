@@ -3,7 +3,7 @@
 		<div class="page-content mb-1 p-0">
 			<div class="background py-6 px-3">
 				<div style="max-width: 75%;">
-					<h2 class="font-weight-bold">
+					<h2 class="fw-bold">
 						{{ isTutor ? 'Help a student in need today!' : 'Nerd help is what you need.' }}
 					</h2>
 					<p v-if="isTutor">
@@ -15,13 +15,13 @@
 						Ask a public question or Meet a nerd for 1 on 1 private chat.
 					</p>
 					<div class="d-flex flex-column flex-md-row flex-wrap align-items-start">
-						<button class="me-1 my-1 btn btn-blue rounded-pill px-4 py-1 font-weight-bold" @click="openQuestionModal">
+						<button class="me-1 my-1 btn btn-blue rounded-pill px-4 py-1 fw-bold" @click="openQuestionModal">
 							Ask A Question
 						</button>
-						<NuxtLink v-if="isTutor" to="/questions" class="me-1 my-1 btn btn-outline-blue rounded-pill px-4 py-1 font-weight-bold">
+						<NuxtLink v-if="isTutor" to="/questions" class="me-1 my-1 btn btn-outline-blue rounded-pill px-4 py-1 fw-bold">
 							Answer Questions
 						</NuxtLink>
-						<NuxtLink v-if="!isTutor" to="/tutors" class="me-1 my-1 btn btn-outline-blue rounded-pill px-4 py-1 font-weight-bold">
+						<NuxtLink v-if="!isTutor" to="/tutors" class="me-1 my-1 btn btn-outline-blue rounded-pill px-4 py-1 fw-bold">
 							Meet a Nerd
 						</NuxtLink>
 					</div>

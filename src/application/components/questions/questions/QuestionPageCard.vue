@@ -5,7 +5,7 @@
 				<Avatar :src="question.avatar" :size="50" />
 			</NuxtLink>
 			<div class="mx-1 me-auto">
-				<NuxtLink :to="`/users/${question.userId}`" class="d-block font-weight-bold text-wrap">
+				<NuxtLink :to="`/users/${question.userId}`" class="d-block fw-bold text-wrap">
 					<span>{{ question.userName }}</span>
 				</NuxtLink>
 				<span class="small text-wrap">

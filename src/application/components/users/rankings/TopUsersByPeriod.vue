@@ -6,7 +6,7 @@
 		<DisplayWarning v-if="!loading && users.length === 0" message="No user has earned any xp for this period" />
 		<div v-if="isLoggedIn">
 			<div class="thick" />
-			<h6 class="font-weight-bold">
+			<h6 class="fw-bold">
 				You
 			</h6>
 			<TopUserCard :user="user" :period="period" :rank="myRank" />

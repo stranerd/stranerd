@@ -1,11 +1,12 @@
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
-import { ref, Ref, ssrRef, watch } from '@nuxtjs/composition-api'
+import { Ref, ssrRef, watch } from '@nuxtjs/composition-api'
 import { ProfileUpdateFactory, UpdateProfile } from '@modules/auth'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useAccountModal, useEditModal, usePaymentModal } from '@app/hooks/core/modals'
-import { BuyCoins } from '@modules/payment'
+import { BuyCoins, TipNerd } from '@modules/payment'
 import { UserBio } from '@modules/users'
 import { setPaymentProps } from '@app/hooks/payment/payment'
+import { Alert } from '@app/hooks/core/notifications'
 
 export const useUpdateProfile = () => {
 	const factory = ssrRef(new ProfileUpdateFactory()) as Ref<ProfileUpdateFactory>
@@ -91,25 +92,36 @@ export const setNerdBioAndId = ({ id, bio }: { id: string, bio: UserBio }) => {
 }
 
 export const useTipNerd = () => {
-	const tip = ref(null as number | null)
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
 	const { message, setMessage } = useSuccessHandler()
+	const TIP_AMOUNTS = [1, 2, 3, 4, 5, 10, 15, 20, 25, 35, 40, 45, 50]
 
-	const tipNerd = async () => {
-		if (!loading.value && tip.value) {
+	const tipNerd = async (amount: number) => {
+		if (!nerdBioAndId) useAccountModal().closeAccountModal()
+		if (!loading.value) {
 			setError('')
-			try {
-				setLoading(true)
-				setMessage('Tipped successfully')
-			} catch (e) { setError(e) }
-			setLoading(false)
+			const result = await Alert({
+				icon: 'info',
+				cancelButtonText: 'No, cancel',
+				confirmButtonText: 'Yes, proceed',
+				title: `Tip ${amount} coins`,
+				text: `Are you sure you want to tip ${amount} coins?`
+			})
+			if (result) {
+				try {
+					setLoading(true)
+					await TipNerd.call(amount, nerdBioAndId!.id)
+					useAccountModal().closeAccountModal()
+					setMessage('Tipped successfully')
+				} catch (e) { setError(e) }
+				setLoading(false)
+			}
 		}
 	}
 
 	return {
-		tip,
 		loading, error, message, nerdBioAndId,
-		tipNerd
+		tipNerd, TIP_AMOUNTS
 	}
 }

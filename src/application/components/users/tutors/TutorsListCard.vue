@@ -6,7 +6,7 @@
 			<i class="fas fa-circle d-md-none position-absolute" :class="tutor.isOnline ? 'text-success' : 'text-grey'" style="z-index: 1; right: 0; bottom: 0;" />
 		</NuxtLink>
 		<div class="ms-1 me-auto">
-			<NuxtLink :to="`/users/${tutor.id}`" class="d-block font-weight-bold text-wrap">
+			<NuxtLink :to="`/users/${tutor.id}`" class="d-block fw-bold text-wrap">
 				<span>{{ tutor.fullName }}</span>
 			</NuxtLink>
 			<span class="d-md-none">
@@ -21,9 +21,9 @@
 			<ShowRatings class="ms-1 ms-lg-2" :rating="tutor.averageRating" />
 			<span class="ms-1 ms-lg-2">{{ formatNumber(tutor.ratingCount) }} {{ pluralize(tutor.ratingCount, 'review', 'reviews') }}</span>
 		</span>
-		<button class="ms-1 ms-lg-2 btn btn-sm btn-outline-blue rounded-pill">
+		<NuxtLink :to="`/messages/${tutor.id}`" class="ms-1 ms-lg-2 btn btn-sm btn-outline-blue rounded-pill">
 			Message
-		</button>
+		</NuxtLink>
 	</div>
 </template>
 

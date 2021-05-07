@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h2 class="font-weight-bold mb-0">
+		<h2 class="fw-bold mb-0">
 			Answers
 		</h2>
 		<div class="thick" />

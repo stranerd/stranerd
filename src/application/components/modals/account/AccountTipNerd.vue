@@ -17,26 +17,18 @@
 				</span>
 			</div>
 		</div>
-		<button class="btn btn-sm btn-outline-blue rounded-lg font-weight-bold px-2 py-half">
-			<span>1</span>
-			<Coins :gold="true" :size="20" />
-		</button>
-		<button class="btn btn-sm btn-outline-blue rounded-lg font-weight-bold px-2 py-half">
-			<span>2</span>
-			<Coins :gold="true" :size="20" />
-		</button>
-		<button class="btn btn-sm btn-outline-blue rounded-lg font-weight-bold px-2 py-half">
-			<span>3</span>
-			<Coins :gold="true" :size="20" />
-		</button>
-		<button class="btn btn-sm btn-outline-blue rounded-lg font-weight-bold px-2 py-half">
-			<span>4</span>
-			<Coins :gold="true" :size="20" />
-		</button>
-		<button class="btn btn-sm btn-outline-blue rounded-lg font-weight-bold px-2 py-half">
-			<span>5</span>
-			<Coins :gold="true" :size="20" />
-		</button>
+		<div class="d-flex flex-wrap gap-2">
+			<button v-for="amount in TIP_AMOUNTS" :key="amount" :disabled="user.account.coins.gold < amount" class="tip btn btn-outline-blue" @click="tipNerd(amount)">
+				<span>{{ amount }}</span>
+				<Coins :gold="true" :size="20" />
+			</button>
+		</div>
+		<div class="d-flex justify-content-center my-3">
+			<span>Out of gold coins?&nbsp;</span>
+			<a class="fw-bold text-decoration-underline" @click="setAccountModalBuyCoins">Buy more coins</a>
+		</div>
+		<PageLoading v-if="loading" />
+		<DisplayError :error="error" />
 	</Modal>
 </template>
 
@@ -50,13 +42,24 @@ export default defineComponent({
 	name: 'AccountTipNerd',
 	setup () {
 		const { user } = useAuth()
-		const { loading, error, tip, nerdBioAndId, tipNerd } = useTipNerd()
-		const { closeAccountModal } = useAccountModal()
+		const { loading, error, nerdBioAndId, TIP_AMOUNTS, tipNerd } = useTipNerd()
+		const { closeAccountModal, setAccountModalBuyCoins } = useAccountModal()
 		return {
-			user, formatNumber,
-			loading, error, tip, nerdBioAndId,
-			tipNerd, closeAccountModal
+			user, formatNumber, TIP_AMOUNTS,
+			loading, error, nerdBioAndId,
+			tipNerd, closeAccountModal, setAccountModalBuyCoins
 		}
 	}
 })
 </script>
+
+<style lang="scss" scoped>
+.tip {
+	border-radius: 0.5rem;
+	font-weight: bold;
+	padding: 0.25rem 0.75rem;
+	display: flex;
+	align-items: center;
+	span { margin-right: 0.25rem; }
+}
+</style>

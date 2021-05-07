@@ -6,7 +6,7 @@
 				<i class="fas fa-circle position-absolute border" style="right: 0; bottom: 8px;" :class="user.isOnline ? 'text-success' : 'text-grey'" />
 			</div>
 			<div class="ms-1 align-items-center align-items-lg-start d-flex flex-column">
-				<span class="d-block text-18 font-weight-bold text-wrap">{{ user.fullName }}</span>
+				<span class="d-block text-18 fw-bold text-wrap">{{ user.fullName }}</span>
 				<span class="small mb-1">{{ user.isOnline ? 'Active now' : 'Last seen: ' + time }}</span>
 				<ShowRatings v-if="user.roles.isTutor" :rating="user.averageRating" />
 				<NuxtLink :to="`/messages/${user.id}`" class="btn btn-sm btn-blue my-1">

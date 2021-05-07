@@ -4,7 +4,7 @@
 			<Avatar :src="comment.avatar" :size="35" />
 		</NuxtLink>
 		<div class="mx-1">
-			<NuxtLink :to="`/users/${comment.userId}`" class="d-block font-weight-bold text-wrap">
+			<NuxtLink :to="`/users/${comment.userId}`" class="d-block fw-bold text-wrap">
 				<span>{{ comment.userName }}</span>
 			</NuxtLink>
 		</div>

@@ -1,7 +1,7 @@
 <template>
 	<div class="d-flex flex-column align-items-center my-1">
 		<Avatar :src="user.avatar" :size="90" />
-		<span class="text-18 font-weight-bold my-1">{{ user.firstName }}</span>
+		<span class="text-18 fw-bold my-1">{{ user.firstName }}</span>
 		<ShowRatings v-if="user.roles.isTutor" :rating="user.averageRating" />
 		<button class="btn btn-outline-light-blue rounded-pill my-2 px-3" @click="openEditProfileModal">
 			Edit Profile

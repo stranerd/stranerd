@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<section class="d-flex flex-column flex-md-row align-items-center text-center">
-			<h2 class="font-weight-bold mb-0">
+			<h2 class="fw-bold mb-0">
 				Questions
 			</h2>
 			<form class="d-flex ms-md-auto">
@@ -19,7 +19,7 @@
 			<div class="thick" />
 		</div>
 		<div v-if="hasMore" class="text-center py-1 text-18">
-			<a class="font-weight-bold" @click.prevent="fetchOlderQuestions">LOAD MORE</a>
+			<a class="fw-bold" @click.prevent="fetchOlderQuestions">LOAD MORE</a>
 		</div>
 		<DisplayWarning v-if="!loading && !error && questions.length === 0" message="No questions found." />
 		<DisplayError :error="error" />

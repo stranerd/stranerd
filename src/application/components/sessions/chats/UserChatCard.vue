@@ -2,7 +2,7 @@
 	<NuxtLink :to="`/messages/${user.id}`">
 		<Avatar :src="user.avatar" :size="60" />
 		<div class="ms-1 me-auto d-flex flex-column">
-			<span class="font-weight-bold lead">{{ user.name.fullName }}</span>
+			<span class="fw-bold lead">{{ user.name.fullName }}</span>
 			<p v-if="chat" class="mb-0 text-truncate">
 				<i v-if="chat.isMedia" class="fas fa-paperclip me-half" />
 				<span>{{ chat.isMedia ? chat.media.name : chat.content }}</span>

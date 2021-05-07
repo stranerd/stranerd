@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="d-flex text-center align-items-center flex-wrap mb-2">
-			<h5 class="font-weight-bold mb-0">
+			<h5 class="fw-bold mb-0">
 				Achievements
 			</h5>
 			<NuxtLink to="/account" class="ms-auto d-flex align-items-center">

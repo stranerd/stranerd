@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h2 class="font-weight-bold">
+		<h2 class="fw-bold">
 			Achievements
 		</h2>
 		<div class="thick" />

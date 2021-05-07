@@ -9,7 +9,7 @@
 			<div class="thick" />
 		</div>
 		<div v-if="hasMore" class="text-center py-1 text-18">
-			<a class="font-weight-bold" @click.prevent="fetchOlderAnswers">LOAD MORE</a>
+			<a class="fw-bold" @click.prevent="fetchOlderAnswers">LOAD MORE</a>
 		</div>
 		<DisplayWarning v-if="!loading && !error && answers.length === 0" message="This user has not answered any questions yet." />
 		<DisplayError :error="error" />

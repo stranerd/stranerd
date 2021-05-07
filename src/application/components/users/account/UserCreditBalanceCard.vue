@@ -10,11 +10,11 @@
 		</div>
 		<div class="bg-light-grey d-flex flex-column flex-xsm-row px-8 py-6 justify-content-around" style="border-radius: 1.25rem;">
 			<span class="d-flex align-items-baseline">
-				<span class="font-weight-bold display-3">{{ formatNumber(user.account.coins.bronze) }}</span>
+				<span class="fw-bold display-3">{{ formatNumber(user.account.coins.bronze) }}</span>
 				<Coins :size="40" />
 			</span>
 			<span class="d-flex align-items-baseline">
-				<span class="font-weight-bold display-3">{{ formatNumber(user.account.coins.gold) }}</span>
+				<span class="fw-bold display-3">{{ formatNumber(user.account.coins.gold) }}</span>
 				<Coins :gold="true" :size="40" />
 			</span>
 		</div>

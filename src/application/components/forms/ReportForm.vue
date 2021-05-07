@@ -23,7 +23,7 @@
 			/>
 			<small v-if="factory.errors.message" class="small text-danger d-block">{{ factory.errors.message }}</small>
 		</div>
-		<button class="btn btn-blue font-weight-bold" type="submit" :disabled="loading || !factory.valid">
+		<button class="btn btn-blue fw-bold" type="submit" :disabled="loading || !factory.valid">
 			<PageLoading v-if="loading" />
 			<span>Report User</span>
 		</button>

@@ -62,7 +62,7 @@ a {
 
 .editor-container {
 	margin-bottom: 0.5rem;
-	*{
+	* {
 		max-width: 100%;
 	}
 }
@@ -71,10 +71,6 @@ a {
 	p {
 		margin-bottom: 0.5rem;
 	}
-}
-
-hr {
-	background: $color-light-grey;
 }
 
 div.thick {

@@ -8,7 +8,7 @@
 		</NuxtLink>
 		<div class="ms-1 me-auto">
 			<NuxtLink :to="`/users/${user.id}`" class="d-block text-wrap">
-				<span class="font-weight-bold">{{ user.fullName }}</span>
+				<span class="fw-bold">{{ user.fullName }}</span>
 			</NuxtLink>
 			<span class="small">{{ user.isOnline ? 'Active now' : time }}</span>
 		</div>

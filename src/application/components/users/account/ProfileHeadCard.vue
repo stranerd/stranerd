@@ -15,7 +15,7 @@
 			</div>
 		</div>
 		<Avatar :src="user.avatar" :size="75" />
-		<span class="text-18 font-weight-bold">{{ user.fullName }}</span>
+		<span class="text-18 fw-bold">{{ user.fullName }}</span>
 		<ShowRatings v-if="user.roles.isTutor" :rating="user.averageRating" class="my-1" />
 		<NuxtLink to="/account/" class="btn btn-blue rounded-pill my-1">
 			<span>View Profile</span>

@@ -6,7 +6,7 @@
 			</NuxtLink>
 			<div class="mx-1">
 				<NuxtLink :to="`/users/${question.userId}`" class="d-block text-wrap">
-					<span class="font-weight-bold">{{ question.userName }}</span>
+					<span class="fw-bold">{{ question.userName }}</span>
 				</NuxtLink>
 				<span class="small text-wrap">
 					{{ subject ? subject.name : 'Subject' }}

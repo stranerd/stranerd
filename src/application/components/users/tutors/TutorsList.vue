@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="d-flex align-items-center text-center">
-			<h2 class="font-weight-bold mb-0">
+			<h2 class="fw-bold mb-0">
 				Top Nerds
 			</h2>
 			<form class="d-flex ms-auto">

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h2 class="font-weight-bold">
+		<h2 class="fw-bold">
 			Transaction history
 		</h2>
 		<table class="table">
@@ -23,7 +23,7 @@
 		</table>
 		<div v-if="hasMore" class="text-center text-18">
 			<div class="thick my-0" />
-			<a class="font-weight-bold text-grey" @click.prevent="fetchOlderTransactions">LOAD MORE</a>
+			<a class="fw-bold text-grey" @click.prevent="fetchOlderTransactions">LOAD MORE</a>
 		</div>
 		<DisplayWarning v-if="!loading && !error && transactions.length === 0" message="You haven't performed any transactions on this site yet" />
 		<DisplayError :error="error" />

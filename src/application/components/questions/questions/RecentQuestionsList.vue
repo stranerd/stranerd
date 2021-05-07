@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="d-flex">
-			<h3 class="font-weight-bold mb-0">
+			<h3 class="fw-bold mb-0">
 				Recent Questions
 			</h3>
 			<form class="d-flex ms-auto">

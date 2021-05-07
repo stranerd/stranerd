@@ -6,7 +6,7 @@ export class PaymentFirebaseDataSource implements PaymentBaseDataSource {
 		return await FunctionsService.call('getClientToken', {})
 	}
 
-	async makePayment (data: { userId: string, amount: number, nonce: string }) {
+	async makePayment (data: { amount: number, nonce: string }) {
 		return await FunctionsService.call('makePayment', data)
 	}
 

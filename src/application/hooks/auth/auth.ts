@@ -1,5 +1,5 @@
 import { computed, reqSsrRef } from '@nuxtjs/composition-api'
-import { FindUser, ListenToUser, UserEntity } from '@modules/users'
+import { FindUser, ListenToUser, UpdateStreak, UserEntity } from '@modules/users'
 import { AuthDetails } from '@modules/auth/domain/entities/auth'
 
 const global = {
@@ -42,7 +42,10 @@ export const useAuth = () => {
 
 		const id = global.auth.value?.id
 		const setUser = (user: UserEntity | null) => global.user.value = user
-		if (id) global.listener = await ListenToUser.call(id, setUser, true)
+		if (id) {
+			global.listener = await ListenToUser.call(id, setUser, true)
+			await UpdateStreak.call()
+		}
 	}
 
 	const signout = async () => setAuthUser(null)

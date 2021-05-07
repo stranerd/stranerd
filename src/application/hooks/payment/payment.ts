@@ -4,7 +4,6 @@ import { GetClientToken, MakePayment } from '@modules/payment'
 import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 import { getTwoDigits } from '@utils/dates'
 import { isClient, isProd } from '@utils/environment'
-import { useAuth } from '@app/hooks/auth/auth'
 import { usePaymentModal } from '@app/hooks/core/modals'
 
 let props = {
@@ -14,13 +13,12 @@ let props = {
 export const setPaymentProps = (prop: typeof props) => props = prop
 
 export const useMakePayment = () => {
-	const { id } = useAuth()
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
 	const hostedFieldsInstance = ref(null) as Ref<HostedFields | null>
 
 	const processPayment = async (nonce: string) => {
-		const res = await MakePayment.call(id.value, props.amount!, nonce)
+		const res = await MakePayment.call(props.amount!, nonce)
 		usePaymentModal().closePaymentModal()
 		await props.afterPayment?.(res)
 	}

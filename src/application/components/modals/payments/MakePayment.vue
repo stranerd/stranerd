@@ -20,7 +20,7 @@
 					</div>
 				</div>
 			</div>
-			<button class="btn btn-blue btn-block" :disabled="!hostedFieldsInstance" @click.prevent="pay">
+			<button class="btn btn-blue w-100" :disabled="!hostedFieldsInstance" @click.prevent="pay">
 				Pay
 			</button>
 			<hr>

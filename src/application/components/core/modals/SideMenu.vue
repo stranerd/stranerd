@@ -1,21 +1,21 @@
 <template>
 	<div class="full">
 		<div class="sidebar">
-			<div class="pt-1 px-2 d-flex bg-blue align-items-center">
-				<a class="me-2" @click.prevent="close">
+			<div class="pt-1 px-2 d-flex bg-blue align-items-center gap-2">
+				<a @click.prevent="close">
 					<img src="@app/assets/images/icons/close.svg" alt="" width="16" height="16" style="filter: brightness(200%);">
 				</a>
-				<NuxtLink class="d-lg-none" to="/">
+				<NuxtLink to="/">
 					<Logo />
 				</NuxtLink>
 			</div>
-			<div class="thick" />
+			<div class="thick mt-0" />
 			<div class="px-1">
 				<slot />
 			</div>
 			<div v-if="isLoggedIn" class="mt-auto">
 				<div class="thick mb-0" />
-				<a class="logout" @click="signout">
+				<a class="sidebar-link" @click="signout">
 					<PageLoading v-if="loading" />
 					<img src="@app/assets/images/icons/signout.svg" alt="">
 					<span>Signout</span>
@@ -70,20 +70,5 @@ export default defineComponent({
 @keyframes slide-right {
 	from { left: -100px; }
 	to { left: 0; }
-}
-.logout {
-	color: $color-light-blue;
-	padding: 0.75rem 1.5rem;
-	display: flex;
-	align-items: center;
-	font-weight: 500;
-	img {
-		height: 24px;
-		width: 24px;
-	}
-	span {
-		font-size: 18px;
-		margin-left: 0.75rem;
-	}
 }
 </style>

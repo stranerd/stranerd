@@ -12,7 +12,7 @@ $color-red: #dc3545;
 $color-green: #06f352;
 
 $body-color: $color-blue-grey;
-$yiq-contrasted-threshold: 180;
+$min-contrast-ratio: 180;
 $color-contrast-dark: $color-blue;
 $color-contrast-light: $color-white;
 
@@ -54,6 +54,7 @@ $spacers: (
 	n1: -.5rem,
 	quarter: .125rem,
 	half: .25rem,
+	0: 0,
 	1: .5rem,
 	2: 1.0rem,
 	3: 1.5rem,

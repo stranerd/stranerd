@@ -25,28 +25,11 @@ export const functions = firebase.functions()
 export const storage = firebase.storage()
 export type Timestamp = firebase.firestore.Timestamp
 
-const uploadToMockServer = async (path: string, file: File) => {
-	const data = new FormData()
-	data.set('path', path)
-	data.set('file', file)
-	const res = await fetch('http://localhost:3000/file', {
-		method: 'POST',
-		body: data
-	})
-	return res.json()
-}
 export const uploadFile = async (path: string, file: File) => {
 	try {
 		path = `${path}/${Date.now()}_${file.name}`
-		let link: string
-		if (isDev) {
-			path = `${firebaseConfig.projectId}/${path}`
-			await uploadToMockServer(path, file)
-			link = `http://localhost:3000/${path}`
-		} else {
-			await storage.ref(path).put(file)
-			link = await storage.ref(path).getDownloadURL()
-		}
+		await storage.ref(path).put(file)
+		const link = await storage.ref(path).getDownloadURL()
 		return { name: file.name, path, link, type: file.type }
 	} catch { throw new Error(`Error uploading ${file.name}`) }
 }

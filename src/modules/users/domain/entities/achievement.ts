@@ -14,7 +14,7 @@ export const Achievements = {
 		id: 'STREAK_7_DAYS',
 		name: '7 Day Streak',
 		description: 'Complete a 7 day streak',
-		limit: 100,
+		limit: 7,
 		price: {
 			bronze: 35,
 			xp: 25
@@ -93,6 +93,8 @@ export const getUserAchievements = (achievements: Record<keyof typeof Achievemen
 	return Object.entries(Achievements).map(([_, achievement]) => {
 		const completed = achievements?.[achievement.id]?.completed ?? false
 		const progress = achievements?.[achievement.id]?.progress ?? 0
-		return { ...achievement, completed, progress }
+		const isLimitTo1 = achievement.id === Achievements.DAILY_FINISH.id || achievement.id === Achievements.WEEKLY_FINISH.id
+		const progressInPercent = isLimitTo1 ? progress === 0 ? 0 : achievement.limit / progress : progress / achievement.limit
+		return { ...achievement, completed, progress, isLimitTo1, progressInPercent }
 	})
 }

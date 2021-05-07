@@ -1,21 +1,21 @@
 <template>
 	<div :id="question.id">
 		<NuxtLink class="text-18 mb-1 editor-body" :to="`/questions/${question.id}`" v-html="question.body" />
-		<div class="d-flex">
+		<div class="d-flex gap-1">
 			<span class="text-wrap me-auto">
 				{{ subject ? subject.name : 'Subject' }}
 				|
 				{{ formatTime(question.createdAt) }}
 			</span>
-			<span class="ms-1">
+			<span>
 				<img src="@app/assets/images/icons/answers.svg" alt="" style="width: 24px; height: 24px;">
 				<span>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</span>
 			</span>
-			<span v-if="question.attachments.length" class="ms-1">
+			<span v-if="question.attachments.length">
 				<span>{{ formatNumber(question.attachments.length) }}</span>
 				<i class="fas fa-paperclip" />
 			</span>
-			<i v-if="question.isAnswered" class="fas fa-check text-success fa-2x ms-1" />
+			<i v-if="question.isAnswered" class="fas fa-check text-success fa-2x" />
 		</div>
 	</div>
 </template>

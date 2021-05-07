@@ -1,10 +1,10 @@
 <template>
 	<div :id="question.id" class="my-2">
-		<div class="d-flex align-items-center mb-1">
+		<div class="d-flex align-items-center mb-1 gap-1">
 			<NuxtLink :to="`/users/${question.userId}`">
 				<Avatar :src="question.avatar" :size="50" />
 			</NuxtLink>
-			<div class="mx-1">
+			<div>
 				<NuxtLink :to="`/users/${question.userId}`" class="d-block text-wrap">
 					<span class="fw-bold">{{ question.userName }}</span>
 				</NuxtLink>

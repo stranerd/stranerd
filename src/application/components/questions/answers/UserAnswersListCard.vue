@@ -1,21 +1,21 @@
 <template>
 	<div :id="answer.id">
 		<NuxtLink class="text-18 editor-body mb-1" :to="`/questions/${answer.questionId}#${answer.id}`" v-html="answer.body" />
-		<div class="d-flex">
+		<div class="d-flex gap-1">
 			<span class="text-wrap me-auto">
 				{{ subject ? subject.name : 'Subject' }}
 				|
 				{{ formatTime(answer.createdAt) }}
 			</span>
-			<span class="ms-1">
+			<span>
 				<span>+{{ formatNumber(answer.coins) }}</span>
 				<Coins :size="16" />
 			</span>
-			<span v-if="answer.attachments.length" class="ms-1">
+			<span v-if="answer.attachments.length">
 				<span>{{ answer.attachments.length }}</span>
 				<i class="fas fa-paperclip" />
 			</span>
-			<span v-if="answer.best" class="ms-1 text-success">
+			<span v-if="answer.best" class="text-success">
 				<span>Best</span>
 				<i class="fas fa-check" />
 			</span>

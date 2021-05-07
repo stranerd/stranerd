@@ -1,10 +1,10 @@
 <template>
 	<div>
-		<div class="d-flex align-items-center mb-2">
+		<div class="d-flex align-items-center mb-2 gap-1">
 			<NuxtLink :to="`/users/${question.userId}`">
 				<Avatar :src="question.avatar" :size="50" />
 			</NuxtLink>
-			<div class="mx-1 me-auto">
+			<div class="me-auto">
 				<NuxtLink :to="`/users/${question.userId}`" class="d-block fw-bold text-wrap">
 					<span>{{ question.userName }}</span>
 				</NuxtLink>
@@ -15,14 +15,14 @@
 				</span>
 			</div>
 			<div class="d-none d-md-inline">
-				<div class="d-flex">
-					<div v-if="isTutor" class="d-flex align-items-center position-relative me-1">
+				<div class="d-flex gap-1">
+					<div v-if="isTutor" class="d-flex align-items-center position-relative">
 						<span class="rounded-pill px-1 pe-3 bg-blue-grey text-light-blue">
 							+{{ formatNumber(question.creditable) }}
 						</span>
 						<Coins :size="24" class="ms-n2" style="z-index:1;" />
 					</div>
-					<span class="me-1">
+					<span>
 						<img src="@app/assets/images/icons/answers.svg" alt="" style="width: 24px; height: 24px;">
 						<span>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</span>
 					</span>

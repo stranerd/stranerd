@@ -1,10 +1,10 @@
 <template>
 	<div :id="answer.id" class="answer">
-		<div class="answer-content d-flex align-items-center bg-light-blue">
+		<div class="answer-content d-flex align-items-center bg-light-blue gap-1">
 			<NuxtLink :to="`/users/${answer.userId}`">
 				<Avatar :src="answer.avatar" :size="50" />
 			</NuxtLink>
-			<div class="mx-1">
+			<div>
 				<NuxtLink :to="`/users/${answer.userId}`" class="d-block fw-bold text-wrap">
 					<span>{{ answer.userName }}</span>
 				</NuxtLink>
@@ -16,28 +16,28 @@
 		</div>
 		<div class="answer-content">
 			<div class="my-1 lead editor-body" v-html="answer.body" />
-			<div class="my-1 d-flex flex-wrap icons justify-content-end">
-				<span v-if="answer.attachments.length" class="me-2">
+			<div class="my-1 d-flex flex-wrap icons justify-content-end gap-2">
+				<span v-if="answer.attachments.length">
 					<span>{{ answer.attachments.length }}</span>
 					<i class="fas fa-paperclip" />
 				</span>
-				<a v-if="answer.commentsCount" class="me-2 d-flex align-items-center" @click.prevent="showComments = !showComments">
+				<a v-if="answer.commentsCount" class="d-flex align-items-center" @click.prevent="showComments = !showComments">
 					<span>
 						{{ showComments ? 'Hide' : 'Show' }} Comments
 					</span>
 					<i class="fas mx-half" :class="showComments ? 'fa-angle-up' : 'fa-angle-down'" />
 				</a>
-				<span v-if="showRatingButton" class="me-1">
+				<span v-if="showRatingButton">
 					<SelectRating v-if="isLoggedIn && answer.userId !== id" :rating="0" :set-rating="rateAnswer" />
 				</span>
-				<a v-if="isLoggedIn && answer.userId !== id" class="me-1" @click.prevent="tip">
+				<a v-if="isLoggedIn && answer.userId !== id" @click.prevent="tip">
 					<span>Tip Nerd</span>
 				</a>
-				<a v-if="isLoggedIn && question && !question.isAnswered && question.userId === id" class="me-1" @click.prevent="markBestAnswer">
+				<a v-if="isLoggedIn && question && !question.isAnswered && question.userId === id" @click.prevent="markBestAnswer">
 					<span>Mark as Best Answer</span>
 					<i class="fas fa-check" />
 				</a>
-				<span v-if="question && question.isAnswered && answer.best" class="me-1 text-success">
+				<span v-if="question && question.isAnswered && answer.best" class="text-success">
 					<span>Best</span>
 					<i class="fas fa-check" />
 				</span>

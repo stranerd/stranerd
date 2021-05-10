@@ -3,10 +3,12 @@ import * as admin from 'firebase-admin'
 import { deleteFromStorage } from '../../helpers/storage'
 import { addUserCoins, addUserXp, XpGainList } from '../../helpers/modules/payments/transactions'
 import { addTutorRatings } from '../../helpers/modules/users/tutors'
+import { deleteFromAlgolia, saveToAlgolia } from '../../helpers/algolia'
 
 export const answerCreated = functions.firestore.document('answers/{answerId}')
 	.onCreate(async (snap) => {
-		const { coins, userId, questionId } = snap.data()
+		const answer = snap.data()
+		const { coins, userId, questionId } = answer
 
 		await admin.firestore().collection('questions')
 			.doc(questionId)
@@ -26,6 +28,8 @@ export const answerCreated = functions.firestore.document('answers/{answerId}')
 		}
 
 		if (userId) await addUserXp(userId, XpGainList.ANSWER_QUESTION, true)
+
+		await saveToAlgolia('answers', snap.id, answer)
 	})
 
 export const answerUpdated = functions.firestore.document('answers/{answerId}')
@@ -40,6 +44,8 @@ export const answerUpdated = functions.firestore.document('answers/{answerId}')
 			const wasNotRemoved = newAttachments?.find((doc) => attachment?.path === doc?.path)
 			if (!wasNotRemoved) await deleteFromStorage(attachment?.path)
 		}))
+
+		await saveToAlgolia('answers', snap.after.id, after)
 	})
 
 export const answerDeleted = functions.firestore.document('answers/{answerId}')
@@ -59,6 +65,8 @@ export const answerDeleted = functions.firestore.document('answers/{answerId}')
 				[`meta/answers/${snap.id}`]: null,
 				[`meta/answeredQuestions/${questionId}`]: admin.database.ServerValue.increment(-1)
 			})
+
+		await deleteFromAlgolia('answers', snap.id)
 	})
 
 export const answerRated = functions.database.ref('answers/{answerId}/ratings/{userId}')

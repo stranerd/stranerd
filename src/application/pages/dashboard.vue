@@ -61,7 +61,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .background {
-	background: url('~@app/assets/images/icons/dashboard_hero.svg') no-repeat 50px;
+	background: url('../assets/images/icons/dashboard_hero.svg') no-repeat 50px;
 	@media (min-width: 450px) {
 		background-position: right;
 	}

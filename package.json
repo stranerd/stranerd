@@ -27,6 +27,7 @@
     "@nuxtjs/pwa": "^3.3.5",
     "@nuxtjs/style-resources": "^1.0.0",
     "@types/vue2-editor": "^2.6.1",
+    "algoliasearch": "^4.9.1",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.0",
     "braintree-web": "^3.76.3",
@@ -43,6 +44,7 @@
     "sd-validate": "^1.0.4",
     "sweetalert2": "^10.16.6",
     "vue": "^2.6.12",
+    "vue-instantsearch": "^3.7.0",
     "vue2-editor": "^2.10.2"
   },
   "devDependencies": {

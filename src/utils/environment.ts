@@ -15,3 +15,9 @@ export const firebaseConfig = {
 	appId: config.app_id,
 	measurementId: config.measurement_id
 }
+
+const algolia = JSON.parse(process.env.ALGOLIA ?? '{}')
+export const algoliaConfig = {
+	appId: algolia.app_id,
+	searchAPIKey: algolia.search_api_key
+}

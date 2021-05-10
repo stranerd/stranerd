@@ -24,8 +24,8 @@ import { personalChatsCreated, personalChatMediaDeleted } from './modules/sessio
 
 import { questionCommentCreated, questionCommentDeleted, answerCommentCreated, answerCommentDeleted } from './modules/questions/comments'
 import { subjectIconUpdated, subjectDeleted } from './modules/questions/subjects'
-import { questionCreated, questionDeleted } from './modules/questions/questions'
-import { answerCreated, answerDeleted, answerRated } from './modules/questions/answers'
+import { questionCreated, questionUpdated, questionDeleted } from './modules/questions/questions'
+import { answerCreated, answerUpdated, answerDeleted, answerRated } from './modules/questions/answers'
 
 import { messageCreated } from './modules/forms/messages'
 import { reportCreated } from './modules/forms/reports'
@@ -53,9 +53,9 @@ export { personalChatsCreated, personalChatMediaDeleted }
 // Subjects
 export { subjectIconUpdated, subjectDeleted }
 // Questions
-export { questionCreated, questionDeleted }
+export { questionCreated, questionUpdated, questionDeleted }
 // Answers
-export { answerCreated, answerDeleted, answerRated }
+export { answerCreated, answerUpdated, answerDeleted, answerRated }
 // Comments
 export { questionCommentCreated, questionCommentDeleted, answerCommentCreated, answerCommentDeleted }
 

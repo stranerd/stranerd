@@ -13,6 +13,7 @@
 import { defineComponent, ref } from '@nuxtjs/composition-api'
 enum SEARCH_TYPES {
 	Questions = 'Questions',
+	Answers = 'Answers',
 	Users = 'Users'
 }
 export default defineComponent({

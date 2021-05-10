@@ -33,8 +33,7 @@ h1, h2, h3 {
 
 input.form-control, textarea.form-control {
 	font-size: 1.125em;
-	padding: 1em;
-	min-height: 2.5em;
+	padding: 0.75em;
 }
 .form-control::placeholder { color: inherit; }
 .form-control, .form-control:focus{ background: inherit; }

@@ -62,7 +62,7 @@
     "eslint": "^7.25.0",
     "eslint-plugin-nuxt": "^2.0.0",
     "eslint-plugin-vue": "^7.9.0",
-    "firebase-tools": "^9.10.0",
+    "firebase-tools": "^9.10.2",
     "husky": "^6.0.0",
     "node-sass": "^5.0.0",
     "nuxt-purgecss": "^1.0.0",

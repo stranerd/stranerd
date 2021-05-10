@@ -1,6 +1,6 @@
 <template>
 	<div class="page-content">
-		<p v-if="chats.length === 0" class="text-center mb-0 align-self-center my-auto">
+		<p v-if="chats.length === 0" class="text-center align-self-center my-auto">
 			No chats found. Go message a user
 		</p>
 		<div v-for="user in chats" :key="user.id">

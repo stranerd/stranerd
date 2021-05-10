@@ -62,7 +62,7 @@ export const useBuyCoins = () => {
 
 	const buyCoins = async (option: typeof BRONZE_PRICES[0], isGold: boolean) => {
 		await setPaymentProps({
-			amount: option.amount,
+			amount: option.price,
 			afterPayment: async (res: boolean) => {
 				if (res) {
 					if (!loading.value) {

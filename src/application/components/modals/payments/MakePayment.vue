@@ -6,17 +6,17 @@
 		<form>
 			<div class="form-group">
 				<label>Credit Card Number</label>
-				<div id="creditCardNumber" class="form-control" />
+				<div id="creditCardNumber" />
 			</div>
 			<div class="form-group">
 				<div class="row">
 					<div class="col-6">
 						<label>Expire Date</label>
-						<div id="expireDate" class="form-control" />
+						<div id="expireDate" />
 					</div>
 					<div class="col-6">
 						<label>CVV</label>
-						<div id="cvv" class="form-control" />
+						<div id="cvv" />
 					</div>
 				</div>
 			</div>

@@ -21,13 +21,13 @@
 				</span>
 			</div>
 			<div class="d-flex justify-content-end fa-3x text-blue">
-				<a href="https://facebook.com/officialstranerd">
+				<a target="__blank" href="https://facebook.com/officialstranerd">
 					<i class="fab fa-facebook-square" />
 				</a>
-				<a href="https://instagram.com/officialstranerd">
+				<a target="__blank" href="https://instagram.com/officialstranerd">
 					<i class="fab fa-instagram mx-4" />
 				</a>
-				<a href="https://twitter.com/stranerds">
+				<a target="__blank" href="https://twitter.com/stranerds">
 					<i class="fab fa-twitter" />
 				</a>
 			</div>

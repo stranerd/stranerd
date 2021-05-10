@@ -1,7 +1,7 @@
 <template>
 	<div class="d-flex flex-column">
 		<span v-if="hasMore" class="small mb-2 mx-auto cursor-pointer" @click="fetchOlderChats">Fetch more</span>
-		<p v-if="chats.length === 0" class="text-center mb-0 my-auto">
+		<p v-if="chats.length === 0" class="text-center my-auto">
 			No messages found. Send a message now
 		</p>
 		<div v-for="session in chats" :key="session.hash">

@@ -1,5 +1,6 @@
 <template>
 	<div class="full">
+		<div class="under" @click="close" />
 		<div class="sidebar">
 			<div class="pt-1 px-2 d-flex bg-blue align-items-center gap-2">
 				<a @click.prevent="close">
@@ -55,6 +56,13 @@ export default defineComponent({
 	z-index: 1;
 	background: rgba($color-blue-grey, .5);
 	overflow-y: auto;
+	.under {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+	}
 	.sidebar {
 		display: flex;
 		flex-direction: column;
@@ -63,7 +71,9 @@ export default defineComponent({
 		min-height: 100vh;
 		color: $color-light-blue;
 		background: $color-blue;
-		position: relative;
+		position: absolute;
+		top: 0;
+		left: 0;
 		animation: slide-right .25s;
 	}
 }

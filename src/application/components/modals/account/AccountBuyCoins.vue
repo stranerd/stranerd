@@ -17,8 +17,8 @@
 				</span>
 			</div>
 		</div>
-		<div class="d-flex">
-			<div class="flex-grow-1 me-4">
+		<div class="d-flex flex-column flex-sm-row gap-4">
+			<div class="flex-grow-1">
 				<h5>Bronze</h5>
 				<div v-for="option in BRONZE_PRICES" :key="option.amount" class="line">
 					<img :src="option.src" alt="">

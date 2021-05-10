@@ -13,7 +13,7 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useMenuModal } from '@app/hooks/core/modals'
-import Links from '@app/components/layouts/topNavigations/DefaultLinks.vue'
+import Links from '@app/components/layouts/topNavigations/Links.vue'
 export default defineComponent({
 	name: 'DefaultTopNavigation',
 	components: { Links },

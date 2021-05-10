@@ -1,37 +1,47 @@
 <template>
 	<div class="links d-flex align-items-center">
-		<NuxtLink class="link d-lg-none" to="/">
-			<img src="@app/assets/images/icons/search.svg" alt="">
-		</NuxtLink>
-		<div class="link d-none d-lg-inline-flex search">
-			<img src="@app/assets/images/icons/search.svg" alt="">
-			<input class="form-control" type="search" placeholder="Search for anything">
-		</div>
-		<template v-if="isLoggedIn">
-			<NuxtLink to="/account/notifications" class="link">
-				<img src="@app/assets/images/icons/notification.svg" alt="">
-			</NuxtLink>
-			<NuxtLink to="/messages" class="link">
-				<img src="@app/assets/images/icons/chat.svg" alt="">
-			</NuxtLink>
-			<a class="link d-none d-lg-inline" @click.prevent="signout">
-				<PageLoading v-if="loading" />
-				<img src="@app/assets/images/icons/signout.svg" alt="">
+		<template v-if="showSearch">
+			<a @click.prevent="showSearch = false">
+				<i class="fas fa-times" />
 			</a>
+			<SearchBar />
+		</template>
+		<template v-else>
+			<a class="link d-md-none">
+				<img src="@app/assets/images/icons/search.svg" alt="" @click="showSearch = true">
+			</a>
+			<div class="link d-none d-md-inline-flex flex-grow-1 align-items-center border-0">
+				<SearchBar />
+			</div>
+			<template v-if="isLoggedIn">
+				<NuxtLink to="/account/notifications" class="link">
+					<img src="@app/assets/images/icons/notification.svg" alt="">
+				</NuxtLink>
+				<NuxtLink to="/messages" class="link">
+					<img src="@app/assets/images/icons/chat.svg" alt="">
+				</NuxtLink>
+				<a class="link d-none d-lg-inline" @click.prevent="signout">
+					<PageLoading v-if="loading" />
+					<img src="@app/assets/images/icons/signout.svg" alt="">
+				</a>
+			</template>
 		</template>
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, ref } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useSessionSignout } from '@app/hooks/auth/session'
+import SearchBar from '@app/components/core/SearchBar.vue'
 export default defineComponent({
 	name: 'Links',
+	components: { SearchBar },
 	setup () {
+		const showSearch = ref(false)
 		const { isLoggedIn } = useAuth()
 		const { loading, signout } = useSessionSignout()
-		return { isLoggedIn, loading, signout }
+		return { showSearch, isLoggedIn, loading, signout }
 	}
 })
 </script>
@@ -45,16 +55,12 @@ export default defineComponent({
 	.link {
 		padding: 0 0.75rem;
 		img {
-			width: 18px;
-			height: 18px;
+			width: 21px;
+			height: 21px;
 			filter: brightness(250%);
 		}
-		@media (min-width: $md) {
+		@media (min-width: $sm) {
 			padding: 0 1rem;
-			img {
-				width: 21px;
-				height: 21px;
-			}
 		}
 		@media (min-width: $lg) {
 			padding: 0 2rem;
@@ -63,18 +69,6 @@ export default defineComponent({
 				filter: brightness(60%);
 			}
 		}
-	}
-}
-.search {
-	align-items: center;
-	flex-grow: 1;
-	border-left: 0 !important;
-	input {
-		height: 1.5rem;
-		border: none;
-		box-shadow: none;
-		min-height: unset;
-		padding: 0 1rem;
 	}
 }
 </style>

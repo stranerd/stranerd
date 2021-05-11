@@ -4,10 +4,10 @@
 			<div
 				slot="default"
 				slot-scope="{ currentRefinement, isSearchStalled, refine }"
-				class="form-group mb-2 d-flex align-items-center"
+				class="form-group d-flex align-items-center"
 			>
 				<input
-					placeholder="Search"
+					placeholder="Search for"
 					type="search"
 					class="form-control"
 					:value="currentRefinement"
@@ -15,30 +15,26 @@
 				>
 				<PageLoading v-if="isSearchStalled" />
 			</div>
-			<div slot="submit-icon">
-				<i class="fas fa-search text-dark" />
-			</div>
-			<div slot="reset-icon">
-				<i class="fas fa-trash text-danger" />
-			</div>
+			<i slot="submit-icon" class="fas fa-search text-blue" />
+			<i slot="reset-icon" class="fas fa-trash text-danger" />
 		</AisSearchBox>
-		<AisStateResults>
+		<AisStateResults class="results">
 			<template #default="{ state: { query }, results: { hits } }">
-				<AisHits v-if="query.length > 0 && hits.length > 0" :transform-items="transformResults">
-					<template #default="{ items }">
-						<div class="position-absolute rounded-xl shadow-sm m-1 bg-white resultContainer">
-							<ul class="list-group text-wrap">
-								<li v-for="(item, index) in items" :key="item.objectID" class="list-group-item text-wrap border-0">
+				<ul class="list-group">
+					<template v-if="query.length">
+						<AisHits v-if="hits.length > 0" :transform-items="transformResults">
+							<template #default="{ items }">
+								<li v-for="(item, index) in items" :key="item.objectID" class="list-group-item">
 									<slot name="item" :item="item" :index="index" />
 								</li>
-							</ul>
-							<AisPoweredBy class="m-3" :theme="theme" />
-						</div>
+							</template>
+						</AisHits>
+						<li v-else class="list-group-item">
+							No results found for <q>{{ query }}</q>
+						</li>
+						<AisPoweredBy class="m-2" :theme="theme" />
 					</template>
-				</AisHits>
-				<p v-if="query.length && !hits.length">
-					No results found for <q>{{ query }}</q>
-				</p>
+				</ul>
 			</template>
 		</AisStateResults>
 	</AisInstantSearch>
@@ -78,11 +74,18 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.resultContainer{
+li { border: none !important; }
+.results{
+	position: absolute;
+	border-radius: 0.75rem;
+	margin: 0.5rem;
+	background: $color-white;
 	z-index: 3;
-	max-width: calc(100vw - 2rem);
-}
-@media (max-width: 500px){
-	.resultContainer{ right: 0.25rem }
+	white-space: normal;
+	max-width: calc(100vw - 4rem);
+	box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+	@media (max-width: 500px){
+		right: 0.25rem
+	}
 }
 </style>

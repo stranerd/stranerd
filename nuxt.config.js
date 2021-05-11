@@ -83,7 +83,8 @@ export const build = {
 		config.resolve.alias['@app'] = join(__dirname, 'src/application')
 		config.resolve.alias['@modules'] = join(__dirname, 'src/modules')
 		config.resolve.alias['@utils'] = join(__dirname, 'src/utils')
-	}
+	},
+	transpile: ['vue-instantsearch', 'instantsearch.js/es']
 }
 
 export const router = {

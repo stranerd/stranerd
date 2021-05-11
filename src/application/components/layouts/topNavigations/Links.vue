@@ -1,7 +1,7 @@
 <template>
 	<div class="links d-flex align-items-center">
 		<template v-if="showSearch">
-			<a @click.prevent="showSearch = false">
+			<a class="me-1" @click.prevent="showSearch = false">
 				<i class="fas fa-times" />
 			</a>
 			<SearchBar />
@@ -33,7 +33,7 @@
 import { defineComponent, ref } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useSessionSignout } from '@app/hooks/auth/session'
-import SearchBar from '@app/components/core/SearchBar.vue'
+import SearchBar from '@app/components/search/SearchBar.vue'
 export default defineComponent({
 	name: 'Links',
 	components: { SearchBar },

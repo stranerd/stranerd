@@ -1,3 +1,4 @@
+export const appName = process.env.APP_NAME
 export const isDev = process.env.ENVIRONMENT === 'development'
 export const isProd = process.env.ENVIRONMENT === 'production'
 
@@ -21,3 +22,15 @@ export const algoliaConfig = {
 	appId: algolia.app_id,
 	searchAPIKey: algolia.search_api_key
 }
+
+export enum EMAILS {
+	NO_REPLY = 'no-reply@stranerd.com'
+}
+
+const mails = JSON.parse(process.env.EMAIl ?? '{}')
+export const email = () => Object.fromEntries(
+	Object.entries(EMAILS).map(([key, value]) => [value, {
+		privateKey: mails?.[key]?.private_key,
+		clientId: mails?.[key]?.client_id
+	}])
+)

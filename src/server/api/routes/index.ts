@@ -7,7 +7,7 @@ export const setupRoutes = () => {
 
 	router.post('/auth/signin', SigninController)
 	router.post('/auth/signout', SignoutController)
-	router.post('/emails/', EmailController)
+	router.post('/emails', EmailController)
 
 	return router
 }

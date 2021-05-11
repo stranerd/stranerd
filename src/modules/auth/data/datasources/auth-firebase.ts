@@ -1,6 +1,7 @@
 import firebase, { auth } from '@modules/core/services/initFirebase'
 import { AxiosInstance } from '@modules/core/services/http'
 import { DatabaseService } from '@modules/core/services/firebase'
+import { isDev } from '@utils/environment'
 import { UserBio } from '@modules/users'
 import { AuthBaseDataSource } from './auth-base'
 
@@ -14,12 +15,12 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 	}
 
 	async sendSigninEmail (email: string, redirectUrl: string) {
-		try {
-			await auth.sendSignInLinkToEmail(email, {
-				url: redirectUrl,
-				handleCodeInApp: true
-			})
-		} catch (error) { throw filterFirebaseError(error) }
+		if (isDev) await auth.sendSignInLinkToEmail(email, {
+			url: redirectUrl,
+			handleCodeInApp: true
+		}).catch((error) => { throw filterFirebaseError(error) })
+		else await AxiosInstance.post('/emails', { email, redirectUrl })
+			.catch((error) => { throw new Error(error?.response?.data?.error ?? 'Error sending email') })
 	}
 
 	async signinWithEmailLink (email: string, emailUrl: string) {

@@ -1,6 +1,8 @@
 <template>
 	<form>
-		<UserSearch v-if="search === SEARCH_TYPES.Users" />
+		<QuestionSearch v-if="search === SEARCH_TYPES.Questions" :key="search" />
+		<AnswerSearch v-else-if="search === SEARCH_TYPES.Answers" :key="search" />
+		<UserSearch v-else-if="search === SEARCH_TYPES.Users" :key="search" />
 		<select v-model="search" class="form-select form-select-sm" type="search">
 			<option v-for="key in searchTerms" :key="key" :value="key">
 				{{ key }}
@@ -12,6 +14,8 @@
 <script lang="ts">
 import { defineComponent, ref } from '@nuxtjs/composition-api'
 import UserSearch from '@app/components/search/UserSearch.vue'
+import QuestionSearch from '@app/components/search/QuestionSearch.vue'
+import AnswerSearch from '@app/components/search/AnswerSearch.vue'
 enum SEARCH_TYPES {
 	Users = 'Users',
 	Questions = 'Questions',
@@ -19,7 +23,7 @@ enum SEARCH_TYPES {
 }
 export default defineComponent({
 	name: 'SearchBar',
-	components: { UserSearch },
+	components: { UserSearch, QuestionSearch, AnswerSearch },
 	setup () {
 		const search = ref(SEARCH_TYPES.Users)
 		const searchTerms = Object.keys(SEARCH_TYPES)

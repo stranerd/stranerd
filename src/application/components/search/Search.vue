@@ -29,7 +29,7 @@
 								</li>
 							</template>
 						</AisHits>
-						<li v-else class="list-group-item">
+						<li v-else class="list-group-item h5 mb-0">
 							No results found for <q>{{ query }}</q>
 						</li>
 						<AisPoweredBy class="m-2" :theme="theme" />
@@ -47,6 +47,7 @@ import algoliaSearch from 'algoliasearch/lite'
 // @ts-ignore
 import { AisStateResults, AisSearchBox, AisHits, AisPoweredBy, AisInstantSearch } from 'vue-instantsearch'
 export default defineComponent({
+	name: 'Search',
 	components: {
 		AisStateResults, AisSearchBox, AisHits, AisPoweredBy, AisInstantSearch
 	},
@@ -74,7 +75,10 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-li { border: none !important; }
+li {
+	border: none !important;
+	color: $color-blue;
+}
 .results{
 	position: absolute;
 	border-radius: 0.75rem;

@@ -18,7 +18,7 @@ export const questionCreated = functions.firestore.document('questions/{question
 			)
 		}
 
-		await saveToAlgolia('questions', snap.id, question)
+		await saveToAlgolia('questions', snap.id, { question })
 
 		if (userId) {
 			await addUserXp(userId, XpGainList.ASK_QUESTION)
@@ -39,7 +39,7 @@ export const questionUpdated = functions.firestore.document('questions/{question
 			if (!wasLeftBehind) await deleteFromStorage(attachment?.path)
 		}))
 
-		await saveToAlgolia('questions', snap.after.id, after)
+		await saveToAlgolia('questions', snap.after.id, { question: after })
 	})
 
 export const questionDeleted = functions.firestore.document('questions/{questionId}')

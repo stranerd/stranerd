@@ -13,7 +13,7 @@ export const userProfileUpdated = functions.database.ref('profiles/{userId}/bio'
 		const newBio = snap.after.val()
 		const { userId } = context.params
 
-		await saveToAlgolia('users', userId, { bio: newBio })
+		await saveToAlgolia('users', userId, { user: { bio: newBio } })
 
 		await updateMyChatsBio(userId, newBio)
 		await updateMySessionsBio(userId, newBio)

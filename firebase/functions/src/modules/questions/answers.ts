@@ -29,7 +29,7 @@ export const answerCreated = functions.firestore.document('answers/{answerId}')
 
 		if (userId) await addUserXp(userId, XpGainList.ANSWER_QUESTION, true)
 
-		await saveToAlgolia('answers', snap.id, answer)
+		await saveToAlgolia('answers', snap.id, { answer })
 	})
 
 export const answerUpdated = functions.firestore.document('answers/{answerId}')
@@ -45,7 +45,7 @@ export const answerUpdated = functions.firestore.document('answers/{answerId}')
 			if (!wasNotRemoved) await deleteFromStorage(attachment?.path)
 		}))
 
-		await saveToAlgolia('answers', snap.after.id, after)
+		await saveToAlgolia('answers', snap.after.id, { answer: after })
 	})
 
 export const answerDeleted = functions.firestore.document('answers/{answerId}')

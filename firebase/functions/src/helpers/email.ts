@@ -1,17 +1,13 @@
 import * as admin from 'firebase-admin'
 import { createTransport } from 'nodemailer'
 import * as Template from 'email-templates'
-import { email, domain, logo, appName } from './environment'
+import { EMAILS, email, domain, logo, appName } from './environment'
 import { Notification } from './modules/users/notifications'
 import { TopUser } from './modules/users/rankings'
 import { Message, Report } from './modules/forms'
 
-export enum EMAILS {
-	NOREPLY = 'no-reply@stranerd.com'
-}
-
-export const sendMail = async (to: string, subject: string, content: string, from = EMAILS.NOREPLY) => {
-	const { clientId, privateKey } = email()
+export const sendMail = async (to: string, subject: string, content: string, from = EMAILS.NO_REPLY) => {
+	const { clientId, privateKey } = email()[from]
 
 	const transporter = createTransport({
 		service: 'gmail',
@@ -26,7 +22,7 @@ export const sendMail = async (to: string, subject: string, content: string, fro
 	})
 }
 
-export const sendMailAndCatchErrors = async (to: string, subject: string, content: string, from = EMAILS.NOREPLY) => {
+export const sendMailAndCatchErrors = async (to: string, subject: string, content: string, from = EMAILS.NO_REPLY) => {
 	try {
 		await sendMail(to, subject, content, from)
 		return true
@@ -44,7 +40,7 @@ export const sendNewNotificationEmail = async (to: string, notification: Notific
 	const meta = { domain: domain(), logo: logo() }
 	const content = await new Template({ message: {} }).render('newNotification.pug',
 		{ notification, meta })
-	return await sendMailAndCatchErrors(to, notification.title, content, EMAILS.NOREPLY)
+	return await sendMailAndCatchErrors(to, notification.title, content, EMAILS.NO_REPLY)
 }
 
 export const sendTopUsersEmail = async (period: string, users: TopUser[]) => {

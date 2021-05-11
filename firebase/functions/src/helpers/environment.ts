@@ -29,10 +29,16 @@ export const mailchimp = () => ({
 	dataCenter: environment()?.mailchimp?.data_center
 })
 
-export const email = () => ({
-	privateKey: environment()?.email?.private_key,
-	clientId: environment()?.email?.client_id
-})
+export enum EMAILS {
+	NO_REPLY = 'no-reply@stranerd.com'
+}
+
+export const email = () => Object.fromEntries(
+	Object.entries(EMAILS).map(([key, value]) => [value, {
+		privateKey: environment()?.email?.[key]?.private_key,
+		clientId: environment()?.email?.[key]?.client_id
+	}])
+)
 
 export const firebase = () => ({
 	projectId: environment()?.firebase_client_config?.project_id,

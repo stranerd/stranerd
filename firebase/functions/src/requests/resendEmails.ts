@@ -1,6 +1,7 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
-import { sendMail, EMAILS } from '../helpers/email'
+import { sendMail } from '../helpers/email'
+import { EMAILS } from '../helpers/environment'
 
 type EmailError = { subject: string, to: string, content: string, from: EMAILS }
 

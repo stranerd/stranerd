@@ -9,16 +9,8 @@ export class AuthRepository implements IAuthRepository {
 		this.dataSource = dataSource
 	}
 
-	async signinWithEmail (email: string, password: string) {
-		return await this.dataSource.signinWithEmail(email, password)
-	}
-
 	async signinWithGoogle () {
 		return await this.dataSource.signinWithGoogle()
-	}
-
-	async signupWithEmail (email: string, password: string) {
-		return await this.dataSource.signupWithEmail(email, password)
 	}
 
 	async sendSigninEmail (email: string, redirectUrl: string) {
@@ -27,18 +19,6 @@ export class AuthRepository implements IAuthRepository {
 
 	async signinWithEmailLink (email: string, emailUrl: string) {
 		return await this.dataSource.signinWithEmailLink(email, emailUrl)
-	}
-
-	async sendVerificationEmail () {
-		return await this.dataSource.sendVerificationEmail()
-	}
-
-	async resetPassword (email: string): Promise<void> {
-		return await this.dataSource.resetPassword(email)
-	}
-
-	async updatePassword (email: string, oldPassword: string, password: string) {
-		return await this.dataSource.updatePassword(email, oldPassword, password)
 	}
 
 	async updateProfile (id: string, bio: UserBio) {

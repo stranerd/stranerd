@@ -1,7 +1,6 @@
 import { Ref, ref, useRouter } from '@nuxtjs/composition-api'
 import {
-	EmailLinkSigninFactory, SendSigninEmail, SigninWithGoogle, SigninWithEmailLink,
-	EmailSigninFactory, SigninWithEmail, EmailSignupFactory, SignupWithEmail
+	EmailLinkSigninFactory, SendSigninEmail, SigninWithGoogle, SigninWithEmailLink
 } from '@modules/auth'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { createSession } from '@app/hooks/auth/session'
@@ -75,42 +74,4 @@ export const useEmailLinkSignin = () => {
 		} else factory.value.validateAll()
 	}
 	return { factory, loading, error, signin, checkCachedEmail }
-}
-
-export const useEmailSignin = () => {
-	const router = useRouter()
-	const factory = ref(new EmailSigninFactory()) as Ref<EmailSigninFactory>
-	const { error, setError } = useErrorHandler()
-	const { loading, setLoading } = useLoadingHandler()
-	const signin = async () => {
-		setError('')
-		if (factory.value.valid && !loading.value) {
-			setLoading(true)
-			try {
-				const user = await SigninWithEmail.call(factory.value)
-				await createSession(user, router)
-			} catch (error) { setError(error) }
-			setLoading(false)
-		} else factory.value.validateAll()
-	}
-	return { factory, loading, error, signin }
-}
-
-export const useEmailSignup = () => {
-	const router = useRouter()
-	const factory = ref(new EmailSignupFactory()) as Ref<EmailSignupFactory>
-	const { error, setError } = useErrorHandler()
-	const { loading, setLoading } = useLoadingHandler()
-	const signup = async () => {
-		setError('')
-		if (factory.value.valid && !loading.value) {
-			setLoading(true)
-			try {
-				const user = await SignupWithEmail.call(factory.value)
-				await createSession(user, router)
-			} catch (error) { setError(error) }
-			setLoading(false)
-		} else factory.value.validateAll()
-	}
-	return { factory, loading, error, signup }
 }

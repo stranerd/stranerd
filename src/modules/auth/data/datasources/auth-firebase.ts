@@ -5,26 +5,11 @@ import { UserBio } from '@modules/users'
 import { AuthBaseDataSource } from './auth-base'
 
 export class AuthFirebaseDataSource implements AuthBaseDataSource {
-	async signinWithEmail (email: string, password: string) {
-		try {
-			const record = await auth.signInWithEmailAndPassword(email, password)
-			return await getUserDetails(record.user!, record.additionalUserInfo?.isNewUser ?? false)
-		} catch (error) { throw filterFirebaseError(error) }
-	}
-
 	async signinWithGoogle () {
 		try {
 			const googleProvider = new firebase.auth.GoogleAuthProvider()
 			const record = await auth.signInWithPopup(googleProvider)
 			return await getUserDetails(record.user!, record.additionalUserInfo?.isNewUser ?? false)
-		} catch (error) { throw filterFirebaseError(error) }
-	}
-
-	async signupWithEmail (email: string, password: string) {
-		try {
-			const record = await auth.createUserWithEmailAndPassword(email, password)
-			const user = record.user!
-			return await getUserDetails(user, record.additionalUserInfo?.isNewUser ?? false)
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
@@ -42,26 +27,6 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 		try {
 			const record = await auth.signInWithEmailLink(email, emailUrl)
 			return await getUserDetails(record.user!, record.additionalUserInfo?.isNewUser ?? false)
-		} catch (error) { throw filterFirebaseError(error) }
-	}
-
-	async sendVerificationEmail () {
-		try {
-			await auth.currentUser?.sendEmailVerification()
-		} catch (error) { throw filterFirebaseError(error) }
-	}
-
-	async resetPassword (email: string) {
-		try {
-			await auth.sendPasswordResetEmail(email)
-		} catch (error) { throw filterFirebaseError(error) }
-	}
-
-	async updatePassword (email: string, oldPassword: string, password: string) {
-		try {
-			await auth.signInWithEmailAndPassword(email, oldPassword)
-			await auth.currentUser?.updatePassword(password)
-			await auth.signOut()
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 

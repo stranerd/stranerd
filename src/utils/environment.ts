@@ -27,10 +27,13 @@ export enum EMAILS {
 	NO_REPLY = 'no-reply@stranerd.com'
 }
 
-const mails = JSON.parse(process.env.EMAIl ?? '{}')
-export const email = () => Object.fromEntries(
+const mails = JSON.parse(process.env.EMAIL ?? '{}')
+export const email = Object.fromEntries(
 	Object.entries(EMAILS).map(([key, value]) => [value, {
 		privateKey: mails?.[key]?.private_key,
 		clientId: mails?.[key]?.client_id
 	}])
 )
+
+export const domain = `http${!isDev ? 's' : ''}://${process.env.DOMAIN}${isDev ? `:${process.env.PORT}` : ''}`
+export const logo = `${domain}/images/stranerd_logo.svg`

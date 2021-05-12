@@ -35,8 +35,8 @@ export enum EMAILS {
 
 export const email = () => Object.fromEntries(
 	Object.entries(EMAILS).map(([key, value]) => [value, {
-		privateKey: environment()?.email?.[key]?.private_key,
-		clientId: environment()?.email?.[key]?.client_id
+		privateKey: environment()?.email?.[key.toLowerCase()]?.private_key,
+		clientId: environment()?.email?.[key.toLowerCase()]?.client_id
 	}])
 )
 

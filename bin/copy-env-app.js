@@ -9,7 +9,4 @@ if (fs.existsSync('env.json')) {
 		return accumulator + `${key.toUpperCase()}=${value}\n`
 	}, '')
 	fs.writeFileSync('.env', envFormattedEntries)
-} else {
-	console.error('Env.json doesnt exist. Try creating one by running npm env:copy:example')
-	process.exit(1)
-}
+} else throw new Error('Env.json doesnt exist. Try creating one by running npm env:copy:example')

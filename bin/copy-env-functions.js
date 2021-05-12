@@ -5,7 +5,4 @@ if (fs.existsSync('env.json')) {
 	const env = JSON.parse(content)
 	const runtimeconfig = JSON.stringify({ env }, null, 4)
 	fs.writeFileSync('firebase/functions/.runtimeconfig.json', runtimeconfig)
-} else {
-	console.error('Env.json doesnt exist. Try creating one by running npm env:copy:example')
-	process.exit(1)
-}
+} else throw new Error('Env.json doesnt exist. Try creating one by running npm env:copy:example')

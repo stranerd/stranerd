@@ -30,8 +30,8 @@ export enum EMAILS {
 const mails = JSON.parse(process.env.EMAIL ?? '{}')
 export const email = Object.fromEntries(
 	Object.entries(EMAILS).map(([key, value]) => [value, {
-		privateKey: mails?.[key]?.private_key,
-		clientId: mails?.[key]?.client_id
+		privateKey: mails?.[key.toLowerCase()]?.private_key,
+		clientId: mails?.[key.toLowerCase()]?.client_id
 	}])
 )
 

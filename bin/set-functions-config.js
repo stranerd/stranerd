@@ -1,5 +1,5 @@
 const fs = require('fs')
-const { exec } = require('child_process')
+const { execSync } = require('child_process')
 
 const parse = (tree) => {
 	const isObj = (x) => x !== null && typeof x === 'object'
@@ -24,15 +24,13 @@ if (fs.existsSync('env.json')) {
 	const { environment } = env
 	const envs = parse({ env }).join('\t')
 
-	const command = `firebase functions:config:unset env -P ${environment} && firebase functions:config:set ${envs} -P ${environment}`
-	exec(command, (error, stdout, stderr) => {
-		if (error) {
-			console.error('Error:', error.message)
-			process.exit(1)
-		}
-		if (stderr) console.warn(stderr)
-		console.log(stdout)
-	})
-} else {
-	console.error('Env.json doesnt exist')
-}
+	const command1 = `firebase functions:config:unset env -P ${environment} --non-interactive`
+	const command2 = `firebase functions:config:set ${envs} -P ${environment} --non-interactive`
+	try {
+		execSync(command1)
+		execSync(command2)
+	} catch (err) {
+		console.log(err.message)
+		process.exit(1)
+	}
+} else throw new Error('Env.json doesnt exist. Try creating one by running npm env:copy:example')

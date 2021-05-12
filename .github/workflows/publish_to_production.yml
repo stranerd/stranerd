@@ -8,6 +8,9 @@ on:
 jobs:
   publish-gae:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 12.x ]
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
@@ -29,6 +32,9 @@ jobs:
           args: "app deploy --quiet"
   publish-fb:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 12.x ]
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
@@ -40,13 +46,17 @@ jobs:
         with:
           args: "secrets versions access latest --secret=App_Engine_Environment_Variables > tee env.json"
       - name: Install Dependencies
-        run: npm install
+        run: yarn
       - name: Install Functions Dependencies
-        run: npm install
+        run: yarn
         working-directory: ./firebase/functions
+      - name: Set Functions Config
+        run: npm run env:set:functions
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN_PRODUCTION }}
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
-          args: "deploy -P production"
+          args: "deploy -P production --non-interactive"
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN_PRODUCTION }}

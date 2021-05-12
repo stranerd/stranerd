@@ -22,3 +22,11 @@ export const pluralize = (count: number, singular: string, plural: string) => co
 export const getRandomValue = () => Math.random().toString(36).substr(2)
 
 export const capitalize = (text: string) => text[0].toUpperCase() + text.slice(1).toLowerCase()
+
+export const extractTextFromHTML = (html: string) => html?.trim().replace(/<[^>]+>/g, '') ?? ''
+
+export const trimToLength = (body: string, length: number) => {
+	if (body.length < length) return body
+	const index = body.indexOf(' ', length)
+	return `${body.slice(0, index)}...`
+}

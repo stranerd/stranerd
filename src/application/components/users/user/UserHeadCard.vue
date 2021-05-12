@@ -61,7 +61,7 @@
 <script lang="ts">
 import { defineComponent, onBeforeUnmount, onMounted, PropType } from '@nuxtjs/composition-api'
 import { UserEntity } from '@modules/users'
-import { formatNumber } from '@utils/numbers'
+import { formatNumber } from '@utils/commons'
 import { useTimeDifference } from '@app/hooks/core/dates'
 export default defineComponent({
 	name: 'UserHeadCard',

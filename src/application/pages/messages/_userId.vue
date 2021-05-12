@@ -22,7 +22,7 @@ import ChatForm from '@app/components/sessions/chats/ChatForm.vue'
 import { useUser } from '@app/hooks/users/user'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useCurrentSession } from '@app/hooks/sessions/session'
-import { getRandomValue } from '@utils/numbers'
+import { getRandomValue } from '@utils/commons'
 export default defineComponent({
 	name: 'MessagePage',
 	components: { ChatHead, ChatList, ChatForm },

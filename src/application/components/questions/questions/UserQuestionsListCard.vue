@@ -24,7 +24,7 @@
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { QuestionEntity } from '@modules/questions'
 import { useSubject } from '@app/hooks/questions/subjects'
-import { formatNumber, pluralize } from '@utils/numbers'
+import { formatNumber, pluralize } from '@utils/commons'
 import { formatTime } from '@utils/dates'
 export default defineComponent({
 	name: 'UserQuestionsListCard',

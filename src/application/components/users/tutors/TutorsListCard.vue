@@ -30,7 +30,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { UserEntity } from '@modules/users'
-import { formatNumber, pluralize } from '@utils/numbers'
+import { formatNumber, pluralize } from '@utils/commons'
 export default defineComponent({
 	name: 'TutorsListCard',
 	props: {

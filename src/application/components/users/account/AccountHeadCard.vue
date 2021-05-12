@@ -12,7 +12,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { UserEntity } from '@modules/users'
-import { formatNumber } from '@utils/numbers'
+import { formatNumber } from '@utils/commons'
 import { useEditModal, useMenuModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'AccountHeadCard',

@@ -48,7 +48,7 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useAccountModal } from '@app/hooks/core/modals'
 import { useAuth } from '@app/hooks/auth/auth'
-import { formatNumber } from '@utils/numbers'
+import { formatNumber } from '@utils/commons'
 import { useBuyCoins } from '@app/hooks/users/account'
 export default defineComponent({
 	name: 'AccountBuyCoins',

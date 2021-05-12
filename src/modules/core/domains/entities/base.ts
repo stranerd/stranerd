@@ -1,4 +1,4 @@
-import { getRandomValue } from '@utils/numbers'
+import { getRandomValue } from '@utils/commons'
 
 export class BaseEntity {
 	public hash: string

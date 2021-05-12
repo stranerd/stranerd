@@ -3,7 +3,7 @@ import { AddPersonalChat, ChatEntity, ChatFactory, GetPersonalChats, ListenToPer
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
 import { CHAT_PAGINATION_LIMIT, getChatsPath } from '@utils/constants'
-import { getRandomValue } from '@utils/numbers'
+import { getRandomValue } from '@utils/commons'
 import { isServer } from '@utils/environment'
 
 const global = {} as Record<string, {

@@ -37,7 +37,7 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import { useAccountModal } from '@app/hooks/core/modals'
 import { useTipNerd } from '@app/hooks/users/account'
 import { useAuth } from '@app/hooks/auth/auth'
-import { formatNumber } from '@utils/numbers'
+import { formatNumber } from '@utils/commons'
 export default defineComponent({
 	name: 'AccountTipNerd',
 	setup () {

@@ -1,8 +1,16 @@
 <template>
 	<Search collection="answers" :transform-results="transformResults">
 		<template #item="{ item }">
-			<NuxtLink :to="`/answers/${item.model.id}`">
-				<h5 class="mb-0 text-truncate editor-body" v-html="item.model.body" />
+			<NuxtLink :to="`/questions/${item.model.questionId}#${item.model.id}`">
+				<p class="mb-0 text-truncate lead">
+					{{ extractTextFromHTML(item.model.body) }}
+				</p>
+				<div class="d-flex gap-1 align-items-center">
+					<Avatar :src="item.model.avatar" :size="30" />
+					<span class="text-truncate">
+						{{ item.model.userName }}
+					</span>
+				</div>
 			</NuxtLink>
 		</template>
 	</Search>
@@ -13,11 +21,13 @@ import { defineComponent } from '@vue/composition-api'
 import { AnswerTransformer } from '@modules/questions/data/transformers/answer'
 import { AnswerFromModel } from '@modules/questions/data/models/answer'
 import Search from '@app/components/search/Search.vue'
+import { extractTextFromHTML } from '@utils/commons'
 export default defineComponent({
 	name: 'AnswerSearch',
 	components: { Search },
 	setup () {
 		return {
+			extractTextFromHTML,
 			transformResults: (items: any[]) => items
 				.map((item) => {
 					item.model = (new AnswerTransformer()).fromJSON({

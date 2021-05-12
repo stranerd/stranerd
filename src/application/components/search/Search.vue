@@ -1,20 +1,18 @@
 <template>
 	<AisInstantSearch :search-client="searchClient" :index-name="collection">
 		<AisSearchBox>
-			<div
+			<template
 				slot="default"
 				slot-scope="{ currentRefinement, isSearchStalled, refine }"
-				class="form-group d-flex align-items-center"
 			>
 				<input
 					placeholder="Search for"
-					type="search"
 					class="form-control"
 					:value="currentRefinement"
 					@input="refine($event.currentTarget.value)"
 				>
 				<PageLoading v-if="isSearchStalled" />
-			</div>
+			</template>
 			<i slot="submit-icon" class="fas fa-search text-blue" />
 			<i slot="reset-icon" class="fas fa-trash text-danger" />
 		</AisSearchBox>

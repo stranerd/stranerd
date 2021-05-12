@@ -1,7 +1,7 @@
 import { BaseEntity } from '@modules/core/domains/entities/base'
 import { Avatars } from '@modules/users/domain/entities/avatar'
 import { Achievements, getUserAchievements } from '@modules/users/domain/entities/achievement'
-import { capitalize } from '@utils/numbers'
+import { capitalize } from '@utils/commons'
 export enum Status {
 	OFFLINE = 0,
 	ONLINE = 1

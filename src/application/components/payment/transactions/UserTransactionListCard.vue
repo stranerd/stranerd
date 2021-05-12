@@ -12,7 +12,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { TransactionEntity } from '@modules/payment'
-import { formatNumber } from '@utils/numbers'
+import { formatNumber } from '@utils/commons'
 import { formatTime } from '@utils/dates'
 export default defineComponent({
 	name: 'UserTransactionListCard',

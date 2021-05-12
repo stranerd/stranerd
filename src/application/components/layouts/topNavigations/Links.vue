@@ -13,18 +13,16 @@
 			<div class="link d-none d-md-inline-flex flex-grow-1 align-items-center border-0">
 				<SearchBar />
 			</div>
-			<template v-if="isLoggedIn">
-				<NuxtLink to="/account/notifications" class="link">
-					<img src="@app/assets/images/icons/notification.svg" alt="">
-				</NuxtLink>
-				<NuxtLink to="/messages" class="link">
-					<img src="@app/assets/images/icons/chat.svg" alt="">
-				</NuxtLink>
-				<a class="link d-none d-lg-inline" @click.prevent="signout">
-					<PageLoading v-if="loading" />
-					<img src="@app/assets/images/icons/signout.svg" alt="">
-				</a>
-			</template>
+			<NuxtLink to="/account/notifications" class="link">
+				<img src="@app/assets/images/icons/notification.svg" alt="">
+			</NuxtLink>
+			<NuxtLink to="/messages" class="link">
+				<img src="@app/assets/images/icons/chat.svg" alt="">
+			</NuxtLink>
+			<a v-if="isLoggedIn" class="link d-none d-lg-inline" @click.prevent="signout">
+				<PageLoading v-if="loading" />
+				<img src="@app/assets/images/icons/signout.svg" alt="">
+			</a>
 		</template>
 	</div>
 </template>
@@ -57,7 +55,6 @@ export default defineComponent({
 		img {
 			width: 21px;
 			height: 21px;
-			filter: brightness(250%);
 		}
 		@media (min-width: $sm) {
 			padding: 0 1rem;
@@ -65,9 +62,6 @@ export default defineComponent({
 		@media (min-width: $lg) {
 			padding: 0 2rem;
 			border-left: 1px solid $color-blue;
-			img {
-				filter: brightness(60%);
-			}
 		}
 	}
 }

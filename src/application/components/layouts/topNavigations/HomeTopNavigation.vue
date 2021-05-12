@@ -10,6 +10,9 @@
 			<NuxtLink to="/">
 				Home
 			</NuxtLink>
+			<NuxtLink to="/dashboard">
+				Dashboard
+			</NuxtLink>
 			<NuxtLink to="/how-it-works">
 				How it works
 			</NuxtLink>
@@ -23,6 +26,9 @@
 		<div v-if="show" class="d-md-none nav-links slide-down">
 			<NuxtLink to="/">
 				Home
+			</NuxtLink>
+			<NuxtLink to="/dashboard">
+				Dashboard
 			</NuxtLink>
 			<NuxtLink to="/how-it-works">
 				How it works
@@ -52,7 +58,6 @@ export default defineComponent({
 .full-top-nav {
 	max-width: 1600px;
 	margin: 0 auto;
-	background: unset;
 	padding: 0.5rem 1rem;
 	@media (min-width: $md) { padding: 0.5rem 2rem; }
 	@media (min-width: $lg) { padding: 0.5rem 4rem; }

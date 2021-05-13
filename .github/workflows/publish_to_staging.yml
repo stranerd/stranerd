@@ -9,9 +9,6 @@ jobs:
   publish-gae:
     environment: staging
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [ 12.x ]
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
@@ -34,9 +31,6 @@ jobs:
   publish-fb:
     environment: staging
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [ 12.x ]
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master

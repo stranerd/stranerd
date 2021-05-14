@@ -1,20 +1,20 @@
 <template>
 	<div :id="tutor.id" class="text-truncate mb-3">
-		<div class="d-flex">
+		<div class="d-flex gap-1">
 			<Avatar :src="tutor.avatar" :size="60" />
-			<div class="ms-1">
+			<div>
 				<p class="lead mb-0 text-wrap">
 					{{ tutor.fullName }}
 				</p>
 				<p class="small mb-1 text-wrap">
 					{{ tutor.email }}
 				</p>
-				<div class="d-flex flex-wrap small">
-					<a class="text-blue mb-1 me-2" @click.prevent="openEditModal">
+				<div class="d-flex flex-wrap small gap-1">
+					<a class="text-blue" @click.prevent="openEditModal">
 						<span>Manage tutor's subjects</span>
 						<i class="fas fa-cog" />
 					</a>
-					<a class="text-danger mb-1" @click.prevent="removeTutor">
+					<a class="text-danger" @click.prevent="removeTutor">
 						<span>Remove from tutors list</span>
 						<i class="fas fa-trash" />
 					</a>

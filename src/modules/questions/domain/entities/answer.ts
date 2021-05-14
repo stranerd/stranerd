@@ -1,6 +1,7 @@
 import { Media } from '@modules/core/data/models/base'
 import { UserBio, generateDefaultBio } from '@modules/users'
 import { BaseEntity } from '@modules/core/domains/entities/base'
+import { extractTextFromHTML, trimToLength } from '@utils/commons'
 
 export class AnswerEntity extends BaseEntity {
 	public readonly id: string
@@ -40,6 +41,7 @@ export class AnswerEntity extends BaseEntity {
 	get formattedRating () { return Number(this.averageRating).toFixed(1) }
 	get userName () { return this.user.name.fullName }
 	get avatar () { return this.user.avatar }
+	get trimmedBody () { return trimToLength(extractTextFromHTML(this.body), 200) }
 }
 
 type AnswerConstructorArgs = {

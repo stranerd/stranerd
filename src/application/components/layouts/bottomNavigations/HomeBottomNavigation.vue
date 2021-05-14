@@ -1,5 +1,5 @@
 <template>
-	<footer class="bg-black">
+	<footer>
 		<div class="content">
 			<div class="links">
 				<div>
@@ -66,8 +66,12 @@ export default defineComponent({
 <style lang="scss" scoped>
 footer {
 	padding: 2rem 1rem;
+	@media (min-width: $md) { padding: 2rem; }
+	@media (min-width: $lg) { padding: 4rem; }
+	background: $color-black;
+	color: $color-white;
 }
-.content{
+.content {
 	max-width: 1600px;
 	margin: 0 auto;
 	.links {

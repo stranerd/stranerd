@@ -47,7 +47,7 @@ export const serverMiddleware = [
 
 export const plugins = [
 	{ mode: 'server', src: '@/plugins/parseLoggedInUser' },
-	{ mode: 'client', src: '@/plugins/firebaseClient' },
+	{ mode: 'client', src: '@/plugins/firebaseClient' }
 ]
 
 export const components = [

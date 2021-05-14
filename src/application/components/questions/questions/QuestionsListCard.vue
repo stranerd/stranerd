@@ -20,7 +20,9 @@
 			</span>
 			<i v-if="question.isAnswered" class="fas fa-check text-success fa-2x ms-1" />
 		</div>
-		<NuxtLink class="editor-body mb-1" :to="`/questions/${question.id}`" v-html="question.body" />
+		<NuxtLink class="text-18 mb-1" :to="`/questions/${question.id}`">
+			{{ question.trimmedBody }}
+		</NuxtLink>
 		<NuxtLink v-if="question.attachments.length" :to="`/questions/${question.id}`">
 			<span>{{ formatNumber(question.attachments.length) }}</span>
 			<i class="fas fa-paperclip" />

@@ -1,6 +1,8 @@
 <template>
 	<div :id="question.id">
-		<NuxtLink class="editor-body mb-1" :to="`/questions/${question.id}`" v-html="question.body" />
+		<NuxtLink class="text-18 mb-1" :to="`/questions/${question.id}`">
+			{{ question.trimmedBody }}
+		</NuxtLink>
 		<span v-if="question.attachments.length">
 			<span>{{ formatNumber(question.attachments.length) }}</span>
 			<i class="fas fa-paperclip" />

@@ -1,18 +1,18 @@
 <template>
 	<div :id="admin.id">
-		<div class="d-flex flex-wrap align-items-center mb-3">
+		<div class="d-flex flex-wrap align-items-center mb-3 gap-1">
 			<Avatar :src="admin.avatar" :size="60" />
-			<div class="text-truncate mx-1 mb-1">
+			<div>
 				<p class="lead mb-0 text-wrap">
 					{{ admin.fullName }}
 				</p>
 				<p class="small mb-0 text-wrap">
 					{{ admin.email }}
 				</p>
+				<button class="btn btn-sm text-nowrap btn-danger" @click="deAdminUser">
+					Remove admin
+				</button>
 			</div>
-			<button class="ms-auto btn btn-sm text-nowrap btn-danger" @click="deAdminUser">
-				Remove admin
-			</button>
 		</div>
 		<PageLoading v-if="loading" />
 		<DisplayError :error="error" />

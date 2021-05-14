@@ -1,6 +1,7 @@
 import { Media } from '@modules/core/data/models/base'
 import { UserBio, generateDefaultBio } from '@modules/users'
 import { BaseEntity } from '@modules/core/domains/entities/base'
+import { extractTextFromHTML, trimToLength } from '@utils/commons'
 
 export class QuestionEntity extends BaseEntity {
 	public readonly id: string
@@ -38,6 +39,7 @@ export class QuestionEntity extends BaseEntity {
 	get creditable () { return Math.round(this.coins * 0.25) }
 	get userName () { return this.user.name.fullName }
 	get avatar () { return this.user.avatar }
+	get trimmedBody () { return trimToLength(extractTextFromHTML(this.body), 200) }
 }
 
 type QuestionConstructorArgs = {

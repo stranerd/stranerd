@@ -2,6 +2,7 @@ import { computed, reactive, ssrRef, toRefs, useFetch } from '@nuxtjs/compositio
 import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { GetAllAdmins, GetUsersByEmail, MakeAdmin, RemoveAdmin, UserEntity } from '@modules/users'
 import { useAuth } from '@app/hooks/auth/auth'
+import { Alert } from '@app/hooks/core/notifications'
 
 const global = {
 	admins: ssrRef([] as UserEntity[]),
@@ -74,27 +75,43 @@ export const useAdminRoles = () => {
 
 	const adminUser = async (user: UserEntity) => {
 		setError('')
-		setLoading(true)
-		try {
-			await MakeAdmin.call(user.id)
-			user.roles.isAdmin = true
-			pushToAdminsList(user)
-			reset()
-			setMessage('Successfully upgraded to admin')
-		} catch (error) { setError(error) }
-		setLoading(false)
+		const accepted = await Alert({
+			title: 'Are you sure you want to make this user an admin?',
+			text: 'This user will gain admin privileges to the entire site',
+			icon: 'warning',
+			confirmButtonText: 'Yes, continue'
+		})
+		if (accepted) {
+			setLoading(true)
+			try {
+				await MakeAdmin.call(user.id)
+				user.roles.isAdmin = true
+				pushToAdminsList(user)
+				reset()
+				setMessage('Successfully upgraded to admin')
+			} catch (error) { setError(error) }
+			setLoading(false)
+		}
 	}
 
 	const deAdminUser = async (user: UserEntity) => {
 		setError('')
-		setLoading(true)
-		try {
-			await RemoveAdmin.call(user.id)
-			global.admins.value = global.admins.value
-				.filter((u) => u.id !== user.id)
-			setMessage('Successfully downgraded from admin')
-		} catch (error) { setError(error) }
-		setLoading(false)
+		const accepted = await Alert({
+			title: 'Are you sure you want to de-admin this user?',
+			text: 'This user will lose admin privileges to the entire site',
+			icon: 'warning',
+			confirmButtonText: 'Yes, continue'
+		})
+		if (accepted) {
+			setLoading(true)
+			try {
+				await RemoveAdmin.call(user.id)
+				global.admins.value = global.admins.value
+					.filter((u) => u.id !== user.id)
+				setMessage('Successfully downgraded from admin')
+			} catch (error) { setError(error) }
+			setLoading(false)
+		}
 	}
 
 	return {

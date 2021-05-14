@@ -2,7 +2,7 @@
 	<div class="full">
 		<div class="under" @click="close" />
 		<div class="sidebar">
-			<div class="pt-1 px-2 d-flex bg-blue align-items-center gap-2">
+			<div class="pt-1 px-2 d-flex bg-blue align-items-center gap-1">
 				<a @click.prevent="close">
 					<img src="@app/assets/images/icons/close.svg" alt="" width="16" height="16" style="filter: brightness(200%);">
 				</a>

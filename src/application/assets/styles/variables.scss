@@ -68,12 +68,3 @@ $spacers: (
 	11: 5.5rem,
 	12: 6.0rem,
 );
-
-$utilities: (
-	"gap": (
-		responsive: true,
-		property: gap grid-gap,
-		class: gap,
-		values: $spacers
-	),
-);

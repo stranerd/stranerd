@@ -108,3 +108,18 @@ hr.thin {
 }
 
 .cursor-pointer { cursor: pointer; }
+
+@each $key, $val in $spacers {
+	@each $bp, $width in $grid-breakpoints {
+		$infix: breakpoint-infix($bp, $grid-breakpoints);
+		.gap#{$infix}-#{$key} {
+			gap: $val;
+			@media (min-width: $width) {
+				margin: $val;
+				@supports (gap: $val) {
+					margin: unset;
+				}
+			}
+		}
+	}
+}

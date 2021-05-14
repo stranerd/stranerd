@@ -1,7 +1,7 @@
 <template>
 	<div class="d-flex">
 		<div class="chat" :class="isMine ? 'is-mine' : 'is-not-mine'">
-			<a v-if="chat.isMedia" :href="chat.media.link" target="__blank">
+			<a v-if="chat.isMedia" class="text-truncate" :href="chat.media.link" target="__blank">
 				<i class="fas fa-paperclip me-half" />
 				<span class="text-truncate">{{ chat.media.name }}</span>
 			</a>

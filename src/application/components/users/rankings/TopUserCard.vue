@@ -2,9 +2,9 @@
 	<div class="d-flex align-items-center my-1">
 		<span>{{ rank }}.&nbsp;</span>
 		<NuxtLink :to="`/users/${user.id}`">
-			<Avatar :src="user.avatar" :size="30" />
+			<Avatar :src="user.avatar" :size="35" />
 		</NuxtLink>
-		<NuxtLink :to="`/users/${user.id}`" class="mx-1">
+		<NuxtLink :to="`/users/${user.id}`" class="mx-1 fw-bold">
 			<span>{{ user.fullName }}</span>
 		</NuxtLink>
 		<span class="ms-auto">

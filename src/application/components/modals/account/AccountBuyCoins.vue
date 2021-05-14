@@ -24,7 +24,7 @@
 					<img :src="option.src" alt="">
 					<span>{{ option.amount }}</span>
 					<button class="btn btn-blue" @click="buyCoins(option, false)">
-						{{ option.price }}
+						${{ option.price }}
 					</button>
 				</div>
 			</div>
@@ -34,7 +34,7 @@
 					<img :src="option.src" alt="">
 					<span>{{ option.amount }}</span>
 					<button class="btn btn-blue" @click="buyCoins(option, true)">
-						{{ option.price }}
+						${{ option.price }}
 					</button>
 				</div>
 			</div>

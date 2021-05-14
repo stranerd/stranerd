@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<h4 class="text-muted mb-2">
-			Add New Tutor
+			Add New Nerd
 		</h4>
 		<form @submit.prevent="getUsersByEmail">
 			<div class="d-flex align-items-center">
@@ -27,10 +27,10 @@
 						</p>
 					</div>
 					<span v-if="user.roles.isTutor" class="text-nowrap text-danger">
-						Already a tutor
+						Already a nerd
 					</span>
 					<button v-else class="btn btn-sm text-nowrap btn-success" @click="makeTutor(user)">
-						Make tutor
+						Make nerd
 					</button>
 				</div>
 			</div>

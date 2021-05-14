@@ -1,13 +1,13 @@
 <template>
 	<div class="d-flex flex-column align-items-center">
-		<div class="w-100 d-flex justify-content-between mb-1" style="max-width: 250px;">
-			<div class="d-flex align-items-center position-relative ms-1">
+		<div class="w-100 d-flex justify-content-between mb-1 gap-1" style="max-width: 250px;">
+			<div class="d-flex align-items-center position-relative">
 				<Coins :size="24" style="z-index:1;" />
 				<span class="rounded-pill ms-n2 px-1 ps-3 bg-blue-grey text-light-blue">
 					{{ formatNumber(user.account.coins.bronze) }}
 				</span>
 			</div>
-			<div class="d-flex align-items-center position-relative ms-1">
+			<div class="d-flex align-items-center position-relative">
 				<span class="rounded-pill px-1 pe-3 bg-blue-grey text-light-blue">
 					{{ formatNumber(user.account.coins.gold) }}
 				</span>

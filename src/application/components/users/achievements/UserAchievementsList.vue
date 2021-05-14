@@ -2,7 +2,7 @@
 	<div>
 		<h3>Achievements</h3>
 		<div class="achievementList">
-			<div v-for="achievement in user.achievements" :key="achievement.id" class="achievement" :class="{'completed': achievement.completed}">
+			<div v-for="achievement in user.achievements" :key="achievement.id" class="achievement gap-1" :class="{'completed': achievement.completed}">
 				<div class="achievement-image">
 					<img :src="achievement.link" alt="">
 				</div>
@@ -33,8 +33,7 @@ export default defineComponent({
 .achievementList {
 	display: grid;
 	grid-template-columns: repeat(1, 1fr);
-	grid-column-gap: 0.5rem;
-	grid-row-gap: 0.5rem;
+	grid-gap: 0.5rem;
 	@media (min-width: $sm) {
 		grid-template-columns: repeat(2, 1fr);
 	}
@@ -45,7 +44,6 @@ export default defineComponent({
 .achievement {
 	display: flex;
 	align-items: center;
-	gap: 0.5rem;
 	.achievement-image {
 		img {
 			width: 50px;

@@ -10,7 +10,7 @@
 			</NuxtLink>
 		</div>
 		<div class="thick" />
-		<div v-for="achievement in ongoingAchievements" :key="achievement.id" class="achievement">
+		<div v-for="achievement in ongoingAchievements" :key="achievement.id" class="achievement gap-1">
 			<div class="achievement-image">
 				<img :src="achievement.link" alt="">
 			</div>
@@ -43,7 +43,6 @@ export default defineComponent({
 	display: flex;
 	align-items: flex-start;
 	margin: 1rem 0;
-	gap: 0.75rem;
 	.achievement-image {
 		img {
 			width: 50px;

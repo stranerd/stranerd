@@ -1,15 +1,15 @@
 <template>
-	<div>
+	<div class="d-flex flex-column gap-1 gap-md-2">
 		<PageLoading v-if="loading" />
-		<div class="page-content my-1 my-md-2">
+		<div class="page-content">
 			<QuestionPageCard v-if="question" :key="question.hash" :question="question" />
 			<DisplayError v-else error="No such question found!" />
 			<DisplayError :error="error" />
 		</div>
-		<div v-if="question" id="answers" class="page-content my-1 my-md-2">
+		<div v-if="question" id="answers" class="page-content">
 			<AnswersList :question="question" />
 		</div>
-		<QuestionsList class="page-content my-1 my-md-2" :question-id="questionId" />
+		<QuestionsList class="page-content" :question-id="questionId" />
 	</div>
 </template>
 

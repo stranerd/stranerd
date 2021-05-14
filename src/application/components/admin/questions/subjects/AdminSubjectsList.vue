@@ -28,8 +28,7 @@ export default defineComponent({
 .grid{
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
-	grid-column-gap: 1rem;
-	grid-row-gap: 2rem;
+	grid-gap: 2rem 1rem;
 }
 @media (min-width: $sm) {
 	.grid{

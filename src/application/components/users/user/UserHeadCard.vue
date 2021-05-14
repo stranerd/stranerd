@@ -85,8 +85,7 @@ export default defineComponent({
 	display: grid;
 	width: 100%;
 	grid-template-columns: repeat(2, 1fr);
-	grid-column-gap: 2rem;
-	grid-row-gap: 2rem;
+	grid-gap: 2rem;
 	@media (min-width: $sm) {
 		grid-template-columns: repeat(4, 1fr);
 	}

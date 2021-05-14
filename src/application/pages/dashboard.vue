@@ -1,29 +1,31 @@
 <template>
 	<section>
 		<div class="page-content mb-1 p-0">
-			<div class="background py-6 px-3">
-				<div style="max-width: 75%;">
-					<h2 class="fw-bold">
-						{{ isTutor ? 'Help a student in need today!' : 'Nerd help is what you need.' }}
-					</h2>
-					<p v-if="isTutor">
-						Earn coins for answering questions & attending sessions.<br>
-						Convert your coins to USD and cash out to your bank account.
-					</p>
-					<p v-else>
-						Bringing to you the classroom method of learning from your peers.<br>
-						Ask a public question or Meet a nerd for 1 on 1 private chat.
-					</p>
-					<div class="d-flex flex-column flex-md-row flex-wrap align-items-start">
-						<button class="me-1 my-1 btn btn-blue rounded-pill px-4 py-1 fw-bold" @click="openQuestionModal">
-							Ask A Question
-						</button>
-						<NuxtLink v-if="isTutor" to="/questions" class="me-1 my-1 btn btn-outline-blue rounded-pill px-4 py-1 fw-bold">
-							Answer Questions
-						</NuxtLink>
-						<NuxtLink v-if="!isTutor" to="/tutors" class="me-1 my-1 btn btn-outline-blue rounded-pill px-4 py-1 fw-bold">
-							Meet a Nerd
-						</NuxtLink>
+			<div class="background">
+				<div class="overlay py-6 px-3">
+					<div style="max-width: 75%;">
+						<h2>
+							{{ isTutor ? 'Help a student in need today!' : 'Nerd help is what you need.' }}
+						</h2>
+						<p v-if="isTutor">
+							Earn coins for answering questions & attending sessions.<br>
+							Convert your coins to USD and cash out to your bank account.
+						</p>
+						<p v-else>
+							Bringing to you the classroom method of learning from your peers.<br>
+							Ask a public question or Meet a nerd for 1 on 1 private chat.
+						</p>
+						<div class="d-flex gap-1 flex-column flex-md-row flex-wrap align-items-start">
+							<button class="btn btn-blue rounded-pill px-4 py-1 fw-bold" @click="openQuestionModal">
+								Ask A Question
+							</button>
+							<NuxtLink v-if="isTutor" to="/questions" class="btn btn-outline-blue rounded-pill px-4 py-1 fw-bold">
+								Answer Questions
+							</NuxtLink>
+							<NuxtLink v-if="!isTutor" to="/tutors" class="btn btn-outline-blue rounded-pill px-4 py-1 fw-bold">
+								Meet a Nerd
+							</NuxtLink>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -66,4 +68,9 @@ export default defineComponent({
 		background-position: right;
 	}
 }
+.overlay {
+	background: rgba($color-white, 0.5);
+	@media (min-width: 850px) { background: unset; }
+}
+p { font-weight: 600; }
 </style>

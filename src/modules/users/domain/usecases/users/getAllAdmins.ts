@@ -12,7 +12,7 @@ export class GetAllAdminsUseCase {
 		const conditions: DatabaseGetClauses = {
 			order: {
 				field: 'roles/isAdmin',
-				condition: { eq: true }
+				condition: { '==': true }
 			}
 		}
 		return await this.repository.get(conditions)

@@ -16,7 +16,7 @@ export class ListenToChatsUseCase {
 			}
 		}
 
-		if (date) conditions.order!.condition = { gt: date.getTime() }
+		if (date) conditions.order!.condition = { '>': date.getTime() }
 
 		return await this.repository.listen(path, callback, conditions)
 	}

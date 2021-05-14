@@ -12,7 +12,7 @@ export class GetAllTutorsUseCase {
 		const conditions: DatabaseGetClauses = {
 			order: {
 				field: 'roles/isTutor',
-				condition: { eq: true }
+				condition: { '==': true }
 			}
 		}
 		return await this.repository.get(conditions)

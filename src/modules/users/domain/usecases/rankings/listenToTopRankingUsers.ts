@@ -11,7 +11,7 @@ export class ListenToTopRankingUsersUseCase {
 
 	async call (period: RankingPeriods, callback: (entities: UserEntity[]) => void) {
 		const conditions: DatabaseGetClauses = {
-			order: { field: `rankings/${period}`, condition: { gt: 0 } },
+			order: { field: `rankings/${period}`, condition: { '>=': 1 } },
 			limit: { count: 5, bottom: false }
 		}
 		return await this.repository.listenToMany(callback, conditions)

@@ -2,7 +2,8 @@ import { defineNuxtPlugin, onGlobalSetup, watch } from '@nuxtjs/composition-api'
 import firebase from '@modules/core/services/initFirebase'
 import { useAuth } from '@app/hooks/auth/auth'
 import { setSession } from '@app/hooks/sessions/session'
-import { isDev } from '@utils/environment'
+import { isClient, isDev } from '@utils/environment'
+import { SessionSignout } from '@modules/auth'
 
 export default defineNuxtPlugin(async ({ app }) => {
 	const router = app.router!
@@ -11,12 +12,16 @@ export default defineNuxtPlugin(async ({ app }) => {
 		.setPersistence(firebase.auth.Auth.Persistence.NONE)
 		.catch(() => {})
 
-	const { id, currentSessionId, isLoggedIn, token, startProfileListener } = useAuth()
+	const { id, currentSessionId, isLoggedIn, token, startProfileListener, signout } = useAuth()
 	if (isLoggedIn.value && token.value) {
-		await firebase.auth()
-			.signInWithCustomToken(token.value)
-			.catch(() => {})
-		await startProfileListener()
+		try {
+			await firebase.auth().signInWithCustomToken(token.value)
+			await startProfileListener()
+		} catch (error) {
+			await SessionSignout.call()
+			await signout()
+			if (isClient()) window.location.assign('/auth/')
+		}
 	}
 
 	if (!isDev) await firebase.firestore()

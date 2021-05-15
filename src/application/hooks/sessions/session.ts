@@ -75,7 +75,7 @@ const actOnSessionState = async (state: SessionState, router: VueRouter) => {
 		const session = global.session.value! ?? {}
 		const id = state === SessionState.TutorAccepts ? session.studentId : session.tutorId
 		await router.push(`/messages/${id}`)
-	} else useSessionModal().setSessionModalUnknown()
+	}
 }
 
 export const useCurrentSession = () => {

@@ -32,10 +32,10 @@ export const acceptSession = functions.https.onCall(async ({ id }, context) => {
 		if (taskName) data.taskName = taskName
 		await ref.set(data, { merge: true })
 
-		await addUserCoins(studentId, { bronze: 0 - price, gold: 0 },
+		await addUserCoins(studentId, { gold: 0 - price, bronze: 0 },
 			'You paid coins for a session'
 		)
-		await addUserCoins(tutorId, { bronze: price, gold: 0 },
+		await addUserCoins(tutorId, { gold: price, bronze: 0 },
 			'You got coins for a session'
 		)
 

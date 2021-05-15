@@ -46,7 +46,7 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
-		const { subject } = useSubject(props.tutor.subject?.id)
+		const { subject } = useSubject(props.tutor.subject?.id ?? '')
 		return { formatNumber, pluralize, subject }
 	}
 })

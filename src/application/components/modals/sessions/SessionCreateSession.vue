@@ -20,11 +20,15 @@
 						Select Session Duration
 					</option>
 					<option v-for="option in prices" :key="option.duration" :value="option.duration">
-						{{ option.duration }} minutes - {{ option.price }} bronze coins
+						{{ option.duration }} minutes - {{ option.price }} gold coins
 					</option>
 				</select>
+				<template v-if="user.account.coins.gold < factory.duration" class="small">
+					<span class="text-danger">You don't have enough gold coins to continue.</span>
+					<a class="ml-half" @click.prevent="buy">Buy More Coins</a>
+				</template>
 			</div>
-			<button class="btn btn-blue my-2 w-100" type="submit" :disabled="loading || !factory.valid">
+			<button class="btn btn-blue my-2 w-100" type="submit" :disabled="loading || !factory.valid || user.account.coins.gold < factory.duration">
 				Request Session
 			</button>
 			<DisplayError :error="error" />
@@ -35,15 +39,22 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useSessionModal } from '@app/hooks/core/modals'
+import { useAccountModal, useSessionModal } from '@app/hooks/core/modals'
 import { useCreateSession } from '@app/hooks/sessions/sessions'
+import { useAuth } from '@app/hooks/auth/auth'
 export default defineComponent({
 	name: 'SessionCreateSession',
 	setup () {
+		const { user } = useAuth()
 		const { closeSessionModal } = useSessionModal()
+		const { setAccountModalBuyCoins } = useAccountModal()
+		const buy = () => {
+			setAccountModalBuyCoins()
+			closeSessionModal()
+		}
 		const { prices, factory, loading, error, createSession } = useCreateSession()
 		return {
-			closeSessionModal,
+			closeSessionModal, buy, user,
 			prices, factory, loading, error, createSession
 		}
 	}

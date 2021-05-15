@@ -165,6 +165,7 @@ p {
 		flex-direction: column;
 		justify-content: center;
 		align-items: flex-end;
+		text-align: right;
 		background: url('../assets/images/blobs/coins-blob.svg') center no-repeat;
 		background-size: cover;
 		min-height: vh(100 * 450.107/862.736);

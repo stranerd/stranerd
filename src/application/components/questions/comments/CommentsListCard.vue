@@ -1,16 +1,16 @@
 <template>
-	<div :id="comment.id" class="my-1 d-flex align-items-center flex-wrap">
+	<div :id="comment.id" class="my-1 d-flex align-items-start gap-1">
 		<NuxtLink :to="`/users/${comment.userId}`">
 			<Avatar :src="comment.avatar" :size="35" />
 		</NuxtLink>
-		<div class="mx-1">
+		<div>
 			<NuxtLink :to="`/users/${comment.userId}`" class="d-block fw-bold text-wrap">
 				<span>{{ comment.userName }}</span>
 			</NuxtLink>
+			<p class="mb-0">
+				{{ comment.body }}
+			</p>
 		</div>
-		<p class="me-1 mb-0 text-wrap">
-			{{ comment.body }}
-		</p>
 		<span class="ms-auto">
 			{{ formatTime(comment.createdAt) }}
 		</span>

@@ -9,7 +9,8 @@ export class AddTutorSubjectUseCase {
 
 	async call (id: string, subject: string) {
 		return await this.repository.update(id, {
-			[`tutor/subjects/${subject}`]: { level: 0, upgrades: {} }
+			// @ts-ignore
+			'tutor/subject': { id: subject, level: 0, upgrades: {} }
 		})
 	}
 }

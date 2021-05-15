@@ -11,11 +11,11 @@
 				</p>
 				<div class="d-flex flex-wrap small gap-1">
 					<a class="text-blue" @click.prevent="openEditModal">
-						<span>Manage tutor's subjects</span>
+						<span>Manage nerd's subject</span>
 						<i class="fas fa-cog" />
 					</a>
 					<a class="text-danger" @click.prevent="removeTutor">
-						<span>Remove from tutors list</span>
+						<span>Remove from nerds list</span>
 						<i class="fas fa-trash" />
 					</a>
 				</div>

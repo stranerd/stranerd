@@ -13,7 +13,8 @@
 				<ShowRatings :rating="tutor.averageRating" />
 			</span>
 		</div>
-		<span class="d-none d-md-flex text-nowrap gap-2 align-items-center">
+		<span v-if="subject" style="font-weight: 600;">{{ subject.name }}</span>
+		<span class="d-none d-md-flex text-nowrap gap-1 align-items-center">
 			<span>
 				<i class="fas fa-circle" :class="tutor.isOnline ? 'text-success' : 'text-grey'" />
 				<span>{{ tutor.isOnline ? 'Online' : 'Offline' }}</span>
@@ -31,6 +32,7 @@
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { UserEntity } from '@modules/users'
 import { formatNumber, pluralize } from '@utils/commons'
+import { useSubject } from '@app/hooks/questions/subjects'
 export default defineComponent({
 	name: 'TutorsListCard',
 	props: {
@@ -43,8 +45,9 @@ export default defineComponent({
 			required: true
 		}
 	},
-	setup () {
-		return { formatNumber, pluralize }
+	setup (props) {
+		const { subject } = useSubject(props.tutor.subject?.id)
+		return { formatNumber, pluralize, subject }
 	}
 })
 </script>

@@ -2,7 +2,7 @@ import { defineNuxtPlugin, onGlobalSetup, watch } from '@nuxtjs/composition-api'
 import firebase from '@modules/core/services/initFirebase'
 import { useAuth } from '@app/hooks/auth/auth'
 import { setSession } from '@app/hooks/sessions/session'
-import { isClient, isDev } from '@utils/environment'
+import { isClient } from '@utils/environment'
 import { SessionSignout } from '@modules/auth'
 
 export default defineNuxtPlugin(async ({ app }) => {
@@ -23,10 +23,6 @@ export default defineNuxtPlugin(async ({ app }) => {
 			if (isClient()) window.location.assign('/auth/')
 		}
 	}
-
-	if (!isDev) await firebase.firestore()
-		.enablePersistence({ synchronizeTabs: true })
-		.catch(() => {})
 
 	onGlobalSetup(async () => {
 		await setSession(id.value, currentSessionId.value, router)

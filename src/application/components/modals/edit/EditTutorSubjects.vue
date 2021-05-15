@@ -1,31 +1,28 @@
 <template>
 	<Modal :close="closeEditModal">
 		<template slot="title">
-			Edit Tutor Subjects
+			{{ tutorSubject ? 'Modify' : 'Assign' }} Nerd's Subject
 		</template>
-		<div>
-			<h4>Currently Teaching</h4>
-			<div class="d-flex flex-wrap">
-				<div v-for="subject in tutorSubjects" :key="subject.subject.hash" class="d-flex flex-column align-items-center mb-3 me-3">
-					<img v-if="subject.subject.icon" :src="subject.subject.icon" alt="" height="40px">
-					<h5 class="text-capitalize">
-						{{ subject.subject.name }}
-					</h5>
-					<h6>
-						Level {{ subject.level }}
-					</h6>
-					<a class="text-danger" @click.prevent="removeSubject(subject.id)">Remove</a>
-				</div>
+		<div v-if="tutorSubject">
+			<div class="d-flex flex-column align-items-center gap-1">
+				<img v-if="tutorSubject.icon" :src="tutorSubject.icon" alt="" height="50px">
+				<p class="text-capitalize text-center mb-0">
+					Currently Teaching <b>{{ tutorSubject.name }}</b>
+				</p>
+				<p class="text-center mb-0">
+					Level {{ tutor.tutor.subject.level }}
+				</p>
+				<a class="text-danger" @click.prevent="removeSubject()">Remove</a>
 			</div>
-			<hr>
-			<h4>Currently Not Teaching</h4>
-			<div class="d-flex flex-wrap">
-				<div v-for="subject in nonTutorSubjects" :key="subject.hash" class="d-flex flex-column align-items-center me-3 mb-3">
+		</div>
+		<div v-else>
+			<div class="d-flex flex-wrap gap-3">
+				<div v-for="subject in nonTutorSubjects" :key="subject.hash" class="d-flex flex-column align-items-center gap-1">
 					<img v-if="subject.icon" :src="subject.icon" alt="" height="40px">
-					<h5 class="text-capitalize">
+					<h5 class="text-capitalize mb-0">
 						{{ subject.name }}
 					</h5>
-					<a class="text-success" @click.prevent="addSubject(subject.id)">Add To List</a>
+					<a class="text-success" @click.prevent="addSubject(subject.id)">Assign to Nerd</a>
 				</div>
 			</div>
 		</div>
@@ -52,24 +49,19 @@ export default defineComponent({
 			loading: tutLoading, tutor, error: tutError,
 			addSubject, removeSubject
 		} = useSingleTutor()
-		const tutorSubjects = computed({
-			get: () => tutor.value?.subjects?.map?.((c) => {
-				const subject = subjects.value.find((s) => c.id === s.id)
-				if (!subject) return null
-				return { ...c, subject }
-			})?.filter?.((c) => !!c) ?? [],
+		const tutorSubject = computed({
+			get: () => subjects.value.find((s) => tutor.value?.subject?.id === s.id),
 			set: () => {}
 		})
 		const nonTutorSubjects = computed({
-			get: () => subjects.value.filter((s) => !tutor
-				.value?.subjects?.find?.((c) => c.id === s.id)
-			), set: () => {}
+			get: () => subjects.value.filter((s) => tutor.value?.subject?.id !== s.id),
+			set: () => {}
 		})
 		const { closeEditModal } = useEditModal()
 		return {
 			tutLoading, tutError, addSubject, removeSubject,
-			subLoading, subError, tutorSubjects, nonTutorSubjects,
-			closeEditModal
+			subLoading, subError, tutorSubject, nonTutorSubjects,
+			tutor, closeEditModal
 		}
 	}
 })

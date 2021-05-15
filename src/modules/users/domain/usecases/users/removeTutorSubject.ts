@@ -7,9 +7,10 @@ export class RemoveTutorSubjectUseCase {
 		this.repository = repository
 	}
 
-	async call (id: string, subject: string) {
+	async call (id: string) {
 		return await this.repository.update(id, {
-			[`tutor/subjects/${subject}`]: null
+			// @ts-ignore
+			'tutor/subject': null
 		})
 	}
 }

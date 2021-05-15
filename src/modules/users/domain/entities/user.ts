@@ -68,7 +68,7 @@ export class UserEntity extends BaseEntity {
 		}
 		this.tutor = {
 			ratings: tutor?.ratings ?? { total: 0, count: 0 },
-			subjects: tutor?.subjects ?? {},
+			subject: tutor?.subject ?? undefined,
 			currentSession: tutor?.currentSession ?? null,
 			sessionCount: tutor?.sessionCount ?? 0
 		}
@@ -88,14 +88,8 @@ export class UserEntity extends BaseEntity {
 	get averageRating () { return this.tutor?.ratings.count === 0 ? 0 : (this.tutor?.ratings.total ?? 0) / (this.tutor?.ratings.count ?? 1) }
 	get ratingCount () { return this.tutor?.ratings.count ?? 0 }
 	get orderRating () { return Math.pow(this.tutor?.ratings.total ?? 0, this.averageRating) }
-	get subjects () {
-		return Object.entries(this.tutor?.subjects ?? {})
-			.map((c) => ({ ...c[1], id: c[0] }))
-	}
-
-	get currentSession () {
-		return this.meta.currentSession || this.tutor?.currentSession || null
-	}
+	get currentSession () { return this.meta.currentSession || this.tutor?.currentSession || null }
+	get subject () { return this.tutor?.subject ?? null }
 }
 
 type UserConstructorArgs = {
@@ -162,14 +156,15 @@ export interface UserTutor {
 		total: number
 		count: number
 	}
-	subjects: Record<string, {
+	subject: {
+		id: string
 		level: number
 		upgrades: Record<number, {
 			score: number
 			takenAt: number
 			passed: boolean
 		}>
-	}>
+	} | undefined
 	currentSession?: string | null
 	sessionCount?: number
 }

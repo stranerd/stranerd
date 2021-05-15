@@ -40,8 +40,7 @@ export const useTutorsList = () => {
 	const filteredTutors = computed({
 		get: () => global.tutors.value.filter((tutor) => {
 			let matched = true
-			if (tutor.subjects.length === 0) matched = false
-			if (global.subjectId.value && !tutor.subjects.find((s) => s.id === global.subjectId.value)) matched = false
+			if (global.subjectId.value && tutor.subject?.id !== global.subjectId.value) matched = false
 			return matched
 		}).sort((first, second) => {
 			if (first.orderRating > second.orderRating) return -1
@@ -158,7 +157,7 @@ export const useSingleTutor = () => {
 		setLoading(false)
 	}
 
-	const removeSubject = async (subject: string) => {
+	const removeSubject = async () => {
 		setError('')
 		const accepted = await Alert({
 			title: 'Are you sure you want to remove this subject?',
@@ -171,7 +170,7 @@ export const useSingleTutor = () => {
 			try {
 				const id = tutor.value?.id
 				if (id) {
-					await RemoveTutorSubject.call(id, subject)
+					await RemoveTutorSubject.call(id)
 					const t = await FindUser.call(id)
 					if (t) {
 						tutor.value = t

@@ -34,4 +34,8 @@ export default defineNuxtPlugin(async ({ app }) => {
 			await setSession(id.value, currentSessionId.value, router)
 		})
 	})
+
+	const setDocHeight = () => document.documentElement.style.setProperty('--vh', `${window.innerHeight / 100}px`)
+	window.addEventListener('resize', setDocHeight)
+	window.addEventListener('orientationchange', setDocHeight)
 })

@@ -7,6 +7,10 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @import '~@fortawesome/fontawesome-free/scss/solid';
 @import '~@fortawesome/fontawesome-free/scss/brands';
 
+:root {
+	--vh: 1vh;
+}
+
 h1, h2, h3, h4, h5, h6 {
 	font-weight: bold !important;
 	text-transform: capitalize;
@@ -57,7 +61,7 @@ a {
 	left: 0;
 	top: 0;
 	width: 100vw;
-	min-height: 100vh;
+	min-height: vh(100);
 }
 
 .editor-container {

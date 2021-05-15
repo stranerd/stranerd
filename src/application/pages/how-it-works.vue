@@ -91,7 +91,7 @@ p {
 		background: url('../assets/images/blobs/meet-a-nerd-blob.svg') center right no-repeat;
 		background-size: cover;
 		padding: 2rem 6rem 2rem 1rem;
-		min-height: (100vw * 407.919/681.384);
+		min-height: vh(100 * 407.919/681.384);
 		@media (min-width: $md) {
 			padding: 2rem 6rem 2rem 2rem;
 		}
@@ -131,7 +131,7 @@ p {
 		align-items: flex-end;
 		background: url('../assets/images/blobs/ask-a-question-blob.svg') center left no-repeat;
 		background-size: cover;
-		min-height: (100vw * 407.919/739.945);
+		min-height: vh(100 * 407.919/739.945);
 		padding: 1rem 1rem 1rem 2rem;
 		@media (min-width: $md) { padding: 2rem 2rem 2rem 6rem; }
 		@media (min-width: $lg) { padding: 2rem 4rem 2rem 6rem; }
@@ -167,7 +167,7 @@ p {
 		align-items: flex-end;
 		background: url('../assets/images/blobs/coins-blob.svg') center no-repeat;
 		background-size: cover;
-		min-height: (100vw * 450.107/862.736);
+		min-height: vh(100 * 450.107/862.736);
 		padding: 6rem 1rem;
 		@media (min-width: $md) { padding: 1rem 2rem; }
 		@media (min-width: $lg) { padding: 1rem 4rem; }

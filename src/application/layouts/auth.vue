@@ -16,7 +16,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 	.body{
-		min-height: 100vh;
+		min-height: vh(100);
 		padding: .25rem;
 	}
 	.content{

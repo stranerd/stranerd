@@ -68,3 +68,7 @@ $spacers: (
 	11: 5.5rem,
 	12: 6.0rem,
 );
+
+@function vh($quantity) {
+	@return calc(var(--vh, 1vh) * #{$quantity})
+}

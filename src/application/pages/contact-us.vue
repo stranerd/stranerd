@@ -59,7 +59,7 @@ h1 {
 	@media (min-width: $lg) { font-size: 3rem; }
 }
 .bg-blob {
-	min-height: calc(100vw * 100/124);
+	min-height: vh(100 * 100/124);
 	margin-bottom: 1rem;
 	display: flex;
 	flex-direction: column;

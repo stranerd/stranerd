@@ -28,7 +28,7 @@ export default defineComponent({
 		left: 0;
 		top: 0;
 		width: 100vw;
-		height: 100vh;
+		height: vh(100);
 		display: flex;
 		justify-content: center;
 		align-items: center;

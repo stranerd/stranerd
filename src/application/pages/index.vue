@@ -28,7 +28,7 @@ export default defineComponent({
 	flex-direction: column;
 	justify-content: center;
 	align-items: flex-start;
-	min-height: (100vw * 100/124);
+	min-height: vh(100 * 100/124);
 	margin-bottom: 1rem;
 	background: url("../assets/images/blobs/home-light-blob.svg") top right no-repeat;
 	background-size: cover;

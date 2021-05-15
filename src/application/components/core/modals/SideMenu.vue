@@ -52,7 +52,7 @@ export default defineComponent({
 	top: 0;
 	left: 0;
 	width: 100vw;
-	height: 100vh;
+	height: vh(100);
 	z-index: 1;
 	background: rgba($color-blue-grey, .5);
 	overflow-y: auto;
@@ -61,14 +61,14 @@ export default defineComponent({
 		top: 0;
 		left: 0;
 		width: 100vw;
-		height: 100vh;
+		height: vh(100);
 	}
 	.sidebar {
 		display: flex;
 		flex-direction: column;
 		box-shadow: 3px 0 12px rgba($color-black, 1);
 		width: clamp(200px, 75%, 300px);
-		min-height: 100vh;
+		min-height: vh(100);
 		color: $color-light-blue;
 		background: $color-blue;
 		position: absolute;

@@ -109,7 +109,7 @@ export default defineComponent({
 .under {
 	position: fixed;
 	width: 100vw;
-	height: 100vh;
+	height: vh(100);
 	left: 0;
 	top: 0;
 }

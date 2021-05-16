@@ -41,10 +41,12 @@ export const useAccountModal = () => {
 		isAccountModalBuyCoins: computed(() => global.accountModal.value === 'buy-coins'),
 		isAccountModalTipNerd: computed(() => global.accountModal.value === 'tip-nerd'),
 		isAccountModalReportUser: computed(() => global.accountModal.value === 'report-user'),
+		isAccountModalMeetTutor: computed(() => global.accountModal.value === 'meet-tutor'),
 
 		setAccountModalBuyCoins: () => global.accountModal.value = 'buy-coins',
 		setAccountModalTipNerd: () => global.accountModal.value = 'tip-nerd',
 		setAccountModalReportUser: () => global.accountModal.value = 'report-user',
+		setAccountModalMeetTutor: () => global.accountModal.value = 'meet-tutor',
 		closeAccountModal: () => global.accountModal.value = null
 	}
 }

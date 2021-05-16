@@ -22,9 +22,9 @@
 							<NuxtLink v-if="isTutor" to="/questions" class="btn btn-outline-blue rounded-pill px-4 py-1 fw-bold">
 								Answer Questions
 							</NuxtLink>
-							<NuxtLink v-if="!isTutor" to="/tutors" class="btn btn-outline-blue rounded-pill px-4 py-1 fw-bold">
+							<button v-if="!isTutor" class="btn btn-outline-blue rounded-pill px-4 py-1 fw-bold" @click="setAccountModalMeetTutor">
 								Meet a Nerd
-							</NuxtLink>
+							</button>
 						</div>
 					</div>
 				</div>
@@ -38,7 +38,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useCreateModal } from '@app/hooks/core/modals'
+import { useAccountModal, useCreateModal } from '@app/hooks/core/modals'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useRedirectToAuth } from '@app/hooks/auth/session'
 import TutorsList from '@app/components/users/tutors/TutorsList.vue'
@@ -50,8 +50,9 @@ export default defineComponent({
 		const { isLoggedIn, isTutor } = useAuth()
 		const { redirect } = useRedirectToAuth()
 		const { setCreateModalQuestion } = useCreateModal()
+		const { setAccountModalMeetTutor } = useAccountModal()
 		return {
-			isLoggedIn, isTutor,
+			isLoggedIn, isTutor, setAccountModalMeetTutor,
 			openQuestionModal: () => {
 				if (!isLoggedIn.value) redirect()
 				else setCreateModalQuestion()

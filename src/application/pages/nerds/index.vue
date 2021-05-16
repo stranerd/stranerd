@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import TutorsList from '@app/components/users/tutors/TutorsList.vue'
+import TutorsList from '@app/components/users/tutors/MeetTutorsList.vue'
 export default defineComponent({
 	name: 'TutorsPage',
 	components: { TutorsList }

@@ -1,8 +1,13 @@
 <template>
 	<div>
-		<h2 class="mb-0">
-			Top Nerds
-		</h2>
+		<div class="d-flex align-items-center text-center">
+			<h2 class="fw-bold mb-0">
+				Meet A Nerd Result
+			</h2>
+			<form class="d-flex ms-auto">
+				<SelectSubject :subject-id.sync="subjectId" class="form-select-sm my-1" />
+			</form>
+		</div>
 		<div class="thick" />
 		<div v-for="(tutor, index) in tutors" :key="tutor.hash">
 			<TutorsListCard :tutor="tutor" :rank="index + 1" />
@@ -17,11 +22,12 @@
 import { defineComponent, onBeforeUnmount, onMounted } from '@nuxtjs/composition-api'
 import { useTutorsList } from '@app/hooks/users/roles/tutors'
 import TutorsListCard from '@app/components/users/tutors/TutorsListCard.vue'
+import SelectSubject from '@app/components/questions/subjects/SelectSubject.vue'
 export default defineComponent({
-	name: 'TutorsList',
-	components: { TutorsListCard },
+	name: 'MeetTutorsList',
+	components: { SelectSubject, TutorsListCard },
 	setup () {
-		const { subjectId, tutors, listener, loading, error } = useTutorsList()
+		const { subjectId, filteredTutors: tutors, listener, loading, error } = useTutorsList()
 		onMounted(listener.startListener)
 		onBeforeUnmount(listener.closeListener)
 		return { subjectId, tutors, loading, error }

@@ -4,7 +4,7 @@
 			<div class="bg-blue d-flex flex-column" style="min-height: 98vh;">
 				<HomeTopNavigation class="w-100" />
 				<Nuxt class="flex-grow-1" />
-				<div class="links">
+				<div class="links d-none">
 					<NuxtLink to="/">
 						<i class="fas fa-circle" />
 					</NuxtLink>

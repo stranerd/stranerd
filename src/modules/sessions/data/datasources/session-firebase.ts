@@ -12,8 +12,8 @@ export class SessionFirebaseDataSource implements SessionBaseDataSource {
 		return await FunctionsService.call('acceptSession', { id })
 	}
 
-	async cancel (id: string): Promise<void> {
-		return await FunctionsService.call('cancelSession', { id })
+	async cancel (id: string, message: string): Promise<void> {
+		return await FunctionsService.call('cancelSession', { id, message })
 	}
 
 	async find (id: string) {

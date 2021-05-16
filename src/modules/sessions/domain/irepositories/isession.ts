@@ -9,5 +9,5 @@ export interface ISessionRepository {
 	listenToOne: (id: string, callback: (entity: SessionEntity | null) => void) => Promise<() => void>
 	listenToMany: (callback: (entities: SessionEntity[], conditions?: FirestoreGetClauses) => void) => Promise<() => void>
 	begin: (id: string) => Promise<void>
-	cancel: (id: string) => Promise<void>
+	cancel: (id: string, message: string) => Promise<void>
 }

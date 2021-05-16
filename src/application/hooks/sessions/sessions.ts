@@ -1,5 +1,5 @@
-import { computed, Ref, ref, watch } from '@nuxtjs/composition-api'
-import { AddSession, BeginSession, CancelSession, SessionFactory } from '@modules/sessions'
+import { computed, Ref, ref, ssrRef, watch } from '@nuxtjs/composition-api'
+import { AddSession, BeginSession, CancelSession, CancelSessionFactory, SessionFactory } from '@modules/sessions'
 import { UserBio } from '@modules/users'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
@@ -18,7 +18,7 @@ let newSessionTutorIdBio = null as null | { id: string, user: UserBio }
 export const setNewSessionTutorIdBio = (data: { id: string, user: UserBio }) => { newSessionTutorIdBio = data }
 
 export const useCreateSession = () => {
-	const { id, bio } = useAuth()
+	const { id, bio, user } = useAuth()
 	const factory = ref(new SessionFactory()) as Ref<SessionFactory>
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
@@ -39,7 +39,8 @@ export const useCreateSession = () => {
 
 	const createSession = async () => {
 		setError('')
-		if (factory.value.valid && !loading.value) {
+		const hasEnoughCoins = factory.value.price < (user.value?.account?.coins?.gold ?? 0)
+		if (factory.value.valid && hasEnoughCoins && !loading.value) {
 			try {
 				setLoading(true)
 				await AddSession.call(factory.value)
@@ -67,26 +68,19 @@ export const useSession = () => {
 		setError('')
 		const accepted = await Alert({
 			title: 'Are you sure you want to cancel this session',
-			text: 'This cannot be reversed',
+			text: 'This cannot be undone',
 			icon: 'info',
 			confirmButtonText: 'Yes, cancel',
 			cancelButtonText: 'No, ignore'
 		})
-		if (accepted) {
-			try {
-				setLoading(true)
-				if (currentSessionId.value) await CancelSession.call(currentSessionId.value)
-				useSessionModal().closeSessionModal()
-			} catch (error) { setError(error) }
-			setLoading(false)
-		}
+		if (accepted) useSessionModal().setSessionModalCancelling()
 	}
 
 	const acceptSession = async () => {
 		setError('')
 		const accepted = await Alert({
 			title: 'Are you sure you want to accept this session',
-			text: 'This cannot be reversed',
+			text: '',
 			icon: 'info',
 			confirmButtonText: 'Yes, accept',
 			cancelButtonText: 'No, ignore'
@@ -102,4 +96,24 @@ export const useSession = () => {
 	}
 
 	return { loading, error, cancelSession, acceptSession }
+}
+
+export const useCancelSession = () => {
+	const factory = ssrRef(new CancelSessionFactory()) as Ref<CancelSessionFactory>
+	const { loading, setLoading } = useLoadingHandler()
+	const { error, setError } = useErrorHandler()
+	const { currentSessionId } = useAuth()
+
+	const cancelSession = async () => {
+		setError('')
+		try {
+			setLoading(true)
+			if (currentSessionId.value) await CancelSession.call(currentSessionId.value, factory.value)
+			factory.value.reset()
+			useSessionModal().closeSessionModal()
+		} catch (error) { setError(error) }
+		setLoading(false)
+	}
+
+	return { loading, error, cancelSession }
 }

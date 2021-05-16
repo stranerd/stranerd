@@ -115,5 +115,5 @@ export const useCancelSession = () => {
 		setLoading(false)
 	}
 
-	return { loading, error, cancelSession }
+	return { loading, error, cancelSession, factory }
 }

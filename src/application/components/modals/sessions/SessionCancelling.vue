@@ -3,14 +3,20 @@
 		<template slot="title">
 			Cancelling Session
 		</template>
-		<div class="d-flex flex-column align-items-center">
-			<Avatar :src="otherParticipant.avatar" :size="90" />
-			<span class="lead my-half">{{ otherParticipant.name && otherParticipant.name.fullName }}</span>
-			<span>cancelled a {{ currentSession && currentSession.duration }} minutes session</span>
-			<button class="btn btn-blue my-1" @click="cancelSession">
+		<form @submit.prevent="cancelSession">
+			<div class="form-group mb-2">
+				<textarea
+					v-model="factory.message"
+					class="form-control"
+					placeholder="Leave a message"
+					rows="4"
+				/>
+				<small v-if="factory.errors.message" class="small text-danger d-block">{{ factory.errors.message }}</small>
+			</div>
+			<button class="btn btn-blue" @click="cancelSession">
 				Submit
 			</button>
-		</div>
+		</form>
 		<PageLoading v-if="loading" />
 		<DisplayError :error="error" />
 	</Modal>
@@ -21,11 +27,11 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import { useCurrentSession } from '@app/hooks/sessions/session'
 import { useCancelSession } from '@app/hooks/sessions/sessions'
 export default defineComponent({
-	name: 'SessionStudentCancelled',
+	name: 'SessionStudentCancelling',
 	setup () {
 		const { clone: currentSession, otherParticipant } = useCurrentSession()
-		const { loading, error, cancelSession } = useCancelSession()
-		return { loading, error, cancelSession, currentSession, otherParticipant }
+		const { loading, error, cancelSession, factory } = useCancelSession()
+		return { loading, error, cancelSession, currentSession, otherParticipant, factory }
 	}
 })
 </script>

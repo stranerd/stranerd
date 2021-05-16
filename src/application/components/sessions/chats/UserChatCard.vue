@@ -1,14 +1,16 @@
 <template>
-	<NuxtLink :to="`/messages/${user.id}`">
+	<NuxtLink :to="`/messages/${user.id}`" class="gap-1">
 		<Avatar :src="user.avatar" :size="60" />
-		<div class="ms-1 me-auto d-flex flex-column">
-			<span class="fw-bold lead">{{ user.name.fullName }}</span>
-			<p v-if="chat" class="mb-0 d-block text-truncate">
+		<div class="flex-grow-1 text-truncate">
+			<div class="d-flex justify-content-between gap-1">
+				<span class="fw-bold lead d-inline-block">{{ user.name.fullName }}</span>
+				<span v-if="chat" class="ms-auto">{{ formatTime(chat.createdAt) }}</span>
+			</div>
+			<p v-if="chat" class="mb-0 text-truncate">
 				<i v-if="chat.isMedia" class="fas fa-paperclip me-half" />
-				<span class="d-block text-truncate">{{ chat.isMedia ? chat.media.name : chat.content }}</span>
+				{{ chat.isMedia ? chat.media.name : chat.content }}
 			</p>
 		</div>
-		<span v-if="chat" class="align-self-sm-start">{{ formatTime(chat.createdAt) }}</span>
 	</NuxtLink>
 </template>
 
@@ -38,7 +40,8 @@ export default defineComponent({
 a {
 	padding: 0.5rem;
 	display: flex;
-	align-items: center;
+	align-items: flex-start;
+	border-radius: 1rem;
 }
 a:hover {
 	transform: none;

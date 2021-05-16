@@ -117,7 +117,7 @@ hr.thin {
 @each $key, $val in $spacers {
 	@each $bp, $width in $grid-breakpoints {
 		$infix: breakpoint-infix($bp, $grid-breakpoints);
-		body[data-gap='false'] .gap#{$infix}-#{$key} {
+		body[data-no-gap='true'] .gap#{$infix}-#{$key} {
 			@media (min-width: $width) {
 				gap: 0 !important;
 				& > * { margin: $val; }

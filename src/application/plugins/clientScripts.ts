@@ -5,18 +5,16 @@ export default defineNuxtPlugin(async () => {
 	window.addEventListener('resize', setDocHeight)
 	window.addEventListener('orientationchange', setDocHeight)
 
-	const hasGapSupport = () => {
-		const flex = document.createElement('div')
-		flex.style.display = 'flex'
-		flex.style.flexDirection = 'column'
-		flex.style.position = 'absolute'
-		flex.style.rowGap = '1px'
-		flex.appendChild(document.createElement('div'))
-		flex.appendChild(document.createElement('div'))
-		document.body.appendChild(flex)
-		const isSupported = flex.scrollHeight === 1
-		flex.parentNode?.removeChild(flex)
-		return isSupported
+	const hasNoGapSupport = () => {
+		const { userAgent } = window.navigator
+		const keys = ['Intel Mac OS X', 'iPad; CPU OS', 'iPhone OS', 'iPhone; Opera Mini/']
+		const index = keys.findIndex((key) => userAgent.includes(key))
+		if (index === -1) return false
+		const split1 = userAgent.split(keys[index])[1].trim()
+		const [majorVersion, minorVersion] = split1.replaceAll('.', '_').split('_')
+		const minor = minorVersion.slice(0, 2).trim()
+		const version = Number(majorVersion) + (0.1 * Number(minor))
+		return version < 14.1
 	}
-	document.body.setAttribute('data-gap', hasGapSupport() ? 'true' : 'false')
+	document.body.setAttribute('data-no-gap', hasNoGapSupport() ? 'true' : 'false')
 })

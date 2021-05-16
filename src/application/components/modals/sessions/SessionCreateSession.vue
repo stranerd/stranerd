@@ -5,16 +5,6 @@
 		</template>
 		<form @click.prevent="createSession">
 			<div class="form-group my-2">
-				<textarea
-					v-model="factory.message"
-					class="form-control"
-					rows="3"
-					placeholder="Leave a message for the nerd"
-					:class="{'is-invalid': factory.errors.message, 'is-valid': factory.isValid('message') }"
-				/>
-				<small v-if="factory.errors.message" class="small text-danger d-block">{{ factory.errors.message }}</small>
-			</div>
-			<div class="form-group my-2">
 				<select v-model="factory.duration" class="form-select">
 					<option disabled value="0">
 						Select Session Duration

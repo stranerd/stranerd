@@ -7,12 +7,11 @@
 			<Avatar :src="otherParticipant.avatar" :size="90" />
 			<span class="lead my-half">{{ otherParticipant.name && otherParticipant.name.fullName }}</span>
 			<span>is requesting a {{ currentSession && currentSession.duration }} minutes session</span>
-			<span class="my-1">{{ currentSession && currentSession.message }}</span>
-			<div class="d-flex flex-column flex-sm-row">
-				<button class="btn btn-danger my-half mx-half" @click="cancelSession">
+			<div class="d-flex flex-column flex-sm-row my-1 gap-1">
+				<button class="btn btn-danger" @click="cancelSession">
 					Cancel Session
 				</button>
-				<button class="btn btn-success my-half mx-half" @click="acceptSession">
+				<button class="btn btn-success" @click="acceptSession">
 					Accept Session
 				</button>
 			</div>

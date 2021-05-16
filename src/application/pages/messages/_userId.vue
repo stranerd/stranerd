@@ -1,13 +1,23 @@
 <template>
 	<div class="flex-grow-1 d-flex flex-column">
 		<PageLoading v-if="loading" />
-		<div v-else-if="user" class="page-content flex-grow-1 d-flex flex-column px-2" :class="{'bg-light-blue': sessionId}">
-			<ChatHead :key="user.hash + hash" :user="user" />
-			<div class="thin mx-n2" />
-			<ChatList :user-id="userId" class="flex-grow-1" />
-			<div class="thin mx-n2" />
-			<ChatForm :key="sessionId" :user-id="userId" :session-id="sessionId" />
-		</div>
+		<template v-else-if="user">
+			<div v-if="user.roles.isTutor || chats.find((c) => c.id === user.id)" class="page-content flex-grow-1 d-flex flex-column px-2" :class="{'bg-light-blue': sessionId}">
+				<ChatHead :key="user.hash + hash" :user="user" />
+				<div class="thin mx-n2" />
+				<ChatList :user-id="userId" class="flex-grow-1" />
+				<div class="thin mx-n2" />
+				<ChatForm :key="sessionId" :user-id="userId" :session-id="sessionId" />
+			</div>
+			<div v-else class="page-content">
+				<p class="text-center mb-0 lead">
+					<DisplayWarning message="You cannot chat with this person as he/she is not a nerd." />
+					<NuxtLink to="/messages" style="text-decoration: underline;">
+						Continue to messages
+					</NuxtLink>
+				</p>
+			</div>
+		</template>
 		<div v-else class="page-content">
 			<DisplayError error="No such user exists!" />
 		</div>
@@ -34,6 +44,7 @@ export default defineComponent({
 		}
 	],
 	setup () {
+		const { chats } = useAuth()
 		const { userId } = useRoute().value.params
 		const { user, loading, error, listener } = useUser(userId)
 		const { currentSession } = useCurrentSession()
@@ -47,7 +58,7 @@ export default defineComponent({
 			get: () => user.value?.currentSession && user.value?.currentSession === currentSession.value?.id ? getRandomValue() ?? getRandomValue() : getRandomValue(),
 			set: () => {}
 		})
-		return { userId, user, loading, error, sessionId, hash }
+		return { userId, user, loading, error, sessionId, hash, chats }
 	}
 })
 </script>

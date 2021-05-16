@@ -1,6 +1,6 @@
 <template>
 	<div :id="admin.id">
-		<div class="d-flex flex-wrap align-items-center mb-3 gap-1">
+		<div class="d-flex flex-wrap align-items-center text-truncate mb-3 gap-1">
 			<Avatar :src="admin.avatar" :size="60" />
 			<div>
 				<p class="lead mb-0 text-wrap">

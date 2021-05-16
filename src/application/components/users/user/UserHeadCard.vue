@@ -1,20 +1,20 @@
 <template>
-	<div class="d-flex flex-column flex-lg-row align-items-center">
-		<div class="d-flex flex-column flex-lg-row align-items-center my-1">
+	<div class="d-flex flex-column flex-lg-row align-items-center gap-1">
+		<div class="d-flex flex-column flex-lg-row align-items-center align-items-lg-start my-1 gap-1">
 			<div class="position-relative">
 				<Avatar :src="user.avatar" :size="75" />
 				<i class="fas fa-circle position-absolute border" style="right: 0; bottom: 8px;" :class="user.isOnline ? 'text-success' : 'text-grey'" />
 			</div>
-			<div class="ms-1 align-items-center align-items-lg-start d-flex flex-column">
+			<div class="align-items-center align-items-lg-start d-flex flex-column gap-1">
 				<span class="d-block text-18 fw-bold text-wrap">{{ user.fullName }}</span>
-				<span class="small mb-1">{{ user.isOnline ? 'Active now' : 'Last seen: ' + time }}</span>
+				<span class="small">{{ user.isOnline ? 'Active now' : 'Last seen: ' + time }}</span>
 				<ShowRatings v-if="user.roles.isTutor" :rating="user.averageRating" />
-				<NuxtLink :to="`/messages/${user.id}`" class="btn btn-sm btn-blue my-1">
+				<NuxtLink v-if="user.roles.isTutor || chats.find((c) => c.id === user.id)" :to="`/messages/${user.id}`" class="btn btn-sm btn-blue">
 					Message
 				</NuxtLink>
 			</div>
 		</div>
-		<div class="grid ms-lg-auto my-1">
+		<div class="grid ms-lg-auto">
 			<template v-if="user.roles.isTutor">
 				<div class="stats">
 					<img src="@app/assets/images/icons/profile-answers.svg" alt="">
@@ -63,6 +63,7 @@ import { defineComponent, onBeforeUnmount, onMounted, PropType } from '@nuxtjs/c
 import { UserEntity } from '@modules/users'
 import { formatNumber } from '@utils/commons'
 import { useTimeDifference } from '@app/hooks/core/dates'
+import { useAuth } from '@app/hooks/auth/auth'
 export default defineComponent({
 	name: 'UserHeadCard',
 	props: {
@@ -72,10 +73,11 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
+		const { chats } = useAuth()
 		const { time, startTimer, stopTimer } = useTimeDifference(props.user.lastSeen)
 		onMounted(startTimer)
 		onBeforeUnmount(stopTimer)
-		return { time, formatNumber }
+		return { time, formatNumber, chats }
 	}
 })
 </script>
@@ -84,14 +86,11 @@ export default defineComponent({
 .grid {
 	display: grid;
 	width: 100%;
-	grid-template-columns: repeat(2, 1fr);
-	grid-gap: 2rem;
-	@media (min-width: $sm) {
-		grid-template-columns: repeat(4, 1fr);
-	}
-	@media (min-width: $lg) {
-		width: auto;
-	}
+	max-width: 800px;
+	grid-gap: 1rem;
+	grid-template-columns: repeat(1, 1fr);
+	@media (min-width: $xsm) { grid-template-columns: repeat(2, 1fr); }
+	@media (min-width: $sm) { grid-template-columns: repeat(4, 1fr); }
 }
 .stats {
 	display: flex;

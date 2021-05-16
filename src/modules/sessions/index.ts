@@ -17,7 +17,6 @@ import { ChatEntity } from './domain/entities/chat'
 import { ChatFactory } from './domain/factories/chat'
 import { SessionEntity } from './domain/entities/session'
 import { SessionFactory } from './domain/factories/session'
-import { CancelSessionFactory } from './domain/factories/cancelSession'
 
 const personalChatDataSource = new PersonalChatFirebaseDataSource()
 const sessionDataSource = new SessionFirebaseDataSource()
@@ -40,4 +39,4 @@ export const BeginSession = new BeginSessionUseCase(sessionRepository)
 export const CancelSession = new CancelSessionUseCase(sessionRepository)
 
 export { ChatEntity, ChatFactory }
-export { SessionEntity, SessionFactory, CancelSessionFactory }
+export { SessionEntity, SessionFactory }

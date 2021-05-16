@@ -71,7 +71,6 @@ export const useSessionModal = () => {
 		isSessionModalStudentWaiting: computed(() => global.sessionModal.value === 'student-waiting'),
 		isSessionModalTutorCancelled: computed(() => global.sessionModal.value === 'tutor-cancelled'),
 		isSessionModalStudentCancelled: computed(() => global.sessionModal.value === 'student-cancelled'),
-		isSessionModalCancelling: computed(() => global.sessionModal.value === 'cancelling'),
 		isSessionModalUnknown: computed(() => global.sessionModal.value === 'unknown'),
 
 		setSessionModalCreateSession: () => global.sessionModal.value = 'create-session',
@@ -79,7 +78,6 @@ export const useSessionModal = () => {
 		setSessionModalStudentWaiting: () => global.sessionModal.value = 'student-waiting',
 		setSessionModalTutorCancelled: () => global.sessionModal.value = 'tutor-cancelled',
 		setSessionModalStudentCancelled: () => global.sessionModal.value = 'student-cancelled',
-		setSessionModalCancelling: () => global.sessionModal.value = 'cancelling',
 		setSessionModalUnknown: () => global.sessionModal.value = 'unknown',
 
 		closeSessionModal: () => global.sessionModal.value = null

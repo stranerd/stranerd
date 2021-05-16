@@ -1,5 +1,4 @@
 import { ISessionRepository } from '../../irepositories/isession'
-import { CancelSessionFactory } from '../../factories/cancelSession'
 
 export class CancelSessionUseCase {
 	private repository: ISessionRepository
@@ -8,8 +7,7 @@ export class CancelSessionUseCase {
 		this.repository = repository
 	}
 
-	async call (id: string, factory: CancelSessionFactory) {
-		const { message } = await factory.toModel()
-		return await this.repository.cancel(id, message)
+	async call (id: string) {
+		return await this.repository.cancel(id)
 	}
 }

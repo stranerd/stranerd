@@ -1,5 +1,5 @@
-import { computed, Ref, ref, ssrRef, watch } from '@nuxtjs/composition-api'
-import { AddSession, BeginSession, CancelSession, CancelSessionFactory, SessionFactory } from '@modules/sessions'
+import { computed, Ref, ref, watch } from '@nuxtjs/composition-api'
+import { AddSession, BeginSession, CancelSession, SessionFactory } from '@modules/sessions'
 import { UserBio } from '@modules/users'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
@@ -73,7 +73,14 @@ export const useSession = () => {
 			confirmButtonText: 'Yes, cancel',
 			cancelButtonText: 'No, ignore'
 		})
-		if (accepted) useSessionModal().setSessionModalCancelling()
+		if (accepted) {
+			try {
+				setLoading(true)
+				if (currentSessionId.value) await CancelSession.call(currentSessionId.value)
+				useSessionModal().closeSessionModal()
+			} catch (error) { setError(error) }
+			setLoading(false)
+		}
 	}
 
 	const acceptSession = async () => {
@@ -96,24 +103,4 @@ export const useSession = () => {
 	}
 
 	return { loading, error, cancelSession, acceptSession }
-}
-
-export const useCancelSession = () => {
-	const factory = ssrRef(new CancelSessionFactory()) as Ref<CancelSessionFactory>
-	const { loading, setLoading } = useLoadingHandler()
-	const { error, setError } = useErrorHandler()
-	const { currentSessionId } = useAuth()
-
-	const cancelSession = async () => {
-		setError('')
-		try {
-			setLoading(true)
-			if (currentSessionId.value) await CancelSession.call(currentSessionId.value, factory.value)
-			factory.value.reset()
-			useSessionModal().closeSessionModal()
-		} catch (error) { setError(error) }
-		setLoading(false)
-	}
-
-	return { loading, error, cancelSession, factory }
 }

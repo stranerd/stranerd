@@ -5,7 +5,6 @@
 		<SessionStudentWaiting v-if="isSessionModalStudentWaiting" />
 		<SessionTutorCancelled v-if="isSessionModalTutorCancelled" />
 		<SessionStudentCancelled v-if="isSessionModalStudentCancelled" />
-		<SessionCancelling v-if="isSessionModalCancelling" />
 		<SessionUnknown v-if="isSessionModalUnknown" />
 	</div>
 </template>
@@ -17,18 +16,17 @@ import SessionCreateSession from '@app/components/modals/sessions/SessionCreateS
 import SessionNewSessionRequest from '@app/components/modals/sessions/SessionNewSessionRequest.vue'
 import SessionStudentWaiting from '@app/components/modals/sessions/SessionStudentWaiting.vue'
 import SessionTutorCancelled from '@app/components/modals/sessions/SessionTutorCancelled.vue'
-import SessionCancelling from '@app/components/modals/sessions/SessionCancelling.vue'
 import SessionStudentCancelled from '@app/components/modals/sessions/SessionStudentCancelled.vue'
 import SessionUnknown from '@app/components/modals/sessions/SessionUnknown.vue'
 export default defineComponent({
 	name: 'SessionModalIndex',
 	components: {
 		SessionCreateSession, SessionNewSessionRequest, SessionStudentWaiting,
-		SessionTutorCancelled, SessionStudentCancelled, SessionUnknown, SessionCancelling
+		SessionTutorCancelled, SessionStudentCancelled, SessionUnknown
 	},
 	setup () {
-		const { isSessionModalCreateSession, isSessionModalNewSessionRequest, isSessionModalStudentWaiting, isSessionModalStudentCancelled, isSessionModalTutorCancelled, isSessionModalUnknown, isSessionModalCancelling } = useSessionModal()
-		return { isSessionModalCreateSession, isSessionModalNewSessionRequest, isSessionModalStudentWaiting, isSessionModalStudentCancelled, isSessionModalTutorCancelled, isSessionModalUnknown, isSessionModalCancelling }
+		const { isSessionModalCreateSession, isSessionModalNewSessionRequest, isSessionModalStudentWaiting, isSessionModalStudentCancelled, isSessionModalTutorCancelled, isSessionModalUnknown } = useSessionModal()
+		return { isSessionModalCreateSession, isSessionModalNewSessionRequest, isSessionModalStudentWaiting, isSessionModalStudentCancelled, isSessionModalTutorCancelled, isSessionModalUnknown }
 	}
 })
 </script>

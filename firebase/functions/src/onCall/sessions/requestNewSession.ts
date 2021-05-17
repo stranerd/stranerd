@@ -5,12 +5,11 @@ export const requestNewSession = functions.https.onCall(async (session, context)
 	if (!context.auth)
 		throw new functions.https.HttpsError('unauthenticated', 'Only authenticated users can request sessions')
 
-	const { tutorId, studentId, message, price, duration, studentBio, tutorBio } = session
+	const { tutorId, studentId, price, duration, studentBio, tutorBio } = session
 
 	try {
 		const session = {
-			duration, price, message,
-			studentId, tutorId, studentBio, tutorBio,
+			duration, price, studentId, tutorId, studentBio, tutorBio,
 			accepted: false,
 			cancelled: { student: false, tutor: false },
 			dates: { createdAt: admin.firestore.Timestamp.now() },

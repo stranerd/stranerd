@@ -1,6 +1,6 @@
 <template>
 	<div :id="tutor.id" class="my-1 d-flex align-items-start align-items-md-center gap-0-5">
-		<span>{{ rank }}.&nbsp;</span>
+		<span class="align-self-center">{{ rank }}.&nbsp;</span>
 		<NuxtLink :to="`/users/${tutor.id}`" class="position-relative">
 			<Avatar :src="tutor.avatar" :size="50" />
 			<i class="fas fa-circle d-md-none position-absolute" :class="tutor.isOnline ? 'text-success' : 'text-grey'" style="z-index: 1; right: 0; bottom: 0;" />
@@ -23,7 +23,7 @@
 			<ShowRatings :rating="tutor.averageRating" />
 			<span>{{ formatNumber(tutor.ratingCount) }} {{ pluralize(tutor.ratingCount, 'review', 'reviews') }}</span>
 		</span>
-		<NuxtLink :to="`/messages/${tutor.id}`" class="btn btn-sm btn-outline-blue rounded-pill">
+		<NuxtLink :to="`/messages/${tutor.id}`" class="btn btn-sm btn-outline-blue rounded-pill align-self-center">
 			Message
 		</NuxtLink>
 	</div>

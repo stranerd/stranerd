@@ -53,9 +53,13 @@ $spacers: ();
 @each $key in $spacer-values {
 	$spacers: map-merge($spacers, (
 		'#{$key}': #{$key}rem,
+		'#{$key}-25': #{$key + 0.25}rem,
 		'#{$key}-5': #{$key + 0.5}rem,
+		'#{$key}-75': #{$key + 0.75}rem,
 		'n#{$key}': #{0 - $key}rem,
-		'n#{$key}-5': #{0 - 0.5 - $key}rem
+		'n#{$key}-25': #{0 - 0.25 - $key}rem,
+		'n#{$key}-5': #{0 - 0.5 - $key}rem,
+		'n#{$key}-75': #{0 - 0.75 - $key}rem
 	));
 }
 

@@ -1,5 +1,5 @@
 <template>
-	<div class="d-flex py-0-25 align-items-center">
+	<div class="d-flex py-0-25 align-items-center position-relative">
 		<NuxtLink to="/messages" class="me-0-5">
 			<i class="fas fa-arrow-left" />
 		</NuxtLink>
@@ -13,21 +13,19 @@
 			<span class="small">{{ user.isOnline ? 'Active now' : time }}</span>
 		</div>
 		<span v-if="isAccepted && currentSessionId === user.currentSession" class="lead ms-0-5">{{ countDown }}</span>
-		<div class="position-relative">
-			<button class="btn navbar-toggler ms-0-5" @click="show = !show">
-				<i class="fas fa-ellipsis-v" />
-			</button>
-			<div v-if="show" class="under" @click="show = false" />
-			<div v-if="show" class="menu">
-				<template v-if="user.roles.isTutor">
-					<a v-if="!currentSessionId && !user.currentSession" @click.prevent="requestNewSession">Request Session</a>
-					<a @click="tipUser">Tip Nerd</a>
-				</template>
-				<a @click="reportUser">Report</a>
-				<PageLoading v-if="loading" />
-				<a v-if="isAccepted && currentSession && currentSessionId === user.currentSession && currentSession.studentId === id" @click.prevent="cancelSession">End Session</a>
-				<DisplayError :error="error" />
-			</div>
+		<button class="btn navbar-toggler ms-0-5" @click="show = !show">
+			<i class="fas fa-ellipsis-v" />
+		</button>
+		<div v-if="show" class="under" @click="show = false" />
+		<div v-if="show" class="menu gap-0-5">
+			<template v-if="user.roles.isTutor">
+				<a v-if="!currentSessionId && !user.currentSession" class="text-nowrap" @click.prevent="requestNewSession">Request Session</a>
+				<a class="text-nowrap" @click="tipUser">Tip Nerd</a>
+			</template>
+			<a class="text-nowrap" @click="reportUser">Report</a>
+			<PageLoading v-if="loading" />
+			<a v-if="isAccepted && currentSession && currentSessionId === user.currentSession && currentSession.studentId === id" class="text-nowrap" @click.prevent="cancelSession">End Session</a>
+			<DisplayError :error="error" />
 		</div>
 	</div>
 </template>
@@ -116,17 +114,15 @@ export default defineComponent({
 .menu {
 	padding: 0.5rem;
 	position: absolute;
+	top: 2.5rem;
 	right: 0;
-	width: 200px;
+	width: 250px;
 	z-index: 1;
 	display: flex;
 	flex-direction: column;
 	background: rgba($color-blue, 0.9);
 	color: $color-white;
 	border-radius: 0.5rem;
-	* {
-		padding: 0.5rem 0;
-	}
 	a:hover {
 		font-size: unset;
 		transform: unset;

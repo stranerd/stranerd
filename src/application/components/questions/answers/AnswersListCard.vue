@@ -1,6 +1,6 @@
 <template>
 	<div :id="answer.id" class="answer">
-		<div class="answer-content d-flex align-items-center bg-light-blue gap-1">
+		<div class="answer-content d-flex align-items-center bg-light-blue gap-0-5">
 			<NuxtLink :to="`/users/${answer.userId}`">
 				<Avatar :src="answer.avatar" :size="50" />
 			</NuxtLink>
@@ -15,8 +15,8 @@
 			<ShowRatings class="ms-auto" :rating="answer.averageRating" />
 		</div>
 		<div class="answer-content">
-			<div class="my-1 lead editor-body" v-html="answer.body" />
-			<div class="my-1 d-flex flex-wrap icons justify-content-end gap-2">
+			<div class="my-0-5 lead editor-body" v-html="answer.body" />
+			<div class="my-0-5 d-flex flex-wrap icons justify-content-end gap-0-5">
 				<span v-if="answer.attachments.length">
 					<span>{{ answer.attachments.length }}</span>
 					<i class="fas fa-paperclip" />
@@ -25,7 +25,7 @@
 					<span>
 						{{ showComments ? 'Hide' : 'Show' }} Comments
 					</span>
-					<i class="fas mx-half" :class="showComments ? 'fa-angle-up' : 'fa-angle-down'" />
+					<i class="fas mx-0-25" :class="showComments ? 'fa-angle-up' : 'fa-angle-down'" />
 				</a>
 				<span v-if="showRatingButton">
 					<SelectRating v-if="isLoggedIn && answer.userId !== id" :rating="0" :set-rating="rateAnswer" />
@@ -43,10 +43,10 @@
 				</span>
 			</div>
 		</div>
-		<DisplayAttachments v-if="answer.attachments.length" id="attachments" :attachments="answer.attachments" class="my-1" />
+		<DisplayAttachments v-if="answer.attachments.length" id="attachments" :attachments="answer.attachments" class="my-0-5" />
 		<div v-if="showComments">
-			<div class="d-flex align-items-end my-1">
-				<h5 class="mb-0 me-1">
+			<div class="d-flex align-items-end my-0-5">
+				<h5 class="mb-0 me-0-5">
 					Comments
 				</h5>
 				<span>{{ answer.commentsCount }}</span>
@@ -54,7 +54,7 @@
 			<CommentList :answer-id="answer.id" />
 		</div>
 		<CommentForm :answer-id="answer.id" />
-		<div class="my-1">
+		<div class="my-0-5">
 			<DisplayError :error="error" />
 			<PageLoading v-if="loading" />
 		</div>

@@ -1,10 +1,10 @@
 <template>
 	<aside class="sidebar-body">
-		<div v-if="isLoggedIn" class="mb-2">
+		<div v-if="isLoggedIn" class="mb-1">
 			<ProfileHeadCard :user="user" />
-			<div class="thick mx-n1" />
+			<div class="thick mx-n0-5" />
 		</div>
-		<div class="my-2 sidebar-links">
+		<div class="my-1 sidebar-links">
 			<NuxtLink class="sidebar-link" to="/dashboard">
 				<img src="@app/assets/images/icons/dashboard.svg" alt="">
 				<span>Dashboard</span>

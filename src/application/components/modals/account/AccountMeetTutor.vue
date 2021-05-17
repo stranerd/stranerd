@@ -3,7 +3,7 @@
 		<template slot="title">
 			Meet A Nerd
 		</template>
-		<div class="d-flex flex-column flex-sm-row gap-1 mb-2">
+		<div class="d-flex flex-column flex-sm-row gap-0-5 mb-1">
 			<SelectSubject :subject-id.sync="subjectId" />
 		</div>
 		<button class="btn btn-blue" @click="navigate">

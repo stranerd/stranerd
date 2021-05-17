@@ -1,6 +1,6 @@
 <template>
 	<form @submit.prevent="createMessage">
-		<div class="form-group mb-2">
+		<div class="form-group mb-1">
 			<label for="name">Full Name</label>
 			<input
 				id="name"
@@ -11,7 +11,7 @@
 			>
 			<small v-if="factory.errors.name" class="small text-danger d-block">{{ factory.errors.name }}</small>
 		</div>
-		<div class="form-group mb-2">
+		<div class="form-group mb-1">
 			<label for="email">Email</label>
 			<input
 				id="email"
@@ -22,7 +22,7 @@
 			>
 			<small v-if="factory.errors.email" class="small text-danger d-block">{{ factory.errors.email }}</small>
 		</div>
-		<div class="form-group mb-2">
+		<div class="form-group mb-1">
 			<label for="message">Message</label>
 			<textarea
 				id="message"

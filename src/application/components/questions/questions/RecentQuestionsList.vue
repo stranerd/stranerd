@@ -5,7 +5,7 @@
 				Recent Questions
 			</h3>
 			<form class="d-flex ms-auto">
-				<SelectSubject :subject-id.sync="subjectId" class="form-control-sm my-1" />
+				<SelectSubject :subject-id.sync="subjectId" class="form-control-sm my-0-5" />
 			</form>
 		</div>
 		<div class="thick" />

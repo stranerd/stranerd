@@ -1,12 +1,12 @@
 <template>
 	<aside class="sidebar-body">
-		<NuxtLink class="d-none d-lg-block text-center my-4" to="/">
+		<NuxtLink class="d-none d-lg-block text-center my-2" to="/">
 			<Logo />
 		</NuxtLink>
 		<div v-if="isLoggedIn">
 			<AccountHeadCard :user="user" />
 		</div>
-		<div class="my-2 sidebar-links">
+		<div class="my-1 sidebar-links">
 			<NuxtLink class="sidebar-link" to="/dashboard">
 				<img src="@app/assets/images/icons/dashboard.svg" alt="">
 				<span>Dashboard</span>

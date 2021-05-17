@@ -1,6 +1,6 @@
 <template>
 	<form @submit.prevent="submitComment">
-		<div class="form-group my-1">
+		<div class="form-group my-0-5">
 			<div class="d-flex align-items-center">
 				<Avatar :src="isLoggedIn ? user.avatar : Avatars.default.link" :size="35" />
 				<input

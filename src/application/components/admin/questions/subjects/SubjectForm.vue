@@ -1,6 +1,6 @@
 <template>
 	<form @submit.prevent="submit">
-		<div class="form-group my-2">
+		<div class="form-group my-1">
 			<label class="label">Name</label>
 			<input
 				v-model="factory.name"
@@ -10,18 +10,18 @@
 			>
 			<small v-if="factory.errors.name" class="small text-danger d-block">{{ factory.errors.name }}</small>
 		</div>
-		<div class="form-group my-2">
+		<div class="form-group my-1">
 			<label class="label d-block">Icon</label>
 			<input ref="iconInput" type="file" class="d-none" accept="image/*" @change="catchIcon">
-			<img v-if="iconLink" :src="iconLink" class="me-2" height="50px" alt="">
+			<img v-if="iconLink" :src="iconLink" class="me-1" height="50px" alt="">
 			<span v-if="factory.icon">{{ factory.icon.name }}</span>
-			<a class="text-info my-1" @click.prevent="() => { $refs.iconInput.value= ''; $refs.iconInput.click() }">
+			<a class="text-info my-0-5" @click.prevent="() => { $refs.iconInput.value= ''; $refs.iconInput.click() }">
 				{{ factory.icon ? 'Change' : 'Upload' }} subject icon
 			</a>
 			<small v-if="factory.errors.icon" class="small text-danger d-block">{{ factory.errors.icon }}</small>
 		</div>
 		<hr>
-		<div class="d-flex justify-content-end my-2">
+		<div class="d-flex justify-content-end my-1">
 			<button class="btn btn-blue text-white" type="submit" :disabled="loading || !factory.valid">
 				<span><slot name="buttonText">Submit</slot></span>
 			</button>

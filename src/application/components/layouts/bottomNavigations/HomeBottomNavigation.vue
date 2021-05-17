@@ -16,9 +16,9 @@
 				</div>
 				<div>
 					<h4>
-						<i class="fas fa-circle me-half" />
-						<i class="fas fa-circle me-half" />
-						<i class="fas fa-circle me-half" />
+						<i class="fas fa-circle me-0-25" />
+						<i class="fas fa-circle me-0-25" />
+						<i class="fas fa-circle me-0-25" />
 					</h4>
 					<a target="_blank" href="/legal/terms-and-conditions.pdf">
 						Terms & Conditions
@@ -49,7 +49,7 @@
 					</NuxtLink>
 				</div>
 			</div>
-			<p class="my-4">
+			<p class="my-2">
 				&copy; {{ new Date().getFullYear() }} | Stranerd LLC. All Rights Reserved.
 			</p>
 		</div>

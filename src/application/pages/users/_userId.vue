@@ -4,9 +4,9 @@
 		<div v-else-if="user" class="page-content">
 			<UserHeadCard :key="user.hash" :user="user" />
 			<DisplayError v-if="error" :error="error" />
-			<div class="thick mx-n4" />
+			<div class="thick mx-n2" />
 			<UserAchievementsList :user="user" />
-			<div class="thick mx-n4" />
+			<div class="thick mx-n2" />
 			<UserAnswerList v-if="user.roles.isTutor" :user-id="user.id" />
 			<UserQuestionList v-else :user-id="user.id" />
 		</div>

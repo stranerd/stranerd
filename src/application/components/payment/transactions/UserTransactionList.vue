@@ -5,7 +5,7 @@
 		</h2>
 		<table class="table">
 			<thead class="bg-light-blue">
-				<tr class="py-2">
+				<tr class="py-1">
 					<th scope="col">
 						Date
 					</th>

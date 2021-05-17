@@ -1,11 +1,11 @@
 <template>
 	<form @submit.prevent="sendSigninEmail">
-		<h1 class="mb-7 text-center">
+		<h1 class="mb-3-5 text-center">
 			Sign In With
 		</h1>
-		<AuthProviders class="mb-4" />
-		<hr class="w-75 mx-auto my-4">
-		<div class="text-center mb-2">
+		<AuthProviders class="mb-2" />
+		<hr class="w-75 mx-auto my-2">
+		<div class="text-center mb-1">
 			<h3>Or use your email</h3>
 			<p class="w-75 mx-auto">
 				No need for passwords here! Enter your email below to get an authentication link sent to your email.
@@ -26,8 +26,8 @@
 			>
 			<span v-if="factory.errors.email" class="text-danger">{{ factory.errors.email }}</span>
 		</div>
-		<div class="mt-2 text-center">
-			<button type="submit" class="w-100 btn btn-blue py-2" :disabled="loading || !factory.valid">
+		<div class="mt-1 text-center">
+			<button type="submit" class="w-100 btn btn-blue py-1" :disabled="loading || !factory.valid">
 				Get Link
 			</button>
 			<DisplayError :error="error" />

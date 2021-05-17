@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="page-content mb-1">
+		<div class="page-content mb-0-5">
 			<UserCreditBalanceCard :user="user" />
 		</div>
 		<div class="page-content">

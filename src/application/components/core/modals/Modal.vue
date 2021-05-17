@@ -2,7 +2,7 @@
 	<div class="modal-background">
 		<div v-if="closeOnBackground" class="under" @click="close()" />
 		<div class="modal-inner">
-			<div class="d-flex align-items-center justify-content-between my-3 px-3">
+			<div class="d-flex align-items-center justify-content-between my-1-5 px-1-5">
 				<slot name="pre-icon">
 					<i />
 				</slot>
@@ -15,7 +15,7 @@
 					<a class="fas fa-times text-danger" @click.prevent="close" />
 				</h4>
 			</div>
-			<hr v-if="showSeparator" class="my-3">
+			<hr v-if="showSeparator" class="my-1-5">
 			<slot>
 				<p>This is the default content of the modal</p>
 			</slot>

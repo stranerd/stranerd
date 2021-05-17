@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="d-flex align-items-center mb-2 gap-1">
+		<div class="d-flex align-items-center mb-1 gap-0-5">
 			<NuxtLink :to="`/users/${question.userId}`">
 				<Avatar :src="question.avatar" :size="50" />
 			</NuxtLink>
@@ -15,12 +15,12 @@
 				</span>
 			</div>
 			<div class="d-none d-md-inline">
-				<div class="d-flex gap-1">
+				<div class="d-flex gap-0-5">
 					<div v-if="isTutor" class="d-flex align-items-center position-relative">
-						<span class="rounded-pill px-1 pe-3 bg-blue-grey text-light-blue">
+						<span class="rounded-pill px-0-5 pe-1-5 bg-blue-grey text-light-blue">
 							+{{ formatNumber(question.creditable) }}
 						</span>
-						<Coins :size="24" class="ms-n2" style="z-index:1;" />
+						<Coins :size="24" class="ms-n1" style="z-index:1;" />
 					</div>
 					<span>
 						<img src="@app/assets/images/icons/answers.svg" alt="" style="width: 24px; height: 24px;">
@@ -28,43 +28,43 @@
 					</span>
 				</div>
 			</div>
-			<button v-if="showAnswerButton" class="btn btn-outline-blue rounded-pill ms-1 px-3 py-half" @click="openAnswerModal">
+			<button v-if="showAnswerButton" class="btn btn-outline-blue rounded-pill ms-0-5 px-1-5 py-0-25" @click="openAnswerModal">
 				Answer
 			</button>
 			<i v-if="question.isAnswered" class="fas fa-check text-success fa-2x" />
 		</div>
-		<div class="thick mx-n1 mx-md-n3 mx-lg-n4" />
-		<div class="mb-2 editor-body lead" v-html="question.body" />
+		<div class="thick mx-n0-5 mx-md-n1-5 mx-lg-n2" />
+		<div class="mb-1 editor-body lead" v-html="question.body" />
 		<div class="d-flex">
-			<span class="me-1 me-md-2 d-md-none">
+			<span class="me-0-5 me-md-1 d-md-none">
 				<img src="@app/assets/images/icons/answers.svg" alt="" style="width: 20px; height: 20px;">
 				<span>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</span>
 			</span>
-			<span v-if="question.attachments.length" class="me-1 me-md-2">
+			<span v-if="question.attachments.length" class="me-0-5 me-md-1">
 				<span>{{ formatNumber(question.attachments.length) }}</span>
 				<i class="fas fa-paperclip" />
 			</span>
-			<a v-if="question.commentsCount" class="me-1 me-md-2 d-flex align-items-center" @click.prevent="showComments = !showComments">
+			<a v-if="question.commentsCount" class="me-0-5 me-md-1 d-flex align-items-center" @click.prevent="showComments = !showComments">
 				<span>
 					{{ showComments ? 'Hide' : 'Show' }} Comments
 				</span>
-				<i class="fas mx-half" :class="showComments ? 'fa-angle-up' : 'fa-angle-down'" />
+				<i class="fas mx-0-25" :class="showComments ? 'fa-angle-up' : 'fa-angle-down'" />
 			</a>
 			<div v-if="isTutor" class="d-md-none d-flex align-items-center position-relative ms-auto">
-				<span class="rounded-pill px-1 pe-3 bg-blue-grey text-light-blue">
+				<span class="rounded-pill px-0-5 pe-1-5 bg-blue-grey text-light-blue">
 					+{{ formatNumber(question.creditable) }}
 				</span>
-				<Coins :size="24" class="ms-n2" style="z-index:1;" />
+				<Coins :size="24" class="ms-n1" style="z-index:1;" />
 			</div>
 		</div>
 		<template v-if="question.attachments.length">
-			<div class="thick mx-n1 mx-md-n3 mx-lg-n4" />
+			<div class="thick mx-n0-5 mx-md-n1-5 mx-lg-n2" />
 			<DisplayAttachments id="attachments" :attachments="question.attachments" />
 		</template>
-		<div class="thick mx-n1 mx-md-n3 mx-lg-n4" />
+		<div class="thick mx-n0-5 mx-md-n1-5 mx-lg-n2" />
 		<div v-if="showComments">
-			<div class="d-flex align-items-end mb-1">
-				<h5 class="mb-0 me-1">
+			<div class="d-flex align-items-end mb-0-5">
+				<h5 class="mb-0 me-0-5">
 					Comments
 				</h5>
 				<span>{{ formatNumber(question.commentsCount) }}</span>

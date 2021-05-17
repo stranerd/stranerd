@@ -1,8 +1,8 @@
 <template>
-	<tr class="py-2">
+	<tr class="py-1">
 		<td>{{ formatTime(transaction.createdAt) }}</td>
 		<td class="d-flex align-items-center justify-content-end" :class="transaction.isGain ? 'text-success' : 'text-danger'">
-			<span class="me-half">{{ transaction.isGain ? '+' : '-' }}{{ formatNumber(transaction.amount) }}</span>
+			<span class="me-0-25">{{ transaction.isGain ? '+' : '-' }}{{ formatNumber(transaction.amount) }}</span>
 			<Coins :gold="transaction.isGold" :size="24" />
 		</td>
 		<td>{{ transaction.event }}</td>

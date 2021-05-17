@@ -4,7 +4,7 @@
 			{{ tutorSubject ? 'Modify' : 'Assign' }} Nerd's Subject
 		</template>
 		<div v-if="tutorSubject">
-			<div class="d-flex flex-column align-items-center gap-1">
+			<div class="d-flex flex-column align-items-center gap-0-5">
 				<img v-if="tutorSubject.icon" :src="tutorSubject.icon" alt="" height="50px">
 				<p class="text-capitalize text-center mb-0">
 					Currently Teaching <b>{{ tutorSubject.name }}</b>
@@ -16,8 +16,8 @@
 			</div>
 		</div>
 		<div v-else>
-			<div class="d-flex flex-wrap gap-3">
-				<div v-for="subject in nonTutorSubjects" :key="subject.hash" class="d-flex flex-column align-items-center gap-1">
+			<div class="d-flex flex-wrap gap-1-5">
+				<div v-for="subject in nonTutorSubjects" :key="subject.hash" class="d-flex flex-column align-items-center gap-0-5">
 					<img v-if="subject.icon" :src="subject.icon" alt="" height="40px">
 					<h5 class="text-capitalize mb-0">
 						{{ subject.name }}
@@ -27,10 +27,10 @@
 			</div>
 		</div>
 		<PageLoading v-if="subLoading || tutLoading" />
-		<p v-if="tutError" class="text-danger text-center my-3">
+		<p v-if="tutError" class="text-danger text-center my-1-5">
 			{{ tutError }}
 		</p>
-		<p v-if="subError" class="text-danger text-center my-3">
+		<p v-if="subError" class="text-danger text-center my-1-5">
 			{{ subError }}
 		</p>
 	</Modal>

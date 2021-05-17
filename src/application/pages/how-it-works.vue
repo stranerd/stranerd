@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="d-flex flex-column align-items-center mb-1">
+		<div class="d-flex flex-column align-items-center mb-0-5">
 			<i class="fas fa-circle text-blue border border-light-blue rounded-pill" style="font-size: 0.5rem; border-width: 0.2rem !important;" />
 			<span class="simple-text">Simple &<br>Straightforward</span>
 		</div>

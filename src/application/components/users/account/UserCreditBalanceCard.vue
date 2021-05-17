@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="d-flex justify-content-between align-items-center mb-3">
+		<div class="d-flex justify-content-between align-items-center mb-1-5">
 			<h3 class="mb-0">
 				Current Balance
 			</h3>
@@ -8,7 +8,7 @@
 				Buy coins
 			</button>
 		</div>
-		<div class="bg-light-grey d-flex flex-column flex-xsm-row px-8 py-6 justify-content-around" style="border-radius: 1.25rem;">
+		<div class="bg-light-grey d-flex flex-column flex-xsm-row px-4 py-3 justify-content-around" style="border-radius: 1.25rem;">
 			<span class="d-flex align-items-baseline">
 				<span class="fw-bold display-3">{{ formatNumber(user.account.coins.bronze) }}</span>
 				<Coins :size="40" />

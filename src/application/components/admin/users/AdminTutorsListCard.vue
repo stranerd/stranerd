@@ -1,15 +1,15 @@
 <template>
-	<div :id="tutor.id" class="text-truncate mb-3">
-		<div class="d-flex gap-1">
+	<div :id="tutor.id" class="text-truncate mb-1-5">
+		<div class="d-flex gap-0-5">
 			<Avatar :src="tutor.avatar" :size="60" />
 			<div>
 				<p class="lead mb-0 text-wrap">
 					{{ tutor.fullName }}
 				</p>
-				<p class="small mb-1 text-wrap">
+				<p class="small mb-0-5 text-wrap">
 					{{ tutor.email }}
 				</p>
-				<div class="d-flex flex-wrap small gap-1">
+				<div class="d-flex flex-wrap small gap-0-5">
 					<a class="text-blue" @click.prevent="openEditModal">
 						<span>Manage nerd's subject</span>
 						<i class="fas fa-cog" />

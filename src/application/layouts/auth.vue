@@ -1,6 +1,6 @@
 <template>
 	<section class="body bg-blue-grey w-100 d-flex justify-content-center align-items-center flex-wrap">
-		<div class="content bg-light-blue text-blue pt-8 pb-4 px-2 px-sm-8">
+		<div class="content bg-light-blue text-blue pt-4 pb-2 px-1 px-sm-4">
 			<Nuxt />
 		</div>
 		<ModalBase />

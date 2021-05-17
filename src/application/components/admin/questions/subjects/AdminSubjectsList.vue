@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="grid my-2">
+		<div class="grid my-1">
 			<SubjectCard v-for="subject in subjects" :key="subject.hash" :subject="subject" />
 		</div>
 		<DisplayWarning v-if="!loading && !error && subjects.length === 0" message="No subjects found" />

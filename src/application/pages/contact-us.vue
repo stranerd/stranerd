@@ -2,19 +2,19 @@
 	<div class="d-flex flex-column flex-md-row-reverse align-items-md-center justify-content-center">
 		<div class="bg-blob">
 			<h1>Get In Touch</h1>
-			<div class="d-flex mb-2 align-items-start">
+			<div class="d-flex mb-1 align-items-start">
 				<span>+14040435611</span>
 				<span class="small-icons">
 					<i class="fas fa-phone" />
 				</span>
 			</div>
-			<div class="d-flex mb-2 align-items-start">
+			<div class="d-flex mb-1 align-items-start">
 				<span>support@stranerd.com</span>
 				<span class="small-icons">
 					<i class="fas fa-envelope" />
 				</span>
 			</div>
-			<div class="d-flex mb-2 align-items-start">
+			<div class="d-flex mb-1 align-items-start">
 				<span>651 N, Broad Street, Suite 206 Middletown, DELAWARE, 19709</span>
 				<span class="small-icons">
 					<i class="fas fa-map-marker-alt" />
@@ -25,7 +25,7 @@
 					<i class="fab fa-facebook-square" />
 				</a>
 				<a target="__blank" href="https://instagram.com/officialstranerd">
-					<i class="fab fa-instagram mx-4" />
+					<i class="fab fa-instagram mx-2" />
 				</a>
 				<a target="__blank" href="https://twitter.com/stranerds">
 					<i class="fab fa-twitter" />

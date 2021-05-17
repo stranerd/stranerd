@@ -2,7 +2,7 @@
 	<div class="full">
 		<div class="under" @click="close" />
 		<div class="sidebar">
-			<div class="pt-1 px-2 d-flex bg-blue align-items-center gap-1">
+			<div class="pt-0-5 px-1 d-flex bg-blue align-items-center gap-0-5">
 				<a @click.prevent="close">
 					<img src="@app/assets/images/icons/close.svg" alt="" width="16" height="16" style="filter: brightness(200%);">
 				</a>
@@ -11,7 +11,7 @@
 				</NuxtLink>
 			</div>
 			<div class="thick mt-0" />
-			<div class="px-1">
+			<div class="px-0-5">
 				<slot />
 			</div>
 			<div v-if="isLoggedIn" class="mt-auto">

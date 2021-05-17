@@ -1,6 +1,6 @@
 <template>
 	<form @submit.prevent="signin">
-		<div class="mb-5 text-center">
+		<div class="mb-2-5 text-center">
 			<h1>
 				Confirm Email Address
 			</h1>
@@ -23,14 +23,14 @@
 			>
 			<span v-if="factory.errors.email" class="text-danger">{{ factory.errors.email }}</span>
 		</div>
-		<div class="mt-2 text-center">
-			<button type="submit" class="w-100 btn btn-blue py-2" :disabled="loading || !factory.valid">
+		<div class="mt-1 text-center">
+			<button type="submit" class="w-100 btn btn-blue py-1" :disabled="loading || !factory.valid">
 				Continue
 			</button>
 			<DisplayError :error="error" />
 			<PageLoading v-if="loading" />
 		</div>
-		<div class="text-center mt-4">
+		<div class="text-center mt-2">
 			<NuxtLink to="/auth/" class="label-sm">
 				Back To Auth Page
 			</NuxtLink>

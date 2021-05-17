@@ -133,7 +133,9 @@ hr.thin {
 		body[data-no-gap='true'] .gap#{$infix}-#{$key} {
 			@media (min-width: $width) {
 				gap: 0 !important;
-				& > * { margin: 0.5 * $val; }
+				& > * {
+					margin: calc(#{$val} * 0.5);
+				}
 			}
 		}
 	}

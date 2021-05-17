@@ -5,7 +5,7 @@
 				<p class="mb-0 text-truncate lead">
 					{{ extractTextFromHTML(item.model.body) }}
 				</p>
-				<div class="d-flex gap-1 align-items-center">
+				<div class="d-flex gap-0-5 align-items-center">
 					<Avatar :src="item.model.avatar" :size="30" />
 					<span class="text-truncate">
 						{{ item.model.userName }}

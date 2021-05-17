@@ -1,7 +1,7 @@
 <template>
 	<Search collection="users" :transform-results="transformResults">
 		<template #item="{ item }">
-			<NuxtLink :to="`/users/${item.model.id}`" class="d-flex align-items-center gap-1">
+			<NuxtLink :to="`/users/${item.model.id}`" class="d-flex align-items-center gap-0-5">
 				<Avatar :src="item.model.avatar" :size="45" />
 				<div class="flex-grow-1">
 					<h5 class="mb-0 text-truncate">

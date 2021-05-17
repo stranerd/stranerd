@@ -1,7 +1,7 @@
 <template>
 	<div class="links d-flex align-items-center">
 		<template v-if="showSearch">
-			<a class="me-1" @click.prevent="showSearch = false">
+			<a class="me-0-5" @click.prevent="showSearch = false">
 				<i class="fas fa-times" />
 			</a>
 			<SearchBar />

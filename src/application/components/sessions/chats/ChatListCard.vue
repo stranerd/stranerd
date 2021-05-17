@@ -2,7 +2,7 @@
 	<div class="d-flex">
 		<div class="chat" :class="isMine ? 'is-mine' : 'is-not-mine'">
 			<a v-if="chat.isMedia" class="text-truncate" :href="chat.media.link" target="__blank">
-				<i class="fas fa-paperclip me-half" />
+				<i class="fas fa-paperclip me-0-25" />
 				<span class="text-truncate">{{ chat.media.name }}</span>
 			</a>
 			<span v-else>{{ chat.content || 'Hello' }}</span>

@@ -1,6 +1,6 @@
 <template>
-	<div :id="question.id" class="my-2">
-		<div class="d-flex align-items-center mb-1 gap-1">
+	<div :id="question.id" class="my-1">
+		<div class="d-flex align-items-center mb-0-5 gap-0-5">
 			<NuxtLink :to="`/users/${question.userId}`">
 				<Avatar :src="question.avatar" :size="50" />
 			</NuxtLink>
@@ -18,9 +18,9 @@
 				<img src="@app/assets/images/icons/answers.svg" alt="" style="width: 20px; height: 20px;">
 				<span>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</span>
 			</span>
-			<i v-if="question.isAnswered" class="fas fa-check text-success fa-2x ms-1" />
+			<i v-if="question.isAnswered" class="fas fa-check text-success fa-2x ms-0-5" />
 		</div>
-		<NuxtLink class="text-18 mb-1" :to="`/questions/${question.id}`">
+		<NuxtLink class="text-18 mb-0-5" :to="`/questions/${question.id}`">
 			{{ question.trimmedBody }}
 		</NuxtLink>
 		<NuxtLink v-if="question.attachments.length" :to="`/questions/${question.id}`">

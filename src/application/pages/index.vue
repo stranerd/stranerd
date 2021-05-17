@@ -4,7 +4,7 @@
 			<h1>A Nerd In Need Is A Friend Indeed.</h1>
 			<h5>The help every student deserves.</h5>
 			<p>We bring you a platform where you have access to learn from students who have mastery in subjects you need help with; NERDS! that’s what we call them.</p>
-			<NuxtLink to="/auth" class="btn btn-blue mt-3 border border-light-blue px-6 py-2">
+			<NuxtLink to="/auth" class="btn btn-blue mt-1-5 border border-light-blue px-3 py-1">
 				Join Today
 			</NuxtLink>
 		</div>

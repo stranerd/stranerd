@@ -5,7 +5,7 @@
 				Add New Subject
 			</button>
 		</div>
-		<div class="thick mx-n4 mb-4" />
+		<div class="thick mx-n2 mb-2" />
 		<SubjectsList />
 	</div>
 </template>

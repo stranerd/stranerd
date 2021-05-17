@@ -5,7 +5,7 @@
 				Meet A Nerd Result
 			</h2>
 			<form class="d-flex ms-auto">
-				<SelectSubject :subject-id.sync="subjectId" class="form-select-sm my-1" />
+				<SelectSubject :subject-id.sync="subjectId" class="form-select-sm my-0-5" />
 			</form>
 		</div>
 		<div class="thick" />

@@ -1,5 +1,5 @@
 <template>
-	<div :id="comment.id" class="my-1 d-flex align-items-start gap-1">
+	<div :id="comment.id" class="my-0-5 d-flex align-items-start gap-0-5">
 		<NuxtLink :to="`/users/${comment.userId}`">
 			<Avatar :src="comment.avatar" :size="35" />
 		</NuxtLink>

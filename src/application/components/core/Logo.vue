@@ -1,5 +1,5 @@
 <template>
-	<img src="/images/stranerd_logo.svg" height="30" alt="Stranerd" class="my-1">
+	<img src="/images/stranerd_logo.svg" height="30" alt="Stranerd" class="my-0-5">
 </template>
 
 <script lang="ts">

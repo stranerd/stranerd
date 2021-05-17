@@ -1,16 +1,16 @@
 <template>
 	<div>
-		<div class="d-flex text-center align-items-center flex-wrap mb-2">
+		<div class="d-flex text-center align-items-center flex-wrap mb-1">
 			<h5 class="fw-bold mb-0">
 				Achievements
 			</h5>
 			<NuxtLink to="/account" class="ms-auto d-flex align-items-center">
 				<span>More</span>
-				<i class="fas fa-angle-right mx-half" />
+				<i class="fas fa-angle-right mx-0-25" />
 			</NuxtLink>
 		</div>
 		<div class="thick" />
-		<div v-for="achievement in ongoingAchievements" :key="achievement.id" class="achievement gap-1">
+		<div v-for="achievement in ongoingAchievements" :key="achievement.id" class="achievement gap-0-5">
 			<div class="achievement-image">
 				<img :src="achievement.link" alt="">
 			</div>

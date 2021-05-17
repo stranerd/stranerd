@@ -1,3 +1,4 @@
+@use 'sass:map';
 $color-blue: #17224d;
 $color-light-blue: #e2f0ff;
 $color-blue-grey: #344BA2;
@@ -47,27 +48,16 @@ $theme-colors: (
 	'white': $color-white
 );
 
-$spacers: (
-	n4: -2.0rem,
-	n3: -1.5rem,
-	n2: -1.0rem,
-	n1: -.5rem,
-	quarter: .125rem,
-	half: .25rem,
-	0: 0,
-	1: .5rem,
-	2: 1.0rem,
-	3: 1.5rem,
-	4: 2.0rem,
-	5: 2.5rem,
-	6: 3.0rem,
-	7: 3.5rem,
-	8: 4.0rem,
-	9: 4.5rem,
-	10: 5.0rem,
-	11: 5.5rem,
-	12: 6.0rem,
-);
+$spacer-values: (0,1,2,3,4);
+$spacers: ();
+@each $key in $spacer-values {
+	$spacers: map-merge($spacers, (
+		'#{$key}': #{$key}rem,
+		'#{$key}-5': #{$key + 0.5}rem,
+		'n#{$key}': #{0 - $key}rem,
+		'n#{$key}-5': #{0 - 0.5 - $key}rem
+	));
+}
 
 @function vh($quantity) {
 	@return calc(var(--vh, 1vh) * #{$quantity})

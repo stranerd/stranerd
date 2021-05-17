@@ -4,7 +4,7 @@
 			Request Session
 		</template>
 		<form @click.prevent="createSession">
-			<div class="form-group my-2">
+			<div class="form-group my-1">
 				<select v-model="factory.duration" class="form-select">
 					<option disabled value="0">
 						Select Session Duration
@@ -18,7 +18,7 @@
 					<a class="ml-half" @click.prevent="buy">Buy More Coins</a>
 				</template>
 			</div>
-			<button class="btn btn-blue my-2 w-100" type="submit" :disabled="loading || !factory.valid || user.account.coins.gold < factory.duration">
+			<button class="btn btn-blue my-1 w-100" type="submit" :disabled="loading || !factory.valid || user.account.coins.gold < factory.duration">
 				Request Session
 			</button>
 			<DisplayError :error="error" />

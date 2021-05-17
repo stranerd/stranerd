@@ -2,7 +2,7 @@
 	<div>
 		<h3>Achievements</h3>
 		<div class="achievementList">
-			<div v-for="achievement in user.achievements" :key="achievement.id" class="achievement gap-1" :class="{'completed': achievement.completed}">
+			<div v-for="achievement in user.achievements" :key="achievement.id" class="achievement gap-0-5" :class="{'completed': achievement.completed}">
 				<div class="achievement-image">
 					<img :src="achievement.link" alt="">
 				</div>

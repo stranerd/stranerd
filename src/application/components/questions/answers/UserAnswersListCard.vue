@@ -1,9 +1,9 @@
 <template>
 	<div :id="answer.id">
-		<NuxtLink class="text-18 mb-1" :to="`/questions/${answer.questionId}#${answer.id}`">
+		<NuxtLink class="text-18 mb-0-5" :to="`/questions/${answer.questionId}#${answer.id}`">
 			{{ answer.trimmedBody }}
 		</NuxtLink>
-		<div class="d-flex gap-1">
+		<div class="d-flex gap-0-5">
 			<span class="text-wrap me-auto">
 				{{ subject ? subject.name : 'Subject' }}
 				|

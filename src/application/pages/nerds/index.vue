@@ -1,5 +1,5 @@
 <template>
-	<div class="page-content my-1 my-md-2">
+	<div class="page-content my-0-5 my-md-1">
 		<TutorsList />
 	</div>
 </template>

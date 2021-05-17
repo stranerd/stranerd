@@ -1,5 +1,5 @@
 <template>
-	<div :id="tutor.id" class="my-2 d-flex align-items-start align-items-md-center gap-1">
+	<div :id="tutor.id" class="my-1 d-flex align-items-start align-items-md-center gap-0-5">
 		<span>{{ rank }}.&nbsp;</span>
 		<NuxtLink :to="`/users/${tutor.id}`" class="position-relative">
 			<Avatar :src="tutor.avatar" :size="50" />
@@ -14,7 +14,7 @@
 				<ShowRatings :rating="tutor.averageRating" />
 			</span>
 		</div>
-		<span class="d-none d-md-flex text-nowrap gap-1 align-items-center">
+		<span class="d-none d-md-flex text-nowrap gap-0-5 align-items-center">
 			<span v-if="subject" style="font-weight: 600;">{{ subject.name }}</span>
 			<span>
 				<i class="fas fa-circle" :class="tutor.isOnline ? 'text-success' : 'text-grey'" />

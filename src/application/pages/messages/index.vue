@@ -5,7 +5,7 @@
 		</p>
 		<div v-for="user in chats" :key="user.id">
 			<UserChatCard :user="user" />
-			<div class="thick mx-n2" />
+			<div class="thick mx-n1" />
 		</div>
 	</div>
 </template>

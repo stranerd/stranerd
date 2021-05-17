@@ -8,7 +8,7 @@
 			<QuestionCard :question="question" />
 			<div class="thick" />
 		</div>
-		<div v-if="hasMore" class="text-center py-1 text-18">
+		<div v-if="hasMore" class="text-center py-0-5 text-18">
 			<a class="fw-bold" @click.prevent="fetchOlderQuestions">LOAD MORE</a>
 		</div>
 		<DisplayWarning v-if="!loading && !error && questions.length === 0" message="This user has not asked any questions yet." />

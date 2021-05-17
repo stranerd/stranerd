@@ -2,11 +2,11 @@
 	<div class="flex-grow-1 d-flex flex-column">
 		<PageLoading v-if="loading" />
 		<template v-else-if="user">
-			<div v-if="user.roles.isTutor || chats.find((c) => c.id === user.id)" class="page-content flex-grow-1 d-flex flex-column px-2" :class="{'bg-light-blue': sessionId}">
+			<div v-if="user.roles.isTutor || chats.find((c) => c.id === user.id)" class="page-content flex-grow-1 d-flex flex-column px-1" :class="{'bg-light-blue': sessionId}">
 				<ChatHead :key="user.hash + hash" :user="user" />
-				<div class="thin mx-n2" />
+				<div class="thin mx-n1" />
 				<ChatList :user-id="userId" class="flex-grow-1" />
-				<div class="thin mx-n2" />
+				<div class="thin mx-n1" />
 				<ChatForm :key="sessionId" :user-id="userId" :session-id="sessionId" />
 			</div>
 			<div v-else class="page-content">

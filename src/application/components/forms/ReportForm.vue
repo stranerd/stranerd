@@ -1,6 +1,6 @@
 <template>
 	<form @submit.prevent="submit">
-		<div class="form-group mb-2">
+		<div class="form-group mb-1">
 			<label for="title">One Line Summary</label>
 			<input
 				id="title"
@@ -11,7 +11,7 @@
 			>
 			<small v-if="factory.errors.title" class="small text-danger d-block">{{ factory.errors.title }}</small>
 		</div>
-		<div class="form-group mb-2">
+		<div class="form-group mb-1">
 			<label for="message">Message</label>
 			<textarea
 				id="message"

@@ -25,7 +25,7 @@
 			</button>
 			<hr>
 			<div class="form-group text-center">
-				<p class="mb-1">
+				<p class="mb-0-5">
 					Pay With PayPal Instead
 				</p>
 				<div id="paypalButton" />

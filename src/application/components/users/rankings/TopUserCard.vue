@@ -1,10 +1,10 @@
 <template>
-	<div class="d-flex align-items-center my-1">
+	<div class="d-flex align-items-center my-0-5">
 		<span>{{ rank }}.&nbsp;</span>
 		<NuxtLink :to="`/users/${user.id}`">
 			<Avatar :src="user.avatar" :size="35" />
 		</NuxtLink>
-		<NuxtLink :to="`/users/${user.id}`" class="mx-1 fw-bold">
+		<NuxtLink :to="`/users/${user.id}`" class="mx-0-5 fw-bold">
 			<span>{{ user.fullName }}</span>
 		</NuxtLink>
 		<span class="ms-auto">

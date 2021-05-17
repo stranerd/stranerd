@@ -4,7 +4,7 @@
 			Achievements
 		</h2>
 		<div class="thick" />
-		<div v-for="achievement in user.achievements" :key="achievement.id" class="achievement gap-1">
+		<div v-for="achievement in user.achievements" :key="achievement.id" class="achievement gap-0-5">
 			<div class="achievement-image">
 				<img :src="achievement.link" alt="">
 			</div>

@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<UserProfileStats :user="user" />
-		<ProfileAchievementsList class="page-content my-1" :user="user" />
+		<ProfileAchievementsList class="page-content my-0-5" :user="user" />
 	</div>
 </template>
 

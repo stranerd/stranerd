@@ -5,12 +5,12 @@
 				Questions
 			</h2>
 			<form class="d-flex ms-md-auto">
-				<select v-model="answered" class="form-select form-select-sm me-1 my-1">
+				<select v-model="answered" class="form-select form-select-sm me-0-5 my-0-5">
 					<option v-for="choice in answeredChoices" :key="choice.val" :value="choice.val">
 						{{ choice.key }}
 					</option>
 				</select>
-				<SelectSubject :subject-id.sync="subjectId" class="form-control-sm my-1" />
+				<SelectSubject :subject-id.sync="subjectId" class="form-control-sm my-0-5" />
 			</form>
 		</section>
 		<div class="thick" />
@@ -18,7 +18,7 @@
 			<QuestionCard :question="question" />
 			<div class="thick" />
 		</div>
-		<div v-if="hasMore" class="text-center py-1 text-18">
+		<div v-if="hasMore" class="text-center py-0-5 text-18">
 			<a class="fw-bold" @click.prevent="fetchOlderQuestions">LOAD MORE</a>
 		</div>
 		<DisplayWarning v-if="!loading && !error && questions.length === 0" message="No questions found." />

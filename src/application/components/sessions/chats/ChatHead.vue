@@ -1,20 +1,20 @@
 <template>
-	<div class="d-flex py-half align-items-center">
-		<NuxtLink to="/messages" class="me-1">
+	<div class="d-flex py-0-25 align-items-center">
+		<NuxtLink to="/messages" class="me-0-5">
 			<i class="fas fa-arrow-left" />
 		</NuxtLink>
 		<NuxtLink :to="`/users/${user.id}`">
 			<Avatar :src="user.avatar" :size="40" />
 		</NuxtLink>
-		<div class="ms-1 me-auto">
+		<div class="ms-0-5 me-auto">
 			<NuxtLink :to="`/users/${user.id}`" class="d-block text-wrap">
 				<span class="fw-bold">{{ user.fullName }}</span>
 			</NuxtLink>
 			<span class="small">{{ user.isOnline ? 'Active now' : time }}</span>
 		</div>
-		<span v-if="isAccepted && currentSessionId === user.currentSession" class="lead ms-1">{{ countDown }}</span>
+		<span v-if="isAccepted && currentSessionId === user.currentSession" class="lead ms-0-5">{{ countDown }}</span>
 		<div class="position-relative">
-			<button class="btn navbar-toggler ms-1" @click="show = !show">
+			<button class="btn navbar-toggler ms-0-5" @click="show = !show">
 				<i class="fas fa-ellipsis-v" />
 			</button>
 			<div v-if="show" class="under" @click="show = false" />

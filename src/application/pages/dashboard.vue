@@ -1,8 +1,8 @@
 <template>
 	<section>
-		<div class="page-content mb-1 p-0">
+		<div class="page-content mb-0-5 p-0">
 			<div class="background">
-				<div class="overlay py-6 px-3">
+				<div class="overlay py-3 px-1-5">
 					<div style="max-width: 75%;">
 						<h2>
 							{{ isTutor ? 'Help a student in need today!' : 'Nerd help is what you need.' }}
@@ -15,14 +15,14 @@
 							Bringing to you the classroom method of learning from your peers.<br>
 							Ask a public question or Meet a nerd for 1 on 1 private chat.
 						</p>
-						<div class="d-flex gap-1 flex-column flex-md-row flex-wrap align-items-start">
-							<button class="btn btn-blue rounded-pill px-4 py-1 fw-bold" @click="openQuestionModal">
+						<div class="d-flex gap-0-5 flex-column flex-md-row flex-wrap align-items-start">
+							<button class="btn btn-blue rounded-pill px-2 py-0-5 fw-bold" @click="openQuestionModal">
 								Ask A Question
 							</button>
-							<NuxtLink v-if="isTutor" to="/questions" class="btn btn-outline-blue rounded-pill px-4 py-1 fw-bold">
+							<NuxtLink v-if="isTutor" to="/questions" class="btn btn-outline-blue rounded-pill px-2 py-0-5 fw-bold">
 								Answer Questions
 							</NuxtLink>
-							<button v-if="!isTutor" class="btn btn-outline-blue rounded-pill px-4 py-1 fw-bold" @click="setAccountModalMeetTutor">
+							<button v-if="!isTutor" class="btn btn-outline-blue rounded-pill px-2 py-0-5 fw-bold" @click="setAccountModalMeetTutor">
 								Meet a Nerd
 							</button>
 						</div>

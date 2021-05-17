@@ -62,7 +62,7 @@ export const useTutorsList = () => {
 	})
 
 	useFetch(async () => {
-		if (!global.fetched.value) await fetchTutors()
+		if (!global.fetched.value && !global.loading.value) await fetchTutors()
 	})
 
 	return { ...global, listener, tutors, filteredTutors }

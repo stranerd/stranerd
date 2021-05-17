@@ -38,7 +38,7 @@ export const useUserQuestionList = (id: string) => {
 	}
 
 	useFetch(async () => {
-		if (!global[id].fetched.value) await fetchQuestions()
+		if (!global[id].fetched.value && !global[id].loading.value) await fetchQuestions()
 	})
 
 	return { ...global[id], fetchOlderQuestions: fetchQuestions }

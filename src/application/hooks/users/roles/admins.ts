@@ -40,7 +40,7 @@ export const useAdminsList = () => {
 	const listener = useListener(async () => () => {})
 
 	useFetch(async () => {
-		if (!global.fetched.value) await fetchAdmins()
+		if (!global.fetched.value && !global.loading.value) await fetchAdmins()
 	})
 
 	return { ...global, listener, filteredAdmins }

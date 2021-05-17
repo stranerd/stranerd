@@ -61,7 +61,7 @@ export const useChats = (userId: string) => {
 	})
 
 	useFetch(async () => {
-		if (!global[userId].fetched.value) await fetchChats()
+		if (!global[userId].fetched.value && !global[userId].loading.value) await fetchChats()
 	})
 
 	return {

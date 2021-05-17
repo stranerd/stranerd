@@ -79,7 +79,7 @@ export const useQuestionList = () => {
 	}
 
 	useFetch(async () => {
-		if (!global.fetched.value) await fetchQuestions()
+		if (!global.fetched.value && !global.loading.value) await fetchQuestions()
 	})
 
 	return {

@@ -56,7 +56,7 @@ export const useTransactionList = (userId: string) => {
 	}
 
 	useFetch(async () => {
-		if (!global[userId].fetched.value) await fetchTransactions()
+		if (!global[userId].fetched.value && !global[userId].loading.value) await fetchTransactions()
 	})
 
 	return { ...global[userId], fetchOlderTransactions }

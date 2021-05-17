@@ -52,7 +52,7 @@ export const useChatCard = (userId: string) => {
 	})
 
 	useFetch(async () => {
-		if (isServer() && !global[userId].fetched.value) await fetchChat()
+		if (isServer() && !global[userId].fetched.value && !global[userId].loading.value) await fetchChat()
 	})
 
 	return {

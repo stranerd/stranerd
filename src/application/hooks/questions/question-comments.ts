@@ -34,7 +34,7 @@ export const useQuestionCommentList = (questionId: string) => {
 	})
 
 	useFetch(async () => {
-		if (!global[questionId].fetched.value) await fetchComments()
+		if (!global[questionId].fetched.value && !global[questionId].loading.value) await fetchComments()
 	})
 
 	return {

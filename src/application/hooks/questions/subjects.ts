@@ -32,7 +32,7 @@ const fetchSubjects = async () => {
 
 export const useSubjectList = () => {
 	useFetch(async () => {
-		if (!global.fetched.value) await fetchSubjects()
+		if (!global.fetched.value && !global.loading.value) await fetchSubjects()
 	})
 
 	return { ...global }
@@ -44,7 +44,7 @@ export const useSubject = (id: string) => {
 		set: (s) => { if (s) pushToGlobalSubjects(s) }
 	})
 	useFetch(async () => {
-		if (!global.fetched.value) await fetchSubjects()
+		if (!global.fetched.value && !global.loading.value) await fetchSubjects()
 	})
 
 	return { subject }

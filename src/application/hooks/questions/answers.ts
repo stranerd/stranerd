@@ -37,7 +37,7 @@ export const useAnswerList = (questionId: string) => {
 	})
 
 	useFetch(async () => {
-		if (!global[questionId].fetched.value) await fetchAnswers()
+		if (!global[questionId].fetched.value && !global[questionId].loading.value) await fetchAnswers()
 	})
 
 	return {

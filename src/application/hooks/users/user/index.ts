@@ -26,7 +26,7 @@ export const useUser = (id: string) => {
 	}
 
 	useFetch(async () => {
-		if (!global[id].fetched.value) await fetchUser()
+		if (!global[id].fetched.value && !global[id].loading.value) await fetchUser()
 	})
 
 	const listener = useListener(async () => {

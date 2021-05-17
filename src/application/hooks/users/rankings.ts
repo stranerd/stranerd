@@ -35,7 +35,7 @@ export const useTopUsersByPeriod = (period: RankingPeriods) => {
 	})
 
 	useFetch(async () => {
-		if (!global[period].fetched.value) await fetchUsers()
+		if (!global[period].fetched.value && !global[period].loading.value) await fetchUsers()
 	})
 
 	return {

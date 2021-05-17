@@ -280,12 +280,12 @@
     stream-events "^1.0.1"
     xdg-basedir "^4.0.0"
 
-"@google-cloud/tasks@^2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@google-cloud/tasks/-/tasks-2.3.0.tgz#b80861b474d4418a35e37f6aa9c8ce368262d6e7"
-  integrity sha512-09Ah1wWe2oueTxUUvPzgtiN7/sfM0Q9pWclKmeEhdu5i7AGaxTHDtZ07pVMoiV8I7dCVRe/LpKMH5T1B3KQbzA==
+"@google-cloud/tasks@^2.3.1":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@google-cloud/tasks/-/tasks-2.3.1.tgz#96e303e97f16d353447cd14d9e90d69231bce1f7"
+  integrity sha512-luVuYNsG2x7I8glQxN7DiFNaxXzgqoM+04nvk5iXE0eBjYK0t6msKDfgblnQnYO9kiOpWul9+qiPt6xi8lfODg==
   dependencies:
-    google-gax "^2.9.2"
+    google-gax "^2.12.0"
 
 "@grpc/grpc-js@~1.3.0":
   version "1.3.1"
@@ -1565,7 +1565,7 @@ google-auth-library@^7.0.0, google-auth-library@^7.0.2:
     jws "^4.0.0"
     lru-cache "^6.0.0"
 
-google-gax@^2.9.2:
+google-gax@^2.12.0, google-gax@^2.9.2:
   version "2.13.0"
   resolved "https://registry.yarnpkg.com/google-gax/-/google-gax-2.13.0.tgz#404bb9df62c3a0a414e2f5339eda4d751f540304"
   integrity sha512-aKNJy2+Vv2I7flyNYbwpq0aYBHp6Qv32HZn+wr6ZhZ8xlSCLS9K9k7izfh2nd1rCJQcsqB6KMxHV0Vwny6Rc1g==

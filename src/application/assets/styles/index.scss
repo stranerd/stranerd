@@ -127,6 +127,7 @@ hr.thin {
 
 .cursor-pointer { cursor: pointer; }
 
+/*! purgecss start ignore */
 @each $key, $val in $spacers {
 	@each $bp, $width in $grid-breakpoints {
 		$infix: breakpoint-infix($bp, $grid-breakpoints);
@@ -140,3 +141,4 @@ hr.thin {
 		}
 	}
 }
+/*! purgecss end ignore */

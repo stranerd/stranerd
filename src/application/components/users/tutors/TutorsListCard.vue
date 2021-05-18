@@ -14,7 +14,7 @@
 				<ShowRatings :rating="tutor.averageRating" />
 			</span>
 		</div>
-		<span class="d-none d-md-flex text-nowrap gap-0-5 align-items-center">
+		<span class="d-none d-md-flex text-nowrap gap-1 align-items-center">
 			<span v-if="subject" style="font-weight: 600;">{{ subject.name }}</span>
 			<span>
 				<i class="fas fa-circle" :class="tutor.isOnline ? 'text-success' : 'text-grey'" />

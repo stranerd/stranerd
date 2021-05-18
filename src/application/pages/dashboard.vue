@@ -65,10 +65,11 @@ export default defineComponent({
 <style lang="scss" scoped>
 .background {
 	background: url('../assets/images/icons/dashboard_hero.svg') no-repeat 50px;
-	@media (min-width: 450px) {
-		background-position: right;
+		background-position: right bottom;
+		@media (min-width: 600px) {
+			background-position: right center;
+		}
 	}
-}
 .overlay {
 	background: rgba($color-white, 0.5);
 	@media (min-width: 850px) { background: unset; }

@@ -9,7 +9,7 @@
 				<p class="small mb-0 text-wrap">
 					{{ admin.email }}
 				</p>
-				<button class="btn btn-sm text-nowrap btn-danger" @click="deAdminUser">
+				<button class="btn btn-sm btn-danger" @click="deAdminUser">
 					Remove admin
 				</button>
 			</div>

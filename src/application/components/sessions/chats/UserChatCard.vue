@@ -3,7 +3,7 @@
 		<Avatar :src="user.avatar" :size="60" />
 		<div class="flex-grow-1 text-truncate">
 			<div class="d-flex justify-content-between gap-0-5">
-				<span class="fw-bold lead d-inline-block">{{ user.name.fullName }}</span>
+				<span class="fw-bold lead d-inline-block text-truncate">{{ user.name.fullName }}</span>
 				<span v-if="chat" class="ms-auto">{{ formatTime(chat.createdAt) }}</span>
 			</div>
 			<p v-if="chat" class="mb-0 text-truncate">

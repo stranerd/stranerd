@@ -3,20 +3,7 @@
 		<template slot="title">
 			Tip {{ nerdBioAndId.bio.name.first }}
 		</template>
-		<div class="d-flex justify-content-end px-1-5 mb-1">
-			<div class="d-flex align-items-center position-relative ms-0-5">
-				<Coins :size="24" style="z-index:1;" />
-				<span class="rounded-pill ms-n1 px-1 ps-1-5 bg-blue-grey text-light-blue">
-					{{ formatNumber(user.account.coins.bronze) }}
-				</span>
-			</div>
-			<div class="d-flex align-items-center position-relative ms-0-5">
-				<Coins :gold="true" :size="24" style="z-index:1;" />
-				<span class="rounded-pill ms-n1 px-1 ps-1-5 bg-blue-grey text-light-blue">
-					{{ formatNumber(user.account.coins.gold) }}
-				</span>
-			</div>
-		</div>
+		<AccountCoinBalance class="mb-1 px-1-5" :user="user" />
 		<div class="d-flex flex-wrap gap-1">
 			<button v-for="amount in TIP_AMOUNTS" :key="amount" :disabled="user.account.coins.gold < amount" class="tip btn btn-outline-blue" @click="tipNerd(amount)">
 				<span>{{ amount }}</span>
@@ -38,8 +25,10 @@ import { useAccountModal } from '@app/hooks/core/modals'
 import { useTipNerd } from '@app/hooks/users/account'
 import { useAuth } from '@app/hooks/auth/auth'
 import { formatNumber } from '@utils/commons'
+import AccountCoinBalance from '@app/components/users/account/AccountCoinBalance.vue'
 export default defineComponent({
 	name: 'AccountTipNerd',
+	components: { AccountCoinBalance },
 	setup () {
 		const { user } = useAuth()
 		const { loading, error, nerdBioAndId, TIP_AMOUNTS, tipNerd } = useTipNerd()

@@ -5,7 +5,7 @@
 				<i class="fas fa-paperclip me-0-25" />
 				<span class="text-truncate">{{ chat.media.name }}</span>
 			</a>
-			<span v-else>{{ chat.content || 'Hello' }}</span>
+			<span v-else class="text-wrap text-break">{{ chat.content || 'Hello' }}</span>
 			<span class="ms-auto small">{{ formatTimeAsDigits(new Date(chat.createdAt)) }}</span>
 		</div>
 	</div>

@@ -26,10 +26,10 @@
 							{{ user.email }}
 						</p>
 					</div>
-					<span v-if="user.roles.isAdmin" class="text-nowrap text-danger">
+					<span v-if="user.roles.isAdmin" class="text-danger">
 						Already an admin
 					</span>
-					<button v-else class="btn btn-sm text-nowrap btn-success" @click="adminUser(user)">
+					<button v-else class="btn btn-sm btn-success" @click="adminUser(user)">
 						Make admin
 					</button>
 				</div>

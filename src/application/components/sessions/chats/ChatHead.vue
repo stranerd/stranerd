@@ -19,12 +19,12 @@
 		<div v-if="show" class="under" @click="show = false" />
 		<div v-if="show" class="menu gap-0-5">
 			<template v-if="user.roles.isTutor">
-				<a v-if="!currentSessionId && !user.currentSession" class="text-nowrap" @click.prevent="requestNewSession">Request Session</a>
-				<a class="text-nowrap" @click="tipUser">Tip Nerd</a>
+				<a v-if="!currentSessionId && !user.currentSession" @click.prevent="requestNewSession">Request Session</a>
+				<a @click="tipUser">Tip Nerd</a>
 			</template>
-			<a class="text-nowrap" @click="reportUser">Report</a>
+			<a @click="reportUser">Report</a>
 			<PageLoading v-if="loading" />
-			<a v-if="isAccepted && currentSession && currentSessionId === user.currentSession && currentSession.studentId === id" class="text-nowrap" @click.prevent="cancelSession">End Session</a>
+			<a v-if="isAccepted && currentSession && currentSessionId === user.currentSession && currentSession.studentId === id" @click.prevent="cancelSession">End Session</a>
 			<DisplayError :error="error" />
 		</div>
 	</div>

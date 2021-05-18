@@ -26,10 +26,10 @@
 							{{ user.email }}
 						</p>
 					</div>
-					<span v-if="user.roles.isTutor" class="text-nowrap text-danger">
+					<span v-if="user.roles.isTutor" class="text-danger">
 						Already a nerd
 					</span>
-					<button v-else class="btn btn-sm text-nowrap btn-success" @click="makeTutor(user)">
+					<button v-else class="btn btn-sm btn-success" @click="makeTutor(user)">
 						Make nerd
 					</button>
 				</div>

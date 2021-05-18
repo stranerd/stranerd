@@ -16,7 +16,8 @@ export const markAsBestAnswer = functions.https.onCall(async (data, context) => 
 
 		const batch = admin.firestore().batch()
 		batch.set(questionRef, { answerId }, { merge: true })
-		batch.set(answerId, { best: true }, { merge: true })
+		batch.set(answerRef, { best: true }, { merge: true })
+		await batch.commit()
 
 		await admin.database().ref('profiles')
 			.update({

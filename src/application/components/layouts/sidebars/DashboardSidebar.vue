@@ -16,6 +16,9 @@
 				<img src="@app/assets/images/icons/admin.svg" alt="">
 				<span>Admin Site</span>
 			</NuxtLink>
+			<button class="btn btn-blue sidebar-link">
+				Become A Nerd
+			</button>
 		</div>
 	</aside>
 </template>

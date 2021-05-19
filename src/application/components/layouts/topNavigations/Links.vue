@@ -13,7 +13,7 @@
 			<div class="link d-none d-md-inline-flex flex-grow-1 align-items-center border-0">
 				<SearchBar />
 			</div>
-			<NuxtLink to="/account/notifications" class="link">
+			<NuxtLink to="/notifications" class="link">
 				<img src="@app/assets/images/icons/notification.svg" alt="">
 			</NuxtLink>
 			<NuxtLink to="/messages" class="link">

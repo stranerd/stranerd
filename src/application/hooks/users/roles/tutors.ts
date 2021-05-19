@@ -37,8 +37,17 @@ export const useTutorsList = () => {
 		} catch (error) { global.setError(error) }
 		global.setLoading(false)
 	}
+	const tutors = computed({
+		get: () => global.tutors.value.sort((first, second) => {
+			if (first.orderRating > second.orderRating) return -1
+			else if (first.orderRating < second.orderRating) return 1
+			else if (first.ratingCount > second.ratingCount) return -1
+			else if (first.ratingCount < second.ratingCount) return 1
+			else return 0
+		}), set: (tutors) => { tutors.map(pushToTutorsList) }
+	})
 	const filteredTutors = computed({
-		get: () => global.tutors.value.filter((tutor) => {
+		get: () => tutors.value.filter((tutor) => {
 			let matched = true
 			if (global.subjectId.value && tutor.subject?.id !== global.subjectId.value) matched = false
 			return matched
@@ -54,7 +63,7 @@ export const useTutorsList = () => {
 		if (!global.fetched.value && !global.loading.value) await fetchTutors()
 	})
 
-	return { ...global, listener, filteredTutors }
+	return { ...global, tutors, listener, filteredTutors }
 }
 
 export const useTutorRoles = () => {

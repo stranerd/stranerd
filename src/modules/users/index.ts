@@ -22,6 +22,7 @@ import { RemoveTutorSubjectUseCase } from './domain/usecases/users/removeTutorSu
 import { UpdateStreakUseCase } from './domain/usecases/users/updateStreak'
 import { GetTopRankingUsersUseCase } from './domain/usecases/rankings/getTopRankingUsers'
 import { ListenToTopRankingUsersUseCase } from './domain/usecases/rankings/listenToTopRankingUsers'
+import { GetNotificationsUseCase } from './domain/usecases/notifications/getNotifications'
 import { ListenToNotificationsUseCase } from './domain/usecases/notifications/listenToNotifications'
 import { MarkNotificationSeenUseCase } from './domain/usecases/notifications/markNotificationSeen'
 import { UserEntity, UserBio, Status, generateDefaultBio, RankingPeriods } from './domain/entities/user'
@@ -60,6 +61,7 @@ export const SubscribeToMailingList = new SubscribeToMailingListUseCase(roleRepo
 export const GetTopRankingUsers = new GetTopRankingUsersUseCase(userRepository)
 export const ListenToTopRankingUsers = new ListenToTopRankingUsersUseCase(userRepository)
 
+export const GetNotifications = new GetNotificationsUseCase(notificationRepository)
 export const ListenToNotifications = new ListenToNotificationsUseCase(notificationRepository)
 export const MarkNotificationSeen = new MarkNotificationSeenUseCase(notificationRepository)
 

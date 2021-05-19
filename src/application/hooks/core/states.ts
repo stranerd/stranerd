@@ -43,5 +43,5 @@ export const useListener = (start: () => Promise<() => void>) => {
 			await startListener()
 		}
 	}
-	return { startListener, closeListener, resetListener }
+	return { startListener, closeListener, resetListener, value: listener }
 }

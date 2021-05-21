@@ -1,7 +1,7 @@
 <template>
 	<div class="d-flex flex-column align-items-center gap-0-5">
-		<NuxtLink to="/account/e-wallet">
-			<AccountCoinBalance :user="user" />
+		<NuxtLink class="d-block w-100" to="/account/e-wallet">
+			<AccountCoinBalance class="justify-content-between" :user="user" />
 		</NuxtLink>
 		<Avatar :src="user.avatar" :size="75" />
 		<span class="text-18 fw-bold">{{ user.fullName }}</span>

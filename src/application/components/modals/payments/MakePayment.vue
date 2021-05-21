@@ -9,12 +9,12 @@
 				<div id="creditCardNumber" />
 			</div>
 			<div class="form-group">
-				<div class="row">
-					<div class="col-6">
+				<div class="d-flex gap-0-5">
+					<div class="flex-grow-1">
 						<label>Expire Date</label>
 						<div id="expireDate" />
 					</div>
-					<div class="col-6">
+					<div class="flex-grow-1">
 						<label>CVV</label>
 						<div id="cvv" />
 					</div>

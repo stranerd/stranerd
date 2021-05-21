@@ -1,6 +1,6 @@
 <template>
 	<div :id="question.id">
-		<NuxtLink class="text-18 mb-0-5" :to="`/questions/${question.id}`">
+		<NuxtLink class="text-18 d-block mb-0-5" :to="`/questions/${question.id}`">
 			{{ question.trimmedBody }}
 		</NuxtLink>
 		<span v-if="question.attachments.length">

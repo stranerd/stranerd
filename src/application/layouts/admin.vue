@@ -4,7 +4,7 @@
 			<AdminSidebar />
 		</section>
 		<main class="layout-main">
-			<AdminTopNavigation />
+			<TopNavigation :open-menu="setMenuModalAdminSidebar" />
 			<Nuxt class="layout-content" />
 		</main>
 		<ModalBase />
@@ -13,14 +13,19 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import AdminTopNavigation from '@app/components/layouts/topNavigations/AdminTopNavigation.vue'
+import TopNavigation from '@app/components/layouts/topNavigations/TopNavigation.vue'
 import AdminSidebar from '@app/components/layouts/sidebars/AdminSidebar.vue'
+import { useMenuModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'AdminLayout',
 	components: {
-		AdminTopNavigation,
+		TopNavigation,
 		AdminSidebar
 	},
-	middleware: ['isAdmin']
+	middleware: ['isAdmin'],
+	setup () {
+		const { setMenuModalAdminSidebar } = useMenuModal()
+		return { setMenuModalAdminSidebar }
+	}
 })
 </script>

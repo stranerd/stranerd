@@ -1,7 +1,7 @@
 <template>
 	<section class="layout-body">
 		<main class="layout-main">
-			<DefaultTopNavigation />
+			<TopNavigation :full="true" :open-menu="setMenuModalSidebar" />
 			<div class="content">
 				<Nuxt class="layout-content" />
 			</div>
@@ -12,11 +12,16 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import DefaultTopNavigation from '@app/components/layouts/topNavigations/DefaultTopNavigation.vue'
+import TopNavigation from '@app/components/layouts/topNavigations/TopNavigation.vue'
+import { useMenuModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'DefaultLayout',
 	components: {
-		DefaultTopNavigation
+		TopNavigation
+	},
+	setup () {
+		const { setMenuModalSidebar } = useMenuModal()
+		return { setMenuModalSidebar }
 	}
 })
 </script>

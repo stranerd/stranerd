@@ -52,7 +52,7 @@ form {
 	}
 	select {
 		width: auto;
-		background: inherit;
+		background-color: inherit;
 		border: none;
 		padding: 0.25rem;
 		color: inherit;

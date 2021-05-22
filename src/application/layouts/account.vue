@@ -4,7 +4,7 @@
 			<AccountSidebar />
 		</section>
 		<main class="layout-main">
-			<AccountTopNavigation />
+			<TopNavigation :open-menu="setMenuModalAccountSidebar" />
 			<Nuxt class="layout-content" />
 		</main>
 		<ModalBase />
@@ -13,14 +13,19 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import AccountTopNavigation from '@app/components/layouts/topNavigations/AccountTopNavigation.vue'
+import TopNavigation from '@app/components/layouts/topNavigations/TopNavigation.vue'
 import AccountSidebar from '@app/components/layouts/sidebars/AccountSidebar.vue'
+import { useMenuModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'AccountLayout',
 	components: {
-		AccountTopNavigation,
+		TopNavigation,
 		AccountSidebar
 	},
-	middleware: ['isAuthenticated']
+	middleware: ['isAuthenticated'],
+	setup () {
+		const { setMenuModalAccountSidebar } = useMenuModal()
+		return { setMenuModalAccountSidebar }
+	}
 })
 </script>

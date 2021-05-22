@@ -1,14 +1,14 @@
 <template>
-	<aside class="sidebar-body">
-		<NuxtLink class="d-none d-lg-block text-center my-2" to="/">
+	<aside class="sidebar-body gap-1">
+		<NuxtLink class="d-none d-lg-block text-center" to="/">
 			<Logo />
 		</NuxtLink>
-		<div v-if="isLoggedIn" class="d-flex flex-column align-items-center my-1">
+		<div v-if="isLoggedIn" class="d-flex flex-column align-items-center gap-0-5">
 			<Avatar :src="user.avatar" :size="90" />
 			<span class="text-18 fw-bold">{{ user.fullName }}</span>
 			<span>Admin</span>
 		</div>
-		<div class="my-0-5 sidebar-links">
+		<div class="sidebar-links">
 			<NuxtLink class="sidebar-link" to="/dashboard">
 				<img src="@app/assets/images/icons/dashboard.svg" alt="">
 				<span>Dashboard</span>

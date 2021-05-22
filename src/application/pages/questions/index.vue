@@ -1,6 +1,8 @@
 <template>
-	<div class="page-content">
-		<QuestionsList />
+	<div>
+		<div class="page-content">
+			<QuestionsList />
+		</div>
 	</div>
 </template>
 

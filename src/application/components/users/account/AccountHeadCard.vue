@@ -1,5 +1,5 @@
 <template>
-	<div class="d-flex flex-column align-items-center my-0-5">
+	<div class="d-flex flex-column align-items-center">
 		<Avatar :src="user.avatar" :size="90" />
 		<span class="text-18 fw-bold my-0-5">{{ user.firstName }}</span>
 		<ShowRatings v-if="user.roles.isTutor" :rating="user.averageRating" />

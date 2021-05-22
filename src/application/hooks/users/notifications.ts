@@ -1,7 +1,8 @@
 import { Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
-import { GetNotifications, ListenToNotifications, NotificationEntity } from '@modules/users'
+import { GetNotifications, ListenToNotifications, MarkNotificationSeen, NotificationEntity } from '@modules/users'
 import { PAGINATION_LIMIT } from '@utils/constants'
+import { useAuth } from '@app/hooks/auth/auth'
 
 const global = {} as Record<string, {
 	notifications: Ref<NotificationEntity[]>
@@ -56,4 +57,20 @@ export const useNotificationList = (userId: string) => {
 	})
 
 	return { ...global[userId], fetchOlderNotifications: fetchNotifications }
+}
+
+export const useNotification = (notification: NotificationEntity) => {
+	const { id } = useAuth()
+	const { loading, setLoading } = useLoadingHandler()
+	const { error, setError } = useErrorHandler()
+	const markNotificationSeen = async () => {
+		setError('')
+		try {
+			setLoading(true)
+			await MarkNotificationSeen.call(id.value!, notification.id, true)
+		} catch (e) { setError(e) }
+		setLoading(false)
+	}
+
+	return { loading, error, markNotificationSeen }
 }

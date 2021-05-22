@@ -1,12 +1,14 @@
 <template>
-	<div class="page-content">
-		<div class="d-flex justify-content-end">
-			<button class="btn btn-lg btn-blue text-white" @click="setCreateModalSubject">
-				Add New Subject
-			</button>
+	<div>
+		<div class="page-content">
+			<div class="d-flex justify-content-end">
+				<button class="btn btn-lg btn-blue text-white" @click="setCreateModalSubject">
+					Add New Subject
+				</button>
+			</div>
+			<div class="thick mx-n2 mb-2" />
+			<SubjectsList />
 		</div>
-		<div class="thick mx-n2 mb-2" />
-		<SubjectsList />
 	</div>
 </template>
 

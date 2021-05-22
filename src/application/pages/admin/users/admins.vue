@@ -1,7 +1,9 @@
 <template>
-	<div class="page-content">
-		<UpgradeUserToAdmin />
-		<AdminsList />
+	<div>
+		<div class="page-content">
+			<UpgradeUserToAdmin />
+			<AdminsList />
+		</div>
 	</div>
 </template>
 

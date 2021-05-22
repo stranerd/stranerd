@@ -1,7 +1,9 @@
 <template>
-	<div class="page-content">
-		<UpgradeUserToTutor />
-		<TutorsList />
+	<div>
+		<div class="page-content">
+			<UpgradeUserToTutor />
+			<TutorsList />
+		</div>
 	</div>
 </template>
 

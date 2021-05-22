@@ -1,6 +1,8 @@
 <template>
-	<div class="page-content">
-		<NotificationsList :key="id" :user-id="id" />
+	<div>
+		<div class="page-content">
+			<NotificationsList :key="id" :user-id="id" />
+		</div>
 	</div>
 </template>
 

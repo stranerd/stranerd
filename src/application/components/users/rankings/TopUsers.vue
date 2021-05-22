@@ -1,7 +1,10 @@
 <template>
 	<section>
 		<div class="d-flex text-center align-items-center flex-wrap">
-			<h5 class="fw-bold mb-0">
+			<h2 class="fw-bold mb-0 d-lg-none">
+				Top Users
+			</h2>
+			<h5 class="fw-bold mb-0 d-none d-lg-block">
 				Top Users
 			</h5>
 			<form class="form-inline ms-auto">

@@ -1,5 +1,5 @@
 <template>
-	<div class="d-inline-flex justify-content-center">
+	<div class="d-inline-flex text-nowrap justify-content-center">
 		<a @click.prevent="setRating(1)">
 			<i class="fas fa-star" :class="rating > 0 ? 'text-gold' : 'text-grey'" />
 		</a>

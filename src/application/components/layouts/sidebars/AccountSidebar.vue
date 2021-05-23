@@ -26,19 +26,38 @@
 				<span>E-Wallet</span>
 			</NuxtLink>
 		</div>
+		<div class="sidebar-links mt-auto">
+			<button v-if="isLoggedIn && !isTutor" class="sidebar-btn btn btn-blue-grey" @click="becomeNerd">
+				<span>Become A Nerd</span>
+			</button>
+			<button v-if="isLoggedIn" class="sidebar-btn btn btn-blue-grey" @click="buy">
+				<span>Buy Coins</span>
+				<Coins class="ms-0-25" :size="24" />
+				<Coins class="mx-n0-5" :gold="true" :size="24" />
+			</button>
+		</div>
 	</aside>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, useRouter } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
 import AccountHeadCard from '@app/components/users/account/AccountHeadCard.vue'
+import { useAccountModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'AccountSidebar',
 	components: { AccountHeadCard },
 	setup () {
+		const router = useRouter()
 		const { isLoggedIn, user, isTutor } = useAuth()
-		return { isLoggedIn, user, isTutor }
+		const becomeNerd = () => {
+			router.push('/nerds/signup')
+		}
+		const buy = () => {
+			router.push('/account/e-wallet')
+			useAccountModal().setAccountModalBuyCoins()
+		}
+		return { isLoggedIn, user, isTutor, buy, becomeNerd }
 	}
 })
 </script>

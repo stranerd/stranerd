@@ -11,20 +11,10 @@
 				</NuxtLink>
 			</div>
 			<div class="thick mt-0" />
-			<div class="px-0-5">
+			<div class="px-0-5 d-flex flex-column flex-grow-1">
 				<slot />
 			</div>
 			<div v-if="isLoggedIn" class="mt-auto mx-0-5">
-				<div class="sidebar-links">
-					<button v-if="!isTutor" class="sidebar-btn btn btn-blue-grey" @click="becomeNerd">
-						<span>Become A Nerd</span>
-					</button>
-					<button class="sidebar-btn btn btn-blue-grey" @click="buy">
-						<span>Buy Coins</span>
-						<Coins class="ms-0-25" :size="24" />
-						<Coins class="mx-n0-5" :gold="true" :size="24" />
-					</button>
-				</div>
 				<div class="thick mb-0 mx-n0-5" />
 				<a class="sidebar-link" @click="signout">
 					<PageLoading v-if="loading" />
@@ -37,10 +27,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useRouter } from '@nuxtjs/composition-api'
+import { defineComponent } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useSessionSignout } from '@app/hooks/auth/session'
-import { useAccountModal, useMenuModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'SideMenu',
 	props: {
@@ -50,18 +39,9 @@ export default defineComponent({
 		}
 	},
 	setup () {
-		const router = useRouter()
-		const { isLoggedIn, isTutor } = useAuth()
+		const { isLoggedIn } = useAuth()
 		const { loading, signout } = useSessionSignout()
-		const becomeNerd = () => {
-			router.push('/nerds/signup')
-		}
-		const buy = () => {
-			useMenuModal().closeMenuModal()
-			router.push('/account/e-wallet')
-			useAccountModal().setAccountModalBuyCoins()
-		}
-		return { isLoggedIn, isTutor, loading, signout, becomeNerd, buy }
+		return { isLoggedIn, loading, signout }
 	}
 })
 </script>

@@ -20,7 +20,8 @@ body{
 	@media (min-width: $lg) {
 		width: 22.5%;
 		max-width: 350px;
-		display: block;
+		display: flex;
+		flex-direction: column;
 	}
 	@media (min-width: 1050px) {
 		padding: 1rem;
@@ -51,6 +52,7 @@ body{
 .sidebar-body {
 	display: flex;
 	flex-direction: column;
+	flex-grow: 1;
 	color: $color-light-blue;
 }
 .sidebar-links {

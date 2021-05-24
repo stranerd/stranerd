@@ -1,6 +1,6 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
-import { createNotification, NotificationType } from '../../helpers/modules/users/notifications'
+import { createNotification } from '../../helpers/modules/users/notifications'
 
 export const toggleTutor = functions.https.onCall(async (data, context) => {
 	if (!context.auth)
@@ -15,16 +15,15 @@ export const toggleTutor = functions.https.onCall(async (data, context) => {
 			.child(id)
 			.update({
 				'roles/isTutor': isTutor,
-				tutor: isTutor ? { ratings: { total: 0, count: 0 }, subjects: {} } : null
+				tutor: isTutor ? { ratings: { total: 0, count: 0 } } : null
 			})
 
 		await createNotification(id, {
-			type: NotificationType.INFO,
 			action: '/account',
-			title: 'Tutoring Privileges Modified',
+			title: 'Nerd Privileges Modified',
 			body: isTutor
-				? 'Your account has successfully being granted tutoring privileges'
-				: 'Your tutoring privileges has been removed. Contact an admin if this was a mistake'
+				? 'Your account has successfully being granted nerd privileges'
+				: 'Your nerd privileges has been removed. Contact an admin if this was a mistake'
 		})
 
 		return true

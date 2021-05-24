@@ -1,19 +1,14 @@
 import * as admin from 'firebase-admin'
 import { getAllUserIds } from './users'
 
-export enum NotificationType {
-	SUCCESS,
-	INFO,
-	WARNING,
-	ERROR
-}
-type CreateNotification = {
-	title: string
+type InAppNotification = {
 	body: string
-	type: NotificationType
 	action: string
 }
-export type Notification = CreateNotification & {
+export type EmailNotification = InAppNotification & {
+	title: string
+}
+type Notification = InAppNotification & {
 	id: string
 	seen: boolean
 	dates: {
@@ -21,8 +16,7 @@ export type Notification = CreateNotification & {
 	}
 }
 
-export const createNotification = async (userId: string, data: CreateNotification) => {
-	// TODO: Update all action links after implementing ui
+export const createNotification = async (userId: string, data: InAppNotification | EmailNotification) => {
 	try {
 		await admin.database().ref(`users/${userId}/notifications`)
 			.push({

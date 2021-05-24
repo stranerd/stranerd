@@ -2,7 +2,7 @@ import * as admin from 'firebase-admin'
 import { createTransport } from 'nodemailer'
 import * as Template from 'email-templates'
 import { EMAILS, email, domain, logo, appName } from './environment'
-import { Notification } from './modules/users/notifications'
+import { EmailNotification } from './modules/users/notifications'
 import { TopUser } from './modules/users/rankings'
 import { Message, Report } from './modules/forms'
 
@@ -36,7 +36,7 @@ export const sendMailAndCatchErrors = async (to: string, subject: string, conten
 	}
 }
 
-export const sendNewNotificationEmail = async (to: string, notification: Notification) => {
+export const sendNewNotificationEmail = async (to: string, notification: EmailNotification) => {
 	const meta = { domain: domain(), logo: logo() }
 	const content = await new Template({ message: {} }).render('newNotification.pug',
 		{ notification, meta })

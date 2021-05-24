@@ -4,17 +4,18 @@ import { deleteFromStorage } from '../../helpers/storage'
 import { addUserCoins, addUserXp, XpGainList } from '../../helpers/modules/payments/transactions'
 import { addTutorRatings } from '../../helpers/modules/users/tutors'
 import { deleteFromAlgolia, saveToAlgolia } from '../../helpers/algolia'
+import { createNotification } from '../../helpers/modules/users/notifications'
 
 export const answerCreated = functions.firestore.document('answers/{answerId}')
-	.onCreate(async (snap) => {
+	.onCreate(async (snap, context) => {
 		const answer = snap.data()
 		const { coins, userId, questionId } = answer
 
-		await admin.firestore().collection('questions')
-			.doc(questionId)
-			.set({
-				answers: admin.firestore.FieldValue.increment(1)
-			}, { merge: true })
+		const questionRef = await admin.firestore().collection('questions').doc(questionId)
+
+		await questionRef.set({
+			answers: admin.firestore.FieldValue.increment(1)
+		}, { merge: true })
 
 		if (coins && userId) {
 			await admin.database().ref('profiles').child(userId)
@@ -26,6 +27,12 @@ export const answerCreated = functions.firestore.document('answers/{answerId}')
 				'You got coins for answering a question'
 			)
 		}
+
+		const { userId: questionUserId } = (await questionRef.get()).data()!
+		await createNotification(questionUserId, {
+			body: 'Your question has been answered. Head over to your dashboard to check it out',
+			action: `/questions/${questionId}#${context.params.answerId}`
+		})
 
 		if (userId) await addUserXp(userId, XpGainList.ANSWER_QUESTION, true)
 
@@ -74,6 +81,7 @@ export const answerRated = functions.database.ref('answers/{answerId}/ratings/{u
 		const { answerId, userId } = context.params
 		const ratings = snap.val() ?? 0
 		let tutorId = ''
+		let questionId = ''
 
 		await admin.database().ref('profiles').child(userId)
 			.child(`meta/ratedAnswers/${answerId}`).set(ratings)
@@ -82,6 +90,7 @@ export const answerRated = functions.database.ref('answers/{answerId}/ratings/{u
 			const answerRef = admin.firestore().collection('answers').doc(answerId)
 			const answer = await t.get(answerRef)
 			tutorId = answer.data()?.userId ?? ''
+			questionId = answer.data()?.questionId ?? ''
 			t.set(answerRef, {
 				ratings: {
 					total: admin.firestore.FieldValue.increment(ratings),
@@ -91,4 +100,8 @@ export const answerRated = functions.database.ref('answers/{answerId}/ratings/{u
 		})
 
 		if (tutorId) await addTutorRatings(tutorId, ratings)
+		if (questionId && tutorId) await createNotification(tutorId, {
+			body: 'Your answer just got rated. Go to your dashboard and have a look',
+			action: `/questions/${questionId}#${answerId}`
+		})
 	})

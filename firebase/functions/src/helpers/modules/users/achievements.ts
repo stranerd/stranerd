@@ -1,5 +1,6 @@
 import * as admin from 'firebase-admin'
 import { addUserCoins, addUserXp } from '../payments/transactions'
+import { createNotification } from './notifications'
 
 type IAchievement = {
 	id: string
@@ -101,8 +102,14 @@ const getAchievementProgress = async (userId: string, id: string) => {
 		.child('achievements')
 		.child(id)
 	const data = await ref.once('value')
-	const { progress, completed } = data.val() ?? {}
-	return { progress: progress ?? 0, completed: completed ?? false, ref }
+	const { progress = 0, completed = false } = data.val() ?? {}
+	return { progress, completed, ref }
+}
+const sendNotification = async (userId: string, achievement: IAchievement) => {
+	await createNotification(userId, {
+		body: `Congratulations, you just gained progress for the achievement: ${achievement.name}`,
+		action: '/account'
+	})
 }
 
 const runAfterAchievement = async (userId: string, achievement: IAchievement) => {
@@ -119,18 +126,23 @@ const checkAskQuestionsAchievement = async (userId: string) => {
 	if (!completed && progress + 1 >= Achievements.ASK_QUESTIONS.limit) {
 		await ref.update({ completed: true, progress: admin.database.ServerValue.increment(1) })
 		await runAfterAchievement(userId, Achievements.ASK_QUESTIONS)
-	} else await ref.update({ progress: admin.database.ServerValue.increment(1) })
+	} else if (!completed) {
+		await ref.update({ progress: admin.database.ServerValue.increment(1) })
+		await sendNotification(userId, Achievements.ASK_QUESTIONS)
+	}
 }
 
 const checkStreak7Day = async (userId: string, streak: number) => {
 	const { ref, progress, completed } = await getAchievementProgress(userId, Achievements.STREAK_7_DAYS.id)
 
-	if (completed && streak > progress) await ref.update({ progress: streak })
 	if (!completed) {
 		if (streak >= Achievements.STREAK_7_DAYS.limit && streak >= progress) {
 			await ref.update({ completed: true, progress: streak })
 			await runAfterAchievement(userId, Achievements.STREAK_7_DAYS)
-		} else await ref.update({ progress: streak })
+		} else {
+			await ref.update({ progress: streak })
+			await sendNotification(userId, Achievements.STREAK_7_DAYS)
+		}
 	}
 }
 
@@ -140,7 +152,10 @@ const checkBuyGoldAchievement = async (userId: string, coins: number) => {
 	if (!completed && progress + coins >= Achievements.BUY_GOLD.limit) {
 		await ref.update({ completed: true, progress: admin.database.ServerValue.increment(coins) })
 		await runAfterAchievement(userId, Achievements.BUY_GOLD)
-	} else await ref.update({ progress: admin.database.ServerValue.increment(coins) })
+	} else if (!completed) {
+		await ref.update({ progress: admin.database.ServerValue.increment(coins) })
+		await sendNotification(userId, Achievements.BUY_GOLD)
+	}
 }
 
 const checkBuyBronzeAchievement = async (userId: string, coins: number) => {
@@ -149,7 +164,10 @@ const checkBuyBronzeAchievement = async (userId: string, coins: number) => {
 	if (!completed && progress + coins >= Achievements.BUY_BRONZE.limit) {
 		await ref.update({ completed: true, progress: admin.database.ServerValue.increment(coins) })
 		await runAfterAchievement(userId, Achievements.BUY_BRONZE)
-	} else await ref.update({ progress: admin.database.ServerValue.increment(coins) })
+	} else if (!completed) {
+		await ref.update({ progress: admin.database.ServerValue.increment(coins) })
+		await sendNotification(userId, Achievements.BUY_BRONZE)
+	}
 }
 
 const checkAttendSessionsAchievement = async (userId: string) => {
@@ -158,7 +176,10 @@ const checkAttendSessionsAchievement = async (userId: string) => {
 	if (!completed && progress + 1 >= Achievements.ATTEND_SESSIONS.limit) {
 		await ref.update({ completed: true, progress: admin.database.ServerValue.increment(1) })
 		await runAfterAchievement(userId, Achievements.ATTEND_SESSIONS)
-	} else await ref.update({ progress: admin.database.ServerValue.increment(1) })
+	} else if (!completed) {
+		await ref.update({ progress: admin.database.ServerValue.increment(1) })
+		await sendNotification(userId, Achievements.ATTEND_SESSIONS)
+	}
 }
 
 const checkTipNerdsAchievement = async (userId: string) => {
@@ -167,7 +188,10 @@ const checkTipNerdsAchievement = async (userId: string) => {
 	if (!completed && progress + 1 >= Achievements.TIP_NERDS.limit) {
 		await ref.update({ completed: true, progress: admin.database.ServerValue.increment(1) })
 		await runAfterAchievement(userId, Achievements.TIP_NERDS)
-	} else await ref.update({ progress: admin.database.ServerValue.increment(1) })
+	} else if (!completed) {
+		await ref.update({ progress: admin.database.ServerValue.increment(1) })
+		await sendNotification(userId, Achievements.TIP_NERDS)
+	}
 }
 
 const checkDailyFinishAchievement = async (userId: string, rank: number) => {
@@ -178,7 +202,10 @@ const checkDailyFinishAchievement = async (userId: string, rank: number) => {
 		if (rank <= Achievements.DAILY_FINISH.limit) {
 			await ref.update({ completed: true, progress: rank })
 			await runAfterAchievement(userId, Achievements.DAILY_FINISH)
-		} else await ref.update({ progress: rank })
+		} else {
+			await ref.update({ progress: rank })
+			await sendNotification(userId, Achievements.DAILY_FINISH)
+		}
 	}
 }
 
@@ -190,7 +217,10 @@ const checkWeeklyFinishAchievement = async (userId: string, rank: number) => {
 		if (rank <= Achievements.WEEKLY_FINISH.limit) {
 			await ref.update({ completed: true, progress: rank })
 			await runAfterAchievement(userId, Achievements.WEEKLY_FINISH)
-		} else await ref.update({ progress: rank })
+		} else {
+			await ref.update({ progress: rank })
+			await sendNotification(userId, Achievements.WEEKLY_FINISH)
+		}
 	}
 }
 

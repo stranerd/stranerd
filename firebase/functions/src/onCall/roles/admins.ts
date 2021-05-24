@@ -1,6 +1,6 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
-import { createNotification, NotificationType } from '../../helpers/modules/users/notifications'
+import { createNotification } from '../../helpers/modules/users/notifications'
 
 export const toggleAdmin = functions.https.onCall(async (data, context) => {
 	if (!context.auth)
@@ -22,7 +22,6 @@ export const toggleAdmin = functions.https.onCall(async (data, context) => {
 			: 'Your admin privileges has been removed. Contact an admin if this was a mistake'
 
 		await createNotification(id, {
-			type: NotificationType.INFO,
 			action: '/admin',
 			title: 'Admin Privileges Modified',
 			body

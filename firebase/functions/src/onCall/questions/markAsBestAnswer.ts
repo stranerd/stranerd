@@ -1,6 +1,7 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { addUserCoins } from '../../helpers/modules/payments/transactions'
+import { createNotification } from '../../helpers/modules/users/notifications'
 
 export const markAsBestAnswer = functions.https.onCall(async (data, context) => {
 	if (!context.auth)
@@ -27,5 +28,9 @@ export const markAsBestAnswer = functions.https.onCall(async (data, context) => 
 		await addUserCoins(userId, { bronze: coins * 0.75, gold: 0 },
 			'You got coins for a best answer'
 		)
+		await createNotification(userId, {
+			body: 'Congratulations. Your answer was selected as the best answer. Go to your dashboard to have a look',
+			action: `/questions/${questionId}#${answerId}`
+		})
 	}
 })

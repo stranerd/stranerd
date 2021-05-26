@@ -36,10 +36,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@nuxtjs/composition-api'
+import { defineComponent, onMounted, ref } from '@nuxtjs/composition-api'
 import SearchBar from '@app/components/search/SearchBar.vue'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useSessionSignout } from '@app/hooks/auth/session'
+import { useNotificationList } from '@app/hooks/users/notifications'
+import { useChatsList } from '@app/hooks/sessions/chats-list'
 export default defineComponent({
 	name: 'TopNavigation',
 	components: { SearchBar },
@@ -55,8 +57,16 @@ export default defineComponent({
 	},
 	setup () {
 		const showSearch = ref(false)
-		const { isLoggedIn } = useAuth()
+		const { isLoggedIn, id } = useAuth()
 		const { loading, signout } = useSessionSignout()
+		onMounted(() => {
+			if (isLoggedIn) {
+				const notificationListener = useNotificationList(id.value!).listener
+				const messageListener = useChatsList().listener
+				if (!notificationListener.value) notificationListener.startListener()
+				if (messageListener && !messageListener.value) messageListener.startListener()
+			}
+		})
 		return { showSearch, isLoggedIn, loading, signout }
 	}
 })

@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, onMounted } from '@nuxtjs/composition-api'
 import UserChatCard from '@app/components/sessions/chats/UserChatCard.vue'
 import { useChatsList } from '@app/hooks/sessions/chats-list'
 export default defineComponent({
@@ -21,7 +21,10 @@ export default defineComponent({
 	components: { UserChatCard },
 	middleware: ['isAuthenticated'],
 	setup () {
-		const { meta } = useChatsList()
+		const { meta, listener } = useChatsList()
+		onMounted(() => {
+			if (!listener?.value) listener?.startListener()
+		})
 		return { meta }
 	}
 })

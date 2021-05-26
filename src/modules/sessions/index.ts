@@ -9,8 +9,6 @@ import { GetChatsMetaUseCase } from './domain/usecases/chats/getChatsMeta'
 import { AddChatUseCase } from './domain/usecases/chats/addChat'
 import { ListenToChatsUseCase } from './domain/usecases/chats/listenToChats'
 import { ListenToChatsMetaUseCase } from './domain/usecases/chats/listenToChatsMeta'
-import { GetUserLastChatUseCase } from './domain/usecases/chats/getUserLastChat'
-import { ListenToUserLastChatUseCase } from './domain/usecases/chats/listenToUserLastChat'
 import { ListenToSessionUseCase } from './domain/usecases/sessions/listenToSession'
 import { AddSessionUseCase } from './domain/usecases/sessions/addSession'
 import { BeginSessionUseCase } from './domain/usecases/sessions/beginSession'
@@ -35,8 +33,6 @@ export const GetPersonalChatsMeta = new GetChatsMetaUseCase(personalChatReposito
 export const ListenToPersonalChats = new ListenToChatsUseCase(personalChatRepository)
 export const ListenToPersonalChatsMeta = new ListenToChatsMetaUseCase(personalChatRepository)
 export const AddPersonalChat = new AddChatUseCase(personalChatRepository)
-export const GetUserLastChat = new GetUserLastChatUseCase(personalChatRepository)
-export const ListenToUserLastChat = new ListenToUserLastChatUseCase(personalChatRepository)
 
 export const ListenToSession = new ListenToSessionUseCase(sessionRepository)
 export const AddSession = new AddSessionUseCase(sessionRepository)

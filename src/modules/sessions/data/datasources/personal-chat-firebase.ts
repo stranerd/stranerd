@@ -13,8 +13,9 @@ export class PersonalChatFirebaseDataSource implements ChatBaseDataSource {
 		data.dates = { createdAt: firebase.database.ServerValue.TIMESTAMP }
 		await DatabaseService.update('chats', {
 			[`single/${getChatsPath(path)}/${id}`]: data,
-			[`meta/${path[0]}/${path[1]}/last`]: data,
-			[`meta/${path[0]}/${path[1]}/unRead/${id}`]: true
+			[`meta/${path[0]}/${path[1]}/last`]: { ...data, id },
+			[`meta/${path[1]}/${path[0]}/last`]: { ...data, id },
+			[`meta/${path[1]}/${path[0]}/unRead/${id}`]: true
 		})
 		return id
 	}

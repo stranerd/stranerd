@@ -17,12 +17,17 @@ export const createSession = async (user: AfterAuthUser, router: VueRouter) => {
 	if (user.isNew) useEditModal().setEditModalAccountProfile()
 	if (isClient()) {
 		if (authDetails) {
-			const { token, setAuthUser, startProfileListener } = useAuth()
+			const { token, setAuthUser, startProfileListener, signout } = useAuth()
 			await setAuthUser(authDetails)
-			if (token.value) await firebase.auth()
-				.signInWithCustomToken(token.value)
-				.catch(() => {})
-			await startProfileListener()
+			try {
+				if (token.value) await firebase.auth()
+					.signInWithCustomToken(token.value)
+				await startProfileListener()
+			} catch (e) {
+				await SessionSignout.call()
+				await signout()
+				if (isClient()) window.location.assign('/auth/')
+			}
 		}
 
 		const { [REDIRECT_SESSION_NAME]: redirect } = Cookie.parse(document.cookie ?? '')

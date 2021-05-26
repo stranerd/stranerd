@@ -1,6 +1,7 @@
 import { timestampToMs } from '@modules/core/data/transformers/converters/getFirestoreDate'
-import { ChatFromModel, ChatToModel } from '../models/chat'
+import { ChatFromModel, ChatMeta, ChatToModel } from '../models/chat'
 import { ChatEntity } from '../../domain/entities/chat'
+import { ChatMetaEntity } from '../../domain/entities/chatMeta'
 
 export class ChatTransformer {
 	fromJSON (model: ChatFromModel) {
@@ -21,5 +22,12 @@ export class ChatTransformer {
 			...(entity.media ? { media: entity.media } : {}),
 			...(entity.readAt ? { readAt: entity.readAt } : {})
 		}
+	}
+
+	metaFromJSON (model: ChatMeta) {
+		const { bio, last, unRead } = model
+		return new ChatMetaEntity({
+			bio, unRead, last: this.fromJSON(last)
+		})
 	}
 }

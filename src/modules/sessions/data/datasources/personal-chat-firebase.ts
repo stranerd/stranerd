@@ -3,7 +3,7 @@ import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
 import firebase from '@modules/core/services/initFirebase'
 import { getRandomValue } from '@utils/commons'
 import { getChatsPath } from '@utils/constants'
-import { ChatFromModel, ChatToModel } from '../models/chat'
+import { ChatFromModel, ChatMeta, ChatToModel } from '../models/chat'
 import { ChatBaseDataSource } from './chat-base'
 
 export class PersonalChatFirebaseDataSource implements ChatBaseDataSource {
@@ -24,12 +24,20 @@ export class PersonalChatFirebaseDataSource implements ChatBaseDataSource {
 		return await DatabaseService.getMany(`chats/single/${path}`, conditions) as ChatFromModel[]
 	}
 
+	public async getMeta (id: string) {
+		return await DatabaseService.getMany(`chats/meta/${id}`) as ChatMeta[]
+	}
+
 	public async find (path: [string, string], id: string) {
 		return await DatabaseService.get(`chats/single/${path}/${id}`) as ChatFromModel | null
 	}
 
 	public async listen (path: [string, string], callback: (documents: ChatFromModel[]) => void, conditions?: DatabaseGetClauses): Promise<() => void> {
 		return await DatabaseService.listenToMany(`chats/single/${path}`, callback, conditions)
+	}
+
+	public async listenToMeta (id: string, callback: (documents: ChatMeta[]) => void): Promise<() => void> {
+		return await DatabaseService.listenToMany(`chats/meta/${id}`, callback)
 	}
 
 	public async markRead (path: [string, string], id: string) {

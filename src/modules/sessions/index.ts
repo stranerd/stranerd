@@ -5,8 +5,10 @@ import { SessionTransformer } from './data/transformers/session'
 import { ChatRepository } from './data/repositories/chat'
 import { SessionRepository } from './data/repositories/session'
 import { GetChatsUseCase } from './domain/usecases/chats/getChats'
+import { GetChatsMetaUseCase } from './domain/usecases/chats/getChatsMeta'
 import { AddChatUseCase } from './domain/usecases/chats/addChat'
 import { ListenToChatsUseCase } from './domain/usecases/chats/listenToChats'
+import { ListenToChatsMetaUseCase } from './domain/usecases/chats/listenToChatsMeta'
 import { GetUserLastChatUseCase } from './domain/usecases/chats/getUserLastChat'
 import { ListenToUserLastChatUseCase } from './domain/usecases/chats/listenToUserLastChat'
 import { ListenToSessionUseCase } from './domain/usecases/sessions/listenToSession'
@@ -28,7 +30,9 @@ const personalChatRepository = new ChatRepository(personalChatDataSource, chatTr
 const sessionRepository = new SessionRepository(sessionDataSource, sessionTransformer)
 
 export const GetPersonalChats = new GetChatsUseCase(personalChatRepository)
+export const GetPersonalChatsMeta = new GetChatsMetaUseCase(personalChatRepository)
 export const ListenToPersonalChats = new ListenToChatsUseCase(personalChatRepository)
+export const ListenToPersonalChatsMeta = new ListenToChatsMetaUseCase(personalChatRepository)
 export const AddPersonalChat = new AddChatUseCase(personalChatRepository)
 export const GetUserLastChat = new GetUserLastChatUseCase(personalChatRepository)
 export const ListenToUserLastChat = new ListenToUserLastChatUseCase(personalChatRepository)

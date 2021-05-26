@@ -9,7 +9,7 @@ export class GetChatsUseCase {
 		this.repository = repository
 	}
 
-	async call (path: string, date?: Date) {
+	async call (path: [string, string], date?: Date) {
 		const conditions: DatabaseGetClauses = {
 			order: {
 				field: 'dates/createdAt'

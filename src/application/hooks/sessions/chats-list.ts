@@ -3,7 +3,6 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { ChatEntity, GetUserLastChat, ListenToUserLastChat } from '@modules/sessions'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 import { isServer } from '@utils/environment'
-import { getChatsPath } from '@utils/constants'
 
 const global = {} as Record<string, {
 	chat: Ref<ChatEntity | null>,
@@ -29,7 +28,7 @@ export const useChatList = () => {
 
 export const useChatCard = (userId: string) => {
 	const { id } = useAuth()
-	const path = getChatsPath(id.value, userId)
+	const path = [id.value, userId] as [string, string]
 	if (global[userId] === undefined || isServer()) global[userId] = {
 		chat: ssrRef(null),
 		fetched: ssrRef(false),

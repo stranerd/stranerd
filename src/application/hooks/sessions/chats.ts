@@ -2,7 +2,7 @@ import { computed, Ref, ssrRef, ref, useFetch, watch } from '@nuxtjs/composition
 import { AddPersonalChat, ChatEntity, ChatFactory, GetPersonalChats, ListenToPersonalChats } from '@modules/sessions'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
-import { CHAT_PAGINATION_LIMIT, getChatsPath } from '@utils/constants'
+import { CHAT_PAGINATION_LIMIT } from '@utils/constants'
 import { getRandomValue } from '@utils/commons'
 import { isServer } from '@utils/environment'
 
@@ -32,7 +32,7 @@ export const useChats = (userId: string) => {
 		...useErrorHandler(),
 		...useLoadingHandler()
 	}
-	const path = getChatsPath(id.value, userId)
+	const path = [id.value, userId] as [string, string]
 
 	const chats = computed({
 		get: () => global[userId].chats.value.sort((a, b) => {
@@ -80,6 +80,7 @@ export const useChats = (userId: string) => {
 
 export const useCreateChat = (userId: string, sessionId?: string) => {
 	const { id } = useAuth()
+	const path = [id.value, userId] as [string, string]
 	const factory = ref(new ChatFactory()) as Ref<ChatFactory>
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
@@ -89,7 +90,6 @@ export const useCreateChat = (userId: string, sessionId?: string) => {
 
 	const createTextChat = async () => {
 		if (sessionId) factory.value.sessionId = sessionId
-		const path = getChatsPath(id.value, userId)
 		setError('')
 		if (factory.value.valid && !loading.value) {
 			try {
@@ -105,7 +105,6 @@ export const useCreateChat = (userId: string, sessionId?: string) => {
 	const createMediaChat = async (files: File[]) => {
 		if (!loading.value) {
 			setLoading(true)
-			const path = getChatsPath(id.value, userId)
 			const promises = files.map(async (file) => {
 				const mediaFactory = new ChatFactory()
 				mediaFactory.from = id.value

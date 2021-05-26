@@ -15,10 +15,10 @@ export const personalChatsCreated = functions.database.ref('chats/single/{path}'
 			.child('bio')
 			.once('value')
 
-		await admin.database().ref('profiles')
+		await admin.database().ref('chats/meta')
 			.update({
-				[`${id1}/chats/${id2}`]: user2Ref.val(),
-				[`${id2}/chats/${id1}`]: user1Ref.val()
+				[`${id1}/${id2}/bio`]: user2Ref.val(),
+				[`${id2}/${id1}/bio`]: user1Ref.val()
 			})
 	})
 

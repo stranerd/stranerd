@@ -144,12 +144,11 @@ export const updateMyTutorSessionsBio = async (userId: string, user: any) => {
 
 export const updateMyChatsBio = async (userId: string, user: any) => {
 	try {
-		const chatRefs = await admin.database().ref('profiles')
+		const chatRefs = await admin.database().ref('chats/meta')
 			.child(userId)
-			.child('chats')
 			.once('value')
 		const chatIds = Object.keys(chatRefs.val() ?? {})
-		const data = Object.fromEntries(chatIds.map((id) => [`${id}/chats/${userId}`, user]))
-		await admin.database().ref('profiles').update(data)
+		const data = Object.fromEntries(chatIds.map((id) => [`${id}/${userId}/bio`, user]))
+		await admin.database().ref('chats/meta').update(data)
 	} catch (error) { console.log(`Error updating bios of ${userId} chats`) }
 }

@@ -9,7 +9,7 @@ export class ListenToUserLastChatUseCase {
 		this.repository = repository
 	}
 
-	async call (path: string, callback: (entity: ChatEntity | null) => void) {
+	async call (path: [string, string], callback: (entity: ChatEntity | null) => void) {
 		const conditions: DatabaseGetClauses = {
 			order: {
 				field: 'dates/createdAt'

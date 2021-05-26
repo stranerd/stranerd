@@ -8,7 +8,7 @@ export class GetUserLastChatUseCase {
 		this.repository = repository
 	}
 
-	async call (path: string) {
+	async call (path: [string, string]) {
 		const conditions: DatabaseGetClauses = {
 			order: {
 				field: 'dates/createdAt'

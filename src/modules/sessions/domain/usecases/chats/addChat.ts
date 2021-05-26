@@ -8,7 +8,7 @@ export class AddChatUseCase {
 		this.repository = repository
 	}
 
-	async call (path: string, factory: ChatFactory) {
+	async call (path: [string, string], factory: ChatFactory) {
 		return await this.repository.add(path, await factory.toModel())
 	}
 }

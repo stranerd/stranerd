@@ -12,7 +12,11 @@ export class BaseEntity {
 		const proto = Object.getPrototypeOf(this)
 		Object.getOwnPropertyNames(proto)
 			.filter((k) => k !== 'constructor')
-			.forEach((key) => json[key] = this[key as keyof BaseEntity])
+			.forEach((key) => {
+				const value = this[key as keyof BaseEntity]
+				// @ts-ignore
+				json[key] = value?.toJSON?.() ?? value
+			})
 		return json
 	}
 }

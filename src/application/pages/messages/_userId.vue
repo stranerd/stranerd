@@ -2,7 +2,7 @@
 	<div class="flex-grow-1 d-flex flex-column">
 		<PageLoading v-if="loading" />
 		<template v-else-if="user">
-			<div v-if="user.roles.isTutor || chats.find((c) => c.id === user.id)" class="page-content flex-grow-1 d-flex flex-column px-1" :class="{'bg-light-blue': sessionId}">
+			<div v-if="user.roles.isTutor || isTutor" class="page-content flex-grow-1 d-flex flex-column px-1" :class="{'bg-light-blue': sessionId}">
 				<ChatHead :key="user.hash + hash" :user="user" />
 				<div class="thin mx-n1" />
 				<ChatList :user-id="userId" class="flex-grow-1" />
@@ -44,7 +44,7 @@ export default defineComponent({
 		}
 	],
 	setup () {
-		const { chats } = useAuth()
+		const { isTutor } = useAuth()
 		const { userId } = useRoute().value.params
 		const { user, loading, error, listener } = useUser(userId)
 		const { currentSession } = useCurrentSession()
@@ -58,7 +58,7 @@ export default defineComponent({
 			get: () => user.value?.currentSession && user.value?.currentSession === currentSession.value?.id ? getRandomValue() ?? getRandomValue() : getRandomValue(),
 			set: () => {}
 		})
-		return { userId, user, loading, error, sessionId, hash, chats }
+		return { userId, user, loading, error, sessionId, hash, isTutor }
 	}
 })
 </script>

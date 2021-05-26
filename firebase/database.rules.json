@@ -55,6 +55,12 @@
 			}
 		},
 		"chats": {
+			"meta": {
+				"$userId": {
+					".read": true,
+					".write": "auth.uid === $userId"
+				}
+			},
 			"single": {
 				"$path": {
 					".read": true,

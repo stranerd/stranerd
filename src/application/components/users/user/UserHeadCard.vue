@@ -9,7 +9,7 @@
 				<span class="d-block text-18 fw-bold text-wrap">{{ user.fullName }}</span>
 				<span class="small">{{ user.isOnline ? 'Active now' : 'Last seen: ' + time }}</span>
 				<ShowRatings v-if="user.roles.isTutor" :rating="user.averageRating" />
-				<NuxtLink v-if="user.roles.isTutor || chats.find((c) => c.id === user.id)" :to="`/messages/${user.id}`" class="btn btn-sm btn-blue">
+				<NuxtLink v-if="user.roles.isTutor || isTutor" :to="`/messages/${user.id}`" class="btn btn-sm btn-blue">
 					Message
 				</NuxtLink>
 			</div>
@@ -73,11 +73,11 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
-		const { chats } = useAuth()
+		const { isTutor } = useAuth()
 		const { time, startTimer, stopTimer } = useTimeDifference(props.user.lastSeen)
 		onMounted(startTimer)
 		onBeforeUnmount(stopTimer)
-		return { time, formatNumber, chats }
+		return { time, formatNumber, isTutor }
 	}
 })
 </script>

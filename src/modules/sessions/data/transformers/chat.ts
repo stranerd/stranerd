@@ -25,9 +25,9 @@ export class ChatTransformer {
 	}
 
 	metaFromJSON (model: ChatMeta) {
-		const { bio, last, unRead } = model
+		const { id, bio, last, unRead } = model
 		return new ChatMetaEntity({
-			bio, unRead, last: this.fromJSON(last)
+			id, bio, unRead, last: this.fromJSON(last)
 		})
 	}
 }

@@ -20,13 +20,12 @@ export class UserEntity extends BaseEntity {
 	public readonly account: UserAccount
 	public readonly rankings: Required<UserRankings>
 	public readonly meta: Required<UserMeta>
-	public readonly chats: (UserBio & { id: string })[]
 	public readonly status: Required<UserStatus>
 	public readonly tutor: Required<UserTutor> | undefined
 	public readonly achievements: Required<ReturnType<typeof getUserAchievements>>
 	public readonly dates: UserDates
 
-	constructor ({ id, bio, roles, account, rankings, meta, chats, status, tutor, achievements, dates }: UserConstructorArgs) {
+	constructor ({ id, bio, roles, account, rankings, meta, status, tutor, achievements, dates }: UserConstructorArgs) {
 		super()
 		this.id = id
 		this.userBio = generateDefaultBio(bio)
@@ -58,9 +57,6 @@ export class UserEntity extends BaseEntity {
 			tutorSessions: meta?.tutorSessions ?? {},
 			currentSession: meta?.currentSession ?? null
 		}
-		this.chats = Object.entries(chats ?? {})
-			.map(([id, bio]) => ({ id, ...generateDefaultBio(bio) }))
-			.sort((a, b) => a.name.first < b.name.first ? -1 : 1)
 		this.status = {
 			streak: status?.streak ?? 0,
 			mode: status?.mode ?? Status.OFFLINE,
@@ -99,7 +95,6 @@ type UserConstructorArgs = {
 	account: UserAccount
 	rankings?: UserRankings
 	meta?: UserMeta
-	chats?: UserChats
 	status?: UserStatus
 	tutor?: UserTutor
 	achievements?: UserAchievements
@@ -142,7 +137,6 @@ export interface UserMeta {
 	tutorSessions?: Record<string, boolean>
 	currentSession?: string | null
 }
-export interface UserChats extends Record<string, UserBio> {}
 export interface UserStatus {
 	mode: Status
 	updatedAt: number

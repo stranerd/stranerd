@@ -25,10 +25,6 @@ export const useAuth = () => {
 		get: () => global.user.value?.currentSession ?? null,
 		set: () => {}
 	})
-	const chats = computed({
-		get: () => global.user.value?.chats ?? [],
-		set: () => {}
-	})
 
 	const setAuthUser = async (details: AuthDetails | null) => {
 		if (global.listener) global.listener()
@@ -54,7 +50,7 @@ export const useAuth = () => {
 	return {
 		id, bio,
 		user: global.user,
-		isLoggedIn, token, isVerified, isAdmin, isTutor, ongoingAchievements, currentSessionId, chats,
+		isLoggedIn, token, isVerified, isAdmin, isTutor, ongoingAchievements, currentSessionId,
 		setAuthUser, startProfileListener,
 		signout, closeProfileListener: () => global.listener?.()
 	}

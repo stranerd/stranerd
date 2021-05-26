@@ -12,16 +12,15 @@ export class PersonalChatFirebaseDataSource implements ChatBaseDataSource {
 		// @ts-ignore
 		data.dates = { createdAt: firebase.database.ServerValue.TIMESTAMP }
 		await DatabaseService.update('chats', {
-			[`singles/${getChatsPath(path)}/${id}`]: data,
+			[`single/${getChatsPath(path)}/${id}`]: data,
 			[`meta/${path[0]}/${path[1]}/last`]: data,
 			[`meta/${path[0]}/${path[1]}/unRead/${id}`]: true
 		})
-		await DatabaseService.create(`chats/single/${path}`, data)
 		return id
 	}
 
 	public async get (path: [string, string], conditions?: DatabaseGetClauses) {
-		return await DatabaseService.getMany(`chats/single/${path}`, conditions) as ChatFromModel[]
+		return await DatabaseService.getMany(`chats/single/${getChatsPath(path)}`, conditions) as ChatFromModel[]
 	}
 
 	public async getMeta (id: string) {
@@ -33,7 +32,7 @@ export class PersonalChatFirebaseDataSource implements ChatBaseDataSource {
 	}
 
 	public async listen (path: [string, string], callback: (documents: ChatFromModel[]) => void, conditions?: DatabaseGetClauses): Promise<() => void> {
-		return await DatabaseService.listenToMany(`chats/single/${path}`, callback, conditions)
+		return await DatabaseService.listenToMany(`chats/single/${getChatsPath(path)}`, callback, conditions)
 	}
 
 	public async listenToMeta (id: string, callback: (documents: ChatMeta[]) => void): Promise<() => void> {
@@ -42,12 +41,12 @@ export class PersonalChatFirebaseDataSource implements ChatBaseDataSource {
 
 	public async markRead (path: [string, string], id: string) {
 		return await DatabaseService.update('chats', {
-			[`singles/${getChatsPath(path)}/${id}/readAt`]: firebase.database.ServerValue.TIMESTAMP,
+			[`single/${getChatsPath(path)}/${id}/readAt`]: firebase.database.ServerValue.TIMESTAMP,
 			[`meta/${path[0]}/${path[1]}/unRead/${id}`]: null
 		})
 	}
 
 	public async delete (path: [string, string], id: string) {
-		return await DatabaseService.delete(`chats/single/${path}/${id}`)
+		return await DatabaseService.delete(`chats/single/${getChatsPath(path)}/${id}`)
 	}
 }

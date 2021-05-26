@@ -1,37 +1,33 @@
 <template>
-	<NuxtLink :to="`/messages/${user.id}`" class="gap-0-5">
-		<Avatar :src="user.avatar" :size="60" />
+	<NuxtLink :to="`/messages/${meta.id}`" class="gap-0-5">
+		<Avatar :src="meta.bio.avatar" :size="60" />
 		<div class="flex-grow-1 text-truncate">
 			<div class="d-flex justify-content-between gap-0-5">
-				<span class="fw-bold lead d-inline-block text-truncate">{{ user.name.fullName }}</span>
-				<span v-if="chat" class="ms-auto">{{ formatTime(chat.createdAt) }}</span>
+				<span class="fw-bold lead d-inline-block text-truncate">{{ meta.bio.name.fullName }}</span>
+				<span class="ms-auto">{{ formatTime(meta.chat.createdAt) }}</span>
 			</div>
-			<p v-if="chat" class="mb-0 text-truncate">
-				<i v-if="chat.isMedia" class="fas fa-paperclip me-0-25" />
-				{{ chat.isMedia ? chat.media.name : chat.content }}
+			<p class="mb-0 text-truncate">
+				<i v-if="meta.chat.isMedia" class="fas fa-paperclip me-0-25" />
+				{{ meta.chat.isMedia ? meta.chat.media.name : meta.chat.content }}
 			</p>
 		</div>
 	</NuxtLink>
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeUnmount, onMounted, PropType } from '@nuxtjs/composition-api'
-import { UserBio } from '@modules/users'
-import { useChatCard } from '@app/hooks/sessions/chats-list'
+import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { formatTime } from '@utils/dates'
+import { ChatMetaEntity } from '@modules/sessions'
 export default defineComponent({
 	name: 'UserChatCard',
 	props: {
-		user: {
-			type: Object as PropType<UserBio & { id: string }>,
+		meta: {
+			type: Object as PropType<ChatMetaEntity>,
 			required: true
 		}
 	},
-	setup (props) {
-		const { chat, listener } = useChatCard(props.user.id)
-		onMounted(listener.startListener)
-		onBeforeUnmount(listener.closeListener)
-		return { chat, formatTime }
+	setup () {
+		return { formatTime }
 	}
 })
 </script>

@@ -1,6 +1,6 @@
 import {
 	UserBio, UserRoles, UserAccount, UserRankings, UserMeta, UserStatus,
-	UserDates, UserTutor, UserChats, UserAchievements
+	UserDates, UserTutor, UserAchievements
 } from '../../domain/entities/user'
 
 export interface UserFromModel {
@@ -10,7 +10,6 @@ export interface UserFromModel {
 	account: UserAccount
 	rankings?: UserRankings
 	meta?: UserMeta
-	chats?: UserChats
 	status?: UserStatus
 	tutor?: UserTutor
 	achievements?: UserAchievements
@@ -24,7 +23,6 @@ export interface UserToModel {
 	rankings: UserRankings
 	meta: UserMeta
 	status: UserStatus
-	chats: UserChats
 	tutor?: UserTutor
 	achievements?: UserAchievements
 	dates: UserDates

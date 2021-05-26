@@ -22,6 +22,7 @@ export interface ChatToModel {
 }
 
 export interface ChatMeta {
+	id: string
 	unRead: Record<string, boolean>,
 	last: ChatFromModel,
 	bio: UserBio

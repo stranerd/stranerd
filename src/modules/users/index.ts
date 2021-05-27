@@ -1,11 +1,14 @@
 import { UserFirebaseDataSource } from './data/datasources/user-firebase'
 import { RoleFirebaseDataSource } from './data/datasources/role-firebase'
 import { NotificationFirebaseDataSource } from './data/datasources/notification-firebase'
+import { TutorApplicationFirebaseDataSource } from './data/datasources/tutorApplication-firebase'
 import { UserTransformer } from './data/transformers/user'
 import { NotificationTransformer } from './data/transformers/notification'
+import { TutorApplicationTransformer } from './data/transformers/tutorApplication'
 import { UserRepository } from './data/repositories/user'
 import { RoleRepository } from './data/repositories/role'
 import { NotificationRepository } from './data/repositories/notification'
+import { TutorApplicationRepository } from './data/repositories/tutorApplication'
 import { FindUserUseCase } from './domain/usecases/users/findUser'
 import { MakeAdminUseCase } from './domain/usecases/roles/makeAdmin'
 import { RemoveAdminUseCase } from './domain/usecases/roles/removeAdmin'
@@ -25,22 +28,28 @@ import { ListenToTopRankingUsersUseCase } from './domain/usecases/rankings/liste
 import { GetNotificationsUseCase } from './domain/usecases/notifications/getNotifications'
 import { ListenToNotificationsUseCase } from './domain/usecases/notifications/listenToNotifications'
 import { MarkNotificationSeenUseCase } from './domain/usecases/notifications/markNotificationSeen'
+import { GetTutorApplicationsUseCase } from './domain/usecases/tutorApplications/getTutorApplications'
+import { ListenToTutorApplicationsUseCase } from './domain/usecases/tutorApplications/listenToTutorApplications'
 import { UserEntity, UserBio, Status, generateDefaultBio, RankingPeriods } from './domain/entities/user'
 import { Avatar, Avatars } from './domain/entities/avatar'
 import { Achievements } from './domain/entities/achievement'
 import { NotificationEntity } from './domain/entities/notification'
+import { TutorApplicationEntity } from './domain/entities/tutorApplication'
 import { MailingListFactory } from './domain/factories/mailingList'
 
 const userDataSource = new UserFirebaseDataSource()
 const roleDataSource = new RoleFirebaseDataSource()
 const notificationDataSource = new NotificationFirebaseDataSource()
+const tutorApplicationDataSource = new TutorApplicationFirebaseDataSource()
 
 const userTransformer = new UserTransformer()
 const notificationTransformer = new NotificationTransformer()
+const tutorApplicationTransformer = new TutorApplicationTransformer()
 
 const userRepository = new UserRepository(userDataSource, userTransformer)
 const roleRepository = new RoleRepository(roleDataSource)
 const notificationRepository = new NotificationRepository(notificationDataSource, notificationTransformer)
+const tutorApplicationRepository = new TutorApplicationRepository(tutorApplicationDataSource, tutorApplicationTransformer)
 
 export const FindUser = new FindUserUseCase(userRepository)
 export const GetUsersByEmail = new GetUsersByEmailUseCase(userRepository)
@@ -65,6 +74,9 @@ export const GetNotifications = new GetNotificationsUseCase(notificationReposito
 export const ListenToNotifications = new ListenToNotificationsUseCase(notificationRepository)
 export const MarkNotificationSeen = new MarkNotificationSeenUseCase(notificationRepository)
 
-export { UserEntity, generateDefaultBio, Status, RankingPeriods, NotificationEntity, Avatars }
+export const GetTutorApplications = new GetTutorApplicationsUseCase(tutorApplicationRepository)
+export const ListenToTutorApplications = new ListenToTutorApplicationsUseCase(tutorApplicationRepository)
+
+export { UserEntity, generateDefaultBio, Status, RankingPeriods, NotificationEntity, Avatars, TutorApplicationEntity }
 export { MailingListFactory, Achievements }
 export type { UserBio, Avatar }

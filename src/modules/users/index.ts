@@ -35,6 +35,7 @@ import { Avatar, Avatars } from './domain/entities/avatar'
 import { Achievements } from './domain/entities/achievement'
 import { NotificationEntity } from './domain/entities/notification'
 import { TutorApplicationEntity } from './domain/entities/tutorApplication'
+import { TutorApplicationFactory } from './domain/factories/tutorApplication'
 import { MailingListFactory } from './domain/factories/mailingList'
 
 const userDataSource = new UserFirebaseDataSource()
@@ -78,5 +79,5 @@ export const GetTutorApplications = new GetTutorApplicationsUseCase(tutorApplica
 export const ListenToTutorApplications = new ListenToTutorApplicationsUseCase(tutorApplicationRepository)
 
 export { UserEntity, generateDefaultBio, Status, RankingPeriods, NotificationEntity, Avatars, TutorApplicationEntity }
-export { MailingListFactory, Achievements }
+export { MailingListFactory, Achievements, TutorApplicationFactory }
 export type { UserBio, Avatar }

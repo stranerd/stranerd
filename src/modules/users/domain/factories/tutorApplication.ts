@@ -13,11 +13,11 @@ type Keys = {
 
 export class TutorApplicationFactory extends BaseFactory<TutorApplicationEntity, TutorApplicationToModel, Keys> {
 	public readonly rules = {
-		course: { required: true, rules: [(val: string) => isLongerThan(val, 3)] },
+		course: { required: true, rules: [(val: string) => isLongerThan(val, 2)] },
 		proof: { required: true, rules: [isImage] },
-		about: { required: true, rules: [(val: string) => isLongerThan(val, 3)] },
-		description: { required: true, rules: [(val: string) => isLongerThan(val, 3)] },
-		subjectId: { required: true, rules: [] },
+		about: { required: true, rules: [(val: string) => isLongerThan(val, 2)] },
+		description: { required: true, rules: [(val: string) => isLongerThan(val, 2)] },
+		subjectId: { required: true, rules: [(val: string) => isLongerThan(val, 0)] },
 		userId: { required: true, rules: [] },
 		userBio: { required: true, rules: [] }
 	}

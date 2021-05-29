@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import {
-	updateBraintreeBio, updateMyAnswerCommentsBio, updateMyAnswersBio, updateMyChatsBio,
+	updateBraintreeBio, updateMyAnswerCommentsBio, updateMyAnswersBio, updateMyChatsBio, updateMyTutorApplicationsBio,
 	updateMyQuestionCommentsBio, updateMyQuestionsBio, updateMySessionsBio, updateMyTutorSessionsBio
 } from '../../helpers/modules/users/users'
 import { addUserXp, XpGainList } from '../../helpers/modules/payments/transactions'
@@ -22,6 +22,7 @@ export const userProfileUpdated = functions.database.ref('profiles/{userId}/bio'
 		await updateMyAnswersBio(userId, newBio)
 		await updateMyQuestionCommentsBio(userId, newBio)
 		await updateMyAnswerCommentsBio(userId, newBio)
+		await updateMyTutorApplicationsBio(userId, newBio)
 		await updateBraintreeBio(userId, oldBio, newBio)
 	})
 

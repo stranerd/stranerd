@@ -1,7 +1,7 @@
 @use 'sass:map';
 $color-blue: #17224d;
 $color-light-blue: #e2f0ff;
-$color-blue-grey: #344BA2;
+$color-blue-grey: #395C7F;
 $color-light-grey: #e7eef4;
 $color-grey: #808080;
 $color-white: #FEFEFE;
@@ -62,6 +62,8 @@ $spacers: ();
 		'n#{$key}-75': #{0 - 0.75 - $key}rem
 	));
 }
+
+$border-radius-lg: 0.5rem;
 
 @function vh($quantity) {
 	@return calc(var(--vh, 1vh) * #{$quantity})

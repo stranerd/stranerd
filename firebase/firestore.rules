@@ -20,6 +20,11 @@ service cloud.firestore {
             allow delete: if isAdmin();
         }
 
+		match /tutorApplications/{id} {
+			allow read, update, delete: if isAdmin();
+			allow create: if isAuthenticated();
+		}
+
         match /users/{userId}/transactions/{id} {
         	allow read: if true;
         	allow write: if isAdmin();

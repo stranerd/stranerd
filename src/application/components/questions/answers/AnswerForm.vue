@@ -13,7 +13,7 @@
 				multiple
 				@change="catchAttachments"
 			>
-			<p>
+			<p class="mb-0">
 				<span v-for="attachment in factory.attachments" :key="attachment.name" class="me-0-5">
 					<span class="me-0-25">{{ attachment.name }}</span>
 					<a class="text-danger" @click.prevent="factory.removeAttachment(attachment)">

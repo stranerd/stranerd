@@ -4,8 +4,8 @@
 		:value="subjectId"
 		@change="$emit('update:subjectId',$event.target.value)"
 	>
-		<option value="">
-			All Subjects
+		<option value="" :disabled="!showAll">
+			{{ showAll ? 'All Subjects' : 'Select A Subject' }}
 		</option>
 		<option v-for="subject in subjects" :key="subject.hash" :value="subject.id">
 			{{ subject.name }}
@@ -22,6 +22,11 @@ export default defineComponent({
 		subjectId: {
 			type: String,
 			required: true
+		},
+		showAll: {
+			type: Boolean,
+			required: false,
+			default: true
 		}
 	},
 	setup () {

@@ -28,6 +28,7 @@ import { ListenToTopRankingUsersUseCase } from './domain/usecases/rankings/liste
 import { GetNotificationsUseCase } from './domain/usecases/notifications/getNotifications'
 import { ListenToNotificationsUseCase } from './domain/usecases/notifications/listenToNotifications'
 import { MarkNotificationSeenUseCase } from './domain/usecases/notifications/markNotificationSeen'
+import { AddTutorApplicationsUseCase } from './domain/usecases/tutorApplications/addTutorApplications'
 import { GetTutorApplicationsUseCase } from './domain/usecases/tutorApplications/getTutorApplications'
 import { ListenToTutorApplicationsUseCase } from './domain/usecases/tutorApplications/listenToTutorApplications'
 import { UserEntity, UserBio, Status, generateDefaultBio, RankingPeriods } from './domain/entities/user'
@@ -75,6 +76,7 @@ export const GetNotifications = new GetNotificationsUseCase(notificationReposito
 export const ListenToNotifications = new ListenToNotificationsUseCase(notificationRepository)
 export const MarkNotificationSeen = new MarkNotificationSeenUseCase(notificationRepository)
 
+export const AddTutorApplications = new AddTutorApplicationsUseCase(tutorApplicationRepository)
 export const GetTutorApplications = new GetTutorApplicationsUseCase(tutorApplicationRepository)
 export const ListenToTutorApplications = new ListenToTutorApplicationsUseCase(tutorApplicationRepository)
 

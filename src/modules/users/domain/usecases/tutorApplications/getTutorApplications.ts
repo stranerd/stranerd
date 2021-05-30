@@ -11,10 +11,10 @@ export class GetTutorApplicationsUseCase {
 
     async call (date?: number) {
 	    const conditions: FirestoreGetClauses = {
-		    order: { field: 'dates/createdAt', desc: true },
+		    order: { field: 'dates.createdAt', desc: true },
 		    limit: PAGINATION_LIMIT + 1
 	    }
-	    if (date) conditions.where = [{ field: 'dates.createdAt', condition: '<', value: date }]
+	    if (date) conditions.where = [{ field: 'dates.createdAt', condition: '<', value: new Date(date) }]
 	    return await this.repository.get(conditions)
     }
 }

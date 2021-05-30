@@ -1,8 +1,6 @@
 <template>
 	<div>
-		<h4 class="text-muted mb-1">
-			Add New Nerd
-		</h4>
+		<h2>Add New Nerd</h2>
 		<form @submit.prevent="getUsersByEmail">
 			<div class="d-flex align-items-center">
 				<input v-model="email" type="email" autocomplete="email" class="form-control flex-grow-1" placeholder="Enter user's email address">

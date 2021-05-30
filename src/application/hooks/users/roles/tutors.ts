@@ -5,6 +5,7 @@ import {
 } from '@modules/users'
 import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { Alert } from '@app/hooks/core/notifications'
+import { useEditModal } from '@app/hooks/core/modals'
 
 const global = {
 	tutors: ssrRef([] as UserEntity[]),
@@ -100,9 +101,13 @@ export const useTutorRoles = () => {
 			await MakeTutor.call(user.id)
 			user.roles.isTutor = true
 			const tutor = await FindUser.call(user.id)
-			if (tutor) pushToTutorsList(tutor)
 			reset()
 			setMessage('Successfully made a tutor')
+			if (tutor) {
+				pushToTutorsList(tutor)
+				setCurrentTutor(tutor)
+				useEditModal().setEditModalTutorSubjects()
+			}
 		} catch (error) { setError(error) }
 		setLoading(false)
 	}

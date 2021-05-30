@@ -13,7 +13,7 @@ export class ListenToTutorApplicationsUseCase {
 	    const conditions: FirestoreGetClauses = {
 		    order: { field: 'dates.createdAt', desc: false }
 	    }
-	    if (date) conditions.where = [{ field: 'dates.createdAt', condition: '>=', value: date }]
+	    if (date) conditions.where = [{ field: 'dates.createdAt', condition: '>=', value: new Date(date) }]
 
 	    return await this.repository.listen(callback, conditions)
     }

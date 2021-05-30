@@ -1,8 +1,11 @@
 <template>
 	<div>
-		<div class="page-content">
+		<div class="page-content mb-0-5">
 			<UpgradeUserToTutor />
 			<TutorsList />
+		</div>
+		<div class="page-content">
+			<TutorApplicationList />
 		</div>
 	</div>
 </template>
@@ -11,11 +14,13 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import UpgradeUserToTutor from '@app/components/admin/users/UpgradeUserToTutor.vue'
 import TutorsList from '@app/components/admin/users/AdminTutorsList.vue'
+import TutorApplicationList from '@app/components/users/tutorApplication/TutorApplicationList.vue'
 export default defineComponent({
 	name: 'AdminUsersTutorsPage',
 	components: {
 		UpgradeUserToTutor,
-		TutorsList
+		TutorsList,
+		TutorApplicationList
 	},
 	layout: 'admin'
 })

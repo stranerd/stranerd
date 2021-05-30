@@ -8,14 +8,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, onBeforeUnmount, onMounted } from '@nuxtjs/composition-api'
 import { useTutorsList } from '@app/hooks/users/roles/tutors'
 import TutorsListCard from '@app/components/admin/users/AdminTutorsListCard.vue'
 export default defineComponent({
 	name: 'AdminTutorsList',
 	components: { TutorsListCard },
 	setup () {
-		const { loading, error, tutors } = useTutorsList()
+		const { loading, error, tutors, listener } = useTutorsList()
+		onMounted(listener.startListener)
+		onBeforeUnmount(listener.closeListener)
 		return { loading, error, tutors }
 	}
 })

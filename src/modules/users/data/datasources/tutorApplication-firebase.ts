@@ -1,4 +1,4 @@
-import { FirestoreService } from '@modules/core/services/firebase'
+import { FirestoreService, FunctionsService } from '@modules/core/services/firebase'
 import { FirestoreGetClauses } from '@modules/core/data/datasources/base'
 import { TutorApplicationFromModel, TutorApplicationToModel } from '../models/tutorApplication'
 import { TutorApplicationBaseDataSource } from './tutorApplication-base'
@@ -23,6 +23,10 @@ export class TutorApplicationFirebaseDataSource implements TutorApplicationBaseD
 	async update (id: string, data: Partial<TutorApplicationToModel>) {
 		await FirestoreService.update('tutorApplications', id, data)
 		return id
+	}
+
+	async approve (data: { id: string, approved: boolean }) {
+		await FunctionsService.call('approveTutorApplication', data)
 	}
 
 	async delete (id: string) {

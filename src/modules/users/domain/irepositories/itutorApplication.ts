@@ -8,5 +8,6 @@ export interface ITutorApplicationRepository {
 	get: (conditions?: FirestoreGetClauses) => Promise<TutorApplicationEntity[]>
 	listen: (callback: (entities: TutorApplicationEntity[]) => void, conditions?: FirestoreGetClauses) => Promise<() => void>
 	update: (id: string, data: Partial<TutorApplicationToModel>) => Promise<string>,
+	approve: (id: string, approved: boolean) => Promise<void>,
 	delete: (id: string) => Promise<void>
 }

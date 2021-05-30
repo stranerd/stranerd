@@ -7,5 +7,6 @@ export abstract class TutorApplicationBaseDataSource {
 	abstract listen: (callback: (documents: TutorApplicationFromModel[]) => void, condition?: FirestoreGetClauses) => Promise<() => void>
 	abstract find: (id: string) => Promise<TutorApplicationFromModel | undefined>
 	abstract update: (id: string, data: Partial<TutorApplicationToModel>) => Promise<string>
+	abstract approve: (data: { id: string, approved: boolean }) => Promise<void>
 	abstract delete: (id: string) => Promise<void>
 }

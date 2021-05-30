@@ -41,6 +41,10 @@ export class TutorApplicationRepository implements ITutorApplicationRepository {
 		return await this.dataSource.update(id, data)
 	}
 
+	async approve (id: string, approved: boolean) {
+		return await this.dataSource.approve({ id, approved })
+	}
+
 	async delete (id: string) {
 		return await this.dataSource.delete(id)
 	}

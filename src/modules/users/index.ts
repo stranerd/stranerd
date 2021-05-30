@@ -31,6 +31,7 @@ import { MarkNotificationSeenUseCase } from './domain/usecases/notifications/mar
 import { AddTutorApplicationsUseCase } from './domain/usecases/tutorApplications/addTutorApplications'
 import { GetTutorApplicationsUseCase } from './domain/usecases/tutorApplications/getTutorApplications'
 import { ListenToTutorApplicationsUseCase } from './domain/usecases/tutorApplications/listenToTutorApplications'
+import { ApproveTutorApplicationUseCase } from './domain/usecases/tutorApplications/approveTutorApplication'
 import { UserEntity, UserBio, Status, generateDefaultBio, RankingPeriods } from './domain/entities/user'
 import { Avatar, Avatars } from './domain/entities/avatar'
 import { Achievements } from './domain/entities/achievement'
@@ -79,6 +80,7 @@ export const MarkNotificationSeen = new MarkNotificationSeenUseCase(notification
 export const AddTutorApplications = new AddTutorApplicationsUseCase(tutorApplicationRepository)
 export const GetTutorApplications = new GetTutorApplicationsUseCase(tutorApplicationRepository)
 export const ListenToTutorApplications = new ListenToTutorApplicationsUseCase(tutorApplicationRepository)
+export const ApproveTutorApplication = new ApproveTutorApplicationUseCase(tutorApplicationRepository)
 
 export { UserEntity, generateDefaultBio, Status, RankingPeriods, NotificationEntity, Avatars, TutorApplicationEntity }
 export { MailingListFactory, Achievements, TutorApplicationFactory }

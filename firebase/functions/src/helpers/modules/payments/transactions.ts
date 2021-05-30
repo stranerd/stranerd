@@ -59,7 +59,7 @@ export enum XpGainList {
 	ANSWER_QUESTION = 5,
 	BUY_BRONZE = 0.01,
 	BUY_GOLD = 1,
-	TIP_NERD = 10,
-	BOOK_NERD = 10,
-	PICK_AVATAR = 50
+	TIP_NERD = 1,
+	BOOK_NERD = 1,
+	PICK_AVATAR = 5
 }

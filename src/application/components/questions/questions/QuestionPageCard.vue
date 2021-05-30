@@ -44,7 +44,7 @@
 				<span>{{ formatNumber(question.attachments.length) }}</span>
 				<i class="fas fa-paperclip" />
 			</span>
-			<a v-if="question.commentsCount" class="me-0-5 me-md-1 d-flex align-items-center" @click.prevent="showComments = !showComments">
+			<a v-if="question.commentsCount" class="me-0-5 me-md-1 d-none align-items-center" @click.prevent="showComments = !showComments">
 				<span>
 					{{ showComments ? 'Hide' : 'Show' }} Comments
 				</span>

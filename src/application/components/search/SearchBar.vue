@@ -54,7 +54,7 @@ form {
 		width: auto;
 		background-color: inherit;
 		border: none;
-		padding: 0.25rem;
+		padding: 0.25em 1.75em 0.25em 0.25em;
 		color: inherit;
 	}
 	select:focus {

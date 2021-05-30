@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div id="achievements">
 		<h2 class="fw-bold">
 			Achievements
 		</h2>

@@ -75,7 +75,7 @@ export default defineComponent({
 	components: { SelectSubject },
 	setup () {
 		const { loading, error, createTutorApplication, factory } = useCreateTutorApplication()
-		const proofLink = ref((factory.icon as any)?.link ?? '')
+		const proofLink = ref((factory.value.proof as any)?.link ?? '')
 		const { catchFiles: catchProof } = useFileInputs(
 			(file:File) => {
 				factory.value.proof = file

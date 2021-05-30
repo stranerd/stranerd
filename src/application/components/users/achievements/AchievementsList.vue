@@ -7,7 +7,7 @@
 			<h5 class="fw-bold mb-0 d-none d-lg-block">
 				Achievements
 			</h5>
-			<NuxtLink to="/account" class="ms-auto d-flex align-items-center">
+			<NuxtLink to="/account#achievements" class="ms-auto d-flex align-items-center">
 				<span>More</span>
 				<i class="fas fa-angle-right mx-0-25" />
 			</NuxtLink>

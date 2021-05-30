@@ -6,7 +6,7 @@
 		<div class="sidebar-links">
 			<NuxtLink class="sidebar-link" to="/dashboard">
 				<img src="@app/assets/images/icons/dashboard.svg" alt="">
-				<span>Dashboard</span>
+				<span>Home</span>
 			</NuxtLink>
 			<NuxtLink class="sidebar-link" to="/questions">
 				<img src="@app/assets/images/icons/questions.svg" alt="">

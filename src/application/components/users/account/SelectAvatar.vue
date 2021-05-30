@@ -1,15 +1,8 @@
 <template>
 	<div class="content">
-		<div>
-			<img class="current" :src="currentAvatar.link" alt="">
-		</div>
+		<img class="current" :src="currentAvatar.link" alt="">
 		<div class="others">
-			<div v-for="other in otherAvatars" :key="other.id">
-				<img :src="other.link" alt="" @click="setAvatar(other.id)">
-				<p class="text-center my-0">
-					{{ other.id }}
-				</p>
-			</div>
+			<img v-for="other in otherAvatars" :key="other.id" :src="other.link" alt="" @click="setAvatar(other.id)">
 		</div>
 	</div>
 </template>
@@ -50,9 +43,10 @@ export default defineComponent({
 	align-items: center;
 	width: 100%;
 	img {
-		width: 75px;
-		height: 75px;
+		width: 60px;
+		height: 60px;
 		border-radius: 10rem;
+		flex-shrink: unset;
 		margin-right: 0.5rem;
 	}
 	.current {

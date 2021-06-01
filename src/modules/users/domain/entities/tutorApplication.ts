@@ -1,7 +1,8 @@
+import { BaseEntity } from '@modules/core/domains/entities/base'
 import { Media } from '@modules/core/data/models/base'
 import { UserBio, generateDefaultBio } from './user'
 
-export class TutorApplicationEntity {
+export class TutorApplicationEntity extends BaseEntity {
 	public readonly id: string
 	public readonly userId: string
 	public readonly userBio: UserBio
@@ -13,6 +14,7 @@ export class TutorApplicationEntity {
 	public readonly createdAt: number
 
 	constructor ({ id, userId, userBio, course, subjectId, about, description, proof, createdAt }: TutorApplicationConstructorArgs) {
+		super()
 		this.id = id
 		this.userId = userId
 		this.userBio = generateDefaultBio(userBio)

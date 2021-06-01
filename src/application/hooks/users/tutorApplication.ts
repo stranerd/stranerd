@@ -2,7 +2,12 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { ref, Ref, watch, useRouter, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import {
-	AddTutorApplications, GetTutorApplications, ListenToTutorApplications, TutorApplicationEntity, TutorApplicationFactory
+	AddTutorApplications,
+	ApproveTutorApplication,
+	GetTutorApplications,
+	ListenToTutorApplications,
+	TutorApplicationEntity,
+	TutorApplicationFactory
 } from '@modules/users'
 import { PAGINATION_LIMIT } from '@utils/constants'
 
@@ -88,18 +93,18 @@ export const useTutorApplication = (id: string) => {
 		setError('')
 		try {
 			setLoading(true)
-			const index = global.applications.value.findIndex((a) => a.id === id)
-			if (index !== -1) global.applications.value.splice(index, 1)
+			await ApproveTutorApplication.call(id, true)
 			setMessage('Successfully accepted application')
 		} catch (error) { setError(error) }
+		global.applications.value = global.applications.value.filter((a) => a.id !== id)
 		setLoading(false)
 	}
 	const rejectApplication = async () => {
 		setError('')
 		try {
 			setLoading(true)
-			const index = global.applications.value.findIndex((a) => a.id === id)
-			if (index !== -1) global.applications.value.splice(index, 1)
+			await ApproveTutorApplication.call(id, false)
+			global.applications.value = global.applications.value.filter((a) => a.id !== id)
 			setMessage('Successfully rejected application')
 		} catch (error) { setError(error) }
 		setLoading(false)

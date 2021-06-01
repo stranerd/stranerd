@@ -1,5 +1,5 @@
 import { computed, Ref, ssrRef, ref, useFetch, watch } from '@nuxtjs/composition-api'
-import { AddPersonalChat, ChatEntity, ChatFactory, GetPersonalChats, ListenToPersonalChats } from '@modules/sessions'
+import { AddPersonalChat, ChatEntity, ChatFactory, GetPersonalChats, ListenToPersonalChats, MarkPersonalChatRead } from '@modules/sessions'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
 import { CHAT_PAGINATION_LIMIT } from '@utils/constants'
@@ -135,4 +135,15 @@ const orderChats = (chats: ChatEntity[]) => {
 		const date = chats[0].createdAt
 		return { chats, date, hash: getRandomValue() }
 	})
+}
+
+export const useChat = (chat: ChatEntity, userId: string) => {
+	const { id } = useAuth()
+	const path = [id.value, userId] as [string, string]
+
+	const markChatRead = async () => {
+		await MarkPersonalChatRead.call(path, chat.id)
+	}
+
+	return { markChatRead }
 }

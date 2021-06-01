@@ -8,7 +8,7 @@
 			<p class="text-center small mb-0">
 				{{ formatTime(session.date, true) }}
 			</p>
-			<ChatListCard v-for="chat in session.chats" :key="chat.hash" :chat="chat" />
+			<ChatListCard v-for="chat in session.chats" :key="chat.hash" :chat="chat" :user-id="userId" />
 		</div>
 		<PageLoading v-if="loading" />
 		<DisplayError :error="error" />

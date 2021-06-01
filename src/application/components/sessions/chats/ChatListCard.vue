@@ -12,15 +12,20 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType } from '@nuxtjs/composition-api'
+import { computed, defineComponent, onMounted, PropType } from '@nuxtjs/composition-api'
 import { ChatEntity } from '@modules/sessions'
 import { useAuth } from '@app/hooks/auth/auth'
 import { formatTimeAsDigits } from '@utils/dates'
+import { useChat } from '@app/hooks/sessions/chats'
 export default defineComponent({
 	name: 'ChatListCard',
 	props: {
 		chat: {
 			type: Object as PropType<ChatEntity>,
+			required: true
+		},
+		userId: {
+			type: String,
 			required: true
 		}
 	},
@@ -29,6 +34,9 @@ export default defineComponent({
 		const isMine = computed({
 			get: () => props.chat.from === id.value,
 			set: () => {}
+		})
+		onMounted(() => {
+			if (!isMine.value) useChat(props.chat, props.userId).markChatRead()
 		})
 		return { isMine, formatTimeAsDigits }
 	}

@@ -71,7 +71,7 @@
 			</div>
 			<CommentList :question-id="question.id" />
 		</div>
-		<CommentForm class="w-100" :question-id="question.id" />
+		<CommentForm class="w-100 d-none" :question-id="question.id" />
 	</div>
 </template>
 

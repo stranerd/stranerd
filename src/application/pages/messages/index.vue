@@ -2,7 +2,7 @@
 	<div>
 		<div class="page-content">
 			<p v-if="meta.length === 0" class="text-center align-self-center my-auto">
-				No chats found. Go message a user
+				No chats found. Go message a nerd
 			</p>
 			<div v-for="chat in meta" :key="chat.id">
 				<UserChatCard :meta="chat" />

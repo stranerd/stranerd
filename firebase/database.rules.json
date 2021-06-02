@@ -58,7 +58,7 @@
 			"meta": {
 				"$userId": {
 					".read": true,
-					".write": "auth.uid === $userId"
+					".write": "auth.uid !== null"
 				}
 			},
 			"single": {

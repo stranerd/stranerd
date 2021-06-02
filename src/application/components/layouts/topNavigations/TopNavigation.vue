@@ -20,12 +20,8 @@
 				<div class="link d-none d-md-inline-flex flex-grow-1 align-items-center border-0">
 					<SearchBar />
 				</div>
-				<NuxtLink to="/notifications" class="link">
-					<img src="@app/assets/images/icons/notification.svg" alt="">
-				</NuxtLink>
-				<NuxtLink to="/messages" class="link">
-					<img src="@app/assets/images/icons/chat.svg" alt="">
-				</NuxtLink>
+				<NotificationBell v-if="isLoggedIn" class="link" />
+				<MessagesIcon v-if="isLoggedIn" class="link" />
 				<a v-if="isLoggedIn" class="link d-none d-lg-inline" @click.prevent="signout">
 					<PageLoading v-if="loading" />
 					<img src="@app/assets/images/icons/signout.svg" alt="">
@@ -40,11 +36,12 @@ import { defineComponent, onMounted, ref } from '@nuxtjs/composition-api'
 import SearchBar from '@app/components/search/SearchBar.vue'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useSessionSignout } from '@app/hooks/auth/session'
-import { useNotificationList } from '@app/hooks/users/notifications'
 import { useChatsList } from '@app/hooks/sessions/chats-list'
+import NotificationBell from '@app/components/layouts/topNavigations/NotificationBell.vue'
+import MessagesIcon from '@app/components/layouts/topNavigations/MessagesIcon.vue'
 export default defineComponent({
 	name: 'TopNavigation',
-	components: { SearchBar },
+	components: { SearchBar, NotificationBell, MessagesIcon },
 	props: {
 		full: {
 			type: Boolean,
@@ -57,13 +54,11 @@ export default defineComponent({
 	},
 	setup () {
 		const showSearch = ref(false)
-		const { isLoggedIn, id } = useAuth()
+		const { isLoggedIn } = useAuth()
 		const { loading, signout } = useSessionSignout()
 		onMounted(() => {
 			if (isLoggedIn) {
-				const notificationListener = useNotificationList(id.value!).listener
 				const messageListener = useChatsList().listener
-				if (!notificationListener.value) notificationListener.startListener()
 				if (messageListener && !messageListener.value) messageListener.startListener()
 			}
 		})
@@ -80,7 +75,7 @@ export default defineComponent({
 	}
 	.link {
 		padding: 0 0.75rem;
-		img {
+		& > img, /deep/ > img {
 			width: 21px;
 			height: 21px;
 		}

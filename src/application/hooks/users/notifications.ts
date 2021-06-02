@@ -23,14 +23,15 @@ const unshiftToNotificationList = (userId: string, notification: NotificationEnt
 	else global[userId].notifications.value.unshift(notification)
 }
 
-export const useNotificationList = (userId: string) => {
-	if (global[userId] === undefined) {
+export const useNotificationList = () => {
+	const { id } = useAuth()
+	if (id.value && global[id.value] === undefined) {
 		const listener = useListener(async () => {
-			const appendNotifications = (notifications: NotificationEntity[]) => { notifications.forEach((notification) => unshiftToNotificationList(userId, notification)) }
-			const date = global[userId].notifications.value[0]?.createdAt
-			return ListenToNotifications.call(userId, appendNotifications, date)
+			const appendNotifications = (notifications: NotificationEntity[]) => { notifications.forEach((notification) => unshiftToNotificationList(id.value, notification)) }
+			const date = global[id.value].notifications.value[0]?.createdAt
+			return ListenToNotifications.call(id.value, appendNotifications, date)
 		})
-		global[userId] = {
+		global[id.value] = {
 			notifications: ssrRef([]),
 			hasMore: ssrRef(false),
 			fetched: ssrRef(false),
@@ -41,22 +42,24 @@ export const useNotificationList = (userId: string) => {
 	}
 
 	const fetchNotifications = async () => {
-		global[userId].setError('')
-		global[userId].setLoading(true)
+		if (!id.value) return
+		global[id.value].setError('')
+		global[id.value].setLoading(true)
 		try {
-			const notifications = await GetNotifications.call(userId)
-			global[userId].hasMore.value = notifications.length === PAGINATION_LIMIT + 1
-			notifications.reverse().slice(0, PAGINATION_LIMIT).forEach((t) => pushToNotificationList(userId, t))
-			global[userId].fetched.value = true
-		} catch (e) { global[userId].setError(e) }
-		global[userId].setLoading(false)
+			const notifications = await GetNotifications.call(id.value)
+			global[id.value].hasMore.value = notifications.length === PAGINATION_LIMIT + 1
+			notifications.reverse().slice(0, PAGINATION_LIMIT).forEach((t) => pushToNotificationList(id.value, t))
+			global[id.value].fetched.value = true
+		} catch (e) { global[id.value].setError(e) }
+		global[id.value].setLoading(false)
 	}
 
 	useFetch(async () => {
-		if (!global[userId].fetched.value && !global[userId].loading.value) await fetchNotifications()
+		if (!id.value) return
+		if (!global[id.value].fetched.value && !global[id.value].loading.value) await fetchNotifications()
 	})
 
-	return { ...global[userId], fetchOlderNotifications: fetchNotifications }
+	return { ...global[id.value], fetchOlderNotifications: fetchNotifications }
 }
 
 export const useNotification = (notification: NotificationEntity) => {
@@ -64,6 +67,7 @@ export const useNotification = (notification: NotificationEntity) => {
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
 	const markNotificationSeen = async () => {
+		if (notification.seen) return
 		setError('')
 		try {
 			setLoading(true)

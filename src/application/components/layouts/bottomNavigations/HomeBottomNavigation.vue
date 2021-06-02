@@ -29,7 +29,7 @@
 				</div>
 				<div>
 					<h4>Community</h4>
-					<NuxtLink to="/">
+					<NuxtLink to="/nerds/signup">
 						Become a Nerd
 					</NuxtLink>
 					<NuxtLink to="/">

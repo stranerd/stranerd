@@ -26,7 +26,7 @@ export const createSession = async (user: AfterAuthUser, router: VueRouter) => {
 			} catch (e) {
 				await SessionSignout.call()
 				await signout()
-				if (isClient()) window.location.assign('/auth/')
+				if (isClient()) window.location.assign('/')
 			}
 		}
 

@@ -35,8 +35,9 @@ export default defineComponent({
 			get: () => props.chat.from === id.value,
 			set: () => {}
 		})
-		onMounted(() => {
-			if (!isMine.value) useChat(props.chat, props.userId).markChatRead()
+		const { markChatRead } = useChat(props.chat, props.userId)
+		onMounted(async () => {
+			if (!isMine.value && !props.chat.isRead) await markChatRead()
 		})
 		return { isMine, formatTimeAsDigits }
 	}

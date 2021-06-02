@@ -4,18 +4,22 @@
 		<div class="flex-grow-1 text-truncate">
 			<div class="d-flex justify-content-between gap-0-5">
 				<span class="fw-bold lead d-inline-block text-truncate">{{ meta.bio.name.fullName }}</span>
-				<span class="ms-auto">{{ formatTime(meta.chat.createdAt) }}</span>
 			</div>
-			<p class="mb-0 text-truncate">
-				<i v-if="meta.chat.isMedia" class="fas fa-paperclip me-0-25" />
-				{{ meta.chat.isMedia ? meta.chat.media.name : meta.chat.content }}
-			</p>
+			<div class="d-flex justify-content-between text-truncate gap-0-5">
+				<p class="mb-0 text-truncate">
+					<span v-if="unreadMessages > 0" class="bg-blue text-white rounded-pill d-inline-flex align-items-center justify-content-center" style="height: 1.25em; width:1.25em;">
+						<span>{{ unreadMessages }}</span>
+					</span>
+					<i v-if="meta.last.isMedia" class="fas fa-paperclip mx-0-25" />
+					{{ meta.last.isMedia ? meta.last.media.name : meta.last.content }}
+				</p>
+			</div>
 		</div>
 	</NuxtLink>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from '@nuxtjs/composition-api'
+import { computed, defineComponent, PropType } from '@nuxtjs/composition-api'
 import { formatTime } from '@utils/dates'
 import { ChatMetaEntity } from '@modules/sessions'
 export default defineComponent({
@@ -26,8 +30,11 @@ export default defineComponent({
 			required: true
 		}
 	},
-	setup () {
-		return { formatTime }
+	setup (props) {
+		const unreadMessages = computed(() => {
+			return Object.values(props.meta.unRead ?? {}).length
+		})
+		return { formatTime, unreadMessages }
 	}
 })
 </script>

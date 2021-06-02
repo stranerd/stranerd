@@ -42,8 +42,8 @@ export class PersonalChatFirebaseDataSource implements ChatBaseDataSource {
 
 	public async markRead (path: [string, string], id: string) {
 		return await DatabaseService.update('chats', {
-			[`single/${getChatsPath(path)}/${id}/readAt`]: firebase.database.ServerValue.TIMESTAMP,
-			[`meta/${path[0]}/${path[1]}/unRead/${id}`]: null
+			[`meta/${path[0]}/${path[1]}/unRead/${id}`]: null,
+			[`single/${getChatsPath(path)}/${id}/readAt`]: firebase.database.ServerValue.TIMESTAMP
 		})
 	}
 

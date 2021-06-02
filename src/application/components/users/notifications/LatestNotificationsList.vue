@@ -24,14 +24,8 @@ import NotificationsListCard from '@app/components/users/notifications/Notificat
 export default defineComponent({
 	name: 'LatestNotificationsList',
 	components: { NotificationsListCard },
-	props: {
-		userId: {
-			type: String,
-			required: true
-		}
-	},
-	setup (props) {
-		const { notifications, error, loading, listener, hasMore, fetchOlderNotifications } = useNotificationList(props.userId)
+	setup () {
+		const { notifications, error, loading, listener, hasMore, fetchOlderNotifications } = useNotificationList()
 		onMounted(() => {
 			if (!listener.value) listener.startListener()
 		})

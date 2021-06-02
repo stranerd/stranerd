@@ -26,7 +26,7 @@
 				<span>E-Wallet</span>
 			</NuxtLink>
 		</div>
-		<div class="sidebar-links mt-auto">
+		<div class="sidebar-links">
 			<button v-if="isLoggedIn && !isTutor" class="sidebar-btn btn btn-blue-grey" @click="becomeNerd">
 				<span>Become A Nerd</span>
 			</button>

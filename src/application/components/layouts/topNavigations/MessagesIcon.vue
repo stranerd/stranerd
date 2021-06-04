@@ -1,7 +1,9 @@
 <template>
-	<NuxtLink to="/messages" class="position-relative">
-		<img src="@app/assets/images/icons/chat.svg" alt="">
-		<i v-if="hasUnreadMessages" class="fas fa-circle text-danger position-absolute small" style="right:12px;" />
+	<NuxtLink to="/messages">
+		<span class="position-relative">
+			<img src="@app/assets/images/icons/chat.svg" alt="">
+			<i v-if="hasUnreadMessages" class="fas fa-circle text-danger position-absolute" style="top:0;right:0;font-size:0.6em;" />
+		</span>
 	</NuxtLink>
 </template>
 

@@ -5,7 +5,7 @@
 			<Avatar :src="tutor.avatar" :size="50" />
 			<i class="fas fa-circle position-absolute" :class="tutor.isOnline ? 'text-success' : 'text-grey'" style="z-index: 1; right: 0; bottom: 0;" />
 		</NuxtLink>
-		<div class="flex-grow-1 d-flex flex-column flex-md-row">
+		<div class="flex-grow-1 d-flex flex-column flex-md-row align-self-start align-self-md-center">
 			<NuxtLink :to="`/users/${tutor.id}`" class="fw-bold text-wrap text-break me-auto">
 				<span>{{ tutor.fullName }}</span>
 			</NuxtLink>

@@ -6,7 +6,7 @@
 			</p>
 			<div v-for="chat in meta" :key="chat.id">
 				<UserChatCard :meta="chat" />
-				<div class="thick mx-n1" />
+				<div class="thick" />
 			</div>
 		</div>
 	</div>

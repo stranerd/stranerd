@@ -12,4 +12,4 @@ export const COINS_GAP = 4
 export const MAXIMUM_COINS = 20
 
 const PATH_SEPARATOR = '---'
-export const getChatsPath = (path: [string, string]) => path.sort().join(PATH_SEPARATOR)
+export const getChatsPath = (path: [string, string]) => [...path].sort().join(PATH_SEPARATOR)

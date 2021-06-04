@@ -53,11 +53,12 @@ export const useEmailLinkSignin = () => {
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 
-	const checkCachedEmail = () => {
+	const checkCachedEmail = async () => {
 		if (isClient()) {
 			const email = window.localStorage.getItem(EMAIL_SIGNIN_STORAGE_KEY)
 			if (email) factory.value.email = email
 			window.localStorage.removeItem(EMAIL_SIGNIN_STORAGE_KEY)
+			await signin()
 		}
 	}
 

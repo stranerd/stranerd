@@ -1,4 +1,5 @@
 import * as admin from 'firebase-admin'
+import { sendNewNotificationEmail } from '../../email'
 import { getAllUserIds } from './users'
 
 type InAppNotification = {
@@ -18,7 +19,13 @@ type Notification = InAppNotification & {
 
 export const createNotification = async (userId: string, data: InAppNotification | EmailNotification) => {
 	try {
-		await admin.database().ref(`users/${userId}/notifications`)
+		// @ts-ignore
+		if (data.title) {
+			const emailRef = await admin.database().ref(`profiles/${userId}/bio/email`).once('value')
+			const email = emailRef.val()
+			// @ts-ignore
+			if (email) await sendNewNotificationEmail(email, data)
+		} else await admin.database().ref(`users/${userId}/notifications`)
 			.push({
 				...data, seen: false,
 				dates: { createdAt: admin.database.ServerValue.TIMESTAMP }

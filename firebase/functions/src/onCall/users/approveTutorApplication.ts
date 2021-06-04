@@ -33,8 +33,7 @@ export const approveTutorApplication = functions.https.onCall(async (data, conte
 				title: 'Nerd Privileges Modified',
 				body: 'Your application to be a nerd was approved'
 			})
-		}
-		else await createNotification(userId, {
+		} else await createNotification(userId, {
 			action: '/account',
 			title: 'Nerd Privileges Modified',
 			body: 'Your application to be a nerd was rejected'

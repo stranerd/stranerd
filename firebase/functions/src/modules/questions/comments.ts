@@ -24,6 +24,11 @@ export const questionCommentCreated = functions.database.ref('comments/questions
 			body: 'Your question has a new comment. Head over to your dashboard to check it out',
 			action: `/questions/${questionId}`
 		})
+		await createNotification(questionUserId, {
+			title: 'New comment',
+			body: 'Your question has a new comment. Head over to your dashboard to check it out',
+			action: `/questions/${questionId}`
+		})
 	})
 
 export const answerCommentCreated = functions.database.ref('comments/answers/{answerId}/{commentId}')

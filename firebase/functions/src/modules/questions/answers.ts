@@ -33,6 +33,11 @@ export const answerCreated = functions.firestore.document('answers/{answerId}')
 			body: 'Your question has been answered. Head over to your dashboard to check it out',
 			action: `/questions/${questionId}#${context.params.answerId}`
 		})
+		await createNotification(questionUserId, {
+			title: 'New Answer',
+			body: 'You asked a question and we\'ve answered! Click here to get on your dashboard and view all answers on your question',
+			action: `/questions/${questionId}#${context.params.answerId}`
+		})
 
 		if (userId) await addUserXp(userId, XpGainList.ANSWER_QUESTION, true)
 

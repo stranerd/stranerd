@@ -10,16 +10,15 @@
 					<a target="_blank" href="/legal/terms-of-use.pdf">
 						Terms of Use
 					</a>
+				</div>
+				<div>
+					<h4>Legal</h4>
+					<a target="_blank">
+						Honor Code
+					</a>
 					<a target="_blank" href="/legal/privacy-policy.pdf">
 						Privacy Policy
 					</a>
-				</div>
-				<div>
-					<h4>
-						<i class="fas fa-circle me-0-25" />
-						<i class="fas fa-circle me-0-25" />
-						<i class="fas fa-circle me-0-25" />
-					</h4>
 					<a target="_blank" href="/legal/terms-and-conditions.pdf">
 						Terms & Conditions
 					</a>
@@ -35,14 +34,11 @@
 					<NuxtLink to="/">
 						Blog
 					</NuxtLink>
-					<NuxtLink to="/">
-						Honor Code
-					</NuxtLink>
 				</div>
 				<div>
 					<h4>Help</h4>
 					<NuxtLink to="/">
-						FAQ
+						FAQs
 					</NuxtLink>
 					<NuxtLink to="/contact-us">
 						Contact Us

@@ -34,9 +34,9 @@
 			</div>
 			<div class="coins-blob">
 				<h1>Coin System</h1>
-				<p>- Buy the very cheap coins to interact.</p>
+				<p>- Buy affordable coins to interact.</p>
 				<p>- Bronze Coins will be used to ask questions.</p>
-				<p>- Gold Coins will be used to Tip & have 1 on 1 sessions.</p>
+				<p>- Gold Coins will be used for Tipping and 1 on 1 sessions.</p>
 			</div>
 		</div>
 	</div>

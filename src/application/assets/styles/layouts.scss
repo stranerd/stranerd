@@ -29,12 +29,12 @@ body{
 }
 .layout-side-right {
 	width: 100%;
-	padding: 0 0.5rem 0.5rem;
+	padding: 0 0.5rem;
 	@media (min-width: $md) {
 		padding: 0 0.75rem 0.75rem;
 	}
 	@media (min-width: $lg) {
-		padding: 0 0.5rem 0.5rem;
+		padding: 0.5rem;
 		background-color: $color-white;
 		width: 25%;
 		max-width: 350px;

@@ -5,15 +5,15 @@
 				<div class="overlay py-3 px-1-5">
 					<div style="max-width: 75%;">
 						<h2>
-							{{ isTutor ? 'Help a student in need today!' : 'Nerd help is what you need.' }}
+							{{ isTutor ? 'Help a student in need today!' : 'You need a Nerd...' }}
 						</h2>
 						<p v-if="isTutor">
 							Earn coins for answering questions & attending sessions.<br>
 							Convert your coins to USD and cash out to your bank account.
 						</p>
 						<p v-else>
-							Bringing to you the classroom method of learning from your peers.<br>
-							Ask a public question or Meet a nerd for 1 on 1 private chat.
+							Everyone is good at something; here, we link you up with Nerds who are experts in subjects that you need help with. Try it out now:<br>
+							Ask a public question or Meet a Nerd for 1 on 1 chat session.
 						</p>
 						<div class="d-flex gap-0-5 flex-column flex-md-row flex-wrap align-items-start">
 							<button class="btn btn-blue rounded-pill px-2 py-0-5 fw-bold" @click="openQuestionModal">
@@ -64,12 +64,11 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .background {
-	background: url('../assets/images/icons/dashboard_hero.svg') no-repeat 50px;
-		background-position: right bottom;
-		@media (min-width: 600px) {
-			background-position: right center;
-		}
+	background: url('../assets/images/icons/dashboard_hero.svg') no-repeat right bottom;
+	@media (min-width: 600px) {
+		background-position: right center;
 	}
+}
 .overlay {
 	background: rgba($color-white, 0.5);
 	@media (min-width: 850px) { background: unset; }

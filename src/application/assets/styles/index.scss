@@ -95,11 +95,13 @@ div.thick {
 	height: 3px;
 	background: $color-light-grey;
 	margin: 1rem 0;
+	max-width: unset;
 }
 div.thin {
 	height: 3px;
 	background: $color-light-grey;
 	margin: 0.5rem 0;
+	max-width: unset;
 }
 
 hr.thick {

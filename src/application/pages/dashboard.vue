@@ -1,6 +1,6 @@
 <template>
 	<section>
-		<div class="page-content mb-0-5 p-0">
+		<div class="page-content p-0">
 			<div class="background">
 				<div class="overlay py-3 px-1-5">
 					<div style="max-width: 75%;">

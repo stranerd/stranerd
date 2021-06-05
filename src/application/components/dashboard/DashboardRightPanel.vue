@@ -2,12 +2,12 @@
 	<div>
 		<div v-if="isLoggedIn" class="d-none d-lg-block w-100">
 			<ProfileHeadCard :user="user" />
-			<div class="thin mx-n1 my-0-25 my-lg-0-5" />
+			<div class="thin mx-n1 my-0-25" />
 		</div>
 		<div>
 			<template v-if="isLoggedIn && ongoingAchievements.length > 0">
 				<AchievementsList class="content" />
-				<div class="thin mx-n1 my-0-25 my-lg-0-5" />
+				<div class="thin mx-n1 my-0-25" />
 			</template>
 			<TopUsers class="content" />
 		</div>

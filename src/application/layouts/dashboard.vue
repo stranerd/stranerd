@@ -7,7 +7,7 @@
 			<TopNavigation :open-menu="setMenuModalSidebar" />
 			<Nuxt class="layout-content" />
 		</main>
-		<section class="layout-side-right pt-0 pt-lg-0-5">
+		<section class="layout-side-right">
 			<DashboardRightPanel />
 		</section>
 		<ModalBase />

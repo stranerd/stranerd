@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="page-content mb-0-5">
+		<div class="page-content">
 			<UpgradeUserToTutor />
 			<TutorsList />
 		</div>

@@ -96,6 +96,7 @@ export default defineComponent({
 	}
 }
 .page-card {
+	margin-top: 0 !important;
 	@extend .page-content;
 	display: flex;
 	justify-content: space-between;

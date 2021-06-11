@@ -2,8 +2,8 @@
 	<div class="d-flex flex-column flex-md-row align-items-md-center justify-content-center">
 		<div class="bg-blob">
 			<h1>Get quick help for your homework...</h1>
-			<h5>From a large community of expert students who want to help you</h5>
-			<p>Why put that midnight call through to get an explanation on that difficult homework when you can get all the answers you need right here on Stranerd. Collaborate, innovate and get the tools that make you stand out in the student community and beyond right here!</p>
+			<h5>From smart students in various subjects</h5>
+			<p>Stranerd.com offers you the chance to Collaborate, Innovate and get the Tools that make you stand out in the student community and beyond.</p>
 			<NuxtLink to="/auth" class="btn btn-blue mt-1-5 border border-light-blue px-3 py-1">
 				Join Today
 			</NuxtLink>

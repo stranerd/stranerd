@@ -5,15 +5,14 @@
 				<div class="overlay py-3 px-1-5">
 					<div style="max-width: 75%;">
 						<h2>
-							{{ isTutor ? 'Help a student in need today!' : 'You need a Nerd...' }}
+							{{ isTutor ? 'Help students out with their homework' : 'You need a Nerd...' }}
 						</h2>
 						<p v-if="isTutor">
-							Earn coins for answering questions & attending sessions.<br>
-							Convert your coins to USD and cash out to your bank account.
+							Earn coins for answering questions and hosting private sessions. Convert your coins to USD and cash out to your bank account.
 						</p>
 						<p v-else>
 							Everyone is good at something; here, we link you up with Nerds who are experts in subjects that you need help with. Try it out now:<br>
-							Ask a public question or Meet a Nerd for 1 on 1 chat session.
+							Ask a public question or Meet a Nerd for a 1 on 1 chat session.
 						</p>
 						<div class="d-flex gap-0-5 flex-column flex-md-row flex-wrap align-items-start">
 							<button class="btn btn-blue rounded-pill px-2 py-0-5 fw-bold" @click="openQuestionModal">

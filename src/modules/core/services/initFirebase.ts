@@ -1,5 +1,6 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
+import 'firebase/analytics'
 import 'firebase/database'
 import 'firebase/firestore'
 import 'firebase/functions'
@@ -23,6 +24,7 @@ export const database = firebase.database()
 export const firestore = firebase.firestore()
 export const functions = firebase.functions()
 export const storage = firebase.storage()
+export const analytics = firebase.analytics()
 export type Timestamp = firebase.firestore.Timestamp
 
 export const uploadFile = async (path: string, file: File) => {

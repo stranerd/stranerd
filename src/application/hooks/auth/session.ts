@@ -1,4 +1,4 @@
-import { SessionSignin, SessionSignout } from '@modules/auth'
+import { SessionSignin } from '@modules/auth'
 import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 import { isClient, isServer } from '@utils/environment'
 import { REDIRECT_SESSION_NAME } from '@utils/constants'
@@ -23,11 +23,7 @@ export const createSession = async (user: AfterAuthUser, router: VueRouter) => {
 				if (token.value) await firebase.auth()
 					.signInWithCustomToken(token.value)
 				await startProfileListener()
-			} catch (e) {
-				await SessionSignout.call()
-				await signout()
-				if (isClient()) window.location.assign('/')
-			}
+			} catch (e) { await signout() }
 		}
 
 		const { [REDIRECT_SESSION_NAME]: redirect } = Cookie.parse(document.cookie ?? '')
@@ -52,10 +48,7 @@ export const useSessionSignout = () => {
 		if (accepted) {
 			setLoading(true)
 			try {
-				await SessionSignout.call()
-				await useAuth().closeProfileListener()
 				await useAuth().signout()
-				if (isClient()) window.location.assign('/')
 			} catch (error) { setError(error) }
 			setLoading(false)
 		}

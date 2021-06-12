@@ -65,11 +65,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@nuxtjs/composition-api'
+import { defineComponent, onMounted, ref } from '@nuxtjs/composition-api'
 import { useCreateTutorApplication } from '@app/hooks/users/tutorApplication'
 import SelectSubject from '@app/components/questions/subjects/SelectSubject.vue'
 import { useFileInputs } from '@app/hooks/core/forms'
 import { isClient } from '@utils/environment'
+import { analytics } from '@modules/core/services/initFirebase'
 export default defineComponent({
 	name: 'TutorApplicationForm',
 	components: { SelectSubject },
@@ -82,6 +83,9 @@ export default defineComponent({
 				if (isClient()) proofLink.value = window.URL.createObjectURL(file)
 			}
 		)
+		onMounted(() => {
+			analytics.logEvent('nerd_form_start')
+		})
 		return { loading, error, createTutorApplication, factory, catchProof, proofLink }
 	}
 })

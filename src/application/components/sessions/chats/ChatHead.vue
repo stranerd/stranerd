@@ -86,8 +86,8 @@ export default defineComponent({
 			await c()
 			analytics.logEvent('session_cancelled', {
 				sessionId: currentSessionId.value,
-				duration: currentSession.value.duration,
-				lasted: currentSession.value.duration - (diffInSec.value / 60)
+				duration: currentSession.value?.duration ?? 0,
+				lasted: (currentSession.value?.duration ?? 0) - (diffInSec.value / 60)
 			})
 		}
 		const reportUser = () => {

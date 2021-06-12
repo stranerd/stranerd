@@ -1,5 +1,5 @@
 import { defineNuxtPlugin, onGlobalSetup, watch } from '@nuxtjs/composition-api'
-import firebase from '@modules/core/services/initFirebase'
+import firebase, { analytics } from '@modules/core/services/initFirebase'
 import { useAuth } from '@app/hooks/auth/auth'
 import { setSession } from '@app/hooks/sessions/session'
 import { isClient } from '@utils/environment'
@@ -17,6 +17,9 @@ export default defineNuxtPlugin(async ({ app }) => {
 		try {
 			await firebase.auth().signInWithCustomToken(token.value)
 			await startProfileListener()
+			analytics.logEvent('login', {
+				remembered: true
+			})
 		} catch (error) {
 			await SessionSignout.call()
 			await signout()

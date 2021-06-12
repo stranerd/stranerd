@@ -5,6 +5,7 @@ import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 import { getTwoDigits } from '@utils/dates'
 import { isClient, isProd } from '@utils/environment'
 import { usePaymentModal } from '@app/hooks/core/modals'
+import { analytics } from '@modules/core/services/initFirebase'
 
 let props = {
 	amount: null as number | null,
@@ -20,6 +21,10 @@ export const useMakePayment = () => {
 	const processPayment = async (nonce: string) => {
 		const res = await MakePayment.call(props.amount!, nonce)
 		usePaymentModal().closePaymentModal()
+		// @ts-ignore
+		analytics.logEvent('purchase', {
+			value: props.amount!
+		})
 		await props.afterPayment?.(res)
 	}
 	const initializeHostedFields = async () => {

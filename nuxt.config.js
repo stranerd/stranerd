@@ -89,7 +89,7 @@ export const build = {
 }
 
 export const router = {
-	middleware: ['closeMenus']
+	middleware: ['routeChange']
 }
 
 export const typescript = {

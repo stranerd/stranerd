@@ -1,11 +1,8 @@
-@import 'variables';
-@import 'layouts';
-@import '~bootstrap/scss/bootstrap';
-
-$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
-@import '~@fortawesome/fontawesome-free/scss/fontawesome';
-@import '~@fortawesome/fontawesome-free/scss/solid';
-@import '~@fortawesome/fontawesome-free/scss/brands';
+$fa-font-path: 'node_modules/~@fortawesome/fontawesome-free/webfonts';
+@import 'node_modules/bootstrap/scss/bootstrap';
+@import 'node_modules/@fortawesome/fontawesome-free/scss/fontawesome';
+@import 'node_modules/@fortawesome/fontawesome-free/scss/solid';
+@import 'node_modules/@fortawesome/fontawesome-free/scss/brands';
 
 :root {
 	--vh: 1vh;
@@ -117,20 +114,13 @@ hr.thin {
 	font-size: 18px;
 }
 
+.cursor-pointer { cursor: pointer; }
+
+/*! purgecss start ignore */
 .firebase-emulator-warning {
 	display: none !important;
 }
 
-.hide-scrollbar {
-	-ms-overflow-style: none;
-	&::-webkit-scrollbar{
-		display: none;
-	}
-}
-
-.cursor-pointer { cursor: pointer; }
-
-/*! purgecss start ignore */
 @each $key, $val in $spacers {
 	@each $bp, $width in $grid-breakpoints {
 		$infix: breakpoint-infix($bp, $grid-breakpoints);

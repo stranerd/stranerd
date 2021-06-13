@@ -31,19 +31,13 @@ export const head = {
 	]
 }
 
-export const css = [
-	'@/assets/styles/index.scss'
-]
+export const css = ['@/assets/styles/index.scss', '@/assets/styles/layouts.scss']
 
 export const styleResources = {
-	scss: [
-		'@/assets/styles/variables.scss'
-	]
+	scss: ['@/assets/styles/globals.scss']
 }
 
-export const serverMiddleware = [
-	'./src/server/api/index'
-]
+export const serverMiddleware = ['./src/server/api/index']
 
 export const plugins = [
 	{ mode: 'server', src: '@/plugins/parseLoggedInUser' },
@@ -58,28 +52,21 @@ export const components = [
 	{ path: '@/components/core/modals', level: 0 }
 ]
 
-export const modules = [
-	'@nuxtjs/style-resources'
-]
-
 export const buildModules = [
 	'@nuxtjs/composition-api/module', '@nuxt/typescript-build', '@nuxtjs/pwa',
-	['nuxt-purgecss', { whitelist: ['firebase-emulator-warning'] }],
+	'@nuxtjs/style-resources', 'nuxt-purgecss',
 	['nuxt-compress', { gzip: { cache: true }, brotli: { threshold: 10240 } }]
 ]
 
 export const env = { ...process.env }
 
-export const generate = {
-	interval: 5000
-}
+export const generate = { interval: 5000 }
 
 export const build = {
 	extend: (config) => {
 		const reg = /\.(png|jpe?g|gif|svg|webp|avif)$/i
 		const rule = config.module.rules.find((r) => r.test.toString() === reg.toString())
-		if (rule)
-			rule.use[0].options.limit = 1024 * 4
+		if (rule) rule.use[0].options.limit = 1024 * 4
 		config.node = { fs: 'empty' }
 		config.resolve.alias['@app'] = join(__dirname, 'src/application')
 		config.resolve.alias['@modules'] = join(__dirname, 'src/modules')

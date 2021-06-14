@@ -27,21 +27,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
+import { ModalKey, useModal } from '@app/hooks/core/modals'
 import { useSessionSignout } from '@app/hooks/auth/session'
 export default defineComponent({
 	name: 'SideMenu',
 	props: {
-		close: {
-			type: Function,
+		modal: {
+			type: String as PropType<ModalKey>,
 			required: true
 		}
 	},
-	setup () {
+	setup (props) {
 		const { isLoggedIn } = useAuth()
 		const { loading, signout } = useSessionSignout()
-		return { isLoggedIn, loading, signout }
+		const close = () => useModal().removeFromStack(props.modal)
+		return { isLoggedIn, loading, signout, close }
 	}
 })
 </script>

@@ -10,10 +10,11 @@ import BuyCoins from '@app/components/modals/account/AccountBuyCoins.vue'
 import TipNerd from '@app/components/modals/account/AccountTipNerd.vue'
 import ReportUser from '@app/components/modals/account/AccountReportUser.vue'
 import MeetTutor from '@app/components/modals/account/AccountMeetTutor.vue'
+import AccountSidebar from '@app/components/modals/menus/AccountSidebarMenu.vue'
+import AdminSidebar from '@app/components/modals/menus/AdminSidebarMenu.vue'
+import Sidebar from '@app/components/modals/menus/SidebarMenu.vue'
 
 const global = {
-	accountModal: reqRef(null as string | null),
-	menuModal: reqRef(null as string | null),
 	sessionModal: reqRef(null as string | null),
 	stack: reqRef([] as string[])
 }
@@ -22,7 +23,8 @@ export const ModalTypes = {
 	CreateSubject, CreateQuestion, CreateAnswer,
 	EditSubject, EditAccountProfile, EditTutorSubjects,
 	MakePayment,
-	BuyCoins, TipNerd, ReportUser, MeetTutor
+	BuyCoins, TipNerd, ReportUser, MeetTutor,
+	AccountSidebar, AdminSidebar, Sidebar
 } as const
 export type ModalKey = keyof typeof ModalTypes
 
@@ -67,14 +69,9 @@ export const useAccountModal = () => {
 
 export const useMenuModal = () => {
 	return {
-		isMenuModalSidebar: computed(() => global.menuModal.value === 'sidebar'),
-		isMenuModalAccountSidebar: computed(() => global.menuModal.value === 'account-sidebar'),
-		isMenuModalAdminSidebar: computed(() => global.menuModal.value === 'admin-sidebar'),
-
-		setMenuModalSidebar: () => global.menuModal.value = 'sidebar',
-		setMenuModalAccountSidebar: () => global.menuModal.value = 'account-sidebar',
-		setMenuModalAdminSidebar: () => global.menuModal.value = 'admin-sidebar',
-		closeMenuModal: () => global.menuModal.value = null
+		setMenuModalSidebar: () => addToStack('Sidebar'),
+		setMenuModalAccountSidebar: () => addToStack('AccountSidebar'),
+		setMenuModalAdminSidebar: () => addToStack('AdminSidebar')
 	}
 }
 

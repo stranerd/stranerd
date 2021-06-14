@@ -6,12 +6,14 @@ export type AuthUser = {
 
 export type AfterAuthUser = {
 	idToken: string
-	id: string,
+	id: string
+	email: string
 	isNew: boolean
 }
 
 export type AuthDetails = {
 	id: string
+	email: string
 	token: string
 	isVerified: boolean
 }

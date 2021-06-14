@@ -3,6 +3,7 @@ import { AxiosInstance } from '@modules/core/services/http'
 import { DatabaseService } from '@modules/core/services/firebase'
 import { isDev } from '@utils/environment'
 import { UserBio } from '@modules/users'
+import { AfterAuthUser } from '../../domain/entities/auth'
 import { AuthBaseDataSource } from './auth-base'
 
 export class AuthFirebaseDataSource implements AuthBaseDataSource {
@@ -87,9 +88,10 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 	}
 }
 
-const getUserDetails = async (user: firebase.User, isNew: boolean) => {
+const getUserDetails = async (user: firebase.User, isNew: boolean) :Promise<AfterAuthUser> => {
+	const email = user.email!
 	const idToken = await user.getIdToken(true)
-	const data = { idToken, id: user.uid, isNew }
+	const data = { id: user.uid, email, idToken, isNew }
 	await auth.signOut()
 	return data
 }

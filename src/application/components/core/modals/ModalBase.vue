@@ -1,7 +1,6 @@
 <template>
 	<div>
 		<MenuModal />
-		<AccountModal />
 		<SessionModal />
 		<component :is="ModalTypes[id]" v-for="id in stack" :key="id" :modal="id" />
 	</div>
@@ -10,14 +9,12 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import MenuModal from '@app/components/modals/menus/MenuIndex.vue'
-import AccountModal from '@app/components/modals/account/AccountIndex.vue'
 import SessionModal from '@app/components/modals/sessions/SessionIndex.vue'
 import { useModal, ModalTypes } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'ModalBase',
 	components: {
 		MenuModal,
-		AccountModal,
 		SessionModal
 	},
 	setup () {

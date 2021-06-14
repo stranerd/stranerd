@@ -2,7 +2,7 @@ import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hook
 import { Ref, ssrRef, watch } from '@nuxtjs/composition-api'
 import { ProfileUpdateFactory, UpdateProfile } from '@modules/auth'
 import { useAuth } from '@app/hooks/auth/auth'
-import { useAccountModal, useModal, usePaymentModal } from '@app/hooks/core/modals'
+import { useModal, usePaymentModal } from '@app/hooks/core/modals'
 import { BuyCoins, TipNerd } from '@modules/payment'
 import { UserBio } from '@modules/users'
 import { setPaymentProps } from '@app/hooks/payment/payment'
@@ -69,7 +69,7 @@ export const useBuyCoins = () => {
 						try {
 							setLoading(true)
 							await BuyCoins.call(option.amount, isGold)
-							useAccountModal().closeAccountModal()
+							useModal().removeFromStack('BuyCoins')
 							setMessage('Coins purchased successfully')
 						} catch (e) { setError(e) }
 						setLoading(false)
@@ -98,7 +98,7 @@ export const useTipNerd = () => {
 	const TIP_AMOUNTS = [1, 2, 3, 4, 5, 10, 15, 20, 25, 35, 40, 45, 50]
 
 	const tipNerd = async (amount: number) => {
-		if (!nerdBioAndId) useAccountModal().closeAccountModal()
+		if (!nerdBioAndId) useModal().removeFromStack('TipNerd')
 		if (!loading.value) {
 			setError('')
 			const result = await Alert({
@@ -112,7 +112,7 @@ export const useTipNerd = () => {
 				try {
 					setLoading(true)
 					await TipNerd.call(amount, nerdBioAndId!.id)
-					useAccountModal().closeAccountModal()
+					useModal().removeFromStack('TipNerd')
 					setMessage('Tipped successfully')
 				} catch (e) { setError(e) }
 				setLoading(false)

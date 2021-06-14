@@ -1,5 +1,5 @@
 <template>
-	<Modal :close="closeAccountModal">
+	<Modal :modal="$attrs.modal">
 		<template slot="title">
 			Tip {{ nerdBioAndId.bio.name.first }}
 		</template>
@@ -12,7 +12,7 @@
 		</div>
 		<div class="d-flex justify-content-center my-1-5">
 			<span>Out of gold coins?&nbsp;</span>
-			<a class="fw-bold text-decoration-underline" @click="setAccountModalBuyCoins">Buy more coins</a>
+			<a class="fw-bold text-decoration-underline" @click="openBuyCoins">Buy more coins</a>
 		</div>
 		<PageLoading v-if="loading" />
 		<DisplayError :error="error" />
@@ -21,7 +21,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useAccountModal } from '@app/hooks/core/modals'
+import { useModal } from '@app/hooks/core/modals'
 import { useTipNerd } from '@app/hooks/users/account'
 import { useAuth } from '@app/hooks/auth/auth'
 import { formatNumber } from '@utils/commons'
@@ -32,11 +32,11 @@ export default defineComponent({
 	setup () {
 		const { user } = useAuth()
 		const { loading, error, nerdBioAndId, TIP_AMOUNTS, tipNerd } = useTipNerd()
-		const { closeAccountModal, setAccountModalBuyCoins } = useAccountModal()
+		const openBuyCoins = () => useModal().addToStack('BuyCoins')
 		return {
 			user, formatNumber, TIP_AMOUNTS,
 			loading, error, nerdBioAndId,
-			tipNerd, closeAccountModal, setAccountModalBuyCoins
+			tipNerd, openBuyCoins
 		}
 	}
 })

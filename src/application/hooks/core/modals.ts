@@ -6,23 +6,39 @@ import EditSubject from '@app/components/modals/edit/EditSubject.vue'
 import EditAccountProfile from '@app/components/modals/edit/EditAccountProfile.vue'
 import EditTutorSubjects from '@app/components/modals/edit/EditTutorSubjects.vue'
 import MakePayment from '@app/components/modals/payments/MakePayment.vue'
+import BuyCoins from '@app/components/modals/account/AccountBuyCoins.vue'
+import TipNerd from '@app/components/modals/account/AccountTipNerd.vue'
+import ReportUser from '@app/components/modals/account/AccountReportUser.vue'
+import MeetTutor from '@app/components/modals/account/AccountMeetTutor.vue'
 
 const global = {
-	editModal: reqRef(null as string | null),
 	accountModal: reqRef(null as string | null),
 	menuModal: reqRef(null as string | null),
-	navigationModal: reqRef(null as string | null),
 	sessionModal: reqRef(null as string | null),
-	paymentModal: reqRef(null as string | null),
 	stack: reqRef([] as string[])
 }
 
 export const ModalTypes = {
 	CreateSubject, CreateQuestion, CreateAnswer,
 	EditSubject, EditAccountProfile, EditTutorSubjects,
-	MakePayment
-}
+	MakePayment,
+	BuyCoins, TipNerd, ReportUser, MeetTutor
+} as const
 export type ModalKey = keyof typeof ModalTypes
+
+const addToStack = (id: ModalKey) => {
+	removeFromStack(id)
+	global.stack.value.push(id)
+}
+
+const removeFromStack = (id: ModalKey) => {
+	const index = global.stack.value.findIndex((i) => i === id)
+	if (index > -1) global.stack.value.splice(index)
+}
+
+export const useModal = () => {
+	return { ModalTypes, stack: global.stack, addToStack, removeFromStack }
+}
 
 export const useCreateModal = () => {
 	return {
@@ -42,16 +58,10 @@ export const useEditModal = () => {
 
 export const useAccountModal = () => {
 	return {
-		isAccountModalBuyCoins: computed(() => global.accountModal.value === 'buy-coins'),
-		isAccountModalTipNerd: computed(() => global.accountModal.value === 'tip-nerd'),
-		isAccountModalReportUser: computed(() => global.accountModal.value === 'report-user'),
-		isAccountModalMeetTutor: computed(() => global.accountModal.value === 'meet-tutor'),
-
-		setAccountModalBuyCoins: () => global.accountModal.value = 'buy-coins',
-		setAccountModalTipNerd: () => global.accountModal.value = 'tip-nerd',
-		setAccountModalReportUser: () => global.accountModal.value = 'report-user',
-		setAccountModalMeetTutor: () => global.accountModal.value = 'meet-tutor',
-		closeAccountModal: () => global.accountModal.value = null
+		setAccountModalBuyCoins: () => addToStack('BuyCoins'),
+		setAccountModalTipNerd: () => addToStack('TipNerd'),
+		setAccountModalReportUser: () => addToStack('ReportUser'),
+		setAccountModalMeetTutor: () => addToStack('MeetTutor')
 	}
 }
 
@@ -92,16 +102,4 @@ export const usePaymentModal = () => {
 	return {
 		setPaymentModalMakePayment: () => addToStack('MakePayment')
 	}
-}
-
-const addToStack = (id: ModalKey) => {
-	removeFromStack(id)
-	global.stack.value.push(id)
-}
-const removeFromStack = (id: ModalKey) => {
-	const index = global.stack.value.findIndex((i) => i === id)
-	if (index > -1) global.stack.value.splice(index)
-}
-export const useModal = () => {
-	return { ModalTypes, stack: global.stack, addToStack, removeFromStack }
 }

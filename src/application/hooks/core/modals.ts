@@ -1,4 +1,5 @@
 import { computed, reqRef } from '@nuxtjs/composition-api'
+import CreateSubject from '@app/components/modals/create/CreateSubject.vue'
 
 const global = {
 	createModal: reqRef(null as string | null),
@@ -11,8 +12,8 @@ const global = {
 	stack: reqRef([] as string[])
 }
 
-const ModalTypes = {}
-type ModalKey = keyof typeof ModalTypes
+export const ModalTypes = { CreateSubject }
+export type ModalKey = keyof typeof ModalTypes
 
 export const useCreateModal = () => {
 	return {
@@ -20,7 +21,7 @@ export const useCreateModal = () => {
 		isCreateModalQuestion: computed(() => global.createModal.value === 'question'),
 		isCreateModalAnswer: computed(() => global.createModal.value === 'answer'),
 
-		setCreateModalSubject: () => global.createModal.value = 'subject',
+		setCreateModalSubject: () => addToStack('CreateSubject'),
 		setCreateModalQuestion: () => global.createModal.value = 'question',
 		setCreateModalAnswer: () => global.createModal.value = 'answer',
 		closeCreateModal: () => global.createModal.value = null
@@ -97,14 +98,14 @@ export const usePaymentModal = () => {
 	}
 }
 
-const addToStack = (id: ModalKey) => {
+export const addToStack = (id: ModalKey) => {
 	removeFromStack(id)
 	global.stack.value.push(id)
 }
-const removeFromStack = (id: ModalKey) => {
+export const removeFromStack = (id: ModalKey) => {
 	const index = global.stack.value.findIndex((i) => i === id)
 	if (index > -1) global.stack.value.splice(index)
 }
 export const useModal = () => {
-	return { ModalTypes, ...global, addToStack, removeFromStack }
+	return { ModalTypes, stack: global.stack }
 }

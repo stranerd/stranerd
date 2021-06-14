@@ -6,7 +6,7 @@
 		<AccountModal />
 		<SessionModal />
 		<PaymentModal />
-		<component :is="ModalTypes[modal]" v-for="modal in []" :key="modal" :close="removeFromStack(modal)" />
+		<component :is="ModalTypes[id]" v-for="id in stack" :key="id" :modal="id" />
 	</div>
 </template>
 
@@ -18,7 +18,7 @@ import MenuModal from '@app/components/modals/menus/MenuIndex.vue'
 import AccountModal from '@app/components/modals/account/AccountIndex.vue'
 import SessionModal from '@app/components/modals/sessions/SessionIndex.vue'
 import PaymentModal from '@app/components/modals/payments/PaymentIndex.vue'
-import { useModal } from '@app/hooks/core/modals'
+import { useModal, ModalTypes } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'ModalBase',
 	components: {
@@ -30,8 +30,8 @@ export default defineComponent({
 		PaymentModal
 	},
 	setup () {
-		const { stack, ModalTypes, removeFromStack } = useModal()
-		return { stack, removeFromStack, ModalTypes }
+		const { stack } = useModal()
+		return { stack, ModalTypes }
 	}
 })
 </script>

@@ -6,8 +6,6 @@
 		<AccountModal />
 		<SessionModal />
 		<PaymentModal />
-		<h1>HELP</h1>
-		<h1>{{ stack }}</h1>
 		<component :is="ModalTypes[modal]" v-for="modal in []" :key="modal" :close="removeFromStack(modal)" />
 	</div>
 </template>

@@ -20,9 +20,7 @@ export default defineComponent({
 	components: { SubjectForm },
 	setup () {
 		const { loading, createSubject, factory, error } = useCreateSubject()
-		return {
-			loading, createSubject, factory, error
-		}
+		return { loading, createSubject, factory, error }
 	}
 })
 </script>

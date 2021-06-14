@@ -2,7 +2,7 @@ import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hook
 import { Ref, ssrRef, watch } from '@nuxtjs/composition-api'
 import { ProfileUpdateFactory, UpdateProfile } from '@modules/auth'
 import { useAuth } from '@app/hooks/auth/auth'
-import { useAccountModal, useEditModal, usePaymentModal } from '@app/hooks/core/modals'
+import { useAccountModal, useModal, usePaymentModal } from '@app/hooks/core/modals'
 import { BuyCoins, TipNerd } from '@modules/payment'
 import { UserBio } from '@modules/users'
 import { setPaymentProps } from '@app/hooks/payment/payment'
@@ -28,7 +28,7 @@ export const useUpdateProfile = () => {
 			try {
 				setLoading(true)
 				await UpdateProfile.call(id.value, factory.value)
-				useEditModal().closeEditModal()
+				useModal().removeFromStack('EditAccountProfile')
 				setMessage('Profile updated successfully!')
 			} catch (error) { setError(error) }
 			setLoading(false)

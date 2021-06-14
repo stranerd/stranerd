@@ -6,7 +6,7 @@ import {
 import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { COINS_GAP, MAXIMUM_COINS, MINIMUM_COINS, PAGINATION_LIMIT } from '@utils/constants'
 import { useAuth } from '@app/hooks/auth/auth'
-import { useCreateModal } from '@app/hooks/core/modals'
+import { useModal } from '@app/hooks/core/modals'
 
 enum Answered {
 	All,
@@ -124,7 +124,7 @@ export const useCreateQuestion = () => {
 				setLoading(true)
 				const questionId = await AddQuestion.call(factory.value)
 				setMessage('Question submitted successfully')
-				useCreateModal().closeCreateModal()
+				useModal().removeFromStack('CreateQuestion')
 				await router.push(`/questions/${questionId}`)
 				factory.value.reset()
 			} catch (error) { setError(error) }

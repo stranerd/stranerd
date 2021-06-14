@@ -5,7 +5,7 @@ import {
 } from '@modules/questions'
 import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
-import { useCreateModal } from '@app/hooks/core/modals'
+import { useModal, useCreateModal } from '@app/hooks/core/modals'
 import { Alert } from '@app/hooks/core/notifications'
 
 const global = {} as Record<string, {
@@ -61,7 +61,7 @@ export const useCreateAnswer = () => {
 	const { error, setError } = useErrorHandler()
 	const { setMessage } = useSuccessHandler()
 
-	if (!answeringQuestion) useCreateModal().closeCreateModal()
+	if (!answeringQuestion) useModal().removeFromStack('CreateAnswer')
 	factory.value.questionId = answeringQuestion!.id
 	factory.value.subjectId = answeringQuestion!.subjectId
 	factory.value.coins = answeringQuestion!.creditable
@@ -77,7 +77,7 @@ export const useCreateAnswer = () => {
 				await AddAnswer.call(factory.value)
 				setMessage('Answer submitted successfully.')
 				factory.value.reset()
-				useCreateModal().closeCreateModal()
+				useModal().removeFromStack('CreateAnswer')
 			} catch (error) { setError(error) }
 			setLoading(false)
 		} else factory.value.validateAll()

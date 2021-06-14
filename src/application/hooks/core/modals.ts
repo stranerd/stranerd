@@ -1,8 +1,12 @@
 import { computed, reqRef } from '@nuxtjs/composition-api'
 import CreateSubject from '@app/components/modals/create/CreateSubject.vue'
+import CreateQuestion from '@app/components/modals/create/CreateQuestion.vue'
+import CreateAnswer from '@app/components/modals/create/CreateAnswer.vue'
+import EditSubject from '@app/components/modals/edit/EditSubject.vue'
+import EditAccountProfile from '@app/components/modals/edit/EditAccountProfile.vue'
+import EditTutorSubjects from '@app/components/modals/edit/EditTutorSubjects.vue'
 
 const global = {
-	createModal: reqRef(null as string | null),
 	editModal: reqRef(null as string | null),
 	accountModal: reqRef(null as string | null),
 	menuModal: reqRef(null as string | null),
@@ -12,32 +16,25 @@ const global = {
 	stack: reqRef([] as string[])
 }
 
-export const ModalTypes = { CreateSubject }
+export const ModalTypes = {
+	CreateSubject, CreateQuestion, CreateAnswer,
+	EditSubject, EditAccountProfile, EditTutorSubjects
+}
 export type ModalKey = keyof typeof ModalTypes
 
 export const useCreateModal = () => {
 	return {
-		isCreateModalSubject: computed(() => global.createModal.value === 'subject'),
-		isCreateModalQuestion: computed(() => global.createModal.value === 'question'),
-		isCreateModalAnswer: computed(() => global.createModal.value === 'answer'),
-
 		setCreateModalSubject: () => addToStack('CreateSubject'),
-		setCreateModalQuestion: () => global.createModal.value = 'question',
-		setCreateModalAnswer: () => global.createModal.value = 'answer',
-		closeCreateModal: () => global.createModal.value = null
+		setCreateModalQuestion: () => addToStack('CreateQuestion'),
+		setCreateModalAnswer: () => addToStack('CreateAnswer')
 	}
 }
 
 export const useEditModal = () => {
 	return {
-		isEditModalSubject: computed(() => global.editModal.value === 'subject'),
-		isEditModalTutorSubjects: computed(() => global.editModal.value === 'tutor-subjects'),
-		isEditModalAccountProfile: computed(() => global.editModal.value === 'account-profile'),
-
-		setEditModalSubject: () => global.editModal.value = 'subject',
-		setEditModalTutorSubjects: () => global.editModal.value = 'tutor-subjects',
-		setEditModalAccountProfile: () => global.editModal.value = 'account-profile',
-		closeEditModal: () => global.editModal.value = null
+		setEditModalSubject: () => addToStack('EditSubject'),
+		setEditModalTutorSubjects: () => addToStack('EditTutorSubjects'),
+		setEditModalAccountProfile: () => addToStack('EditAccountProfile')
 	}
 }
 
@@ -98,14 +95,14 @@ export const usePaymentModal = () => {
 	}
 }
 
-export const addToStack = (id: ModalKey) => {
+const addToStack = (id: ModalKey) => {
 	removeFromStack(id)
 	global.stack.value.push(id)
 }
-export const removeFromStack = (id: ModalKey) => {
+const removeFromStack = (id: ModalKey) => {
 	const index = global.stack.value.findIndex((i) => i === id)
 	if (index > -1) global.stack.value.splice(index)
 }
 export const useModal = () => {
-	return { ModalTypes, stack: global.stack }
+	return { ModalTypes, stack: global.stack, addToStack, removeFromStack }
 }

@@ -1,22 +1,22 @@
 <template>
-	<Modal :close="closeEditModal">
+	<Modal :modal="$attrs.modal">
 		<template slot="title">
 			Edit Profile
 		</template>
-		<AccountProfileForm :cancel="closeEditModal" />
+		<AccountProfileForm :cancel="() => removeFromStack($attrs.modal)" />
 	</Modal>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useEditModal } from '@app/hooks/core/modals'
+import { useModal } from '@app/hooks/core/modals'
 import AccountProfileForm from '@app/components/users/account/AccountProfileForm.vue'
 export default defineComponent({
 	name: 'EditAccountProfile',
 	components: { AccountProfileForm },
 	setup () {
-		const { closeEditModal } = useEditModal()
-		return { closeEditModal }
+		const { removeFromStack } = useModal()
+		return { removeFromStack }
 	}
 })
 </script>

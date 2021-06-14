@@ -1,5 +1,5 @@
 <template>
-	<Modal :close="closeCreateModal">
+	<Modal :modal="$attrs.modal">
 		<template slot="title">
 			Add Answer
 		</template>
@@ -9,19 +9,14 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useCreateModal } from '@app/hooks/core/modals'
 import { useCreateAnswer } from '@app/hooks/questions/answers'
 import AnswerForm from '@app/components/questions/answers/AnswerForm.vue'
 export default defineComponent({
 	name: 'CreateModalAnswer',
 	components: { AnswerForm },
 	setup () {
-		const { closeCreateModal } = useCreateModal()
 		const { loading, createAnswer, factory, error } = useCreateAnswer()
-		return {
-			loading, createAnswer, factory, error,
-			closeCreateModal
-		}
+		return { loading, createAnswer, factory, error }
 	}
 })
 </script>

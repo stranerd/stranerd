@@ -3,7 +3,6 @@
 		<MenuModal />
 		<AccountModal />
 		<SessionModal />
-		<PaymentModal />
 		<component :is="ModalTypes[id]" v-for="id in stack" :key="id" :modal="id" />
 	</div>
 </template>
@@ -13,15 +12,13 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import MenuModal from '@app/components/modals/menus/MenuIndex.vue'
 import AccountModal from '@app/components/modals/account/AccountIndex.vue'
 import SessionModal from '@app/components/modals/sessions/SessionIndex.vue'
-import PaymentModal from '@app/components/modals/payments/PaymentIndex.vue'
 import { useModal, ModalTypes } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'ModalBase',
 	components: {
 		MenuModal,
 		AccountModal,
-		SessionModal,
-		PaymentModal
+		SessionModal
 	},
 	setup () {
 		const { stack } = useModal()

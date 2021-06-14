@@ -5,6 +5,7 @@ import CreateAnswer from '@app/components/modals/create/CreateAnswer.vue'
 import EditSubject from '@app/components/modals/edit/EditSubject.vue'
 import EditAccountProfile from '@app/components/modals/edit/EditAccountProfile.vue'
 import EditTutorSubjects from '@app/components/modals/edit/EditTutorSubjects.vue'
+import MakePayment from '@app/components/modals/payments/MakePayment.vue'
 
 const global = {
 	editModal: reqRef(null as string | null),
@@ -18,7 +19,8 @@ const global = {
 
 export const ModalTypes = {
 	CreateSubject, CreateQuestion, CreateAnswer,
-	EditSubject, EditAccountProfile, EditTutorSubjects
+	EditSubject, EditAccountProfile, EditTutorSubjects,
+	MakePayment
 }
 export type ModalKey = keyof typeof ModalTypes
 
@@ -88,10 +90,7 @@ export const useSessionModal = () => {
 
 export const usePaymentModal = () => {
 	return {
-		isPaymentModalMakePayment: computed(() => global.paymentModal.value === 'make-payment'),
-
-		setPaymentModalMakePayment: () => global.paymentModal.value = 'make-payment',
-		closePaymentModal: () => global.paymentModal.value = null
+		setPaymentModalMakePayment: () => addToStack('MakePayment')
 	}
 }
 

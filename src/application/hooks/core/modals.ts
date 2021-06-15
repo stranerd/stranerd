@@ -22,6 +22,13 @@ import SessionUnknown from '@app/components/modals/sessions/SessionUnknown.vue'
 
 const stack = reqRef([] as string[])
 
+export type ModalKey = 'CreateSubject' | 'CreateQuestion' | 'CreateAnswer' |
+'EditSubject' | 'EditAccountProfile' | 'EditTutorSubjects' |
+'BuyCoins' | 'TipNerd' | 'ReportUser' | 'MeetTutor' |
+'AccountSidebar' | 'AdminSidebar' | 'Sidebar' |
+'SessionCreateSession' | 'SessionNewSessionRequest' | 'SessionStudentCancelled' | 'SessionStudentWaiting' |
+'SessionTutorCancelled' | 'SessionUnknown' | 'MakePayment'
+
 export const ModalTypes = {
 	CreateSubject, CreateQuestion, CreateAnswer,
 	EditSubject, EditAccountProfile, EditTutorSubjects,
@@ -30,8 +37,7 @@ export const ModalTypes = {
 	AccountSidebar, AdminSidebar, Sidebar,
 	SessionCreateSession, SessionNewSessionRequest, SessionStudentCancelled,
 	SessionStudentWaiting, SessionTutorCancelled, SessionUnknown
-} as const
-export type ModalKey = keyof typeof ModalTypes
+} as Record<ModalKey, any>
 
 const addToStack = (id: ModalKey) => {
 	removeFromStack(id)
@@ -44,7 +50,7 @@ const removeFromStack = (id: ModalKey) => {
 }
 
 export const useModal = () => {
-	return { ModalTypes, stack, addToStack, removeFromStack }
+	return { stack, addToStack, removeFromStack }
 }
 
 export const useCreateModal = () => {

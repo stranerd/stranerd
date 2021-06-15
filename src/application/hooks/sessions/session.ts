@@ -65,13 +65,13 @@ const getSessionState = (id: string, session: SessionEntity) :SessionState => {
 
 const actOnSessionState = async (state: SessionState, router: VueRouter) => {
 	if (state === SessionState.NewSessionRequest) useSessionModal().setSessionModalNewSessionRequest()
-	else if (state === SessionState.TutorCancels) useSessionModal().closeSessionModal()
+	else if (state === SessionState.TutorCancels) useSessionModal().closeModals()
 	else if (state === SessionState.StudentWaiting) useSessionModal().setSessionModalStudentWaiting()
 	else if (state === SessionState.TutorCancelled || state === SessionState.StudentCancelled) {
 		if (state === SessionState.TutorCancelled) useSessionModal().setSessionModalTutorCancelled()
 		if (state === SessionState.StudentCancelled) useSessionModal().setSessionModalStudentCancelled()
 	} else if (state === SessionState.TutorAccepts || state === SessionState.TutorAccepted) {
-		useSessionModal().closeSessionModal()
+		useSessionModal().closeModals()
 		const session = global.session.value! ?? {}
 		const id = state === SessionState.TutorAccepts ? session.studentId : session.tutorId
 		await router.push(`/messages/${id}`)

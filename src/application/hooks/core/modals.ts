@@ -1,4 +1,4 @@
-import { computed, reqRef } from '@nuxtjs/composition-api'
+import { reqRef } from '@nuxtjs/composition-api'
 import CreateSubject from '@app/components/modals/create/CreateSubject.vue'
 import CreateQuestion from '@app/components/modals/create/CreateQuestion.vue'
 import CreateAnswer from '@app/components/modals/create/CreateAnswer.vue'
@@ -13,33 +13,38 @@ import MeetTutor from '@app/components/modals/account/AccountMeetTutor.vue'
 import AccountSidebar from '@app/components/modals/menus/AccountSidebarMenu.vue'
 import AdminSidebar from '@app/components/modals/menus/AdminSidebarMenu.vue'
 import Sidebar from '@app/components/modals/menus/SidebarMenu.vue'
+import SessionCreateSession from '@app/components/modals/sessions/SessionCreateSession.vue'
+import SessionNewSessionRequest from '@app/components/modals/sessions/SessionNewSessionRequest.vue'
+import SessionStudentCancelled from '@app/components/modals/sessions/SessionStudentCancelled.vue'
+import SessionStudentWaiting from '@app/components/modals/sessions/SessionStudentWaiting.vue'
+import SessionTutorCancelled from '@app/components/modals/sessions/SessionTutorCancelled.vue'
+import SessionUnknown from '@app/components/modals/sessions/SessionUnknown.vue'
 
-const global = {
-	sessionModal: reqRef(null as string | null),
-	stack: reqRef([] as string[])
-}
+const stack = reqRef([] as string[])
 
 export const ModalTypes = {
 	CreateSubject, CreateQuestion, CreateAnswer,
 	EditSubject, EditAccountProfile, EditTutorSubjects,
 	MakePayment,
 	BuyCoins, TipNerd, ReportUser, MeetTutor,
-	AccountSidebar, AdminSidebar, Sidebar
+	AccountSidebar, AdminSidebar, Sidebar,
+	SessionCreateSession, SessionNewSessionRequest, SessionStudentCancelled,
+	SessionStudentWaiting, SessionTutorCancelled, SessionUnknown
 } as const
 export type ModalKey = keyof typeof ModalTypes
 
 const addToStack = (id: ModalKey) => {
 	removeFromStack(id)
-	global.stack.value.push(id)
+	stack.value.push(id)
 }
 
 const removeFromStack = (id: ModalKey) => {
-	const index = global.stack.value.findIndex((i) => i === id)
-	if (index > -1) global.stack.value.splice(index)
+	const index = stack.value.findIndex((i) => i === id)
+	if (index > -1) stack.value.splice(index)
 }
 
 export const useModal = () => {
-	return { ModalTypes, stack: global.stack, addToStack, removeFromStack }
+	return { ModalTypes, stack, addToStack, removeFromStack }
 }
 
 export const useCreateModal = () => {
@@ -77,21 +82,21 @@ export const useMenuModal = () => {
 
 export const useSessionModal = () => {
 	return {
-		isSessionModalCreateSession: computed(() => global.sessionModal.value === 'create-session'),
-		isSessionModalNewSessionRequest: computed(() => global.sessionModal.value === 'new-session-request'),
-		isSessionModalStudentWaiting: computed(() => global.sessionModal.value === 'student-waiting'),
-		isSessionModalTutorCancelled: computed(() => global.sessionModal.value === 'tutor-cancelled'),
-		isSessionModalStudentCancelled: computed(() => global.sessionModal.value === 'student-cancelled'),
-		isSessionModalUnknown: computed(() => global.sessionModal.value === 'unknown'),
+		setSessionModalCreateSession: () => addToStack('SessionCreateSession'),
+		setSessionModalNewSessionRequest: () => addToStack('SessionNewSessionRequest'),
+		setSessionModalStudentWaiting: () => addToStack('SessionStudentWaiting'),
+		setSessionModalTutorCancelled: () => addToStack('SessionTutorCancelled'),
+		setSessionModalStudentCancelled: () => addToStack('SessionStudentCancelled'),
+		setSessionModalUnknown: () => addToStack('SessionUnknown'),
 
-		setSessionModalCreateSession: () => global.sessionModal.value = 'create-session',
-		setSessionModalNewSessionRequest: () => global.sessionModal.value = 'new-session-request',
-		setSessionModalStudentWaiting: () => global.sessionModal.value = 'student-waiting',
-		setSessionModalTutorCancelled: () => global.sessionModal.value = 'tutor-cancelled',
-		setSessionModalStudentCancelled: () => global.sessionModal.value = 'student-cancelled',
-		setSessionModalUnknown: () => global.sessionModal.value = 'unknown',
-
-		closeSessionModal: () => global.sessionModal.value = null
+		closeModals: () => {
+			removeFromStack('SessionCreateSession')
+			removeFromStack('SessionNewSessionRequest')
+			removeFromStack('SessionStudentWaiting')
+			removeFromStack('SessionStudentCancelled')
+			removeFromStack('SessionTutorCancelled')
+			removeFromStack('SessionUnknown')
+		}
 	}
 }
 

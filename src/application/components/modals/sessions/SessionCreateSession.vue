@@ -1,5 +1,5 @@
 <template>
-	<Modal :close="closeSessionModal">
+	<Modal :modal="$attrs.modal">
 		<template slot="title">
 			Request Session
 		</template>
@@ -29,22 +29,18 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useAccountModal, useSessionModal } from '@app/hooks/core/modals'
+import { useAccountModal } from '@app/hooks/core/modals'
 import { useCreateSession } from '@app/hooks/sessions/sessions'
 import { useAuth } from '@app/hooks/auth/auth'
 export default defineComponent({
 	name: 'SessionCreateSession',
 	setup () {
 		const { user } = useAuth()
-		const { closeSessionModal } = useSessionModal()
 		const { setAccountModalBuyCoins } = useAccountModal()
-		const buy = () => {
-			setAccountModalBuyCoins()
-			closeSessionModal()
-		}
+		const buy = () => setAccountModalBuyCoins()
 		const { prices, factory, loading, error, createSession } = useCreateSession()
 		return {
-			closeSessionModal, buy, user,
+			buy, user,
 			prices, factory, loading, error, createSession
 		}
 	}

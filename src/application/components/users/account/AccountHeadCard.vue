@@ -13,7 +13,7 @@
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { UserEntity } from '@modules/users'
 import { formatNumber } from '@utils/commons'
-import { useEditModal, useMenuModal } from '@app/hooks/core/modals'
+import { useEditModal, useModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'AccountHeadCard',
 	props: {
@@ -24,7 +24,7 @@ export default defineComponent({
 	},
 	setup () {
 		const openEditProfileModal = () => {
-			useMenuModal().closeMenuModal()
+			useModal().removeFromStack('AccountSidebar')
 			useEditModal().setEditModalAccountProfile()
 		}
 		return { formatNumber, openEditProfileModal }

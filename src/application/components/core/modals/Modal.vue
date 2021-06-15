@@ -31,8 +31,7 @@ export default defineComponent({
 	props: {
 		modal: {
 			type: String as PropType<ModalKey>,
-			required: false,
-			default: ''
+			required: true
 		},
 		close: {
 			type: Function as PropType<() => void>,

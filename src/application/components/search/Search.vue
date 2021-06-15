@@ -9,7 +9,7 @@
 					placeholder="Search for"
 					class="form-control"
 					:value="currentRefinement"
-					@input="refine($event.currentTarget.value)"
+					@input="() => { refine($event.currentTarget.value); log($event.currentTarget.value) }"
 				>
 				<PageLoading v-if="isSearchStalled" />
 			</template>
@@ -44,6 +44,7 @@ import { algoliaConfig } from '@utils/environment'
 import algoliaSearch from 'algoliasearch/lite'
 // @ts-ignore
 import { AisStateResults, AisSearchBox, AisHits, AisPoweredBy, AisInstantSearch } from 'vue-instantsearch'
+import { analytics } from '@modules/core/services/initFirebase'
 export default defineComponent({
 	name: 'Search',
 	components: {
@@ -65,9 +66,12 @@ export default defineComponent({
 			required: true
 		}
 	},
-	setup () {
+	setup (props) {
 		const searchClient = algoliaSearch(algoliaConfig.appId, algoliaConfig.searchAPIKey)
-		return { searchClient }
+		const log = (term: string) => analytics.logEvent('search', {
+			search_term: term, collection: props.collection
+		})
+		return { searchClient, log }
 	}
 })
 </script>

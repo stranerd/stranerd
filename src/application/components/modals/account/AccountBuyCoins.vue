@@ -32,12 +32,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, onMounted } from '@nuxtjs/composition-api'
 import { useAccountModal } from '@app/hooks/core/modals'
 import { useAuth } from '@app/hooks/auth/auth'
 import { formatNumber } from '@utils/commons'
 import { useBuyCoins } from '@app/hooks/users/account'
 import AccountCoinBalance from '@app/components/users/account/AccountCoinBalance.vue'
+import { analytics } from '@modules/core/services/initFirebase'
 export default defineComponent({
 	name: 'AccountBuyCoins',
 	components: { AccountCoinBalance },
@@ -45,6 +46,9 @@ export default defineComponent({
 		const { user } = useAuth()
 		const { loading, error, buyCoins, BRONZE_PRICES, GOLD_PRICES } = useBuyCoins()
 		const { closeAccountModal } = useAccountModal()
+		onMounted(() => {
+			analytics.logEvent('buy_coins_start')
+		})
 		return {
 			user, closeAccountModal, formatNumber,
 			loading, error, buyCoins, BRONZE_PRICES, GOLD_PRICES

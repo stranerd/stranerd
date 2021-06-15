@@ -8,16 +8,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, onMounted } from '@nuxtjs/composition-api'
 import { useCreateModal } from '@app/hooks/core/modals'
 import { useCreateAnswer } from '@app/hooks/questions/answers'
 import AnswerForm from '@app/components/questions/answers/AnswerForm.vue'
+import { analytics } from '@modules/core/services/initFirebase'
 export default defineComponent({
 	name: 'CreateModalAnswer',
 	components: { AnswerForm },
 	setup () {
 		const { closeCreateModal } = useCreateModal()
-		const { loading, createAnswer, factory, error } = useCreateAnswer()
+		const { loading, createAnswer, factory, error, answeringQuestion } = useCreateAnswer()
+		onMounted(() => {
+			analytics.logEvent('answer_question_start', {
+				questionId: answeringQuestion?.id,
+				subject: answeringQuestion?.subjectId
+			})
+		})
 		return {
 			loading, createAnswer, factory, error,
 			closeCreateModal

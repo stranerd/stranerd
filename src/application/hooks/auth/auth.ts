@@ -3,7 +3,6 @@ import { FindUser, ListenToUser, UserEntity } from '@modules/users'
 import { AuthDetails } from '@modules/auth/domain/entities/auth'
 import { SessionSignout } from '@modules/auth'
 import { isClient } from '@utils/environment'
-import { analytics } from '@modules/core/services/initFirebase'
 
 const global = {
 	auth: reqSsrRef(null as AuthDetails | null),
@@ -33,7 +32,6 @@ export const useAuth = () => {
 		if (global.listener) global.listener()
 		if (details?.id) {
 			global.user.value = await FindUser.call(details.id)
-			analytics.setUserId(details.id)
 		} else global.user.value = null
 		global.auth.value = details
 	}

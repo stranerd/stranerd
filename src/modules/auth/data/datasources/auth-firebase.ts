@@ -50,6 +50,7 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 		if (!auth.currentUser) throw new Error('You are not currently signed in.')
 		try {
 			await auth.currentUser.sendEmailVerification()
+			await auth.signOut()
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
@@ -61,9 +62,8 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 
 	async updatePassword (email: string, oldPassword: string, password: string) {
 		try {
-			await auth.signInWithEmailAndPassword(email, oldPassword)
+			if (!auth.currentUser) await auth.signInWithEmailAndPassword(email, oldPassword)
 			await auth.currentUser?.updatePassword(password)
-			await auth.signOut()
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 

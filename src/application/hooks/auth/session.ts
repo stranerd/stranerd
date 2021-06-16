@@ -1,6 +1,6 @@
-import { SessionSignin } from '@modules/auth'
+import { SessionSignin, SendVerificationEmail } from '@modules/auth'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
-import { isClient, isServer } from '@utils/environment'
+import { isServer } from '@utils/environment'
 import { REDIRECT_SESSION_NAME } from '@utils/constants'
 import Cookie from 'cookie'
 import { AfterAuthUser } from '@modules/auth/domain/entities/auth'
@@ -13,29 +13,26 @@ import { serialize } from '@utils/cookie'
 
 export const createSession = async (user: AfterAuthUser, router: VueRouter) => {
 	const authDetails = await SessionSignin.call(user.idToken)
-
-	if (isClient()) {
-		const { token, setAuthUser, startProfileListener, signout } = useAuth()
-		await setAuthUser(authDetails)
-		try {
-			if (token.value) await firebase.auth().signInWithCustomToken(token.value)
-			if (!authDetails.isVerified) {
-				global.email.value = authDetails.email
-				await router.push('/auth/verify')
-				return
-			}
-			await startProfileListener()
-			analytics.logEvent('login', {
-				remembered: false
-			})
-		} catch (e) { await signout() }
-
-		const { [REDIRECT_SESSION_NAME]: redirect } = Cookie.parse(document.cookie ?? '')
-		document.cookie = Cookie.serialize(REDIRECT_SESSION_NAME, '', {
-			expires: new Date(0)
+	const { token, setAuthUser, startProfileListener, signout } = useAuth()
+	await setAuthUser(authDetails)
+	try {
+		if (token.value) await firebase.auth().signInWithCustomToken(token.value)
+		if (!authDetails.isVerified) {
+			global.email.value = authDetails.email
+			await router.push('/auth/verify')
+			return
+		}
+		await startProfileListener()
+		analytics.logEvent('login', {
+			remembered: false
 		})
-		if (router) await router.push(redirect ?? '/dashboard')
-	}
+	} catch (e) { await signout() }
+
+	const { [REDIRECT_SESSION_NAME]: redirect } = Cookie.parse(document.cookie ?? '')
+	document.cookie = Cookie.serialize(REDIRECT_SESSION_NAME, '', {
+		expires: new Date(0)
+	})
+	if (router) await router.push(redirect ?? '/dashboard')
 }
 
 export const useSessionSignout = () => {
@@ -84,10 +81,12 @@ export const useVerifyEmail = () => {
 
 	const verifyEmail = async () => {
 		if (!global.email.value) return
+		const email = global.email.value
 		setError('')
 		setLoading(true)
 		try {
-			setMessage('')
+			await SendVerificationEmail.call()
+			setMessage(`A verification email was just sent to ${email}. Proceed to your email to complete your verification.`)
 		} catch (error) { setError(error) }
 		setLoading(false)
 	}

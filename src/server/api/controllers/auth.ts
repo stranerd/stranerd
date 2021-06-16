@@ -12,8 +12,10 @@ export const SigninController = async (req: Request, res: Response) => {
 	try {
 		const sessionValue = await signin(idToken)
 		const user = await decodeSessionCookie(sessionValue)
-		setCookie(res, TOKEN_SESSION_NAME, sessionValue)
-		setCookie(res, USER_SESSION_NAME, JSON.stringify(user))
+		if (user.isVerified) {
+			setCookie(res, TOKEN_SESSION_NAME, sessionValue)
+			setCookie(res, USER_SESSION_NAME, JSON.stringify(user))
+		}
 
 		return res.json({
 			success: true,
@@ -49,17 +51,12 @@ export const SignoutController = async (req: Request, res: Response) => {
 }
 
 export const DecodeSessionCookieMiddleware = async (req: Request, res: Response, next: NextFunction) => {
-	const session = req.cookies[TOKEN_SESSION_NAME] as string
-
-	if (!session) {
-		deleteCookie(res, TOKEN_SESSION_NAME)
-		deleteCookie(res, USER_SESSION_NAME)
-		return next()
-	}
-
 	try {
+		const session = req.cookies[TOKEN_SESSION_NAME] as string
+		if (!session) throw new Error('no session')
 		const user = await decodeSessionCookie(session)
-		setCookie(res, USER_SESSION_NAME, JSON.stringify(user))
+		if (user.isVerified) setCookie(res, USER_SESSION_NAME, JSON.stringify(user))
+		else throw new Error('not verified')
 	} catch (err) {
 		deleteCookie(res, TOKEN_SESSION_NAME)
 		deleteCookie(res, USER_SESSION_NAME)

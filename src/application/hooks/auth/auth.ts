@@ -9,7 +9,8 @@ import { useEditModal } from '@app/hooks/core/modals'
 const global = {
 	auth: reqSsrRef(null as AuthDetails | null),
 	user: reqSsrRef(null as UserEntity | null),
-	listener: null as null | (() => void)
+	listener: null as null | (() => void),
+	showProfileModal: reqSsrRef(true)
 }
 
 export const useAuth = () => {
@@ -43,7 +44,7 @@ export const useAuth = () => {
 
 		const id = global.auth.value?.id
 		const setUser = (user: UserEntity | null) => {
-			if (user?.userBio.isNew) useEditModal().setEditModalAccountProfile()
+			if (user?.userBio.isNew && global.showProfileModal.value) useEditModal().setEditModalAccountProfile()
 			global.user.value = user
 		}
 		if (id) {
@@ -67,3 +68,5 @@ export const useAuth = () => {
 		setAuthUser, startProfileListener, signout
 	}
 }
+
+export const setShowProfileModal = (show: boolean) => global.showProfileModal.value = show

@@ -4,7 +4,7 @@
 			Sign In With
 		</h1>
 		<AuthProviders class="mb-2" />
-		<div class="form-group">
+		<div class="form-group mb-1">
 			<label for="email" class="label">Email</label>
 			<input
 				id="email"
@@ -19,7 +19,7 @@
 			>
 			<span v-if="factory.errors.email" class="text-danger">{{ factory.errors.email }}</span>
 		</div>
-		<div class="form-group">
+		<div class="form-group mb-1">
 			<label class="label d-flex align-items-end" for="password">
 				<span>Password</span>
 				<NuxtLink to="/auth/forgot" class="label-sm ms-0-5">Forgot?</NuxtLink>
@@ -37,7 +37,7 @@
 			>
 			<span v-if="factory.errors.password" class="text-danger">{{ factory.errors.password }}</span>
 		</div>
-		<div class="mt-1 text-center">
+		<div class="text-center">
 			<button type="submit" class="w-100 btn btn-blue py-1" :disabled="loading || !factory.valid">
 				Sign In
 			</button>

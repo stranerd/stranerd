@@ -21,7 +21,8 @@
 					<SearchBar />
 				</div>
 				<NotificationBell v-if="isLoggedIn" class="link" />
-				<MessagesIcon v-if="isLoggedIn" class="link" />
+				<!-- <ProfileIcon v-if="isLoggedIn" class="link" /> -->
+				<Avatar v-if="user" :src="user.avatar" :size="40" />
 				<a v-if="isLoggedIn" class="link d-none d-lg-inline" @click.prevent="signout">
 					<PageLoading v-if="loading" />
 					<img src="@app/assets/images/icons/signout.svg" alt="">
@@ -38,10 +39,10 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { useSessionSignout } from '@app/hooks/auth/session'
 import { useChatsList } from '@app/hooks/sessions/chats-list'
 import NotificationBell from '@app/components/layouts/topNavigations/NotificationBell.vue'
-import MessagesIcon from '@app/components/layouts/topNavigations/MessagesIcon.vue'
+// import ProfileIcon from '@app/components/layouts/topNavigations/ProfileIcon.vue'
 export default defineComponent({
 	name: 'TopNavigation',
-	components: { SearchBar, NotificationBell, MessagesIcon },
+	components: { SearchBar, NotificationBell },
 	props: {
 		full: {
 			type: Boolean,
@@ -54,7 +55,7 @@ export default defineComponent({
 	},
 	setup () {
 		const showSearch = ref(false)
-		const { isLoggedIn } = useAuth()
+		const { isLoggedIn, user } = useAuth()
 		const { loading, signout } = useSessionSignout()
 		onMounted(() => {
 			if (isLoggedIn) {
@@ -62,7 +63,7 @@ export default defineComponent({
 				if (messageListener && !messageListener.value) messageListener.startListener()
 			}
 		})
-		return { showSearch, isLoggedIn, loading, signout }
+		return { showSearch, isLoggedIn, user, loading, signout }
 	}
 })
 </script>

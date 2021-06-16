@@ -3,28 +3,43 @@
 		<NuxtLink class="d-none d-lg-block text-center" to="/">
 			<Logo />
 		</NuxtLink>
-		<AccountHeadCard v-if="isLoggedIn" :user="user" />
+		<!-- <AccountHeadCard v-if="isLoggedIn" :user="user" /> -->
 		<div class="sidebar-links">
 			<NuxtLink class="sidebar-link" to="/dashboard">
 				<img src="@app/assets/images/icons/dashboard.svg" alt="">
 				<span>Home</span>
 			</NuxtLink>
-			<NuxtLink class="sidebar-link" to="/account/">
-				<img src="@app/assets/images/icons/users.svg" alt="">
+			<NuxtLink class="sidebar-link" to="/questions">
+				<img src="@app/assets/images/icons/questions.svg" alt="">
+				<span>Questions</span>
+			</NuxtLink>
+			<NuxtLink class="sidebar-link" to="/account">
+				<img src="@app/assets/images/icons/dashboard-icon.svg" alt="">
 				<span>Dashboard</span>
 			</NuxtLink>
-			<NuxtLink class="sidebar-link" to="/account/questions">
+			<NuxtLink class="sidebar-link" to="/messages">
+				<img src="@app/assets/images/icons/chat.svg" alt="">
+				<span>Chat</span>
+			</NuxtLink>
+			<NuxtLink class="sidebar-link" to="/account#achievements">
 				<img src="@app/assets/images/icons/questions.svg" alt="">
-				<span>My Questions</span>
+				<span>Achievement</span>
 			</NuxtLink>
-			<NuxtLink v-if="isTutor" class="sidebar-link" to="/account/answers">
-				<img src="@app/assets/images/icons/answers.svg" alt="">
-				<span>My Answers</span>
-			</NuxtLink>
-			<NuxtLink class="sidebar-link" to="/account/e-wallet">
+			<NuxtLink class="sidebar-link" to="/e-wallet">
 				<img src="@app/assets/images/icons/e-wallet.svg" alt="">
-				<span>E-Wallet</span>
+				<span>e-Wallet</span>
 			</NuxtLink>
+			<NuxtLink v-if="isAdmin" class="sidebar-link" to="/admin/">
+				<img src="@app/assets/images/icons/admin.svg" alt="">
+				<span>Admin Site</span>
+			</NuxtLink>
+			<div v-if="isLoggedIn">
+				<a class="sidebar-link" @click="signout">
+					<PageLoading v-if="loading" />
+					<img src="@app/assets/images/icons/signout.svg" alt="">
+					<span>Signout</span>
+				</a>
+			</div>
 		</div>
 		<div class="sidebar-links">
 			<button v-if="isLoggedIn && !isTutor" class="sidebar-btn btn btn-blue-grey" @click="becomeNerd">
@@ -42,14 +57,16 @@
 <script lang="ts">
 import { defineComponent, useRouter } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
-import AccountHeadCard from '@app/components/users/account/AccountHeadCard.vue'
+// import AccountHeadCard from '@app/components/users/account/AccountHeadCard.vue'
 import { useAccountModal } from '@app/hooks/core/modals'
+import { useSessionSignout } from '@app/hooks/auth/session'
 export default defineComponent({
 	name: 'AccountSidebar',
-	components: { AccountHeadCard },
+	// components: { AccountHeadCard },
 	setup () {
 		const router = useRouter()
 		const { isLoggedIn, user, isTutor } = useAuth()
+		const { loading, signout } = useSessionSignout()
 		const becomeNerd = () => {
 			router.push('/nerds/signup')
 		}
@@ -57,7 +74,7 @@ export default defineComponent({
 			router.push('/account/e-wallet')
 			useAccountModal().setAccountModalBuyCoins()
 		}
-		return { isLoggedIn, user, isTutor, buy, becomeNerd }
+		return { isLoggedIn, user, isTutor, buy, becomeNerd, loading, signout }
 	}
 })
 </script>

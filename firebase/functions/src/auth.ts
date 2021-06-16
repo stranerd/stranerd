@@ -47,3 +47,24 @@ export const authUserDeleted = functions.auth.user().onDelete(async (user) => {
 			[`userIds/${user.uid}`]: false
 		})
 })
+
+export const deleteUnVerifiedUsers = async () => {
+	try {
+		const userIds = [] as string[]
+		const listAllUsers = async (nextPageToken?: string) => {
+			try {
+				const result = await admin.auth().listUsers(1000, nextPageToken)
+				result.users.forEach((user) => {
+					if (user.emailVerified) return
+					const createdAt = new Date(user.metadata.creationTime)
+					const threeDays = 3 * 86400 * 1000
+					if (Date.now() - createdAt.getTime() < threeDays) return
+					userIds.push(user.uid)
+				})
+				if (result.pageToken) await listAllUsers(result.pageToken)
+			} catch (err) {}
+		}
+		await listAllUsers()
+		userIds.forEach(admin.auth().deleteUser)
+	} catch (err) {}
+}

@@ -48,8 +48,8 @@ export default defineComponent({
 		font-weight: 600;
 		max-width: 75ch;
 		margin: 0 0 0.5rem;
-		@media (min-width: $md) { font-size: 1.6875rem; }
-		@media (min-width: $lg) { font-size: 2.25rem; }
+		@media (min-width: $md) { font-size: 1.625rem; }
+		@media (min-width: $lg) { font-size: 2rem; }
 	}
 	p {
 		font-size: 1rem;

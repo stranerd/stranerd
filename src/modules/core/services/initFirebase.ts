@@ -1,10 +1,11 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
+import 'firebase/analytics'
 import 'firebase/database'
 import 'firebase/firestore'
 import 'firebase/functions'
 import 'firebase/storage'
-import { isDev, firebaseConfig } from '@utils/environment'
+import { isClient, isDev, firebaseConfig } from '@utils/environment'
 
 if (firebase.apps.length === 0) {
 	firebase.initializeApp(firebaseConfig)
@@ -23,6 +24,9 @@ export const database = firebase.database()
 export const firestore = firebase.firestore()
 export const functions = firebase.functions()
 export const storage = firebase.storage()
+export const analytics = isClient()
+	? firebase.analytics()
+	: { logEvent: () => {} } as unknown as firebase.analytics.Analytics
 export type Timestamp = firebase.firestore.Timestamp
 
 export const uploadFile = async (path: string, file: File) => {

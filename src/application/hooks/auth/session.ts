@@ -1,10 +1,10 @@
 import { SessionSignin } from '@modules/auth'
-import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
+import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { isClient, isServer } from '@utils/environment'
 import { REDIRECT_SESSION_NAME } from '@utils/constants'
 import Cookie from 'cookie'
 import { AfterAuthUser } from '@modules/auth/domain/entities/auth'
-import { useContext } from '@nuxtjs/composition-api'
+import { useContext, reqRef } from '@nuxtjs/composition-api'
 import VueRouter from 'vue-router'
 import { useAuth } from '@app/hooks/auth/auth'
 import firebase, { analytics } from '@modules/core/services/initFirebase'
@@ -13,19 +13,22 @@ import { serialize } from '@utils/cookie'
 
 export const createSession = async (user: AfterAuthUser, router: VueRouter) => {
 	const authDetails = await SessionSignin.call(user.idToken)
+
 	if (isClient()) {
-		if (authDetails) {
-			const { token, setAuthUser, startProfileListener, signout } = useAuth()
-			await setAuthUser(authDetails)
-			try {
-				if (token.value) await firebase.auth()
-					.signInWithCustomToken(token.value)
-				await startProfileListener()
-				analytics.logEvent('login', {
-					remembered: false
-				})
-			} catch (e) { await signout() }
-		}
+		const { token, setAuthUser, startProfileListener, signout } = useAuth()
+		await setAuthUser(authDetails)
+		try {
+			if (token.value) await firebase.auth().signInWithCustomToken(token.value)
+			if (!authDetails.isVerified) {
+				global.email.value = authDetails.email
+				await router.push('/auth/verify')
+				return
+			}
+			await startProfileListener()
+			analytics.logEvent('login', {
+				remembered: false
+			})
+		} catch (e) { await signout() }
 
 		const { [REDIRECT_SESSION_NAME]: redirect } = Cookie.parse(document.cookie ?? '')
 		document.cookie = Cookie.serialize(REDIRECT_SESSION_NAME, '', {
@@ -68,4 +71,30 @@ export const useRedirectToAuth = () => {
 	}
 
 	return { redirect }
+}
+
+const global = {
+	email: reqRef('')
+}
+
+export const useVerifyEmail = () => {
+	const { loading, setLoading } = useLoadingHandler()
+	const { error, setError } = useErrorHandler()
+	const { message, setMessage } = useSuccessHandler()
+
+	const verifyEmail = async () => {
+		if (!global.email.value) return
+		setError('')
+		setLoading(true)
+		try {
+			setMessage('')
+		} catch (error) { setError(error) }
+		setLoading(false)
+	}
+
+	return {
+		email: global.email,
+		loading, error, message,
+		verifyEmail
+	}
 }

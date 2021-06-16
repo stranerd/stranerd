@@ -47,8 +47,9 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 	}
 
 	async sendVerificationEmail () {
+		if (!auth.currentUser) throw new Error('You are not currently signed in.')
 		try {
-			await auth.currentUser?.sendEmailVerification()
+			await auth.currentUser.sendEmailVerification()
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 

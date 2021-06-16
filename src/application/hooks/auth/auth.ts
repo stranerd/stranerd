@@ -3,6 +3,7 @@ import { FindUser, ListenToUser, UserEntity } from '@modules/users'
 import { AuthDetails } from '@modules/auth/domain/entities/auth'
 import { SessionSignout } from '@modules/auth'
 import { isClient } from '@utils/environment'
+import { auth } from '@modules/core/services/initFirebase'
 
 const global = {
 	auth: reqSsrRef(null as AuthDetails | null),
@@ -51,6 +52,7 @@ export const useAuth = () => {
 	const signout = async () => {
 		await SessionSignout.call()
 		await setAuthUser(null)
+		await auth.signOut()
 		if (isClient()) window.location.assign('/')
 	}
 

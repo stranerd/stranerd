@@ -4,6 +4,7 @@ import { AuthDetails } from '@modules/auth/domain/entities/auth'
 import { SessionSignout } from '@modules/auth'
 import { isClient } from '@utils/environment'
 import { auth } from '@modules/core/services/initFirebase'
+import { useEditModal } from '@app/hooks/core/modals'
 
 const global = {
 	auth: reqSsrRef(null as AuthDetails | null),
@@ -41,7 +42,10 @@ export const useAuth = () => {
 		if (global.listener) global.listener()
 
 		const id = global.auth.value?.id
-		const setUser = (user: UserEntity | null) => global.user.value = user
+		const setUser = (user: UserEntity | null) => {
+			if (user?.userBio.isNew) useEditModal().setEditModalAccountProfile()
+			global.user.value = user
+		}
 		if (id) {
 			global.listener = await ListenToUser.call(id, setUser, true)
 			// TODO: Figure out why it throws errors

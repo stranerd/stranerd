@@ -7,6 +7,7 @@ import { isProduction } from './helpers/environment'
 export const authUserCreated = functions.auth.user().onCreate(async (user) => {
 	const data: any = {
 		'bio/email': user.email,
+		'bio/isNew': true,
 		'roles/isStudent': true,
 		'dates/signedUpAt': admin.database.ServerValue.TIMESTAMP,
 		'account/coins/bronze': admin.database.ServerValue.increment(100),

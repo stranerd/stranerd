@@ -110,6 +110,7 @@ export interface UserBio {
 	email: string
 	description: string
 	avatar: keyof typeof Avatars | null
+	isNew?: boolean | null
 }
 export interface UserRoles {
 	isStudent: boolean
@@ -171,5 +172,6 @@ export const generateDefaultBio = (bio: Partial<UserBio>) :UserBio => {
 	const email = bio?.email ?? 'anon@ymous.com'
 	const description = bio?.description ?? ''
 	const avatar = Avatars[bio?.avatar!] ? bio?.avatar! : Avatars.default.id
-	return { name: { first, last, fullName }, email, description, avatar }
+	const isNew = !!bio.isNew ?? false
+	return { name: { first, last, fullName }, email, description, avatar, isNew }
 }

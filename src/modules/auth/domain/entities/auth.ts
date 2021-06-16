@@ -8,7 +8,6 @@ export type AfterAuthUser = {
 	idToken: string
 	id: string
 	email: string
-	isNew: boolean
 }
 
 export type AuthDetails = {

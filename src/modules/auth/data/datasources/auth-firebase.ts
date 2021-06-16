@@ -10,7 +10,7 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 	async signinWithEmail (email: string, password: string) {
 		try {
 			const record = await auth.signInWithEmailAndPassword(email, password)
-			return await getUserDetails(record.user!, record.additionalUserInfo?.isNewUser ?? false)
+			return await getUserDetails(record.user!)
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
@@ -18,15 +18,14 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 		try {
 			const googleProvider = new firebase.auth.GoogleAuthProvider()
 			const record = await auth.signInWithPopup(googleProvider)
-			return await getUserDetails(record.user!, record.additionalUserInfo?.isNewUser ?? false)
+			return await getUserDetails(record.user!)
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
 	async signupWithEmail (email: string, password: string) {
 		try {
 			const record = await auth.createUserWithEmailAndPassword(email, password)
-			const user = record.user!
-			return await getUserDetails(user, record.additionalUserInfo?.isNewUser ?? false)
+			return await getUserDetails(record.user!)
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
@@ -43,7 +42,7 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 		if (!auth.isSignInWithEmailLink(emailUrl)) throw new Error('Url is not a valid email link')
 		try {
 			const record = await auth.signInWithEmailLink(email, emailUrl)
-			return await getUserDetails(record.user!, record.additionalUserInfo?.isNewUser ?? false)
+			return await getUserDetails(record.user!)
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
@@ -68,6 +67,7 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 	}
 
 	async updateProfile (id: string, bio: UserBio) {
+		bio.isNew = null
 		await DatabaseService.update(`profiles/${id}/bio`, bio)
 	}
 
@@ -88,10 +88,10 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 	}
 }
 
-const getUserDetails = async (user: firebase.User, isNew: boolean) :Promise<AfterAuthUser> => {
+const getUserDetails = async (user: firebase.User) :Promise<AfterAuthUser> => {
 	const email = user.email!
 	const idToken = await user.getIdToken(true)
-	const data = { id: user.uid, email, idToken, isNew }
+	const data = { id: user.uid, email, idToken }
 	await auth.signOut()
 	return data
 }

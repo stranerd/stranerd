@@ -25,13 +25,15 @@ const unshiftToNotificationList = (userId: string, notification: NotificationEnt
 
 export const useNotificationList = () => {
 	const { id } = useAuth()
-	if (id.value && global[id.value] === undefined) {
+	const userId = id.value ?? 'empty'
+	if (global[userId] === undefined) {
 		const listener = useListener(async () => {
+			if (!id.value) return () => {}
 			const appendNotifications = (notifications: NotificationEntity[]) => { notifications.forEach((notification) => unshiftToNotificationList(id.value, notification)) }
 			const date = global[id.value].notifications.value[0]?.createdAt
 			return ListenToNotifications.call(id.value, appendNotifications, date)
 		})
-		global[id.value] = {
+		global[userId] = {
 			notifications: ssrRef([]),
 			hasMore: ssrRef(false),
 			fetched: ssrRef(false),
@@ -59,7 +61,7 @@ export const useNotificationList = () => {
 		if (!global[id.value].fetched.value && !global[id.value].loading.value) await fetchNotifications()
 	})
 
-	return { ...global[id.value], fetchOlderNotifications: fetchNotifications }
+	return { ...global[userId], fetchOlderNotifications: fetchNotifications }
 }
 
 export const useNotification = (notification: NotificationEntity) => {

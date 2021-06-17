@@ -57,6 +57,7 @@ form {
 		padding: 0.25em 1.75em 0.25em 0.25em;
 		color: inherit;
 	}
+
 	select:focus {
 		box-shadow: none;
 		option {

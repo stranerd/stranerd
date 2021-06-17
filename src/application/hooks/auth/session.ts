@@ -7,32 +7,23 @@ import { AfterAuthUser } from '@modules/auth/domain/entities/auth'
 import { useContext, reqRef } from '@nuxtjs/composition-api'
 import VueRouter from 'vue-router'
 import { useAuth } from '@app/hooks/auth/auth'
-import firebase, { analytics } from '@modules/core/services/initFirebase'
 import { Alert } from '@app/hooks/core/notifications'
 import { serialize } from '@utils/cookie'
 
 export const createSession = async (user: AfterAuthUser, router: VueRouter) => {
 	const authDetails = await SessionSignin.call(user.idToken)
-	const { token, setAuthUser, startProfileListener, signout } = useAuth()
+	const { setAuthUser, signin } = useAuth()
 	await setAuthUser(authDetails)
-	try {
-		if (token.value) await firebase.auth().signInWithCustomToken(token.value)
-		if (!authDetails.isVerified) {
-			global.email.value = authDetails.email
-			await router.push('/auth/verify')
-			return
-		}
-		await startProfileListener()
-		analytics.logEvent('login', {
-			remembered: false
-		})
-	} catch (e) { await signout() }
+	const wasVerified = await signin(false)
+	if (!wasVerified) {
+		global.email.value = authDetails.email
+		await router.push('/auth/verify')
+		return
+	}
 
 	const { [REDIRECT_SESSION_NAME]: redirect } = Cookie.parse(document.cookie ?? '')
-	document.cookie = Cookie.serialize(REDIRECT_SESSION_NAME, '', {
-		expires: new Date(0)
-	})
-	if (router) await router.push(redirect ?? '/dashboard')
+	document.cookie = Cookie.serialize(REDIRECT_SESSION_NAME, '', { expires: new Date(0) })
+	await router.push(redirect ?? '/dashboard')
 }
 
 export const useSessionSignout = () => {

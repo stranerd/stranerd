@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<SidebarMenu v-if="isMenuModalSidebar" />
-		<AccountSidebarMenu v-if="isMenuModalAccountSidebar" />
+		<RightSidebarMenu v-if="isMenuModalRightSidebar" />
 		<AdminSidebarMenu v-if="isMenuModalAdminSidebar" />
 	</div>
 </template>
@@ -10,18 +10,18 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useMenuModal } from '@app/hooks/core/modals'
 import SidebarMenu from '@app/components/modals/menus/SidebarMenu.vue'
-import AccountSidebarMenu from '@app/components/modals/menus/AccountSidebarMenu.vue'
+import RightSidebarMenu from '@app/components/modals/menus/RightSidebarMenu.vue'
 import AdminSidebarMenu from '@app/components/modals/menus/AdminSidebarMenu.vue'
 export default defineComponent({
 	name: 'MenuModalIndex',
 	components: {
 		SidebarMenu,
-		AccountSidebarMenu,
+		RightSidebarMenu,
 		AdminSidebarMenu
 	},
 	setup () {
-		const { isMenuModalSidebar, isMenuModalAccountSidebar, isMenuModalAdminSidebar } = useMenuModal()
-		return { isMenuModalSidebar, isMenuModalAccountSidebar, isMenuModalAdminSidebar }
+		const { isMenuModalSidebar, isMenuModalRightSidebar, isMenuModalAdminSidebar } = useMenuModal()
+		return { isMenuModalSidebar, isMenuModalRightSidebar, isMenuModalAdminSidebar }
 	}
 })
 </script>

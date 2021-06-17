@@ -40,6 +40,7 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { useCurrentSession } from '@app/hooks/sessions/session'
 import { setReportedBioAndId } from '@app/hooks/forms/reports'
 import { setNerdBioAndId } from '@app/hooks/users/account'
+import { analytics } from '@modules/core/services/initFirebase'
 export default defineComponent({
 	name: 'ChatHead',
 	props: {
@@ -83,6 +84,11 @@ export default defineComponent({
 		const cancelSession = async () => {
 			show.value = false
 			await c()
+			analytics.logEvent('session_cancelled', {
+				sessionId: currentSessionId.value,
+				duration: currentSession.value?.duration ?? 0,
+				lasted: (currentSession.value?.duration ?? 0) - (diffInSec.value / 60)
+			})
 		}
 		const reportUser = () => {
 			setReportedBioAndId({ id: props.user.id, bio: props.user.userBio })

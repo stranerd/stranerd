@@ -2,12 +2,6 @@
 	"rules": {
 		"answers": {
 			"$answerId": {
-				".read": false,
-				"likes": {
-					"$userId": {
-						".write": "auth.uid === $userId"
-					}
-				},
 				"ratings": {
 					"$userId": {
 						".write": "auth.uid === $userId"
@@ -17,14 +11,14 @@
 		},
 		"comments": {
 			"answers": {
-				".read": true,
 				"$answerId": {
+					".read": true,
 					".write": "auth.uid != null"
 				}
 			},
 			"questions": {
-				".read": true,
 				"$questionId": {
+					".read": true,
 					".write": "auth.uid != null"
 				}
 			}

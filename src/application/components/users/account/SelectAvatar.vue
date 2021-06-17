@@ -37,7 +37,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "../../../assets/styles/index.scss";
 .content {
 	display: flex;
 	align-items: center;

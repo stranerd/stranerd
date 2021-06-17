@@ -20,10 +20,16 @@
 				<div class="link d-none d-md-inline-flex flex-grow-1 align-items-center border-0">
 					<SearchBar />
 				</div>
+				<<<<<<< HEAD
 				<NotificationBell v-if="isLoggedIn" class="link" />
 				<!-- <ProfileIcon v-if="isLoggedIn" class="link" /> -->
 				<Avatar v-if="user" :src="user.avatar" :size="40" class="d-none-md" />
 				<!-- <a v-if="isLoggedIn" class="link d-none d-lg-inline" @click.prevent="signout">
+=======
+				<NotificationBell class="link" />
+				<MessagesIcon class="link" />
+				<a v-if="isLoggedIn" class="link d-none d-lg-inline" @click.prevent="signout">
+>>>>>>> ca1d3e5460b5c9dc56864c3442936fcf74f9ecda
 					<PageLoading v-if="loading" />
 					<img src="@app/assets/images/icons/signout.svg" alt="">
 				</a> -->
@@ -80,19 +86,19 @@ export default defineComponent({
 		padding: 1rem 0;
 		width: 100%;
 	}
-	.link {
-		padding: 0 0.75rem;
-		& > img, /deep/ > img {
-			width: 21px;
-			height: 21px;
-		}
-		@media (min-width: $sm) {
-			padding : 0 1rem;
-		}
-		@media (min-width: $lg) {
-			padding: 0 2rem;
-			border-left: 1px solid $color-blue;
-		}
-	}
+	// .link {
+	// 	padding: 0 0.75rem;
+	// 	& > img, /deep/ > img {
+	// 		width: 21px;
+	// 		height: 21px;
+	// 	}
+	// 	@media (min-width: $sm) {
+	// 		padding : 0 1rem;
+	// 	}
+	// 	@media (min-width: $lg) {
+	// 		padding: 0 2rem;
+	// 		border-left: 1px solid $color-blue;
+	// 	}
+	// }
 }
 </style>

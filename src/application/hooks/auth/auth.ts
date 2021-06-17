@@ -1,6 +1,8 @@
 import { computed, reqSsrRef } from '@nuxtjs/composition-api'
 import { FindUser, ListenToUser, UserEntity } from '@modules/users'
 import { AuthDetails } from '@modules/auth/domain/entities/auth'
+import { SessionSignout } from '@modules/auth'
+import { isClient } from '@utils/environment'
 
 const global = {
 	auth: reqSsrRef(null as AuthDetails | null),
@@ -28,8 +30,9 @@ export const useAuth = () => {
 
 	const setAuthUser = async (details: AuthDetails | null) => {
 		if (global.listener) global.listener()
-		if (details?.id) global.user.value = await FindUser.call(details.id)
-		else global.user.value = null
+		if (details?.id) {
+			global.user.value = await FindUser.call(details.id)
+		} else global.user.value = null
 		global.auth.value = details
 	}
 
@@ -45,13 +48,16 @@ export const useAuth = () => {
 		}
 	}
 
-	const signout = async () => setAuthUser(null)
+	const signout = async () => {
+		await SessionSignout.call()
+		await setAuthUser(null)
+		if (isClient()) window.location.assign('/')
+	}
 
 	return {
 		id, bio,
 		user: global.user,
 		isLoggedIn, token, isVerified, isAdmin, isTutor, ongoingAchievements, currentSessionId,
-		setAuthUser, startProfileListener,
-		signout, closeProfileListener: () => global.listener?.()
+		setAuthUser, startProfileListener, signout
 	}
 }

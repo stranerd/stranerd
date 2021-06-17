@@ -1,9 +1,7 @@
 import { defineNuxtPlugin, onGlobalSetup, watch } from '@nuxtjs/composition-api'
-import firebase from '@modules/core/services/initFirebase'
+import firebase, { analytics } from '@modules/core/services/initFirebase'
 import { useAuth } from '@app/hooks/auth/auth'
 import { setSession } from '@app/hooks/sessions/session'
-import { isClient } from '@utils/environment'
-import { SessionSignout } from '@modules/auth'
 
 export default defineNuxtPlugin(async ({ app }) => {
 	const router = app.router!
@@ -17,11 +15,10 @@ export default defineNuxtPlugin(async ({ app }) => {
 		try {
 			await firebase.auth().signInWithCustomToken(token.value)
 			await startProfileListener()
-		} catch (error) {
-			await SessionSignout.call()
-			await signout()
-			if (isClient()) window.location.assign('/auth/')
-		}
+			analytics.logEvent('login', {
+				remembered: true
+			})
+		} catch (error) { await signout() }
 	}
 
 	onGlobalSetup(async () => {

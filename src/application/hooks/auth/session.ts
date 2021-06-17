@@ -1,4 +1,4 @@
-import { SessionSignin, SessionSignout } from '@modules/auth'
+import { SessionSignin } from '@modules/auth'
 import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 import { isClient, isServer } from '@utils/environment'
 import { REDIRECT_SESSION_NAME } from '@utils/constants'
@@ -7,14 +7,17 @@ import { AfterAuthUser } from '@modules/auth/domain/entities/auth'
 import { useContext } from '@nuxtjs/composition-api'
 import VueRouter from 'vue-router'
 import { useAuth } from '@app/hooks/auth/auth'
-import firebase from '@modules/core/services/initFirebase'
+import firebase, { analytics } from '@modules/core/services/initFirebase'
 import { Alert } from '@app/hooks/core/notifications'
 import { useEditModal } from '@app/hooks/core/modals'
 import { serialize } from '@utils/cookie'
 
 export const createSession = async (user: AfterAuthUser, router: VueRouter) => {
 	const authDetails = await SessionSignin.call(user.idToken)
-	if (user.isNew) useEditModal().setEditModalAccountProfile()
+	if (user.isNew) {
+		useEditModal().setEditModalAccountProfile()
+		analytics.logEvent('sign_up')
+	}
 	if (isClient()) {
 		if (authDetails) {
 			const { token, setAuthUser, startProfileListener, signout } = useAuth()
@@ -23,11 +26,10 @@ export const createSession = async (user: AfterAuthUser, router: VueRouter) => {
 				if (token.value) await firebase.auth()
 					.signInWithCustomToken(token.value)
 				await startProfileListener()
-			} catch (e) {
-				await SessionSignout.call()
-				await signout()
-				if (isClient()) window.location.assign('/')
-			}
+				analytics.logEvent('login', {
+					remembered: false
+				})
+			} catch (e) { await signout() }
 		}
 
 		const { [REDIRECT_SESSION_NAME]: redirect } = Cookie.parse(document.cookie ?? '')
@@ -52,10 +54,7 @@ export const useSessionSignout = () => {
 		if (accepted) {
 			setLoading(true)
 			try {
-				await SessionSignout.call()
-				await useAuth().closeProfileListener()
 				await useAuth().signout()
-				if (isClient()) window.location.assign('/')
 			} catch (error) { setError(error) }
 			setLoading(false)
 		}

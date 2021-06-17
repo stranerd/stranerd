@@ -1,6 +1,7 @@
 import { ssrRef } from '@nuxtjs/composition-api'
 import { Notify } from '@app/hooks/core/notifications'
 import { isClient } from '@utils/environment'
+import { analytics } from '@modules/core/services/initFirebase'
 
 export const useErrorHandler = () => {
 	const errorState = ssrRef('')
@@ -9,6 +10,9 @@ export const useErrorHandler = () => {
 		if (isClient() && errorState.value) Notify({
 			title: errorState.value,
 			icon: 'error'
+		})
+		if (errorState.value) analytics.logEvent('error', {
+			error: errorState.value
 		})
 	}
 	return { error: errorState, setError }

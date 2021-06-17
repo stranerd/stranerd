@@ -1,4 +1,3 @@
-@use 'sass:map';
 $color-blue: #17224d;
 $color-grey-blue: #395C7F;
 $color-light-blue: #e2f0ff;
@@ -69,4 +68,11 @@ $border-radius-lg: 0.5rem;
 
 @function vh($quantity) {
 	@return calc(var(--vh, 1vh) * #{$quantity})
+}
+
+.hide-scrollbar {
+	-ms-overflow-style: none;
+	&::-webkit-scrollbar{
+		display: none;
+	}
 }

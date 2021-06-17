@@ -9,25 +9,25 @@
 		<div class="d-flex  justify-content-between w-100">
 			<span><img src="@app/assets/images/icons/dashboard-icon.svg" class="mr-1"> Answers</span>
 			<p class="fw-bold">
-				#23
+				201
 			</p>
 		</div>
 		<div class="d-flex  justify-content-between w-100">
 			<span><img src="@app/assets/images/icons/dashboard-icon.svg" class="mr-1"> Best Answers</span>
 			<p class="fw-bold">
-				#23
+				194
 			</p>
 		</div>
 		<div class="d-flex  justify-content-between w-100">
 			<span><img src="@app/assets/images/icons/dashboard-icon.svg" class="mr-1"> Sessions Hosted</span>
 			<p class="fw-bold">
-				#23
+				68
 			</p>
 		</div>
 		<div class="d-flex  justify-content-between w-100">
 			<span><img src="@app/assets/images/icons/dashboard-icon.svg" class="mr-1"> Member Since</span>
 			<p class="fw-bold">
-				#23
+				May 2020
 			</p>
 		</div>
 	</div>

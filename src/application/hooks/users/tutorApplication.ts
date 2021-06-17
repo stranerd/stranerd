@@ -2,14 +2,11 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { ref, Ref, watch, useRouter, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import {
-	AddTutorApplications,
-	ApproveTutorApplication,
-	GetTutorApplications,
-	ListenToTutorApplications,
-	TutorApplicationEntity,
-	TutorApplicationFactory
+	AddTutorApplications, ApproveTutorApplication, GetTutorApplications, ListenToTutorApplications,
+	TutorApplicationEntity, TutorApplicationFactory
 } from '@modules/users'
 import { PAGINATION_LIMIT } from '@utils/constants'
+import { analytics } from '@modules/core/services/initFirebase'
 
 const global = {
 	applications: ssrRef([] as TutorApplicationEntity[]),
@@ -75,6 +72,7 @@ export const useCreateTutorApplication = () => {
 				setLoading(true)
 				await AddTutorApplications.call(factory.value)
 				setMessage('Application submitted successfully')
+				analytics.logEvent('nerd_form_completed')
 				router.push('/')
 				factory.value.reset()
 			} catch (error) { setError(error) }

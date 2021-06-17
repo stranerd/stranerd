@@ -7,8 +7,12 @@ const global = {
 	menuModal: reqRef(null as string | null),
 	navigationModal: reqRef(null as string | null),
 	sessionModal: reqRef(null as string | null),
-	paymentModal: reqRef(null as string | null)
+	paymentModal: reqRef(null as string | null),
+	stack: reqRef([] as string[])
 }
+
+const ModalTypes = {}
+type ModalKey = keyof typeof ModalTypes
 
 export const useCreateModal = () => {
 	return {
@@ -91,4 +95,16 @@ export const usePaymentModal = () => {
 		setPaymentModalMakePayment: () => global.paymentModal.value = 'make-payment',
 		closePaymentModal: () => global.paymentModal.value = null
 	}
+}
+
+const addToStack = (id: ModalKey) => {
+	removeFromStack(id)
+	global.stack.value.push(id)
+}
+const removeFromStack = (id: ModalKey) => {
+	const index = global.stack.value.findIndex((i) => i === id)
+	if (index > -1) global.stack.value.splice(index)
+}
+export const useModal = () => {
+	return { ModalTypes, ...global, addToStack, removeFromStack }
 }

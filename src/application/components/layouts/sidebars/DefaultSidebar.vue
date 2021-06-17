@@ -16,10 +16,7 @@
 				<img src="@app/assets/images/icons/dashboard-icon.svg" alt="">
 				<span>Dashboard</span>
 			</NuxtLink>
-			<NuxtLink class="sidebar-link" to="/messages">
-				<img src="@app/assets/images/icons/chat.svg" alt="">
-				<span>Chat</span>
-			</NuxtLink>
+			<MessageLink :key="isLoggedIn" class="sidebar-link" />
 			<NuxtLink class="sidebar-link" to="/account#achievements">
 				<img src="@app/assets/images/icons/questions.svg" alt="">
 				<span>Achievements</span>
@@ -58,8 +55,10 @@ import { defineComponent, useRouter } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useAccountModal } from '@app/hooks/core/modals'
 import { useSessionSignout } from '@app/hooks/auth/session'
+import MessageLink from '@app/components/layouts/sidebars/MessageLink.vue'
 export default defineComponent({
 	name: 'DefaultSidebar',
+	components: { MessageLink },
 	setup () {
 		const router = useRouter()
 		const { isLoggedIn, user, isTutor, isAdmin } = useAuth()

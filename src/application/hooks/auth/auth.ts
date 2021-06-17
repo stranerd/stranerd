@@ -3,6 +3,7 @@ import { FindUser, ListenToUser, UserEntity } from '@modules/users'
 import { AuthDetails } from '@modules/auth/domain/entities/auth'
 import { SessionSignout } from '@modules/auth'
 import { isClient } from '@utils/environment'
+import { analytics, auth } from '@modules/core/services/initFirebase'
 
 const global = {
 	auth: reqSsrRef(null as AuthDetails | null),
@@ -15,12 +16,11 @@ export const useAuth = () => {
 	const bio = computed({ get: () => global.user.value?.userBio, set: () => {} })
 
 	const isLoggedIn = computed({ get: () => !!id.value, set: () => {} })
-	const token = computed({ get: () => global.auth.value?.token, set: () => {} })
 	const isVerified = computed({ get: () => !!global.auth.value?.isVerified, set: () => {} })
 	const isAdmin = computed({ get: () => !!global.user.value?.roles.isAdmin, set: () => {} })
 	const isTutor = computed({ get: () => !!global.user.value?.roles.isTutor, set: () => {} })
 	const ongoingAchievements = computed({
-		get: () => global.user.value?.achievements?.filter((achievement) => !achievement.completed) ?? [],
+		get: () => global.user.value?.achievements.filter((achievement) => !achievement.completed) ?? [],
 		set: () => {}
 	})
 	const currentSessionId = computed({
@@ -30,9 +30,8 @@ export const useAuth = () => {
 
 	const setAuthUser = async (details: AuthDetails | null) => {
 		if (global.listener) global.listener()
-		if (details?.id) {
-			global.user.value = await FindUser.call(details.id)
-		} else global.user.value = null
+		if (details?.id) global.user.value = await FindUser.call(details.id)
+		else global.user.value = null
 		global.auth.value = details
 	}
 
@@ -48,6 +47,14 @@ export const useAuth = () => {
 		}
 	}
 
+	const signin = async (remembered: boolean) => {
+		try {
+			if (global.auth.value?.token) await auth.signInWithCustomToken(global.auth.value.token)
+			await startProfileListener()
+			analytics.logEvent('login', { remembered })
+		} catch (e) { await signout() }
+	}
+
 	const signout = async () => {
 		await SessionSignout.call()
 		await setAuthUser(null)
@@ -55,9 +62,8 @@ export const useAuth = () => {
 	}
 
 	return {
-		id, bio,
-		user: global.user,
-		isLoggedIn, token, isVerified, isAdmin, isTutor, ongoingAchievements, currentSessionId,
-		setAuthUser, startProfileListener, signout
+		id, bio, user: global.user,
+		isLoggedIn, isVerified, isAdmin, isTutor, ongoingAchievements, currentSessionId,
+		setAuthUser, signin, signout
 	}
 }

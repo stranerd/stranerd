@@ -1,7 +1,7 @@
 <template>
 	<NuxtLink to="/notifications" class="position-relative">
 		<img class="filter" src="@app/assets/images/icons/notification.svg" alt="">
-		<i v-if="(notifications || []).filter((n) => !n.seen).length > 0" class="fas fa-circle text-danger position-absolute" style="top: 0;right:0;font-size:0.6em" />
+		<i v-if="notifications.filter((n) => !n.seen).length > 0" class="fas fa-circle text-danger position-absolute" style="top: 0;right:0;font-size:0.6em" />
 	</NuxtLink>
 </template>
 
@@ -13,7 +13,7 @@ export default defineComponent({
 	setup () {
 		const { notifications, listener } = useNotificationList()
 		onMounted(() => {
-			if (listener && !listener.value) listener.startListener()
+			if (!listener.isRunning) listener.startListener()
 		})
 		return { notifications }
 	}

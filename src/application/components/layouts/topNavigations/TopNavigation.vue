@@ -20,7 +20,7 @@
 				<div class="link d-none d-md-inline-flex flex-grow-1 align-items-center border-0">
 					<SearchBar />
 				</div>
-				<NotificationBell class="link" />
+				<NotificationBell :key="isLoggedIn" class="link" />
 				<a v-if="isLoggedIn" class="link" @click="setMenuModalRightSidebar">
 					<Avatar :src="user.avatar" :size="32" />
 				</a>
@@ -30,11 +30,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from '@nuxtjs/composition-api'
+import { defineComponent, ref } from '@nuxtjs/composition-api'
 import SearchBar from '@app/components/search/SearchBar.vue'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useSessionSignout } from '@app/hooks/auth/session'
-import { useChatsList } from '@app/hooks/sessions/chats-list'
 import NotificationBell from '@app/components/layouts/topNavigations/NotificationBell.vue'
 import { useMenuModal } from '@app/hooks/core/modals'
 export default defineComponent({
@@ -55,12 +54,6 @@ export default defineComponent({
 		const { isLoggedIn, user } = useAuth()
 		const { setMenuModalRightSidebar } = useMenuModal()
 		const { loading, signout } = useSessionSignout()
-		onMounted(() => {
-			if (isLoggedIn) {
-				const messageListener = useChatsList().listener
-				if (messageListener && !messageListener.value) messageListener.startListener()
-			}
-		})
 		return { showSearch, isLoggedIn, user, setMenuModalRightSidebar, loading, signout }
 	}
 })

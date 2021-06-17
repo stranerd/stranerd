@@ -21,13 +21,9 @@
 					<SearchBar />
 				</div>
 				<NotificationBell class="link" />
-				<a v-if="isLoggedIn" class="link d-lg-none" @click="openMenu">
+				<a v-if="isLoggedIn" class="link d-lg-none" @click="setMenuModalRightSidebar">
 					<Avatar :src="user.avatar" :size="40" />
 				</a>
-				<!-- <a v-if="isLoggedIn" class="link d-none d-lg-inline" @click.prevent="signout">
-					<PageLoading v-if="loading" />
-					<img src="@app/assets/images/icons/signout.svg" alt="">
-				</a> -->
 			</template>
 		</div>
 	</nav>
@@ -40,6 +36,7 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { useSessionSignout } from '@app/hooks/auth/session'
 import { useChatsList } from '@app/hooks/sessions/chats-list'
 import NotificationBell from '@app/components/layouts/topNavigations/NotificationBell.vue'
+import { useMenuModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'TopNavigation',
 	components: { SearchBar, NotificationBell },
@@ -56,6 +53,7 @@ export default defineComponent({
 	setup () {
 		const showSearch = ref(false)
 		const { isLoggedIn, user } = useAuth()
+		const { setMenuModalRightSidebar } = useMenuModal()
 		const { loading, signout } = useSessionSignout()
 		onMounted(() => {
 			if (isLoggedIn) {
@@ -63,7 +61,7 @@ export default defineComponent({
 				if (messageListener && !messageListener.value) messageListener.startListener()
 			}
 		})
-		return { showSearch, isLoggedIn, user, loading, signout }
+		return { showSearch, isLoggedIn, user, setMenuModalRightSidebar, loading, signout }
 	}
 })
 </script>

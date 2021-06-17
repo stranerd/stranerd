@@ -22,9 +22,9 @@
 			</NuxtLink>
 			<NuxtLink class="sidebar-link" to="/account#achievements">
 				<img src="@app/assets/images/icons/questions.svg" alt="">
-				<span>Achievement</span>
+				<span>Achievements</span>
 			</NuxtLink>
-			<NuxtLink class="sidebar-link" to="/e-wallet">
+			<NuxtLink class="sidebar-link" to="/account/e-wallet">
 				<img src="@app/assets/images/icons/e-wallet.svg" alt="">
 				<span>e-Wallet</span>
 			</NuxtLink>

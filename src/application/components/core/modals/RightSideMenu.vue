@@ -2,10 +2,7 @@
 	<div class="full">
 		<div class="under" @click="close" />
 		<div class="sidebar">
-			<NuxtLink class="d-lg-none mx-auto logo" to="/">
-				<Logo />
-			</NuxtLink>
-			<div class="px-0-5 d-flex flex-column flex-grow-1">
+			<div class="d-flex flex-column flex-grow-1">
 				<slot />
 			</div>
 		</div>
@@ -15,7 +12,7 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 export default defineComponent({
-	name: 'SideMenu',
+	name: 'RightSideMenu',
 	props: {
 		close: {
 			type: Function,
@@ -48,16 +45,16 @@ export default defineComponent({
 		box-shadow: 3px 0 12px rgba($color-black, 1);
 		width: clamp(288px, 75%, 300px);
 		min-height: vh(100);
-		color: $color-light-blue;
-		background: $color-blue;
+		color: $color-blue-grey;
+		background: $color-white;
 		position: absolute;
 		top: 0;
-		left: 0;
-		animation: slide-right .25s;
+		right: 0;
+		animation: slide-left .25s;
 	}
 }
-@keyframes slide-right {
-	from { left: -100px; }
-	to { left: 0; }
+@keyframes slide-left {
+	from { right: -100px; }
+	to { right: 0; }
 }
 </style>

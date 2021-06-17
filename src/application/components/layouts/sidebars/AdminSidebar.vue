@@ -1,6 +1,6 @@
 <template>
 	<aside class="sidebar-body gap-1">
-		<NuxtLink class="d-none d-lg-block text-center" to="/">
+		<NuxtLink class="d-none d-lg-block text-center logo" to="/">
 			<Logo />
 		</NuxtLink>
 		<div v-if="isLoggedIn" class="d-flex flex-column align-items-center gap-0-5">

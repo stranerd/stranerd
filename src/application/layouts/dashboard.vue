@@ -8,7 +8,7 @@
 			<Nuxt class="layout-content" />
 		</main>
 		<section class="layout-side-right">
-			<DashboardRightPanel />
+			<RightSidebar />
 		</section>
 		<ModalBase />
 	</section>
@@ -17,12 +17,12 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import Sidebar from '@app/components/layouts/sidebars/DefaultSidebar.vue'
-import DashboardRightPanel from '@app/components/dashboard/DashboardRightPanel.vue'
+import RightSidebar from '@app/components/layouts/sidebars/RightSidebar.vue'
 import TopNavigation from '@app/components/layouts/topNavigations/TopNavigation.vue'
 import { useMenuModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'DashboardLayout',
-	components: { Sidebar, TopNavigation, DashboardRightPanel },
+	components: { Sidebar, TopNavigation, RightSidebar },
 	setup () {
 		const { setMenuModalSidebar } = useMenuModal()
 		return { setMenuModalSidebar }

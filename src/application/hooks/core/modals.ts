@@ -59,9 +59,11 @@ export const useMenuModal = () => {
 	return {
 		isMenuModalSidebar: computed(() => global.menuModal.value === 'sidebar'),
 		isMenuModalAdminSidebar: computed(() => global.menuModal.value === 'admin-sidebar'),
+		isMenuModalRightSidebar: computed(() => global.menuModal.value === 'right-sidebar'),
 
 		setMenuModalSidebar: () => global.menuModal.value = 'sidebar',
 		setMenuModalAdminSidebar: () => global.menuModal.value = 'admin-sidebar',
+		setMenuModalRightSidebar: () => global.menuModal.value = 'right-sidebar',
 		closeMenuModal: () => global.menuModal.value = null
 	}
 }

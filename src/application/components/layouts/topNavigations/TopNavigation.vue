@@ -6,7 +6,7 @@
 		<NuxtLink v-if="!showSearch" to="/" :class="{ 'd-lg-none': !full }">
 			<Logo />
 		</NuxtLink>
-		<div class="links ms-auto d-flex align-items-center">
+		<div class="links ms-auto d-flex">
 			<template v-if="showSearch">
 				<a class="me-0-5" @click.prevent="showSearch = false">
 					<i class="fas fa-times" />
@@ -15,14 +15,14 @@
 			</template>
 			<template v-else>
 				<a class="link d-md-none">
-					<img src="@app/assets/images/icons/search.svg" alt="" @click="showSearch = true">
+					<img class="filter" src="@app/assets/images/icons/search.svg" alt="" @click="showSearch = true">
 				</a>
 				<div class="link d-none d-md-inline-flex flex-grow-1 align-items-center border-0">
 					<SearchBar />
 				</div>
 				<NotificationBell class="link" />
-				<a v-if="isLoggedIn" class="link d-lg-none" @click="setMenuModalRightSidebar">
-					<Avatar :src="user.avatar" :size="40" />
+				<a v-if="isLoggedIn" class="link" @click="setMenuModalRightSidebar">
+					<Avatar :src="user.avatar" :size="32" />
 				</a>
 			</template>
 		</div>
@@ -73,19 +73,19 @@ export default defineComponent({
 		width: 100%;
 	}
 	.link {
+		display: flex;
+		align-items: center;
 		padding: 0 0.75rem;
 		& > img, /deep/ > img {
-			width: 21px;
-			height: 21px;
+			width: 24px;
+			height: 24px;
 		}
 		@media (min-width: $sm) {
 			padding: 0 1rem;
 		}
 		@media (min-width: $lg) {
 			padding: 0 2rem;
-			& + & {
-				border-right: 1px solid $color-blue;
-			}
+			border-left: 1px solid $color-blue;
 		}
 	}
 }

@@ -5,7 +5,6 @@
 		</NuxtLink>
 		<Avatar :src="user.avatar" :size="75" />
 		<span class="text-18 fw-bold">{{ user.fullName }}</span>
-		<span class="text-18 sub">High School</span>
 		<ShowRatings v-if="user.roles.isTutor" :rating="user.averageRating" />
 		<button to="/account/" class="btn btn-blue rounded" @click="openEditProfileModal">
 			<span>Edit Profile</span>
@@ -35,11 +34,3 @@ export default defineComponent({
 	}
 })
 </script>
-
-<style scoped>
-.sub{
-	color: "#395C7F";
-	font-size: 16px;
-	margin-top: -12px;
-}
-</style>

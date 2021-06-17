@@ -1,6 +1,6 @@
 <template>
 	<aside class="sidebar-body gap-1">
-		<NuxtLink class="d-none d-lg-block text-center" to="/">
+		<NuxtLink class="d-none d-lg-block text-center logo" to="/">
 			<Logo />
 		</NuxtLink>
 		<!-- <ProfileHeadCard v-if="isLoggedIn" :user="user" /> -->

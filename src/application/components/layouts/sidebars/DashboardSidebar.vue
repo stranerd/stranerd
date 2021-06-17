@@ -1,6 +1,6 @@
 <template>
 	<aside class="sidebar-body gap-1">
-		<NuxtLink class="d-none d-lg-block text-center" to="/">
+		<NuxtLink class="d-none d-lg-block text-center logo" to="/">
 			<Logo />
 		</NuxtLink>
 		<div class="sidebar-links">
@@ -12,10 +12,33 @@
 				<img src="@app/assets/images/icons/questions.svg" alt="">
 				<span>Questions</span>
 			</NuxtLink>
+			<NuxtLink class="sidebar-link" to="/account">
+				<img src="@app/assets/images/icons/dashboard-icon.svg" alt="">
+				<span>Dashboard</span>
+			</NuxtLink>
+			<NuxtLink class="sidebar-link" to="/messages">
+				<img src="@app/assets/images/icons/chat.svg" alt="">
+				<span>Chat</span>
+			</NuxtLink>
+			<NuxtLink class="sidebar-link" to="/account#achievements">
+				<img src="@app/assets/images/icons/questions.svg" alt="">
+				<span>Achievement</span>
+			</NuxtLink>
+			<NuxtLink class="sidebar-link" to="/e-wallet">
+				<img src="@app/assets/images/icons/e-wallet.svg" alt="">
+				<span>e-Wallet</span>
+			</NuxtLink>
 			<NuxtLink v-if="isAdmin" class="sidebar-link" to="/admin/">
 				<img src="@app/assets/images/icons/admin.svg" alt="">
 				<span>Admin Site</span>
 			</NuxtLink>
+			<div v-if="isLoggedIn">
+				<a class="sidebar-link" @click="signout">
+					<PageLoading v-if="loading" />
+					<img src="@app/assets/images/icons/signout.svg" alt="">
+					<span>Signout</span>
+				</a>
+			</div>
 		</div>
 		<div class="sidebar-links">
 			<button v-if="isLoggedIn && !isTutor" class="sidebar-btn btn btn-blue-grey" @click="becomeNerd">
@@ -34,11 +57,13 @@
 import { defineComponent, useRouter } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useAccountModal } from '@app/hooks/core/modals'
+import { useSessionSignout } from '@app/hooks/auth/session'
 export default defineComponent({
 	name: 'DefaultSidebar',
 	setup () {
 		const router = useRouter()
 		const { isLoggedIn, isTutor, isAdmin } = useAuth()
+		const { loading, signout } = useSessionSignout()
 		const becomeNerd = () => {
 			router.push('/nerds/signup')
 		}
@@ -46,7 +71,7 @@ export default defineComponent({
 			router.push('/account/e-wallet')
 			useAccountModal().setAccountModalBuyCoins()
 		}
-		return { isLoggedIn, isTutor, isAdmin, becomeNerd, buy }
+		return { isLoggedIn, isTutor, isAdmin, becomeNerd, buy, loading, signout }
 	}
 })
 </script>

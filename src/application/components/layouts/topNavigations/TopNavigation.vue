@@ -22,11 +22,11 @@
 				</div>
 				<NotificationBell v-if="isLoggedIn" class="link" />
 				<!-- <ProfileIcon v-if="isLoggedIn" class="link" /> -->
-				<Avatar v-if="user" :src="user.avatar" :size="40" />
-				<a v-if="isLoggedIn" class="link d-none d-lg-inline" @click.prevent="signout">
+				<Avatar v-if="user" :src="user.avatar" :size="40" class="d-none-md" />
+				<!-- <a v-if="isLoggedIn" class="link d-none d-lg-inline" @click.prevent="signout">
 					<PageLoading v-if="loading" />
 					<img src="@app/assets/images/icons/signout.svg" alt="">
-				</a>
+				</a> -->
 			</template>
 		</div>
 	</nav>
@@ -69,6 +69,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.d-none-md{
+	display: none;
+		@media (max-width: $lg) {
+		display:block;
+	}
+}
 .links {
 	@media (min-width: $lg) {
 		padding: 1rem 0;
@@ -81,7 +87,7 @@ export default defineComponent({
 			height: 21px;
 		}
 		@media (min-width: $sm) {
-			padding: 0 1rem;
+			padding : 0 1rem;
 		}
 		@media (min-width: $lg) {
 			padding: 0 2rem;

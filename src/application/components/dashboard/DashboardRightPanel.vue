@@ -1,15 +1,15 @@
 <template>
 	<div>
-		<div v-if="isLoggedIn" class="d-none d-lg-block w-100">
+		<div v-if="isLoggedIn" class="d-none d-lg-block w-100 mt-2 px-1">
 			<ProfileHeadCard :user="user" />
-			<div class="thin mx-n1 my-0-25" />
 		</div>
 		<div>
 			<template v-if="isLoggedIn && ongoingAchievements.length > 0">
-				<AchievementsList class="content" />
+				<div class="thin mx-n1 my-0-25 mt-1" />
+				<DashboardRightPanelDetails class="px-1" />
 				<div class="thin mx-n1 my-0-25" />
 			</template>
-			<TopUsers class="content" />
+			<TopUsers class="content px-1 mt-1" />
 		</div>
 	</div>
 </template>
@@ -19,10 +19,11 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
 import TopUsers from '@app/components/users/rankings/TopUsers.vue'
 import ProfileHeadCard from '@app/components/users/account/ProfileHeadCard.vue'
-import AchievementsList from '@app/components/users/achievements/AchievementsList.vue'
+import DashboardRightPanelDetails from '@app/components/dashboard/DashboardRightPanelDetails.vue'
+// import AchievementsList from '@app/components/users/achievements/AchievementsList.vue' src\application\components\dashboard\DashboardRightPanelDetails.vue
 export default defineComponent({
 	name: 'DashboardRightPanel',
-	components: { TopUsers, ProfileHeadCard, AchievementsList },
+	components: { TopUsers, ProfileHeadCard, DashboardRightPanelDetails },
 	setup () {
 		const { id, isLoggedIn, user, ongoingAchievements } = useAuth()
 		return { id, isLoggedIn, user, ongoingAchievements }

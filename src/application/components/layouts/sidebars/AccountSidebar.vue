@@ -1,6 +1,6 @@
 <template>
 	<aside class="sidebar-body gap-1">
-		<NuxtLink class="d-none d-lg-block text-center" to="/">
+		<NuxtLink class="d-none d-lg-block text-center logo" to="/">
 			<Logo />
 		</NuxtLink>
 		<!-- <AccountHeadCard v-if="isLoggedIn" :user="user" /> -->
@@ -65,7 +65,7 @@ export default defineComponent({
 	// components: { AccountHeadCard },
 	setup () {
 		const router = useRouter()
-		const { isLoggedIn, user, isTutor } = useAuth()
+		const { isLoggedIn, user, isTutor, isAdmin } = useAuth()
 		const { loading, signout } = useSessionSignout()
 		const becomeNerd = () => {
 			router.push('/nerds/signup')
@@ -74,7 +74,7 @@ export default defineComponent({
 			router.push('/account/e-wallet')
 			useAccountModal().setAccountModalBuyCoins()
 		}
-		return { isLoggedIn, user, isTutor, buy, becomeNerd, loading, signout }
+		return { isLoggedIn, user, isTutor, isAdmin, buy, becomeNerd, loading, signout }
 	}
 })
 </script>

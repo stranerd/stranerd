@@ -23,7 +23,7 @@ export default defineComponent({
 	setup () {
 		const { meta, listener } = useChatsList()
 		onMounted(() => {
-			if (!listener?.value) listener?.startListener()
+			if (!listener.isRunning) listener.startListener()
 		})
 		return { meta }
 	}

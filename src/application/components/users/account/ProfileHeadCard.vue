@@ -6,10 +6,9 @@
 		<Avatar :src="user.avatar" :size="75" />
 		<span class="text-18 fw-bold">{{ user.fullName }}</span>
 		<ShowRatings v-if="user.roles.isTutor" :rating="user.averageRating" />
-		<NuxtLink to="/account/" class="btn btn-blue rounded-pill">
-			<span>View Profile</span>
-			<i class="fas fa-arrow-right ms-0-5" />
-		</NuxtLink>
+		<button to="/account/" class="btn btn-blue rounded" @click="openEditProfileModal">
+			<span>Edit Profile</span>
+		</button>
 	</div>
 </template>
 
@@ -17,6 +16,7 @@
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { UserEntity } from '@modules/users'
 import AccountCoinBalance from '@app/components/users/account/AccountCoinBalance.vue'
+import { useEditModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'ProfileHeadCard',
 	components: { AccountCoinBalance },
@@ -25,6 +25,12 @@ export default defineComponent({
 			required: true,
 			type: Object as PropType<UserEntity>
 		}
+	},
+	setup () {
+		const openEditProfileModal = () => {
+			useEditModal().setEditModalAccountProfile()
+		}
+		return { openEditProfileModal }
 	}
 })
 </script>

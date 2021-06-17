@@ -3,7 +3,6 @@
 		<NuxtLink class="d-none d-lg-block text-center logo" to="/">
 			<Logo />
 		</NuxtLink>
-		<!-- <ProfileHeadCard v-if="isLoggedIn" :user="user" /> -->
 		<div class="sidebar-links">
 			<NuxtLink class="sidebar-link" to="/dashboard">
 				<img src="@app/assets/images/icons/dashboard.svg" alt="">
@@ -57,12 +56,10 @@
 <script lang="ts">
 import { defineComponent, useRouter } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
-// import ProfileHeadCard from '@app/components/users/account/ProfileHeadCard.vue'
 import { useAccountModal } from '@app/hooks/core/modals'
 import { useSessionSignout } from '@app/hooks/auth/session'
 export default defineComponent({
 	name: 'DefaultSidebar',
-	// components: { ProfileHeadCard },
 	setup () {
 		const router = useRouter()
 		const { isLoggedIn, user, isTutor, isAdmin } = useAuth()

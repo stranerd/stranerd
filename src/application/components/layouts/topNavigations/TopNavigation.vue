@@ -20,16 +20,11 @@
 				<div class="link d-none d-md-inline-flex flex-grow-1 align-items-center border-0">
 					<SearchBar />
 				</div>
-				<<<<<<< HEAD
-				<NotificationBell v-if="isLoggedIn" class="link" />
-				<!-- <ProfileIcon v-if="isLoggedIn" class="link" /> -->
-				<Avatar v-if="user" :src="user.avatar" :size="40" class="d-none-md" />
-				<!-- <a v-if="isLoggedIn" class="link d-none d-lg-inline" @click.prevent="signout">
-=======
 				<NotificationBell class="link" />
-				<MessagesIcon class="link" />
-				<a v-if="isLoggedIn" class="link d-none d-lg-inline" @click.prevent="signout">
->>>>>>> ca1d3e5460b5c9dc56864c3442936fcf74f9ecda
+				<a v-if="isLoggedIn" class="link d-lg-none" @click="openMenu">
+					<Avatar :src="user.avatar" :size="40" />
+				</a>
+				<!-- <a v-if="isLoggedIn" class="link d-none d-lg-inline" @click.prevent="signout">
 					<PageLoading v-if="loading" />
 					<img src="@app/assets/images/icons/signout.svg" alt="">
 				</a> -->
@@ -45,7 +40,6 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { useSessionSignout } from '@app/hooks/auth/session'
 import { useChatsList } from '@app/hooks/sessions/chats-list'
 import NotificationBell from '@app/components/layouts/topNavigations/NotificationBell.vue'
-// import ProfileIcon from '@app/components/layouts/topNavigations/ProfileIcon.vue'
 export default defineComponent({
 	name: 'TopNavigation',
 	components: { SearchBar, NotificationBell },
@@ -75,30 +69,26 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.d-none-md{
-	display: none;
-		@media (max-width: $lg) {
-		display:block;
-	}
-}
 .links {
 	@media (min-width: $lg) {
 		padding: 1rem 0;
 		width: 100%;
 	}
-	// .link {
-	// 	padding: 0 0.75rem;
-	// 	& > img, /deep/ > img {
-	// 		width: 21px;
-	// 		height: 21px;
-	// 	}
-	// 	@media (min-width: $sm) {
-	// 		padding : 0 1rem;
-	// 	}
-	// 	@media (min-width: $lg) {
-	// 		padding: 0 2rem;
-	// 		border-left: 1px solid $color-blue;
-	// 	}
-	// }
+	.link {
+		padding: 0 0.75rem;
+		& > img, /deep/ > img {
+			width: 21px;
+			height: 21px;
+		}
+		@media (min-width: $sm) {
+			padding: 0 1rem;
+		}
+		@media (min-width: $lg) {
+			padding: 0 2rem;
+			& + & {
+				border-right: 1px solid $color-blue;
+			}
+		}
+	}
 }
 </style>

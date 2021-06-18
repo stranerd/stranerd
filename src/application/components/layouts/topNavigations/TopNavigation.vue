@@ -21,7 +21,7 @@
 					<SearchBar />
 				</div>
 				<NotificationBell :key="isLoggedIn" class="link" />
-				<a v-if="isLoggedIn" class="link" @click="setMenuModalRightSidebar">
+				<a v-if="isLoggedIn" class="link d-lg-none" @click="setMenuModalRightSidebar">
 					<Avatar :src="user.avatar" :size="32" />
 				</a>
 			</template>
@@ -69,7 +69,7 @@ export default defineComponent({
 		display: flex;
 		align-items: center;
 		padding: 0 0.75rem;
-		& > img, /deep/ > img {
+		& > img, /deep/ > img, /deep/ > span > img {
 			width: 24px;
 			height: 24px;
 		}

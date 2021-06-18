@@ -6,7 +6,7 @@ import {
 import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { COINS_GAP, MAXIMUM_COINS, MINIMUM_COINS, PAGINATION_LIMIT } from '@utils/constants'
 import { useAuth } from '@app/hooks/auth/auth'
-import { useModal } from '@app/hooks/core/modals'
+import { useCreateModal } from '@app/hooks/core/modals'
 import { analytics } from '@modules/core/services/initFirebase'
 
 enum Answered {
@@ -125,7 +125,7 @@ export const useCreateQuestion = () => {
 				setLoading(true)
 				const questionId = await AddQuestion.call(factory.value)
 				setMessage('Question submitted successfully')
-				useModal().removeFromStack('CreateQuestion')
+				useCreateModal().closeQuestion()
 				await router.push(`/questions/${questionId}`)
 				analytics.logEvent('ask_question_completed', {
 					questionId,

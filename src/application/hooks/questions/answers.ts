@@ -5,7 +5,7 @@ import {
 } from '@modules/questions'
 import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
-import { useModal, useCreateModal } from '@app/hooks/core/modals'
+import { useCreateModal } from '@app/hooks/core/modals'
 import { Alert } from '@app/hooks/core/notifications'
 import { analytics } from '@modules/core/services/initFirebase'
 
@@ -52,7 +52,7 @@ export const useAnswerList = (questionId: string) => {
 let answeringQuestion = null as QuestionEntity | null
 export const openAnswerModal = (question: QuestionEntity) => {
 	answeringQuestion = question
-	useCreateModal().setCreateModalAnswer()
+	useCreateModal().openAnswer()
 }
 
 export const useCreateAnswer = () => {
@@ -62,7 +62,7 @@ export const useCreateAnswer = () => {
 	const { error, setError } = useErrorHandler()
 	const { setMessage } = useSuccessHandler()
 
-	if (!answeringQuestion) useModal().removeFromStack('CreateAnswer')
+	if (!answeringQuestion) useCreateModal().closeAnswer()
 	factory.value.questionId = answeringQuestion!.id
 	factory.value.subjectId = answeringQuestion!.subjectId
 	factory.value.coins = answeringQuestion!.creditable
@@ -78,7 +78,7 @@ export const useCreateAnswer = () => {
 				await AddAnswer.call(factory.value)
 				setMessage('Answer submitted successfully.')
 				factory.value.reset()
-				useModal().removeFromStack('CreateAnswer')
+				useCreateModal().closeAnswer()
 				analytics.logEvent('answer_question_completed', {
 					questionId: answeringQuestion?.id,
 					subject: answeringQuestion?.subjectId

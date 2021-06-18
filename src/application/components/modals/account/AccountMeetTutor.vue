@@ -15,7 +15,7 @@
 <script lang="ts">
 import { defineComponent, useRouter } from '@nuxtjs/composition-api'
 import SelectSubject from '@app/components/questions/subjects/SelectSubject.vue'
-import { useModal } from '@app/hooks/core/modals'
+import { useAccountModal } from '@app/hooks/core/modals'
 import { useTutorsList } from '@app/hooks/users/roles/tutors'
 export default defineComponent({
 	name: 'AccountMeetTutor',
@@ -25,7 +25,7 @@ export default defineComponent({
 		const { subjectId } = useTutorsList()
 		const navigate = () => {
 			router.push('/nerds')
-			useModal().removeFromStack('MeetTutor')
+			useAccountModal().closeMeetTutor()
 		}
 		return { subjectId, navigate }
 	}

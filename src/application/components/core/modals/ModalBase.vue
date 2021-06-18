@@ -1,17 +1,17 @@
 <template>
 	<div>
-		<component :is="ModalTypes[id]" v-for="id in stack" :key="id" :modal="id" />
+		<component :is="modals[id]" v-for="id in stack" :key="id" :modal="id" />
 	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useModal, ModalTypes } from '@app/hooks/core/modals'
+import { modal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'ModalBase',
 	setup () {
-		const { stack } = useModal()
-		return { stack, ModalTypes }
+		const { stack, modals } = modal
+		return { stack, modals }
 	}
 })
 </script>

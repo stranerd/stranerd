@@ -1,4 +1,4 @@
-import { reqRef } from '@nuxtjs/composition-api'
+import { useModal } from '@app/hooks/core/modal'
 import CreateSubject from '@app/components/modals/create/CreateSubject.vue'
 import CreateQuestion from '@app/components/modals/create/CreateQuestion.vue'
 import CreateAnswer from '@app/components/modals/create/CreateAnswer.vue'
@@ -13,101 +13,35 @@ import MeetTutor from '@app/components/modals/account/AccountMeetTutor.vue'
 import RightSidebar from '@app/components/modals/menus/RightSidebarMenu.vue'
 import AdminSidebar from '@app/components/modals/menus/AdminSidebarMenu.vue'
 import Sidebar from '@app/components/modals/menus/SidebarMenu.vue'
-import SessionCreateSession from '@app/components/modals/sessions/SessionCreateSession.vue'
-import SessionNewSessionRequest from '@app/components/modals/sessions/SessionNewSessionRequest.vue'
-import SessionStudentCancelled from '@app/components/modals/sessions/SessionStudentCancelled.vue'
-import SessionStudentWaiting from '@app/components/modals/sessions/SessionStudentWaiting.vue'
-import SessionTutorCancelled from '@app/components/modals/sessions/SessionTutorCancelled.vue'
-import SessionUnknown from '@app/components/modals/sessions/SessionUnknown.vue'
+import CreateSession from '@app/components/modals/sessions/SessionCreateSession.vue'
+import NewSessionRequest from '@app/components/modals/sessions/SessionNewSessionRequest.vue'
+import StudentCancelled from '@app/components/modals/sessions/SessionStudentCancelled.vue'
+import StudentWaiting from '@app/components/modals/sessions/SessionStudentWaiting.vue'
+import TutorCancelled from '@app/components/modals/sessions/SessionTutorCancelled.vue'
+import Unknown from '@app/components/modals/sessions/SessionUnknown.vue'
 
-const stack = reqRef([] as string[])
+const CreateModals = { Subject: CreateSubject, Question: CreateQuestion, Answer: CreateAnswer }
+const EditModals = { Subject: EditSubject, AccountProfile: EditAccountProfile, TutorSubjects: EditTutorSubjects }
+const AccountModals = { BuyCoins, TipNerd, ReportUser, MeetTutor }
+const MenuModals = { RightSidebar, AdminSidebar, Sidebar }
+const SessionModals = { CreateSession, NewSessionRequest, StudentCancelled, StudentWaiting, TutorCancelled, Unknown }
+const PaymentModals = { MakePayment }
 
-export type ModalKey = 'CreateSubject' | 'CreateQuestion' | 'CreateAnswer' |
-'EditSubject' | 'EditAccountProfile' | 'EditTutorSubjects' |
-'BuyCoins' | 'TipNerd' | 'ReportUser' | 'MeetTutor' |
-'RightSidebar' | 'AdminSidebar' | 'Sidebar' |
-'SessionCreateSession' | 'SessionNewSessionRequest' | 'SessionStudentCancelled' | 'SessionStudentWaiting' |
-'SessionTutorCancelled' | 'SessionUnknown' | 'MakePayment'
+type ModalTypes = 'Create' | 'Edit' | 'Account' | 'Menu' | 'Session' | 'Payment'
 
-export const ModalTypes = {
-	CreateSubject, CreateQuestion, CreateAnswer,
-	EditSubject, EditAccountProfile, EditTutorSubjects,
-	MakePayment,
-	BuyCoins, TipNerd, ReportUser, MeetTutor,
-	RightSidebar, AdminSidebar, Sidebar,
-	SessionCreateSession, SessionNewSessionRequest, SessionStudentCancelled,
-	SessionStudentWaiting, SessionTutorCancelled, SessionUnknown
-} as Record<ModalKey, any>
+export const modal = useModal<ModalTypes>({
+	Create: CreateModals, Edit: EditModals, Account: AccountModals,
+	Menu: MenuModals, Session: SessionModals, Payment: PaymentModals
+})
 
-const addToStack = (id: ModalKey) => {
-	removeFromStack(id)
-	stack.value.push(id)
-}
+export const useCreateModal = () => modal.getModalHelpers(CreateModals, 'Create')
 
-const removeFromStack = (id: ModalKey) => {
-	const index = stack.value.findIndex((i) => i === id)
-	if (index > -1) stack.value.splice(index)
-}
+export const useEditModal = () => modal.getModalHelpers(EditModals, 'Edit')
 
-export const useModal = () => {
-	return { stack, addToStack, removeFromStack }
-}
+export const useAccountModal = () => modal.getModalHelpers(AccountModals, 'Account')
 
-export const useCreateModal = () => {
-	return {
-		setCreateModalSubject: () => addToStack('CreateSubject'),
-		setCreateModalQuestion: () => addToStack('CreateQuestion'),
-		setCreateModalAnswer: () => addToStack('CreateAnswer')
-	}
-}
+export const useMenuModal = () => modal.getModalHelpers(MenuModals, 'Menu')
 
-export const useEditModal = () => {
-	return {
-		setEditModalSubject: () => addToStack('EditSubject'),
-		setEditModalTutorSubjects: () => addToStack('EditTutorSubjects'),
-		setEditModalAccountProfile: () => addToStack('EditAccountProfile')
-	}
-}
+export const useSessionModal = () => modal.getModalHelpers(SessionModals, 'Session')
 
-export const useAccountModal = () => {
-	return {
-		setAccountModalBuyCoins: () => addToStack('BuyCoins'),
-		setAccountModalTipNerd: () => addToStack('TipNerd'),
-		setAccountModalReportUser: () => addToStack('ReportUser'),
-		setAccountModalMeetTutor: () => addToStack('MeetTutor')
-	}
-}
-
-export const useMenuModal = () => {
-	return {
-		setMenuModalSidebar: () => addToStack('Sidebar'),
-		setMenuModalRightSidebar: () => addToStack('RightSidebar'),
-		setMenuModalAdminSidebar: () => addToStack('AdminSidebar')
-	}
-}
-
-export const useSessionModal = () => {
-	return {
-		setSessionModalCreateSession: () => addToStack('SessionCreateSession'),
-		setSessionModalNewSessionRequest: () => addToStack('SessionNewSessionRequest'),
-		setSessionModalStudentWaiting: () => addToStack('SessionStudentWaiting'),
-		setSessionModalTutorCancelled: () => addToStack('SessionTutorCancelled'),
-		setSessionModalStudentCancelled: () => addToStack('SessionStudentCancelled'),
-		setSessionModalUnknown: () => addToStack('SessionUnknown'),
-
-		closeModals: () => {
-			removeFromStack('SessionCreateSession')
-			removeFromStack('SessionNewSessionRequest')
-			removeFromStack('SessionStudentWaiting')
-			removeFromStack('SessionStudentCancelled')
-			removeFromStack('SessionTutorCancelled')
-			removeFromStack('SessionUnknown')
-		}
-	}
-}
-
-export const usePaymentModal = () => {
-	return {
-		setPaymentModalMakePayment: () => addToStack('MakePayment')
-	}
-}
+export const usePaymentModal = () => modal.getModalHelpers(PaymentModals, 'Payment')

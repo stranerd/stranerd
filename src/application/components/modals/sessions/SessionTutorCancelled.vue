@@ -16,13 +16,13 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useModal } from '@app/hooks/core/modals'
+import { useSessionModal } from '@app/hooks/core/modals'
 import { useCurrentSession } from '@app/hooks/sessions/session'
 export default defineComponent({
 	name: 'SessionTutorCancelled',
 	setup () {
 		const { clone: currentSession, otherParticipant } = useCurrentSession()
-		const closeModal = () => useModal().removeFromStack('SessionTutorCancelled')
+		const closeModal = useSessionModal().closeTutorCancelled
 		return { currentSession, otherParticipant, closeModal }
 	}
 })

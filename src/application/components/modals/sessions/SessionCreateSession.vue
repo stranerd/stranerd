@@ -37,8 +37,7 @@ export default defineComponent({
 	name: 'SessionCreateSession',
 	setup () {
 		const { user } = useAuth()
-		const { setAccountModalBuyCoins } = useAccountModal()
-		const buy = () => setAccountModalBuyCoins()
+		const buy = useAccountModal().openBuyCoins
 		const { prices, factory, loading, error, createSession } = useCreateSession()
 		onMounted(() => {
 			analytics.logEvent('view_session_request')

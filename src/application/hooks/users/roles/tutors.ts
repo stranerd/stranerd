@@ -106,7 +106,7 @@ export const useTutorRoles = () => {
 			if (tutor) {
 				pushToTutorsList(tutor)
 				setCurrentTutor(tutor)
-				useEditModal().setEditModalTutorSubjects()
+				useEditModal().openTutorSubjects()
 			}
 		} catch (error) { setError(error) }
 		setLoading(false)

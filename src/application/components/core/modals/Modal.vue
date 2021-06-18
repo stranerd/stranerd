@@ -25,12 +25,12 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
-import { ModalKey, useModal } from '@app/hooks/core/modals'
+import { modal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'Modal',
 	props: {
 		modal: {
-			type: String as PropType<ModalKey>,
+			type: String,
 			required: true
 		},
 		close: {
@@ -51,7 +51,7 @@ export default defineComponent({
 	},
 	setup (props) {
 		const closeModal = () => {
-			useModal().removeFromStack(props.modal)
+			modal.removeFromStack(props.modal)
 			props.close?.()
 		}
 		return { closeModal }

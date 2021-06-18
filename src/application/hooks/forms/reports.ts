@@ -1,7 +1,7 @@
 import { ssrRef, watch } from '@nuxtjs/composition-api'
 import { ReportFactory, AddReport } from '@modules/forms'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
-import { useModal } from '@app/hooks/core/modals'
+import { useAccountModal } from '@app/hooks/core/modals'
 import { useAuth } from '@app/hooks/auth/auth'
 import { UserBio } from '@modules/users'
 
@@ -28,7 +28,7 @@ export const useCreateReport = () => {
 			try {
 				setLoading(true)
 				await AddReport.call(factory.value)
-				useModal().removeFromStack('ReportUser')
+				useAccountModal().closeReportUser()
 				factory.value.reset()
 				setMessage('Report sent successfully')
 			} catch (error) { setError(error) }

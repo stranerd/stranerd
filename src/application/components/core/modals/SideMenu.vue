@@ -13,19 +13,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from '@nuxtjs/composition-api'
-import { ModalKey, useModal } from '@app/hooks/core/modals'
+import { defineComponent } from '@nuxtjs/composition-api'
+import { modal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'SideMenu',
 	props: {
 		modal: {
-			type: String as PropType<ModalKey>,
+			type: String,
 			required: true
 		}
 	},
 	setup (props) {
-		const close = () => useModal().removeFromStack(props.modal)
-		return { close }
+		return { close: () => modal.removeFromStack(props.modal) }
 	}
 })
 </script>

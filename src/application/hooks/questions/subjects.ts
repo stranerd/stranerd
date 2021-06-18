@@ -3,7 +3,7 @@ import {
 	GetSubjects, AddSubject, FindSubject, DeleteSubject,
 	UpdateSubject, SubjectEntity, SubjectFactory
 } from '@modules/questions'
-import { useModal } from '@app/hooks/core/modals'
+import { useCreateModal, useEditModal } from '@app/hooks/core/modals'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { Alert } from '@app/hooks/core/notifications'
 
@@ -65,7 +65,7 @@ export const useCreateSubject = () => {
 				const subject = await FindSubject.call(id) ?? undefined
 				if (subject) pushToGlobalSubjects(subject)
 				factory.value.reset()
-				useModal().removeFromStack('CreateSubject')
+				useCreateModal().closeSubject()
 				setMessage('Subject created successfully')
 			} catch (error) { setError(error) }
 			setLoading(false)
@@ -125,7 +125,7 @@ export const useEditSubject = (subject = currentSubject) => {
 					if (s) pushToGlobalSubjects(s)
 				}
 				factory.value.reset()
-				useModal().removeFromStack('EditSubject')
+				useEditModal().closeSubject()
 				setMessage('Subject updated successfully')
 			} catch (error) { setError(error) }
 			setLoading(false)

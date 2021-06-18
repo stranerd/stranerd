@@ -21,7 +21,7 @@
 
 <script lang="ts">
 import { defineComponent, onMounted } from '@nuxtjs/composition-api'
-import { useModal } from '@app/hooks/core/modals'
+import { useAccountModal } from '@app/hooks/core/modals'
 import { useTipNerd } from '@app/hooks/users/account'
 import { useAuth } from '@app/hooks/auth/auth'
 import { formatNumber } from '@utils/commons'
@@ -33,7 +33,7 @@ export default defineComponent({
 	setup () {
 		const { user } = useAuth()
 		const { loading, error, nerdBioAndId, TIP_AMOUNTS, tipNerd } = useTipNerd()
-		const openBuyCoins = () => useModal().addToStack('BuyCoins')
+		const openBuyCoins = useAccountModal().openBuyCoins
 		onMounted(() => {
 			analytics.logEvent('tip_nerd_start')
 		})

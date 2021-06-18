@@ -13,9 +13,9 @@
   "main": "lib/index.js",
   "dependencies": {
     "@google-cloud/tasks": "^2.3.2",
-    "algoliasearch": "^4.9.2",
+    "algoliasearch": "^4.9.3",
     "axios": "^0.21.1",
-    "braintree": "^3.5.0",
+    "braintree": "^3.6.0",
     "email-templates": "^8.0.7",
     "firebase-admin": "^9.9.0",
     "firebase-functions": "^3.14.1",

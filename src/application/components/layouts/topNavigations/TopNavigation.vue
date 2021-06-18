@@ -6,7 +6,7 @@
 		<NuxtLink v-if="!showSearch" to="/" :class="{ 'd-lg-none': !full }">
 			<Logo />
 		</NuxtLink>
-		<div class="links ms-auto d-flex align-items-center">
+		<div class="links ms-auto d-flex">
 			<template v-if="showSearch">
 				<a class="me-0-5" @click.prevent="showSearch = false">
 					<i class="fas fa-times" />
@@ -15,16 +15,14 @@
 			</template>
 			<template v-else>
 				<a class="link d-md-none">
-					<img src="@app/assets/images/icons/search.svg" alt="" @click="showSearch = true">
+					<img class="filter" src="@app/assets/images/icons/search.svg" alt="" @click="showSearch = true">
 				</a>
 				<div class="link d-none d-md-inline-flex flex-grow-1 align-items-center border-0">
 					<SearchBar />
 				</div>
-				<NotificationBell class="link" />
-				<MessagesIcon class="link" />
-				<a v-if="isLoggedIn" class="link d-none d-lg-inline" @click.prevent="signout">
-					<PageLoading v-if="loading" />
-					<img src="@app/assets/images/icons/signout.svg" alt="">
+				<NotificationBell :key="isLoggedIn" class="link" />
+				<a v-if="isLoggedIn" class="link" @click="setMenuModalRightSidebar">
+					<Avatar :src="user.avatar" :size="32" />
 				</a>
 			</template>
 		</div>
@@ -32,16 +30,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from '@nuxtjs/composition-api'
+import { defineComponent, ref } from '@nuxtjs/composition-api'
 import SearchBar from '@app/components/search/SearchBar.vue'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useSessionSignout } from '@app/hooks/auth/session'
-import { useChatsList } from '@app/hooks/sessions/chats-list'
 import NotificationBell from '@app/components/layouts/topNavigations/NotificationBell.vue'
-import MessagesIcon from '@app/components/layouts/topNavigations/MessagesIcon.vue'
+import { useMenuModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'TopNavigation',
-	components: { SearchBar, NotificationBell, MessagesIcon },
+	components: { SearchBar, NotificationBell },
 	props: {
 		full: {
 			type: Boolean,
@@ -54,15 +51,10 @@ export default defineComponent({
 	},
 	setup () {
 		const showSearch = ref(false)
-		const { isLoggedIn } = useAuth()
+		const { isLoggedIn, user } = useAuth()
+		const { setMenuModalRightSidebar } = useMenuModal()
 		const { loading, signout } = useSessionSignout()
-		onMounted(() => {
-			if (isLoggedIn) {
-				const messageListener = useChatsList().listener
-				if (messageListener && !messageListener.value) messageListener.startListener()
-			}
-		})
-		return { showSearch, isLoggedIn, loading, signout }
+		return { showSearch, isLoggedIn, user, setMenuModalRightSidebar, loading, signout }
 	}
 })
 </script>
@@ -74,10 +66,12 @@ export default defineComponent({
 		width: 100%;
 	}
 	.link {
+		display: flex;
+		align-items: center;
 		padding: 0 0.75rem;
 		& > img, /deep/ > img {
-			width: 21px;
-			height: 21px;
+			width: 24px;
+			height: 24px;
 		}
 		@media (min-width: $sm) {
 			padding: 0 1rem;

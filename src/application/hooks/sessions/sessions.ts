@@ -5,6 +5,7 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useSessionModal } from '@app/hooks/core/modals'
 import { Alert } from '@app/hooks/core/notifications'
+import { analytics } from '@modules/core/services/initFirebase'
 
 const SESSION_PRICES = {
 	15: 10,
@@ -43,10 +44,12 @@ export const useCreateSession = () => {
 		if (factory.value.valid && hasEnoughCoins && !loading.value) {
 			try {
 				setLoading(true)
+				const sessionId = await AddSession.call(factory.value)
 				await AddSession.call(factory.value)
 				useSessionModal().closeModals()
 				factory.value.reset()
 				setMessage('Session request successful.')
+				analytics.logEvent('session_request', { sessionId })
 			} catch (error) { setError(error) }
 			setLoading(false)
 		} else factory.value.validateAll()
@@ -97,6 +100,7 @@ export const useSession = () => {
 				setLoading(true)
 				if (currentSessionId.value) await BeginSession.call(currentSessionId.value)
 				useSessionModal().closeModals()
+				analytics.logEvent('session_accepted', { sessionId: currentSessionId.value })
 			} catch (error) { setError(error) }
 			setLoading(false)
 		}

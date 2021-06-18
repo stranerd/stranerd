@@ -25,7 +25,7 @@ export default defineComponent({
 	setup () {
 		const { notifications, error, loading, listener, hasMore, fetchOlderNotifications } = useNotificationList()
 		onMounted(() => {
-			if (!listener.value) listener.startListener()
+			if (!listener.isRunning) listener.startListener()
 		})
 		return { notifications, error, loading, hasMore, fetchOlderNotifications }
 	}

@@ -7,6 +7,7 @@ import { BuyCoins, TipNerd } from '@modules/payment'
 import { UserBio } from '@modules/users'
 import { setPaymentProps } from '@app/hooks/payment/payment'
 import { Alert } from '@app/hooks/core/notifications'
+import { analytics } from '@modules/core/services/initFirebase'
 
 export const useUpdateProfile = () => {
 	const factory = ssrRef(new ProfileUpdateFactory()) as Ref<ProfileUpdateFactory>
@@ -61,6 +62,11 @@ export const useBuyCoins = () => {
 	const { message, setMessage } = useSuccessHandler()
 
 	const buyCoins = async (option: typeof BRONZE_PRICES[0], isGold: boolean) => {
+		analytics.logEvent('buy_coins_end', {
+			amount: option.amount,
+			price: option.price,
+			isGold
+		})
 		await setPaymentProps({
 			amount: option.price,
 			afterPayment: async (res: boolean) => {
@@ -114,6 +120,7 @@ export const useTipNerd = () => {
 					await TipNerd.call(amount, nerdBioAndId!.id)
 					useModal().removeFromStack('TipNerd')
 					setMessage('Tipped successfully')
+					analytics.logEvent('tip_nerd_completed', { amount })
 				} catch (e) { setError(e) }
 				setLoading(false)
 			}

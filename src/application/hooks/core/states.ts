@@ -1,6 +1,7 @@
 import { ssrRef } from '@nuxtjs/composition-api'
 import { Notify } from '@app/hooks/core/notifications'
 import { isClient } from '@utils/environment'
+import { analytics } from '@modules/core/services/initFirebase'
 
 export const useErrorHandler = () => {
 	const errorState = ssrRef('')
@@ -9,6 +10,9 @@ export const useErrorHandler = () => {
 		if (isClient() && errorState.value) Notify({
 			title: errorState.value,
 			icon: 'error'
+		})
+		if (errorState.value) analytics.logEvent('error', {
+			error: errorState.value
 		})
 	}
 	return { error: errorState, setError }
@@ -34,14 +38,21 @@ export const useLoadingHandler = () => {
 
 export const useListener = (start: () => Promise<() => void>) => {
 	let listener = null as null | (() => void)
-	const startListener = async () => listener = await start()
-	const closeListener = () => listener?.()
+	let isRunning = false
+	const startListener = async () => {
+		listener = await start()
+		isRunning = true
+	}
+	const closeListener = () => {
+		listener?.()
+		isRunning = false
+	}
 	const resetListener = async (reset: () => Promise<() => void>) => {
 		start = reset
-		if (listener) {
+		if (isRunning) {
 			closeListener()
 			await startListener()
 		}
 	}
-	return { startListener, closeListener, resetListener, value: listener }
+	return { startListener, closeListener, resetListener, isRunning }
 }

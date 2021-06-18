@@ -20,12 +20,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, onMounted } from '@nuxtjs/composition-api'
 import { useModal } from '@app/hooks/core/modals'
 import { useTipNerd } from '@app/hooks/users/account'
 import { useAuth } from '@app/hooks/auth/auth'
 import { formatNumber } from '@utils/commons'
 import AccountCoinBalance from '@app/components/users/account/AccountCoinBalance.vue'
+import { analytics } from '@modules/core/services/initFirebase'
 export default defineComponent({
 	name: 'AccountTipNerd',
 	components: { AccountCoinBalance },
@@ -33,6 +34,9 @@ export default defineComponent({
 		const { user } = useAuth()
 		const { loading, error, nerdBioAndId, TIP_AMOUNTS, tipNerd } = useTipNerd()
 		const openBuyCoins = () => useModal().addToStack('BuyCoins')
+		onMounted(() => {
+			analytics.logEvent('tip_nerd_start')
+		})
 		return {
 			user, formatNumber, TIP_AMOUNTS,
 			loading, error, nerdBioAndId,

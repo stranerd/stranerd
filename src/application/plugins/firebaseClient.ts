@@ -10,13 +10,8 @@ export default defineNuxtPlugin(async ({ app }) => {
 		.setPersistence(firebase.auth.Auth.Persistence.NONE)
 		.catch(() => {})
 
-	const { id, currentSessionId, isLoggedIn, token, startProfileListener, signout } = useAuth()
-	if (isLoggedIn.value && token.value) {
-		try {
-			await firebase.auth().signInWithCustomToken(token.value)
-			await startProfileListener()
-		} catch (error) { await signout() }
-	}
+	const { id, currentSessionId, isLoggedIn, signin } = useAuth()
+	if (isLoggedIn.value) await signin(true)
 
 	onGlobalSetup(async () => {
 		await setSession(id.value, currentSessionId.value, router)

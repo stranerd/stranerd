@@ -10,7 +10,7 @@ import BuyCoins from '@app/components/modals/account/AccountBuyCoins.vue'
 import TipNerd from '@app/components/modals/account/AccountTipNerd.vue'
 import ReportUser from '@app/components/modals/account/AccountReportUser.vue'
 import MeetTutor from '@app/components/modals/account/AccountMeetTutor.vue'
-import AccountSidebar from '@app/components/modals/menus/AccountSidebarMenu.vue'
+import RightSidebar from '@app/components/modals/menus/RightSidebarMenu.vue'
 import AdminSidebar from '@app/components/modals/menus/AdminSidebarMenu.vue'
 import Sidebar from '@app/components/modals/menus/SidebarMenu.vue'
 import SessionCreateSession from '@app/components/modals/sessions/SessionCreateSession.vue'
@@ -25,7 +25,7 @@ const stack = reqRef([] as string[])
 export type ModalKey = 'CreateSubject' | 'CreateQuestion' | 'CreateAnswer' |
 'EditSubject' | 'EditAccountProfile' | 'EditTutorSubjects' |
 'BuyCoins' | 'TipNerd' | 'ReportUser' | 'MeetTutor' |
-'AccountSidebar' | 'AdminSidebar' | 'Sidebar' |
+'RightSidebar' | 'AdminSidebar' | 'Sidebar' |
 'SessionCreateSession' | 'SessionNewSessionRequest' | 'SessionStudentCancelled' | 'SessionStudentWaiting' |
 'SessionTutorCancelled' | 'SessionUnknown' | 'MakePayment'
 
@@ -34,7 +34,7 @@ export const ModalTypes = {
 	EditSubject, EditAccountProfile, EditTutorSubjects,
 	MakePayment,
 	BuyCoins, TipNerd, ReportUser, MeetTutor,
-	AccountSidebar, AdminSidebar, Sidebar,
+	RightSidebar, AdminSidebar, Sidebar,
 	SessionCreateSession, SessionNewSessionRequest, SessionStudentCancelled,
 	SessionStudentWaiting, SessionTutorCancelled, SessionUnknown
 } as Record<ModalKey, any>
@@ -81,7 +81,7 @@ export const useAccountModal = () => {
 export const useMenuModal = () => {
 	return {
 		setMenuModalSidebar: () => addToStack('Sidebar'),
-		setMenuModalAccountSidebar: () => addToStack('AccountSidebar'),
+		setMenuModalRightSidebar: () => addToStack('RightSidebar'),
 		setMenuModalAdminSidebar: () => addToStack('AdminSidebar')
 	}
 }

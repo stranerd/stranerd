@@ -7,6 +7,7 @@ import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } fr
 import { useAuth } from '@app/hooks/auth/auth'
 import { useModal, useCreateModal } from '@app/hooks/core/modals'
 import { Alert } from '@app/hooks/core/notifications'
+import { analytics } from '@modules/core/services/initFirebase'
 
 const global = {} as Record<string, {
 	answers: Ref<AnswerEntity[]>,
@@ -78,13 +79,17 @@ export const useCreateAnswer = () => {
 				setMessage('Answer submitted successfully.')
 				factory.value.reset()
 				useModal().removeFromStack('CreateAnswer')
+				analytics.logEvent('answer_question_completed', {
+					questionId: answeringQuestion?.id,
+					subject: answeringQuestion?.subjectId
+				})
 			} catch (error) { setError(error) }
 			setLoading(false)
 		} else factory.value.validateAll()
 	}
 
 	return {
-		factory, error, loading,
+		factory, error, loading, answeringQuestion,
 		createAnswer
 	}
 }

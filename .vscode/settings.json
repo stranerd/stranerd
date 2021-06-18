@@ -1,17 +1,8 @@
 {
     "editor.formatOnSave": true,
-    "[vue]": {
-      "editor.formatOnSave": false
-    },
-    "[javascript]": {
-      "editor.formatOnSave": false
-    },
-    "[typescript]": {
-      "editor.formatOnSave": false
-    },
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": true
     },
     "eslint.alwaysShowStatus": true,
-    "svg.preview.background": "transparent",
+    "svg.preview.background": "transparent"
    }

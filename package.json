@@ -81,12 +81,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kevinand11/ss-nuxt.git"
+    "url": "git+https://github.com/stranerd/stranerd.git"
   },
   "author": "Kevin Izuchukwu",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/kevinand11/ss-nuxt/issues"
+    "url": "https://github.com/stranerd/stranerd/issues"
   },
-  "homepage": "https://github.com/kevinand11/ss-nuxt#readme"
+  "homepage": "https://github.com/stranerd/stranerd#readme"
 }

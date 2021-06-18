@@ -18,7 +18,7 @@ export default defineComponent({
 		const { meta, listener } = useChatsList()
 		const unreadMessages = computed({
 			get: () => meta.value
-				.map((m) => Object.values(m.unRead))
+				.map((m) => Object.values(m.unRead).length)
 				.filter((c) => !!c).length,
 			set: () => {}
 		})

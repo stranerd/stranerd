@@ -10,7 +10,7 @@ export class EmailSignupFactory extends BaseFactory<null, AuthUser, Keys> {
 	readonly rules = {
 		email: { required: true, rules: [isEmail] },
 		password: { required: true, rules: [isLongerThan5, isShorterThan17] },
-		cPassword: { required: true, rules: [(value: string) => isShallowEqualTo(value, this.password), isLongerThan5, isShorterThan17] }
+		cPassword: { required: true, rules: [(value: string) => isShallowEqualTo(value, this.password)] }
 	}
 
 	constructor () {
@@ -22,7 +22,7 @@ export class EmailSignupFactory extends BaseFactory<null, AuthUser, Keys> {
 	get email () { return this.values.email }
 	set email (value: string) { this.set('email', value) }
 	get password () { return this.values.password }
-	set password (value: string) { this.set('password', value) }
+	set password (value: string) { this.set('password', value); this.set('cPassword', value) }
 	get cPassword () { return this.values.cPassword }
 	set cPassword (value: string) { this.set('cPassword', value) }
 

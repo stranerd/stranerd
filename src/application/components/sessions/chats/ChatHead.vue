@@ -77,7 +77,7 @@ export default defineComponent({
 		})
 		const requestNewSession = () => {
 			setNewSessionTutorIdBio({ id: props.user.id, user: props.user.userBio })
-			useSessionModal().setSessionModalCreateSession()
+			useSessionModal().openCreateSession()
 			show.value = false
 		}
 		const { cancelSession: c, loading, error } = useSession()
@@ -92,12 +92,12 @@ export default defineComponent({
 		}
 		const reportUser = () => {
 			setReportedBioAndId({ id: props.user.id, bio: props.user.userBio })
-			useAccountModal().setAccountModalReportUser()
+			useAccountModal().openReportUser()
 			show.value = false
 		}
 		const tipUser = () => {
 			setNerdBioAndId({ id: props.user.id, bio: props.user.userBio })
-			useAccountModal().setAccountModalTipNerd()
+			useAccountModal().openTipNerd()
 			show.value = false
 		}
 		return {

@@ -36,7 +36,7 @@ export default defineComponent({
 		const { loading, error, deleteSubject } = useDeleteSubject(props.subject)
 		const openEditModal = () => {
 			setCurrentSubject(props.subject)
-			useEditModal().setEditModalSubject()
+			useEditModal().openSubject()
 		}
 		return { loading, error, deleteSubject, openEditModal }
 	}

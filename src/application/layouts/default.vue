@@ -1,7 +1,7 @@
 <template>
 	<section class="layout-body">
 		<main class="layout-main">
-			<TopNavigation :full="true" :open-menu="setMenuModalSidebar" />
+			<TopNavigation :full="true" :open-menu="openSidebar" />
 			<div class="content">
 				<Nuxt class="layout-content" />
 			</div>
@@ -20,8 +20,8 @@ export default defineComponent({
 		TopNavigation
 	},
 	setup () {
-		const { setMenuModalSidebar } = useMenuModal()
-		return { setMenuModalSidebar }
+		const { openSidebar } = useMenuModal()
+		return { openSidebar }
 	}
 })
 </script>

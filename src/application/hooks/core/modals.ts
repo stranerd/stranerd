@@ -20,28 +20,28 @@ import StudentWaiting from '@app/components/modals/sessions/SessionStudentWaitin
 import TutorCancelled from '@app/components/modals/sessions/SessionTutorCancelled.vue'
 import Unknown from '@app/components/modals/sessions/SessionUnknown.vue'
 
+type EditTypes = 'Subject' | 'AccountProfile' | 'TutorSubjects'
+type AccountTypes = 'BuyCoins' | 'TipNerd' | 'ReportUser' | 'MeetTutor'
+type SessionTypes = 'CreateSession' | 'NewSessionRequest' | 'StudentCancelled' | 'StudentWaiting' | 'TutorCancelled' | 'Unknown'
+
 const CreateModals = { Subject: CreateSubject, Question: CreateQuestion, Answer: CreateAnswer }
-const EditModals = { Subject: EditSubject, AccountProfile: EditAccountProfile, TutorSubjects: EditTutorSubjects }
-const AccountModals = { BuyCoins, TipNerd, ReportUser, MeetTutor }
+const EditModals = { Subject: EditSubject, AccountProfile: EditAccountProfile, TutorSubjects: EditTutorSubjects } as Record<EditTypes, any>
+const AccountModals = { BuyCoins, TipNerd, ReportUser, MeetTutor } as Record<AccountTypes, any>
 const MenuModals = { RightSidebar, AdminSidebar, Sidebar }
-const SessionModals = { CreateSession, NewSessionRequest, StudentCancelled, StudentWaiting, TutorCancelled, Unknown }
+const SessionModals = { CreateSession, NewSessionRequest, StudentCancelled, StudentWaiting, TutorCancelled, Unknown } as Record<SessionTypes, any>
 const PaymentModals = { MakePayment }
 
-type ModalTypes = 'Create' | 'Edit' | 'Account' | 'Menu' | 'Session' | 'Payment'
+export const modal = useModal()
+const createModal = modal.register('Create', CreateModals)
+const editModal = modal.register('Edit', EditModals)
+const accountModal = modal.register('Account', AccountModals)
+const menuModal = modal.register('Menu', MenuModals)
+const sessionModal = modal.register('Session', SessionModals)
+const paymentModal = modal.register('Payment', PaymentModals)
 
-export const modal = useModal<ModalTypes>({
-	Create: CreateModals, Edit: EditModals, Account: AccountModals,
-	Menu: MenuModals, Session: SessionModals, Payment: PaymentModals
-})
-
-export const useCreateModal = () => modal.getModalHelpers(CreateModals, 'Create')
-
-export const useEditModal = () => modal.getModalHelpers(EditModals, 'Edit')
-
-export const useAccountModal = () => modal.getModalHelpers(AccountModals, 'Account')
-
-export const useMenuModal = () => modal.getModalHelpers(MenuModals, 'Menu')
-
-export const useSessionModal = () => modal.getModalHelpers(SessionModals, 'Session')
-
-export const usePaymentModal = () => modal.getModalHelpers(PaymentModals, 'Payment')
+export const useCreateModal = () => createModal
+export const useEditModal = () => editModal
+export const useAccountModal = () => accountModal
+export const useMenuModal = () => menuModal
+export const useSessionModal = () => sessionModal
+export const usePaymentModal = () => paymentModal

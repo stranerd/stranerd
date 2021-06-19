@@ -4,7 +4,7 @@
 			<AdminSidebar />
 		</section>
 		<main class="layout-main">
-			<TopNavigation :open-menu="setMenuModalAdminSidebar" />
+			<TopNavigation :open-menu="openAdminSidebar" />
 			<Nuxt class="layout-content" />
 		</main>
 		<ModalBase />
@@ -24,8 +24,8 @@ export default defineComponent({
 	},
 	middleware: ['isAdmin'],
 	setup () {
-		const { setMenuModalAdminSidebar } = useMenuModal()
-		return { setMenuModalAdminSidebar }
+		const { openAdminSidebar } = useMenuModal()
+		return { openAdminSidebar }
 	}
 })
 </script>

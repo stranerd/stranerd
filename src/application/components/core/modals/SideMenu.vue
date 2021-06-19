@@ -24,7 +24,7 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
-		return { close: () => modal.removeFromStack(props.modal) }
+		return { close: () => modal.close(props.modal) }
 	}
 })
 </script>

@@ -1,37 +1,44 @@
 import { reqRef } from '@nuxtjs/composition-api'
-import { VueConstructor } from 'vue/types/umd'
+import { VueConstructor as Vue } from 'vue/types/umd'
 
-const stack = reqRef([] as string[])
-
-function spreadModals<T> (modals: Record<string, T>, type: string) {
-	return Object.fromEntries(Object.entries(modals).map(([key, val]) => [type + key, val]))
+const global = {
+	stack: reqRef([] as string[]),
+	modals: reqRef({} as Record<string, Vue>)
 }
 
-export function useModal<Type extends string, Key extends string = string> (modalTypes: Record<Type, Record<Key, VueConstructor>>) {
-	const modals = Object.entries<Record<Key, VueConstructor>>(modalTypes)
-		.map(([type, modals]) => spreadModals(modals, type))
-		.reduce((acc, cur) => ({ ...acc, ...cur }), {})
+const capitalize = (text: string) => (text[0] ?? '').toUpperCase() + text.slice(1)
+const merge = (type: string, key: string) => type + key
 
-	function addToStack (id: string) {
-		removeFromStack(id)
-		if (Object.keys(modals).includes(id)) stack.value.push(id)
+function spreadModals<T> (type: string, modals: Record<string, T>) {
+	return Object.fromEntries(Object.entries(modals).map(([key, val]) => [merge(type, key), val]))
+}
+
+export const useModal = () => {
+	const open = (id: string) => {
+		close(id)
+		if (Object.keys(global.modals.value).includes(id)) global.stack.value.push(id)
 	}
 
-	function removeFromStack (id: string) {
-		const index = stack.value.findIndex((i) => i === id)
-		if (index > -1) stack.value.splice(index)
+	const close = (id: string) => {
+		const index = global.stack.value.findIndex((i) => i === id)
+		if (index > -1) global.stack.value.splice(index)
 	}
 
-	function getModalHelpers<K extends string = string, T = any> (modals: Record<K, T>, type: Type) {
-		const helpers = Object.fromEntries(Object.keys(modals).map((key) => [
-			[[`open${key}`], () => addToStack(type + key)],
-			[[`close${key}`], () => removeFromStack(type + key)]
-		]).reduce((acc, curr) => acc.concat(curr), [])) as Record<`open${K}` | `close${K}`, () => void>
+	function register<Key extends string> (type: string, modals: Record<Key, Vue>) {
+		global.modals.value = { ...global.modals.value, ...spreadModals(type, modals) }
+		const helpers = Object.fromEntries(
+			Object.keys(modals)
+				.map(capitalize)
+				.map((key) => [
+					[[`open${key}`], () => open(merge(type, key))],
+					[[`close${key}`], () => close(merge(type, key))]
+				]).reduce((acc, curr) => acc.concat(curr), [])
+		) as Record<`open${Capitalize<Key>}` | `close${Capitalize<Key>}`, () => void>
 
-		const closeAll = () => Object.keys(modals).forEach((key) => removeFromStack(type + key))
+		const closeAll = () => Object.keys(modals).forEach((key) => close(merge(type, key)))
 
 		return { ...helpers, closeAll }
 	}
 
-	return { stack, addToStack, removeFromStack, modals, getModalHelpers }
+	return { ...global, open, close, register }
 }

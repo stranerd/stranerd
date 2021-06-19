@@ -51,7 +51,7 @@ export default defineComponent({
 	},
 	setup (props) {
 		const closeModal = () => {
-			modal.removeFromStack(props.modal)
+			modal.close(props.modal)
 			props.close?.()
 		}
 		return { closeModal }

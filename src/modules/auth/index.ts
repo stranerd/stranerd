@@ -15,7 +15,6 @@ import { ProfileUpdateFactory } from './domain/factories/profileUpdate'
 import { EmailSigninFactory } from './domain/factories/emailSignin'
 import { EmailSignupFactory } from './domain/factories/emailSignup'
 import { PasswordResetFactory } from './domain/factories/passwordReset'
-import { PasswordUpdateFactory } from './domain/factories/passwordUpdate'
 
 const authDataSource = new AuthFirebaseDataSource()
 
@@ -32,4 +31,4 @@ export const UpdateProfile = new UpdateProfileUseCase(authRepository)
 export const SessionSignin = new SessionSigninUseCase(authRepository)
 export const SessionSignout = new SessionSignoutUseCase(authRepository)
 
-export { EmailLinkSigninFactory, ProfileUpdateFactory, EmailSigninFactory, EmailSignupFactory, PasswordUpdateFactory, PasswordResetFactory }
+export { EmailLinkSigninFactory, ProfileUpdateFactory, EmailSigninFactory, EmailSignupFactory, PasswordResetFactory }

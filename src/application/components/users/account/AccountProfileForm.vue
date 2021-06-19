@@ -45,20 +45,6 @@
 				Fill this if you want to update your password
 			</p>
 			<div class="form-group my-1">
-				<label class="label d-flex gap-0-5 align-items-end" for="oldPassword">
-					<span>Old Password</span>
-					<a class="label-sm ms-auto" @click.prevent="toggle">{{ show ? 'Hide' : 'Show' }} password</a>
-				</label>
-				<input
-					id="oldPassword"
-					v-model="factory.oldPassword"
-					class="form-control"
-					:type="show ? 'text' : 'password'"
-					:class="{'is-invalid': factory.errors.oldPassword}"
-				>
-				<small v-if="factory.errors.oldPassword" class="small text-danger d-block">{{ factory.errors.oldPassword }}</small>
-			</div>
-			<div class="form-group my-1">
 				<label class="label d-flex gap-0-5 align-items-end" for="password">
 					<span>New Password</span>
 					<a class="label-sm ms-auto" @click.prevent="toggle">{{ show ? 'Hide' : 'Show' }} password</a>

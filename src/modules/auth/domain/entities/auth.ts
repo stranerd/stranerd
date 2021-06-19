@@ -7,7 +7,6 @@ export type AuthUser = {
 
 export type UpdateUser = {
 	bio: UserBio
-	oldPassword: string
 	password: string
 }
 

@@ -69,7 +69,7 @@ export const useAuth = () => {
 	}
 
 	return {
-		id, bio, user: global.user,
+		id, bio, user: global.user, auth: global.auth,
 		isLoggedIn, isAdmin, isTutor, ongoingAchievements, currentSessionId,
 		setAuthUser, signin, signout
 	}

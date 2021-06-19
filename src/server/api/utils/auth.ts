@@ -12,7 +12,7 @@ export const signout = async (session: string) => {
 }
 
 export const decodeSessionCookie = async (session: string) => {
-	const { uid: id, email_verified: isVerified, email } = await getAdmin().auth().verifySessionCookie(session)
+	const { uid: id, email_verified: isVerified, email, firebase: { sign_in_provider: signInMethod } } = await getAdmin().auth().verifySessionCookie(session)
 	const token = await getAdmin().auth().createCustomToken(id)
-	return { id, isVerified, token, email }
+	return { id, isVerified, token, email, signInMethod }
 }

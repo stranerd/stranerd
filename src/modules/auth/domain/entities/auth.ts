@@ -14,4 +14,5 @@ export type AuthDetails = {
 	email: string
 	token: string
 	isVerified: boolean
+	signInMethod: string
 }

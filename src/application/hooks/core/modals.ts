@@ -20,16 +20,19 @@ import StudentWaiting from '@app/components/modals/sessions/SessionStudentWaitin
 import TutorCancelled from '@app/components/modals/sessions/SessionTutorCancelled.vue'
 import Unknown from '@app/components/modals/sessions/SessionUnknown.vue'
 
+type CreateTypes = 'Subject' | 'Question' | 'Answer'
 type EditTypes = 'Subject' | 'AccountProfile' | 'TutorSubjects'
 type AccountTypes = 'BuyCoins' | 'TipNerd' | 'ReportUser' | 'MeetTutor'
+type MenuTypes = 'RightSidebar' | 'AdminSidebar' | 'Sidebar'
 type SessionTypes = 'CreateSession' | 'NewSessionRequest' | 'StudentCancelled' | 'StudentWaiting' | 'TutorCancelled' | 'Unknown'
+type PaymentTypes = 'MakePayment'
 
-const CreateModals = { Subject: CreateSubject, Question: CreateQuestion, Answer: CreateAnswer }
+const CreateModals = { Subject: CreateSubject, Question: CreateQuestion, Answer: CreateAnswer } as Record<CreateTypes, any>
 const EditModals = { Subject: EditSubject, AccountProfile: EditAccountProfile, TutorSubjects: EditTutorSubjects } as Record<EditTypes, any>
 const AccountModals = { BuyCoins, TipNerd, ReportUser, MeetTutor } as Record<AccountTypes, any>
-const MenuModals = { RightSidebar, AdminSidebar, Sidebar }
+const MenuModals = { RightSidebar, AdminSidebar, Sidebar } as Record<MenuTypes, any>
 const SessionModals = { CreateSession, NewSessionRequest, StudentCancelled, StudentWaiting, TutorCancelled, Unknown } as Record<SessionTypes, any>
-const PaymentModals = { MakePayment }
+const PaymentModals = { MakePayment } as Record<PaymentTypes, any>
 
 export const modal = useModal()
 const createModal = modal.register('Create', CreateModals)

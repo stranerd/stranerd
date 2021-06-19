@@ -1,5 +1,4 @@
-import { UserBio } from '@modules/users'
-import { AfterAuthUser, AuthDetails } from '../entities/auth'
+import { AfterAuthUser, AuthDetails, UpdateUser } from '../entities/auth'
 
 export interface IAuthRepository {
 	signinWithEmail: (email: string, password: string) => Promise<AfterAuthUser>
@@ -10,7 +9,7 @@ export interface IAuthRepository {
 	sendVerificationEmail: () => Promise<void>
 	resetPassword: (email: string) => Promise<void>
 	updatePassword: (email: string, oldPassword: string, password: string) => Promise<void>
-	updateProfile: (id: string, bio: UserBio) => Promise<void>
+	updateProfile: (id: string, profile: UpdateUser) => Promise<void>
 	session: (idToken: string) => Promise<AuthDetails>
 	logout: () => Promise<void>
 }

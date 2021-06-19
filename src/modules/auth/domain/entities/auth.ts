@@ -1,5 +1,13 @@
+import { UserBio } from '@modules/users'
+
 export type AuthUser = {
 	email: string
+	password: string
+}
+
+export type UpdateUser = {
+	bio: UserBio
+	oldPassword: string
 	password: string
 }
 

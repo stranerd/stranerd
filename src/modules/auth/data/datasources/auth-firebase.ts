@@ -2,8 +2,7 @@ import firebase, { auth } from '@modules/core/services/initFirebase'
 import { AxiosInstance } from '@modules/core/services/http'
 import { DatabaseService } from '@modules/core/services/firebase'
 import { isDev } from '@utils/environment'
-import { UserBio } from '@modules/users'
-import { AfterAuthUser } from '../../domain/entities/auth'
+import { AfterAuthUser, UpdateUser } from '../../domain/entities/auth'
 import { AuthBaseDataSource } from './auth-base'
 
 export class AuthFirebaseDataSource implements AuthBaseDataSource {
@@ -67,9 +66,9 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
-	async updateProfile (id: string, bio: UserBio) {
-		bio.isNew = null
-		await DatabaseService.update(`profiles/${id}/bio`, bio)
+	async updateProfile (id: string, profile: UpdateUser) {
+		profile.bio.isNew = null
+		await DatabaseService.update(`profiles/${id}/bio`, profile.bio)
 	}
 
 	async session (idToken: string) {

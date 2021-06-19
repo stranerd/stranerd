@@ -1,6 +1,6 @@
-import { UserBio } from '@modules/users'
 import { AuthBaseDataSource } from '../datasources/auth-base'
 import { IAuthRepository } from '../../domain/irepositories/iauth'
+import { UpdateUser } from '../../domain/entities/auth'
 
 export class AuthRepository implements IAuthRepository {
 	private dataSource: AuthBaseDataSource
@@ -41,8 +41,8 @@ export class AuthRepository implements IAuthRepository {
 		return await this.dataSource.updatePassword(email, oldPassword, password)
 	}
 
-	async updateProfile (id: string, bio: UserBio) {
-		return await this.dataSource.updateProfile(id, bio)
+	async updateProfile (id: string, profile: UpdateUser) {
+		return await this.dataSource.updateProfile(id, profile)
 	}
 
 	async session (idToken: string) {

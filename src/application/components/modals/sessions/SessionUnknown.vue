@@ -1,5 +1,5 @@
 <template>
-	<Modal :close="closeSessionModal">
+	<Modal :modal="$attrs.modal">
 		<template slot="title">
 			Unknown State
 		</template>
@@ -7,7 +7,7 @@
 			<Avatar :src="otherParticipant.avatar" :size="90" />
 			<span class="lead my-0-25">{{ otherParticipant.name && otherParticipant.name.fullName }}</span>
 			<span>An unknown error occurred</span>
-			<button class="btn btn-danger my-0-5" @click="closeSessionModal">
+			<button class="btn btn-danger my-0-5" @click="closeModal">
 				Close Modal
 			</button>
 		</div>
@@ -22,8 +22,8 @@ export default defineComponent({
 	name: 'SessionUnknown',
 	setup () {
 		const { clone: currentSession, otherParticipant } = useCurrentSession()
-		const { closeSessionModal } = useSessionModal()
-		return { closeSessionModal, currentSession, otherParticipant }
+		const closeModal = useSessionModal().closeUnknown
+		return { closeModal, currentSession, otherParticipant }
 	}
 })
 </script>

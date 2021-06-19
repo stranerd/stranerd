@@ -27,9 +27,7 @@ export default defineComponent({
 		}
 	},
 	setup () {
-		const openEditProfileModal = () => {
-			useEditModal().setEditModalAccountProfile()
-		}
+		const openEditProfileModal = useEditModal().openAccountProfile
 		return { openEditProfileModal }
 	}
 })

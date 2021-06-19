@@ -1,5 +1,5 @@
 <template>
-	<Modal :close="cancelSession">
+	<Modal :modal="$atrrs.modal" :close="cancelSession">
 		<template slot="title">
 			New Session Request
 		</template>

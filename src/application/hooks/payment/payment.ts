@@ -20,7 +20,7 @@ export const useMakePayment = () => {
 
 	const processPayment = async (nonce: string) => {
 		const res = await MakePayment.call(props.amount!, nonce)
-		usePaymentModal().closePaymentModal()
+		usePaymentModal().closeMakePayment()
 		// @ts-ignore
 		analytics.logEvent('purchase', {
 			value: props.amount!

@@ -16,7 +16,7 @@
 		</div>
 		<div class="my-0-5 text-end">
 			<span>Out of coins?&nbsp;</span>
-			<a class="fw-bold text-decoration-underline" @click="setAccountModalBuyCoins">Buy more coins</a>
+			<a class="fw-bold text-decoration-underline" @click="openBuyCoins">Buy more coins</a>
 		</div>
 		<div class="form-group my-1">
 			<label class="label d-block">Attachments</label>
@@ -89,8 +89,8 @@ export default defineComponent({
 		const { catchMultipleFiles: catchAttachments } = useMultipleFileInputs(
 			(files: File[]) => files.map(props.factory.addAttachment)
 		)
-		const { setAccountModalBuyCoins } = useAccountModal()
-		return { catchAttachments, setAccountModalBuyCoins }
+		const { openBuyCoins } = useAccountModal()
+		return { catchAttachments, openBuyCoins }
 	}
 })
 </script>

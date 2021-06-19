@@ -1,6 +1,6 @@
 <template>
 	<div class="modal-background">
-		<div v-if="closeOnBackground" class="under" @click="close()" />
+		<div v-if="closeOnBackground" class="under" @click="closeModal" />
 		<div class="modal-inner">
 			<div class="d-flex align-items-center justify-content-between my-1-5 px-1-5">
 				<slot name="pre-icon">
@@ -12,7 +12,7 @@
 					</slot>
 				</h3>
 				<h4 class="my-0">
-					<a class="fas fa-times text-danger" @click.prevent="close" />
+					<a class="fas fa-times text-danger" @click.prevent="closeModal" />
 				</h4>
 			</div>
 			<hr v-if="showSeparator" class="my-1-5">
@@ -24,13 +24,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, PropType } from '@nuxtjs/composition-api'
+import { modal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'Modal',
 	props: {
-		close: {
-			type: Function,
+		modal: {
+			type: String,
 			required: true
+		},
+		close: {
+			type: Function as PropType<() => void>,
+			required: false,
+			default: () => {}
 		},
 		showSeparator: {
 			type: Boolean,
@@ -42,6 +48,13 @@ export default defineComponent({
 			required: false,
 			default: false
 		}
+	},
+	setup (props) {
+		const closeModal = () => {
+			modal.close(props.modal)
+			props.close?.()
+		}
+		return { closeModal }
 	}
 })
 </script>

@@ -1,5 +1,5 @@
 <template>
-	<Modal :close="closeAccountModal">
+	<Modal :modal="$attrs.modal">
 		<template slot="title">
 			Tip {{ nerdBioAndId.bio.name.first }}
 		</template>
@@ -12,7 +12,7 @@
 		</div>
 		<div class="d-flex justify-content-center my-1-5">
 			<span>Out of gold coins?&nbsp;</span>
-			<a class="fw-bold text-decoration-underline" @click="setAccountModalBuyCoins">Buy more coins</a>
+			<a class="fw-bold text-decoration-underline" @click="openBuyCoins">Buy more coins</a>
 		</div>
 		<PageLoading v-if="loading" />
 		<DisplayError :error="error" />
@@ -33,14 +33,14 @@ export default defineComponent({
 	setup () {
 		const { user } = useAuth()
 		const { loading, error, nerdBioAndId, TIP_AMOUNTS, tipNerd } = useTipNerd()
-		const { closeAccountModal, setAccountModalBuyCoins } = useAccountModal()
+		const openBuyCoins = useAccountModal().openBuyCoins
 		onMounted(() => {
 			analytics.logEvent('tip_nerd_start')
 		})
 		return {
 			user, formatNumber, TIP_AMOUNTS,
 			loading, error, nerdBioAndId,
-			tipNerd, closeAccountModal, setAccountModalBuyCoins
+			tipNerd, openBuyCoins
 		}
 	}
 })

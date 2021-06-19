@@ -4,7 +4,7 @@
 			<h3 class="mb-0">
 				Current Balance
 			</h3>
-			<button class="btn btn-blue rounded-pill btn-sm" @click="setAccountModalBuyCoins">
+			<button class="btn btn-blue rounded-pill btn-sm" @click="openBuyCoins">
 				Buy coins
 			</button>
 		</div>
@@ -35,7 +35,7 @@ export default defineComponent({
 		}
 	},
 	setup () {
-		return { formatNumber, setAccountModalBuyCoins: useAccountModal().setAccountModalBuyCoins }
+		return { formatNumber, openBuyCoins: useAccountModal().openBuyCoins }
 	}
 })
 </script>

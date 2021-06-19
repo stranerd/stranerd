@@ -28,7 +28,7 @@ export const useCreateReport = () => {
 			try {
 				setLoading(true)
 				await AddReport.call(factory.value)
-				useAccountModal().closeAccountModal()
+				useAccountModal().closeReportUser()
 				factory.value.reset()
 				setMessage('Report sent successfully')
 			} catch (error) { setError(error) }

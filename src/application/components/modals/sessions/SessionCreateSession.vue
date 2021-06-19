@@ -1,5 +1,5 @@
 <template>
-	<Modal :close="closeSessionModal">
+	<Modal :modal="$attrs.modal">
 		<template slot="title">
 			Request Session
 		</template>
@@ -29,7 +29,7 @@
 
 <script lang="ts">
 import { defineComponent, onMounted } from '@nuxtjs/composition-api'
-import { useAccountModal, useSessionModal } from '@app/hooks/core/modals'
+import { useAccountModal } from '@app/hooks/core/modals'
 import { useCreateSession } from '@app/hooks/sessions/sessions'
 import { useAuth } from '@app/hooks/auth/auth'
 import { analytics } from '@modules/core/services/initFirebase'
@@ -37,18 +37,13 @@ export default defineComponent({
 	name: 'SessionCreateSession',
 	setup () {
 		const { user } = useAuth()
-		const { closeSessionModal } = useSessionModal()
-		const { setAccountModalBuyCoins } = useAccountModal()
-		const buy = () => {
-			setAccountModalBuyCoins()
-			closeSessionModal()
-		}
+		const buy = useAccountModal().openBuyCoins
 		const { prices, factory, loading, error, createSession } = useCreateSession()
 		onMounted(() => {
 			analytics.logEvent('view_session_request')
 		})
 		return {
-			closeSessionModal, buy, user,
+			buy, user,
 			prices, factory, loading, error, createSession
 		}
 	}

@@ -41,7 +41,7 @@ export const useAuth = () => {
 
 		const id = global.auth.value?.id
 		const setUser = (user: UserEntity | null) => {
-			if (user?.userBio.isNew && global.showProfileModal.value) useEditModal().setEditModalAccountProfile()
+			if (user?.userBio.isNew && global.showProfileModal.value) useEditModal().openAccountProfile()
 			global.user.value = user
 		}
 		if (id) {

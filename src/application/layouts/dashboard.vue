@@ -4,7 +4,7 @@
 			<Sidebar />
 		</section>
 		<main class="layout-main flex-grow-0 flex-lg-grow-1">
-			<TopNavigation :open-menu="setMenuModalSidebar" />
+			<TopNavigation :open-menu="openSidebar" />
 			<Nuxt class="layout-content" />
 		</main>
 		<section class="layout-side-right">
@@ -24,8 +24,8 @@ export default defineComponent({
 	name: 'DashboardLayout',
 	components: { Sidebar, TopNavigation, RightSidebar },
 	setup () {
-		const { setMenuModalSidebar } = useMenuModal()
-		return { setMenuModalSidebar }
+		const { openSidebar } = useMenuModal()
+		return { openSidebar }
 	}
 })
 </script>

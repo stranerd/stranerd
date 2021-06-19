@@ -1,5 +1,5 @@
 <template>
-	<Modal :close="closePaymentModal">
+	<Modal :modal="$attrs.modal">
 		<template slot="title">
 			Make Purchase of ${{ amount }}
 		</template>
@@ -39,16 +39,11 @@
 <script lang="ts">
 import { defineComponent, onMounted } from '@nuxtjs/composition-api'
 import { useMakePayment } from '@app/hooks/payment/payment'
-import { usePaymentModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	setup () {
 		const { loading, error, hostedFieldsInstance, amount, initializeHostedFields, pay } = useMakePayment()
-		const { closePaymentModal } = usePaymentModal()
 		onMounted(initializeHostedFields)
-		return {
-			loading, error, hostedFieldsInstance, amount,
-			pay, closePaymentModal
-		}
+		return { loading, error, hostedFieldsInstance, amount, pay }
 	}
 })
 </script>

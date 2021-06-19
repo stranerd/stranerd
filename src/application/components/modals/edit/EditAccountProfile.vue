@@ -1,9 +1,9 @@
 <template>
-	<Modal :close="closeEditModal">
+	<Modal :modal="$attrs.modal">
 		<template slot="title">
 			Edit Profile
 		</template>
-		<AccountProfileForm :cancel="closeEditModal" />
+		<AccountProfileForm :cancel="closeAccountProfile" />
 	</Modal>
 </template>
 
@@ -16,9 +16,9 @@ export default defineComponent({
 	name: 'EditAccountProfile',
 	components: { AccountProfileForm },
 	setup () {
-		const { closeEditModal } = useEditModal()
+		const { closeAccountProfile } = useEditModal()
 		onBeforeUnmount(() => setShowProfileModal(false))
-		return { closeEditModal }
+		return { closeAccountProfile }
 	}
 })
 </script>

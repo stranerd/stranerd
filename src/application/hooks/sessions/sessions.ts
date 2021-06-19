@@ -45,7 +45,8 @@ export const useCreateSession = () => {
 			try {
 				setLoading(true)
 				const sessionId = await AddSession.call(factory.value)
-				useSessionModal().closeSessionModal()
+				await AddSession.call(factory.value)
+				useSessionModal().closeAll()
 				factory.value.reset()
 				setMessage('Session request successful.')
 				analytics.logEvent('session_request', { sessionId })
@@ -79,7 +80,7 @@ export const useSession = () => {
 			try {
 				setLoading(true)
 				if (currentSessionId.value) await CancelSession.call(currentSessionId.value)
-				useSessionModal().closeSessionModal()
+				useSessionModal().closeAll()
 			} catch (error) { setError(error) }
 			setLoading(false)
 		}
@@ -98,7 +99,7 @@ export const useSession = () => {
 			try {
 				setLoading(true)
 				if (currentSessionId.value) await BeginSession.call(currentSessionId.value)
-				useSessionModal().closeSessionModal()
+				useSessionModal().closeAll()
 				analytics.logEvent('session_accepted', { sessionId: currentSessionId.value })
 			} catch (error) { setError(error) }
 			setLoading(false)

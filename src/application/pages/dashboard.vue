@@ -21,7 +21,7 @@
 							<NuxtLink v-if="isTutor" to="/questions" class="btn btn-outline-blue rounded-pill px-2 py-0-5 fw-bold">
 								Answer Questions
 							</NuxtLink>
-							<button v-if="!isTutor" class="btn btn-outline-blue rounded-pill px-2 py-0-5 fw-bold" @click="setAccountModalMeetTutor">
+							<button v-if="!isTutor" class="btn btn-outline-blue rounded-pill px-2 py-0-5 fw-bold" @click="openMeetTutor">
 								Meet a Nerd
 							</button>
 						</div>
@@ -48,13 +48,13 @@ export default defineComponent({
 	setup () {
 		const { isLoggedIn, isTutor } = useAuth()
 		const { redirect } = useRedirectToAuth()
-		const { setCreateModalQuestion } = useCreateModal()
-		const { setAccountModalMeetTutor } = useAccountModal()
+		const { openQuestion } = useCreateModal()
+		const { openMeetTutor } = useAccountModal()
 		return {
-			isLoggedIn, isTutor, setAccountModalMeetTutor,
+			isLoggedIn, isTutor, openMeetTutor,
 			openQuestionModal: () => {
 				if (!isLoggedIn.value) redirect()
-				else setCreateModalQuestion()
+				else openQuestion()
 			}
 		}
 	}

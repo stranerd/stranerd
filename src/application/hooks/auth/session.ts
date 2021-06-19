@@ -15,7 +15,7 @@ import { serialize } from '@utils/cookie'
 export const createSession = async (user: AfterAuthUser, router: VueRouter) => {
 	const authDetails = await SessionSignin.call(user.idToken)
 	if (user.isNew) {
-		useEditModal().setEditModalAccountProfile()
+		useEditModal().openAccountProfile()
 		analytics.logEvent('sign_up')
 	}
 	if (isClient()) {

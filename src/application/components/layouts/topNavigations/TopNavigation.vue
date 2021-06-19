@@ -21,7 +21,7 @@
 					<SearchBar />
 				</div>
 				<NotificationBell :key="isLoggedIn" class="link" />
-				<a v-if="isLoggedIn" class="link d-lg-none" @click="setMenuModalRightSidebar">
+				<a v-if="isLoggedIn" class="link d-lg-none" @click="openRightSidebar">
 					<Avatar :src="user.avatar" :size="32" />
 				</a>
 			</template>
@@ -52,9 +52,9 @@ export default defineComponent({
 	setup () {
 		const showSearch = ref(false)
 		const { isLoggedIn, user } = useAuth()
-		const { setMenuModalRightSidebar } = useMenuModal()
+		const { openRightSidebar } = useMenuModal()
 		const { loading, signout } = useSessionSignout()
-		return { showSearch, isLoggedIn, user, setMenuModalRightSidebar, loading, signout }
+		return { showSearch, isLoggedIn, user, openRightSidebar, loading, signout }
 	}
 })
 </script>

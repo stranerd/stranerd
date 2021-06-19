@@ -1,5 +1,5 @@
 <template>
-	<Modal :close="closeAccountModal">
+	<Modal :modal="$attrs.modal">
 		<template slot="title">
 			Report User
 		</template>
@@ -9,7 +9,6 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useAccountModal } from '@app/hooks/core/modals'
 import { useCreateReport } from '@app/hooks/forms/reports'
 import ReportForm from '@app/components/forms/ReportForm.vue'
 export default defineComponent({
@@ -17,11 +16,7 @@ export default defineComponent({
 	components: { ReportForm },
 	setup () {
 		const { factory, loading, error, message, createReport } = useCreateReport()
-		const { closeAccountModal } = useAccountModal()
-		return {
-			factory, loading, error, message, createReport,
-			closeAccountModal
-		}
+		return { factory, loading, error, message, createReport }
 	}
 })
 </script>

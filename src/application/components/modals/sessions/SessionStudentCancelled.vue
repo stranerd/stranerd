@@ -1,5 +1,5 @@
 <template>
-	<Modal :close="closeSessionModal">
+	<Modal :modal="$attrs.modal">
 		<template slot="title">
 			Session Cancelled
 		</template>
@@ -7,7 +7,7 @@
 			<Avatar :src="otherParticipant.avatar" :size="90" />
 			<span class="lead my-0-25">{{ otherParticipant.name && otherParticipant.name.fullName }}</span>
 			<span>cancelled a {{ currentSession && currentSession.duration }} minutes session</span>
-			<button class="btn btn-danger my-0-5" @click="closeSessionModal">
+			<button class="btn btn-danger my-0-5" @click="closeModal">
 				Close Modal
 			</button>
 		</div>
@@ -22,8 +22,8 @@ export default defineComponent({
 	name: 'SessionStudentCancelled',
 	setup () {
 		const { clone: currentSession, otherParticipant } = useCurrentSession()
-		const { closeSessionModal } = useSessionModal()
-		return { closeSessionModal, currentSession, otherParticipant }
+		const closeModal = useSessionModal().closeTutorCancelled
+		return { currentSession, otherParticipant, closeModal }
 	}
 })
 </script>

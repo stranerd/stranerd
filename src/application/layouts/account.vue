@@ -4,7 +4,7 @@
 			<Sidebar />
 		</section>
 		<main class="layout-main">
-			<TopNavigation :open-menu="setMenuModalSidebar" />
+			<TopNavigation :open-menu="openSidebar" />
 			<Nuxt class="layout-content" />
 		</main>
 		<ModalBase />
@@ -24,8 +24,8 @@ export default defineComponent({
 	},
 	middleware: ['isAuthenticated'],
 	setup () {
-		const { setMenuModalSidebar } = useMenuModal()
-		return { setMenuModalSidebar }
+		const { openSidebar } = useMenuModal()
+		return { openSidebar }
 	}
 })
 </script>

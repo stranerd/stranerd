@@ -43,7 +43,7 @@ export default defineComponent({
 		const { loading, error, removeTutor } = useTutorRoles()
 		const openEditModal = () => {
 			setCurrentTutor(props.tutor)
-			useEditModal().setEditModalTutorSubjects()
+			useEditModal().openTutorSubjects()
 		}
 		return {
 			loading, error,

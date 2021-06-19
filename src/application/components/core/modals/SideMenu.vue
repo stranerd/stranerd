@@ -14,13 +14,17 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
+import { modal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'SideMenu',
 	props: {
-		close: {
-			type: Function,
+		modal: {
+			type: String,
 			required: true
 		}
+	},
+	setup (props) {
+		return { close: () => modal.close(props.modal) }
 	}
 })
 </script>

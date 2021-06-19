@@ -59,19 +59,22 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
-	async updatePassword (email: string, oldPassword: string, password: string) {
-		try {
-			if (!auth.currentUser) await auth.signInWithEmailAndPassword(email, oldPassword)
-			await auth.currentUser?.updatePassword(password)
-		} catch (error) { throw filterFirebaseError(error) }
-	}
-
-	async updateProfile (profile: UpdateUser) {
+	async updateProfile ({ bio, oldPassword, password }: UpdateUser) {
 		if (!auth.currentUser) throw new Error('You are not currently signed in.')
-		const id = auth.currentUser.uid
-		await auth.currentUser?.updatePassword(profile.password)
-		profile.bio.isNew = null
-		await DatabaseService.update(`profiles/${id}/bio`, profile.bio)
+		try {
+			const { uid: id, email } = auth.currentUser
+			if (password) {
+				const { user } = await auth.signInWithEmailAndPassword(email!, oldPassword)
+				await user?.updatePassword(password)
+			}
+			bio.isNew = null
+			await DatabaseService.update(`profiles/${id}/bio`, bio)
+		} catch (error) {
+			switch (error.code) {
+				case 'auth/wrong-password': throw new Error('Old password is incorrect.')
+				default: throw filterFirebaseError(error)
+			}
+		}
 	}
 
 	async session (idToken: string) {

@@ -18,7 +18,7 @@ export const toggleAdmin = functions.https.onCall(async (data, context) => {
 			.set(isAdmin)
 
 		const body = isAdmin
-			? 'Your account has successfully being granted admin privileges'
+			? 'Your account has successfully been granted admin privileges'
 			: 'Your admin privileges has been removed. Contact an admin if this was a mistake'
 
 		await createNotification(id, {

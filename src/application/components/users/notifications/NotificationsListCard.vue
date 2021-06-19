@@ -2,8 +2,7 @@
 	<div class="d-flex flex-column gap-0-5">
 		<PageLoading v-if="loading" />
 		<a @click.prevent="click">
-			<i v-if="!notification.seen" class="fas fa-circle text-danger" />
-			<span>{{ notification.body }}</span>
+			<span :class="{'fw-bold': !notification.seen}">{{ notification.body }}</span>
 		</a>
 		<span class="small">{{ formatTime(notification.createdAt) }}</span>
 	</div>

@@ -37,12 +37,8 @@ export class AuthRepository implements IAuthRepository {
 		return await this.dataSource.resetPassword(email)
 	}
 
-	async updatePassword (email: string, oldPassword: string, password: string) {
-		return await this.dataSource.updatePassword(email, oldPassword, password)
-	}
-
-	async updateProfile (id: string, profile: UpdateUser) {
-		return await this.dataSource.updateProfile(id, profile)
+	async updateProfile (profile: UpdateUser) {
+		return await this.dataSource.updateProfile(profile)
 	}
 
 	async session (idToken: string) {

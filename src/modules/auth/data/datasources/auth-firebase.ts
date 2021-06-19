@@ -66,7 +66,10 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
-	async updateProfile (id: string, profile: UpdateUser) {
+	async updateProfile (profile: UpdateUser) {
+		if (!auth.currentUser) throw new Error('You are not currently signed in.')
+		const id = auth.currentUser.uid
+		await auth.currentUser?.updatePassword(profile.password)
 		profile.bio.isNew = null
 		await DatabaseService.update(`profiles/${id}/bio`, profile.bio)
 	}

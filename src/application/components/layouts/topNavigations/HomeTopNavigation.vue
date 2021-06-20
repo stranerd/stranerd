@@ -72,7 +72,7 @@ box-shadow: 0px 5px 15px #17224D26;
 .full-top-nav {
 box-shadow: 0px 5px 15px #17224D26;
 
-	max-width: 1600px;
+	// max-width: 1600px;
 	margin: 0 auto;
 	padding: 0.5rem 1rem;
 	@media (max-width: $md) { padding: 0; }

@@ -1,17 +1,32 @@
 <template>
-	<div class="d-flex flex-column flex-md-row align-items-md-center justify-content-center">
+	<div class="bg-white main-container d-flex w-100">
+		<div class="text-con">
+			<h3>
+				Get Quick Help, For Homework And Study Problems
+			</h3>
+			<h4>Link up with smart students in various subjects.</h4>
+			<p>Link up with smart students in various subjects.</p>
+			<NuxtLink to="/auth" class="btn btn-primary mt-1-5 border border-light-blue px-3 py-1">
+				Join Today
+			</NuxtLink>
+		</div>
+		<div class="img-contain">
+			<img src="@app/assets/images/homepage/hero-image.png" alt="" class="img">
+		</div>
+	</div>
+	<!-- <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-center">
 		<div class="bg-blob">
 			<h1>Get quick help for your homework...</h1>
 			<h5>From smart students in various subjects</h5>
 			<p>Stranerd.com offers you the chance to Collaborate, Innovate and get the Tools that make you stand out in the student community and beyond.</p>
 			<NuxtLink to="/auth" class="btn btn-blue mt-1-5 border border-light-blue px-3 py-1">
-				Join Toda
+				Join Today
 			</NuxtLink>
 		</div>
 		<div class="img-contain">
 			<img src="@app/assets/images/blobs/happy-boys.svg" alt="" class="w-100">
 		</div>
-	</div>
+	</div> -->
 </template>
 
 <script lang="ts">
@@ -23,56 +38,23 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.bg-blob {
+.main-container{
+	color: #214A73;
 	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: flex-start;
-	min-height: vh(100 * 100/124);
-	margin-bottom: 1rem;
-	background: url("../assets/images/blobs/home-light-blob.svg") top right no-repeat;
-	background-size: cover;
-	padding: 2rem 1rem;
-	h1 {
-		z-index: 1;
-		font-size: 2rem;
-		font-weight: 600;
-		max-width: 75ch;
-		margin: 0 0 0.5rem;
-		@media (min-width: $md) { font-size: 2.5rem; }
-		@media (min-width: $lg) { font-size: 3rem; }
-	}
-	h5 {
-		font-size: 1.25rem;
-		z-index: 1;
-		font-weight: 600;
-		max-width: 75ch;
-		margin: 0 0 0.5rem;
-		@media (min-width: $md) { font-size: 1.625rem; }
-		@media (min-width: $lg) { font-size: 2rem; }
-	}
-	p {
-		font-size: 1rem;
-		z-index: 1;
-		max-width: 65ch;
-		margin: 0;
-		@media (min-width: $md) { font-size: 1.125rem; }
-		@media (min-width: $lg) { font-size: 1.5rem; }
-	}
-	a {
-		border-radius: 0.5rem;
-		z-index: 1;
-	}
-	@media (min-width: $md) {
-		flex-grow: 1;
-		padding: 4rem 2rem;
-		min-height: (50vw * 100/124);
-	}
-	@media (min-width: $lg) {
-		padding: 4rem;
+	align-items: center;
+	padding: 5rem;
+	.text-con{
+		flex-basis: 50%;
+
+		h3{
+			font-size: 38px;
+			width: 400px;
+		}
 	}
 }
+
 .img-contain {
+	flex-basis: 50%;
 	max-width: 75%;
 	align-self: flex-end;
 	margin-top: -25%;
@@ -81,6 +63,9 @@ export default defineComponent({
 		flex-grow: 1;
 		align-self: center;
 		margin-top: 0;
+	}
+	.img{
+		max-width: 600px;
 	}
 }
 </style>

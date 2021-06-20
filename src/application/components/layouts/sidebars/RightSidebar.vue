@@ -53,7 +53,7 @@
 				<div class="d-flex justify-content-between">
 					<span><img src="@app/assets/images/icons/user.svg" class="me-0-75" height="24" width="24"> Member Since</span>
 					<p class="fw-bold">
-						{{ formatTime(new Date(user.dates.signedUpAt)) }}
+						{{ formatTime(new Date(user.dates.signedUpAt), true) }}
 					</p>
 				</div>
 			</div>

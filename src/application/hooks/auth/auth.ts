@@ -17,7 +17,7 @@ export const useAuth = () => {
 	const id = computed({ get: () => global.auth.value?.id ?? '', set: () => {} })
 	const bio = computed({ get: () => global.user.value?.userBio, set: () => {} })
 
-	const isLoggedIn = computed({ get: () => !!id.value, set: () => {} })
+	const isLoggedIn = computed({ get: () => !!id.value && !!global.user.value, set: () => {} })
 	const isAdmin = computed({ get: () => !!global.user.value?.roles.isAdmin, set: () => {} })
 	const isTutor = computed({ get: () => !!global.user.value?.roles.isTutor, set: () => {} })
 	const ongoingAchievements = computed({

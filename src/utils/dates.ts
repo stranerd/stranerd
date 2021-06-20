@@ -25,11 +25,11 @@ export const formatTime = (time: number, withoutTime = false) => {
 	const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
 	const yesterday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1)
 	const lastWeek = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7)
-	const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1)
+	const oneYearAgo = new Date(now.getFullYear() - 1, now.getMonth(), now.getDate())
 	if (date > today) return withoutTime ? 'Today' : formatTimeAsDigits(date)
 	else if (date > yesterday) return 'Yesterday'
 	else if (date > lastWeek) return ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][date.getDay()]
-	else if (date > lastMonth) return formatDateAsDigits(date, false)
+	else if (date > oneYearAgo) return formatDateAsDigits(date, false)
 	else return formatDateAsDigits(date)
 }
 

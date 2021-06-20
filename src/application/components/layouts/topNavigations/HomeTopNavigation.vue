@@ -1,33 +1,22 @@
 <template>
-	<nav class="full-top-nav justify-content-between flex-wrap">
-		<NuxtLink to="/">
-			<Logo />
-		</NuxtLink>
-		<button class="mx-0 d-md-none navbar-toggler" type="button" @click="show = !show">
-			<span class="fas fa-bars" />
-		</button>
-		<div class="d-none d-md-flex nav-links">
+	<nav class="full-top-nav justify-content-between flex-wrap fixed ">
+		<div class="md-top-nav">
 			<NuxtLink to="/">
-				Home
+				<Logo :secondary="true" />
 			</NuxtLink>
-			<NuxtLink to="/dashboard">
-				Dashboard
-			</NuxtLink>
-			<NuxtLink to="/how-it-works">
-				How it works
-			</NuxtLink>
-			<NuxtLink to="/contact-us">
-				Contact us
-			</NuxtLink>
-			<NuxtLink class="btn rounded-pill btn-white" to="/auth">
-				Sign in
-			</NuxtLink>
+			<button class=" d-md-none navbar-toggler" @click="show = !show">
+				<span v-if="!show" class="fas fa-bars" />
+				<span v-else class="fas fa-times" />
+			</button>
 		</div>
-		<div v-if="show" class="d-md-none nav-links slide-down">
-			<NuxtLink to="/">
-				Home
+		<div class="d-none d-md-flex nav-links">
+			<NuxtLink to="/auth" class="btn-primary-outline">
+				Log In
 			</NuxtLink>
-			<NuxtLink to="/dashboard">
+			<NuxtLink to="/auth" class="btn-primary">
+				Sign up
+			</NuxtLink>
+			<!-- <NuxtLink to="/dashboard">
 				Dashboard
 			</NuxtLink>
 			<NuxtLink to="/how-it-works">
@@ -38,7 +27,17 @@
 			</NuxtLink>
 			<NuxtLink class="btn rounded-pill btn-white" to="/auth">
 				Sign in
-			</NuxtLink>
+			</NuxtLink> -->
+		</div>
+		<div v-if="show" class="d-md-none nav-links slide-down bg-dropdown ">
+			<div class="d-flex justify-content-around w-100">
+				<NuxtLink to="/auth" class="btn-secondary-outline mx-1 font-weight-bold">
+					Log In
+				</NuxtLink>
+				<NuxtLink to="/auth" class="btn-secondary mx-1 font-weight-bold">
+					Sign up
+				</NuxtLink>
+			</div>
 		</div>
 	</nav>
 </template>
@@ -55,11 +54,23 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.md-top-nav{
+	    display: flex;
+    width: 100%;
+	justify-content: space-between;
+	 padding: 0.7rem 2rem;
+	@media (min-width: $md) {  width: fit-content }
+}
+.bg-dropdown{
+	background-color: $color-blue;
+}
 .full-top-nav {
+box-shadow: 0px 5px 15px #17224D26;
+
 	max-width: 1600px;
 	margin: 0 auto;
 	padding: 0.5rem 1rem;
-	@media (min-width: $md) { padding: 0.5rem 2rem; }
+	@media (max-width: $md) { padding: 0; }
 	@media (min-width: $lg) { padding: 0.5rem 4rem; }
 }
 .nav-links {
@@ -78,9 +89,9 @@ export default defineComponent({
 	.btn {
 		padding: 0.5rem 1.5rem;
 	}
-	.nuxt-link-exact-active {
-		border-bottom: 2px solid $color-light-blue;
-	}
+	// .nuxt-link-exact-active {
+	// 	border-bottom: 2px solid $color-light-blue;
+	// }
 }
 .slide-down {
 	position: relative;

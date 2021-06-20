@@ -5,7 +5,7 @@
 			<h5>From smart students in various subjects</h5>
 			<p>Stranerd.com offers you the chance to Collaborate, Innovate and get the Tools that make you stand out in the student community and beyond.</p>
 			<NuxtLink to="/auth" class="btn btn-blue mt-1-5 border border-light-blue px-3 py-1">
-				Join Today
+				Join Toda
 			</NuxtLink>
 		</div>
 		<div class="img-contain">

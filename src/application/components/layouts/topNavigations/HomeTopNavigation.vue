@@ -1,5 +1,6 @@
 <template>
-	<nav class="full-top-nav justify-content-between flex-wrap fixed ">
+	<nav class="full-top-nav justify-content-between flex-wrap" role="navigation">
+		<!-- add  "fixed-top" class on scroll Condition(window.scrollTop() > 10) -->
 		<div class="md-top-nav">
 			<NuxtLink to="/">
 				<Logo :secondary="true" />
@@ -63,6 +64,10 @@ export default defineComponent({
 }
 .bg-dropdown{
 	background-color: $color-blue;
+}
+.fixed-top{
+	background: #FFFFFF 0% 0% no-repeat padding-box;
+box-shadow: 0px 5px 15px #17224D26;
 }
 .full-top-nav {
 box-shadow: 0px 5px 15px #17224D26;

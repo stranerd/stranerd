@@ -9,7 +9,7 @@
 				<span v-if="!show" class="fas fa-bars" />
 				<span v-else class="fas fa-times" />
 			</button>
-			<div class="d-none d-md-flex nav-links">
+			<div class="d-none d-md-flex nav-links gap-1">
 				<NuxtLink to="/auth" class="btn-primary-outline">
 					Log In
 				</NuxtLink>

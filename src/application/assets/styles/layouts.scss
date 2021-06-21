@@ -229,3 +229,34 @@ body {
 		}
 	}
 }
+
+.menu-background {
+	height: vh(100);
+	background: rgba($color-blue-grey, .5);
+}
+.menu {
+	box-shadow: 3px 0 12px rgba($color-black, 1);
+	width: clamp(275px, 75%, 350px);
+}
+.menu-left {
+	@extend .menu;
+	left: 0;
+	color: $color-light-blue;
+	background: $color-blue;
+	animation: slide-right .25s;
+}
+@keyframes slide-right {
+	from { left: -100px; }
+	to { left: 0; }
+}
+.menu-right {
+	@extend .menu;
+	right: 0;
+	color: $color-blue-grey;
+	background: $color-white;
+	animation: slide-left .25s;
+}
+@keyframes slide-left {
+	from { right: -100px; }
+	to { right: 0; }
+}

@@ -3,6 +3,16 @@
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": true
     },
+    "[vue]": {
+      "editor.formatOnSave": true
+    },
+    "[javascript]": {
+      "editor.formatOnSave": true
+    },
+    "[typescript]": {
+      "editor.formatOnSave": true
+    },
+
     "eslint.alwaysShowStatus": true,
     "svg.preview.background": "transparent"
    }

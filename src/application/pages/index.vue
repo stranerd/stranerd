@@ -1,24 +1,39 @@
 <template>
-<div>
-	<div class="bg-white sectionOne d-flex w-100">
-		<div class="text-con">
-			<h3>
-				Get Quick Help, <br> For Homework And Study Problems
-			</h3>
-			<h4>Link up with smart students in various subjects.</h4>
-			<p>We bring you the #1 Platform that gives you the opportunity to Collaborate, Innovate and get the Tools that make you excel in the student community and beyond.</p>
-			<NuxtLink to="/auth" class="btn btn-primary mt-1-5 border border-light-blue px-3 py-1">
-				Join Today
-			</NuxtLink>
+	<div>
+		<div class="bg-white py-3">
+			<div class=" sectionOne d-flex w-100">
+				<div class="text-con">
+					<h3>
+						Get Quick Help, <br> For Homework And Study Problems
+					</h3>
+					<h4>Link up with smart students in various subjects.</h4>
+					<p>We bring you the #1 Platform that gives you the opportunity to Collaborate, Innovate and get the Tools that make you excel in the student community and beyond.</p>
+					<NuxtLink to="/auth" class="btn btn-primary mt-1-5 border border-light-blue px-3 py-1">
+						Join Today
+					</NuxtLink>
+				</div>
+				<div class="img-contain">
+					<img src="@app/assets/images/homepage/hero-image.png" alt="" class="img">
+				</div>
+			</div>
 		</div>
-		<div class="img-contain">
-			<img src="@app/assets/images/homepage/hero-image.png" alt="" class="img">
+		<div class="sectionTwo">
+			<div class="img-contain">
+				<img src="@app/assets/images/homepage/phone.png" alt="" class="img">
+			</div>
+			<div class="details">
+				<div>
+					<p>Already Trusted By <br> <span class="bold">30,000+</span> <br>Students On Social Media</p>
+				</div>
+				<div class="img-contain">
+					<img src="@app/assets/images/homepage/tick.svg" alt="" class="tick">
+				</div>
+			</div>
 		</div>
-	</div>
-	<div class="sectionTwo">
+		<div class="bg-white py-3">
 
+		</div>
 	</div>
-</div>
 </template>
 
 <script lang="ts">
@@ -93,11 +108,73 @@ export default defineComponent({
 	}
 }
 
+.sectionTwo{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0 5rem;
+		@media (max-width: $md) {
+			flex-direction: column;
+
+		}
+	.details{
+		flex-basis: 50%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		@media (max-width: $lg) {
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: flex-start;
+		}
+		@media (max-width: $md) {
+			padding: 1rem;
+			align-items: flex-start;
+		order: 1;
+		flex-direction: row;
+		flex-wrap: wrap;
+		}
+	}
+	p{
+		font-size: 30px;
+		color: $color-white;
+		line-height: 56px;
+		margin-right: 2rem;
+			@media (max-width: $sm) {
+		margin: 0;
+		}
+		span{
+			font-size: 75px;
+		}
+	}
+	@media (max-width: $lg) {
+				padding: 0rem;
+	}
+	.img-contain{
+		flex-basis: 30%;
+			@media (max-width: $md) {
+		order: 2;
+		}
+		.tick{
+			max-width: 200px;
+			height: auto;
+			@media (max-width: $lg) {
+				max-width: 180px;
+			}
+		}
+		.img{
+		width: 400px;
+		height: auto;
+		margin: 60px 80px 0px 60px;
+			@media (max-width: $md) {
+		margin: 0;
+		}
+	}
+	}
+}
 .img-contain {
 	flex-basis: 50%;
-	// max-width: 75%;
 	width: 100%;
-	margin-bottom: 1rem;
 		flex-grow: 1;
 		align-self: center;
 		margin-top: 0;
@@ -117,4 +194,5 @@ export default defineComponent({
 		}
 	}
 }
+
 </style>

@@ -2,7 +2,7 @@
 	<div>
 		<div class="page-content">
 			<div class="d-flex justify-content-end">
-				<button class="btn btn-lg btn-blue text-white" @click="setCreateModalSubject">
+				<button class="btn btn-lg btn-blue text-white" @click="openSubject">
 					Add New Subject
 				</button>
 			</div>
@@ -21,7 +21,7 @@ export default defineComponent({
 	components: { SubjectsList },
 	layout: 'admin',
 	setup () {
-		return { setCreateModalSubject: useCreateModal().setCreateModalSubject }
+		return { openSubject: useCreateModal().openSubject }
 	}
 })
 </script>

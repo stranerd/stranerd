@@ -29,7 +29,7 @@ export const useUpdateProfile = () => {
 			try {
 				setLoading(true)
 				await UpdateProfile.call(id.value, factory.value)
-				useEditModal().closeEditModal()
+				useEditModal().closeAccountProfile()
 				setMessage('Profile updated successfully!')
 			} catch (error) { setError(error) }
 			setLoading(false)
@@ -75,7 +75,7 @@ export const useBuyCoins = () => {
 						try {
 							setLoading(true)
 							await BuyCoins.call(option.amount, isGold)
-							useAccountModal().closeAccountModal()
+							useAccountModal().closeBuyCoins()
 							setMessage('Coins purchased successfully')
 						} catch (e) { setError(e) }
 						setLoading(false)
@@ -83,7 +83,7 @@ export const useBuyCoins = () => {
 				}
 			}
 		})
-		usePaymentModal().setPaymentModalMakePayment()
+		usePaymentModal().openMakePayment()
 	}
 
 	return {
@@ -104,7 +104,7 @@ export const useTipNerd = () => {
 	const TIP_AMOUNTS = [1, 2, 3, 4, 5, 10, 15, 20, 25, 35, 40, 45, 50]
 
 	const tipNerd = async (amount: number) => {
-		if (!nerdBioAndId) useAccountModal().closeAccountModal()
+		if (!nerdBioAndId) useAccountModal().closeTipNerd()
 		if (!loading.value) {
 			setError('')
 			const result = await Alert({
@@ -118,7 +118,7 @@ export const useTipNerd = () => {
 				try {
 					setLoading(true)
 					await TipNerd.call(amount, nerdBioAndId!.id)
-					useAccountModal().closeAccountModal()
+					useAccountModal().closeTipNerd()
 					setMessage('Tipped successfully')
 					analytics.logEvent('tip_nerd_completed', { amount })
 				} catch (e) { setError(e) }

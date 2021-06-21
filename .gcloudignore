@@ -19,11 +19,14 @@ node_modules/
 build/
 dist/
 
-env.example.json
+# IDEs config
 .idea/
+.vscode/
+.editorconfig
+
 
 *.log
-.editorconfig
+env.example.json
 README.md
 
 firebase/

@@ -65,7 +65,7 @@ export const useCreateSubject = () => {
 				const subject = await FindSubject.call(id) ?? undefined
 				if (subject) pushToGlobalSubjects(subject)
 				factory.value.reset()
-				useCreateModal().closeCreateModal()
+				useCreateModal().closeSubject()
 				setMessage('Subject created successfully')
 			} catch (error) { setError(error) }
 			setLoading(false)
@@ -125,7 +125,7 @@ export const useEditSubject = (subject = currentSubject) => {
 					if (s) pushToGlobalSubjects(s)
 				}
 				factory.value.reset()
-				useEditModal().closeEditModal()
+				useEditModal().closeSubject()
 				setMessage('Subject updated successfully')
 			} catch (error) { setError(error) }
 			setLoading(false)

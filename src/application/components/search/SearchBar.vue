@@ -51,17 +51,11 @@ form {
 		box-shadow: none;
 	}
 	select {
-
 		width: auto;
-		background-color: inherit !important;
+		background-color: inherit;
 		border: none;
 		padding: 0.25em 1.75em 0.25em 0.25em;
-
-				@media (min-width: $md) {
-		background-color: $color-light-blue ;
-	}
-	color: inherit;
-
+		color: inherit;
 	}
 
 	select:focus {

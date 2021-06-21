@@ -125,7 +125,7 @@ export const useCreateQuestion = () => {
 				setLoading(true)
 				const questionId = await AddQuestion.call(factory.value)
 				setMessage('Question submitted successfully')
-				useCreateModal().closeCreateModal()
+				useCreateModal().closeQuestion()
 				await router.push(`/questions/${questionId}`)
 				analytics.logEvent('ask_question_completed', {
 					questionId,

@@ -22,7 +22,7 @@ export const toggleTutor = functions.https.onCall(async (data, context) => {
 			action: '/account',
 			title: 'Nerd Privileges Modified',
 			body: isTutor
-				? 'Your account has successfully being granted nerd privileges'
+				? 'Your account has successfully been granted nerd privileges'
 				: 'Your nerd privileges has been removed. Contact an admin if this was a mistake'
 		})
 

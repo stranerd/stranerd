@@ -3,7 +3,6 @@
 		<NuxtLink class="d-none d-lg-block text-center logo" to="/">
 			<Logo />
 		</NuxtLink>
-		<!-- <ProfileHeadCard v-if="isLoggedIn" :user="user" /> -->
 		<div class="sidebar-links">
 			<NuxtLink class="sidebar-link" to="/dashboard">
 				<img src="@app/assets/images/icons/dashboard.svg" alt="">
@@ -17,15 +16,12 @@
 				<img src="@app/assets/images/icons/dashboard-icon.svg" alt="">
 				<span>Dashboard</span>
 			</NuxtLink>
-			<NuxtLink class="sidebar-link" to="/messages">
-				<img src="@app/assets/images/icons/chat.svg" alt="">
-				<span>Chat</span>
-			</NuxtLink>
+			<MessageLink :key="isLoggedIn" class="sidebar-link" />
 			<NuxtLink class="sidebar-link" to="/account#achievements">
 				<img src="@app/assets/images/icons/questions.svg" alt="">
-				<span>Achievement</span>
+				<span>Achievements</span>
 			</NuxtLink>
-			<NuxtLink class="sidebar-link" to="/e-wallet">
+			<NuxtLink class="sidebar-link" to="/account/e-wallet">
 				<img src="@app/assets/images/icons/e-wallet.svg" alt="">
 				<span>e-Wallet</span>
 			</NuxtLink>
@@ -57,12 +53,12 @@
 <script lang="ts">
 import { defineComponent, useRouter } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
-// import ProfileHeadCard from '@app/components/users/account/ProfileHeadCard.vue'
 import { useAccountModal } from '@app/hooks/core/modals'
 import { useSessionSignout } from '@app/hooks/auth/session'
+import MessageLink from '@app/components/layouts/sidebars/MessageLink.vue'
 export default defineComponent({
 	name: 'DefaultSidebar',
-	// components: { ProfileHeadCard },
+	components: { MessageLink },
 	setup () {
 		const router = useRouter()
 		const { isLoggedIn, user, isTutor, isAdmin } = useAuth()
@@ -72,7 +68,7 @@ export default defineComponent({
 		}
 		const buy = () => {
 			router.push('/account/e-wallet')
-			useAccountModal().setAccountModalBuyCoins()
+			useAccountModal().openBuyCoins()
 		}
 		return { isLoggedIn, user, isTutor, isAdmin, becomeNerd, buy, loading, signout }
 	}

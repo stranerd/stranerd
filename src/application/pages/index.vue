@@ -49,6 +49,18 @@ export default defineComponent({
 		h3{
 			font-size: 38px;
 			width: 400px;
+			margin-left: 48px;
+		}
+		h4{
+			margin: 28px 0px 28px 48px;
+			font-size: 18px;
+			width: 400px;
+		}
+		p{
+			margin-left: 48px;
+		}
+		.btn{
+				margin-left: 48px;
 		}
 	}
 }
@@ -65,6 +77,7 @@ export default defineComponent({
 		margin-top: 0;
 	}
 	.img{
+		margin-left: auto;
 		max-width: 600px;
 	}
 }

@@ -1,5 +1,5 @@
 <template>
-	<Modal :close="closeAccountModal">
+	<Modal :modal="$attrs.modal">
 		<template slot="title">
 			Meet A Nerd
 		</template>
@@ -22,13 +22,12 @@ export default defineComponent({
 	components: { SelectSubject },
 	setup () {
 		const router = useRouter()
-		const { closeAccountModal } = useAccountModal()
 		const { subjectId } = useTutorsList()
 		const navigate = () => {
 			router.push('/nerds')
-			closeAccountModal()
+			useAccountModal().closeMeetTutor()
 		}
-		return { closeAccountModal, subjectId, navigate }
+		return { subjectId, navigate }
 	}
 })
 </script>

@@ -98,7 +98,7 @@ export default defineComponent({
 		})
 		const tip = () => {
 			setNerdBioAndId({ id: props.answer.userId, bio: props.answer.user })
-			useAccountModal().setAccountModalTipNerd()
+			useAccountModal().openTipNerd()
 		}
 		const { error, loading, rateAnswer, markBestAnswer } = useAnswer(props.answer)
 		return {

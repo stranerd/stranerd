@@ -1,5 +1,5 @@
 <template>
-	<Modal :close="closeCreateModal">
+	<Modal :modal="$attrs.modal">
 		<template slot="title">
 			Create Subject
 		</template>
@@ -13,19 +13,14 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useCreateModal } from '@app/hooks/core/modals'
 import { useCreateSubject } from '@app/hooks/questions/subjects'
 import SubjectForm from '@app/components/admin/questions/subjects/SubjectForm.vue'
 export default defineComponent({
 	name: 'CreateModalSubject',
 	components: { SubjectForm },
 	setup () {
-		const { closeCreateModal } = useCreateModal()
 		const { loading, createSubject, factory, error } = useCreateSubject()
-		return {
-			loading, createSubject, factory, error,
-			closeCreateModal
-		}
+		return { loading, createSubject, factory, error }
 	}
 })
 </script>

@@ -1,5 +1,5 @@
 <template>
-	<Modal :close="closeEditModal">
+	<Modal :modal="$attrs.modal">
 		<template slot="title">
 			{{ tutorSubject ? 'Modify' : 'Assign' }} Nerd's Subject
 		</template>
@@ -38,7 +38,6 @@
 
 <script lang="ts">
 import { defineComponent, computed } from '@nuxtjs/composition-api'
-import { useEditModal } from '@app/hooks/core/modals'
 import { useSubjectList } from '@app/hooks/questions/subjects'
 import { useSingleTutor } from '@app/hooks/users/roles/tutors'
 export default defineComponent({
@@ -57,11 +56,9 @@ export default defineComponent({
 			get: () => subjects.value.filter((s) => tutor.value?.subject?.id !== s.id),
 			set: () => {}
 		})
-		const { closeEditModal } = useEditModal()
 		return {
-			tutLoading, tutError, addSubject, removeSubject,
-			subLoading, subError, tutorSubject, nonTutorSubjects,
-			tutor, closeEditModal
+			tutLoading, tutError, tutor, addSubject, removeSubject,
+			subLoading, subError, tutorSubject, nonTutorSubjects
 		}
 	}
 })

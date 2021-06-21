@@ -113,6 +113,14 @@
 				</div>
 			</div>
 		</div>
+		<div class="sectionFifth p-3">
+			<h4 class="text-center text-white">
+				The solutions to your problems are just one Click away.
+			</h4>
+			<NuxtLink to="/auth" class="btn-secondary mx-1 font-weight-bold">
+				Sign up
+			</NuxtLink>
+		</div>
 	</div>
 </template>
 
@@ -338,6 +346,30 @@ article{
 			font-size: 2rem;
 			text-align: end;
 
+		}
+	}
+}
+.sectionFifth{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	min-height: 300px;
+	h4{
+		font-weight: normal !important;
+		font-size: 230%;
+		@media (max-width: $sm) {
+			font-size: 170%;
+		}
+	}
+
+	.btn-secondary{
+		margin-top: 2rem;
+		font-size: 2rem;
+		padding: 13px 85px;
+		@media (max-width: $sm) {
+			font-size: 1.2rem;
+			padding: 13px 40px;
 		}
 	}
 }

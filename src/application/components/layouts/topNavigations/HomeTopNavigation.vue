@@ -76,6 +76,7 @@ box-shadow: 0px 5px 15px #17224D26;
 }
 .full-top-nav {
 box-shadow: 0px 5px 15px #17224D26;
+background:  $color-white;
 
 	// max-width: 1600px;
 	margin: 0 auto;

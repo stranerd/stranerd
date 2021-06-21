@@ -31,7 +31,87 @@
 			</div>
 		</div>
 		<div class="bg-white py-3">
+			<div class=" sectionThird d-flex w-100">
+				<div class="d-flex flex-column justify-content-center align-items-center  flex-md-row">
+					<article class="col-30 col-md-100 p-1 text-center">
+						<img src="@app/assets/images/homepage/chat.svg" alt="">
+						<h5>Chat Sessions</h5>
+						<p>
+							Spend quality time on Chat with Nerds who help you study, solve problems and explain solutions thoroughly.
+						</p>
+					</article>
+					<article class="col-30 col-md-100 p-1 text-center">
+						<img src="@app/assets/images/homepage/green-tick.svg" alt="">
+						<h5>Best Answers</h5>
+						<p>
+							Your questions get multiple answers and you’re able to choose which is best suitable for you.
+						</p>
+					</article>
+					<article class="col-30 col-md-100 p-1 text-center">
+						<img src="@app/assets/images/homepage/nerd.svg" alt="">
+						<h5>Become A Nerd</h5>
+						<p>
+							Answer Questions & Host Chat Sessions to help other students in the subject you are Very Good in.
+						</p>
+					</article>
+				</div>
+			</div>
+			<div class="thick mx-5" />
 
+			<div class="sectionFourth d-flex flex-column w-100">
+				<h1 class="text-center mx-auto my-3">
+					How It Works
+				</h1>
+
+				<div class="d-flex align-items-center">
+					<div class="text">
+						<h1>Meet A Nerd</h1>
+						<p>
+							Nerds are smart students who are very good in a particular subject and are always ready to help other students
+							out with their difficulties in that subject. <br> Get access to a pool of Nerds and pick your choice, have a One on
+							One Chat Session with them and get them to become your study buddy, explain difficult problems, guide you through homework and so on.
+						</p>
+					</div>
+					<div class="img-contain">
+						<img src="@app/assets/images/homepage/tn2.svg" alt="">
+					</div>
+					<div class="img-contain">
+						<img src="@app/assets/images/homepage/tn3.svg" alt="">
+					</div>
+				</div>
+
+				<div class="d-flex align-items-center mt-2">
+					<div class="img-contain">
+						<img src="@app/assets/images/homepage/tn4.svg" alt="">
+					</div>
+					<div class="img-contain">
+						<img src="@app/assets/images/homepage/tn5.svg" alt="">
+					</div>
+
+					<div class="text">
+						<h1>Ask A Question</h1>
+						<p>
+							Post a Question, the question public and all Nerds can see it.
+							You will get answers from multiple Nerds and will be able to rate the answers,
+							choose which is best and Tip Nerds for their effort.
+						</p>
+					</div>
+				</div>
+
+				<div class="d-flex align-items-center mt-2">
+					<div class="text">
+						<h1>Coin System</h1>
+						<p>
+							Purchase affordable coins to interact on the website. Bronze coins are used to Ask A Question, for as low as 4 coins per question.
+							Gold coins are used to have One on One Chat Sessions with Nerds & used to Tip Nerds.
+						</p>
+					</div>
+
+					<div class="img-contain">
+						<img src="@app/assets/images/homepage/tn6.svg" alt="">
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -45,6 +125,9 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+.mx-5{
+	margin: 0px 80px;
+}
 .sectionOne{
 	color: #214A73;
 	display: flex;
@@ -194,5 +277,68 @@ export default defineComponent({
 		}
 	}
 }
+.sectionThird{
+	max-width: 89vw;
+	margin: 10px 60px;
+	@media (max-width: $md) {
+		max-width: 100%;
+		margin: 0;
+		padding: 2rem 3rem;
 
+	}
+article{
+	width: 30%;
+	@media (max-width: $md) {
+		width: 100%;
+	}
+	img{
+	margin-bottom: 1rem;
+}
+}
+}
+.sectionFourth{
+	max-width: 89vw;
+	margin: 10px 60px;
+		@media (max-width: $md) {
+		max-width: 100%;
+		margin: 0;
+		padding: 2rem 3rem;
+	}
+		@media (max-width: $sm) {
+			padding: 1rem;
+		}
+
+	.d-flex{
+		@media (max-width: $md) {
+			flex-wrap: wrap;
+		}
+		@media (max-width: $sm) {
+			flex-wrap: nowrap;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+	}
+	h1{
+		color: $color-tint-blue;
+		// text-align: center;
+	}
+
+	.text{
+
+		@media (max-width: $md) {
+			order: 3;
+			margin-left: 1rem;
+		}
+		width: 70%;
+			@media (max-width: $md) {
+			width: 100%;
+		}
+		h1{
+			font-size: 2rem;
+			text-align: end;
+
+		}
+	}
+}
 </style>

@@ -20,12 +20,6 @@
 				<div class="link d-none d-md-inline-flex flex-grow-1 align-items-center border-0">
 					<SearchBar />
 				</div>
-				<!-- <NotificationBell class="link" />
-				<MessagesIcon class="link" />
-				<a v-if="isLoggedIn" class="link d-none d-lg-inline" @click.prevent="signout">
-					<PageLoading v-if="loading" />
-					<img src="@app/assets/images/icons/signout.svg" alt="">
-				</a> -->
 				<NotificationBell :key="isLoggedIn" class="link" />
 				<a v-if="isLoggedIn" class="link d-lg-none" @click="openRightSidebar">
 					<Avatar :src="user.avatar" :size="32" />

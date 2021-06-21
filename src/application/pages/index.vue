@@ -1,11 +1,12 @@
 <template>
-	<div class="bg-white main-container d-flex w-100">
+<div>
+	<div class="bg-white sectionOne d-flex w-100">
 		<div class="text-con">
 			<h3>
-				Get Quick Help, For Homework And Study Problems
+				Get Quick Help, <br> For Homework And Study Problems
 			</h3>
 			<h4>Link up with smart students in various subjects.</h4>
-			<p>Link up with smart students in various subjects.</p>
+			<p>We bring you the #1 Platform that gives you the opportunity to Collaborate, Innovate and get the Tools that make you excel in the student community and beyond.</p>
 			<NuxtLink to="/auth" class="btn btn-primary mt-1-5 border border-light-blue px-3 py-1">
 				Join Today
 			</NuxtLink>
@@ -14,19 +15,10 @@
 			<img src="@app/assets/images/homepage/hero-image.png" alt="" class="img">
 		</div>
 	</div>
-	<!-- <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-center">
-		<div class="bg-blob">
-			<h1>Get quick help for your homework...</h1>
-			<h5>From smart students in various subjects</h5>
-			<p>Stranerd.com offers you the chance to Collaborate, Innovate and get the Tools that make you stand out in the student community and beyond.</p>
-			<NuxtLink to="/auth" class="btn btn-blue mt-1-5 border border-light-blue px-3 py-1">
-				Join Today
-			</NuxtLink>
-		</div>
-		<div class="img-contain">
-			<img src="@app/assets/images/blobs/happy-boys.svg" alt="" class="w-100">
-		</div>
-	</div> -->
+	<div class="sectionTwo">
+
+	</div>
+</div>
 </template>
 
 <script lang="ts">
@@ -38,47 +30,91 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.main-container{
+.sectionOne{
 	color: #214A73;
 	display: flex;
 	align-items: center;
 	padding: 5rem;
+		@media (max-width: $lg) {
+				padding: 0rem;
+
+			align-items: flex-start;
+		}
+		@media (max-width: $md) {
+			flex-direction: column;
+		}
 	.text-con{
 		flex-basis: 50%;
 
 		h3{
-			font-size: 38px;
+			font-size: 260%;
 			width: 400px;
-			margin-left: 48px;
+			margin-left: 60px;
+			max-width: 80vw;
+			@media (max-width: $md) {
+			margin-left: 30px;
+			font-size: 24px;
+			margin-top: 2.4rem;
+		}
 		}
 		h4{
-			margin: 28px 0px 28px 48px;
+			margin: 28px 0px 28px 60px;
+			font-size: 19px;
+			width: 380px;
+			max-width: 80vw;
+			@media (max-width: $md) {
+			margin: 18px 0px 18px 30px;
 			font-size: 18px;
 			width: 400px;
 		}
+		}
 		p{
-			margin-left: 48px;
+			margin-left: 60px;
+			width: 450px;
+			max-width: 80vw;
+			font-size: 18px;
+			@media (max-width: $md) {
+			margin-left: 30px;
+			font-size: 18px;
+		}
 		}
 		.btn{
-				margin-left: 48px;
+			margin-left: 60px;
+			background: $color-tint-blue;
+			@media (max-width: $md) {
+			margin-left: 30px;
+			padding: 6px 28px !important;
+			margin-top: 0 !important;
+			margin-bottom: 36px;
+			color: white;
+		}
+
 		}
 	}
 }
 
 .img-contain {
 	flex-basis: 50%;
-	max-width: 75%;
-	align-self: flex-end;
-	margin-top: -25%;
+	// max-width: 75%;
+	width: 100%;
 	margin-bottom: 1rem;
-	@media (min-width: $md) {
 		flex-grow: 1;
 		align-self: center;
 		margin-top: 0;
-	}
+		@media (max-width: $md) {
+			display: flex;
+			justify-content: center;
+		}
 	.img{
-		margin-left: auto;
-		max-width: 600px;
+			margin: 0px auto;
+		width: 80%;
+		max-width: 85vw;
+		@media (max-width: $lg) {
+			width: 100%
+		}
+		@media (max-width: $md) {
+			width: 400px;
+		}
 	}
 }
 </style>

@@ -30,16 +30,18 @@
 				Sign in
 			</NuxtLink> -->
 		</div>
-		<div v-if="show" class="d-md-none nav-links slide-down bg-dropdown ">
-			<div class="d-flex justify-content-around w-100">
-				<NuxtLink to="/auth" class="btn-secondary-outline mx-1 font-weight-bold">
-					Log In
-				</NuxtLink>
-				<NuxtLink to="/auth" class="btn-secondary mx-1 font-weight-bold">
-					Sign up
-				</NuxtLink>
+		<transition name="slide" appear>
+			<div v-if="show" class="d-md-none nav-links bg-dropdown ">
+				<div class="d-flex justify-content-around w-100">
+					<NuxtLink to="/auth" class="btn-secondary-outline mx-1 font-weight-bold">
+						Log In
+					</NuxtLink>
+					<NuxtLink to="/auth" class="btn-secondary mx-1 font-weight-bold">
+						Sign up
+					</NuxtLink>
+				</div>
 			</div>
-		</div>
+		</transition>
 	</nav>
 </template>
 
@@ -55,11 +57,14 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+
 .md-top-nav{
 	    display: flex;
     width: 100%;
 	justify-content: space-between;
 	 padding: 0.7rem 2rem;
+	     z-index: 10;
+    background: white;
 	@media (min-width: $md) {  width: fit-content }
 }
 .bg-dropdown{
@@ -94,16 +99,14 @@ box-shadow: 0px 5px 15px #17224D26;
 	.btn {
 		padding: 0.5rem 1.5rem;
 	}
-	// .nuxt-link-exact-active {
-	// 	border-bottom: 2px solid $color-light-blue;
-	// }
 }
-.slide-down {
-	position: relative;
-	animation: slide-down .25s;
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: 0.5s;
 }
-@keyframes slide-down {
-	from { top: -100px; }
-	to { top: 0; }
+.slide-enter,
+.slide-leave-to {
+  transform: translateY(-60px);
 }
 </style>

@@ -28,7 +28,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="bg-white py-3">
+		<div class=" py-3">
 			<div class=" sectionThird d-flex w-100">
 				<div class="d-flex flex-column justify-content-center align-items-center  flex-md-row">
 					<article class="col-30 col-md-100 p-1 text-center">
@@ -54,7 +54,7 @@
 					</article>
 				</div>
 			</div>
-			<div class="thick mx-5" />
+			<div class="thick mx-5 bg-white" />
 
 			<div class="sectionFourth d-flex flex-column w-100">
 				<h1 class="text-center mx-auto my-3">
@@ -116,8 +116,46 @@
 				The solutions to your problems are just one Click away.
 			</h4>
 			<NuxtLink to="/auth" class="btn-secondary mx-1 font-weight-bold">
-				Sign up
+				Sign up Today
 			</NuxtLink>
+		</div>
+
+		<div class="sectionSixth d-flex flex-column w-100 pb-4">
+			<h1 class="text-center mx-auto my-3">
+				Contact Us
+			</h1>
+
+			<div class="d-flex  justify-content-around">
+				<div class="text d-flex flex-column">
+					<h1>Send A Message</h1>
+					<input type="text" placeholder="Email..." class="my-1">
+					<textarea id="" name="text" rows="4" class="mb-1" placeholder="Write Message..." />
+					<button class="btn-primary">
+						Send
+					</button>
+				</div>
+				<div class="text-left d-flex flex-column align-items-end contact">
+					<h1>Get In Touch</h1>
+					<div class="d-flex align-items-center ">
+						<p class="mr-2 mb-0">
+							+1 800 STRANERD
+						</p>
+						<img src="@app/assets/images/homepage/phone.svg">
+					</div>
+					<div class="d-flex align-items-center">
+						<p class="mr-2 mb-0">
+							support@stranerd.com
+						</p>
+						<img src="@app/assets/images/homepage/mail.svg">
+					</div>
+					<div class="d-flex align-items-center">
+						<p class="mr-2 mb-0">
+							favour@stranerd.com
+						</p>
+						<img src="@app/assets/images/homepage/mail.svg">
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -281,6 +319,7 @@ article{
 	}
 }
 .sectionFifth{
+	background: $color-blue;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -295,13 +334,85 @@ article{
 	}
 
 	.btn-secondary{
+		color: $color-dim-blue;
+		font-weight: 600;
 		margin-top: 2rem;
 		font-size: 2rem;
 		padding: 13px 85px;
 		@media (max-width: $sm) {
-			font-size: 1.2rem;
-			padding: 13px 40px;
+
+			font-size: 1rem;
+			padding: 13px 30px;
 		}
+	}
+}
+
+.sectionSixth{
+	max-width: 89vw;
+	margin: 10px 60px;
+		@media (max-width: $md) {
+		max-width: 100%;
+		margin: 0;
+		padding: 2rem 3rem;
+	}
+		@media (max-width: $sm) {
+			padding: 1rem;
+		}
+			.contact{
+			@media (max-width: $md) {
+			margin-top: 4rem;
+
+		}
+		.d-flex{
+			margin: 5px 0px;
+				p{
+			font-size: 1.8rem;
+
+				@media (max-width: $sm) {
+			font-size: 1.2rem;
+
+		}
+		}
+		}
+	}
+
+	.d-flex{
+		@media (max-width: $md) {
+			flex-wrap: wrap;
+			justify-content: center;
+			// align-items: center;
+		}
+		@media (max-width: $sm) {
+			// flex-wrap: nowrap;
+
+		}
+		img{
+			width: 32px;
+			margin-left: 1rem;
+		}
+
+	}
+	h1{
+		color: $color-tint-blue;
+		font-weight: normal;
+	}
+	input{
+		padding: 7px 12px;
+		border: 2px solid #AFC4D9;
+		border-radius: 6px;
+		width: 400px;
+		max-width: 89vw;
+	}
+	textarea{
+		padding: 7px 12px;
+		border: 2px solid #AFC4D9;
+		border-radius: 6px;
+		width: 400px;
+		max-width: 89vw;
+	}
+	button{
+		max-width: 130px;
+		padding: 11px 0px;
 	}
 }
 </style>

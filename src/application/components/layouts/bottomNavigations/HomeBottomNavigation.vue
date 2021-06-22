@@ -10,15 +10,13 @@
 					<a target="_blank" href="/legal/terms-of-use.pdf">
 						Terms of Use
 					</a>
-				</div>
-				<div>
-					<h4>Legal</h4>
-					<a target="_blank">
-						Honor Code
-					</a>
 					<a target="_blank" href="/legal/privacy-policy.pdf">
 						Privacy Policy
 					</a>
+				</div>
+				<div>
+					<h4><img src="@app/assets/images/homepage/dot.svg" alt=""></h4>
+
 					<a target="_blank" href="/legal/terms-and-conditions.pdf">
 						Terms & Conditions
 					</a>
@@ -34,6 +32,9 @@
 					<NuxtLink to="/">
 						Blog
 					</NuxtLink>
+					<a target="_blank">
+						Honor Code
+					</a>
 				</div>
 				<div>
 					<h4>Help</h4>
@@ -64,8 +65,8 @@ footer {
 	padding: 2rem 1rem;
 	@media (min-width: $md) { padding: 2rem; }
 	@media (min-width: $lg) { padding: 4rem; }
-	background: $color-black;
-	color: $color-white;
+	background: $color-footer-blue;
+	color: $color-blue-white;
 }
 .content {
 	max-width: 1600px;

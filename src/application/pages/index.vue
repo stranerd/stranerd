@@ -134,7 +134,6 @@ export default defineComponent({
 .mx-5{
 	margin: 0px 80px;
 }
-.sectionOne{
 .hero{
 	min-height: calc(50vh - 60px);
 	color: #214A73;
@@ -165,6 +164,7 @@ export default defineComponent({
 		}
 	}
 }
+
 .sectionTwo{
 	display: flex;
 	align-items: center;

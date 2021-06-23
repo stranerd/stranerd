@@ -45,7 +45,10 @@ export default defineComponent({
 	name: 'AuthIndexPage',
 	components: { AuthProviders },
 	layout: 'auth',
-	middleware: ['isNotAuthenticated'],
+	middleware: [
+		'isNotAuthenticated',
+		({ redirect }) => redirect('/auth/signin')
+	],
 	setup () {
 		const { loading, sendSigninEmail, factory, error, message } = useSendEmailLink()
 		return { factory, loading, error, sendSigninEmail, message }

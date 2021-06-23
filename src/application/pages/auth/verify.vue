@@ -10,6 +10,7 @@
 		<button class="btn btn-blue" @click="verifyEmail">
 			Resend Verification Email
 		</button>
+		<DisplaySuccess :message="message" />
 		<PageLoading v-if="loading" />
 		<DisplayError :error="error" />
 	</div>

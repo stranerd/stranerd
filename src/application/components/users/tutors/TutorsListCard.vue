@@ -6,11 +6,11 @@
 			<i class="fas fa-circle position-absolute" :class="tutor.isOnline ? 'text-success' : 'text-grey'" style="z-index: 1; right: 0; bottom: 0;" />
 		</NuxtLink>
 		<div class="flex-grow-1 d-flex flex-column flex-md-row align-self-start align-self-md-center">
-			<NuxtLink :to="`/users/${tutor.id}`" class="fw-bold text-wrap text-break me-auto">
+			<NuxtLink :to="`/users/${tutor.id}`" class="text-wrap text-break me-auto" style="font-weight: 600">
 				<span>{{ tutor.fullName }}</span>
 			</NuxtLink>
 			<div class="d-flex flex-column flex-md-row align-items-md-center gap-0-25 gap-md-1">
-				<span v-if="subject" class="d-block text-wrap text-break" style="font-weight: 600;">{{ subject.name }}</span>
+				<span v-if="subject" class="d-block text-wrap text-break" style="font-weight: 400;">{{ subject.name }}</span>
 				<ShowRatings :rating="tutor.averageRating" />
 				<span class="text-wrap text-break">{{ formatNumber(tutor.ratingCount) }} {{ pluralize(tutor.ratingCount, 'review', 'reviews') }}</span>
 			</div>

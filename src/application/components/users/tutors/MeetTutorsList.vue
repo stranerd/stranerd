@@ -11,6 +11,7 @@
 		<div class="thick" />
 		<div v-for="(tutor, index) in tutors" :key="tutor.hash">
 			<TutorsListCard :tutor="tutor" :rank="index + 1" />
+			<div class="thick" />
 		</div>
 		<DisplayWarning v-if="!loading && !error && tutors.length === 0" message="No nerds found." />
 		<DisplayError :error="error" />

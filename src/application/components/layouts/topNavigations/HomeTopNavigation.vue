@@ -1,45 +1,33 @@
 <template>
-	<nav class="full-top-nav justify-content-between flex-wrap">
-		<NuxtLink to="/">
-			<Logo />
-		</NuxtLink>
-		<button class="mx-0 d-md-none navbar-toggler" type="button" @click="show = !show">
-			<span class="fas fa-bars" />
-		</button>
-		<div class="d-none d-md-flex nav-links">
+	<nav class="home-top-nav" role="navigation">
+		<!-- add  "fixed-top" class on scroll Condition(window.scrollTop() > 10) -->
+		<div class="d-flex justify-content-between align-items-center padding">
 			<NuxtLink to="/">
-				Home
+				<Logo :secondary="true" />
 			</NuxtLink>
-			<NuxtLink to="/dashboard">
-				Dashboard
-			</NuxtLink>
-			<NuxtLink to="/how-it-works">
-				How it works
-			</NuxtLink>
-			<NuxtLink to="/contact-us">
-				Contact us
-			</NuxtLink>
-			<NuxtLink class="btn rounded-pill btn-white" to="/auth">
-				Sign in
-			</NuxtLink>
+			<button class="d-md-none navbar-toggler" @click="show = !show">
+				<span v-if="!show" class="fas fa-bars" />
+				<span v-else class="fas fa-times" />
+			</button>
+			<div class="d-none d-md-flex nav-links gap-1">
+				<NuxtLink to="/auth" class="btn-primary-outline">
+					Log In
+				</NuxtLink>
+				<NuxtLink to="/auth" class="btn-primary">
+					Sign up
+				</NuxtLink>
+			</div>
 		</div>
-		<div v-if="show" class="d-md-none nav-links slide-down">
-			<NuxtLink to="/">
-				Home
-			</NuxtLink>
-			<NuxtLink to="/dashboard">
-				Dashboard
-			</NuxtLink>
-			<NuxtLink to="/how-it-works">
-				How it works
-			</NuxtLink>
-			<NuxtLink to="/contact-us">
-				Contact us
-			</NuxtLink>
-			<NuxtLink class="btn rounded-pill btn-white" to="/auth">
-				Sign in
-			</NuxtLink>
-		</div>
+		<transition name="slide" appear>
+			<div v-if="show" class="d-md-none nav-links w-100 gap-1 p-1 slide-down bg-blue">
+				<NuxtLink to="/auth" class="btn-secondary-outline font-weight-bold">
+					Log In
+				</NuxtLink>
+				<NuxtLink to="/auth" class="btn-secondary font-weight-bold">
+					Sign up
+				</NuxtLink>
+			</div>
+		</transition>
 	</nav>
 </template>
 
@@ -55,39 +43,37 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.full-top-nav {
-	max-width: 1600px;
+.home-top-nav {
+	background:  $color-white;
+	color:$color-blue;
+	min-height: 60px;
+	z-index: 10;
+
 	margin: 0 auto;
-	padding: 0.5rem 1rem;
-	@media (min-width: $md) { padding: 0.5rem 2rem; }
-	@media (min-width: $lg) { padding: 0.5rem 4rem; }
+	box-shadow: 0px 5px 15px #17224D26;
+
+	button.navbar-toggler {
+		border: none;
+		outline: none;
+		border-radius: 0;
+		color: $color-tint-blue;
+	}
+}
+.padding {
+	padding: 1rem 2rem;
+	@media (min-width: $md) { padding: 1.25rem 4rem; }
+	@media (min-width: $lg) { padding: 1.5rem 6rem; }
+}
+.fixed-top{
+	background: #FFFFFF 0% 0% no-repeat padding-box;
+	box-shadow: 0px 5px 15px #17224D26;
 }
 .nav-links {
 	display: flex;
-	width: 100%;
-	flex-direction: column;
-	align-items: flex-start;
-	@media (min-width: $md) {
-		width: auto;
-		align-items: center;
-		flex-direction: row;
-	}
-	a {
-		margin: 0.5rem 1rem 0.5rem 0;
-	}
-	.btn {
-		padding: 0.5rem 1.5rem;
-	}
-	.nuxt-link-exact-active {
-		border-bottom: 2px solid $color-light-blue;
-	}
+	justify-content: center;
+	align-items: center;
 }
-.slide-down {
-	position: relative;
-	animation: slide-down .25s;
-}
-@keyframes slide-down {
-	from { top: -100px; }
-	to { top: 0; }
-}
+
+.slide-enter-active, .slide-leave-active { transition: 0.5s; }
+.slide-enter, .slide-leave-to { transform: translateY(-60px); }
 </style>

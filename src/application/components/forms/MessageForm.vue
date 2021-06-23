@@ -1,40 +1,37 @@
 <template>
 	<form @submit.prevent="createMessage">
 		<div class="form-group mb-1">
-			<label for="name">Full Name</label>
 			<input
 				id="name"
 				v-model="factory.name"
 				class="form-control"
-				placeholder="Eg. John Doe"
+				placeholder="Full Name"
 				:class="{'is-invalid': factory.errors.name, 'is-valid': factory.isValid('name')}"
 			>
 			<small v-if="factory.errors.name" class="small text-danger d-block">{{ factory.errors.name }}</small>
 		</div>
 		<div class="form-group mb-1">
-			<label for="email">Email</label>
 			<input
 				id="email"
 				v-model="factory.email"
 				class="form-control"
-				placeholder="Eg. johndoe@gmail.com"
+				placeholder="Email Address"
 				:class="{'is-invalid': factory.errors.email, 'is-valid': factory.isValid('email')}"
 			>
 			<small v-if="factory.errors.email" class="small text-danger d-block">{{ factory.errors.email }}</small>
 		</div>
 		<div class="form-group mb-1">
-			<label for="message">Message</label>
 			<textarea
 				id="message"
 				v-model="factory.message"
 				class="form-control"
-				rows="6"
+				rows="4"
 				:class="{'is-invalid': factory.errors.message, 'is-valid': factory.isValid('message')}"
-				placeholder="Eg I want to report a problem"
+				placeholder="Your Message"
 			/>
 			<small v-if="factory.errors.message" class="small text-danger d-block">{{ factory.errors.message }}</small>
 		</div>
-		<button class="btn btn-light-blue fw-bold" type="submit" :disabled="loading || !factory.valid">
+		<button class="btn btn-primary py-0-75 fw-bold" type="submit" :disabled="loading || !factory.valid">
 			<PageLoading v-if="loading" />
 			<span>Send Message</span>
 		</button>
@@ -53,3 +50,11 @@ export default defineComponent({
 	}
 })
 </script>
+
+<style lang="scss" scoped>
+input, textarea {
+	padding: 7px 12px;
+	border: 2px solid $color-blue-white;
+	border-radius: 6px;
+}
+</style>

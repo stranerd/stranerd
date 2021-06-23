@@ -4,21 +4,18 @@
 			<div class="links">
 				<div>
 					<h4>Company</h4>
-					<NuxtLink to="/how-it-works">
+					<NuxtLink to="/#how-it-works">
 						About Us
 					</NuxtLink>
 					<a target="_blank" href="/legal/terms-of-use.pdf">
 						Terms of Use
 					</a>
-				</div>
-				<div>
-					<h4>Legal</h4>
-					<a target="_blank">
-						Honor Code
-					</a>
 					<a target="_blank" href="/legal/privacy-policy.pdf">
 						Privacy Policy
 					</a>
+				</div>
+				<div>
+					<h4>Legal</h4>
 					<a target="_blank" href="/legal/terms-and-conditions.pdf">
 						Terms & Conditions
 					</a>
@@ -34,18 +31,21 @@
 					<NuxtLink to="/">
 						Blog
 					</NuxtLink>
+					<a target="_blank">
+						Honor Code
+					</a>
 				</div>
 				<div>
 					<h4>Help</h4>
 					<NuxtLink to="/">
 						FAQs
 					</NuxtLink>
-					<NuxtLink to="/contact-us">
+					<NuxtLink to="/#contact-us">
 						Contact Us
 					</NuxtLink>
 				</div>
 			</div>
-			<p class="my-2">
+			<p>
 				&copy; {{ new Date().getFullYear() }} | Stranerd LLC. All Rights Reserved.
 			</p>
 		</div>
@@ -62,10 +62,10 @@ export default defineComponent({
 <style lang="scss" scoped>
 footer {
 	padding: 2rem 1rem;
-	@media (min-width: $md) { padding: 2rem; }
-	@media (min-width: $lg) { padding: 4rem; }
-	background: $color-black;
-	color: $color-white;
+	@media (min-width: $md) { padding: 2.5rem; }
+	@media (min-width: $lg) { padding: 5rem; }
+	background: $color-footer-blue;
+	color: $color-blue-white;
 }
 .content {
 	max-width: 1600px;
@@ -79,13 +79,21 @@ footer {
 		}
 		h4 {
 			font-weight: 600;
-			font-size: 20px;
+			font-size: 1.125rem;
+			@media (min-width: $md) { font-size: 1.875rem; }
 			i { font-size: 16px; }
 		}
 		a {
 			display: block;
 			margin: 0.5rem 0;
+			font-size: 0.875rem;
+			@media (min-width: $md) { font-size: 1.5rem; }
 		}
+	}
+	p {
+		margin: 2rem 0 0;
+		font-size: 0.875rem;
+		@media (min-width: $md) { font-size: 1.5rem; }
 	}
 }
 </style>

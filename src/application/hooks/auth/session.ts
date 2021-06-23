@@ -55,7 +55,7 @@ export const useRedirectToAuth = () => {
 	const redirect = () => {
 		if (isServer()) res.setHeader('Set-Cookie', serialize(REDIRECT_SESSION_NAME, route.value.fullPath))
 		else document.cookie = serialize(REDIRECT_SESSION_NAME, route.value.fullPath)
-		if (app.router) app.router.push('/auth/')
+		if (app.router) app.router.push('/auth/signin')
 	}
 
 	return { redirect }

@@ -11,7 +11,7 @@ export default defineComponent({
 	middleware: [
 		({ redirect }) => {
 			const { email } = useVerifyEmail()
-			if (!email.value) redirect('/auth/')
+			if (!email.value) redirect('/auth/signin')
 		}
 	],
 	setup () {

@@ -10,20 +10,20 @@
 				<span v-else class="fas fa-times" />
 			</button>
 			<div class="d-none d-md-flex nav-links gap-1">
-				<NuxtLink to="/auth" class="btn-primary-outline">
+				<NuxtLink to="/auth/signin" class="btn-primary-outline">
 					Log In
 				</NuxtLink>
-				<NuxtLink to="/auth" class="btn-primary">
+				<NuxtLink to="/auth/signup" class="btn-primary">
 					Sign up
 				</NuxtLink>
 			</div>
 		</div>
 		<transition name="slide" appear>
 			<div v-if="show" class="d-md-none nav-links w-100 gap-1 p-1 slide-down bg-blue">
-				<NuxtLink to="/auth" class="btn-secondary-outline font-weight-bold">
+				<NuxtLink to="/auth/signin" class="btn-secondary-outline font-weight-bold">
 					Log In
 				</NuxtLink>
-				<NuxtLink to="/auth" class="btn-secondary font-weight-bold">
+				<NuxtLink to="/auth/signup" class="btn-secondary font-weight-bold">
 					Sign up
 				</NuxtLink>
 			</div>

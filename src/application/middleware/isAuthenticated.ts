@@ -8,6 +8,6 @@ export default defineNuxtMiddleware(({ res, route, redirect }) => {
 	if (!useAuth().isLoggedIn.value) {
 		if (isServer()) res.setHeader('Set-Cookie', serialize(REDIRECT_SESSION_NAME, route.fullPath))
 		else document.cookie = serialize(REDIRECT_SESSION_NAME, route.fullPath)
-		redirect('/auth/')
+		redirect('/auth/signin')
 	}
 })

@@ -5,7 +5,7 @@
 				<h1>Get Quick Help, For Homework And Study Problems</h1>
 				<h4>Link up with smart students in various subjects.</h4>
 				<p>We bring you the #1 Platform that gives you the opportunity to Collaborate, Innovate and get the Tools that make you excel in the student community and beyond.</p>
-				<NuxtLink to="/auth" class="btn btn-primary border border-light-blue py-0-75">
+				<NuxtLink to="/auth/signup" class="btn btn-primary border border-light-blue py-0-75">
 					Join Today
 				</NuxtLink>
 			</div>
@@ -109,7 +109,7 @@
 			<h4 class="text-center">
 				The solutions to your problems are just one Click away.
 			</h4>
-			<NuxtLink to="/auth" class="btn-secondary font-weight-bold">
+			<NuxtLink to="/auth/signup" class="btn-secondary font-weight-bold">
 				Sign up Today
 			</NuxtLink>
 		</div>

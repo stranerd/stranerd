@@ -1,12 +1,10 @@
 $color-blue: #17224d;
 $color-tint-blue:  #103E83;
 $color-dim-blue:  #214A73;
-$color-grey-blue: #395C7F;
-$color-light-blue: #e2f0ff;
-$color-blue-grey: #344BA3;
+$color-blue-grey: #214A73;
 $color-light-grey: #e7eef4;
 $color-grey: #808080;
-$color-light-blue: #EBF3FA ;
+$color-light-blue: #e2f0ff;
 $color-white: #FEFEFE;
 $color-blue-white: #AFC4D9;
 $color-footer-blue: #191C29;
@@ -53,7 +51,7 @@ $theme-colors: (
 	'white': $color-white
 );
 
-$spacer-values: (0,1,2,3,4);
+$spacer-values: (0,1,2,3,4,5);
 $spacers: ();
 @each $key in $spacer-values {
 	$spacers: map-merge($spacers, (

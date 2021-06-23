@@ -66,17 +66,7 @@ export default defineComponent({
 }
 .fixed-top{
 	background: #FFFFFF 0% 0% no-repeat padding-box;
-box-shadow: 0px 5px 15px #17224D26;
-}
-.full-top-nav {
-box-shadow: 0px 5px 15px #17224D26;
-background:  $color-white;
-
-	// max-width: 1600px;
-	margin: 0 auto;
-	padding: 0.5rem 1rem;
-	@media (max-width: $md) { padding: 0; }
-	@media (min-width: $lg) { padding: 0.5rem 4rem; }
+	box-shadow: 0px 5px 15px #17224D26;
 }
 .nav-links {
 	display: flex;
@@ -84,12 +74,6 @@ background:  $color-white;
 	align-items: center;
 }
 
-.slide-enter-active,
-.slide-leave-active {
-  transition: 0.5s;
-}
-.slide-enter,
-.slide-leave-to {
-  transform: translateY(-60px);
-}
+.slide-enter-active, .slide-leave-active { transition: 0.5s; }
+.slide-enter, .slide-leave-to { transform: translateY(-60px); }
 </style>

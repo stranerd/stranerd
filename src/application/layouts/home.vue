@@ -1,5 +1,5 @@
 <template>
-	<section class="layout-body">
+	<section class="layout-body bg-white">
 		<main class="layout-main">
 			<HomeTopNavigation class="w-100" />
 			<Nuxt class="flex-grow-1" />

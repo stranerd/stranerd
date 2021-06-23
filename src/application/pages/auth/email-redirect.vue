@@ -1,6 +1,6 @@
 <template>
 	<form @submit.prevent="signin">
-		<div class="mb-2-5 text-center">
+		<div class="mb-2 text-center">
 			<h1>
 				Confirm Email Address
 			</h1>

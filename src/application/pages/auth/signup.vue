@@ -1,6 +1,6 @@
 <template>
 	<form @submit.prevent="signup">
-		<h1 class="mb-3-5 text-center">
+		<h1 class="mb-2 text-center">
 			Sign Up With
 		</h1>
 		<AuthProviders class="mb-2" />

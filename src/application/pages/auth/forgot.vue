@@ -1,6 +1,6 @@
 <template>
 	<form @submit.prevent="resetPassword">
-		<h1 class="mb-3-5 text-center">
+		<h1 class="mb-2 text-center">
 			Forgot Password
 		</h1>
 		<div class="form-group mb-1">

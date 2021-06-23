@@ -74,12 +74,6 @@ export default defineComponent({
 	align-items: center;
 }
 
-.slide-enter-active,
-.slide-leave-active {
-  transition: 0.5s;
-}
-.slide-enter,
-.slide-leave-to {
-  transform: translateY(-60px);
-}
+.slide-enter-active, .slide-leave-active { transition: 0.5s; }
+.slide-enter, .slide-leave-to { transform: translateY(-60px); }
 </style>

@@ -311,7 +311,10 @@ export default defineComponent({
 		font-size: 1.875rem;
 		@media (min-width: $md) { font-size: 3rem; }
 	}
-	p { font-size: 1.5rem !important; }
+	p {
+		font-size: 1rem !important;
+		@media (min-width: $md) { font-size: 1.5rem !important; }
+	}
 }
 
 .sectionFifth {

@@ -15,8 +15,7 @@
 					</a>
 				</div>
 				<div>
-					<h4><img src="@app/assets/images/homepage/dot.svg" alt=""></h4>
-
+					<h4>Legal</h4>
 					<a target="_blank" href="/legal/terms-and-conditions.pdf">
 						Terms & Conditions
 					</a>
@@ -46,7 +45,7 @@
 					</NuxtLink>
 				</div>
 			</div>
-			<p class="my-2">
+			<p>
 				&copy; {{ new Date().getFullYear() }} | Stranerd LLC. All Rights Reserved.
 			</p>
 		</div>
@@ -63,8 +62,8 @@ export default defineComponent({
 <style lang="scss" scoped>
 footer {
 	padding: 2rem 1rem;
-	@media (min-width: $md) { padding: 2rem; }
-	@media (min-width: $lg) { padding: 4rem; }
+	@media (min-width: $md) { padding: 2.5rem; }
+	@media (min-width: $lg) { padding: 5rem; }
 	background: $color-footer-blue;
 	color: $color-blue-white;
 }
@@ -80,13 +79,21 @@ footer {
 		}
 		h4 {
 			font-weight: 600;
-			font-size: 20px;
+			font-size: 1.125rem;
+			@media (min-width: $md) { font-size: 1.875rem; }
 			i { font-size: 16px; }
 		}
 		a {
 			display: block;
 			margin: 0.5rem 0;
+			font-size: 0.875rem;
+			@media (min-width: $md) { font-size: 1.5rem; }
 		}
+	}
+	p {
+		margin: 2rem 0 0;
+		font-size: 0.875rem;
+		@media (min-width: $md) { font-size: 1.5rem; }
 	}
 }
 </style>

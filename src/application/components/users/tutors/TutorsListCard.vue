@@ -10,7 +10,7 @@
 				<span>{{ tutor.fullName }}</span>
 			</NuxtLink>
 			<div class="d-flex flex-column flex-md-row align-items-md-center gap-0-25 gap-md-1">
-				<span v-if="subject" class="d-block text-wrap text-break" style="font-weight: 500;">{{ subject.name }}</span>
+				<span v-if="subject" class="d-block text-wrap text-break" style="font-weight: 400;">{{ subject.name }}</span>
 				<ShowRatings :rating="tutor.averageRating" />
 				<span class="text-wrap text-break">{{ formatNumber(tutor.ratingCount) }} {{ pluralize(tutor.ratingCount, 'review', 'reviews') }}</span>
 			</div>

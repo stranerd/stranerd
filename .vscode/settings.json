@@ -12,7 +12,6 @@
     "[typescript]": {
       "editor.formatOnSave": true
     },
-
     "eslint.alwaysShowStatus": true,
     "svg.preview.background": "transparent"
    }

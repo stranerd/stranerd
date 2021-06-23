@@ -29,13 +29,11 @@
 				<img src="@app/assets/images/icons/admin.svg" alt="">
 				<span>Admin Site</span>
 			</NuxtLink>
-			<div v-if="isLoggedIn">
-				<a class="sidebar-link" @click="signout">
-					<PageLoading v-if="loading" />
-					<img src="@app/assets/images/icons/signout.svg" alt="">
-					<span>Signout</span>
-				</a>
-			</div>
+			<a v-if="isLoggedIn" class="sidebar-link" @click="signout">
+				<PageLoading v-if="loading" />
+				<img src="@app/assets/images/icons/signout.svg" alt="">
+				<span>Signout</span>
+			</a>
 		</div>
 		<div class="sidebar-links">
 			<button v-if="isLoggedIn && !isTutor" class="sidebar-btn btn btn-blue-grey" @click="becomeNerd">

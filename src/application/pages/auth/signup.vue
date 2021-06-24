@@ -50,7 +50,7 @@
 				class="form-control"
 				autocomplete="new-password"
 			>
-			<span v-if="factory.errors.cPassword" class="text-danger">passwords {{ factory.errors.cPassword }}</span>
+			<span v-if="factory.errors.cPassword" class="text-danger">{{ factory.errors.cPassword }}</span>
 		</div>
 		<div class="text-center">
 			<button type="submit" class="w-100 btn btn-blue py-1" :disabled="loading || !factory.valid">

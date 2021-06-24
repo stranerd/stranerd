@@ -8,6 +8,9 @@ export default defineNuxtPlugin(async () => {
 		return index !== -1
 	}
 
+	document.body.setAttribute('data-no-gap', hasNoGapSupport() ? 'true' : 'false')
+	document.documentElement.style.setProperty('--vh', `${window.innerHeight / 100}px`)
+
 	window.addEventListener('resize', () => {
 		document.body.setAttribute('data-no-gap', hasNoGapSupport() ? 'true' : 'false')
 		document.documentElement.style.setProperty('--vh', `${window.innerHeight / 100}px`)

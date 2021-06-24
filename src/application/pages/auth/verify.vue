@@ -10,23 +10,23 @@
 		<button class="btn btn-blue" @click="verifyEmail">
 			Resend Verification Email
 		</button>
-		<DisplaySuccess :message="message" />
+		<DisplaySuccess class="w-100" :message="message" />
 		<PageLoading v-if="loading" />
-		<DisplayError :error="error" />
+		<DisplayError class="w-100" :error="error" />
 	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted } from '@nuxtjs/composition-api'
 import { useVerifyEmail } from '@app/hooks/auth/session'
+import { useAuth } from '@app/hooks/auth/auth'
 export default defineComponent({
 	name: 'AuthVerifyPage',
 	layout: 'auth',
 	middleware: [
-		'isAuthenticated',
 		({ redirect }) => {
-			const { email } = useVerifyEmail()
-			if (!email.value) redirect('/auth/signin')
+			const { auth } = useAuth()
+			if (!auth.value) redirect('/auth/signin')
 		}
 	],
 	setup () {

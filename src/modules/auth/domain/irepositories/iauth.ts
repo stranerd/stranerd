@@ -6,8 +6,8 @@ export interface IAuthRepository {
 	signupWithEmail: (email: string, password: string) => Promise<AfterAuthUser>
 	sendSigninEmail: (email: string, redirectUrl: string) => Promise<void>
 	signinWithEmailLink: (email: string, emailUrl: string) => Promise<AfterAuthUser>
-	sendVerificationEmail: () => Promise<void>
-	resetPassword: (email: string) => Promise<void>
+	sendVerificationEmail: (email: string, redirectUrl: string) => Promise<void>
+	resetPassword: (email: string, redirectUrl: string) => Promise<void>
 	updateProfile: (profile: UpdateUser) => Promise<void>
 	session: (idToken: string) => Promise<AuthDetails>
 	logout: () => Promise<void>

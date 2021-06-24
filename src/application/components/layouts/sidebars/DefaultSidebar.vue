@@ -18,7 +18,7 @@
 			</NuxtLink>
 			<MessageLink :key="isLoggedIn" class="sidebar-link" />
 			<NuxtLink class="sidebar-link" to="/account#achievements">
-				<img src="@app/assets/images/icons/questions.svg" alt="">
+				<img src="@app/assets/images/icons/profile-rank.svg" alt="">
 				<span>Achievements</span>
 			</NuxtLink>
 			<NuxtLink class="sidebar-link" to="/account/e-wallet">

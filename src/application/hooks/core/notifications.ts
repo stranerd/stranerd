@@ -1,19 +1,12 @@
 import SweetAlert from 'sweetalert2'
 
-const Toast = SweetAlert.mixin({
-	toast: true,
-	position: 'top-end',
-	showConfirmButton: false,
-	timer: 3000
-})
-
 type ToastArgs = {
-    title: string
-    icon?: 'warning' | 'success' | 'error' | 'info'
+	title: string
+	icon?: 'warning' | 'success' | 'error' | 'info'
 }
 
 export const Notify = async (args: ToastArgs) => {
-	await Toast.fire({
+	await SweetAlert.fire({
 		title: args.title,
 		icon: args.icon ?? 'info',
 		toast: true,
@@ -24,8 +17,8 @@ export const Notify = async (args: ToastArgs) => {
 }
 
 type AlertArgs = ToastArgs & {
-    text: string
-    confirmButtonText: string
+	text: string
+	confirmButtonText: string
 	cancelButtonText?: string
 }
 export const Alert = async (args: AlertArgs) => {

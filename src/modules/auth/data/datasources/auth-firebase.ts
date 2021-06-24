@@ -33,7 +33,7 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 			url: redirectUrl,
 			handleCodeInApp: true
 		}).catch((error) => { throw filterFirebaseError(error) })
-		else await AxiosInstance.post('/emails', { email, redirectUrl })
+		else await AxiosInstance.post('/auth/emails/signin', { email, redirectUrl })
 			.catch((error) => { throw new Error(error?.response?.data?.error ?? 'Error sending email') })
 	}
 

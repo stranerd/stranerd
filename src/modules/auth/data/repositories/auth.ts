@@ -29,12 +29,12 @@ export class AuthRepository implements IAuthRepository {
 		return await this.dataSource.signinWithEmailLink(email, emailUrl)
 	}
 
-	async sendVerificationEmail () {
-		return await this.dataSource.sendVerificationEmail()
+	async sendVerificationEmail (email: string, redirectUrl: string) {
+		return await this.dataSource.sendVerificationEmail(email, redirectUrl)
 	}
 
-	async resetPassword (email: string): Promise<void> {
-		return await this.dataSource.resetPassword(email)
+	async resetPassword (email: string, redirectUrl: string): Promise<void> {
+		return await this.dataSource.resetPassword(email, redirectUrl)
 	}
 
 	async updateProfile (profile: UpdateUser) {

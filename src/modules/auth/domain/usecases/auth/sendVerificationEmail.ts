@@ -7,7 +7,7 @@ export class SendVerificationEmailUseCase {
 		this.repository = repository
 	}
 
-	async call () {
-		return await this.repository.sendVerificationEmail()
+	async call (email: string, redirectUrl: string) {
+		return await this.repository.sendVerificationEmail(email, redirectUrl)
 	}
 }

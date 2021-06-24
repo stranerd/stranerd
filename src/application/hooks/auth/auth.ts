@@ -5,6 +5,7 @@ import { SessionSignout } from '@modules/auth'
 import { isClient } from '@utils/environment'
 import { useEditModal } from '@app/hooks/core/modals'
 import { analytics, auth } from '@modules/core/services/initFirebase'
+import VueRouter from 'vue-router'
 
 const global = {
 	auth: reqSsrRef(null as AuthDetails | null),
@@ -18,6 +19,7 @@ export const useAuth = () => {
 	const bio = computed({ get: () => global.user.value?.userBio, set: () => {} })
 
 	const isLoggedIn = computed({ get: () => !!id.value && !!global.user.value, set: () => {} })
+	const isVerified = computed({ get: () => !!global.auth.value?.isVerified, set: () => {} })
 	const isAdmin = computed({ get: () => !!global.user.value?.roles.isAdmin, set: () => {} })
 	const isTutor = computed({ get: () => !!global.user.value?.roles.isTutor, set: () => {} })
 	const ongoingAchievements = computed({
@@ -29,11 +31,17 @@ export const useAuth = () => {
 		set: () => {}
 	})
 
-	const setAuthUser = async (details: AuthDetails | null) => {
+	const setAuthUser = async (details: AuthDetails | null, router: VueRouter) => {
 		if (global.listener) global.listener()
-		if (details?.id) global.user.value = await FindUser.call(details.id)
-		else global.user.value = null
 		global.auth.value = details
+		if (details?.id) {
+			if (!details.isVerified) {
+				await router.push('/auth/verify')
+				return false
+			}
+			global.user.value = await FindUser.call(details.id)
+		} else global.user.value = null
+		return true
 	}
 
 	const startProfileListener = async () => {
@@ -54,23 +62,21 @@ export const useAuth = () => {
 	const signin = async (remembered: boolean) => {
 		try {
 			if (global.auth.value?.token) await auth.signInWithCustomToken(global.auth.value.token)
-			if (global.auth.value?.isVerified === false) return false
 			await startProfileListener()
 			analytics.logEvent('login', { remembered })
 		} catch (e) { await signout() }
-		return true
 	}
 
 	const signout = async () => {
 		await SessionSignout.call()
-		await setAuthUser(null)
+		await setAuthUser(null, {} as VueRouter)
 		await auth.signOut()
 		if (isClient()) window.location.assign('/')
 	}
 
 	return {
 		id, bio, user: global.user, auth: global.auth,
-		isLoggedIn, isAdmin, isTutor, ongoingAchievements, currentSessionId,
+		isLoggedIn, isVerified, isAdmin, isTutor, ongoingAchievements, currentSessionId,
 		setAuthUser, signin, signout
 	}
 }

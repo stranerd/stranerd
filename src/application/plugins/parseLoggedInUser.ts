@@ -5,11 +5,11 @@ import Cookie from 'cookie'
 import { TOKEN_SESSION_NAME, USER_SESSION_NAME } from '@utils/constants'
 import { AuthDetails } from '@modules/auth/domain/entities/auth'
 
-export default defineNuxtPlugin(async ({ req }) => {
+export default defineNuxtPlugin(async ({ req, app }) => {
 	const cookies = isServer() ? Cookie.parse(req.headers.cookie ?? '') : {}
 	const { [USER_SESSION_NAME]: userJSON, [TOKEN_SESSION_NAME]: session } = cookies
 	if (session && userJSON) {
 		const authDetails = JSON.parse(userJSON) as AuthDetails
-		await useAuth().setAuthUser(authDetails)
+		await useAuth().setAuthUser(authDetails, app.router!)
 	}
 })

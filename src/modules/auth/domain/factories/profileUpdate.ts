@@ -14,8 +14,8 @@ export class ProfileUpdateFactory extends BaseFactory<UserBio, UpdateUser, Keys>
 		email: { required: true, rules: [isEmail] },
 		description: { required: true, rules: [] },
 		avatar: { required: false, rules: [] },
-		password: { required: false, rules: [(value: string) => isRequiredIf(value, !!this.password), isLongerThan5, isShorterThan17] },
-		cPassword: { required: false, rules: [(value: string) => isRequiredIf(value, !!this.password), (value: string) => isShallowEqualTo(value, this.password)] }
+		password: { required: false, rules: [isLongerThan5, isShorterThan17] },
+		cPassword: { required: false, rules: [(value: string) => isRequiredIf(value, !!this.password), (value: string) => isShallowEqualTo(value, this.password), isLongerThan5, isShorterThan17] }
 	}
 
 	constructor () {

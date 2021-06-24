@@ -1,10 +1,10 @@
 import { SessionSignin, SendVerificationEmail } from '@modules/auth'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
-import { isServer } from '@utils/environment'
+import { isClient, isServer } from '@utils/environment'
 import { REDIRECT_SESSION_NAME } from '@utils/constants'
 import Cookie from 'cookie'
 import { AfterAuthUser } from '@modules/auth/domain/entities/auth'
-import { useContext, reqRef } from '@nuxtjs/composition-api'
+import { useContext } from '@nuxtjs/composition-api'
 import VueRouter from 'vue-router'
 import { useAuth } from '@app/hooks/auth/auth'
 import { Alert } from '@app/hooks/core/notifications'
@@ -13,13 +13,9 @@ import { serialize } from '@utils/cookie'
 export const createSession = async (user: AfterAuthUser, router: VueRouter) => {
 	const authDetails = await SessionSignin.call(user.idToken)
 	const { setAuthUser, signin } = useAuth()
-	await setAuthUser(authDetails)
-	const wasVerified = await signin(false)
-	if (!wasVerified) {
-		global.email.value = authDetails.email
-		await router.push('/auth/verify')
-		return
-	}
+	const isVerified = await setAuthUser(authDetails, router)
+	if (!isVerified) return
+	await signin(false)
 
 	const { [REDIRECT_SESSION_NAME]: redirect } = Cookie.parse(document.cookie ?? '')
 	document.cookie = Cookie.serialize(REDIRECT_SESSION_NAME, '', { expires: new Date(0) })
@@ -61,29 +57,26 @@ export const useRedirectToAuth = () => {
 	return { redirect }
 }
 
-const global = {
-	email: reqRef('')
-}
-
 export const useVerifyEmail = () => {
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
 	const { message, setMessage } = useSuccessHandler()
 
 	const verifyEmail = async () => {
-		if (!global.email.value) return
-		const email = global.email.value
+		const email = useAuth().auth.value?.email
+		if (!email) return
 		setError('')
 		setLoading(true)
 		try {
-			await SendVerificationEmail.call()
+			const redirectUrl = (isClient() ? window.location.origin : '') + '/auth/signin'
+			await SendVerificationEmail.call(email, redirectUrl)
 			setMessage(`A verification email was just sent to ${email}. Proceed to your email to complete your verification.`)
 		} catch (error) { setError(error) }
 		setLoading(false)
 	}
 
 	return {
-		email: global.email,
+		email: useAuth().auth.value?.email,
 		loading, error, message,
 		verifyEmail
 	}

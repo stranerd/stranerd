@@ -70,7 +70,7 @@
 					:type="show ? 'text' : 'password'"
 					:class="{'is-invalid': factory.errors.cPassword}"
 				>
-				<small v-if="factory.errors.cPassword" class="small text-danger d-block">new passwords {{ factory.errors.cPassword }}</small>
+				<small v-if="factory.errors.cPassword" class="small text-danger d-block">{{ factory.errors.cPassword }}</small>
 			</div>
 		</div>
 		<div class="d-flex justify-content-end my-1-5">

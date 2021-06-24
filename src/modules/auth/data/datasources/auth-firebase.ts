@@ -33,8 +33,8 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 			url: redirectUrl,
 			handleCodeInApp: true
 		}).catch((error) => { throw filterFirebaseError(error) })
-		else await AxiosInstance.post('/emails', { email, redirectUrl })
-			.catch((error) => { throw new Error(error?.response?.data?.error ?? 'Error sending email') })
+		else await AxiosInstance.post('/auth/emails/signin', { email, redirectUrl })
+			.catch((error) => { throw new Error(error?.response?.data?.error ?? 'Error sending signin email') })
 	}
 
 	async signinWithEmailLink (email: string, emailUrl: string) {
@@ -45,18 +45,14 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
-	async sendVerificationEmail () {
-		if (!auth.currentUser) throw new Error('You are not currently signed in.')
-		try {
-			await auth.currentUser.sendEmailVerification()
-			await auth.signOut()
-		} catch (error) { throw filterFirebaseError(error) }
+	async sendVerificationEmail (email: string, redirectUrl: string) {
+		await AxiosInstance.post('/auth/emails/verify', { email, redirectUrl })
+			.catch((error) => { throw new Error(error?.response?.data?.error ?? 'Error sending verification email') })
 	}
 
-	async resetPassword (email: string) {
-		try {
-			await auth.sendPasswordResetEmail(email)
-		} catch (error) { throw filterFirebaseError(error) }
+	async resetPassword (email: string, redirectUrl: string) {
+		await AxiosInstance.post('/auth/emails/password-reset', { email, redirectUrl })
+			.catch((error) => { throw new Error(error?.response?.data?.error ?? 'Error sending password-reset email') })
 	}
 
 	async updateProfile ({ bio, password }: UpdateUser) {

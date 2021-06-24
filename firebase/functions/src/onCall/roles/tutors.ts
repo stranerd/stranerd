@@ -25,8 +25,6 @@ export const toggleTutor = functions.https.onCall(async (data, context) => {
 				? 'Your account has successfully been granted nerd privileges'
 				: 'Your nerd privileges has been removed. Contact an admin if this was a mistake'
 		})
-
-		return true
 	} catch (error) {
 		throw new functions.https.HttpsError('unknown', error.message)
 	}

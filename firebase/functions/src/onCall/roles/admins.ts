@@ -26,8 +26,6 @@ export const toggleAdmin = functions.https.onCall(async (data, context) => {
 			title: 'Admin Privileges Modified',
 			body
 		})
-
-		return true
 	} catch (error) {
 		throw new functions.https.HttpsError('unknown', error.message)
 	}

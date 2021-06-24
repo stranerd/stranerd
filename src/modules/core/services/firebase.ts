@@ -1,3 +1,4 @@
+import { SessionToModel } from '@modules/sessions/data/models/session'
 import { Status } from '@modules/users'
 import { DatabaseGetClauses, FirestoreGetClauses } from '../data/datasources/base'
 import firebase, { database, firestore, functions } from './initFirebase'
@@ -77,14 +78,6 @@ export const FirestoreService = {
 	}
 }
 
-export const FunctionsService = {
-	call: async (name: string, data: any) => {
-		const callable = functions.httpsCallable(name)
-		const result = await callable(data)
-		return result.data
-	}
-}
-
 export const DatabaseService = {
 	get: async (path: string, conditions?: DatabaseGetClauses) => {
 		const ref = database.ref(path)
@@ -160,5 +153,47 @@ export const DatabaseService = {
 	},
 	delete: async (path: string) => {
 		await database.ref(path).remove()
+	}
+}
+
+export interface FUNCTIONS {
+	toggleAdmin: { id: string, isAdmin: boolean },
+	toggleTutor: { id: string, isTutor: boolean },
+	subscribeToMailingList: { email: string },
+	requestNewSession: { session: Partial<SessionToModel> },
+	acceptSession: { id: string },
+	cancelSession: { id: string },
+	getClientToken: {},
+	makePayment: { amount: number, nonce: string },
+	buyCoins: { amount: number, isGold: boolean },
+	updateStreak: {},
+	tipNerd: { tutorId: string, amount: number },
+	rateNerd: { tutorId: string, amount: number, review: string | undefined },
+	approveTutorApplication: { id: string, approved: boolean },
+	markAsBestAnswer: { questionId: string, answerId: string }
+}
+
+export interface FUNCTION_RETURNS {
+	toggleAdmin: void,
+	toggleTutor: void,
+	subscribeToMailingList: void,
+	requestNewSession: string,
+	acceptSession: void,
+	cancelSession: void,
+	getClientToken: { braintree: string, paypal: string },
+	makePayment: boolean,
+	buyCoins: void,
+	updateStreak: { isLessThan: boolean, isNextDay: boolean, streak: number },
+	tipNerd: void,
+	rateNerd: void,
+	approveTutorApplication: void,
+	markAsBestAnswer: void
+}
+
+export const FunctionsService = {
+	call: async function call<T extends keyof FUNCTIONS> (name: T, data: FUNCTIONS[T]) {
+		const callable = functions.httpsCallable(name)
+		const result = await callable(data)
+		return result.data as FUNCTION_RETURNS[T]
 	}
 }

@@ -97,7 +97,7 @@ export default defineComponent({
 		}
 		const tipUser = () => {
 			setNerdBioAndId({ id: props.user.id, bio: props.user.userBio })
-			useAccountModal().openTipNerd()
+			useAccountModal().openTipTutor()
 			show.value = false
 		}
 		return {

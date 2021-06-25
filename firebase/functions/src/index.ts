@@ -16,8 +16,8 @@ import { makePayment } from './onCall/payments/makePayment'
 import { buyCoins } from './onCall/payments/buyCoins'
 import { updateStreak } from './onCall/users/updateStreak'
 import { approveTutorApplication } from './onCall/users/approveTutorApplication'
-import { tipNerd } from './onCall/users/tipNerd'
-import { rateNerd } from './onCall/users/rateNerd'
+import { tipTutor } from './onCall/users/tipTutor'
+import { rateTutor } from './onCall/users/rateTutor'
 import { markAsBestAnswer } from './onCall/questions/markAsBestAnswer'
 
 import { userProfileUpdated, userAvatarCreated } from './modules/users/users'
@@ -76,6 +76,6 @@ export { requestNewSession, acceptSession, cancelSession }
 // Payments
 export { getClientToken, makePayment, buyCoins }
 // Users
-export { updateStreak, tipNerd, rateNerd, approveTutorApplication }
+export { updateStreak, tipTutor, rateTutor, approveTutorApplication }
 // Questions
 export { markAsBestAnswer }

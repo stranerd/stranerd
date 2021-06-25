@@ -20,7 +20,7 @@ export class PaymentRepository implements IPaymentRepository {
 		return await this.dataSource.buyCoins({ amount, isGold })
 	}
 
-	async tipNerd (amount: number, tutorId: string) {
-		return await this.dataSource.tipNerd({ amount, tutorId })
+	async tipTutor (amount: number, tutorId: string) {
+		return await this.dataSource.tipTutor({ amount, tutorId })
 	}
 }

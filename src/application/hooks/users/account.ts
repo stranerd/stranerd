@@ -3,7 +3,7 @@ import { Ref, ssrRef, watch } from '@nuxtjs/composition-api'
 import { ProfileUpdateFactory, UpdateProfile } from '@modules/auth'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useAccountModal, useEditModal, usePaymentModal } from '@app/hooks/core/modals'
-import { BuyCoins, TipNerd } from '@modules/payment'
+import { BuyCoins, TipTutor } from '@modules/payment'
 import { UserBio } from '@modules/users'
 import { setPaymentProps } from '@app/hooks/payment/payment'
 import { Alert } from '@app/hooks/core/notifications'
@@ -97,14 +97,14 @@ export const setNerdBioAndId = ({ id, bio }: { id: string, bio: UserBio }) => {
 	nerdBioAndId = { id, bio }
 }
 
-export const useTipNerd = () => {
+export const useTipTutor = () => {
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
 	const { message, setMessage } = useSuccessHandler()
 	const TIP_AMOUNTS = [1, 2, 3, 4, 5, 10, 15, 20, 25, 35, 40, 45, 50]
 
-	const tipNerd = async (amount: number) => {
-		if (!nerdBioAndId) useAccountModal().closeTipNerd()
+	const tipTutor = async (amount: number) => {
+		if (!nerdBioAndId) useAccountModal().closeTipTutor()
 		if (!loading.value) {
 			setError('')
 			const result = await Alert({
@@ -117,8 +117,8 @@ export const useTipNerd = () => {
 			if (result) {
 				try {
 					setLoading(true)
-					await TipNerd.call(amount, nerdBioAndId!.id)
-					useAccountModal().closeTipNerd()
+					await TipTutor.call(amount, nerdBioAndId!.id)
+					useAccountModal().closeTipTutor()
 					setMessage('Tipped successfully')
 					analytics.logEvent('tip_nerd_completed', { amount })
 				} catch (e) { setError(e) }
@@ -129,6 +129,6 @@ export const useTipNerd = () => {
 
 	return {
 		loading, error, message, nerdBioAndId,
-		tipNerd, TIP_AMOUNTS
+		tipTutor, TIP_AMOUNTS
 	}
 }

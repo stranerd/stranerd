@@ -1,6 +1,6 @@
 import { IPaymentRepository } from '../../irepositories/ipayment'
 
-export class TipNerdUseCase {
+export class TipTutorUseCase {
 	private readonly repository: IPaymentRepository
 
 	constructor (repository: IPaymentRepository) {
@@ -8,6 +8,6 @@ export class TipNerdUseCase {
 	}
 
 	async call (amount: number, tutorId: string) {
-		return await this.repository.tipNerd(amount, tutorId)
+		return await this.repository.tipTutor(amount, tutorId)
 	}
 }

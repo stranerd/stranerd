@@ -1,23 +1,22 @@
 <template>
-	<nav class="home-top-nav" role="navigation">
+	<nav class="home-top-nav position-fixed" role="navigation">
 		<!-- add  "fixed-top" class on scroll Condition(window.scrollTop() > 10) -->
 		<div class="d-flex justify-content-between align-items-center padding">
-			<NuxtLink to="/">
-				<Logo :secondary="true" />
-			</NuxtLink>
+			<Logo :secondary="true" class="logo" />
 			<button class="d-md-none navbar-toggler" @click="show = !show">
 				<span v-if="!show" class="fas fa-bars" />
 				<span v-else class="fas fa-times" />
 			</button>
 			<div class="d-none d-md-flex nav-links gap-1">
-				<NuxtLink to="/auth" class="btn-primary-outline">
+				<NuxtLink to="/auth" class="btn btn-primary-outline">
 					Log In
 				</NuxtLink>
-				<NuxtLink to="/auth" class="btn-primary">
+				<NuxtLink to="/auth" class="btn btn-primary">
 					Sign up
 				</NuxtLink>
 			</div>
 		</div>
+
 		<transition name="slide" appear>
 			<div v-if="show" class="d-md-none nav-links w-100 gap-1 p-1 slide-down bg-blue">
 				<NuxtLink to="/auth" class="btn-secondary-outline font-weight-bold">
@@ -43,11 +42,24 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.logo{
+	&:hover {
+
+		transition: all 0.2s;
+		transform: scale(1.02);
+	}
+}
+.btn{
+min-width: 135px;
+min-height: 45px;
+display: grid;
+place-items: center;
+}
 .home-top-nav {
 	background:  $color-white;
 	color:$color-blue;
 	min-height: 60px;
-	z-index: 10;
+	z-index: 10 !important;
 
 	margin: 0 auto;
 	box-shadow: 0px 5px 15px #17224D26;
@@ -75,5 +87,5 @@ export default defineComponent({
 }
 
 .slide-enter-active, .slide-leave-active { transition: 0.5s; }
-.slide-enter, .slide-leave-to { transform: translateY(-60px); }
+.slide-enter, .slide-leave-to { transform: translateY(-60px); opacity: 1; }
 </style>

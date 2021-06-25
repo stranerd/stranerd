@@ -11,14 +11,26 @@ body {
 	color: $color-tint-blue;
 	padding: 4px 32px;
 	box-sizing: border-box;
+	&:hover {
+		border: 3px solid $color-tint-blue ;
+		background-color: $color-tint-blue;
+		color: $color-white;
+		transition: all 0.3s;
+	}
 }
 .btn-primary{
 	border-radius: 6px;
 	border: 1px solid $color-tint-blue ;
 	background-color: $color-tint-blue;
-	color: white;
+	color: $color-white;
 	padding: 6px 32px;
 	box-sizing: border-box;
+	&:hover {
+		border: 3px solid $color-tint-blue ;
+		background-color: $color-white;
+		color: $color-tint-blue;
+		transition: all 0.3s;
+	}
 }
 .btn-secondary-outline{
 	border-radius: 6px;

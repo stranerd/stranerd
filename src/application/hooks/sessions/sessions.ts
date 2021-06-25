@@ -1,4 +1,4 @@
-import { computed, Ref, ref, watch } from '@nuxtjs/composition-api'
+import { computed, Ref, ref, ssrRef, watch } from '@nuxtjs/composition-api'
 import { AddSession, BeginSession, CancelSession, SessionFactory } from '@modules/sessions'
 import { UserBio } from '@modules/users'
 import { useAuth } from '@app/hooks/auth/auth'
@@ -107,4 +107,31 @@ export const useSession = () => {
 	}
 
 	return { loading, error, cancelSession, acceptSession }
+}
+
+let ratedSessionId = null as null | string
+export const setRatedSessionId = (id: string) => { ratedSessionId = id }
+
+export const useRateSession = () => {
+	const { loading, setLoading } = useLoadingHandler()
+	const { error, setError } = useErrorHandler()
+	const rating = ssrRef(0)
+	const review = ssrRef('')
+
+	const rateSession = async () => {
+		if (!ratedSessionId) return
+		if (rating.value || review.value) {
+			setError('')
+			setLoading(true)
+			try {
+				review.value = ratedSessionId
+			} catch (error) { setError(error) }
+			setLoading(false)
+		}
+	}
+
+	return {
+		loading, error, rating, review,
+		rateSession
+	}
 }

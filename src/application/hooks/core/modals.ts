@@ -20,22 +20,23 @@ import StudentCancelled from '@app/components/modals/sessions/SessionStudentCanc
 import StudentWaiting from '@app/components/modals/sessions/SessionStudentWaiting.vue'
 import TutorCancelled from '@app/components/modals/sessions/SessionTutorCancelled.vue'
 import Unknown from '@app/components/modals/sessions/SessionUnknown.vue'
+import Ratings from '@app/components/modals/sessions/SessionRatings.vue'
 
 type CreateTypes = 'Subject' | 'Question' | 'Answer'
 type EditTypes = 'Subject' | 'AccountProfile' | 'TutorSubjects'
 type AccountTypes = 'BuyCoins' | 'TipTutor' | 'ReportUser' | 'MeetTutor'
 type MenuTypes = 'RightSidebar' | 'AdminSidebar' | 'Sidebar'
-type SessionTypes = 'CreateSession' | 'NewSessionRequest' | 'StudentCancelled' | 'StudentWaiting' | 'TutorCancelled' | 'Unknown'
+type SessionTypes = 'CreateSession' | 'NewSessionRequest' | 'StudentCancelled' | 'StudentWaiting' | 'TutorCancelled' | 'Unknown' | 'Ratings'
 type PaymentTypes = 'MakePayment'
 
 const CreateModals = { Subject: CreateSubject, Question: CreateQuestion, Answer: CreateAnswer } as Record<CreateTypes, any>
 const EditModals = { Subject: EditSubject, AccountProfile: EditAccountProfile, TutorSubjects: EditTutorSubjects } as Record<EditTypes, any>
 const AccountModals = { BuyCoins, TipTutor, ReportUser, MeetTutor } as Record<AccountTypes, any>
 const MenuModals = { RightSidebar, AdminSidebar, Sidebar } as Record<MenuTypes, any>
-const SessionModals = { CreateSession, NewSessionRequest, StudentCancelled, StudentWaiting, TutorCancelled, Unknown } as Record<SessionTypes, any>
+const SessionModals = { CreateSession, NewSessionRequest, StudentCancelled, StudentWaiting, TutorCancelled, Unknown, Ratings } as Record<SessionTypes, any>
 const PaymentModals = { MakePayment } as Record<PaymentTypes, any>
 
-export const modal = useModal(ssrRef([] as string[]))
+export const modal = useModal(ssrRef(['SessionRatings'] as string[]))
 const createModal = modal.register('Create', CreateModals)
 const editModal = modal.register('Edit', EditModals)
 const accountModal = modal.register('Account', AccountModals)

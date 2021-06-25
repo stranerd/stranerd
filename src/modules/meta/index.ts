@@ -9,6 +9,7 @@ import { GetClientTokenUseCase } from './domain/usecases/meta/getClientToken'
 import { MakePaymentUseCase } from './domain/usecases/meta/makePayment'
 import { BuyCoinsUseCase } from './domain/usecases/meta/buyCoins'
 import { TipTutorUseCase } from './domain/usecases/meta/tipTutor'
+import { RateTutorUseCase } from './domain/usecases/meta/rateTutor'
 import { TransactionEntity } from './domain/entities/transaction'
 
 const transactionDataSource = new TransactionFirebaseDataSource()
@@ -26,5 +27,6 @@ export const GetClientToken = new GetClientTokenUseCase(metaRepository)
 export const MakePayment = new MakePaymentUseCase(metaRepository)
 export const BuyCoins = new BuyCoinsUseCase(metaRepository)
 export const TipTutor = new TipTutorUseCase(metaRepository)
+export const RateTutor = new RateTutorUseCase(metaRepository)
 
 export { TransactionEntity }

@@ -168,7 +168,7 @@ export interface FUNCTIONS {
 	buyCoins: { amount: number, isGold: boolean },
 	updateStreak: {},
 	tipTutor: { tutorId: string, amount: number },
-	rateTutor: { tutorId: string, amount: number, review: string | undefined },
+	rateTutor: { tutorId: string, rating: number, review: string | undefined },
 	approveTutorApplication: { id: string, approved: boolean },
 	markAsBestAnswer: { questionId: string, answerId: string }
 }

@@ -23,4 +23,8 @@ export class MetaRepository implements IMetaRepository {
 	async tipTutor (amount: number, tutorId: string) {
 		return await this.dataSource.tipTutor({ amount, tutorId })
 	}
+
+	async rateTutor (tutorId: string, rating: number, review: string | undefined) {
+		return await this.dataSource.rateTutor({ tutorId, rating, review })
+	}
 }

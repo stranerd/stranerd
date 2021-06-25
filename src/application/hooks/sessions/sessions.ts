@@ -1,6 +1,7 @@
 import { computed, Ref, ref, ssrRef, watch } from '@nuxtjs/composition-api'
 import { AddSession, BeginSession, CancelSession, SessionFactory } from '@modules/sessions'
 import { UserBio } from '@modules/users'
+import { RateTutor } from '@modules/meta'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useSessionModal } from '@app/hooks/core/modals'
@@ -109,8 +110,8 @@ export const useSession = () => {
 	return { loading, error, cancelSession, acceptSession }
 }
 
-let ratedSessionId = null as null | string
-export const setRatedSessionId = (id: string) => { ratedSessionId = id }
+let otherParticipantId = null as null | string
+export const setOtherParticipantId = (id: string) => { otherParticipantId = id }
 
 export const useRateSession = () => {
 	const { loading, setLoading } = useLoadingHandler()
@@ -119,12 +120,12 @@ export const useRateSession = () => {
 	const review = ssrRef('')
 
 	const rateSession = async () => {
-		if (!ratedSessionId) return
+		if (!otherParticipantId) return
 		if (rating.value || review.value) {
 			setError('')
 			setLoading(true)
 			try {
-				review.value = ratedSessionId
+				await RateTutor.call(otherParticipantId, rating.value, review.value)
 			} catch (error) { setError(error) }
 			setLoading(false)
 		}

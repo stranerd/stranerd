@@ -36,7 +36,7 @@ const MenuModals = { RightSidebar, AdminSidebar, Sidebar } as Record<MenuTypes, 
 const SessionModals = { CreateSession, NewSessionRequest, StudentCancelled, StudentWaiting, TutorCancelled, Unknown, Ratings } as Record<SessionTypes, any>
 const PaymentModals = { MakePayment } as Record<PaymentTypes, any>
 
-export const modal = useModal(ssrRef(['SessionRatings'] as string[]))
+export const modal = useModal(ssrRef([] as string[]))
 const createModal = modal.register('Create', CreateModals)
 const editModal = modal.register('Edit', EditModals)
 const accountModal = modal.register('Account', AccountModals)

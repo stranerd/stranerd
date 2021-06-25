@@ -4,6 +4,7 @@ import { ListenToSession, SessionEntity } from '@modules/sessions'
 import { useSessionModal } from '@app/hooks/core/modals'
 import VueRouter from 'vue-router'
 import { useAuth } from '@app/hooks/auth/auth'
+import { UserBio } from '@modules/users'
 
 const global = {
 	sessionId: ssrRef(null as string | null),
@@ -64,6 +65,7 @@ const getSessionState = (id: string, session: SessionEntity) :SessionState => {
 }
 
 const actOnSessionState = async (state: SessionState, router: VueRouter) => {
+	useSessionModal().closeAll()
 	if (state === SessionState.NewSessionRequest) useSessionModal().openNewSessionRequest()
 	else if (state === SessionState.TutorCancels) useSessionModal().closeAll()
 	else if (state === SessionState.StudentWaiting) useSessionModal().openStudentWaiting()
@@ -102,9 +104,9 @@ export const useCurrentSession = () => {
 	})
 
 	const otherParticipant = computed({
-		get: () => {
+		get: () :UserBio & { id: string } => {
 			const session = clone.value
-			if (!session) return {}
+			if (!session) return {} as UserBio & { id: string }
 			if (session.studentId === id.value) return { ...session.tutorBio, id: session.tutorId }
 			else return { ...session.studentBio, id: session.studentId }
 		},

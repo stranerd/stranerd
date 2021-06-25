@@ -52,7 +52,7 @@ export const useCountdown = (timeInMs: number, triggers: Record<number, () => vo
 	let interval = undefined as number | undefined
 
 	watch(() => diffInSec.value, () => {
-		triggers[diffInSec.value]?.()
+		if (val > 0) triggers[diffInSec.value]?.()
 		if ([TIMES.minute, TIMES.hour, TIMES.day, TIMES.month, TIMES.year].includes(diffInSec.value)) {
 			clearInterval(interval)
 			interval = startInterval(diffInSec.value, (time: number) => diffInSec.value -= time)

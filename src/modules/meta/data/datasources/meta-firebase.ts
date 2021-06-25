@@ -1,7 +1,7 @@
 import { FunctionsService } from '@modules/core/services/firebase'
-import { PaymentBaseDataSource } from '../datasources/payment-base'
+import { MetaBaseDataSource } from './meta-base'
 
-export class PaymentFirebaseDataSource implements PaymentBaseDataSource {
+export class MetaFirebaseDataSource implements MetaBaseDataSource {
 	async getClientToken () {
 		return await FunctionsService.call('getClientToken', {})
 	}

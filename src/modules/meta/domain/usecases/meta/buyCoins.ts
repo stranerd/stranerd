@@ -1,9 +1,9 @@
-import { IPaymentRepository } from '../../irepositories/ipayment'
+import { IMetaRepository } from '../../irepositories/imeta'
 
 export class BuyCoinsUseCase {
-	private readonly repository: IPaymentRepository
+	private readonly repository: IMetaRepository
 
-	constructor (repository: IPaymentRepository) {
+	constructor (repository: IMetaRepository) {
 		this.repository = repository
 	}
 

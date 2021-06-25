@@ -1,4 +1,4 @@
-export abstract class IPaymentRepository {
+export abstract class IMetaRepository {
 	abstract getClientToken: () => Promise<{ braintree: string, paypal: string}>
 	abstract makePayment: (amount: number, nonce: string) => Promise<boolean>
 	abstract buyCoins: (amount: number, isGold: boolean) => Promise<void>

@@ -1,10 +1,10 @@
-import { IPaymentRepository } from '../../domain/irepositories/ipayment'
-import { PaymentBaseDataSource } from '../datasources/payment-base'
+import { IMetaRepository } from '../../domain/irepositories/imeta'
+import { MetaBaseDataSource } from '../datasources/meta-base'
 
-export class PaymentRepository implements IPaymentRepository {
-	private readonly dataSource: PaymentBaseDataSource
+export class MetaRepository implements IMetaRepository {
+	private readonly dataSource: MetaBaseDataSource
 
-	constructor (dataSource: PaymentBaseDataSource) {
+	constructor (dataSource: MetaBaseDataSource) {
 		this.dataSource = dataSource
 	}
 

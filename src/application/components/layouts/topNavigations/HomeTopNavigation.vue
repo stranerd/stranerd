@@ -43,8 +43,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .logo{
-	&:hover {
-
+	&:hover{
 		transition: all 0.2s;
 		transform: scale(1.02);
 	}

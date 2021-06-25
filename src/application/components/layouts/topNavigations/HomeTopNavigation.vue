@@ -1,5 +1,5 @@
 <template>
-	<nav class="home-top-nav position-fixed" role="navigation">
+	<nav class="home-top-nav" role="navigation">
 		<!-- add  "fixed-top" class on scroll Condition(window.scrollTop() > 10) -->
 		<div class="d-flex justify-content-between align-items-center padding">
 			<Logo :secondary="true" class="nav-logo" />
@@ -8,10 +8,10 @@
 				<span v-else class="fas fa-times" />
 			</button>
 			<div class="d-none d-md-flex nav-links gap-1">
-				<NuxtLink to="/auth" class="btn btn-primary-outline">
+				<NuxtLink to="/auth/signin" class="btn btn-primary-outline">
 					Log In
 				</NuxtLink>
-				<NuxtLink to="/auth" class="btn btn-primary">
+				<NuxtLink to="/auth/signup" class="btn btn-primary">
 					Sign up
 				</NuxtLink>
 			</div>

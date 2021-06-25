@@ -3,6 +3,7 @@ import * as admin from 'firebase-admin'
 import { createCustomer } from './helpers/braintree'
 import { subscribeToMailchimpList } from './helpers/mailingList'
 import { isProduction } from './helpers/environment'
+import { deleteFromAlgolia } from './helpers/algolia'
 
 export const authUserCreated = functions.auth.user().onCreate(async (user) => {
 	const data: any = {
@@ -46,6 +47,7 @@ export const authUserDeleted = functions.auth.user().onDelete(async (user) => {
 			[`profiles/${user.uid}/dates/deletedAt`]: admin.database.ServerValue.TIMESTAMP,
 			[`userIds/${user.uid}`]: false
 		})
+	await deleteFromAlgolia('users', user.uid)
 })
 
 export const deleteUnVerifiedUsers = async () => {

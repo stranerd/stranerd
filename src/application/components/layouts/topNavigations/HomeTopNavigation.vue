@@ -2,7 +2,7 @@
 	<nav class="home-top-nav position-fixed" role="navigation">
 		<!-- add  "fixed-top" class on scroll Condition(window.scrollTop() > 10) -->
 		<div class="d-flex justify-content-between align-items-center padding">
-			<Logo :secondary="true" class="logo" />
+			<Logo :secondary="true" class="nav-logo" />
 			<button class="d-md-none navbar-toggler" @click="show = !show">
 				<span v-if="!show" class="fas fa-bars" />
 				<span v-else class="fas fa-times" />
@@ -42,10 +42,10 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.logo{
+.nav-logo{
 	&:hover{
-		transition: all 0.2s;
-		transform: scale(1.02);
+		transition: all 0.3s;
+		transform: scale(1.2);
 	}
 }
 .btn{

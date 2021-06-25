@@ -1,10 +1,10 @@
 <template>
 	<form @submit.prevent="signup">
-		<h1 class="mb-3-5 text-center">
+		<h1 class="mb-2 text-center">
 			Sign Up With
 		</h1>
 		<AuthProviders class="mb-2" />
-		<div class="form-group">
+		<div class="form-group mb-1">
 			<label for="email" class="label">Email</label>
 			<input
 				id="email"
@@ -18,7 +18,7 @@
 			>
 			<span v-if="factory.errors.email" class="text-danger">{{ factory.errors.email }}</span>
 		</div>
-		<div class="form-group">
+		<div class="form-group mb-1">
 			<label for="password" class="label d-flex align-items-end">
 				<span>Password</span>
 				<a class="label-sm ms-auto" @click.prevent="toggle">{{ show ? 'Hide' : 'Show' }} password</a>
@@ -35,7 +35,7 @@
 			>
 			<span v-if="factory.errors.password" class="text-danger">{{ factory.errors.password }}</span>
 		</div>
-		<div class="form-group">
+		<div class="form-group mb-1">
 			<label for="c-password" class="label d-flex align-items-end">
 				<span>Confirm Password</span>
 				<a class="label-sm ms-auto" @click.prevent="toggle">{{ show ? 'Hide' : 'Show' }} password</a>
@@ -52,7 +52,7 @@
 			>
 			<span v-if="factory.errors.cPassword" class="text-danger">{{ factory.errors.cPassword }}</span>
 		</div>
-		<div class="mt-1 text-center">
+		<div class="text-center">
 			<button type="submit" class="w-100 btn btn-blue py-1" :disabled="loading || !factory.valid">
 				Sign Up
 			</button>

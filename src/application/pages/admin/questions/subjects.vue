@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import SubjectsList from '@app/components/admin/questions/subjects/AdminSubjectsList.vue'
+import SubjectsList from '@app/components/questions/subjects/AdminSubjectsList.vue'
 import { useCreateModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'AdminQuestionsSubjectsPage',

@@ -72,5 +72,4 @@ export default defineComponent({
 	background: rgba($color-white, 0.5);
 	@media (min-width: 850px) { background: unset; }
 }
-p { font-weight: 600; }
 </style>

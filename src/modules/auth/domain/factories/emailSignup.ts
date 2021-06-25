@@ -3,8 +3,8 @@ import { isLongerThan, isShorterThan, isEmail, isShallowEqualTo } from 'sd-valid
 import { AuthUser } from '../entities/auth'
 
 type Keys = { email: string, password: string, cPassword: string }
-const isLongerThan5 = (value:string) => isLongerThan(value, 5)
-const isShorterThan17 = (value:string) => isShorterThan(value, 17)
+const isLongerThan5 = (value: string) => isLongerThan(value, 5)
+const isShorterThan17 = (value: string) => isShorterThan(value, 17)
 
 export class EmailSignupFactory extends BaseFactory<null, AuthUser, Keys> {
 	readonly rules = {
@@ -22,7 +22,7 @@ export class EmailSignupFactory extends BaseFactory<null, AuthUser, Keys> {
 	get email () { return this.values.email }
 	set email (value: string) { this.set('email', value) }
 	get password () { return this.values.password }
-	set password (value: string) { this.set('password', value) }
+	set password (value: string) { this.set('password', value); this.set('cPassword', '') }
 	get cPassword () { return this.values.cPassword }
 	set cPassword (value: string) { this.set('cPassword', value) }
 

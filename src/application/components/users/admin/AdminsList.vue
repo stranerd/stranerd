@@ -10,7 +10,7 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useAdminsList } from '@app/hooks/users/roles/admins'
-import AdminsListCard from '@app/components/admin/users/AdminsListCard.vue'
+import AdminsListCard from '@app/components/users/admin/AdminsListCard.vue'
 export default defineComponent({
 	name: 'AdminsList',
 	components: { AdminsListCard },

@@ -129,7 +129,7 @@ body {
 
 .sidebar-link {
 	padding: 0.5rem 1.25rem;
-	margin: 5px 28px;
+	margin: 0.5rem 1.5rem;
 	max-width: 264px;
 
 	display: flex;
@@ -148,7 +148,8 @@ body {
 }
 
 .sidebar-btn {
-	margin: 0.25rem 36px;
+	margin: 0.5rem 1.5rem;
+	padding: 0.625rem 1.25rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -265,4 +266,35 @@ body {
 			margin-top: 1.0rem;
 		}
 	}
+}
+
+.menu-background {
+	height: vh(100);
+	background: rgba($color-blue-grey, .5);
+}
+.menu {
+	box-shadow: 3px 0 12px rgba($color-black, 1);
+	width: clamp(275px, 75%, 350px);
+}
+.menu-left {
+	@extend .menu;
+	left: 0;
+	color: $color-light-blue;
+	background: $color-blue;
+	animation: slide-right .25s;
+}
+@keyframes slide-right {
+	from { left: -100px; }
+	to { left: 0; }
+}
+.menu-right {
+	@extend .menu;
+	right: 0;
+	color: $color-blue-grey;
+	background: $color-white;
+	animation: slide-left .25s;
+}
+@keyframes slide-left {
+	from { right: -100px; }
+	to { right: 0; }
 }

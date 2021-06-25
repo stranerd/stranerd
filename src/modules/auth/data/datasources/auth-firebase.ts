@@ -2,14 +2,14 @@ import firebase, { auth } from '@modules/core/services/initFirebase'
 import { AxiosInstance } from '@modules/core/services/http'
 import { DatabaseService } from '@modules/core/services/firebase'
 import { isDev } from '@utils/environment'
-import { UserBio } from '@modules/users'
+import { AfterAuthUser, UpdateUser } from '../../domain/entities/auth'
 import { AuthBaseDataSource } from './auth-base'
 
 export class AuthFirebaseDataSource implements AuthBaseDataSource {
 	async signinWithEmail (email: string, password: string) {
 		try {
 			const record = await auth.signInWithEmailAndPassword(email, password)
-			return await getUserDetails(record.user!, record.additionalUserInfo?.isNewUser ?? false)
+			return await getUserDetails(record.user!)
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
@@ -17,15 +17,14 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 		try {
 			const googleProvider = new firebase.auth.GoogleAuthProvider()
 			const record = await auth.signInWithPopup(googleProvider)
-			return await getUserDetails(record.user!, record.additionalUserInfo?.isNewUser ?? false)
+			return await getUserDetails(record.user!)
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
 	async signupWithEmail (email: string, password: string) {
 		try {
 			const record = await auth.createUserWithEmailAndPassword(email, password)
-			const user = record.user!
-			return await getUserDetails(user, record.additionalUserInfo?.isNewUser ?? false)
+			return await getUserDetails(record.user!)
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
@@ -34,40 +33,36 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 			url: redirectUrl,
 			handleCodeInApp: true
 		}).catch((error) => { throw filterFirebaseError(error) })
-		else await AxiosInstance.post('/emails', { email, redirectUrl })
-			.catch((error) => { throw new Error(error?.response?.data?.error ?? 'Error sending email') })
+		else await AxiosInstance.post('/auth/emails/signin', { email, redirectUrl })
+			.catch((error) => { throw new Error(error?.response?.data?.error ?? 'Error sending signin email') })
 	}
 
 	async signinWithEmailLink (email: string, emailUrl: string) {
 		if (!auth.isSignInWithEmailLink(emailUrl)) throw new Error('Url is not a valid email link')
 		try {
 			const record = await auth.signInWithEmailLink(email, emailUrl)
-			return await getUserDetails(record.user!, record.additionalUserInfo?.isNewUser ?? false)
+			return await getUserDetails(record.user!)
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
-	async sendVerificationEmail () {
+	async sendVerificationEmail (email: string, redirectUrl: string) {
+		await AxiosInstance.post('/auth/emails/verify', { email, redirectUrl })
+			.catch((error) => { throw new Error(error?.response?.data?.error ?? 'Error sending verification email') })
+	}
+
+	async resetPassword (email: string, redirectUrl: string) {
+		await AxiosInstance.post('/auth/emails/password-reset', { email, redirectUrl })
+			.catch((error) => { throw new Error(error?.response?.data?.error ?? 'Error sending password-reset email') })
+	}
+
+	async updateProfile ({ bio, password }: UpdateUser) {
+		if (!auth.currentUser) throw new Error('You are not currently signed in.')
 		try {
-			await auth.currentUser?.sendEmailVerification()
-		} catch (error) { throw filterFirebaseError(error) }
-	}
-
-	async resetPassword (email: string) {
-		try {
-			await auth.sendPasswordResetEmail(email)
-		} catch (error) { throw filterFirebaseError(error) }
-	}
-
-	async updatePassword (email: string, oldPassword: string, password: string) {
-		try {
-			await auth.signInWithEmailAndPassword(email, oldPassword)
-			await auth.currentUser?.updatePassword(password)
-			await auth.signOut()
-		} catch (error) { throw filterFirebaseError(error) }
-	}
-
-	async updateProfile (id: string, bio: UserBio) {
-		await DatabaseService.update(`profiles/${id}/bio`, bio)
+			const { uid: id, updatePassword } = auth.currentUser
+			if (password) await updatePassword(password)
+			bio.isNew = null
+			await DatabaseService.update(`profiles/${id}/bio`, bio)
+		} catch (error) { throw filterFirebaseError(error)	}
 	}
 
 	async session (idToken: string) {
@@ -87,9 +82,10 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 	}
 }
 
-const getUserDetails = async (user: firebase.User, isNew: boolean) => {
+const getUserDetails = async (user: firebase.User) :Promise<AfterAuthUser> => {
+	const email = user.email!
 	const idToken = await user.getIdToken(true)
-	const data = { idToken, id: user.uid, isNew }
+	const data = { id: user.uid, email, idToken }
 	await auth.signOut()
 	return data
 }

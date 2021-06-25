@@ -3,10 +3,12 @@ import * as admin from 'firebase-admin'
 import { createCustomer } from './helpers/braintree'
 import { subscribeToMailchimpList } from './helpers/mailingList'
 import { isProduction } from './helpers/environment'
+import { deleteFromAlgolia } from './helpers/algolia'
 
 export const authUserCreated = functions.auth.user().onCreate(async (user) => {
 	const data: any = {
 		'bio/email': user.email,
+		'bio/isNew': true,
 		'roles/isStudent': true,
 		'dates/signedUpAt': admin.database.ServerValue.TIMESTAMP,
 		'account/coins/bronze': admin.database.ServerValue.increment(100),
@@ -45,4 +47,26 @@ export const authUserDeleted = functions.auth.user().onDelete(async (user) => {
 			[`profiles/${user.uid}/dates/deletedAt`]: admin.database.ServerValue.TIMESTAMP,
 			[`userIds/${user.uid}`]: false
 		})
+	await deleteFromAlgolia('users', user.uid)
 })
+
+export const deleteUnVerifiedUsers = async () => {
+	try {
+		const userIds = [] as string[]
+		const listAllUsers = async (nextPageToken?: string) => {
+			try {
+				const result = await admin.auth().listUsers(1000, nextPageToken)
+				result.users.forEach((user) => {
+					if (user.emailVerified) return
+					const createdAt = new Date(user.metadata.creationTime)
+					const threeDays = 3 * 86400 * 1000
+					if (Date.now() - createdAt.getTime() < threeDays) return
+					userIds.push(user.uid)
+				})
+				if (result.pageToken) await listAllUsers(result.pageToken)
+			} catch (err) {}
+		}
+		await listAllUsers()
+		userIds.forEach(admin.auth().deleteUser)
+	} catch (err) {}
+}

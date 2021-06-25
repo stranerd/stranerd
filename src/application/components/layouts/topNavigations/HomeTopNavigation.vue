@@ -19,10 +19,10 @@
 
 		<transition name="slide" appear>
 			<div v-if="show" class="d-md-none nav-links w-100 gap-1 p-1 slide-down bg-blue">
-				<NuxtLink to="/auth" class="btn-secondary-outline font-weight-bold">
+				<NuxtLink to="/auth/signin" class="btn-secondary-outline font-weight-bold">
 					Log In
 				</NuxtLink>
-				<NuxtLink to="/auth" class="btn-secondary font-weight-bold">
+				<NuxtLink to="/auth/signup" class="btn-secondary font-weight-bold">
 					Sign up
 				</NuxtLink>
 			</div>

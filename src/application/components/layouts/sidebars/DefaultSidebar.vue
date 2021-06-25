@@ -18,7 +18,7 @@
 			</NuxtLink>
 			<MessageLink :key="isLoggedIn" class="sidebar-link" />
 			<NuxtLink class="sidebar-link" to="/account#achievements">
-				<img src="@app/assets/images/icons/questions.svg" alt="">
+				<img src="@app/assets/images/icons/profile-rank.svg" alt="">
 				<span>Achievements</span>
 			</NuxtLink>
 			<NuxtLink class="sidebar-link" to="/account/e-wallet">
@@ -29,13 +29,11 @@
 				<img src="@app/assets/images/icons/admin.svg" alt="">
 				<span>Admin Site</span>
 			</NuxtLink>
-			<div v-if="isLoggedIn">
-				<a class="sidebar-link" @click="signout">
-					<PageLoading v-if="loading" />
-					<img src="@app/assets/images/icons/signout.svg" alt="">
-					<span>Signout</span>
-				</a>
-			</div>
+			<a v-if="isLoggedIn" class="sidebar-link" @click="signout">
+				<PageLoading v-if="loading" />
+				<img src="@app/assets/images/icons/signout.svg" alt="">
+				<span>Signout</span>
+			</a>
 		</div>
 		<div class="sidebar-links">
 			<button v-if="isLoggedIn && !isTutor" class="sidebar-btn btn btn-blue-grey" @click="becomeNerd">

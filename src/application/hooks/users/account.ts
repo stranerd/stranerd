@@ -14,7 +14,7 @@ export const useUpdateProfile = () => {
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const { setMessage } = useSuccessHandler()
-	const { id, bio } = useAuth()
+	const { bio } = useAuth()
 
 	if (bio.value) factory.value.loadEntity(bio.value)
 	watch(() => bio.value?.name.first, () => bio.value?.name ? factory.value.first = bio.value.name.first : null)
@@ -25,10 +25,10 @@ export const useUpdateProfile = () => {
 
 	const updateProfile = async () => {
 		setError('')
-		if (id.value && factory.value.valid && !loading.value) {
+		if (factory.value.valid && !loading.value) {
 			try {
 				setLoading(true)
-				await UpdateProfile.call(id.value, factory.value)
+				await UpdateProfile.call(factory.value)
 				useEditModal().closeAccountProfile()
 				setMessage('Profile updated successfully!')
 			} catch (error) { setError(error) }

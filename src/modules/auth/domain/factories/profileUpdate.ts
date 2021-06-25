@@ -1,21 +1,25 @@
 import { BaseFactory } from '@modules/core/domains/factories/base'
-import { isLongerThan, isEmail } from 'sd-validate/lib/rules'
+import { isLongerThan, isEmail, isShorterThan, isRequiredIf, isShallowEqualTo } from 'sd-validate/lib/rules'
 import { Avatar, UserBio } from '@modules/users'
+import { UpdateUser } from '../entities/auth'
 
-type Keys = { first: string, last: string, email: string, description: string, avatar: Avatar | null }
+type Keys = { first: string, last: string, email: string, description: string, avatar: Avatar | null, password: string | undefined, cPassword: string | undefined }
 const isLongerThan2 = (value:string) => isLongerThan(value, 2)
-
-export class ProfileUpdateFactory extends BaseFactory<UserBio, UserBio, Keys> {
+const isLongerThan5 = (value:string) => isLongerThan(value, 5)
+const isShorterThan17 = (value:string) => isShorterThan(value, 17)
+export class ProfileUpdateFactory extends BaseFactory<UserBio, UpdateUser, Keys> {
 	readonly rules = {
 		first: { required: true, rules: [isLongerThan2] },
 		last: { required: true, rules: [isLongerThan2] },
 		email: { required: true, rules: [isEmail] },
 		description: { required: true, rules: [] },
-		avatar: { required: false, rules: [] }
+		avatar: { required: false, rules: [] },
+		password: { required: false, rules: [isLongerThan5, isShorterThan17] },
+		cPassword: { required: false, rules: [(value: string) => isRequiredIf(value, !!this.password), (value: string) => isShallowEqualTo(value, this.password), isLongerThan5, isShorterThan17] }
 	}
 
 	constructor () {
-		super({ first: '', last: '', email: '', description: '', avatar: null })
+		super({ first: '', last: '', email: '', description: '', avatar: null, password: undefined, cPassword: undefined })
 	}
 
 	reserved = []
@@ -30,13 +34,17 @@ export class ProfileUpdateFactory extends BaseFactory<UserBio, UserBio, Keys> {
 	set description (value: string) { this.set('description', value) }
 	get avatar () { return this.values.avatar! }
 	set avatar (avatarId: Avatar | null) { this.set('avatar', avatarId) }
+	get password () { return this.values.password! }
+	set password (value: string) { this.set('password', value); this.set('cPassword', '') }
+	get cPassword () { return this.values.cPassword! }
+	set cPassword (value: string) { this.set('cPassword', value) }
 
 	toModel = async () => {
 		if (this.valid) {
-			const { first, last, email, description, avatar } = this.validValues
+			const { first, last, email, description, avatar, password } = this.validValues
 			return {
-				name: { first, last },
-				email, description, avatar
+				bio: { name: { first, last }, email, description, avatar },
+				password: password!
 			}
 		} else throw new Error('Validation errors')
 	}

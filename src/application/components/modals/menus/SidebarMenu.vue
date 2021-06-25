@@ -1,7 +1,7 @@
 <template>
-	<SideMenu :modal="$attrs.modal">
+	<LeftSideMenu :modal="$attrs.modal">
 		<Sidebar />
-	</SideMenu>
+	</LeftSideMenu>
 </template>
 
 <script lang="ts">

@@ -3,19 +3,22 @@ import { FindUser, ListenToUser, UserEntity } from '@modules/users'
 import { AuthDetails } from '@modules/auth/domain/entities/auth'
 import { SessionSignout } from '@modules/auth'
 import { isClient } from '@utils/environment'
+import { useEditModal } from '@app/hooks/core/modals'
 import { analytics, auth } from '@modules/core/services/initFirebase'
+import VueRouter from 'vue-router'
 
 const global = {
 	auth: reqSsrRef(null as AuthDetails | null),
 	user: reqSsrRef(null as UserEntity | null),
-	listener: null as null | (() => void)
+	listener: null as null | (() => void),
+	showProfileModal: reqSsrRef(true)
 }
 
 export const useAuth = () => {
 	const id = computed({ get: () => global.auth.value?.id ?? '', set: () => {} })
 	const bio = computed({ get: () => global.user.value?.userBio, set: () => {} })
 
-	const isLoggedIn = computed({ get: () => !!id.value, set: () => {} })
+	const isLoggedIn = computed({ get: () => !!id.value && !!global.user.value, set: () => {} })
 	const isVerified = computed({ get: () => !!global.auth.value?.isVerified, set: () => {} })
 	const isAdmin = computed({ get: () => !!global.user.value?.roles.isAdmin, set: () => {} })
 	const isTutor = computed({ get: () => !!global.user.value?.roles.isTutor, set: () => {} })
@@ -28,18 +31,27 @@ export const useAuth = () => {
 		set: () => {}
 	})
 
-	const setAuthUser = async (details: AuthDetails | null) => {
+	const setAuthUser = async (details: AuthDetails | null, router: VueRouter) => {
 		if (global.listener) global.listener()
-		if (details?.id) global.user.value = await FindUser.call(details.id)
-		else global.user.value = null
 		global.auth.value = details
+		if (details?.id) {
+			if (!details.isVerified) {
+				await router.push('/auth/verify')
+				return false
+			}
+			global.user.value = await FindUser.call(details.id)
+		} else global.user.value = null
+		return true
 	}
 
 	const startProfileListener = async () => {
 		if (global.listener) global.listener()
 
 		const id = global.auth.value?.id
-		const setUser = (user: UserEntity | null) => global.user.value = user
+		const setUser = (user: UserEntity | null) => {
+			if (user?.userBio.isNew && global.showProfileModal.value) useEditModal().openAccountProfile()
+			global.user.value = user
+		}
 		if (id) {
 			global.listener = await ListenToUser.call(id, setUser, true)
 			// TODO: Figure out why it throws errors
@@ -57,13 +69,16 @@ export const useAuth = () => {
 
 	const signout = async () => {
 		await SessionSignout.call()
-		await setAuthUser(null)
+		await setAuthUser(null, {} as VueRouter)
+		await auth.signOut()
 		if (isClient()) window.location.assign('/')
 	}
 
 	return {
-		id, bio, user: global.user,
+		id, bio, user: global.user, auth: global.auth,
 		isLoggedIn, isVerified, isAdmin, isTutor, ongoingAchievements, currentSessionId,
 		setAuthUser, signin, signout
 	}
 }
+
+export const setShowProfileModal = (show: boolean) => global.showProfileModal.value = show

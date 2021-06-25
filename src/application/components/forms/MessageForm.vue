@@ -15,7 +15,7 @@
 				id="email"
 				v-model="factory.email"
 				class="form-control"
-				placeholder="Email..."
+				placeholder="Email Address"
 				:class="{'is-invalid': factory.errors.email, 'is-valid': factory.isValid('email')}"
 			>
 			<small v-if="factory.errors.email" class="small text-danger d-block">{{ factory.errors.email }}</small>
@@ -27,7 +27,7 @@
 				class="form-control"
 				rows="4"
 				:class="{'is-invalid': factory.errors.message, 'is-valid': factory.isValid('message')}"
-				placeholder="Eg I want to report a problem"
+				placeholder="Your Message"
 			/>
 			<small v-if="factory.errors.message" class="small text-danger d-block">{{ factory.errors.message }}</small>
 		</div>

@@ -12,8 +12,8 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import UpgradeUserToTutor from '@app/components/admin/users/UpgradeUserToTutor.vue'
-import TutorsList from '@app/components/admin/users/AdminTutorsList.vue'
+import UpgradeUserToTutor from '@app/components/users/admin/UpgradeUserToTutor.vue'
+import TutorsList from '@app/components/users/admin/AdminTutorsList.vue'
 import TutorApplicationList from '@app/components/users/tutorApplication/TutorApplicationList.vue'
 export default defineComponent({
 	name: 'AdminUsersTutorsPage',

@@ -1,6 +1,6 @@
 <template>
 	<form @submit.prevent="sendSigninEmail">
-		<h1 class="mb-3-5 text-center">
+		<h1 class="mb-2 text-center">
 			Sign In With
 		</h1>
 		<AuthProviders class="mb-2" />
@@ -45,7 +45,10 @@ export default defineComponent({
 	name: 'AuthIndexPage',
 	components: { AuthProviders },
 	layout: 'auth',
-	middleware: ['isNotAuthenticated'],
+	middleware: [
+		'isNotAuthenticated',
+		({ redirect }) => redirect('/auth/signin')
+	],
 	setup () {
 		const { loading, sendSigninEmail, factory, error, message } = useSendEmailLink()
 		return { factory, loading, error, sendSigninEmail, message }

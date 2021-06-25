@@ -8,7 +8,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, onBeforeUnmount } from '@nuxtjs/composition-api'
+import { setShowProfileModal } from '@app/hooks/auth/auth'
 import { useEditModal } from '@app/hooks/core/modals'
 import AccountProfileForm from '@app/components/users/account/AccountProfileForm.vue'
 export default defineComponent({
@@ -16,6 +17,7 @@ export default defineComponent({
 	components: { AccountProfileForm },
 	setup () {
 		const { closeAccountProfile } = useEditModal()
+		onBeforeUnmount(() => setShowProfileModal(false))
 		return { closeAccountProfile }
 	}
 })

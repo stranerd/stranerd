@@ -9,14 +9,12 @@ import { UpdateProfileUseCase } from './domain/usecases/auth/updateProfile'
 import { SigninWithEmailUseCase } from './domain/usecases/auth/signinWithEmail'
 import { SignupWithEmailUseCase } from './domain/usecases/auth/signupWithEmail'
 import { SendVerificationEmailUseCase } from './domain/usecases/auth/sendVerificationEmail'
-import { UpdatePasswordUseCase } from './domain/usecases/auth/updatePassword'
 import { ResetPasswordUseCase } from './domain/usecases/auth/resetPassword'
 import { EmailLinkSigninFactory } from './domain/factories/emailLinkSignin'
 import { ProfileUpdateFactory } from './domain/factories/profileUpdate'
 import { EmailSigninFactory } from './domain/factories/emailSignin'
 import { EmailSignupFactory } from './domain/factories/emailSignup'
 import { PasswordResetFactory } from './domain/factories/passwordReset'
-import { PasswordUpdateFactory } from './domain/factories/passwordUpdate'
 
 const authDataSource = new AuthFirebaseDataSource()
 
@@ -29,9 +27,8 @@ export const SendSigninEmail = new SendSigninEmailUseCase(authRepository)
 export const SigninWithEmailLink = new SigninWithEmailLinkUseCase(authRepository)
 export const SendVerificationEmail = new SendVerificationEmailUseCase(authRepository)
 export const ResetPassword = new ResetPasswordUseCase(authRepository)
-export const UpdatePassword = new UpdatePasswordUseCase(authRepository)
 export const UpdateProfile = new UpdateProfileUseCase(authRepository)
 export const SessionSignin = new SessionSigninUseCase(authRepository)
 export const SessionSignout = new SessionSignoutUseCase(authRepository)
 
-export { EmailLinkSigninFactory, ProfileUpdateFactory, EmailSigninFactory, EmailSignupFactory, PasswordUpdateFactory, PasswordResetFactory }
+export { EmailLinkSigninFactory, ProfileUpdateFactory, EmailSigninFactory, EmailSignupFactory, PasswordResetFactory }

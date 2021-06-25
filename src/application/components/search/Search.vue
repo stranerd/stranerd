@@ -9,7 +9,7 @@
 					placeholder="Search for"
 					class="form-control"
 					:value="currentRefinement"
-					@input="() => { refine($event.currentTarget.value); log($event.currentTarget.value) }"
+					@input="(event) => { refine(event.currentTarget.value); log(event.currentTarget.value) }"
 				>
 				<PageLoading v-if="isSearchStalled" />
 			</template>

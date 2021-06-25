@@ -18,8 +18,20 @@ export const sendMail = async (to: string, subject: string, content: string, fro
 	})
 }
 
-export const sendAuthEmail = async (email: string, link: string) => {
-	const content = await new Template({ message: {} }).render('authEmail.pug',
+export const sendSigninEmail = async (email: string, link: string) => {
+	const content = await new Template({ message: {} }).render('signin.pug',
 		{ meta: { domain, logo }, link })
-	await sendMail(email, `Login To ${appName}`, content)
+	await sendMail(email, `Signin To ${appName}`, content)
+}
+
+export const sendVerificationEmail = async (email: string, link: string) => {
+	const content = await new Template({ message: {} }).render('verify.pug',
+		{ meta: { domain, logo }, link })
+	await sendMail(email, 'Verify Your Email', content)
+}
+
+export const sendPasswordResetEmail = async (email: string, link: string) => {
+	const content = await new Template({ message: {} }).render('password.pug',
+		{ meta: { domain, logo }, link })
+	await sendMail(email, 'Reset Your Password', content)
 }

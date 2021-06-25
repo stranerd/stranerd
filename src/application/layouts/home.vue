@@ -1,7 +1,8 @@
 <template>
 	<section class="layout-body bg-white">
 		<main class="layout-main">
-			<HomeTopNavigation class="w-100" />
+			<HomeTopNavigation class="w-100 fixed-top" />
+			<div style="height: 60px" />
 			<Nuxt class="flex-grow-1" />
 			<HomeBottomNavigation />
 		</main>

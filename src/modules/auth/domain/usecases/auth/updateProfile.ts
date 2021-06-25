@@ -8,7 +8,7 @@ export class UpdateProfileUseCase {
 		this.repository = repository
 	}
 
-	public async call (id: string, factory: ProfileUpdateFactory) {
-		return await this.repository.updateProfile(id, await factory.toModel())
+	public async call (factory: ProfileUpdateFactory) {
+		return await this.repository.updateProfile(await factory.toModel())
 	}
 }

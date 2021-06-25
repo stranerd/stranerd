@@ -2,10 +2,10 @@
 	<div>
 		<div class="hero gap-1">
 			<div class="text-con mt-3">
-				<h3>Get Quick Help, For Homework And Study Problems</h3>
+				<h1>Get Quick Help, For Homework And Study Problems</h1>
 				<h4>Link up with smart students in various subjects.</h4>
 				<p>We bring you the #1 Platform that gives you the opportunity to Collaborate, Innovate and get the Tools that make you excel in the student community and beyond.</p>
-				<NuxtLink to="/auth" class="btn btn-primary border border-light-blue py-0-75">
+				<NuxtLink to="/auth/signup" class="btn btn-primary border border-light-blue py-0-75">
 					Join Today
 				</NuxtLink>
 			</div>
@@ -52,7 +52,7 @@
 			</article>
 		</div>
 		<div class="bg-blue-grey thin mx-2 mx-md-3 mx-lg-5 my-0" />
-		<div class="sectionFourth gap-3">
+		<div id="how-it-works" class="sectionFourth gap-3">
 			<h1 class="text-center mx-auto my-0">
 				How It Works
 			</h1>
@@ -109,11 +109,11 @@
 			<h4 class="text-center">
 				The solutions to your problems are just one Click away.
 			</h4>
-			<NuxtLink to="/auth" class="btn-secondary font-weight-bold">
+			<NuxtLink to="/auth/signup" class="btn-secondary font-weight-bold">
 				Sign up Today
 			</NuxtLink>
 		</div>
-		<div class="sectionSixth gap-2 gap-lg-3">
+		<div id="contact-us" class="sectionSixth gap-2 gap-lg-3">
 			<h1 class="text-center mx-auto my-0">
 				Contact Us
 			</h1>
@@ -187,14 +187,16 @@ export default defineComponent({
 		min-height: calc(90vh - 60px);
 	}
 	.text-con{
-		h3, h4 { font-weight: bold; }
 		p { margin-bottom: 0.5rem; }
-		h3 { font-size: 1.5rem; }
+		h1 { font-size: 1.5rem; }
 		h4 { font-size: 1.125rem; }
 		p { font-size: 1rem; }
 		a { font-size: 1rem; }
+		@media (min-width) {
+			h1 { font-size: 1.5rem; }
+		}
 		@media (min-width: $lg) {
-			h3 { font-size: 2.5rem; }
+			h1 { font-size: 2.5rem; }
 			h4 { font-size: 1.875rem; }
 			p { font-size: 1.5rem; }
 			a { font-size: 1.5rem; }

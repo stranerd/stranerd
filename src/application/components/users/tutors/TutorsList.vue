@@ -6,6 +6,7 @@
 		<div class="thick" />
 		<div v-for="(tutor, index) in tutors.slice(0, 10)" :key="tutor.hash">
 			<TutorsListCard :tutor="tutor" :rank="index + 1" />
+			<div class="thick" />
 		</div>
 		<div v-if="tutors.length > 10" class="text-center py-0-5 text-18">
 			<NuxtLink class="fw-bold" to="/nerds">

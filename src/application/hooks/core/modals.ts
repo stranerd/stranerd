@@ -1,3 +1,4 @@
+import { ssrRef } from '@nuxtjs/composition-api'
 import { useModal } from '@app/hooks/core/modal'
 import CreateSubject from '@app/components/modals/create/CreateSubject.vue'
 import CreateQuestion from '@app/components/modals/create/CreateQuestion.vue'
@@ -34,7 +35,7 @@ const MenuModals = { RightSidebar, AdminSidebar, Sidebar } as Record<MenuTypes, 
 const SessionModals = { CreateSession, NewSessionRequest, StudentCancelled, StudentWaiting, TutorCancelled, Unknown } as Record<SessionTypes, any>
 const PaymentModals = { MakePayment } as Record<PaymentTypes, any>
 
-export const modal = useModal()
+export const modal = useModal(ssrRef([] as string[]))
 const createModal = modal.register('Create', CreateModals)
 const editModal = modal.register('Edit', EditModals)
 const accountModal = modal.register('Account', AccountModals)

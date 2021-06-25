@@ -1,5 +1,5 @@
-import { SessionSignin } from '@modules/auth'
-import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
+import { SessionSignin, SendVerificationEmail } from '@modules/auth'
+import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { isClient, isServer } from '@utils/environment'
 import { REDIRECT_SESSION_NAME } from '@utils/constants'
 import Cookie from 'cookie'
@@ -7,35 +7,24 @@ import { AfterAuthUser } from '@modules/auth/domain/entities/auth'
 import { useContext } from '@nuxtjs/composition-api'
 import VueRouter from 'vue-router'
 import { useAuth } from '@app/hooks/auth/auth'
-import { analytics } from '@modules/core/services/initFirebase'
 import { Alert } from '@app/hooks/core/notifications'
-import { useEditModal } from '@app/hooks/core/modals'
 import { serialize } from '@utils/cookie'
 
 export const createSession = async (user: AfterAuthUser, router: VueRouter) => {
 	const authDetails = await SessionSignin.call(user.idToken)
-	if (user.isNew) {
-		useEditModal().openAccountProfile()
-		analytics.logEvent('sign_up')
-	}
-	if (isClient()) {
-		if (authDetails) {
-			const { setAuthUser, signin } = useAuth()
-			await setAuthUser(authDetails)
-			await signin(false)
-		}
+	const { setAuthUser, signin } = useAuth()
+	const isVerified = await setAuthUser(authDetails, router)
+	if (!isVerified) return
+	await signin(false)
 
-		const { [REDIRECT_SESSION_NAME]: redirect } = Cookie.parse(document.cookie ?? '')
-		document.cookie = Cookie.serialize(REDIRECT_SESSION_NAME, '', {
-			expires: new Date(0)
-		})
-		if (router) await router.push(redirect ?? '/dashboard')
-	}
+	const { [REDIRECT_SESSION_NAME]: redirect } = Cookie.parse(document.cookie ?? '')
+	document.cookie = Cookie.serialize(REDIRECT_SESSION_NAME, '', { expires: new Date(0) })
+	await router.push(redirect ?? '/dashboard')
 }
 
 export const useSessionSignout = () => {
 	const { error, setError } = useErrorHandler()
-	const { loading, setLoading } = useLoadingHandler()
+	const { loading /*, setLoading */ } = useLoadingHandler()
 	const signout = async () => {
 		setError('')
 		const accepted = await Alert({
@@ -45,11 +34,11 @@ export const useSessionSignout = () => {
 			confirmButtonText: 'Yes, signout'
 		})
 		if (accepted) {
-			setLoading(true)
+			// setLoading(true)
 			try {
 				await useAuth().signout()
 			} catch (error) { setError(error) }
-			setLoading(false)
+			// setLoading(false)
 		}
 	}
 
@@ -62,8 +51,33 @@ export const useRedirectToAuth = () => {
 	const redirect = () => {
 		if (isServer()) res.setHeader('Set-Cookie', serialize(REDIRECT_SESSION_NAME, route.value.fullPath))
 		else document.cookie = serialize(REDIRECT_SESSION_NAME, route.value.fullPath)
-		if (app.router) app.router.push('/auth/')
+		if (app.router) app.router.push('/auth/signin')
 	}
 
 	return { redirect }
+}
+
+export const useVerifyEmail = () => {
+	const { loading, setLoading } = useLoadingHandler()
+	const { error, setError } = useErrorHandler()
+	const { message, setMessage } = useSuccessHandler()
+
+	const verifyEmail = async () => {
+		const email = useAuth().auth.value?.email
+		if (!email) return
+		setError('')
+		setLoading(true)
+		try {
+			const redirectUrl = (isClient() ? window.location.origin : '') + '/auth/signin'
+			await SendVerificationEmail.call(email, redirectUrl)
+			setMessage(`A verification email was just sent to ${email}. Proceed to your email to complete your verification.`)
+		} catch (error) { setError(error) }
+		setLoading(false)
+	}
+
+	return {
+		email: useAuth().auth.value?.email,
+		loading, error, message,
+		verifyEmail
+	}
 }

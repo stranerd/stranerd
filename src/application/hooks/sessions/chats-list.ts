@@ -3,6 +3,10 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { ChatMetaEntity, GetPersonalChatsMeta, ListenToPersonalChatsMeta } from '@modules/sessions'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 
+let sound = require("@app/assets/audio/notification-sound.mp3")
+let player = new Audio()
+player.src = sound
+
 const global = {} as Record<string, {
 	meta: Ref<ChatMetaEntity[]>,
 	fetched: Ref<boolean>
@@ -15,7 +19,23 @@ export const useChatsList = () => {
 	if (global[userId] === undefined) {
 		const listener = useListener(async () => {
 			if (!id.value) return () => {}
-			const cb = (entities: ChatMetaEntity[]) => global[id.value].meta.value = entities
+			const cb = (entities: ChatMetaEntity[]) =>{
+				entities.forEach((entity)=>{
+					let entityUnRead = Object.keys(entity.unRead)
+					let globalUnRead = Object.keys(global[id.value].meta.value)
+					entityUnRead.every((unread)=>{
+						let check:boolean = globalUnRead.includes(unread)
+						if(!check){
+							player.play()
+							return false
+						}
+						return true
+					})
+				})
+				global[id.value].meta.value = entities
+			 }
+
+
 			return ListenToPersonalChatsMeta.call(id.value, cb)
 		})
 		global[userId] = {

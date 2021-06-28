@@ -10,15 +10,11 @@ import { FindUserUseCase } from './domain/usecases/users/findUser'
 import { MakeAdminUseCase } from './domain/usecases/roles/makeAdmin'
 import { RemoveAdminUseCase } from './domain/usecases/roles/removeAdmin'
 import { SubscribeToMailingListUseCase } from './domain/usecases/roles/subscribeToMailingList'
-import { MakeTutorUseCase } from './domain/usecases/roles/makeTutor'
-import { RemoveTutorUseCase } from './domain/usecases/roles/removeTutor'
 import { GetUsersByEmailUseCase } from './domain/usecases/users/getUsersByEmail'
 import { GetAllAdminsUseCase } from './domain/usecases/users/getAllAdmins'
 import { GetAllTutorsUseCase } from './domain/usecases/users/getAllTutors'
 import { ListenToTutorsUseCase } from './domain/usecases/users/listenToTutors'
 import { ListenToUserUseCase } from './domain/usecases/users/listenToUser'
-import { AddTutorSubjectUseCase } from './domain/usecases/users/addTutorSubject'
-import { RemoveTutorSubjectUseCase } from './domain/usecases/users/removeTutorSubject'
 import { UpdateStreakUseCase } from './domain/usecases/users/updateStreak'
 import { GetTopRankingUsersUseCase } from './domain/usecases/rankings/getTopRankingUsers'
 import { ListenToTopRankingUsersUseCase } from './domain/usecases/rankings/listenToTopRankingUsers'
@@ -48,14 +44,10 @@ export const GetAllAdmins = new GetAllAdminsUseCase(userRepository)
 export const GetAllTutors = new GetAllTutorsUseCase(userRepository)
 export const ListenToTutors = new ListenToTutorsUseCase(userRepository)
 export const ListenToUser = new ListenToUserUseCase(userRepository)
-export const AddTutorSubject = new AddTutorSubjectUseCase(userRepository)
-export const RemoveTutorSubject = new RemoveTutorSubjectUseCase(userRepository)
 export const UpdateStreak = new UpdateStreakUseCase(userRepository)
 
 export const MakeAdmin = new MakeAdminUseCase(roleRepository)
 export const RemoveAdmin = new RemoveAdminUseCase(roleRepository)
-export const MakeTutor = new MakeTutorUseCase(roleRepository)
-export const RemoveTutor = new RemoveTutorUseCase(roleRepository)
 export const SubscribeToMailingList = new SubscribeToMailingListUseCase(roleRepository)
 
 export const GetTopRankingUsers = new GetTopRankingUsersUseCase(userRepository)

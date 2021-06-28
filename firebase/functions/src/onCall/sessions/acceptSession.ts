@@ -18,12 +18,12 @@ export const acceptSession = functions.https.onCall(async ({ id }, context) => {
 	try {
 		let taskName = ''
 		try {
-			taskName = await createTask({
+			taskName = (await createTask({
 				queue: 'sessions',
 				endpoint: 'endSession',
 				payload: { studentId, tutorId, id },
 				timeInSecs: ((session?.duration ?? 15) * 60) + (Date.now() / 1000) + 5 // plus 5 to account for round trips to servers
-			})
+			}))!
 		} catch (e) {}
 
 		const endedAt = admin.firestore.Timestamp.now().toDate()

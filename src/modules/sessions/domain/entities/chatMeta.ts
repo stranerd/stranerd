@@ -4,14 +4,14 @@ import { ChatEntity } from '@modules/sessions/domain/entities/chat'
 
 export class ChatMetaEntity extends BaseEntity {
 	readonly id: string
-	readonly unRead: Record<string, boolean>
+	readonly unRead: string[]
 	readonly bio: UserBio
 	readonly last: ChatEntity
 
 	constructor ({ id, unRead, bio, last }: ChatMetaConstructorArgs) {
 		super()
 		this.id = id
-		this.unRead = unRead ?? {}
+		this.unRead = Object.keys(unRead ?? {})
 		this.bio = generateDefaultBio(bio)
 		this.last = last
 	}

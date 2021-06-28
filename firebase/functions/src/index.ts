@@ -6,7 +6,6 @@ import { endSession } from './requests/endSession'
 import { runDaily, runWeekly, runMonthly, runQuarterly } from './pubsub'
 
 import { toggleAdmin } from './onCall/roles/admins'
-import { toggleTutor } from './onCall/roles/tutors'
 import { subscribeToMailingList } from './onCall/roles/mailing'
 import { requestNewSession } from './onCall/sessions/requestNewSession'
 import { acceptSession } from './onCall/sessions/acceptSession'
@@ -15,12 +14,10 @@ import { getClientToken } from './onCall/payments/getClientToken'
 import { makePayment } from './onCall/payments/makePayment'
 import { buyCoins } from './onCall/payments/buyCoins'
 import { updateStreak } from './onCall/users/updateStreak'
-import { approveTutorApplication } from './onCall/users/approveTutorApplication'
 import { tipNerd } from './onCall/users/tipNerd'
 import { markAsBestAnswer } from './onCall/questions/markAsBestAnswer'
 
 import { userProfileUpdated, userAvatarCreated } from './modules/users/users'
-import { tutorApplicationCreated, tutorApplicationDeleted } from './modules/users/tutorApplications'
 
 import { personalChatsCreated, personalChatMediaDeleted } from './modules/sessions/chats'
 
@@ -46,8 +43,6 @@ export { makeSuperAdmin, resendEmails, endSession }
 // Users Module
 // Users
 export { userProfileUpdated, userAvatarCreated }
-// Tutor Application
-export { tutorApplicationCreated, tutorApplicationDeleted }
 
 // Sessions Module
 // Chats
@@ -69,12 +64,12 @@ export { messageCreated, reportCreated }
 
 // On Call
 // Roles
-export { toggleAdmin, toggleTutor, subscribeToMailingList }
+export { toggleAdmin, subscribeToMailingList }
 // Sessions
 export { requestNewSession, acceptSession, cancelSession }
 // Payments
 export { getClientToken, makePayment, buyCoins }
 // Users
-export { updateStreak, tipNerd, approveTutorApplication }
+export { updateStreak, tipNerd }
 // Questions
 export { markAsBestAnswer }

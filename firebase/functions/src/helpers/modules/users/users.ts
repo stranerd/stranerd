@@ -152,24 +152,3 @@ export const updateMyChatsBio = async (userId: string, user: any) => {
 		await admin.database().ref('chats/meta').update(data)
 	} catch (error) { console.log(`Error updating bios of ${userId} chats`) }
 }
-
-export const updateMyTutorApplicationsBio = async (userId: string, user: any) => {
-	try {
-		const tutorApplicationIdRefs = await admin.database().ref('profiles')
-			.child(userId)
-			.child('meta/tutorApplications')
-			.once('value')
-		const sessionIds = Object.keys(tutorApplicationIdRefs.val() ?? {})
-		const chunks = chunkArray(sessionIds, 500)
-		await Promise.all(
-			chunks.map(async (chunk) => {
-				const batch = admin.firestore().batch()
-				chunk.forEach((id) => {
-					const ref = admin.firestore().collection('tutorApplications').doc(id)
-					batch.set(ref, { userBio: user }, { merge: true })
-				})
-				if (chunk.length > 0) await batch.commit()
-			})
-		)
-	} catch (error) { console.log(`Error updating bios of ${userId} tutor applications`) }
-}

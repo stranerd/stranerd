@@ -36,9 +36,6 @@
 			</a>
 		</div>
 		<div class="sidebar-links">
-			<button v-if="isLoggedIn && !isTutor" class="sidebar-btn btn btn-blue-grey" @click="becomeNerd">
-				<span>Become A Nerd</span>
-			</button>
 			<button v-if="isLoggedIn" class="sidebar-btn btn btn-blue-grey" @click="buy">
 				<span>Buy Coins</span>
 				<Coins class="ms-0-25" :size="24" />
@@ -61,14 +58,11 @@ export default defineComponent({
 		const router = useRouter()
 		const { isLoggedIn, user, isTutor, isAdmin } = useAuth()
 		const { loading, signout } = useSessionSignout()
-		const becomeNerd = () => {
-			router.push('/nerds/signup')
-		}
 		const buy = () => {
 			router.push('/account/e-wallet')
 			useAccountModal().openBuyCoins()
 		}
-		return { isLoggedIn, user, isTutor, isAdmin, becomeNerd, buy, loading, signout }
+		return { isLoggedIn, user, isTutor, isAdmin, buy, loading, signout }
 	}
 })
 </script>

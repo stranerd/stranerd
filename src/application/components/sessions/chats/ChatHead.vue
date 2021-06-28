@@ -18,10 +18,8 @@
 		</button>
 		<div v-if="show" class="under" @click="show = false" />
 		<div v-if="show" class="menu gap-0-5">
-			<template v-if="user.roles.isTutor">
-				<a v-if="!currentSessionId && !user.currentSession" @click.prevent="requestNewSession">Request Session</a>
-				<a @click="tipUser">Tip Nerd</a>
-			</template>
+			<a v-if="!currentSessionId && !user.currentSession" @click.prevent="requestNewSession">Request Session</a>
+			<a @click="tipUser">Tip Nerd</a>
 			<a @click="reportUser">Report</a>
 			<PageLoading v-if="loading" />
 			<a v-if="isAccepted && currentSession && currentSessionId === user.currentSession && currentSession.studentId === id" @click.prevent="cancelSession">End Session</a>

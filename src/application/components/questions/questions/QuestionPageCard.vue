@@ -16,7 +16,7 @@
 			</div>
 			<div class="d-none d-md-inline">
 				<div class="d-flex gap-0-5">
-					<div v-if="isTutor" class="d-flex align-items-center position-relative">
+					<div class="d-flex align-items-center position-relative">
 						<span class="rounded-pill px-0-5 pe-1-5 bg-blue-grey text-light-blue">
 							+{{ formatNumber(question.creditable) }}
 						</span>
@@ -50,7 +50,7 @@
 				</span>
 				<i class="fas mx-0-25" :class="showComments ? 'fa-angle-up' : 'fa-angle-down'" />
 			</a>
-			<div v-if="isTutor" class="d-md-none d-flex align-items-center position-relative ms-auto">
+			<div class="d-md-none d-flex align-items-center position-relative ms-auto">
 				<span class="rounded-pill px-0-5 pe-1-5 bg-blue-grey text-light-blue">
 					+{{ formatNumber(question.creditable) }}
 				</span>
@@ -98,15 +98,15 @@ export default defineComponent({
 	},
 	setup (props) {
 		const showComments = ref(false)
-		const { isLoggedIn, id, isTutor, user } = useAuth()
+		const { isLoggedIn, id, user } = useAuth()
 		const { redirect } = useRedirectToAuth()
 		const { subject } = useSubject(props.question.subjectId)
 		const showAnswerButton = computed({
-			get: () => isTutor.value && props.question.userId !== id.value && !props.question.isAnswered && !user.value?.meta.answeredQuestions[props.question.id],
+			get: () => props.question.userId !== id.value && !props.question.isAnswered && !user.value?.meta.answeredQuestions[props.question.id],
 			set: () => {}
 		})
 		return {
-			id, formatNumber, pluralize, isTutor, showAnswerButton,
+			id, formatNumber, pluralize, showAnswerButton,
 			subject, formatTime, showComments,
 			openAnswerModal: () => {
 				if (!isLoggedIn.value) redirect()

@@ -7,8 +7,8 @@
 			<div class="thick mx-n2" />
 			<UserAchievementsList :user="user" />
 			<div class="thick mx-n2" />
-			<UserAnswerList v-if="user.roles.isTutor" :user-id="user.id" />
-			<UserQuestionList v-else :user-id="user.id" />
+			<UserQuestionList class="mb-1" :user-id="user.id" />
+			<UserAnswerList :user-id="user.id" />
 		</div>
 		<div v-else class="page-content">
 			<DisplayError error="No such user exists!" />

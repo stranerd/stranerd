@@ -56,13 +56,13 @@ export default defineComponent({
 	components: { MessageLink },
 	setup () {
 		const router = useRouter()
-		const { isLoggedIn, user, isTutor, isAdmin } = useAuth()
+		const { isLoggedIn, user, isAdmin } = useAuth()
 		const { loading, signout } = useSessionSignout()
 		const buy = () => {
 			router.push('/account/e-wallet')
 			useAccountModal().openBuyCoins()
 		}
-		return { isLoggedIn, user, isTutor, isAdmin, buy, loading, signout }
+		return { isLoggedIn, user, isAdmin, buy, loading, signout }
 	}
 })
 </script>

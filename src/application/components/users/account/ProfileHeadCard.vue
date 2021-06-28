@@ -5,8 +5,8 @@
 		</NuxtLink>
 		<Avatar :src="user.avatar" :size="75" />
 		<span class="text-18 fw-bold">{{ user.fullName }}</span>
-		<ShowRatings v-if="user.roles.isTutor" :rating="user.averageRating" />
-		<button to="/account/" class="btn btn-blue rounded" @click="openEditProfileModal">
+		<ShowRatings :rating="user.averageRating" />
+		<button class="btn btn-blue rounded" @click="openEditProfileModal">
 			<span>Edit Profile</span>
 		</button>
 	</div>

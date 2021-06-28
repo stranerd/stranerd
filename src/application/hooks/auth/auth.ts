@@ -21,7 +21,6 @@ export const useAuth = () => {
 	const isLoggedIn = computed({ get: () => !!id.value && !!global.user.value, set: () => {} })
 	const isVerified = computed({ get: () => !!global.auth.value?.isVerified, set: () => {} })
 	const isAdmin = computed({ get: () => !!global.user.value?.roles.isAdmin, set: () => {} })
-	const isTutor = computed({ get: () => !!global.user.value?.roles.isTutor, set: () => {} })
 	const ongoingAchievements = computed({
 		get: () => global.user.value?.achievements.filter((achievement) => !achievement.completed) ?? [],
 		set: () => {}
@@ -76,7 +75,7 @@ export const useAuth = () => {
 
 	return {
 		id, bio, user: global.user, auth: global.auth,
-		isLoggedIn, isVerified, isAdmin, isTutor, ongoingAchievements, currentSessionId,
+		isLoggedIn, isVerified, isAdmin, ongoingAchievements, currentSessionId,
 		setAuthUser, signin, signout
 	}
 }

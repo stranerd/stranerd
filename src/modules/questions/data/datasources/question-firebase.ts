@@ -5,26 +5,26 @@ import { QuestionBaseDataSource } from './question-base'
 
 export class QuestionFirebaseDataSource implements QuestionBaseDataSource {
 	async create (question: QuestionToModel) {
-		return await FirestoreService.create('questions', question) as string
+		return await FirestoreService.create<QuestionToModel>('questions', question)
 	}
 
 	async update (id: string, question: Partial<QuestionToModel>) {
-		await FirestoreService.update('questions', id, question)
+		await FirestoreService.update<Partial<QuestionToModel>>('questions', id, question)
 	}
 
 	async find (id: string) {
-		return await FirestoreService.find('questions', id) as QuestionFromModel | null
+		return await FirestoreService.find<QuestionFromModel>('questions', id)
 	}
 
 	async get (conditions?: FirestoreGetClauses) {
-		return await FirestoreService.get('questions', conditions) as QuestionFromModel[]
+		return await FirestoreService.get<QuestionFromModel>('questions', conditions)
 	}
 
 	async listenToOne (id: string, callback: (document: QuestionFromModel | null) => void) {
-		return await FirestoreService.listenToOne(callback, 'questions', id)
+		return await FirestoreService.listenToOne<QuestionFromModel>(callback, 'questions', id)
 	}
 
 	async listenToMany (callback: (documents: QuestionFromModel[]) => void, conditions?: FirestoreGetClauses) {
-		return await FirestoreService.listenToMany(callback, 'questions', conditions)
+		return await FirestoreService.listenToMany<QuestionFromModel>(callback, 'questions', conditions)
 	}
 }

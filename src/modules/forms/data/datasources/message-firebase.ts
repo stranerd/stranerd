@@ -5,19 +5,19 @@ import { FormBaseDataSource } from './form-base'
 
 export class MessageFirebaseDataSource implements FormBaseDataSource<MessageFromModel, MessageToModel> {
 	async create (message: MessageToModel) {
-		return await DatabaseService.create('forms/messages', message)
+		return await DatabaseService.create<MessageToModel>('forms/messages', message)
 	}
 
 	async find (id: string) {
-		return await DatabaseService.get(`forms/messages/${id}`) as MessageFromModel | null
+		return await DatabaseService.get<MessageFromModel>(`forms/messages/${id}`)
 	}
 
 	async get (conditions?: DatabaseGetClauses) {
-		return await DatabaseService.getMany('forms/messages', conditions) as MessageFromModel[]
+		return await DatabaseService.getMany<MessageFromModel>('forms/messages', conditions)
 	}
 
 	async update (id: string, data: MessageToModel) {
-		return await DatabaseService.update(`forms/messages/${id}`, data)
+		return await DatabaseService.update<MessageToModel>(`forms/messages/${id}`, data)
 	}
 
 	async delete (id: string) {

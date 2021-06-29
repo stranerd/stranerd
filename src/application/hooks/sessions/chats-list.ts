@@ -2,10 +2,9 @@ import { Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
 import { ChatMetaEntity, GetPersonalChatsMeta, ListenToPersonalChatsMeta } from '@modules/sessions'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
+import { AudioSounds, useAudioPlayer } from '@app/hooks/core/audios'
 
-const sound = require('@app/assets/audio/notification-sound.mp3')
-const player = new Audio()
-player.src = sound
+const player = useAudioPlayer(AudioSounds.CHAT)
 
 const global = {} as Record<string, {
 	meta: Ref<ChatMetaEntity[]>,
@@ -19,24 +18,14 @@ export const useChatsList = () => {
 	if (global[userId] === undefined) {
 		const listener = useListener(async () => {
 			if (!id.value) return () => {}
-			const cb = (entities: ChatMetaEntity[]) => {
-				let check:boolean = false
-				entities.forEach((entity) => {
-					const entityUnRead = Object.keys(entity.unRead)
-					const globalUnRead = Object.keys(global[id.value].meta.value)
-					entityUnRead.every((unread) => {
-						const unreadCheck:boolean = globalUnRead.includes(unread)
-						if (!unreadCheck) {
-							check = true
-							return false
-						}
-						return true
-					})
+			const cb = async (entities: ChatMetaEntity[]) => {
+				const hasNewMessage = entities.some((entity) => {
+					const globalUnReads = global[id.value].meta.value.find((m) => m.id === entity.id)
+					if (!globalUnReads) return true
+					return entity.unRead.some((unread) => !globalUnReads.unRead.includes(unread))
 				})
-				if (check) {
-					player.play()
-				}
 				global[id.value].meta.value = entities
+				if (hasNewMessage) await player.play()
 			 }
 
 			return ListenToPersonalChatsMeta.call(id.value, cb)

@@ -24,20 +24,20 @@ export class PersonalChatFirebaseDataSource implements ChatBaseDataSource {
 		return await DatabaseService.getMany(`chats/single/${getChatsPath(path)}`, conditions) as ChatFromModel[]
 	}
 
-	public async getMeta (id: string) {
-		return await DatabaseService.getMany(`chats/meta/${id}`) as ChatMeta[]
+	public async getMeta (id: string, conditions?: DatabaseGetClauses) {
+		return await DatabaseService.getMany(`chats/meta/${id}`, conditions) as ChatMeta[]
 	}
 
 	public async find (path: [string, string], id: string) {
 		return await DatabaseService.get(`chats/single/${path}/${id}`) as ChatFromModel | null
 	}
 
-	public async listen (path: [string, string], callback: (documents: ChatFromModel[]) => void, conditions?: DatabaseGetClauses): Promise<() => void> {
+	public async listen (path: [string, string], callback: (documents: ChatFromModel[]) => void, conditions?: DatabaseGetClauses) {
 		return await DatabaseService.listenToMany(`chats/single/${getChatsPath(path)}`, callback, conditions)
 	}
 
-	public async listenToMeta (id: string, callback: (documents: ChatMeta[]) => void): Promise<() => void> {
-		return await DatabaseService.listenToMany(`chats/meta/${id}`, callback)
+	public async listenToMeta (id: string, callback: (documents: ChatMeta[]) => void, conditions?: DatabaseGetClauses) {
+		return await DatabaseService.listenToMany(`chats/meta/${id}`, callback, conditions)
 	}
 
 	public async markRead (path: [string, string], id: string) {

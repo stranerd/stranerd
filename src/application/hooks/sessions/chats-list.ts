@@ -33,7 +33,7 @@ export const useChatsList = () => {
 						return true
 					})
 				})
-				if(check){
+				if (check) {
 					player.play()
 				}
 				global[id.value].meta.value = entities

@@ -40,7 +40,9 @@ export const styleResources = {
 export const serverMiddleware = ['./src/server/api/index']
 
 export const plugins = [
+
 	{ mode: 'server', src: '@/plugins/parseLoggedInUser' },
+	{ mode: 'server', src: '@/plugins/ipAddressGetter' },
 	{ mode: 'client', src: '@/plugins/firebaseClient' },
 	{ mode: 'client', src: '@/plugins/clientScripts' }
 ]

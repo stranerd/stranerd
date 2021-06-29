@@ -10,6 +10,7 @@ import VueRouter from 'vue-router'
 const global = {
 	auth: reqSsrRef(null as AuthDetails | null),
 	user: reqSsrRef(null as UserEntity | null),
+	location: {},
 	listener: null as null | (() => void),
 	showProfileModal: reqSsrRef(true)
 }
@@ -31,6 +32,9 @@ export const useAuth = () => {
 		set: () => {}
 	})
 
+	const setUserLocation = (data:object) => {
+		global.location = data
+	}
 	const setAuthUser = async (details: AuthDetails | null, router: VueRouter) => {
 		if (global.listener) global.listener()
 		global.auth.value = details
@@ -77,7 +81,7 @@ export const useAuth = () => {
 	return {
 		id, bio, user: global.user, auth: global.auth,
 		isLoggedIn, isVerified, isAdmin, isTutor, ongoingAchievements, currentSessionId,
-		setAuthUser, signin, signout
+		setAuthUser, setUserLocation, signin, signout
 	}
 }
 

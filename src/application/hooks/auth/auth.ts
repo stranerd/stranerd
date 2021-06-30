@@ -1,6 +1,6 @@
 import { computed, reqSsrRef } from '@nuxtjs/composition-api'
 import { FindUser, ListenToUser, UserEntity } from '@modules/users'
-import { AuthDetails } from '@modules/auth/domain/entities/auth'
+import { AuthDetails, UserLocation } from '@modules/auth/domain/entities/auth'
 import { SessionSignout } from '@modules/auth'
 import { isClient } from '@utils/environment'
 import { useEditModal } from '@app/hooks/core/modals'
@@ -10,7 +10,7 @@ import VueRouter from 'vue-router'
 const global = {
 	auth: reqSsrRef(null as AuthDetails | null),
 	user: reqSsrRef(null as UserEntity | null),
-	location: {},
+	location: reqSsrRef(null as UserLocation | null),
 	listener: null as null | (() => void),
 	showProfileModal: reqSsrRef(true)
 }
@@ -32,9 +32,10 @@ export const useAuth = () => {
 		set: () => {}
 	})
 
-	const setUserLocation = (data:object) => {
-		global.location = data
+	const setUserLocation = (data: UserLocation) => {
+		global.location.value = data
 	}
+
 	const setAuthUser = async (details: AuthDetails | null, router: VueRouter) => {
 		if (global.listener) global.listener()
 		global.auth.value = details
@@ -79,7 +80,7 @@ export const useAuth = () => {
 	}
 
 	return {
-		id, bio, user: global.user, auth: global.auth,
+		id, bio, user: global.user, auth: global.auth, location: global.location,
 		isLoggedIn, isVerified, isAdmin, isTutor, ongoingAchievements, currentSessionId,
 		setAuthUser, setUserLocation, signin, signout
 	}

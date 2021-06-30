@@ -21,7 +21,7 @@ import { ListenToTopRankingUsersUseCase } from './domain/usecases/rankings/liste
 import { GetNotificationsUseCase } from './domain/usecases/notifications/getNotifications'
 import { ListenToNotificationsUseCase } from './domain/usecases/notifications/listenToNotifications'
 import { MarkNotificationSeenUseCase } from './domain/usecases/notifications/markNotificationSeen'
-import { UserEntity, UserBio, Status, generateDefaultBio, RankingPeriods } from './domain/entities/user'
+import { UserEntity, UserBio, generateDefaultBio, RankingPeriods } from './domain/entities/user'
 import { Avatar, Avatars } from './domain/entities/avatar'
 import { Achievements } from './domain/entities/achievement'
 import { NotificationEntity } from './domain/entities/notification'
@@ -57,6 +57,6 @@ export const GetNotifications = new GetNotificationsUseCase(notificationReposito
 export const ListenToNotifications = new ListenToNotificationsUseCase(notificationRepository)
 export const MarkNotificationSeen = new MarkNotificationSeenUseCase(notificationRepository)
 
-export { UserEntity, generateDefaultBio, Status, RankingPeriods, NotificationEntity, Avatars }
+export { UserEntity, generateDefaultBio, RankingPeriods, NotificationEntity, Avatars }
 export { MailingListFactory, Achievements }
 export type { UserBio, Avatar }

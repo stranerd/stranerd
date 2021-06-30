@@ -5,6 +5,6 @@ import { TransactionFromModel } from '../models/transaction'
 
 export class TransactionFirebaseDataSource implements TransactionBaseDataSource {
 	async get (userId: string, conditions?: FirestoreGetClauses) {
-		return await FirestoreService.get(`users/${userId}/transactions`, conditions) as TransactionFromModel[]
+		return await FirestoreService.get<TransactionFromModel>(`users/${userId}/transactions`, conditions)
 	}
 }

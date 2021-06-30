@@ -107,7 +107,7 @@
 		</div>
 		<div class="sectionFifth">
 			<h4 class="text-center">
-				The solutions to your problems are just one Click away.
+				The solutions to your problems are just one click away.
 			</h4>
 			<NuxtLink to="/auth/signup" class="btn-secondary font-weight-bold">
 				Sign up Today

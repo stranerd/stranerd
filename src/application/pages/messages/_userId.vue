@@ -3,7 +3,7 @@
 		<PageLoading v-if="loading" />
 		<template v-else-if="user">
 			<div class="page-content flex-grow-1 d-flex flex-column px-1" :class="{'bg-light-blue': sessionId}">
-				<ChatHead :key="user.hash + hash" :user="user" />
+				<ChatHead :key="hash" :user="user" />
 				<div class="thin mx-n1" />
 				<ChatList :user-id="userId" class="flex-grow-1" />
 				<div class="thin mx-n1" />
@@ -46,7 +46,7 @@ export default defineComponent({
 			set: () => {}
 		})
 		const hash = computed({
-			get: () => user.value?.currentSession && user.value?.currentSession === currentSession.value?.id ? getRandomValue() ?? getRandomValue() : getRandomValue(),
+			get: () => user.value?.hash + getRandomValue(),
 			set: () => {}
 		})
 		return { userId, user, loading, error, sessionId, hash }

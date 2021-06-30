@@ -24,8 +24,8 @@ export class ChatRepository implements IChatRepository {
 		return models.map(this.transformer.fromJSON)
 	}
 
-	async getMeta (id: string) {
-		const models = await this.dataSource.getMeta(id)
+	async getMeta (id: string, conditions?: DatabaseGetClauses) {
+		const models = await this.dataSource.getMeta(id, conditions)
 		return models.map(this.transformer.metaFromJSON)
 	}
 
@@ -39,9 +39,9 @@ export class ChatRepository implements IChatRepository {
 		return await this.dataSource.listen(path, listenCB, conditions)
 	}
 
-	async listenToMeta (id: string, callback: (entities: ChatMetaEntity[]) => void) {
+	async listenToMeta (id: string, callback: (entities: ChatMetaEntity[]) => void, conditions?: DatabaseGetClauses) {
 		const listenCB = (documents: ChatMeta[]) => callback(documents.map(this.transformer.metaFromJSON))
-		return await this.dataSource.listenToMeta(id, listenCB)
+		return await this.dataSource.listenToMeta(id, listenCB, conditions)
 	}
 
 	async markRead (path: [string, string], id: string) {

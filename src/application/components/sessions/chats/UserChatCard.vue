@@ -7,8 +7,8 @@
 			</div>
 			<div class="d-flex justify-content-between text-truncate gap-0-5">
 				<p class="mb-0 text-truncate">
-					<span v-if="unreadMessages > 0" class="bg-blue text-white rounded-pill d-inline-flex align-items-center justify-content-center" style="height: 1.25em; width:1.25em;">
-						<span>{{ unreadMessages }}</span>
+					<span v-if="meta.unRead.length > 0" class="bg-blue text-white rounded-pill d-inline-flex align-items-center justify-content-center" style="height: 1.25em; width:1.25em;">
+						<span>{{ meta.unRead.length }}</span>
 					</span>
 					<i v-if="meta.last.isMedia" class="fas fa-paperclip mx-0-25" />
 					{{ meta.last.isMedia ? meta.last.media.name : meta.last.content }}
@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType } from '@nuxtjs/composition-api'
+import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { formatTime } from '@utils/dates'
 import { ChatMetaEntity } from '@modules/sessions'
 export default defineComponent({
@@ -30,11 +30,8 @@ export default defineComponent({
 			required: true
 		}
 	},
-	setup (props) {
-		const unreadMessages = computed(() => {
-			return Object.values(props.meta.unRead ?? {}).length
-		})
-		return { formatTime, unreadMessages }
+	setup () {
+		return { formatTime }
 	}
 })
 </script>

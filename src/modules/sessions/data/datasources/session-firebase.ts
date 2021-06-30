@@ -17,18 +17,18 @@ export class SessionFirebaseDataSource implements SessionBaseDataSource {
 	}
 
 	async find (id: string) {
-		return await FirestoreService.find('sessions', id) as SessionFromModel | null
+		return await FirestoreService.find<SessionFromModel>('sessions', id)
 	}
 
 	async get (conditions?: FirestoreGetClauses): Promise<SessionFromModel[]> {
-		return await FirestoreService.get('sessions', conditions) as SessionFromModel[]
+		return await FirestoreService.get<SessionFromModel>('sessions', conditions)
 	}
 
 	async listenToOne (id: string, callback: (session: (SessionFromModel | null)) => void): Promise<() => void> {
-		return await FirestoreService.listenToOne(callback, 'sessions', id)
+		return await FirestoreService.listenToOne<SessionFromModel>(callback, 'sessions', id)
 	}
 
 	async listenToMany (callback: (sessions: SessionFromModel[]) => void, conditions?: FirestoreGetClauses): Promise<() => void> {
-		return await FirestoreService.listenToMany(callback, 'sessions', conditions)
+		return await FirestoreService.listenToMany<SessionFromModel>(callback, 'sessions', conditions)
 	}
 }

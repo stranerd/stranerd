@@ -1,4 +1,3 @@
-import { Status } from '@modules/users'
 import { DatabaseGetClauses, FirestoreGetClauses } from '../data/datasources/base'
 import firebase, { database, firestore, functions } from './initFirebase'
 
@@ -36,37 +35,37 @@ const buildDatabaseQuery = (ref: firebase.database.Query, conditions?: DatabaseG
 }
 
 export const FirestoreService = {
-	find: async (collection: string, id: string) => {
+	find: async function find<T extends { id: string }> (collection: string, id: string) :Promise<T | null> {
 		const doc = await firestore.collection(collection).doc(id).get()
-		if (doc.exists) return { id: doc.id, ...doc.data() }
+		if (doc.exists) return { id: doc.id, ...doc.data() } as T
 		else return null
 	},
-	get: async (collection: string, conditions?: FirestoreGetClauses) => {
+	get: async function get<T extends { id: string }> (collection: string, conditions?: FirestoreGetClauses) :Promise<T[]> {
 		let query: firebase.firestore.Query = firestore.collection(collection)
 		query = buildFirestoreQuery(query, conditions)
 		const docs = await query.get()
-		return docs.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+		return docs.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as T[]
 	},
-	listenToOne: async (callback: (document: any) => void, collection: string, id: string) => {
+	listenToOne: async function listenToOne<T extends { id: string }> (callback: (document: T | null) => void, collection: string, id: string) {
 		return firestore.collection(collection).doc(id).onSnapshot((snapshot) => {
-			callback(snapshot.exists ? { id: snapshot.id, ...snapshot.data() } : null)
+			callback(snapshot.exists ? { id: snapshot.id, ...snapshot.data() } as T : null)
 		})
 	},
-	listenToMany: async (callback: (documents: any[]) => void, collection: string, conditions?: FirestoreGetClauses) => {
+	listenToMany: async function listenToMany<T extends { id: string }> (callback: (documents: T[]) => void, collection: string, conditions?: FirestoreGetClauses) {
 		let query: firebase.firestore.Query = firestore.collection(collection)
 		query = buildFirestoreQuery(query, conditions)
 		return query.onSnapshot((snapshot) => {
-			const documents = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+			const documents = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as T[]
 			callback(documents)
 		})
 	},
-	create: async (collection: string, data: object) => {
+	create: async function create<T extends Record<string, any>> (collection: string, data: T) {
 		// @ts-ignore
 		data.dates = { createdAt: firebase.firestore.FieldValue.serverTimestamp() }
 		const ref = await firestore.collection(collection).add(data)
 		return ref.id
 	},
-	update: async (collection: string, id: string, data: object) => {
+	update: async function update<T extends Record<string, any>> (collection: string, id: string, data: T) {
 		// @ts-ignore
 		data.dates = { updatedAt: firebase.firestore.FieldValue.serverTimestamp() }
 		const ref = firestore.collection(collection).doc(id)
@@ -86,7 +85,7 @@ export const FunctionsService = {
 }
 
 export const DatabaseService = {
-	get: async (path: string, conditions?: DatabaseGetClauses) => {
+	get: async function get<T extends { id: string }> (path: string, conditions?: DatabaseGetClauses) :Promise<T | null> {
 		const ref = database.ref(path)
 		const doc = await buildDatabaseQuery(ref, conditions).once('value')
 		if (!doc.exists()) return null
@@ -94,9 +93,9 @@ export const DatabaseService = {
 		doc.forEach((child) => {
 			children[child.key!] = child.val()
 		})
-		return { ...children, id: doc.key! }
+		return { ...children, id: doc.key! } as T
 	},
-	getMany: async (path: string, conditions?: DatabaseGetClauses) => {
+	getMany: async function getMany<T extends { id: string }> (path: string, conditions?: DatabaseGetClauses) :Promise<T[]> {
 		const ref = database.ref(path)
 		const doc = await buildDatabaseQuery(ref, conditions).once('value')
 		if (!doc.exists()) return []
@@ -104,9 +103,9 @@ export const DatabaseService = {
 		doc.forEach((child) => {
 			children.push({ ...child.val(), id: child.key })
 		})
-		return children
+		return children as T[]
 	},
-	listen: async (path: string, callback: (doc: any) => void, conditions?: DatabaseGetClauses, updateStatus = false) => {
+	listen: async function listen<T extends { id: string }> (path: string, callback: (doc: T | null) => void, conditions?: DatabaseGetClauses, updateStatus = false) {
 		const ref = database.ref(path)
 		const listener = buildDatabaseQuery(ref, conditions)
 			.on('value', (snapshot) => {
@@ -116,33 +115,27 @@ export const DatabaseService = {
 				snapshot.forEach((child) => {
 					children[child.key!] = child.val()
 				})
-				const doc = { ...children, id: snapshot.key! }
+				const doc = { ...children, id: snapshot.key! } as T
 				callback(doc)
 			})
-		if (updateStatus) firebase.database().ref('.info/connected')
-			.on('value', async (snapshot) => {
-				if (!snapshot.val()) return
-				await ref.onDisconnect().update({
-					status: {
-						mode: Status.OFFLINE,
-						updatedAt: firebase.database.ServerValue.TIMESTAMP
-					}
-				})
-				await ref.update({
-					status: {
-						mode: Status.ONLINE,
-						updatedAt: firebase.database.ServerValue.TIMESTAMP
-					}
-				})
+		if (updateStatus) {
+			const key = Date.now()
+			await ref.onDisconnect().update({
+				[`status/connections/${key}`]: null,
+				'status/lastSeen': firebase.database.ServerValue.TIMESTAMP
 			})
+			await ref.update({
+				[`status/connections/${key}`]: true
+			})
+		}
 		return () => ref.off('value', listener)
 	},
-	listenToMany: async (path: string, caller: (docs: any[]) => void, conditions?: DatabaseGetClauses) => {
+	listenToMany: async function listenToMany<T extends { id: string }> (path: string, caller: (docs: T[]) => void, conditions?: DatabaseGetClauses) {
 		const ref = database.ref(path)
 		const listener = buildDatabaseQuery(ref, conditions)
 			.on('value', (snapshot) => {
 				if (!snapshot.exists()) return caller([])
-				const children: any = []
+				const children = [] as T[]
 				snapshot.forEach((child) => {
 					children.push({ ...child.val(), id: child.key })
 				})
@@ -150,12 +143,13 @@ export const DatabaseService = {
 			})
 		return () => ref.off('value', listener)
 	},
-	create: async (path: string, data: any) => {
+	create: async function create<T> (path: string, data: T) {
+		// @ts-ignore
 		data.dates = { createdAt: firebase.database.ServerValue.TIMESTAMP }
 		const doc = await database.ref(path).push(data)
 		return doc.key!
 	},
-	update: async (path: string, data: Record<string, any>) => {
+	update: async function update<T> (path: string, data: T) {
 		await database.ref(path).update(data)
 	},
 	delete: async (path: string) => {

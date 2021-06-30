@@ -2,10 +2,6 @@ import { BaseEntity } from '@modules/core/domains/entities/base'
 import { Avatars } from '@modules/users/domain/entities/avatar'
 import { Achievements, getUserAchievements } from '@modules/users/domain/entities/achievement'
 import { capitalize } from '@utils/commons'
-export enum Status {
-	OFFLINE = 0,
-	ONLINE = 1
-}
 export enum RankingPeriods {
 	daily = 'daily',
 	weekly = 'weekly',
@@ -59,8 +55,8 @@ export class UserEntity extends BaseEntity {
 		}
 		this.status = {
 			streak: status?.streak ?? 0,
-			mode: status?.mode ?? Status.OFFLINE,
-			updatedAt: status?.updatedAt ?? 0
+			connections: status?.connections ?? {},
+			lastSeen: status?.lastSeen ?? 0
 		}
 		this.tutor = {
 			ratings: tutor?.ratings ?? { total: 0, count: 0 },
@@ -78,8 +74,8 @@ export class UserEntity extends BaseEntity {
 	get email () { return this.userBio.email }
 	get avatar () { return this.userBio.avatar }
 
-	get isOnline () { return this.status.mode === Status.ONLINE }
-	get lastSeen () { return this.isOnline ? Date.now() : this.status.updatedAt }
+	get isOnline () { return Object.keys(this.status.connections).length > 0 }
+	get lastSeen () { return this.isOnline ? Date.now() : this.status.lastSeen }
 
 	get averageRating () { return this.tutor?.ratings.count === 0 ? 0 : (this.tutor?.ratings.total ?? 0) / (this.tutor?.ratings.count ?? 1) }
 	get ratingCount () { return this.tutor?.ratings.count ?? 0 }
@@ -139,8 +135,8 @@ export interface UserMeta {
 	currentSession?: string | null
 }
 export interface UserStatus {
-	mode: Status
-	updatedAt: number
+	connections: Record<string, boolean>
+	lastSeen: number
 	streak: number
 }
 export interface UserDates {

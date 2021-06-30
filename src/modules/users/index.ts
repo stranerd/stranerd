@@ -32,7 +32,7 @@ import { AddTutorApplicationsUseCase } from './domain/usecases/tutorApplications
 import { GetTutorApplicationsUseCase } from './domain/usecases/tutorApplications/getTutorApplications'
 import { ListenToTutorApplicationsUseCase } from './domain/usecases/tutorApplications/listenToTutorApplications'
 import { ApproveTutorApplicationUseCase } from './domain/usecases/tutorApplications/approveTutorApplication'
-import { UserEntity, UserBio, Status, generateDefaultBio, RankingPeriods } from './domain/entities/user'
+import { UserEntity, UserBio, generateDefaultBio, RankingPeriods } from './domain/entities/user'
 import { Avatar, Avatars } from './domain/entities/avatar'
 import { Achievements } from './domain/entities/achievement'
 import { NotificationEntity } from './domain/entities/notification'
@@ -82,6 +82,6 @@ export const GetTutorApplications = new GetTutorApplicationsUseCase(tutorApplica
 export const ListenToTutorApplications = new ListenToTutorApplicationsUseCase(tutorApplicationRepository)
 export const ApproveTutorApplication = new ApproveTutorApplicationUseCase(tutorApplicationRepository)
 
-export { UserEntity, generateDefaultBio, Status, RankingPeriods, NotificationEntity, Avatars, TutorApplicationEntity }
+export { UserEntity, generateDefaultBio, RankingPeriods, NotificationEntity, Avatars, TutorApplicationEntity }
 export { MailingListFactory, Achievements, TutorApplicationFactory }
 export type { UserBio, Avatar }

@@ -18,10 +18,10 @@ export const answerCreated = functions.firestore.document('answers/{answerId}')
 		}, { merge: true })
 
 		if (coins && userId) {
-			await admin.database().ref('profiles').child(userId)
+			await admin.database().ref('profiles').child(userId).child('account/meta')
 				.update({
-					[`meta/answers/${snap.id}`]: true,
-					[`meta/answeredQuestions/${questionId}`]: admin.database.ServerValue.increment(1)
+					[`answers/${snap.id}`]: true,
+					[`answeredQuestions/${questionId}`]: admin.database.ServerValue.increment(1)
 				})
 			await addUserCoins(userId, { bronze: coins, gold: 0 },
 				'You got coins for answering a question'
@@ -72,10 +72,10 @@ export const answerDeleted = functions.firestore.document('answers/{answerId}')
 				answers: admin.firestore.FieldValue.increment(-1)
 			}, { merge: true })
 
-		await admin.database().ref('profiles').child(userId)
+		await admin.database().ref('profiles/account').child(userId).child('account/meta')
 			.update({
-				[`meta/answers/${snap.id}`]: null,
-				[`meta/answeredQuestions/${questionId}`]: admin.database.ServerValue.increment(-1)
+				[`answers/${snap.id}`]: null,
+				[`answeredQuestions/${questionId}`]: admin.database.ServerValue.increment(-1)
 			})
 
 		await deleteFromAlgolia('answers', snap.id)
@@ -88,8 +88,8 @@ export const answerRated = functions.database.ref('answers/{answerId}/ratings/{u
 		let tutorId = ''
 		let questionId = ''
 
-		await admin.database().ref('profiles').child(userId)
-			.child(`meta/ratedAnswers/${answerId}`).set(ratings)
+		await admin.database().ref('profiles').child(userId).child('account/meta')
+			.child(`ratedAnswers/${answerId}`).set(ratings)
 
 		await admin.firestore().runTransaction(async (t) => {
 			const answerRef = admin.firestore().collection('answers').doc(answerId)

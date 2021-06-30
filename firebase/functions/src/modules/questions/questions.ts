@@ -11,8 +11,8 @@ export const questionCreated = functions.firestore.document('questions/{question
 		const { coins, userId } = question
 
 		if (coins && userId) {
-			await admin.database().ref('profiles').child(userId)
-				.child(`meta/questions/${snap.id}`).set(true)
+			await admin.database().ref('profiles').child(userId).child('account/meta')
+				.child(`questions/${snap.id}`).set(true)
 			await addUserCoins(userId, { bronze: 0 - coins, gold: 0 },
 				'You paid coins to ask a question'
 			)
@@ -46,8 +46,8 @@ export const questionDeleted = functions.firestore.document('questions/{question
 	.onDelete(async (snap) => {
 		const { attachments, userId } = snap.data()
 
-		await admin.database().ref('profiles').child(userId)
-			.child(`meta/questions/${snap.id}`).set(null)
+		await admin.database().ref('profiles').child(userId).child('account/meta')
+			.child(`questions/${snap.id}`).set(null)
 
 		attachments?.map(async (attachment: any) => await deleteFromStorage(attachment.path))
 

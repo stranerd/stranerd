@@ -13,15 +13,14 @@ export class UserEntity extends BaseEntity {
 	public readonly id: string
 	public readonly roles: UserRoles
 	public readonly userBio: UserBio
-	public readonly account: UserAccount
+	public readonly account: Omit<UserAccount, 'meta'> & { meta: UserMeta }
 	public readonly rankings: Required<UserRankings>
-	public readonly meta: Required<UserMeta>
 	public readonly status: Required<UserStatus>
 	public readonly tutor: Required<UserTutor> | undefined
 	public readonly achievements: Required<ReturnType<typeof getUserAchievements>>
 	public readonly dates: UserDates
 
-	constructor ({ id, bio, roles, account, rankings, meta, status, tutor, achievements, dates }: UserConstructorArgs) {
+	constructor ({ id, bio, roles, account, rankings, status, tutor, achievements, dates }: UserConstructorArgs) {
 		super()
 		this.id = id
 		this.userBio = generateDefaultBio(bio)
@@ -35,24 +34,24 @@ export class UserEntity extends BaseEntity {
 				bronze: account?.coins?.bronze ?? 0,
 				gold: account?.coins?.gold ?? 0
 			},
-			xp: account?.xp ?? 0
+			xp: account?.xp ?? 0,
+			meta: {
+				answers: Object.keys(account?.meta?.answers ?? {}),
+				bestAnswers: Object.keys(account?.meta?.bestAnswers ?? {}),
+				ratedAnswers: Object.keys(account?.meta?.ratedAnswers ?? {}),
+				questions: Object.keys(account?.meta?.questions ?? {}),
+				bestAnsweredQuestions: Object.keys(account?.meta?.bestAnsweredQuestions ?? {}),
+				answeredQuestions: Object.keys(account?.meta?.answeredQuestions ?? {}),
+				questionComments: Object.keys(account?.meta?.questionComments ?? {}),
+				answerComments: Object.keys(account?.meta?.answerComments ?? {}),
+				sessions: Object.keys(account?.meta?.sessions ?? {}),
+				tutorSessions: Object.keys(account?.meta?.tutorSessions ?? {}),
+				currentSession: account?.meta?.currentSession ?? null
+			}
 		}
 		this.rankings = Object.fromEntries(
 			Object.keys(RankingPeriods).map((key) => [key, rankings?.[key as RankingPeriods] ?? 0])
 		) as Required<UserRankings>
-		this.meta = {
-			answers: meta?.answers ?? {},
-			bestAnswers: meta?.bestAnswers ?? {},
-			ratedAnswers: meta?.ratedAnswers ?? {},
-			questions: meta?.questions ?? {},
-			bestAnsweredQuestions: meta?.bestAnsweredQuestions ?? {},
-			answeredQuestions: meta?.answeredQuestions ?? {},
-			questionComments: meta?.questionComments ?? {},
-			answerComments: meta?.answerComments ?? {},
-			sessions: meta?.sessions ?? {},
-			tutorSessions: meta?.tutorSessions ?? {},
-			currentSession: meta?.currentSession ?? null
-		}
 		this.status = {
 			streak: status?.streak ?? 0,
 			connections: status?.connections ?? {},
@@ -80,7 +79,7 @@ export class UserEntity extends BaseEntity {
 	get averageRating () { return this.tutor?.ratings.count === 0 ? 0 : (this.tutor?.ratings.total ?? 0) / (this.tutor?.ratings.count ?? 1) }
 	get ratingCount () { return this.tutor?.ratings.count ?? 0 }
 	get orderRating () { return Math.pow(this.tutor?.ratings.total ?? 0, this.averageRating) }
-	get currentSession () { return this.meta.currentSession || this.tutor?.currentSession || null }
+	get currentSession () { return this.account.meta.currentSession || this.tutor?.currentSession || null }
 	get subject () { return this.tutor?.subject ?? null }
 }
 
@@ -90,7 +89,6 @@ type UserConstructorArgs = {
 	roles: UserRoles
 	account: UserAccount
 	rankings?: UserRankings
-	meta?: UserMeta
 	status?: UserStatus
 	tutor?: UserTutor
 	achievements?: UserAchievements
@@ -119,21 +117,26 @@ export interface UserAccount {
 		gold: number
 	},
 	xp: number
+	meta: {
+		answers?: Record<string, boolean>
+		bestAnswers?: Record<string, boolean>
+		ratedAnswers?: Record<string, boolean>
+		answeredQuestions?: Record<string, boolean>
+		questions?: Record<string, boolean>
+		bestAnsweredQuestions?: Record<string, boolean>
+		questionComments?: Record<string, boolean>
+		answerComments?: Record<string, boolean>
+		sessions?: Record<string, boolean>
+		tutorSessions?: Record<string, boolean>
+		currentSession?: string
+	}
+}
+
+type MetaKeys = keyof Omit<UserAccount['meta'], 'currentSession'>
+export interface UserMeta extends Record<MetaKeys, string[]> {
+	currentSession: string | null
 }
 export interface UserRankings extends Record<RankingPeriods, number> {}
-export interface UserMeta {
-	answers?: Record<string, boolean>
-	bestAnswers?: Record<string, boolean>
-	ratedAnswers?: Record<string, number>
-	answeredQuestions?: Record<string, number>
-	questions?: Record<string, boolean>
-	bestAnsweredQuestions?: Record<string, boolean>
-	questionComments?: Record<string, boolean>
-	answerComments?: Record<string, boolean>
-	sessions?: Record<string, boolean>
-	tutorSessions?: Record<string, boolean>
-	currentSession?: string | null
-}
 export interface UserStatus {
 	connections: Record<string, boolean>
 	lastSeen: number

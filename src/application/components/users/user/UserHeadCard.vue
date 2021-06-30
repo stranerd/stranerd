@@ -18,32 +18,32 @@
 			<div class="stats">
 				<img src="@app/assets/images/icons/profile-question.svg" alt="">
 				<span>Questions</span>
-				<span class="count">{{ formatNumber(Object.entries(user.meta.questions).length) }}</span>
+				<span class="count">{{ formatNumber(user.account.meta.questions.length) }}</span>
 			</div>
 			<div class="stats">
 				<img src="@app/assets/images/icons/profile-best-answers.svg" alt="">
 				<span>Answered</span>
-				<span class="count">{{ formatNumber(Object.entries(user.meta.bestAnsweredQuestions).length) }}</span>
+				<span class="count">{{ formatNumber(user.account.meta.bestAnsweredQuestions.length) }}</span>
 			</div>
 			<div class="stats">
 				<img src="@app/assets/images/icons/profile-answers.svg" alt="">
 				<span>Answers</span>
-				<span class="count">{{ formatNumber(Object.entries(user.meta.answers).length) }}</span>
+				<span class="count">{{ formatNumber(user.account.meta.answers.length) }}</span>
 			</div>
 			<div class="stats">
 				<img src="@app/assets/images/icons/profile-best-answers.svg" alt="">
 				<span>Best Answers</span>
-				<span class="count">{{ formatNumber(Object.entries(user.meta.bestAnswers).length) }}</span>
+				<span class="count">{{ formatNumber(user.account.meta.bestAnswers.length) }}</span>
 			</div>
 			<div class="stats">
 				<img src="@app/assets/images/icons/profile-sessions.svg" alt="">
 				<span>Sessions Hosted</span>
-				<span class="count">{{ formatNumber(Object.entries(user.meta.tutorSessions).length) }}</span>
+				<span class="count">{{ formatNumber(user.account.meta.tutorSessions.length) }}</span>
 			</div>
 			<div class="stats">
 				<img src="@app/assets/images/icons/profile-sessions.svg" alt="">
 				<span>Sessions Requested</span>
-				<span class="count">{{ formatNumber(Object.entries(user.meta.sessions).length) }}</span>
+				<span class="count">{{ formatNumber(user.account.meta.sessions.length) }}</span>
 			</div>
 			<div class="stats">
 				<img src="@app/assets/images/icons/profile-rank.svg" alt="">

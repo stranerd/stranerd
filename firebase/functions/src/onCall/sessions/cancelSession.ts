@@ -22,7 +22,7 @@ export const cancelSession = functions.https.onCall(async ({ id }, context) => {
 
 		await admin.database().ref('profiles')
 			.child(studentId)
-			.child('meta/currentSession')
+			.child('account/meta/currentSession')
 			.transaction((session) => {
 				if (session === id) return null
 				return session

@@ -13,37 +13,37 @@
 				<div class="d-flex justify-content-between">
 					<span><img src="@app/assets/images/icons/profile-question.svg" class="me-0-75" height="24" width="24"> Questions</span>
 					<p class="fw-bold">
-						{{ formatNumber(Object.entries(user.meta.questions).length) }}
+						{{ formatNumber(user.account.meta.questions.length) }}
 					</p>
 				</div>
 				<div class="d-flex justify-content-between">
 					<span><img src="@app/assets/images/icons/profile-best-answers.svg" class="me-0-75" height="24" width="24"> Answered</span>
 					<p class="fw-bold">
-						{{ formatNumber(Object.entries(user.meta.bestAnsweredQuestions).length) }}
+						{{ formatNumber(user.account.meta.bestAnsweredQuestions.length) }}
 					</p>
 				</div>
 				<div class="d-flex justify-content-between">
 					<span><img src="@app/assets/images/icons/profile-answers.svg" class="me-0-75" height="24" width="24"> Answers</span>
 					<p class="fw-bold">
-						{{ formatNumber(Object.entries(user.meta.answers).length) }}
+						{{ formatNumber(user.account.meta.answers.length) }}
 					</p>
 				</div>
 				<div class="d-flex justify-content-between">
 					<span><img src="@app/assets/images/icons/profile-best-answers.svg" class="me-0-75" height="24" width="24"> Best Answers</span>
 					<p class="fw-bold">
-						{{ formatNumber(Object.entries(user.meta.bestAnswers).length) }}
+						{{ formatNumber(user.account.meta.bestAnswers.length) }}
 					</p>
 				</div>
 				<div class="d-flex justify-content-between">
 					<span><img src="@app/assets/images/icons/profile-sessions.svg" class="me-0-75" height="24" width="24"> Sessions Hosted</span>
 					<p class="fw-bold">
-						{{ formatNumber(Object.entries(user.meta.tutorSessions).length) }}
+						{{ formatNumber(user.account.meta.tutorSessions.length) }}
 					</p>
 				</div>
 				<div class="d-flex justify-content-between">
 					<span><img src="@app/assets/images/icons/profile-sessions.svg" class="me-0-75" height="24" width="24"> Sessions Attended</span>
 					<p class="fw-bold">
-						{{ formatNumber(Object.entries(user.meta.sessions).length) }}
+						{{ formatNumber(user.account.meta.sessions.length) }}
 					</p>
 				</div>
 				<div class="d-flex justify-content-between">

@@ -102,7 +102,7 @@ export default defineComponent({
 		const { redirect } = useRedirectToAuth()
 		const { subject } = useSubject(props.question.subjectId)
 		const showAnswerButton = computed({
-			get: () => props.question.userId !== id.value && !props.question.isAnswered && !user.value?.meta.answeredQuestions[props.question.id],
+			get: () => props.question.userId !== id.value && !props.question.isAnswered && !user.value?.account.meta.answeredQuestions.includes(props.question.id),
 			set: () => {}
 		})
 		return {

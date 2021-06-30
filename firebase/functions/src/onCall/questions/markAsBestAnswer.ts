@@ -22,8 +22,8 @@ export const markAsBestAnswer = functions.https.onCall(async (data, context) => 
 
 		await admin.database().ref('profiles')
 			.update({
-				[`${questionUserId}/meta/bestAnsweredQuestions/${questionId}`]: true,
-				[`${userId}/meta/bestAnswers/${answerId}`]: true
+				[`${questionUserId}/account/meta/bestAnsweredQuestions/${questionId}`]: true,
+				[`${userId}/account/meta/bestAnswers/${answerId}`]: true
 			})
 		await addUserCoins(userId, { bronze: coins * 0.75, gold: 0 },
 			'You got coins for a best answer'

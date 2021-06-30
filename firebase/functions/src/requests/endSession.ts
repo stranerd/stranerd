@@ -7,7 +7,7 @@ export const endSession = functions.https.onRequest(async (request, response) =>
 
 		await admin.database().ref('profiles')
 			.child(studentId)
-			.child('account/meta/currentSession')
+			.child('account/currentSession')
 			.transaction((session) => {
 				if (session === id) return null
 				return session

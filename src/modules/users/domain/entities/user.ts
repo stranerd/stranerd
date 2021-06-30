@@ -35,6 +35,7 @@ export class UserEntity extends BaseEntity {
 				gold: account?.coins?.gold ?? 0
 			},
 			xp: account?.xp ?? 0,
+			currentSession: account?.currentSession ?? null,
 			meta: {
 				answers: Object.keys(account?.meta?.answers ?? {}),
 				bestAnswers: Object.keys(account?.meta?.bestAnswers ?? {}),
@@ -45,8 +46,7 @@ export class UserEntity extends BaseEntity {
 				questionComments: Object.keys(account?.meta?.questionComments ?? {}),
 				answerComments: Object.keys(account?.meta?.answerComments ?? {}),
 				sessions: Object.keys(account?.meta?.sessions ?? {}),
-				tutorSessions: Object.keys(account?.meta?.tutorSessions ?? {}),
-				currentSession: account?.meta?.currentSession ?? null
+				tutorSessions: Object.keys(account?.meta?.tutorSessions ?? {})
 			}
 		}
 		this.rankings = Object.fromEntries(
@@ -79,7 +79,7 @@ export class UserEntity extends BaseEntity {
 	get averageRating () { return this.tutor?.ratings.count === 0 ? 0 : (this.tutor?.ratings.total ?? 0) / (this.tutor?.ratings.count ?? 1) }
 	get ratingCount () { return this.tutor?.ratings.count ?? 0 }
 	get orderRating () { return Math.pow(this.tutor?.ratings.total ?? 0, this.averageRating) }
-	get currentSession () { return this.account.meta.currentSession || this.tutor?.currentSession || null }
+	get currentSession () { return this.account.currentSession || this.tutor?.currentSession || null }
 	get subject () { return this.tutor?.subject ?? null }
 }
 
@@ -117,6 +117,7 @@ export interface UserAccount {
 		gold: number
 	},
 	xp: number
+	currentSession: string | null
 	meta: {
 		answers?: Record<string, boolean>
 		bestAnswers?: Record<string, boolean>
@@ -128,14 +129,10 @@ export interface UserAccount {
 		answerComments?: Record<string, boolean>
 		sessions?: Record<string, boolean>
 		tutorSessions?: Record<string, boolean>
-		currentSession?: string
 	}
 }
 
-type MetaKeys = keyof Omit<UserAccount['meta'], 'currentSession'>
-export interface UserMeta extends Record<MetaKeys, string[]> {
-	currentSession: string | null
-}
+export interface UserMeta extends Record<keyof UserAccount['meta'], string[]> {}
 export interface UserRankings extends Record<RankingPeriods, number> {}
 export interface UserStatus {
 	connections: Record<string, boolean>

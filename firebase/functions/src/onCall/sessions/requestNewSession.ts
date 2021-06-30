@@ -33,7 +33,7 @@ export const requestNewSession = functions.https.onCall(async (session, context)
 			throw new functions.https.HttpsError('failed-precondition', 'Tutor is currently in a session. Try again later.')
 		}
 
-		await admin.database().ref(`profiles/${studentId}/account/meta/currentSession`)
+		await admin.database().ref(`profiles/${studentId}/account/currentSession`)
 			.set(sessionId)
 		await createNotification(tutorId, {
 			title: 'New Session Request',

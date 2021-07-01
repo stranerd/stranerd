@@ -52,7 +52,8 @@
 			"meta": {
 				"$userId": {
 					".read": true,
-					".write": "auth.uid !== null"
+					".write": "auth.uid !== null",
+					".indexOn": ["last/dates/createdAt"]
 				}
 			},
 			"single": {

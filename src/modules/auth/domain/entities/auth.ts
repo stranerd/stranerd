@@ -5,6 +5,17 @@ export type AuthUser = {
 	password: string
 }
 
+export type UserLocation = {
+	ip: string,
+	city: string,
+	state: string,
+	country: string,
+	countryCode: string,
+	continent: string
+	latitude: string,
+	longitude: string
+}
+
 export type UpdateUser = {
 	bio: UserBio
 	password: string

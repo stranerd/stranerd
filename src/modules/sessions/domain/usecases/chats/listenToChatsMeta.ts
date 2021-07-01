@@ -1,3 +1,4 @@
+import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
 import { IChatRepository } from '../../irepositories/ichat'
 import { ChatMetaEntity } from '../../entities/chatMeta'
 
@@ -9,6 +10,12 @@ export class ListenToChatsMetaUseCase {
 	}
 
 	async call (id: string, callback: (entities: ChatMetaEntity[]) => void) {
-		return await this.repository.listenToMeta(id, callback)
+		const conditions: DatabaseGetClauses = {
+			order: { field: 'last/dates/createdAt' }
+		}
+		const cb = (entities: ChatMetaEntity[]) => {
+			callback(entities.reverse())
+		}
+		return await this.repository.listenToMeta(id, cb, conditions)
 	}
 }

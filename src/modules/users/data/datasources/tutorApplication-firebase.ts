@@ -5,23 +5,23 @@ import { TutorApplicationBaseDataSource } from './tutorApplication-base'
 
 export class TutorApplicationFirebaseDataSource implements TutorApplicationBaseDataSource {
 	async create (data: TutorApplicationToModel) {
-		return await FirestoreService.create('tutorApplications', data)
+		return await FirestoreService.create<TutorApplicationToModel>('tutorApplications', data)
 	}
 
 	async find (id: string) {
-		return await FirestoreService.find('tutorApplications', id) as TutorApplicationFromModel | undefined
+		return await FirestoreService.find<TutorApplicationFromModel>('tutorApplications', id)
 	}
 
 	async get (conditions?: FirestoreGetClauses) {
-		return await FirestoreService.get('tutorApplications', conditions) as TutorApplicationFromModel[]
+		return await FirestoreService.get<TutorApplicationFromModel>('tutorApplications', conditions)
 	}
 
 	async listen (callback: (documents: TutorApplicationFromModel[]) => void, conditions?: FirestoreGetClauses) {
-		return await FirestoreService.listenToMany(callback, 'tutorApplications', conditions)
+		return await FirestoreService.listenToMany<TutorApplicationFromModel>(callback, 'tutorApplications', conditions)
 	}
 
 	async update (id: string, data: Partial<TutorApplicationToModel>) {
-		await FirestoreService.update('tutorApplications', id, data)
+		await FirestoreService.update<Partial<TutorApplicationToModel>>('tutorApplications', id, data)
 		return id
 	}
 

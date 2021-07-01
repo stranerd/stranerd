@@ -8,7 +8,7 @@ import { ChatBaseDataSource } from './chat-base'
 
 export class PersonalChatFirebaseDataSource implements ChatBaseDataSource {
 	public async create (path: [string, string], data: ChatToModel) {
-		const id = Date.now() + getRandomValue()
+		const id = getRandomValue()
 		// @ts-ignore
 		data.dates = { createdAt: firebase.database.ServerValue.TIMESTAMP }
 		await DatabaseService.update('chats', {

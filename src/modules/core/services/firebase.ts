@@ -1,4 +1,3 @@
-import { Status } from '@modules/users'
 import { DatabaseGetClauses, FirestoreGetClauses } from '../data/datasources/base'
 import firebase, { database, firestore, functions } from './initFirebase'
 
@@ -119,22 +118,16 @@ export const DatabaseService = {
 				const doc = { ...children, id: snapshot.key! } as T
 				callback(doc)
 			})
-		if (updateStatus) firebase.database().ref('.info/connected')
-			.on('value', async (snapshot) => {
-				if (!snapshot.val()) return
-				await ref.onDisconnect().update({
-					status: {
-						mode: Status.OFFLINE,
-						updatedAt: firebase.database.ServerValue.TIMESTAMP
-					}
-				})
-				await ref.update({
-					status: {
-						mode: Status.ONLINE,
-						updatedAt: firebase.database.ServerValue.TIMESTAMP
-					}
-				})
+		if (updateStatus) {
+			const key = Date.now()
+			await ref.onDisconnect().update({
+				[`status/connections/${key}`]: null,
+				'status/lastSeen': firebase.database.ServerValue.TIMESTAMP
 			})
+			await ref.update({
+				[`status/connections/${key}`]: true
+			})
+		}
 		return () => ref.off('value', listener)
 	},
 	listenToMany: async function listenToMany<T extends { id: string }> (path: string, caller: (docs: T[]) => void, conditions?: DatabaseGetClauses) {

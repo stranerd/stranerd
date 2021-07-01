@@ -13,6 +13,13 @@ let props = {
 }
 export const setPaymentProps = (prop: typeof props) => props = prop
 
+export const useFlutterwavePayment = () => {
+	const { loading, setLoading } = useLoadingHandler()
+	const { error, setError } = useErrorHandler()
+
+	return { error, setError, loading, setLoading, ...props }
+}
+
 export const useMakePayment = () => {
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()

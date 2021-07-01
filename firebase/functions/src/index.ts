@@ -12,7 +12,7 @@ import { requestNewSession } from './onCall/sessions/requestNewSession'
 import { acceptSession } from './onCall/sessions/acceptSession'
 import { cancelSession } from './onCall/sessions/cancelSession'
 import { getClientToken } from './onCall/payments/getClientToken'
-import { makePayment } from './onCall/payments/makePayment'
+import { makePayment, makeStripePayment } from './onCall/payments/makePayment'
 import { buyCoins } from './onCall/payments/buyCoins'
 import { updateStreak } from './onCall/users/updateStreak'
 import { approveTutorApplication } from './onCall/users/approveTutorApplication'
@@ -73,7 +73,7 @@ export { toggleAdmin, toggleTutor, subscribeToMailingList }
 // Sessions
 export { requestNewSession, acceptSession, cancelSession }
 // Payments
-export { getClientToken, makePayment, buyCoins }
+export { getClientToken, makePayment, makeStripePayment, buyCoins }
 // Users
 export { updateStreak, tipNerd, approveTutorApplication }
 // Questions

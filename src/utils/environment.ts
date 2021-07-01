@@ -23,6 +23,11 @@ export const algoliaConfig = {
 	searchAPIKey: algolia.search_api_key
 }
 
+const flutterwave = JSON.parse(process.env.FLUTTERWAVE ?? '{}')
+export const flutterwaveConfig = {
+	publicKey: flutterwave.public_key
+}
+
 export enum EMAILS {
 	NO_REPLY = 'no-reply@stranerd.com'
 }

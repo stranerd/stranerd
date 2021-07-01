@@ -1,6 +1,5 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
-import { createCustomer } from './helpers/braintree'
 import { subscribeToMailchimpList } from './helpers/mailingList'
 import { isProduction } from './helpers/environment'
 import { deleteFromAlgolia } from './helpers/algolia'
@@ -16,16 +15,9 @@ export const authUserCreated = functions.auth.user().onCreate(async (user) => {
 		'status/lastStreakCheck': admin.database.ServerValue.TIMESTAMP
 	}
 
-	try {
-		const result = await createCustomer(user.displayName ?? 'Unnamed', user.email!)
-		if (result.success) data['account/braintreeId'] = result.customer.id
-	} catch (error) {
-		console.log(`Failed to create braintree user: ${user.uid}-${user.email}.\n${error.message}`)
-	}
-
 	const profileData = Object.fromEntries(
 		Object.entries(data)
-			.map((entry) => [`profiles/${user.uid}/${entry[0]}`, entry[1]])
+			.map(([key, val]) => [`profiles/${user.uid}/${key}`, val])
 	)
 
 	await admin.database().ref()
@@ -55,15 +47,15 @@ export const deleteUnVerifiedUsers = async () => {
 		const userIds = [] as string[]
 		const listAllUsers = async (nextPageToken?: string) => {
 			try {
-				const result = await admin.auth().listUsers(1000, nextPageToken)
-				result.users.forEach((user) => {
+				const { users, pageToken } = await admin.auth().listUsers(1000, nextPageToken)
+				users.forEach((user) => {
 					if (user.emailVerified) return
 					const createdAt = new Date(user.metadata.creationTime)
 					const threeDays = 3 * 86400 * 1000
 					if (Date.now() - createdAt.getTime() < threeDays) return
 					userIds.push(user.uid)
 				})
-				if (result.pageToken) await listAllUsers(result.pageToken)
+				if (pageToken) await listAllUsers(pageToken)
 			} catch (err) {}
 		}
 		await listAllUsers()

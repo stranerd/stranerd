@@ -16,6 +16,10 @@ export class PaymentRepository implements IPaymentRepository {
 		return await this.dataSource.makePayment({ amount, nonce })
 	}
 
+	async makeStripePayment (amount: number, currency: string) {
+		return await this.dataSource.makeStripePayment({ amount, currency })
+	}
+
 	async buyCoins (amount: number, isGold: boolean) {
 		return await this.dataSource.buyCoins({ amount, isGold })
 	}

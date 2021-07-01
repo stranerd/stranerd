@@ -22,7 +22,7 @@ export const makeStripePayment = functions.https.onCall(async (data, context) =>
 	const { amount, currency } = data
 	try {
 		const result = await stripe.makePayment(amount, currency)
-		return result.status === 'succeeded'
+		return result.client_secret
 	} catch (error) {
 		throw new functions.https.HttpsError('unknown', error.message)
 	}

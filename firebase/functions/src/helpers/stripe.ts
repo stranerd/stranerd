@@ -14,5 +14,5 @@ export const makePayment = async (amount: number, currency: string) => {
 	const intent = await stripe.paymentIntents.create({
 		amount, currency
 	})
-	return intent.client_secret
+	return intent
 }

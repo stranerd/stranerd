@@ -10,6 +10,10 @@ export class PaymentFirebaseDataSource implements PaymentBaseDataSource {
 		return await FunctionsService.call('makePayment', data)
 	}
 
+	async makeStripePayment (data: { amount: number, currency: string }) {
+		return await FunctionsService.call('makeStripePayment', data)
+	}
+
 	async buyCoins (data: { amount: number, isGold: boolean }) {
 		return await FunctionsService.call('buyCoins', data)
 	}

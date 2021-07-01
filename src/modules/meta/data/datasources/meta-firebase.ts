@@ -1,7 +1,7 @@
 import { FunctionsService } from '@modules/core/services/firebase'
-import { PaymentBaseDataSource } from '../datasources/payment-base'
+import { MetaBaseDataSource } from './meta-base'
 
-export class PaymentFirebaseDataSource implements PaymentBaseDataSource {
+export class MetaFirebaseDataSource implements MetaBaseDataSource {
 	async getClientToken () {
 		return await FunctionsService.call('getClientToken', {})
 	}
@@ -18,7 +18,11 @@ export class PaymentFirebaseDataSource implements PaymentBaseDataSource {
 		return await FunctionsService.call('buyCoins', data)
 	}
 
-	async tipNerd (data: { amount: number, tutorId: string }) {
-		return await FunctionsService.call('tipNerd', data)
+	async tipTutor (data: { amount: number, tutorId: string }) {
+		return await FunctionsService.call('tipTutor', data)
+	}
+
+	async rateTutor (data: { rating: number, review: string | undefined, tutorId: string }) {
+		return await FunctionsService.call('rateTutor', data)
 	}
 }

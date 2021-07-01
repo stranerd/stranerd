@@ -1,6 +1,6 @@
 import { Ref, ref } from '@nuxtjs/composition-api'
 import { client, hostedFields, paypalCheckout, HostedFields } from 'braintree-web'
-import { GetClientToken, MakePayment, MakeStripePayment } from '@modules/payment'
+import { GetClientToken, MakePayment, MakeStripePayment } from '@modules/meta'
 import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 import { getTwoDigits } from '@utils/dates'
 import { isClient, isProd, stripeConfig } from '@utils/environment'

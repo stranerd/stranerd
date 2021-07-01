@@ -12,3 +12,27 @@ export const addTutorRatings = async (userId: string, ratings: number) => {
 			count: admin.database.ServerValue.increment(1)
 		})
 }
+
+export const addTutorReview = async (userId: string, review: string) => {
+	if (!review) return
+	const lastReviews = await getLastReviews(userId)
+	lastReviews.push(review)
+	const newKey = Date.now() + Math.random().toString(36).substr(2)
+	await admin.database().ref()
+		.update({
+			[`profiles/${userId}/tutor/reviews`]: lastReviews,
+			[`reviews/${userId}/${newKey}`]: review
+		})
+}
+
+const getLastReviews = async (userId: string) => {
+	const ref = await admin.database().ref('reviews')
+		.child(userId)
+		.limitToLast(4)
+		.once('value')
+	const reviews = [] as string[]
+	ref.forEach((child) => {
+		reviews.push(child.val())
+	})
+	return reviews
+}

@@ -2,7 +2,7 @@
 	<div class="flex-grow-1 d-flex flex-column">
 		<PageLoading v-if="loading" />
 		<template v-else-if="user">
-			<div v-if="user.roles.isTutor || isTutor" class="page-content flex-grow-1 d-flex flex-column px-1" :class="{'bg-light-blue': sessionId}">
+			<div v-if="user.roles.isTutor || isTutor" class="page-content flex-grow-1 d-flex flex-column px-1">
 				<ChatHead :key="hash" :user="user" />
 				<div class="thin mx-n1" />
 				<ChatList :user-id="userId" class="flex-grow-1" />

@@ -182,7 +182,7 @@ const checkAttendSessionsAchievement = async (userId: string) => {
 	}
 }
 
-const checkTipNerdsAchievement = async (userId: string) => {
+const checkTipTutorsAchievement = async (userId: string) => {
 	const { ref, progress, completed } = await getAchievementProgress(userId, Achievements.TIP_NERDS.id)
 
 	if (!completed && progress + 1 >= Achievements.TIP_NERDS.limit) {
@@ -230,7 +230,7 @@ export const Achievement = {
 	checkBuyGoldAchievement,
 	checkBuyBronzeAchievement,
 	checkAttendSessionsAchievement,
-	checkTipNerdsAchievement,
+	checkTipTutorsAchievement,
 	checkDailyFinishAchievement,
 	checkWeeklyFinishAchievement
 } as const

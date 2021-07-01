@@ -26,6 +26,6 @@ export class UserFirebaseDataSource implements UserBaseDataSource {
 	}
 
 	async updateStreak () {
-		return await FunctionsService.call('updateStreak', {})
+		await FunctionsService.call('updateStreak', {})
 	}
 }

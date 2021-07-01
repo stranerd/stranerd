@@ -8,7 +8,7 @@ import EditAccountProfile from '@app/components/modals/edit/EditAccountProfile.v
 import EditTutorSubjects from '@app/components/modals/edit/EditTutorSubjects.vue'
 import MakePayment from '@app/components/modals/payments/MakePayment.vue'
 import BuyCoins from '@app/components/modals/account/AccountBuyCoins.vue'
-import TipNerd from '@app/components/modals/account/AccountTipNerd.vue'
+import TipTutor from '@app/components/modals/account/AccountTipTutor.vue'
 import ReportUser from '@app/components/modals/account/AccountReportUser.vue'
 import MeetTutor from '@app/components/modals/account/AccountMeetTutor.vue'
 import RightSidebar from '@app/components/modals/menus/RightSidebarMenu.vue'
@@ -20,19 +20,20 @@ import StudentCancelled from '@app/components/modals/sessions/SessionStudentCanc
 import StudentWaiting from '@app/components/modals/sessions/SessionStudentWaiting.vue'
 import TutorCancelled from '@app/components/modals/sessions/SessionTutorCancelled.vue'
 import Unknown from '@app/components/modals/sessions/SessionUnknown.vue'
+import Ratings from '@app/components/modals/sessions/SessionRatings.vue'
 
 type CreateTypes = 'Subject' | 'Question' | 'Answer'
 type EditTypes = 'Subject' | 'AccountProfile' | 'TutorSubjects'
-type AccountTypes = 'BuyCoins' | 'TipNerd' | 'ReportUser' | 'MeetTutor'
+type AccountTypes = 'BuyCoins' | 'TipTutor' | 'ReportUser' | 'MeetTutor'
 type MenuTypes = 'RightSidebar' | 'AdminSidebar' | 'Sidebar'
-type SessionTypes = 'CreateSession' | 'NewSessionRequest' | 'StudentCancelled' | 'StudentWaiting' | 'TutorCancelled' | 'Unknown'
+type SessionTypes = 'CreateSession' | 'NewSessionRequest' | 'StudentCancelled' | 'StudentWaiting' | 'TutorCancelled' | 'Unknown' | 'Ratings'
 type PaymentTypes = 'MakePayment'
 
 const CreateModals = { Subject: CreateSubject, Question: CreateQuestion, Answer: CreateAnswer } as Record<CreateTypes, any>
 const EditModals = { Subject: EditSubject, AccountProfile: EditAccountProfile, TutorSubjects: EditTutorSubjects } as Record<EditTypes, any>
-const AccountModals = { BuyCoins, TipNerd, ReportUser, MeetTutor } as Record<AccountTypes, any>
+const AccountModals = { BuyCoins, TipTutor, ReportUser, MeetTutor } as Record<AccountTypes, any>
 const MenuModals = { RightSidebar, AdminSidebar, Sidebar } as Record<MenuTypes, any>
-const SessionModals = { CreateSession, NewSessionRequest, StudentCancelled, StudentWaiting, TutorCancelled, Unknown } as Record<SessionTypes, any>
+const SessionModals = { CreateSession, NewSessionRequest, StudentCancelled, StudentWaiting, TutorCancelled, Unknown, Ratings } as Record<SessionTypes, any>
 const PaymentModals = { MakePayment } as Record<PaymentTypes, any>
 
 export const modal = useModal(ssrRef([] as string[]))

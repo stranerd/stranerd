@@ -3,7 +3,7 @@
 		<flutterwave-pay-button
 			v-if="isLoggedIn"
 			:tx_ref="generateReference()"
-			:amount="20"
+			:amount="amount"
 			currency="USD"
 			payment_options="card,ussd"
 			redirect_url=""
@@ -37,21 +37,12 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { getRandomValue } from '@utils/commons'
 import { logo } from '@utils/environment'
 import { useFlutterwavePayment } from '@app/hooks/payment/payment'
-import { analytics } from '@modules/core/services/initFirebase'
 export default defineComponent({
 	name: 'Flutterwave',
 	setup () {
 		const { user, isLoggedIn } = useAuth()
-		const { loading, error, setLoading, amount, afterPayment } = useFlutterwavePayment()
-		const makePaymentCallback = async (response: any) => {
-			setLoading(true)
-			await afterPayment?.(response.status === 'successful')
-			// @ts-ignore
-			analytics.logEvent('purchase', {
-				value: amount!
-			})
-			setLoading(false)
-		}
+		const { loading, error, amount, pay } = useFlutterwavePayment()
+		const makePaymentCallback = async (response: any) => await pay(response.status === 'successful')
 		const closedPaymentModal = () => 'closed'
 		return {
 			makePaymentCallback, closedPaymentModal, generateReference: getRandomValue,

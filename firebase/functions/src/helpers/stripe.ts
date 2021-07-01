@@ -12,7 +12,8 @@ export const makePayment = async (amount: number, currency: string) => {
 		apiVersion: '2020-08-27'
 	})
 	const intent = await stripe.paymentIntents.create({
-		amount, currency
+		amount: amount * 100, currency,
+		payment_method_types: ['card']
 	})
 	return intent
 }

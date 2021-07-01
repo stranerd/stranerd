@@ -28,6 +28,11 @@ export const flutterwaveConfig = {
 	publicKey: flutterwave.public_key
 }
 
+const stripe = JSON.parse(process.env.STRIPE ?? '{}')
+export const stripeConfig = {
+	publicKey: stripe.public_key
+}
+
 export enum EMAILS {
 	NO_REPLY = 'no-reply@stranerd.com'
 }

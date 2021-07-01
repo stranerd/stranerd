@@ -26,6 +26,7 @@
     "@nuxtjs/composition-api": "^0.24.4",
     "@nuxtjs/pwa": "^3.3.5",
     "@nuxtjs/style-resources": "^1.1.0",
+    "@stripe/stripe-js": "^1.15.1",
     "@types/vue2-editor": "^2.6.1",
     "@vue-stripe/vue-stripe": "^4.2.5",
     "algoliasearch": "^4.9.3",

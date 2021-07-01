@@ -1,11 +1,12 @@
 import { Ref, ref } from '@nuxtjs/composition-api'
 import { client, hostedFields, paypalCheckout, HostedFields } from 'braintree-web'
-import { GetClientToken, MakePayment } from '@modules/payment'
+import { GetClientToken, MakePayment, MakeStripePayment } from '@modules/payment'
 import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 import { getTwoDigits } from '@utils/dates'
-import { isClient, isProd } from '@utils/environment'
+import { isClient, isProd, stripeConfig } from '@utils/environment'
 import { usePaymentModal } from '@app/hooks/core/modals'
 import { analytics } from '@modules/core/services/initFirebase'
+import { loadStripe } from '@stripe/stripe-js'
 
 let props = {
 	amount: null as number | null,
@@ -17,7 +18,50 @@ export const useFlutterwavePayment = () => {
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
 
-	return { error, setError, loading, setLoading, ...props }
+	const pay = async (successful: boolean) => {
+		setError('')
+		setLoading(true)
+		try {
+			await props.afterPayment?.(successful)
+			// @ts-ignore
+			analytics.logEvent('purchase', {
+				value: props.amount!
+			})
+		} catch (e) { setError(e) }
+		setLoading(false)
+	}
+
+	return { error, loading, pay, amount: props.amount }
+}
+
+export const useStripePayment = () => {
+	const { loading, setLoading } = useLoadingHandler()
+	const { error, setError } = useErrorHandler()
+
+	const pay = async (token: string) => {
+		setError('')
+		setLoading(true)
+		try {
+			const stripe = await loadStripe(stripeConfig.publicKey)
+			if (!stripe) return setLoading(false)
+			const clientSecret = await MakeStripePayment.call(20, 'USD')
+			const res = await stripe.confirmCardPayment(clientSecret, {
+				payment_method: {
+					card: { token }
+				}
+			})
+			if (res.error) throw new Error(res.error.message)
+			const succeeded = res.paymentIntent.status === 'succeeded'
+			// @ts-ignore
+			analytics.logEvent('purchase', {
+				value: props.amount!
+			})
+			await props.afterPayment?.(succeeded)
+		} catch (e) { setError(e) }
+		setLoading(false)
+	}
+
+	return { error, loading, pay, setLoading }
 }
 
 export const useMakePayment = () => {

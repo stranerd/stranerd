@@ -50,6 +50,7 @@ export class UserEntity extends BaseEntity {
 			},
 			streak: {
 				count: account?.streak?.count ?? 0,
+				longestStreak: account?.streak?.longestStreak ?? 0,
 				lastSeen: account?.streak?.lastSeen ?? 0
 			}
 		}
@@ -135,6 +136,7 @@ export interface UserAccount {
 	}
 	streak: {
 		count: number,
+		longestStreak: number,
 		lastSeen: number
 	}
 }

@@ -15,7 +15,6 @@ export const updateStreak = functions.https.onCall(async (_, context) => {
 })
 
 const updateUserStreak = async (userId: string) => {
-	const userLongestStreakRef = await admin.database().ref('profiles').child(userId).child('account/meta/longestStreak')
 	const userStreakRef = await admin.database().ref('profiles').child(userId).child('account/streak')
 	const streak = await userStreakRef.once('value')
 	const { lastCheck = 0, count = 0 } = streak.val() ?? {}
@@ -37,7 +36,7 @@ const updateUserStreak = async (userId: string) => {
 		await addUserXp(userId, XpGainList.LOGGING_IN)
 		if (res.increase) {
 			await Achievement.checkStreak7Day(userId, count + 1)
-			userLongestStreakRef.transaction((oldStreak: number | null) => {
+			userStreakRef.child('longestStreak').transaction((oldStreak: number | null) => {
 				if (!oldStreak) return null
 				return count > oldStreak ? count : oldStreak
 			})

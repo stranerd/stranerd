@@ -1,6 +1,5 @@
 import * as functions from 'firebase-functions'
 import { addUserCoins, addUserXp, XpGainList } from '../../helpers/modules/payments/transactions'
-import { Achievement } from '../../helpers/modules/users/achievements'
 import { createNotification } from '../../helpers/modules/users/notifications'
 
 const BRONZE_PRICES = {
@@ -29,10 +28,8 @@ export const buyCoins = functions.https.onCall(async (data, context) => {
 		)
 		if (isGold) {
 			await addUserXp(userId, XpGainList.BUY_GOLD * amount)
-			await Achievement.checkBuyGoldAchievement(userId, amount)
 		} else {
 			await addUserXp(userId, XpGainList.BUY_BRONZE * amount)
-			await Achievement.checkBuyBronzeAchievement(userId, amount)
 		}
 		// @ts-ignore
 		const price = isGold ? GOLD_PRICES[amount] : BRONZE_PRICES[amount]

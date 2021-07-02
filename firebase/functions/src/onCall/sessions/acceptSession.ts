@@ -2,7 +2,6 @@ import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { createTask } from '../../helpers/cloud-task'
 import { addUserCoins, addUserXp, XpGainList } from '../../helpers/modules/payments/transactions'
-import { Achievement } from '../../helpers/modules/users/achievements'
 
 export const acceptSession = functions.https.onCall(async ({ id }, context) => {
 	if (!context.auth)
@@ -46,7 +45,6 @@ export const acceptSession = functions.https.onCall(async ({ id }, context) => {
 			})
 
 		await addUserXp(studentId, XpGainList.BOOK_NERD)
-		await Achievement.checkAttendSessionsAchievement(studentId)
 	} catch (error) {
 		throw new functions.https.HttpsError('unknown', error.message)
 	}

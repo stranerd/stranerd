@@ -1,6 +1,5 @@
 import * as admin from 'firebase-admin'
 import { sendTopUsersEmail } from '../../email'
-import { Achievement } from './achievements'
 
 export enum RankingPeriods {
 	daily = 'daily',
@@ -59,11 +58,4 @@ export const resetRankingsByPeriod = async (period: RankingPeriods) => {
 	const paths = userIds.map((userId) => `${userId}/rankings/${period}`)
 
 	await resetRankings(paths)
-
-	if (period === RankingPeriods.daily) await Promise.all(
-		topUsers.map(async (user, index) => await Achievement.checkDailyFinishAchievement(user.id, index + 1))
-	)
-	if (period === RankingPeriods.weekly) await Promise.all(
-		topUsers.map(async (user, index) => await Achievement.checkWeeklyFinishAchievement(user.id, index + 1))
-	)
 }

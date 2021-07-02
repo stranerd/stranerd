@@ -17,10 +17,6 @@
 				<span>Dashboard</span>
 			</NuxtLink>
 			<MessageLink :key="isLoggedIn" class="sidebar-link" />
-			<NuxtLink class="sidebar-link" to="/account#achievements">
-				<img src="@app/assets/images/icons/profile-rank.svg" alt="">
-				<span>Achievements</span>
-			</NuxtLink>
 			<NuxtLink class="sidebar-link" to="/account/e-wallet">
 				<img src="@app/assets/images/icons/e-wallet.svg" alt="">
 				<span>e-Wallet</span>
@@ -46,7 +42,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useRouter } from '@nuxtjs/composition-api'
+import { defineComponent } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useAccountModal } from '@app/hooks/core/modals'
 import { useSessionSignout } from '@app/hooks/auth/session'
@@ -55,12 +51,9 @@ export default defineComponent({
 	name: 'DefaultSidebar',
 	components: { MessageLink },
 	setup () {
-		const router = useRouter()
 		const { isLoggedIn, user, isAdmin } = useAuth()
 		const { loading, signout } = useSessionSignout()
-		const buy = () => {
-			useAccountModal().openBuyCoins()
-		}
+		const buy = useAccountModal().openBuyCoins
 		return { isLoggedIn, user, isAdmin, buy, loading, signout }
 	}
 })

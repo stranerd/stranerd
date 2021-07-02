@@ -5,8 +5,6 @@
 			<UserHeadCard :key="user.hash" :user="user" />
 			<DisplayError v-if="error" :error="error" />
 			<div class="thick mx-n2" />
-			<UserAchievementsList :user="user" />
-			<div class="thick mx-n2" />
 			<UserQuestionList class="mb-1" :user-id="user.id" />
 			<UserAnswerList :user-id="user.id" />
 		</div>
@@ -23,10 +21,9 @@ import { useUser } from '@app/hooks/users/user'
 import UserHeadCard from '@app/components/users/user/UserHeadCard.vue'
 import UserQuestionList from '@app/components/questions/questions/UserQuestionsList.vue'
 import UserAnswerList from '@app/components/questions/answers/UserAnswersList.vue'
-import UserAchievementsList from '@app/components/users/achievements/UserAchievementsList.vue'
 export default defineComponent({
 	name: 'UserPage',
-	components: { UserHeadCard, UserQuestionList, UserAnswerList, UserAchievementsList },
+	components: { UserHeadCard, UserQuestionList, UserAnswerList },
 	middleware: [
 		({ redirect, route }) => {
 			const { userId } = route.params

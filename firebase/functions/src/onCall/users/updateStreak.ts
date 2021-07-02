@@ -1,6 +1,5 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
-import { Achievement } from '../../helpers/modules/users/achievements'
 import { addUserXp, XpGainList } from '../../helpers/modules/payments/transactions'
 
 export const updateStreak = functions.https.onCall(async (_, context) => {
@@ -35,7 +34,6 @@ const updateUserStreak = async (userId: string) => {
 			})
 		await addUserXp(userId, XpGainList.LOGGING_IN)
 		if (res.increase) {
-			await Achievement.checkStreak7Day(userId, count + 1)
 			userStreakRef.child('longestStreak').transaction((oldStreak: number | null) => {
 				if (!oldStreak) return null
 				return count > oldStreak ? count : oldStreak

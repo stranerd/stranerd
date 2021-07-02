@@ -1,6 +1,5 @@
 import { BaseEntity } from '@modules/core/domains/entities/base'
 import { Avatars } from '@modules/users/domain/entities/avatar'
-import { Achievements, getUserAchievements } from '@modules/users/domain/entities/achievement'
 import { capitalize } from '@utils/commons'
 export enum RankingPeriods {
 	daily = 'daily',
@@ -17,10 +16,9 @@ export class UserEntity extends BaseEntity {
 	public readonly rankings: Required<UserRankings>
 	public readonly status: Required<UserStatus>
 	public readonly tutor: Required<UserTutor> | undefined
-	public readonly achievements: Required<ReturnType<typeof getUserAchievements>>
 	public readonly dates: UserDates
 
-	constructor ({ id, bio, roles, account, rankings, status, tutor, achievements, dates }: UserConstructorArgs) {
+	constructor ({ id, bio, roles, account, rankings, status, tutor, dates }: UserConstructorArgs) {
 		super()
 		this.id = id
 		this.userBio = generateDefaultBio(bio)
@@ -67,7 +65,6 @@ export class UserEntity extends BaseEntity {
 			currentSession: tutor?.currentSession ?? null,
 			sessionCount: tutor?.sessionCount ?? 0
 		}
-		this.achievements = getUserAchievements(achievements!)
 		this.dates = dates
 	}
 
@@ -95,7 +92,6 @@ type UserConstructorArgs = {
 	rankings?: UserRankings
 	status?: UserStatus
 	tutor?: UserTutor
-	achievements?: UserAchievements
 	dates: UserDates
 }
 
@@ -167,7 +163,6 @@ export interface UserTutor {
 	currentSession?: string | null
 	sessionCount?: number
 }
-export interface UserAchievements extends Record<keyof typeof Achievements, { completed: boolean, progress: number }> {}
 
 export const generateDefaultBio = (bio: Partial<UserBio>) :UserBio => {
 	const first = capitalize(bio?.name?.first ?? 'Anon')

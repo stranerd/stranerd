@@ -35,7 +35,11 @@ export class UserEntity extends BaseEntity {
 				bronze: account?.coins?.bronze ?? 0,
 				gold: account?.coins?.gold ?? 0
 			},
-			xp: account?.xp ?? 0
+			xp: account?.xp ?? 0,
+			streak: {
+				count: account?.streak?.count ?? 0,
+				lastSeen: account?.streak?.lastSeen ?? 0
+			}
 		}
 		this.rankings = Object.fromEntries(
 			Object.keys(RankingPeriods).map((key) => [key, rankings?.[key as RankingPeriods] ?? 0])
@@ -54,7 +58,6 @@ export class UserEntity extends BaseEntity {
 			currentSession: meta?.currentSession ?? null
 		}
 		this.status = {
-			streak: status?.streak ?? 0,
 			connections: status?.connections ?? {},
 			lastSeen: status?.lastSeen ?? 0
 		}
@@ -118,7 +121,11 @@ export interface UserAccount {
 		bronze: number
 		gold: number
 	},
-	xp: number
+	xp: number,
+	streak: {
+		count: number,
+		lastSeen: number
+	}
 }
 export interface UserRankings extends Record<RankingPeriods, number> {}
 export interface UserMeta {
@@ -137,7 +144,6 @@ export interface UserMeta {
 export interface UserStatus {
 	connections: Record<string, boolean>
 	lastSeen: number
-	streak: number
 }
 export interface UserDates {
 	signedUpAt: number

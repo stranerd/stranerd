@@ -179,7 +179,7 @@ export interface FUNCTION_RETURNS {
 	makePayment: boolean,
 	makeStripePayment: string,
 	buyCoins: void,
-	updateStreak: { isLessThan: boolean, isNextDay: boolean, streak: number },
+	updateStreak: { skip: boolean, increase: boolean, reset: boolean, streak: number },
 	tipTutor: void,
 	rateTutor: void,
 	approveTutorApplication: void,

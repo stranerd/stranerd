@@ -1,20 +1,19 @@
 <template>
-	<div>
+	<div class="d-flex flex-column">
 		<flutterwave-pay-button
-			v-if="isLoggedIn"
 			:tx_ref="generateReference()"
 			:amount="amount"
-			currency="USD"
+			:currency="currency"
 			payment_options="card,ussd"
 			redirect_url=""
-			class="btn btn-primary"
+			class="btn btn-primary btn-lg mx-auto"
 			style=""
 			:meta="{
-				consumer_id: user.id
+				consumer_id: user && user.id
 			}"
 			:customer="{
-				name: user.fullName,
-				email: user.email
+				name: user && user.fullName,
+				email: user && user.email
 			}"
 			:customizations="{
 				title: 'Stranerd' ,
@@ -35,18 +34,18 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
 import { getRandomValue } from '@utils/commons'
-import { logo } from '@utils/environment'
+import { currency, logo } from '@utils/environment'
 import { useFlutterwavePayment } from '@app/hooks/payment/payment'
 export default defineComponent({
 	name: 'Flutterwave',
 	setup () {
-		const { user, isLoggedIn } = useAuth()
+		const { user } = useAuth()
 		const { loading, error, amount, pay } = useFlutterwavePayment()
 		const makePaymentCallback = async (response: any) => await pay(response.status === 'successful')
 		const closedPaymentModal = () => 'closed'
 		return {
 			makePaymentCallback, closedPaymentModal, generateReference: getRandomValue,
-			isLoggedIn, user, logo,
+			user, logo, currency,
 			amount, loading, error
 		}
 	}

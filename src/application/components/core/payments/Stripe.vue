@@ -1,13 +1,13 @@
 <template>
-	<div v-if="isLoggedIn" class="p-1">
+	<div v-if="isLoggedIn" class="p-1 d-flex flex-column">
 		<StripeElementCard
 			ref="cardRef"
 			:pk="publicKey"
 			:disabled="loading"
 			@token="tokenCreated"
 		/>
-		<button class="btn btn-lg btn-primary" :disabled="loading" @click="tokenize">
-			Generate token
+		<button class="btn btn-lg btn-primary w-100" :disabled="loading" @click="tokenize">
+			Pay With Stripe
 		</button>
 		<PageLoading v-if="loading" />
 		<DisplayError :error="error" />

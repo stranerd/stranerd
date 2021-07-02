@@ -3,7 +3,7 @@ import { client, hostedFields, paypalCheckout, HostedFields } from 'braintree-we
 import { GetClientToken, MakePayment, MakeStripePayment } from '@modules/meta'
 import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 import { getTwoDigits } from '@utils/dates'
-import { isClient, isProd, stripeConfig } from '@utils/environment'
+import { currency, isClient, isProd, stripeConfig } from '@utils/environment'
 import { usePaymentModal } from '@app/hooks/core/modals'
 import { analytics } from '@modules/core/services/initFirebase'
 import { loadStripe } from '@stripe/stripe-js'
@@ -22,6 +22,7 @@ export const useFlutterwavePayment = () => {
 		setError('')
 		setLoading(true)
 		try {
+			usePaymentModal().closeMakePayment()
 			await props.afterPayment?.(successful)
 			// @ts-ignore
 			analytics.logEvent('purchase', {
@@ -44,7 +45,7 @@ export const useStripePayment = () => {
 		try {
 			const stripe = await loadStripe(stripeConfig.publicKey)
 			if (!stripe) return setLoading(false)
-			const clientSecret = await MakeStripePayment.call(20, 'USD')
+			const clientSecret = await MakeStripePayment.call(props.amount!, currency)
 			const res = await stripe.confirmCardPayment(clientSecret, {
 				payment_method: {
 					card: { token }
@@ -52,11 +53,12 @@ export const useStripePayment = () => {
 			})
 			if (res.error) throw new Error(res.error.message)
 			const succeeded = res.paymentIntent.status === 'succeeded'
+			usePaymentModal().closeMakePayment()
+			await props.afterPayment?.(succeeded)
 			// @ts-ignore
 			analytics.logEvent('purchase', {
 				value: props.amount!
 			})
-			await props.afterPayment?.(succeeded)
 		} catch (e) { setError(e) }
 		setLoading(false)
 	}
@@ -64,7 +66,7 @@ export const useStripePayment = () => {
 	return { error, loading, pay, setLoading }
 }
 
-export const useMakePayment = () => {
+export const useBraintreePayment = () => {
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
 	const hostedFieldsInstance = ref(null) as Ref<HostedFields | null>

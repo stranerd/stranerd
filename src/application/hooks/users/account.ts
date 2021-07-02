@@ -62,11 +62,6 @@ export const useBuyCoins = () => {
 	const { message, setMessage } = useSuccessHandler()
 
 	const buyCoins = async (option: typeof BRONZE_PRICES[0], isGold: boolean) => {
-		analytics.logEvent('buy_coins_end', {
-			amount: option.amount,
-			price: option.price,
-			isGold
-		})
 		await setPaymentProps({
 			amount: option.price,
 			afterPayment: async (res: boolean) => {
@@ -76,6 +71,11 @@ export const useBuyCoins = () => {
 							setLoading(true)
 							await BuyCoins.call(option.amount, isGold)
 							useAccountModal().closeBuyCoins()
+							analytics.logEvent('buy_coins_end', {
+								amount: option.amount,
+								price: option.price,
+								isGold
+							})
 							setMessage('Coins purchased successfully')
 						} catch (e) { setError(e) }
 						setLoading(false)

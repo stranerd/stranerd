@@ -65,7 +65,6 @@ export default defineComponent({
 			router.push('/nerds/signup')
 		}
 		const buy = () => {
-			router.push('/account/e-wallet')
 			useAccountModal().openBuyCoins()
 		}
 		return { isLoggedIn, user, isTutor, isAdmin, becomeNerd, buy, loading, signout }

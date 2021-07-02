@@ -23,6 +23,16 @@ export const algoliaConfig = {
 	searchAPIKey: algolia.search_api_key
 }
 
+const flutterwave = JSON.parse(process.env.FLUTTERWAVE ?? '{}')
+export const flutterwaveConfig = {
+	publicKey: flutterwave.public_key
+}
+
+const stripe = JSON.parse(process.env.STRIPE ?? '{}')
+export const stripeConfig = {
+	publicKey: stripe.public_key
+}
+
 export enum EMAILS {
 	NO_REPLY = 'no-reply@stranerd.com'
 }
@@ -37,3 +47,5 @@ export const email = Object.fromEntries(
 
 export const domain = `http${!isDev ? 's' : ''}://${process.env.DOMAIN}${isDev ? `:${process.env.PORT}` : ''}`
 export const logo = `${domain}/images/stranerd_logo.svg`
+
+export const currency = 'USD'

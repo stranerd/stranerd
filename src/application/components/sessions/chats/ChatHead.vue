@@ -32,7 +32,7 @@
 import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, ref } from '@nuxtjs/composition-api'
 import { UserEntity } from '@modules/users'
 import { useCountdown, useTimeDifference } from '@app/hooks/core/dates'
-import { setNewSessionTutorIdBio, useSession } from '@app/hooks/sessions/sessions'
+import { setNewSessionTutorIdBio, useSession, setOtherParticipantId } from '@app/hooks/sessions/sessions'
 import { useAccountModal, useSessionModal } from '@app/hooks/core/modals'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useCurrentSession } from '@app/hooks/sessions/session'
@@ -51,8 +51,10 @@ export default defineComponent({
 		const show = ref(false)
 		const { time, startTimer, stopTimer } = useTimeDifference(props.user.lastSeen)
 		const { id, currentSessionId } = useAuth()
-		const { currentSession, endDate, isAccepted } = useCurrentSession()
-		const { diffInSec, startTimer: startCountdown, stopTimer: stopCountdown } = useCountdown(endDate.value)
+		const { currentSession, endDate, isAccepted, otherParticipant } = useCurrentSession()
+		const { diffInSec, startTimer: startCountdown, stopTimer: stopCountdown } = useCountdown(endDate.value, {
+			0: useSessionModal().openRatings
+		})
 		onMounted(() => {
 			startTimer()
 			startCountdown()
@@ -95,9 +97,10 @@ export default defineComponent({
 		}
 		const tipUser = () => {
 			setNerdBioAndId({ id: props.user.id, bio: props.user.userBio })
-			useAccountModal().openTipNerd()
+			useAccountModal().openTipTutor()
 			show.value = false
 		}
+		if (otherParticipant.value.id) setOtherParticipantId(otherParticipant.value.id)
 		return {
 			id, currentSessionId, currentSession, isAccepted,
 			show, time, diffInSec, countDown, requestNewSession,

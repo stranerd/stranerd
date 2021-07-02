@@ -5,7 +5,7 @@
 		</template>
 		<AccountCoinBalance class="mb-1 px-1-5" :user="user" />
 		<div class="d-flex flex-wrap gap-1">
-			<button v-for="amount in TIP_AMOUNTS" :key="amount" :disabled="user.account.coins.gold < amount" class="tip btn btn-outline-blue" @click="tipNerd(amount)">
+			<button v-for="amount in TIP_AMOUNTS" :key="amount" :disabled="user.account.coins.gold < amount" class="tip btn btn-outline-blue" @click="tipTutor(amount)">
 				<span>{{ amount }}</span>
 				<Coins :gold="true" :size="20" />
 			</button>
@@ -22,17 +22,17 @@
 <script lang="ts">
 import { defineComponent, onMounted } from '@nuxtjs/composition-api'
 import { useAccountModal } from '@app/hooks/core/modals'
-import { useTipNerd } from '@app/hooks/users/account'
+import { useTipTutor } from '@app/hooks/users/account'
 import { useAuth } from '@app/hooks/auth/auth'
 import { formatNumber } from '@utils/commons'
 import AccountCoinBalance from '@app/components/users/account/AccountCoinBalance.vue'
 import { analytics } from '@modules/core/services/initFirebase'
 export default defineComponent({
-	name: 'AccountTipNerd',
+	name: 'AccountTipTutor',
 	components: { AccountCoinBalance },
 	setup () {
 		const { user } = useAuth()
-		const { loading, error, nerdBioAndId, TIP_AMOUNTS, tipNerd } = useTipNerd()
+		const { loading, error, nerdBioAndId, TIP_AMOUNTS, tipTutor } = useTipTutor()
 		const openBuyCoins = useAccountModal().openBuyCoins
 		onMounted(() => {
 			analytics.logEvent('tip_nerd_start')
@@ -40,7 +40,7 @@ export default defineComponent({
 		return {
 			user, formatNumber, TIP_AMOUNTS,
 			loading, error, nerdBioAndId,
-			tipNerd, openBuyCoins
+			tipTutor, openBuyCoins
 		}
 	}
 })

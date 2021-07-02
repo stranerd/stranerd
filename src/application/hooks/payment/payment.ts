@@ -1,11 +1,12 @@
 import { Ref, ref } from '@nuxtjs/composition-api'
 import { client, hostedFields, paypalCheckout, HostedFields } from 'braintree-web'
-import { GetClientToken, MakePayment } from '@modules/payment'
+import { GetClientToken, MakePayment, MakeStripePayment } from '@modules/meta'
 import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 import { getTwoDigits } from '@utils/dates'
-import { isClient, isProd } from '@utils/environment'
+import { currency, isClient, isProd, stripeConfig } from '@utils/environment'
 import { usePaymentModal } from '@app/hooks/core/modals'
 import { analytics } from '@modules/core/services/initFirebase'
+import { loadStripe } from '@stripe/stripe-js'
 
 let props = {
 	amount: null as number | null,
@@ -13,7 +14,59 @@ let props = {
 }
 export const setPaymentProps = (prop: typeof props) => props = prop
 
-export const useMakePayment = () => {
+export const useFlutterwavePayment = () => {
+	const { loading, setLoading } = useLoadingHandler()
+	const { error, setError } = useErrorHandler()
+
+	const pay = async (successful: boolean) => {
+		setError('')
+		setLoading(true)
+		try {
+			usePaymentModal().closeMakePayment()
+			await props.afterPayment?.(successful)
+			// @ts-ignore
+			analytics.logEvent('purchase', {
+				value: props.amount!
+			})
+		} catch (e) { setError(e) }
+		setLoading(false)
+	}
+
+	return { error, loading, pay, amount: props.amount }
+}
+
+export const useStripePayment = () => {
+	const { loading, setLoading } = useLoadingHandler()
+	const { error, setError } = useErrorHandler()
+
+	const pay = async (token: string) => {
+		setError('')
+		setLoading(true)
+		try {
+			const stripe = await loadStripe(stripeConfig.publicKey)
+			if (!stripe) return setLoading(false)
+			const clientSecret = await MakeStripePayment.call(props.amount!, currency)
+			const res = await stripe.confirmCardPayment(clientSecret, {
+				payment_method: {
+					card: { token }
+				}
+			})
+			if (res.error) throw new Error(res.error.message)
+			const succeeded = res.paymentIntent.status === 'succeeded'
+			usePaymentModal().closeMakePayment()
+			await props.afterPayment?.(succeeded)
+			// @ts-ignore
+			analytics.logEvent('purchase', {
+				value: props.amount!
+			})
+		} catch (e) { setError(e) }
+		setLoading(false)
+	}
+
+	return { error, loading, pay, setLoading }
+}
+
+export const useBraintreePayment = () => {
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
 	const hostedFieldsInstance = ref(null) as Ref<HostedFields | null>

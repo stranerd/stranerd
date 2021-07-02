@@ -3,7 +3,7 @@
 		<template slot="title">
 			Request Session
 		</template>
-		<form @click.prevent="createSession">
+		<form @submit.prevent="createSession">
 			<div class="form-group my-1">
 				<select v-model="factory.duration" class="form-select">
 					<option disabled value="0">
@@ -13,7 +13,7 @@
 						{{ option.duration }} minutes - {{ option.price }} gold coins
 					</option>
 				</select>
-				<template v-if="user.account.coins.gold < factory.duration" class="small">
+				<template v-if="user.account.coins.gold < factory.price" class="small">
 					<span class="text-danger">You don't have enough gold coins to continue.</span>
 					<a class="ml-half" @click.prevent="buy">Buy More Coins</a>
 				</template>

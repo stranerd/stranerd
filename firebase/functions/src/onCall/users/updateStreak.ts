@@ -15,23 +15,34 @@ export const updateStreak = functions.https.onCall(async (_, context) => {
 })
 
 const updateUserStreak = async (userId: string) => {
-	const userStatusRef = await admin.database().ref('users').child(userId).child('status')
-	const status = await userStatusRef.once('value')
-	const { lastStreakCheck = undefined, streak = 0 } = status.val() ?? {}
+	const userLongestStreakRef = await admin.database().ref('profiles').child(userId).child('account/meta/longestStreak')
+	const userStreakRef = await admin.database().ref('profiles').child(userId).child('account/streak')
+	const streak = await userStreakRef.once('value')
+	const { lastCheck = 0, count = 0 } = streak.val() ?? {}
 
-	const { isLessThan, isNextDay } = getDateDifference(new Date(lastStreakCheck ?? Date.now()), new Date())
-	const res = { isLessThan, isNextDay, streak }
+	const { isLessThan, isNextDay } = getDateDifference(new Date(lastCheck), new Date())
+	const res = {
+		skip: isLessThan,
+		increase: !isLessThan && isNextDay,
+		reset: !isLessThan && !isNextDay,
+		streak: !isLessThan && isNextDay ? count + 1 : 1
+	}
 
-	if (isLessThan) return res
-
-	await userStatusRef
-		.update({
-			streak: isNextDay ? admin.database.ServerValue.increment(1) : 1,
-			lastStreakCheck: admin.database.ServerValue.TIMESTAMP
-		})
-
-	await addUserXp(userId, XpGainList.LOGGING_IN)
-	if (isNextDay) await Achievement.checkStreak7Day(userId, streak + 1)
+	if (!res.skip) {
+		await userStreakRef
+			.update({
+				count: res.increase ? admin.database.ServerValue.increment(1) : 1,
+				lastCheck: admin.database.ServerValue.TIMESTAMP
+			})
+		await addUserXp(userId, XpGainList.LOGGING_IN)
+		if (res.increase) {
+			await Achievement.checkStreak7Day(userId, count + 1)
+			userLongestStreakRef.transaction((oldStreak: number | null) => {
+				if (!oldStreak) return null
+				return count > oldStreak ? count : oldStreak
+			})
+		}
+	}
 
 	return res
 }
@@ -46,7 +57,8 @@ const getDateDifference = (date1: Date, date2: Date) => {
 		date1.getFullYear(),
 		date1.getMonth(),
 		date1.getDate() + 2,
-		0, 0, 0)
+		0, 0, 0
+	)
 	res.isNextDay = date2 < start
 	return res
 }

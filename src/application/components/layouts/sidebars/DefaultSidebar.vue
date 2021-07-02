@@ -59,7 +59,6 @@ export default defineComponent({
 		const { isLoggedIn, user, isAdmin } = useAuth()
 		const { loading, signout } = useSessionSignout()
 		const buy = () => {
-			router.push('/account/e-wallet')
 			useAccountModal().openBuyCoins()
 		}
 		return { isLoggedIn, user, isAdmin, buy, loading, signout }

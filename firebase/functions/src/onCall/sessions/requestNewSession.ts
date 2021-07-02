@@ -2,11 +2,11 @@ import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { createNotification } from '../../helpers/modules/users/notifications'
 
-export const requestNewSession = functions.https.onCall(async (session, context) => {
+export const requestNewSession = functions.https.onCall(async (data, context) => {
 	if (!context.auth)
 		throw new functions.https.HttpsError('unauthenticated', 'Only authenticated users can request sessions')
 
-	const { tutorId, studentId, price, duration, studentBio, tutorBio } = session
+	const { tutorId, studentId, price, duration, studentBio, tutorBio } = data.session
 
 	try {
 		const session = {

@@ -11,10 +11,11 @@ import { requestNewSession } from './onCall/sessions/requestNewSession'
 import { acceptSession } from './onCall/sessions/acceptSession'
 import { cancelSession } from './onCall/sessions/cancelSession'
 import { getClientToken } from './onCall/payments/getClientToken'
-import { makePayment } from './onCall/payments/makePayment'
+import { makePayment, makeStripePayment } from './onCall/payments/makePayment'
 import { buyCoins } from './onCall/payments/buyCoins'
 import { updateStreak } from './onCall/users/updateStreak'
-import { tipNerd } from './onCall/users/tipNerd'
+import { tipTutor } from './onCall/users/tipTutor'
+import { rateTutor } from './onCall/users/rateTutor'
 import { markAsBestAnswer } from './onCall/questions/markAsBestAnswer'
 
 import { userProfileUpdated, userAvatarCreated } from './modules/users/users'
@@ -68,8 +69,8 @@ export { toggleAdmin, subscribeToMailingList }
 // Sessions
 export { requestNewSession, acceptSession, cancelSession }
 // Payments
-export { getClientToken, makePayment, buyCoins }
+export { getClientToken, makePayment, makeStripePayment, buyCoins }
 // Users
-export { updateStreak, tipNerd }
+export { updateStreak, tipTutor, rateTutor }
 // Questions
 export { markAsBestAnswer }

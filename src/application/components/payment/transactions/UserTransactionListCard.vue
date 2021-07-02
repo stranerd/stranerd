@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
-import { TransactionEntity } from '@modules/payment'
+import { TransactionEntity } from '@modules/meta'
 import { formatNumber } from '@utils/commons'
 import { formatTime } from '@utils/dates'
 export default defineComponent({

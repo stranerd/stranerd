@@ -1,3 +1,4 @@
+import { SessionToModel } from '@modules/sessions/data/models/session'
 import { DatabaseGetClauses, FirestoreGetClauses } from '../data/datasources/base'
 import firebase, { database, firestore, functions } from './initFirebase'
 
@@ -76,14 +77,6 @@ export const FirestoreService = {
 	}
 }
 
-export const FunctionsService = {
-	call: async (name: string, data: any) => {
-		const callable = functions.httpsCallable(name)
-		const result = await callable(data)
-		return result.data
-	}
-}
-
 export const DatabaseService = {
 	get: async function get<T extends { id: string }> (path: string, conditions?: DatabaseGetClauses) :Promise<T | null> {
 		const ref = database.ref(path)
@@ -154,5 +147,49 @@ export const DatabaseService = {
 	},
 	delete: async (path: string) => {
 		await database.ref(path).remove()
+	}
+}
+
+export interface FUNCTIONS {
+	toggleAdmin: { id: string, isAdmin: boolean },
+	toggleTutor: { id: string, isTutor: boolean },
+	subscribeToMailingList: { email: string },
+	requestNewSession: { session: Partial<SessionToModel> },
+	acceptSession: { id: string },
+	cancelSession: { id: string },
+	getClientToken: {},
+	makePayment: { amount: number, nonce: string },
+	makeStripePayment: { amount: number, currency: string },
+	buyCoins: { amount: number, isGold: boolean },
+	updateStreak: {},
+	tipTutor: { tutorId: string, amount: number },
+	rateTutor: { tutorId: string, rating: number, review: string | undefined },
+	approveTutorApplication: { id: string, approved: boolean },
+	markAsBestAnswer: { questionId: string, answerId: string }
+}
+
+export interface FUNCTION_RETURNS {
+	toggleAdmin: void,
+	toggleTutor: void,
+	subscribeToMailingList: void,
+	requestNewSession: string,
+	acceptSession: void,
+	cancelSession: void,
+	getClientToken: { braintree: string, paypal: string },
+	makePayment: boolean,
+	makeStripePayment: string,
+	buyCoins: void,
+	updateStreak: { skip: boolean, increase: boolean, reset: boolean, streak: number },
+	tipTutor: void,
+	rateTutor: void,
+	approveTutorApplication: void,
+	markAsBestAnswer: void
+}
+
+export const FunctionsService = {
+	call: async function call<T extends keyof FUNCTIONS> (name: T, data: FUNCTIONS[T]) {
+		const callable = functions.httpsCallable(name)
+		const result = await callable(data)
+		return result.data as FUNCTION_RETURNS[T]
 	}
 }

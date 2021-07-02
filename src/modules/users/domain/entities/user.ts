@@ -47,13 +47,16 @@ export class UserEntity extends BaseEntity {
 				answerComments: Object.keys(account?.meta?.answerComments ?? {}),
 				sessions: Object.keys(account?.meta?.sessions ?? {}),
 				tutorSessions: Object.keys(account?.meta?.tutorSessions ?? {})
+			},
+			streak: {
+				count: account?.streak?.count ?? 0,
+				lastSeen: account?.streak?.lastSeen ?? 0
 			}
 		}
 		this.rankings = Object.fromEntries(
 			Object.keys(RankingPeriods).map((key) => [key, rankings?.[key as RankingPeriods] ?? 0])
 		) as Required<UserRankings>
 		this.status = {
-			streak: status?.streak ?? 0,
 			connections: status?.connections ?? {},
 			lastSeen: status?.lastSeen ?? 0
 		}
@@ -130,6 +133,10 @@ export interface UserAccount {
 		sessions?: Record<string, boolean>
 		tutorSessions?: Record<string, boolean>
 	}
+	streak: {
+		count: number,
+		lastSeen: number
+	}
 }
 
 export interface UserMeta extends Record<keyof UserAccount['meta'], string[]> {}
@@ -137,7 +144,6 @@ export interface UserRankings extends Record<RankingPeriods, number> {}
 export interface UserStatus {
 	connections: Record<string, boolean>
 	lastSeen: number
-	streak: number
 }
 export interface UserDates {
 	signedUpAt: number

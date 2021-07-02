@@ -12,6 +12,11 @@ export const paypal = () => ({
 	clientSecret: environment()?.paypal?.client_secret
 })
 
+export const stripe = () => ({
+	secretKey: environment()?.stripe?.secret_key,
+	publicKey: environment()?.stripe?.public_key
+})
+
 export const braintree = () => ({
 	merchantId: environment()?.braintree?.merchant_id,
 	publicKey: environment()?.braintree?.public_key,

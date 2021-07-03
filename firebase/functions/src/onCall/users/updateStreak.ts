@@ -1,6 +1,5 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
-import { addUserXp, XpGainList } from '../../helpers/modules/payments/transactions'
 
 export const updateStreak = functions.https.onCall(async (_, context) => {
 	if (!context.auth)
@@ -32,7 +31,6 @@ const updateUserStreak = async (userId: string) => {
 				count: res.increase ? admin.database.ServerValue.increment(1) : 1,
 				lastCheck: admin.database.ServerValue.TIMESTAMP
 			})
-		await addUserXp(userId, XpGainList.LOGGING_IN)
 		if (res.increase) {
 			userStreakRef.child('longestStreak').transaction((oldStreak: number | null) => {
 				if (!oldStreak) return null

@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { createTask } from '../../helpers/cloud-task'
-import { addUserCoins, addUserXp, XpGainList } from '../../helpers/modules/payments/transactions'
+import { addUserCoins } from '../../helpers/modules/payments/transactions'
 
 export const acceptSession = functions.https.onCall(async ({ id }, context) => {
 	if (!context.auth)
@@ -43,8 +43,6 @@ export const acceptSession = functions.https.onCall(async ({ id }, context) => {
 				[`${studentId}/account/meta/sessions/${id}`]: true,
 				[`${tutorId}/account/meta/tutorSessions/${id}`]: true
 			})
-
-		await addUserXp(studentId, XpGainList.BOOK_NERD)
 	} catch (error) {
 		throw new functions.https.HttpsError('unknown', error.message)
 	}

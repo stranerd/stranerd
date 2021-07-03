@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { deleteFromStorage } from '../../helpers/storage'
-import { addUserCoins, addUserXp, XpGainList } from '../../helpers/modules/payments/transactions'
+import { addUserCoins } from '../../helpers/modules/payments/transactions'
 import { addTutorRatings } from '../../helpers/modules/users/tutors'
 import { deleteFromAlgolia, saveToAlgolia } from '../../helpers/algolia'
 import { createNotification } from '../../helpers/modules/users/notifications'
@@ -38,8 +38,6 @@ export const answerCreated = functions.firestore.document('answers/{answerId}')
 			body: 'You asked a question and we\'ve answered! Click here to get on your dashboard and view all answers on your question',
 			action: `/questions/${questionId}#${context.params.answerId}`
 		})
-
-		if (userId) await addUserXp(userId, XpGainList.ANSWER_QUESTION, true)
 
 		await saveToAlgolia('answers', snap.id, { answer })
 	})

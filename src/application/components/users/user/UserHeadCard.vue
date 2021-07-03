@@ -45,11 +45,6 @@
 				<span>Sessions Requested</span>
 				<span class="count">{{ formatNumber(user.account.meta.sessions.length) }}</span>
 			</div>
-			<div class="stats">
-				<img src="@app/assets/images/icons/profile-rank.svg" alt="">
-				<span>Xp</span>
-				<span class="count">{{ formatNumber(user.account.xp) }}</span>
-			</div>
 		</div>
 	</div>
 </template>

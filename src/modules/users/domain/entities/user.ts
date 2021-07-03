@@ -7,7 +7,6 @@ export enum RankingPeriods {
 	monthly = 'monthly',
 	quarterly = 'quarterly',
 }
-
 export class UserEntity extends BaseEntity {
 	public readonly id: string
 	public readonly roles: UserRoles
@@ -32,7 +31,6 @@ export class UserEntity extends BaseEntity {
 				bronze: account?.coins?.bronze ?? 0,
 				gold: account?.coins?.gold ?? 0
 			},
-			xp: account?.xp ?? 0,
 			currentSession: account?.currentSession ?? null,
 			meta: {
 				answers: Object.keys(account?.meta?.answers ?? {}),
@@ -116,7 +114,6 @@ export interface UserAccount {
 		bronze: number
 		gold: number
 	},
-	xp: number
 	currentSession: string | null
 	meta: {
 		answers?: Record<string, boolean>

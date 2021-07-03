@@ -34,7 +34,7 @@
 		"profiles": {
 			".read": true,
 			".indexOn": [
-				"roles/isAdmin","roles/isTutor","bio/email",
+				"roles/isAdmin","bio/email",
 				"rankings/daily","rankings/weekly","rankings/monthly","rankings/quarterly"
 			],
 			"$userId": {

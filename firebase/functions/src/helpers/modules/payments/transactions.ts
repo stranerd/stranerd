@@ -1,5 +1,4 @@
 import * as admin from 'firebase-admin'
-import { RankingPeriods } from '../users/rankings'
 
 type CreateTransaction = {
 	amount: number
@@ -38,28 +37,4 @@ export const addUserCoins = async (userId: string, coins: { bronze: number, gold
 		event: transactionDetails,
 		isGold: false
 	})
-}
-
-export const addUserXp = async (userId: string, xp: number, shouldSkipForRanking = false) => {
-	const data = {
-		'account/xp': admin.database.ServerValue.increment(xp)
-	} as Record<string, object>
-
-	if (!shouldSkipForRanking) Object.values(RankingPeriods)
-		.forEach((period) => {
-			data[`rankings/${period}`] = admin.database.ServerValue.increment(xp)
-		})
-
-	await admin.database().ref('profiles').child(userId).update(data)
-}
-
-export enum XpGainList {
-	LOGGING_IN = 3,
-	ASK_QUESTION = 5,
-	ANSWER_QUESTION = 5,
-	BUY_BRONZE = 0.01,
-	BUY_GOLD = 1,
-	TIP_NERD = 1,
-	BOOK_NERD = 1,
-	PICK_AVATAR = 5
 }

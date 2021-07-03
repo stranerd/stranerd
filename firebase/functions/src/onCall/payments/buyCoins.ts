@@ -1,5 +1,5 @@
 import * as functions from 'firebase-functions'
-import { addUserCoins, addUserXp, XpGainList } from '../../helpers/modules/payments/transactions'
+import { addUserCoins } from '../../helpers/modules/payments/transactions'
 import { createNotification } from '../../helpers/modules/users/notifications'
 
 const BRONZE_PRICES = {
@@ -26,11 +26,6 @@ export const buyCoins = functions.https.onCall(async (data, context) => {
 			{ bronze: isGold ? 0 : amount, gold: isGold ? amount : 0 },
 			'You purchased coins'
 		)
-		if (isGold) {
-			await addUserXp(userId, XpGainList.BUY_GOLD * amount)
-		} else {
-			await addUserXp(userId, XpGainList.BUY_BRONZE * amount)
-		}
 		// @ts-ignore
 		const price = isGold ? GOLD_PRICES[amount] : BRONZE_PRICES[amount]
 		await createNotification(userId, {

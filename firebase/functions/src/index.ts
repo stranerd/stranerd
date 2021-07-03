@@ -18,7 +18,7 @@ import { tipTutor } from './onCall/users/tipTutor'
 import { rateTutor } from './onCall/users/rateTutor'
 import { markAsBestAnswer } from './onCall/questions/markAsBestAnswer'
 
-import { userProfileUpdated, userAvatarCreated } from './modules/users/users'
+import { userProfileUpdated } from './modules/users/users'
 
 import { personalChatsCreated, personalChatMediaDeleted } from './modules/sessions/chats'
 
@@ -43,7 +43,7 @@ export { makeSuperAdmin, resendEmails, endSession }
 
 // Users Module
 // Users
-export { userProfileUpdated, userAvatarCreated }
+export { userProfileUpdated }
 
 // Sessions Module
 // Chats

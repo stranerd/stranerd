@@ -5,12 +5,6 @@
 			<div class="thick mx-n1" />
 			<div class="d-flex flex-column">
 				<div class="d-flex justify-content-between">
-					<span><img src="@app/assets/images/icons/profile-rank.svg" class="me-0-75" height="24" width="24"> XP</span>
-					<p class="fw-bold">
-						{{ formatNumber(user.account.xp) }}
-					</p>
-				</div>
-				<div class="d-flex justify-content-between">
 					<span><img src="@app/assets/images/icons/profile-question.svg" class="me-0-75" height="24" width="24"> Questions</span>
 					<p class="fw-bold">
 						{{ formatNumber(user.account.meta.questions.length) }}

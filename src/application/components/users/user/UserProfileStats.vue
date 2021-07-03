@@ -43,13 +43,6 @@
 				</div>
 				<img src="@app/assets/images/icons/profile-sessions.svg" alt="">
 			</div>
-			<div class="page-card">
-				<div>
-					<span class="card-title">XP</span>
-					<span class="card-sub">{{ user.account.xp }}</span>
-				</div>
-				<img src="@app/assets/images/icons/profile-rank.svg" alt="">
-			</div>
 		</div>
 	</div>
 </template>

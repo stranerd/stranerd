@@ -93,6 +93,11 @@ const getScore = (account: any) => {
 	return score
 }
 
+const getRating = (account: any) => {
+	const { total = 0, count = 0 } = account?.ratings ?? {}
+	return count === 0 ? 0 : total / count
+}
+
 const getLastRank = (rank: RankTypes) :Rank => {
 	const ranks = [RankTypes.Rookie, RankTypes.Comrade, RankTypes.Scholar, RankTypes.Einstein]
 	const index = ranks.findIndex((r) => r === rank)
@@ -120,7 +125,7 @@ export const checkRank = async (userId: string) => {
 	const bestAnswers = Object.keys(account?.meta?.bestAnswers ?? {}).length
 	const dailyLogin = account?.streak?.longestStreak ?? 0
 	const nerdScore = getScore(account)
-	const ratings = account?.ratings?.average ?? 0
+	const ratings = getRating(account)
 
 	const lastRank = getLastRank(myRank)
 	if (ratings < (lastRank.ratings - 0.5)) {

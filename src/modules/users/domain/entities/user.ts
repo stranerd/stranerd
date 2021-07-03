@@ -50,8 +50,7 @@ export class UserEntity extends BaseEntity {
 			},
 			ratings: {
 				total: account?.ratings?.total ?? 0,
-				count: account?.ratings?.count ?? 0,
-				average: account?.ratings?.average ?? 0
+				count: account?.ratings?.count ?? 0
 			}
 		}
 		this.status = {
@@ -77,7 +76,7 @@ export class UserEntity extends BaseEntity {
 	get isOnline () { return Object.keys(this.status.connections).length > 0 }
 	get lastSeen () { return this.isOnline ? Date.now() : this.status.lastSeen }
 
-	get averageRating () { return this.account.ratings.average }
+	get averageRating () { return this.ratingCount === 0 ? 0 : this.account.ratings.total / this.ratingCount }
 	get ratingCount () { return this.account.ratings.count }
 	get orderRating () { return Math.pow(this.account.ratings.total, this.averageRating) }
 	get currentSession () { return this.account.currentSession || this.tutor.currentSession || null }
@@ -141,7 +140,6 @@ export interface UserAccount {
 	ratings: {
 		total: number
 		count: number
-		average: number
 	}
 }
 export interface UserStatus {

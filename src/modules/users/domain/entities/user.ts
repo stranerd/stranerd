@@ -4,11 +4,11 @@ import { capitalize } from '@utils/commons'
 
 export class UserEntity extends BaseEntity {
 	public readonly id: string
-	public readonly roles: UserRoles
-	public readonly userBio: UserBio
-	public readonly account: Omit<UserAccount, 'meta'> & { meta: UserMeta }
+	public readonly roles: Required<UserRoles>
+	public readonly userBio: Required<UserBio>
+	public readonly account: Omit<UserAccount, 'meta'> & { meta: Record<keyof UserAccount['meta'], string[]> }
 	public readonly status: Required<UserStatus>
-	public readonly tutor: Required<UserTutor> | undefined
+	public readonly tutor: Required<UserTutor>
 	public readonly dates: UserDates
 
 	constructor ({ id, bio, roles, account, status, tutor, dates }: UserConstructorArgs) {
@@ -47,10 +47,13 @@ export class UserEntity extends BaseEntity {
 			lastSeen: status?.lastSeen ?? 0
 		}
 		this.tutor = {
-			ratings: tutor?.ratings ?? { total: 0, count: 0 },
 			subject: tutor?.subject ?? undefined,
 			currentSession: tutor?.currentSession ?? null,
-			sessionCount: tutor?.sessionCount ?? 0
+			ratings: {
+				total: tutor?.ratings?.total ?? 0,
+				count: tutor?.ratings?.count ?? 0,
+				average: tutor?.ratings?.average ?? 0
+			}
 		}
 		this.dates = {
 			signedUpAt: dates?.signedUpAt ?? 0,
@@ -60,18 +63,18 @@ export class UserEntity extends BaseEntity {
 
 	get firstName () { return this.userBio.name.first }
 	get lastName () { return this.userBio.name.last }
-	get fullName () { return this.userBio.name.first + ' ' + this.userBio.name.last }
+	get fullName () { return this.userBio.name.fullName! }
 	get email () { return this.userBio.email }
-	get avatar () { return this.userBio.avatar }
+	get avatar () { return this.userBio.avatar! }
 
 	get isOnline () { return Object.keys(this.status.connections).length > 0 }
 	get lastSeen () { return this.isOnline ? Date.now() : this.status.lastSeen }
 
-	get averageRating () { return this.tutor?.ratings.count === 0 ? 0 : (this.tutor?.ratings.total ?? 0) / (this.tutor?.ratings.count ?? 1) }
-	get ratingCount () { return this.tutor?.ratings.count ?? 0 }
-	get orderRating () { return Math.pow(this.tutor?.ratings.total ?? 0, this.averageRating) }
-	get currentSession () { return this.account.currentSession || this.tutor?.currentSession || null }
-	get subject () { return this.tutor?.subject ?? null }
+	get averageRating () { return this.tutor.ratings.average }
+	get ratingCount () { return this.tutor.ratings.count }
+	get orderRating () { return Math.pow(this.tutor.ratings.total, this.averageRating) }
+	get currentSession () { return this.account.currentSession || this.tutor.currentSession || null }
+	get subject () { return this.tutor.subject ?? null }
 }
 
 type UserConstructorArgs = {
@@ -96,7 +99,7 @@ export interface UserBio {
 	isNew?: boolean | null
 }
 export interface UserRoles {
-	isAdmin: boolean
+	isAdmin?: boolean
 }
 export interface UserAccount {
 	coins: {
@@ -122,8 +125,6 @@ export interface UserAccount {
 		lastSeen: number
 	}
 }
-
-export interface UserMeta extends Record<keyof UserAccount['meta'], string[]> {}
 export interface UserStatus {
 	connections: Record<string, boolean>
 	lastSeen: number
@@ -136,6 +137,7 @@ export interface UserTutor {
 	ratings: {
 		total: number
 		count: number
+		average: number
 	}
 	subject: {
 		id: string
@@ -147,10 +149,9 @@ export interface UserTutor {
 		}>
 	} | undefined
 	currentSession?: string | null
-	sessionCount?: number
 }
 
-export const generateDefaultBio = (bio: Partial<UserBio>) :UserBio => {
+export const generateDefaultBio = (bio: Partial<UserBio>) :Required<UserBio> => {
 	const first = capitalize(bio?.name?.first ?? 'Anon')
 	const last = capitalize(bio?.name?.last ?? 'Ymous')
 	const fullName = first + ' ' + last

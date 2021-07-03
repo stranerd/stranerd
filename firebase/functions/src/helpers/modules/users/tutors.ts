@@ -7,9 +7,17 @@ export const addTutorRatings = async (userId: string, ratings: number) => {
 	await admin.database().ref('profiles')
 		.child(userId)
 		.child('tutor/ratings')
-		.update({
-			total: admin.database.ServerValue.increment(ratings),
-			count: admin.database.ServerValue.increment(1)
+		.transaction((rating) => {
+			if (!rating) return rating
+			const { total = 0, count = 0 } = rating
+			const newTotal = total + rating
+			const newCount = count + 1
+			const newAverage = newCount === 0 ? 0 : newTotal / newCount
+			return {
+				total: newTotal,
+				count: newCount,
+				average: newAverage
+			}
 		})
 }
 

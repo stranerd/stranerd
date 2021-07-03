@@ -16,8 +16,10 @@ import { updateStreak } from './onCall/users/updateStreak'
 import { tipTutor } from './onCall/users/tipTutor'
 import { rateTutor } from './onCall/users/rateTutor'
 import { markAsBestAnswer } from './onCall/questions/markAsBestAnswer'
-
-import { userProfileUpdated } from './modules/users/users'
+import {
+	userProfileUpdated, userAccountRatingsUpdated, userAccountTutorSessionsUpdated, userAccountSessionsUpdated, userAccountQuestionsUpdated,
+	userAccountAnswersUpdated, userAccountBestAnswersUpdated, userAccountDailyLoginUpdated, userAccountPurchaseCoinsUpdated
+} from './modules/users/users'
 
 import { personalChatsCreated, personalChatMediaDeleted } from './modules/sessions/chats'
 
@@ -42,7 +44,10 @@ export { makeSuperAdmin, resendEmails, endSession }
 
 // Users Module
 // Users
-export { userProfileUpdated }
+export {
+	userProfileUpdated, userAccountRatingsUpdated, userAccountTutorSessionsUpdated, userAccountSessionsUpdated, userAccountQuestionsUpdated,
+	userAccountAnswersUpdated, userAccountBestAnswersUpdated, userAccountDailyLoginUpdated, userAccountPurchaseCoinsUpdated
+}
 
 // Sessions Module
 // Chats

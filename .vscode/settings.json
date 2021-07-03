@@ -1,5 +1,6 @@
 {
     "editor.formatOnSave": true,
+    "editor.autoIndent": "full",
     "[vue]": {
       "editor.formatOnSave": false
     },
@@ -13,5 +14,7 @@
       "source.fixAll.eslint": true
     },
     "eslint.alwaysShowStatus": true,
-    "svg.preview.background": "transparent"
+    "svg.preview.background": "transparent",
+    "editor.insertSpaces": false,
+    "editor.wrappingIndent": "indent"
    }

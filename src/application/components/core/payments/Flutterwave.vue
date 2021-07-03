@@ -1,9 +1,9 @@
 <template>
 	<div class="d-flex flex-column">
 		<flutterwave-pay-button
-			:tx_ref="generateReference()"
+			:tx_ref="getRandomValue()"
 			:amount="amount"
-			:currency="currency"
+			:currency="getLocalCurrency()"
 			payment_options="card,ussd"
 			redirect_url=""
 			class="btn btn-primary btn-lg mx-auto"
@@ -34,18 +34,18 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
 import { getRandomValue } from '@utils/commons'
-import { currency, logo } from '@utils/environment'
+import { logo } from '@utils/environment'
 import { useFlutterwavePayment } from '@app/hooks/payment/payment'
 export default defineComponent({
 	name: 'Flutterwave',
 	setup () {
-		const { user } = useAuth()
+		const { user, getLocalCurrency } = useAuth()
 		const { loading, error, amount, pay } = useFlutterwavePayment()
 		const makePaymentCallback = async (response: any) => await pay(response.status === 'successful')
 		const closedPaymentModal = () => 'closed'
 		return {
-			makePaymentCallback, closedPaymentModal, generateReference: getRandomValue,
-			user, logo, currency,
+			makePaymentCallback, closedPaymentModal, getRandomValue,
+			user, logo, getLocalCurrency,
 			amount, loading, error
 		}
 	}

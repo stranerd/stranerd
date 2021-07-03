@@ -73,11 +73,20 @@ export const useAuth = () => {
 		if (isClient()) window.location.assign('/')
 	}
 
+	const getLocalCurrency = () => global.location.value?.currencyCode ?? 'NGN'
+
+	const getLocalAmount = (amount: number) => parseFloat(Number(amount * CONVERSION_RATES[getLocalCurrency()] ?? 1).toFixed(2))
+
 	return {
 		id, bio, user: global.user, auth: global.auth, location: global.location,
 		isLoggedIn, isVerified, isAdmin, currentSessionId,
-		setAuthUser, setUserLocation, signin, signout
+		setAuthUser, setUserLocation, signin, signout, getLocalAmount, getLocalCurrency
 	}
 }
 
 export const setShowProfileModal = (show: boolean) => global.showProfileModal.value = show
+
+export const CONVERSION_RATES = {
+	USD: 1,
+	NGN: 421
+} as Record<string, number>

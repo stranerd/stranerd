@@ -60,7 +60,7 @@ export default defineComponent({
 
 <style lang="scss">
 .modal-background{
-	background: rgba($color-blue, 0.9);
+	background: rgba($color-text-main, 0.9);
 }
 
 .modal-inner{

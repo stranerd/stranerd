@@ -208,7 +208,7 @@ export default defineComponent({
 .sectionTwo {
 	display: flex;
 	align-items: center;
-	background: $color-blue;
+	background: $color-text-main;
 	flex-direction: column-reverse;
 	padding: 2rem 2rem 0;
 	@media (min-width: $md) {
@@ -325,7 +325,7 @@ export default defineComponent({
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	background: $color-blue;
+	background: $color-text-main;
 	color: $color-white;
 	min-height: 300px;
 	padding: 1rem;

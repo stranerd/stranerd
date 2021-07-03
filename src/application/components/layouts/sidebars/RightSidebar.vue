@@ -4,6 +4,9 @@
 			<ProfileHeadCard :user="user" />
 			<div class="thick mx-n1" />
 			<div class="d-flex flex-column">
+				<h1 class="ranking-header">
+					Ranking Up
+				</h1>
 				<div class="d-flex justify-content-between">
 					<span><img src="@app/assets/images/icons/profile-rank.svg" class="me-0-75" height="24" width="24"> XP</span>
 					<p class="fw-bold">
@@ -79,3 +82,11 @@ export default defineComponent({
 	}
 })
 </script>
+
+<style lang="scss" scoped>
+.ranking-header{
+text-align: center;
+font-size: 24px;
+color: $color-text-main;
+}
+</style>

@@ -64,7 +64,7 @@ export default defineComponent({
 	}
 }
 .completed {
-	color: $color-blue-grey;
-	h4 { color: $color-blue; }
+	color: $color-text-main-grey;
+	h4 { color: $color-text-main; }
 }
 </style>

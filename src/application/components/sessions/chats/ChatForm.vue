@@ -37,7 +37,7 @@ a {
 	border-radius: 10rem;
 	font-size: 1.25rem;
 	margin-left: 1rem;
-	color: $color-blue;
+	color: $color-text-main;
 }
 input.form-control {
 	font-size: 1em;

@@ -56,7 +56,7 @@ place-items: center;
 }
 .home-top-nav {
 	background:  $color-white;
-	color:$color-blue;
+	color:$color-text-main;
 	min-height: 60px;
 	z-index: 10 !important;
 

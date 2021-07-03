@@ -33,4 +33,7 @@ h1{
 	font-size: 24px;
 	color: $color-text-main;
 }
+.w-100{
+	width: 92% !important;
+}
 </style>

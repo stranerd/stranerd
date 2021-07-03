@@ -48,7 +48,7 @@ export default defineComponent({
 	}
 	.achievement-title {
 		h4 {
-			color: $color-blue;
+			color: $color-text-main;
 			margin: 0;
 		}
 		p { margin: 0 }
@@ -60,7 +60,7 @@ export default defineComponent({
 	}
 	.progress {
 		margin-left: auto;
-		background: lighten($color-blue, 40%);
+		background: lighten($color-text-main, 40%);
 		color: $color-white;
 		width: 40%;
 		height: 25px;
@@ -71,7 +71,7 @@ export default defineComponent({
 		display: flex;
 		align-items: center;
 		.level {
-			background: $color-blue;
+			background: $color-text-main;
 			height: 100%;
 		}
 		.text {

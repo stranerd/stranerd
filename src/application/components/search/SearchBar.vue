@@ -61,7 +61,7 @@ form {
 	select:focus {
 		box-shadow: none;
 		option {
-			background: $color-blue;
+			background: $color-text-main;
 			color: $color-white;
 		}
 	}

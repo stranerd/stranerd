@@ -120,7 +120,7 @@ export default defineComponent({
 		margin-bottom: 4rem;
 	}
 	.answer-content {
-		border: 1px solid lighten($color-blue, 30);
+		border: 1px solid lighten($color-text-main, 30);
 		border-radius: 1rem;
 		padding: 0.5rem;
 		@media (min-width: $md) {

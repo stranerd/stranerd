@@ -1,32 +1,8 @@
 <template>
 	<nav class="home-top-nav" role="navigation">
-		<!-- add  "fixed-top" class on scroll Condition(window.scrollTop() > 10) -->
-		<div class="d-flex justify-content-between align-items-center padding">
+		<div class="d-flex justify-content-between align-items-center logo">
 			<Logo :secondary="true" class="nav-logo" />
-			<button class="d-md-none navbar-toggler" @click="show = !show">
-				<span v-if="!show" class="fas fa-bars" />
-				<span v-else class="fas fa-times" />
-			</button>
-			<div class="d-none d-md-flex nav-links gap-1">
-				<NuxtLink to="/auth/signin" class="btn btn-primary-outline">
-					Log In
-				</NuxtLink>
-				<NuxtLink to="/auth/signup" class="btn btn-primary">
-					Sign up
-				</NuxtLink>
-			</div>
 		</div>
-
-		<transition name="slide" appear>
-			<div v-if="show" class="d-md-none nav-links w-100 gap-1 p-1 slide-down bg-blue">
-				<NuxtLink to="/auth/signin" class="btn-secondary-outline font-weight-bold">
-					Log In
-				</NuxtLink>
-				<NuxtLink to="/auth/signup" class="btn-secondary font-weight-bold">
-					Sign up
-				</NuxtLink>
-			</div>
-		</transition>
 	</nav>
 </template>
 
@@ -43,6 +19,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .nav-logo{
+	margin: 0px auto;
 	&:hover{
 		transition: all 0.3s;
 		transform: scale(1.2);
@@ -55,12 +32,15 @@ display: grid;
 place-items: center;
 }
 .home-top-nav {
+	display: flex;
 	background:  $color-white;
-	color:$color-blue;
+	color:$color-text-main;
+	height: 96px;
+	 width: 100vw;
 	min-height: 60px;
 	z-index: 10 !important;
 
-	margin: 0 auto;
+	margin: 0;
 	box-shadow: 0px 5px 15px #17224D26;
 
 	button.navbar-toggler {
@@ -70,10 +50,10 @@ place-items: center;
 		color: $color-tint-blue;
 	}
 }
-.padding {
+.logo {
+	    width: 21.5%;
 	padding: 1rem 2rem;
-	@media (min-width: $md) { padding: 1.25rem 4rem; }
-	@media (min-width: $lg) { padding: 1.5rem 6rem; }
+
 }
 .fixed-top{
 	background: #FFFFFF 0% 0% no-repeat padding-box;

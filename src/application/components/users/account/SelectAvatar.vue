@@ -51,7 +51,7 @@ export default defineComponent({
 	.current {
 		width: 90px;
 		height: 90px;
-		border: 3px solid $color-blue;
+		border: 3px solid $color-text-main;
 	}
 	.others {
 		display: flex;

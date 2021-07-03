@@ -10,6 +10,7 @@
 			<Coins :gold="true" :size="28" class="ms-n1" style="z-index:1;" />
 			<span class="rounded-pill ms-n1 px-1 ps-1-5 bg-tags border-line border text-text-main">
 				{{ formatNumber(user.account.coins.gold) }}
+
 			</span>
 
 		</span>

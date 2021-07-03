@@ -56,7 +56,7 @@ export default defineComponent({
 .is-mine{
 	border-radius: 0.6rem 0.6rem 0 0.6rem;
 	background: #C1D2E3;
-	color: $color-blue;
+	color: $color-text-main;
 	margin-left: auto;
 }
 .is-not-mine{

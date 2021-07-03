@@ -32,7 +32,7 @@ export default defineComponent({
 }
 .btn-auth{
 	color: $color-white;
-	background: $color-blue;
+	background: $color-text-main;
 	width: 100%;
 	font-size: 18px;
 	display: flex;
@@ -47,6 +47,6 @@ export default defineComponent({
 	}
 }
 .btn-auth:hover {
-	background: darken($color-blue, 10);
+	background: darken($color-text-main, 10);
 }
 </style>

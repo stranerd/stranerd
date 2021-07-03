@@ -65,7 +65,7 @@ footer {
 	@media (min-width: $md) { padding: 2.5rem; }
 	@media (min-width: $lg) { padding: 5rem; }
 	background: $color-footer-blue;
-	color: $color-blue-white;
+	color: $color-text-main-white;
 }
 .content {
 	max-width: 1600px;

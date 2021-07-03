@@ -79,7 +79,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 li {
 	border: none !important;
-	color: $color-blue;
+	color: $color-text-main;
 }
 .results{
 	position: absolute;

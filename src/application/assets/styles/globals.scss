@@ -8,15 +8,14 @@ $color-line: #D7E2EC;
 $color-tags: #F8F8FF;
 $color-ratings: #FFDA20;
 
-$color-blue: #17224d;
 $color-tint-blue:  #103E83;
 $color-dim-blue:  #214A73;
-$color-blue-grey: #214A73;
+$color-text-main-grey: #214A73;
 $color-light-grey: #e7eef4;
 $color-grey: #808080;
 $color-light-blue: #e2f0ff;
 $color-white: #FEFEFE;
-$color-blue-white: #AFC4D9;
+$color-text-main-white: #AFC4D9;
 $color-footer-blue: #191C29;
 $color-black: #111B25;
 $color-black-transparent: rgba($color-black, .75);
@@ -25,9 +24,9 @@ $color-gold: #FFD700;
 $color-red: #dc3545;
 $color-green: #06f352;
 
-$body-color: $color-blue-grey;
+$body-color: $color-text-main-grey;
 $min-contrast-ratio: 4.5;
-$color-contrast-dark: $color-blue;
+$color-contrast-dark: $color-text-main;
 $color-contrast-light: $color-white;
 
 $xs: 0;
@@ -52,9 +51,9 @@ $theme-colors: (
 	'success': $color-green,
 	'info': #0dcaf0,
 	'warning': #ffc107,
-	'blue': $color-blue,
+	'blue': $color-text-main,
 	'light-blue': $color-light-blue,
-	'blue-grey': $color-blue-grey,
+	'blue-grey': $color-text-main-grey,
 	'light-grey': $color-light-grey,
 	'grey': $color-grey,
 	'black': $color-black,

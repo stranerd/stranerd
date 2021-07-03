@@ -129,13 +129,13 @@ export default defineComponent({
 	z-index: 1;
 	display: flex;
 	flex-direction: column;
-	background: rgba($color-blue, 0.9);
+	background: rgba($color-text-main, 0.9);
 	color: $color-white;
 	border-radius: 0.5rem;
 	a:hover {
 		font-size: unset;
 		transform: unset;
-		background: lighten($color-blue, 5)
+		background: lighten($color-text-main, 5)
 	}
 	animation: slide-down 0.1s;
 }

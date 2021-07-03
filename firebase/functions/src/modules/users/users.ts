@@ -1,13 +1,12 @@
 import * as functions from 'firebase-functions'
 import {
-	updateBraintreeBio, updateMyAnswerCommentsBio, updateMyAnswersBio, updateMyChatsBio,
+	updateMyAnswerCommentsBio, updateMyAnswersBio, updateMyChatsBio,
 	updateMyQuestionCommentsBio, updateMyQuestionsBio, updateMySessionsBio, updateMyTutorSessionsBio
 } from '../../helpers/modules/users/users'
 import { saveToAlgolia } from '../../helpers/algolia'
 
 export const userProfileUpdated = functions.database.ref('profiles/{userId}/bio')
 	.onUpdate(async (snap, context) => {
-		const oldBio = snap.before.val()
 		const newBio = snap.after.val()
 		const { userId } = context.params
 
@@ -20,5 +19,4 @@ export const userProfileUpdated = functions.database.ref('profiles/{userId}/bio'
 		await updateMyAnswersBio(userId, newBio)
 		await updateMyQuestionCommentsBio(userId, newBio)
 		await updateMyAnswerCommentsBio(userId, newBio)
-		await updateBraintreeBio(userId, oldBio, newBio)
 	})

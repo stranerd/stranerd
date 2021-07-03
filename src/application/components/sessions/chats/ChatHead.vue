@@ -76,7 +76,7 @@ export default defineComponent({
 			set: () => {}
 		})
 		const requestNewSession = () => {
-			setNewSessionTutorIdBio({ id: props.user.id, user: props.user.userBio })
+			setNewSessionTutorIdBio({ id: props.user.id, user: props.user.bio })
 			useSessionModal().openCreateSession()
 			show.value = false
 		}
@@ -91,12 +91,12 @@ export default defineComponent({
 			})
 		}
 		const reportUser = () => {
-			setReportedBioAndId({ id: props.user.id, bio: props.user.userBio })
+			setReportedBioAndId({ id: props.user.id, bio: props.user.bio })
 			useAccountModal().openReportUser()
 			show.value = false
 		}
 		const tipUser = () => {
-			setNerdBioAndId({ id: props.user.id, bio: props.user.userBio })
+			setNerdBioAndId({ id: props.user.id, bio: props.user.bio })
 			useAccountModal().openTipTutor()
 			show.value = false
 		}

@@ -82,21 +82,14 @@ export const updateMyAnswerCommentsBio = async (userId: string, user: any) => {
 	} catch (error) { console.log(`Error setting bios of ${userId} answer-comments`) }
 }
 
-export const updateBraintreeBio = async (userId: string, oldBio: any, bio: any) => {
+export const updateBraintreeBio = async (userId: string, bio: any) => {
 	try {
-		if (
-			bio?.name?.first !== oldBio?.name?.first ||
-			bio?.name?.last !== oldBio?.name?.last
-		) {
-			const fullName = bio?.name?.first ?? 'Unnamed' + ' ' + bio?.name?.last ?? ''
-
-			const braintreeId = await admin.database().ref('profiles')
-				.child(userId)
-				.child('account/account/braintreeId')
-				.once('value')
-
-			if (braintreeId.val()) await updateCustomerName(braintreeId.val(), fullName)
-		}
+		const fullName = bio?.name?.first ?? 'Anonymous' + ' ' + bio?.name?.last ?? ''
+		const braintreeId = await admin.database().ref('profiles')
+			.child(userId)
+			.child('account/account/braintreeId')
+			.once('value')
+		if (braintreeId.val()) await updateCustomerName(braintreeId.val(), fullName)
 	} catch (error) { console.log(`Error updating braintree bio of ${userId}`) }
 }
 

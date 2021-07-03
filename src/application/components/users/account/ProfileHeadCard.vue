@@ -1,14 +1,9 @@
 <template>
-	<div class="d-flex flex-column align-items-center gap-0-5">
+	<div class="d-flex flex-column align-items-center gap-0-5 p-2 ">
+		<h1>Balance</h1>
 		<NuxtLink class="d-block w-100" to="/account/e-wallet">
 			<AccountCoinBalance class="justify-content-between" :user="user" />
 		</NuxtLink>
-		<Avatar :src="user.avatar" :size="75" />
-		<span class="text-18 fw-bold">{{ user.fullName }}</span>
-		<ShowRatings v-if="user.roles.isTutor" :rating="user.averageRating" />
-		<button to="/account/" class="btn btn-blue rounded" @click="openEditProfileModal">
-			<span>Edit Profile</span>
-		</button>
 	</div>
 </template>
 
@@ -32,3 +27,10 @@ export default defineComponent({
 	}
 })
 </script>
+
+<style lang="scss" scoped>
+h1{
+	font-size: 24px;
+	color: $color-text-main;
+}
+</style>

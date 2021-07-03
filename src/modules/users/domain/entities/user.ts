@@ -39,6 +39,7 @@ export class UserEntity extends BaseEntity {
 				questionComments: Object.keys(account?.meta?.questionComments ?? {}),
 				answerComments: Object.keys(account?.meta?.answerComments ?? {}),
 				sessions: Object.keys(account?.meta?.sessions ?? {}),
+				completedSessions: Object.keys(account?.meta?.completedSessions ?? {}),
 				tutorSessions: Object.keys(account?.meta?.tutorSessions ?? {})
 			},
 			streak: {
@@ -127,6 +128,7 @@ export interface UserAccount {
 		questionComments?: Record<string, boolean>
 		answerComments?: Record<string, boolean>
 		sessions?: Record<string, boolean>
+		completedSessions?: Record<string, boolean>
 		tutorSessions?: Record<string, boolean>
 	}
 	streak: {

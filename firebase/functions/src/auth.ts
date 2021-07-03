@@ -3,12 +3,14 @@ import * as admin from 'firebase-admin'
 import { subscribeToMailchimpList } from './helpers/mailingList'
 import { isProduction } from './helpers/environment'
 import { deleteFromAlgolia } from './helpers/algolia'
+import { RankTypes } from './helpers/modules/users/tutors'
 
 export const authUserCreated = functions.auth.user().onCreate(async (user) => {
 	const data: any = {
 		'bio/email': user.email,
 		'bio/isNew': true,
 		'dates/signedUpAt': admin.database.ServerValue.TIMESTAMP,
+		'account/rank': RankTypes.Rookie,
 		'account/coins/bronze': admin.database.ServerValue.increment(100),
 		'account/meta/longestStreak': 1,
 		'account/streak/count': 1,

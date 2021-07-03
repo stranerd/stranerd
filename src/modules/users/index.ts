@@ -16,12 +16,10 @@ import { GetAllTutorsUseCase } from './domain/usecases/users/getAllTutors'
 import { ListenToTutorsUseCase } from './domain/usecases/users/listenToTutors'
 import { ListenToUserUseCase } from './domain/usecases/users/listenToUser'
 import { UpdateStreakUseCase } from './domain/usecases/users/updateStreak'
-import { GetTopRankingUsersUseCase } from './domain/usecases/rankings/getTopRankingUsers'
-import { ListenToTopRankingUsersUseCase } from './domain/usecases/rankings/listenToTopRankingUsers'
 import { GetNotificationsUseCase } from './domain/usecases/notifications/getNotifications'
 import { ListenToNotificationsUseCase } from './domain/usecases/notifications/listenToNotifications'
 import { MarkNotificationSeenUseCase } from './domain/usecases/notifications/markNotificationSeen'
-import { UserEntity, UserBio, generateDefaultBio, RankingPeriods } from './domain/entities/user'
+import { UserEntity, UserBio, generateDefaultBio } from './domain/entities/user'
 import { Avatar, Avatars } from './domain/entities/avatar'
 import { NotificationEntity } from './domain/entities/notification'
 import { MailingListFactory } from './domain/factories/mailingList'
@@ -49,13 +47,10 @@ export const MakeAdmin = new MakeAdminUseCase(roleRepository)
 export const RemoveAdmin = new RemoveAdminUseCase(roleRepository)
 export const SubscribeToMailingList = new SubscribeToMailingListUseCase(roleRepository)
 
-export const GetTopRankingUsers = new GetTopRankingUsersUseCase(userRepository)
-export const ListenToTopRankingUsers = new ListenToTopRankingUsersUseCase(userRepository)
-
 export const GetNotifications = new GetNotificationsUseCase(notificationRepository)
 export const ListenToNotifications = new ListenToNotificationsUseCase(notificationRepository)
 export const MarkNotificationSeen = new MarkNotificationSeenUseCase(notificationRepository)
 
-export { UserEntity, generateDefaultBio, RankingPeriods, NotificationEntity, Avatars }
+export { UserEntity, generateDefaultBio, NotificationEntity, Avatars }
 export { MailingListFactory }
 export type { UserBio, Avatar }

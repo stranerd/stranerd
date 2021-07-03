@@ -1,23 +1,17 @@
 import { BaseEntity } from '@modules/core/domains/entities/base'
 import { Avatars } from '@modules/users/domain/entities/avatar'
 import { capitalize } from '@utils/commons'
-export enum RankingPeriods {
-	daily = 'daily',
-	weekly = 'weekly',
-	monthly = 'monthly',
-	quarterly = 'quarterly',
-}
+
 export class UserEntity extends BaseEntity {
 	public readonly id: string
 	public readonly roles: UserRoles
 	public readonly userBio: UserBio
 	public readonly account: Omit<UserAccount, 'meta'> & { meta: UserMeta }
-	public readonly rankings: Required<UserRankings>
 	public readonly status: Required<UserStatus>
 	public readonly tutor: Required<UserTutor> | undefined
 	public readonly dates: UserDates
 
-	constructor ({ id, bio, roles, account, rankings, status, tutor, dates }: UserConstructorArgs) {
+	constructor ({ id, bio, roles, account, status, tutor, dates }: UserConstructorArgs) {
 		super()
 		this.id = id
 		this.userBio = generateDefaultBio(bio)
@@ -50,9 +44,6 @@ export class UserEntity extends BaseEntity {
 				lastSeen: account?.streak?.lastSeen ?? 0
 			}
 		}
-		this.rankings = Object.fromEntries(
-			Object.keys(RankingPeriods).map((key) => [key, rankings?.[key as RankingPeriods] ?? 0])
-		) as Required<UserRankings>
 		this.status = {
 			connections: status?.connections ?? {},
 			lastSeen: status?.lastSeen ?? 0
@@ -87,7 +78,6 @@ type UserConstructorArgs = {
 	bio: UserBio
 	roles: UserRoles
 	account: UserAccount
-	rankings?: UserRankings
 	status?: UserStatus
 	tutor?: UserTutor
 	dates: UserDates
@@ -135,7 +125,6 @@ export interface UserAccount {
 }
 
 export interface UserMeta extends Record<keyof UserAccount['meta'], string[]> {}
-export interface UserRankings extends Record<RankingPeriods, number> {}
 export interface UserStatus {
 	connections: Record<string, boolean>
 	lastSeen: number

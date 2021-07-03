@@ -4,9 +4,9 @@ import { UserEntity } from '../../domain/entities/user'
 
 export class UserTransformer {
 	fromJSON (model: UserFromModel) {
-		const { id, bio, roles, account, rankings, status, tutor, dates } = model
+		const { id, bio, roles, account, status, tutor, dates } = model
 		return new UserEntity({
-			id, bio, roles, account, rankings, status, tutor,
+			id, bio, roles, account, status, tutor,
 			dates: {
 				signedUpAt: timestampToMs(dates?.signedUpAt)
 			}
@@ -25,7 +25,6 @@ export class UserTransformer {
 					return acc
 				}, {} as UserFromModel['account']['meta'])
 			},
-			rankings: entity.rankings,
 			status: entity.status,
 			...(entity.tutor ? { tutor: entity.tutor } : {}),
 			dates: entity.dates

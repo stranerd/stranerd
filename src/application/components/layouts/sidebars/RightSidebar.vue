@@ -49,7 +49,6 @@
 			</div>
 			<div class="thick mx-n1" />
 		</template>
-		<TopUsers />
 	</div>
 </template>
 
@@ -58,11 +57,10 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
 import { formatNumber } from '@utils/commons'
 import { formatTime } from '@utils/dates'
-import TopUsers from '@app/components/users/rankings/TopUsers.vue'
 import ProfileHeadCard from '@app/components/users/account/ProfileHeadCard.vue'
 export default defineComponent({
 	name: 'RightSidebar',
-	components: { TopUsers, ProfileHeadCard },
+	components: { ProfileHeadCard },
 	setup () {
 		const { id, isLoggedIn, user } = useAuth()
 		return { id, isLoggedIn, user, formatNumber, formatTime }

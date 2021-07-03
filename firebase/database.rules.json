@@ -33,10 +33,7 @@
 		},
 		"profiles": {
 			".read": true,
-			".indexOn": [
-				"roles/isAdmin","bio/email",
-				"rankings/daily","rankings/weekly","rankings/monthly","rankings/quarterly"
-			],
+			".indexOn": ["roles/isAdmin","bio/email"],
 			"$userId": {
 				".read": true,
 				".write": "auth.uid === $userId",

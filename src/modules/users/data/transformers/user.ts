@@ -15,7 +15,7 @@ export class UserTransformer {
 
 	toJSON (entity: UserEntity) :UserToModel {
 		return {
-			bio: entity.userBio,
+			bio: entity.bio,
 			roles: entity.roles,
 			account: {
 				...entity.account,

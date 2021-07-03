@@ -17,7 +17,7 @@ const global = {
 
 export const useAuth = () => {
 	const id = computed({ get: () => global.auth.value?.id ?? '', set: () => {} })
-	const bio = computed({ get: () => global.user.value?.userBio, set: () => {} })
+	const bio = computed({ get: () => global.user.value?.bio, set: () => {} })
 
 	const isLoggedIn = computed({ get: () => !!id.value && !!global.user.value, set: () => {} })
 	const isVerified = computed({ get: () => !!global.auth.value?.isVerified, set: () => {} })
@@ -49,7 +49,7 @@ export const useAuth = () => {
 
 		const id = global.auth.value?.id
 		const setUser = (user: UserEntity | null) => {
-			if (user?.userBio.isNew && global.showProfileModal.value) useEditModal().openAccountProfile()
+			if (user?.bio.isNew && global.showProfileModal.value) useEditModal().openAccountProfile()
 			global.user.value = user
 		}
 		if (id) {

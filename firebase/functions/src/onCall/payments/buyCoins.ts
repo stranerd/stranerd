@@ -11,7 +11,8 @@ export const buyCoins = functions.https.onCall(async (data, context) => {
 	try {
 		await addUserCoins(userId,
 			{ bronze: isGold ? 0 : amount, gold: isGold ? amount : 0 },
-			'You purchased coins'
+			'You purchased coins',
+			true
 		)
 		await createNotification(userId, {
 			body: `You just purchased ${amount} coins.`,

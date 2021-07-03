@@ -1,11 +1,12 @@
 import { BaseEntity } from '@modules/core/domains/entities/base'
-import { Avatars } from '@modules/users/domain/entities/avatar'
 import { capitalize } from '@utils/commons'
+import { Avatars } from './avatar'
+import { getScore } from './ranks'
 
 export class UserEntity extends BaseEntity {
 	public readonly id: string
 	public readonly roles: Required<UserRoles>
-	public readonly userBio: Required<UserBio>
+	public readonly bio: Required<UserBio>
 	public readonly account: Omit<UserAccount, 'meta'> & { meta: Record<keyof UserAccount['meta'], string[]> }
 	public readonly status: Required<UserStatus>
 	public readonly tutor: Required<UserTutor>
@@ -14,7 +15,7 @@ export class UserEntity extends BaseEntity {
 	constructor ({ id, bio, roles, account, status, tutor, dates }: UserConstructorArgs) {
 		super()
 		this.id = id
-		this.userBio = generateDefaultBio(bio)
+		this.bio = generateDefaultBio(bio)
 		this.roles = {
 			isAdmin: roles?.isAdmin ?? false
 		}
@@ -22,6 +23,10 @@ export class UserEntity extends BaseEntity {
 			coins: {
 				bronze: account?.coins?.bronze ?? 0,
 				gold: account?.coins?.gold ?? 0
+			},
+			bought: {
+				bronze: account?.bought?.bronze ?? 0,
+				gold: account?.bought?.gold ?? 0
 			},
 			currentSession: account?.currentSession ?? null,
 			meta: {
@@ -61,11 +66,11 @@ export class UserEntity extends BaseEntity {
 		}
 	}
 
-	get firstName () { return this.userBio.name.first }
-	get lastName () { return this.userBio.name.last }
-	get fullName () { return this.userBio.name.fullName! }
-	get email () { return this.userBio.email }
-	get avatar () { return this.userBio.avatar! }
+	get firstName () { return this.bio.name.first }
+	get lastName () { return this.bio.name.last }
+	get fullName () { return this.bio.name.fullName! }
+	get email () { return this.bio.email }
+	get avatar () { return this.bio.avatar! }
 
 	get isOnline () { return Object.keys(this.status.connections).length > 0 }
 	get lastSeen () { return this.isOnline ? Date.now() : this.status.lastSeen }
@@ -75,6 +80,7 @@ export class UserEntity extends BaseEntity {
 	get orderRating () { return Math.pow(this.tutor.ratings.total, this.averageRating) }
 	get currentSession () { return this.account.currentSession || this.tutor.currentSession || null }
 	get subject () { return this.tutor.subject ?? null }
+	get score () { return getScore(this) }
 }
 
 type UserConstructorArgs = {
@@ -103,6 +109,10 @@ export interface UserRoles {
 }
 export interface UserAccount {
 	coins: {
+		bronze: number
+		gold: number
+	},
+	bought: {
 		bronze: number
 		gold: number
 	},

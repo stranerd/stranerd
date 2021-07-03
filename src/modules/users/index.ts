@@ -12,8 +12,8 @@ import { RemoveAdminUseCase } from './domain/usecases/roles/removeAdmin'
 import { SubscribeToMailingListUseCase } from './domain/usecases/roles/subscribeToMailingList'
 import { GetUsersByEmailUseCase } from './domain/usecases/users/getUsersByEmail'
 import { GetAllAdminsUseCase } from './domain/usecases/users/getAllAdmins'
-import { GetAllTutorsUseCase } from './domain/usecases/users/getAllTutors'
-import { ListenToTutorsUseCase } from './domain/usecases/users/listenToTutors'
+import { GetTutorsByRatingsUseCase } from './domain/usecases/users/getTutorsByRatings'
+import { ListenToTutorsByRatingsUseCase } from './domain/usecases/users/listenToTutorsByRatings'
 import { ListenToUserUseCase } from './domain/usecases/users/listenToUser'
 import { UpdateStreakUseCase } from './domain/usecases/users/updateStreak'
 import { GetNotificationsUseCase } from './domain/usecases/notifications/getNotifications'
@@ -38,8 +38,8 @@ const notificationRepository = new NotificationRepository(notificationDataSource
 export const FindUser = new FindUserUseCase(userRepository)
 export const GetUsersByEmail = new GetUsersByEmailUseCase(userRepository)
 export const GetAllAdmins = new GetAllAdminsUseCase(userRepository)
-export const GetAllTutors = new GetAllTutorsUseCase(userRepository)
-export const ListenToTutors = new ListenToTutorsUseCase(userRepository)
+export const GetTutorsByRatings = new GetTutorsByRatingsUseCase(userRepository)
+export const ListenToTutorsByRatings = new ListenToTutorsByRatingsUseCase(userRepository)
 export const ListenToUser = new ListenToUserUseCase(userRepository)
 export const UpdateStreak = new UpdateStreakUseCase(userRepository)
 

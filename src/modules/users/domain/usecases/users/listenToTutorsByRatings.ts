@@ -2,7 +2,7 @@ import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
 import { IUserRepository } from '../../irepositories/iuser'
 import { UserEntity } from '../../entities/user'
 
-export class ListenToTutorsUseCase {
+export class ListenToTutorsByRatingsUseCase {
 	private repository: IUserRepository
 
 	constructor (repository: IUserRepository) {
@@ -11,10 +11,8 @@ export class ListenToTutorsUseCase {
 
 	async call (callback: (entities: UserEntity[]) => void) {
 		const conditions: DatabaseGetClauses = {
-			order: {
-				field: 'roles/isTutor',
-				condition: { '==': true }
-			}
+			order: { field: 'tutor/ratings/average', condition: { '>=': 1 } },
+			limit: { count: 100, bottom: true }
 		}
 		return await this.repository.listenToMany(callback, conditions)
 	}

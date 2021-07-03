@@ -6,7 +6,7 @@ export const addTutorRatings = async (userId: string, ratings: number) => {
 
 	await admin.database().ref('profiles')
 		.child(userId)
-		.child('tutor/ratings')
+		.child('account/ratings')
 		.transaction((rating) => {
 			if (!rating) return rating
 			const { total = 0, count = 0 } = rating
@@ -28,7 +28,7 @@ export const addTutorReview = async (userId: string, review: string) => {
 	const newKey = Date.now() + Math.random().toString(36).substr(2)
 	await admin.database().ref()
 		.update({
-			[`profiles/${userId}/tutor/reviews`]: lastReviews,
+			[`profiles/${userId}/account/reviews`]: lastReviews,
 			[`reviews/${userId}/${newKey}`]: review
 		})
 }
@@ -137,18 +137,23 @@ const getScore = (account: any) => {
 	return score
 }
 
-const getMinimumRating = (rank: RankTypes) => {
+const getLastRank = (rank: RankTypes) => {
 	const ranks = [RankTypes.Rookie, RankTypes.Comrade, RankTypes.Scholar, RankTypes.Einstein]
 	const index = ranks.findIndex((r) => r === rank)
 	const lastRank = ranks[index - 1]
-	return Ranks[lastRank]?.ratings ?? 0
+	return Ranks[lastRank] ?? Ranks[RankTypes.Rookie]
+}
+
+const getNextRank = (rank: RankTypes) => {
+	const ranks = [RankTypes.Rookie, RankTypes.Comrade, RankTypes.Scholar, RankTypes.Einstein]
+	const index = ranks.findIndex((r) => r === rank)
+	const lastRank = ranks[index + 1]
+	return Ranks[lastRank] ?? null
 }
 
 export const checkRank = async (userId: string) => {
-	const userRef = await admin.database().ref('profiles')
-		.child(userId)
-		.once('value')
-	const { account, tutor } = userRef.val() ?? {}
+	const accountRef = admin.database().ref('profiles').child(userId).child('account')
+	const account = (await accountRef.once('value')).val() ?? {}
 	const myRank: RankTypes = account?.rank ?? RankTypes.Rookie
 	const rank = Ranks[myRank]
 
@@ -159,12 +164,12 @@ export const checkRank = async (userId: string) => {
 	const bestAnswers = Object.keys(account?.meta?.bestAnswers ?? {}).length
 	const dailyLogin = account?.streak?.longestStreak ?? 0
 	const nerdScore = getScore(account)
-	const ratings = tutor?.ratings?.average ?? 0
+	const ratings = account?.ratings?.average ?? 0
 
-	const minimumRating = getMinimumRating(myRank)
-	if (ratings < minimumRating - 0.5) {
+	const lastRank = getLastRank(myRank)
+	if (ratings < (lastRank.ratings - 0.5)) {
 		console.log('Reduce to previous rank')
-	} else if (ratings < minimumRating) {
+	} else if (ratings < lastRank.ratings) {
 		console.log('Warn about demotion')
 	} else {
 		const next = hostedSessions >= rank.hostSession ||

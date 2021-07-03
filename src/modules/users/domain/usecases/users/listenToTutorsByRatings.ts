@@ -11,7 +11,7 @@ export class ListenToTutorsByRatingsUseCase {
 
 	async call (callback: (entities: UserEntity[]) => void) {
 		const conditions: DatabaseGetClauses = {
-			order: { field: 'tutor/ratings/average', condition: { '>=': 1 } },
+			order: { field: 'account/ratings/average', condition: { '>=': 1 } },
 			limit: { count: 100, bottom: true }
 		}
 		return await this.repository.listenToMany(callback, conditions)

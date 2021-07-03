@@ -10,7 +10,7 @@ export class GetTutorsByRatingsUseCase {
 
 	async call () {
 		const conditions: DatabaseGetClauses = {
-			order: { field: 'tutor/ratings/average', condition: { '>=': 1 } },
+			order: { field: 'account/ratings/average', condition: { '>=': 1 } },
 			limit: { count: 100, bottom: true }
 		}
 		return await this.repository.get(conditions)

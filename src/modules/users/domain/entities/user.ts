@@ -46,6 +46,11 @@ export class UserEntity extends BaseEntity {
 				count: account?.streak?.count ?? 0,
 				longestStreak: account?.streak?.longestStreak ?? 0,
 				lastSeen: account?.streak?.lastSeen ?? 0
+			},
+			ratings: {
+				total: account?.ratings?.total ?? 0,
+				count: account?.ratings?.count ?? 0,
+				average: account?.ratings?.average ?? 0
 			}
 		}
 		this.status = {
@@ -54,12 +59,7 @@ export class UserEntity extends BaseEntity {
 		}
 		this.tutor = {
 			subject: tutor?.subject ?? undefined,
-			currentSession: tutor?.currentSession ?? null,
-			ratings: {
-				total: tutor?.ratings?.total ?? 0,
-				count: tutor?.ratings?.count ?? 0,
-				average: tutor?.ratings?.average ?? 0
-			}
+			currentSession: tutor?.currentSession ?? null
 		}
 		this.dates = {
 			signedUpAt: dates?.signedUpAt ?? 0,
@@ -76,9 +76,9 @@ export class UserEntity extends BaseEntity {
 	get isOnline () { return Object.keys(this.status.connections).length > 0 }
 	get lastSeen () { return this.isOnline ? Date.now() : this.status.lastSeen }
 
-	get averageRating () { return this.tutor.ratings.average }
-	get ratingCount () { return this.tutor.ratings.count }
-	get orderRating () { return Math.pow(this.tutor.ratings.total, this.averageRating) }
+	get averageRating () { return this.account.ratings.average }
+	get ratingCount () { return this.account.ratings.count }
+	get orderRating () { return Math.pow(this.account.ratings.total, this.averageRating) }
 	get currentSession () { return this.account.currentSession || this.tutor.currentSession || null }
 	get subject () { return this.tutor.subject ?? null }
 	get score () { return getScore(this) }
@@ -136,6 +136,11 @@ export interface UserAccount {
 		longestStreak: number,
 		lastSeen: number
 	}
+	ratings: {
+		total: number
+		count: number
+		average: number
+	}
 }
 export interface UserStatus {
 	connections: Record<string, boolean>
@@ -146,11 +151,6 @@ export interface UserDates {
 	deletedAt?: number
 }
 export interface UserTutor {
-	ratings: {
-		total: number
-		count: number
-		average: number
-	}
 	subject: {
 		id: string
 		level: number

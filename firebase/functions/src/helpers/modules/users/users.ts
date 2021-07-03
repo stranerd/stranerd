@@ -118,7 +118,7 @@ export const updateMySessionsBio = async (userId: string, user: any) => {
 				if (chunk.length > 0) await batch.commit()
 			})
 		)
-	} catch (error) { console.log(`Error updating bios of ${userId} sessions`) }
+	} catch (error) { console.log(`Error updating bios of ${userId} attended sessions`) }
 }
 
 export const updateMyTutorSessionsBio = async (userId: string, user: any) => {
@@ -139,7 +139,7 @@ export const updateMyTutorSessionsBio = async (userId: string, user: any) => {
 				if (chunk.length > 0) await batch.commit()
 			})
 		)
-	} catch (error) { console.log(`Error updating bios of ${userId} tutor sessions`) }
+	} catch (error) { console.log(`Error updating bios of ${userId} hosted sessions`) }
 }
 
 export const updateMyChatsBio = async (userId: string, user: any) => {

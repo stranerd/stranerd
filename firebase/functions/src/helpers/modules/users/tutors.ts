@@ -15,7 +15,7 @@ export const addTutorRatings = async (userId: string, ratings: number) => {
 
 export const addTutorReview = async (userId: string, review: string) => {
 	if (!review) return
-	const lastReviews = await getLastReviews(userId)
+	const lastReviews = await getLastReviews(userId, 4)
 	lastReviews.push(review)
 	const newKey = Date.now() + Math.random().toString(36).substr(2)
 	await admin.database().ref()
@@ -25,10 +25,10 @@ export const addTutorReview = async (userId: string, review: string) => {
 		})
 }
 
-const getLastReviews = async (userId: string) => {
+const getLastReviews = async (userId: string, count: number) => {
 	const ref = await admin.database().ref('reviews')
 		.child(userId)
-		.limitToLast(4)
+		.limitToLast(count)
 		.once('value')
 	const reviews = [] as string[]
 	ref.forEach((child) => {

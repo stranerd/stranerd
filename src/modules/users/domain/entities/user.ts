@@ -16,8 +16,6 @@ export class UserEntity extends BaseEntity {
 		this.id = id
 		this.userBio = generateDefaultBio(bio)
 		this.roles = {
-			isStudent: roles?.isStudent ?? true,
-			isTutor: roles?.isTutor ?? false,
 			isAdmin: roles?.isAdmin ?? false
 		}
 		this.account = {
@@ -54,7 +52,10 @@ export class UserEntity extends BaseEntity {
 			currentSession: tutor?.currentSession ?? null,
 			sessionCount: tutor?.sessionCount ?? 0
 		}
-		this.dates = dates
+		this.dates = {
+			signedUpAt: dates?.signedUpAt ?? 0,
+			deletedAt: dates?.deletedAt ?? undefined
+		}
 	}
 
 	get firstName () { return this.userBio.name.first }
@@ -95,9 +96,7 @@ export interface UserBio {
 	isNew?: boolean | null
 }
 export interface UserRoles {
-	isStudent: boolean
-	isTutor?: boolean
-	isAdmin?: boolean
+	isAdmin: boolean
 }
 export interface UserAccount {
 	coins: {
@@ -131,6 +130,7 @@ export interface UserStatus {
 }
 export interface UserDates {
 	signedUpAt: number
+	deletedAt?: number
 }
 export interface UserTutor {
 	ratings: {

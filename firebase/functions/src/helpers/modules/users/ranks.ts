@@ -27,7 +27,7 @@ type Rank = {
 	answerQuestion: number
 	bestAnswer: number
 	dailyLogin: number
-	nerdScore: number
+	score: number
 	ratings: number
 }
 
@@ -40,7 +40,7 @@ const Ranks :Record<RankTypes, Rank> = {
 		answerQuestion: 15,
 		bestAnswer: 0,
 		dailyLogin: 30,
-		nerdScore: 0,
+		score: 0,
 		ratings: 0
 	},
 	[RankTypes.Comrade]: {
@@ -51,7 +51,7 @@ const Ranks :Record<RankTypes, Rank> = {
 		answerQuestion: 30,
 		bestAnswer: 10,
 		dailyLogin: 60,
-		nerdScore: 75,
+		score: 75,
 		ratings: 0
 	},
 	[RankTypes.Scholar]: {
@@ -62,7 +62,7 @@ const Ranks :Record<RankTypes, Rank> = {
 		answerQuestion: 50,
 		bestAnswer: 20,
 		dailyLogin: 90,
-		nerdScore: 250,
+		score: 250,
 		ratings: 3.5
 	},
 	[RankTypes.Einstein]: {
@@ -73,7 +73,7 @@ const Ranks :Record<RankTypes, Rank> = {
 		answerQuestion: 0,
 		bestAnswer: 30,
 		dailyLogin: 100,
-		nerdScore: 400,
+		score: 400,
 		ratings: 4
 	}
 }
@@ -124,7 +124,7 @@ export const checkRank = async (userId: string) => {
 	const answers = Object.keys(account?.meta?.answers ?? {}).length
 	const bestAnswers = Object.keys(account?.meta?.bestAnswers ?? {}).length
 	const dailyLogin = account?.streak?.longestStreak ?? 0
-	const nerdScore = getScore(account)
+	const score = getScore(account)
 	const ratings = getRating(account)
 
 	const lastRank = getLastRank(myRank)
@@ -146,7 +146,7 @@ export const checkRank = async (userId: string) => {
 			answers >= rank.answerQuestion &&
 			bestAnswers >= rank.bestAnswer &&
 			dailyLogin >= rank.dailyLogin &&
-			nerdScore >= rank.nerdScore &&
+			score >= rank.score &&
 			ratings >= rank.ratings
 
 		const nextRank = getNextRank(myRank)

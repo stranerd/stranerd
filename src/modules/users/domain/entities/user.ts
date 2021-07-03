@@ -1,7 +1,7 @@
 import { BaseEntity } from '@modules/core/domains/entities/base'
-import { capitalize } from '@utils/commons'
+import { capitalize, catchDivideByZero } from '@utils/commons'
 import { Avatars } from './avatar'
-import { getScore, getDefaultRank } from './ranks'
+import { getScore, Ranks, RankTypes, getRankProgress } from './rank'
 
 export class UserEntity extends BaseEntity {
 	public readonly id: string
@@ -20,7 +20,7 @@ export class UserEntity extends BaseEntity {
 			isAdmin: roles?.isAdmin ?? false
 		}
 		this.account = {
-			rank: account?.rank ?? getDefaultRank(),
+			rank: account?.rank ?? RankTypes.Rookie,
 			coins: {
 				bronze: account?.coins?.bronze ?? 0,
 				gold: account?.coins?.gold ?? 0
@@ -76,12 +76,14 @@ export class UserEntity extends BaseEntity {
 	get isOnline () { return Object.keys(this.status.connections).length > 0 }
 	get lastSeen () { return this.isOnline ? Date.now() : this.status.lastSeen }
 
-	get averageRating () { return this.ratingCount === 0 ? 0 : this.account.ratings.total / this.ratingCount }
+	get averageRating () { return catchDivideByZero(this.account.ratings.total, this.ratingCount) }
 	get ratingCount () { return this.account.ratings.count }
 	get orderRating () { return Math.pow(this.account.ratings.total, this.averageRating) }
 	get currentSession () { return this.account.currentSession || this.tutor.currentSession || null }
 	get subject () { return this.tutor.subject ?? null }
 	get score () { return getScore(this) }
+	get rank () { return Ranks[this.account.rank] }
+	get rankProgress () { return getRankProgress(this) }
 }
 
 type UserConstructorArgs = {
@@ -109,7 +111,7 @@ export interface UserRoles {
 	isAdmin?: boolean
 }
 export interface UserAccount {
-	rank: string
+	rank: RankTypes
 	coins: {
 		bronze: number
 		gold: number

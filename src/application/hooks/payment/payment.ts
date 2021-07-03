@@ -3,10 +3,11 @@ import { client, hostedFields, paypalCheckout, HostedFields } from 'braintree-we
 import { GetClientToken, MakePayment, MakeStripePayment } from '@modules/meta'
 import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 import { getTwoDigits } from '@utils/dates'
-import { currency, isClient, isProd, stripeConfig } from '@utils/environment'
+import { isClient, isProd, stripeConfig } from '@utils/environment'
 import { usePaymentModal } from '@app/hooks/core/modals'
 import { analytics } from '@modules/core/services/initFirebase'
 import { loadStripe } from '@stripe/stripe-js'
+import { useAuth } from '../auth/auth'
 
 let props = {
 	amount: null as number | null,
@@ -36,6 +37,7 @@ export const useFlutterwavePayment = () => {
 }
 
 export const useStripePayment = () => {
+	const { getLocalAmount, getLocalCurrency } = useAuth()
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
 
@@ -45,7 +47,7 @@ export const useStripePayment = () => {
 		try {
 			const stripe = await loadStripe(stripeConfig.publicKey)
 			if (!stripe) return setLoading(false)
-			const clientSecret = await MakeStripePayment.call(props.amount!, currency)
+			const clientSecret = await MakeStripePayment.call(getLocalAmount(props.amount!), getLocalCurrency())
 			const res = await stripe.confirmCardPayment(clientSecret, {
 				payment_method: {
 					card: { token }

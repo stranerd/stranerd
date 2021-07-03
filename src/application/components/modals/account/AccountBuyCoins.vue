@@ -11,7 +11,7 @@
 					<img :src="option.src" alt="">
 					<span>{{ option.amount }}</span>
 					<button class="btn btn-blue" @click="buyCoins(option, false)">
-						${{ option.price }}
+						{{ getLocalAmount(option.price) }} {{ getLocalCurrency() }}
 					</button>
 				</div>
 			</div>
@@ -21,7 +21,7 @@
 					<img :src="option.src" alt="">
 					<span>{{ option.amount }}</span>
 					<button class="btn btn-blue" @click="buyCoins(option, true)">
-						${{ option.price }}
+						{{ getLocalAmount(option.price) }} {{ getLocalCurrency() }}
 					</button>
 				</div>
 			</div>
@@ -42,13 +42,13 @@ export default defineComponent({
 	name: 'AccountBuyCoins',
 	components: { AccountCoinBalance },
 	setup () {
-		const { user } = useAuth()
+		const { user, getLocalAmount, getLocalCurrency } = useAuth()
 		const { loading, error, buyCoins, BRONZE_PRICES, GOLD_PRICES } = useBuyCoins()
 		onMounted(() => {
 			analytics.logEvent('buy_coins_start')
 		})
 		return {
-			user, formatNumber,
+			user, getLocalAmount, getLocalCurrency, formatNumber,
 			loading, error, buyCoins, BRONZE_PRICES, GOLD_PRICES
 		}
 	}
@@ -74,6 +74,7 @@ export default defineComponent({
 		margin-left: auto;
 		padding: 0.25rem 3rem;
 		border-radius: 10rem;
+		min-width: 210px;
 	}
 }
 </style>

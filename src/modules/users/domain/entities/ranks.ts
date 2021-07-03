@@ -1,5 +1,12 @@
 import type { UserEntity } from './user'
 
+enum RankTypes {
+	Rookie = 'Rookie',
+	Comrade = 'Comrade',
+	Scholar = 'Scholar',
+	Einstein = 'Einstein'
+}
+
 const SCORES = {
 	HOST_SESSION: 2,
 	BEST_ANSWER: 1,
@@ -25,3 +32,5 @@ export const getScore = (user: UserEntity) => {
 
 	return score
 }
+
+export const getDefaultRank = () => RankTypes.Rookie

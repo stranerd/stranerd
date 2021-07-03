@@ -1,7 +1,7 @@
 import { BaseEntity } from '@modules/core/domains/entities/base'
 import { capitalize } from '@utils/commons'
 import { Avatars } from './avatar'
-import { getScore } from './ranks'
+import { getScore, getDefaultRank } from './ranks'
 
 export class UserEntity extends BaseEntity {
 	public readonly id: string
@@ -20,6 +20,7 @@ export class UserEntity extends BaseEntity {
 			isAdmin: roles?.isAdmin ?? false
 		}
 		this.account = {
+			rank: account?.rank ?? getDefaultRank(),
 			coins: {
 				bronze: account?.coins?.bronze ?? 0,
 				gold: account?.coins?.gold ?? 0
@@ -109,6 +110,7 @@ export interface UserRoles {
 	isAdmin?: boolean
 }
 export interface UserAccount {
+	rank: string
 	coins: {
 		bronze: number
 		gold: number

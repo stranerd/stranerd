@@ -1,4 +1,4 @@
-import { ssrRef } from '@nuxtjs/composition-api'
+import { ref, ssrRef, watch } from '@nuxtjs/composition-api'
 
 export const usePassword = () => {
 	const show = ssrRef(false)
@@ -23,4 +23,19 @@ export const useMultipleFileInputs = (multipleCB: (files: File[]) => void) => {
 		multipleCB(files)
 	}
 	return { catchMultipleFiles }
+}
+
+type callback = (tag: string) => void
+export const useTags = (addCb: callback, removeCb: callback) => {
+	const tag = ref('')
+	watch(() => tag.value, () => {
+		if (tag.value.includes(' ')) {
+			tag.value.split(' ').forEach((tag) => {
+				if (tag) addCb(tag.toLowerCase())
+			})
+			tag.value = ''
+		}
+	})
+	const removeTag = (tag: string) => removeCb(tag.toLowerCase())
+	return { tag, removeTag }
 }

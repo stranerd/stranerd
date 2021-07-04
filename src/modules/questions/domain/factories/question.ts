@@ -1,4 +1,4 @@
-import { isLongerThan, isMoreThan, isLessThan, isExtractedHTMLLongerThan } from 'sd-validate/lib/rules'
+import { isLongerThan, isMoreThan, isLessThan, isExtractedHTMLLongerThan, hasMoreThan, hasLessThan } from 'sd-validate/lib/rules'
 import { BaseFactory } from '@modules/core/domains/factories/base'
 import { UserBio } from '@modules/users'
 import { MAXIMUM_COINS, MINIMUM_COINS } from '@utils/constants'
@@ -13,6 +13,8 @@ const isLongerThan0 = (value: string) => isLongerThan(value, 0)
 const isLongerThan2 = (value: string) => isExtractedHTMLLongerThan(value, 2)
 const isMoreThanMinimum = (value: number) => isMoreThan(value, MINIMUM_COINS - 1)
 const isLessThanMaximum = (value: number) => isLessThan(value, MAXIMUM_COINS + 1)
+const hasMoreThan2 = (value: string[]) => hasMoreThan(value, 2)
+const hasLessThan6 = (value: string[]) => hasLessThan(value, 6)
 
 export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel, Keys> {
 	readonly rules = {
@@ -22,7 +24,7 @@ export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel
 		userId: { required: true, rules: [isLongerThan0] },
 		answerId: { required: false, rules: [] },
 		user: { required: true, rules: [] },
-		tags: { required: true, rules: [] }
+		tags: { required: true, rules: [hasMoreThan2, hasLessThan6] }
 	}
 
 	constructor () {

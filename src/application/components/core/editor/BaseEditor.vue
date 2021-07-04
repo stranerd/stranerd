@@ -93,10 +93,11 @@ export default defineComponent({
 		overflow-x: auto;
 		overflow-y: hidden;
 		font-family: inherit !important;
+		padding: 4px 0 !important;
 		.ql-formats {
 			display: flex;
 			padding: 8px;
-			margin: 0 0 4px !important;
+			margin: 0 !important;
 			.ql-expanded {
 				position: static;
 				.ql-picker-options {

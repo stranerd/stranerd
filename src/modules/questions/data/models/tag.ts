@@ -1,5 +1,5 @@
 export interface TagFromModel {
-	id: string;
+	id: string
 	count: number
 }
 

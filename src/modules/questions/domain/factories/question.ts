@@ -9,7 +9,7 @@ import { QuestionToModel } from '../../data/models/question'
 type Content = File | Media
 type Keys = {
 	body: string, attachments: Content[], coins: number, subjectId: string,
-	userId: string, user: UserBio | undefined
+	userId: string, user: UserBio | undefined, tags: string[]
 }
 const isLongerThan0 = (value: string) => isLongerThan(value, 0)
 const isLongerThan2 = (value: string) => isExtractedHTMLLongerThan(value, 2)
@@ -30,11 +30,15 @@ export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel
 		subjectId: { required: true, rules: [isLongerThan0] },
 		userId: { required: true, rules: [isLongerThan0] },
 		answerId: { required: false, rules: [] },
-		user: { required: true, rules: [] }
+		user: { required: true, rules: [] },
+		tags: { required: true, rules: [] }
 	}
 
 	constructor () {
-		super({ body: '', attachments: [], coins: 0, subjectId: '', userId: '', user: undefined })
+		super({
+			body: '', attachments: [], coins: 0, subjectId: '',
+			userId: '', user: undefined, tags: []
+		})
 	}
 
 	reserved = []
@@ -50,6 +54,10 @@ export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel
 		this.set('user', value.user)
 	}
 
+	get tags () { return this.values.tags }
+	addTag = (value: string) => this.set('tags', [...this.tags, value.toLowerCase()])
+	removeTag = (value: string) => this.set('tags', this.tags.filter((tag) => tag !== value))
+
 	get attachments () { return this.values.attachments }
 	addAttachment = (value: Content) => this.set('attachments', [...this.values.attachments, value])
 	removeAttachment = (value: Content) => this.set('attachments', this.values.attachments.filter((doc) => doc.name !== value.name))
@@ -59,19 +67,22 @@ export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel
 		this.coins = entity.coins
 		this.subjectId = entity.subjectId
 		this.userBioAndId = { id: entity.userId, user: entity.user }
+		this.set('tags', entity.tags)
 		this.set('attachments', entity.attachments)
 	}
 
 	toModel = async () => {
 		if (this.valid) {
-			const docs = await Promise.all(this.attachments.map(async (doc) => {
-				if (doc instanceof File) return await this.uploadFile('questions', doc)
-				return doc
-			}))
+			const docs = await Promise.all(
+				this.attachments.map(async (doc) => {
+					if (doc instanceof File) return await this.uploadFile('questions', doc)
+					return doc
+				})
+			)
 			this.set('attachments', docs)
 
-			const { body, coins, subjectId, userId, attachments, user } = this.validValues
-			return { body, coins, subjectId, userId, attachments: attachments as Media[], user: user! }
+			const { body, coins, tags, subjectId, userId, attachments, user } = this.validValues
+			return { body, coins, tags, subjectId, userId, attachments: attachments as Media[], user: user! }
 		} else {
 			throw new Error('Validation errors')
 		}

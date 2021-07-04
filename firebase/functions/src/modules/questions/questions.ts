@@ -7,7 +7,7 @@ import { addUserCoins } from '../../helpers/modules/payments/transactions'
 export const questionCreated = functions.firestore.document('questions/{questionId}')
 	.onCreate(async (snap) => {
 		const question = snap.data()
-		const { coins, userId } = question
+		const { coins, userId, tags = [] } = question
 
 		if (coins && userId) {
 			await admin.database().ref('profiles').child(userId).child('account/meta')
@@ -16,6 +16,9 @@ export const questionCreated = functions.firestore.document('questions/{question
 				'You paid coins to ask a question'
 			)
 		}
+
+		const tagsData = Object.fromEntries(tags.map((t: string) => [t, admin.database.ServerValue.increment(1)]))
+		await admin.database().ref('tags').update(tagsData)
 
 		await saveToAlgolia('questions', snap.id, { question })
 	})

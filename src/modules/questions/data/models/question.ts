@@ -6,6 +6,7 @@ export interface QuestionFromModel {
 	body: string
 	attachments: Media[]
 	coins: number
+	tags: string[]
 	subjectId: string
 	userId: string
 	user: UserBio
@@ -23,6 +24,7 @@ export interface QuestionToModel {
 	body: string
 	attachments: Media[]
 	coins: number
+	tags: string[]
 	subjectId: string
 	userId: string
 	user: UserBio

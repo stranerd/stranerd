@@ -15,7 +15,7 @@ export const updateStreak = functions.https.onCall(async (_, context) => {
 const updateUserStreak = async (userId: string) => {
 	const userStreakRef = await admin.database().ref('profiles').child(userId).child('account/streak')
 	const streak = await userStreakRef.once('value')
-	const { lastCheck = 0, count = 0 } = streak.val() ?? {}
+	const { lastCheck = 0, count = 0, longestStreak = 0 } = streak.val() ?? {}
 
 	const { isLessThan, isNextDay } = getDateDifference(new Date(lastCheck), new Date())
 	const res = {
@@ -29,14 +29,9 @@ const updateUserStreak = async (userId: string) => {
 		await userStreakRef
 			.update({
 				count: res.increase ? admin.database.ServerValue.increment(1) : 1,
+				longestStreak: admin.database.ServerValue.increment(res.increase && count === longestStreak ? 1 : 0),
 				lastCheck: admin.database.ServerValue.TIMESTAMP
 			})
-		if (res.increase) {
-			userStreakRef.child('longestStreak').transaction((oldStreak: number | null) => {
-				if (!oldStreak) return null
-				return count > oldStreak ? count : oldStreak
-			})
-		}
 	}
 
 	return res

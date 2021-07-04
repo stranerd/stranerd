@@ -8,7 +8,7 @@ export const addTutorRatings = async (userId: string, ratings: number) => {
 		.child(userId)
 		.child('account/ratings')
 		.transaction((rating) => {
-			if (!rating) return rating
+			if (rating === null) return null
 			const { total = 0, count = 0 } = rating
 			const newTotal = total + rating
 			const newCount = count + 1

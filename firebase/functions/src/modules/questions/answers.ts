@@ -1,6 +1,6 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
-import { markAnswerAsBest } from 'src/helpers/modules/questions/answers'
+import { markAnswerAsBest } from '../../helpers/modules/questions/answers'
 import { addUserCoins } from '../../helpers/modules/payments/transactions'
 import { addTutorRatings } from '../../helpers/modules/users/tutors'
 import { deleteFromAlgolia, saveToAlgolia } from '../../helpers/algolia'

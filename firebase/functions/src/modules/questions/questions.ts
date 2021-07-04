@@ -16,7 +16,7 @@ export const questionCreated = functions.firestore.document('questions/{question
 			)
 		}
 
-		const tagsData = Object.fromEntries(tags.map((t: string) => [t, admin.database.ServerValue.increment(1)]))
+		const tagsData = Object.fromEntries(tags.map((t: string) => [`${t}/count`, admin.database.ServerValue.increment(1)]))
 		await admin.database().ref('tags').update(tagsData)
 
 		await saveToAlgolia('questions', snap.id, { question })

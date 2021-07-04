@@ -1,7 +1,6 @@
 <template>
-	<div>
+	<span>
 		<vue-editor
-			v-if="isClient"
 			:value="value"
 			use-custom-image-handler
 			:placeholder="placeholder"
@@ -11,7 +10,7 @@
 			@image-added="handleImageUpload"
 		/>
 		<span v-if="error" class="small text-danger">{{ error }}</span>
-	</div>
+	</span>
 </template>
 
 <script lang="ts">
@@ -20,16 +19,21 @@ import { Notify } from '@app/hooks/core/notifications'
 import { UploaderService } from '@modules/core/services/uploader'
 import { isClient } from '@utils/environment'
 
-let VueEditor
+let VueEditor = null
 if (isClient()) VueEditor = require('vue2-editor').VueEditor
+
 /* const customToolBar = [
 	[{ size: ['small', false, 'large', 'huge'] }],
-	[{header: [false,1,2,3,4,5,6]}], ['bold', 'italic', 'underline', 'strike'],
+	[{ header: [false,1,2,3,4,5,6] }],
+	['bold', 'italic', 'underline', 'strike'],
 	[{ script: 'sub' }, { script: 'super' }],
 	[{ indent: '-1' }, { indent: '+1' }],
-	[{align:''},{align:'center'},{align:'right'},{align:'justify'}],
-	['blockquote', 'code-block'], [{ list: 'ordered' }, { list: 'bullet' }, {list:'check'}],
-	[{color:[]},{background:[]}], ['link', 'image', 'video', 'formula'], ['clean']
+	[{ align: '' },{ align: 'center' },{ align: 'right' },{ align: 'justify' }],
+	['blockquote', 'code-block'],
+	[{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
+	[{ color: [] },{ background: [] }],
+	['link', 'image', 'video', 'formula'],
+	['clean']
 ] */
 
 export default defineComponent({
@@ -63,7 +67,6 @@ export default defineComponent({
 	},
 	setup (props) {
 		return {
-			isClient: isClient(),
 			handleImageUpload: async (file: File, editor: any, cursorLocation: any, resetUploader: any) => {
 				try {
 					const res = await UploaderService.call(props.path, file)
@@ -76,39 +79,36 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
-.quillWrapper{
+<style lang="scss">
+.quillWrapper {
 	background: $color-white;
 	box-sizing: border-box;
-	max-width: 90vw !important;
 	position: relative;
 	display: flex;
-	flex-direction: column-reverse;
+	flex-direction: column;
 	font-family: Ubuntu, Roboto, sans-serif !important;
-	.ql-toolbar{
-		//z-index: 10;
-		width: 100% !important;
-		max-width: 100% !important;
+	.ql-toolbar {
 		display: flex;
-		align-items: stretch;
-		flex-wrap: nowrap !important;
+		flex-wrap: nowrap;
 		overflow-x: auto;
 		overflow-y: hidden;
-		padding: 4px !important;
 		font-family: inherit !important;
-		.ql-formats{
-			border-right: 1px solid $color-black;
+		.ql-formats {
 			display: flex;
-			margin: 4px !important;
-			.ql-expanded{
+			padding: 8px;
+			margin: 0 0 4px !important;
+			.ql-expanded {
 				position: static;
-				.ql-picker-options{
+				.ql-picker-options {
 					min-width: 0;
 					top: 0;
 					left: 0;
 					position: absolute;
 				}
 			}
+		}
+		.ql-formats + .ql-formats {
+			border-left: 1px solid $color-black;
 		}
 	}
 }

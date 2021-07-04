@@ -1,5 +1,6 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
+import { markAnswerAsBest } from 'src/helpers/modules/questions/answers'
 import { deleteFromStorage } from '../../helpers/storage'
 import { addUserCoins } from '../../helpers/modules/payments/transactions'
 import { addTutorRatings } from '../../helpers/modules/users/tutors'
@@ -83,28 +84,37 @@ export const answerRated = functions.database.ref('answers/{answerId}/ratings/{u
 	.onCreate(async (snap, context) => {
 		const { answerId, userId } = context.params
 		const ratings = snap.val() ?? 0
-		let tutorId = ''
-		let questionId = ''
 
 		await admin.database().ref('profiles').child(userId).child('account/meta')
 			.child(`ratedAnswers/${answerId}`).set(ratings)
 
 		await admin.firestore().runTransaction(async (t) => {
 			const answerRef = admin.firestore().collection('answers').doc(answerId)
-			const answer = await t.get(answerRef)
-			tutorId = answer.data()?.userId ?? ''
-			questionId = answer.data()?.questionId ?? ''
+			const answer = (await t.get(answerRef)).data() ?? {}
+
+			const { tutorId = '', questionId = '' } = answer
+			const { total = 0, count = 0 } = answer.ratings ?? {}
+			const rating = count === 0 ? 0 : total / count
+
 			t.set(answerRef, {
 				ratings: {
 					total: admin.firestore.FieldValue.increment(ratings),
 					count: admin.firestore.FieldValue.increment(1)
 				}
 			}, { merge: true })
-		})
 
-		if (tutorId) await addTutorRatings(tutorId, ratings)
-		if (questionId && tutorId) await createNotification(tutorId, {
-			body: 'Your answer just got rated. Go to your dashboard and have a look',
-			action: `/questions/${questionId}#${answerId}`
+			if (questionId) {
+				const questionRef = admin.firestore().collection('questions').doc(questionId)
+				const question = (await t.get(questionRef)).data() ?? {}
+				if (!question.answerId && count >= 19 && rating > 3.5) await markAnswerAsBest(questionId, answerId, question, answer)
+
+				if (tutorId) {
+					await addTutorRatings(tutorId, ratings)
+					await createNotification(tutorId, {
+						body: 'Your answer just got rated. Go to your dashboard and have a look',
+						action: `/questions/${questionId}#${answerId}`
+					})
+				}
+			}
 		})
 	})

@@ -1,7 +1,7 @@
 import { Media } from '@modules/core/data/models/base'
 import { UserBio, generateDefaultBio } from '@modules/users'
 import { BaseEntity } from '@modules/core/domains/entities/base'
-import { extractTextFromHTML, trimToLength } from '@utils/commons'
+import { catchDivideByZero, extractTextFromHTML, trimToLength } from '@utils/commons'
 
 export class AnswerEntity extends BaseEntity {
 	public readonly id: string
@@ -32,13 +32,13 @@ export class AnswerEntity extends BaseEntity {
 		this.userId = userId
 		this.user = generateDefaultBio(user)
 		this.best = best ?? false
-		this.ratings = ratings ?? { total: 0, count: 0 }
+		this.ratings = { total: ratings?.total ?? 0, count: ratings?.count ?? 0 }
 		this.commentsCount = comments?.count ?? 0
 		this.createdAt = createdAt
 	}
 
-	get averageRating () { return this.ratings.count === 0 ? 0 : (this.ratings.total ?? 0) / (this.ratings.count ?? 1) }
-	get formattedRating () { return Number(this.averageRating).toFixed(1) }
+	get averageRating () { return catchDivideByZero(this.ratings.total, this.votes) }
+	get votes () { return this.ratings.count }
 	get userName () { return this.user.name.fullName }
 	get avatar () { return this.user.avatar }
 	get trimmedBody () { return trimToLength(extractTextFromHTML(this.body), 200) }

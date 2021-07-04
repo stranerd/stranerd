@@ -18,31 +18,6 @@
 			<span>Out of coins?&nbsp;</span>
 			<a class="fw-bold text-decoration-underline" @click="openBuyCoins">Buy more coins</a>
 		</div>
-		<div class="form-group my-1">
-			<label class="label d-block">Attachments</label>
-			<input
-				ref="attachments"
-				type="file"
-				class="d-none"
-				accept="image/*"
-				multiple
-				@change="catchAttachments"
-			>
-			<p class="mb-0">
-				<span v-for="attachment in factory.attachments" :key="attachment.name" class="me-0-5">
-					<span class="me-0-25">{{ attachment.name }}</span>
-					<a class="text-danger" @click.prevent="factory.removeAttachment(attachment)">
-						<i class="fas fa-times" />
-					</a>
-				</span>
-			</p>
-			<span v-if="factory.icon">{{ factory.icon.name }}</span>
-			<a class="text-info my-0-5" @click.prevent="() => { $refs.attachments.value= ''; $refs.attachments.click() }">
-				{{ factory.attachments.length > 0 ? 'Add' : 'Upload' }} attachments
-			</a>
-			<small v-if="factory.errors.attachments" class="small text-danger d-block">{{ factory.errors.attachments }}</small>
-		</div>
-		<hr>
 		<div class="d-flex justify-content-end my-1-5">
 			<button class="btn btn-blue text-white" type="submit" :disabled="loading || !factory.valid">
 				<PageLoading v-if="loading" />
@@ -55,7 +30,6 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
-import { useMultipleFileInputs } from '@app/hooks/core/forms'
 import { QuestionFactory } from '@modules/questions'
 import QuestionEditor from '@app/components/core/editor/QuestionEditor.vue'
 import { useAccountModal } from '@app/hooks/core/modals'
@@ -85,12 +59,9 @@ export default defineComponent({
 			required: true
 		}
 	},
-	setup (props) {
-		const { catchMultipleFiles: catchAttachments } = useMultipleFileInputs(
-			(files: File[]) => files.map(props.factory.addAttachment)
-		)
+	setup () {
 		const { openBuyCoins } = useAccountModal()
-		return { catchAttachments, openBuyCoins }
+		return { openBuyCoins }
 	}
 })
 </script>

@@ -1,7 +1,6 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { markAnswerAsBest } from 'src/helpers/modules/questions/answers'
-import { deleteFromStorage } from '../../helpers/storage'
 import { addUserCoins } from '../../helpers/modules/payments/transactions'
 import { addTutorRatings } from '../../helpers/modules/users/tutors'
 import { deleteFromAlgolia, saveToAlgolia } from '../../helpers/algolia'
@@ -46,24 +45,12 @@ export const answerCreated = functions.firestore.document('answers/{answerId}')
 export const answerUpdated = functions.firestore.document('answers/{answerId}')
 	.onUpdate(async (snap) => {
 		const after = snap.after.data()
-		const before = snap.before.data()
-
-		const oldAttachments = before.attachments as any[]
-		const newAttachments = after.attachments as any[]
-
-		await Promise.all(oldAttachments?.map(async (attachment) => {
-			const wasNotRemoved = newAttachments?.find((doc) => attachment?.path === doc?.path)
-			if (!wasNotRemoved) await deleteFromStorage(attachment?.path)
-		}))
-
 		await saveToAlgolia('answers', snap.after.id, { answer: after })
 	})
 
 export const answerDeleted = functions.firestore.document('answers/{answerId}')
 	.onDelete(async (snap) => {
-		const { questionId, attachments, userId } = snap.data()
-
-		attachments?.map(async (attachment: any) => await deleteFromStorage(attachment.path))
+		const { questionId, userId } = snap.data()
 
 		await admin.firestore().collection('questions')
 			.doc(questionId)

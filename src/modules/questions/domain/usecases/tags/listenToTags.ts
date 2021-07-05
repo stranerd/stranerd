@@ -11,7 +11,8 @@ export class ListenToTagsUseCase {
 
 	async call (callback: (entities: TagEntity[]) => void) {
 		const conditions: DatabaseGetClauses = {
-			order: { field: 'count' }
+			order: { field: 'count' },
+			limit: { count: 25, bottom: true }
 		}
 	    return await this.repository.listen(callback, conditions)
 	}

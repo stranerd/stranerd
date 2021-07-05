@@ -10,7 +10,8 @@ export class GetTagsUseCase {
 
 	async call () {
 		const conditions: DatabaseGetClauses = {
-			order: { field: 'count' }
+			order: { field: 'count' },
+			limit: { count: 25, bottom: true }
 		}
 		return await this.repository.get(conditions)
 	}

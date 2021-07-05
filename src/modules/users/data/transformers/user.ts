@@ -26,7 +26,12 @@ export class UserTransformer {
 				}, {} as UserFromModel['account']['meta'])
 			},
 			status: entity.status,
-			...(entity.tutor ? { tutor: entity.tutor } : {}),
+			tutor: {
+				...entity.tutor,
+				tags: Object.fromEntries(
+					entity.tutor.tags.map((t) => [t.id, t.count])
+				)
+			},
 			dates: entity.dates
 		}
 	}

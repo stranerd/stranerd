@@ -9,7 +9,7 @@ export class UserEntity extends BaseEntity {
 	public readonly bio: Required<UserBio>
 	public readonly account: Omit<UserAccount, 'meta'> & { meta: Record<keyof UserAccount['meta'], string[]> }
 	public readonly status: Required<UserStatus>
-	public readonly tutor: Required<UserTutor>
+	public readonly tutor: Omit<Required<UserTutor>, 'tags'> & { tags: { id: string, count: number }[] }
 	public readonly dates: UserDates
 
 	constructor ({ id, bio, roles, account, status, tutor, dates }: UserConstructorArgs) {
@@ -59,7 +59,10 @@ export class UserEntity extends BaseEntity {
 		}
 		this.tutor = {
 			subject: tutor?.subject ?? undefined,
-			currentSession: tutor?.currentSession ?? null
+			currentSession: tutor?.currentSession ?? null,
+			tags: Object.entries(tutor?.tags ?? {})
+				.map(([key, val]) => ({ id: key, count: val }))
+				.sort((a, b) => a.count - b.count)
 		}
 		this.dates = {
 			signedUpAt: dates?.signedUpAt ?? 0,
@@ -91,8 +94,8 @@ type UserConstructorArgs = {
 	bio: UserBio
 	roles: UserRoles
 	account: UserAccount
-	status?: UserStatus
-	tutor?: UserTutor
+	status: UserStatus
+	tutor: UserTutor
 	dates: UserDates
 }
 
@@ -162,6 +165,7 @@ export interface UserTutor {
 			passed: boolean
 		}>
 	} | undefined
+	tags: Record<string, number> | undefined
 	currentSession?: string | null
 }
 

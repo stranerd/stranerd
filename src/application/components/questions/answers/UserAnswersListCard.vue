@@ -13,10 +13,6 @@
 				<span>+{{ formatNumber(answer.coins) }}</span>
 				<Coins :size="16" />
 			</span>
-			<span v-if="answer.attachments.length">
-				<span>{{ answer.attachments.length }}</span>
-				<i class="fas fa-paperclip" />
-			</span>
 			<span v-if="answer.best" class="text-success">
 				<span>Best</span>
 				<i class="fas fa-check" />

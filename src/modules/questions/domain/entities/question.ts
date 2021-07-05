@@ -1,4 +1,3 @@
-import { Media } from '@modules/core/data/models/base'
 import { UserBio, generateDefaultBio } from '@modules/users'
 import { BaseEntity } from '@modules/core/domains/entities/base'
 import { extractTextFromHTML, trimToLength } from '@utils/commons'
@@ -6,8 +5,8 @@ import { extractTextFromHTML, trimToLength } from '@utils/commons'
 export class QuestionEntity extends BaseEntity {
 	public readonly id: string
 	public readonly body: string
-	public readonly attachments: Media[]
 	public readonly coins: number
+	public readonly tags: string[]
 	public readonly subjectId: string
 	public readonly userId: string
 	public readonly user: UserBio
@@ -17,15 +16,15 @@ export class QuestionEntity extends BaseEntity {
 	public readonly createdAt: number
 
 	constructor ({
-		id, body, coins, attachments, subjectId,
+		id, body, coins, subjectId,
 		answerId, createdAt, userId, user, comments,
-		answers
+		answers, tags
 	}: QuestionConstructorArgs) {
 		super()
 		this.id = id
 		this.body = body
-		this.attachments = attachments
 		this.coins = coins
+		this.tags = tags
 		this.subjectId = subjectId
 		this.userId = userId
 		this.user = generateDefaultBio(user)
@@ -45,8 +44,8 @@ export class QuestionEntity extends BaseEntity {
 type QuestionConstructorArgs = {
 	id: string
 	body: string
-	attachments: Media[]
 	coins: number
+	tags: string[]
 	subjectId: string
 	createdAt: number
 	userId: string

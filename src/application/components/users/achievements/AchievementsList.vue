@@ -13,7 +13,7 @@
 			</NuxtLink>
 		</div>
 		<div class="thick" />
-		<div v-for="achievement in ongoingAchievements" :key="achievement.id" class="achievement gap-0-5">
+		<!-- <div v-for="achievement in ongoingAchievements" :key="achievement.id" class="achievement gap-0-5">
 			<div class="achievement-image">
 				<img :src="achievement.link" alt="">
 			</div>
@@ -25,18 +25,18 @@
 				<div class="level" :style="`width: ${100 * achievement.progressInPercent }`" />
 				<span class="text">{{ achievement.isLimitTo1 ? `Best: ${achievement.progress}` : `${achievement.progress} / ${achievement.limit}` }}</span>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useAuth } from '@app/hooks/auth/auth'
+// import { useAuth } from '@app/hooks/auth/auth'
 export default defineComponent({
 	name: 'AchievementsList',
 	setup () {
-		const { ongoingAchievements } = useAuth()
-		return { ongoingAchievements }
+		// const { ongoingAchievements } = useAuth()
+		// return { ongoingAchievements }
 	}
 })
 </script>

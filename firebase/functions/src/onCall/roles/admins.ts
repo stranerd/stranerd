@@ -15,7 +15,7 @@ export const toggleAdmin = functions.https.onCall(async (data, context) => {
 
 		await admin.database().ref('profiles')
 			.child(id).child('roles/isAdmin')
-			.set(isAdmin)
+			.set(isAdmin ?? null)
 
 		const body = isAdmin
 			? 'Your account has successfully been granted admin privileges'

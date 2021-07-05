@@ -7,6 +7,8 @@ enum Numbers {
 	quintillion = 10 ** 18,
 }
 
+export const catchDivideByZero = (num: number, den: number) => den === 0 ? 0 : num / den
+
 export const formatNumber = (num: number) => {
 	num = Math.abs(num)
 	if (num < Numbers.thousand) return num.toFixed(0).replace('.0', '')

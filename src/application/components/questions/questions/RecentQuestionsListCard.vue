@@ -1,12 +1,8 @@
 <template>
 	<div :id="question.id">
-		<NuxtLink class="d-block mb-0-5" :to="`/questions/${question.id}`">
+		<NuxtLink class="d-block" :to="`/questions/${question.id}`">
 			{{ question.trimmedBody }}
 		</NuxtLink>
-		<span v-if="question.attachments.length">
-			<span>{{ formatNumber(question.attachments.length) }}</span>
-			<i class="fas fa-paperclip" />
-		</span>
 	</div>
 </template>
 

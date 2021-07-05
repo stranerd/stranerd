@@ -152,7 +152,6 @@ export const DatabaseService = {
 
 export interface FUNCTIONS {
 	toggleAdmin: { id: string, isAdmin: boolean },
-	toggleTutor: { id: string, isTutor: boolean },
 	subscribeToMailingList: { email: string },
 	requestNewSession: { session: Partial<SessionToModel> },
 	acceptSession: { id: string },
@@ -170,7 +169,6 @@ export interface FUNCTIONS {
 
 export interface FUNCTION_RETURNS {
 	toggleAdmin: void,
-	toggleTutor: void,
 	subscribeToMailingList: void,
 	requestNewSession: string,
 	acceptSession: void,

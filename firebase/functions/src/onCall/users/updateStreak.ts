@@ -1,7 +1,5 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
-import { Achievement } from '../../helpers/modules/users/achievements'
-import { addUserXp, XpGainList } from '../../helpers/modules/payments/transactions'
 
 export const updateStreak = functions.https.onCall(async (_, context) => {
 	if (!context.auth)
@@ -15,10 +13,9 @@ export const updateStreak = functions.https.onCall(async (_, context) => {
 })
 
 const updateUserStreak = async (userId: string) => {
-	const userLongestStreakRef = await admin.database().ref('profiles').child(userId).child('account/meta/longestStreak')
 	const userStreakRef = await admin.database().ref('profiles').child(userId).child('account/streak')
 	const streak = await userStreakRef.once('value')
-	const { lastCheck = 0, count = 0 } = streak.val() ?? {}
+	const { lastCheck = 0, count = 0, longestStreak = 0 } = streak.val() ?? {}
 
 	const { isLessThan, isNextDay } = getDateDifference(new Date(lastCheck), new Date())
 	const res = {
@@ -32,16 +29,9 @@ const updateUserStreak = async (userId: string) => {
 		await userStreakRef
 			.update({
 				count: res.increase ? admin.database.ServerValue.increment(1) : 1,
+				longestStreak: admin.database.ServerValue.increment(res.increase && count === longestStreak ? 1 : 0),
 				lastCheck: admin.database.ServerValue.TIMESTAMP
 			})
-		await addUserXp(userId, XpGainList.LOGGING_IN)
-		if (res.increase) {
-			await Achievement.checkStreak7Day(userId, count + 1)
-			userLongestStreakRef.transaction((oldStreak: number | null) => {
-				if (!oldStreak) return null
-				return count > oldStreak ? count : oldStreak
-			})
-		}
 	}
 
 	return res

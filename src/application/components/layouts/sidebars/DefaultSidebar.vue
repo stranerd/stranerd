@@ -36,23 +36,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useRouter } from '@nuxtjs/composition-api'
+import { defineComponent } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useAccountModal } from '@app/hooks/core/modals'
 import { useSessionSignout } from '@app/hooks/auth/session'
 export default defineComponent({
 	name: 'DefaultSidebar',
 	setup () {
-		const router = useRouter()
-		const { user, isTutor, isAdmin } = useAuth()
+		const { user, isAdmin } = useAuth()
 		const { loading, signout } = useSessionSignout()
-		const becomeNerd = () => {
-			router.push('/nerds/signup')
-		}
+
 		const buy = () => {
 			useAccountModal().openBuyCoins()
 		}
-		return { user, isTutor, isAdmin, becomeNerd, buy, loading, signout }
+		return { user, isAdmin, buy, loading, signout }
 	}
 })
 </script>

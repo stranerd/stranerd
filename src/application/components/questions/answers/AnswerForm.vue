@@ -3,31 +3,6 @@
 		<div class="form-group my-1">
 			<AnswerEditor :model.sync="factory.body" :error="factory.errors.body" :valid="factory.isValid('body')" />
 		</div>
-		<div class="form-group my-1">
-			<label class="label d-block">Attachments</label>
-			<input
-				ref="attachments"
-				type="file"
-				class="d-none"
-				accept="image/*"
-				multiple
-				@change="catchAttachments"
-			>
-			<p class="mb-0">
-				<span v-for="attachment in factory.attachments" :key="attachment.name" class="me-0-5">
-					<span class="me-0-25">{{ attachment.name }}</span>
-					<a class="text-danger" @click.prevent="factory.removeAttachment(attachment)">
-						<i class="fas fa-times" />
-					</a>
-				</span>
-			</p>
-			<span v-if="factory.icon">{{ factory.icon.name }}</span>
-			<a class="text-info my-0-5" @click.prevent="() => { $refs.attachments.value= ''; $refs.attachments.click() }">
-				Upload attachments
-			</a>
-			<small v-if="factory.errors.attachments" class="small text-danger d-block">{{ factory.errors.attachments }}</small>
-		</div>
-		<hr>
 		<div class="d-flex justify-content-end my-1">
 			<button class="btn btn-blue text-white" type="submit" :disabled="loading || !factory.valid">
 				<PageLoading v-if="loading" />
@@ -40,7 +15,6 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
-import { useMultipleFileInputs } from '@app/hooks/core/forms'
 import { AnswerFactory } from '@modules/questions'
 import AnswerEditor from '@app/components/core/editor/AnswerEditor.vue'
 export default defineComponent({
@@ -63,12 +37,6 @@ export default defineComponent({
 			type: String,
 			required: true
 		}
-	},
-	setup (props) {
-		const { catchMultipleFiles: catchAttachments } = useMultipleFileInputs(
-			(files: File[]) => files.map(props.factory.addAttachment)
-		)
-		return { catchAttachments }
 	}
 })
 </script>

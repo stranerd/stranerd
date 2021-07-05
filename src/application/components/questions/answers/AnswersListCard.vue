@@ -17,10 +17,6 @@
 		<div class="answer-content">
 			<div class="my-0-5 lead editor-body" v-html="answer.body" />
 			<div class="my-0-5 d-flex flex-wrap icons justify-content-end gap-0-5">
-				<span v-if="answer.attachments.length">
-					<span>{{ answer.attachments.length }}</span>
-					<i class="fas fa-paperclip" />
-				</span>
 				<a v-if="answer.commentsCount" class="d-flex align-items-center" @click.prevent="showComments = !showComments">
 					<span>
 						{{ showComments ? 'Hide' : 'Show' }} Comments
@@ -43,7 +39,6 @@
 				</span>
 			</div>
 		</div>
-		<DisplayAttachments v-if="answer.attachments.length" id="attachments" :attachments="answer.attachments" class="my-0-5" />
 		<div v-if="showComments">
 			<div class="d-flex align-items-end my-0-5">
 				<h5 class="mb-0 me-0-5">
@@ -66,7 +61,6 @@ import { computed, defineComponent, PropType, ref } from '@nuxtjs/composition-ap
 import { AnswerEntity, QuestionEntity } from '@modules/questions'
 import { useAnswer } from '@app/hooks/questions/answers'
 import { useAuth } from '@app/hooks/auth/auth'
-import DisplayAttachments from '@app/components/questions/DisplayAttachments.vue'
 import CommentForm from '@app/components/questions/comments/AnswerCommentForm.vue'
 import CommentList from '@app/components/questions/comments/AnswerCommentsList.vue'
 import { formatTime } from '@utils/dates'
@@ -75,7 +69,6 @@ import { setNerdBioAndId } from '@app/hooks/users/account'
 export default defineComponent({
 	name: 'AnswerListCard',
 	components: {
-		DisplayAttachments,
 		CommentForm,
 		CommentList
 	},
@@ -93,7 +86,7 @@ export default defineComponent({
 		const showComments = ref(false)
 		const { id, isLoggedIn, user } = useAuth()
 		const showRatingButton = computed({
-			get: () => isLoggedIn.value && user.value?.meta.ratedAnswers[props.answer.id] === undefined,
+			get: () => isLoggedIn.value && !user.value?.account.meta.ratedAnswers.includes(props.answer.id),
 			set: () => {}
 		})
 		const tip = () => {

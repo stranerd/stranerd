@@ -103,12 +103,12 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { formatNumber } from '@utils/commons'
 import { formatTime } from '@utils/dates'
 import ProfileHeadCard from '@app/components/users/account/ProfileHeadCard.vue'
-import ProgressBar from '@app/components/core/ProgressBar.vue'
+// import ProgressBar from '@app/components/core/ProgressBar.vue'
 import Tag from '@app/components/core/tags.vue'
 
 export default defineComponent({
 	name: 'RightSidebar',
-	components: { ProfileHeadCard, ProgressBar, Tag },
+	components: { ProfileHeadCard, Tag },
 	setup () {
 		const { id, isLoggedIn, user } = useAuth()
 		const tags = ['trigonometry', 'waves', 'e-mc2', 'motion', 'electromagnets', 'indices']
@@ -118,50 +118,55 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.ranking-header{
-text-align: center;
-font-size: 20px;
-color: $color-text-main;
-}
-.mx-1{
-	margin: 0px 4px !important;
-}
-.m-1{
-	margin:  6px !important;
-}
-.stat{
-	width: 350px;
-	font-size: 14px;
-	color: $color-text-sub;
-}
-.text-main{
-	color: $color-main;
-
-}
-.tag-input{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 36px;
-	input{
-		border: 1.2px solid $color-line;
-		background-color: $color-white;
-		height: 42px;
-		border-radius: 50px;
-		width: 100%;
-		color: $color-text-sub;
-		padding: 0px 5px 0px 18px;
-
-	}
-	button{
-		border: 1.2px solid $color-line;
-		background-color: $color-tags;
-		height: 42px;
-		border-radius: 50px;
+	.ranking-header {
+		text-align: center;
+		font-size: 20px;
 		color: $color-text-main;
-		position: absolute;
-        right: 17px;
-        padding: 8px 17px;
 	}
-}
+
+	.mx-1 {
+		margin: 0 4px !important;
+	}
+
+	.m-1 {
+		margin: 6px !important;
+	}
+
+	.stat {
+		width: 350px;
+		font-size: 14px;
+		color: $color-text-sub;
+	}
+
+	.text-main {
+		color: $color-main;
+	}
+
+	.tag-input {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 36px;
+
+		input {
+			border: 1.2px solid $color-line;
+			background-color: $color-white;
+			height: 42px;
+			border-radius: 50px;
+			width: 100%;
+			color: $color-text-sub;
+			padding: 0 5px 0 18px;
+		}
+
+		button {
+			border: 1.2px solid $color-line;
+			background-color: $color-tags;
+			height: 42px;
+			border-radius: 50px;
+			 color: $color-text-main;
+			position: absolute;
+			right: 17px;
+			padding: 8px 17px;
+		}
+	}
 </style>

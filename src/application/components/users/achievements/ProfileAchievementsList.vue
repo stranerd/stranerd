@@ -35,51 +35,57 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.achievement {
-	display: flex;
-	align-items: flex-start;
-	margin: 1.5rem 0;
-	.achievement-image {
-		img {
-			width: 50px;
-			height: 50px;
-			border-radius: 0.75rem;
-		}
-	}
-	.achievement-title {
-		h4 {
-			color: $color-text-main;
-			margin: 0;
-		}
-		p { margin: 0 }
-	}
-	i {
-		font-size: 3rem;
-		color: $color-green;
-		margin: 0 0 0 auto;
-	}
-	.progress {
-		margin-left: auto;
-		background: lighten($color-text-main, 40%);
-		color: $color-white;
-		width: 40%;
-		height: 25px;
-		min-width: 120px;
-		max-width: 300px;
-		position: relative;
-		border-radius: 10rem;
+	.achievement {
 		display: flex;
-		align-items: center;
-		.level {
-			background: $color-text-main;
-			height: 100%;
+		align-items: flex-start;
+		margin: 1.5rem 0;
+
+		.achievement-image {
+			img {
+				width: 50px;
+				height: 50px;
+				border-radius: 0.75rem;
+			}
 		}
-		.text {
-			width: 100%;
-			z-index: 1;
-			text-align: center;
-			position: absolute;
+
+		.achievement-title {
+			h4 {
+				color: $color-text-main;
+				margin: 0;
+			}
+			p { margin: 0; }
+		}
+
+		i {
+			font-size: 3rem;
+			color: $color-green;
+			margin: 0 0 0 auto;
+		}
+
+		.progress {
+			margin-left: auto;
+			background: lighten($color-text-main, 40%);
+			color: $color-white;
+			width: 40%;
+			height: 25px;
+			min-width: 120px;
+			max-width: 300px;
+			position: relative;
+			border-radius: 10rem;
+			display: flex;
+			align-items: center;
+
+			.level {
+				background: $color-text-main;
+				height: 100%;
+			}
+
+			.text {
+				width: 100%;
+				z-index: 1;
+				text-align: center;
+				position: absolute;
+			}
 		}
 	}
-}
 </style>

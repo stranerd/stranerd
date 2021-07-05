@@ -33,11 +33,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.progress{
-	width: 100%;
-	background: $color-line;
-	border-radius: 6px;
-	height: 12px;
-	font-size: 12px;
-}
+	.progress {
+		width: 100%;
+		background: $color-line;
+		border-radius: 6px;
+		height: 12px;
+		font-size: 12px;
+	}
 </style>

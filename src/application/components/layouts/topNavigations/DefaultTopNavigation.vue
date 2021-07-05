@@ -84,12 +84,12 @@ export default defineComponent({
 	}
 
 	.middle-body {
-		width: 54.5%;
+		width: 50%;
 		// padding: 1rem 2rem;
 	}
 
 	.left-body {
-		width: 21.5%;
+		width: 16.25%;
 		padding: 1rem 2rem;
 	}
 

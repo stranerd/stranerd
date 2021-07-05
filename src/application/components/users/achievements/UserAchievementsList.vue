@@ -30,41 +30,49 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.achievementList {
-	display: grid;
-	grid-template-columns: repeat(1, 1fr);
-	grid-gap: 0.5rem;
-	@media (min-width: $sm) {
-		grid-template-columns: repeat(2, 1fr);
-	}
-	@media (min-width: $md) {
-		grid-template-columns: repeat(4, 1fr);
-	}
-}
-.achievement {
-	display: flex;
-	align-items: center;
-	.achievement-image {
-		img {
-			width: 50px;
-			height: 50px;
-			border-radius: 0.75rem;
+	.achievementList {
+		display: grid;
+		grid-template-columns: repeat(1, 1fr);
+		grid-gap: 0.5rem;
+
+		@media (min-width: $sm) {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		@media (min-width: $md) {
+			grid-template-columns: repeat(4, 1fr);
 		}
 	}
-	.achievement-title {
-		color: $color-grey;
-		h4 {
-			font-size: 1.125rem;
-			margin: 0;
+
+	.achievement {
+		display: flex;
+		align-items: center;
+
+		.achievement-image {
+			img {
+				width: 50px;
+				height: 50px;
+				border-radius: 0.75rem;
+			}
 		}
-		p {
-			font-size: 0.9rem;
-			margin: 0;
+
+		.achievement-title {
+			color: $color-grey;
+
+			h4 {
+				font-size: 1.125rem;
+				margin: 0;
+			}
+
+			p {
+				font-size: 0.9rem;
+				margin: 0;
+			}
 		}
 	}
-}
-.completed {
-	color: $color-text-main-grey;
-	h4 { color: $color-text-main; }
-}
+
+	.completed {
+		color: $color-text-main-grey;
+		h4 { color: $color-text-main; }
+	}
 </style>

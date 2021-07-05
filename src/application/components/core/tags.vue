@@ -19,11 +19,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.tags{
-	border: 1.2px solid $color-line;
+	.tags {
+		border: 1.2px solid $color-line;
 		background-color: $color-tags;
 		border-radius: 50px;
 		color: $color-text-main;
-        padding: 1px 14px;
-}
+		padding: 1px 14px;
+	}
 </style>

@@ -33,16 +33,17 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-a {
-	border-radius: 10rem;
-	font-size: 1.25rem;
-	margin-left: 1rem;
-	color: $color-text-main;
-}
-input.form-control {
-	font-size: 1em;
-	border: none;
-	box-shadow: none;
-	padding: 0;
-}
+	a {
+		border-radius: 10rem;
+		font-size: 1.25rem;
+		margin-left: 1rem;
+		color: $color-text-main;
+	}
+
+	input.form-control {
+		font-size: 1em;
+		border: none;
+		box-shadow: none;
+		padding: 0;
+	}
 </style>

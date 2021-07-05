@@ -25,19 +25,21 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.grid{
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	grid-gap: 2rem 1rem;
-}
-@media (min-width: $sm) {
-	.grid{
-		grid-template-columns: repeat(3, 1fr);
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-gap: 2rem 1rem;
 	}
-}
-@media (min-width: $md) {
-	.grid{
-		grid-template-columns: repeat(4, 1fr);
+
+	@media (min-width: $sm) {
+		.grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
 	}
-}
+
+	@media (min-width: $md) {
+		.grid {
+			grid-template-columns: repeat(4, 1fr);
+		}
+	}
 </style>

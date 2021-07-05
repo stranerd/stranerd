@@ -2,7 +2,7 @@
 	<NuxtLink to="/notifications">
 		<span class="position-relative">
 			<img class="filter" src="@app/assets/images/icons/notification.svg" alt="">
-			<i v-if="notifications.filter((n) => !n.seen).length > 0" class="fas fa-circle text-danger position-absolute" style="top: 0;right:0;font-size:0.6em" />
+			<i v-if="notifications.filter((n) => !n.seen).length > 0" class="fas fa-circle text-danger position-absolute" style="top: 0; right: 0; font-size: 0.6em;" />
 		</span>
 	</NuxtLink>
 </template>

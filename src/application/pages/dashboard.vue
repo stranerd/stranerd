@@ -56,14 +56,17 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.background {
-	background: url('../assets/images/icons/dashboard_hero.svg') no-repeat right bottom;
-	@media (min-width: 600px) {
-		background-position: right center;
+	.background {
+		background: url('../assets/images/icons/dashboard_hero.svg') no-repeat right bottom;
+
+		@media (min-width: 600px) {
+			background-position: right center;
+		}
 	}
-}
-.overlay {
-	background: rgba($color-white, 0.5);
-	@media (min-width: 850px) { background: unset; }
-}
+
+	.overlay {
+		background: rgba($color-white, 0.5);
+
+		@media (min-width: 850px) { background: unset; }
+	}
 </style>

@@ -72,26 +72,31 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.grid {
-	display: grid;
-	width: 100%;
-	max-width: 800px;
-	grid-gap: 1rem;
-	grid-template-columns: repeat(1, 1fr);
-	@media (min-width: $xsm) { grid-template-columns: repeat(2, 1fr); }
-	@media (min-width: $sm) { grid-template-columns: repeat(4, 1fr); }
-}
-.stats {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	img {
-		width: 36px;
-		height: 36px;
-		margin-bottom: 0.5rem;
+	.grid {
+		display: grid;
+		width: 100%;
+		max-width: 800px;
+		grid-gap: 1rem;
+		grid-template-columns: repeat(1, 1fr);
+
+		@media (min-width: $xsm) { grid-template-columns: repeat(2, 1fr); }
+
+		@media (min-width: $sm) { grid-template-columns: repeat(4, 1fr); }
 	}
-	.count {
-		font-size: 1.5rem;
+
+	.stats {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		img {
+			width: 36px;
+			height: 36px;
+			margin-bottom: 0.5rem;
+		}
+
+		.count {
+			font-size: 1.5rem;
+		}
 	}
-}
 </style>

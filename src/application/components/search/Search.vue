@@ -81,38 +81,43 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.img-search{
-	width: 21px;
-     position: relative;
-    left: 36px;
-}
-.AisSearchBox{
-	widows: 100%;
-}
-.search{
-	padding-left: 3rem;
-	border: 1.2px solid $color-line;
-	background-color: $color-tags;
-	height: 42px;
-	border-radius: 12px;
-	width: 100%;
-	color: $color-text-sub;
-}
-li {
-	border: none !important;
-	color: $color-text-main;
-}
-.results{
-	position: absolute;
-	border-radius: 0.75rem;
-	margin: 0.5rem;
-	background: $color-white;
-	z-index: 3;
-	white-space: normal;
-	max-width: calc(100vw - 4rem);
-	box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
-	@media (max-width: 500px){
-		right: 0.25rem
+	.img-search {
+		width: 21px;
+		position: relative;
+		left: 36px;
 	}
-}
+
+	.AisSearchBox {
+		widows: 100%;
+	}
+
+	.search {
+		padding-left: 3rem;
+		border: 1.2px solid $color-line;
+		background-color: $color-tags;
+		height: 42px;
+		border-radius: 12px;
+		width: 100%;
+		color: $color-text-sub;
+	}
+
+	li {
+		border: none !important;
+		color: $color-text-main;
+	}
+
+	.results {
+		position: absolute;
+		border-radius: 0.75rem;
+		margin: 0.5rem;
+		background: $color-white;
+		z-index: 3;
+		white-space: normal;
+		max-width: calc(100vw - 4rem);
+		box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+
+		@media (max-width: 500px) {
+			right: 0.25rem;
+		}
+	}
 </style>

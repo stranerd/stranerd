@@ -35,8 +35,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-/deep/ i {
-	margin: 0 0.15rem;
-	font-size: 3rem;
-}
+	/deep/ i {
+		margin: 0 0.15rem;
+		font-size: 3rem;
+	}
 </style>

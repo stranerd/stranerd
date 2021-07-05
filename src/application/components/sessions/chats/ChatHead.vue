@@ -111,34 +111,38 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.under {
-	position: fixed;
-	width: 100vw;
-	height: vh(100);
-	left: 0;
-	top: 0;
-}
-.menu {
-	padding: 0.5rem;
-	position: absolute;
-	top: 2.5rem;
-	right: 0;
-	width: 250px;
-	z-index: 1;
-	display: flex;
-	flex-direction: column;
-	background: rgba($color-text-main, 0.9);
-	color: $color-white;
-	border-radius: 0.5rem;
-	a:hover {
-		font-size: unset;
-		transform: unset;
-		background: lighten($color-text-main, 5)
+	.under {
+		position: fixed;
+		width: 100vw;
+		height: vh(100);
+		left: 0;
+		top: 0;
 	}
-	animation: slide-down 0.1s;
-}
-@keyframes slide-down {
-	from { top: -50px; }
-	to { top: 0; }
-}
+
+	.menu {
+		padding: 0.5rem;
+		position: absolute;
+		top: 2.5rem;
+		right: 0;
+		width: 250px;
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		background: rgba($color-text-main, 0.9);
+		color: $color-white;
+		border-radius: 0.5rem;
+
+		a:hover {
+			font-size: unset;
+			transform: unset;
+			background: lighten($color-text-main, 5);
+		}
+
+		animation: slide-down 0.1s;
+	}
+
+	@keyframes slide-down {
+		from { top: -50px; }
+		to { top: 0; }
+	}
 </style>

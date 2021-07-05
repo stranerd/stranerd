@@ -72,9 +72,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.ranking-header{
-text-align: center;
-font-size: 24px;
-color: $color-text-main;
-}
+	.ranking-header {
+		text-align: center;
+		font-size: 24px;
+		color: $color-text-main;
+	}
 </style>

@@ -20,7 +20,7 @@
 						<span class="rounded-pill px-0-5 pe-1-5 bg-blue-grey text-light-blue">
 							+{{ formatNumber(question.creditable) }}
 						</span>
-						<Coins :size="24" class="ms-n1" style="z-index:1;" />
+						<Coins :size="24" class="ms-n1" style="z-index: 1;" />
 					</div>
 					<span>
 						<img src="@app/assets/images/icons/answers.svg" alt="" style="width: 24px; height: 24px;">
@@ -50,7 +50,7 @@
 				<span class="rounded-pill px-0-5 pe-1-5 bg-blue-grey text-light-blue">
 					+{{ formatNumber(question.creditable) }}
 				</span>
-				<Coins :size="24" class="ms-n1" style="z-index:1;" />
+				<Coins :size="24" class="ms-n1" style="z-index: 1;" />
 			</div>
 		</div>
 		<div class="thick mx-n0-5 mx-md-n1-5 mx-lg-n2" />

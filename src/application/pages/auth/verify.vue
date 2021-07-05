@@ -3,7 +3,7 @@
 		<h1 class="mb-2 text-center">
 			Verify Email
 		</h1>
-		<p class="text-center" style="max-width: 50ch">
+		<p class="text-center" style="max-width: 50ch;">
 			An email was just sent to {{ email }}. Follow the link to verify your account.
 			If an error occured or you didn't recieve the email, click the button below to resend the email.
 		</p>

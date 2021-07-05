@@ -1,26 +1,25 @@
 
-
 $color-text-main: #132740;
-$color-text-sub: #4D5C6F;
-$color-main: #546DD3;
-$color-main-dark: #374B99;
-$color-line: #D7E2EC;
-$color-tags: #F8F8FF;
-$color-ratings: #FFDA20;
+$color-text-sub: #4d5c6f;
+$color-main: #546dd3;
+$color-main-dark: #374b99;
+$color-line: #d7e2ec;
+$color-tags: #f8f8ff;
+$color-ratings: #ffda20;
 
-$color-tint-blue:  #103E83;
-$color-dim-blue:  #214A73;
-$color-text-main-grey: #214A73;
+$color-tint-blue:  #103e83;
+$color-dim-blue:  #214a73;
+$color-text-main-grey: #214a73;
 $color-light-grey: #e7eef4;
 $color-grey: #808080;
 $color-light-blue: #e2f0ff;
-$color-white: #FEFEFE;
-$color-text-main-white: #AFC4D9;
-$color-footer-blue: #191C29;
-$color-black: #111B25;
-$color-black-transparent: rgba($color-black, .75);
+$color-white: #fefefe;
+$color-text-main-white: #afc4d9;
+$color-footer-blue: #191c29;
+$color-black: #111b25;
+$color-black-transparent: rgba($color-black, 0.75);
 
-$color-gold: #FFD700;
+$color-gold: #ffd700;
 $color-red: #dc3545;
 $color-green: #06f352;
 
@@ -62,28 +61,33 @@ $theme-colors: (
 
 $spacer-values: (0,1,2,3,4,5);
 $spacers: ();
+
 @each $key in $spacer-values {
-	$spacers: map-merge($spacers, (
-		'#{$key}': #{$key}rem,
-		'#{$key}-25': #{$key + 0.25}rem,
-		'#{$key}-5': #{$key + 0.5}rem,
-		'#{$key}-75': #{$key + 0.75}rem,
-		'n#{$key}': #{0 - $key}rem,
-		'n#{$key}-25': #{0 - 0.25 - $key}rem,
-		'n#{$key}-5': #{0 - 0.5 - $key}rem,
-		'n#{$key}-75': #{0 - 0.75 - $key}rem
-	));
+	$spacers: map-merge(
+		$spacers,
+		(
+			'#{$key}': #{$key}rem,
+			'#{$key}-25': #{$key + 0.25}rem,
+			'#{$key}-5': #{$key + 0.5}rem,
+			'#{$key}-75': #{$key + 0.75}rem,
+			'n#{$key}': #{0 - $key}rem,
+			'n#{$key}-25': #{0 - 0.25 - $key}rem,
+			'n#{$key}-5': #{0 - 0.5 - $key}rem,
+			'n#{$key}-75': #{0 - 0.75 - $key}rem
+		)
+	);
 }
 
 $border-radius-lg: 0.5rem;
 
 @function vh($quantity) {
-	@return calc(var(--vh, 1vh) * #{$quantity})
+	@return calc(var(--vh, 1vh) * #{$quantity});
 }
 
 .hide-scrollbar {
 	-ms-overflow-style: none;
-	&::-webkit-scrollbar{
+
+	&::-webkit-scrollbar {
 		display: none;
 	}
 }

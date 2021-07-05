@@ -58,7 +58,7 @@ body {
 }
 
 .logo {
-	margin: 31px 0px;
+	margin: 31px 0;
 }
 
 .cursor-pointer {
@@ -124,7 +124,7 @@ body {
 	}
 
 	@media (min-width: $lg) {
-		margin: 1.0rem;
+		margin: 1rem;
 	}
 }
 
@@ -134,48 +134,7 @@ body {
 	flex-direction: column;
 }
 
-.sidebar-link {
-	div {
-		display: flex;
-		align-items: center;
-		margin: 10px 0px;
-
-		.ml-2 {
-			margin-left: 32px;
-			font-size: 18px;
-		}
-
-		&>img {
-			height: 24px;
-			width: 24px;
-			filter: brightness(180%);
-		}
-
-		&>span {
-			width: 85px;
-
-			&:hover {
-				color: $color-text-main;
-			}
-		}
-	}
-
-	padding: 0.5rem 1.25rem;
-	// margin: 0.5rem 1.5rem;
-	// max-width: 264px;
-
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-weight: 600;
-
-
-
-
-}
-
 .sidebar-btn {
-
 	background: $color-main;
 	color: $color-white;
 	margin: 0.5rem auto;
@@ -197,6 +156,42 @@ body {
 		transform: scale(1.1);
 		transition: 0.5s;
 	}
+}
+
+.sidebar-link {
+	div {
+		display: flex;
+		align-items: center;
+		margin: 10px 0;
+
+		.ml-2 {
+			margin-left: 32px;
+			font-size: 18px;
+		}
+
+		& > img {
+			height: 24px;
+			width: 24px;
+			filter: brightness(180%);
+		}
+
+		& > span {
+			width: 85px;
+
+			&:hover {
+				color: $color-text-main;
+			}
+		}
+	}
+
+	padding: 0.5rem 1.25rem;
+	// margin: 0.5rem 1.5rem;
+	// max-width: 264px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-weight: 600;
 }
 
 .sidebar-link.nuxt-link-exact-active {
@@ -300,7 +295,7 @@ body {
 		border-radius: 1rem;
 	}
 
-	&+& {
+	& + & {
 		margin-top: 0.5rem;
 
 		@media (min-width: $md) {
@@ -308,14 +303,14 @@ body {
 		}
 
 		@media (min-width: $lg) {
-			margin-top: 1.0rem;
+			margin-top: 1rem;
 		}
 	}
 }
 
 .menu-background {
 	height: vh(100);
-	background: rgba($color-text-main-grey, .5);
+	background: rgba($color-text-main-grey, 0.5);
 }
 
 .menu {
@@ -325,10 +320,11 @@ body {
 
 .menu-left {
 	@extend .menu;
+
 	left: 0;
 	color: $color-light-blue;
 	background: $color-text-main;
-	animation: slide-right .25s;
+	animation: slide-right 0.25s;
 }
 
 @keyframes slide-right {
@@ -343,10 +339,11 @@ body {
 
 .menu-right {
 	@extend .menu;
+
 	right: 0;
 	color: $color-text-main-grey;
 	background: $color-white;
-	animation: slide-left .25s;
+	animation: slide-left 0.25s;
 }
 
 @keyframes slide-left {

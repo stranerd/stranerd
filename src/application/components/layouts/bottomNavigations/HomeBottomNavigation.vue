@@ -60,40 +60,52 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-footer {
-	padding: 2rem 1rem;
-	@media (min-width: $md) { padding: 2.5rem; }
-	@media (min-width: $lg) { padding: 5rem; }
-	background: $color-footer-blue;
-	color: $color-text-main-white;
-}
-.content {
-	max-width: 1600px;
-	margin: 0 auto;
-	.links {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		grid-gap: 2rem 1rem;
-		@media (min-width: $lg) {
-			grid-template-columns: repeat(4, 1fr);
+	footer {
+		padding: 2rem 1rem;
+
+		@media (min-width: $md) { padding: 2.5rem; }
+
+		@media (min-width: $lg) { padding: 5rem; }
+
+		background: $color-footer-blue;
+		color: $color-text-main-white;
+	}
+
+	.content {
+		max-width: 1600px;
+		margin: 0 auto;
+
+		.links {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			grid-gap: 2rem 1rem;
+
+			@media (min-width: $lg) {
+				grid-template-columns: repeat(4, 1fr);
+			}
+
+			h4 {
+				font-weight: 600;
+				font-size: 1.125rem;
+
+				@media (min-width: $md) { font-size: 1.875rem; }
+				i { font-size: 16px; }
+			}
+
+			a {
+				display: block;
+				margin: 0.5rem 0;
+				font-size: 0.875rem;
+
+				@media (min-width: $md) { font-size: 1.5rem; }
+			}
 		}
-		h4 {
-			font-weight: 600;
-			font-size: 1.125rem;
-			@media (min-width: $md) { font-size: 1.875rem; }
-			i { font-size: 16px; }
-		}
-		a {
-			display: block;
-			margin: 0.5rem 0;
+
+		p {
+			margin: 2rem 0 0;
 			font-size: 0.875rem;
+
 			@media (min-width: $md) { font-size: 1.5rem; }
 		}
 	}
-	p {
-		margin: 2rem 0 0;
-		font-size: 0.875rem;
-		@media (min-width: $md) { font-size: 1.5rem; }
-	}
-}
 </style>

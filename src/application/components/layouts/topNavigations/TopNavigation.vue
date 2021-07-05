@@ -60,26 +60,32 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.links {
-	@media (min-width: $lg) {
-		padding: 1rem 0;
-		width: 100%;
-	}
-	.link {
-		display: flex;
-		align-items: center;
-		padding: 0 0.75rem;
-		& > img, /deep/ > img, /deep/ > span > img {
-			width: 24px;
-			height: 24px;
-		}
-		@media (min-width: $sm) {
-			padding: 0 1rem;
-		}
+	.links {
 		@media (min-width: $lg) {
-			padding: 0 2rem;
-			// border-left: 1px solid $color-blue;
+			padding: 1rem 0;
+			width: 100%;
+		}
+
+		.link {
+			display: flex;
+			align-items: center;
+			padding: 0 0.75rem;
+
+			& > img,
+			/deep/ > img,
+			/deep/ > span > img {
+				width: 24px;
+				height: 24px;
+			}
+
+			@media (min-width: $sm) {
+				padding: 0 1rem;
+			}
+
+			@media (min-width: $lg) {
+				padding: 0 2rem;
+				// border-left: 1px solid $color-blue;
+			}
 		}
 	}
-}
 </style>

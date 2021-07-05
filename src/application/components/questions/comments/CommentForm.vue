@@ -56,9 +56,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.form-control {
-	font-size: 1rem;
-	border: none !important;
-	box-shadow: none !important;
-}
+	.form-control {
+		font-size: 1rem;
+		border: none !important;
+		box-shadow: none !important;
+	}
 </style>

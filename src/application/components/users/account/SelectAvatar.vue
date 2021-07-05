@@ -37,27 +37,31 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.content {
-	display: flex;
-	align-items: center;
-	width: 100%;
-	img {
-		width: 60px;
-		height: 60px;
-		border-radius: 10rem;
-		flex-shrink: unset;
-		margin-right: 0.5rem;
-	}
-	.current {
-		width: 90px;
-		height: 90px;
-		border: 3px solid $color-text-main;
-	}
-	.others {
+	.content {
 		display: flex;
 		align-items: center;
-		overflow-x: auto;
-		@extend .hide-scrollbar;
+		width: 100%;
+
+		img {
+			width: 60px;
+			height: 60px;
+			border-radius: 10rem;
+			flex-shrink: unset;
+			margin-right: 0.5rem;
+		}
+
+		.current {
+			width: 90px;
+			height: 90px;
+			border: 3px solid $color-text-main;
+		}
+
+		.others {
+			display: flex;
+			align-items: center;
+			overflow-x: auto;
+
+			@extend .hide-scrollbar;
+		}
 	}
-}
 </style>

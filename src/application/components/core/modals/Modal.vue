@@ -59,23 +59,25 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.modal-background{
-	background: rgba($color-text-main, 0.9);
-}
-
-.modal-inner{
-	border-radius: 0.5rem;
-	background: $color-light-grey;
-	box-shadow: 0 4px 8px $color-black;
-	animation: slide-up 0.25s;
-}
-@media (min-width: $md){
-	.modal-inner{
-		border-radius: 1rem;
+	.modal-background {
+		background: rgba($color-text-main, 0.9);
 	}
-}
-@keyframes slide-up {
-	from { bottom: -100px; }
-	to { bottom: 0; }
-}
+
+	.modal-inner {
+		border-radius: 0.5rem;
+		background: $color-light-grey;
+		box-shadow: 0 4px 8px $color-black;
+		animation: slide-up 0.25s;
+	}
+
+	@media (min-width: $md) {
+		.modal-inner {
+			border-radius: 1rem;
+		}
+	}
+
+	@keyframes slide-up {
+		from { bottom: -100px; }
+		to { bottom: 0; }
+	}
 </style>

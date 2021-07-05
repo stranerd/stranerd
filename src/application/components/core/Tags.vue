@@ -7,11 +7,10 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 export default defineComponent({
-	name: 'ProgressBar',
+	name: 'Tags',
 	props: {
 		name: {
 			type: String,
-			default: 'Text',
 			required: true
 		}
 	}

@@ -93,28 +93,58 @@ export const Ranks :Record<RankTypes, Rank> = {
 	}
 }
 
-export const getRankProgress = (user: UserEntity) : Record<keyof Omit<Rank, 'id'> | 'total', number> => {
-	const rank = Ranks[user.account.rank]
-	const hostSession = getPercentage(user.account.meta.tutorSessions.length, rank.hostSession)
-	const bestAnswer = getPercentage(user.account.meta.bestAnswers.length, rank.bestAnswer)
-	const answerQuestion = getPercentage(user.account.meta.answers.length, rank.answerQuestion)
-	const attendSession = getPercentage(user.account.meta.sessions.length, rank.attendSession)
-	const askQuestion = getPercentage(user.account.meta.questions.length, rank.askQuestion)
-	const dailyLogin = getPercentage(user.account.streak.longestStreak, rank.dailyLogin)
-	const score = getPercentage(user.score, rank.score)
-	const ratings = getPercentage(user.averageRating, rank.ratings)
+const getPercentage = (num: number, den: number) => 100 * (catchDivideByZero(num, den) > 1 ? 1 : catchDivideByZero(num, den))
 
-	const total = [
-		hostSession, bestAnswer, answerQuestion, attendSession,
-		askQuestion, dailyLogin, score, ratings
-	].reduce((acc, cur, _, arr) => {
+export const getRankProgress = (user: UserEntity) => {
+	const rank = Ranks[user.account.rank]
+	const progresses = [] as { title: string, progress: number }[]
+
+	if (rank.askQuestion > 0) progresses.push({
+		title: `Ask ${rank.askQuestion} questions`,
+		progress: getPercentage(user.account.meta.questions.length, rank.askQuestion)
+	})
+	if (rank.answerQuestion > 0) progresses.push({
+		title: `Answer ${rank.answerQuestion} questions`,
+		progress: getPercentage(user.account.meta.answers.length, rank.answerQuestion)
+	})
+	if (rank.bestAnswer > 0) progresses.push({
+		title: `Get at least ${rank.bestAnswer} answers`,
+		progress: getPercentage(user.account.meta.bestAnswers.length, rank.bestAnswer)
+	})
+	if (rank.attendSession > 0) progresses.push({
+		title: `Attend ${rank.attendSession} sessions`,
+		progress: getPercentage(user.account.meta.sessions.length, rank.attendSession)
+	})
+	if (rank.hostSession > 0) progresses.push({
+		title: `Host ${rank.hostSession} sessions`,
+		progress: getPercentage(user.account.meta.tutorSessions.length, rank.hostSession)
+	})
+	if (rank.dailyLogin > 0) progresses.push({
+		title: `Complete ${rank.dailyLogin} days login`,
+		progress: getPercentage(user.account.streak.longestStreak, rank.dailyLogin)
+	})
+	if (rank.score > 0) progresses.push({
+		title: `Get a nerd score of ${rank.score}`,
+		progress: getPercentage(user.score, rank.score)
+	})
+	if (rank.ratings > 0) progresses.push({
+		title: `Maintain a rating of ${rank.ratings}`,
+		progress: getPercentage(user.averageRating, rank.ratings)
+	})
+
+	const overall = progresses.map((r) => r.progress).reduce((acc, cur, _, arr) => {
 		return acc + catchDivideByZero(cur, arr.length)
 	}, 0)
 
 	return {
-		hostSession, bestAnswer, answerQuestion, attendSession,
-		askQuestion, dailyLogin, score, ratings, total
+		progresses, overall,
+		next: getNextRank(rank.id)
 	}
 }
 
-const getPercentage = (num: number, den: number) => 100 * (catchDivideByZero(num, den) > 1 ? 1 : catchDivideByZero(num, den))
+const getNextRank = (rank: RankTypes) :Rank | null => {
+	const ranks = [RankTypes.Rookie, RankTypes.Comrade, RankTypes.Scholar, RankTypes.Einstein]
+	const index = ranks.findIndex((r) => r === rank)
+	const lastRank = ranks[index + 1]
+	return Ranks[lastRank] ?? null
+}

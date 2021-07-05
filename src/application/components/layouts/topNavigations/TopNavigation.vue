@@ -78,7 +78,7 @@ export default defineComponent({
 		}
 		@media (min-width: $lg) {
 			padding: 0 2rem;
-			border-left: 1px solid $color-text-main;
+			// border-left: 1px solid $color-blue;
 		}
 	}
 }

@@ -1,16 +1,20 @@
 <template>
-	<AisInstantSearch :search-client="searchClient" :index-name="collection">
-		<AisSearchBox>
+	<AisInstantSearch :search-client="searchClient" :index-name="collection" class="w-100">
+		<AisSearchBox class="w-100">
 			<template
 				slot="default"
 				slot-scope="{ currentRefinement, isSearchStalled, refine }"
 			>
-				<input
-					placeholder="Search for"
-					class="form-control"
-					:value="currentRefinement"
-					@input="(event) => { refine(event.currentTarget.value); log(event.currentTarget.value) }"
-				>
+				<div class="d-flex justify-content-between align-items-center">
+					<img src="@app/assets/images/icons/search.svg" alt="" class="img-search">
+					<input
+						placeholder="Search for anything..."
+						class="form-control search w-100"
+						:value="currentRefinement"
+						@input="(event) => { refine(event.currentTarget.value); log(event.currentTarget.value) }"
+					>
+				</div>
+
 				<PageLoading v-if="isSearchStalled" />
 			</template>
 			<i slot="submit-icon" class="fas fa-search text-blue" />
@@ -77,6 +81,23 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.img-search{
+	width: 21px;
+     position: relative;
+    left: 36px;
+}
+.AisSearchBox{
+	widows: 100%;
+}
+.search{
+	padding-left: 3rem;
+	border: 1.2px solid $color-line;
+	background-color: $color-tags;
+	height: 42px;
+	border-radius: 12px;
+	width: 100%;
+	color: $color-text-sub;
+}
 li {
 	border: none !important;
 	color: $color-text-main;

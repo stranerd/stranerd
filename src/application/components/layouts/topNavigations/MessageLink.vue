@@ -1,7 +1,6 @@
 <template>
 	<NuxtLink to="/messages" class="gap-">
 		<img src="@app/assets/images/icons/chat.svg" alt="">
-		<span class="me-auto">Chat</span>
 		<span v-if="unreadMessages > 0" class="bg-white text-blue rounded-pill d-inline-flex align-items-center justify-content-center" style="height: 1.25em; width:1.25em;">
 			{{ formatNumber(unreadMessages) }}
 		</span>

@@ -53,7 +53,9 @@ body {
 .logo{
 	margin: 31px 0px;
 }
-
+.cursor-pointer{
+	cursor: pointer;
+}
 .layout-body {
 	min-height: vh(100);
 	background: $color-light-grey;

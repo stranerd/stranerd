@@ -31,12 +31,12 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useAuth } from '@app/hooks/auth/auth'
+// import { useAuth } from '@app/hooks/auth/auth'
 export default defineComponent({
 	name: 'AchievementsList',
 	setup () {
-		const { ongoingAchievements } = useAuth()
-		return { ongoingAchievements }
+		// const { ongoingAchievements } = useAuth()
+		// return { ongoingAchievements }
 	}
 })
 </script>

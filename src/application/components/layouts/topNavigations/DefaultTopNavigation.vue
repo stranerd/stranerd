@@ -38,7 +38,7 @@ export default defineComponent({
 	components: { SearchBar, NotificationBell, MessageLink },
 	setup () {
 		const { isLoggedIn, user } = useAuth()
-		const show = ref(true)
+		const show = ref(false)
 		return { show, isLoggedIn, user }
 	}
 })

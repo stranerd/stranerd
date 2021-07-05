@@ -7,7 +7,8 @@
 					<span class="ml-2">Home</span>
 				</div>
 			</NuxtLink>
-			<NuxtLink class="sidebar-link" to="/questions">
+
+			<NuxtLink class="sidebar-link" to="/nerds">
 				<div>
 					<img src="@app/assets/images/icons/nerd.svg" alt="">
 					<span class="ml-2">Nerds</span>
@@ -20,12 +21,14 @@
 					<span class="ml-2">e-Wallet</span>
 				</div>
 			</NuxtLink>
+
 			<NuxtLink v-if="isAdmin" class="sidebar-link" to="/admin/">
 				<div>
 					<img src="@app/assets/images/icons/admin.svg" alt="">
 					<span class="ml-2">Admin Site</span>
 				</div>
 			</NuxtLink>
+			</nuxtlink>
 		</div>
 		<div class="sidebar-links">
 			<button class="sidebar-btn btn " @click="buy">
@@ -45,7 +48,6 @@ export default defineComponent({
 	setup () {
 		const { user, isAdmin } = useAuth()
 		const { loading, signout } = useSessionSignout()
-
 		const buy = () => {
 			useAccountModal().openBuyCoins()
 		}

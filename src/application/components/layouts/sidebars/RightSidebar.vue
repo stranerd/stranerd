@@ -103,7 +103,7 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { formatNumber } from '@utils/commons'
 import { formatTime } from '@utils/dates'
 import ProfileHeadCard from '@app/components/users/account/ProfileHeadCard.vue'
-import ProgressBar from '@app/components/core/progressBar.vue'
+import ProgressBar from '@app/components/core/ProgressBar.vue'
 import Tag from '@app/components/core/tags.vue'
 
 export default defineComponent({

@@ -6,7 +6,7 @@
 			<i class="fas fa-circle position-absolute" :class="tutor.isOnline ? 'text-success' : 'text-grey'" style="z-index: 1; right: 0; bottom: 0;" />
 		</NuxtLink>
 		<div class="flex-grow-1 d-flex flex-column flex-md-row align-self-start align-self-md-center">
-			<NuxtLink :to="`/users/${tutor.id}`" class="text-wrap text-break me-auto" style="font-weight: 600">
+			<NuxtLink :to="`/users/${tutor.id}`" class="text-wrap text-break me-auto" style="font-weight: 600;">
 				<span>{{ tutor.fullName }}</span>
 			</NuxtLink>
 			<div class="d-flex flex-column flex-md-row align-items-md-center gap-0-25 gap-md-1">

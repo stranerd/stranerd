@@ -22,5 +22,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-i { font-size: 1.125rem; }
+	i { font-size: 1.125rem; }
 </style>

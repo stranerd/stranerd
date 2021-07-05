@@ -6,27 +6,31 @@ body {
 	background-color: white !important;
 	// font-size: clamp(16px, calc(1rem + 20%), 30px) !important;
 }
-.btn-primary-outline{
+
+.btn-primary-outline {
 	border-radius: 6px;
-	border: 1px solid $color-tint-blue ;
+	border: 1px solid $color-tint-blue;
 	background-color: $color-white;
 	color: $color-tint-blue;
 	padding: 4px 32px;
 	box-sizing: border-box;
+
 	&:hover {
-		border: 3px solid $color-tint-blue ;
+		border: 3px solid $color-tint-blue;
 		background-color: $color-tint-blue;
 		color: $color-white;
 		transition: all 0.3s;
 	}
 }
-.btn-primary{
+
+.btn-primary {
 	border-radius: 6px;
-	border: 1px solid $color-tint-blue ;
+	border: 1px solid $color-tint-blue;
 	background-color: $color-tint-blue;
 	color: $color-white;
 	padding: 6px 32px;
 	box-sizing: border-box;
+
 	&:hover {
 		border: 1px solid $color-tint-blue !important;
 		background-color: $color-white;
@@ -34,28 +38,33 @@ body {
 		transition: all 0.3s;
 	}
 }
-.btn-secondary-outline{
+
+.btn-secondary-outline {
 	border-radius: 6px;
-	border: 1px solid $color-white ;
+	border: 1px solid $color-white;
 	background-color: $color-text-main;
 	color: $color-white;
 	padding: 4px 32px;
 	box-sizing: border-box;
 }
-.btn-secondary{
+
+.btn-secondary {
 	border-radius: 6px;
-	border: 1px solid $color-text-main ;
+	border: 1px solid $color-text-main;
 	background-color: $color-white;
 	color: $color-tint-blue;
 	padding: 6px 32px;
 	box-sizing: border-box;
 }
-.logo{
-	margin: 31px 0px;
+
+.logo {
+	margin: 31px 0;
 }
-.cursor-pointer{
+
+.cursor-pointer {
 	cursor: pointer;
 }
+
 .layout-body {
 	min-height: vh(100);
 	background: $color-light-grey;
@@ -71,7 +80,7 @@ body {
 	display: none;
 	background-color: $color-white;
 	max-width: 350px;
-		min-width: 250px;
+	min-width: 250px;
 	// padding: 0.5rem;
 
 	@media (min-width: $lg) {
@@ -115,7 +124,7 @@ body {
 	}
 
 	@media (min-width: $lg) {
-		margin: 1.0rem;
+		margin: 1rem;
 	}
 }
 
@@ -125,47 +134,11 @@ body {
 	flex-direction: column;
 }
 
-.sidebar-link {
-	div{
-		display: flex;
-		align-items: center;
-		margin: 10px 0px;
-		.ml-2{
-			margin-left: 32px;
-			font-size: 18px;
-		}
-		&>img {
-			height: 24px;
-			width: 24px;
-			filter: brightness(180%);
-		}
-		&>span {
-			width: 85px;
-			&:hover{
-				color: $color-text-main;
-			}
-		}
-		}
-	padding: 0.5rem 1.25rem;
-	// margin: 0.5rem 1.5rem;
-	// max-width: 264px;
-
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-weight: 600;
-
-
-
-
-}
-
 .sidebar-btn {
-
 	background: $color-main;
 	color: $color-white;
 	margin: 0.5rem auto;
-    padding: 1.1rem 0.25rem;
+	padding: 1.1rem 0.25rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -177,11 +150,48 @@ body {
 		height: 24px;
 		width: 24px;
 	}
-	&:hover{
+
+	&:hover {
 		color: $color-white;
 		transform: scale(1.1);
 		transition: 0.5s;
 	}
+}
+
+.sidebar-link {
+	div {
+		display: flex;
+		align-items: center;
+		margin: 10px 0;
+
+		.ml-2 {
+			margin-left: 32px;
+			font-size: 18px;
+		}
+
+		& > img {
+			height: 24px;
+			width: 24px;
+			filter: brightness(180%);
+		}
+
+		& > span {
+			width: 85px;
+
+			&:hover {
+				color: $color-text-main;
+			}
+		}
+	}
+
+	padding: 0.5rem 1.25rem;
+	// margin: 0.5rem 1.5rem;
+	// max-width: 264px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-weight: 600;
 }
 
 .sidebar-link.nuxt-link-exact-active {
@@ -199,8 +209,8 @@ body {
 .top-nav {
 	display: flex;
 	align-items: center;
-	background:  $color-text-main;
-	color:$color-white;
+	background: $color-text-main;
+	color: $color-white;
 	padding: 0.5rem 0.75rem;
 	min-height: 60px;
 
@@ -231,10 +241,12 @@ body {
 			background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='darkblue' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
 		}
 	}
+
 	button.navbar-toggler {
 		padding: 0.5rem;
 		border-radius: 0;
 		color: $color-white;
+
 		@media (min-width: $lg) {
 			display: none;
 		}
@@ -246,11 +258,15 @@ body {
 
 	@media (min-width: $lg) {
 		margin: 0;
-		background:  $color-text-main;
-		color:$color-white;
+		background: $color-text-main;
+		color: $color-white;
 		border-radius: 0;
 		padding: 0.5rem 0.75rem;
-		button.navbar-toggler { display: unset; }
+
+		button.navbar-toggler {
+			display: unset;
+		}
+
 		.link {
 			img.filter {
 				filter: brightness(250%);
@@ -279,7 +295,7 @@ body {
 		border-radius: 1rem;
 	}
 
-	&+& {
+	& + & {
 		margin-top: 0.5rem;
 
 		@media (min-width: $md) {
@@ -287,38 +303,55 @@ body {
 		}
 
 		@media (min-width: $lg) {
-			margin-top: 1.0rem;
+			margin-top: 1rem;
 		}
 	}
 }
 
 .menu-background {
 	height: vh(100);
-	background: rgba($color-text-main-grey, .5);
+	background: rgba($color-text-main-grey, 0.5);
 }
+
 .menu {
 	box-shadow: 3px 0 12px rgba($color-black, 1);
 	width: clamp(275px, 75%, 350px);
 }
+
 .menu-left {
 	@extend .menu;
+
 	left: 0;
 	color: $color-light-blue;
 	background: $color-text-main;
-	animation: slide-right .25s;
+	animation: slide-right 0.25s;
 }
+
 @keyframes slide-right {
-	from { left: -100px; }
-	to { left: 0; }
+	from {
+		left: -100px;
+	}
+
+	to {
+		left: 0;
+	}
 }
+
 .menu-right {
 	@extend .menu;
+
 	right: 0;
 	color: $color-text-main-grey;
 	background: $color-white;
-	animation: slide-left .25s;
+	animation: slide-left 0.25s;
 }
+
 @keyframes slide-left {
-	from { right: -100px; }
-	to { right: 0; }
+	from {
+		right: -100px;
+	}
+
+	to {
+		right: 0;
+	}
 }

@@ -173,212 +173,265 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.hero {
-	min-height: calc(50vh - 60px);
-	display: flex;
-	flex-direction: column;
-	padding: 2rem;
-	@media (min-width: $md) {
-		flex-direction: row;
-		align-items: center;
-		padding: 4rem;
-	}
-	@media (min-width: $lg) {
-		padding: 6rem;
-		min-height: calc(90vh - 60px);
-	}
-	.text-con{
-		p { margin-bottom: 0.5rem; }
-		h1 { font-size: 1.5rem; }
-		h4 { font-size: 1.125rem; }
-		p { font-size: 1rem; }
-		a { font-size: 1rem; }
-		@media (min-width) {
-			h1 { font-size: 1.5rem; }
-		}
-		@media (min-width: $lg) {
-			h1 { font-size: 2.5rem; }
-			h4 { font-size: 1.875rem; }
-			p { font-size: 1.5rem; }
-			a { font-size: 1.5rem; }
-		}
-	}
-}
-
-.sectionTwo {
-	display: flex;
-	align-items: center;
-	background: $color-text-main;
-	flex-direction: column-reverse;
-	padding: 2rem 2rem 0;
-	@media (min-width: $md) {
-		flex-direction: row;
-		padding: 4rem 4rem 0;
-	}
-	@media (min-width: $lg) {
-		padding: 6rem 6rem 0;
-	}
-	.details{
-		flex-grow: 1;
-		display: flex;
-		justify-content: center;
-		flex-direction: column;
-		@media (min-width: $lg) {
-			flex-direction: row;
-			align-items: center;
-		}
-		p {
-			margin: 0;
-			color: $color-white;
-			font-size: 1.5rem;
-			span.num{
-				font-size: 4rem;
-				line-height: 4rem;
-			}
-			@media (min-width: $lg) {
-				font-size: 2rem;
-				span.num {
-					font-size: 7.5rem;
-					line-height: 7.5rem;
-				}
-			}
-		}
-	}
-	.phone-img {
-		flex: 35%;
-	}
-	.tick {
-		width: 96px;
-		height: 96px;
-		@media (min-width: $lg) {
-			width: 260px;
-			height: 260px;
-		}
-	}
-}
-
-.thin { height: 1.5px; }
-
-.sectionThird {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding: 2rem;
-	@media (min-width: $md) {
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: flex-start;
-		padding: 3rem;
-		margin: 0 auto;
-	}
-	@media (min-width: $lg) { padding: 5rem; }
-	article {
-		@media (min-width: $md) { max-width: 30%; }
-		flex-grow: 1;
-		text-align: center;
-		img {
-			margin-bottom: 0.5rem;
-			width: 90px;
-			height: 90px;
-		}
-		h5 {
-			font-size: 1.25rem;
-			@media (min-width: $lg) { font-size: 1.875rem; }
-		}
-		p {
-			max-width: 40ch;
-			font-size: 1rem;
-			@media (min-width: $md) { font-size: 1.125rem; }
-		}
-	}
-}
-
-.sectionFourth {
-	display: flex;
-	flex-direction: column;
-	padding: 2rem;
-	@media (min-width: $md) { padding: 3rem; }
-	@media (min-width: $lg) { padding: 5rem; }
-	& > .d-flex {
-		flex-direction: column;
-		align-items: center;
-		& > * { flex: 1; }
-		.images {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			@media (min-width: $md) { flex-direction: row; }
-		}
-	}
-	h2 {
-		font-size: 1.875rem;
-		@media (min-width: $md) { font-size: 3rem; }
-	}
 	p {
-		font-size: 1rem !important;
-		@media (min-width: $md) { font-size: 1.5rem !important; }
-	}
-}
-
-.sectionFifth {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	background: $color-text-main;
-	color: $color-white;
-	min-height: 300px;
-	padding: 1rem;
-	@media (min-width: $md) { padding: 2.5rem; }
-	@media (min-width: $lg) { padding: 5rem; }
-	h4{
-		margin: 0 0 1rem;
-		font-weight: normal !important;
+		margin-bottom: 0;
 		font-size: 1.125rem;
+
+		@media (min-width: $md) { font-size: 1.875rem; }
+	}
+
+	h1 {
+		font-size: 2.25rem;
+
+		@media (min-width: $md) { font-size: 3rem; }
+
+		@media (min-width: $lg) { font-size: 4rem; }
+	}
+
+	h2 {
+		font-weight: 400 !important;
+		font-size: 1.5rem;
+
 		@media (min-width: $md) { font-size: 2.25rem; }
+
 		@media (min-width: $lg) { font-size: 3rem; }
 	}
 
-	.btn-secondary{
-		font-size: 2rem;
-		padding: 13px 85px;
-		@media (max-width: $sm) {
+	.hero {
+		min-height: calc(50vh - 60px);
+		display: flex;
+		flex-direction: column;
+		padding: 2rem;
 
-			font-size: 1rem;
-			padding: 13px 30px;
+		@media (min-width: $md) {
+			flex-direction: row;
+			align-items: center;
+			padding: 4rem;
+		}
+
+		@media (min-width: $lg) {
+			padding: 6rem;
+			min-height: calc(90vh - 60px);
+		}
+
+		.text-con {
+			p {
+				margin-bottom: 0.5rem;
+				font-size: 1rem;
+			}
+			h1 { font-size: 1.5rem; }
+			h4 { font-size: 1.125rem; }
+			a { font-size: 1rem; }
+
+			@media (min-width) {
+				h1 { font-size: 1.5rem; }
+			}
+
+			@media (min-width: $lg) {
+				h1 { font-size: 2.5rem; }
+				h4 { font-size: 1.875rem; }
+				p { font-size: 1.5rem; }
+				a { font-size: 1.5rem; }
+			}
 		}
 	}
-}
 
-.sectionSixth{
-	display: flex;
-	flex-direction: column;
-	padding: 1rem;
-	@media (min-width: $md) { padding: 2.5rem; }
-	@media (min-width: $lg) { padding: 5rem; }
-	img {
-		width: 32px;
-	}
-	i {
-		font-size: 42px;
-		@media (min-width: $md) { font-size: 84px; }
-	}
-}
+	.sectionTwo {
+		display: flex;
+		align-items: center;
+		background: $color-text-main;
+		flex-direction: column-reverse;
+		padding: 2rem 2rem 0;
 
-p {
-	margin-bottom: 0;
-	font-size: 1.125rem;
-	@media (min-width: $md) { font-size: 1.875rem; }
-}
-h1 {
-	font-size: 2.25rem;
-	@media (min-width: $md) { font-size: 3rem; }
-	@media (min-width: $lg) { font-size: 4rem; }
-}
-h2 {
-	font-weight: 400 !important;
-	font-size: 1.5rem;
-	@media (min-width: $md) { font-size: 2.25rem; }
-	@media (min-width: $lg) { font-size: 3rem; }
-}
+		@media (min-width: $md) {
+			flex-direction: row;
+			padding: 4rem 4rem 0;
+		}
+
+		@media (min-width: $lg) {
+			padding: 6rem 6rem 0;
+		}
+
+		.details {
+			flex-grow: 1;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+
+			@media (min-width: $lg) {
+				flex-direction: row;
+				align-items: center;
+			}
+
+			p {
+				margin: 0;
+				color: $color-white;
+				font-size: 1.5rem;
+
+				span.num {
+					font-size: 4rem;
+					line-height: 4rem;
+				}
+
+				@media (min-width: $lg) {
+					font-size: 2rem;
+
+					span.num {
+						font-size: 7.5rem;
+						line-height: 7.5rem;
+					}
+				}
+			}
+		}
+
+		.phone-img {
+			flex: 35%;
+		}
+
+		.tick {
+			width: 96px;
+			height: 96px;
+
+			@media (min-width: $lg) {
+				width: 260px;
+				height: 260px;
+			}
+		}
+	}
+
+	.thin { height: 1.5px; }
+
+	.sectionThird {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 2rem;
+
+		@media (min-width: $md) {
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: flex-start;
+			padding: 3rem;
+			margin: 0 auto;
+		}
+
+		@media (min-width: $lg) { padding: 5rem; }
+
+		article {
+			@media (min-width: $md) { max-width: 30%; }
+
+			flex-grow: 1;
+			text-align: center;
+
+			img {
+				margin-bottom: 0.5rem;
+				width: 90px;
+				height: 90px;
+			}
+
+			h5 {
+				font-size: 1.25rem;
+
+				@media (min-width: $lg) { font-size: 1.875rem; }
+			}
+
+			p {
+				max-width: 40ch;
+				font-size: 1rem;
+
+				@media (min-width: $md) { font-size: 1.125rem; }
+			}
+		}
+	}
+
+	.sectionFourth {
+		display: flex;
+		flex-direction: column;
+		padding: 2rem;
+
+		@media (min-width: $md) { padding: 3rem; }
+
+		@media (min-width: $lg) { padding: 5rem; }
+
+		& > .d-flex {
+			flex-direction: column;
+			align-items: center;
+			& > * { flex: 1; }
+
+			.images {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+
+				@media (min-width: $md) { flex-direction: row; }
+			}
+		}
+
+		h2 {
+			font-size: 1.875rem;
+
+			@media (min-width: $md) { font-size: 3rem; }
+		}
+
+		p {
+			font-size: 1rem !important;
+
+			@media (min-width: $md) { font-size: 1.5rem !important; }
+		}
+	}
+
+	.sectionFifth {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		background: $color-text-main;
+		color: $color-white;
+		min-height: 300px;
+		padding: 1rem;
+
+		@media (min-width: $md) { padding: 2.5rem; }
+
+		@media (min-width: $lg) { padding: 5rem; }
+
+		h4 {
+			margin: 0 0 1rem;
+			font-weight: normal !important;
+			font-size: 1.125rem;
+
+			@media (min-width: $md) { font-size: 2.25rem; }
+
+			@media (min-width: $lg) { font-size: 3rem; }
+		}
+
+		.btn-secondary {
+			font-size: 2rem;
+			padding: 13px 85px;
+
+			@media (max-width: $sm) {
+				font-size: 1rem;
+				padding: 13px 30px;
+			}
+		}
+	}
+
+	.sectionSixth {
+		display: flex;
+		flex-direction: column;
+		padding: 1rem;
+
+		@media (min-width: $md) { padding: 2.5rem; }
+
+		@media (min-width: $lg) { padding: 5rem; }
+
+		img {
+			width: 32px;
+		}
+
+		i {
+			font-size: 42px;
+
+			@media (min-width: $md) { font-size: 84px; }
+		}
+	}
 </style>

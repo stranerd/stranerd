@@ -5,16 +5,16 @@ export const isProd = process.env.ENVIRONMENT === 'production'
 export const isServer = () => process.server
 export const isClient = () => process.client
 
-const config = JSON.parse(process.env.FIREBASE_CLIENT_CONFIG ?? '{}')
+const firebase = JSON.parse(process.env.FIREBASE_CLIENT_CONFIG ?? '{}')
 export const firebaseConfig = {
-	apiKey: config.api_key,
-	authDomain: config.auth_domain,
-	databaseURL: config.database_url,
-	projectId: config.project_id,
-	storageBucket: config.storage_bucket,
-	messagingSenderId: config.messaging_sender_id,
-	appId: config.app_id,
-	measurementId: config.measurement_id
+	apiKey: firebase.api_key,
+	authDomain: firebase.auth_domain,
+	databaseURL: firebase.database_url,
+	projectId: firebase.project_id,
+	storageBucket: firebase.storage_bucket,
+	messagingSenderId: firebase.messaging_sender_id,
+	appId: firebase.app_id,
+	measurementId: firebase.measurement_id
 }
 
 const algolia = JSON.parse(process.env.ALGOLIA ?? '{}')
@@ -47,5 +47,3 @@ export const email = Object.fromEntries(
 
 export const domain = `http${!isDev ? 's' : ''}://${process.env.DOMAIN}${isDev ? `:${process.env.PORT}` : ''}`
 export const logo = `${domain}/images/stranerd_logo.svg`
-
-export const currency = 'USD'

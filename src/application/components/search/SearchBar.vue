@@ -33,37 +33,41 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-form {
-	flex-grow: 1;
-	display: flex;
-	align-items: center;
-	font-size: 0.9rem;
-	/deep/ input {
-		color: inherit;
-		border: none;
-		outline: none;
-		box-shadow: none;
-		min-height: unset;
-		padding: 0 0.5rem;
-	}
-	/deep/ input:focus {
-		color:inherit;
-		box-shadow: none;
-	}
-	select {
-		width: auto;
-		background-color: inherit;
-		border: none;
-		padding: 0.25em 1.75em 0.25em 0.25em;
-		color: inherit;
-	}
+	form {
+		flex-grow: 1;
+		display: flex;
+		align-items: center;
+		font-size: 0.9rem;
 
-	select:focus {
-		box-shadow: none;
-		option {
-			background: $color-text-main;
-			color: $color-white;
+		/deep/ input {
+			color: inherit;
+			border: none;
+			outline: none;
+			box-shadow: none;
+			min-height: unset;
+			padding: 0 0.5rem;
+		}
+
+		/deep/ input:focus {
+			color: inherit;
+			box-shadow: none;
+		}
+
+		select {
+			width: auto;
+			background-color: inherit;
+			border: none;
+			padding: 0.25em 1.75em 0.25em 0.25em;
+			color: inherit;
+		}
+
+		select:focus {
+			box-shadow: none;
+
+			option {
+				background: $color-text-main;
+				color: $color-white;
+			}
 		}
 	}
-}
 </style>

@@ -66,45 +66,56 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '../../../assets/styles/layouts.scss';
-.grid{
-	display: grid;
-	grid-template-columns: repeat(1, 1fr);
-	grid-gap: 0.5rem;
-	@media (min-width: $sm) {
-		grid-template-columns: repeat(2, 1fr);
+	@import '../../../assets/styles/layouts.scss';
+
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(1, 1fr);
+		grid-gap: 0.5rem;
+
+		@media (min-width: $sm) {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		@media (min-width: 1050px) {
+			grid-template-columns: repeat(4, 1fr);
+		}
+
+		@media (min-width: $lg) {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		@media (min-width: 1682px) {
+			grid-template-columns: repeat(4, 1fr);
+		}
 	}
-	@media (min-width: 1050px) {
-		grid-template-columns: repeat(4, 1fr);
+
+	.page-card {
+		margin-top: 0 !important;
+
+		@extend .page-content;
+
+		display: flex;
+		justify-content: space-between;
+		padding: 2rem;
+
+		.card-title {
+			display: block;
+			margin: 0;
+			font-size: 1.5rem;
+		}
+
+		.card-sub {
+			display: block;
+			font-weight: bold;
+			margin: 0;
+			font-size: 3rem;
+		}
+
+		img {
+			width: 100px;
+			height: 100px;
+			margin: 0 0 0 0.5rem;
+		}
 	}
-	@media (min-width: $lg) {
-		grid-template-columns: repeat(2, 1fr);
-	}
-	@media (min-width: 1682px) {
-		grid-template-columns: repeat(4, 1fr);
-	}
-}
-.page-card {
-	margin-top: 0 !important;
-	@extend .page-content;
-	display: flex;
-	justify-content: space-between;
-	padding: 2rem;
-	.card-title {
-		display: block;
-		margin: 0;
-		font-size: 1.5rem;
-	}
-	.card-sub {
-		display: block;
-		font-weight: bold;
-		margin: 0;
-		font-size: 3rem;
-	}
-	img {
-		width: 100px;
-		height: 100px;
-		margin: 0 0 0 0.5rem;
-	}
-}
 </style>

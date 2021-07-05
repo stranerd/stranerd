@@ -22,7 +22,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-	.center{
+	.center {
 		background: rgba($color-white, 0.6);
 		position: fixed;
 		left: 0;

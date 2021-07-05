@@ -7,7 +7,6 @@
 			payment_options="card,ussd"
 			redirect_url=""
 			class="btn btn-primary btn-lg mx-auto"
-			style=""
 			:meta="{
 				consumer_id: user && user.id
 			}"

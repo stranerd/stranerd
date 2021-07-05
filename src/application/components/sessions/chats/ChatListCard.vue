@@ -45,23 +45,25 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.chat{
-	min-width: 6rem;
-	max-width: 75%;
-	padding: 0.25rem 0.75rem;
-	margin: 0.25rem 0;
-	display: flex;
-	flex-direction: column;
-}
-.is-mine{
-	border-radius: 0.6rem 0.6rem 0 0.6rem;
-	background: #C1D2E3;
-	color: $color-text-main;
-	margin-left: auto;
-}
-.is-not-mine{
-	border-radius: 0 0.6rem 0.6rem 0.6rem;
-	background: #5D94CC;
-	color: $color-light-blue;
-}
+	.chat {
+		min-width: 6rem;
+		max-width: 75%;
+		padding: 0.25rem 0.75rem;
+		margin: 0.25rem 0;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.is-mine {
+		border-radius: 0.6rem 0.6rem 0 0.6rem;
+		background: #c1d2e3;
+		color: $color-text-main;
+		margin-left: auto;
+	}
+
+	.is-not-mine {
+		border-radius: 0 0.6rem 0.6rem 0.6rem;
+		background: #5d94cc;
+		color: $color-light-blue;
+	}
 </style>

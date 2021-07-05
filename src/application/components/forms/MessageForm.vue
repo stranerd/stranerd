@@ -52,9 +52,10 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-input, textarea {
-	padding: 7px 12px;
-	border: 2px solid $color-text-main-white;
-	border-radius: 6px;
-}
+	input,
+	textarea {
+		padding: 7px 12px;
+		border: 2px solid $color-text-main-white;
+		border-radius: 6px;
+	}
 </style>

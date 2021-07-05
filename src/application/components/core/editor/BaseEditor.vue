@@ -80,37 +80,42 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.quillWrapper {
-	background: $color-white;
-	box-sizing: border-box;
-	position: relative;
-	display: flex;
-	flex-direction: column;
-	font-family: Ubuntu, Roboto, sans-serif !important;
-	.ql-toolbar {
+	.quillWrapper {
+		background: $color-white;
+		box-sizing: border-box;
+		position: relative;
 		display: flex;
-		flex-wrap: nowrap;
-		overflow-x: auto;
-		overflow-y: hidden;
-		font-family: inherit !important;
-		padding: 4px 0 !important;
-		.ql-formats {
+		flex-direction: column;
+		font-family: Ubuntu, Roboto, sans-serif !important;
+
+		.ql-toolbar {
 			display: flex;
-			padding: 8px;
-			margin: 0 !important;
-			.ql-expanded {
-				position: static;
-				.ql-picker-options {
-					min-width: 0;
-					top: 0;
-					left: 0;
-					position: absolute;
+			flex-wrap: nowrap;
+			overflow-x: auto;
+			overflow-y: hidden;
+			font-family: inherit !important;
+			padding: 4px 0 !important;
+
+			.ql-formats {
+				display: flex;
+				padding: 8px;
+				margin: 0 !important;
+
+				.ql-expanded {
+					position: static;
+
+					.ql-picker-options {
+						min-width: 0;
+						top: 0;
+						left: 0;
+						position: absolute;
+					}
 				}
 			}
-		}
-		.ql-formats + .ql-formats {
-			border-left: 1px solid $color-black;
+
+			.ql-formats + .ql-formats {
+				border-left: 1px solid $color-black;
+			}
 		}
 	}
-}
 </style>

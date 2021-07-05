@@ -56,25 +56,28 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.line {
-	display: flex;
-	align-items: center;
-	margin-bottom: 0.5rem;
-	font-weight: 600;
-	img {
-		width: 40px;
-		height: 40px;
-		margin-right: 0.5rem;
+	.line {
+		display: flex;
+		align-items: center;
+		margin-bottom: 0.5rem;
+		font-weight: 600;
+
+		img {
+			width: 40px;
+			height: 40px;
+			margin-right: 0.5rem;
+		}
+
+		span {
+			font-size: 1.25rem;
+			margin-right: 0.5rem;
+		}
+
+		button {
+			margin-left: auto;
+			padding: 0.25rem 3rem;
+			border-radius: 10rem;
+			min-width: 210px;
+		}
 	}
-	span {
-		font-size: 1.25rem;
-		margin-right: 0.5rem;
-	}
-	button {
-		margin-left: auto;
-		padding: 0.25rem 3rem;
-		border-radius: 10rem;
-		min-width: 210px;
-	}
-}
 </style>

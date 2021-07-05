@@ -36,46 +36,52 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.sd-modal-background{
-	position: fixed;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	display: flex;
-	z-index: 1050;
-	.sd-modal-under{
-		width: 100%;
-		height: 100%;
-		position: absolute;
+	.sd-modal-background {
+		position: fixed;
 		left: 0;
+		right: 0;
 		top: 0;
-	}
-	.sd-modal-inner {
-		width: 100%;
-		margin: auto;
-		max-height: 99.9%;
-		max-width: 800px;
-		padding: 0.5rem;
-		border-radius: 0.5rem;
-		z-index: 1;
-		overflow-y: auto;
-		-ms-overflow-style: none;
-		&::-webkit-scrollbar{
-			display: none;
+		bottom: 0;
+		display: flex;
+		z-index: 1050;
+
+		.sd-modal-under {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			left: 0;
+			top: 0;
 		}
-		position: relative;
-	}
-	@media (min-width: $sm){
-		.sd-modal-inner{
-			padding: 1rem;
-			width: 95%;
+
+		.sd-modal-inner {
+			width: 100%;
+			margin: auto;
+			max-height: 99.9%;
+			max-width: 800px;
+			padding: 0.5rem;
+			border-radius: 0.5rem;
+			z-index: 1;
+			overflow-y: auto;
+			-ms-overflow-style: none;
+
+			&::-webkit-scrollbar {
+				display: none;
+			}
+
+			position: relative;
+		}
+
+		@media (min-width: $sm) {
+			.sd-modal-inner {
+				padding: 1rem;
+				width: 95%;
+			}
+		}
+
+		@media (min-width: $md) {
+			.sd-modal-inner {
+				width: 90%;
+			}
 		}
 	}
-	@media (min-width: $md){
-		.sd-modal-inner{
-			width: 90%;
-		}
-	}
-}
 </style>

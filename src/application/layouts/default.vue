@@ -27,12 +27,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.content {
-	margin: 0 auto;
-	width: 100%;
-	max-width: $lg;
-	flex-grow: 1;
-	display: flex;
-	flex-direction: column;
-}
+	.content {
+		margin: 0 auto;
+		width: 100%;
+		max-width: $lg;
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+	}
 </style>

@@ -7,7 +7,7 @@
 			</div>
 			<div class="d-flex justify-content-between text-truncate gap-0-5">
 				<p class="mb-0 text-truncate">
-					<span v-if="meta.unRead.length > 0" class="bg-blue text-white rounded-pill d-inline-flex align-items-center justify-content-center" style="height: 1.25em; width:1.25em;">
+					<span v-if="meta.unRead.length > 0" class="bg-blue text-white rounded-pill d-inline-flex align-items-center justify-content-center" style="height: 1.25em; width: 1.25em;">
 						<span>{{ meta.unRead.length }}</span>
 					</span>
 					<i v-if="meta.last.isMedia" class="fas fa-paperclip mx-0-25" />
@@ -37,17 +37,18 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-a {
-	padding: 0.5rem;
-	display: flex;
-	align-items: flex-start;
-	border-radius: 1rem;
-}
-a:hover {
-	transform: none;
-	font-size: inherit;
-	color: inherit;
-	text-decoration: none;
-	background: darken($color-light-blue, 2);
-}
+	a {
+		padding: 0.5rem;
+		display: flex;
+		align-items: flex-start;
+		border-radius: 1rem;
+	}
+
+	a:hover {
+		transform: none;
+		font-size: inherit;
+		color: inherit;
+		text-decoration: none;
+		background: darken($color-light-blue, 2);
+	}
 </style>

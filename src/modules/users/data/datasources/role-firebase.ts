@@ -6,10 +6,6 @@ export class RoleFirebaseDataSource implements RoleBaseDataSource {
 		return await FunctionsService.call('toggleAdmin', data)
 	}
 
-	async toggleTutor (data: { id: string, isTutor: boolean }) {
-		return await FunctionsService.call('toggleTutor', data)
-	}
-
 	async subscribeToMailingList (data: { email: string }) {
 		return await FunctionsService.call('subscribeToMailingList', data)
 	}

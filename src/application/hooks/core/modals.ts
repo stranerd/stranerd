@@ -5,7 +5,6 @@ import CreateQuestion from '@app/components/modals/create/CreateQuestion.vue'
 import CreateAnswer from '@app/components/modals/create/CreateAnswer.vue'
 import EditSubject from '@app/components/modals/edit/EditSubject.vue'
 import EditAccountProfile from '@app/components/modals/edit/EditAccountProfile.vue'
-import EditTutorSubjects from '@app/components/modals/edit/EditTutorSubjects.vue'
 import MakePayment from '@app/components/modals/payments/MakePayment.vue'
 import BuyCoins from '@app/components/modals/account/AccountBuyCoins.vue'
 import TipTutor from '@app/components/modals/account/AccountTipTutor.vue'
@@ -23,14 +22,14 @@ import Unknown from '@app/components/modals/sessions/SessionUnknown.vue'
 import Ratings from '@app/components/modals/sessions/SessionRatings.vue'
 
 type CreateTypes = 'Subject' | 'Question' | 'Answer'
-type EditTypes = 'Subject' | 'AccountProfile' | 'TutorSubjects'
+type EditTypes = 'Subject' | 'AccountProfile'
 type AccountTypes = 'BuyCoins' | 'TipTutor' | 'ReportUser' | 'MeetTutor'
 type MenuTypes = 'RightSidebar' | 'AdminSidebar' | 'Sidebar'
 type SessionTypes = 'CreateSession' | 'NewSessionRequest' | 'StudentCancelled' | 'StudentWaiting' | 'TutorCancelled' | 'Unknown' | 'Ratings'
 type PaymentTypes = 'MakePayment'
 
 const CreateModals = { Subject: CreateSubject, Question: CreateQuestion, Answer: CreateAnswer } as Record<CreateTypes, any>
-const EditModals = { Subject: EditSubject, AccountProfile: EditAccountProfile, TutorSubjects: EditTutorSubjects } as Record<EditTypes, any>
+const EditModals = { Subject: EditSubject, AccountProfile: EditAccountProfile } as Record<EditTypes, any>
 const AccountModals = { BuyCoins, TipTutor, ReportUser, MeetTutor } as Record<AccountTypes, any>
 const MenuModals = { RightSidebar, AdminSidebar, Sidebar } as Record<MenuTypes, any>
 const SessionModals = { CreateSession, NewSessionRequest, StudentCancelled, StudentWaiting, TutorCancelled, Unknown, Ratings } as Record<SessionTypes, any>

@@ -5,13 +5,14 @@ import { isProduction } from './helpers/environment'
 import { deleteFromAlgolia } from './helpers/algolia'
 
 export const authUserCreated = functions.auth.user().onCreate(async (user) => {
-	const data: any = {
+	const data = {
 		'bio/email': user.email,
 		'bio/isNew': true,
-		'roles/isStudent': true,
 		'dates/signedUpAt': admin.database.ServerValue.TIMESTAMP,
 		'account/coins/bronze': admin.database.ServerValue.increment(100),
-		'account/meta/longestStreak': 1,
+		'account/ratings/total': 0,
+		'account/ratings/count': 0,
+		'account/streak/longestStreak': 1,
 		'account/streak/count': 1,
 		'account/streak/lastCheck': admin.database.ServerValue.TIMESTAMP
 	}

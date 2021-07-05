@@ -1,11 +1,6 @@
-import { computed, reactive, ssrRef, toRefs, useFetch } from '@nuxtjs/composition-api'
-import {
-	AddTutorSubject, FindUser, GetAllTutors, GetUsersByEmail, ListenToTutors,
-	MakeTutor, RemoveTutor, RemoveTutorSubject, UserEntity
-} from '@modules/users'
-import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
-import { Alert } from '@app/hooks/core/notifications'
-import { useEditModal } from '@app/hooks/core/modals'
+import { computed, ssrRef, useFetch } from '@nuxtjs/composition-api'
+import { GetTutorsByRatings, ListenToTutorsByRatings, UserEntity } from '@modules/users'
+import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 
 const global = {
 	tutors: ssrRef([] as UserEntity[]),
@@ -15,181 +10,32 @@ const global = {
 	...useLoadingHandler()
 }
 
-const pushToTutorsList = (tutor: UserEntity) => {
-	const index = global.tutors.value.findIndex((t) => t.id === tutor.id)
-	if (index !== -1) global.tutors.value.splice(index, 1, tutor)
-	else global.tutors.value.push(tutor)
-}
-
-const unshiftToTutorsList = (tutor: UserEntity) => {
-	const index = global.tutors.value.findIndex((t) => t.id === tutor.id)
-	if (index !== -1) global.tutors.value.splice(index, 1, tutor)
-	else global.tutors.value.unshift(tutor)
-}
-
 export const useTutorsList = () => {
 	const fetchTutors = async () => {
 		global.setError('')
 		try {
 			global.setLoading(true)
-			const tutors = await GetAllTutors.call()
-			tutors.forEach(pushToTutorsList)
+			global.tutors.value = (await GetTutorsByRatings.call()).reverse()
 			global.fetched.value = true
 		} catch (error) { global.setError(error) }
 		global.setLoading(false)
 	}
-	const tutors = computed({
-		get: () => global.tutors.value.sort((first, second) => {
-			if (first.orderRating > second.orderRating) return -1
-			else if (first.orderRating < second.orderRating) return 1
-			else if (first.ratingCount > second.ratingCount) return -1
-			else if (first.ratingCount < second.ratingCount) return 1
-			else return 0
-		}), set: (tutors) => { tutors.map(pushToTutorsList) }
-	})
 	const filteredTutors = computed({
-		get: () => tutors.value.filter((tutor) => {
+		get: () => global.tutors.value.filter((tutor) => {
 			let matched = true
 			if (global.subjectId.value && tutor.subject?.id !== global.subjectId.value) matched = false
 			return matched
 		}),
-		set: (tutors) => { tutors.map(pushToTutorsList) }
+		set: (tutors) => { global.tutors.value = tutors }
 	})
 	const listener = useListener(async () => {
-		const appendTutors = (tutors: UserEntity[]) => { tutors.map(unshiftToTutorsList) }
-		return await ListenToTutors.call(appendTutors)
+		const appendTutors = (tutors: UserEntity[]) => { global.tutors.value = tutors.reverse() }
+		return await ListenToTutorsByRatings.call(appendTutors)
 	})
 
 	useFetch(async () => {
 		if (!global.fetched.value && !global.loading.value) await fetchTutors()
 	})
 
-	return { ...global, tutors, listener, filteredTutors }
-}
-
-export const useTutorRoles = () => {
-	const state = reactive({
-		fetched: false,
-		email: '',
-		users: [] as UserEntity[]
-	})
-	const { error, setError } = useErrorHandler()
-	const { setMessage } = useSuccessHandler()
-	const { loading, setLoading } = useLoadingHandler()
-
-	const getUsersByEmail = async () => {
-		if (state.email) {
-			setLoading(true)
-			try {
-				state.users = reactive(await GetUsersByEmail.call(state.email))
-				state.fetched = true
-			} catch (error) { setError(error) }
-			setLoading(false)
-		}
-	}
-
-	const reset = () => {
-		state.email = ''
-		state.users.length = 0
-		state.fetched = false
-	}
-
-	const makeTutor = async (user: UserEntity) => {
-		setError('')
-		setLoading(true)
-		try {
-			await MakeTutor.call(user.id)
-			user.roles.isTutor = true
-			const tutor = await FindUser.call(user.id)
-			reset()
-			setMessage('Successfully made a tutor')
-			if (tutor) {
-				pushToTutorsList(tutor)
-				setCurrentTutor(tutor)
-				useEditModal().openTutorSubjects()
-			}
-		} catch (error) { setError(error) }
-		setLoading(false)
-	}
-
-	const removeTutor = async (tutor: UserEntity) => {
-		setError('')
-		const accepted = await Alert({
-			title: 'Are you sure you want to remove this tutor?',
-			text: 'Note that this action will delete the tutor\'s records. This cannot be reversed',
-			icon: 'warning',
-			confirmButtonText: 'Yes, remove'
-		})
-		if (accepted) {
-			setLoading(true)
-			try {
-				await RemoveTutor.call(tutor.id)
-				global.tutors.value = global.tutors.value
-					.filter((t) => t.id !== tutor.id)
-				setMessage('Successfully removed tutor')
-			} catch (error) { setError(error) }
-			setLoading(false)
-		}
-	}
-
-	return {
-		...toRefs(state), error, loading,
-		getUsersByEmail, makeTutor, removeTutor, reset
-	}
-}
-
-let currentTutor = null as UserEntity | null
-export const setCurrentTutor = (tutor: UserEntity) => currentTutor = tutor
-
-export const useSingleTutor = () => {
-	const tutor = ssrRef(currentTutor)
-	const { loading, setLoading } = useLoadingHandler()
-	const { error, setError } = useErrorHandler()
-	const { setMessage } = useSuccessHandler()
-
-	const addSubject = async (subject: string) => {
-		setError('')
-		setLoading(true)
-		try {
-			const id = tutor.value?.id
-			if (id) {
-				await AddTutorSubject.call(id, subject)
-				const t = await FindUser.call(id)
-				if (t) {
-					tutor.value = t
-					pushToTutorsList(t)
-				}
-				setMessage('Successfully added subject')
-			}
-		} catch (error) { setError(error) }
-		setLoading(false)
-	}
-
-	const removeSubject = async () => {
-		setError('')
-		const accepted = await Alert({
-			title: 'Are you sure you want to remove this subject?',
-			text: 'Note that this action will reset the tutor\'s level for this subject to 0. This cannot be reversed',
-			icon: 'warning',
-			confirmButtonText: 'Yes, remove'
-		})
-		if (accepted) {
-			setLoading(true)
-			try {
-				const id = tutor.value?.id
-				if (id) {
-					await RemoveTutorSubject.call(id)
-					const t = await FindUser.call(id)
-					if (t) {
-						tutor.value = t
-						pushToTutorsList(t)
-					}
-					setMessage('Successfully removed subject')
-				}
-			} catch (error) { setError(error) }
-			setLoading(false)
-		}
-	}
-
-	return { tutor, loading, error, addSubject, removeSubject }
+	return { ...global, listener, filteredTutors }
 }

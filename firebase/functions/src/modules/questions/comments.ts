@@ -16,8 +16,8 @@ export const questionCommentCreated = functions.database.ref('comments/questions
 
 		const { userId } = snap.val()
 
-		await admin.database().ref('profiles').child(userId)
-			.child(`meta/questionComments/${questionId}${PATH_SEPARATOR}${commentId}`).set(true)
+		await admin.database().ref('profiles').child(userId).child('account/meta')
+			.child(`questionComments/${questionId}${PATH_SEPARATOR}${commentId}`).set(true)
 
 		const { userId: questionUserId } = (await questionRef.get()).data()!
 		await createNotification(questionUserId, {
@@ -44,8 +44,8 @@ export const answerCommentCreated = functions.database.ref('comments/answers/{an
 
 		const { userId } = snap.val()
 
-		await admin.database().ref('profiles').child(userId)
-			.child(`meta/answerComments/${answerId}${PATH_SEPARATOR}${commentId}`).set(true)
+		await admin.database().ref('profiles').child(userId).child('account/meta')
+			.child(`answerComments/${answerId}${PATH_SEPARATOR}${commentId}`).set(true)
 
 		const { userId: answerUserId, questionId } = (await answerRef.get()).data()!
 		await createNotification(answerUserId, {
@@ -68,8 +68,8 @@ export const questionCommentDeleted = functions.database.ref('comments/questions
 
 		const { userId } = snap.val()
 
-		await admin.database().ref('profiles').child(userId)
-			.child(`meta/questionComments/${questionId}${PATH_SEPARATOR}${commentId}`).set(null)
+		await admin.database().ref('profiles').child(userId).child('account/meta')
+			.child(`questionComments/${questionId}${PATH_SEPARATOR}${commentId}`).set(null)
 	})
 
 export const answerCommentDeleted = functions.database.ref('comments/answers/{answerId}/{commentId}')
@@ -86,6 +86,6 @@ export const answerCommentDeleted = functions.database.ref('comments/answers/{an
 
 		const { userId } = snap.val()
 
-		await admin.database().ref('profiles').child(userId)
-			.child(`meta/answerComments/${answerId}${PATH_SEPARATOR}${commentId}`).set(null)
+		await admin.database().ref('profiles').child(userId).child('account/meta')
+			.child(`answerComments/${answerId}${PATH_SEPARATOR}${commentId}`).set(null)
 	})

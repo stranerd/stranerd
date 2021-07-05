@@ -1,5 +1,6 @@
 {
   "editor.formatOnSave": true,
+  "editor.autoIndent": "full",
   "[vue]": {
     "editor.formatOnSave": false
   },
@@ -14,8 +15,6 @@
   },
   "eslint.alwaysShowStatus": true,
   "svg.preview.background": "transparent",
-  "C_Cpp_Runner.cCompilerPath": "C:\\Program Files\\mingw-w64\\x86_64-8.1.0-posix-seh-rt_v6-rev0\\mingw64\\bin\\gcc.exe",
-  "C_Cpp_Runner.cppCompilerPath": "C:\\Program Files\\mingw-w64\\x86_64-8.1.0-posix-seh-rt_v6-rev0\\mingw64\\bin\\g++.exe",
-  "C_Cpp_Runner.debuggerPath": "C:\\Program Files\\mingw-w64\\x86_64-8.1.0-posix-seh-rt_v6-rev0\\mingw64\\bin\\gdb.exe",
-  "C_Cpp_Runner.makePath": "C:\\Program Files\\mingw-w64\\x86_64-8.1.0-posix-seh-rt_v6-rev0\\mingw64\\bin\\make.exe"
+  "editor.insertSpaces": false,
+  "editor.wrappingIndent": "indent"
 }

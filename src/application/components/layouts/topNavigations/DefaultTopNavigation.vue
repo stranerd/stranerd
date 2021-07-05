@@ -11,16 +11,16 @@
 			<NotificationBell :key="isLoggedIn" class="link" />
 
 			<div v-if="isLoggedIn" class="d-flex justify-content-between align-items-center cursor-pointer " @click="show = !show">
-				<Avatar :src="user.avatar" :size="48" />
+				<Avatar :src="''" :size="48" />
 				<span class="d-flex justify-content-between align-items-center">
-					<span class="username">Timmy Neutron</span>
+					<span class="username">{{ user.fullName }}</span>
 					<img src="@app/assets/images/icons/down-arrow.svg" alt="">
 				</span>
 			</div>
 			<transition name="slide" appear>
 				<div v-if="show" class="drop-menu">
 					<span><img src="@app/assets/images/icons/user.svg" alt="">Profile</span>
-					<span> <img src="@app/assets/images/icons/signout.svg" alt="">Log Out</span>
+					<span><img src="@app/assets/images/icons/signout.svg" alt="">Log Out</span>
 				</div>
 			</transition>
 		</div>
@@ -38,7 +38,7 @@ export default defineComponent({
 	components: { SearchBar, NotificationBell, MessageLink },
 	setup () {
 		const { isLoggedIn, user } = useAuth()
-		const show = ref(true)
+		const show = ref(false)
 		return { show, isLoggedIn, user }
 	}
 })
@@ -91,7 +91,7 @@ place-items: center;
 
 }
 .right-body{
-	 width: 24%;
+	width: 24%;
 	 align-items: center;
 	 justify-content: space-between;
 	 padding: 0px 1.4rem 0px 1.2rem;

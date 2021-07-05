@@ -18,10 +18,8 @@
 		</button>
 		<div v-if="show" class="under" @click="show = false" />
 		<div v-if="show" class="menu gap-0-5">
-			<template v-if="user.roles.isTutor">
-				<a v-if="!currentSessionId && !user.currentSession" @click.prevent="requestNewSession">Request Session</a>
-				<a @click="tipUser">Tip Nerd</a>
-			</template>
+			<a v-if="!currentSessionId && !user.currentSession" @click.prevent="requestNewSession">Request Session</a>
+			<a @click="tipUser">Tip Nerd</a>
 			<a @click="reportUser">Report</a>
 			<PageLoading v-if="loading" />
 			<a v-if="isAccepted && currentSession && currentSessionId === user.currentSession && currentSession.studentId === id" @click.prevent="cancelSession">End Session</a>
@@ -78,7 +76,7 @@ export default defineComponent({
 			set: () => {}
 		})
 		const requestNewSession = () => {
-			setNewSessionTutorIdBio({ id: props.user.id, user: props.user.userBio })
+			setNewSessionTutorIdBio({ id: props.user.id, user: props.user.bio })
 			useSessionModal().openCreateSession()
 			show.value = false
 		}
@@ -93,12 +91,12 @@ export default defineComponent({
 			})
 		}
 		const reportUser = () => {
-			setReportedBioAndId({ id: props.user.id, bio: props.user.userBio })
+			setReportedBioAndId({ id: props.user.id, bio: props.user.bio })
 			useAccountModal().openReportUser()
 			show.value = false
 		}
 		const tipUser = () => {
-			setNerdBioAndId({ id: props.user.id, bio: props.user.userBio })
+			setNerdBioAndId({ id: props.user.id, bio: props.user.bio })
 			useAccountModal().openTipTutor()
 			show.value = false
 		}

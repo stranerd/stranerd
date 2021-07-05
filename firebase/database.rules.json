@@ -33,18 +33,12 @@
 		},
 		"profiles": {
 			".read": true,
-			".indexOn": [
-				"roles/isAdmin","roles/isTutor","bio/email",
-				"rankings/daily","rankings/weekly","rankings/monthly","rankings/quarterly"
-			],
+			".indexOn": ["roles/isAdmin", "account/ratings/average","bio/email"],
 			"$userId": {
 				".read": true,
 				".write": "auth.uid === $userId",
 				"status": {
 					".write": true
-				},
-				"tutor": {
-					".write": "auth.token.isAdmin === true"
 				}
 			}
 		},

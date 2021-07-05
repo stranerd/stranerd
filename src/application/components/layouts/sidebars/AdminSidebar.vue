@@ -21,10 +21,6 @@
 				<img src="@app/assets/images/icons/users.svg" alt="">
 				<span>Admins</span>
 			</NuxtLink>
-			<NuxtLink class="sidebar-link" to="/admin/users/nerds">
-				<img src="@app/assets/images/icons/users.svg" alt="">
-				<span>Nerds</span>
-			</NuxtLink>
 		</div>
 	</aside>
 </template>

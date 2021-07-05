@@ -11,7 +11,6 @@
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { UserEntity } from '@modules/users'
 import AccountCoinBalance from '@app/components/users/account/AccountCoinBalance.vue'
-import { useEditModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'ProfileHeadCard',
 	components: { AccountCoinBalance },
@@ -20,10 +19,6 @@ export default defineComponent({
 			required: true,
 			type: Object as PropType<UserEntity>
 		}
-	},
-	setup () {
-		const openEditProfileModal = useEditModal().openAccountProfile
-		return { openEditProfileModal }
 	}
 })
 </script>

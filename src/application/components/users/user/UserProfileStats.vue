@@ -1,58 +1,47 @@
 <template>
 	<div>
 		<div class="grid">
-			<template v-if="user.roles.isTutor">
-				<div class="page-card">
-					<div>
-						<span class="card-title">Answers</span>
-						<span class="card-sub">{{ formatNumber(Object.entries(user.meta.answers).length) }}</span>
-					</div>
-					<img src="@app/assets/images/icons/profile-answers.svg" alt="">
-				</div>
-				<div class="page-card">
-					<div>
-						<span class="card-title">Best Answers</span>
-						<span class="card-sub">{{ formatNumber(Object.entries(user.meta.bestAnswers).length) }}</span>
-					</div>
-					<img src="@app/assets/images/icons/profile-best-answers.svg" alt="">
-				</div>
-				<div class="page-card">
-					<div>
-						<span class="card-title">Sessions</span>
-						<span class="card-sub">{{ formatNumber(Object.entries(user.meta.tutorSessions).length) }}</span>
-					</div>
-					<img src="@app/assets/images/icons/profile-sessions.svg" alt="">
-				</div>
-			</template>
-			<template v-else>
-				<div class="page-card">
-					<div>
-						<span class="card-title">Questions</span>
-						<span class="card-sub">{{ formatNumber(Object.entries(user.meta.questions).length) }}</span>
-					</div>
-					<img src="@app/assets/images/icons/profile-question.svg" alt="">
-				</div>
-				<div class="page-card">
-					<div>
-						<span class="card-title">Answered</span>
-						<span class="card-sub">{{ formatNumber(Object.entries(user.meta.bestAnsweredQuestions).length) }}</span>
-					</div>
-					<img src="@app/assets/images/icons/profile-best-answers.svg" alt="">
-				</div>
-				<div class="page-card">
-					<div>
-						<span class="card-title">Sessions</span>
-						<span class="card-sub">{{ formatNumber(Object.entries(user.meta.sessions).length) }}</span>
-					</div>
-					<img src="@app/assets/images/icons/profile-sessions.svg" alt="">
-				</div>
-			</template>
 			<div class="page-card">
 				<div>
-					<span class="card-title">XP</span>
-					<span class="card-sub">{{ user.account.xp }}</span>
+					<span class="card-title">Questions</span>
+					<span class="card-sub">{{ formatNumber(user.account.meta.questions.length) }}</span>
 				</div>
-				<img src="@app/assets/images/icons/profile-rank.svg" alt="">
+				<img src="@app/assets/images/icons/profile-question.svg" alt="">
+			</div>
+			<div class="page-card">
+				<div>
+					<span class="card-title">Answered</span>
+					<span class="card-sub">{{ formatNumber(user.account.meta.bestAnsweredQuestions.length) }}</span>
+				</div>
+				<img src="@app/assets/images/icons/profile-best-answers.svg" alt="">
+			</div>
+			<div class="page-card">
+				<div>
+					<span class="card-title">Answers</span>
+					<span class="card-sub">{{ formatNumber(user.account.meta.answers.length) }}</span>
+				</div>
+				<img src="@app/assets/images/icons/profile-answers.svg" alt="">
+			</div>
+			<div class="page-card">
+				<div>
+					<span class="card-title">Best Answers</span>
+					<span class="card-sub">{{ formatNumber(user.account.meta.bestAnswers.length) }}</span>
+				</div>
+				<img src="@app/assets/images/icons/profile-best-answers.svg" alt="">
+			</div>
+			<div class="page-card">
+				<div>
+					<span class="card-title">Sessions Hosted</span>
+					<span class="card-sub">{{ formatNumber(user.account.meta.tutorSessions.length) }}</span>
+				</div>
+				<img src="@app/assets/images/icons/profile-sessions.svg" alt="">
+			</div>
+			<div class="page-card">
+				<div>
+					<span class="card-title">Sessions Requested</span>
+					<span class="card-sub">{{ formatNumber(user.account.meta.sessions.length) }}</span>
+				</div>
+				<img src="@app/assets/images/icons/profile-sessions.svg" alt="">
 			</div>
 		</div>
 	</div>

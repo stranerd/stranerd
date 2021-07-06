@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div v-if="user.canHostSessions" class="page-content">
+		<div v-if="user && user.canHostSessions" class="page-content">
 			<LobbySessionsList />
 		</div>
 		<div class="page-content">
@@ -17,7 +17,7 @@ import { useAuth } from '@app/hooks/auth/auth'
 export default defineComponent({
 	name: 'SessionsPage',
 	components: { RequestSessionsList, LobbySessionsList },
-	middleware: 'isAuthenticated',
+	middleware: ['isAuthenticated'],
 	setup () {
 		const { user } = useAuth()
 		return { user }

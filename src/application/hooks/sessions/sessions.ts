@@ -80,7 +80,7 @@ export const useSession = (sessionId: string) => {
 		if (accepted) {
 			try {
 				setLoading(true)
-				await CancelSession.call(sessionId)
+				if (sessionId) await CancelSession.call(sessionId)
 			} catch (error) { setError(error) }
 			setLoading(false)
 		}
@@ -98,7 +98,7 @@ export const useSession = (sessionId: string) => {
 		if (accepted) {
 			try {
 				setLoading(true)
-				await BeginSession.call(sessionId)
+				if (sessionId) await BeginSession.call(sessionId)
 				analytics.logEvent('session_accepted', { sessionId })
 			} catch (error) { setError(error) }
 			setLoading(false)

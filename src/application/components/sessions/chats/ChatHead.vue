@@ -18,10 +18,7 @@
 		</button>
 		<div v-if="show" class="under" @click="show = false" />
 		<div v-if="show" class="menu gap-0-5">
-			<a
-				v-if="canRequestSession"
-				@click.prevent="requestNewSession"
-			>
+			<a v-if="canRequestSession" @click.prevent="requestNewSession">
 				Request Session
 			</a>
 			<a @click="tipUser">Tip Nerd</a>
@@ -56,7 +53,7 @@ export default defineComponent({
 		const show = ref(false)
 		const { time, startTimer, stopTimer } = useTimeDifference(props.user.lastSeen)
 		const { id, currentSessionId, user } = useAuth()
-		const { currentSession, endDate, otherParticipant } = useCurrentSession()
+		const { currentSession, endDate, otherParticipantId } = useCurrentSession()
 		const { diffInSec, startTimer: startCountdown, stopTimer: stopCountdown } = useCountdown(endDate.value, {
 			0: useSessionModal().openRatings
 		})
@@ -85,10 +82,10 @@ export default defineComponent({
 			useSessionModal().openCreateSession()
 			show.value = false
 		}
-		const { cancelSession: c, loading, error } = useSession()
+		const { cancelSession: cancel, loading, error } = useSession(currentSessionId.value ?? '')
 		const cancelSession = async () => {
 			show.value = false
-			await c()
+			await cancel()
 			analytics.logEvent('session_cancelled', {
 				sessionId: currentSessionId.value,
 				duration: currentSession.value?.duration ?? 0,
@@ -105,26 +102,23 @@ export default defineComponent({
 			useAccountModal().openTipTutor()
 			show.value = false
 		}
-		if (otherParticipant.value.id) setOtherParticipantId(otherParticipant.value.id)
+		if (otherParticipantId.value) setOtherParticipantId(otherParticipantId.value)
 		const canRequestSession = computed({
-			get: () => {
-				return !currentSessionId.value &&
-					user.value?.session.requests.length === 0 &&
-					!props.user.currentSession &&
-					props.user.canHostSessions
-			}, set: () => {}
+			get: () => !currentSessionId.value &&
+				user.value?.session.requests.length === 0 &&
+				!props.user.currentSession &&
+				props.user.canHostSessions,
+			set: () => {}
 		})
 		const inSession = computed({
-			get: () => {
-				return currentSessionId.value &&
-				currentSessionId.value === props.user.currentSession
-			}, set: () => {}
+			get: () => currentSessionId.value &&
+				currentSessionId.value === props.user.currentSession,
+			set: () => {}
 		})
 		const canEndSession = computed({
-			get: () => {
-				return currentSessionId.value === props.user.currentSession &&
-					currentSession.value?.studentId === id.value
-			}, set: () => {}
+			get: () => currentSessionId.value === props.user.currentSession &&
+				currentSession.value?.studentId === id.value,
+			set: () => {}
 		})
 		return {
 			canRequestSession, canEndSession, inSession,

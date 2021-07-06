@@ -12,7 +12,7 @@ export const requestNewSession = functions.https.onCall(async (data, context) =>
 		const session = {
 			duration, price, studentId, tutorId, studentBio, tutorBio,
 			accepted: false,
-			cancelled: { student: false, tutor: false },
+			cancelled: { student: false, tutor: false, busy: false },
 			dates: { createdAt: admin.firestore.Timestamp.now() },
 			reviews: {}
 		}

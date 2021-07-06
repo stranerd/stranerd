@@ -10,9 +10,10 @@ export class UserEntity extends BaseEntity {
 	public readonly account: Omit<UserAccount, 'meta'> & { meta: Record<keyof UserAccount['meta'], string[]> }
 	public readonly status: Required<UserStatus>
 	public readonly tutor: Omit<Required<UserTutor>, 'tags'> & { tags: { id: string, count: number }[] }
+	public readonly session: Omit<Omit<Required<UserSession>, 'lobby'>, 'requests'> & { requests: string[], lobby: string[] }
 	public readonly dates: UserDates
 
-	constructor ({ id, bio, roles, account, status, tutor, dates }: UserConstructorArgs) {
+	constructor ({ id, bio, roles, account, status, tutor, session, dates }: UserConstructorArgs) {
 		super()
 		this.id = id
 		this.bio = generateDefaultBio(bio)
@@ -29,7 +30,6 @@ export class UserEntity extends BaseEntity {
 				bronze: account?.bought?.bronze ?? 0,
 				gold: account?.bought?.gold ?? 0
 			},
-			currentSession: account?.currentSession ?? null,
 			meta: {
 				answers: Object.keys(account?.meta?.answers ?? {}),
 				bestAnswers: Object.keys(account?.meta?.bestAnswers ?? {}),
@@ -59,10 +59,15 @@ export class UserEntity extends BaseEntity {
 		}
 		this.tutor = {
 			subject: tutor?.subject ?? undefined,
-			currentSession: tutor?.currentSession ?? null,
 			tags: Object.entries(tutor?.tags ?? {})
 				.map(([key, val]) => ({ id: key, name: key, count: val }))
 				.sort((a, b) => a.count >= b.count ? -1 : 1)
+		}
+		this.session = {
+			currentSession: session?.currentSession ?? null,
+			currentTutorSession: session?.currentTutorSession ?? null,
+			requests: Object.keys(session?.requests ?? {}),
+			lobby: Object.keys(session?.lobby ?? {})
 		}
 		this.dates = {
 			signedUpAt: dates?.signedUpAt ?? 0,
@@ -82,7 +87,7 @@ export class UserEntity extends BaseEntity {
 	get averageRating () { return catchDivideByZero(this.account.ratings.total, this.ratingCount) }
 	get ratingCount () { return this.account.ratings.count }
 	get orderRating () { return Math.pow(this.account.ratings.total, this.averageRating) }
-	get currentSession () { return this.account.currentSession || this.tutor.currentSession || null }
+	get currentSession () { return this.session.currentSession || this.session.currentTutorSession || null }
 	get subject () { return this.tutor.subject ?? null }
 	get score () { return getScore(this) }
 	get rank () { return Ranks[this.account.rank] }
@@ -96,6 +101,7 @@ type UserConstructorArgs = {
 	account: UserAccount
 	status: UserStatus
 	tutor: UserTutor
+	session: UserSession
 	dates: UserDates
 }
 
@@ -123,7 +129,6 @@ export interface UserAccount {
 		bronze: number
 		gold: number
 	},
-	currentSession: string | null
 	meta: {
 		answers?: Record<string, boolean>
 		bestAnswers?: Record<string, boolean>
@@ -151,6 +156,13 @@ export interface UserStatus {
 	connections: Record<string, boolean>
 	lastSeen: number
 }
+
+export interface UserSession {
+	currentSession?: string | null
+	currentTutorSession?: string | null
+	requests?: Record<string, boolean>
+	lobby?: Record<string, boolean>
+}
 export interface UserDates {
 	signedUpAt: number
 	deletedAt?: number
@@ -166,7 +178,6 @@ export interface UserTutor {
 		}>
 	} | undefined
 	tags: Record<string, number> | undefined
-	currentSession?: string | null
 }
 
 export const generateDefaultBio = (bio: Partial<UserBio>) :Required<UserBio> => {

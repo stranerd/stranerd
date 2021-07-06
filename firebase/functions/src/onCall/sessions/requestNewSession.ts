@@ -19,11 +19,10 @@ export const requestNewSession = functions.https.onCall(async (data, context) =>
 
 		const doc = await admin.firestore().collection('sessions').add(session)
 		const sessionId = doc.id
-		const isBusyRef = await admin.database().ref('profiles')
-			.child(tutorId).child('session/currentTutorSession')
-			.once('value')
+		const tutorRef = await admin.database().ref('profiles').child(tutorId).child('session').once('value')
+		const { currentTutorSession = null, lobby = {} } = tutorRef.val() ?? {}
 
-		if (isBusyRef.val()) {
+		if (currentTutorSession || Object.keys(lobby).length >= 10) {
 			await doc.delete()
 			throw new functions.https.HttpsError('failed-precondition', 'Tutor is currently in a session. Try again later.')
 		}

@@ -14,25 +14,20 @@ import RightSidebar from '@app/components/modals/menus/RightSidebarMenu.vue'
 import AdminSidebar from '@app/components/modals/menus/AdminSidebarMenu.vue'
 import Sidebar from '@app/components/modals/menus/SidebarMenu.vue'
 import CreateSession from '@app/components/modals/sessions/SessionCreateSession.vue'
-import NewSessionRequest from '@app/components/modals/sessions/SessionNewSessionRequest.vue'
-import StudentCancelled from '@app/components/modals/sessions/SessionStudentCancelled.vue'
-import StudentWaiting from '@app/components/modals/sessions/SessionStudentWaiting.vue'
-import TutorCancelled from '@app/components/modals/sessions/SessionTutorCancelled.vue'
-import Unknown from '@app/components/modals/sessions/SessionUnknown.vue'
 import Ratings from '@app/components/modals/sessions/SessionRatings.vue'
 
 type CreateTypes = 'Subject' | 'Question' | 'Answer'
 type EditTypes = 'Subject' | 'AccountProfile'
 type AccountTypes = 'BuyCoins' | 'TipTutor' | 'ReportUser' | 'MeetTutor'
 type MenuTypes = 'RightSidebar' | 'AdminSidebar' | 'Sidebar'
-type SessionTypes = 'CreateSession' | 'NewSessionRequest' | 'StudentCancelled' | 'StudentWaiting' | 'TutorCancelled' | 'Unknown' | 'Ratings'
+type SessionTypes = 'CreateSession' | 'Ratings'
 type PaymentTypes = 'MakePayment'
 
 const CreateModals = { Subject: CreateSubject, Question: CreateQuestion, Answer: CreateAnswer } as Record<CreateTypes, any>
 const EditModals = { Subject: EditSubject, AccountProfile: EditAccountProfile } as Record<EditTypes, any>
 const AccountModals = { BuyCoins, TipTutor, ReportUser, MeetTutor } as Record<AccountTypes, any>
 const MenuModals = { RightSidebar, AdminSidebar, Sidebar } as Record<MenuTypes, any>
-const SessionModals = { CreateSession, NewSessionRequest, StudentCancelled, StudentWaiting, TutorCancelled, Unknown, Ratings } as Record<SessionTypes, any>
+const SessionModals = { CreateSession, Ratings } as Record<SessionTypes, any>
 const PaymentModals = { MakePayment } as Record<PaymentTypes, any>
 
 export const modal = useModal(ssrRef([] as string[]))

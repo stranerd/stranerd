@@ -61,11 +61,6 @@ export const useCurrentSession = (router?: VueRouter) => {
 		set: () => {}
 	})
 
-	const isAccepted = computed({
-		get: () => g.session.value?.accepted ?? false,
-		set: () => {}
-	})
-
 	const otherParticipant = computed({
 		get: () :UserBio & { id: string } => {
 			const session = clone.value
@@ -76,18 +71,19 @@ export const useCurrentSession = (router?: VueRouter) => {
 		set: () => {}
 	})
 
-	return { currentSession, otherParticipant, endDate, isAccepted, clone }
+	return { currentSession, otherParticipant, endDate, clone }
 }
 
 const useSession = (key: SessionKey, callback: (sessions: SessionEntity[], id: string) => void) => {
 	const { user, id } = useAuth()
 	const listenerCb = async () => {
-		if (!user.value) return () => {}
+		const sessionIds = user.value?.session?.[key] ?? []
+		if (sessionIds.length === 0) return () => {}
 		const cb = (sessions: SessionEntity[]) => {
 			callback(sessions, id.value!)
 			global[key].sessions.value = sessions
 		}
-		return ListenToSessions.call(user.value.session[key], cb)
+		return ListenToSessions.call(sessionIds, cb)
 	}
 
 	if (global[key] === undefined) global[key] = {
@@ -100,10 +96,11 @@ const useSession = (key: SessionKey, callback: (sessions: SessionEntity[], id: s
 
 	const fetchSessions = async () => {
 		global[key].setError('')
-		if (!user.value) return
+		const sessionIds = user.value?.session?.[key] ?? []
+		if (sessionIds.length === 0) return
 		try {
 			global[key].setLoading(true)
-			const sessions = await GetSessions.call(user.value.session[key])
+			const sessions = await GetSessions.call(sessionIds)
 			callback(sessions, id.value!)
 			global[key].sessions.value = sessions
 			global[key].fetched.value = true

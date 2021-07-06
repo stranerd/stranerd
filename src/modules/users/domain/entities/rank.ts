@@ -36,6 +36,7 @@ export const getScore = (user: UserEntity) => {
 
 type Rank = {
 	id: RankTypes
+	level: number
 	hostSession: number
 	attendSession: number
 	askQuestion: number
@@ -49,6 +50,7 @@ type Rank = {
 export const Ranks :Record<RankTypes, Rank> = {
 	[RankTypes.Rookie]: {
 		id: RankTypes.Rookie,
+		level: 1,
 		hostSession: 0,
 		attendSession: 7,
 		askQuestion: 15,
@@ -60,6 +62,7 @@ export const Ranks :Record<RankTypes, Rank> = {
 	},
 	[RankTypes.Comrade]: {
 		id: RankTypes.Comrade,
+		level: 2,
 		hostSession: 0,
 		attendSession: 14,
 		askQuestion: 30,
@@ -71,6 +74,7 @@ export const Ranks :Record<RankTypes, Rank> = {
 	},
 	[RankTypes.Scholar]: {
 		id: RankTypes.Scholar,
+		level: 3,
 		hostSession: 60,
 		attendSession: 0,
 		askQuestion: 50,
@@ -82,6 +86,7 @@ export const Ranks :Record<RankTypes, Rank> = {
 	},
 	[RankTypes.Einstein]: {
 		id: RankTypes.Comrade,
+		level: 4,
 		hostSession: 100,
 		attendSession: 0,
 		askQuestion: 0,
@@ -143,8 +148,7 @@ export const getRankProgress = (user: UserEntity) => {
 }
 
 const getNextRank = (rank: RankTypes) :Rank | null => {
-	const ranks = [RankTypes.Rookie, RankTypes.Comrade, RankTypes.Scholar, RankTypes.Einstein]
-	const index = ranks.findIndex((r) => r === rank)
-	const lastRank = ranks[index + 1]
-	return Ranks[lastRank] ?? null
+	const ranks = Object.values(Ranks).sort((a, b) => a.level - b.level)
+	const index = ranks.findIndex((r) => r.id === rank)
+	return ranks[index + 1] ?? null
 }

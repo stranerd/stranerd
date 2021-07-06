@@ -12,17 +12,22 @@
 			</NuxtLink>
 			<span class="small">{{ user.isOnline ? 'Active now' : time }}</span>
 		</div>
-		<span v-if="isAccepted && currentSessionId === user.currentSession" class="lead ms-0-5">{{ countDown }}</span>
+		<span v-if="inSession" class="lead ms-0-5">{{ countDown }}</span>
 		<button class="btn navbar-toggler ms-0-5" @click="show = !show">
 			<i class="fas fa-ellipsis-v" />
 		</button>
 		<div v-if="show" class="under" @click="show = false" />
 		<div v-if="show" class="menu gap-0-5">
-			<a v-if="!currentSessionId && !user.currentSession" @click.prevent="requestNewSession">Request Session</a>
+			<a
+				v-if="canRequestSession"
+				@click.prevent="requestNewSession"
+			>
+				Request Session
+			</a>
 			<a @click="tipUser">Tip Nerd</a>
 			<a @click="reportUser">Report</a>
 			<PageLoading v-if="loading" />
-			<a v-if="isAccepted && currentSession && currentSessionId === user.currentSession && currentSession.studentId === id" @click.prevent="cancelSession">End Session</a>
+			<a v-if="canEndSession" @click.prevent="cancelSession">End Session</a>
 			<DisplayError :error="error" />
 		</div>
 	</div>
@@ -50,8 +55,8 @@ export default defineComponent({
 	setup (props) {
 		const show = ref(false)
 		const { time, startTimer, stopTimer } = useTimeDifference(props.user.lastSeen)
-		const { id, currentSessionId } = useAuth()
-		const { currentSession, endDate, isAccepted, otherParticipant } = useCurrentSession()
+		const { id, currentSessionId, user } = useAuth()
+		const { currentSession, endDate, otherParticipant } = useCurrentSession()
 		const { diffInSec, startTimer: startCountdown, stopTimer: stopCountdown } = useCountdown(endDate.value, {
 			0: useSessionModal().openRatings
 		})
@@ -101,9 +106,29 @@ export default defineComponent({
 			show.value = false
 		}
 		if (otherParticipant.value.id) setOtherParticipantId(otherParticipant.value.id)
+		const canRequestSession = computed({
+			get: () => {
+				return !currentSessionId.value &&
+					user.value?.session.requests.length === 0 &&
+					!props.user.currentSession &&
+					props.user.canHostSessions
+			}, set: () => {}
+		})
+		const inSession = computed({
+			get: () => {
+				return currentSessionId.value &&
+				currentSessionId.value === props.user.currentSession
+			}, set: () => {}
+		})
+		const canEndSession = computed({
+			get: () => {
+				return currentSessionId.value === props.user.currentSession &&
+					currentSession.value?.studentId === id.value
+			}, set: () => {}
+		})
 		return {
-			id, currentSessionId, currentSession, isAccepted,
-			show, time, diffInSec, countDown, requestNewSession,
+			canRequestSession, canEndSession, inSession,
+			show, time, countDown, requestNewSession,
 			cancelSession, loading, error, reportUser, tipUser
 		}
 	}

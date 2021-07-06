@@ -1,6 +1,5 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
-import { createNotification } from '../../helpers/modules/users/notifications'
 
 export const requestNewSession = functions.https.onCall(async (data, context) => {
 	if (!context.auth)
@@ -34,11 +33,6 @@ export const requestNewSession = functions.https.onCall(async (data, context) =>
 				[`${tutorId}/account/meta/tutorSessions/${sessionId}`]: true,
 				[`${tutorId}/session/lobby/${sessionId}`]: true
 			})
-		await createNotification(tutorId, {
-			title: 'New Session Request',
-			body: 'Someone just requested a new session with you. Hurry now and seal the deal',
-			action: `/sessions/lobby#${sessionId}`
-		})
 
 		return sessionId
 	} catch (error) {

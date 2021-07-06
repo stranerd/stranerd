@@ -1,16 +1,14 @@
 import { computed, Ref, ssrRef, useFetch, watch } from '@nuxtjs/composition-api'
 import { useListener, useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
-import { GetSessions, ListenToSession, ListenToSessions, SessionEntity } from '@modules/sessions'
-import { useSessionModal } from '@app/hooks/core/modals'
+import { GetSession, GetSessions, ListenToSessions, SessionEntity } from '@modules/sessions'
 import VueRouter from 'vue-router'
 import { useAuth } from '@app/hooks/auth/auth'
 import { UserBio } from '@modules/users'
 
 const g = {
-	sessionId: ssrRef(null as string | null),
 	session: ssrRef(null as SessionEntity | null),
 	clone: ssrRef(null as SessionEntity | null),
-	listener: null as ReturnType<typeof useListener> | null
+	router: null as VueRouter | null
 }
 
 const global = {} as Record<string, {
@@ -19,75 +17,34 @@ const global = {} as Record<string, {
 	listener: ReturnType<typeof useListener>
 } & ReturnType<typeof useErrorHandler> & ReturnType<typeof useLoadingHandler>>
 
-export const setSession = async (userId: string, id: string | null, router: VueRouter) => {
-	if (g.sessionId.value !== id) {
-		g.listener?.closeListener()
-		g.sessionId.value = id
-		g.session.value = null
-		if (id && userId) {
-			g.listener = useListener(async () => {
-				const runSession = async (entity: SessionEntity | null) => {
-					if (entity) {
-						g.session.value = entity
-						g.clone.value = entity
-						await actOnSessionState(getSessionState(userId, entity), router)
+export const useCurrentSession = (router?: VueRouter) => {
+	const { currentSessionId, id } = useAuth()
+	if (router) g.router = router
+
+	const fetchSession = async (userId: string, id: string | null) => {
+		if (g.session.value?.id !== id) {
+			g.session.value = null
+			if (id) {
+				const session = await GetSession.call(id)
+				g.session.value = g.clone.value = session
+				if (session) {
+					const state = getSessionState(userId, session)
+					if ([SessionState.TutorAccepted, SessionState.TutorAccepts].includes(state)) {
+						const id = state === SessionState.TutorAccepts ? session.studentId : session.tutorId
+						await g.router?.push(`/messages/${id}`)
 					}
 				}
-				return await ListenToSession.call(id, runSession)
-			})
-			await g.listener.startListener()
+			}
 		}
 	}
-}
 
-enum SessionState {
-	NewSessionRequest = 100,
-	TutorAccepts = 101,
-	TutorCancels = 102,
-	StudentWaiting = 200,
-	TutorAccepted = 201,
-	TutorCancelled = 202,
-	StudentCancelled = 203,
-	Unknown = 300
-}
+	watch(() => currentSessionId.value, async () => {
+		await fetchSession(id.value, currentSessionId.value)
+	})
 
-const getSessionState = (id: string, session: SessionEntity) :SessionState => {
-	const newSessionRequest = session.tutorId === id && !session.accepted && !session.cancelled.tutor && !session.cancelled.student
-	const studentWaiting = session.studentId === id && !session.accepted && !session.cancelled.tutor && !session.cancelled.student
-	const tutorAcceptsSession = session.tutorId === id && session.accepted && !session.cancelled.tutor && !session.cancelled.student
-	const tutorAcceptedSession = session.studentId === id && session.accepted && !session.cancelled.tutor && !session.cancelled.student
-	const tutorCancelsSession = session.tutorId === id && !session.accepted && session.cancelled.tutor && !session.cancelled.student
-	const tutorCancelledSession = session.studentId === id && session.cancelled.tutor && !session.cancelled.student
-	const studentCancelledSession = session.tutorId === id && session.cancelled.student && !session.cancelled.tutor
-
-	if (newSessionRequest) return SessionState.NewSessionRequest
-	if (studentWaiting) return SessionState.StudentWaiting
-	if (tutorAcceptsSession) return SessionState.TutorAccepts
-	if (tutorAcceptedSession) return SessionState.TutorAccepted
-	if (tutorCancelsSession) return SessionState.TutorCancels
-	if (tutorCancelledSession) return SessionState.TutorCancelled
-	if (studentCancelledSession) return SessionState.StudentCancelled
-	return SessionState.Unknown
-}
-
-const actOnSessionState = async (state: SessionState, router: VueRouter) => {
-	useSessionModal().closeAll()
-	if (state === SessionState.NewSessionRequest) useSessionModal().openNewSessionRequest()
-	else if (state === SessionState.TutorCancels) useSessionModal().closeAll()
-	else if (state === SessionState.StudentWaiting) useSessionModal().openStudentWaiting()
-	else if (state === SessionState.TutorCancelled || state === SessionState.StudentCancelled) {
-		if (state === SessionState.TutorCancelled) useSessionModal().openTutorCancelled()
-		if (state === SessionState.StudentCancelled) useSessionModal().openStudentCancelled()
-	} else if (state === SessionState.TutorAccepts || state === SessionState.TutorAccepted) {
-		useSessionModal().closeAll()
-		const session = g.session.value! ?? {}
-		const id = state === SessionState.TutorAccepts ? session.studentId : session.tutorId
-		await router.push(`/messages/${id}`)
-	}
-}
-
-export const useCurrentSession = () => {
-	const { id } = useAuth()
+	useFetch(async () => {
+		await fetchSession(id.value, currentSessionId.value)
+	})
 
 	const clone = computed({
 		get: () => g.clone.value ?? null,
@@ -122,12 +79,12 @@ export const useCurrentSession = () => {
 	return { currentSession, otherParticipant, endDate, isAccepted, clone }
 }
 
-const useSession = (key: SessionKey, callback: (sessions: SessionEntity[]) => void) => {
-	const { user } = useAuth()
+const useSession = (key: SessionKey, callback: (sessions: SessionEntity[], id: string) => void) => {
+	const { user, id } = useAuth()
 	const listenerCb = async () => {
 		if (!user.value) return () => {}
 		const cb = (sessions: SessionEntity[]) => {
-			callback(sessions)
+			callback(sessions, id.value!)
 			global[key].sessions.value = sessions
 		}
 		return ListenToSessions.call(user.value.session[key], cb)
@@ -147,7 +104,7 @@ const useSession = (key: SessionKey, callback: (sessions: SessionEntity[]) => vo
 		try {
 			global[key].setLoading(true)
 			const sessions = await GetSessions.call(user.value.session[key])
-			callback(sessions)
+			callback(sessions, id.value!)
 			global[key].sessions.value = sessions
 			global[key].fetched.value = true
 		} catch (error) { global[key].setError(error) }
@@ -165,10 +122,43 @@ const useSession = (key: SessionKey, callback: (sessions: SessionEntity[]) => vo
 	return { ...global[key] }
 }
 
-// eslint-disable-next-line no-console
-const callback = console.log
+const callback = (sessions: SessionEntity[], id: string) => {
+	// Send notifications based on state on sessions
+	// eslint-disable-next-line no-console
+	console.log(sessions, id)
+}
 
 export const useRequestSessions = () => useSession('requests', callback)
 export const useLobbySessions = () => useSession('lobby', callback)
 
 type SessionKey = 'requests' | 'lobby'
+
+enum SessionState {
+	NewSessionRequest = 100,
+	TutorAccepts = 101,
+	TutorCancels = 102,
+	StudentWaiting = 200,
+	TutorAccepted = 201,
+	TutorCancelled = 202,
+	StudentCancelled = 203,
+	Unknown = 300
+}
+
+const getSessionState = (id: string, session: SessionEntity) :SessionState => {
+	const newSessionRequest = session.tutorId === id && !session.accepted && !session.cancelled.tutor && !session.cancelled.student
+	const studentWaiting = session.studentId === id && !session.accepted && !session.cancelled.tutor && !session.cancelled.student
+	const tutorAcceptsSession = session.tutorId === id && session.accepted && !session.cancelled.tutor && !session.cancelled.student
+	const tutorAcceptedSession = session.studentId === id && session.accepted && !session.cancelled.tutor && !session.cancelled.student
+	const tutorCancelsSession = session.tutorId === id && !session.accepted && session.cancelled.tutor && !session.cancelled.student
+	const tutorCancelledSession = session.studentId === id && session.cancelled.tutor && !session.cancelled.student
+	const studentCancelledSession = session.tutorId === id && session.cancelled.student && !session.cancelled.tutor
+
+	if (newSessionRequest) return SessionState.NewSessionRequest
+	if (studentWaiting) return SessionState.StudentWaiting
+	if (tutorAcceptsSession) return SessionState.TutorAccepts
+	if (tutorAcceptedSession) return SessionState.TutorAccepted
+	if (tutorCancelsSession) return SessionState.TutorCancels
+	if (tutorCancelledSession) return SessionState.TutorCancelled
+	if (studentCancelledSession) return SessionState.StudentCancelled
+	return SessionState.Unknown
+}

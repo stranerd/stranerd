@@ -1,4 +1,4 @@
-import { computed, Ref, ref, ssrRef, watch } from '@nuxtjs/composition-api'
+import { computed, Ref, ref, ssrRef, useRouter, watch } from '@nuxtjs/composition-api'
 import { AddSession, BeginSession, CancelSession, SessionFactory } from '@modules/sessions'
 import { UserBio } from '@modules/users'
 import { RateTutor } from '@modules/meta'
@@ -21,6 +21,7 @@ export const setNewSessionTutorIdBio = (data: { id: string, user: UserBio }) => 
 
 export const useCreateSession = () => {
 	const { id, bio, user } = useAuth()
+	const router = useRouter()
 	const factory = ref(new SessionFactory()) as Ref<SessionFactory>
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
@@ -46,8 +47,8 @@ export const useCreateSession = () => {
 			try {
 				setLoading(true)
 				const sessionId = await AddSession.call(factory.value)
-				await AddSession.call(factory.value)
 				useSessionModal().closeCreateSession()
+				await router.push('/sessions')
 				factory.value.reset()
 				setMessage('Session request successful.')
 				analytics.logEvent('session_request', { sessionId })
@@ -63,10 +64,9 @@ export const useCreateSession = () => {
 	}
 }
 
-export const useSession = () => {
+export const useSession = (sessionId: string) => {
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
-	const { currentSessionId } = useAuth()
 
 	const cancelSession = async () => {
 		setError('')
@@ -80,7 +80,7 @@ export const useSession = () => {
 		if (accepted) {
 			try {
 				setLoading(true)
-				if (currentSessionId.value) await CancelSession.call(currentSessionId.value)
+				await CancelSession.call(sessionId)
 			} catch (error) { setError(error) }
 			setLoading(false)
 		}
@@ -98,8 +98,8 @@ export const useSession = () => {
 		if (accepted) {
 			try {
 				setLoading(true)
-				if (currentSessionId.value) await BeginSession.call(currentSessionId.value)
-				analytics.logEvent('session_accepted', { sessionId: currentSessionId.value })
+				await BeginSession.call(sessionId)
+				analytics.logEvent('session_accepted', { sessionId })
 			} catch (error) { setError(error) }
 			setLoading(false)
 		}

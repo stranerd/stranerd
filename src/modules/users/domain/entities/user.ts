@@ -93,7 +93,7 @@ export class UserEntity extends BaseEntity {
 	get rank () { return Ranks[this.account.rank] }
 	get rankProgress () { return getRankProgress(this) }
 
-	get canHostSessions () { return this.rank.level >= Ranks.Scholar.level }
+	get canHostSessions () { return true } // this.rank.level >= Ranks.Scholar.level }
 }
 
 type UserConstructorArgs = {

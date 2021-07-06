@@ -163,7 +163,7 @@ export default defineComponent({
 			background-color: $color-tags;
 			height: 42px;
 			border-radius: 50px;
-			 color: $color-text-main;
+			color: $color-text-main;
 			position: absolute;
 			right: 17px;
 			padding: 8px 17px;

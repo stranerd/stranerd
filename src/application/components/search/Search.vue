@@ -5,11 +5,11 @@
 				slot="default"
 				slot-scope="{ currentRefinement, isSearchStalled, refine }"
 			>
-				<div class="d-flex justify-content-between align-items-center">
+				<div class="search-container gap-0-25">
 					<img src="@app/assets/images/icons/search.svg" alt="" class="img-search">
 					<input
 						placeholder="Search for anything..."
-						class="form-control search w-100"
+						class="form-control"
 						:value="currentRefinement"
 						@input="(event) => { refine(event.currentTarget.value); log(event.currentTarget.value) }"
 					>
@@ -83,22 +83,21 @@ export default defineComponent({
 <style lang="scss" scoped>
 	.img-search {
 		width: 21px;
-		position: relative;
-		left: 36px;
 	}
 
 	.AisSearchBox {
 		widows: 100%;
 	}
 
-	.search {
-		padding-left: 3rem;
+	.search-container {
+		display: flex;
+		align-items: center;
 		border: 1.2px solid $color-line;
 		background-color: $color-tags;
-		height: 42px;
+		padding: 0.25em 0.5em;
 		border-radius: 12px;
-		width: 100%;
 		color: $color-text-sub;
+		input { min-height: 2em; }
 	}
 
 	li {

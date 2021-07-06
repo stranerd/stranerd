@@ -86,7 +86,7 @@ export default defineComponent({
 		position: relative;
 		display: flex;
 		flex-direction: column;
-		font-family: Ubuntu, Roboto, sans-serif !important;
+		font-family: 'Nunito Sans', sans-serif !important;
 
 		.ql-toolbar {
 			display: flex;

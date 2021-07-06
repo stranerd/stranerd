@@ -1,26 +1,25 @@
 <template>
-	<nav class="home-top-nav" role="navigation">
-		<div class="d-flex justify-content-between align-items-center left-body">
-			<Logo :secondary="true" class="nav-logo" />
-		</div>
-		<div class="d-flex justify-content-between align-items-center middle-body">
-			<SearchBar />
-		</div>
-		<div class="d-flex right-body">
+	<nav class="home-top-nav gap-1" role="navigation">
+		<Logo :secondary="true" class="nav-logo" />
+		<SearchBar class="middle-body" />
+		<div class="right-body gap-0-75 gap-lg-1-5">
 			<MessageLink :key="'messages' + isLoggedIn" class="link" />
 			<NotificationBell :key="'notifications' + isLoggedIn" class="link" />
 
-			<div v-if="isLoggedIn" class="d-flex justify-content-between align-items-center cursor-pointer " @click="show = !show">
+			<div v-if="isLoggedIn" class="d-flex gap-0-25 gap-lg-0-5 align-items-center cursor-pointer" @click="show = !show">
 				<Avatar :src="user.avatar" :size="48" />
-				<span class="d-flex justify-content-between align-items-center">
-					<span class="username">{{ user.fullName }}</span>
+				<span class="d-flex gap-0-25 align-items-center">
+					<span class="username text-truncate">{{ user.fullName }}</span>
 					<img src="@app/assets/images/icons/down-arrow.svg" alt="">
 				</span>
 			</div>
 			<transition name="slide" appear>
-				<div v-if="show" class="drop-menu">
-					<span><img src="@app/assets/images/icons/user.svg" alt="">Profile</span>
-					<span><img src="@app/assets/images/icons/signout.svg" alt="">Log Out</span>
+				<div v-if="show">
+					<div class="under" @click="show = false" />
+					<div class="drop-menu">
+						<span><img src="@app/assets/images/icons/user.svg" alt="">Profile</span>
+						<span><img src="@app/assets/images/icons/signout.svg" alt="">Log Out</span>
+					</div>
 				</div>
 			</transition>
 		</div>
@@ -45,35 +44,31 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+	.under {
+		position: fixed;
+		width: 100vw;
+		height: vh(100);
+		left: 0;
+		top: 0;
+	}
 	.nav-logo {
-		margin: 0 auto;
-		margin-left: 32px;
-
 		&:hover {
 			transition: all 0.3s;
 			transform: scale(1.2);
 		}
 	}
 
-	.btn {
-		min-width: 135px;
-		min-height: 45px;
-		display: grid;
-		place-items: center;
-	}
-
 	.home-top-nav {
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
 		color: $color-text-main;
-		height: 86px;
-		width: 100vw;
 		min-height: 60px;
-		z-index: 10 !important;
-		margin: 0;
+		padding: 1rem;
+		@media (min-width: $md) { padding: 1rem 2rem; }
+		@media (min-width: $lg) { padding: 1rem 5rem; }
 		background: #fff 0 0 no-repeat padding-box;
 		box-shadow: 0 5px 15px #17224d26;
-		opacity: 1;
 
 		button.navbar-toggler {
 			border: none;
@@ -84,22 +79,13 @@ export default defineComponent({
 	}
 
 	.middle-body {
-		width: 50%;
-		// padding: 1rem 2rem;
-	}
-
-	.left-body {
-		width: 16.25%;
-		padding: 1rem 2rem;
+		flex-grow: 1;
+		max-width: 50%;
 	}
 
 	.right-body {
-		width: 24%;
+		display: flex;
 		align-items: center;
-		justify-content: space-between;
-		padding: 0 1.4rem 0 1.2rem;
-		max-width: 400px;
-
 		.drop-menu {
 			position: absolute;
 			top: 96px;
@@ -129,22 +115,22 @@ export default defineComponent({
 		}
 	}
 
+	.link {
+		display: flex;
+		align-items: center;
+
+		& > img,
+		& >>> img,
+		& >>> span > img {
+			width: 24px;
+			height: 24px;
+		}
+	}
+
 	.username {
 		font-size: 18px;
 		font-weight: 600px;
-		margin: 0 3px 0 9px;
 		color: $color-text-main !important;
-	}
-
-	.fixed-top {
-		background: #fff 0% 0% no-repeat padding-box;
-		box-shadow: 0 5px 15px #17224d26;
-	}
-
-	.nav-links {
-		display: flex;
-		justify-content: center;
-		align-items: center;
 	}
 
 	.slide-enter-active,

@@ -13,6 +13,6 @@ export class GetTagsUseCase {
 			order: { field: 'count' },
 			limit: { count: 25, bottom: true }
 		}
-		return await this.repository.get(conditions)
+		return (await this.repository.get(conditions)).reverse()
 	}
 }

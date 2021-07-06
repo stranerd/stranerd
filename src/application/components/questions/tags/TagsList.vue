@@ -3,21 +3,22 @@
 		<h1 class="ranking-header mb-2">
 			Popular Tags
 		</h1>
-		<div class="tag-body d-flex flex-wrap gap-0-5">
-			<Tag v-for="tag in tags" :key="tag" :tag="tag" />
+		<div class="d-flex flex-wrap gap-0-5">
+			<TagListCard v-for="tag in tags" :key="tag.hash" :tag="tag" />
 		</div>
 		<PageLoading v-if="loading" />
 		<DisplayError :error="error" />
+		<DisplayWarning v-if="!loading && !error && tags.length === 0" message="No tags found." />
 	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent, onBeforeUnmount, onMounted } from '@nuxtjs/composition-api'
-import Tag from '@app/components/questions/tags/Tag.vue'
+import TagListCard from '@app/components/questions/tags/TagListCard.vue'
 import { useTagsList } from '@app/hooks/questions/tags'
 export default defineComponent({
 	name: 'TagsList',
-	components: { Tag },
+	components: { TagListCard },
 	setup () {
 		const { loading, error, tags, listener } = useTagsList()
 		onMounted(listener.startListener)

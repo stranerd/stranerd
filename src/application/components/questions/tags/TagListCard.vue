@@ -1,16 +1,17 @@
 <template>
 	<div class="tag">
-		{{ tag }}
+		{{ tag.name }}
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, PropType } from '@nuxtjs/composition-api'
+import { TagEntity } from '@modules/questions'
 export default defineComponent({
-	name: 'Tag',
+	name: 'TagListCard',
 	props: {
 		tag: {
-			type: String,
+			type: Object as PropType<TagEntity>,
 			required: true
 		}
 	}

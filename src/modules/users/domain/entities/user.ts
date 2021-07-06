@@ -61,8 +61,8 @@ export class UserEntity extends BaseEntity {
 			subject: tutor?.subject ?? undefined,
 			currentSession: tutor?.currentSession ?? null,
 			tags: Object.entries(tutor?.tags ?? {})
-				.map(([key, val]) => ({ id: key, count: val }))
-				.sort((a, b) => a.count - b.count)
+				.map(([key, val]) => ({ id: key, name: key, count: val }))
+				.sort((a, b) => a.count >= b.count ? -1 : 1)
 		}
 		this.dates = {
 			signedUpAt: dates?.signedUpAt ?? 0,

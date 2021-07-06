@@ -1,5 +1,5 @@
 <template>
-	<div class="d-flex flex-column align-items-center gap-0-5 p-2 ">
+	<div class="d-flex flex-column align-items-center gap-0-5 px-2 py-1">
 		<h1>Balance</h1>
 		<NuxtLink class="d-block w-100" to="/account/e-wallet">
 			<AccountCoinBalance class="justify-content-between" :user="user" />

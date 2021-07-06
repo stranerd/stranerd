@@ -7,18 +7,21 @@
 					<span class="ml-2">Home</span>
 				</div>
 			</NuxtLink>
+
 			<NuxtLink class="sidebar-link" to="/nerds">
 				<div>
 					<img src="@app/assets/images/icons/nerd.svg" alt="">
 					<span class="ml-2">Nerds</span>
 				</div>
 			</NuxtLink>
+
 			<NuxtLink class="sidebar-link" to="/account/e-wallet">
 				<div>
 					<img src="@app/assets/images/icons/e-wallet.svg" alt="">
 					<span class="ml-2">e-Wallet</span>
 				</div>
 			</NuxtLink>
+
 			<NuxtLink v-if="isAdmin" class="sidebar-link" to="/admin/">
 				<div>
 					<img src="@app/assets/images/icons/admin.svg" alt="">
@@ -27,7 +30,7 @@
 			</NuxtLink>
 		</div>
 		<div class="sidebar-links">
-			<button v-if="isLoggedIn" class="sidebar-btn btn" @click="buy">
+			<button v-if="isLoggedIn" class="sidebar-btn btn " @click="buy">
 				<span>Buy Coins</span>
 			</button>
 		</div>
@@ -42,9 +45,11 @@ import { useSessionSignout } from '@app/hooks/auth/session'
 export default defineComponent({
 	name: 'DefaultSidebar',
 	setup () {
-		const { isLoggedIn, user, isAdmin } = useAuth()
+		const { user, isAdmin, isLoggedIn } = useAuth()
 		const { loading, signout } = useSessionSignout()
-		const buy = useAccountModal().openBuyCoins
+		const buy = () => {
+			useAccountModal().openBuyCoins()
+		}
 		return { isLoggedIn, user, isAdmin, buy, loading, signout }
 	}
 })

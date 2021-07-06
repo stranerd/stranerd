@@ -7,11 +7,11 @@
 			<SearchBar />
 		</div>
 		<div class="d-flex right-body">
-			<MessageLink />
-			<NotificationBell :key="isLoggedIn" class="link" />
+			<MessageLink :key="'messages' + isLoggedIn" class="link" />
+			<NotificationBell :key="'notifications' + isLoggedIn" class="link" />
 
 			<div v-if="isLoggedIn" class="d-flex justify-content-between align-items-center cursor-pointer " @click="show = !show">
-				<Avatar :src="''" :size="48" />
+				<Avatar :src="user.avatar" :size="48" />
 				<span class="d-flex justify-content-between align-items-center">
 					<span class="username">{{ user.fullName }}</span>
 					<img src="@app/assets/images/icons/down-arrow.svg" alt="">
@@ -84,12 +84,12 @@ export default defineComponent({
 	}
 
 	.middle-body {
-		width: 54.5%;
+		width: 50%;
 		// padding: 1rem 2rem;
 	}
 
 	.left-body {
-		width: 21.5%;
+		width: 16.25%;
 		padding: 1rem 2rem;
 	}
 

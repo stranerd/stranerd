@@ -22,7 +22,7 @@ export const cancelSession = functions.https.onCall(async ({ id }, context) => {
 
 		await admin.database().ref('profiles')
 			.child(studentId)
-			.child('account/currentSession')
+			.child('session/currentSession')
 			.transaction((session) => {
 				if (session === id) return null
 				return session
@@ -30,7 +30,7 @@ export const cancelSession = functions.https.onCall(async ({ id }, context) => {
 
 		await admin.database().ref('profiles')
 			.child(tutorId)
-			.child('tutor/currentSession')
+			.child('session/currentTutorSession')
 			.transaction((session) => {
 				if (session === id) return null
 				return session

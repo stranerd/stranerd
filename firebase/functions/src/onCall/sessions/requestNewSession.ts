@@ -19,26 +19,26 @@ export const requestNewSession = functions.https.onCall(async (data, context) =>
 
 		const doc = await admin.firestore().collection('sessions').add(session)
 		const sessionId = doc.id
+		const isBusyRef = await admin.database().ref('profiles')
+			.child(tutorId).child('session/currentTutorSession')
+			.once('value')
 
-		let isBusy = false
-		await admin.database().ref('profiles')
-			.child(tutorId).child('tutor/currentSession')
-			.transaction((id: string | null) => {
-				if (id) isBusy = true
-				return id || sessionId
-			})
-
-		if (isBusy) {
+		if (isBusyRef.val()) {
 			await doc.delete()
 			throw new functions.https.HttpsError('failed-precondition', 'Tutor is currently in a session. Try again later.')
 		}
 
-		await admin.database().ref(`profiles/${studentId}/account/currentSession`)
-			.set(sessionId)
+		await admin.database().ref('profiles')
+			.update({
+				[`${studentId}/account/meta/sessions/${sessionId}`]: true,
+				[`${studentId}/session/requests/${sessionId}`]: true,
+				[`${tutorId}/account/meta/tutorSessions/${sessionId}`]: true,
+				[`${tutorId}/session/lobby/${sessionId}`]: true
+			})
 		await createNotification(tutorId, {
 			title: 'New Session Request',
 			body: 'Someone just requested a new session with you. Hurry now and seal the deal',
-			action: `/messages/${studentId}`
+			action: `/sessions/lobby#${sessionId}`
 		})
 
 		return sessionId

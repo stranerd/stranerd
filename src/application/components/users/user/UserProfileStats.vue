@@ -11,7 +11,7 @@
 			<div class="page-card">
 				<div>
 					<span class="card-title">Answered</span>
-					<span class="card-sub">{{ formatNumber(user.account.meta.bestAnsweredQuestions.length) }}</span>
+					<span class="card-sub">{{ formatNumber(user.account.meta.solvedQuestions.length) }}</span>
 				</div>
 				<img src="@app/assets/images/icons/profile-best-answers.svg" alt="">
 			</div>

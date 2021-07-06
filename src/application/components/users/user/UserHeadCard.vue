@@ -23,7 +23,7 @@
 			<div class="stats">
 				<img src="@app/assets/images/icons/profile-best-answers.svg" alt="">
 				<span>Answered</span>
-				<span class="count">{{ formatNumber(user.account.meta.bestAnsweredQuestions.length) }}</span>
+				<span class="count">{{ formatNumber(user.account.meta.solvedQuestions.length) }}</span>
 			</div>
 			<div class="stats">
 				<img src="@app/assets/images/icons/profile-answers.svg" alt="">

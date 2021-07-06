@@ -1,15 +1,15 @@
 <template>
-	<div class="tags">
-		{{ name }}
+	<div class="tag">
+		{{ tag }}
 	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 export default defineComponent({
-	name: 'Tags',
+	name: 'Tag',
 	props: {
-		name: {
+		tag: {
 			type: String,
 			required: true
 		}
@@ -18,7 +18,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-	.tags {
+	.tag {
 		border: 1.2px solid $color-line;
 		background-color: $color-tags;
 		border-radius: 50px;

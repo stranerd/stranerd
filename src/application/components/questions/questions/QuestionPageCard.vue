@@ -16,11 +16,11 @@
 			</div>
 			<div class="d-none d-md-inline">
 				<div class="d-flex gap-0-5">
-					<div v-if="isTutor" class="d-flex align-items-center position-relative">
+					<div class="d-flex align-items-center position-relative">
 						<span class="rounded-pill px-0-5 pe-1-5 bg-blue-grey text-light-blue">
 							+{{ formatNumber(question.creditable) }}
 						</span>
-						<Coins :size="24" class="ms-n1" style="z-index:1;" />
+						<Coins :size="24" class="ms-n1" style="z-index: 1;" />
 					</div>
 					<span>
 						<img src="@app/assets/images/icons/answers.svg" alt="" style="width: 24px; height: 24px;">
@@ -40,27 +40,19 @@
 				<img src="@app/assets/images/icons/answers.svg" alt="" style="width: 20px; height: 20px;">
 				<span>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</span>
 			</span>
-			<span v-if="question.attachments.length" class="me-0-5 me-md-1">
-				<span>{{ formatNumber(question.attachments.length) }}</span>
-				<i class="fas fa-paperclip" />
-			</span>
 			<a v-if="question.commentsCount" class="me-0-5 me-md-1 d-none align-items-center" @click.prevent="showComments = !showComments">
 				<span>
 					{{ showComments ? 'Hide' : 'Show' }} Comments
 				</span>
 				<i class="fas mx-0-25" :class="showComments ? 'fa-angle-up' : 'fa-angle-down'" />
 			</a>
-			<div v-if="isTutor" class="d-md-none d-flex align-items-center position-relative ms-auto">
+			<div class="d-md-none d-flex align-items-center position-relative ms-auto">
 				<span class="rounded-pill px-0-5 pe-1-5 bg-blue-grey text-light-blue">
 					+{{ formatNumber(question.creditable) }}
 				</span>
-				<Coins :size="24" class="ms-n1" style="z-index:1;" />
+				<Coins :size="24" class="ms-n1" style="z-index: 1;" />
 			</div>
 		</div>
-		<template v-if="question.attachments.length">
-			<div class="thick mx-n0-5 mx-md-n1-5 mx-lg-n2" />
-			<DisplayAttachments id="attachments" :attachments="question.attachments" />
-		</template>
 		<div class="thick mx-n0-5 mx-md-n1-5 mx-lg-n2" />
 		<div v-if="showComments">
 			<div class="d-flex align-items-end mb-0-5">
@@ -82,14 +74,13 @@ import { useSubject } from '@app/hooks/questions/subjects'
 import { openAnswerModal } from '@app/hooks/questions/answers'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useRedirectToAuth } from '@app/hooks/auth/session'
-import DisplayAttachments from '@app/components/questions/DisplayAttachments.vue'
 import CommentForm from '@app/components/questions/comments/QuestionCommentForm.vue'
 import CommentList from '@app/components/questions/comments/QuestionCommentsList.vue'
 import { formatNumber, pluralize } from '@utils/commons'
 import { formatTime } from '@utils/dates'
 export default defineComponent({
 	name: 'QuestionPageCard',
-	components: { DisplayAttachments, CommentForm, CommentList },
+	components: { CommentForm, CommentList },
 	props: {
 		question: {
 			required: true,
@@ -98,15 +89,15 @@ export default defineComponent({
 	},
 	setup (props) {
 		const showComments = ref(false)
-		const { isLoggedIn, id, isTutor, user } = useAuth()
+		const { isLoggedIn, id, user } = useAuth()
 		const { redirect } = useRedirectToAuth()
 		const { subject } = useSubject(props.question.subjectId)
 		const showAnswerButton = computed({
-			get: () => isTutor.value && props.question.userId !== id.value && !props.question.isAnswered && !user.value?.meta.answeredQuestions[props.question.id],
+			get: () => props.question.userId !== id.value && !props.question.isAnswered && !user.value?.account.meta.answeredQuestions.includes(props.question.id),
 			set: () => {}
 		})
 		return {
-			id, formatNumber, pluralize, isTutor, showAnswerButton,
+			id, formatNumber, pluralize, showAnswerButton,
 			subject, formatTime, showComments,
 			openAnswerModal: () => {
 				if (!isLoggedIn.value) redirect()

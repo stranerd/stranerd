@@ -1,16 +1,20 @@
 <template>
-	<AisInstantSearch :search-client="searchClient" :index-name="collection">
-		<AisSearchBox>
+	<AisInstantSearch :search-client="searchClient" :index-name="collection" class="w-100">
+		<AisSearchBox class="w-100">
 			<template
 				slot="default"
 				slot-scope="{ currentRefinement, isSearchStalled, refine }"
 			>
-				<input
-					placeholder="Search for"
-					class="form-control"
-					:value="currentRefinement"
-					@input="(event) => { refine(event.currentTarget.value); log(event.currentTarget.value) }"
-				>
+				<div class="search-container gap-0-25">
+					<img src="@app/assets/images/icons/search.svg" alt="" class="img-search">
+					<input
+						placeholder="Search for anything..."
+						class="form-control"
+						:value="currentRefinement"
+						@input="(event) => { refine(event.currentTarget.value); log(event.currentTarget.value) }"
+					>
+				</div>
+
 				<PageLoading v-if="isSearchStalled" />
 			</template>
 			<i slot="submit-icon" class="fas fa-search text-blue" />
@@ -77,21 +81,42 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-li {
-	border: none !important;
-	color: $color-blue;
-}
-.results{
-	position: absolute;
-	border-radius: 0.75rem;
-	margin: 0.5rem;
-	background: $color-white;
-	z-index: 3;
-	white-space: normal;
-	max-width: calc(100vw - 4rem);
-	box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
-	@media (max-width: 500px){
-		right: 0.25rem
+	.img-search {
+		width: 21px;
 	}
-}
+
+	.AisSearchBox {
+		widows: 100%;
+	}
+
+	.search-container {
+		display: flex;
+		align-items: center;
+		border: 1.2px solid $color-line;
+		background-color: $color-tags;
+		padding: 0.25em 0.5em;
+		border-radius: 12px;
+		color: $color-text-sub;
+		input { min-height: 2em; }
+	}
+
+	li {
+		border: none !important;
+		color: $color-text-main;
+	}
+
+	.results {
+		position: absolute;
+		border-radius: 0.75rem;
+		margin: 0.5rem;
+		background: $color-white;
+		z-index: 3;
+		white-space: normal;
+		max-width: calc(100vw - 4rem);
+		box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+
+		@media (max-width: 500px) {
+			right: 0.25rem;
+		}
+	}
 </style>

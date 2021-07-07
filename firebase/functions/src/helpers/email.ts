@@ -3,7 +3,6 @@ import { createTransport } from 'nodemailer'
 import * as Template from 'email-templates'
 import { EMAILS, email, domain, logo, appName } from './environment'
 import { EmailNotification } from './modules/users/notifications'
-import { TopUser } from './modules/users/rankings'
 import { Message, Report } from './modules/forms'
 
 export const sendMail = async (to: string, subject: string, content: string, from = EMAILS.NO_REPLY) => {
@@ -41,13 +40,6 @@ export const sendNewNotificationEmail = async (to: string, notification: EmailNo
 	const content = await new Template({ message: {} }).render('newNotification.pug',
 		{ notification, meta })
 	return await sendMailAndCatchErrors(to, notification.title, content, EMAILS.NO_REPLY)
-}
-
-export const sendTopUsersEmail = async (period: string, users: TopUser[]) => {
-	const meta = { domain: domain(), logo: logo() }
-	const content = await new Template({ message: {} }).render('topUsersEmail.pug',
-		{ meta, period, users })
-	return await sendMailAndCatchErrors('support@stranerd.com', `Top ${period} users`, content)
 }
 
 export const sendNewFormMessageEmail = async (message: Message) => {

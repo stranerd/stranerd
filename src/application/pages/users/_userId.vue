@@ -5,10 +5,8 @@
 			<UserHeadCard :key="user.hash" :user="user" />
 			<DisplayError v-if="error" :error="error" />
 			<div class="thick mx-n2" />
-			<UserAchievementsList :user="user" />
-			<div class="thick mx-n2" />
-			<UserAnswerList v-if="user.roles.isTutor" :user-id="user.id" />
-			<UserQuestionList v-else :user-id="user.id" />
+			<UserQuestionList class="mb-1" :user-id="user.id" />
+			<UserAnswerList :user-id="user.id" />
 		</div>
 		<div v-else class="page-content">
 			<DisplayError error="No such user exists!" />
@@ -23,10 +21,9 @@ import { useUser } from '@app/hooks/users/user'
 import UserHeadCard from '@app/components/users/user/UserHeadCard.vue'
 import UserQuestionList from '@app/components/questions/questions/UserQuestionsList.vue'
 import UserAnswerList from '@app/components/questions/answers/UserAnswersList.vue'
-import UserAchievementsList from '@app/components/users/achievements/UserAchievementsList.vue'
 export default defineComponent({
 	name: 'UserPage',
-	components: { UserHeadCard, UserQuestionList, UserAnswerList, UserAchievementsList },
+	components: { UserHeadCard, UserQuestionList, UserAnswerList },
 	middleware: [
 		({ redirect, route }) => {
 			const { userId } = route.params

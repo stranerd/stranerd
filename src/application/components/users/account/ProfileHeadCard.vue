@@ -1,5 +1,5 @@
 <template>
-	<div class="d-flex flex-column align-items-center gap-0-5 p-2 ">
+	<div class="d-flex flex-column align-items-center gap-0-5 px-2 py-1">
 		<h1>Balance</h1>
 		<NuxtLink class="d-block w-100" to="/account/e-wallet">
 			<AccountCoinBalance class="justify-content-between" :user="user" />
@@ -11,7 +11,6 @@
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { UserEntity } from '@modules/users'
 import AccountCoinBalance from '@app/components/users/account/AccountCoinBalance.vue'
-import { useEditModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'ProfileHeadCard',
 	components: { AccountCoinBalance },
@@ -20,17 +19,17 @@ export default defineComponent({
 			required: true,
 			type: Object as PropType<UserEntity>
 		}
-	},
-	setup () {
-		const openEditProfileModal = useEditModal().openAccountProfile
-		return { openEditProfileModal }
 	}
 })
 </script>
 
 <style lang="scss" scoped>
-h1{
-	font-size: 24px;
-	color: $color-text-main;
-}
+	h1 {
+		font-size: 24px;
+		color: $color-text-main;
+	}
+
+	.w-100 {
+		width: 92% !important;
+	}
 </style>

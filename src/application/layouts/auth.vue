@@ -15,18 +15,21 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-	.body{
+	.body {
 		min-height: vh(100);
-		padding: .25rem;
+		padding: 0.25rem;
 	}
-	.content{
+
+	.content {
 		width: 100%;
 		max-width: 720px;
 		background: $color-white;
-		border-radius: .75rem;
+		border-radius: 0.75rem;
 	}
+
 	@media (min-width: $md) {
-		.body{ padding: 4rem; }
+		.body { padding: 4rem; }
+
 		.content {
 			padding-left: 7rem;
 			padding-right: 7rem;

@@ -17,16 +17,11 @@ const global = {
 
 export const useAuth = () => {
 	const id = computed({ get: () => global.auth.value?.id ?? '', set: () => {} })
-	const bio = computed({ get: () => global.user.value?.userBio, set: () => {} })
+	const bio = computed({ get: () => global.user.value?.bio, set: () => {} })
 
 	const isLoggedIn = computed({ get: () => !!id.value && !!global.user.value, set: () => {} })
 	const isVerified = computed({ get: () => !!global.auth.value?.isVerified, set: () => {} })
 	const isAdmin = computed({ get: () => !!global.user.value?.roles.isAdmin, set: () => {} })
-	const isTutor = computed({ get: () => !!global.user.value?.roles.isTutor, set: () => {} })
-	const ongoingAchievements = computed({
-		get: () => global.user.value?.achievements.filter((achievement) => !achievement.completed) ?? [],
-		set: () => {}
-	})
 	const currentSessionId = computed({
 		get: () => global.user.value?.currentSession ?? null,
 		set: () => {}
@@ -54,7 +49,7 @@ export const useAuth = () => {
 
 		const id = global.auth.value?.id
 		const setUser = (user: UserEntity | null) => {
-			if (user?.userBio.isNew && global.showProfileModal.value) useEditModal().openAccountProfile()
+			if (user?.bio.isNew && global.showProfileModal.value) useEditModal().openAccountProfile()
 			global.user.value = user
 		}
 		if (id) {
@@ -84,7 +79,7 @@ export const useAuth = () => {
 
 	return {
 		id, bio, user: global.user, auth: global.auth, location: global.location,
-		isLoggedIn, isVerified, isAdmin, isTutor, ongoingAchievements, currentSessionId,
+		isLoggedIn, isVerified, isAdmin, currentSessionId,
 		setAuthUser, setUserLocation, signin, signout, getLocalAmount, getLocalCurrency
 	}
 }

@@ -13,10 +13,6 @@
 				<img src="@app/assets/images/icons/answers.svg" alt="" style="width: 24px; height: 24px;">
 				<span>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</span>
 			</span>
-			<span v-if="question.attachments.length">
-				<span>{{ formatNumber(question.attachments.length) }}</span>
-				<i class="fas fa-paperclip" />
-			</span>
 			<i v-if="question.isAnswered" class="fas fa-check text-success fa-2x" />
 		</div>
 	</div>

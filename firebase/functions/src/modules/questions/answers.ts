@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
-import { deleteFromStorage } from '../../helpers/storage'
-import { addUserCoins, addUserXp, XpGainList } from '../../helpers/modules/payments/transactions'
+import { markAnswerAsBest } from '../../helpers/modules/questions/answers'
+import { addUserCoins } from '../../helpers/modules/payments/transactions'
 import { addTutorRatings } from '../../helpers/modules/users/tutors'
 import { deleteFromAlgolia, saveToAlgolia } from '../../helpers/algolia'
 import { createNotification } from '../../helpers/modules/users/notifications'
@@ -9,7 +9,7 @@ import { createNotification } from '../../helpers/modules/users/notifications'
 export const answerCreated = functions.firestore.document('answers/{answerId}')
 	.onCreate(async (snap, context) => {
 		const answer = snap.data()
-		const { coins, userId, questionId } = answer
+		const { coins, userId, questionId, tags = [] } = answer
 
 		const questionRef = await admin.firestore().collection('questions').doc(questionId)
 
@@ -17,11 +17,19 @@ export const answerCreated = functions.firestore.document('answers/{answerId}')
 			answers: admin.firestore.FieldValue.increment(1)
 		}, { merge: true })
 
+		const tagsData = Object.fromEntries(
+			tags.map((tag: string) => [
+				`tutor/tags/${tag}`,
+				admin.database.ServerValue.increment(1)
+			])
+		)
+
 		if (coins && userId) {
 			await admin.database().ref('profiles').child(userId)
 				.update({
-					[`meta/answers/${snap.id}`]: true,
-					[`meta/answeredQuestions/${questionId}`]: admin.database.ServerValue.increment(1)
+					[`account/meta/answers/${snap.id}`]: true,
+					[`account/meta/answeredQuestions/${questionId}`]: admin.database.ServerValue.increment(1),
+					...tagsData
 				})
 			await addUserCoins(userId, { bronze: coins, gold: 0 },
 				'You got coins for answering a question'
@@ -39,32 +47,25 @@ export const answerCreated = functions.firestore.document('answers/{answerId}')
 			action: `/questions/${questionId}#${context.params.answerId}`
 		})
 
-		if (userId) await addUserXp(userId, XpGainList.ANSWER_QUESTION, true)
-
 		await saveToAlgolia('answers', snap.id, { answer })
 	})
 
 export const answerUpdated = functions.firestore.document('answers/{answerId}')
 	.onUpdate(async (snap) => {
 		const after = snap.after.data()
-		const before = snap.before.data()
-
-		const oldAttachments = before.attachments as any[]
-		const newAttachments = after.attachments as any[]
-
-		await Promise.all(oldAttachments?.map(async (attachment) => {
-			const wasNotRemoved = newAttachments?.find((doc) => attachment?.path === doc?.path)
-			if (!wasNotRemoved) await deleteFromStorage(attachment?.path)
-		}))
-
 		await saveToAlgolia('answers', snap.after.id, { answer: after })
 	})
 
 export const answerDeleted = functions.firestore.document('answers/{answerId}')
 	.onDelete(async (snap) => {
-		const { questionId, attachments, userId } = snap.data()
+		const { questionId, userId, tags = [] } = snap.data()
 
-		attachments?.map(async (attachment: any) => await deleteFromStorage(attachment.path))
+		const tagsData = Object.fromEntries(
+			tags.map((tag: string) => [
+				`tutor/tags/${tag}`,
+				admin.database.ServerValue.increment(-1)
+			])
+		)
 
 		await admin.firestore().collection('questions')
 			.doc(questionId)
@@ -72,10 +73,11 @@ export const answerDeleted = functions.firestore.document('answers/{answerId}')
 				answers: admin.firestore.FieldValue.increment(-1)
 			}, { merge: true })
 
-		await admin.database().ref('profiles').child(userId)
+		await admin.database().ref('profiles/account').child(userId)
 			.update({
-				[`meta/answers/${snap.id}`]: null,
-				[`meta/answeredQuestions/${questionId}`]: admin.database.ServerValue.increment(-1)
+				[`account/meta/answers/${snap.id}`]: null,
+				[`account/meta/answeredQuestions/${questionId}`]: admin.database.ServerValue.increment(-1),
+				...tagsData
 			})
 
 		await deleteFromAlgolia('answers', snap.id)
@@ -85,28 +87,37 @@ export const answerRated = functions.database.ref('answers/{answerId}/ratings/{u
 	.onCreate(async (snap, context) => {
 		const { answerId, userId } = context.params
 		const ratings = snap.val() ?? 0
-		let tutorId = ''
-		let questionId = ''
 
-		await admin.database().ref('profiles').child(userId)
-			.child(`meta/ratedAnswers/${answerId}`).set(ratings)
+		await admin.database().ref('profiles').child(userId).child('account/meta')
+			.child(`ratedAnswers/${answerId}`).set(ratings)
 
 		await admin.firestore().runTransaction(async (t) => {
 			const answerRef = admin.firestore().collection('answers').doc(answerId)
-			const answer = await t.get(answerRef)
-			tutorId = answer.data()?.userId ?? ''
-			questionId = answer.data()?.questionId ?? ''
+			const answer = (await t.get(answerRef)).data() ?? {}
+
+			const { tutorId = '', questionId = '' } = answer
+			const { total = 0, count = 0 } = answer.ratings ?? {}
+			const rating = count === 0 ? 0 : total / count
+
 			t.set(answerRef, {
 				ratings: {
 					total: admin.firestore.FieldValue.increment(ratings),
 					count: admin.firestore.FieldValue.increment(1)
 				}
 			}, { merge: true })
-		})
 
-		if (tutorId) await addTutorRatings(tutorId, ratings)
-		if (questionId && tutorId) await createNotification(tutorId, {
-			body: 'Your answer just got rated. Go to your dashboard and have a look',
-			action: `/questions/${questionId}#${answerId}`
+			if (questionId) {
+				const questionRef = admin.firestore().collection('questions').doc(questionId)
+				const question = (await t.get(questionRef)).data() ?? {}
+				if (!question.answerId && count >= 19 && rating > 3.5) await markAnswerAsBest(questionId, answerId, question, answer)
+
+				if (tutorId) {
+					await addTutorRatings(tutorId, ratings)
+					await createNotification(tutorId, {
+						body: 'Your answer just got rated. Go to your dashboard and have a look',
+						action: `/questions/${questionId}#${answerId}`
+					})
+				}
+			}
 		})
 	})

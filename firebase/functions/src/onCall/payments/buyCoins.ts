@@ -1,6 +1,5 @@
 import * as functions from 'firebase-functions'
-import { addUserCoins, addUserXp, XpGainList } from '../../helpers/modules/payments/transactions'
-import { Achievement } from '../../helpers/modules/users/achievements'
+import { addUserCoins } from '../../helpers/modules/payments/transactions'
 import { createNotification } from '../../helpers/modules/users/notifications'
 
 export const buyCoins = functions.https.onCall(async (data, context) => {
@@ -12,15 +11,9 @@ export const buyCoins = functions.https.onCall(async (data, context) => {
 	try {
 		await addUserCoins(userId,
 			{ bronze: isGold ? 0 : amount, gold: isGold ? amount : 0 },
-			'You purchased coins'
+			'You purchased coins',
+			true
 		)
-		if (isGold) {
-			await addUserXp(userId, XpGainList.BUY_GOLD * amount)
-			await Achievement.checkBuyGoldAchievement(userId, amount)
-		} else {
-			await addUserXp(userId, XpGainList.BUY_BRONZE * amount)
-			await Achievement.checkBuyBronzeAchievement(userId, amount)
-		}
 		await createNotification(userId, {
 			body: `You just purchased ${amount} coins.`,
 			action: '/account/e-wallet'

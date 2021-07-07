@@ -18,31 +18,28 @@
 			<span>Out of coins?&nbsp;</span>
 			<a class="fw-bold text-decoration-underline" @click="openBuyCoins">Buy more coins</a>
 		</div>
-		<div class="form-group my-1">
-			<label class="label d-block">Attachments</label>
+		<div class="form-group my-1 small">
+			<h6>Tags</h6>
 			<input
-				ref="attachments"
-				type="file"
-				class="d-none"
-				accept="image/*"
-				multiple
-				@change="catchAttachments"
+				v-model="tag"
+				type="text"
+				class="form-control"
+				placeholder="eg differentiation calculus"
 			>
-			<p class="mb-0">
-				<span v-for="attachment in factory.attachments" :key="attachment.name" class="me-0-5">
-					<span class="me-0-25">{{ attachment.name }}</span>
-					<a class="text-danger" @click.prevent="factory.removeAttachment(attachment)">
-						<i class="fas fa-times" />
-					</a>
+			<p class="my-0-5 d-flex gap-0-5 flex-wrap">
+				<span
+					v-for="tag in factory.tags"
+					:key="tag"
+					class="p-0-5 d-flex gap-0-5 cursor-pointer bg-blue rounded-3"
+					@click="removeTag(tag)"
+				>
+					<span class="text-white">{{ tag }}</span>
+					<span class="text-danger">&times;</span>
 				</span>
 			</p>
-			<span v-if="factory.icon">{{ factory.icon.name }}</span>
-			<a class="text-info my-0-5" @click.prevent="() => { $refs.attachments.value= ''; $refs.attachments.click() }">
-				{{ factory.attachments.length > 0 ? 'Add' : 'Upload' }} attachments
-			</a>
-			<small v-if="factory.errors.attachments" class="small text-danger d-block">{{ factory.errors.attachments }}</small>
+			<span class="text-muted d-block">Add at least 3 relevant tags to your question, separated by spaces.</span>
+			<span v-if="factory.errors.tags" class="text-danger">{{ factory.errors.tags }}</span>
 		</div>
-		<hr>
 		<div class="d-flex justify-content-end my-1-5">
 			<button class="btn btn-blue text-white" type="submit" :disabled="loading || !factory.valid">
 				<PageLoading v-if="loading" />
@@ -55,10 +52,10 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
-import { useMultipleFileInputs } from '@app/hooks/core/forms'
 import { QuestionFactory } from '@modules/questions'
 import QuestionEditor from '@app/components/core/editor/QuestionEditor.vue'
 import { useAccountModal } from '@app/hooks/core/modals'
+import { useTags } from '@app/hooks/core/forms'
 import SelectSubject from '@app/components/questions/subjects/SelectSubject.vue'
 export default defineComponent({
 	name: 'QuestionForm',
@@ -86,11 +83,12 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
-		const { catchMultipleFiles: catchAttachments } = useMultipleFileInputs(
-			(files: File[]) => files.map(props.factory.addAttachment)
-		)
 		const { openBuyCoins } = useAccountModal()
-		return { catchAttachments, openBuyCoins }
+		const { tag, removeTag } = useTags(
+			(tag: string) => props.factory.addTag(tag),
+			(tag: string) => props.factory.removeTag(tag)
+		)
+		return { openBuyCoins, tag, removeTag }
 	}
 })
 </script>

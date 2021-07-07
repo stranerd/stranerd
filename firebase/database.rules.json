@@ -9,6 +9,22 @@
 				}
 			}
 		},
+		"chats": {
+			"meta": {
+				"$userId": {
+					".read": true,
+					".write": "auth.uid !== null",
+					".indexOn": ["last/dates/createdAt"]
+				}
+			},
+			"single": {
+				"$path": {
+					".read": true,
+					".write": "auth.uid != null",
+					".indexOn": ["dates/createdAt"]
+				}
+			}
+		},
 		"comments": {
 			"answers": {
 				"$answerId": {
@@ -33,34 +49,12 @@
 		},
 		"profiles": {
 			".read": true,
-			".indexOn": [
-				"roles/isAdmin","roles/isTutor","bio/email",
-				"rankings/daily","rankings/weekly","rankings/monthly","rankings/quarterly"
-			],
+			".indexOn": ["roles/isAdmin", "account/ratings/average","bio/email"],
 			"$userId": {
 				".read": true,
 				".write": "auth.uid === $userId",
 				"status": {
 					".write": true
-				},
-				"tutor": {
-					".write": "auth.token.isAdmin === true"
-				}
-			}
-		},
-		"chats": {
-			"meta": {
-				"$userId": {
-					".read": true,
-					".write": "auth.uid !== null",
-					".indexOn": ["last/dates/createdAt"]
-				}
-			},
-			"single": {
-				"$path": {
-					".read": true,
-					".write": "auth.uid != null",
-					".indexOn": ["dates/createdAt"]
 				}
 			}
 		},
@@ -70,6 +64,10 @@
 				".read": true,
 				".write": "auth.token.isAdmin === true"
 			}
+		},
+		"tags": {
+			".read": true,
+			".indexOn": ["count"]
 		},
 		"users": {
 			"$userId": {

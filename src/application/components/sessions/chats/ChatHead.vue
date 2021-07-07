@@ -18,10 +18,8 @@
 		</button>
 		<div v-if="show" class="under" @click="show = false" />
 		<div v-if="show" class="menu gap-0-5">
-			<template v-if="user.roles.isTutor">
-				<a v-if="!currentSessionId && !user.currentSession" @click.prevent="requestNewSession">Request Session</a>
-				<a @click="tipUser">Tip Nerd</a>
-			</template>
+			<a v-if="!currentSessionId && !user.currentSession" @click.prevent="requestNewSession">Request Session</a>
+			<a @click="tipUser">Tip Nerd</a>
 			<a @click="reportUser">Report</a>
 			<PageLoading v-if="loading" />
 			<a v-if="isAccepted && currentSession && currentSessionId === user.currentSession && currentSession.studentId === id" @click.prevent="cancelSession">End Session</a>
@@ -78,7 +76,7 @@ export default defineComponent({
 			set: () => {}
 		})
 		const requestNewSession = () => {
-			setNewSessionTutorIdBio({ id: props.user.id, user: props.user.userBio })
+			setNewSessionTutorIdBio({ id: props.user.id, user: props.user.bio })
 			useSessionModal().openCreateSession()
 			show.value = false
 		}
@@ -93,12 +91,12 @@ export default defineComponent({
 			})
 		}
 		const reportUser = () => {
-			setReportedBioAndId({ id: props.user.id, bio: props.user.userBio })
+			setReportedBioAndId({ id: props.user.id, bio: props.user.bio })
 			useAccountModal().openReportUser()
 			show.value = false
 		}
 		const tipUser = () => {
-			setNerdBioAndId({ id: props.user.id, bio: props.user.userBio })
+			setNerdBioAndId({ id: props.user.id, bio: props.user.bio })
 			useAccountModal().openTipTutor()
 			show.value = false
 		}
@@ -113,34 +111,38 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.under {
-	position: fixed;
-	width: 100vw;
-	height: vh(100);
-	left: 0;
-	top: 0;
-}
-.menu {
-	padding: 0.5rem;
-	position: absolute;
-	top: 2.5rem;
-	right: 0;
-	width: 250px;
-	z-index: 1;
-	display: flex;
-	flex-direction: column;
-	background: rgba($color-blue, 0.9);
-	color: $color-white;
-	border-radius: 0.5rem;
-	a:hover {
-		font-size: unset;
-		transform: unset;
-		background: lighten($color-blue, 5)
+	.under {
+		position: fixed;
+		width: 100vw;
+		height: vh(100);
+		left: 0;
+		top: 0;
 	}
-	animation: slide-down 0.1s;
-}
-@keyframes slide-down {
-	from { top: -50px; }
-	to { top: 0; }
-}
+
+	.menu {
+		padding: 0.5rem;
+		position: absolute;
+		top: 2.5rem;
+		right: 0;
+		width: 250px;
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		background: rgba($color-text-main, 0.9);
+		color: $color-white;
+		border-radius: 0.5rem;
+
+		a:hover {
+			font-size: unset;
+			transform: unset;
+			background: lighten($color-text-main, 5);
+		}
+
+		animation: slide-down 0.1s;
+	}
+
+	@keyframes slide-down {
+		from { top: -50px; }
+		to { top: 0; }
+	}
 </style>

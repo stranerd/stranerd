@@ -1,8 +1,7 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { createTask } from '../../helpers/cloud-task'
-import { addUserCoins, addUserXp, XpGainList } from '../../helpers/modules/payments/transactions'
-import { Achievement } from '../../helpers/modules/users/achievements'
+import { addUserCoins } from '../../helpers/modules/payments/transactions'
 
 export const acceptSession = functions.https.onCall(async ({ id }, context) => {
 	if (!context.auth)
@@ -18,12 +17,12 @@ export const acceptSession = functions.https.onCall(async ({ id }, context) => {
 	try {
 		let taskName = ''
 		try {
-			taskName = await createTask({
+			taskName = (await createTask({
 				queue: 'sessions',
 				endpoint: 'endSession',
 				payload: { studentId, tutorId, id },
 				timeInSecs: ((session?.duration ?? 15) * 60) + (Date.now() / 1000) + 5 // plus 5 to account for round trips to servers
-			})
+			}))!
 		} catch (e) {}
 
 		const endedAt = admin.firestore.Timestamp.now().toDate()
@@ -41,12 +40,9 @@ export const acceptSession = functions.https.onCall(async ({ id }, context) => {
 
 		await admin.database().ref('profiles')
 			.update({
-				[`${studentId}/meta/sessions/${id}`]: true,
-				[`${tutorId}/meta/tutorSessions/${id}`]: true
+				[`${studentId}/account/meta/sessions/${id}`]: true,
+				[`${tutorId}/account/meta/tutorSessions/${id}`]: true
 			})
-
-		await addUserXp(studentId, XpGainList.BOOK_NERD)
-		await Achievement.checkAttendSessionsAchievement(studentId)
 	} catch (error) {
 		throw new functions.https.HttpsError('unknown', error.message)
 	}

@@ -1,16 +1,15 @@
-import { Media } from '@modules/core/data/models/base'
 import { UserBio, generateDefaultBio } from '@modules/users'
 import { BaseEntity } from '@modules/core/domains/entities/base'
-import { extractTextFromHTML, trimToLength } from '@utils/commons'
+import { catchDivideByZero, extractTextFromHTML, trimToLength } from '@utils/commons'
 
 export class AnswerEntity extends BaseEntity {
 	public readonly id: string
 	public readonly body: string
-	public readonly attachments: Media[]
 	public readonly coins: number
 	public readonly best: boolean
 	public readonly questionId: string
 	public readonly subjectId: string
+	public readonly tags: string[]
 	public readonly userId: string
 	public readonly user: UserBio
 	public readonly ratings: { total: number, count: number }
@@ -18,7 +17,7 @@ export class AnswerEntity extends BaseEntity {
 	public readonly createdAt: number
 
 	constructor ({
-		id, body, coins, questionId, attachments,
+		id, body, coins, questionId, tags,
 		subjectId, createdAt, userId, user,
 		best, ratings, comments
 	}: AnswerConstructorArgs) {
@@ -26,19 +25,19 @@ export class AnswerEntity extends BaseEntity {
 		this.id = id
 		this.body = body
 		this.coins = coins
-		this.attachments = attachments
+		this.tags = tags
 		this.questionId = questionId
 		this.subjectId = subjectId
 		this.userId = userId
 		this.user = generateDefaultBio(user)
 		this.best = best ?? false
-		this.ratings = ratings ?? { total: 0, count: 0 }
+		this.ratings = { total: ratings?.total ?? 0, count: ratings?.count ?? 0 }
 		this.commentsCount = comments?.count ?? 0
 		this.createdAt = createdAt
 	}
 
-	get averageRating () { return this.ratings.count === 0 ? 0 : (this.ratings.total ?? 0) / (this.ratings.count ?? 1) }
-	get formattedRating () { return Number(this.averageRating).toFixed(1) }
+	get averageRating () { return catchDivideByZero(this.ratings.total, this.votes) }
+	get votes () { return this.ratings.count }
 	get userName () { return this.user.name.fullName }
 	get avatar () { return this.user.avatar }
 	get trimmedBody () { return trimToLength(extractTextFromHTML(this.body), 200) }
@@ -47,8 +46,8 @@ export class AnswerEntity extends BaseEntity {
 type AnswerConstructorArgs = {
 	id: string
 	body: string
-	attachments: Media[]
 	coins: number
+	tags: string[]
 	questionId: string
 	subjectId: string
 	createdAt: number

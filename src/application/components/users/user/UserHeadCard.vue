@@ -8,51 +8,42 @@
 			<div class="align-items-center align-items-lg-start d-flex flex-column gap-0-5">
 				<span class="d-block text-18 fw-bold text-wrap">{{ user.fullName }}</span>
 				<span class="small">{{ user.isOnline ? 'Active now' : 'Last seen: ' + time }}</span>
-				<ShowRatings v-if="user.roles.isTutor" :rating="user.averageRating" />
-				<NuxtLink v-if="user.roles.isTutor || isTutor" :to="`/messages/${user.id}`" class="btn btn-sm btn-blue">
+				<ShowRatings :rating="user.averageRating" />
+				<NuxtLink :to="`/messages/${user.id}`" class="btn btn-sm btn-blue">
 					Message
 				</NuxtLink>
 			</div>
 		</div>
 		<div class="grid ms-lg-auto">
-			<template v-if="user.roles.isTutor">
-				<div class="stats">
-					<img src="@app/assets/images/icons/profile-answers.svg" alt="">
-					<span>Answers</span>
-					<span class="count">{{ formatNumber(Object.entries(user.meta.answers).length) }}</span>
-				</div>
-				<div class="stats">
-					<img src="@app/assets/images/icons/profile-best-answers.svg" alt="">
-					<span>Best Answers</span>
-					<span class="count">{{ formatNumber(Object.entries(user.meta.bestAnswers).length) }}</span>
-				</div>
-				<div class="stats">
-					<img src="@app/assets/images/icons/profile-sessions.svg" alt="">
-					<span>Sessions</span>
-					<span class="count">{{ formatNumber(Object.entries(user.meta.tutorSessions).length) }}</span>
-				</div>
-			</template>
-			<template v-else>
-				<div class="stats">
-					<img src="@app/assets/images/icons/profile-question.svg" alt="">
-					<span>Questions</span>
-					<span class="count">{{ formatNumber(Object.entries(user.meta.questions).length) }}</span>
-				</div>
-				<div class="stats">
-					<img src="@app/assets/images/icons/profile-best-answers.svg" alt="">
-					<span>Answered</span>
-					<span class="count">{{ formatNumber(Object.entries(user.meta.bestAnsweredQuestions).length) }}</span>
-				</div>
-				<div class="stats">
-					<img src="@app/assets/images/icons/profile-sessions.svg" alt="">
-					<span>Sessions</span>
-					<span class="count">{{ formatNumber(Object.entries(user.meta.sessions).length) }}</span>
-				</div>
-			</template>
 			<div class="stats">
-				<img src="@app/assets/images/icons/profile-rank.svg" alt="">
-				<span>Xp</span>
-				<span class="count">{{ formatNumber(user.account.xp) }}</span>
+				<img src="@app/assets/images/icons/profile-question.svg" alt="">
+				<span>Questions</span>
+				<span class="count">{{ formatNumber(user.account.meta.questions.length) }}</span>
+			</div>
+			<div class="stats">
+				<img src="@app/assets/images/icons/profile-best-answers.svg" alt="">
+				<span>Answered</span>
+				<span class="count">{{ formatNumber(user.account.meta.bestAnsweredQuestions.length) }}</span>
+			</div>
+			<div class="stats">
+				<img src="@app/assets/images/icons/profile-answers.svg" alt="">
+				<span>Answers</span>
+				<span class="count">{{ formatNumber(user.account.meta.answers.length) }}</span>
+			</div>
+			<div class="stats">
+				<img src="@app/assets/images/icons/profile-best-answers.svg" alt="">
+				<span>Best Answers</span>
+				<span class="count">{{ formatNumber(user.account.meta.bestAnswers.length) }}</span>
+			</div>
+			<div class="stats">
+				<img src="@app/assets/images/icons/profile-sessions.svg" alt="">
+				<span>Sessions Hosted</span>
+				<span class="count">{{ formatNumber(user.account.meta.tutorSessions.length) }}</span>
+			</div>
+			<div class="stats">
+				<img src="@app/assets/images/icons/profile-sessions.svg" alt="">
+				<span>Sessions Requested</span>
+				<span class="count">{{ formatNumber(user.account.meta.sessions.length) }}</span>
 			</div>
 		</div>
 	</div>
@@ -63,7 +54,6 @@ import { defineComponent, onBeforeUnmount, onMounted, PropType } from '@nuxtjs/c
 import { UserEntity } from '@modules/users'
 import { formatNumber } from '@utils/commons'
 import { useTimeDifference } from '@app/hooks/core/dates'
-import { useAuth } from '@app/hooks/auth/auth'
 export default defineComponent({
 	name: 'UserHeadCard',
 	props: {
@@ -73,36 +63,40 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
-		const { isTutor } = useAuth()
 		const { time, startTimer, stopTimer } = useTimeDifference(props.user.lastSeen)
 		onMounted(startTimer)
 		onBeforeUnmount(stopTimer)
-		return { time, formatNumber, isTutor }
+		return { time, formatNumber }
 	}
 })
 </script>
 
 <style lang="scss" scoped>
-.grid {
-	display: grid;
-	width: 100%;
-	max-width: 800px;
-	grid-gap: 1rem;
-	grid-template-columns: repeat(1, 1fr);
-	@media (min-width: $xsm) { grid-template-columns: repeat(2, 1fr); }
-	@media (min-width: $sm) { grid-template-columns: repeat(4, 1fr); }
-}
-.stats {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	img {
-		width: 36px;
-		height: 36px;
-		margin-bottom: 0.5rem;
+	.grid {
+		display: grid;
+		width: 100%;
+		max-width: 800px;
+		grid-gap: 1rem;
+		grid-template-columns: repeat(1, 1fr);
+
+		@media (min-width: $xsm) { grid-template-columns: repeat(2, 1fr); }
+
+		@media (min-width: $sm) { grid-template-columns: repeat(4, 1fr); }
 	}
-	.count {
-		font-size: 1.5rem;
+
+	.stats {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		img {
+			width: 36px;
+			height: 36px;
+			margin-bottom: 0.5rem;
+		}
+
+		.count {
+			font-size: 1.5rem;
+		}
 	}
-}
 </style>

@@ -1,5 +1,4 @@
 import * as admin from 'firebase-admin'
-import { RankingPeriods } from '../users/rankings'
 
 type CreateTransaction = {
 	amount: number
@@ -19,14 +18,19 @@ const createTransaction = async (userId: string, data: CreateTransaction) => {
 	}
 }
 
-export const addUserCoins = async (userId: string, coins: { bronze: number, gold: number }, transactionDetails: string) => {
+export const addUserCoins = async (userId: string, coins: { bronze: number, gold: number }, transactionDetails: string, bought = false) => {
+	const data = {
+		'coins/gold': admin.database.ServerValue.increment(coins.gold ?? 0),
+		'coins/bronze': admin.database.ServerValue.increment(coins.bronze ?? 0)
+	} as any
+	if (bought) {
+		data['bought/gold'] = admin.database.ServerValue.increment(coins.gold ?? 0)
+		data['bought/bronze'] = admin.database.ServerValue.increment(coins.bronze ?? 0)
+	}
 	await admin.database().ref('profiles')
 		.child(userId)
-		.child('account/coins')
-		.update({
-			gold: admin.database.ServerValue.increment(coins.gold ?? 0),
-			bronze: admin.database.ServerValue.increment(coins.bronze ?? 0)
-		})
+		.child('account')
+		.update(data)
 
 	if (transactionDetails && coins.gold) await createTransaction(userId, {
 		amount: coins.gold,
@@ -38,28 +42,4 @@ export const addUserCoins = async (userId: string, coins: { bronze: number, gold
 		event: transactionDetails,
 		isGold: false
 	})
-}
-
-export const addUserXp = async (userId: string, xp: number, shouldSkipForRanking = false) => {
-	const data = {
-		'account/xp': admin.database.ServerValue.increment(xp)
-	} as Record<string, object>
-
-	if (!shouldSkipForRanking) Object.values(RankingPeriods)
-		.forEach((period) => {
-			data[`rankings/${period}`] = admin.database.ServerValue.increment(xp)
-		})
-
-	await admin.database().ref('profiles').child(userId).update(data)
-}
-
-export enum XpGainList {
-	LOGGING_IN = 3,
-	ASK_QUESTION = 5,
-	ANSWER_QUESTION = 5,
-	BUY_BRONZE = 0.01,
-	BUY_GOLD = 1,
-	TIP_NERD = 1,
-	BOOK_NERD = 1,
-	PICK_AVATAR = 5
 }

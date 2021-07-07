@@ -16,7 +16,7 @@ export const updateMyQuestionsBio = async (userId: string, user: any) => {
 	try {
 		const questionIdRefs = await admin.database().ref('profiles')
 			.child(userId)
-			.child('meta/questions')
+			.child('account/meta/questions')
 			.once('value')
 		const questionIds = Object.keys(questionIdRefs.val() ?? {})
 		const chunks = chunkArray(questionIds, 500)
@@ -37,7 +37,7 @@ export const updateMyAnswersBio = async (userId: string, user: any) => {
 	try {
 		const answerIdRefs = await admin.database().ref('profiles')
 			.child(userId)
-			.child('meta/answers')
+			.child('account/meta/answers')
 			.once('value')
 		const answerIds = Object.keys(answerIdRefs.val() ?? {})
 		const chunks = chunkArray(answerIds, 500)
@@ -58,7 +58,7 @@ export const updateMyQuestionCommentsBio = async (userId: string, user: any) => 
 	try {
 		const commentIdRefs = await admin.database().ref('profiles')
 			.child(userId)
-			.child('meta/questionComments')
+			.child('account/meta/questionComments')
 			.once('value')
 		const commentIds = Object.keys(commentIdRefs.val() ?? {})
 		const data = Object.fromEntries(
@@ -72,7 +72,7 @@ export const updateMyAnswerCommentsBio = async (userId: string, user: any) => {
 	try {
 		const commentIdRefs = await admin.database().ref('profiles')
 			.child(userId)
-			.child('meta/answerComments')
+			.child('account/meta/answerComments')
 			.once('value')
 		const commentIds = Object.keys(commentIdRefs.val() ?? {})
 		const data = Object.fromEntries(
@@ -82,21 +82,14 @@ export const updateMyAnswerCommentsBio = async (userId: string, user: any) => {
 	} catch (error) { console.log(`Error setting bios of ${userId} answer-comments`) }
 }
 
-export const updateBraintreeBio = async (userId: string, oldBio: any, bio: any) => {
+export const updateBraintreeBio = async (userId: string, bio: any) => {
 	try {
-		if (
-			bio?.name?.first !== oldBio?.name?.first ||
-			bio?.name?.last !== oldBio?.name?.last
-		) {
-			const fullName = bio?.name?.first ?? 'Unnamed' + ' ' + bio?.name?.last ?? ''
-
-			const braintreeId = await admin.database().ref('profiles')
-				.child(userId)
-				.child('account/braintreeId')
-				.once('value')
-
-			if (braintreeId.val()) await updateCustomerName(braintreeId.val(), fullName)
-		}
+		const fullName = bio?.name?.first ?? 'Anonymous' + ' ' + bio?.name?.last ?? ''
+		const braintreeId = await admin.database().ref('profiles')
+			.child(userId)
+			.child('account/account/braintreeId')
+			.once('value')
+		if (braintreeId.val()) await updateCustomerName(braintreeId.val(), fullName)
 	} catch (error) { console.log(`Error updating braintree bio of ${userId}`) }
 }
 
@@ -104,7 +97,7 @@ export const updateMySessionsBio = async (userId: string, user: any) => {
 	try {
 		const sessionIdRefs = await admin.database().ref('profiles')
 			.child(userId)
-			.child('meta/sessions')
+			.child('account/meta/sessions')
 			.once('value')
 		const sessionIds = Object.keys(sessionIdRefs.val() ?? {})
 		const chunks = chunkArray(sessionIds, 500)
@@ -118,14 +111,14 @@ export const updateMySessionsBio = async (userId: string, user: any) => {
 				if (chunk.length > 0) await batch.commit()
 			})
 		)
-	} catch (error) { console.log(`Error updating bios of ${userId} sessions`) }
+	} catch (error) { console.log(`Error updating bios of ${userId} attended sessions`) }
 }
 
 export const updateMyTutorSessionsBio = async (userId: string, user: any) => {
 	try {
 		const sessionIdRefs = await admin.database().ref('profiles')
 			.child(userId)
-			.child('meta/tutorSessions')
+			.child('account/meta/tutorSessions')
 			.once('value')
 		const sessionIds = Object.keys(sessionIdRefs.val() ?? {})
 		const chunks = chunkArray(sessionIds, 500)
@@ -139,7 +132,7 @@ export const updateMyTutorSessionsBio = async (userId: string, user: any) => {
 				if (chunk.length > 0) await batch.commit()
 			})
 		)
-	} catch (error) { console.log(`Error updating bios of ${userId} tutor sessions`) }
+	} catch (error) { console.log(`Error updating bios of ${userId} hosted sessions`) }
 }
 
 export const updateMyChatsBio = async (userId: string, user: any) => {
@@ -151,25 +144,4 @@ export const updateMyChatsBio = async (userId: string, user: any) => {
 		const data = Object.fromEntries(chatIds.map((id) => [`${id}/${userId}/bio`, user]))
 		await admin.database().ref('chats/meta').update(data)
 	} catch (error) { console.log(`Error updating bios of ${userId} chats`) }
-}
-
-export const updateMyTutorApplicationsBio = async (userId: string, user: any) => {
-	try {
-		const tutorApplicationIdRefs = await admin.database().ref('profiles')
-			.child(userId)
-			.child('meta/tutorApplications')
-			.once('value')
-		const sessionIds = Object.keys(tutorApplicationIdRefs.val() ?? {})
-		const chunks = chunkArray(sessionIds, 500)
-		await Promise.all(
-			chunks.map(async (chunk) => {
-				const batch = admin.firestore().batch()
-				chunk.forEach((id) => {
-					const ref = admin.firestore().collection('tutorApplications').doc(id)
-					batch.set(ref, { userBio: user }, { merge: true })
-				})
-				if (chunk.length > 0) await batch.commit()
-			})
-		)
-	} catch (error) { console.log(`Error updating bios of ${userId} tutor applications`) }
 }

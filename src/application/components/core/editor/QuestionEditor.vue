@@ -1,13 +1,15 @@
 <template>
-	<BaseEditor
-		:value="model"
-		:error="error"
-		:valid="valid"
-		:toolbar="toolbar"
-		path="questions"
-		placeholder="Explain your question in full detail."
-		@update:value="$emit('update:model',$event)"
-	/>
+	<client-only>
+		<BaseEditor
+			:value="model"
+			:error="error"
+			:valid="valid"
+			:toolbar="toolbar"
+			path="questions"
+			placeholder="Explain your question in full detail."
+			@update:value="$emit('update:model',$event)"
+		/>
+	</client-only>
 </template>
 
 <script lang="ts">
@@ -37,6 +39,7 @@ export default defineComponent({
 				['bold', 'italic', 'underline', 'strike'],
 				[{ script: 'sub' }, { script: 'super' }],
 				['code-block'],
+				['image'],
 				['clean']
 			]
 		}

@@ -47,12 +47,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.tip {
-	border-radius: 0.5rem;
-	font-weight: bold;
-	padding: 0.25rem 0.75rem;
-	display: flex;
-	align-items: center;
-	span { margin-right: 0.25rem; }
-}
+	.tip {
+		border-radius: 0.5rem;
+		font-weight: bold;
+		padding: 0.25rem 0.75rem;
+		display: flex;
+		align-items: center;
+		span { margin-right: 0.25rem; }
+	}
 </style>

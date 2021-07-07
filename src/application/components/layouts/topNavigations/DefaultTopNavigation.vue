@@ -14,7 +14,7 @@
 				</span>
 			</div>
 			<transition name="slide" appear>
-				<div v-if="show">
+				<div v-show="show">
 					<div class="under" @click="show = false" />
 					<div class="drop-menu">
 						<span><img src="@app/assets/images/icons/user.svg" alt="">Profile</span>
@@ -51,6 +51,7 @@ export default defineComponent({
 		left: 0;
 		top: 0;
 	}
+
 	.nav-logo {
 		&:hover {
 			transition: all 0.3s;
@@ -65,8 +66,11 @@ export default defineComponent({
 		color: $color-text-main;
 		min-height: 60px;
 		padding: 1rem;
+
 		@media (min-width: $md) { padding: 1rem 2rem; }
+
 		@media (min-width: $lg) { padding: 1rem 5rem; }
+
 		background: #fff 0 0 no-repeat padding-box;
 		box-shadow: 0 5px 15px #17224d26;
 
@@ -86,6 +90,7 @@ export default defineComponent({
 	.right-body {
 		display: flex;
 		align-items: center;
+
 		.drop-menu {
 			position: absolute;
 			top: 96px;
@@ -101,7 +106,7 @@ export default defineComponent({
 			z-index: 2;
 
 			span {
-				width: 150px;
+				width: 160px;
 				padding: 10px;
 				display: flex;
 				justify-content: center;
@@ -138,7 +143,6 @@ export default defineComponent({
 
 	.slide-enter,
 	.slide-leave-to {
-		transform: translateY(-100px);
-		opacity: 0;
+		transform: translateY(-170px);
 	}
 </style>

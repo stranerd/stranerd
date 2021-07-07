@@ -67,7 +67,7 @@ body {
 
 .layout-body {
 	min-height: vh(100);
-	background: $color-white;
+	background: none;
 	display: flex;
 	flex-direction: column;
 
@@ -78,7 +78,7 @@ body {
 
 .layout-side-left {
 	display: none;
-	background-color: $color-white;
+	background-color: none;
 	width: 16.25%;
 	max-width: 312px;
 	min-width: 208px;
@@ -99,10 +99,11 @@ body {
 	width: 25%;
 	max-width: 480px;
 	min-width: 320px;
+	background-color: none;
 
 	@media (min-width: $lg) {
 		display: block;
-		background-color: $color-white;
+
 		margin: 0 0 0 auto;
 	}
 }
@@ -114,17 +115,19 @@ body {
 }
 
 .layout-content {
-	margin: 0.5rem;
+	padding: 0.5rem;
+	border-left: 1px solid $color-line;
+	border-right: 1px solid $color-line;
 	flex-grow: 1;
 	display: flex;
 	flex-direction: column;
 
 	@media (min-width: $md) {
-		margin: 0.75rem;
+		padding: 0.75rem;
 	}
 
 	@media (min-width: $lg) {
-		margin: 1rem;
+		padding: 1rem;
 	}
 }
 
@@ -133,18 +136,33 @@ body {
 	display: flex;
 	flex-direction: column;
 }
-
+.answer-btn{
+	background: $color-main;
+	color: $color-white;
+	padding:  0.25rem;
+	border: none;
+	border-radius: 18px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-weight: 600;
+	width: 120px;
+	&:hover {
+		color: $color-white;
+		transform: scale(1.1);
+		transition: 0.5s;
+	}
+}
 .sidebar-btn {
 	background: $color-main;
 	color: $color-white;
-	margin: 0.5rem auto;
 	padding: 1rem 0.25rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	font-weight: 600;
 	width: 180px;
-	margin-top: 2rem !important;
+
 
 	img {
 		height: 24px;

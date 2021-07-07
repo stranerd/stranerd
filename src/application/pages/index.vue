@@ -1,164 +1,474 @@
 <template>
-	<div>
-		<div class="hero gap-1">
-			<div class="text-con mt-3">
-				<h1>Get Quick Help, For Homework And Study Problems</h1>
-				<h4>Link up with smart students in various subjects.</h4>
-				<p>We bring you the #1 Platform that gives you the opportunity to Collaborate, Innovate and get the Tools that make you excel in the student community and beyond.</p>
-
-				<NuxtLink to="/auth/signup" class="btn btn-primary border border-light-blue py-0-75">
-					Join Today
-				</NuxtLink>
-			</div>
-			<div>
-				<img src="@app/assets/images/homepage/hero-image.png" alt="" class="w-100">
-			</div>
-		</div>
-		<div class="sectionTwo gap-1">
-			<div class="phone-img">
-				<img src="@app/assets/images/homepage/phone.png" alt="" class="w-100">
-			</div>
-			<div class="details gap-0-5 gap-lg-1-5 py-1">
-				<p>
-					<span class="d-block">Already Trusted By</span>
-					<span class="num d-block bold">30,000+</span>
-					<span class="d-block">Students On Social Media</span>
-				</p>
+	<div class="col-12">
+		<!-- first session -->
+		<!-- large screen -->
+		<div
+			class="col-10 offset-lg-1 py-4 flex-row flex-wrap d-none d-lg-flex"
+			style="margin-top: 100px; margin-bottom: 50px; align-items: center"
+		>
+			<div class="d-flex flex-column col-6 px-1">
+				<div class="mb-1">
+					<h1 class="headerStyle" style="color: #354da3">
+						Get quick help for homework and study problems
+					</h1>
+				</div>
+				<div class="mb-1">
+					<span
+						class="paragraphStyle"
+						style="color: grey"
+					>Leverage a large community of smart student for your academic needs
+						while make connections that would impact you for life.</span>
+				</div>
 				<div>
-					<img src="@app/assets/images/homepage/tick.svg" alt="" class="tick">
+					<NuxtLink
+						class="btn btn-lg btn-custom px-3"
+						style="font-size: 18px"
+						to="/auth/signin"
+					>
+						Join Today
+					</NuxtLink>
+				</div>
+			</div>
+			<div
+				class="d-flex flex-row col-6 px-1"
+				style="align-items: center; justify-content: center"
+			>
+				<div style="width: 100%" class="text-center mt-4">
+					<img src="@app/assets/images/homepage/home_image.svg" height="330">
 				</div>
 			</div>
 		</div>
-		<div class="sectionThird gap-2">
-			<article>
-				<img src="@app/assets/images/homepage/chat.svg" alt="">
-				<h5>Chat Sessions</h5>
-				<p>
-					Spend quality time on Chat with Nerds who help you study, solve problems and explain solutions thoroughly.
-				</p>
-			</article>
-			<article>
-				<img src="@app/assets/images/homepage/green-tick.svg" alt="">
-				<h5>Best Answers</h5>
-				<p>
-					Your questions get multiple answers and you’re able to choose which is best suitable for you.
-				</p>
-			</article>
-			<article>
-				<img src="@app/assets/images/homepage/nerd.svg" alt="">
-				<h5>Become A Nerd</h5>
-				<p>
-					Answer Questions & Host Chat Sessions to help other students in the subject you are Very Good in.
-				</p>
-			</article>
-		</div>
-		<div class="bg-blue-grey thin mx-2 mx-md-3 mx-lg-5 my-0" />
-		<div id="how-it-works" class="sectionFourth gap-3">
-			<h1 class="text-center mx-auto my-0">
-				How It Works
-			</h1>
-			<div class="d-flex gap-1 flex-lg-row-reverse">
-				<div class="images">
-					<div class="img-contain">
-						<img src="@app/assets/images/homepage/tn2.svg" alt="">
-					</div>
-					<div class="img-contain">
-						<img src="@app/assets/images/homepage/tn3.svg" alt="">
-					</div>
-				</div>
-				<div class="text text-end">
-					<h2>Meet A Nerd</h2>
-					<p>
-						Nerds are smart students who are very good in a particular subject and are always ready to help other students
-						out with their difficulties in that subject. <br> Get access to a pool of Nerds and pick your choice, have a One on
-						One Chat Session with them and get them to become your study buddy, explain difficult problems, guide you through homework and so on.
-					</p>
+		<!-- ends -->
+		<!-- small and medium -->
+		<div
+			class="col-12 px-md-3 px-2 d-flex py-2 flex-column d-lg-none"
+			style="
+        margin-top: 40px;
+        margin-bottom: 50px;
+        align-items: center;
+        justify-content: center;
+      "
+		>
+			<div
+				class="d-flex flex-row col-12 px-1 mb-2"
+				style="align-items: center; justify-content: center"
+			>
+				<div style="width: 100%" class="text-center mt-4">
+					<img src="@app/assets/images/homepage/home_image.svg" height="250">
 				</div>
 			</div>
-			<div class="d-flex gap-1 flex-lg-row">
-				<div class="images">
-					<div class="img-contain">
-						<img src="@app/assets/images/homepage/tn4.svg" alt="">
-					</div>
-					<div class="img-contain">
-						<img src="@app/assets/images/homepage/tn5.svg" alt="">
-					</div>
-				</div>
-				<div class="text">
-					<h2>Ask A Question</h2>
-					<p>
-						Post a Question, the question public and all Nerds can see it.
-						You will get answers from multiple Nerds and will be able to rate the answers,
-						choose which is best and Tip Nerds for their effort.
-					</p>
-				</div>
-			</div>
-			<div class="d-flex gap-1 flex-lg-row-reverse">
-				<div class="img-contain">
-					<img src="@app/assets/images/homepage/tn6.svg" alt="">
-				</div>
-				<div class="text text-end">
-					<h2>Coin System</h2>
-					<p>
-						Purchase affordable coins to interact on the website. Bronze coins are used to Ask A Question, for as low as 4 coins per question.
-						Gold coins are used to have One on One Chat Sessions with Nerds & used to Tip Nerds.
-					</p>
-				</div>
-			</div>
-		</div>
-		<div class="sectionFifth">
-			<h4 class="text-center">
-				The solutions to your problems are just one click away.
-			</h4>
-			<NuxtLink to="/auth/signup" class="btn-secondary font-weight-bold">
-				Sign up Today
-			</NuxtLink>
-		</div>
-		<div id="contact-us" class="sectionSixth gap-2 gap-lg-3">
-			<h1 class="text-center mx-auto my-0">
-				Contact Us
-			</h1>
-			<div class="d-flex flex-column flex-lg-row align-items-lg-center gap-2">
-				<div class="text d-flex flex-column flex-grow-1">
-					<h2>Send A Message</h2>
-					<MessageForm />
-				</div>
-				<div class="text-left d-flex flex-column gap-1 align-items-end flex-grow-1">
-					<h2 class="mb-0">
-						Get In Touch
+			<div
+				class="d-flex flex-column col-12 px-1"
+				style="align-items: center; justify-content: center"
+			>
+				<div class="mb-1 text-center">
+					<h2 class="headerStyle" style="color: #354da3">
+						Get quick help for homework and study problems
 					</h2>
-					<div class="d-flex gap-1 align-items-center">
-						<p class="mb-0">
-							+1 800 STRANERD
-						</p>
-						<img src="@app/assets/images/homepage/phone.svg">
+				</div>
+				<div class="mb-1 text-center">
+					<span
+						class="paragraphStyle"
+						style="color: grey"
+					>Leverage a large community of smart student for your academic needs
+						while make connections that would impact you for life.</span>
+				</div>
+				<div class="text-center">
+					<NuxtLink
+						class="btn btn-md btn-custom px-2"
+						style="font-size: 18px"
+						to="/auth/signin"
+					>
+						Join Today
+					</NuxtLink>
+				</div>
+			</div>
+		</div>
+		<!-- ends -->
+		<!-- ends -->
+		<!-- Trusted by session -->
+		<div
+			class="col-12 px-0 py-0 pt-4"
+			style="background: #354da3; margin-bottom: 20px"
+		>
+			<div
+				class="col-lg-10 offset-lg-1 d-lg-flex d-none flex-row flex-wrap py-0"
+				style="align-items: center; justify-content: center; height: 100%"
+			>
+				<img
+					src="@app/assets/images/homepage/phone.png"
+					height="500"
+					style="margin-bottom: 0px !important"
+				>
+				<div class="px-2 d-flex flex-column" style="color: white">
+					<div style="font-size: 25px">
+						Already trusted by
 					</div>
-					<div class="d-flex gap-1 align-items-center">
-						<p class="mb-0">
-							support@stranerd.com
-						</p>
-						<img src="@app/assets/images/homepage/mail.svg">
+					<div style="font-size: 57px; font-family: BoldFont">
+						30,000+
 					</div>
-					<div class="d-flex gap-1 align-items-center">
-						<p class="mb-0">
-							favour@stranerd.com
-						</p>
-						<img src="@app/assets/images/homepage/mail.svg">
+					<div style="font-size: 35px">
+						Students on social media
 					</div>
-					<div class="d-flex justify-content-end gap-1 gap-md-2">
-						<a target="__blank" href="https://facebook.com/officialstranerd">
-							<i class="fab fa-facebook" />
-						</a>
-						<a target="__blank" href="https://instagram.com/officialstranerd">
-							<i class="fab fa-instagram" />
-						</a>
-						<a target="__blank" href="https://twitter.com/stranerds">
-							<i class="fab fa-twitter" />
-						</a>
+				</div>
+			</div>
+			<div
+				class="col-lg-10 offset-lg-1 d-lg-none d-flex flex-row flex-wrap py-0"
+				style="align-items: center; justify-content: center; height: 100%"
+			>
+				<div
+					class="px-2 d-flex flex-column"
+					style="color: white; align-items: center; justify-content: center"
+				>
+					<div style="font-size: 20px">
+						Already trusted by
+					</div>
+					<div style="font-size: 50px; font-family: BoldFont">
+						30,000+
+					</div>
+					<div style="font-size: 20px">
+						Students on social media
+					</div>
+					<div class="mt-3">
+						<img src="@app/assets/images/homepage/phone.png" height="300">
 					</div>
 				</div>
 			</div>
 		</div>
+		<!-- ends -->
+		<!-- Features -->
+		<div class="col-12 px-0 py-0 pt-2" style="margin-bottom: 20px">
+			<div
+				class="col-lg-10 offset-lg-1 d-flex flex-column py-0 px-0"
+				style="align-items: center; height: 100%"
+			>
+				<div class="col-12 text-center">
+					<h1 style="color: #000000">
+						Features
+					</h1>
+				</div>
+				<div
+					class="col-12 px-1 d-flex flex-row flex-wrap"
+					style="align-items: center"
+				>
+					<div class="col-md-4 py-2 px-0 px-md-2">
+						<div class="card py-5 px-0 cardCurves">
+							<img
+								src="@app/assets/images/homepage/corner.svg"
+								style="position: absolute; top: 0%; left: -1px"
+							>
+							<div
+								class="col-12 px-1 d-flex flex-column"
+								style="align-items: center; justify-content: center"
+							>
+								<div class="py-1">
+									<img src="@app/assets/images/homepage/question.svg">
+								</div>
+								<div>
+									<h4 style="color: #000000; font-family: BoldFont">
+										Chat sessions
+									</h4>
+								</div>
+								<div class="text-center pt-1">
+									<span
+										style="color: gray; font-size: 15px"
+									>Spend quality of time on Chat with Nerd who help you study,
+										solve problems, and explain solutions thoroughly.</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 py-2 px-0 px-md-2">
+						<div class="card py-5 px-0 cardCurves">
+							<img
+								src="@app/assets/images/homepage/corner.svg"
+								style="position: absolute; top: 0%; left: -1px"
+							>
+							<div
+								class="col-12 px-1 d-flex flex-column"
+								style="align-items: center; justify-content: center"
+							>
+								<div class="py-1">
+									<img src="@app/assets/images/homepage/mark2.svg">
+								</div>
+								<div>
+									<h4 style="color: #000000; font-family: BoldFont">
+										Best Answers
+									</h4>
+								</div>
+								<div class="text-center pt-1">
+									<span
+										style="color: gray; font-size: 15px"
+									>Your question get multiple answers and you are able to
+										choose which is best for you.</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 py-2 px-0 px-md-2">
+						<div class="card py-5 px-0 cardCurves">
+							<img
+								src="@app/assets/images/homepage/corner.svg"
+								style="position: absolute; top: 0%; left: -1px"
+							>
+							<div
+								class="col-12 px-1 d-flex flex-column"
+								style="align-items: center; justify-content: center"
+							>
+								<div class="py-1">
+									<img src="@app/assets/images/homepage/user1.svg">
+								</div>
+								<div>
+									<h4
+										style="color: #000000; font-family: BoldFont"
+									>
+										Become a Nerd
+									</h4>
+								</div>
+								<div class="text-center pt-1">
+									<span
+										style="color: gray; font-size: 15px"
+									>Answer Questions and Host Chat Sessions to help other
+										students in the subject you are Very Good in.</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ends -->
+		<!-- how it works -->
+		<div class="col-12 px-md-0 px-1 py-0 pt-2" style="margin-bottom: 40px">
+			<div
+				class="
+          col-lg-8
+          offset-lg-2
+          col-md-10
+		  px-0
+          offset-md-1
+          d-flex
+          flex-column
+          py-0
+        "
+				style="align-items: center; height: 100%"
+			>
+				<div class="col-12 text-center mb-1">
+					<h1 style="color: #000000">
+						How it works
+					</h1>
+				</div>
+				<div
+					class="col-12 px-0 d-flex flex-column mt-3 px-2 py-2 px-md-4 greyWrapper"
+					style="align-items: center"
+				>
+					<div class="text-center mb-2">
+						<h4 style="color: #354da3; font-family: BoldFont">
+							Ask A Question
+						</h4>
+					</div>
+					<div class="d-flex flex-column">
+						<div class="d-flex flex-row" style="align-items: center">
+							<div class="mr-1">
+								<i class="fa fa-dot-circle" style="color: #354da3" />
+							</div>
+							<div class="px-1">
+								<span
+									style="font-size: 16px"
+								>Ask questions on various subjects</span>
+							</div>
+						</div>
+						<div class="d-flex flex-row" style="align-items: center">
+							<div class="mr-1">
+								<i class="fa fa-dot-circle" style="color: #354da3" />
+							</div>
+							<div class="px-1">
+								<span
+									style="font-size: 16px"
+								>Go through all available answers</span>
+							</div>
+						</div>
+						<div class="d-flex flex-row" style="align-items: center">
+							<div class="mr-1">
+								<i class="fa fa-dot-circle" style="color: #354da3" />
+							</div>
+							<div class="px-1">
+								<span
+									style="font-size: 16px"
+								>Choose your best answer (Leave a tip!)</span>
+							</div>
+						</div>
+					</div>
+					<div
+						class="my-2 d-flex flex-row flex-wrap"
+						style="align-items: center; justify-content: center"
+					>
+						<div class="col-md-6 text-center px-1">
+							<img src="@app/assets/images/homepage/ask_question.png">
+						</div>
+						<div class="col-md-6 text-center px-1">
+							<img src="@app/assets/images/homepage/answers.png">
+						</div>
+					</div>
+				</div>
+				<div
+					class="col-12 px-1 d-flex flex-column mt-3 px-0 py-2 py-md-4 greyWrapper"
+					style="align-items: center"
+				>
+					<div class="text-center mb-2">
+						<h4 style="color: #354da3; font-family: BoldFont">
+							Be A Nerd
+						</h4>
+					</div>
+					<div class="d-flex flex-column">
+						<div class="d-flex flex-row" style="align-items: center">
+							<div class="mr-1">
+								<i class="fa fa-dot-circle" style="color: #354da3" />
+							</div>
+							<div class="px-1">
+								<span
+									style="font-size: 16px"
+								>Help others in subject you're adept at</span>
+							</div>
+						</div>
+						<div class="d-flex flex-row" style="align-items: center">
+							<div class="mr-1">
+								<i class="fa fa-dot-circle" style="color: #354da3" />
+							</div>
+							<div class="px-1">
+								<span
+									style="font-size: 16px"
+								>Collaborate and learn with other Nerds</span>
+							</div>
+						</div>
+						<div class="d-flex flex-row" style="align-items: center">
+							<div class="mr-1">
+								<i class="fa fa-dot-circle" style="color: #354da3" />
+							</div>
+							<div class="px-1">
+								<span
+									style="font-size: 16px"
+								>Share relevant files to aid learning</span>
+							</div>
+						</div>
+					</div>
+					<div
+						class="my-2 d-flex flex-row flex-wrap"
+						style="align-items: center; justify-content: center"
+					>
+						<div class="col-md-6 text-center px-1">
+							<img src="@app/assets/images/homepage/top_nerd.png">
+						</div>
+						<div class="col-md-6 text-center px-1">
+							<img src="@app/assets/images/homepage/chat_view.png">
+						</div>
+					</div>
+				</div>
+				<div
+					class="col-12 px-1 d-flex flex-column mt-3 px-0 py-2 py-md-4 greyWrapper"
+					style="align-items: center"
+				>
+					<div class="text-center mb-2">
+						<h4 style="color: #354da3; font-family: BoldFont">
+							Coin System
+						</h4>
+					</div>
+					<div class="d-flex flex-column">
+						<div class="d-flex flex-row" style="align-items: center">
+							<div class="mr-1">
+								<i class="fa fa-dot-circle" style="color: #354da3" />
+							</div>
+							<div class="px-1">
+								<span
+									style="font-size: 16px"
+								>Buy affordable coins to interact</span>
+							</div>
+						</div>
+						<div class="d-flex flex-row" style="align-items: center">
+							<div class="mr-1">
+								<i class="fa fa-dot-circle" style="color: #354da3" />
+							</div>
+							<div class="px-1">
+								<span
+									style="font-size: 16px"
+								>Bronze Coins are used to Ask Questions</span>
+							</div>
+						</div>
+						<div class="d-flex flex-row" style="align-items: center">
+							<div class="mr-1">
+								<i class="fa fa-dot-circle" style="color: #354da3" />
+							</div>
+							<div class="px-1">
+								<span
+									style="font-size: 16px"
+								>Gold Coins are used for Tipping</span>
+							</div>
+						</div>
+					</div>
+					<div
+						class="my-2 d-flex flex-row flex-wrap"
+						style="align-items: center"
+					>
+						<div class="col-12 d-lg-block d-none px-1 text-center">
+							<img
+								src="@app/assets/images/homepage/buy_coin_new.svg"
+								width="60%"
+							>
+						</div>
+
+						<div class="col-12 d-block d-lg-none px-1 text-center">
+							<img
+								src="@app/assets/images/homepage/buy_coin_new.svg"
+								width="100%"
+							>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ends -->
+		<!-- Join community -->
+		<div class="col-12 px-2 py-0 pt-2" style="background: #354da3">
+			<div
+				class="col-lg-10 offset-lg-1 d-flex flex-column py-4"
+				style="align-items: center; justify-content: center; height: 100%"
+			>
+				<img src="@app/assets/images/homepage/globe.svg" height="300">
+				<div class="px-2 text-center my-2" style="color: white">
+					<span
+						style="font-size: 17px; font-family: MediumFont"
+					>Join a community of smart students just like you</span>
+				</div>
+				<div class="text-center">
+					<NuxtLink
+						class="btn btn-lg white-btn-custom px-3"
+						style="font-size: 15px"
+						to="/auth/signup"
+					>
+						Sign Up Today
+					</NuxtLink>
+				</div>
+			</div>
+		</div>
+		<!-- ends -->
+		<!-- contact form -->
+		<div class="col-12 px-2 py-0 pt-2" style="margin-bottom: 10px">
+			<div
+				class="col-lg-10 offset-lg-1 d-flex flex-row py-4"
+				style="align-items: center; justify-content: center; height: 100%"
+			>
+				<div class="col-md-1 d-lg-inline-block d-none" />
+				<div class="col-md-4 py-0 px-0">
+					<message-form />
+				</div>
+				<div class="col-md-1 d-lg-inline-block d-none" />
+				<div class="col-md-5 py-0 text-center d-lg-inline-block d-none">
+					<img src="@app/assets/images/homepage/contact.svg" height="300">
+				</div>
+				<div class="col-md-1 d-lg-inline-block d-none" />
+			</div>
+		</div>
+		<!-- ends -->
 	</div>
 </template>
 
@@ -173,212 +483,52 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.hero {
-	min-height: calc(50vh - 60px);
-	display: flex;
-	flex-direction: column;
-	padding: 2rem;
-	@media (min-width: $md) {
-		flex-direction: row;
-		align-items: center;
-		padding: 4rem;
-	}
-	@media (min-width: $lg) {
-		padding: 6rem;
-		min-height: calc(90vh - 60px);
-	}
-	.text-con{
-		p { margin-bottom: 0.5rem; }
-		h1 { font-size: 1.5rem; }
-		h4 { font-size: 1.125rem; }
-		p { font-size: 1rem; }
-		a { font-size: 1rem; }
-		@media (min-width) {
-			h1 { font-size: 1.5rem; }
-		}
-		@media (min-width: $lg) {
-			h1 { font-size: 2.5rem; }
-			h4 { font-size: 1.875rem; }
-			p { font-size: 1.5rem; }
-			a { font-size: 1.5rem; }
-		}
-	}
+.paragraphStyle {
+  font-size: 17px;
 }
 
-.sectionTwo {
-	display: flex;
-	align-items: center;
-	background: $color-blue;
-	flex-direction: column-reverse;
-	padding: 2rem 2rem 0;
-	@media (min-width: $md) {
-		flex-direction: row;
-		padding: 4rem 4rem 0;
-	}
-	@media (min-width: $lg) {
-		padding: 6rem 6rem 0;
-	}
-	.details{
-		flex-grow: 1;
-		display: flex;
-		justify-content: center;
-		flex-direction: column;
-		@media (min-width: $lg) {
-			flex-direction: row;
-			align-items: center;
-		}
-		p {
-			margin: 0;
-			color: $color-white;
-			font-size: 1.5rem;
-			span.num{
-				font-size: 4rem;
-				line-height: 4rem;
-			}
-			@media (min-width: $lg) {
-				font-size: 2rem;
-				span.num {
-					font-size: 7.5rem;
-					line-height: 7.5rem;
-				}
-			}
-		}
-	}
-	.phone-img {
-		flex: 35%;
-	}
-	.tick {
-		width: 96px;
-		height: 96px;
-		@media (min-width: $lg) {
-			width: 260px;
-			height: 260px;
-		}
-	}
+.headerStyle {
+  font-family: BoldFont;
+  text-transform: none;
 }
 
-.thin { height: 1.5px; }
-
-.sectionThird {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding: 2rem;
-	@media (min-width: $md) {
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: flex-start;
-		padding: 3rem;
-		margin: 0 auto;
-	}
-	@media (min-width: $lg) { padding: 5rem; }
-	article {
-		@media (min-width: $md) { max-width: 30%; }
-		flex-grow: 1;
-		text-align: center;
-		img {
-			margin-bottom: 0.5rem;
-			width: 90px;
-			height: 90px;
-		}
-		h5 {
-			font-size: 1.25rem;
-			@media (min-width: $lg) { font-size: 1.875rem; }
-		}
-		p {
-			max-width: 40ch;
-			font-size: 1rem;
-			@media (min-width: $md) { font-size: 1.125rem; }
-		}
-	}
+.white-btn-custom {
+  background-color: white;
+  color: #354da3;
+  border: 2px solid #ffffff;
+  border-radius: 6px;
+  font-family: MediumFont;
 }
 
-.sectionFourth {
-	display: flex;
-	flex-direction: column;
-	padding: 2rem;
-	@media (min-width: $md) { padding: 3rem; }
-	@media (min-width: $lg) { padding: 5rem; }
-	& > .d-flex {
-		flex-direction: column;
-		align-items: center;
-		& > * { flex: 1; }
-		.images {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			@media (min-width: $md) { flex-direction: row; }
-		}
-	}
-	h2 {
-		font-size: 1.875rem;
-		@media (min-width: $md) { font-size: 3rem; }
-	}
-	p {
-		font-size: 1rem !important;
-		@media (min-width: $md) { font-size: 1.5rem !important; }
-	}
+.btn-custom {
+  background-color: #354da3;
+  color: #ffffff;
+  border: 2px solid #354da3;
+  border-radius: 6px;
+  font-family: MediumFont;
 }
 
-.sectionFifth {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	background: $color-blue;
-	color: $color-white;
-	min-height: 300px;
-	padding: 1rem;
-	@media (min-width: $md) { padding: 2.5rem; }
-	@media (min-width: $lg) { padding: 5rem; }
-	h4{
-		margin: 0 0 1rem;
-		font-weight: normal !important;
-		font-size: 1.125rem;
-		@media (min-width: $md) { font-size: 2.25rem; }
-		@media (min-width: $lg) { font-size: 3rem; }
-	}
-
-	.btn-secondary{
-		font-size: 2rem;
-		padding: 13px 85px;
-		@media (max-width: $sm) {
-
-			font-size: 1rem;
-			padding: 13px 30px;
-		}
-	}
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
 }
 
-.sectionSixth{
-	display: flex;
-	flex-direction: column;
-	padding: 1rem;
-	@media (min-width: $md) { padding: 2.5rem; }
-	@media (min-width: $lg) { padding: 5rem; }
-	img {
-		width: 32px;
-	}
-	i {
-		font-size: 42px;
-		@media (min-width: $md) { font-size: 84px; }
-	}
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
-p {
-	margin-bottom: 0;
-	font-size: 1.125rem;
-	@media (min-width: $md) { font-size: 1.875rem; }
+.cardCurves {
+  border: 1px solid #ffffff;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  width: 100%;
+  border-bottom-left-radius: 10px;
 }
-h1 {
-	font-size: 2.25rem;
-	@media (min-width: $md) { font-size: 3rem; }
-	@media (min-width: $lg) { font-size: 4rem; }
-}
-h2 {
-	font-weight: 400 !important;
-	font-size: 1.5rem;
-	@media (min-width: $md) { font-size: 2.25rem; }
-	@media (min-width: $lg) { font-size: 3rem; }
+
+.greyWrapper {
+  border: 1px solid #c5c5c5;
+  background-color: whitesmoke;
+  border-radius: 13px;
+  color: grey;
 }
 </style>

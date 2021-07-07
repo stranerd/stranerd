@@ -1,5 +1,21 @@
+// light font
+@font-face {
+    font-family: 'RegularFont';
+    src: url(@app/assets/Nunito/Nunito-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'MediumFont';
+    src: url(@app/assets/Nunito/Nunito-SemiBold.ttf);
+}
+
+@font-face {
+    font-family: 'BoldFont';
+    src: url(@app/assets/Nunito/Nunito-Bold.ttf);
+}
+
 body {
-	font-family: Ubuntu, Roboto, sans-serif !important;
+	font-family: RegularFont !important;
 	max-width: 100vw;
 	background-color: white !important;
 	// font-size: clamp(16px, calc(1rem + 20%), 30px) !important;

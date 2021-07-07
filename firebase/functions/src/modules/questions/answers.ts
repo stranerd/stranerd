@@ -9,7 +9,7 @@ import { createNotification } from '../../helpers/modules/users/notifications'
 export const answerCreated = functions.firestore.document('answers/{answerId}')
 	.onCreate(async (snap, context) => {
 		const answer = snap.data()
-		const { coins, userId, questionId } = answer
+		const { coins, userId, questionId, tags = [] } = answer
 
 		const questionRef = await admin.firestore().collection('questions').doc(questionId)
 
@@ -17,11 +17,19 @@ export const answerCreated = functions.firestore.document('answers/{answerId}')
 			answers: admin.firestore.FieldValue.increment(1)
 		}, { merge: true })
 
+		const tagsData = Object.fromEntries(
+			tags.map((tag: string) => [
+				`tutor/tags/${tag}`,
+				admin.database.ServerValue.increment(1)
+			])
+		)
+
 		if (coins && userId) {
-			await admin.database().ref('profiles').child(userId).child('account/meta')
+			await admin.database().ref('profiles').child(userId)
 				.update({
-					[`answers/${snap.id}`]: true,
-					[`answeredQuestions/${questionId}`]: admin.database.ServerValue.increment(1)
+					[`account/meta/answers/${snap.id}`]: true,
+					[`account/meta/answeredQuestions/${questionId}`]: admin.database.ServerValue.increment(1),
+					...tagsData
 				})
 			await addUserCoins(userId, { bronze: coins, gold: 0 },
 				'You got coins for answering a question'
@@ -50,7 +58,14 @@ export const answerUpdated = functions.firestore.document('answers/{answerId}')
 
 export const answerDeleted = functions.firestore.document('answers/{answerId}')
 	.onDelete(async (snap) => {
-		const { questionId, userId } = snap.data()
+		const { questionId, userId, tags = [] } = snap.data()
+
+		const tagsData = Object.fromEntries(
+			tags.map((tag: string) => [
+				`tutor/tags/${tag}`,
+				admin.database.ServerValue.increment(-1)
+			])
+		)
 
 		await admin.firestore().collection('questions')
 			.doc(questionId)
@@ -58,10 +73,11 @@ export const answerDeleted = functions.firestore.document('answers/{answerId}')
 				answers: admin.firestore.FieldValue.increment(-1)
 			}, { merge: true })
 
-		await admin.database().ref('profiles/account').child(userId).child('account/meta')
+		await admin.database().ref('profiles/account').child(userId)
 			.update({
-				[`answers/${snap.id}`]: null,
-				[`answeredQuestions/${questionId}`]: admin.database.ServerValue.increment(-1)
+				[`account/meta/answers/${snap.id}`]: null,
+				[`account/meta/answeredQuestions/${questionId}`]: admin.database.ServerValue.increment(-1),
+				...tagsData
 			})
 
 		await deleteFromAlgolia('answers', snap.id)

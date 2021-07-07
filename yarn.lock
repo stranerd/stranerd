@@ -2680,7 +2680,7 @@
 
 "@types/vue2-editor@^2.6.1":
   version "2.6.1"
-  resolved "https://registry.npmjs.org/@types/vue2-editor/-/vue2-editor-2.6.1.tgz"
+  resolved "https://registry.yarnpkg.com/@types/vue2-editor/-/vue2-editor-2.6.1.tgz#b05617454924fb35ab6bdc69b5d507a2532b6439"
   integrity sha512-jp3njY3U3z/ue6bNRH1nGZjne0K3PSnOwwunqAnjPHm/MLkdfxiQqlo1AnWfA/nQ9F++rIcGX3ZDYGFZrZzlLw==
   dependencies:
     vue "^2.0.0"

@@ -5,7 +5,7 @@ import { AnswerEntity } from '../entities/answer'
 import { AnswerToModel } from '../../data/models/answer'
 
 type Keys = {
-	body: string, coins: number, questionId: string,
+	body: string, coins: number, questionId: string, tags: string[]
 	subjectId: string, userId: string, user: UserBio | undefined
 }
 const isLongerThan0 = (value: string) => isLongerThan(value, 0)
@@ -18,19 +18,25 @@ export class AnswerFactory extends BaseFactory<AnswerEntity, AnswerToModel, Keys
 		questionId: { required: true, rules: [isLongerThan0] },
 		subjectId: { required: true, rules: [isLongerThan0] },
 		userId: { required: true, rules: [isLongerThan0] },
-		user: { required: false, rules: [] }
+		user: { required: true, rules: [] },
+		tags: { required: true, rules: [] }
 	}
 
 	constructor () {
-		super({ body: '', coins: 10, questionId: '', subjectId: '', userId: '', user: undefined })
+		super({
+			body: '', coins: 10, questionId: '', subjectId: '',
+			userId: '', user: undefined, tags: []
+		})
 	}
 
-	reserved = ['questionId', 'coins']
+	reserved = ['questionId', 'coins', 'tags']
 
 	get body () { return this.values.body }
 	set body (value: string) { this.set('body', value) }
 	get coins () { return this.values.coins }
 	set coins (value: number) { this.set('coins', value) }
+	get tags () { return this.values.tags }
+	set tags (value: string[]) { this.set('tags', value) }
 	get questionId () { return this.values.questionId }
 	set questionId (value: string) { this.set('questionId', value) }
 	get subjectId () { return this.values.subjectId }
@@ -43,6 +49,7 @@ export class AnswerFactory extends BaseFactory<AnswerEntity, AnswerToModel, Keys
 	loadEntity = (entity: AnswerEntity) => {
 		this.body = entity.body
 		this.coins = entity.coins
+		this.tags = entity.tags
 		this.questionId = entity.questionId
 		this.subjectId = entity.subjectId
 		this.userBioAndId = { id: entity.userId, user: entity.user }
@@ -50,9 +57,9 @@ export class AnswerFactory extends BaseFactory<AnswerEntity, AnswerToModel, Keys
 
 	toModel = async () => {
 		if (this.valid) {
-			const { body, coins, questionId, subjectId, userId, user } = this.validValues
+			const { body, coins, tags, questionId, subjectId, userId, user } = this.validValues
 			return {
-				body, coins, questionId, subjectId, userId, user: user!
+				body, coins, tags, questionId, subjectId, userId, user: user!
 			}
 		} else {
 			throw new Error('Validation errors')

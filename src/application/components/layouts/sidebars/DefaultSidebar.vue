@@ -28,10 +28,9 @@
 					<span class="ml-2">Admin Site</span>
 				</div>
 			</NuxtLink>
-			</nuxtlink>
 		</div>
 		<div class="sidebar-links">
-			<button class="sidebar-btn btn " @click="buy">
+			<button v-if="isLoggedIn" class="sidebar-btn btn " @click="buy">
 				<span>Buy Coins</span>
 			</button>
 		</div>
@@ -46,12 +45,12 @@ import { useSessionSignout } from '@app/hooks/auth/session'
 export default defineComponent({
 	name: 'DefaultSidebar',
 	setup () {
-		const { user, isAdmin } = useAuth()
+		const { user, isAdmin, isLoggedIn } = useAuth()
 		const { loading, signout } = useSessionSignout()
 		const buy = () => {
 			useAccountModal().openBuyCoins()
 		}
-		return { user, isAdmin, buy, loading, signout }
+		return { isLoggedIn, user, isAdmin, buy, loading, signout }
 	}
 })
 </script>

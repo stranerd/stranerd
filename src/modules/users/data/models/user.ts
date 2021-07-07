@@ -8,8 +8,8 @@ export interface UserFromModel {
 	bio: UserBio
 	roles: UserRoles
 	account: UserAccount
-	status?: UserStatus
-	tutor?: UserTutor
+	status: UserStatus
+	tutor: UserTutor
 	dates: UserDates
 }
 

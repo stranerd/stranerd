@@ -6,6 +6,7 @@ export interface AnswerFromModel {
 	body: string
 	best?: boolean
 	coins: number
+	tags: string[]
 	questionId: string
 	subjectId: string
 	userId: string
@@ -22,6 +23,7 @@ export interface AnswerFromModel {
 export interface AnswerToModel {
 	body: string
 	coins: number
+	tags: string[]
 	questionId: string
 	subjectId: string
 	userId: string

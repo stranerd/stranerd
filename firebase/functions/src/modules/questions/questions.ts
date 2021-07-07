@@ -16,7 +16,12 @@ export const questionCreated = functions.firestore.document('questions/{question
 			)
 		}
 
-		const tagsData = Object.fromEntries(tags.map((t: string) => [`${t}/count`, admin.database.ServerValue.increment(1)]))
+		const tagsData = Object.fromEntries(
+			tags.map((t: string) => [
+				`${t}/count`,
+				admin.database.ServerValue.increment(1)
+			])
+		)
 		await admin.database().ref('tags').update(tagsData)
 
 		await saveToAlgolia('questions', snap.id, { question })
@@ -30,10 +35,18 @@ export const questionUpdated = functions.firestore.document('questions/{question
 
 export const questionDeleted = functions.firestore.document('questions/{questionId}')
 	.onDelete(async (snap) => {
-		const { userId } = snap.data()
+		const { userId, tags } = snap.data()
 
 		await admin.database().ref('profiles').child(userId).child('account/meta')
 			.child(`questions/${snap.id}`).set(null)
+
+		const tagsData = Object.fromEntries(
+			tags.map((t: string) => [
+				`${t}/count`,
+				admin.database.ServerValue.increment(-1)
+			])
+		)
+		await admin.database().ref('tags').update(tagsData)
 
 		await deleteFromAlgolia('questions', snap.id)
 	})

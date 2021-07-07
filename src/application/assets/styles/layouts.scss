@@ -67,7 +67,7 @@ body {
 
 .layout-body {
 	min-height: vh(100);
-	background: $color-light-grey;
+	background: $color-white;
 	display: flex;
 	flex-direction: column;
 
@@ -85,7 +85,6 @@ body {
 	// padding: 0.5rem;
 
 	@media (min-width: $lg) {
-
 		display: flex;
 		flex-direction: column;
 	}
@@ -104,7 +103,6 @@ body {
 	@media (min-width: $lg) {
 		display: block;
 		background-color: $color-white;
-
 		margin: 0 0 0 auto;
 	}
 }

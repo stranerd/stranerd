@@ -1,17 +1,17 @@
 <template>
-	<div class="tags">
-		{{ name }}
+	<div class="tag">
+		{{ tag.name }}
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, PropType } from '@nuxtjs/composition-api'
+import { TagEntity } from '@modules/questions'
 export default defineComponent({
-	name: 'ProgressBar',
+	name: 'TagListCard',
 	props: {
-		name: {
-			type: String,
-			default: 'Text',
+		tag: {
+			type: Object as PropType<TagEntity>,
 			required: true
 		}
 	}
@@ -19,7 +19,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-	.tags {
+	.tag {
 		border: 1.2px solid $color-line;
 		background-color: $color-tags;
 		border-radius: 50px;

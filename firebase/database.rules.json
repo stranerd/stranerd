@@ -9,6 +9,22 @@
 				}
 			}
 		},
+		"chats": {
+			"meta": {
+				"$userId": {
+					".read": true,
+					".write": "auth.uid !== null",
+					".indexOn": ["last/dates/createdAt"]
+				}
+			},
+			"single": {
+				"$path": {
+					".read": true,
+					".write": "auth.uid != null",
+					".indexOn": ["dates/createdAt"]
+				}
+			}
+		},
 		"comments": {
 			"answers": {
 				"$answerId": {
@@ -42,28 +58,16 @@
 				}
 			}
 		},
-		"chats": {
-			"meta": {
-				"$userId": {
-					".read": true,
-					".write": "auth.uid !== null",
-					".indexOn": ["last/dates/createdAt"]
-				}
-			},
-			"single": {
-				"$path": {
-					".read": true,
-					".write": "auth.uid != null",
-					".indexOn": ["dates/createdAt"]
-				}
-			}
-		},
 		"subjects": {
 			".read": true,
 			"$id": {
 				".read": true,
 				".write": "auth.token.isAdmin === true"
 			}
+		},
+		"tags": {
+			".read": true,
+			".indexOn": ["count"]
 		},
 		"users": {
 			"$userId": {

@@ -69,13 +69,13 @@ export default defineComponent({
 		color: $color-text-main;
 		min-height: 60px;
 		padding: 1rem;
+		border-bottom: 6px solid $color-main;
 
 		@media (min-width: $md) { padding: 1rem 2rem; }
 
-		@media (min-width: $lg) { padding: 1rem 5rem; }
+		@media (min-width: $lg) { padding: 1rem 4rem; }
 
 		background: #fff 0 0 no-repeat padding-box;
-		box-shadow: 0 5px 15px #17224d26;
 
 		button.navbar-toggler {
 			border: none;
@@ -87,7 +87,7 @@ export default defineComponent({
 
 	.middle-body {
 		flex-grow: 1;
-		max-width: 50%;
+		max-width: 60%;
 	}
 
 	.right-body {
@@ -113,7 +113,8 @@ export default defineComponent({
 				padding: 10px;
 				display: flex;
 				justify-content: center;
-				color: $color-text-sub;
+				color: $color-text-main;
+				font-weight: 600;
 
 				img {
 					margin-right: 18px;
@@ -126,6 +127,7 @@ export default defineComponent({
 	.link {
 		display: flex;
 		align-items: center;
+		margin-right: 72px;
 
 		& > img,
 		& >>> img,
@@ -137,7 +139,7 @@ export default defineComponent({
 
 	.username {
 		font-size: 18px;
-		font-weight: 600px;
+		font-weight: 600;
 		color: $color-text-main !important;
 	}
 

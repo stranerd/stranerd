@@ -73,48 +73,56 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.question{
-	padding-top: 60px;
-	margin-right: 1.4rem;
-	.question-body {
-		width: 960px;
-			background: $color-tags;
-		border: 1px solid $color-line;
+	.question {
+		padding-top: 60px;
+		margin-right: 1.4rem;
 
-		h1 {
-			color: $color-text-main;
-			font-size: 36px;
-		}
-		.question-casing{
-			display: flex;
-			flex-direction: column;
-			margin-top: 1.3rem;
-			.title{
+		.question-body {
+			width: 960px;
+			background: $color-tags;
+			border: 1px solid $color-line;
+
+			h1 {
 				color: $color-text-main;
-				font-size: 1.5rem;
-				font-weight: 600;
+				font-size: 36px;
 			}
-			.sub-title{
-				color: $color-text-main;
-				font-size: 1.125rem;
-				font-weight: 500;
-			}
-			textarea, select, input{
-				box-sizing: border-box;
-				background: $color-white;
-				border: 1px solid $color-line;
-				border-radius: 6px;
-				padding: 16px 24px;
-				margin-top: 6px;
-					&::placeholder{
+
+			.question-casing {
+				display: flex;
+				flex-direction: column;
+				margin-top: 1.3rem;
+
+				.title {
 					color: $color-text-main;
+					font-size: 1.5rem;
+					font-weight: 600;
+				}
+
+				.sub-title {
+					color: $color-text-main;
+					font-size: 1.125rem;
+					font-weight: 500;
+				}
+
+				textarea,
+				select,
+				input {
+					box-sizing: border-box;
+					background: $color-white;
+					border: 1px solid $color-line;
+					border-radius: 6px;
+					padding: 16px 24px;
+					margin-top: 6px;
+
+					&::placeholder {
+						color: $color-text-main;
+					}
+				}
+
+				textarea {
+					height: 6.48rem;
 				}
 			}
-			textarea{
-				height: 6.48rem;
-			}
 		}
-
 	}
-}
 </style>

@@ -19,7 +19,7 @@
 			</div>
 
 			<div v-for="n in 10" :key="n" class="d-flex flex-column nerd-body">
-				<div class="question-head ml-1 d-flex align-items-center justify-content-between">
+				<div class="nerd-head ml-1 d-flex align-items-center justify-content-between">
 					<div class="left d-flex align-items-center">
 						<Avatar :src="user.avatar" :size="94" />
 						<div class="dot" />
@@ -35,26 +35,44 @@
 					</div>
 				</div>
 
-				<div class="question-body ml-1 mr-2 mt-1">
-					<span>From the top of a building with a height of 16 meters, a ball is thrown at angle of 30 degrees to the horizontal plane at a speed of 21 m/s. Calculate the total time the ball is in the air?</span>
+				<div class="nerd-card-body-1 ml-1 d-flex align-items-center justify-content-between">
+					<div class="d-flex align-items-center">
+						<ShowRatings :rating="5" class="mr-3" />
+						<span class="mr-4">244 Questions Answered</span>
+						<span>36 Sessions Hosted</span>
+					</div>
 				</div>
 
-				<div class="question-bottom ml-1  my-2 d-flex align-items-center justify-content-between">
-					<div class="left d-flex align-items-center">
-						<span class="name mr-2">Posted 30 mins ago</span>
-						<div class="tag ml-0-5">
-							motion
-						</div>
-						<div class="tag ml-0-5">
-							projectile-motion
-						</div>
+				<div class="nerd-card-body-1 mt-1-5 ml-1 d-flex align-items-center justify-content-between">
+					<div class="d-flex align-items-center">
+						<span class="main-text mr-3">Strongest In</span>
+						<span class="sub-text">Physics</span>
 					</div>
-					<div class="left d-flex align-items-center">
-						<div class="d-flex align-items-center">
-							<img src="@app/assets/images/icons/answers.svg" alt="" class="icons"> <span class="pr-1">5 ans</span>
-						</div>
-						<div class="ml-1 mr-2">
-							<img src="@app/assets/images/icons/views.svg" alt="" class="icons"> <span class="pr-1">13 views</span>
+				</div>
+
+				<div class="nerd-card-body-1  ml-1 d-flex align-items-center justify-content-between">
+					<div class="d-flex align-items-start">
+						<span class="main-text-1 mr-3">Routine Tags</span>
+						<div class="d-flex align-items-cnter flex-wrap">
+							<div class="tag mr-0-5">
+								indices
+							</div>
+							<div class="tag mr-0-5">
+								waves
+							</div>
+							<div class="tag mr-0-5">
+								motion
+							</div>
+
+							<div class="tag mr-0-5">
+								simple-harmonic-motion
+							</div>
+							<div class="tag mr-0-5">
+								projectiles
+							</div>
+							<div class="tag mr-0-5">
+								Algebra
+							</div>
 						</div>
 					</div>
 				</div>
@@ -122,17 +140,42 @@ export default defineComponent({
 		border-radius: 50px;
 		color: $color-text-main;
 		padding: 1px 14px;
+		width: fit-content;
+		margin-top: 20px;
 	}
 
-	.question-body {
+	.nerd-card-body-1 {
+		.mr-3 {
+			margin-right: 17px;
+		}
+
+		.mr-4 {
+			margin-right: 48px;
+		}
+		.main-text{
+			font-size: 16px;
+			min-width: 98px;
+		}
+		.main-text-1{
+			font-size: 16px;
+			min-width: 98px;
+			margin-top: 20px;
+		}
+		.sub-text{
+			font-size: 18px;
+			color: $color-main;
+			font-weight: normal;
+			margin-left: 5px;
+		}
+
 		span {
-			max-width: 800px;
-			margin: 32px 0;
-			font-size: 20px;
+			color: $color-text-sub;
+			font-size: 18px;
+			font-weight: 600;
 		}
 	}
 
-	.question-head {
+	.nerd-head {
 		.left {
 			padding-top: 1rem;
 
@@ -141,10 +184,10 @@ export default defineComponent({
 				height: 24px;
 				background-color: $color-green;
 				border-radius: 50px;
-				    position: relative;
-    top: 32px;
-    right: 32px;
-	border: 2px solid $color-white;
+				position: relative;
+				top: 32px;
+				right: 32px;
+				border: 2px solid $color-white;
 			}
 
 			.name {
@@ -156,7 +199,7 @@ export default defineComponent({
 			.subject {
 				color: $color-main;
 				font-weight: 600;
-				font-size:18px
+				font-size: 18px;
 			}
 		}
 	}
@@ -172,13 +215,13 @@ export default defineComponent({
 	}
 
 	.nerd-body {
-			background: $color-white;
-	border: 1px solid $color-line;
-	width: -webkit-fill-available;
-	padding: 24px 48px;
-	max-width: 1024px;
-	margin: 36px auto;
-	border-radius: 12px;
+		background: $color-white;
+		border: 1px solid $color-line;
+		width: -webkit-fill-available;
+		padding: 24px 48px;
+		max-width: 1024px;
+		margin: 36px auto;
+		border-radius: 12px;
 	}
 
 	.ml-1 {
@@ -187,6 +230,9 @@ export default defineComponent({
 
 	.ml-0-5 {
 		margin-left: 12px;
+	}
+	.mr-0-5{
+		margin-right: 12px;
 	}
 
 	.pr-1 {

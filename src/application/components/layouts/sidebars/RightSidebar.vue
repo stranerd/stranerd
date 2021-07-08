@@ -44,24 +44,27 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.tags{
-	background: $color-tags;
-	border: 1px solid $color-line;
-	width: -webkit-fill-available;
-	padding: 36px;
-	margin-top: 36px;
-}
-.ranking{
-	background: $color-tags;
-	border: 1px solid $color-line;
-	width: -webkit-fill-available;
-	padding: 36px;
-	margin-top: 36px;
-}
-	.rightSidebar{
+	.tags {
+		background: $color-tags;
+		border: 1px solid $color-line;
+		width: -webkit-fill-available;
+		padding: 36px;
+		margin-top: 36px;
+	}
+
+	.ranking {
+		background: $color-tags;
+		border: 1px solid $color-line;
+		width: -webkit-fill-available;
+		padding: 36px;
+		margin-top: 36px;
+	}
+
+	.rightSidebar {
 		padding-top: 60px;
 		padding-right: 48px;
 	}
+
 	.img-rank {
 		width: 48px;
 	}

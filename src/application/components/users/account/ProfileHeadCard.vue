@@ -24,15 +24,17 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.balance{
-	background: $color-tags;
-	border: 1px solid $color-line;
-	width: -webkit-fill-available;
-}
-.py-1{
-	padding-top: 30px !important;
-	padding-bottom: 30px !important;
-}
+	.balance {
+		background: $color-tags;
+		border: 1px solid $color-line;
+		width: -webkit-fill-available;
+	}
+
+	.py-1 {
+		padding-top: 30px !important;
+		padding-bottom: 30px !important;
+	}
+
 	h1 {
 		font-size: 24px;
 		color: $color-text-main;

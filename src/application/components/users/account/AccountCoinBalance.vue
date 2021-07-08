@@ -1,6 +1,6 @@
 <template>
 	<span class="w-100 mx-auto d-flex justify-content-center gap-0-5" style="max-width: 300px;">
-		<span class="d-flex align-items-center position-relative" style="margin-right:24px">
+		<span class="d-flex align-items-center position-relative" style="margin-right: 24px;">
 			<Coins :size="28" style="z-index: 1;" />
 			<span class="rounded-pill ms-n1 px-1 ps-1-5 bg-tags border-line border text-text-main">
 				{{ formatNumber(user.account.coins.bronze) }}

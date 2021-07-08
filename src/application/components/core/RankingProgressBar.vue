@@ -47,7 +47,7 @@ export default defineComponent({
 	}
 
 	.progress-bar {
-		border-radius: 0px;
+		border-radius: 0;
 		border-top: 1px solid $color-text-sub;
 		border-bottom: 1px solid $color-text-sub;
 		border-left: 1px solid $color-text-sub;

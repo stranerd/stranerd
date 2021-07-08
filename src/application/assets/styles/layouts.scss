@@ -1,21 +1,5 @@
-// light font
-@font-face {
-    font-family: 'RegularFont';
-    src: url(@app/assets/Nunito/Nunito-Regular.ttf);
-}
-
-@font-face {
-    font-family: 'MediumFont';
-    src: url(@app/assets/Nunito/Nunito-SemiBold.ttf);
-}
-
-@font-face {
-    font-family: 'BoldFont';
-    src: url(@app/assets/Nunito/Nunito-Bold.ttf);
-}
-
 body {
-	font-family: RegularFont !important;
+	font-family: Nunito, sans-serif !important;
 	max-width: 100vw;
 	background-color: white !important;
 	// font-size: clamp(16px, calc(1rem + 20%), 30px) !important;
@@ -84,7 +68,6 @@ body {
 	background: $color-light-grey;
 	display: flex;
 	flex-direction: column;
-
 	@media (min-width: $lg) {
 		flex-direction: row;
 	}
@@ -96,13 +79,11 @@ body {
 	max-width: 350px;
 	min-width: 250px;
 	// padding: 0.5rem;
-
 	@media (min-width: $lg) {
 		width: 16.25%;
 		display: flex;
 		flex-direction: column;
 	}
-
 	@media (min-width: 1050px) {
 		// padding: 1rem;
 	}
@@ -110,7 +91,6 @@ body {
 
 .layout-side-right {
 	display: none;
-
 	@media (min-width: $lg) {
 		display: block;
 		background-color: $color-white;
@@ -132,11 +112,9 @@ body {
 	flex-grow: 1;
 	display: flex;
 	flex-direction: column;
-
 	@media (min-width: $md) {
 		margin: 0.75rem;
 	}
-
 	@media (min-width: $lg) {
 		margin: 1rem;
 	}
@@ -237,7 +215,6 @@ body {
 	select.form-select {
 		background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
 	}
-
 	@media (min-width: $lg) {
 		padding: 0;
 		margin: 1rem 1rem 0;
@@ -260,7 +237,6 @@ body {
 		padding: 0.5rem;
 		border-radius: 0;
 		color: $color-white;
-
 		@media (min-width: $lg) {
 			display: none;
 		}
@@ -269,7 +245,6 @@ body {
 
 .full-top-nav {
 	@extend .top-nav;
-
 	@media (min-width: $lg) {
 		margin: 0;
 		background: $color-text-main;
@@ -298,12 +273,10 @@ body {
 	padding: 0.5rem;
 	border-radius: 0.5rem;
 	box-shadow: 0 0 20px rgba($color-text-main, 0.07);
-
 	@media (min-width: $md) {
 		padding: 1rem;
 		border-radius: 0.75rem;
 	}
-
 	@media (min-width: $lg) {
 		padding: 1.5rem;
 		border-radius: 1rem;
@@ -311,11 +284,9 @@ body {
 
 	& + & {
 		margin-top: 0.5rem;
-
 		@media (min-width: $md) {
 			margin-top: 0.75rem;
 		}
-
 		@media (min-width: $lg) {
 			margin-top: 1rem;
 		}

@@ -1,15 +1,15 @@
 <template>
-	<form style="width:100%;" class="formStyle d-flex flex-column py-2 px-2" @submit.prevent="createMessage">
-		<div class="mb-1" style="border-bottom:1px solid #c5c5c5">
-			<h3 style="color:#000000;">
+	<form style="width: 100%;" class="formStyle d-flex flex-column py-2 px-2" @submit.prevent="createMessage">
+		<div class="mb-1" style="border-bottom: 1px solid #c5c5c5;">
+			<h3 style="color: #000;">
 				Contact Us
 			</h3>
 		</div>
 
-		<div class="col-12 py-0 px-0 d-flex flex-row flex-wrap" style="align-items:center;">
+		<div class="col-12 py-0 px-0 d-flex flex-row flex-wrap" style="align-items: center;">
 			<div class="col-lg-5 col-12 d-flex flex-column mb-1 mb-lg-0">
 				<div>
-					<sup style="color:red;">*</sup><span class="formLabel">First Name</span>
+					<sup style="color: red;">*</sup><span class="formLabel">First Name</span>
 				</div>
 				<div>
 					<input
@@ -23,9 +23,9 @@
 			</div>
 			<div class="col-lg-2 d-none d-lg-block" />
 			<div class="col-lg-5 col-12 d-flex flex-row">
-				<div class="d-flex flex-column ml-auto" style="width:100%;">
+				<div class="d-flex flex-column ml-auto" style="width: 100%;">
 					<div>
-						<sup style="color:red;">*</sup><span class="formLabel">Last Name</span>
+						<sup style="color: red;">*</sup><span class="formLabel">Last Name</span>
 					</div>
 					<div>
 						<input
@@ -40,10 +40,10 @@
 			</div>
 		</div>
 
-		<div class="col-12 py-1 px-0 d-flex flex-row" style="align-items:center;">
+		<div class="col-12 py-1 px-0 d-flex flex-row" style="align-items: center;">
 			<div class="col-12 px-0 py-0 d-flex flex-column">
 				<div>
-					<sup style="color:red;">*</sup><span class="formLabel">Email</span>
+					<sup style="color: red;">*</sup><span class="formLabel">Email</span>
 				</div>
 				<div>
 					<input
@@ -58,10 +58,10 @@
 			</div>
 		</div>
 
-		<div class="col-12 py-1 px-0 d-flex flex-row" style="align-items:center;">
+		<div class="col-12 py-1 px-0 d-flex flex-row" style="align-items: center;">
 			<div class="col-12 px-0 py-0 d-flex flex-column">
 				<div>
-					<sup style="color:red;">*</sup><span class="formLabel">Message</span>
+					<sup style="color: red;">*</sup><span class="formLabel">Message</span>
 				</div>
 				<div>
 					<textarea
@@ -77,7 +77,7 @@
 		</div>
 
 		<div class="col-12">
-			<button class="btn btn btn-lg btn-custom" style="width:100%;" type="submit" :disabled="loading || !factory.valid">
+			<button class="btn btn btn-lg btn-custom" style="width: 100%;" type="submit" :disabled="loading || !factory.valid">
 				<PageLoading v-if="loading" />
 				<span>Send Message</span>
 			</button>
@@ -100,30 +100,30 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-input, textarea {
-	border: 2px solid grey;
-	border-radius: 6px;
-	font-size:14px;
-	color:grey;
-}
+	input, textarea {
+		border: 2px solid grey;
+		border-radius: 6px;
+		font-size: 14px;
+		color: grey;
+	}
 
-.formStyle {
-	border: 2px solid grey;
-	border-radius: 10px;
-}
+	.formStyle {
+		border: 2px solid grey;
+		border-radius: 10px;
+	}
 
-.formLabel {
-	font-size:15px;
-	font-family:MediumFont;
-	color:black;
-}
+	.formLabel {
+		font-size: 15px;
+		font-weight: $font-weight-medium;
+		color: black;
+	}
 
-.btn-custom {
-	background-color:#354DA3;
-	color:#ffffff;
-	border:2px solid #354DA3;
-	border-radius:6px;
-	font-size: 15px;
-	font-family:MediumFont;
-}
+	.btn-custom {
+		background-color: #354da3;
+		color: #fff;
+		border: 2px solid #354da3;
+		border-radius: 6px;
+		font-size: 15px;
+		font-weight: $font-weight-medium;
+	}
 </style>

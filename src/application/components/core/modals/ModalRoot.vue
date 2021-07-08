@@ -70,14 +70,12 @@ export default defineComponent({
 
 			position: relative;
 		}
-
 		@media (min-width: $sm) {
 			.sd-modal-inner {
 				padding: 1rem;
 				width: 95%;
 			}
 		}
-
 		@media (min-width: $md) {
 			.sd-modal-inner {
 				width: 90%;

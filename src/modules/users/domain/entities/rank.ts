@@ -98,10 +98,14 @@ export const Ranks :Record<RankTypes, Rank> = {
 	}
 }
 
+const ranks = Object.values(Ranks).sort((a, b) => a.level - b.level)
+
 const getPercentage = (num: number, den: number) => 100 * (catchDivideByZero(num, den) > 1 ? 1 : catchDivideByZero(num, den))
 
+export const getMyRank = (level: number) => ranks.find((r) => r.level === level) ?? Ranks.Rookie
+
 export const getRankProgress = (user: UserEntity) => {
-	const rank = Ranks[user.account.rank]
+	const rank = user.rank
 	const progresses = [] as { title: string, progress: number }[]
 
 	if (rank.askQuestion > 0) progresses.push({
@@ -148,7 +152,6 @@ export const getRankProgress = (user: UserEntity) => {
 }
 
 const getNextRank = (rank: RankTypes) :Rank | null => {
-	const ranks = Object.values(Ranks).sort((a, b) => a.level - b.level)
 	const index = ranks.findIndex((r) => r.id === rank)
 	return ranks[index + 1] ?? null
 }

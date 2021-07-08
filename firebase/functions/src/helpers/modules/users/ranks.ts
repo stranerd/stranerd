@@ -83,6 +83,8 @@ const Ranks :Record<RankTypes, Rank> = {
 	}
 }
 
+const ranks = Object.values(Ranks).sort((a, b) => a.level - b.level)
+
 const getScore = (account: any) => {
 	let score = 0
 
@@ -104,13 +106,11 @@ const getRating = (account: any) => {
 }
 
 const getLastRank = (rank: RankTypes) :Rank => {
-	const ranks = Object.values(Ranks).sort((a, b) => a.level - b.level)
 	const index = ranks.findIndex((r) => r.id === rank)
 	return ranks[index - 1] ?? Ranks[RankTypes.Rookie]
 }
 
 const getNextRank = (rank: RankTypes) :Rank | null => {
-	const ranks = Object.values(Ranks).sort((a, b) => a.level - b.level)
 	const index = ranks.findIndex((r) => r.id === rank)
 	return ranks[index + 1] ?? null
 }
@@ -118,8 +118,7 @@ const getNextRank = (rank: RankTypes) :Rank | null => {
 export const checkRank = async (userId: string) => {
 	const accountRef = admin.database().ref('profiles').child(userId).child('account')
 	const account = (await accountRef.once('value')).val() ?? {}
-	const myRank: RankTypes = account?.rank ?? RankTypes.Rookie
-	const rank = Ranks[myRank]
+	const rank = ranks.find((r) => r.level === account?.rank) ?? Ranks.Rookie
 
 	const hostedSessions = Object.keys(account?.meta?.tutorSessions ?? {}).length
 	const attendedSessions = Object.keys(account?.meta?.completedSessions ?? {}).length
@@ -130,9 +129,9 @@ export const checkRank = async (userId: string) => {
 	const score = getScore(account)
 	const ratings = getRating(account)
 
-	const lastRank = getLastRank(myRank)
+	const lastRank = getLastRank(rank.id)
 	if (ratings < (lastRank.ratings - 0.5)) {
-		await accountRef.child('rank').set(lastRank.id)
+		await accountRef.child('rank').set(lastRank.level)
 		await createNotification(userId, {
 			body: `You just got demoted to ${lastRank.id}`,
 			action: '/account/'
@@ -152,9 +151,9 @@ export const checkRank = async (userId: string) => {
 			score >= rank.score &&
 			ratings >= rank.ratings
 
-		const nextRank = getNextRank(myRank)
+		const nextRank = getNextRank(rank.id)
 		if (next && nextRank) {
-			await accountRef.child('rank').set(nextRank.id)
+			await accountRef.child('rank').set(nextRank.level)
 			await createNotification(userId, {
 				body: `You just got promoted to ${nextRank.id}`,
 				action: '/account/'

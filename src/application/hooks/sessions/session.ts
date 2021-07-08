@@ -5,7 +5,7 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { Notify } from '../core/notifications'
 
 const currentGlobal = {
-	session: reqRef(null as SessionEntity | null),
+	currentSession: reqRef(null as SessionEntity | null),
 	listener: useListener(async () => () => {})
 }
 
@@ -21,15 +21,15 @@ export const useCurrentSession = () => {
 
 	const fetchSession = async (userId: string, id: string | null) => {
 		if (!id) currentGlobal.listener.closeListener()
-		if (id && currentGlobal.session.value?.id !== id) {
+		if (id && currentGlobal.currentSession.value?.id !== id) {
 			const session = await GetSession.call(id)
 			currentGlobal.listener.resetListener(
 				async () => ListenToSession.call(id, (s) => {
-					if (s) currentGlobal.session.value = s
+					if (s) currentGlobal.currentSession.value = s
 				})
 			)
 			if (session) {
-				currentGlobal.session.value = session
+				currentGlobal.currentSession.value = session
 				const id = userId === session.tutorId ? session.tutorId : session.studentId
 				await router.push(`/messages/${id}`)
 			}
@@ -45,13 +45,13 @@ export const useCurrentSession = () => {
 	})
 
 	const endDate = computed({
-		get: () => currentGlobal.session.value?.endedAt ?? Date.now(),
+		get: () => currentGlobal.currentSession.value?.endedAt ?? Date.now(),
 		set: () => {}
 	})
 
 	const otherParticipantId = computed({
 		get: () => {
-			const session = currentGlobal.session.value
+			const session = currentGlobal.currentSession.value
 			if (!session) return null
 			return session.studentId === id.value ? session.tutorId : session.studentId
 		},

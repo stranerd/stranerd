@@ -1,7 +1,7 @@
 import { BaseEntity } from '@modules/core/domains/entities/base'
 import { capitalize, catchDivideByZero } from '@utils/commons'
 import { Avatars } from './avatar'
-import { getScore, Ranks, RankTypes, getRankProgress } from './rank'
+import { getScore, Ranks, getMyRank, getRankProgress } from './rank'
 
 export class UserEntity extends BaseEntity {
 	public readonly id: string
@@ -21,7 +21,7 @@ export class UserEntity extends BaseEntity {
 			isAdmin: roles?.isAdmin ?? false
 		}
 		this.account = {
-			rank: account?.rank ?? RankTypes.Rookie,
+			rank: account?.rank ?? Ranks.Rookie.level,
 			coins: {
 				bronze: account?.coins?.bronze ?? 0,
 				gold: account?.coins?.gold ?? 0
@@ -90,7 +90,7 @@ export class UserEntity extends BaseEntity {
 	get currentSession () { return this.session.currentSession || this.session.currentTutorSession || null }
 	get subject () { return this.tutor.subject ?? null }
 	get score () { return getScore(this) }
-	get rank () { return Ranks[this.account.rank] }
+	get rank () { return getMyRank(this.account.rank) }
 	get rankProgress () { return getRankProgress(this) }
 
 	get canHostSessions () { return true } // this.rank.level >= Ranks.Scholar.level }
@@ -122,7 +122,7 @@ export interface UserRoles {
 	isAdmin?: boolean
 }
 export interface UserAccount {
-	rank: RankTypes
+	rank: number
 	coins: {
 		bronze: number
 		gold: number

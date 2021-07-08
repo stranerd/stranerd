@@ -1,8 +1,6 @@
 <template>
 	<div>
 		<div class="ranking-body">
-			<h1>Ranking System</h1>
-
 			<div class="ranking-card d-flex">
 				<img src="@app/assets/images/ranking/rookie.svg" alt="">
 
@@ -106,7 +104,7 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 export default defineComponent({
 	name: 'Ranking',
-	layout: 'ranking'
+	layout: 'justified'
 })
 </script>
 
@@ -117,27 +115,19 @@ export default defineComponent({
 	}
 
 	.ranking-body {
-		padding-left: 180px;
-		padding-right: 48px;
+		padding-right: 32px;
 		color: $color-text-sub;
-
-		h1 {
-			padding: 26px;
-			font-size: 36px;
-			color: $color-text-main;
-			border-bottom: 1px solid $color-line;
-			margin-bottom: 3rem;
-		}
 
 		.ranking-card {
 			border: 1px solid $color-line;
 			border-radius: 12px;
-			margin-top: 36px;
+			margin-top: 40px;
+			max-width: 960px;
 
 			img {
 				box-sizing: border-box;
 				border-right: 1px solid $color-line;
-				width: 216px;
+				height: 216px;
 				background: $color-tags;
 				padding: 2rem;
 				border-radius: 12px;

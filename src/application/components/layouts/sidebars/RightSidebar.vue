@@ -66,7 +66,7 @@ export default defineComponent({
 	}
 
 	.img-rank {
-		width: 48px;
+		width: 62px;
 	}
 
 	.ranking-header {

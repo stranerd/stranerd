@@ -1,7 +1,7 @@
 <template>
 	<section>
 		<div>
-			<div class="d-flex justify-content-between align-items-center w-100 p-1">
+			<div class="d-flex justify-content-between align-items-center w-100 p-1 mt-1">
 				<h1>Questions</h1>
 				<button class="sidebar-btn btn mt-1" @click="openQuestionModal">
 					<span>Ask A Question</span>

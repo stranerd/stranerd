@@ -1,38 +1,25 @@
 <template>
-	<section class="layout-body">
-		<main class="layout-main">
-			<TopNavigation :full="true" :open-menu="openSidebar" />
-			<div class="content">
-				<Nuxt class="layout-content" />
-			</div>
-		</main>
-		<ModalBase />
-	</section>
+	<div>
+		<TopNavigation :open-menu="openSidebar" />
+		<section class="layout-body mb-0">
+			<main class="layout-main flex-grow-0 ">
+				<Nuxt class="ranking-layout-content" />
+			</main>
+			<ModalBase />
+		</section>
+	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import TopNavigation from '@app/components/layouts/topNavigations/TopNavigation.vue'
+import TopNavigation from '@app/components/layouts/topNavigations/DefaultTopNavigation.vue'
 import { useMenuModal } from '@app/hooks/core/modals'
 export default defineComponent({
-	name: 'DefaultLayout',
-	components: {
-		TopNavigation
-	},
+	name: 'JustifiedLayout',
+	components: { TopNavigation },
 	setup () {
 		const { openSidebar } = useMenuModal()
 		return { openSidebar }
 	}
 })
 </script>
-
-<style lang="scss" scoped>
-	.content {
-		margin: 0 auto;
-		width: 100%;
-		max-width: $lg;
-		flex-grow: 1;
-		display: flex;
-		flex-direction: column;
-	}
-</style>

@@ -152,16 +152,19 @@ export default defineComponent({
 		.mr-4 {
 			margin-right: 48px;
 		}
-		.main-text{
+
+		.main-text {
 			font-size: 16px;
 			min-width: 98px;
 		}
-		.main-text-1{
+
+		.main-text-1 {
 			font-size: 16px;
 			min-width: 98px;
 			margin-top: 20px;
 		}
-		.sub-text{
+
+		.sub-text {
 			font-size: 18px;
 			color: $color-main;
 			font-weight: normal;
@@ -231,7 +234,8 @@ export default defineComponent({
 	.ml-0-5 {
 		margin-left: 12px;
 	}
-	.mr-0-5{
+
+	.mr-0-5 {
 		margin-right: 12px;
 	}
 

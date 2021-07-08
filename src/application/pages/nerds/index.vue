@@ -18,33 +18,19 @@
 				</div>
 			</div>
 
-			<div class="d-flex options mt-2 bl">
-				<select type="search" class="ml-1">
-					<option v-for="key in ['Answered', 'Unanswered']" :key="key" :value="key">
-						{{ key }}
-					</option>
-				</select>
-				<select type="search">
-					<option v-for="key in ['Physics', 'Math', 'Chemistry']" :key="key" :value="key">
-						{{ key }}
-					</option>
-				</select>
-			</div>
-
-			<div v-for="n in 10" :key="n" class="d-flex flex-column bl">
+			<div v-for="n in 10" :key="n" class="d-flex flex-column nerd-body">
 				<div class="question-head ml-1 d-flex align-items-center justify-content-between">
 					<div class="left d-flex align-items-center">
-						<Avatar :src="user.avatar" :size="36" />
-						<span class="name">Timmy Neutron</span>
+						<Avatar :src="user.avatar" :size="94" />
 						<div class="dot" />
-						<span class="subject">Physics</span>
+						<div class="d-flex align-items-start flex-column">
+							<span class="name">Timmy Neutron</span>
+							<span class="subject">Einstein</span>
+						</div>
 					</div>
 					<div class="left d-flex align-items-center">
-						<div class="coin d-flex align-items-center">
-							<span class="pr-1">+20</span> <Coins :size="28" style="z-index: 1;" />
-						</div>
 						<button class="answer-btn ml-1 mr-2">
-							Answer
+							Request A Session
 						</button>
 					</div>
 				</div>
@@ -151,23 +137,26 @@ export default defineComponent({
 			padding-top: 1rem;
 
 			.dot {
-				width: 6px;
-				height: 6px;
-				background-color: $color-text-sub;
-				margin: 0 20px 0 11px;
+				width: 24px;
+				height: 24px;
+				background-color: $color-green;
 				border-radius: 50px;
+				    position: relative;
+    top: 32px;
+    right: 32px;
+	border: 2px solid $color-white;
 			}
 
 			.name {
-				margin-left: 1rem;
 				color: $color-text-main;
-				font-size: 18px;
+				font-size: 24px;
 				font-weight: 600;
 			}
 
 			.subject {
-				color: $color-text-sub;
+				color: $color-main;
 				font-weight: 600;
+				font-size:18px
 			}
 		}
 	}
@@ -182,8 +171,14 @@ export default defineComponent({
 		margin-top: 53px;
 	}
 
-	.bl {
-		border-bottom: 1px solid $color-line;
+	.nerd-body {
+			background: $color-white;
+	border: 1px solid $color-line;
+	width: -webkit-fill-available;
+	padding: 24px 48px;
+	max-width: 1024px;
+	margin: 36px auto;
+	border-radius: 12px;
 	}
 
 	.ml-1 {

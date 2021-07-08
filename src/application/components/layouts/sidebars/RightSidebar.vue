@@ -1,28 +1,29 @@
 <template>
-	<div class="p-1">
+	<div class="rightSidebar">
 		<template v-if="isLoggedIn">
-			<ProfileHeadCard :user="user" />
-			<div class="thick mx-n1" />
-			<div class="d-flex flex-column gap-1">
-				<h1 class="ranking-header">
-					Ranking Up
-				</h1>
-				<div class="d-flex justify-content-between align-items-center text-main">
-					<!-- <span>{{ user.rank.id }}</span> -->
-					<img src="@app/assets/images/ranking/rookie.svg" alt="" class="img-rank">
-					<ProgressBar :current="user.rankProgress.overall" color="#00F332" class="mx-1" />
-					<img src="@app/assets/images/ranking/comrade.svg" alt="" class="img-rank">
+			<div class="d-flex flex-column align-items-center">
+				<ProfileHeadCard :user="user" class="balance" />
+				<div class="d-flex flex-column gap-1 ranking">
+					<h1 class="ranking-header">
+						Ranking Up
+					</h1>
+					<div class="d-flex justify-content-between align-items-center text-main">
+						<!-- <span>{{ user.rank.id }}</span> -->
+						<img src="@app/assets/images/ranking/rookie.svg" alt="" class="img-rank">
+						<RankingProgressBar :current="user.rankProgress.overall" color="#00F332" :primary="true" class="mx-1" />
+						<img src="@app/assets/images/ranking/comrade.svg" alt="" class="img-rank">
 					<!-- <span>{{ user.rankProgress.next && user.rankProgress.next.id }}</span> -->
-				</div>
-				<div class="d-flex flex-column ">
-					<div v-for="detail in user.rankProgress.progresses" :key="detail.title" class="d-flex justify-content-between align-items-center mt-1">
-						<span class="stat">{{ detail.title }}</span>
-						<ProgressBar :current="detail.progress" class="mx-0-25" />
+					</div>
+					<div class="d-flex flex-column ">
+						<div v-for="detail in user.rankProgress.progresses" :key="detail.title" class="d-flex justify-content-between align-items-center mt-1">
+							<span class="stat">{{ detail.title }}</span>
+							<ProgressBar :current="detail.progress" class="mx-0-25" />
+						</div>
 					</div>
 				</div>
+
+				<TagsList class="tags" />
 			</div>
-			<div class="thick mx-n1" />
-			<TagsList />
 		</template>
 	</div>
 </template>
@@ -43,6 +44,24 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.tags{
+	background: $color-tags;
+	border: 1px solid $color-line;
+	width: -webkit-fill-available;
+	padding: 36px;
+	margin-top: 36px;
+}
+.ranking{
+	background: $color-tags;
+	border: 1px solid $color-line;
+	width: -webkit-fill-available;
+	padding: 36px;
+	margin-top: 36px;
+}
+	.rightSidebar{
+		padding-top: 60px;
+		padding-right: 48px;
+	}
 	.img-rank {
 		width: 48px;
 	}

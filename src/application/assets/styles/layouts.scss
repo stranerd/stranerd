@@ -79,7 +79,7 @@ body {
 .layout-side-left {
 	display: none;
 	background-color: none;
-	width: 16.25%;
+	width: 18.25%;
 	max-width: 312px;
 	min-width: 208px;
 	// padding: 0.5rem;
@@ -96,7 +96,7 @@ body {
 
 .layout-side-right {
 	display: none;
-	width: 25%;
+	width: 28%;
 	max-width: 480px;
 	min-width: 320px;
 	background-color: none;
@@ -116,7 +116,7 @@ body {
 .layout-content {
 	padding: 0.5rem;
 	border-left: 1px solid $color-line;
-	border-right: 1px solid $color-line;
+	// border-right: 1px solid $color-line;
 	flex-grow: 1;
 	display: flex;
 	flex-direction: column;
@@ -146,7 +146,8 @@ body {
 	justify-content: center;
 	align-items: center;
 	font-weight: 600;
-	width: 120px;
+	width: fit-content;
+	padding: 9px 27px;
 
 	&:hover {
 		color: $color-white;

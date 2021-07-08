@@ -46,4 +46,4 @@ export const email = Object.fromEntries(
 )
 
 export const domain = `http${!isDev ? 's' : ''}://${process.env.DOMAIN}${isDev ? `:${process.env.PORT}` : ''}`
-export const logo = `${domain}/images/stranerd_logo.svg`
+export const logo = `${domain}/images/logo-white.png`

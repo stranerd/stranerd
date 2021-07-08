@@ -4,9 +4,7 @@
 			class="col-12 px-md-2 card px-1 py-1 maincolor d-flex flex-row"
 			style="align-items: center; border-radius: 0;"
 		>
-			<div>
-				<img src="@app/assets/images/homepage/logo_white.svg">
-			</div>
+			<Logo />
 			<div
 				class="ml-auto flex-row-reverse d-lg-flex d-none"
 				style="align-items: center; width: 100%;"

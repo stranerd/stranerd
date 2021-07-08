@@ -55,10 +55,13 @@ export default defineComponent({
 
 		select {
 			width: auto;
-			background-color: inherit;
-			border: none;
 			padding: 0.25em 1.75em 0.25em 0.25em;
 			color: inherit;
+				border: 1.2px solid $color-line;
+		background-color: $color-tags;
+		padding: 0.25em 0.5em 0.25em 1.5em;
+		border-radius: 12px;
+		color: $color-text-sub;
 		}
 
 		select:focus {

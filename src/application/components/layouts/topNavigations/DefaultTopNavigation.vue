@@ -1,6 +1,9 @@
 <template>
 	<nav class="home-top-nav gap-1" role="navigation">
-		<Logo :secondary="true" class="nav-logo" />
+		<NuxtLink to="/dashboard">
+			<Logo :secondary="true" class="nav-logo" />
+		</NuxtLink>
+
 		<SearchBar class="middle-body" />
 		<div class="right-body gap-0-75 gap-lg-1-5">
 			<MessageLink :key="'messages' + isLoggedIn" class="link" />

@@ -93,10 +93,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.icons{
-	width: 24px;
-	margin-right: 8px;
-}
+	.icons {
+		width: 24px;
+		margin-right: 8px;
+	}
+
 	.tag {
 		border: 1.2px solid $color-line;
 		background-color: $color-tags;
@@ -104,37 +105,41 @@ export default defineComponent({
 		color: $color-text-main;
 		padding: 1px 14px;
 	}
-.question-body{
 
-	span{
-		max-width: 800px;
-	margin: 32px 0px;
-	font-size: 20px;
-	}
-}
-.question-head{
-	.left{
-		padding-top: 1rem;
-	.dot{
-		width: 6px;
-		height: 6px;
-		background-color: $color-text-sub;
-		margin: 0px 20px 0px 11px;
-		border-radius: 50px;
-	}
-	.name{
-		margin-left: 1rem;
-		color: $color-text-main;
-		font-size: 18px;
-		font-weight: 600;
-	}
-	.subject{
-		color: $color-text-sub;
-		font-weight: 600;
-	}
+	.question-body {
+		span {
+			max-width: 800px;
+			margin: 32px 0;
+			font-size: 20px;
+		}
 	}
 
-}
+	.question-head {
+		.left {
+			padding-top: 1rem;
+
+			.dot {
+				width: 6px;
+				height: 6px;
+				background-color: $color-text-sub;
+				margin: 0 20px 0 11px;
+				border-radius: 50px;
+			}
+
+			.name {
+				margin-left: 1rem;
+				color: $color-text-main;
+				font-size: 18px;
+				font-weight: 600;
+			}
+
+			.subject {
+				color: $color-text-sub;
+				font-weight: 600;
+			}
+		}
+	}
+
 	.background {
 		background: url('../assets/images/icons/dashboard_hero.svg') no-repeat right bottom;
 
@@ -143,33 +148,37 @@ export default defineComponent({
 		}
 	}
 
-h1{
-	color: $color-text-main;
-}
-.bl{
-	border-bottom: 1px solid $color-line;
-}
-.ml-1{
+	h1 {
+		color: $color-text-main;
+	}
+
+	.bl {
+		border-bottom: 1px solid $color-line;
+	}
+
+	.ml-1 {
 		margin-left: 1.4rem;
 	}
-.ml-0-5{
-margin-left: 12px;
-}
 
-.pr-1{
-	padding-right: 8px;
-}
-.mr-2{
-	margin-right: 16px;
-}
-.options{
-
-	select{
-		width: 156px;
-		border: 1px solid $color-line;
-		background: $color-tags;
-		margin-right: 12px;
-		padding: 11px;
+	.ml-0-5 {
+		margin-left: 12px;
 	}
-}
+
+	.pr-1 {
+		padding-right: 8px;
+	}
+
+	.mr-2 {
+		margin-right: 16px;
+	}
+
+	.options {
+		select {
+			width: 156px;
+			border: 1px solid $color-line;
+			background: $color-tags;
+			margin-right: 12px;
+			padding: 11px;
+		}
+	}
 </style>

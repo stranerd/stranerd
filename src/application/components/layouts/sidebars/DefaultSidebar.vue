@@ -56,7 +56,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.sidebar-btn{
-	margin: 2rem auto;
-}
+	.sidebar-btn {
+		margin: 2rem auto;
+	}
 </style>

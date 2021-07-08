@@ -103,7 +103,6 @@ body {
 
 	@media (min-width: $lg) {
 		display: block;
-
 		margin: 0 0 0 auto;
 	}
 }
@@ -136,10 +135,11 @@ body {
 	display: flex;
 	flex-direction: column;
 }
-.answer-btn{
+
+.answer-btn {
 	background: $color-main;
 	color: $color-white;
-	padding:  0.25rem;
+	padding: 0.25rem;
 	border: none;
 	border-radius: 18px;
 	display: flex;
@@ -147,12 +147,14 @@ body {
 	align-items: center;
 	font-weight: 600;
 	width: 120px;
+
 	&:hover {
 		color: $color-white;
 		transform: scale(1.1);
 		transition: 0.5s;
 	}
 }
+
 .sidebar-btn {
 	background: $color-main;
 	color: $color-white;
@@ -162,7 +164,6 @@ body {
 	align-items: center;
 	font-weight: 600;
 	width: 180px;
-
 
 	img {
 		height: 24px;

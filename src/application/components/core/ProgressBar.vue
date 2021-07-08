@@ -39,9 +39,9 @@ export default defineComponent({
 		border-radius: 6px;
 		height: 12px;
 		font-size: 12px;
-
 	}
-	.progress-bar{
+
+	.progress-bar {
 		border-radius: 50px;
 	}
 </style>

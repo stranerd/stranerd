@@ -8,9 +8,11 @@
 					Ranking Up
 				</h1>
 				<div class="d-flex justify-content-between align-items-center text-main">
-					<span>{{ user.rank.id }}</span>
-					<ProgressBar :current="user.rankProgress.overall" color="#00F332" class="mx-0-25" />
-					<span>{{ user.rankProgress.next && user.rankProgress.next.id }}</span>
+					<!-- <span>{{ user.rank.id }}</span> -->
+					<img src="@app/assets/images/ranking/rookie.svg" alt="" class="img-rank">
+					<ProgressBar :current="user.rankProgress.overall" color="#00F332" class="mx-1" />
+					<img src="@app/assets/images/ranking/comrade.svg" alt="" class="img-rank">
+					<!-- <span>{{ user.rankProgress.next && user.rankProgress.next.id }}</span> -->
 				</div>
 				<div class="d-flex flex-column ">
 					<div v-for="detail in user.rankProgress.progresses" :key="detail.title" class="d-flex justify-content-between align-items-center mt-1">
@@ -41,6 +43,10 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+	.img-rank {
+		width: 48px;
+	}
+
 	.ranking-header {
 		text-align: center;
 		font-size: 20px;

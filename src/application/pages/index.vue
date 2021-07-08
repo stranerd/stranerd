@@ -459,7 +459,7 @@
 			>
 				<div class="col-md-1 d-lg-inline-block d-none" />
 				<div class="col-md-4 py-0 px-0">
-					<message-form />
+					<MessageForm />
 				</div>
 				<div class="col-md-1 d-lg-inline-block d-none" />
 				<div class="col-md-5 py-0 text-center d-lg-inline-block d-none">

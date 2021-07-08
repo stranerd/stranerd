@@ -14,10 +14,10 @@
 				<div>
 					<input
 						id="first_name"
-						v-model="factory.first_name"
+						v-model="factory.fName"
 						class="form-control"
 						placeholder="John"
-						:class="{'is-invalid': factory.errors.name, 'is-valid': factory.isValid('name')}"
+						:class="{'is-invalid': factory.errors.fName, 'is-valid': factory.isValid('fName')}"
 					>
 				</div>
 			</div>
@@ -30,10 +30,10 @@
 					<div>
 						<input
 							id="last_name"
-							v-model="factory.last_name"
+							v-model="factory.lName"
 							class="form-control"
 							placeholder="Smith"
-							:class="{'is-invalid': factory.errors.name, 'is-valid': factory.isValid('name')}"
+							:class="{'is-invalid': factory.errors.lName, 'is-valid': factory.isValid('lName')}"
 						>
 					</div>
 				</div>

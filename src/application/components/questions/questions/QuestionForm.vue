@@ -63,9 +63,11 @@
 		</div>
 
 		<button class="btn btn-primary-blue px-2 py-1 mt-2" type="submit" :disabled="loading || !factory.valid">
-			<PageLoading v-if="loading" />
-			<span><slot name="buttonText">Submit</slot></span>
+			<slot name="buttonText">
+				Submit
+			</slot>
 		</button>
+		<PageLoading v-if="loading" />
 		<DisplayError :error="error" />
 	</form>
 </template>

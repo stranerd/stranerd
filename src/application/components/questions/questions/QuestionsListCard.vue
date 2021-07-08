@@ -12,12 +12,12 @@
 				<span class="subject">{{ subject ? subject.name : 'Subject' }}</span>
 			</div>
 			<img v-if="question.isAnswered" src="@app/assets/images/icons/profile-best-answers.svg" alt="" style="width: 2rem; height: 2rem;">
-			<div v-else class="d-flex align-items-center gap-1">
+			<div v-else-if="showAnswerButton" class="d-flex align-items-center gap-1">
 				<div class="coin d-flex align-items-center gap-0-25">
 					<span>+{{ formatNumber(question.creditable) }}</span>
 					<Coins :size="28" style="z-index: 1;" />
 				</div>
-				<button class="answer-btn">
+				<button class="answer-btn" @click="openAnswerModal">
 					Answer
 				</button>
 			</div>
@@ -43,10 +43,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from '@nuxtjs/composition-api'
+import { computed, defineComponent, PropType, useRouter } from '@nuxtjs/composition-api'
 import { QuestionEntity } from '@modules/questions'
 import { useSubject } from '@app/hooks/questions/subjects'
 import { useAuth } from '@app/hooks/auth/auth'
+import { openAnswerModal } from '@app/hooks/questions/answers'
 import { formatNumber, pluralize } from '@utils/commons'
 import { formatTime } from '@utils/dates'
 import TagListCard from '@app/components/questions/tags/TagListCard.vue'
@@ -60,9 +61,17 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
-		const { id } = useAuth()
+		const { id, user } = useAuth()
+		const router = useRouter()
 		const { subject } = useSubject(props.question.subjectId)
-		return { id, subject, formatTime, formatNumber, pluralize }
+		const showAnswerButton = computed({
+			get: () => props.question.userId !== id.value && !props.question.isAnswered && !user.value?.account.meta.answeredQuestions.includes(props.question.id),
+			set: () => {}
+		})
+		return {
+			id, subject, formatTime, formatNumber, pluralize, showAnswerButton,
+			openAnswerModal: () => openAnswerModal(props.question, router)
+		}
 	}
 })
 </script>
@@ -95,5 +104,20 @@ export default defineComponent({
 
 	.icons {
 		width: 24px;
+	}
+
+	.answer-btn {
+		background: $color-main;
+		color: $color-white;
+		border: none;
+		border-radius: 18px;
+		width: fit-content;
+		padding: 9px 27px;
+
+		&:hover {
+			color: $color-white;
+			transform: scale(1.1);
+			transition: 0.5s;
+		}
 	}
 </style>

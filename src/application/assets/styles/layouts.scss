@@ -122,25 +122,6 @@ body {
 	flex-direction: column;
 }
 
-.answer-btn {
-	background: $color-main;
-	color: $color-white;
-	border: none;
-	border-radius: 18px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-weight: 600;
-	width: fit-content;
-	padding: 9px 27px;
-
-	&:hover {
-		color: $color-white;
-		transform: scale(1.1);
-		transition: 0.5s;
-	}
-}
-
 .sidebar-btn {
 	background: $color-main;
 	color: $color-white;

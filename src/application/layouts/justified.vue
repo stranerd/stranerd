@@ -34,4 +34,8 @@ export default defineComponent({
 		margin-left: auto;
 		margin-right: auto;
 	}
+
+	.layout-main {
+		@media (min-width: $lg) { width: 100% - 28%; }
+	}
 </style>

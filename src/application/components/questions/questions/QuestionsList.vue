@@ -4,9 +4,9 @@
 			<h1 class="text-blue my-0">
 				Questions
 			</h1>
-			<button class="sidebar-btn btn" @click="openQuestionModal">
-				<span>Ask A Question</span>
-			</button>
+			<NuxtLink class="btn btn-primary-blue px-2 py-1" to="/questions/create">
+				Ask A Question
+			</NuxtLink>
 		</div>
 
 		<form class="d-flex options bl gap-1-5 px-1">
@@ -33,9 +33,8 @@ import { defineComponent, onMounted, onBeforeUnmount } from '@nuxtjs/composition
 import QuestionCard from '@app/components/questions/questions/QuestionsListCard.vue'
 import { useQuestionList } from '@app/hooks/questions/questions'
 import SelectSubject from '@app/components/questions/subjects/SelectSubject.vue'
-import { useAccountModal, useCreateModal } from '@app/hooks/core/modals'
+import { useAccountModal } from '@app/hooks/core/modals'
 import { useAuth } from '@app/hooks/auth/auth'
-import { useRedirectToAuth } from '@app/hooks/auth/session'
 export default defineComponent({
 	name: 'QuestionsList',
 	components: { SelectSubject, QuestionCard },
@@ -46,8 +45,6 @@ export default defineComponent({
 			fetchOlderQuestions, listener
 		} = useQuestionList()
 		const { isLoggedIn, user } = useAuth()
-		const { redirect } = useRedirectToAuth()
-		const { openQuestion } = useCreateModal()
 		const { openMeetTutor } = useAccountModal()
 		onMounted(listener.startListener)
 		onBeforeUnmount(listener.closeListener)
@@ -55,11 +52,7 @@ export default defineComponent({
 			questions, error, loading, hasMore, fetchOlderQuestions,
 			answeredChoices, answered, subjectId,
 			user,
-			isLoggedIn, openMeetTutor,
-			openQuestionModal: () => {
-				if (!isLoggedIn.value) redirect()
-				else openQuestion()
-			}
+			isLoggedIn, openMeetTutor
 		}
 	}
 })

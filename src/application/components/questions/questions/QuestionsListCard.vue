@@ -11,7 +11,7 @@
 				<div class="dot" />
 				<span class="subject">{{ subject ? subject.name : 'Subject' }}</span>
 			</div>
-			<img v-if="question.isAnswered" src="@app/assets/images/icons/profile-best-answers.svg" alt="" class="icons" style="width: 2rem; height: 2rem;">
+			<img v-if="question.isAnswered" src="@app/assets/images/icons/profile-best-answers.svg" alt="" style="width: 2rem; height: 2rem;">
 			<div v-else class="d-flex align-items-center gap-1">
 				<div class="coin d-flex align-items-center gap-0-25">
 					<span>+{{ formatNumber(question.creditable) }}</span>

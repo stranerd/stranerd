@@ -12,7 +12,7 @@
 							{{ key }}
 						</option>
 					</select>
-					<button class="sidebar-btn btn" @click="openQuestionModal">
+					<button class="sidebar-btn btn">
 						<span>Search</span>
 					</button>
 				</div>
@@ -83,24 +83,17 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useAccountModal, useCreateModal } from '@app/hooks/core/modals'
+import { useAccountModal } from '@app/hooks/core/modals'
 import { useAuth } from '@app/hooks/auth/auth'
-import { useRedirectToAuth } from '@app/hooks/auth/session'
 export default defineComponent({
 	name: 'DashboardPage',
 	layout: 'dashboard',
 	setup () {
 		const { isLoggedIn, user } = useAuth()
-		const { redirect } = useRedirectToAuth()
-		const { openQuestion } = useCreateModal()
 		const { openMeetTutor } = useAccountModal()
 		return {
 			user,
-			isLoggedIn, openMeetTutor,
-			openQuestionModal: () => {
-				if (!isLoggedIn.value) redirect()
-				else openQuestion()
-			}
+			isLoggedIn, openMeetTutor
 		}
 	}
 })
@@ -214,7 +207,6 @@ export default defineComponent({
 		max-width: 650px;
 		letter-spacing: 0;
 		line-height: 32px;
-		margin-top: 53px;
 	}
 
 	.nerd-body {

@@ -1,10 +1,11 @@
 <template>
 	<div>
-		<div class="ranking-body">
-			<div class="ranking-card d-flex">
-				<img src="@app/assets/images/ranking/rookie.svg" alt="">
-
-				<div class="ranking-card-main d-flex flex-column  justify-content-center">
+		<div class="ranking-body d-flex flex-column gap-2-25">
+			<div class="ranking-card">
+				<div class="rank-contain">
+					<img src="/images/ranking/rookie.svg" alt="">
+				</div>
+				<div class="ranking-card-main gap-1">
 					<p class="first">
 						A Rookie is a Beginner Nerd.
 					</p>
@@ -13,17 +14,18 @@
 					</p>
 
 					<ul>
-						<li>- Ask and answer 30 questions</li>
+						<li> - Ask and answer 30 questions</li>
 						<li> - Successfully attend 7 sessions</li>
 						<li> - Complete 30 days login</li>
 					</ul>
 				</div>
 			</div>
 
-			<div class="ranking-card d-flex">
-				<img src="@app/assets/images/ranking/comrade.svg" alt="">
-
-				<div class="ranking-card-main d-flex flex-column  justify-content-center">
+			<div class="ranking-card">
+				<div class="rank-contain">
+					<img src="/images/ranking/comrade.svg" alt="">
+				</div>
+				<div class="ranking-card-main gap-1">
 					<p class="first">
 						A Comrade is a Level Two Nerd. This status proves that you are an active and valuable member of the Stranerd community.
 					</p>
@@ -32,9 +34,7 @@
 					</p>
 
 					<ul>
-						<li>
-							- Ask 30 questions and answer 30 questions
-						</li>
+						<li> - Ask 30 questions and answer 30 questions</li>
 						<li> - Have a Nerd Score of ≥ 75</li>
 						<li> - Have at least 10 best answers</li>
 						<li> - Successfully attend 14 sessions</li>
@@ -43,17 +43,17 @@
 				</div>
 			</div>
 
-			<div class="ranking-card d-flex">
-				<img src="@app/assets/images/ranking/scholar.svg" alt="">
+			<div class="ranking-card">
+				<div class="rank-contain">
+					<img src="/images/ranking/scholar.svg" alt="">
+				</div>
 
-				<div class="ranking-card-main d-flex flex-column  justify-content-center">
+				<div class="ranking-card-main gap-1">
 					<p class="first">
 						A Scholar is a Level Three Nerd. This status is a guarantee that you are a Nerd whose solutions can be trusted.
 					</p>
 					<p class="second">
-						<span class="highlight">
-							New!!!
-						</span>
+						<span class="highlight">New!!!</span>
 						A Scholar is able to host Chat Sessions with other Nerds to help them with solutions to their homework and study problems.
 					</p>
 
@@ -72,10 +72,11 @@
 				</div>
 			</div>
 
-			<div class="ranking-card d-flex">
-				<img src="@app/assets/images/ranking/einstein.svg" alt="">
-
-				<div class="ranking-card-main d-flex flex-column  justify-content-center">
+			<div class="ranking-card">
+				<div class="rank-contain">
+					<img src="/images/ranking/einstein.svg" alt="">
+				</div>
+				<div class="ranking-card-main gap-1">
 					<p class="first">
 						Einstein! this is the highest level a Nerd can attain. This status is a guarantee that you are a Nerd who is an expert in your specialized field of study.
 					</p>
@@ -91,7 +92,7 @@
 						<li> - Complete 100 days login  </li>
 						<li> - Keep an average of 4 star</li>
 						<li> - Have at least 30 best answers</li>
-						<li> - Have a nerd score of ≥ 400 Lou</li>
+						<li> - Have a nerd score of ≥ 400</li>
 						<li> - Ask and answer at least 50 questions</li>
 					</ul>
 				</div>
@@ -115,33 +116,40 @@ export default defineComponent({
 	}
 
 	.ranking-body {
-		padding-right: 32px;
 		color: $color-text-sub;
 
 		.ranking-card {
+			display: flex;
 			border: 1px solid $color-line;
 			border-radius: 12px;
-			margin-top: 40px;
-			max-width: 960px;
 
-			img {
-				box-sizing: border-box;
-				border-right: 1px solid $color-line;
-				height: 216px;
+			.rank-contain {
 				background: $color-tags;
 				padding: 2rem;
 				border-radius: 12px;
+				border-right: 1px solid $color-line;
+
+				img { width: 144px; }
 			}
 
 			.ranking-card-main {
-				padding: 1rem 0;
-				padding-left: 2rem;
+				width: calc(100% - 4rem - 144px);
+				padding: 2rem;
+				display: flex;
+				flex-direction: column;
+
+				p {
+					margin: 0;
+					width: 100%;
+					word-break: break-all;
+				}
+
+				ul {
+					list-style: none;
+					padding: 0;
+					margin: 0;
+				}
 			}
 		}
-	}
-
-	ul {
-		list-style: none;
-		padding: 0;
 	}
 </style>

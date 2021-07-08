@@ -5,11 +5,11 @@
 		</NuxtLink>
 
 		<SearchBar class="middle-body" />
-		<div class="right-body gap-0-75 gap-lg-1-5">
+		<div class="right-body gap-0-75 gap-lg-4">
 			<MessageLink :key="'messages' + isLoggedIn" class="link" />
 			<NotificationBell :key="'notifications' + isLoggedIn" class="link" />
 
-			<div v-if="isLoggedIn" class="d-flex gap-0-25 gap-lg-0-5 align-items-center cursor-pointer" @click="show = !show">
+			<div v-if="isLoggedIn" class="d-flex gap-0-25 gap-lg-1 align-items-center cursor-pointer" @click="show = !show">
 				<Avatar :src="user.avatar" :size="48" />
 				<span class="d-flex gap-0-25 align-items-center">
 					<span class="username text-truncate">{{ user.fullName }}</span>
@@ -87,7 +87,7 @@ export default defineComponent({
 
 	.middle-body {
 		flex-grow: 1;
-		max-width: 60%;
+		max-width: 50%;
 	}
 
 	.right-body {
@@ -125,10 +125,6 @@ export default defineComponent({
 	}
 
 	.link {
-		display: flex;
-		align-items: center;
-		margin-right: 72px;
-
 		& > img,
 		& >>> img,
 		& >>> span > img {

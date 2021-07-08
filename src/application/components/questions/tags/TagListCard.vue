@@ -1,6 +1,6 @@
 <template>
 	<div class="tag">
-		{{ tag.name }}
+		{{ tag.name ? tag.name : tag }}
 	</div>
 </template>
 
@@ -11,7 +11,7 @@ export default defineComponent({
 	name: 'TagListCard',
 	props: {
 		tag: {
-			type: Object as PropType<TagEntity>,
+			type: [String, Object] as PropType<string | TagEntity>,
 			required: true
 		}
 	}

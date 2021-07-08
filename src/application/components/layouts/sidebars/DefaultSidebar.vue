@@ -1,36 +1,28 @@
 <template>
-	<aside class="sidebar-body gap-1 mt-3">
+	<aside class="sidebar-body gap-1">
 		<div class="sidebar-links">
 			<NuxtLink class="sidebar-link" to="/dashboard">
-				<div>
-					<img src="@app/assets/images/icons/dashboard.svg" alt="">
-					<span class="ml-2">Home</span>
-				</div>
+				<img src="@app/assets/images/icons/dashboard.svg" alt="">
+				<span>Home</span>
 			</NuxtLink>
 
 			<NuxtLink class="sidebar-link" to="/nerds">
-				<div>
-					<img src="@app/assets/images/icons/nerd.svg" alt="">
-					<span class="ml-2">Nerds</span>
-				</div>
+				<img src="@app/assets/images/icons/nerd.svg" alt="">
+				<span>Nerds</span>
 			</NuxtLink>
 
 			<NuxtLink class="sidebar-link" to="/account/e-wallet">
-				<div>
-					<img src="@app/assets/images/icons/e-wallet.svg" alt="">
-					<span class="ml-2">e-Wallet</span>
-				</div>
+				<img src="@app/assets/images/icons/e-wallet.svg" alt="">
+				<span>e-Wallet</span>
 			</NuxtLink>
 
 			<NuxtLink v-if="isAdmin" class="sidebar-link" to="/admin/">
-				<div>
-					<img src="@app/assets/images/icons/admin.svg" alt="">
-					<span class="ml-2">Admin Site</span>
-				</div>
+				<img src="@app/assets/images/icons/admin.svg" alt="">
+				<span>Admin Site</span>
 			</NuxtLink>
 		</div>
-		<div class="sidebar-links">
-			<button v-if="isLoggedIn" class="sidebar-btn btn " @click="buy">
+		<div class="sidebar-links px-1 mt-2 gap-1">
+			<button v-if="isLoggedIn" class="sidebar-btn btn" @click="buy">
 				<span>Buy Coins</span>
 			</button>
 		</div>
@@ -54,9 +46,3 @@ export default defineComponent({
 	}
 })
 </script>
-
-<style lang="scss" scoped>
-	.sidebar-btn {
-		margin: 2rem auto;
-	}
-</style>

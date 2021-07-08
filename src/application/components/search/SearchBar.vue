@@ -1,5 +1,6 @@
 <template>
-	<form>
+	<form class="gap-1">
+		<div />
 		<QuestionSearch v-if="search === SEARCH_TYPES.Questions" :key="search" />
 		<AnswerSearch v-else-if="search === SEARCH_TYPES.Answers" :key="search" />
 		<UserSearch v-else-if="search === SEARCH_TYPES.Users" :key="search" />
@@ -36,33 +37,20 @@ export default defineComponent({
 	form {
 		flex-grow: 1;
 		display: flex;
-		align-items: center;
 		font-size: 0.9rem;
-
-		/deep/ input {
-			color: inherit;
-			border: none;
-			outline: none;
-			box-shadow: none;
-			min-height: unset;
-			padding: 0 0.5rem;
-		}
-
-		/deep/ input:focus {
-			color: inherit;
-			box-shadow: none;
-		}
+		border: 1.2px solid $color-line;
+		background-color: $color-tags;
+		border-radius: 12px;
+		color: $color-text-sub;
+		min-height: 2em;
 
 		select {
 			width: auto;
-			padding: 0.63em 1.75em 0.63em 0.85em;
-			border: 1.2px solid $color-line;
+			padding: 0.6em 1.75em 0.6em 1em;
+			border-left: 1.2px solid $color-line;
 			background-color: $color-tags;
 			border-radius: 12px;
 			color: $color-text-main;
-			min-height: 2em;
-			position: relative;
-			right: 6rem;
 		}
 
 		select:focus {

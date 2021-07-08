@@ -44,6 +44,7 @@ type Rank = {
 	dailyLogin: number
 	score: number
 	ratings: number
+	image: string
 }
 
 export const Ranks :Record<RankTypes, Rank> = {
@@ -56,7 +57,8 @@ export const Ranks :Record<RankTypes, Rank> = {
 		bestAnswer: 0,
 		dailyLogin: 30,
 		score: 0,
-		ratings: 0
+		ratings: 0,
+		image: '/images/ranking/rookie.svg'
 	},
 	[RankTypes.Comrade]: {
 		id: RankTypes.Comrade,
@@ -67,7 +69,8 @@ export const Ranks :Record<RankTypes, Rank> = {
 		bestAnswer: 10,
 		dailyLogin: 60,
 		score: 75,
-		ratings: 0
+		ratings: 0,
+		image: '/images/ranking/comrade.svg'
 	},
 	[RankTypes.Scholar]: {
 		id: RankTypes.Scholar,
@@ -78,7 +81,8 @@ export const Ranks :Record<RankTypes, Rank> = {
 		bestAnswer: 20,
 		dailyLogin: 90,
 		score: 250,
-		ratings: 3.5
+		ratings: 3.5,
+		image: '/images/ranking/scholar.svg'
 	},
 	[RankTypes.Einstein]: {
 		id: RankTypes.Comrade,
@@ -89,7 +93,8 @@ export const Ranks :Record<RankTypes, Rank> = {
 		bestAnswer: 30,
 		dailyLogin: 100,
 		score: 400,
-		ratings: 4
+		ratings: 4,
+		image: '/images/ranking/einstein.svg'
 	}
 }
 

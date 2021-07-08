@@ -176,24 +176,19 @@ export default defineComponent({
 	p {
 		margin-bottom: 0;
 		font-size: 1.125rem;
-
 		@media (min-width: $md) { font-size: 1.875rem; }
 	}
 
 	h1 {
 		font-size: 2.25rem;
-
 		@media (min-width: $md) { font-size: 3rem; }
-
 		@media (min-width: $lg) { font-size: 4rem; }
 	}
 
 	h2 {
 		font-weight: 400 !important;
 		font-size: 1.5rem;
-
 		@media (min-width: $md) { font-size: 2.25rem; }
-
 		@media (min-width: $lg) { font-size: 3rem; }
 	}
 
@@ -202,13 +197,11 @@ export default defineComponent({
 		display: flex;
 		flex-direction: column;
 		padding: 2rem;
-
 		@media (min-width: $md) {
 			flex-direction: row;
 			align-items: center;
 			padding: 4rem;
 		}
-
 		@media (min-width: $lg) {
 			padding: 6rem;
 			min-height: calc(90vh - 60px);
@@ -222,11 +215,9 @@ export default defineComponent({
 			h1 { font-size: 1.5rem; }
 			h4 { font-size: 1.125rem; }
 			a { font-size: 1rem; }
-
 			@media (min-width) {
 				h1 { font-size: 1.5rem; }
 			}
-
 			@media (min-width: $lg) {
 				h1 { font-size: 2.5rem; }
 				h4 { font-size: 1.875rem; }
@@ -242,12 +233,10 @@ export default defineComponent({
 		background: $color-text-main;
 		flex-direction: column-reverse;
 		padding: 2rem 2rem 0;
-
 		@media (min-width: $md) {
 			flex-direction: row;
 			padding: 4rem 4rem 0;
 		}
-
 		@media (min-width: $lg) {
 			padding: 6rem 6rem 0;
 		}
@@ -257,7 +246,6 @@ export default defineComponent({
 			display: flex;
 			justify-content: center;
 			flex-direction: column;
-
 			@media (min-width: $lg) {
 				flex-direction: row;
 				align-items: center;
@@ -272,7 +260,6 @@ export default defineComponent({
 					font-size: 4rem;
 					line-height: 4rem;
 				}
-
 				@media (min-width: $lg) {
 					font-size: 2rem;
 
@@ -291,7 +278,6 @@ export default defineComponent({
 		.tick {
 			width: 96px;
 			height: 96px;
-
 			@media (min-width: $lg) {
 				width: 260px;
 				height: 260px;
@@ -306,7 +292,6 @@ export default defineComponent({
 		flex-direction: column;
 		align-items: center;
 		padding: 2rem;
-
 		@media (min-width: $md) {
 			flex-direction: row;
 			justify-content: space-between;
@@ -314,7 +299,6 @@ export default defineComponent({
 			padding: 3rem;
 			margin: 0 auto;
 		}
-
 		@media (min-width: $lg) { padding: 5rem; }
 
 		article {
@@ -331,14 +315,12 @@ export default defineComponent({
 
 			h5 {
 				font-size: 1.25rem;
-
 				@media (min-width: $lg) { font-size: 1.875rem; }
 			}
 
 			p {
 				max-width: 40ch;
 				font-size: 1rem;
-
 				@media (min-width: $md) { font-size: 1.125rem; }
 			}
 		}
@@ -348,9 +330,7 @@ export default defineComponent({
 		display: flex;
 		flex-direction: column;
 		padding: 2rem;
-
 		@media (min-width: $md) { padding: 3rem; }
-
 		@media (min-width: $lg) { padding: 5rem; }
 
 		& > .d-flex {
@@ -362,20 +342,17 @@ export default defineComponent({
 				display: flex;
 				flex-direction: column;
 				align-items: center;
-
 				@media (min-width: $md) { flex-direction: row; }
 			}
 		}
 
 		h2 {
 			font-size: 1.875rem;
-
 			@media (min-width: $md) { font-size: 3rem; }
 		}
 
 		p {
 			font-size: 1rem !important;
-
 			@media (min-width: $md) { font-size: 1.5rem !important; }
 		}
 	}
@@ -389,25 +366,20 @@ export default defineComponent({
 		color: $color-white;
 		min-height: 300px;
 		padding: 1rem;
-
 		@media (min-width: $md) { padding: 2.5rem; }
-
 		@media (min-width: $lg) { padding: 5rem; }
 
 		h4 {
 			margin: 0 0 1rem;
 			font-weight: normal !important;
 			font-size: 1.125rem;
-
 			@media (min-width: $md) { font-size: 2.25rem; }
-
 			@media (min-width: $lg) { font-size: 3rem; }
 		}
 
 		.btn-secondary {
 			font-size: 2rem;
 			padding: 13px 85px;
-
 			@media (max-width: $sm) {
 				font-size: 1rem;
 				padding: 13px 30px;
@@ -419,9 +391,7 @@ export default defineComponent({
 		display: flex;
 		flex-direction: column;
 		padding: 1rem;
-
 		@media (min-width: $md) { padding: 2.5rem; }
-
 		@media (min-width: $lg) { padding: 5rem; }
 
 		img {
@@ -430,7 +400,6 @@ export default defineComponent({
 
 		i {
 			font-size: 42px;
-
 			@media (min-width: $md) { font-size: 84px; }
 		}
 	}

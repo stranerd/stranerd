@@ -71,17 +71,13 @@ export default defineComponent({
 			align-items: center;
 			padding: 0 0.75rem;
 
-			& > img,
-			/deep/ > img,
-			/deep/ > span > img {
+			& > img, /deep/ > img, /deep/ > span > img {
 				width: 24px;
 				height: 24px;
 			}
-
 			@media (min-width: $sm) {
 				padding: 0 1rem;
 			}
-
 			@media (min-width: $lg) {
 				padding: 0 2rem;
 				// border-left: 1px solid $color-blue;

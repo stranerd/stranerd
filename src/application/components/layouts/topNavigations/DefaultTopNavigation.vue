@@ -51,6 +51,7 @@ export default defineComponent({
 		left: 0;
 		top: 0;
 	}
+
 	.nav-logo {
 		&:hover {
 			transition: all 0.3s;
@@ -67,6 +68,7 @@ export default defineComponent({
 		padding: 1rem;
 		@media (min-width: $md) { padding: 1rem 2rem; }
 		@media (min-width: $lg) { padding: 1rem 5rem; }
+
 		background: #fff 0 0 no-repeat padding-box;
 		box-shadow: 0 5px 15px #17224d26;
 
@@ -86,6 +88,7 @@ export default defineComponent({
 	.right-body {
 		display: flex;
 		align-items: center;
+
 		.drop-menu {
 			position: absolute;
 			top: 96px;
@@ -119,9 +122,7 @@ export default defineComponent({
 		display: flex;
 		align-items: center;
 
-		& > img,
-		& >>> img,
-		& >>> span > img {
+		& > img, & >>> img, & >>> span > img {
 			width: 24px;
 			height: 24px;
 		}
@@ -133,11 +134,9 @@ export default defineComponent({
 		color: $color-text-main !important;
 	}
 
-	.slide-enter-active,
-	.slide-leave-active { transition: 0.5s; }
+	.slide-enter-active, .slide-leave-active { transition: 0.5s; }
 
-	.slide-enter,
-	.slide-leave-to {
+	.slide-enter, .slide-leave-to {
 		transform: translateY(-100px);
 		opacity: 0;
 	}

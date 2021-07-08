@@ -74,9 +74,7 @@ export default defineComponent({
 
 	.padding {
 		padding: 1rem 2rem;
-
 		@media (min-width: $md) { padding: 1.25rem 4rem; }
-
 		@media (min-width: $lg) { padding: 1.5rem 6rem; }
 	}
 
@@ -91,11 +89,9 @@ export default defineComponent({
 		align-items: center;
 	}
 
-	.slide-enter-active,
-	.slide-leave-active { transition: 0.5s; }
+	.slide-enter-active, .slide-leave-active { transition: 0.5s; }
 
-	.slide-enter,
-	.slide-leave-to {
+	.slide-enter, .slide-leave-to {
 		transform: translateY(-60px);
 		opacity: 1;
 	}

@@ -64,7 +64,7 @@ export const useCurrentSession = () => {
 const useSession = (key: SessionKey, callback: (key: SessionKey, sessions: SessionEntity[], id: string) => void) => {
 	const { user, id } = useAuth()
 	const listenerCb = async () => {
-		const sessionIds = user.value?.session?.[key] ?? []
+		const sessionIds = Object.keys(user.value?.session?.[key] ?? {})
 		if (sessionIds.length === 0) return () => {}
 		const cb = (sessions: SessionEntity[]) => {
 			callback(key, sessions, id.value!)
@@ -83,7 +83,7 @@ const useSession = (key: SessionKey, callback: (key: SessionKey, sessions: Sessi
 
 	const fetchSessions = async () => {
 		global[key].setError('')
-		const sessionIds = user.value?.session?.[key] ?? []
+		const sessionIds = Object.keys(user.value?.session?.[key] ?? {})
 		if (sessionIds.length === 0) return
 		try {
 			global[key].setLoading(true)

@@ -104,10 +104,7 @@ export default defineComponent({
 		}
 		if (otherParticipantId.value) setOtherParticipantId(otherParticipantId.value)
 		const canRequestSession = computed({
-			get: () => !currentSessionId.value &&
-				user.value?.session.requests.length === 0 &&
-				!props.user.currentSession &&
-				props.user.canHostSessions,
+			get: () => user.value?.canRequestSessions && props.user.canHostSessions,
 			set: () => {}
 		})
 		const inSession = computed({

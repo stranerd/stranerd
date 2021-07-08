@@ -86,7 +86,7 @@ export default defineComponent({
 		const showComments = ref(false)
 		const { id, isLoggedIn, user } = useAuth()
 		const showRatingButton = computed({
-			get: () => isLoggedIn.value && !user.value?.account.meta.ratedAnswers.includes(props.answer.id),
+			get: () => isLoggedIn.value && !user.value?.meta.ratedAnswers.includes(props.answer.id),
 			set: () => {}
 		})
 		const tip = () => {

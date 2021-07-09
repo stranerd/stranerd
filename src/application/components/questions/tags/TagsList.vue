@@ -4,7 +4,7 @@
 			Popular Tags
 		</h1>
 		<div class="d-flex flex-wrap gap-0-5">
-			<TagListCard v-for="tag in tags" :key="tag.hash" :tag="tag" />
+			<TagListCard v-for="tag in tags" :key="tag.hash" :tag="tag" class="bg-white" />
 		</div>
 		<PageLoading v-if="loading" />
 		<DisplayError :error="error" />

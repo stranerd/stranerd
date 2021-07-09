@@ -1,23 +1,47 @@
 <template>
-	<div :id="tutor.id" class="my-1 d-flex align-items-baseline align-items-md-center gap-0-5">
-		<span>{{ rank }}.&nbsp;</span>
-		<NuxtLink :to="`/users/${tutor.id}`" class="position-relative">
-			<Avatar :src="tutor.avatar" :size="50" />
-			<i class="fas fa-circle position-absolute" :class="tutor.isOnline ? 'text-success' : 'text-grey'" style="z-index: 1; right: 0; bottom: 0;" />
-		</NuxtLink>
-		<div class="flex-grow-1 d-flex flex-column flex-md-row align-self-start align-self-md-center">
-			<NuxtLink :to="`/users/${tutor.id}`" class="text-wrap text-break me-auto" style="font-weight: 600;">
-				<span>{{ tutor.fullName }}</span>
-			</NuxtLink>
-			<div class="d-flex flex-column flex-md-row align-items-md-center gap-0-25 gap-md-1">
-				<span v-if="subject" class="d-block text-wrap text-break" style="font-weight: 400;">{{ subject.name }}</span>
-				<ShowRatings :rating="tutor.averageRating" />
-				<span class="text-wrap text-break">{{ formatNumber(tutor.ratingCount) }} {{ pluralize(tutor.ratingCount, 'review', 'reviews') }}</span>
+	<div class="d-flex flex-column nerd-body gap-1 mb-2-25">
+		<div class="nerd-head nerd-card gap-1">
+			<span class="d-flex justify-content-end">
+				<NuxtLink :to="`/users/${tutor.id}`" class="position-relative">
+					<Avatar :src="tutor.avatar" :size="72" />
+					<i
+						class="fas fa-circle position-absolute rounded-pill"
+						:class="tutor.isOnline ? 'text-success' : 'text-grey'"
+						style="z-index: 1; right: 0; bottom: 0; font-size: 1.25rem; border: 3px solid white;"
+					/>
+				</NuxtLink>
+			</span>
+			<div class="d-flex align-items-start flex-column ms-0-5">
+				<NuxtLink :to="`/users/${tutor.id}`" class="name">
+					{{ tutor.fullName }}
+				</NuxtLink>
+				<span class="rank">{{ tutor.rank.id }}</span>
+			</div>
+			<!-- TODO: Logic to request a session  -->
+			<button class="btn btn-primary-blue ms-auto">
+				Request A Session
+			</button>
+		</div>
+
+		<div class="nerd-card gap-1-5">
+			<span>
+				<ShowRatings class="ms-auto" :rating="tutor.averageRating" />
+			</span>
+			<span>{{ formatNumber(tutor.account.meta.answers.length) }} {{ pluralize(tutor.account.meta.answers.length, 'Question', 'Questions') }} Answered</span>
+			<span>{{ formatNumber(tutor.account.meta.tutorSessions.length) }} {{ pluralize(tutor.account.meta.tutorSessions.length, 'Session', 'Sessions') }} Hosted</span>
+		</div>
+
+		<div v-if="subject" class="nerd-card gap-1-5">
+			<span>Strongest In</span>
+			<span class="sub-text">{{ subject.name }}</span>
+		</div>
+
+		<div v-if="tutor.tutor.tags.length" class="nerd-card gap-1-5">
+			<span>Routine Tags</span>
+			<div class="d-flex align-items-cnter gap-0-75 flex-wrap">
+				<TagListCard v-for="tag in tutor.tutor.tags" :key="tag.id" :tag="tag" />
 			</div>
 		</div>
-		<NuxtLink :to="`/messages/${tutor.id}`" class="btn btn-sm btn-outline-blue rounded-pill align-self-center">
-			Message
-		</NuxtLink>
 	</div>
 </template>
 
@@ -26,15 +50,13 @@ import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { UserEntity } from '@modules/users'
 import { formatNumber, pluralize } from '@utils/commons'
 import { useSubject } from '@app/hooks/questions/subjects'
+import TagListCard from '@app/components/questions/tags/TagListCard.vue'
 export default defineComponent({
 	name: 'TutorsListCard',
+	components: { TagListCard },
 	props: {
 		tutor: {
 			type: Object as PropType<UserEntity>,
-			required: true
-		},
-		rank: {
-			type: Number,
 			required: true
 		}
 	},
@@ -44,3 +66,52 @@ export default defineComponent({
 	}
 })
 </script>
+
+<style lang="scss" scoped>
+	.nerd-card {
+		display: flex;
+		align-items: center;
+
+		& > *:first-child {
+			min-width: 120px;
+			text-align: right;
+			font-size: 1rem;
+		}
+
+		.sub-text {
+			font-size: 18px;
+			color: $color-main;
+			font-weight: normal;
+		}
+
+		span {
+			color: $color-text-sub;
+			font-size: 18px;
+			font-weight: 600;
+		}
+	}
+
+	.nerd-body {
+		background: $color-white;
+		border: 1px solid $color-line;
+		padding: 1.5rem 3rem;
+		border-radius: 12px;
+	}
+
+	.nerd-head {
+		display: flex;
+		align-items: center;
+
+		.name {
+			color: $color-text-main;
+			font-size: 24px;
+			font-weight: 600;
+		}
+
+		.rank {
+			color: $color-main;
+			font-weight: 600;
+			font-size: 18px;
+		}
+	}
+</style>

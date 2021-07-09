@@ -1,5 +1,5 @@
 <template>
-	<nav class="home-top-nav gap-1" role="navigation">
+	<nav class="default-top-nav gap-1" role="navigation">
 		<NuxtLink to="/dashboard">
 			<Logo :secondary="true" class="nav-logo" />
 		</NuxtLink>
@@ -62,7 +62,7 @@ export default defineComponent({
 		}
 	}
 
-	.home-top-nav {
+	.default-top-nav {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -121,15 +121,6 @@ export default defineComponent({
 					width: 24px;
 				}
 			}
-		}
-	}
-
-	.link {
-		& > img,
-		& >>> img,
-		& >>> span > img {
-			width: 24px;
-			height: 24px;
 		}
 	}
 

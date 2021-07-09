@@ -37,7 +37,7 @@ export default defineComponent({
 		background: $color-white;
 		width: 100%;
 		font-size: 18px;
-		border:1px solid $color-footer-blue;
+		border: 1px solid $color-footer-blue;
 		display: flex;
 		border-radius: 5px;
 		justify-content: center;

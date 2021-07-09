@@ -1,5 +1,5 @@
 <template>
-	<div class="py-2 col-lg-8 offset-lg-2 col-md-10 offset-md-1 d-flex flex-column" style="margin-top:45px;">
+	<div class="py-2 col-lg-8 offset-lg-2 col-md-10 offset-md-1 d-flex flex-column" style="margin-top: 45px;">
 		<div class="d-flex flex-row col-12 py-0 px-0">
 			<form class="col-md-6 d-flex flex-column mt-md-5 px-1 col-12">
 				<div class=" col-12 d-md-block d-none">
@@ -29,11 +29,11 @@
 						Resend Mail
 					</button>
 				</div>
-				<div class="pb-2 d-flex flex-row" style="align-items:center;justify-content:center;">
+				<div class="pb-2 d-flex flex-row" style="align-items: center; justify-content: center;">
 					<div class="textStyle">
 						Return to
 					</div>
-					<div style="text-decoration:underline;margin-left:4px;">
+					<div style="text-decoration: underline; margin-left: 4px;">
 						<NuxtLink to="/auth/signin">
 							Sign In
 						</NuxtLink>
@@ -45,7 +45,7 @@
 				</div>
 			</form>
 			<div class="col-md-6 text-center py-0 px-3 d-md-block d-none">
-				<img src="@app/assets/images/auth/verify.svg" style="width:100%;height:400px;">
+				<img src="@app/assets/images/auth/verify.svg" style="width: 100%; height: 400px;">
 			</div>
 		</div>
 	</div>
@@ -72,7 +72,7 @@ export default defineComponent({
 })
 </script>
 <style lang="scss" scoped>
-.headerStyle {
+	.headerStyle {
 		font-weight: bolder;
 		text-transform: none;
 		color: $color-text-main;
@@ -81,12 +81,13 @@ export default defineComponent({
 	.btn-custom {
 		background-color: $color-btn;
 		color: #fff;
-		border: 2px solid ;
+		border: 2px solid;
 		border-radius: 6px;
 		font-size: 16px;
 		font-weight: bold;
 	}
+
 	.textStyle {
-		color:$faded-text;
+		color: $faded-text;
 	}
 </style>

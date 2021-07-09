@@ -1,5 +1,5 @@
 <template>
-	<div class="py-2 col-lg-8 offset-lg-2 col-md-10 offset-md-1 d-flex flex-column" style="margin-top:20px;">
+	<div class="py-2 col-lg-8 offset-lg-2 col-md-10 offset-md-1 d-flex flex-column" style="margin-top: 20px;">
 		<div class="d-flex flex-row col-12 py-0 px-0">
 			<form class="col-md-6 col-12 d-flex flex-column mt-md-5 px-1" @submit.prevent="signin">
 				<div class="mb-2 col-12">
@@ -34,7 +34,7 @@
 					>
 				</div>
 				<div class="pb-2 d-flex flex-row">
-					<div class="d-flex flex-row" style="align-items:center;">
+					<div class="d-flex flex-row" style="align-items: center;">
 						<div class="form-check">
 							<input id="flexCheckDefault" class="form-check-input" type="checkbox" value="">
 							<label class="form-check-label textStyle" for="flexCheckDefault">
@@ -42,7 +42,7 @@
 							</label>
 						</div>
 					</div>
-					<div style="text-decoration:underline;margin-left:auto;font-weight:bold;" class="linkText">
+					<div style="text-decoration: underline; margin-left: auto; font-weight: bold;" class="linkText">
 						<NuxtLink to="/auth/forgot">
 							Forgot password?
 						</NuxtLink>
@@ -53,21 +53,21 @@
 						Log In
 					</button>
 				</div>
-				<div class="pb-2 d-flex flex-row" style="align-items:center;">
-					<div style="border-bottom:1px solid #c5c5c5;height:2px;width:50%;" />
-					<div style="width:175px; px-1" class="textStyle">
+				<div class="pb-2 d-flex flex-row" style="align-items: center;">
+					<div style="border-bottom: 1px solid #c5c5c5; height: 2px; width: 50%;" />
+					<div style="width: 175px; px-1" class="textStyle">
 						<div>or sign In with</div>
 					</div>
-					<div style="border-bottom:1px solid #c5c5c5;height:2px;width:50%;" />
+					<div style="border-bottom: 1px solid #c5c5c5; height: 2px; width: 50%;" />
 				</div>
 				<div class="pb-2 text-center">
 					<AuthProviders />
 				</div>
-				<div class="pb-2 d-flex flex-row" style="align-items:center;justify-content:center;">
+				<div class="pb-2 d-flex flex-row" style="align-items: center; justify-content: center;">
 					<div class="textStyle">
 						Not a member yet?
 					</div>
-					<div style="text-decoration:underline;margin-left:4px;" class="linkText">
+					<div style="text-decoration: underline; margin-left: 4px;" class="linkText">
 						<NuxtLink to="/auth/signup">
 							Sign up
 						</NuxtLink>
@@ -79,7 +79,7 @@
 				</div>
 			</form>
 			<div class="col-md-6 text-center py-2 px-2 d-none d-md-block">
-				<img src="@app/assets/images/auth/loginImage.svg" style="width:100%;height:600px;">
+				<img src="@app/assets/images/auth/loginImage.svg" style="width: 100%; height: 600px;">
 			</div>
 		</div>
 	</div>
@@ -119,15 +119,17 @@ export default defineComponent({
 	.btn-custom {
 		background-color: $color-btn;
 		color: #fff;
-		border: 2px solid ;
+		border: 2px solid;
 		border-radius: 6px;
 		font-size: 16px;
 		font-weight: bold;
 	}
+
 	.textStyle {
-		color:$faded-text;
+		color: $faded-text;
 	}
+
 	.linkText {
-		color:$color-main-dark;
+		color: $color-main-dark;
 	}
 </style>

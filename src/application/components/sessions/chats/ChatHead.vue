@@ -8,7 +8,7 @@
 		</NuxtLink>
 		<div class="ms-1 me-auto">
 			<NuxtLink :to="`/users/${user.id}`" class="d-block text-wrap">
-				<span class="fw-bold">{{ user.fullName }}</span>
+				<span class="fw-bold username">{{ user.fullName }}</span>
 			</NuxtLink>
 			<span class="small">{{ user.isOnline ? 'Active now' : time }}</span>
 		</div>
@@ -127,6 +127,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+	.username {
+		font-size: 24px;
+		font-weight: 700;
+	}
+
 	.under {
 		position: fixed;
 		width: 100vw;
@@ -136,7 +141,7 @@ export default defineComponent({
 	}
 
 	.menu {
-		padding: 0.9rem 0rem;
+		padding: 0.9rem 0;
 		position: absolute;
 		top: 5rem;
 		right: 1.5rem;
@@ -149,10 +154,10 @@ export default defineComponent({
 		border-radius: 0.5rem;
 
 		a {
-
 			padding: 0.5rem;
 			padding-left: 1.3rem;
 		}
+
 		a:hover {
 			font-size: unset;
 			transform: unset;
@@ -162,9 +167,11 @@ export default defineComponent({
 
 		animation: slide-down 0.1s;
 	}
-	.b-rad{
-	border-radius:12px 12px 0px 0px !important;
-}
+
+	.b-rad {
+		border-radius: 12px 12px 0 0 !important;
+	}
+
 	@keyframes slide-down {
 		from { top: -50px; }
 		to { top: 0; }

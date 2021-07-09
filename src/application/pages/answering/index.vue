@@ -104,9 +104,7 @@ export default defineComponent({
 					font-weight: 500;
 				}
 
-				textarea,
-				select,
-				input {
+				textarea, select, input {
 					box-sizing: border-box;
 					background: $color-white;
 					border: 1px solid $color-line;

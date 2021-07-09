@@ -86,6 +86,7 @@ export default defineComponent({
 			border: 1px solid $color-line;
 			border-radius: 6px;
 			padding: 16px 24px;
+
 			&::placeholder {
 				color: $color-text-main;
 			}

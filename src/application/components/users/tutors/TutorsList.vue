@@ -41,8 +41,7 @@ export default defineComponent({
 		border-radius: 12px;
 		box-shadow: -5px 5px 15px #374b9926;
 
-		select,
-		/deep/ select {
+		select, /deep/ select {
 			flex-grow: 1;
 			color: $color-text-sub;
 			height: 64px;

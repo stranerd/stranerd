@@ -56,14 +56,15 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-// .page-body{
-// 	width: 1056px;
-// }
-.page-content{
-	width: 1056px;
-	padding: 0;
-}
-.b-rad{
-	border-radius:12px
-}
+	// .page-body{
+	// 	width: 1056px;
+	// }
+	.page-content {
+		width: 1056px;
+		padding: 0;
+	}
+
+	.b-rad {
+		border-radius: 12px;
+	}
 </style>

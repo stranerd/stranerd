@@ -1,10 +1,10 @@
 <template>
-	<form class="d-flex align-items-center py-0-25" @submit.prevent="createTextChat">
-		<input v-model="factory.content" class="form-control" placeholder="Type a message here...">
-		<a class="fas fa-paperclip" @click.prevent="() => { $refs.mediaInput.value= ''; $refs.mediaInput.click() }" />
-		<a class="fas fa-paper-plane" @click.prevent="() => { factory.content && createTextChat() }" />
+	<form class="d-flex align-items-center py-1-25 px-2 bg-line b-rad" @submit.prevent="createTextChat">
+		<input v-model="factory.content" class="form-control bg-white p-0-5" placeholder="Type a message here...">
+		<a class="fas fa-paperclip mx-2" @click.prevent="() => { $refs.mediaInput.value= ''; $refs.mediaInput.click() }" />
+		<a class="fas fa-paper-plane me-2" @click.prevent="() => { factory.content && createTextChat() }" />
 		<PageLoading v-if="loading" />
-		<input ref="mediaInput" type="file" multiple class="d-none" @change.prevent="catchMultipleFiles">
+		<input ref="mediaInput" type="file" multiple class="d-none" @change.prevent="catchMultipleFiles"></input>
 	</form>
 </template>
 
@@ -44,6 +44,11 @@ export default defineComponent({
 		font-size: 1em;
 		border: none;
 		box-shadow: none;
-		padding: 0;
+		width: 840px;
+	}
+
+	.b-rad {
+		border-radius: 0 0 12px 12px !important;
+		height: 96px;
 	}
 </style>

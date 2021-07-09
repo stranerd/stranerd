@@ -1,12 +1,14 @@
 <template>
-	<div class="d-flex flex-column">
+	<div class="d-flex flex-column mx-2">
 		<span v-if="hasMore" class="small mb-1 mx-auto cursor-pointer" @click="fetchOlderChats">Fetch more</span>
 		<p v-if="chats.length === 0" class="text-center my-auto">
 			No messages found. Send a message now
 		</p>
 		<div v-for="session in chats" :key="session.hash">
-			<p class="text-center small mb-0">
-				{{ formatTime(session.date, true) }}
+			<p class="text-center small mb-0 ">
+				<span class="bg-line session-date">
+					{{ formatTime(session.date, true) }}
+				</span>
 			</p>
 			<ChatListCard v-for="chat in session.chats" :key="chat.hash" :chat="chat" :user-id="userId" />
 		</div>
@@ -37,3 +39,12 @@ export default defineComponent({
 	}
 })
 </script>
+
+<style lang="scss" scoped>
+.session-date{
+	width: fit-content;
+	padding: 3px 12px;
+	margin: 2rem 0rem;
+	border-radius: 4px;
+}
+</style>

@@ -1,12 +1,12 @@
 <template>
-	<div class="d-flex py-0-25 align-items-center position-relative">
-		<NuxtLink to="/messages" class="me-0-5">
+	<div class="d-flex py-1-25 px-2 align-items-center position-relative bg-line b-rad mb-1">
+		<!-- <NuxtLink to="/messages" class="me-0-5">
 			<i class="fas fa-arrow-left" />
-		</NuxtLink>
+		</NuxtLink> -->
 		<NuxtLink :to="`/users/${user.id}`">
-			<Avatar :src="user.avatar" :size="40" />
+			<Avatar :src="user.avatar" :size="63" />
 		</NuxtLink>
-		<div class="ms-0-5 me-auto">
+		<div class="ms-1 me-auto">
 			<NuxtLink :to="`/users/${user.id}`" class="d-block text-wrap">
 				<span class="fw-bold">{{ user.fullName }}</span>
 			</NuxtLink>
@@ -136,27 +136,35 @@ export default defineComponent({
 	}
 
 	.menu {
-		padding: 0.5rem;
+		padding: 0.9rem 0rem;
 		position: absolute;
-		top: 2.5rem;
-		right: 0;
-		width: 250px;
+		top: 5rem;
+		right: 1.5rem;
+		width: 200px;
 		z-index: 1;
 		display: flex;
 		flex-direction: column;
-		background: rgba($color-text-main, 0.9);
-		color: $color-white;
+		background: $color-white;
+		color: $color-text-main;
 		border-radius: 0.5rem;
 
+		a {
+
+			padding: 0.5rem;
+			padding-left: 1.3rem;
+		}
 		a:hover {
 			font-size: unset;
 			transform: unset;
-			background: lighten($color-text-main, 5);
+			padding: 0.9rem;
+			background: $color-line;
 		}
 
 		animation: slide-down 0.1s;
 	}
-
+	.b-rad{
+	border-radius:12px 12px 0px 0px !important;
+}
 	@keyframes slide-down {
 		from { top: -50px; }
 		to { top: 0; }

@@ -1,12 +1,12 @@
 <template>
-	<div class="flex-grow-1 d-flex flex-column">
+	<div class="page-body flex-grow-1 d-flex flex-column justify-content-center">
 		<PageLoading v-if="loading" />
 		<template v-else-if="user">
-			<div class="page-content flex-grow-1 d-flex flex-column px-1">
+			<div class="page-content flex-grow-1 d-flex flex-column b-rad">
 				<ChatHead :key="hash" :user="user" />
-				<div class="thin mx-n1" />
+				<!-- <div class="thin" /> -->
 				<ChatList :user-id="userId" class="flex-grow-1" />
-				<div class="thin mx-n1" />
+				<div class="thin" />
 				<ChatForm :key="hash" :user-id="userId" :session-id="sessionId" />
 			</div>
 		</template>
@@ -26,6 +26,7 @@ import { useAuth } from '@app/hooks/auth/auth'
 export default defineComponent({
 	name: 'MessagePage',
 	components: { ChatHead, ChatList, ChatForm },
+	layout: 'chat',
 	middleware: ['isAuthenticated',
 		({ redirect, route }) => {
 			const { id } = useAuth()
@@ -53,3 +54,16 @@ export default defineComponent({
 	}
 })
 </script>
+
+<style lang="scss" scoped>
+// .page-body{
+// 	width: 1056px;
+// }
+.page-content{
+	width: 1056px;
+	padding: 0;
+}
+.b-rad{
+	border-radius:12px
+}
+</style>

@@ -17,7 +17,16 @@
 				</span>
 			</div>
 			<transition name="slide" appear>
-				<div v-show="show">
+				<div v-if="showProfile">
+					<div class="under" @click="show = false" />
+					<div class="drop-menu">
+						<span><img src="@app/assets/images/icons/user.svg" alt="">Profile</span>
+						<span><img src="@app/assets/images/icons/signout.svg" alt="">Log Out</span>
+					</div>
+				</div>
+			</transition>
+			<transition name="slide" appear>
+				<div v-if="showNotification">
 					<div class="under" @click="show = false" />
 					<div class="drop-menu">
 						<span><img src="@app/assets/images/icons/user.svg" alt="">Profile</span>

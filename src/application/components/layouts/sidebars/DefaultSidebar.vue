@@ -18,7 +18,7 @@
 			<NuxtLink class="sidebar-link" to="/account/e-wallet">
 				<div>
 					<img src="@app/assets/images/icons/e-wallet.svg" alt="">
-					<span class="ml-2">e-Wallet</span>
+					<span class="ml-2">E-Wallet</span>
 				</div>
 			</NuxtLink>
 
@@ -54,3 +54,9 @@ export default defineComponent({
 	}
 })
 </script>
+
+<style lang="scss" scoped>
+	.sidebar-btn {
+		margin: 2rem auto;
+	}
+</style>

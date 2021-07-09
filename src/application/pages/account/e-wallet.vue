@@ -1,9 +1,9 @@
 <template>
 	<div>
-		<div class="page-content">
+		<div>
 			<UserCreditBalanceCard :user="user" />
 		</div>
-		<div class="page-content">
+		<div>
 			<UserTransactionList :user-id="id" />
 		</div>
 	</div>
@@ -17,7 +17,7 @@ import UserCreditBalanceCard from '@app/components/users/account/UserCreditBalan
 export default defineComponent({
 	name: 'AccountEWalletPage',
 	components: { UserTransactionList, UserCreditBalanceCard },
-	layout: 'account',
+	layout: 'dashboard',
 	setup () {
 		const { id, user } = useAuth()
 		return { id, user }

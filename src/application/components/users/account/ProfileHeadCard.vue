@@ -1,8 +1,8 @@
 <template>
-	<div class="d-flex flex-column align-items-center gap-0-5 px-2 py-1">
+	<div class="d-flex flex-column align-items-center gap-0-5 px-2 py-1 balance">
 		<h1>Balance</h1>
 		<NuxtLink class="d-block w-100" to="/account/e-wallet">
-			<AccountCoinBalance class="justify-content-between" :user="user" />
+			<AccountCoinBalance class="justify-content-center" :user="user" />
 		</NuxtLink>
 	</div>
 </template>
@@ -24,6 +24,17 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+	.balance {
+		background: $color-tags;
+		border: 1px solid $color-line;
+		width: -webkit-fill-available;
+	}
+
+	.py-1 {
+		padding-top: 30px !important;
+		padding-bottom: 30px !important;
+	}
+
 	h1 {
 		font-size: 24px;
 		color: $color-text-main;

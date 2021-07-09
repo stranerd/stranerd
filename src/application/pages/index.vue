@@ -4,7 +4,7 @@
 		<!-- large screen -->
 		<div
 			class="col-10 offset-lg-1 py-4 flex-row flex-wrap d-none d-lg-flex"
-			style="margin-top: 100px; margin-bottom: 50px; align-items: center;"
+			style="margin-top: 40px; margin-bottom: 30px; align-items: center;"
 		>
 			<div class="d-flex flex-column col-6 px-1">
 				<div class="mb-1">
@@ -22,7 +22,7 @@
 				<div>
 					<NuxtLink
 						class="btn btn-lg btn-custom px-3"
-						style="font-size: 18px;"
+						style="font-size: 18px; font-weight:bold;"
 						to="/auth/signin"
 					>
 						Join Today
@@ -43,7 +43,7 @@
 		<div
 			class="col-12 px-md-3 px-2 d-flex py-2 flex-column d-lg-none"
 			style="
-	margin-top: 40px;
+	margin-top: 30px;
 	margin-bottom: 50px;
 	align-items: center;
 	justify-content: center;

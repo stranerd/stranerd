@@ -1,6 +1,9 @@
 <template>
 	<nav class="home-top-nav gap-1" role="navigation">
-		<Logo :secondary="true" class="nav-logo" />
+		<NuxtLink to="/dashboard">
+			<Logo :secondary="true" class="nav-logo" />
+		</NuxtLink>
+
 		<SearchBar class="middle-body" />
 		<div class="right-body gap-0-75 gap-lg-1-5">
 			<MessageLink :key="'messages' + isLoggedIn" class="link" />
@@ -14,7 +17,7 @@
 				</span>
 			</div>
 			<transition name="slide" appear>
-				<div v-if="show">
+				<div v-show="show">
 					<div class="under" @click="show = false" />
 					<div class="drop-menu">
 						<span><img src="@app/assets/images/icons/user.svg" alt="">Profile</span>
@@ -66,13 +69,13 @@ export default defineComponent({
 		color: $color-text-main;
 		min-height: 60px;
 		padding: 1rem;
+		border-bottom: 6px solid $color-main;
 
 		@media (min-width: $md) { padding: 1rem 2rem; }
 
-		@media (min-width: $lg) { padding: 1rem 5rem; }
+		@media (min-width: $lg) { padding: 1rem 4rem; }
 
 		background: #fff 0 0 no-repeat padding-box;
-		box-shadow: 0 5px 15px #17224d26;
 
 		button.navbar-toggler {
 			border: none;
@@ -84,7 +87,7 @@ export default defineComponent({
 
 	.middle-body {
 		flex-grow: 1;
-		max-width: 50%;
+		max-width: 60%;
 	}
 
 	.right-body {
@@ -106,11 +109,12 @@ export default defineComponent({
 			z-index: 2;
 
 			span {
-				width: 150px;
+				width: 160px;
 				padding: 10px;
 				display: flex;
 				justify-content: center;
-				color: $color-text-sub;
+				color: $color-text-main;
+				font-weight: 600;
 
 				img {
 					margin-right: 18px;
@@ -123,6 +127,7 @@ export default defineComponent({
 	.link {
 		display: flex;
 		align-items: center;
+		margin-right: 72px;
 
 		& > img,
 		& >>> img,
@@ -134,7 +139,7 @@ export default defineComponent({
 
 	.username {
 		font-size: 18px;
-		font-weight: 600px;
+		font-weight: 600;
 		color: $color-text-main !important;
 	}
 
@@ -143,7 +148,6 @@ export default defineComponent({
 
 	.slide-enter,
 	.slide-leave-to {
-		transform: translateY(-100px);
-		opacity: 0;
+		transform: translateY(-170px);
 	}
 </style>

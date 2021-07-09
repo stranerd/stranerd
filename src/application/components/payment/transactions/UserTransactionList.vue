@@ -1,27 +1,25 @@
 <template>
-	<div>
-		<h2 class="fw-bold">
-			Transaction history
-		</h2>
-		<table class="table">
-			<thead class="bg-light-blue">
-				<tr class="py-1">
-					<th scope="col">
-						Date
-					</th>
-					<th scope="col">
-						Amount
-					</th>
-					<th scope="col">
-						Description
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-				<UserTransactionListCard v-for="transaction in transactions" :key="transaction.hash" :transaction="transaction" />
-			</tbody>
-		</table>
-		<div v-if="hasMore" class="text-center text-18">
+	<div class="d-flex flex-column col-12 py-0" style="align-items:center;justify-content:center;">
+		<div class="text-center my-1 col-12">
+			<h4 class="headertext">
+				Transaction history
+			</h4>
+		</div>
+		<div class="col-12 d-flex flex-row table-custom-style my-1 px-1 py-1">
+			<div class="col-4 py-0 px-0">
+				<span>Date</span>
+			</div>
+			<div class="col-4 py-0 px-0">
+				<span>Amount</span>
+			</div>
+			<div class="col-4 py-0 px-0">
+				<span>Description</span>
+			</div>
+		</div>
+		<div class="d-flex flex-column col-12 px-0 py-0">
+			<UserTransactionListCard v-for="transaction in transactions" :key="transaction.hash" :transaction="transaction" />
+		</div>
+		<div v-if="hasMore" class="text-center text-18 col-12">
 			<div class="thick my-0" />
 			<a class="fw-bold text-grey" @click.prevent="fetchOlderTransactions">LOAD MORE</a>
 		</div>
@@ -50,3 +48,19 @@ export default defineComponent({
 	}
 })
 </script>
+<style lang="scss" scoped>
+
+.headertext {
+	font-weight: bold;
+	color: $color-text-main;
+}
+
+.table-custom-style {
+	border:1px solid $color-main;
+	border-radius: 7px;
+	background: $color-line;
+	font-weight: bold;
+	font-size: 15px;
+	color: $color-text-main;
+}
+</style>

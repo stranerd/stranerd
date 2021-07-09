@@ -67,24 +67,27 @@ body {
 
 .layout-body {
 	min-height: vh(100);
-	background: $color-light-grey;
+	background: none;
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 
 	@media (min-width: $lg) {
 		flex-direction: row;
+		justify-content: center;
+		align-items: start;
 	}
 }
 
 .layout-side-left {
 	display: none;
-	background-color: $color-white;
-	max-width: 350px;
-	min-width: 250px;
+	background-color: none;
+	width: 18.25%;
+	max-width: 312px;
+	min-width: 208px;
 	// padding: 0.5rem;
 
 	@media (min-width: $lg) {
-		width: 16.25%;
 		display: flex;
 		flex-direction: column;
 	}
@@ -96,35 +99,52 @@ body {
 
 .layout-side-right {
 	display: none;
+	width: 28%;
+	max-width: 480px;
+	min-width: 320px;
+	background-color: none;
 
 	@media (min-width: $lg) {
 		display: block;
-		background-color: $color-white;
-		width: 25%;
-		// max-width: 350px;
-		min-width: 250px;
-		margin: 0 0 0 auto;
+		// margin: 0 0 0 auto;
 	}
 }
 
 .layout-main {
-	flex-grow: 1;
+	flex-grow: 0;
 	display: flex;
 	flex-direction: column;
 }
 
-.layout-content {
-	margin: 0.5rem;
-	flex-grow: 1;
+.ranking-layout-content {
+	padding: 0.5rem;
+	flex-grow: 0;
 	display: flex;
 	flex-direction: column;
 
 	@media (min-width: $md) {
-		margin: 0.75rem;
+		padding: 0.75rem;
 	}
 
 	@media (min-width: $lg) {
-		margin: 1rem;
+		padding: 1rem;
+	}
+}
+
+.layout-content {
+	padding: 0.5rem;
+	border-left: 1px solid $color-line;
+	// border-right: 1px solid $color-line;
+	flex-grow: 0;
+	display: flex;
+	flex-direction: column;
+
+	@media (min-width: $md) {
+		padding: 0.75rem;
+	}
+
+	@media (min-width: $lg) {
+		padding: 1rem;
 	}
 }
 
@@ -134,17 +154,34 @@ body {
 	flex-direction: column;
 }
 
-.sidebar-btn {
+.answer-btn {
 	background: $color-main;
 	color: $color-white;
-	margin: 0.5rem auto;
-	padding: 1.1rem 0.25rem;
+	border: none;
+	border-radius: 18px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	font-weight: 600;
-	width: 216px;
-	margin-top: 2rem !important;
+	width: fit-content;
+	padding: 9px 27px;
+
+	&:hover {
+		color: $color-white;
+		transform: scale(1.1);
+		transition: 0.5s;
+	}
+}
+
+.sidebar-btn {
+	background: $color-main;
+	color: $color-white;
+	padding: 1rem 0.25rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-weight: 600;
+	width: 180px;
 
 	img {
 		height: 24px;

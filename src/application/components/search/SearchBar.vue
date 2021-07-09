@@ -3,11 +3,11 @@
 		<QuestionSearch v-if="search === SEARCH_TYPES.Questions" :key="search" />
 		<AnswerSearch v-else-if="search === SEARCH_TYPES.Answers" :key="search" />
 		<UserSearch v-else-if="search === SEARCH_TYPES.Users" :key="search" />
-		<!-- <select v-model="search" class="form-select form-select-sm ms-auto" type="search">
+		<select v-model="search" class="form-select form-select-sm ms-auto" type="search">
 			<option v-for="key in searchTerms" :key="key" :value="key">
 				{{ key }}
 			</option>
-		</select> -->
+		</select>
 	</form>
 </template>
 
@@ -55,10 +55,14 @@ export default defineComponent({
 
 		select {
 			width: auto;
-			background-color: inherit;
-			border: none;
-			padding: 0.25em 1.75em 0.25em 0.25em;
-			color: inherit;
+			padding: 0.63em 1.75em 0.63em 0.85em;
+			border: 1.2px solid $color-line;
+			background-color: $color-tags;
+			border-radius: 12px;
+			color: $color-text-main;
+			min-height: 2em;
+			position: relative;
+			right: 6rem;
 		}
 
 		select:focus {

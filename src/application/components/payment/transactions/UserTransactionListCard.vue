@@ -1,12 +1,15 @@
 <template>
-	<tr class="py-1">
-		<td>{{ formatTime(transaction.createdAt) }}</td>
-		<td class="d-flex align-items-center justify-content-end" :class="transaction.isGain ? 'text-success' : 'text-danger'">
-			<span class="me-0-25">{{ transaction.isGain ? '+' : '-' }}{{ formatNumber(transaction.amount) }}</span>
-			<Coins :gold="transaction.isGold" :size="24" />
-		</td>
-		<td>{{ transaction.event }}</td>
-	</tr>
+	<div class="col-12 d-flex flex-row table-data-style my-1 px-1 py-1">
+		<div class="col-4 py-0 px-0">
+			<span>{{ formatTime(transaction.createdAt) }}</span>
+		</div>
+		<div class="col-4 py-0 px-0">
+			<span>{{ transaction.isGain ? '+' : '-' }}{{ formatNumber(transaction.amount) }}</span>
+		</div>
+		<div class="col-4 py-0 px-0">
+			<span>{{ transaction.event }}</span>
+		</div>
+	</div>
 </template>
 
 <script lang="ts">
@@ -27,3 +30,12 @@ export default defineComponent({
 	}
 })
 </script>
+<style lang="scss" scoped>
+.table-data-style {
+	border:1px solid $color-line;
+	border-radius:7px;
+	background: $color-tags;
+	font-size: 15px;
+	color: $color-text-main;
+}
+</style>

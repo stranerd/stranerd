@@ -111,7 +111,7 @@ export default defineComponent({
 
 	.link-custom {
 		color: #fff;
-		font-weight: bold;
+		font-weight: normal;
 		font-size: 16px;
 	}
 

@@ -4,6 +4,7 @@ import { catchDivideByZero, extractTextFromHTML, trimToLength } from '@utils/com
 
 export class AnswerEntity extends BaseEntity {
 	public readonly id: string
+	public readonly title: string
 	public readonly body: string
 	public readonly coins: number
 	public readonly best: boolean
@@ -17,12 +18,13 @@ export class AnswerEntity extends BaseEntity {
 	public readonly createdAt: number
 
 	constructor ({
-		id, body, coins, questionId, tags,
+		id, title, body, coins, questionId, tags,
 		subjectId, createdAt, userId, user,
 		best, ratings, comments
 	}: AnswerConstructorArgs) {
 		super()
 		this.id = id
+		this.title = title
 		this.body = body
 		this.coins = coins
 		this.tags = tags
@@ -45,6 +47,7 @@ export class AnswerEntity extends BaseEntity {
 
 type AnswerConstructorArgs = {
 	id: string
+	title: string
 	body: string
 	coins: number
 	tags: string[]

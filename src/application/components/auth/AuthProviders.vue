@@ -33,13 +33,16 @@ export default defineComponent({
 	}
 
 	.btn-auth {
-		color: $color-white;
-		background: $color-text-main;
+		color: $color-footer-blue;
+		background: $color-white;
 		width: 100%;
 		font-size: 18px;
+		border:1px solid $color-footer-blue;
 		display: flex;
+		border-radius: 5px;
 		justify-content: center;
 		align-items: center;
+		font-weight: bold;
 		padding: 0.75rem 0;
 		transition: all 0.4s;
 		z-index: 1;
@@ -50,7 +53,4 @@ export default defineComponent({
 		}
 	}
 
-	.btn-auth:hover {
-		background: darken($color-text-main, 10);
-	}
 </style>

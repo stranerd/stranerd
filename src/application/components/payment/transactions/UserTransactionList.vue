@@ -1,5 +1,5 @@
 <template>
-	<div class="d-flex flex-column col-12 py-0" style="align-items:center;justify-content:center;">
+	<div class="d-flex flex-column col-12 py-0" style="align-items: center; justify-content: center;">
 		<div class="text-center my-1 col-12">
 			<h4 class="headertext">
 				Transaction history
@@ -50,17 +50,17 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 
-.headertext {
-	font-weight: bold;
-	color: $color-text-main;
-}
+	.headertext {
+		font-weight: bold;
+		color: $color-text-main;
+	}
 
-.table-custom-style {
-	border:1px solid $color-main;
-	border-radius: 7px;
-	background: $color-line;
-	font-weight: bold;
-	font-size: 15px;
-	color: $color-text-main;
-}
+	.table-custom-style {
+		border: 1px solid $color-main;
+		border-radius: 7px;
+		background: $color-line;
+		font-weight: bold;
+		font-size: 15px;
+		color: $color-text-main;
+	}
 </style>

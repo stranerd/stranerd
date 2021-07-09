@@ -15,11 +15,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.question-body{
-	max-width: 960px;
-	h1{
-color: $color-text-main;
-	}
+	.question-body {
+		max-width: 960px;
 
-}
+		h1 {
+			color: $color-text-main;
+		}
+	}
 </style>

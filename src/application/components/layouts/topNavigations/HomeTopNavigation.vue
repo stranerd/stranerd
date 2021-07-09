@@ -43,7 +43,7 @@
 		</div>
 		<transition name="slide-fade">
 			<template v-if="show">
-				<div class="menuBackground d-lg-none d-flex flex-column text-center">
+				<div class="menuBackground d-lg-none d-flex flex-column text-center" @click="show = false">
 					<NuxtLink class="py-1 mt-2 smallScreenLink" style="width: 100%;" to="/">
 						<div class="link-custom px-1" style="font-size: 15px;">
 							Home

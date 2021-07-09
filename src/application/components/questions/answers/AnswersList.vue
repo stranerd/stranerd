@@ -44,7 +44,7 @@ export default defineComponent({
 })
 </script>
 <style lang="scss" scoped>
-.headerStyle {
+	.headerStyle {
 		font-weight: bold;
 		text-transform: none;
 		color: $color-text-main;

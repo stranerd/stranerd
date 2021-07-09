@@ -31,11 +31,11 @@ export default defineComponent({
 })
 </script>
 <style lang="scss" scoped>
-.table-data-style {
-	border:1px solid $color-line;
-	border-radius:7px;
-	background: $color-tags;
-	font-size: 15px;
-	color: $color-text-main;
-}
+	.table-data-style {
+		border: 1px solid $color-line;
+		border-radius: 7px;
+		background: $color-tags;
+		font-size: 15px;
+		color: $color-text-main;
+	}
 </style>

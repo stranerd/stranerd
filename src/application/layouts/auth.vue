@@ -1,9 +1,9 @@
 <template>
 	<section class="layout-body bg-white">
-		<main class="layout-main">
+		<main class="col-12">
 			<HomeTopNavigation class="w-100 fixed-top" />
 			<div style="height: 60px;" />
-			<Nuxt class="flex-grow-1" />
+			<Nuxt />
 		</main>
 		<ModalBase />
 	</section>
@@ -11,8 +11,12 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
+import HomeTopNavigation from '@app/components/layouts/topNavigations/HomeTopNavigation.vue'
 export default defineComponent({
-	name: 'AuthLayout'
+	name: 'AuthLayout',
+	components: {
+		HomeTopNavigation
+	}
 })
 </script>
 

@@ -53,11 +53,13 @@ export default defineComponent({
 		text-transform: none;
 		color: $color-text-main;
 	}
+
 	.questionStyle {
 		font-size: 17px;
 		color: $color-text-main;
 	}
-.icons {
+
+	.icons {
 		width: 24px;
 		margin-right: 8px;
 	}
@@ -135,6 +137,7 @@ export default defineComponent({
 	.mr-2 {
 		margin-right: 16px;
 	}
+
 	.wrapper {
 		border-bottom: 1px solid $color-line;
 	}

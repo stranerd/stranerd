@@ -4,40 +4,51 @@
 			<form class="col-md-6 d-flex flex-column mt-md-5 col-12 px-1" @submit.prevent="resetPassword">
 				<div class=" col-12 d-md-block d-none">
 					<h1>
-						Forgot Your Password?
+						Reset Password?
 					</h1>
 				</div>
-				<div class=" col-12 d-md-none d-block text-center">
+				<div class=" col-12 py-0 d-md-none d-block text-center">
 					<h1>
-						Forgot Your Password?
+						Reset Password?
 					</h1>
 				</div>
-				<div class="py-1 pe-3 d-md-block d-none">
+				<div class="py-1 pe-3  d-md-block d-none">
 					<span class="textStyle">
-						To reset your password, type your registered username or email address
+						To reset your password, type your new password in the text field below and reset.
 					</span>
 				</div>
-				<div class="py-1 d-md-none d-block">
+				<div class="py-1 d-md-none d-block text-center">
 					<span class="textStyle">
-						To reset your password, type your registered username or email address
+						To reset your password, type your new password in the text field below and reset.
 					</span>
 				</div>
 				<div class="pb-2">
 					<input
-						id="email"
+						id="password"
 						v-model="factory.email"
-						type="email"
-						name="email"
+						type="password"
+						name="password"
 						required
-						placeholder="Email or Username"
-						:class="{ 'is-valid': factory.isValid('email'), 'is-invalid': factory.errors.email }"
+						placeholder="New Password"
 						class="form-control py-1 px-1"
-						autocomplete="email"
+						autocomplete="password"
+					>
+				</div>
+				<div class="pb-2">
+					<input
+						id="password_confirm"
+						v-model="factory.password_confirm"
+						type="password"
+						name="password_confirm"
+						required
+						placeholder="Confirm Password"
+						class="form-control py-1 px-1"
+						autocomplete="password"
 					>
 				</div>
 				<div class="pb-2 text-center">
 					<button class="btn btn btn-lg btn-custom py-1 " style="width: 100%;" type="submit">
-						Send Reset Mail
+						Reset Password
 					</button>
 				</div>
 				<div class="pb-2 d-flex flex-row" style="align-items:center;justify-content:center;">
@@ -55,8 +66,8 @@
 					<PageLoading v-if="loading" />
 				</div>
 			</form>
-			<div class="col-md-6 text-center py-0 px-2 d-md-block d-none">
-				<img src="@app/assets/images/auth/forgotImage.svg" style="width:100%;height:600px;">
+			<div class="col-md-6 text-center py-0 px-3 d-none d-md-block">
+				<img src="@app/assets/images/auth/reset.svg" style="width:100%;height:600px;">
 			</div>
 		</div>
 	</div>
@@ -66,7 +77,7 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import { usePasswordReset } from '@app/hooks/auth/passwords'
 export default defineComponent({
-	name: 'AuthForgotPage',
+	name: 'AuthResetPage',
 	layout: 'auth',
 	middleware: ['isNotAuthenticated'],
 	setup () {

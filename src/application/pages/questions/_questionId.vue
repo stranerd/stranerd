@@ -1,5 +1,5 @@
 <template>
-	<div class="d-flex flex-column " style="max-width:1000px;">
+	<div class="d-flex flex-column ">
 		<PageLoading v-if="loading" />
 		<div class="col-12 d-flex flex-column">
 			<div v-if="true" class="mb-1">

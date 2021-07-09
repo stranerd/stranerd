@@ -22,7 +22,7 @@
 				<div>
 					<NuxtLink
 						class="btn btn-lg btn-custom px-3"
-						style="font-size: 18px; font-weight:bold;"
+						style="font-size: 18px; font-weight: bold;"
 						to="/auth/signin"
 					>
 						Join Today

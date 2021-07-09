@@ -29,15 +29,17 @@ export default defineComponent({
 })
 </script>
 <style lang="scss" scoped>
-.headerStyle {
-	font-weight: bolder;
-	color: $color-text-main;
-}
-.questionStyle {
-	font-size: 16px;
-	color: $color-text-sub;
-}
-.borderBottom {
-	border-bottom: 1px solid $color-line;
-}
+	.headerStyle {
+		font-weight: bolder;
+		color: $color-text-main;
+	}
+
+	.questionStyle {
+		font-size: 16px;
+		color: $color-text-sub;
+	}
+
+	.borderBottom {
+		border-bottom: 1px solid $color-line;
+	}
 </style>

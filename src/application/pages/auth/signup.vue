@@ -56,6 +56,18 @@
 						autocomplete="password"
 					>
 				</div>
+				<div class="pb-2">
+					<input
+						id="cPassword"
+						v-model="factory.cPassword"
+						type="password"
+						name="cPassword"
+						required
+						placeholder="Confirm Password"
+						class="form-control py-1 px-1"
+						autocomplete="password"
+					>
+				</div>
 				<div class="pb-2 text-center">
 					<button class="btn btn btn-lg btn-custom py-1 " style="width: 100%;" type="submit">
 						Sign Up

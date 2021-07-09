@@ -1,9 +1,7 @@
 <template>
-	<div class="features gap-2-5">
-		<h1 class="mb-0 text-center">
-			Features
-		</h1>
-		<div class="d-flex flex-column flex-md-row gap-4 gap-md-2">
+	<div class="features gap-2 gap-md-2-5 gap-lg-4">
+		<h1>Features</h1>
+		<div class="d-flex flex-column flex-lg-row gap-1-25 gap-md-2-5 gap-lg-3-5">
 			<div class="feature gap-1">
 				<img src="@app/assets/images/homepage/corner.svg" class="corner">
 				<div class="feature-content gap-1">
@@ -53,17 +51,18 @@ export default defineComponent({
 		margin: 0 auto;
 		display: flex;
 		flex-direction: column;
-		padding: 2rem 1rem;
 		@media (min-width: $lg) { width: 83%; }
 
 		.feature {
-			@media (min-width: $md) { width: calc(0.3333 * (100% - 4rem)); }
+			@media (min-width: $md) { width: 65%; }
+			@media (min-width: $lg) { width: calc(0.3333 * (100% - 7rem)); }
 
 			position: relative;
-			padding: 5rem 0;
+			padding: 4rem 0;
+			margin: 0 auto;
 			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 			transition: 0.3s;
-			border-radius: 0 10px 10px 10px;
+			border-radius: 0 26px 26px 26px;
 			&:hover { box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2); }
 
 			.corner {
@@ -92,5 +91,13 @@ export default defineComponent({
 				}
 			}
 		}
+	}
+
+	h1 {
+		text-align: center;
+		margin-bottom: 0;
+		font-size: 24px;
+		@media (min-width: $md) { font-size: 42px; }
+		@media (min-width: $lg) { font-size: 52px; }
 	}
 </style>

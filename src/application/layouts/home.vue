@@ -5,7 +5,7 @@
 		<section class="layout-body">
 			<main class="layout-main p-0">
 				<Nuxt class="layout-content" />
-				<HomeBottomNavigation class="d-none" />
+				<HomeBottomNavigation />
 			</main>
 			<ModalBase />
 		</section>

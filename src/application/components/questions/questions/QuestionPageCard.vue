@@ -68,12 +68,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, ref } from '@nuxtjs/composition-api'
+import { computed, defineComponent, PropType, ref, useRouter } from '@nuxtjs/composition-api'
 import { QuestionEntity } from '@modules/questions'
 import { useSubject } from '@app/hooks/questions/subjects'
 import { openAnswerModal } from '@app/hooks/questions/answers'
 import { useAuth } from '@app/hooks/auth/auth'
-import { useRedirectToAuth } from '@app/hooks/auth/session'
 import CommentForm from '@app/components/questions/comments/QuestionCommentForm.vue'
 import CommentList from '@app/components/questions/comments/QuestionCommentsList.vue'
 import { formatNumber, pluralize } from '@utils/commons'
@@ -89,20 +88,17 @@ export default defineComponent({
 	},
 	setup (props) {
 		const showComments = ref(false)
-		const { isLoggedIn, id, user } = useAuth()
-		const { redirect } = useRedirectToAuth()
+		const router = useRouter()
+		const { id, user } = useAuth()
 		const { subject } = useSubject(props.question.subjectId)
 		const showAnswerButton = computed({
-			get: () => props.question.userId !== id.value && !props.question.isAnswered && !user.value?.account.meta.answeredQuestions.includes(props.question.id),
+			get: () => props.question.userId !== id.value && !props.question.isAnswered && !user.value?.meta.answeredQuestions.includes(props.question.id),
 			set: () => {}
 		})
 		return {
 			id, formatNumber, pluralize, showAnswerButton,
 			subject, formatTime, showComments,
-			openAnswerModal: () => {
-				if (!isLoggedIn.value) redirect()
-				else openAnswerModal(props.question)
-			}
+			openAnswerModal: () => openAnswerModal(props.question, router)
 		}
 	}
 })

@@ -4,17 +4,18 @@ import { MessageEntity } from '../../domain/entities/message'
 
 export class MessageTransformer {
 	fromJSON (model: MessageFromModel) {
-		const { id, name, email, message, dates: { createdAt } } = model
+		const { id, fName, lName, email, message, dates: { createdAt } } = model
 		return new MessageEntity({
 			id,
-			name, email, message,
+			fName, lName, email, message,
 			createdAt: timestampToMs(createdAt)!
 		})
 	}
 
 	toJSON (entity: MessageEntity) :MessageToModel {
 		return {
-			name: entity.name,
+			fName: entity.fName,
+			lName: entity.lName,
 			email: entity.email,
 			message: entity.message
 		}

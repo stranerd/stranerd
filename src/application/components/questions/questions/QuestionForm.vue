@@ -1,30 +1,32 @@
 <template>
 	<form @submit.prevent="submit">
-		<div class="form-group my-1">
+		<div class="form-group">
+			<span class="title">Body</span>
+			<span class="sub-title">
+				Write your question here and make sure it is explained in full detail
+			</span>
 			<QuestionEditor :model.sync="factory.body" :error="factory.errors.body" :valid="factory.isValid('body')" />
 		</div>
-		<div class="form-group d-flex flex-column flex-sm-row gap-0-5">
-			<SelectSubject class="form-select-sm" :show-all="false" :subject-id.sync="factory.subjectId" />
-			<select v-model="factory.coins" class="form-select form-select-sm">
-				<option disabled value="0">
-					Select coins
-				</option>
-				<option v-for="coin in coins" :key="coin" :value="coin">
-					{{ coin }}
-				</option>
-			</select>
+
+		<div class="form-group">
+			<span class="title">Subject</span>
+			<span class="sub-title">
+				Select the subject of the question you asked
+			</span>
+			<SelectSubject class="form-select" :show-all="false" :subject-id.sync="factory.subjectId" />
+			<span v-if="factory.errors.subjectId" class="text-danger small">{{ factory.errors.subjectId }}</span>
 		</div>
-		<div class="my-0-5 text-end">
-			<span>Out of coins?&nbsp;</span>
-			<a class="fw-bold text-decoration-underline" @click="openBuyCoins">Buy more coins</a>
-		</div>
-		<div class="form-group my-1 small">
-			<h6>Tags</h6>
+
+		<div class="form-group">
+			<span class="title">Tags</span>
+			<span class="sub-title">
+				Add up to 3 tags to describe what your question is about
+			</span>
 			<input
 				v-model="tag"
 				type="text"
 				class="form-control"
-				placeholder="eg differentiation calculus"
+				placeholder="Example: Algebra, quadratic-equation, linear-equation"
 			>
 			<p class="my-0-5 d-flex gap-0-5 flex-wrap">
 				<span
@@ -37,15 +39,35 @@
 					<span class="text-danger">&times;</span>
 				</span>
 			</p>
-			<span class="text-muted d-block">Add at least 3 relevant tags to your question, separated by spaces.</span>
-			<span v-if="factory.errors.tags" class="text-danger">{{ factory.errors.tags }}</span>
+			<span v-if="factory.errors.tags" class="text-danger small">{{ factory.errors.tags }}</span>
 		</div>
-		<div class="d-flex justify-content-end my-1-5">
-			<button class="btn btn-blue text-white" type="submit" :disabled="loading || !factory.valid">
-				<PageLoading v-if="loading" />
-				<span><slot name="buttonText">Submit</slot></span>
-			</button>
+
+		<div class="form-group">
+			<span class="title">Reward</span>
+			<span class="sub-title">
+				Choose how much bronze coins to give the Nerd with the best answer. Consider the questions’ difficulty
+			</span>
+			<select v-model="factory.coins" class="form-select">
+				<option disabled value="0">
+					Bronze Coins Quotas
+				</option>
+				<option v-for="coin in coins" :key="coin" :value="coin">
+					{{ coin }}
+				</option>
+			</select>
+			<span v-if="factory.errors.coins" class="text-danger small mt-0-5">{{ factory.errors.coins }}</span>
+			<div class="text-end mt-0-5">
+				<span>Out of coins?&nbsp;</span>
+				<a class="fw-bold text-decoration-underline" @click="openBuyCoins">Buy more coins</a>
+			</div>
 		</div>
+
+		<button class="btn btn-primary-blue px-2 py-1 mt-2" type="submit" :disabled="loading || !factory.valid">
+			<slot name="buttonText">
+				Submit
+			</slot>
+		</button>
+		<PageLoading v-if="loading" />
 		<DisplayError :error="error" />
 	</form>
 </template>
@@ -92,3 +114,40 @@ export default defineComponent({
 	}
 })
 </script>
+
+<style lang="scss" scoped>
+	.form-group {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 1.5rem;
+
+		.title {
+			color: $color-text-main;
+			font-size: 1.5rem;
+			font-weight: 600;
+			margin-bottom: 8px;
+		}
+
+		.sub-title {
+			color: $color-text-main;
+			font-size: 1.125rem;
+			font-weight: 500;
+			margin-bottom: 8px;
+		}
+
+		input {
+			box-sizing: border-box;
+			background: $color-white;
+			border: 1px solid $color-line;
+			border-radius: 6px;
+			padding: 16px 24px;
+			&::placeholder {
+				color: $color-text-main;
+			}
+		}
+
+		select {
+			min-height: 3rem;
+		}
+	}
+</style>

@@ -1,4 +1,4 @@
-import { ssrRef, watch, computed } from '@nuxtjs/composition-api'
+import { ref, watch, computed } from '@nuxtjs/composition-api'
 import { TIMES, getTimeFormatted } from '@utils/dates'
 
 const startInterval = (dif: number, caller: (time: number) => void) => {
@@ -10,7 +10,7 @@ const startInterval = (dif: number, caller: (time: number) => void) => {
 
 export const useTimeDifference = (timeInMs: number) => {
 	const date = new Date(timeInMs)
-	const diffInSec = ssrRef(Math.floor((Date.now() - date.getTime()) / 1000))
+	const diffInSec = ref(Math.floor((Date.now() - date.getTime()) / 1000))
 	let interval = undefined as number | undefined
 
 	watch(() => diffInSec.value, () => {
@@ -48,7 +48,7 @@ export const useTimeDifference = (timeInMs: number) => {
 
 export const useCountdown = (timeInMs: number, triggers: Record<number, () => void>) => {
 	const val = Math.floor((timeInMs - Date.now()) / 1000)
-	const diffInSec = ssrRef(val < 0 ? 0 : val)
+	const diffInSec = ref(val < 0 ? 0 : val)
 	let interval = undefined as number | undefined
 
 	watch(() => diffInSec.value, () => {

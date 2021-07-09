@@ -22,11 +22,11 @@ const SCORES = {
 export const getScore = (user: UserEntity) => {
 	let score = 0
 
-	score += user.account.meta.tutorSessions.length * SCORES.HOST_SESSION
-	score += user.account.meta.bestAnswers.length * SCORES.BEST_ANSWER
-	score += user.account.meta.answers.length * SCORES.ANSWER_QUESTION
-	score += user.account.meta.sessions.length * SCORES.ATTEND_SESSION
-	score += user.account.meta.questions.length * SCORES.ASK_QUESTION
+	score += user.meta.tutorSessions.length * SCORES.HOST_SESSION
+	score += user.meta.bestAnswers.length * SCORES.BEST_ANSWER
+	score += user.meta.answers.length * SCORES.ANSWER_QUESTION
+	score += user.meta.sessions.length * SCORES.ATTEND_SESSION
+	score += user.meta.questions.length * SCORES.ASK_QUESTION
 	score += user.account.streak.longestStreak * SCORES.DAILY_LOGIN
 	score += user.account.bought.gold * SCORES.PURCHASE_GOLD
 	score += user.account.bought.bronze * SCORES.PURCHASE_BRONZE
@@ -36,6 +36,7 @@ export const getScore = (user: UserEntity) => {
 
 type Rank = {
 	id: RankTypes
+	level: number
 	hostSession: number
 	attendSession: number
 	askQuestion: number
@@ -44,11 +45,13 @@ type Rank = {
 	dailyLogin: number
 	score: number
 	ratings: number
+	image: string
 }
 
 export const Ranks :Record<RankTypes, Rank> = {
 	[RankTypes.Rookie]: {
 		id: RankTypes.Rookie,
+		level: 1,
 		hostSession: 0,
 		attendSession: 7,
 		askQuestion: 15,
@@ -56,10 +59,12 @@ export const Ranks :Record<RankTypes, Rank> = {
 		bestAnswer: 0,
 		dailyLogin: 30,
 		score: 0,
-		ratings: 0
+		ratings: 0,
+		image: '/images/ranking/rookie.svg'
 	},
 	[RankTypes.Comrade]: {
 		id: RankTypes.Comrade,
+		level: 2,
 		hostSession: 0,
 		attendSession: 14,
 		askQuestion: 30,
@@ -67,10 +72,12 @@ export const Ranks :Record<RankTypes, Rank> = {
 		bestAnswer: 10,
 		dailyLogin: 60,
 		score: 75,
-		ratings: 0
+		ratings: 0,
+		image: '/images/ranking/comrade.svg'
 	},
 	[RankTypes.Scholar]: {
 		id: RankTypes.Scholar,
+		level: 3,
 		hostSession: 60,
 		attendSession: 0,
 		askQuestion: 50,
@@ -78,10 +85,12 @@ export const Ranks :Record<RankTypes, Rank> = {
 		bestAnswer: 20,
 		dailyLogin: 90,
 		score: 250,
-		ratings: 3.5
+		ratings: 3.5,
+		image: '/images/ranking/scholar.svg'
 	},
 	[RankTypes.Einstein]: {
 		id: RankTypes.Comrade,
+		level: 4,
 		hostSession: 100,
 		attendSession: 0,
 		askQuestion: 0,
@@ -89,35 +98,42 @@ export const Ranks :Record<RankTypes, Rank> = {
 		bestAnswer: 30,
 		dailyLogin: 100,
 		score: 400,
-		ratings: 4
+		ratings: 4,
+		image: '/images/ranking/einstein.svg'
 	}
 }
 
+const ranks = Object.values(Ranks).sort((a, b) => a.level - b.level)
+
 const getPercentage = (num: number, den: number) => 100 * (catchDivideByZero(num, den) > 1 ? 1 : catchDivideByZero(num, den))
 
+export const getMyRank = (user: UserEntity) => ranks.find((r) => r.level === user.account.rank) ?? Ranks.Rookie
+
+export const getScholarLevel = () => Ranks.Scholar.level
+
 export const getRankProgress = (user: UserEntity) => {
-	const rank = Ranks[user.account.rank]
+	const rank = user.rank
 	const progresses = [] as { title: string, progress: number }[]
 
 	if (rank.askQuestion > 0) progresses.push({
 		title: `Ask ${rank.askQuestion} questions`,
-		progress: getPercentage(user.account.meta.questions.length, rank.askQuestion)
+		progress: getPercentage(user.meta.questions.length, rank.askQuestion)
 	})
 	if (rank.answerQuestion > 0) progresses.push({
 		title: `Answer ${rank.answerQuestion} questions`,
-		progress: getPercentage(user.account.meta.answers.length, rank.answerQuestion)
+		progress: getPercentage(user.meta.answers.length, rank.answerQuestion)
 	})
 	if (rank.bestAnswer > 0) progresses.push({
 		title: `Get at least ${rank.bestAnswer} answers`,
-		progress: getPercentage(user.account.meta.bestAnswers.length, rank.bestAnswer)
+		progress: getPercentage(user.meta.bestAnswers.length, rank.bestAnswer)
 	})
 	if (rank.attendSession > 0) progresses.push({
 		title: `Attend ${rank.attendSession} sessions`,
-		progress: getPercentage(user.account.meta.sessions.length, rank.attendSession)
+		progress: getPercentage(user.meta.sessions.length, rank.attendSession)
 	})
 	if (rank.hostSession > 0) progresses.push({
 		title: `Host ${rank.hostSession} sessions`,
-		progress: getPercentage(user.account.meta.tutorSessions.length, rank.hostSession)
+		progress: getPercentage(user.meta.tutorSessions.length, rank.hostSession)
 	})
 	if (rank.dailyLogin > 0) progresses.push({
 		title: `Complete ${rank.dailyLogin} days login`,
@@ -143,8 +159,6 @@ export const getRankProgress = (user: UserEntity) => {
 }
 
 const getNextRank = (rank: RankTypes) :Rank | null => {
-	const ranks = [RankTypes.Rookie, RankTypes.Comrade, RankTypes.Scholar, RankTypes.Einstein]
-	const index = ranks.findIndex((r) => r === rank)
-	const lastRank = ranks[index + 1]
-	return Ranks[lastRank] ?? null
+	const index = ranks.findIndex((r) => r.id === rank)
+	return ranks[index + 1] ?? null
 }

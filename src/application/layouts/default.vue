@@ -1,9 +1,9 @@
 <template>
 	<div>
 		<TopNavigation :open-menu="openSidebar" />
-		<section class="layout-body mb-0">
-			<main class="layout-main flex-grow-0 ">
-				<Nuxt class="ranking-layout-content" />
+		<section class="layout-body">
+			<main class="layout-main">
+				<Nuxt class="layout-content" />
 			</main>
 			<ModalBase />
 		</section>
@@ -15,7 +15,7 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import TopNavigation from '@app/components/layouts/topNavigations/DefaultTopNavigation.vue'
 import { useMenuModal } from '@app/hooks/core/modals'
 export default defineComponent({
-	name: 'JustifiedLayout',
+	name: 'DefaultLayout',
 	components: { TopNavigation },
 	setup () {
 		const { openSidebar } = useMenuModal()
@@ -23,3 +23,15 @@ export default defineComponent({
 	}
 })
 </script>
+
+<style lang="scss" scoped>
+	.layout-body {
+		max-width: 1200px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.layout-main {
+		@media (min-width: $lg) { width: 100%; }
+	}
+</style>

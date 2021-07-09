@@ -73,7 +73,7 @@ export const answerDeleted = functions.firestore.document('answers/{answerId}')
 				answers: admin.firestore.FieldValue.increment(-1)
 			}, { merge: true })
 
-		await admin.database().ref('profiles/account').child(userId)
+		await admin.database().ref('profiles').child(userId)
 			.update({
 				[`account/meta/answers/${snap.id}`]: null,
 				[`account/meta/answeredQuestions/${questionId}`]: admin.database.ServerValue.increment(-1),

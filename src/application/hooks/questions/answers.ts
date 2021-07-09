@@ -1,13 +1,13 @@
-import { Ref, ref, ssrRef, useFetch, watch } from '@nuxtjs/composition-api'
+import { Ref, ref, ssrRef, useFetch, useRouter, watch } from '@nuxtjs/composition-api'
 import {
 	AddAnswer, AnswerEntity, AnswerFactory, GetAnswers,
 	ListenToAnswers, MarkAsBestAnswer, QuestionEntity, RateAnswer
 } from '@modules/questions'
 import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
-import { useCreateModal } from '@app/hooks/core/modals'
 import { Alert } from '@app/hooks/core/notifications'
 import { analytics } from '@modules/core/services/initFirebase'
+import VueRouter from 'vue-router'
 
 const global = {} as Record<string, {
 	answers: Ref<AnswerEntity[]>,
@@ -50,19 +50,21 @@ export const useAnswerList = (questionId: string) => {
 }
 
 let answeringQuestion = null as QuestionEntity | null
-export const openAnswerModal = (question: QuestionEntity) => {
+export const getAnsweringQuestion = () => answeringQuestion
+export const openAnswerModal = (question: QuestionEntity, router: VueRouter) => {
 	answeringQuestion = question
-	useCreateModal().openAnswer()
+	router.push(`/questions/${question.id}/answers/create`)
 }
 
 export const useCreateAnswer = () => {
 	const { id, bio } = useAuth()
+	const router = useRouter()
 	const factory = ref(new AnswerFactory()) as Ref<AnswerFactory>
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
 	const { setMessage } = useSuccessHandler()
 
-	if (!answeringQuestion) useCreateModal().closeAnswer()
+	if (!answeringQuestion) router.replace('/questions')
 	factory.value.questionId = answeringQuestion!.id
 	factory.value.subjectId = answeringQuestion!.subjectId
 	factory.value.coins = answeringQuestion!.creditable
@@ -79,7 +81,7 @@ export const useCreateAnswer = () => {
 				await AddAnswer.call(factory.value)
 				setMessage('Answer submitted successfully.')
 				factory.value.reset()
-				useCreateModal().closeAnswer()
+				await router.replace(`/questions/${answeringQuestion?.id ?? ''}`)
 				analytics.logEvent('answer_question_completed', {
 					questionId: answeringQuestion?.id,
 					subject: answeringQuestion?.subjectId

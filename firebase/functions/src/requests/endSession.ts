@@ -8,10 +8,12 @@ export const endSession = functions.https.onRequest(async (request, response) =>
 		const session = await admin.firestore().collection('sessions')
 			.doc(id)
 			.get()
+		const { cancelled = {} } = session.data() ?? {}
+		const { student = false, tutor = false, busy = false } = cancelled
 
 		await admin.database().ref('profiles')
 			.child(studentId)
-			.child('account/currentSession')
+			.child('session/currentSession')
 			.transaction((session) => {
 				if (session === id) return null
 				return session
@@ -19,16 +21,15 @@ export const endSession = functions.https.onRequest(async (request, response) =>
 
 		await admin.database().ref('profiles')
 			.child(tutorId)
-			.child('tutor/currentSession')
+			.child('session/currentTutorSession')
 			.transaction((session) => {
 				if (session === id) return null
 				return session
 			})
 
-		const { student = false, tutor = false } = session.data()?.cancelled ?? {}
-		if (!student && !tutor) await admin.database().ref('profiles')
+		if (!student && !tutor && !busy) await admin.database().ref('profiles')
 			.child(studentId)
-			.child('account/meta/completedSessions')
+			.child(`account/meta/completedSessions/${id}`)
 			.set(true)
 
 		response.json({ success: true })

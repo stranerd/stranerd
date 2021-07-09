@@ -60,7 +60,6 @@ export default defineComponent({
 			display: flex;
 			align-items: center;
 			overflow-x: auto;
-
 			@extend .hide-scrollbar;
 		}
 	}

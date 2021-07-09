@@ -12,17 +12,19 @@
 			</NuxtLink>
 			<span class="small">{{ user.isOnline ? 'Active now' : time }}</span>
 		</div>
-		<span v-if="isAccepted && currentSessionId === user.currentSession" class="lead ms-0-5">{{ countDown }}</span>
+		<span v-if="inSession" class="lead ms-0-5">{{ countDown }}</span>
 		<button class="btn navbar-toggler ms-0-5" @click="show = !show">
 			<i class="fas fa-ellipsis-v" />
 		</button>
 		<div v-if="show" class="under" @click="show = false" />
 		<div v-if="show" class="menu gap-0-5">
-			<a v-if="!currentSessionId && !user.currentSession" @click.prevent="requestNewSession">Request Session</a>
+			<a v-if="canRequestSession" @click.prevent="requestNewSession">
+				Request Session
+			</a>
 			<a @click="tipUser">Tip Nerd</a>
 			<a @click="reportUser">Report</a>
 			<PageLoading v-if="loading" />
-			<a v-if="isAccepted && currentSession && currentSessionId === user.currentSession && currentSession.studentId === id" @click.prevent="cancelSession">End Session</a>
+			<a v-if="canEndSession" @click.prevent="cancelSession">End Session</a>
 			<DisplayError :error="error" />
 		</div>
 	</div>
@@ -50,8 +52,8 @@ export default defineComponent({
 	setup (props) {
 		const show = ref(false)
 		const { time, startTimer, stopTimer } = useTimeDifference(props.user.lastSeen)
-		const { id, currentSessionId } = useAuth()
-		const { currentSession, endDate, isAccepted, otherParticipant } = useCurrentSession()
+		const { id, currentSessionId, user } = useAuth()
+		const { currentSession, endDate, otherParticipantId } = useCurrentSession()
 		const { diffInSec, startTimer: startCountdown, stopTimer: stopCountdown } = useCountdown(endDate.value, {
 			0: useSessionModal().openRatings
 		})
@@ -80,10 +82,10 @@ export default defineComponent({
 			useSessionModal().openCreateSession()
 			show.value = false
 		}
-		const { cancelSession: c, loading, error } = useSession()
+		const { cancelSession: cancel, loading, error } = useSession(currentSessionId.value ?? '')
 		const cancelSession = async () => {
 			show.value = false
-			await c()
+			await cancel()
 			analytics.logEvent('session_cancelled', {
 				sessionId: currentSessionId.value,
 				duration: currentSession.value?.duration ?? 0,
@@ -100,10 +102,24 @@ export default defineComponent({
 			useAccountModal().openTipTutor()
 			show.value = false
 		}
-		if (otherParticipant.value.id) setOtherParticipantId(otherParticipant.value.id)
+		if (otherParticipantId.value) setOtherParticipantId(otherParticipantId.value)
+		const canRequestSession = computed({
+			get: () => user.value?.canRequestSessions && props.user.canHostSessions,
+			set: () => {}
+		})
+		const inSession = computed({
+			get: () => currentSessionId.value &&
+				currentSessionId.value === props.user.currentSession,
+			set: () => {}
+		})
+		const canEndSession = computed({
+			get: () => currentSessionId.value === props.user.currentSession &&
+				currentSession.value?.studentId === id.value,
+			set: () => {}
+		})
 		return {
-			id, currentSessionId, currentSession, isAccepted,
-			show, time, diffInSec, countDown, requestNewSession,
+			canRequestSession, canEndSession, inSession,
+			show, time, countDown, requestNewSession,
 			cancelSession, loading, error, reportUser, tipUser
 		}
 	}

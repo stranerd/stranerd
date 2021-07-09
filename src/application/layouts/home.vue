@@ -1,13 +1,15 @@
 <template>
-	<section class="layout-body bg-white">
-		<main class="layout-main">
-			<HomeTopNavigation class="w-100 fixed-top" />
-			<div style="height: 60px;" />
-			<Nuxt class="flex-grow-1" />
-			<HomeBottomNavigation />
-		</main>
-		<ModalBase />
-	</section>
+	<div>
+		<HomeTopNavigation class="fixed-top" />
+		<div style="height: 76px;" />
+		<section class="layout-body">
+			<main class="layout-main p-0">
+				<Nuxt class="layout-content" />
+				<HomeBottomNavigation class="d-none" />
+			</main>
+			<ModalBase />
+		</section>
+	</div>
 </template>
 
 <script lang="ts">
@@ -23,3 +25,9 @@ export default defineComponent({
 	middleware: 'isNotAuthenticated'
 })
 </script>
+
+<style lang="scss" scoped>
+	.layout-main {
+		@media (min-width: $lg) { width: 100%; }
+	}
+</style>

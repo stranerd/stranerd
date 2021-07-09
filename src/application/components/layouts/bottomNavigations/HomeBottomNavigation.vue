@@ -147,7 +147,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 	.sessionHead {
 		color: white;
-		font-weight: bolder;
+		font-weight: $font-weight-bold;
 	}
 
 	.linkText {

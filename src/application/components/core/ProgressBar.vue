@@ -3,7 +3,7 @@
 		<div
 			class="progress-bar"
 			role="progressbar"
-			:style=" `width:${current}%; background-color:${color}`"
+			:style=" `width:${current}%; background-color:${color};`"
 			:aria-valuenow="current"
 			aria-valuemin="0"
 			aria-valuemax="100"
@@ -18,6 +18,11 @@ import { defineComponent } from '@nuxtjs/composition-api'
 export default defineComponent({
 	name: 'ProgressBar',
 	props: {
+		default: {
+			type: Boolean,
+			default: false,
+			required: false
+		},
 		current: {
 			type: Number,
 			default: 0,
@@ -39,5 +44,9 @@ export default defineComponent({
 		border-radius: 6px;
 		height: 12px;
 		font-size: 12px;
+	}
+
+	.progress-bar {
+		border-radius: 50px;
 	}
 </style>

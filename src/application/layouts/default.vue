@@ -1,24 +1,22 @@
 <template>
-	<section class="layout-body">
-		<main class="layout-main">
-			<TopNavigation :full="true" :open-menu="openSidebar" />
-			<div class="content">
+	<div>
+		<TopNavigation :open-menu="openSidebar" />
+		<section class="layout-body">
+			<main class="layout-main">
 				<Nuxt class="layout-content" />
-			</div>
-		</main>
-		<ModalBase />
-	</section>
+			</main>
+			<ModalBase />
+		</section>
+	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import TopNavigation from '@app/components/layouts/topNavigations/TopNavigation.vue'
+import TopNavigation from '@app/components/layouts/topNavigations/DefaultTopNavigation.vue'
 import { useMenuModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'DefaultLayout',
-	components: {
-		TopNavigation
-	},
+	components: { TopNavigation },
 	setup () {
 		const { openSidebar } = useMenuModal()
 		return { openSidebar }
@@ -27,12 +25,13 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-	.content {
-		margin: 0 auto;
-		width: 100%;
-		max-width: $lg;
-		flex-grow: 1;
-		display: flex;
-		flex-direction: column;
+	.layout-body {
+		max-width: 1200px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.layout-main {
+		@media (min-width: $lg) { width: 100%; }
 	}
 </style>

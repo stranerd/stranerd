@@ -1,7 +1,8 @@
 <template>
 	<div>
-		<div class="page-content">
-			<NotificationsList />
+		<div class="notification-body">
+			<h1>Notifications</h1>
+			<NotificationsList class="px-3" />
 		</div>
 	</div>
 </template>
@@ -12,6 +13,23 @@ import NotificationsList from '@app/components/users/notifications/Notifications
 export default defineComponent({
 	name: 'NotificationsPage',
 	components: { NotificationsList },
+	layout: 'default',
 	middleware: ['isAuthenticated']
 })
 </script>
+
+<style lang="scss" scoped>
+	.notification-body {
+		background: $color-white;
+		border: 1px solid $color-line;
+		border-radius: 6px;
+
+		h1 {
+			padding: 2.25rem;
+			margin: 0;
+			color: $color-text-main;
+			border-bottom: 1px solid $color-line;
+			font-size: 36px;
+		}
+	}
+</style>

@@ -5,7 +5,7 @@ import { AnswerEntity } from '../entities/answer'
 import { AnswerToModel } from '../../data/models/answer'
 
 type Keys = {
-	body: string, coins: number, questionId: string, tags: string[]
+	title: string, body: string, coins: number, questionId: string, tags: string[]
 	subjectId: string, userId: string, user: UserBio | undefined
 }
 const isLongerThan0 = (value: string) => isLongerThan(value, 0)
@@ -13,6 +13,7 @@ const isLongerThan2 = (value: string) => isExtractedHTMLLongerThan(value, 2)
 
 export class AnswerFactory extends BaseFactory<AnswerEntity, AnswerToModel, Keys> {
 	readonly rules = {
+		title: { required: true, rules: [isLongerThan2] },
 		body: { required: true, rules: [isLongerThan2] },
 		coins: { required: true, rules: [] },
 		questionId: { required: true, rules: [isLongerThan0] },
@@ -24,13 +25,15 @@ export class AnswerFactory extends BaseFactory<AnswerEntity, AnswerToModel, Keys
 
 	constructor () {
 		super({
-			body: '', coins: 10, questionId: '', subjectId: '',
-			userId: '', user: undefined, tags: []
+			title: '', body: '', coins: 10, questionId: '',
+			subjectId: '', userId: '', user: undefined, tags: []
 		})
 	}
 
 	reserved = ['questionId', 'coins', 'tags']
 
+	get title () { return this.values.title }
+	set title (value: string) { this.set('title', value) }
 	get body () { return this.values.body }
 	set body (value: string) { this.set('body', value) }
 	get coins () { return this.values.coins }
@@ -47,6 +50,7 @@ export class AnswerFactory extends BaseFactory<AnswerEntity, AnswerToModel, Keys
 	}
 
 	loadEntity = (entity: AnswerEntity) => {
+		this.title = entity.title
 		this.body = entity.body
 		this.coins = entity.coins
 		this.tags = entity.tags
@@ -57,9 +61,9 @@ export class AnswerFactory extends BaseFactory<AnswerEntity, AnswerToModel, Keys
 
 	toModel = async () => {
 		if (this.valid) {
-			const { body, coins, tags, questionId, subjectId, userId, user } = this.validValues
+			const { title, body, coins, tags, questionId, subjectId, userId, user } = this.validValues
 			return {
-				body, coins, tags, questionId, subjectId, userId, user: user!
+				title, body, coins, tags, questionId, subjectId, userId, user: user!
 			}
 		} else {
 			throw new Error('Validation errors')

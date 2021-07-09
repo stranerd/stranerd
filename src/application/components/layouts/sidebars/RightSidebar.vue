@@ -1,27 +1,25 @@
 <template>
-	<div class="p-1">
+	<div class="d-flex flex-column gap-2-25">
 		<template v-if="isLoggedIn">
 			<ProfileHeadCard :user="user" />
-			<div class="thick mx-n1" />
-			<div class="d-flex flex-column gap-1">
+			<div class="d-flex flex-column gap-1 ranking">
 				<h1 class="ranking-header">
 					Ranking Up
 				</h1>
-				<div class="d-flex justify-content-between align-items-center text-main">
-					<span>{{ user.rank.id }}</span>
-					<ProgressBar :current="user.rankProgress.overall" color="#00F332" class="mx-0-25" />
-					<span>{{ user.rankProgress.next && user.rankProgress.next.id }}</span>
+				<div class="d-flex gap-1 align-items-center text-blue">
+					<img :src="user.rank.image" alt="" class="img-rank">
+					<RankingProgressBar :current="user.rankProgress.overall" color="#00F332" :primary="true" />
+					<img v-if="user.rankProgress.next" :src="user.rankProgress.next.image" alt="" class="img-rank">
 				</div>
-				<div class="d-flex flex-column ">
-					<div v-for="detail in user.rankProgress.progresses" :key="detail.title" class="d-flex justify-content-between align-items-center mt-1">
+				<div class="d-flex flex-column gap-1">
+					<div v-for="detail in user.rankProgress.progresses" :key="detail.title" class="d-flex justify-content-between align-items-center gap-0-25">
 						<span class="stat">{{ detail.title }}</span>
-						<ProgressBar :current="detail.progress" class="mx-0-25" />
+						<ProgressBar :current="detail.progress" />
 					</div>
 				</div>
 			</div>
-			<div class="thick mx-n1" />
-			<TagsList />
 		</template>
+		<TagsList class="tags" />
 	</div>
 </template>
 
@@ -41,6 +39,22 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+	.tags {
+		background: $color-tags;
+		border: 1px solid $color-line;
+		padding: 36px;
+	}
+
+	.ranking {
+		background: $color-tags;
+		border: 1px solid $color-line;
+		padding: 36px;
+	}
+
+	.img-rank {
+		width: 62px;
+	}
+
 	.ranking-header {
 		text-align: center;
 		font-size: 20px;
@@ -50,10 +64,7 @@ export default defineComponent({
 	.stat {
 		width: 350px;
 		font-size: 14px;
+		font-weight: 600;
 		color: $color-text-sub;
-	}
-
-	.text-main {
-		color: $color-main;
 	}
 </style>

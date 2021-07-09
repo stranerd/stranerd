@@ -1,6 +1,6 @@
 <template>
 	<div class="tag">
-		{{ tag.name }}
+		{{ tag.name ? tag.name : tag }}
 	</div>
 </template>
 
@@ -11,7 +11,7 @@ export default defineComponent({
 	name: 'TagListCard',
 	props: {
 		tag: {
-			type: Object as PropType<TagEntity>,
+			type: [String, Object] as PropType<string | TagEntity>,
 			required: true
 		}
 	}
@@ -22,8 +22,8 @@ export default defineComponent({
 	.tag {
 		border: 1.2px solid $color-line;
 		background-color: $color-tags;
-		border-radius: 50px;
+		border-radius: 50em;
 		color: $color-text-main;
-		padding: 1px 14px;
+		padding: 0.125em 1em;
 	}
 </style>

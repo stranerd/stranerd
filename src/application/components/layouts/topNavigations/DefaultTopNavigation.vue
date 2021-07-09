@@ -1,12 +1,15 @@
 <template>
-	<nav class="home-top-nav gap-1" role="navigation">
-		<Logo :secondary="true" class="nav-logo" />
+	<nav class="default-top-nav gap-1" role="navigation">
+		<NuxtLink to="/dashboard">
+			<Logo :secondary="true" class="nav-logo" />
+		</NuxtLink>
+
 		<SearchBar class="middle-body" />
-		<div class="right-body gap-0-75 gap-lg-1-5">
+		<div class="right-body gap-0-75 gap-lg-4">
 			<MessageLink :key="'messages' + isLoggedIn" class="link" />
 			<NotificationBell :key="'notifications' + isLoggedIn" class="link" />
 
-			<div v-if="isLoggedIn" class="d-flex gap-0-25 gap-lg-0-5 align-items-center cursor-pointer" @click="show = !show">
+			<div v-if="isLoggedIn" class="d-flex gap-0-25 gap-lg-1 align-items-center cursor-pointer" @click="show = !show">
 				<Avatar :src="user.avatar" :size="48" />
 				<span class="d-flex gap-0-25 align-items-center">
 					<span class="username text-truncate">{{ user.fullName }}</span>
@@ -14,7 +17,7 @@
 				</span>
 			</div>
 			<transition name="slide" appear>
-				<div v-if="show">
+				<div v-show="show">
 					<div class="under" @click="show = false" />
 					<div class="drop-menu">
 						<span><img src="@app/assets/images/icons/user.svg" alt="">Profile</span>
@@ -59,18 +62,18 @@ export default defineComponent({
 		}
 	}
 
-	.home-top-nav {
+	.default-top-nav {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		color: $color-text-main;
 		min-height: 60px;
 		padding: 1rem;
+		border-bottom: 6px solid $color-main;
 		@media (min-width: $md) { padding: 1rem 2rem; }
-		@media (min-width: $lg) { padding: 1rem 5rem; }
+		@media (min-width: $lg) { padding: 1rem 4rem; }
 
 		background: #fff 0 0 no-repeat padding-box;
-		box-shadow: 0 5px 15px #17224d26;
 
 		button.navbar-toggler {
 			border: none;
@@ -104,11 +107,12 @@ export default defineComponent({
 			z-index: 2;
 
 			span {
-				width: 150px;
+				width: 160px;
 				padding: 10px;
 				display: flex;
 				justify-content: center;
-				color: $color-text-sub;
+				color: $color-text-main;
+				font-weight: 600;
 
 				img {
 					margin-right: 18px;
@@ -118,26 +122,13 @@ export default defineComponent({
 		}
 	}
 
-	.link {
-		display: flex;
-		align-items: center;
-
-		& > img, & >>> img, & >>> span > img {
-			width: 24px;
-			height: 24px;
-		}
-	}
-
 	.username {
 		font-size: 18px;
-		font-weight: 600px;
+		font-weight: 600;
 		color: $color-text-main !important;
 	}
 
 	.slide-enter-active, .slide-leave-active { transition: 0.5s; }
 
-	.slide-enter, .slide-leave-to {
-		transform: translateY(-100px);
-		opacity: 0;
-	}
+	.slide-enter, .slide-leave-to { transform: translateY(-170px); }
 </style>

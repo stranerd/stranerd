@@ -9,7 +9,7 @@ import { useAuth } from '@app/hooks/auth/auth'
 export default defineComponent({
 	name: 'AccountQuestionsPage',
 	components: { UserQuestionsList },
-	layout: 'account',
+	layout: 'dashboard',
 	setup () {
 		const { id } = useAuth()
 		return { id }

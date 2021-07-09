@@ -6,7 +6,6 @@ $color-main-dark: #374b99;
 $color-line: #d7e2ec;
 $color-tags: #f8f8ff;
 $color-ratings: #ffda20;
-
 $color-tint-blue:  #103e83;
 $color-dim-blue:  #214a73;
 $color-text-main-grey: #214a73;
@@ -23,7 +22,7 @@ $color-gold: #ffd700;
 $color-red: #dc3545;
 $color-green: #06f352;
 
-$body-color: $color-text-main-grey;
+$body-color: $color-text-main;
 $min-contrast-ratio: 4.5;
 $color-contrast-dark: $color-text-main;
 $color-contrast-light: $color-white;
@@ -33,7 +32,9 @@ $xsm: 360px;
 $sm: 576px;
 $md: 800px;
 $lg: 1200px;
+$lgm: 1280px;
 $xl: 1500px;
+$xxl: 1920px;
 
 $grid-breakpoints: (
 	xs: $xs,
@@ -44,6 +45,10 @@ $grid-breakpoints: (
 	xl: $xl
 );
 
+$font-weight-regular: 400;
+$font-weight-medium: 600;
+$font-weight-bold: 700;
+
 $theme-colors: (
 	'gold': $color-gold,
 	'danger': $color-red,
@@ -51,6 +56,7 @@ $theme-colors: (
 	'info': #0dcaf0,
 	'warning': #ffc107,
 	'blue': $color-text-main,
+	'primary-blue': $color-main,
 	'light-blue': $color-light-blue,
 	'blue-grey': $color-text-main-grey,
 	'light-grey': $color-light-grey,

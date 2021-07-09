@@ -1,16 +1,15 @@
 <template>
-	<div>
-		<div class="page-content">
-			<TutorsList />
-		</div>
-	</div>
+	<section>
+		<TutorsList />
+	</section>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import TutorsList from '@app/components/users/tutors/MeetTutorsList.vue'
+import TutorsList from '@app/components/users/tutors/TutorsList.vue'
 export default defineComponent({
 	name: 'NerdsPage',
-	components: { TutorsList }
+	components: { TutorsList },
+	layout: 'dashboard'
 })
 </script>

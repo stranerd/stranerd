@@ -1,8 +1,6 @@
 import { reqRef } from '@nuxtjs/composition-api'
 import { useModal } from '@app/hooks/core/modal'
 import CreateSubject from '@app/components/modals/create/CreateSubject.vue'
-import CreateQuestion from '@app/components/modals/create/CreateQuestion.vue'
-import CreateAnswer from '@app/components/modals/create/CreateAnswer.vue'
 import EditSubject from '@app/components/modals/edit/EditSubject.vue'
 import EditAccountProfile from '@app/components/modals/edit/EditAccountProfile.vue'
 import MakePayment from '@app/components/modals/payments/MakePayment.vue'
@@ -16,14 +14,14 @@ import Sidebar from '@app/components/modals/menus/SidebarMenu.vue'
 import CreateSession from '@app/components/modals/sessions/SessionCreateSession.vue'
 import Ratings from '@app/components/modals/sessions/SessionRatings.vue'
 
-type CreateTypes = 'Subject' | 'Question' | 'Answer'
+type CreateTypes = 'Subject'
 type EditTypes = 'Subject' | 'AccountProfile'
 type AccountTypes = 'BuyCoins' | 'TipTutor' | 'ReportUser' | 'MeetTutor'
 type MenuTypes = 'RightSidebar' | 'AdminSidebar' | 'Sidebar'
 type SessionTypes = 'CreateSession' | 'Ratings'
 type PaymentTypes = 'MakePayment'
 
-const CreateModals = { Subject: CreateSubject, Question: CreateQuestion, Answer: CreateAnswer } as Record<CreateTypes, any>
+const CreateModals = { Subject: CreateSubject } as Record<CreateTypes, any>
 const EditModals = { Subject: EditSubject, AccountProfile: EditAccountProfile } as Record<EditTypes, any>
 const AccountModals = { BuyCoins, TipTutor, ReportUser, MeetTutor } as Record<AccountTypes, any>
 const MenuModals = { RightSidebar, AdminSidebar, Sidebar } as Record<MenuTypes, any>

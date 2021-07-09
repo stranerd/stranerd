@@ -1,18 +1,16 @@
 <template>
 	<div>
-		<h2 class="mb-0">
-			Top Nerds
-		</h2>
-		<div class="thick" />
-		<div v-for="(tutor, index) in tutors.slice(0, 10)" :key="tutor.hash">
-			<TutorsListCard :tutor="tutor" :rank="index + 1" />
-			<div class="thick" />
+		<div class="d-flex flex-column align-items-center">
+			<h1>Find Top Nerds to have One-On-One Chat Sessions with, for help with your homework and study problems.</h1>
+			<div class="search-container mt-2 mb-4">
+				<SelectSubject subject-id.sync="" />
+				<button class="btn btn-primary-blue px-2 py-1">
+					Search
+				</button>
+			</div>
+			<!-- TODO: Implement tutor filtering logic -->
 		</div>
-		<div v-if="tutors.length > 10" class="text-center py-0-5 text-18">
-			<NuxtLink class="fw-bold" to="/nerds">
-				VIEW MORE
-			</NuxtLink>
-		</div>
+		<TutorsListCard v-for="tutor in tutors" :key="tutor.hash" :tutor="tutor" />
 		<DisplayWarning v-if="!loading && !error && tutors.length === 0" message="No nerds found." />
 		<DisplayError :error="error" />
 		<PageLoading v-if="loading" />
@@ -23,9 +21,10 @@
 import { defineComponent, onBeforeUnmount, onMounted } from '@nuxtjs/composition-api'
 import { useTutorsList } from '@app/hooks/users/roles/tutors'
 import TutorsListCard from '@app/components/users/tutors/TutorsListCard.vue'
+import SelectSubject from '@app/components/questions/subjects/SelectSubject.vue'
 export default defineComponent({
 	name: 'TutorsList',
-	components: { TutorsListCard },
+	components: { TutorsListCard, SelectSubject },
 	setup () {
 		const { subjectId, tutors, listener, loading, error } = useTutorsList()
 		onMounted(listener.startListener)
@@ -34,3 +33,38 @@ export default defineComponent({
 	}
 })
 </script>
+
+<style lang="scss" scoped>
+	.search-container {
+		display: flex;
+		width: clamp(200px, 50%, 550px);
+		border-radius: 12px;
+		box-shadow: -5px 5px 15px #374b9926;
+
+		select,
+		/deep/ select {
+			flex-grow: 1;
+			color: $color-text-sub;
+			height: 64px;
+			border-radius: 12px 0 0 12px !important;
+			box-sizing: border-box;
+			padding: 0 32px;
+			border: 0;
+			background-color: $color-white;
+			appearance: none;
+			outline: 0 !important;
+			-webkit-appearance: none;
+		}
+
+		button { border-radius: 0 12px 12px 0; }
+	}
+
+	h1 {
+		color: $color-text-main;
+		text-align: center;
+		font-size: 1.5rem;
+		max-width: 80%;
+		line-height: 32px;
+		margin: 0;
+	}
+</style>

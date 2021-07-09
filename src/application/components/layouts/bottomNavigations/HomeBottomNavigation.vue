@@ -1,55 +1,140 @@
 <template>
-	<footer>
-		<div class="content">
-			<div class="links">
-				<div>
-					<h4>Company</h4>
-					<NuxtLink to="/#how-it-works">
-						About Us
-					</NuxtLink>
-					<a target="_blank" href="/legal/terms-of-use.pdf">
-						Terms of Use
-					</a>
-					<a target="_blank" href="/legal/privacy-policy.pdf">
-						Privacy Policy
-					</a>
+	<div class="col-12 py-0 px-0 pt-2 pb-1" style="background: #191c29;">
+		<div class="col-lg-10 offset-lg-1 col-12 d-flex flex-row flex-wrap py-3 px-0">
+			<div class="col-lg-6 col-12 d-flex flex-row py-2 px-0">
+				<div class="col-6 d-flex flex-row px-0" style="align-items: center; justify-content: center;">
+					<div class="d-flex flex-column">
+						<div>
+							<h5 class="sessionHead">
+								Company
+							</h5>
+						</div>
+						<div class="text-left">
+							<NuxtLink class="linkText" to="/#">
+								About Us
+							</NuxtLink>
+						</div>
+						<div class="text-left">
+							<NuxtLink class="linkText" to="/#">
+								Term of Use
+							</NuxtLink>
+						</div>
+						<div class="text-left">
+							<NuxtLink class="linkText" to="/#">
+								Privacy Policy
+							</NuxtLink>
+						</div>
+					</div>
 				</div>
-				<div>
-					<h4>Legal</h4>
-					<a target="_blank" href="/legal/terms-and-conditions.pdf">
-						Terms & Conditions
-					</a>
-					<a target="_blank" href="/legal/nerds-terms-and-conditions.pdf">
+				<div class="col-6 d-flex flex-row px-0" style="align-items: center; justify-content: center;">
+					<div class="d-flex flex-column">
+						<div>
+							<h5 class="sessionHead">
+								Community
+							</h5>
+						</div>
+						<div class="text-left">
+							<NuxtLink class="linkText" to="/#">
+								Become A Nerd
+							</NuxtLink>
+						</div>
+						<div class="text-left">
+							<NuxtLink class="linkText" to="/#">
+								Blog
+							</NuxtLink>
+						</div>
+						<div class="text-left">
+							<NuxtLink class="linkText" to="/#">
+								Honor Code
+							</NuxtLink>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6 col-12 d-flex px-0 flex-row py-2">
+				<div class="col-6 d-flex flex-row px-0" style="align-items: center; justify-content: center;">
+					<div class="d-flex flex-column">
+						<div>
+							<h5 class="sessionHead">
+								Help
+							</h5>
+						</div>
+						<div>
+							<NuxtLink class="linkText" to="/#">
+								FAQ
+							</NuxtLink>
+						</div>
+						<div>
+							<NuxtLink class="linkText" to="/#">
+								Contact
+							</NuxtLink>
+						</div>
+					</div>
+				</div>
+				<div class="col-6 d-flex flex-row px-0" style="align-items: center; justify-content: center;">
+					<div class="d-flex flex-column">
+						<div>
+							<h5 class="sessionHead">
+								Contact
+							</h5>
+						</div>
+						<div>
+							<img src="@app/assets/images/homepage/phone_icon.png" height="18"><NuxtLink class="linkText" style="padding-right: 3px;" to="/#">
+								+1 800 STRANERD
+							</NuxtLink>
+						</div>
+						<div>
+							<img src="@app/assets/images/homepage/mail_icon.png" height="16"><NuxtLink class="linkText" style="padding-right: 3px;" to="/#">
+								support@stranerd.com
+							</NuxtLink>
+						</div>
+						<div>
+							<img src="@app/assets/images/homepage/mail_icon.png" height="16"><NuxtLink class="linkText" style="padding-right: 3px;" to="/#">
+								favour@stranerd.com
+							</NuxtLink>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 mt-2 d-flex flex-column" style="border-top: 1px solid #fff; align-items: center; justify-content: center;">
+				<div class="py-1 d-flex flex-row">
+					<div class="px-1">
+						<NuxtLink class="linkText" to="/#">
+							<img src="@app/assets/images/homepage/facebook_icon.png" height="21">
+						</NuxtLink>
+					</div>
+					<div class="px-1">
+						<NuxtLink class="linkText" to="/#">
+							<img src="@app/assets/images/homepage/instagram_icon.png" height="21">
+						</NuxtLink>
+					</div>
+					<div class="px-1">
+						<NuxtLink class="linkText" to="/#">
+							<img src="@app/assets/images/homepage/twitter_icon.png" height="21">
+						</NuxtLink>
+					</div>
+					<div class="px-1">
+						<NuxtLink class="linkText" to="/#">
+							<img src="@app/assets/images/homepage/youtube_icon.png" height="21">
+						</NuxtLink>
+					</div>
+				</div>
+				<div class="linkText" style="font-size: 14px;">
+					&copy; 2020 - 2021 | Stranerd LLC. All rights reserved.
+				</div>
+				<div class="linkText">
+					<NuxtLink style="font-size: 14px;" to="/#">
 						Nerds Terms & Conditions
-					</a>
+					</NuxtLink>
 				</div>
-				<div>
-					<h4>Community</h4>
-					<NuxtLink to="/nerds/signup">
-						Become a Nerd
-					</NuxtLink>
-					<NuxtLink to="/">
-						Blog
-					</NuxtLink>
-					<a target="_blank">
-						Honor Code
-					</a>
-				</div>
-				<div>
-					<h4>Help</h4>
-					<NuxtLink to="/">
-						FAQs
-					</NuxtLink>
-					<NuxtLink to="/#contact-us">
-						Contact Us
+				<div class="linkText">
+					<NuxtLink style="font-size: 14px;" to="/#">
+						Terms & Conditions
 					</NuxtLink>
 				</div>
 			</div>
-			<p>
-				&copy; {{ new Date().getFullYear() }} | Stranerd LLC. All Rights Reserved.
-			</p>
 		</div>
-	</footer>
+	</div>
 </template>
 
 <script>
@@ -60,52 +145,13 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-	footer {
-		padding: 2rem 1rem;
-
-		@media (min-width: $md) { padding: 2.5rem; }
-
-		@media (min-width: $lg) { padding: 5rem; }
-
-		background: $color-footer-blue;
-		color: $color-text-main-white;
+	.sessionHead {
+		color: white;
+		font-weight: $font-weight-bold;
 	}
 
-	.content {
-		max-width: 1600px;
-		margin: 0 auto;
-
-		.links {
-			display: grid;
-			grid-template-columns: repeat(2, 1fr);
-			grid-gap: 2rem 1rem;
-
-			@media (min-width: $lg) {
-				grid-template-columns: repeat(4, 1fr);
-			}
-
-			h4 {
-				font-weight: 600;
-				font-size: 1.125rem;
-
-				@media (min-width: $md) { font-size: 1.875rem; }
-				i { font-size: 16px; }
-			}
-
-			a {
-				display: block;
-				margin: 0.5rem 0;
-				font-size: 0.875rem;
-
-				@media (min-width: $md) { font-size: 1.5rem; }
-			}
-		}
-
-		p {
-			margin: 2rem 0 0;
-			font-size: 0.875rem;
-
-			@media (min-width: $md) { font-size: 1.5rem; }
-		}
+	.linkText {
+		font-size: 13px;
+		color: white;
 	}
 </style>

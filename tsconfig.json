@@ -16,9 +16,15 @@
 		"experimentalDecorators": true,
 		"baseUrl": ".",
 		"paths": {
-			"@app/*": ["src/application/*"],
-			"@modules/*": ["src/modules/*"],
-			"@utils/*": ["src/utils/*"]
+			"@app/*": [
+				"src/application/*"
+			],
+			"@modules/*": [
+				"src/modules/*"
+			],
+			"@utils/*": [
+				"src/utils/*"
+			]
 		},
 		"types": [
 			"@types/node",

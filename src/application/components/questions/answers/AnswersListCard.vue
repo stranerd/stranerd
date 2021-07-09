@@ -106,11 +106,9 @@ export default defineComponent({
 <style lang="scss" scoped>
 	.answer {
 		margin-bottom: 2rem;
-
 		@media (min-width: $md) {
 			margin-bottom: 3rem;
 		}
-
 		@media (min-width: $lg) {
 			margin-bottom: 4rem;
 		}
@@ -119,7 +117,6 @@ export default defineComponent({
 			border: 1px solid lighten($color-text-main, 30);
 			border-radius: 1rem;
 			padding: 0.5rem;
-
 			@media (min-width: $md) {
 				padding: 0.5rem 1rem;
 			}

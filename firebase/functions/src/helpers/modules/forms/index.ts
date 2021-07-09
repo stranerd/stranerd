@@ -1,6 +1,7 @@
 export type Message = {
 	id: string,
-	name: string,
+	fName: string,
+	lName: string,
 	email: string,
 	message: string,
 	date: string

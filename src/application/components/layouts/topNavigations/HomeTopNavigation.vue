@@ -1,31 +1,129 @@
 <template>
-	<nav class="home-top-nav" role="navigation">
-		<!-- add  "fixed-top" class on scroll Condition(window.scrollTop() > 10) -->
-		<div class="d-flex justify-content-between align-items-center padding">
-			<Logo :secondary="true" class="nav-logo" />
-			<button class="d-md-none navbar-toggler" @click="show = !show">
-				<span v-if="!show" class="fas fa-bars" />
-				<span v-else class="fas fa-times" />
-			</button>
-			<div class="d-none d-md-flex nav-links gap-1">
-				<NuxtLink to="/auth/signin" class="btn btn-primary-outline">
-					Log In
-				</NuxtLink>
-				<NuxtLink to="/auth/signup" class="btn btn-primary">
-					Sign up
-				</NuxtLink>
+	<nav role="navigation">
+		<div
+			class="col-12 px-md-2 card px-1 py-1 maincolor d-flex flex-row"
+			style="align-items: center; border-radius: 0;"
+		>
+			<Logo />
+			<div
+				class="ml-auto flex-row-reverse d-lg-flex d-none"
+				style="align-items: center; width: 100%;"
+			>
+				<!-- navigators -->
+				<div>
+					<NuxtLink
+						class="btn btn-lg white-btn-custom px-3"
+						style="font-size: 15px;"
+						to="/auth/signup"
+					>
+						Sign Up
+					</NuxtLink>
+				</div>
+				<div class="px-2">
+					<NuxtLink
+						class="btn btn-lg btn-custom px-3"
+						style="font-size: 15px;"
+						to="/auth/signin"
+					>
+						Log In
+					</NuxtLink>
+				</div>
+				<div class="pl-1">
+					<NuxtLink class="link-custom px-1" to="/contact-us">
+						Contact
+					</NuxtLink>
+				</div>
+				<div class="px-1">
+					<NuxtLink class="link-custom px-1" to="/how-it-works">
+						How it works
+					</NuxtLink>
+				</div>
+				<div class="px-1">
+					<NuxtLink class="link-custom px-1" to="/">
+						Home
+					</NuxtLink>
+				</div>
+				<!-- ends -->
+			</div>
+			<div
+				class="ml-auto d-flex flex-row-reverse d-inline-block d-lg-none"
+				style="align-items: center; width: 100%;"
+			>
+				<!-- navigators -->
+				<div style="cursor: pointer;" @click="show = !show">
+					<i
+						:class="show ? 'fas fa-times' : 'fas fa-bars'"
+						style="color: white; font-size: 28px;"
+					/>
+				</div>
+				<!-- ends -->
 			</div>
 		</div>
-
-		<transition name="slide" appear>
-			<div v-if="show" class="d-md-none nav-links w-100 gap-1 p-1 slide-down bg-blue">
-				<NuxtLink to="/auth/signin" class="btn-secondary-outline font-weight-bold">
-					Log In
-				</NuxtLink>
-				<NuxtLink to="/auth/signup" class="btn-secondary font-weight-bold">
-					Sign up
-				</NuxtLink>
-			</div>
+		<transition name="slide-fade">
+			<template v-if="show">
+				<div
+					class="
+                        menuBackground
+                        d-lg-none d-flex
+                        flex-column
+                        text-center
+                    "
+				>
+					<NuxtLink
+						class="py-1 mt-2 smallScreenLink"
+						style="width: 100%;"
+						to="/"
+					>
+						<div class="link-custom px-1" style="font-size: 15px;">
+							Home
+						</div>
+					</NuxtLink>
+					<NuxtLink
+						class="py-1 smallScreenLink"
+						style="width: 100%;"
+						to="/how-it-works"
+					>
+						<div class="link-custom px-1" style="font-size: 15px;">
+							How it works
+						</div>
+					</NuxtLink>
+					<NuxtLink
+						class="py-1 smallScreenLink"
+						style="width: 100%;"
+						to="/contact-us"
+					>
+						<div class="link-custom px-1" style="font-size: 15px;">
+							Contact
+						</div>
+					</NuxtLink>
+					<div class="py-1" style="width: 100%;">
+						<NuxtLink
+							class="btn btn-lg btn-custom"
+							style="
+	font-size: 15px;
+	width: 100%;
+	max-width: 260px;
+"
+							to="/auth/signin"
+						>
+							Log In
+						</NuxtLink>
+					</div>
+					<div class="py-1" style="width: 100%;">
+						<NuxtLink
+							class="btn btn-lg white-btn-custom"
+							style="
+	font-size: 15px;
+	width: 100%;
+	max-width: 260px;
+"
+							to="/auth/signup"
+						>
+							Sign Up
+						</NuxtLink>
+					</div>
+				</div>
+			</template>
 		</transition>
 	</nav>
 </template>
@@ -42,61 +140,41 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-	.nav-logo {
-		&:hover {
-			transition: all 0.3s;
-			transform: scale(1.2);
-		}
+	.maincolor {
+		background-color: #354da3;
+		color: white;
 	}
 
-	.btn {
-		min-width: 135px;
-		min-height: 45px;
-		display: grid;
-		place-items: center;
+	.white-btn-custom {
+		background-color: white;
+		color: #354da3;
+		border: 2px solid #fff;
+		border-radius: 6px;
 	}
 
-	.home-top-nav {
-		background: $color-white;
-		color: $color-text-main;
-		min-height: 60px;
-		z-index: 10 !important;
-		margin: 0 auto;
-		box-shadow: 0 5px 15px #17224d26;
-
-		button.navbar-toggler {
-			border: none;
-			outline: none;
-			border-radius: 0;
-			color: $color-tint-blue;
-		}
+	.btn-custom {
+		background-color: #354da3;
+		color: #fff;
+		border: 2px solid #fff;
+		font-weight: $font-weight-bold;
+		border-radius: 6px;
 	}
 
-	.padding {
-		padding: 1rem 2rem;
-
-		@media (min-width: $md) { padding: 1.25rem 4rem; }
-
-		@media (min-width: $lg) { padding: 1.5rem 6rem; }
+	.link-custom {
+		color: #fff;
+		font-weight: $font-weight-bold;
+		font-size: 16px;
 	}
 
-	.fixed-top {
-		background: #fff 0% 0% no-repeat padding-box;
-		box-shadow: 0 5px 15px #17224d26;
-	}
-
-	.nav-links {
-		display: flex;
-		justify-content: center;
+	.menuBackground {
+		position: fixed;
+		height: 100%;
+		width: 100%;
+		background-color: #354da3;
 		align-items: center;
 	}
 
-	.slide-enter-active,
-	.slide-leave-active { transition: 0.5s; }
-
-	.slide-enter,
-	.slide-leave-to {
-		transform: translateY(-60px);
-		opacity: 1;
+	.smallScreenLink:hover {
+		background-color: rgba($color: #fff, $alpha: 0.2);
 	}
 </style>

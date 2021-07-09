@@ -72,19 +72,15 @@ export default defineComponent({
 		display: grid;
 		grid-template-columns: repeat(1, 1fr);
 		grid-gap: 0.5rem;
-
 		@media (min-width: $sm) {
 			grid-template-columns: repeat(2, 1fr);
 		}
-
 		@media (min-width: 1050px) {
 			grid-template-columns: repeat(4, 1fr);
 		}
-
 		@media (min-width: $lg) {
 			grid-template-columns: repeat(2, 1fr);
 		}
-
 		@media (min-width: 1682px) {
 			grid-template-columns: repeat(4, 1fr);
 		}
@@ -92,7 +88,6 @@ export default defineComponent({
 
 	.page-card {
 		margin-top: 0 !important;
-
 		@extend .page-content;
 
 		display: flex;

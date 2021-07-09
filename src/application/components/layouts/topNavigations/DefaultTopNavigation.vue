@@ -70,9 +70,7 @@ export default defineComponent({
 		min-height: 60px;
 		padding: 1rem;
 		border-bottom: 6px solid $color-main;
-
 		@media (min-width: $md) { padding: 1rem 2rem; }
-
 		@media (min-width: $lg) { padding: 1rem 4rem; }
 
 		background: #fff 0 0 no-repeat padding-box;
@@ -130,11 +128,7 @@ export default defineComponent({
 		color: $color-text-main !important;
 	}
 
-	.slide-enter-active,
-	.slide-leave-active { transition: 0.5s; }
+	.slide-enter-active, .slide-leave-active { transition: 0.5s; }
 
-	.slide-enter,
-	.slide-leave-to {
-		transform: translateY(-170px);
-	}
+	.slide-enter, .slide-leave-to { transform: translateY(-170px); }
 </style>

@@ -38,3 +38,9 @@ export default defineComponent({
 		}
 	}
 </style>
+
+<style lang="scss" scoped>
+	.layout-main {
+		@media (min-width: $lg) { width: 100%; }
+	}
+</style>

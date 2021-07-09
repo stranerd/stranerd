@@ -27,7 +27,7 @@
 			{{ question.trimmedBody }}
 		</NuxtLink>
 
-		<div class="d-flex align-items-center gap-1">
+		<div class="d-flex align-items-center gap-2">
 			<span class="name">Posted {{ formatTime(question.createdAt) }}</span>
 			<div class="gap-0-75 d-flex align-items-center">
 				<TagListCard v-for="tag in question.tags" :key="tag" :tag="tag" />

@@ -1,20 +1,13 @@
 <template>
-	<div>
-		<div class="d-flex">
-			<h3 class="fw-bold mb-0">
-				Recent Questions
-			</h3>
-			<form class="d-flex ms-auto">
-				<SelectSubject :subject-id.sync="subjectId" class="form-control-sm my-0-5" />
-			</form>
-		</div>
-		<div class="thick" />
-		<div v-for="question in questions" :key="question.hash">
-			<QuestionCard :question="question" />
-			<div class="thick" />
-		</div>
-		<DisplayWarning v-if="!loading && !error && questions.length === 0" message="No other questions found." />
-		<DisplayError :error="error" />
+	<div class="d-flex flex-column gap-1">
+		<h2 class="headerStyle">
+			Similar Questions
+		</h2>
+		<QuestionCard v-for="question in questions" :key="question.hash" :question="question" class="pb-1" />
+		<span>
+			<DisplayWarning v-if="!loading && !error && questions.length === 0" message="No other questions found." />
+			<DisplayError :error="error" />
+		</span>
 		<PageLoading v-if="loading" />
 	</div>
 </template>
@@ -23,10 +16,9 @@
 import { computed, defineComponent, onMounted, onBeforeUnmount } from '@nuxtjs/composition-api'
 import QuestionCard from '@app/components/questions/questions/RecentQuestionsListCard.vue'
 import { useQuestionList } from '@app/hooks/questions/questions'
-import SelectSubject from '@app/components/questions/subjects/SelectSubject.vue'
 export default defineComponent({
-	name: 'RecentQuestionsList',
-	components: { QuestionCard, SelectSubject },
+	name: 'SimilarQuestionsList',
+	components: { QuestionCard },
 	props: {
 		questionId: {
 			required: true,
@@ -37,6 +29,7 @@ export default defineComponent({
 		const { filteredQuestions, error, loading, listener, subjectId } = useQuestionList()
 		onMounted(listener.startListener)
 		onBeforeUnmount(listener.closeListener)
+		// TODO: Reimplement logic for similar questions
 		const recentQuestions = computed({
 			get: () => filteredQuestions.value
 				.filter((q) => q.id !== props.questionId)
@@ -47,3 +40,11 @@ export default defineComponent({
 	}
 })
 </script>
+
+<style lang="scss" scoped>
+	.headerStyle {
+		font-weight: bold;
+		color: $color-text-main;
+		margin-bottom: 0;
+	}
+</style>

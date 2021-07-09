@@ -124,7 +124,7 @@ export const getRankProgress = (user: UserEntity) => {
 		progress: getPercentage(user.meta.answers.length, rank.answerQuestion)
 	})
 	if (rank.bestAnswer > 0) progresses.push({
-		title: `Get at least ${rank.bestAnswer} answers`,
+		title: `Get ${rank.bestAnswer} best answers`,
 		progress: getPercentage(user.meta.bestAnswers.length, rank.bestAnswer)
 	})
 	if (rank.attendSession > 0) progresses.push({
@@ -136,15 +136,15 @@ export const getRankProgress = (user: UserEntity) => {
 		progress: getPercentage(user.meta.tutorSessions.length, rank.hostSession)
 	})
 	if (rank.dailyLogin > 0) progresses.push({
-		title: `Complete ${rank.dailyLogin} days login`,
+		title: `${rank.dailyLogin} days login`,
 		progress: getPercentage(user.account.streak.longestStreak, rank.dailyLogin)
 	})
 	if (rank.score > 0) progresses.push({
-		title: `Get a nerd score of ${rank.score}`,
+		title: `Nerd score of ${rank.score}`,
 		progress: getPercentage(user.score, rank.score)
 	})
 	if (rank.ratings > 0) progresses.push({
-		title: `Maintain a rating of ${rank.ratings}`,
+		title: `Rating of ${rank.ratings}`,
 		progress: getPercentage(user.averageRating, rank.ratings)
 	})
 

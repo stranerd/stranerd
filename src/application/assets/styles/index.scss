@@ -108,9 +108,8 @@ a {
 }
 
 .editor-body {
-	p {
-		margin-bottom: 0.5rem;
-	}
+	p { margin-bottom: 0.5rem; }
+	& > p:last-child { margin-bottom: 0; }
 }
 
 div.thick {

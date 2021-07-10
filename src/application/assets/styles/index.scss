@@ -108,9 +108,8 @@ a {
 }
 
 .editor-body {
-	p {
-		margin-bottom: 0.5rem;
-	}
+	p { margin-bottom: 0.5rem; }
+	& > p:last-child { margin-bottom: 0; }
 }
 
 div.thick {
@@ -156,8 +155,7 @@ div.thin {
 	}
 }
 
-.swal2-popup.swal2-toast .swal2-title {
-	margin: 0 0 0 0.5em !important;
-}
+.swal2-popup.swal2-toast .swal2-title { margin: 1em 0 !important; }
+.swal2-popup.swal2-toast { padding: 0.5em 1em !important; }
 
 /*! purgecss end ignore */

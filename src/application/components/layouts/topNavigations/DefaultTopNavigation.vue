@@ -1,11 +1,11 @@
 <template>
-	<nav class="default-top-nav gap-1" role="navigation">
+	<nav class="default-top-nav gap-1-5 gap-lg-3" role="navigation">
 		<NuxtLink to="/dashboard">
 			<Logo :secondary="true" class="nav-logo" />
 		</NuxtLink>
 
 		<SearchBar class="middle-body" />
-		<div class="right-body gap-0-75 gap-lg-4">
+		<div class="right-body gap-1-5 gap-lg-3">
 			<MessageLink :key="'messages' + isLoggedIn" class="link" />
 			<NotificationBell :key="'notifications' + isLoggedIn" class="link" />
 

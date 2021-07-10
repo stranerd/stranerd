@@ -1,5 +1,5 @@
 <template>
-	<form style="width: 100%;" class="formStyle d-flex flex-column py-2 px-2" @submit.prevent="createMessage">
+	<form class="formStyle d-flex flex-column py-2 px-2" @submit.prevent="createMessage">
 		<div class="mb-1" style="border-bottom: 1px solid #c5c5c5;">
 			<h3 style="color: #000;">
 				Contact Us
@@ -114,16 +114,16 @@ export default defineComponent({
 
 	.formLabel {
 		font-size: 15px;
-		font-weight: $font-weight-medium;
+		font-weight: bold;
 		color: black;
 	}
 
 	.btn-custom {
-		background-color: #354da3;
+		background-color: $main-background-color;
 		color: #fff;
-		border: 2px solid #354da3;
+		border: 2px solid $main-background-color;
 		border-radius: 6px;
 		font-size: 15px;
-		font-weight: $font-weight-medium;
+		font-weight: bold;
 	}
 </style>

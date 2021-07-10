@@ -1,85 +1,59 @@
 <template>
-	<div>
-		<div class="d-flex align-items-center mb-1 gap-0-5">
-			<NuxtLink :to="`/users/${question.userId}`">
-				<Avatar :src="question.avatar" :size="50" />
-			</NuxtLink>
-			<div class="me-auto">
-				<NuxtLink :to="`/users/${question.userId}`" class="d-block fw-bold text-wrap">
-					<span>{{ question.userName }}</span>
+	<div class="d-flex flex-column pb-1 pb-lg-2 gap-1 gap-lg-2 bl">
+		<div class="question-head d-flex align-items-center gap-1">
+			<div class="d-flex align-items-center gap-0-5 me-auto">
+				<NuxtLink :to="`/users/${question.userId}`">
+					<Avatar :src="question.avatar" :size="36" />
 				</NuxtLink>
-				<span class="small text-wrap">
-					{{ subject ? subject.name : 'Subject' }}
-					|
-					{{ formatTime(question.createdAt) }}
-				</span>
+				<NuxtLink class="name" :to="`/users/${question.userId}`">
+					{{ question.userName }}
+				</NuxtLink>
+				<div class="dot" />
+				<span class="subject">{{ subject ? subject.name : 'Subject' }}</span>
 			</div>
-			<div class="d-none d-md-inline">
-				<div class="d-flex gap-0-5">
-					<div class="d-flex align-items-center position-relative">
-						<span class="rounded-pill px-0-5 pe-1-5 bg-blue-grey text-light-blue">
-							+{{ formatNumber(question.creditable) }}
-						</span>
-						<Coins :size="24" class="ms-n1" style="z-index: 1;" />
-					</div>
-					<span>
-						<img src="@app/assets/images/icons/answers.svg" alt="" style="width: 24px; height: 24px;">
-						<span>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</span>
-					</span>
+			<img v-if="question.isAnswered" src="@app/assets/images/icons/profile-best-answers.svg" alt="" style="width: 2rem; height: 2rem;">
+			<div v-else-if="showAnswerButton" class="d-flex align-items-center gap-1">
+				<div class="coin d-flex align-items-center gap-0-25">
+					<span>+{{ formatNumber(question.creditable) }}</span>
+					<Coins :size="28" style="z-index: 1;" />
 				</div>
+				<button class="answer-btn" @click="openAnswerModal">
+					Answer
+				</button>
 			</div>
-			<button v-if="showAnswerButton" class="btn btn-outline-blue rounded-pill ms-0-5 px-1-5 py-0-25" @click="openAnswerModal">
-				Answer
-			</button>
-			<i v-if="question.isAnswered" class="fas fa-check text-success fa-2x" />
 		</div>
-		<div class="thick mx-n0-5 mx-md-n1-5 mx-lg-n2" />
-		<div class="mb-1 editor-body lead" v-html="question.body" />
-		<div class="d-flex">
-			<span class="me-0-5 me-md-1 d-md-none">
-				<img src="@app/assets/images/icons/answers.svg" alt="" style="width: 20px; height: 20px;">
-				<span>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</span>
-			</span>
-			<a v-if="question.commentsCount" class="me-0-5 me-md-1 d-none align-items-center" @click.prevent="showComments = !showComments">
-				<span>
-					{{ showComments ? 'Hide' : 'Show' }} Comments
+
+		<div class="question-body editor-body" v-html="question.body" />
+
+		<div class="d-flex align-items-center gap-2">
+			<span class="name">Posted {{ formatTime(question.createdAt) }}</span>
+			<div class="gap-0-75 d-flex align-items-center">
+				<TagListCard v-for="tag in question.tags" :key="tag" :tag="tag" />
+			</div>
+			<div class="ms-auto d-flex align-items-center gap-1">
+				<span class="d-none align-items-center gap-0-5">
+					<img src="@app/assets/images/icons/answers.svg" alt="" class="icons">
+					<span>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</span>
 				</span>
-				<i class="fas mx-0-25" :class="showComments ? 'fa-angle-up' : 'fa-angle-down'" />
-			</a>
-			<div class="d-md-none d-flex align-items-center position-relative ms-auto">
-				<span class="rounded-pill px-0-5 pe-1-5 bg-blue-grey text-light-blue">
-					+{{ formatNumber(question.creditable) }}
-				</span>
-				<Coins :size="24" class="ms-n1" style="z-index: 1;" />
+				<!-- TODO: add report question functionality -->
+				<i class="fas fa-flag icons" />
 			</div>
 		</div>
-		<div class="thick mx-n0-5 mx-md-n1-5 mx-lg-n2" />
-		<div v-if="showComments">
-			<div class="d-flex align-items-end mb-0-5">
-				<h5 class="mb-0 me-0-5">
-					Comments
-				</h5>
-				<span>{{ formatNumber(question.commentsCount) }}</span>
-			</div>
-			<CommentList :question-id="question.id" />
-		</div>
-		<CommentForm class="w-100 d-none" :question-id="question.id" />
 	</div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, ref, useRouter } from '@nuxtjs/composition-api'
+import { computed, defineComponent, PropType, useRouter } from '@nuxtjs/composition-api'
 import { QuestionEntity } from '@modules/questions'
 import { useSubject } from '@app/hooks/questions/subjects'
 import { openAnswerModal } from '@app/hooks/questions/answers'
 import { useAuth } from '@app/hooks/auth/auth'
-import CommentForm from '@app/components/questions/comments/QuestionCommentForm.vue'
-import CommentList from '@app/components/questions/comments/QuestionCommentsList.vue'
 import { formatNumber, pluralize } from '@utils/commons'
 import { formatTime } from '@utils/dates'
+import TagListCard from '@app/components/questions/tags/TagListCard.vue'
 export default defineComponent({
 	name: 'QuestionPageCard',
-	components: { CommentForm, CommentList },
+	components: { TagListCard },
 	props: {
 		question: {
 			required: true,
@@ -87,19 +61,67 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
-		const showComments = ref(false)
-		const router = useRouter()
 		const { id, user } = useAuth()
+		const router = useRouter()
 		const { subject } = useSubject(props.question.subjectId)
 		const showAnswerButton = computed({
 			get: () => props.question.userId !== id.value && !props.question.isAnswered && !user.value?.meta.answeredQuestions.includes(props.question.id),
 			set: () => {}
 		})
 		return {
-			id, formatNumber, pluralize, showAnswerButton,
-			subject, formatTime, showComments,
+			id, subject, formatTime, formatNumber, pluralize, showAnswerButton,
 			openAnswerModal: () => openAnswerModal(props.question, router)
 		}
 	}
 })
 </script>
+
+<style lang="scss" scoped>
+	.bl {
+		border-bottom: 1px solid $color-line;
+	}
+
+	.question-body {
+		font-size: 20px;
+	}
+
+	.question-head {
+		.dot {
+			width: 6px;
+			height: 6px;
+			background-color: $color-text-sub;
+			margin: 0 12px 0 3px;
+			border-radius: 50px;
+		}
+
+		.name {
+			color: $color-text-main;
+			font-size: 18px;
+			font-weight: 600;
+		}
+
+		.subject {
+			color: $color-text-sub;
+			font-weight: 600;
+		}
+	}
+
+	.icons {
+		width: 20px;
+	}
+
+	.answer-btn {
+		background: $color-main;
+		color: $color-white;
+		border: none;
+		border-radius: 18px;
+		width: fit-content;
+		padding: 9px 27px;
+
+		&:hover {
+			color: $color-white;
+			transform: scale(1.1);
+			transition: 0.5s;
+		}
+	}
+</style>

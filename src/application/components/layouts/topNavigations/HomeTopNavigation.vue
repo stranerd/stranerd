@@ -1,127 +1,68 @@
 <template>
 	<nav role="navigation">
-		<div
-			class="col-12 px-md-2 card px-1 py-1 maincolor d-flex flex-row"
-			style="align-items: center; border-radius: 0;"
-		>
+		<div class="px-md-2 p-1 maincolor d-flex flex-row align-items-center">
 			<Logo />
-			<div
-				class="ml-auto flex-row-reverse d-lg-flex d-none"
-				style="align-items: center; width: 100%;"
-			>
-				<!-- navigators -->
-				<div>
-					<NuxtLink
-						class="btn btn-lg white-btn-custom px-3"
-						style="font-size: 15px;"
-						to="/auth/signup"
-					>
-						Sign Up
-					</NuxtLink>
-				</div>
-				<div class="px-2">
-					<NuxtLink
-						class="btn btn-lg btn-custom px-3"
-						style="font-size: 15px;"
-						to="/auth/signin"
-					>
-						Log In
-					</NuxtLink>
-				</div>
-				<div class="pl-1">
-					<NuxtLink class="link-custom px-1" to="/contact-us">
-						Contact
-					</NuxtLink>
-				</div>
-				<div class="px-1">
-					<NuxtLink class="link-custom px-1" to="/how-it-works">
-						How it works
-					</NuxtLink>
-				</div>
-				<div class="px-1">
-					<NuxtLink class="link-custom px-1" to="/">
-						Home
-					</NuxtLink>
-				</div>
-				<!-- ends -->
+			<div class="ms-auto gap-2 flex-row-reverse d-lg-flex d-none align-items-center">
+				<NuxtLink class="btn btn-lg white-btn-custom px-3" to="/auth/signup">
+					Sign Up
+				</NuxtLink>
+				<NuxtLink class="btn btn-lg btn-custom px-3" to="/auth/signin">
+					Log In
+				</NuxtLink>
+				<NuxtLink class="link-custom px-1" to="/contact-us">
+					Contact
+				</NuxtLink>
+				<NuxtLink class="link-custom px-1" to="/how-it-works">
+					How it works
+				</NuxtLink>
+				<NuxtLink class="link-custom px-1" to="/">
+					Home
+				</NuxtLink>
 			</div>
-			<div
-				class="ml-auto d-flex flex-row-reverse d-inline-block d-lg-none"
-				style="align-items: center; width: 100%;"
-			>
-				<!-- navigators -->
-				<div style="cursor: pointer;" @click="show = !show">
+			<div class="ms-auto flex-row-reverse d-inline-flex align-items-center d-lg-none py-0-25">
+				<span class="cursor-pointer" @click="show = !show">
 					<i
 						:class="show ? 'fas fa-times' : 'fas fa-bars'"
 						style="color: white; font-size: 28px;"
 					/>
-				</div>
-				<!-- ends -->
+				</span>
 			</div>
 		</div>
 		<transition name="slide-fade">
 			<template v-if="show">
-				<div
-					class="
-                        menuBackground
-                        d-lg-none d-flex
-                        flex-column
-                        text-center
-                    "
-				>
+				<div class="menuBackground gap-2 py-2 px-1 d-lg-none d-flex flex-column text-center">
 					<NuxtLink
-						class="py-1 mt-2 smallScreenLink"
-						style="width: 100%;"
+						class="smallScreenLink link-custom"
 						to="/"
 					>
-						<div class="link-custom px-1" style="font-size: 15px;">
-							Home
-						</div>
+						Home
 					</NuxtLink>
 					<NuxtLink
-						class="py-1 smallScreenLink"
-						style="width: 100%;"
+						class="smallScreenLink link-custom"
 						to="/how-it-works"
 					>
-						<div class="link-custom px-1" style="font-size: 15px;">
-							How it works
-						</div>
+						How it works
 					</NuxtLink>
 					<NuxtLink
-						class="py-1 smallScreenLink"
-						style="width: 100%;"
+						class="smallScreenLink link-custom"
 						to="/contact-us"
 					>
-						<div class="link-custom px-1" style="font-size: 15px;">
-							Contact
-						</div>
+						Contact
 					</NuxtLink>
-					<div class="py-1" style="width: 100%;">
-						<NuxtLink
-							class="btn btn-lg btn-custom"
-							style="
-	font-size: 15px;
-	width: 100%;
-	max-width: 260px;
-"
-							to="/auth/signin"
-						>
-							Log In
-						</NuxtLink>
-					</div>
-					<div class="py-1" style="width: 100%;">
-						<NuxtLink
-							class="btn btn-lg white-btn-custom"
-							style="
-	font-size: 15px;
-	width: 100%;
-	max-width: 260px;
-"
-							to="/auth/signup"
-						>
-							Sign Up
-						</NuxtLink>
-					</div>
+					<NuxtLink
+						class="btn btn-lg btn-custom mx-auto w-100"
+						style="max-width: 400px;"
+						to="/auth/signin"
+					>
+						Log In
+					</NuxtLink>
+					<NuxtLink
+						class="btn btn-lg btn-custom mx-auto w-100"
+						style="max-width: 400px;"
+						to="/auth/signup"
+					>
+						Sign Up
+					</NuxtLink>
 				</div>
 			</template>
 		</transition>
@@ -148,6 +89,7 @@ export default defineComponent({
 	.white-btn-custom {
 		background-color: white;
 		color: #354da3;
+		font-size: 15px;
 		border: 2px solid #fff;
 		border-radius: 6px;
 	}
@@ -155,6 +97,7 @@ export default defineComponent({
 	.btn-custom {
 		background-color: #354da3;
 		color: #fff;
+		font-size: 15px;
 		border: 2px solid #fff;
 		font-weight: $font-weight-bold;
 		border-radius: 6px;
@@ -163,15 +106,14 @@ export default defineComponent({
 	.link-custom {
 		color: #fff;
 		font-weight: $font-weight-bold;
-		font-size: 16px;
+		font-size: 15px;
 	}
 
 	.menuBackground {
 		position: fixed;
 		height: 100%;
 		width: 100%;
-		background-color: #354da3;
-		align-items: center;
+		background-color: $main-background-color;
 	}
 
 	.smallScreenLink:hover {

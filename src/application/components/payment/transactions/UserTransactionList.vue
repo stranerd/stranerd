@@ -1,27 +1,23 @@
 <template>
-	<div>
-		<h2 class="fw-bold">
+	<div class="d-flex flex-column align-items-center justify-content-center gap-2">
+		<h4 class="headertext">
 			Transaction history
-		</h2>
-		<table class="table">
-			<thead class="bg-light-blue">
-				<tr class="py-1">
-					<th scope="col">
-						Date
-					</th>
-					<th scope="col">
-						Amount
-					</th>
-					<th scope="col">
-						Description
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-				<UserTransactionListCard v-for="transaction in transactions" :key="transaction.hash" :transaction="transaction" />
-			</tbody>
-		</table>
-		<div v-if="hasMore" class="text-center text-18">
+		</h4>
+		<div class="d-flex flex-column gap-0-5 w-100">
+			<div class="d-flex table-custom-style p-1 mb-0-25">
+				<div class="col-3">
+					<span>Date</span>
+				</div>
+				<div class="col-3 text-center">
+					<span>Amount</span>
+				</div>
+				<div class="col-6">
+					<span>Description</span>
+				</div>
+			</div>
+			<UserTransactionListCard v-for="transaction in transactions" :key="transaction.hash" :transaction="transaction" />
+		</div>
+		<div v-if="hasMore" class="text-center text-18 col-12">
 			<div class="thick my-0" />
 			<a class="fw-bold text-grey" @click.prevent="fetchOlderTransactions">LOAD MORE</a>
 		</div>
@@ -50,3 +46,20 @@ export default defineComponent({
 	}
 })
 </script>
+<style lang="scss" scoped>
+
+	.headertext {
+		font-weight: bold;
+		color: $color-text-main;
+		margin: 0;
+	}
+
+	.table-custom-style {
+		border: 1px solid $color-main;
+		border-radius: 7px;
+		background: $color-line;
+		font-weight: bold;
+		font-size: 15px;
+		color: $color-text-main;
+	}
+</style>

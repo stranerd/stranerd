@@ -1,8 +1,10 @@
 <template>
-	<section class="body bg-blue-grey w-100 d-flex justify-content-center align-items-center flex-wrap">
-		<div class="content bg-light-blue text-blue pt-4 pb-2 px-1 px-sm-4">
-			<Nuxt />
-		</div>
+	<section class="layout-body bg-white">
+		<main class="layout-main">
+			<HomeTopNavigation class="w-100 fixed-top" />
+			<div style="height: 60px;" />
+			<Nuxt class="flex-grow-1" />
+		</main>
 		<ModalBase />
 	</section>
 </template>

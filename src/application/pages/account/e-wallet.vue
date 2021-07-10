@@ -1,11 +1,7 @@
 <template>
-	<div>
-		<div class="page-content">
-			<UserCreditBalanceCard :user="user" />
-		</div>
-		<div class="page-content">
-			<UserTransactionList :user-id="id" />
-		</div>
+	<div class="d-flex flex-column gap-3">
+		<UserCreditBalanceCard :user="user" />
+		<UserTransactionList :user-id="id" />
 	</div>
 </template>
 

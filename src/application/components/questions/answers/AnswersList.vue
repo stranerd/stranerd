@@ -1,12 +1,15 @@
 <template>
-	<div>
-		<h2 class="fw-bold mb-0">
+	<div class="d-flex flex-column gap-1">
+		<h2 v-if="answers.length > 0" class="headerStyle">
 			Answers
 		</h2>
-		<div class="thick" />
 		<AnswerCard v-for="answer in answers" :key="answer.hash" :answer="answer" :question="question" />
-		<DisplayWarning v-if="!loading && !error && answers.length === 0" message="This question doesn't have any answers yet." />
-		<DisplayError :error="error" />
+		<div v-if="!loading && !error && answers.length === 0" class="bg-light-grey rounded-3 p-1-5 text-center">
+			{{ question.userName }} needs your help!<br>Answer the question and earn some bronze coins.
+		</div>
+		<span>
+			<DisplayError :error="error" />
+		</span>
 		<PageLoading v-if="loading" />
 	</div>
 </template>
@@ -18,9 +21,7 @@ import AnswerCard from '@app/components/questions/answers/AnswersListCard.vue'
 import { QuestionEntity } from '@modules/questions'
 export default defineComponent({
 	name: 'AnswersList',
-	components: {
-		AnswerCard
-	},
+	components: { AnswerCard },
 	props: {
 		question: {
 			required: true,
@@ -37,3 +38,11 @@ export default defineComponent({
 	}
 })
 </script>
+<style lang="scss" scoped>
+	.headerStyle {
+		font-weight: bold;
+		text-transform: none;
+		color: $color-text-main;
+		margin-bottom: 0;
+	}
+</style>

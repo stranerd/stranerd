@@ -1,22 +1,17 @@
 <template>
-	<div>
-		<div class="d-flex justify-content-between align-items-center mb-1-5">
-			<h3 class="mb-0">
-				Current Balance
-			</h3>
-			<button class="btn btn-blue rounded-pill btn-sm" @click="openBuyCoins">
-				Buy coins
-			</button>
-		</div>
-		<div class="bg-light-grey d-flex flex-column flex-xsm-row px-4 py-3 justify-content-around" style="border-radius: 1.25rem;">
-			<span class="d-flex align-items-baseline">
-				<span class="fw-bold display-3">{{ formatNumber(user.account.coins.bronze) }}</span>
-				<Coins :size="40" />
-			</span>
-			<span class="d-flex align-items-baseline">
-				<span class="fw-bold display-3">{{ formatNumber(user.account.coins.gold) }}</span>
-				<Coins :gold="true" :size="40" />
-			</span>
+	<div class="d-flex flex-column gap-2 align-items-center justify-content-center">
+		<h4 class="headertext mb-0">
+			Available Balance
+		</h4>
+		<div class="p-3 boxStyle d-flex flex-row col-10 align-content-center justify-content-center">
+			<div class="d-flex col-6 gap-2 align-items-center justify-content-center border-end border-light-grey">
+				<Coins :size="45" style="z-index: 1;" />
+				<span class="largeText">{{ formatNumber(user.account.coins.bronze) }}</span>
+			</div>
+			<div class="d-flex col-6 gap-2 align-items-center justify-content-center">
+				<span class="largeText">{{ formatNumber(user.account.coins.gold) }}</span>
+				<Coins :gold="true" :size="45" style="z-index: 1;" />
+			</div>
 		</div>
 	</div>
 </template>
@@ -39,3 +34,20 @@ export default defineComponent({
 	}
 })
 </script>
+<style lang="scss" scoped>
+	.boxStyle {
+		border: 1px solid #c5c5c5;
+		border-radius: 6px;
+	}
+
+	.largeText {
+		font-weight: bold;
+		color: $color-text-main;
+		font-size: 29px;
+	}
+
+	.headertext {
+		font-weight: bold;
+		color: $color-text-main;
+	}
+</style>

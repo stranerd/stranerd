@@ -5,7 +5,7 @@
 			<section class="layout-side-left">
 				<AdminSidebar />
 			</section>
-			<main class="layout-main">
+			<main class="layout-main flex-grow-1">
 				<Nuxt class="layout-content" />
 			</main>
 			<ModalBase />
@@ -31,9 +31,3 @@ export default defineComponent({
 	}
 })
 </script>
-
-<style lang="scss" scoped>
-	.layout-main {
-		@media (min-width: $lg) { width: 100% - 16.25%; }
-	}
-</style>

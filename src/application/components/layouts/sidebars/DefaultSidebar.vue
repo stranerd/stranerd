@@ -13,7 +13,7 @@
 
 			<NuxtLink class="sidebar-link" to="/account/e-wallet">
 				<img src="@app/assets/images/icons/e-wallet.svg" alt="">
-				<span>e-Wallet</span>
+				<span>E-Wallet</span>
 			</NuxtLink>
 
 			<NuxtLink v-if="isAdmin" class="sidebar-link" to="/admin/">

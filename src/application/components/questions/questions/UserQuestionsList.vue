@@ -1,18 +1,37 @@
 <template>
 	<div>
-		<h3 class="mb-0">
-			Questions
-		</h3>
-		<div class="thick" />
-		<div v-for="question in questions" :key="question.hash">
-			<QuestionCard :question="question" />
-			<div class="thick" />
+		<div class="mb-1 d-flex flex-row" style="justify-content:center;align-items:center;">
+			<div style="margin-right:4px;">
+				<button class="btn btn btn-lg btn-custom-outlined ">
+					Unanswered <img src="@app/assets/images/icons/down-arrow.svg" style="margin-left:3px;" alt="">
+				</button>
+			</div>
+			<div>
+				<button class="btn btn btn-lg btn-custom-outlined ">
+					Subject <img src="@app/assets/images/icons/down-arrow.svg" style="margin-left:3px;" alt="">
+				</button>
+			</div>
+		</div>
+		<div class="mb-1">
+			<QuestionCard />
+		</div>
+		<div class="mb-1">
+			<QuestionCard />
+		</div>
+		<div class="mb-1">
+			<QuestionCard />
+		</div>
+		<div class="mb-1">
+			<QuestionCard />
+		</div>
+		<div class="mb-1">
+			<QuestionCard />
 		</div>
 		<div v-if="hasMore" class="text-center py-0-5 text-18">
 			<a class="fw-bold" @click.prevent="fetchOlderQuestions">LOAD MORE</a>
 		</div>
-		<DisplayWarning v-if="!loading && !error && questions.length === 0" message="This user has not asked any questions yet." />
-		<DisplayError :error="error" />
+		<!-- <DisplayWarning v-if="!loading && !error && questions.length === 0" message="This user has not asked any questions yet." /> -->
+		<!-- <DisplayError :error="error" /> -->
 		<PageLoading v-if="loading" />
 	</div>
 </template>
@@ -42,3 +61,14 @@ export default defineComponent({
 	}
 })
 </script>
+<style lang="scss" scoped>
+.btn-custom-outlined {
+	 background-color: $color-tags;
+		border-radius: 6px;
+		border: 1px solid $color-line;
+		font-size: 15px;
+		color: $color-text-sub;
+		width: 100%;
+		font-weight: bold;
+	}
+</style>

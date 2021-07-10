@@ -1,18 +1,37 @@
 <template>
 	<div>
-		<h3 class="mb-0">
-			Answers
-		</h3>
-		<div class="thick" />
-		<div v-for="answer in answers" :key="answer.hash">
+		<div class="mb-1">
 			<AnswerCard :answer="answer" />
-			<div class="thick" />
+		</div>
+		<div class="mb-1">
+			<AnswerCard :answer="answer" />
+		</div>
+		<div class="mb-1">
+			<AnswerCard :answer="answer" />
+		</div>
+		<div class="mb-1">
+			<AnswerCard :answer="answer" />
+		</div>
+		<div class="mb-1">
+			<AnswerCard :answer="answer" />
+		</div>
+		<div class="mb-1">
+			<AnswerCard :answer="answer" />
+		</div>
+		<div class="mb-1">
+			<AnswerCard :answer="answer" />
+		</div>
+		<div class="mb-1">
+			<AnswerCard :answer="answer" />
+		</div>
+		<div class="mb-1">
+			<AnswerCard :answer="answer" />
 		</div>
 		<div v-if="hasMore" class="text-center py-0-5 text-18">
 			<a class="fw-bold" @click.prevent="fetchOlderAnswers">LOAD MORE</a>
 		</div>
-		<DisplayWarning v-if="!loading && !error && answers.length === 0" message="This user has not answered any questions yet." />
-		<DisplayError :error="error" />
+		<!-- <DisplayWarning v-if="!loading && !error && answers.length === 0" message="This user has not answered any questions yet." />
+		<DisplayError :error="error" /> -->
 		<PageLoading v-if="loading" />
 	</div>
 </template>

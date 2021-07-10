@@ -1,5 +1,15 @@
 <template>
-	<div :id="answer.id">
+	<div class=" d-flex flex-row pt-1 pb-1 wrapper" style="align-items:center;">
+		<div class="answer-body">
+			<span>The answer is 16m/s.</span>
+		</div>
+		<div class="d-flex align-items-center justify-content-between" style="margin-left:auto;">
+			<div class="d-flex align-items-center">
+				<i class="fas fa-check-circle" style="color:#00F332;font-size:24px;" />
+			</div>
+		</div>
+	</div>
+	<!-- <div :id="answer.id">
 		<NuxtLink class="text-18 d-block mb-0-5" :to="`/questions/${answer.questionId}#${answer.id}`">
 			{{ answer.trimmedBody }}
 		</NuxtLink>
@@ -18,15 +28,15 @@
 				<i class="fas fa-check" />
 			</span>
 		</div>
-	</div>
+	</div> -->
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { AnswerEntity } from '@modules/questions'
-import { useSubject } from '@app/hooks/questions/subjects'
-import { formatNumber } from '@utils/commons'
-import { formatTime } from '@utils/dates'
+// import { useSubject } from '@app/hooks/questions/subjects'
+// import { formatNumber } from '@utils/commons'
+// import { formatTime } from '@utils/dates'
 export default defineComponent({
 	name: 'UserAnswerListCard',
 	props: {
@@ -34,10 +44,21 @@ export default defineComponent({
 			required: true,
 			type: Object as PropType<AnswerEntity>
 		}
-	},
-	setup (props) {
-		const { subject } = useSubject(props.answer.subjectId)
-		return { subject, formatTime, formatNumber }
 	}
+	// setup (props) {
+	// 	const { subject } = useSubject(props.answer.subjectId)
+	// 	return { subject, formatTime, formatNumber }
+	// }
 })
 </script>
+<style lang="scss" scoped>
+	.answer-body {
+		span {
+			margin: 32px 0;
+			font-size: 16px;
+		}
+	}
+	.wrapper {
+		border-bottom: 1px solid $color-line;
+	}
+</style>

@@ -56,13 +56,13 @@ export default defineComponent({
 	.ranking-header {
 		text-align: center;
 		font-size: 20px;
-		color: $color-text-main;
+		color: $color-dark;
 	}
 
 	.stat {
 		width: 350px;
 		font-size: 14px;
 		font-weight: 600;
-		color: $color-text-sub;
+		color: $color-sub;
 	}
 </style>

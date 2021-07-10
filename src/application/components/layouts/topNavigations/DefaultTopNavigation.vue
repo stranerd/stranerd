@@ -1,6 +1,6 @@
 <template>
 	<nav class="default-top-nav gap-1-5 gap-lg-3" role="navigation">
-		<NuxtLink to="/dashboard">
+		<NuxtLink to="/">
 			<Logo :secondary="true" class="nav-logo" />
 		</NuxtLink>
 

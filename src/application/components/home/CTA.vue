@@ -1,7 +1,7 @@
 <template>
 	<div class="cta gap-2">
 		<div class="cta-info d-flex flex-column align-items-center align-items-lg-start gap-1">
-			<h1 class="headerStyle main-background-text mb-0">
+			<h1 class="headerStyle text-primary-dark mb-0">
 				Get quick help for homework and study problems
 			</h1>
 			<span class="paragraphStyle">
@@ -52,8 +52,9 @@ export default defineComponent({
 		}
 
 		& > * {
+			flex-grow: 1;
 			max-width: 90%;
-			@media (min-width: $lg) {
+			@media (min-width: $md) {
 				max-width: 80%;
 			}
 			@media (min-width: $lg) {
@@ -63,20 +64,19 @@ export default defineComponent({
 	}
 
 	.paragraphStyle {
-		font-size: 17px;
+		font-size: 16px;
+		@media (min-width: $md) { font-size: 20px; }
+		@media (min-width: $lg) { font-size: 24px; }
+		@media (min-width: $xxl) { font-size: 28px; }
 	}
 
 	.headerStyle {
 		font-weight: bold;
 		text-transform: none;
-	}
-
-	.main-background {
-		background: $color-primary-dark;
-	}
-
-	.main-background-text {
-		color: $color-primary-dark;
+		font-size: 22px;
+		@media (min-width: $md) { font-size: 42px; }
+		@media (min-width: $lg) { font-size: 48px; }
+		@media (min-width: $xl) { font-size: 56px; }
 	}
 
 	.btn-custom {

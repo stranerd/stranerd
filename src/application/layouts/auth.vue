@@ -18,3 +18,11 @@ export default defineComponent({
 	components: { HomeTopNavigation }
 })
 </script>
+
+<style lang="scss" scoped>
+	.layout-body {
+		max-width: 1440px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+</style>

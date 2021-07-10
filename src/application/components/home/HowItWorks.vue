@@ -111,7 +111,7 @@ export default defineComponent({
 				margin: 0;
 				font-weight: bold;
 				font-size: 20px;
-				@media (min-width: $md) { font-size: 35px; }
+				@media (min-width: $md) { font-size: 32px; }
 				@media (min-width: $lg) { font-size: 40px; }
 			}
 
@@ -128,7 +128,7 @@ export default defineComponent({
 
 				span {
 					font-size: 16px;
-					@media (min-width: $md) { font-size: 25px; }
+					@media (min-width: $md) { font-size: 21px; }
 					@media (min-width: $lg) { font-size: 26px; }
 				}
 			}

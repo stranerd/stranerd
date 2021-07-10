@@ -77,7 +77,7 @@
 			<button class="btn btn-danger me-0-5" @click="cancel">
 				Cancel
 			</button>
-			<button class="btn btn-blue" type="submit" :disabled="loading || !factory.valid">
+			<button class="btn btn-dark" type="submit" :disabled="loading || !factory.valid">
 				Save Profile
 			</button>
 		</div>

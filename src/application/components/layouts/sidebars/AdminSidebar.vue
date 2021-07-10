@@ -1,5 +1,5 @@
 <template>
-	<aside class="sidebar-body gap-1">
+	<aside class="d-flex flex-column gap-2">
 		<div class="sidebar-links">
 			<NuxtLink class="sidebar-link" to="/dashboard">
 				<img src="@app/assets/images/icons/dashboard.svg" alt="">

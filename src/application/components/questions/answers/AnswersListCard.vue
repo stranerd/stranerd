@@ -1,26 +1,27 @@
 <template>
 	<div :id="answer.id" class="answer">
-		<div class="border-bottom-light-grey answer-content d-flex align-items-center gap-0-5">
+		<div class="border-bottom-line answer-content d-flex align-items-center gap-0-5">
 			<NuxtLink :to="`/users/${answer.userId}`">
 				<Avatar :src="answer.avatar" :size="50" />
 			</NuxtLink>
-			<NuxtLink :to="`/users/${answer.userId}`" class="d-block text-blue text-wrap">
+			<NuxtLink :to="`/users/${answer.userId}`" class="d-block text-dark text-wrap">
 				<span>{{ answer.userName }}</span>
 			</NuxtLink>
 			<ShowRatings class="ms-auto" :rating="answer.averageRating" />
 		</div>
 		<div class="answer-content d-flex flex-column gap-1">
-			<span class="lead text-blue">{{ answer.title }}</span>
+			<span class="lead text-dark">{{ answer.title }}</span>
 			<div class="d-flex gap-1 align-items-center">
 				<span class="d-flex align-items-center gap-0-25" @click="showExplanation = !showExplanation">
 					<span class="fw-bold">Explanation</span>
-					<i class="fas fa-caret-down" :class="showExplanation ? 'fa-caret-up' : 'fa-caret-down'" />
+					<i class="fas" :class="showExplanation ? 'fa-angle-up' : 'fa-angle-down'" />
 				</span>
 				<div class="d-flex flex-row ms-auto gap-2 fw-bold">
 					<a v-if="answer.commentsCount" class="d-flex align-items-center gap-0-25" @click.prevent="showComments = !showComments">
 						<span>{{ showComments ? 'Hide' : 'Show' }} Comments</span>
 						<i class="fas" :class="showComments ? 'fa-angle-up' : 'fa-angle-down'" />
 					</a>
+					<!-- TODO: add isBest indicator -->
 					<span v-if="isLoggedIn && question && !question.isAnswered && question.userId === id" class="d-flex align-items-center gap-0-25" @click.prevent="markBestAnswer">
 						<span>Mark as best</span>
 						<i class="fas fa-check-circle" />
@@ -37,7 +38,7 @@
 				</div>
 			</div>
 		</div>
-		<div v-if="showExplanation" class="answer-content bg-light-grey">
+		<div v-if="showExplanation" class="answer-content bg-line">
 			<div class="editor-body" v-html="answer.body" />
 		</div>
 		<div v-if="showComments && answer.commentsCount" class="answer-content">

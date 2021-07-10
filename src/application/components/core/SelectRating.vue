@@ -1,19 +1,19 @@
 <template>
 	<div class="d-inline-flex text-nowrap justify-content-center">
 		<a @click.prevent="setRating(1)">
-			<i class="fas fa-star" :class="rating > 0 ? 'text-gold' : 'text-grey'" />
+			<i class="fas fa-star" :class="rating > 0 ? 'text-gold' : 'text-sub'" />
 		</a>
 		<a @click.prevent="setRating(2)">
-			<i class="fas fa-star" :class="rating > 1 ? 'text-gold' : 'text-grey'" />
+			<i class="fas fa-star" :class="rating > 1 ? 'text-gold' : 'text-sub'" />
 		</a>
 		<a @click.prevent="setRating(3)">
-			<i class="fas fa-star" :class="rating > 2 ? 'text-gold' : 'text-grey'" />
+			<i class="fas fa-star" :class="rating > 2 ? 'text-gold' : 'text-sub'" />
 		</a>
 		<a @click.prevent="setRating(4)">
-			<i class="fas fa-star" :class="rating > 3 ? 'text-gold' : 'text-grey'" />
+			<i class="fas fa-star" :class="rating > 3 ? 'text-gold' : 'text-sub'" />
 		</a>
 		<a @click.prevent="setRating(5)">
-			<i class="fas fa-star" :class="rating > 4 ? 'text-gold' : 'text-grey'" />
+			<i class="fas fa-star" :class="rating > 4 ? 'text-gold' : 'text-sub'" />
 		</a>
 	</div>
 </template>

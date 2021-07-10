@@ -39,6 +39,6 @@ export default defineComponent({
 		border-radius: 7px;
 		background: $color-tags;
 		font-size: 15px;
-		color: $color-text-main;
+		color: $color-dark;
 	}
 </style>

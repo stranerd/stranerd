@@ -55,6 +55,13 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 			.catch((error) => { throw new Error(error?.response?.data?.error ?? 'Error sending password-reset email') })
 	}
 
+	async confirmPasswordReset (code: string, newPassword: string) {
+		try {
+			await auth.verifyPasswordResetCode(code)
+			await auth.confirmPasswordReset(code, newPassword)
+		} catch (error) { throw filterFirebaseError(error)	}
+	}
+
 	async updateProfile ({ bio, password }: UpdateUser) {
 		if (!auth.currentUser) throw new Error('You are not currently signed in.')
 		try {
@@ -118,6 +125,7 @@ const filterFirebaseError = (error: any) => {
 
 		case 'auth/requires-recent-login': return new Error('Current activity requires you to have logged in recently')
 		case 'auth/expired-action-code': return new Error('Link has expired')
+		case 'auth/invalid-action-code': return new Error('Invalid link')
 
 		default: return new Error(error.message)
 	}

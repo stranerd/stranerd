@@ -72,17 +72,17 @@ export default defineComponent({
 	}
 
 	.main-background {
-		background: $main-background-color;
+		background: $color-primary-dark;
 	}
 
 	.main-background-text {
-		color: $main-background-color;
+		color: $color-primary-dark;
 	}
 
 	.btn-custom {
-		background-color: $main-background-color;
-		color: #fff;
-		border: 2px solid $main-background-color;
+		background-color: $color-primary-dark;
+		color: $color-white;
+		border: 2px solid $color-primary-dark;
 		border-radius: 6px;
 		font-weight: bold;
 	}

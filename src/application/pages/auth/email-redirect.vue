@@ -27,7 +27,7 @@
 		<div class="mt-1 text-center">
 			<button
 				type="submit"
-				class="w-100 btn btn-blue py-1"
+				class="w-100 btn btn-dark py-1"
 				:disabled="loading || !factory.valid"
 			>
 				Continue

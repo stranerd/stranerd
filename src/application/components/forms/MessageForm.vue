@@ -1,10 +1,6 @@
 <template>
 	<form class="formStyle d-flex flex-column py-2 px-2" @submit.prevent="createMessage">
-		<div class="mb-1" style="border-bottom: 1px solid #c5c5c5;">
-			<h3 style="color: #000;">
-				Contact Us
-			</h3>
-		</div>
+		<h3>Contact Us</h3>
 
 		<div class="col-12 py-0 px-0 d-flex flex-row flex-wrap" style="align-items: center;">
 			<div class="col-lg-5 col-12 d-flex flex-column mb-1 mb-lg-0">
@@ -100,28 +96,33 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+	h3 {
+		margin-bottom: 1.5rem;
+		padding-bottom: 0.5rem;
+		border-bottom: 1px solid $color-line;
+	}
+
 	input, textarea {
-		border: 2px solid grey;
+		border: 2px solid $color-sub;
 		border-radius: 6px;
 		font-size: 14px;
-		color: grey;
+		color: $color-sub;
 	}
 
 	.formStyle {
-		border: 2px solid grey;
+		border: 2px solid $color-sub;
 		border-radius: 10px;
 	}
 
 	.formLabel {
 		font-size: 15px;
 		font-weight: bold;
-		color: black;
 	}
 
 	.btn-custom {
-		background-color: $main-background-color;
-		color: #fff;
-		border: 2px solid $main-background-color;
+		background-color: $color-primary-dark;
+		color: $color-white;
+		border: 2px solid $color-primary-dark;
 		border-radius: 6px;
 		font-size: 15px;
 		font-weight: bold;

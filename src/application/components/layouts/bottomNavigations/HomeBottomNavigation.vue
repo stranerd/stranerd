@@ -1,5 +1,5 @@
 <template>
-	<div class="col-12 py-0 px-0 pt-2 pb-1" style="background: #191c29;">
+	<div class="col-12 py-0 px-0 pt-2 pb-1 bg-footer-dark">
 		<div class="col-lg-10 offset-lg-1 col-12 d-flex flex-row flex-wrap py-3 px-0">
 			<div class="col-lg-6 col-12 d-flex flex-row py-2 px-0">
 				<div class="col-6 d-flex flex-row px-0" style="align-items: center; justify-content: center;">
@@ -96,7 +96,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-12 mt-2 d-flex flex-column" style="border-top: 1px solid #fff; align-items: center; justify-content: center;">
+			<div class="col-12 mt-2 d-flex flex-column class border-top border-white align-items-center justify-content-center">
 				<div class="py-1 d-flex flex-row">
 					<div class="px-1">
 						<NuxtLink class="linkText" to="/#">

@@ -2,7 +2,7 @@
 	<div>
 		<div class="page-content">
 			<div class="d-flex justify-content-end">
-				<button class="btn btn-lg btn-blue text-white" @click="openSubject">
+				<button class="btn btn-lg btn-dark text-white" @click="openSubject">
 					Add New Subject
 				</button>
 			</div>

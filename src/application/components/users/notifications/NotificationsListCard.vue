@@ -41,12 +41,12 @@ export default defineComponent({
 		padding: 1.5rem 0;
 
 		.main {
-			color: $color-text-main;
+			color: $color-dark;
 			font-size: 1.25rem;
 		}
 
 		.sub {
-			color: $color-text-sub;
+			color: $color-sub;
 			font-size: 1rem;
 		}
 	}

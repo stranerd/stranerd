@@ -8,7 +8,7 @@
 					<i class="fas fa-trash mx-1 text-danger" />
 				</a>
 			</div>
-			<button class="btn mx-0 px-1 btn-blue my-1" :disabled="!email">
+			<button class="btn mx-0 px-1 btn-dark my-1" :disabled="!email">
 				Find User
 			</button>
 		</form>

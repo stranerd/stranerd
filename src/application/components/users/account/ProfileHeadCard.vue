@@ -37,7 +37,7 @@ export default defineComponent({
 
 	h1 {
 		font-size: 24px;
-		color: $color-text-main;
+		color: $color-dark;
 	}
 
 	.w-100 {

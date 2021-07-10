@@ -20,7 +20,7 @@ $color-black: #111b25;
 $color-black-transparent: rgba($color-black, 0.75);
 
 $color-gold: #ffd700;
-$color-red: #dc3545;
+$color-red: #F30032;
 $color-green: #07b63e;
 
 $body-color: $color-text-main;
@@ -56,7 +56,9 @@ $theme-colors: (
 	'success': $color-green,
 	'sub': $color-text-sub,
 	'main': $color-text-main,
+	'main-blue': $color-main,
 	'line': $color-line,
+	'tags': $color-tags,
 	'info': #0dcaf0,
 	'warning': #ffc107,
 	'blue': $color-text-main,

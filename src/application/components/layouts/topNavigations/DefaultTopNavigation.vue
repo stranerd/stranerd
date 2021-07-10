@@ -17,20 +17,11 @@
 				</span>
 			</div>
 			<transition name="slide" appear>
-				<div v-if="showProfile">
+				<div v-if="show">
 					<div class="under" @click="show = false" />
 					<div class="drop-menu">
 						<span><img src="@app/assets/images/icons/user.svg" alt="">Profile</span>
-						<span><img src="@app/assets/images/icons/signout.svg" alt="">Log Out</span>
-					</div>
-				</div>
-			</transition>
-			<transition name="slide" appear>
-				<div v-if="showNotification">
-					<div class="under" @click="show = false" />
-					<div class="drop-menu">
-						<span><img src="@app/assets/images/icons/user.svg" alt="">Profile</span>
-						<span><img src="@app/assets/images/icons/signout.svg" alt="">Log Out</span>
+						<span @click="signout"><img src="@app/assets/images/icons/signout.svg" alt="">Log Out</span>
 					</div>
 				</div>
 			</transition>
@@ -48,9 +39,9 @@ export default defineComponent({
 	name: 'DefaultTopNavigation',
 	components: { SearchBar, NotificationBell, MessageLink },
 	setup () {
-		const { isLoggedIn, user } = useAuth()
+		const { isLoggedIn, user, signout } = useAuth()
 		const show = ref(false)
-		return { show, isLoggedIn, user }
+		return { show, isLoggedIn, user, signout }
 	}
 })
 </script>

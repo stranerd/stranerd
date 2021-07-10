@@ -1,106 +1,70 @@
 <template>
-	<div class="py-2 col-lg-8 offset-lg-2 col-md-10 offset-md-1 d-flex flex-column" style="margin-top: 21px;">
-		<div class="d-flex flex-row col-12 py-0 px-0">
-			<form class="col-md-6 col-12 px-1 d-flex flex-column" @submit.prevent="signup">
-				<div class="col-12">
-					<h1>
-						Sign Up
-					</h1>
-				</div>
-				<!-- TODO, factory for name and username -->
-				<div class="py-2">
-					<input
-						id="name"
-						v-model="factory.name"
-						type="text"
-						name="name"
-						required
-						placeholder="Name"
-						class="form-control py-1 px-1"
-						autocomplete="name"
-					>
-				</div>
-				<div class="pb-2">
-					<input
-						id="username"
-						v-model="factory.username"
-						type="text"
-						name="username"
-						required
-						placeholder="Username"
-						class="form-control py-1 px-1"
-						autocomplete="username"
-					>
-				</div>
-				<div class="pb-2">
-					<input
-						id="email"
-						v-model="factory.email"
-						type="email"
-						name="email"
-						required
-						placeholder="Email"
-						class="form-control py-1 px-1"
-						autocomplete="email"
-					>
-				</div>
-				<div class="pb-2">
-					<input
-						id="password"
-						v-model="factory.password"
-						type="password"
-						name="password"
-						required
-						placeholder="Password"
-						class="form-control py-1 px-1"
-						autocomplete="password"
-					>
-				</div>
-				<div class="pb-2">
-					<input
-						id="cPassword"
-						v-model="factory.cPassword"
-						type="password"
-						name="cPassword"
-						required
-						placeholder="Confirm Password"
-						class="form-control py-1 px-1"
-						autocomplete="password"
-					>
-				</div>
-				<div class="pb-2 text-center">
-					<button class="btn btn btn-lg btn-custom py-1 " style="width: 100%;" type="submit">
-						Sign Up
-					</button>
-				</div>
-				<div class="pb-2 d-flex flex-row" style="align-items: center;">
-					<div style="border-bottom: 1px solid #c5c5c5; height: 2px; width: 50%;" />
-					<div style="width: 175px; px-1">
-						<div>or sign up with</div>
-					</div>
-					<div style="border-bottom: 1px solid #c5c5c5; height: 2px; width: 50%;" />
-				</div>
-				<div class="pb-2 text-center">
-					<AuthProviders />
-				</div>
-				<div class="pb-2 d-flex flex-row" style="align-items: center; justify-content: center;">
-					<div>
-						Already have an accout?
-					</div>
-					<div style="text-decoration: underline; margin-left: 4px;" class="linkText">
-						<NuxtLink to="/auth/signin">
-							Sign in
-						</NuxtLink>
-					</div>
-				</div>
-				<div class="mb-2">
-					<DisplayError :error="error" />
-					<PageLoading v-if="loading" />
-				</div>
-			</form>
-			<div class="col-md-6 text-center py-0 px-2 d-md-block d-none">
-				<img src="@app/assets/images/auth/signupLogo.svg" style="width: 100%; height: 600px;">
+	<div class="py-md-1 px-0-5 px-md-3 px-lg-4 py-lg-1-5 d-flex flex-column flex-lg-row gap-2">
+		<form class="gap-2 d-flex flex-column w-100 flex-grow-1" @submit.prevent="signup">
+			<h1 class="mb-0">
+				Sign Up
+			</h1>
+			<!-- TODO, factory for name and username -->
+			<input
+				id="name"
+				v-model="factory.name"
+				type="text"
+				name="name"
+				required
+				placeholder="Name"
+				class="form-control"
+				autocomplete="name"
+			>
+			<input
+				id="email"
+				v-model="factory.email"
+				type="email"
+				name="email"
+				required
+				placeholder="Email"
+				class="form-control"
+				autocomplete="email"
+			>
+			<input
+				id="password"
+				v-model="factory.password"
+				type="password"
+				name="password"
+				required
+				placeholder="Password"
+				class="form-control"
+				autocomplete="password"
+			>
+			<input
+				id="cPassword"
+				v-model="factory.cPassword"
+				type="password"
+				name="cPassword"
+				required
+				placeholder="Confirm Password"
+				class="form-control"
+				autocomplete="password"
+			>
+			<button class="btn btn-lg btn-custom py-1 " type="submit">
+				Sign Up
+			</button>
+			<DisplayError error="error" />
+			<PageLoading v-if="loading" />
+			<div class="d-flex gap-1 align-items-center">
+				<div class="flex-grow-1" style="border-bottom: 1px solid #c5c5c5; height: 2px;" />
+				<span>or sign up with</span>
+				<div class="flex-grow-1" style="border-bottom: 1px solid #c5c5c5; height: 2px;" />
 			</div>
+			<AuthProviders />
+			<div class="d-flex align-items-center justify-content-center gap-0-25">
+				<span>Already have an accout?</span>
+				<NuxtLink class="linkText" to="/auth/signin">
+					Sign in
+				</NuxtLink>
+			</div>
+		</form>
+		<div class="text-center d-lg-block d-none w-100 flex-grow-1">
+			<img src="@app/assets/images/auth/signupLogo.svg" style="width: 100%;">
 		</div>
 	</div>
 </template>
@@ -132,8 +96,8 @@ export default defineComponent({
 	input {
 		border: 1px solid grey;
 		border-radius: 6px;
-		font-size: 16px;
 		color: grey;
+		padding: 1rem;
 	}
 
 	.btn-custom {
@@ -147,5 +111,7 @@ export default defineComponent({
 
 	.linkText {
 		color: $color-main-dark;
+		text-decoration: underline;
+		font-weight: bold;
 	}
 </style>

@@ -7,7 +7,7 @@
 					Sign Up
 				</NuxtLink>
 				<NuxtLink class="btn btn-lg btn-custom px-3" to="/auth/signin">
-					Log In
+					Sign In
 				</NuxtLink>
 				<NuxtLink class="link-custom px-1" to="/contact-us">
 					Contact
@@ -45,7 +45,7 @@
 						style="max-width: 400px;"
 						to="/auth/signin"
 					>
-						Log In
+						Sign In
 					</NuxtLink>
 					<NuxtLink
 						class="btn btn-lg btn-custom mx-auto w-100"

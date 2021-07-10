@@ -12,16 +12,16 @@ $color-dim-blue:  #214a73;
 $color-text-main-grey: #214a73;
 $color-light-grey: #e7eef4;
 $color-btn: #344ba3;
-$color-grey: #808080;
+$color-grey: $color-text-sub;
 $color-light-blue: #e2f0ff;
-$color-white: #fefefe;
 $color-text-main-white: #afc4d9;
+$color-white: $color-text-main-white;
 $faded-text: #606060;
 $color-footer-blue: #191c29;
 $color-black: #111b25;
 $color-black-transparent: rgba($color-black, 0.75);
 
-$color-gold: #ffd700;
+$color-gold: $color-ratings;
 $color-red: #dc3545;
 $color-green: #07b63e;
 

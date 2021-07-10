@@ -1,19 +1,14 @@
 <template>
 	<ModalRoot :close="closeModal" :close-on-background="closeOnBackground" background-class="modal-background" modal-class="modal-inner">
-		<div class="d-flex align-items-center justify-content-between my-1-5 px-1-5">
-			<slot name="pre-icon">
-				<i />
-			</slot>
-			<h3 class="my-0">
-				<slot name="title">
-					Header
-				</slot>
-			</h3>
-			<h4 class="my-0">
-				<a class="fas fa-times text-danger" @click.prevent="closeModal" />
-			</h4>
+		<div class="lead d-flex justify-content-end">
+			<a class="fas fa-times text-danger" @click.prevent="closeModal" />
 		</div>
-		<hr v-if="showSeparator" class="my-1-5">
+		<h3 class="my-1">
+			<slot name="title">
+				Title
+			</slot>
+		</h3>
+		<hr v-if="showSeparator">
 		<slot>
 			<p>This is the default content of the modal</p>
 		</slot>
@@ -40,7 +35,7 @@ export default defineComponent({
 		showSeparator: {
 			type: Boolean,
 			required: false,
-			default: false
+			default: true
 		},
 		closeOnBackground: {
 			type: Boolean,
@@ -65,7 +60,7 @@ export default defineComponent({
 
 	.modal-inner {
 		border-radius: 0.5rem;
-		background: $color-light-grey;
+		background: $color-white;
 		box-shadow: 0 4px 8px $color-black;
 		animation: slide-up 0.25s;
 	}

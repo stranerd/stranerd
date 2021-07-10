@@ -21,6 +21,7 @@
 						<span>{{ showComments ? 'Hide' : 'Show' }} Comments</span>
 						<i class="fas" :class="showComments ? 'fa-angle-up' : 'fa-angle-down'" />
 					</a>
+					<!-- TODO: add isBest indicator -->
 					<span v-if="isLoggedIn && question && !question.isAnswered && question.userId === id" class="d-flex align-items-center gap-0-25" @click.prevent="markBestAnswer">
 						<span>Mark as best</span>
 						<i class="fas fa-check-circle" />

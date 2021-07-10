@@ -1,5 +1,5 @@
 <template>
-	<form style="width: 100%;" class="formStyle d-flex flex-column py-2 px-2" @submit.prevent="createMessage">
+	<form class="formStyle d-flex flex-column py-2 px-2" @submit.prevent="createMessage">
 		<div class="mb-1" style="border-bottom: 1px solid #c5c5c5;">
 			<h3 style="color: #000;">
 				Contact Us
@@ -14,10 +14,10 @@
 				<div>
 					<input
 						id="first_name"
-						v-model="factory.first_name"
+						v-model="factory.fName"
 						class="form-control"
 						placeholder="John"
-						:class="{'is-invalid': factory.errors.name, 'is-valid': factory.isValid('name')}"
+						:class="{'is-invalid': factory.errors.fName, 'is-valid': factory.isValid('fName')}"
 					>
 				</div>
 			</div>
@@ -30,10 +30,10 @@
 					<div>
 						<input
 							id="last_name"
-							v-model="factory.last_name"
+							v-model="factory.lName"
 							class="form-control"
 							placeholder="Smith"
-							:class="{'is-invalid': factory.errors.name, 'is-valid': factory.isValid('name')}"
+							:class="{'is-invalid': factory.errors.lName, 'is-valid': factory.isValid('lName')}"
 						>
 					</div>
 				</div>
@@ -100,8 +100,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-	input,
-	textarea {
+	input, textarea {
 		border: 2px solid grey;
 		border-radius: 6px;
 		font-size: 14px;

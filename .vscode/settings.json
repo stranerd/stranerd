@@ -1,37 +1,15 @@
 {
   "editor.formatOnSave": true,
   "editor.autoIndent": "full",
-  "[vue]": {
-    "editor.formatOnSave": false
-  },
-  "[javascript]": {
-    "editor.formatOnSave": false
-  },
-  "[typescript]": {
-    "editor.formatOnSave": false
-  },
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll": false,
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
   },
   "eslint.alwaysShowStatus": true,
   "svg.preview.background": "transparent",
   "editor.insertSpaces": false,
   "editor.wrappingIndent": "indent",
-  "C_Cpp_Runner.cCompilerPath": "C:\\Program Files\\mingw-w64\\x86_64-8.1.0-posix-seh-rt_v6-rev0\\mingw64\\bin\\gcc.exe",
-  "C_Cpp_Runner.cppCompilerPath": "C:\\Program Files\\mingw-w64\\x86_64-8.1.0-posix-seh-rt_v6-rev0\\mingw64\\bin\\g++.exe",
-  "C_Cpp_Runner.debuggerPath": "C:\\Program Files\\mingw-w64\\x86_64-8.1.0-posix-seh-rt_v6-rev0\\mingw64\\bin\\gdb.exe",
-  "C_Cpp_Runner.makePath": "C:\\Program Files\\mingw-w64\\x86_64-8.1.0-posix-seh-rt_v6-rev0\\mingw64\\bin\\make.exe",
-  "C_Cpp_Runner.warnings": [
-    "-Wall",
-    "-Wextra",
-    "-Wpedantic"
-  ],
-  "C_Cpp_Runner.compilerArgs": [],
-  "C_Cpp_Runner.includePaths": [],
-  "C_Cpp_Runner.linkerArgs": [],
-  "C_Cpp_Runner.cStandard": "",
-  "C_Cpp_Runner.cppStandard": "",
-  "C_Cpp_Runner.excludeSearch": [],
-  "C_Cpp_Runner.enableWarnings": true,
-  "C_Cpp_Runner.warningsAsError": false
+  "editor.definitionLinkOpensInPeek": true,
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint"
 }

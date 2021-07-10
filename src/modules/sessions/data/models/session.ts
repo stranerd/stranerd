@@ -10,8 +10,8 @@ export interface SessionFromModel {
 	duration: number
 	accepted: boolean
 	price: number
-	cancelled: { tutor: boolean, student: boolean }
-	reviews?: {
+	cancelled: { tutor: boolean, student: boolean, busy: boolean }
+	reviews: {
 		student?: { rating: number, comment: string }
 		tutor?: { rating: number, comment: string }
 	}
@@ -29,9 +29,9 @@ export interface SessionToModel {
 	duration: number
 	price: number
 	accepted: boolean
-	reviews?: {
+	reviews: {
 		student?: { rating: number, comment: string }
 		tutor?: { rating: number, comment: string }
 	}
-	cancelled: { tutor: boolean, student: boolean }
+	cancelled: { tutor: boolean, student: boolean, busy: boolean }
 }

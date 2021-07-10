@@ -1,6 +1,6 @@
 import {
 	UserBio, UserRoles, UserAccount, UserStatus,
-	UserDates, UserTutor
+	UserDates, UserTutor, UserSession
 } from '../../domain/entities/user'
 
 export interface UserFromModel {
@@ -10,6 +10,7 @@ export interface UserFromModel {
 	account: UserAccount
 	status: UserStatus
 	tutor: UserTutor
+	session: UserSession
 	dates: UserDates
 }
 
@@ -18,6 +19,7 @@ export interface UserToModel {
 	roles: UserRoles
 	account: UserAccount
 	status: UserStatus
-	tutor?: UserTutor
+	tutor: UserTutor
+	session: UserSession
 	dates: UserDates
 }

@@ -1,22 +1,19 @@
-import { defineNuxtPlugin, onGlobalSetup, watch } from '@nuxtjs/composition-api'
+import { defineNuxtPlugin, onGlobalSetup } from '@nuxtjs/composition-api'
 import firebase from '@modules/core/services/initFirebase'
 import { useAuth } from '@app/hooks/auth/auth'
-import { setSession } from '@app/hooks/sessions/session'
+import { useRequestSessions, useLobbySessions, useCurrentSession } from '@app/hooks/sessions/session'
 
-export default defineNuxtPlugin(async ({ app }) => {
-	const router = app.router!
-
+export default defineNuxtPlugin(async () => {
 	await firebase.auth()
 		.setPersistence(firebase.auth.Auth.Persistence.NONE)
 		.catch(() => {})
 
-	const { id, currentSessionId, isLoggedIn, isVerified, signin } = useAuth()
+	const { isLoggedIn, isVerified, signin } = useAuth()
 	if (isLoggedIn.value && isVerified.value) await signin(true)
 
-	onGlobalSetup(async () => {
-		await setSession(id.value, currentSessionId.value, router)
-		watch(() => currentSessionId.value, async () => {
-			await setSession(id.value, currentSessionId.value, router)
-		})
+	onGlobalSetup(() => {
+		useCurrentSession().listener.startListener()
+		useRequestSessions().listener.startListener()
+		useLobbySessions().listener.startListener()
 	})
 })

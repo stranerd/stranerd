@@ -23,9 +23,9 @@ $color-black-transparent: rgba($color-black, 0.75);
 
 $color-gold: #ffd700;
 $color-red: #dc3545;
-$color-green: #06f352;
+$color-green: #07b63e;
 
-$body-color: $color-text-main-grey;
+$body-color: $color-text-main;
 $min-contrast-ratio: 4.5;
 $color-contrast-dark: $color-text-main;
 $color-contrast-light: $color-white;
@@ -48,6 +48,10 @@ $grid-breakpoints: (
 	xl: $xl
 );
 
+$font-weight-regular: 400;
+$font-weight-medium: 600;
+$font-weight-bold: 700;
+
 $theme-colors: (
 	'gold': $color-gold,
 	'danger': $color-red,
@@ -55,10 +59,11 @@ $theme-colors: (
 	'info': #0dcaf0,
 	'warning': #ffc107,
 	'blue': $color-text-main,
+	'primary-blue': $color-main,
 	'light-blue': $color-light-blue,
 	'blue-grey': $color-text-main-grey,
-	'light-grey': $color-light-grey,
-	'grey': $color-grey,
+	'light-grey': $color-line,
+	'grey': $color-text-sub,
 	'black': $color-black,
 	'white': $color-white
 );

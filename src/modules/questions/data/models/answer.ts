@@ -3,6 +3,7 @@ import { Timestamp } from '@modules/core/data/models/base'
 
 export interface AnswerFromModel {
 	id: string
+	title: string
 	body: string
 	best?: boolean
 	coins: number
@@ -21,6 +22,7 @@ export interface AnswerFromModel {
 }
 
 export interface AnswerToModel {
+	title: string
 	body: string
 	coins: number
 	tags: string[]

@@ -1,11 +1,11 @@
 <template>
 	<div>
 		<TopNavigation :open-menu="openSidebar" />
-		<section class="layout-body mb-0">
+		<section class="layout-body">
 			<section class="layout-side-left">
 				<Sidebar />
 			</section>
-			<main class="layout-main flex-grow-0 flex-lg-grow-1">
+			<main class="layout-main">
 				<Nuxt class="layout-content" />
 			</main>
 			<section class="layout-side-right">

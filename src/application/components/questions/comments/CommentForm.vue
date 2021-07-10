@@ -1,7 +1,7 @@
 <template>
 	<form @submit.prevent="submitComment">
-		<div class="form-group my-0-5">
-			<div class="d-flex align-items-center">
+		<div class="form-group">
+			<div class="d-flex align-items-center gap-1">
 				<Avatar :src="isLoggedIn ? user.avatar : Avatars.default.link" :size="35" />
 				<input
 					v-model="factory.body"
@@ -9,6 +9,9 @@
 					placeholder="Add a comment..."
 					:class="{'is-invalid': factory.errors.body, 'is-valid': factory.isValid('body') }"
 				>
+				<button type="submit" class="btn custom-btn ms-auto">
+					send
+				</button>
 			</div>
 			<small v-if="factory.errors.body" class="small text-danger d-block">{{ factory.errors.body }}</small>
 		</div>
@@ -57,8 +60,15 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 	.form-control {
-		font-size: 1rem;
+		font-size: 0.9rem;
 		border: none !important;
 		box-shadow: none !important;
+	}
+
+	.custom-btn {
+		border: 1px solid  $color-line;
+		color: $color-main;
+		border-radius: 5px;
+		padding: 0.5rem 1.5rem;
 	}
 </style>

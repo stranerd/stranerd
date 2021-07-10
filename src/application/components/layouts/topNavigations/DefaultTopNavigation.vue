@@ -1,15 +1,15 @@
 <template>
-	<nav class="home-top-nav gap-1" role="navigation">
+	<nav class="default-top-nav gap-1-5 gap-lg-3" role="navigation">
 		<NuxtLink to="/dashboard">
 			<Logo :secondary="true" class="nav-logo" />
 		</NuxtLink>
 
 		<SearchBar class="middle-body" />
-		<div class="right-body gap-0-75 gap-lg-1-5">
+		<div class="right-body gap-1-5 gap-lg-3">
 			<MessageLink :key="'messages' + isLoggedIn" class="link" />
 			<NotificationBell :key="'notifications' + isLoggedIn" class="link" />
 
-			<div v-if="isLoggedIn" class="d-flex gap-0-25 gap-lg-0-5 align-items-center cursor-pointer" @click="show = !show">
+			<div v-if="isLoggedIn" class="d-flex gap-0-25 gap-lg-1 align-items-center cursor-pointer" @click="show = !show">
 				<Avatar :src="user.avatar" :size="48" />
 				<span class="d-flex gap-0-25 align-items-center">
 					<span class="username text-truncate">{{ user.fullName }}</span>
@@ -62,7 +62,7 @@ export default defineComponent({
 		}
 	}
 
-	.home-top-nav {
+	.default-top-nav {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -70,9 +70,7 @@ export default defineComponent({
 		min-height: 60px;
 		padding: 1rem;
 		border-bottom: 6px solid $color-main;
-
 		@media (min-width: $md) { padding: 1rem 2rem; }
-
 		@media (min-width: $lg) { padding: 1rem 4rem; }
 
 		background: #fff 0 0 no-repeat padding-box;
@@ -87,7 +85,7 @@ export default defineComponent({
 
 	.middle-body {
 		flex-grow: 1;
-		max-width: 60%;
+		max-width: 50%;
 	}
 
 	.right-body {
@@ -124,30 +122,13 @@ export default defineComponent({
 		}
 	}
 
-	.link {
-		display: flex;
-		align-items: center;
-		margin-right: 72px;
-
-		& > img,
-		& >>> img,
-		& >>> span > img {
-			width: 24px;
-			height: 24px;
-		}
-	}
-
 	.username {
 		font-size: 18px;
 		font-weight: 600;
 		color: $color-text-main !important;
 	}
 
-	.slide-enter-active,
-	.slide-leave-active { transition: 0.5s; }
+	.slide-enter-active, .slide-leave-active { transition: 0.5s; }
 
-	.slide-enter,
-	.slide-leave-to {
-		transform: translateY(-170px);
-	}
+	.slide-enter, .slide-leave-to { transform: translateY(-170px); }
 </style>

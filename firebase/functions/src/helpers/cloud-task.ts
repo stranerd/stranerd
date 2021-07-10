@@ -31,7 +31,7 @@ export const createTask = async (args: TaskArgs) => {
 		}
 	})
 
-	return response.name
+	return response.name as string
 }
 
 export const deleteTask = async (name: string) => {

@@ -1,19 +1,21 @@
 <template>
-	<section class="layout-body">
-		<section class="layout-side-left">
-			<Sidebar />
+	<section>
+		<TopNavigation :open-menu="openSidebar" />
+		<section class="layout-body">
+			<section class="layout-side-left">
+				<Sidebar />
+			</section>
+			<main class="layout-main">
+				<Nuxt class="layout-content" />
+			</main>
+			<ModalBase />
 		</section>
-		<main class="layout-main">
-			<TopNavigation :open-menu="openSidebar" />
-			<Nuxt class="layout-content" />
-		</main>
-		<ModalBase />
 	</section>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import TopNavigation from '@app/components/layouts/topNavigations/TopNavigation.vue'
+import TopNavigation from '@app/components/layouts/topNavigations/DefaultTopNavigation.vue'
 import Sidebar from '@app/components/layouts/sidebars/DefaultSidebar.vue'
 import { useMenuModal } from '@app/hooks/core/modals'
 export default defineComponent({

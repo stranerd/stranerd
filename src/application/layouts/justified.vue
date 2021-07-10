@@ -1,11 +1,11 @@
 <template>
 	<div>
 		<TopNavigation :open-menu="openSidebar" />
-		<section class="layout-body mb-0">
-			<main class="layout-main flex-grow-0 ">
-				<Nuxt class="ranking-layout-content" />
+		<section class="layout-body">
+			<main class="layout-main">
+				<Nuxt class="layout-content" />
 			</main>
-			<section class="layout-side-right">
+			<section class="layout-side-right ms-2">
 				<RightSidebar />
 			</section>
 			<ModalBase />
@@ -27,3 +27,11 @@ export default defineComponent({
 	}
 })
 </script>
+
+<style lang="scss" scoped>
+	.layout-body {
+		max-width: 1440px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+</style>

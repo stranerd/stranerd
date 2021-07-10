@@ -4,42 +4,42 @@
 			<div class="page-card">
 				<div>
 					<span class="card-title">Questions</span>
-					<span class="card-sub">{{ formatNumber(user.account.meta.questions.length) }}</span>
+					<span class="card-sub">{{ formatNumber(user.meta.questions.length) }}</span>
 				</div>
 				<img src="@app/assets/images/icons/profile-question.svg" alt="">
 			</div>
 			<div class="page-card">
 				<div>
 					<span class="card-title">Answered</span>
-					<span class="card-sub">{{ formatNumber(user.account.meta.bestAnsweredQuestions.length) }}</span>
+					<span class="card-sub">{{ formatNumber(user.meta.solvedQuestions.length) }}</span>
 				</div>
 				<img src="@app/assets/images/icons/profile-best-answers.svg" alt="">
 			</div>
 			<div class="page-card">
 				<div>
 					<span class="card-title">Answers</span>
-					<span class="card-sub">{{ formatNumber(user.account.meta.answers.length) }}</span>
+					<span class="card-sub">{{ formatNumber(user.meta.answers.length) }}</span>
 				</div>
 				<img src="@app/assets/images/icons/profile-answers.svg" alt="">
 			</div>
 			<div class="page-card">
 				<div>
 					<span class="card-title">Best Answers</span>
-					<span class="card-sub">{{ formatNumber(user.account.meta.bestAnswers.length) }}</span>
+					<span class="card-sub">{{ formatNumber(user.meta.bestAnswers.length) }}</span>
 				</div>
 				<img src="@app/assets/images/icons/profile-best-answers.svg" alt="">
 			</div>
 			<div class="page-card">
 				<div>
 					<span class="card-title">Sessions Hosted</span>
-					<span class="card-sub">{{ formatNumber(user.account.meta.tutorSessions.length) }}</span>
+					<span class="card-sub">{{ formatNumber(user.meta.tutorSessions.length) }}</span>
 				</div>
 				<img src="@app/assets/images/icons/profile-sessions.svg" alt="">
 			</div>
 			<div class="page-card">
 				<div>
 					<span class="card-title">Sessions Requested</span>
-					<span class="card-sub">{{ formatNumber(user.account.meta.sessions.length) }}</span>
+					<span class="card-sub">{{ formatNumber(user.meta.sessions.length) }}</span>
 				</div>
 				<img src="@app/assets/images/icons/profile-sessions.svg" alt="">
 			</div>
@@ -72,19 +72,15 @@ export default defineComponent({
 		display: grid;
 		grid-template-columns: repeat(1, 1fr);
 		grid-gap: 0.5rem;
-
 		@media (min-width: $sm) {
 			grid-template-columns: repeat(2, 1fr);
 		}
-
 		@media (min-width: 1050px) {
 			grid-template-columns: repeat(4, 1fr);
 		}
-
 		@media (min-width: $lg) {
 			grid-template-columns: repeat(2, 1fr);
 		}
-
 		@media (min-width: 1682px) {
 			grid-template-columns: repeat(4, 1fr);
 		}
@@ -92,7 +88,6 @@ export default defineComponent({
 
 	.page-card {
 		margin-top: 0 !important;
-
 		@extend .page-content;
 
 		display: flex;

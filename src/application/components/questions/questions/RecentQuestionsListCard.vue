@@ -1,5 +1,5 @@
 <template>
-	<div :id="question.id">
+	<div :id="question.id" class="questionStyle">
 		<NuxtLink class="d-block" :to="`/questions/${question.id}`">
 			{{ question.trimmedBody }}
 		</NuxtLink>
@@ -23,3 +23,11 @@ export default defineComponent({
 	}
 })
 </script>
+
+<style lang="scss" scoped>
+	.questionStyle {
+		font-size: 16px;
+		color: $color-text-sub;
+		border-bottom: 1px solid $color-line;
+	}
+</style>

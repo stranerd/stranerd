@@ -16,7 +16,7 @@ export const markAnswerAsBest = async (questionId: string, answerId: string, que
 
 		await admin.database().ref('profiles')
 			.update({
-				[`${questionUserId}/account/meta/bestAnsweredQuestions/${questionId}`]: true,
+				[`${questionUserId}/account/meta/solvedQuestions/${questionId}`]: true,
 				[`${userId}/account/meta/bestAnswers/${answerId}`]: true
 			})
 		await addUserCoins(userId, { bronze: coins * 0.75, gold: 0 },

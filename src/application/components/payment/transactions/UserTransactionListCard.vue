@@ -1,12 +1,15 @@
 <template>
-	<div class="col-12 d-flex flex-row table-data-style my-1 px-1 py-1">
-		<div class="col-4 py-0 px-0">
+	<div class="d-flex table-data-style p-1">
+		<div class="col-3">
 			<span>{{ formatTime(transaction.createdAt) }}</span>
 		</div>
-		<div class="col-4 py-0 px-0">
-			<span>{{ transaction.isGain ? '+' : '-' }}{{ formatNumber(transaction.amount) }}</span>
+		<div class="col-3 d-flex align-items-center justify-content-center gap-0-25">
+			<Coins :size="24" :gold="transaction.isGold" />
+			<span :class="transaction.isGain ? 'text-success' : 'text-danger'">
+				{{ formatNumber(transaction.amount) }}
+			</span>
 		</div>
-		<div class="col-4 py-0 px-0">
+		<div class="col-6">
 			<span>{{ transaction.event }}</span>
 		</div>
 	</div>

@@ -31,9 +31,3 @@ export default defineComponent({
 	}
 })
 </script>
-
-<style lang="scss" scoped>
-	.layout-main {
-		@media (min-width: $lg) { width: 100% - 16.25%; }
-	}
-</style>

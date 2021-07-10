@@ -25,9 +25,3 @@ export default defineComponent({
 	middleware: 'isNotAuthenticated'
 })
 </script>
-
-<style lang="scss" scoped>
-	.layout-main {
-		@media (min-width: $lg) { width: 100%; }
-	}
-</style>

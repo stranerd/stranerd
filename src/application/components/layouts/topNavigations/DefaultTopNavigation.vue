@@ -11,17 +11,24 @@
 
 			<div v-if="isLoggedIn" class="d-flex gap-0-25 gap-lg-1 align-items-center cursor-pointer" @click="show = !show">
 				<Avatar :src="user.avatar" :size="48" />
-				<span class="d-flex gap-0-25 align-items-center">
+				<span class="d-flex gap-0-5 align-items-center">
 					<span class="username text-truncate">{{ user.fullName }}</span>
-					<img src="@app/assets/images/icons/down-arrow.svg" alt="">
+					<i class="fas" :class="show ? 'fa-angle-up' : 'fa-angle-down'" />
 				</span>
 			</div>
 			<transition name="slide" appear>
-				<div v-show="show">
+				<div v-if="show" class="menu-bg">
 					<div class="under" @click="show = false" />
-					<div class="drop-menu">
-						<span><img src="@app/assets/images/icons/user.svg" alt="">Profile</span>
-						<span><img src="@app/assets/images/icons/signout.svg" alt="">Log Out</span>
+					<div class="drop-menu gap-1-5">
+						<NuxtLink to="/account/">
+							<img src="@app/assets/images/icons/user.svg" alt="">
+							Profile
+						</NuxtLink>
+						<span @click="signout">
+							<img src="@app/assets/images/icons/signout.svg" alt="">
+							Log Out
+						</span>
+						<PageLoading v-if="loading" />
 					</div>
 				</div>
 			</transition>
@@ -32,27 +39,38 @@
 <script lang="ts">
 import SearchBar from '@app/components/search/SearchBar.vue'
 import NotificationBell from '@app/components/layouts/topNavigations/NotificationBell.vue'
+import MessageLink from '@app/components/layouts/topNavigations/MessageLink.vue'
 import { defineComponent, ref } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
-import MessageLink from './MessageLink.vue'
+import { useSessionSignout } from '@app/hooks/auth/session'
 export default defineComponent({
 	name: 'DefaultTopNavigation',
 	components: { SearchBar, NotificationBell, MessageLink },
 	setup () {
 		const { isLoggedIn, user } = useAuth()
 		const show = ref(false)
-		return { show, isLoggedIn, user }
+		const { loading, error, signout } = useSessionSignout()
+		return { show, isLoggedIn, user, loading, error, signout }
 	}
 })
 </script>
 
 <style lang="scss" scoped>
-	.under {
+	.menu-bg {
 		position: fixed;
 		width: 100vw;
 		height: vh(100);
 		left: 0;
 		top: 0;
+		z-index: 2;
+
+		.under {
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+		}
 	}
 
 	.nav-logo {
@@ -91,19 +109,15 @@ export default defineComponent({
 			right: 24px;
 			display: flex;
 			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			width: 172px;
+			width: auto;
+			min-width: 200px;
+			padding: 1.5rem;
 			background: $color-white 0% 0% no-repeat padding-box;
 			box-shadow: 0 10px 10px rgba($color-primary, 0.1);
 			border-radius: 6px;
-			z-index: 2;
 
 			span {
-				width: 160px;
-				padding: 10px;
 				display: flex;
-				justify-content: center;
 				color: $color-dark;
 				font-weight: 600;
 

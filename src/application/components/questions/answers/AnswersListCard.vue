@@ -14,7 +14,7 @@
 			<div class="d-flex gap-1 align-items-center">
 				<span class="d-flex align-items-center gap-0-25" @click="showExplanation = !showExplanation">
 					<span class="fw-bold">Explanation</span>
-					<i class="fas fa-caret-down" :class="showExplanation ? 'fa-caret-up' : 'fa-caret-down'" />
+					<i class="fas" :class="showExplanation ? 'fa-angle-up' : 'fa-angle-down'" />
 				</span>
 				<div class="d-flex flex-row ms-auto gap-2 fw-bold">
 					<a v-if="answer.commentsCount" class="d-flex align-items-center gap-0-25" @click.prevent="showComments = !showComments">

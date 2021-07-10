@@ -56,9 +56,9 @@ export default defineComponent({
 	}
 
 	input {
-		border: 1px solid grey;
+		border: 1px solid $color-sub;
 		border-radius: 6px;
-		color: grey;
+		color: $color-sub;
 		padding: 1rem;
 	}
 
@@ -72,7 +72,7 @@ export default defineComponent({
 	}
 
 	.linkText {
-		color: $color-main-dark;
+		color: $color-primary-dark;
 		text-decoration: underline;
 		font-weight: bold;
 	}

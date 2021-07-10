@@ -4,7 +4,7 @@
 			<h1>Find Top Nerds to have One-On-One Chat Sessions with, for help with your homework and study problems.</h1>
 			<div class="search-container mt-2 mb-4">
 				<SelectSubject subject-id.sync="" />
-				<button class="btn btn-primary-blue px-2 py-1">
+				<button class="btn btn-primary px-2 py-1">
 					Search
 				</button>
 			</div>
@@ -41,10 +41,9 @@ export default defineComponent({
 		border-radius: 12px;
 		box-shadow: -5px 5px 15px #374b9926;
 
-		select,
-		/deep/ select {
+		select, /deep/ select {
 			flex-grow: 1;
-			color: $color-text-sub;
+			color: $color-sub;
 			height: 64px;
 			border-radius: 12px 0 0 12px !important;
 			box-sizing: border-box;

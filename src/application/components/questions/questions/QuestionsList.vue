@@ -4,7 +4,7 @@
 			<h1 class="text-dark my-0">
 				Questions
 			</h1>
-			<NuxtLink class="btn btn-primary-blue px-2 py-1" to="/questions/create">
+			<NuxtLink class="btn btn-primary px-2 py-1" to="/questions/create">
 				Ask A Question
 			</NuxtLink>
 		</div>

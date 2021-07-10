@@ -19,7 +19,7 @@
 		</div>
 		<div v-if="hasMore" class="text-center text-18">
 			<div class="thick my-0" />
-			<a class="fw-bold text-grey" @click.prevent="fetchOlderTransactions">LOAD MORE</a>
+			<a class="fw-bold text-sub" @click.prevent="fetchOlderTransactions">LOAD MORE</a>
 		</div>
 		<DisplayWarning v-if="!loading && !error && transactions.length === 0" message="You haven't performed any transactions on this site yet" />
 		<DisplayError :error="error" />
@@ -55,7 +55,7 @@ export default defineComponent({
 	}
 
 	.table-custom-style {
-		border: 1px solid $color-main;
+		border: 1px solid $color-primary;
 		border-radius: 7px;
 		background: $color-line;
 		font-weight: bold;

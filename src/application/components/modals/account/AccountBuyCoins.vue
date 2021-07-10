@@ -16,7 +16,7 @@
 				<div v-for="option in BRONZE_PRICES" :key="option.amount" class="d-flex align-items-center gap-1" style="font-size: 1.5rem;">
 					<img :src="option.src" alt="" width="48">
 					<span>{{ option.amount }}</span>
-					<button class="btn ms-auto customStyle" :class="option.suggested ? 'btn-dark' : 'btn-primary-blue'" @click="buyCoins(option, false)">
+					<button class="btn ms-auto customStyle" :class="option.suggested ? 'btn-dark' : 'btn-primary'" @click="buyCoins(option, false)">
 						{{ getLocalCurrencySymbol() }}{{ getLocalAmount(option.price) }}
 					</button>
 				</div>
@@ -28,7 +28,7 @@
 				<div v-for="option in GOLD_PRICES" :key="option.amount" class="d-flex align-items-center gap-1" style="font-size: 1.5rem;">
 					<img :src="option.src" alt="" width="48">
 					<span>{{ option.amount }}</span>
-					<button class="btn ms-auto customStyle" :class="option.suggested ? 'btn-dark' : 'btn-primary-blue'" @click="buyCoins(option, true)">
+					<button class="btn ms-auto customStyle" :class="option.suggested ? 'btn-dark' : 'btn-primary'" @click="buyCoins(option, true)">
 						{{ getLocalCurrencySymbol() }}{{ getLocalAmount(option.price) }}
 					</button>
 				</div>

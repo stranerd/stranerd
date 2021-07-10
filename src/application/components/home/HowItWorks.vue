@@ -100,7 +100,7 @@ export default defineComponent({
 			border-radius: 13px;
 			box-shadow: 0 4px 14px #0000;
 			background: #fbfbfb 0% 0% no-repeat padding-box;
-			color: grey;
+			color: $color-sub;
 			padding: 1rem;
 			@media (min-width: $md) { padding: 2rem; }
 			@media (min-width: $lg) { padding: 3rem; }

@@ -49,6 +49,6 @@ export default defineComponent({
 		font-size: inherit;
 		color: inherit;
 		text-decoration: none;
-		background: $color-main-dark;
+		background: $color-primary-dark;
 	}
 </style>

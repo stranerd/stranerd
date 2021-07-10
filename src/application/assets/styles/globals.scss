@@ -1,14 +1,13 @@
 
 $color-dark: #132740;
-$color-text-sub: #4d5c6f;
-$color-main: #546dd3;
-$color-main-dark: #374b99;
+$color-sub: #4d5c6f;
+$color-primary: #546dd3;
+$color-primary-dark: #374b99;
 $color-line: #d7e2ec;
 $color-tags: #f8f8ff;
 $main-background-color: #354da3;
 $color-tint-blue:  #103e83;
 $color-dim-blue:  #214a73;
-$color-light-grey: #e7eef4;
 $color-btn: #344ba3;
 $color-white: $color-tags;
 $color-footer-blue: #191c29;
@@ -52,11 +51,11 @@ $theme-colors: (
 	'success': $color-green,
 	'info': #0dcaf0,
 	'warning': #ffc107,
-	'blue': $color-dark,
 	'dark': $color-dark,
-	'primary-blue': $color-main,
-	'light-grey': $color-line,
-	'grey': $color-text-sub,
+	'primary': $color-primary,
+	'primary-dark': $color-primary-dark,
+	'line': $color-line,
+	'sub': $color-sub,
 	'black': $color-black,
 	'white': $color-white
 );

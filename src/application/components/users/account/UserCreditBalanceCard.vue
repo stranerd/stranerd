@@ -4,7 +4,7 @@
 			Available Balance
 		</h4>
 		<div class="p-3 boxStyle d-flex flex-row col-10 align-content-center justify-content-center">
-			<div class="d-flex col-6 gap-2 align-items-center justify-content-center border-end border-light-grey">
+			<div class="d-flex col-6 gap-2 align-items-center justify-content-center border-end border-line">
 				<Coins :size="45" style="z-index: 1;" />
 				<span class="largeText">{{ formatNumber(user.account.coins.bronze) }}</span>
 			</div>

@@ -3,7 +3,7 @@
 		<div class="d-flex flex-column flex-lg-row align-items-center align-items-lg-start my-0-5 gap-0-5">
 			<div class="position-relative">
 				<Avatar :src="user.avatar" :size="75" />
-				<i class="fas fa-circle position-absolute border" style="right: 0; bottom: 8px;" :class="user.isOnline ? 'text-success' : 'text-grey'" />
+				<i class="fas fa-circle position-absolute border" style="right: 0; bottom: 8px;" :class="user.isOnline ? 'text-success' : 'text-sub'" />
 			</div>
 			<div class="align-items-center align-items-lg-start d-flex flex-column gap-0-5">
 				<span class="d-block text-18 fw-bold text-wrap">{{ user.fullName }}</span>

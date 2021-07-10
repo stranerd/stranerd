@@ -40,7 +40,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 	.progress {
 		width: 100%;
-		background: $color-text-sub;
+		background: $color-sub;
 		border-radius: 6px;
 		height: 24px;
 		font-size: 12px;
@@ -48,8 +48,8 @@ export default defineComponent({
 
 	.progress-bar {
 		border-radius: 0;
-		border-top: 1px solid $color-text-sub;
-		border-bottom: 1px solid $color-text-sub;
-		border-left: 1px solid $color-text-sub;
+		border-top: 1px solid $color-sub;
+		border-bottom: 1px solid $color-sub;
+		border-left: 1px solid $color-sub;
 	}
 </style>

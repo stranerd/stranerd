@@ -64,6 +64,6 @@ export default defineComponent({
 	.is-not-mine {
 		border-radius: 0 0.6rem 0.6rem 0.6rem;
 		background: #5d94cc;
-		color: $color-main-dark;
+		color: $color-primary-dark;
 	}
 </style>

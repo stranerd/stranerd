@@ -22,7 +22,7 @@
 			<AnswerEditor :model.sync="factory.body" :error="factory.errors.body" :valid="factory.isValid('body')" />
 		</div>
 
-		<button class="btn btn-primary-blue px-2 py-1 mt-2" type="submit" :disabled="loading || !factory.valid">
+		<button class="btn btn-primary px-2 py-1 mt-2" type="submit" :disabled="loading || !factory.valid">
 			<slot name="buttonText">
 				Submit
 			</slot>

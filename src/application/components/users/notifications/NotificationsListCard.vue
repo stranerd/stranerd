@@ -46,7 +46,7 @@ export default defineComponent({
 		}
 
 		.sub {
-			color: $color-text-sub;
+			color: $color-sub;
 			font-size: 1rem;
 		}
 	}

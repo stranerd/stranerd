@@ -69,7 +69,7 @@ export default defineComponent({
 		color: $color-dark;
 		min-height: 60px;
 		padding: 1rem;
-		border-bottom: 6px solid $color-main;
+		border-bottom: 6px solid $color-primary;
 		@media (min-width: $md) { padding: 1rem 2rem; }
 		@media (min-width: $lg) { padding: 1rem 4rem; }
 

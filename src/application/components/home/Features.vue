@@ -81,7 +81,7 @@ export default defineComponent({
 				text-align: center;
 
 				span {
-					color: grey;
+					color: $color-sub;
 					font-size: 15px;
 				}
 

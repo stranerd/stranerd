@@ -67,7 +67,7 @@ export default defineComponent({
 
 	.custom-btn {
 		border: 1px solid  $color-line;
-		color: $color-main;
+		color: $color-primary;
 		border-radius: 5px;
 		padding: 0.5rem 1.5rem;
 	}

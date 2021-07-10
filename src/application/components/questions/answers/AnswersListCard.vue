@@ -1,6 +1,6 @@
 <template>
 	<div :id="answer.id" class="answer">
-		<div class="border-bottom-light-grey answer-content d-flex align-items-center gap-0-5">
+		<div class="border-bottom-line answer-content d-flex align-items-center gap-0-5">
 			<NuxtLink :to="`/users/${answer.userId}`">
 				<Avatar :src="answer.avatar" :size="50" />
 			</NuxtLink>
@@ -38,7 +38,7 @@
 				</div>
 			</div>
 		</div>
-		<div v-if="showExplanation" class="answer-content bg-light-grey">
+		<div v-if="showExplanation" class="answer-content bg-line">
 			<div class="editor-body" v-html="answer.body" />
 		</div>
 		<div v-if="showComments && answer.commentsCount" class="answer-content">

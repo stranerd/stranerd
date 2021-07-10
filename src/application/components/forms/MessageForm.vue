@@ -101,14 +101,14 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 	input, textarea {
-		border: 2px solid grey;
+		border: 2px solid $color-sub;
 		border-radius: 6px;
 		font-size: 14px;
-		color: grey;
+		color: $color-sub;
 	}
 
 	.formStyle {
-		border: 2px solid grey;
+		border: 2px solid $color-sub;
 		border-radius: 10px;
 	}
 

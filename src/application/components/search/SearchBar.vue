@@ -41,7 +41,7 @@ export default defineComponent({
 		border: 1px solid $color-line;
 		background-color: $color-tags;
 		border-radius: 12px;
-		color: $color-text-sub;
+		color: $color-sub;
 
 		select {
 			width: auto;

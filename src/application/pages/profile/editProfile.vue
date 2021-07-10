@@ -78,46 +78,49 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-label{
-	width:42rem;
-	box-sizing: border-box;
-	border-radius:0.375rem;
-	border: 1px solid $color-line;
-	font-size: 1.125rem;
-	text-align: center;
-	height: 3rem;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-input{
-	width:42rem;
-	border-radius:0.375rem;
-	border: 1px solid $color-line;
-	font-size: 1.125rem;
-	outline:none;
-	height: 3rem;
-	padding-left: 24px !important;
-}
-textarea{
-	width:42rem;
-	border-radius:0.375rem;
-	border: 1px solid $color-line;
-	font-size: 1.125rem;
-	outline:none;
-	height: 7.5rem;
-	padding-left: 24px !important;
-}
-button{
-	height: 3.75rem;
-	width: 9.375rem;
-	display: grid;
-	place-items: center;
-	outline: none;
-	border-radius: 6px;
-	border: none;
-	font-size: 24px;
-	color: white;
-	margin: 0px 12px;
-}
+	label {
+		width: 42rem;
+		box-sizing: border-box;
+		border-radius: 0.375rem;
+		border: 1px solid $color-line;
+		font-size: 1.125rem;
+		text-align: center;
+		height: 3rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	input {
+		width: 42rem;
+		border-radius: 0.375rem;
+		border: 1px solid $color-line;
+		font-size: 1.125rem;
+		outline: none;
+		height: 3rem;
+		padding-left: 24px !important;
+	}
+
+	textarea {
+		width: 42rem;
+		border-radius: 0.375rem;
+		border: 1px solid $color-line;
+		font-size: 1.125rem;
+		outline: none;
+		height: 7.5rem;
+		padding-left: 24px !important;
+	}
+
+	button {
+		height: 3.75rem;
+		width: 9.375rem;
+		display: grid;
+		place-items: center;
+		outline: none;
+		border-radius: 6px;
+		border: none;
+		font-size: 24px;
+		color: white;
+		margin: 0 12px;
+	}
 </style>

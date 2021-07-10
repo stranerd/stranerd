@@ -10,6 +10,6 @@ import QuestionsList from '@app/components/questions/questions/QuestionsList.vue
 export default defineComponent({
 	name: 'DashboardPage',
 	components: { QuestionsList },
-	layout: 'dashboard'
+	layout: 'profile'
 })
 </script>

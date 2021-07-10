@@ -48,7 +48,7 @@
 			<button class="btn btn-lg btn-custom py-1 " type="submit">
 				Sign Up
 			</button>
-			<DisplayError error="error" />
+			<DisplayError :error="error" />
 			<PageLoading v-if="loading" />
 			<div class="d-flex gap-1 align-items-center">
 				<div class="flex-grow-1" style="border-bottom: 1px solid #c5c5c5; height: 2px;" />

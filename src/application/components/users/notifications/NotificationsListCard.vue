@@ -1,10 +1,10 @@
 <template>
-	<div class="d-flex flex-column gap-0-5">
+	<div class="notification gap-0-5">
 		<PageLoading v-if="loading" />
-		<a @click.prevent="click">
+		<span class="main cursor-pointer" @click.prevent="click">
 			<span :class="{'fw-bold': !notification.seen}">{{ notification.body }}</span>
-		</a>
-		<span class="small">{{ formatTime(notification.createdAt) }}</span>
+		</span>
+		<span class="sub">{{ formatTime(notification.createdAt) }}</span>
 	</div>
 </template>
 
@@ -32,3 +32,22 @@ export default defineComponent({
 	}
 })
 </script>
+
+<style lang="scss" scoped>
+	.notification {
+		display: flex;
+		flex-direction: column;
+		border-bottom: 1px solid $color-line;
+		padding: 1.5rem 0;
+
+		.main {
+			color: $color-text-main;
+			font-size: 1.25rem;
+		}
+
+		.sub {
+			color: $color-text-sub;
+			font-size: 1rem;
+		}
+	}
+</style>

@@ -2,19 +2,21 @@ import { BaseEntity } from '@modules/core/domains/entities/base'
 
 export class MessageEntity extends BaseEntity {
 	readonly id: string
-	readonly name: string
+	readonly fName: string
+	readonly lName: string
 	readonly email: string
 	readonly message: string
 	readonly createdAt: number
 
-	constructor ({ id, name, email, message, createdAt }: MessageConstructorArgs) {
+	constructor ({ id, fName, lName, email, message, createdAt }: MessageConstructorArgs) {
 		super()
 		this.id = id
-		this.name = name
+		this.fName = fName
+		this.lName = lName
 		this.email = email
 		this.message = message
 		this.createdAt = createdAt
 	}
 }
 
-type MessageConstructorArgs = { id: string, name: string, email: string, message: string, createdAt: number }
+type MessageConstructorArgs = { id: string, fName: string, lName: string, email: string, message: string, createdAt: number }

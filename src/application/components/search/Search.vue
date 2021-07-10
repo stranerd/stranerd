@@ -92,12 +92,19 @@ export default defineComponent({
 	.search-container {
 		display: flex;
 		align-items: center;
-		border: 1.2px solid $color-line;
-		background-color: $color-tags;
-		padding: 0.25em 0.5em 0.25em 1.5em;
-		border-radius: 12px;
-		color: $color-text-sub;
-		input { min-height: 2em; }
+
+		input {
+			color: inherit;
+			border: none;
+			outline: none;
+			box-shadow: none;
+			min-height: unset;
+		}
+
+		input:focus {
+			color: inherit;
+			box-shadow: none;
+		}
 	}
 
 	li {
@@ -114,7 +121,6 @@ export default defineComponent({
 		white-space: normal;
 		max-width: calc(100vw - 4rem);
 		box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
-
 		@media (max-width: 500px) {
 			right: 0.25rem;
 		}

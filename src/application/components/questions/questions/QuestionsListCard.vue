@@ -1,40 +1,59 @@
 <template>
-	<div :id="question.id" class="my-1">
-		<div class="d-flex align-items-center mb-0-5 gap-0-5">
-			<NuxtLink :to="`/users/${question.userId}`">
-				<Avatar :src="question.avatar" :size="50" />
-			</NuxtLink>
-			<div>
-				<NuxtLink :to="`/users/${question.userId}`" class="d-block text-wrap">
-					<span class="fw-bold">{{ question.userName }}</span>
+	<div class="d-flex flex-column p-1 gap-1 gap-lg-2">
+		<div class="question-head d-flex align-items-center gap-1">
+			<div class="d-flex align-items-center gap-0-5 me-auto">
+				<NuxtLink :to="`/users/${question.userId}`">
+					<Avatar :src="question.avatar" :size="36" />
 				</NuxtLink>
-				<span class="small text-wrap">
-					{{ subject ? subject.name : 'Subject' }}
-					|
-					{{ formatTime(question.createdAt) }}
-				</span>
+				<NuxtLink class="name" :to="`/users/${question.userId}`">
+					{{ question.userName }}
+				</NuxtLink>
+				<div class="dot" />
+				<span class="subject">{{ subject ? subject.name : 'Subject' }}</span>
 			</div>
-			<span class="ms-auto">
-				<img src="@app/assets/images/icons/answers.svg" alt="" style="width: 20px; height: 20px;">
-				<span>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</span>
-			</span>
-			<i v-if="question.isAnswered" class="fas fa-check text-success fa-2x ms-0-5" />
+			<img v-if="question.isAnswered" src="@app/assets/images/icons/profile-best-answers.svg" alt="" style="width: 2rem; height: 2rem;">
+			<div v-else-if="showAnswerButton" class="d-flex align-items-center gap-1">
+				<div class="coin d-flex align-items-center gap-0-25">
+					<span>+{{ formatNumber(question.creditable) }}</span>
+					<Coins :size="28" style="z-index: 1;" />
+				</div>
+				<button class="answer-btn" @click="openAnswerModal">
+					Answer
+				</button>
+			</div>
 		</div>
-		<NuxtLink class="d-block" :to="`/questions/${question.id}`">
+
+		<NuxtLink class="question-body" :to="`/questions/${question.id}`">
 			{{ question.trimmedBody }}
 		</NuxtLink>
+
+		<div class="d-flex align-items-center gap-2">
+			<span class="name">Posted {{ formatTime(question.createdAt) }}</span>
+			<div class="gap-0-75 d-flex align-items-center">
+				<TagListCard v-for="tag in question.tags" :key="tag" :tag="tag" />
+			</div>
+			<div class="ms-auto d-flex align-items-center gap-1">
+				<span class="d-flex align-items-center gap-0-5">
+					<img src="@app/assets/images/icons/answers.svg" alt="" class="icons">
+					<span>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</span>
+				</span>
+			</div>
+		</div>
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from '@nuxtjs/composition-api'
+import { computed, defineComponent, PropType, useRouter } from '@nuxtjs/composition-api'
 import { QuestionEntity } from '@modules/questions'
 import { useSubject } from '@app/hooks/questions/subjects'
 import { useAuth } from '@app/hooks/auth/auth'
+import { openAnswerModal } from '@app/hooks/questions/answers'
 import { formatNumber, pluralize } from '@utils/commons'
 import { formatTime } from '@utils/dates'
+import TagListCard from '@app/components/questions/tags/TagListCard.vue'
 export default defineComponent({
 	name: 'QuestionsListCard',
+	components: { TagListCard },
 	props: {
 		question: {
 			required: true,
@@ -42,9 +61,63 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
-		const { id } = useAuth()
+		const { id, user } = useAuth()
+		const router = useRouter()
 		const { subject } = useSubject(props.question.subjectId)
-		return { id, subject, formatTime, formatNumber, pluralize }
+		const showAnswerButton = computed({
+			get: () => props.question.userId !== id.value && !props.question.isAnswered && !user.value?.meta.answeredQuestions.includes(props.question.id),
+			set: () => {}
+		})
+		return {
+			id, subject, formatTime, formatNumber, pluralize, showAnswerButton,
+			openAnswerModal: () => openAnswerModal(props.question, router)
+		}
 	}
 })
 </script>
+
+<style lang="scss" scoped>
+	.question-body {
+		font-size: 20px;
+	}
+
+	.question-head {
+		.dot {
+			width: 6px;
+			height: 6px;
+			background-color: $color-text-sub;
+			margin: 0 12px 0 3px;
+			border-radius: 50px;
+		}
+
+		.name {
+			color: $color-text-main;
+			font-size: 18px;
+			font-weight: 600;
+		}
+
+		.subject {
+			color: $color-text-sub;
+			font-weight: 600;
+		}
+	}
+
+	.icons {
+		width: 24px;
+	}
+
+	.answer-btn {
+		background: $color-main;
+		color: $color-white;
+		border: none;
+		border-radius: 18px;
+		width: fit-content;
+		padding: 9px 27px;
+
+		&:hover {
+			color: $color-white;
+			transform: scale(1.1);
+			transition: 0.5s;
+		}
+	}
+</style>

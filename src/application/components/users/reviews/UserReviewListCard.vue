@@ -4,9 +4,9 @@
 			<div class="left d-flex align-items-center">
 				<Avatar src="@app/assets/images/icons/dashboard_hero.svg" :size="36" />
 				<span class="name">Eniola Holmes</span>
-				<span class="ratings ms-2" style="margin-right:3px;"><i class="fas fa-star" style="color:#FFDA20;font-size:21px;" /></span>
+				<span class="ratings ms-2" style="margin-right: 3px;"><i class="fas fa-star" style="color: #ffda20; font-size: 21px;" /></span>
 				<span style="me-2">5/5</span>
-				<span class="textStyle ms-2" style="font-size:14px;">4 weeks ago</span>
+				<span class="textStyle ms-2" style="font-size: 14px;">4 weeks ago</span>
 			</div>
 		</div>
 
@@ -29,7 +29,8 @@ export default defineComponent({
 			font-size: 16px;
 		}
 	}
-		.review-head {
+
+	.review-head {
 		.left {
 			padding-top: 1rem;
 
@@ -46,14 +47,16 @@ export default defineComponent({
 			}
 		}
 	}
-		.textStyle {
+
+	.textStyle {
 		font-size: 16px;
 		color: $color-text-main;
 	}
 
-   .bl {
+	.bl {
 		border-bottom: 1px solid $color-line;
 	}
+
 	.tag {
 		border: 1.2px solid $color-line;
 		background-color: $color-tags;
@@ -61,6 +64,7 @@ export default defineComponent({
 		color: $color-text-main;
 		padding: 1px 14px;
 	}
+
 	.wrapper {
 		border-bottom: 1px solid $color-line;
 	}

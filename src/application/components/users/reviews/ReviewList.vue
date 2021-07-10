@@ -33,8 +33,8 @@ export default defineComponent({
 })
 </script>
 <style lang="scss" scoped>
-.btn-custom-outlined {
-	 background-color: $color-tags;
+	.btn-custom-outlined {
+		background-color: $color-tags;
 		border-radius: 6px;
 		border: 1px solid $color-line;
 		font-size: 15px;

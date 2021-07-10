@@ -7,7 +7,7 @@
 		<div class="question-bottom ml-1  my-2 d-flex align-items-center justify-content-between">
 			<div class="left d-flex align-items-center">
 				<span class="name me-1">Posted 30 mins ago</span>
-				<div class="tag" style="margin-right:4px;">
+				<div class="tag" style="margin-right: 4px;">
 					motion
 				</div>
 				<div class="tag">
@@ -65,7 +65,8 @@ export default defineComponent({
 			font-size: 16px;
 		}
 	}
-		.questionStyle {
+
+	.questionStyle {
 		font-size: 16px;
 		color: $color-text-main;
 	}
@@ -74,9 +75,11 @@ export default defineComponent({
 		width: 24px;
 		margin-right: 8px;
 	}
-   .bl {
+
+	.bl {
 		border-bottom: 1px solid $color-line;
 	}
+
 	.tag {
 		border: 1.2px solid $color-line;
 		background-color: $color-tags;
@@ -84,6 +87,7 @@ export default defineComponent({
 		color: $color-text-main;
 		padding: 1px 14px;
 	}
+
 	.wrapper {
 		border-bottom: 1px solid $color-line;
 	}

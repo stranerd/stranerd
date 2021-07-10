@@ -1,11 +1,11 @@
 <template>
-	<div class=" d-flex flex-row pt-1 pb-1 wrapper" style="align-items:center;">
+	<div class=" d-flex flex-row pt-1 pb-1 wrapper" style="align-items: center;">
 		<div class="answer-body">
 			<span>The answer is 16m/s.</span>
 		</div>
-		<div class="d-flex align-items-center justify-content-between" style="margin-left:auto;">
+		<div class="d-flex align-items-center justify-content-between" style="margin-left: auto;">
 			<div class="d-flex align-items-center">
-				<i class="fas fa-check-circle" style="color:#00F332;font-size:24px;" />
+				<i class="fas fa-check-circle" style="color: #00f332; font-size: 24px;" />
 			</div>
 		</div>
 	</div>
@@ -58,6 +58,7 @@ export default defineComponent({
 			font-size: 16px;
 		}
 	}
+
 	.wrapper {
 		border-bottom: 1px solid $color-line;
 	}

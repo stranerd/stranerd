@@ -1,6 +1,5 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
-import { createNotification } from '../../helpers/modules/users/notifications'
 
 export const requestNewSession = functions.https.onCall(async (data, context) => {
 	if (!context.auth)
@@ -12,34 +11,28 @@ export const requestNewSession = functions.https.onCall(async (data, context) =>
 		const session = {
 			duration, price, studentId, tutorId, studentBio, tutorBio,
 			accepted: false,
-			cancelled: { student: false, tutor: false },
+			cancelled: { student: false, tutor: false, busy: false },
 			dates: { createdAt: admin.firestore.Timestamp.now() },
 			reviews: {}
 		}
 
 		const doc = await admin.firestore().collection('sessions').add(session)
 		const sessionId = doc.id
+		const tutorRef = await admin.database().ref('profiles').child(tutorId).child('session').once('value')
+		const { currentTutorSession = null, lobby = {} } = tutorRef.val() ?? {}
 
-		let isBusy = false
-		await admin.database().ref('profiles')
-			.child(tutorId).child('tutor/currentSession')
-			.transaction((id: string | null) => {
-				if (id) isBusy = true
-				return id || sessionId
-			})
-
-		if (isBusy) {
+		if (currentTutorSession || Object.keys(lobby).length >= 10) {
 			await doc.delete()
 			throw new functions.https.HttpsError('failed-precondition', 'Tutor is currently in a session. Try again later.')
 		}
 
-		await admin.database().ref(`profiles/${studentId}/account/currentSession`)
-			.set(sessionId)
-		await createNotification(tutorId, {
-			title: 'New Session Request',
-			body: 'Someone just requested a new session with you. Hurry now and seal the deal',
-			action: `/messages/${studentId}`
-		})
+		await admin.database().ref('profiles')
+			.update({
+				[`${studentId}/account/meta/sessions/${sessionId}`]: true,
+				[`${studentId}/session/requests/${sessionId}`]: true,
+				[`${tutorId}/account/meta/tutorSessions/${sessionId}`]: true,
+				[`${tutorId}/session/lobby/${sessionId}`]: true
+			})
 
 		return sessionId
 	} catch (error) {

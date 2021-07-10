@@ -1,14 +1,14 @@
 <template>
 	<div>
-		<div class="mb-1 d-flex flex-row" style="justify-content:center;align-items:center;">
-			<div style="margin-right:4px;">
+		<div class="mb-1 d-flex flex-row" style="justify-content: center; align-items: center;">
+			<div style="margin-right: 4px;">
 				<button class="btn btn btn-lg btn-custom-outlined ">
-					Unanswered <img src="@app/assets/images/icons/down-arrow.svg" style="margin-left:3px;" alt="">
+					Unanswered <img src="@app/assets/images/icons/down-arrow.svg" style="margin-left: 3px;" alt="">
 				</button>
 			</div>
 			<div>
 				<button class="btn btn btn-lg btn-custom-outlined ">
-					Subject <img src="@app/assets/images/icons/down-arrow.svg" style="margin-left:3px;" alt="">
+					Subject <img src="@app/assets/images/icons/down-arrow.svg" style="margin-left: 3px;" alt="">
 				</button>
 			</div>
 		</div>
@@ -62,8 +62,8 @@ export default defineComponent({
 })
 </script>
 <style lang="scss" scoped>
-.btn-custom-outlined {
-	 background-color: $color-tags;
+	.btn-custom-outlined {
+		background-color: $color-tags;
 		border-radius: 6px;
 		border: 1px solid $color-line;
 		font-size: 15px;

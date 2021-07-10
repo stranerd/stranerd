@@ -1,26 +1,27 @@
 import { BaseEntity } from '@modules/core/domains/entities/base'
 import { capitalize, catchDivideByZero } from '@utils/commons'
 import { Avatars } from './avatar'
-import { getScore, Ranks, RankTypes, getRankProgress } from './rank'
+import { getScore, getMyRank, getRankProgress, getScholarLevel } from './rank'
 
 export class UserEntity extends BaseEntity {
 	public readonly id: string
-	public readonly roles: Required<UserRoles>
-	public readonly bio: Required<UserBio>
-	public readonly account: Omit<UserAccount, 'meta'> & { meta: Record<keyof UserAccount['meta'], string[]> }
-	public readonly status: Required<UserStatus>
-	public readonly tutor: Omit<Required<UserTutor>, 'tags'> & { tags: { id: string, count: number }[] }
+	public readonly bio: UserBio
+	public readonly roles: UserRoles
+	public readonly account: UserAccount
+	public readonly status: UserStatus
+	public readonly tutor: UserTutor
+	public readonly session: UserSession
 	public readonly dates: UserDates
 
-	constructor ({ id, bio, roles, account, status, tutor, dates }: UserConstructorArgs) {
+	constructor ({ id, bio, roles, account, status, tutor, session, dates }: UserConstructorArgs) {
 		super()
 		this.id = id
-		this.bio = generateDefaultBio(bio)
+		this.bio = generateDefaultBio(bio ?? {})
 		this.roles = {
 			isAdmin: roles?.isAdmin ?? false
 		}
 		this.account = {
-			rank: account?.rank ?? RankTypes.Rookie,
+			rank: account?.rank ?? null,
 			coins: {
 				bronze: account?.coins?.bronze ?? 0,
 				gold: account?.coins?.gold ?? 0
@@ -29,19 +30,18 @@ export class UserEntity extends BaseEntity {
 				bronze: account?.bought?.bronze ?? 0,
 				gold: account?.bought?.gold ?? 0
 			},
-			currentSession: account?.currentSession ?? null,
 			meta: {
-				answers: Object.keys(account?.meta?.answers ?? {}),
-				bestAnswers: Object.keys(account?.meta?.bestAnswers ?? {}),
-				ratedAnswers: Object.keys(account?.meta?.ratedAnswers ?? {}),
-				questions: Object.keys(account?.meta?.questions ?? {}),
-				bestAnsweredQuestions: Object.keys(account?.meta?.bestAnsweredQuestions ?? {}),
-				answeredQuestions: Object.keys(account?.meta?.answeredQuestions ?? {}),
-				questionComments: Object.keys(account?.meta?.questionComments ?? {}),
-				answerComments: Object.keys(account?.meta?.answerComments ?? {}),
-				sessions: Object.keys(account?.meta?.sessions ?? {}),
-				completedSessions: Object.keys(account?.meta?.completedSessions ?? {}),
-				tutorSessions: Object.keys(account?.meta?.tutorSessions ?? {})
+				answers: account?.meta?.answers ?? {},
+				bestAnswers: account?.meta?.bestAnswers ?? {},
+				ratedAnswers: account?.meta?.ratedAnswers ?? {},
+				questions: account?.meta?.questions ?? {},
+				solvedQuestions: account?.meta?.solvedQuestions ?? {},
+				answeredQuestions: account?.meta?.answeredQuestions ?? {},
+				questionComments: account?.meta?.questionComments ?? {},
+				answerComments: account?.meta?.answerComments ?? {},
+				sessions: account?.meta?.sessions ?? {},
+				completedSessions: account?.meta?.completedSessions ?? {},
+				tutorSessions: account?.meta?.tutorSessions ?? {}
 			},
 			streak: {
 				count: account?.streak?.count ?? 0,
@@ -58,15 +58,18 @@ export class UserEntity extends BaseEntity {
 			lastSeen: status?.lastSeen ?? 0
 		}
 		this.tutor = {
-			subject: tutor?.subject ?? undefined,
-			currentSession: tutor?.currentSession ?? null,
-			tags: Object.entries(tutor?.tags ?? {})
-				.map(([key, val]) => ({ id: key, name: key, count: val }))
-				.sort((a, b) => a.count >= b.count ? -1 : 1)
+			subject: tutor?.subject as DeepRequired<UserTutor['subject']> ?? null,
+			tags: tutor?.tags ?? {}
+		}
+		this.session = {
+			currentSession: session?.currentSession ?? null,
+			currentTutorSession: session?.currentTutorSession ?? null,
+			requests: session?.requests ?? {},
+			lobby: session?.lobby ?? {}
 		}
 		this.dates = {
 			signedUpAt: dates?.signedUpAt ?? 0,
-			deletedAt: dates?.deletedAt ?? undefined
+			deletedAt: dates?.deletedAt ?? null
 		}
 	}
 
@@ -82,21 +85,38 @@ export class UserEntity extends BaseEntity {
 	get averageRating () { return catchDivideByZero(this.account.ratings.total, this.ratingCount) }
 	get ratingCount () { return this.account.ratings.count }
 	get orderRating () { return Math.pow(this.account.ratings.total, this.averageRating) }
-	get currentSession () { return this.account.currentSession || this.tutor.currentSession || null }
 	get subject () { return this.tutor.subject ?? null }
+	get tags () {
+		return Object.entries(this.tutor.tags)
+			.map(([key, val]) => ({ id: key, name: key, count: val }))
+			.sort((a, b) => a.count >= b.count ? -1 : 1)
+	}
+
 	get score () { return getScore(this) }
-	get rank () { return Ranks[this.account.rank] }
+	get rank () { return getMyRank(this) }
 	get rankProgress () { return getRankProgress(this) }
+
+	get currentSession () { return this.session.currentSession || this.session.currentTutorSession || null }
+	get canHostSessions () { return !this.currentSession && this.rank.level >= getScholarLevel() }
+	get canRequestSessions () { return !this.currentSession && Object.keys(this.session.requests).length === 0 } // this.rank.level >= Ranks.Scholar.level }
+
+	get meta () {
+		return Object.fromEntries(
+			Object.entries(this.account.meta)
+				.map(([key, val]) => [key, Object.keys(val)])
+		) as Record<keyof UserAccount['meta'], string[]>
+	}
 }
 
 type UserConstructorArgs = {
 	id: string
-	bio: UserBio
-	roles: UserRoles
-	account: UserAccount
-	status: UserStatus
-	tutor: UserTutor
-	dates: UserDates
+	bio: DeepNullable<UserBio>
+	roles: DeepNullable<UserRoles>
+	account: DeepNullable<UserAccount>
+	status: DeepNullable<UserStatus>
+	tutor: DeepNullable<UserTutor>
+	session: DeepNullable<UserSession>
+	dates: DeepNullable<UserDates>
 }
 
 export interface UserBio {
@@ -111,10 +131,10 @@ export interface UserBio {
 	isNew?: boolean | null
 }
 export interface UserRoles {
-	isAdmin?: boolean
+	isAdmin: boolean
 }
 export interface UserAccount {
-	rank: RankTypes
+	rank: number | null
 	coins: {
 		bronze: number
 		gold: number
@@ -123,19 +143,18 @@ export interface UserAccount {
 		bronze: number
 		gold: number
 	},
-	currentSession: string | null
 	meta: {
-		answers?: Record<string, boolean>
-		bestAnswers?: Record<string, boolean>
-		ratedAnswers?: Record<string, boolean>
-		answeredQuestions?: Record<string, boolean>
-		questions?: Record<string, boolean>
-		bestAnsweredQuestions?: Record<string, boolean>
-		questionComments?: Record<string, boolean>
-		answerComments?: Record<string, boolean>
-		sessions?: Record<string, boolean>
-		completedSessions?: Record<string, boolean>
-		tutorSessions?: Record<string, boolean>
+		answers: Record<string, boolean>
+		bestAnswers: Record<string, boolean>
+		ratedAnswers: Record<string, number>
+		answeredQuestions: Record<string, boolean>
+		questions: Record<string, boolean>
+		solvedQuestions: Record<string, boolean>
+		questionComments: Record<string, boolean>
+		answerComments: Record<string, boolean>
+		sessions: Record<string, boolean>
+		completedSessions: Record<string, boolean>
+		tutorSessions: Record<string, boolean>
 	}
 	streak: {
 		count: number,
@@ -151,9 +170,16 @@ export interface UserStatus {
 	connections: Record<string, boolean>
 	lastSeen: number
 }
+
+export interface UserSession {
+	currentSession: string | null
+	currentTutorSession: string | null
+	requests: Record<string, boolean>
+	lobby: Record<string, boolean>
+}
 export interface UserDates {
 	signedUpAt: number
-	deletedAt?: number
+	deletedAt: number | null
 }
 export interface UserTutor {
 	subject: {
@@ -164,18 +190,17 @@ export interface UserTutor {
 			takenAt: number
 			passed: boolean
 		}>
-	} | undefined
-	tags: Record<string, number> | undefined
-	currentSession?: string | null
+	} | null
+	tags: Record<string, number>
 }
 
-export const generateDefaultBio = (bio: Partial<UserBio>) :Required<UserBio> => {
+export const generateDefaultBio = (bio: Partial<UserBio>) :DeepRequired<UserBio> => {
 	const first = capitalize(bio?.name?.first ?? 'Anon')
 	const last = capitalize(bio?.name?.last ?? 'Ymous')
 	const fullName = first + ' ' + last
 	const email = bio?.email ?? 'anon@ymous.com'
 	const description = bio?.description ?? ''
 	const avatar = Avatars[bio?.avatar!] ? bio?.avatar! : Avatars.default.id
-	const isNew = !!bio.isNew ?? false
+	const isNew = !!bio?.isNew ?? false
 	return { name: { first, last, fullName }, email, description, avatar, isNew }
 }

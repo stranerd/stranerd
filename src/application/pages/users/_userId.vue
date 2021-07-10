@@ -1,7 +1,7 @@
 <template>
 	<div class="py-md-3 d-flex flex-column">
 		<PageLoading v-if="loading" />
-		<div class="mb-2 d-flex flex-row" style="justify-content:center;align-items:center;">
+		<div class="mb-2 d-flex flex-row" style="justify-content: center; align-items: center;">
 			<div>
 				<button :class="selectedTab == 'questions' ? 'btn btn btn-lg btn-custom px-1' : 'btn btn btn-lg btn-custom-outlined-white px-1'" @click="selectedTab = 'questions'">
 					Questions
@@ -71,7 +71,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 
 	.btn-custom-outlined-white {
-	 background-color: #fff;
+		background-color: #fff;
 		border-radius: 6px;
 		border: 1px solid $color-line;
 		font-size: 15px;
@@ -79,6 +79,7 @@ export default defineComponent({
 		width: 100%;
 		font-weight: bold;
 	}
+
 	.btn-custom {
 		background-color: $color-btn;
 		color: #fff;

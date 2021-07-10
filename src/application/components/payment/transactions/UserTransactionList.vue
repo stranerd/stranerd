@@ -1,22 +1,20 @@
 <template>
-	<div class="d-flex flex-column col-12 py-0" style="align-items:center;justify-content:center;">
-		<div class="text-center my-1 col-12">
-			<h4 class="headertext">
-				Transaction history
-			</h4>
-		</div>
-		<div class="col-12 d-flex flex-row table-custom-style my-1 px-1 py-1">
-			<div class="col-4 py-0 px-0">
-				<span>Date</span>
+	<div class="d-flex flex-column align-items-center justify-content-center gap-2">
+		<h4 class="headertext">
+			Transaction history
+		</h4>
+		<div class="d-flex flex-column gap-0-5 w-100">
+			<div class="d-flex table-custom-style p-1 mb-0-25">
+				<div class="col-3">
+					<span>Date</span>
+				</div>
+				<div class="col-3 text-center">
+					<span>Amount</span>
+				</div>
+				<div class="col-6">
+					<span>Description</span>
+				</div>
 			</div>
-			<div class="col-4 py-0 px-0">
-				<span>Amount</span>
-			</div>
-			<div class="col-4 py-0 px-0">
-				<span>Description</span>
-			</div>
-		</div>
-		<div class="d-flex flex-column col-12 px-0 py-0">
 			<UserTransactionListCard v-for="transaction in transactions" :key="transaction.hash" :transaction="transaction" />
 		</div>
 		<div v-if="hasMore" class="text-center text-18 col-12">
@@ -50,17 +48,18 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 
-.headertext {
-	font-weight: bold;
-	color: $color-text-main;
-}
+	.headertext {
+		font-weight: bold;
+		color: $color-text-main;
+		margin: 0;
+	}
 
-.table-custom-style {
-	border:1px solid $color-main;
-	border-radius: 7px;
-	background: $color-line;
-	font-weight: bold;
-	font-size: 15px;
-	color: $color-text-main;
-}
+	.table-custom-style {
+		border: 1px solid $color-main;
+		border-radius: 7px;
+		background: $color-line;
+		font-weight: bold;
+		font-size: 15px;
+		color: $color-text-main;
+	}
 </style>

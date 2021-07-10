@@ -42,7 +42,7 @@ export default defineComponent({
 	.headerStyle {
 		font-weight: bold;
 		text-transform: none;
-		color: $color-text-main;
+		color: $color-dark;
 		margin-bottom: 0;
 	}
 </style>

@@ -42,12 +42,12 @@ export default defineComponent({
 
 	.largeText {
 		font-weight: bold;
-		color: $color-text-main;
+		color: $color-dark;
 		font-size: 29px;
 	}
 
 	.headertext {
 		font-weight: bold;
-		color: $color-text-main;
+		color: $color-dark;
 	}
 </style>

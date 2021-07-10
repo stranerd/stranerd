@@ -17,7 +17,7 @@
 
 				<PageLoading v-if="isSearchStalled" />
 			</template>
-			<i slot="submit-icon" class="fas fa-search text-blue" />
+			<i slot="submit-icon" class="fas fa-search text-dark" />
 			<i slot="reset-icon" class="fas fa-trash text-danger" />
 		</AisSearchBox>
 		<AisStateResults class="results">
@@ -109,7 +109,7 @@ export default defineComponent({
 
 	li {
 		border: none !important;
-		color: $color-text-main;
+		color: $color-dark;
 	}
 
 	.results {

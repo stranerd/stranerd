@@ -95,7 +95,7 @@ export default defineComponent({
 		}
 
 		.name {
-			color: $color-text-main;
+			color: $color-dark;
 			font-size: 18px;
 			font-weight: 600;
 		}

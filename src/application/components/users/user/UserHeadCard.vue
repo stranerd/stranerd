@@ -9,7 +9,7 @@
 				<span class="d-block text-18 fw-bold text-wrap">{{ user.fullName }}</span>
 				<span class="small">{{ user.isOnline ? 'Active now' : 'Last seen: ' + time }}</span>
 				<ShowRatings :rating="user.averageRating" />
-				<NuxtLink :to="`/messages/${user.id}`" class="btn btn-sm btn-blue">
+				<NuxtLink :to="`/messages/${user.id}`" class="btn btn-sm btn-dark">
 					Message
 				</NuxtLink>
 			</div>

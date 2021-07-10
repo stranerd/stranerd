@@ -50,7 +50,7 @@ export default defineComponent({
 
 	.headertext {
 		font-weight: bold;
-		color: $color-text-main;
+		color: $color-dark;
 		margin: 0;
 	}
 
@@ -60,6 +60,6 @@ export default defineComponent({
 		background: $color-line;
 		font-weight: bold;
 		font-size: 15px;
-		color: $color-text-main;
+		color: $color-dark;
 	}
 </style>

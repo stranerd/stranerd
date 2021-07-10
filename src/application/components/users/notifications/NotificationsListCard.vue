@@ -41,7 +41,7 @@ export default defineComponent({
 		padding: 1.5rem 0;
 
 		.main {
-			color: $color-text-main;
+			color: $color-dark;
 			font-size: 1.25rem;
 		}
 

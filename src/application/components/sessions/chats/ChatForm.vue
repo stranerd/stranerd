@@ -37,7 +37,7 @@ export default defineComponent({
 		border-radius: 10rem;
 		font-size: 1.25rem;
 		margin-left: 1rem;
-		color: $color-text-main;
+		color: $color-dark;
 	}
 
 	input.form-control {

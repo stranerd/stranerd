@@ -4,13 +4,13 @@
 			<NuxtLink :to="`/users/${answer.userId}`">
 				<Avatar :src="answer.avatar" :size="50" />
 			</NuxtLink>
-			<NuxtLink :to="`/users/${answer.userId}`" class="d-block text-blue text-wrap">
+			<NuxtLink :to="`/users/${answer.userId}`" class="d-block text-dark text-wrap">
 				<span>{{ answer.userName }}</span>
 			</NuxtLink>
 			<ShowRatings class="ms-auto" :rating="answer.averageRating" />
 		</div>
 		<div class="answer-content d-flex flex-column gap-1">
-			<span class="lead text-blue">{{ answer.title }}</span>
+			<span class="lead text-dark">{{ answer.title }}</span>
 			<div class="d-flex gap-1 align-items-center">
 				<span class="d-flex align-items-center gap-0-25" @click="showExplanation = !showExplanation">
 					<span class="fw-bold">Explanation</span>

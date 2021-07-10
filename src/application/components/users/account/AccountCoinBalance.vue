@@ -47,7 +47,7 @@ export default defineComponent({
 			margin-left: -1.5rem;
 			padding: 0.25rem 1.5rem;
 			border-radius: 10rem;
-			color: $color-text-main;
+			color: $color-dark;
 			background: $color-tags;
 			border: 1px solid $color-text-sub;
 		}

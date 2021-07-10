@@ -72,7 +72,7 @@ export default defineComponent({
 	}
 
 	h1 {
-		color: $color-text-main;
+		color: $color-dark;
 		font-size: 36px;
 		margin-bottom: 1.25rem;
 	}

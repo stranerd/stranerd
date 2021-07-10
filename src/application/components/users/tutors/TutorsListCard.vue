@@ -103,7 +103,7 @@ export default defineComponent({
 		align-items: center;
 
 		.name {
-			color: $color-text-main;
+			color: $color-dark;
 			font-size: 24px;
 			font-weight: 600;
 		}

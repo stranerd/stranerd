@@ -66,7 +66,7 @@ export default defineComponent({
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		color: $color-text-main;
+		color: $color-dark;
 		min-height: 60px;
 		padding: 1rem;
 		border-bottom: 6px solid $color-main;
@@ -111,7 +111,7 @@ export default defineComponent({
 				padding: 10px;
 				display: flex;
 				justify-content: center;
-				color: $color-text-main;
+				color: $color-dark;
 				font-weight: 600;
 
 				img {
@@ -125,7 +125,7 @@ export default defineComponent({
 	.username {
 		font-size: 18px;
 		font-weight: 600;
-		color: $color-text-main !important;
+		color: $color-dark !important;
 	}
 
 	.slide-enter-active, .slide-leave-active { transition: 0.5s; }

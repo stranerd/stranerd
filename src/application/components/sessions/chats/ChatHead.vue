@@ -144,14 +144,14 @@ export default defineComponent({
 		z-index: 1;
 		display: flex;
 		flex-direction: column;
-		background: rgba($color-text-main, 0.9);
+		background: rgba($color-dark, 0.9);
 		color: $color-white;
 		border-radius: 0.5rem;
 
 		a:hover {
 			font-size: unset;
 			transform: unset;
-			background: lighten($color-text-main, 5);
+			background: lighten($color-dark, 5);
 		}
 
 		animation: slide-down 0.1s;

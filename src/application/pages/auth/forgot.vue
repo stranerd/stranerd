@@ -52,7 +52,7 @@ export default defineComponent({
 	.headerStyle {
 		font-weight: bolder;
 		text-transform: none;
-		color: $color-text-main;
+		color: $color-dark;
 	}
 
 	input {

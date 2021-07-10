@@ -57,13 +57,13 @@ export default defineComponent({
 	.is-mine {
 		border-radius: 0.6rem 0.6rem 0 0.6rem;
 		background: #c1d2e3;
-		color: $color-text-main;
+		color: $color-dark;
 		margin-left: auto;
 	}
 
 	.is-not-mine {
 		border-radius: 0 0.6rem 0.6rem 0.6rem;
 		background: #5d94cc;
-		color: $color-light-blue;
+		color: $color-main-dark;
 	}
 </style>

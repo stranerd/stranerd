@@ -60,7 +60,7 @@ export default defineComponent({
 	}
 
 	h1 {
-		color: $color-text-main;
+		color: $color-dark;
 		text-align: center;
 		font-size: 1.5rem;
 		max-width: 80%;

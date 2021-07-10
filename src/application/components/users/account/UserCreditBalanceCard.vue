@@ -36,7 +36,7 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 	.boxStyle {
-		border: 1px solid #c5c5c5;
+		border: 1px solid $color-line;
 		border-radius: 6px;
 	}
 

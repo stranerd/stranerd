@@ -8,7 +8,7 @@
 				</h1>
 				<div class="d-flex gap-1 align-items-center text-dark">
 					<img :src="user.rank.image" alt="" class="img-rank">
-					<RankingProgressBar :current="user.rankProgress.overall" color="#00F332" :primary="true" />
+					<ProgressBar :current="user.rankProgress.overall" :primary="true" />
 					<img v-if="user.rankProgress.next" :src="user.rankProgress.next.image" alt="" class="img-rank">
 				</div>
 				<div class="d-flex flex-column gap-1">

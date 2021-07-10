@@ -4,24 +4,6 @@ body {
 	// font-size: clamp(16px, calc(1rem + 20%), 30px) !important;
 }
 
-.btn-secondary-outline {
-	border-radius: 6px;
-	border: 1px solid $color-white;
-	background-color: $color-dark;
-	color: $color-white;
-	padding: 4px 32px;
-	box-sizing: border-box;
-}
-
-.btn-secondary {
-	border-radius: 6px;
-	border: 1px solid $color-dark;
-	background-color: $color-white;
-	color: $color-tint-blue;
-	padding: 6px 32px;
-	box-sizing: border-box;
-}
-
 .logo {
 	margin: 31px 0;
 }
@@ -37,7 +19,7 @@ body {
 	flex-direction: column;
 	width: 16.25%;
 	border-right: 1px solid $color-line;
-	padding: 3rem 0 0 0;
+	padding: 3rem 0;
 	@media (min-width: $lg) { display: flex; }
 }
 
@@ -45,7 +27,7 @@ body {
 	display: none;
 	flex-direction: column;
 	width: 28%;
-	padding: 3rem 3rem 0 0;
+	padding: 3rem 3rem 3rem 0;
 	@media (min-width: $lg) { display: flex; }
 }
 

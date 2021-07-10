@@ -32,9 +32,9 @@ export default defineComponent({
 	img { width: 80%; }
 
 	.white-btn-custom {
-		background-color: white;
-		color: $main-background-color;
-		border: 2px solid #fff;
+		background-color: $color-white;
+		color: $color-primary-dark;
+		border: 2px solid $color-white;
 		border-radius: 6px;
 		font-weight: bold;
 		font-size: 15px;

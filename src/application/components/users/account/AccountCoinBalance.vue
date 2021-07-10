@@ -44,8 +44,8 @@ export default defineComponent({
 
 		.amount {
 			width: fit-content;
-			margin-left: -1.5rem;
-			padding: 0.25rem 1.5rem;
+			margin-left: -2rem;
+			padding: 0.2rem 1rem 0.2rem 2rem;
 			border-radius: 10rem;
 			color: $color-dark;
 			background: $color-tags;

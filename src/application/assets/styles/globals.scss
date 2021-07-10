@@ -1,18 +1,13 @@
 
 $color-dark: #132740;
+$color-footer-dark: #191c29;
 $color-sub: #4d5c6f;
 $color-primary: #546dd3;
 $color-primary-dark: #374b99;
 $color-line: #d7e2ec;
 $color-tags: #f8f8ff;
-$main-background-color: #354da3;
-$color-tint-blue:  #103e83;
-$color-dim-blue:  #214a73;
-$color-btn: #344ba3;
 $color-white: $color-tags;
-$color-footer-blue: #191c29;
 $color-black: #111b25;
-$color-black-transparent: rgba($color-black, 0.75);
 
 $color-gold: #ffda20;
 $color-red: #dc3545;
@@ -46,16 +41,18 @@ $font-weight-medium: 600;
 $font-weight-bold: 700;
 
 $theme-colors: (
-	'gold': $color-gold,
 	'danger': $color-red,
 	'success': $color-green,
 	'info': #0dcaf0,
 	'warning': #ffc107,
 	'dark': $color-dark,
+	'footer-dark': $color-footer-dark,
 	'primary': $color-primary,
 	'primary-dark': $color-primary-dark,
 	'line': $color-line,
+	'tags': $color-tags,
 	'sub': $color-sub,
+	'gold': $color-gold,
 	'black': $color-black,
 	'white': $color-white
 );

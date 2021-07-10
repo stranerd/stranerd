@@ -86,7 +86,7 @@ export default defineComponent({
 				}
 
 				h4 {
-					color: #000;
+					color: $color-dark;
 					font-weight: 700;
 				}
 			}

@@ -24,11 +24,11 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 	.btn-auth {
-		color: $color-footer-blue;
+		color: $color-dark;
 		background: $color-white;
 		width: 100%;
 		font-size: 18px;
-		border: 1px solid $color-footer-blue;
+		border: 1px solid $color-dark;
 		display: flex;
 		border-radius: 5px;
 		justify-content: center;

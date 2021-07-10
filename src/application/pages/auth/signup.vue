@@ -51,9 +51,9 @@
 			<DisplayError :error="error" />
 			<PageLoading v-if="loading" />
 			<div class="d-flex gap-1 align-items-center">
-				<div class="flex-grow-1" style="border-bottom: 1px solid #c5c5c5; height: 2px;" />
+				<div class="flex-grow-1 border-bottom border-line" style="height: 2px;" />
 				<span>or sign up with</span>
-				<div class="flex-grow-1" style="border-bottom: 1px solid #c5c5c5; height: 2px;" />
+				<div class="flex-grow-1 border-bottom border-line" style="height: 2px;" />
 			</div>
 			<AuthProviders />
 			<div class="d-flex align-items-center justify-content-center gap-0-25">
@@ -101,8 +101,8 @@ export default defineComponent({
 	}
 
 	.btn-custom {
-		background-color: $color-btn;
-		color: #fff;
+		background-color: $color-primary-dark;
+		color: $color-white;
 		border: 2px solid;
 		border-radius: 6px;
 		font-size: 16px;

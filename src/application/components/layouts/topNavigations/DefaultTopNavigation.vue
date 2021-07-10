@@ -69,18 +69,11 @@ export default defineComponent({
 		color: $color-dark;
 		min-height: 60px;
 		padding: 1rem;
-		border-bottom: 6px solid $color-primary;
+		border-bottom: 5px solid $color-primary;
 		@media (min-width: $md) { padding: 1rem 2rem; }
 		@media (min-width: $lg) { padding: 1rem 4rem; }
 
-		background: #fff 0 0 no-repeat padding-box;
-
-		button.navbar-toggler {
-			border: none;
-			outline: none;
-			border-radius: 0;
-			color: $color-tint-blue;
-		}
+		background: $color-white 0 0 no-repeat padding-box;
 	}
 
 	.middle-body {
@@ -102,7 +95,7 @@ export default defineComponent({
 			align-items: center;
 			width: 172px;
 			background: $color-white 0% 0% no-repeat padding-box;
-			box-shadow: 0 10px 10px #374b9926;
+			box-shadow: 0 10px 10px rgba($color-primary, 0.1);
 			border-radius: 6px;
 			z-index: 2;
 

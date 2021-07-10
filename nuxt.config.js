@@ -97,7 +97,7 @@ export const pwa = {
 		source: 'src/application/static/images/icon.png'
 	},
 	meta: {
-		theme_color: '#395C7F',
+		theme_color: '#546dd3',
 		ogHost: 'https://stranerd.com',
 		ogImage: 'https://stranerd.com/images/banner.jpg',
 		twitterCard: 'https://stranerd.com/images/banner.jpg',

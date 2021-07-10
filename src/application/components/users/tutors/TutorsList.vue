@@ -39,7 +39,7 @@ export default defineComponent({
 		display: flex;
 		width: clamp(200px, 50%, 550px);
 		border-radius: 12px;
-		box-shadow: -5px 5px 15px #374b9926;
+		box-shadow: -5px 5px 15px rgba($color-primary, 0.1);
 
 		select, /deep/ select {
 			flex-grow: 1;

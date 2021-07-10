@@ -58,11 +58,14 @@ export default defineComponent({
 			margin: auto;
 			max-height: 99.9%;
 			max-width: 800px;
-			padding: 0.5rem;
 			border-radius: 0.5rem;
 			z-index: 1;
 			overflow-y: auto;
 			-ms-overflow-style: none;
+			padding: 0.5rem;
+			@media (min-width: $sm) { padding: 1rem; }
+			@media (min-width: $md) { padding: 1.5rem; }
+			@media (min-width: $lg) { padding: 2rem; }
 
 			&::-webkit-scrollbar {
 				display: none;
@@ -72,7 +75,6 @@ export default defineComponent({
 		}
 		@media (min-width: $sm) {
 			.sd-modal-inner {
-				padding: 1rem;
 				width: 95%;
 			}
 		}

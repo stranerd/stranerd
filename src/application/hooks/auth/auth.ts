@@ -74,14 +74,16 @@ export const useAuth = () => {
 		if (isClient()) window.location.assign('/')
 	}
 
-	const getLocalCurrency = () => global.location.value?.currencyCode ?? 'NGN'
+	const getLocalCurrency = () => global.location.value?.currencyCode ?? 'USD'
+	const getLocalCurrencySymbol = () => global.location.value?.currencySymbol ?? '$'
 
-	const getLocalAmount = (amount: number) => parseFloat(Number(amount * CONVERSION_RATES[getLocalCurrency()] ?? 1).toFixed(2))
+	const getLocalAmount = (amount: number) => parseFloat(Number(amount * CONVERSION_RATES[getLocalCurrency()]).toFixed(2))
 
 	return {
 		id, bio, user: global.user, auth: global.auth, location: global.location,
 		isLoggedIn, isVerified, isAdmin, currentSessionId,
-		setAuthUser, setUserLocation, signin, signout, getLocalAmount, getLocalCurrency
+		setAuthUser, setUserLocation, signin, signout,
+		getLocalAmount, getLocalCurrency, getLocalCurrencySymbol
 	}
 }
 

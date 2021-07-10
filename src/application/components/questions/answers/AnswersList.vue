@@ -4,7 +4,7 @@
 			Answers
 		</h2>
 		<AnswerCard v-for="answer in answers" :key="answer.hash" :answer="answer" :question="question" />
-		<div v-if="!loading && !error && answers.length === 0" class="bg-light-grey rounded-3 p-1-5 text-center">
+		<div v-if="!loading && !error && answers.length === 0" class="bg-line rounded-3 p-1-5 text-center">
 			{{ question.userName }} needs your help!<br>Answer the question and earn some bronze coins.
 		</div>
 		<span>
@@ -42,7 +42,7 @@ export default defineComponent({
 	.headerStyle {
 		font-weight: bold;
 		text-transform: none;
-		color: $color-text-main;
+		color: $color-dark;
 		margin-bottom: 0;
 	}
 </style>

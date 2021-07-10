@@ -27,7 +27,7 @@
 			<span v-if="factory.errors.email" class="text-danger">{{ factory.errors.email }}</span>
 		</div>
 		<div class="mt-1 text-center">
-			<button type="submit" class="w-100 btn btn-blue py-1" :disabled="loading || !factory.valid">
+			<button type="submit" class="w-100 btn btn-dark py-1" :disabled="loading || !factory.valid">
 				Get Link
 			</button>
 			<DisplayError :error="error" />

@@ -22,7 +22,7 @@
 			<AnswerEditor :model.sync="factory.body" :error="factory.errors.body" :valid="factory.isValid('body')" />
 		</div>
 
-		<button class="btn btn-primary-blue px-2 py-1 mt-2" type="submit" :disabled="loading || !factory.valid">
+		<button class="btn btn-primary px-2 py-1 mt-2" type="submit" :disabled="loading || !factory.valid">
 			<slot name="buttonText">
 				Submit
 			</slot>
@@ -67,14 +67,14 @@ export default defineComponent({
 		margin-bottom: 1.5rem;
 
 		.title {
-			color: $color-text-main;
+			color: $color-dark;
 			font-size: 1.5rem;
 			font-weight: 600;
 			margin-bottom: 8px;
 		}
 
 		.sub-title {
-			color: $color-text-main;
+			color: $color-dark;
 			font-size: 1.125rem;
 			font-weight: 500;
 			margin-bottom: 8px;
@@ -88,7 +88,7 @@ export default defineComponent({
 			padding: 16px 24px;
 
 			&::placeholder {
-				color: $color-text-main;
+				color: $color-dark;
 			}
 		}
 	}

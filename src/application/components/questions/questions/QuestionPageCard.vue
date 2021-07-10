@@ -89,19 +89,19 @@ export default defineComponent({
 		.dot {
 			width: 6px;
 			height: 6px;
-			background-color: $color-text-sub;
+			background-color: $color-sub;
 			margin: 0 12px 0 3px;
 			border-radius: 50px;
 		}
 
 		.name {
-			color: $color-text-main;
+			color: $color-dark;
 			font-size: 18px;
 			font-weight: 600;
 		}
 
 		.subject {
-			color: $color-text-sub;
+			color: $color-sub;
 			font-weight: 600;
 		}
 	}
@@ -111,7 +111,7 @@ export default defineComponent({
 	}
 
 	.answer-btn {
-		background: $color-main;
+		background: $color-primary;
 		color: $color-white;
 		border: none;
 		border-radius: 18px;

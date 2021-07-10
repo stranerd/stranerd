@@ -16,7 +16,7 @@ export const usePasswordReset = () => {
 				const redirectUrl = (isClient() ? window.location.origin : '') + '/auth/signin'
 				await ResetPassword.call(factory.value, redirectUrl)
 				factory.value.reset()
-				setMessage('Proceed to your registered email to continue')
+				setMessage('Proceed to your email to continue')
 			} catch (error) { setError(error) }
 			setLoading(false)
 		} else factory.value.validateAll()

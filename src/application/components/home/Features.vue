@@ -81,12 +81,12 @@ export default defineComponent({
 				text-align: center;
 
 				span {
-					color: grey;
+					color: $color-sub;
 					font-size: 15px;
 				}
 
 				h4 {
-					color: #000;
+					color: $color-dark;
 					font-weight: 700;
 				}
 			}

@@ -111,12 +111,12 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 	.highlight {
-		color: $color-main;
+		color: $color-primary;
 		font-weight: 600;
 	}
 
 	.ranking-body {
-		color: $color-text-sub;
+		color: $color-sub;
 
 		.ranking-card {
 			display: flex;

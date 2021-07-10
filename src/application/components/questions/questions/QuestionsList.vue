@@ -1,10 +1,10 @@
 <template>
 	<div>
 		<div class="d-flex justify-content-between align-items-center gap-1 px-1 mb-2">
-			<h1 class="text-blue my-0">
+			<h1 class="text-dark my-0">
 				Questions
 			</h1>
-			<NuxtLink class="btn btn-primary-blue px-2 py-1" to="/questions/create">
+			<NuxtLink class="btn btn-primary px-2 py-1" to="/questions/create">
 				Ask A Question
 			</NuxtLink>
 		</div>

@@ -23,7 +23,7 @@ export default defineComponent({
 		border: 1.2px solid $color-line;
 		background-color: $color-tags;
 		border-radius: 50em;
-		color: $color-text-main;
+		color: $color-dark;
 		padding: 0.125em 1em;
 	}
 </style>

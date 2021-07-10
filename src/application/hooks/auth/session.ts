@@ -24,7 +24,7 @@ export const createSession = async (user: AfterAuthUser, router: VueRouter) => {
 
 export const useSessionSignout = () => {
 	const { error, setError } = useErrorHandler()
-	const { loading /*, setLoading */ } = useLoadingHandler()
+	const { loading, setLoading } = useLoadingHandler()
 	const signout = async () => {
 		setError('')
 		const accepted = await Alert({
@@ -34,11 +34,11 @@ export const useSessionSignout = () => {
 			confirmButtonText: 'Yes, signout'
 		})
 		if (accepted) {
-			// setLoading(true)
+			setLoading(true)
 			try {
 				await useAuth().signout()
 			} catch (error) { setError(error) }
-			// setLoading(false)
+			setLoading(false)
 		}
 	}
 

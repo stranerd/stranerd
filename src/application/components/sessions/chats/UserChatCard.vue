@@ -7,7 +7,7 @@
 			</div>
 			<div class="d-flex justify-content-between text-truncate gap-0-5">
 				<p class="mb-0 text-truncate">
-					<span v-if="meta.unRead.length > 0" class="bg-blue text-white rounded-pill d-inline-flex align-items-center justify-content-center" style="height: 1.25em; width: 1.25em;">
+					<span v-if="meta.unRead.length > 0" class="btn-dark text-white rounded-pill d-inline-flex align-items-center justify-content-center" style="height: 1.25em; width: 1.25em;">
 						<span>{{ meta.unRead.length }}</span>
 					</span>
 					<i v-if="meta.last.isMedia" class="fas fa-paperclip mx-0-25" />
@@ -49,6 +49,6 @@ export default defineComponent({
 		font-size: inherit;
 		color: inherit;
 		text-decoration: none;
-		background: darken($color-light-blue, 2);
+		background: $color-primary-dark;
 	}
 </style>

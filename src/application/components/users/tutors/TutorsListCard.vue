@@ -6,7 +6,7 @@
 					<Avatar :src="tutor.avatar" :size="72" />
 					<i
 						class="fas fa-circle position-absolute rounded-pill"
-						:class="tutor.isOnline ? 'text-success' : 'text-grey'"
+						:class="tutor.isOnline ? 'text-success' : 'text-sub'"
 						style="z-index: 1; right: 0; bottom: 0; font-size: 1.25rem; border: 3px solid white;"
 					/>
 				</NuxtLink>
@@ -18,7 +18,7 @@
 				<span class="rank">{{ tutor.rank.id }}</span>
 			</div>
 			<!-- TODO: Logic to request a session  -->
-			<button class="btn btn-primary-blue ms-auto">
+			<button class="btn btn-primary ms-auto">
 				Request A Session
 			</button>
 		</div>
@@ -80,12 +80,12 @@ export default defineComponent({
 
 		.sub-text {
 			font-size: 18px;
-			color: $color-main;
+			color: $color-primary;
 			font-weight: normal;
 		}
 
 		span {
-			color: $color-text-sub;
+			color: $color-sub;
 			font-size: 18px;
 			font-weight: 600;
 		}
@@ -103,13 +103,13 @@ export default defineComponent({
 		align-items: center;
 
 		.name {
-			color: $color-text-main;
+			color: $color-dark;
 			font-size: 24px;
 			font-weight: 600;
 		}
 
 		.rank {
-			color: $color-main;
+			color: $color-primary;
 			font-weight: 600;
 			font-size: 18px;
 		}

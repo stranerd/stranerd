@@ -1,71 +1,42 @@
 <template>
-	<div class="fixedBackground d-flex flex-column" style="align-items: center; justify-content: center;">
-		<div class="col-12 col-md-8 col-lg-5 px-1 pb-2 modalStyle d-flex flex-column">
-			<div class="col-12 px-2 py-1 main-background-text d-flex flex-row-reverse">
-				<div style="cursor: pointer;" @click="closeModal">
-					<i class="fas fa-times" />
-				</div>
-			</div>
-			<div class="col-12 px-1 py-1 d-flex flex-row" style="align-items: center; border-bottom: 1px solid #c5c5c5;">
-				<div>
-					<h4 class="headertext">
-						Buy Coins
-					</h4>
-				</div>
-				<div style="margin-left: auto;">
+	<Modal :modal="$attrs.modal">
+		<template slot="title">
+			<div class="d-flex gap-2">
+				<span>Buy Coins</span>
+				<span class="ms-auto" style="font-size: 1rem;">
 					<AccountCoinBalance :user="user" />
+				</span>
+			</div>
+		</template>
+		<div class="d-flex flex-column flex-sm-row align-items-center gap-2">
+			<div class="d-flex flex-column gap-1 flex-grow-1 w-100">
+				<h5 class="headertext">
+					Bronze
+				</h5>
+				<div v-for="option in BRONZE_PRICES" :key="option.amount" class="d-flex align-items-center gap-1" style="font-size: 1.5rem;">
+					<img :src="option.src" alt="" width="48">
+					<span>{{ option.amount }}</span>
+					<button class="btn ms-auto customStyle" :class="option.suggested ? 'btn-dark' : 'btn-primary'" @click="buyCoins(option, false)">
+						{{ getLocalCurrencySymbol() }}{{ getLocalAmount(option.price) }}
+					</button>
 				</div>
 			</div>
-			<div class="d-flex flex-row" style="align-items: center;">
-				<div style="border-right: 1px solid #c5c5c5;" class="d-flex flex-column col-6 px-1 py-0">
-					<div>
-						<h6 class="headertext py-1">
-							Bronze
-						</h6>
-					</div>
-					<div class="d-flex flex-column">
-						<div v-for="option in BRONZE_PRICES" :key="option.amount" class="py-1 d-flex flex-row" style="align-items: center;">
-							<div class="px-1">
-								<img :src="option.src" alt="" height="28">
-							</div>
-							<div class="normaltext px-1">
-								<span>{{ option.amount }}</span>
-							</div>
-							<div style="margin-left: auto;">
-								<button class="btn btn-blue customStyle" :style="'background:' + option.btn_color + ';border-color:' + option.btn_color + ';'" @click="buyCoins(option, false)">
-									{{ getLocalAmount(option.price) }} {{ getLocalCurrency() }}
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="d-flex flex-column col-6 px-1 py-0">
-					<div>
-						<h6 class="headertext py-1">
-							Gold
-						</h6>
-					</div>
-					<div class="d-flex flex-column">
-						<div v-for="option in GOLD_PRICES" :key="option.amount" class="py-1 d-flex flex-row" style="align-items: center;">
-							<div class="px-1">
-								<img :src="option.src" alt="" height="28">
-							</div>
-							<div class="normaltext px-1">
-								<span>{{ option.amount }}</span>
-							</div>
-							<div style="margin-left: auto;">
-								<button class="btn btn-blue customStyle" :style="'background:' + option.btn_color + ';border-color:' + option.btn_color + ';'" @click="buyCoins(option, false)">
-									{{ getLocalAmount(option.price) }} {{ getLocalCurrency() }}
-								</button>
-							</div>
-						</div>
-					</div>
+			<div class="d-flex flex-column gap-1 flex-grow-1 w-100">
+				<h5 class="headertext">
+					Gold
+				</h5>
+				<div v-for="option in GOLD_PRICES" :key="option.amount" class="d-flex align-items-center gap-1" style="font-size: 1.5rem;">
+					<img :src="option.src" alt="" width="48">
+					<span>{{ option.amount }}</span>
+					<button class="btn ms-auto customStyle" :class="option.suggested ? 'btn-dark' : 'btn-primary'" @click="buyCoins(option, true)">
+						{{ getLocalCurrencySymbol() }}{{ getLocalAmount(option.price) }}
+					</button>
 				</div>
 			</div>
 		</div>
 		<DisplayError :error="error" />
 		<PageLoading v-if="loading" />
-	</div>
+	</Modal>
 </template>
 
 <script lang="ts">
@@ -75,62 +46,32 @@ import { formatNumber } from '@utils/commons'
 import { useBuyCoins } from '@app/hooks/users/account'
 import AccountCoinBalance from '@app/components/users/account/AccountCoinBalance.vue'
 import { analytics } from '@modules/core/services/initFirebase'
-import { useAccountModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'AccountBuyCoins',
 	components: { AccountCoinBalance },
 	setup () {
-		const { user, getLocalAmount, getLocalCurrency } = useAuth()
+		const { user, getLocalAmount, getLocalCurrencySymbol } = useAuth()
 		const { loading, error, buyCoins, BRONZE_PRICES, GOLD_PRICES } = useBuyCoins()
 		onMounted(() => {
 			analytics.logEvent('buy_coins_start')
 		})
 		return {
-			user, getLocalAmount, getLocalCurrency, formatNumber,
+			user, getLocalAmount, getLocalCurrencySymbol, formatNumber,
 			loading, error, buyCoins, BRONZE_PRICES, GOLD_PRICES
-		}
-	},
-	methods: {
-		closeModal () {
-			useAccountModal().closeBuyCoins()
 		}
 	}
 })
 </script>
 
 <style lang="scss" scoped>
-	.fixedBackground {
-		position: fixed;
-		left: 0%;
-		top: 0%;
-		z-index: 233;
-		width: 100%;
-		height: 100%;
-		overflow-y: auto;
-		background: rgba(19, 39, 64, 0.5);
-	}
-
-	.modalStyle {
-		background: #fff;
-		border: 1px solid #fff;
-		border-radius: 8px;
-	}
-
-	.main-background-text {
-		color: $main-background-color;
-	}
-
 	.headertext {
+		margin: 0;
 		font-weight: bold;
-		color: $color-text-main;
-	}
-
-	.normaltext {
-		font-size: 15px;
-		color: $color-text-main;
+		font-size: 1.25rem;
 	}
 
 	.customStyle {
-		border-radius: 20px;
+		border-radius: 10rem;
+		font-size: 18px;
 	}
 </style>

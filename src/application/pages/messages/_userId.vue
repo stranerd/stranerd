@@ -4,7 +4,7 @@
 		<div v-else-if="user" class="flex-grow-1 d-flex flex-column bg-white b-rad">
 			<ChatHead :key="hash" :user="user" />
 			<ChatList :user-id="userId" class="flex-grow-1" />
-			<ChatForm :key="hash" :user-id="userId" :session-id="sessionId" />
+			<ChatForm :key="sessionId" :user-id="userId" :session-id="sessionId" />
 		</div>
 		<DisplayError v-else error="No such user exists!" />
 	</div>

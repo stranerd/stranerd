@@ -39,7 +39,7 @@
 		<div v-if="tutor.tags.length" class="nerd-card gap-1-5">
 			<span>Routine Tags</span>
 			<div class="d-flex align-items-cnter gap-0-75 flex-wrap">
-				<TagListCard v-for="tag in tutor.tags" :key="tag.id" :tag="tag" />
+				<Tag v-for="tag in tutor.tags" :key="tag.id" :tag="tag" />
 			</div>
 		</div>
 	</div>
@@ -49,11 +49,11 @@
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { UserEntity } from '@modules/users'
 import { formatNumber, pluralize } from '@utils/commons'
-import TagListCard from '@app/components/questions/tags/TagListCard.vue'
+import Tag from '@app/components/questions/tags/Tag.vue'
 import Subject from '@app/components/questions/subjects/Subject.vue'
 export default defineComponent({
 	name: 'TutorsListCard',
-	components: { TagListCard, Subject },
+	components: { Tag, Subject },
 	props: {
 		tutor: {
 			type: Object as PropType<UserEntity>,

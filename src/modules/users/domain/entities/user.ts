@@ -89,8 +89,9 @@ export class UserEntity extends BaseEntity {
 	get subject () { return this.tutor.subject ?? null }
 	get tags () {
 		return Object.entries(this.tutor.tags)
-			.map(([key, val]) => ({ id: key, name: key, count: val }))
+			.map(([key, val]) => ({ id: key, count: val }))
 			.sort((a, b) => a.count >= b.count ? -1 : 1)
+			.map((tag) => tag.id)
 	}
 
 	get score () { return getScore(this) }

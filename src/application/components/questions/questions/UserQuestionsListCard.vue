@@ -9,7 +9,7 @@
 			<div class="dot" />
 			<span>Posted {{ formatTime(question.createdAt) }}</span>
 			<div class="gap-0-75 d-flex align-items-center mx-auto">
-				<TagListCard v-for="tag in question.tags" :key="tag" :tag="tag" />
+				<Tag v-for="tag in question.tags" :key="tag" :tag="tag" />
 			</div>
 			<span class="d-flex align-items-center gap-0-5">
 				<span>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</span>
@@ -21,14 +21,14 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
-import TagListCard from '@app/components/questions/tags/TagListCard.vue'
+import Tag from '@app/components/questions/tags/Tag.vue'
 import Subject from '@app/components/questions/subjects/Subject.vue'
 import { QuestionEntity } from '@modules/questions'
 import { formatNumber, pluralize } from '@utils/commons'
 import { formatTime } from '@utils/dates'
 export default defineComponent({
 	name: 'UserQuestionsListCard',
-	components: { TagListCard, Subject },
+	components: { Tag, Subject },
 	props: {
 		question: {
 			required: true,

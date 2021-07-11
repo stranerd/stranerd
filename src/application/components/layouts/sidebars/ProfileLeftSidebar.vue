@@ -78,9 +78,8 @@
 					<p>
 						{{ user.description }}
 					</p>
+					<div class="thick mx-n1" />
 				</template>
-
-				<div class="thick mx-n1" />
 
 				<template v-if="user.subject">
 					<h1 class="fw-bold">
@@ -97,15 +96,14 @@
 						Mathematics Biology Chemistry
 					</p>
 					<!-- TODO: figure out concept behind also good in other subjects -->
+					<div class="thick mx-n1" />
 				</template>
-
-				<div class="thick mx-n1" />
 
 				<h1 class="fw-bold">
 					Frequent Tags
 				</h1>
 				<p class="d-flex flex-wrap gap-0-5">
-					<TagListCard v-for="tag in user.tags" :key="tag.id" :tag="tag" />
+					<Tag v-for="tag in user.tags" :key="tag.id" :tag="tag" />
 				</p>
 			</div>
 		</div>
@@ -117,11 +115,11 @@ import { defineComponent, useRoute } from '@nuxtjs/composition-api'
 import { useUser } from '@app/hooks/users/user'
 import { formatNumber, pluralize } from '@utils/commons'
 import { formatTime } from '@utils/dates'
-import TagListCard from '@app/components/questions/tags/TagListCard.vue'
+import Tag from '@app/components/questions/tags/Tag.vue'
 import Subject from '@app/components/questions/subjects/Subject.vue'
 export default defineComponent({
 	name: 'ProfileLeftSidebar',
-	components: { TagListCard, Subject },
+	components: { Tag, Subject },
 	setup () {
 		const { userId } = useRoute().value.params
 		const { error, loading, user } = useUser(userId)
@@ -158,7 +156,7 @@ export default defineComponent({
 
 	.stats {
 		display: flex;
-		justify-content: between;
+		justify-content: space-between;
 		align-items: center;
 		color: $color-dark;
 

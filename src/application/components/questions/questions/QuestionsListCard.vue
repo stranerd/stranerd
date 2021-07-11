@@ -30,7 +30,7 @@
 		<div class="d-flex align-items-center gap-2">
 			<span class="name">Posted {{ formatTime(question.createdAt) }}</span>
 			<div class="gap-0-75 d-flex align-items-center">
-				<TagListCard v-for="tag in question.tags" :key="tag" :tag="tag" />
+				<Tag v-for="tag in question.tags" :key="tag" :tag="tag" />
 			</div>
 			<div class="ms-auto d-flex align-items-center gap-1">
 				<span class="d-flex align-items-center gap-0-5">
@@ -49,11 +49,11 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { openAnswerModal } from '@app/hooks/questions/answers'
 import { formatNumber, pluralize } from '@utils/commons'
 import { formatTime } from '@utils/dates'
-import TagListCard from '@app/components/questions/tags/TagListCard.vue'
+import Tag from '@app/components/questions/tags/Tag.vue'
 import Subject from '@app/components/questions/subjects/Subject.vue'
 export default defineComponent({
 	name: 'QuestionsListCard',
-	components: { TagListCard, Subject },
+	components: { Tag, Subject },
 	props: {
 		question: {
 			required: true,

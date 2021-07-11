@@ -6,7 +6,7 @@
 			</h1>
 			<div class="mb-0-5 editor-body" v-html="question.body" />
 			<div class="gap-0-5 d-flex align-items-center">
-				<TagListCard v-for="tag in question.tags" :key="tag" :tag="tag" />
+				<Tag v-for="tag in question.tags" :key="tag" :tag="tag" />
 			</div>
 		</div>
 		<div class="answer-body p-3">
@@ -30,12 +30,12 @@
 import { defineComponent, onMounted } from '@nuxtjs/composition-api'
 import { useCreateAnswer, getAnsweringQuestion } from '@app/hooks/questions/answers'
 import AnswerForm from '@app/components/questions/answers/AnswerForm.vue'
-import TagListCard from '@app/components/questions/tags/TagListCard.vue'
+import Tag from '@app/components/questions/tags/Tag.vue'
 import { analytics } from '@modules/core/services/initFirebase'
 import { useAuth } from '@app/hooks/auth/auth'
 export default defineComponent({
 	name: 'QuestionPageAnswersCreatePage',
-	components: { AnswerForm, TagListCard },
+	components: { AnswerForm, Tag },
 	middleware: [
 		'isAuthenticated',
 		({ redirect, route }) => {

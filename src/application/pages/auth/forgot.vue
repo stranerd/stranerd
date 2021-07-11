@@ -1,63 +1,36 @@
 <template>
-	<div class="py-2 col-lg-8 offset-lg-2 col-md-10 offset-md-1 d-flex flex-column" style="margin-top: 25px;">
-		<div class="d-flex flex-row col-12 py-0 px-0">
-			<form class="col-md-6 d-flex flex-column mt-md-5 col-12 px-1" @submit.prevent="resetPassword">
-				<div class=" col-12 d-md-block d-none">
-					<h1>
-						Forgot Your Password?
-					</h1>
-				</div>
-				<div class=" col-12 d-md-none d-block text-center">
-					<h1>
-						Forgot Your Password?
-					</h1>
-				</div>
-				<div class="py-1 pe-3 d-md-block d-none">
-					<span class="textStyle">
-						To reset your password, type your registered username or email address
-					</span>
-				</div>
-				<div class="py-1 d-md-none d-block">
-					<span class="textStyle">
-						To reset your password, type your registered username or email address
-					</span>
-				</div>
-				<div class="pb-2">
-					<input
-						id="email"
-						v-model="factory.email"
-						type="email"
-						name="email"
-						required
-						placeholder="Email or Username"
-						:class="{ 'is-valid': factory.isValid('email'), 'is-invalid': factory.errors.email }"
-						class="form-control py-1 px-1"
-						autocomplete="email"
-					>
-				</div>
-				<div class="pb-2 text-center">
-					<button class="btn btn btn-lg btn-custom py-1 " style="width: 100%;" type="submit">
-						Send Reset Mail
-					</button>
-				</div>
-				<div class="pb-2 d-flex flex-row" style="align-items: center; justify-content: center;">
-					<div class="textStyle">
-						Return to
-					</div>
-					<div style="text-decoration: underline; margin-left: 4px;">
-						<NuxtLink to="/auth/signin">
-							Sign In
-						</NuxtLink>
-					</div>
-				</div>
-				<div class="mb-2">
-					<DisplayError :error="error" />
-					<PageLoading v-if="loading" />
-				</div>
-			</form>
-			<div class="col-md-6 text-center py-0 px-2 d-md-block d-none">
-				<img src="@app/assets/images/auth/forgotImage.svg" style="width: 100%; height: 600px;">
+	<div class="py-md-1 px-0-5 px-md-3 px-lg-4 py-lg-1-5 d-flex flex-column flex-lg-row align-items-lg-center gap-2">
+		<form class="gap-2 d-flex flex-column w-100 flex-grow-1" @submit.prevent="resetPassword">
+			<h1 class="mb-0">
+				Forgot Your Password?
+			</h1>
+			<span class="textStyle mt-n1">
+				To reset your password, type your email address
+			</span>
+			<input
+				id="email"
+				v-model="factory.email"
+				type="email"
+				name="email"
+				required
+				placeholder="Email"
+				class="form-control"
+				autocomplete="email"
+			>
+			<button class="btn btn-lg btn-custom py-1 " type="submit">
+				Send Reset Mail
+			</button>
+			<DisplayError :error="error" />
+			<PageLoading v-if="loading" />
+			<div class="d-flex align-items-center justify-content-center gap-0-25">
+				<span>Return to</span>
+				<NuxtLink class="linkText" to="/auth/signin">
+					Sign In
+				</NuxtLink>
 			</div>
+		</form>
+		<div class="text-center d-lg-block d-none w-100 flex-grow-1">
+			<img src="@app/assets/images/auth/forgotImage.svg" style="width: 100%;">
 		</div>
 	</div>
 </template>
@@ -79,26 +52,28 @@ export default defineComponent({
 	.headerStyle {
 		font-weight: bolder;
 		text-transform: none;
-		color: $color-text-main;
+		color: $color-dark;
 	}
 
 	input {
-		border: 1px solid grey;
+		border: 1px solid $color-sub;
 		border-radius: 6px;
-		font-size: 16px;
-		color: grey;
+		color: $color-sub;
+		padding: 1rem;
 	}
 
 	.btn-custom {
-		background-color: $color-btn;
-		color: #fff;
+		background-color: $color-primary-dark;
+		color: $color-white;
 		border: 2px solid;
 		border-radius: 6px;
 		font-size: 16px;
 		font-weight: bold;
 	}
 
-	.textStyle {
-		color: $faded-text;
+	.linkText {
+		color: $color-primary-dark;
+		text-decoration: underline;
+		font-weight: bold;
 	}
 </style>

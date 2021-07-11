@@ -83,7 +83,7 @@ export default defineComponent({
 			border: 1px solid $color-line;
 
 			h1 {
-				color: $color-text-main;
+				color: $color-dark;
 				font-size: 36px;
 			}
 
@@ -93,13 +93,13 @@ export default defineComponent({
 				margin-top: 1.3rem;
 
 				.title {
-					color: $color-text-main;
+					color: $color-dark;
 					font-size: 1.5rem;
 					font-weight: 600;
 				}
 
 				.sub-title {
-					color: $color-text-main;
+					color: $color-dark;
 					font-size: 1.125rem;
 					font-weight: 500;
 				}
@@ -113,7 +113,7 @@ export default defineComponent({
 					margin-top: 6px;
 
 					&::placeholder {
-						color: $color-text-main;
+						color: $color-dark;
 					}
 				}
 

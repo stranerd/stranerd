@@ -32,6 +32,6 @@ export default defineComponent({
 	.ranking-header {
 		text-align: center;
 		font-size: 20px;
-		color: $color-text-main;
+		color: $color-dark;
 	}
 </style>

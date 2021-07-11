@@ -6,9 +6,9 @@
 				<h1 class="ranking-header">
 					Ranking Up
 				</h1>
-				<div class="d-flex gap-1 align-items-center text-blue">
+				<div class="d-flex gap-1 align-items-center text-dark">
 					<img :src="user.rank.image" alt="" class="img-rank">
-					<RankingProgressBar :current="user.rankProgress.overall" color="#00F332" :primary="true" />
+					<ProgressBar :current="user.rankProgress.overall" :primary="true" />
 					<img v-if="user.rankProgress.next" :src="user.rankProgress.next.image" alt="" class="img-rank">
 				</div>
 				<div class="d-flex flex-column gap-1">
@@ -58,13 +58,13 @@ export default defineComponent({
 	.ranking-header {
 		text-align: center;
 		font-size: 20px;
-		color: $color-text-main;
+		color: $color-dark;
 	}
 
 	.stat {
 		width: 350px;
 		font-size: 14px;
 		font-weight: 600;
-		color: $color-text-sub;
+		color: $color-sub;
 	}
 </style>

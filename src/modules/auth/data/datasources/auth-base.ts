@@ -8,6 +8,7 @@ export abstract class AuthBaseDataSource {
 	abstract signinWithEmailLink: (email: string, emailUrl: string) => Promise<AfterAuthUser>
 	abstract sendVerificationEmail: (email: string, redirectUrl: string) => Promise<void>
 	abstract resetPassword: (email: string, redirectUrl: string) => Promise<void>
+	abstract confirmPasswordReset: (code: string, password: string) => Promise<void>
 	abstract updateProfile: (profile: UpdateUser) => Promise<void>
 	abstract session: (idToken: string) => Promise<AuthDetails>
 	abstract logout: () => Promise<void>

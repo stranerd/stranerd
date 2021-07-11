@@ -62,18 +62,18 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 	.boxStyle {
-		border: 1px solid #c5c5c5;
+		border: 1px solid $color-line;
 		border-radius: 6px;
 	}
 
 	.largeText {
 		font-weight: bold;
-		color: $color-text-main;
+		color: $color-dark;
 		font-size: 29px;
 	}
 
 	.headertext {
 		font-weight: bold;
-		color: $color-text-main;
+		color: $color-dark;
 	}
 </style>

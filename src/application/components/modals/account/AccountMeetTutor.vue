@@ -6,7 +6,7 @@
 		<div class="d-flex flex-column flex-sm-row gap-0-5 mb-1">
 			<SelectSubject :subject-id.sync="subjectId" />
 		</div>
-		<button class="btn btn-blue" @click="navigate">
+		<button class="btn btn-dark" @click="navigate">
 			Continue
 		</button>
 	</Modal>

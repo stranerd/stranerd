@@ -27,7 +27,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 	.questionStyle {
 		font-size: 16px;
-		color: $color-text-sub;
+		color: $color-sub;
 		border-bottom: 1px solid $color-line;
 	}
 </style>

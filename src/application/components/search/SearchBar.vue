@@ -41,7 +41,7 @@ export default defineComponent({
 		border: 1px solid $color-line;
 		background-color: $color-tags;
 		border-radius: 12px;
-		color: $color-text-sub;
+		color: $color-sub;
 
 		select {
 			width: auto;
@@ -49,14 +49,14 @@ export default defineComponent({
 			border-left: 1px solid $color-line;
 			background-color: $color-tags;
 			border-radius: 12px;
-			color: $color-text-main;
+			color: $color-dark;
 		}
 
 		select:focus {
 			box-shadow: none;
 
 			option {
-				background: $color-text-main;
+				background: $color-dark;
 				color: $color-white;
 			}
 		}

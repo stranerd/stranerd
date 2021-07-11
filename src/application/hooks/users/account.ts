@@ -44,16 +44,16 @@ export const useUpdateProfile = () => {
 }
 
 const BRONZE_PRICES = [
-	{ amount: 1000, price: 0.99, src: '/images/buyCoins/bronze1.svg', btn_color: '#546DD3' },
-	{ amount: 2000, price: 1.99, src: '/images/buyCoins/bronze2.svg', btn_color: '#546DD3' },
-	{ amount: 5000, price: 4.99, src: '/images/buyCoins/bronze3.svg', btn_color: '#132740' },
-	{ amount: 10000, price: 9.99, src: '/images/buyCoins/bronze4.svg', btn_color: '#546DD3' }
+	{ amount: 1000, price: 0.99, src: '/images/buyCoins/bronze-1.svg' },
+	{ amount: 2000, price: 1.99, src: '/images/buyCoins/bronze-2.svg' },
+	{ amount: 5000, price: 4.99, src: '/images/buyCoins/bronze-3.svg', suggested: true },
+	{ amount: 10000, price: 9.99, src: '/images/buyCoins/bronze-4.svg' }
 ]
 const GOLD_PRICES = [
-	{ amount: 10, price: 0.99, src: '/images/buyCoins/gold1.svg', btn_color: '#546DD3' },
-	{ amount: 50, price: 4.99, src: '/images/buyCoins/gold2.svg', btn_color: '#546DD3' },
-	{ amount: 100, price: 9.99, src: '/images/buyCoins/gold3.svg', btn_color: '#132740' },
-	{ amount: 500, price: 49.99, src: '/images/buyCoins/gold4.svg', btn_color: '#546DD3' }
+	{ amount: 10, price: 0.99, src: '/images/buyCoins/gold-1.svg' },
+	{ amount: 50, price: 4.99, src: '/images/buyCoins/gold-2.svg' },
+	{ amount: 100, price: 9.99, src: '/images/buyCoins/gold-3.svg', suggested: true },
+	{ amount: 500, price: 49.99, src: '/images/buyCoins/gold-4.svg' }
 ]
 
 export const useBuyCoins = () => {

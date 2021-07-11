@@ -15,7 +15,7 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import TopNavigation from '@app/components/layouts/topNavigations/DefaultTopNavigation.vue'
 import { useMenuModal } from '@app/hooks/core/modals'
 export default defineComponent({
-	name: 'DefaultLayout',
+	name: 'ChatLayout',
 	components: { TopNavigation },
 	setup () {
 		const { openSidebar } = useMenuModal()
@@ -26,7 +26,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 	.layout-body {
-		max-width: 1056px;
+		max-width: 1536px;
 		margin-left: auto;
 		margin-right: auto;
 	}

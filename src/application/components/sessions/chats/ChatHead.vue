@@ -1,5 +1,5 @@
 <template>
-	<div class="d-flex py-0-5 px-2 gap-1 align-items-center position-relative bg-line b-rad">
+	<div class="d-flex py-0-5 px-2 gap-1 align-items-center position-relative bg-line bor-rad">
 		<NuxtLink :to="`/users/${user.id}`">
 			<Avatar :src="user.avatar" :size="63" />
 		</NuxtLink>
@@ -18,7 +18,6 @@
 			<a v-if="canRequestSession" @click.prevent="requestNewSession">
 				Request Session
 			</a>
-			<a @click="tipUser">Tip Nerd</a>
 			<a @click="reportUser">Report</a>
 			<PageLoading v-if="loading" />
 			<a v-if="canEndSession" @click.prevent="cancelSession">End Session</a>
@@ -36,7 +35,6 @@ import { useAccountModal, useSessionModal } from '@app/hooks/core/modals'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useCurrentSession } from '@app/hooks/sessions/session'
 import { setReportedBioAndId } from '@app/hooks/forms/reports'
-import { setNerdBioAndId } from '@app/hooks/users/account'
 import { analytics } from '@modules/core/services/initFirebase'
 export default defineComponent({
 	name: 'ChatHead',
@@ -92,11 +90,6 @@ export default defineComponent({
 		const reportUser = () => {
 			setReportedBioAndId({ id: props.user.id, bio: props.user.bio })
 			useAccountModal().openReportUser()
-			show.value = false
-		}
-		const tipUser = () => {
-			setNerdBioAndId({ id: props.user.id, bio: props.user.bio })
-			useAccountModal().openTipTutor()
 			show.value = false
 		}
 		if (otherParticipantId.value) setOtherParticipantId(otherParticipantId.value)
@@ -167,8 +160,9 @@ export default defineComponent({
 		animation: slide-down 0.1s;
 	}
 
-	.b-rad {
-		border-radius: 12px 12px 0 0 !important;
+	.bor-rad {
+		border-radius: 12px 12px 0 0;
+		@media (min-width: $lg) { border-radius: 0 12px 0 0; }
 	}
 
 	@keyframes slide-down {

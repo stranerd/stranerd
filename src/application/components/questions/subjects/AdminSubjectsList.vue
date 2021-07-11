@@ -1,11 +1,14 @@
 <template>
-	<div>
-		<div class="grid my-1">
-			<SubjectCard v-for="subject in subjects" :key="subject.hash" :subject="subject" />
-		</div>
-		<DisplayWarning v-if="!loading && !error && subjects.length === 0" message="No subjects found" />
+	<div class="d-flex flex-column">
+		<SubjectCard />
+		<SubjectCard />
+		<SubjectCard />
+		<SubjectCard />
+		<SubjectCard />
+		<SubjectCard />
+		<!-- <DisplayWarning v-if="!loading && !error && subjects.length === 0" message="No subjects found" />
 		<PageLoading v-if="loading" />
-		<DisplayError :error="error" />
+		<DisplayError :error="error" /> -->
 	</div>
 </template>
 

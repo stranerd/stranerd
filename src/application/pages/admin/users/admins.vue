@@ -1,7 +1,7 @@
 <template>
-	<div>
-		<div class="page-content">
-			<UpgradeUserToAdmin />
+	<div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 d-flex flex-column">
+		<UpgradeUserToAdmin />
+		<div>
 			<AdminsList />
 		</div>
 	</div>

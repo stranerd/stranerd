@@ -1,14 +1,14 @@
 <template>
 	<div>
 		<TopNavigation :open-menu="openSidebar" />
-		<section class="d-flex flex-row mb-0 col-12 px-0 py-0">
-			<section class="col-md-3  px-1 py-0">
+		<section class="layout-body">
+			<section class="layout-side-left">
 				<Sidebar />
 			</section>
-			<main class="layout-main flex-grow-0 col-md-6 px-0 py-0">
-				<Nuxt class="ranking-layout-content" />
+			<main class="layout-main">
+				<Nuxt class="layout-content" />
 			</main>
-			<section class="layout-side-right col-md-3 px-1 py-0">
+			<section class="layout-side-right">
 				<ProfileSidebar />
 			</section>
 			<ModalBase />

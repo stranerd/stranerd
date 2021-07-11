@@ -1,5 +1,13 @@
 <template>
-	<div :id="subject.id" class="d-flex flex-column align-items-center">
+	<div class="mb-1 px-1 py-1 d-flex flex-row wrapper" style="align-items:center;">
+		<div class="subject-custom">
+			Mathematics
+		</div>
+		<div style="margin-left:auto;font-size:14px;" class="text-danger">
+			Delete
+		</div>
+	</div>
+	<!-- <div :id="subject.id" class="d-flex flex-column align-items-center">
 		<img v-if="subject.icon" :src="subject.icon" :alt="subject.name" width="50">
 		<h5 class="text-capitalize">
 			{{ subject.name }}
@@ -16,7 +24,7 @@
 		</div>
 		<PageLoading v-if="loading" />
 		<DisplayError :error="error" />
-	</div>
+	</div> -->
 </template>
 
 <script lang="ts">
@@ -42,3 +50,16 @@ export default defineComponent({
 	}
 })
 </script>
+<style lang="scss" scoped>
+.subject-custom {
+	font-weight: bold;
+	font-size: 17px;
+	color: $color-text-main;
+}
+
+.wrapper {
+	border: 1px solid $color-line;
+	border-radius: 5px;
+	background-color: $color-tags;
+}
+</style>

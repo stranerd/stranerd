@@ -1,16 +1,22 @@
 <template>
 	<div>
-		<h2>Add New Admin</h2>
-		<form @submit.prevent="getUsersByEmail">
-			<div class="d-flex align-items-center">
-				<input v-model="email" type="email" autocomplete="email" class="form-control flex-grow-1" placeholder="Enter user's email address">
-				<a @click.prevent="reset">
-					<i class="fas fa-trash mx-1 text-danger" />
-				</a>
+		<form class="d-flex flex-row mb-2" style="align-items:center;" @submit.prevent="getUsersByEmail">
+			<div class="flex-grow-1">
+				<input
+					id="email"
+					v-model="email"
+					name="subject_name"
+					required
+					placeholder="Enter user's email address"
+					class="form-control py-1 px-1"
+					autocomplete="email"
+				>
 			</div>
-			<button class="btn mx-0 px-1 btn-blue my-1" :disabled="!email">
-				Find User
-			</button>
+			<div style="margin-left:auto;">
+				<button class="btn btn-lg btn-custom btn-block py-1 px-3" type="submit">
+					Find User
+				</button>
+			</div>
 		</form>
 		<div v-if="fetched" class="mt-0-5">
 			<DisplayError v-if="users.length === 0" error="No user with such email exists" />
@@ -35,7 +41,6 @@
 		</div>
 		<DisplayError :error="error" />
 		<PageLoading v-if="loading" />
-		<div class="thick mx-n2" />
 	</div>
 </template>
 
@@ -55,3 +60,22 @@ export default defineComponent({
 	}
 })
 </script>
+<style lang="scss" scoped>
+	input {
+		border: 1px solid $color-line;
+		border-radius: 6px;
+		font-size: 16px;
+		background-color: $color-tags;
+		width:100%;
+		color: grey;
+	}
+
+	.btn-custom {
+		background-color: $color-btn;
+		color: #fff;
+		border: 2px solid;
+		border-radius: 6px;
+		font-size: 16px;
+		font-weight: bold;
+	}
+</style>

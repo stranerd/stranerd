@@ -1,12 +1,24 @@
 <template>
-	<div>
-		<div class="page-content">
-			<div class="d-flex justify-content-end">
-				<button class="btn btn-lg btn-blue text-white" @click="openSubject">
-					Add New Subject
+	<div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 d-flex flex-column">
+		<!-- TODO - add a new subject form -->
+		<form class="d-flex flex-row mb-2" style="align-items:center;">
+			<div style="width:100%;">
+				<input
+					id="subject_name"
+					name="subject_name"
+					required
+					placeholder="Add a new subject"
+					class="form-control py-1 px-1"
+					autocomplete="subject_name"
+				>
+			</div>
+			<div>
+				<button class="btn btn btn-lg btn-custom py-1 px-3" type="submit">
+					Add
 				</button>
 			</div>
-			<div class="thick mx-n2 mb-2" />
+		</form>
+		<div>
 			<SubjectsList />
 		</div>
 	</div>
@@ -25,3 +37,22 @@ export default defineComponent({
 	}
 })
 </script>
+<style lang="scss" scoped>
+	input {
+		border: 1px solid $color-line;
+		border-radius: 6px;
+		font-size: 16px;
+		background-color: $color-tags;
+		width:100%;
+		color: grey;
+	}
+
+	.btn-custom {
+		background-color: $color-btn;
+		color: #fff;
+		border: 2px solid;
+		border-radius: 6px;
+		font-size: 16px;
+		font-weight: bold;
+	}
+</style>

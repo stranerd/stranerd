@@ -108,7 +108,6 @@ export default defineComponent({
 
 	.background {
 		background: url('@app/assets/images/icons/dashboard_hero.svg') no-repeat right bottom;
-
 		@media (min-width: 600px) {
 			background-position: right center;
 		}

@@ -44,7 +44,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 	.headerStyle {
 		font-weight: bold;
-		color: $color-text-main;
+		color: $color-dark;
 		margin-bottom: 0;
 	}
 </style>

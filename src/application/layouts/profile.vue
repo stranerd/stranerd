@@ -3,13 +3,13 @@
 		<TopNavigation :open-menu="openSidebar" />
 		<section class="layout-body">
 			<section class="layout-side-left">
-				<Sidebar />
+				<ProfileLeftSidebar />
 			</section>
 			<main class="layout-main">
 				<Nuxt class="layout-content" />
 			</main>
 			<section class="layout-side-right">
-				<ProfileSidebar />
+				<ProfileRightSidebar />
 			</section>
 			<ModalBase />
 		</section>
@@ -18,13 +18,13 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import Sidebar from '@app/components/layouts/sidebars/DefaultSidebar.vue'
-import ProfileSidebar from '@app/components/layouts/sidebars/ProfileSidebar.vue'
+import ProfileLeftSidebar from '@app/components/layouts/sidebars/ProfileLeftSidebar.vue'
+import ProfileRightSidebar from '@app/components/layouts/sidebars/ProfileRightSidebar.vue'
 import TopNavigation from '@app/components/layouts/topNavigations/DefaultTopNavigation.vue'
 import { useMenuModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'DashboardLayout',
-	components: { Sidebar, TopNavigation, ProfileSidebar },
+	components: { TopNavigation, ProfileRightSidebar, ProfileLeftSidebar },
 	setup () {
 		const { openSidebar } = useMenuModal()
 		return { openSidebar }

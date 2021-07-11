@@ -5,7 +5,7 @@
 		</template>
 		<AccountCoinBalance class="mb-1 px-1-5" :user="user" />
 		<div class="d-flex flex-wrap gap-1">
-			<button v-for="amount in TIP_AMOUNTS" :key="amount" :disabled="user.account.coins.gold < amount" class="tip btn btn-outline-blue" @click="tipTutor(amount)">
+			<button v-for="amount in TIP_AMOUNTS" :key="amount" :disabled="user.account.coins.gold < amount" class="tip btn btn-outline-dark" @click="tipTutor(amount)">
 				<span>{{ amount }}</span>
 				<Coins :gold="true" :size="20" />
 			</button>

@@ -1,18 +1,16 @@
 <template>
-	<span class="w-100 mx-auto d-flex justify-content-center gap-0-5" style="max-width: 300px;">
-		<span class="d-flex align-items-center position-relative" style="margin-right: 24px;">
-			<Coins :size="28" style="z-index: 1;" />
-			<span class="rounded-pill ms-n1 px-1 ps-1-5 bg-tags border-line border text-text-main">
+	<span class="w-100 mx-auto d-flex justify-content-center gap-2" style="max-width: 300px;">
+		<span class="balance">
+			<Coins :size="32" />
+			<span class="amount">
 				{{ formatNumber(user.account.coins.bronze) }}
 			</span>
 		</span>
-		<span class="d-flex align-items-center position-relative">
-			<Coins :gold="true" :size="28" class="ms-n1" style="z-index: 1;" />
-			<span class="rounded-pill ms-n1 px-1 ps-1-5 bg-tags border-line border text-text-main">
+		<span class="balance">
+			<Coins :gold="true" :size="32" />
+			<span class="amount">
 				{{ formatNumber(user.account.coins.gold) }}
-
 			</span>
-
 		</span>
 	</span>
 </template>
@@ -36,14 +34,22 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-	.border {
-		width: fit-content;
-		padding: 3px 0;
-		margin-right: 1rem;
-		min-width: 3.4rem;
-	}
+	.balance {
+		display: flex;
+		align-items: center;
 
-	.ms-n1 {
-		margin-left: -1.4rem !important;
+		img {
+			z-index: 1;
+		}
+
+		.amount {
+			width: fit-content;
+			margin-left: -2rem;
+			padding: 0.2rem 1rem 0.2rem 2rem;
+			border-radius: 10rem;
+			color: $color-dark;
+			background: $color-tags;
+			border: 1px solid $color-sub;
+		}
 	}
 </style>

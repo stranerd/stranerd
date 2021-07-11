@@ -1,13 +1,13 @@
 <template>
 	<nav role="navigation">
-		<div class="px-md-2 p-1 maincolor d-flex flex-row align-items-center">
+		<div class="px-md-2 p-1 bg-primary-dark d-flex flex-row align-items-center">
 			<Logo />
 			<div class="ms-auto gap-2 flex-row-reverse d-lg-flex d-none align-items-center">
 				<NuxtLink class="btn btn-lg white-btn-custom px-3" to="/auth/signup">
 					Sign Up
 				</NuxtLink>
 				<NuxtLink class="btn btn-lg btn-custom px-3" to="/auth/signin">
-					Log In
+					Sign In
 				</NuxtLink>
 				<NuxtLink class="link-custom px-1" to="/contact-us">
 					Contact
@@ -31,22 +31,13 @@
 		<transition name="slide-fade">
 			<template v-if="show">
 				<div class="menuBackground gap-2 py-2 px-1 d-lg-none d-flex flex-column text-center">
-					<NuxtLink
-						class="smallScreenLink link-custom"
-						to="/"
-					>
+					<NuxtLink class="smallScreenLink link-custom" to="/">
 						Home
 					</NuxtLink>
-					<NuxtLink
-						class="smallScreenLink link-custom"
-						to="/how-it-works"
-					>
+					<NuxtLink class="smallScreenLink link-custom" to="/how-it-works">
 						How it works
 					</NuxtLink>
-					<NuxtLink
-						class="smallScreenLink link-custom"
-						to="/contact-us"
-					>
+					<NuxtLink class="smallScreenLink link-custom" to="/contact-us">
 						Contact
 					</NuxtLink>
 					<NuxtLink
@@ -54,7 +45,7 @@
 						style="max-width: 400px;"
 						to="/auth/signin"
 					>
-						Log In
+						Sign In
 					</NuxtLink>
 					<NuxtLink
 						class="btn btn-lg btn-custom mx-auto w-100"
@@ -81,30 +72,25 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-	.maincolor {
-		background-color: #354da3;
-		color: white;
-	}
-
 	.white-btn-custom {
-		background-color: white;
-		color: #354da3;
+		background-color: $color-white;
+		color: $color-primary-dark;
 		font-size: 15px;
-		border: 2px solid #fff;
+		border: 2px solid $color-white;
 		border-radius: 6px;
 	}
 
 	.btn-custom {
-		background-color: #354da3;
-		color: #fff;
+		background-color: $color-primary-dark;
+		color: $color-white;
 		font-size: 15px;
-		border: 2px solid #fff;
+		border: 2px solid $color-white;
 		font-weight: $font-weight-bold;
 		border-radius: 6px;
 	}
 
 	.link-custom {
-		color: #fff;
+		color: $color-white;
 		font-weight: $font-weight-bold;
 		font-size: 15px;
 	}
@@ -113,10 +99,10 @@ export default defineComponent({
 		position: fixed;
 		height: 100%;
 		width: 100%;
-		background-color: $main-background-color;
+		background-color: $color-primary-dark;
 	}
 
 	.smallScreenLink:hover {
-		background-color: rgba($color: #fff, $alpha: 0.2);
+		background-color: rgba($color-white, 0.2);
 	}
 </style>

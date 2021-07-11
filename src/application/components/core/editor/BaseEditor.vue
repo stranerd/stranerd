@@ -114,7 +114,7 @@ export default defineComponent({
 			}
 
 			.ql-formats + .ql-formats {
-				border-left: 1px solid $color-text-sub;
+				border-left: 1px solid $color-sub;
 			}
 		}
 	}

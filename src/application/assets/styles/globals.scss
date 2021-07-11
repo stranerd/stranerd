@@ -1,31 +1,21 @@
 
-$color-text-main: #132740;
-$color-text-sub: #4d5c6f;
-$color-main: #546dd3;
-$color-main-dark: #374b99;
+$color-dark: #132740;
+$color-footer-dark: #191c29;
+$color-sub: #4d5c6f;
+$color-primary: #546dd3;
+$color-primary-dark: #374b99;
 $color-line: #d7e2ec;
 $color-tags: #f8f8ff;
-$color-ratings: #ffda20;
-$main-background-color: #354da3;
-$color-tint-blue:  #103e83;
-$color-dim-blue:  #214a73;
-$color-text-main-grey: #214a73;
-$color-light-grey: #e7eef4;
-$color-grey: #808080;
-$color-light-blue: #e2f0ff;
-$color-white: #fefefe;
-$color-text-main-white: #afc4d9;
-$color-footer-blue: #191c29;
+$color-white: $color-tags;
 $color-black: #111b25;
-$color-black-transparent: rgba($color-black, 0.75);
 
-$color-gold: #ffd700;
+$color-gold: #ffda20;
 $color-red: #f30032;
 $color-green: #07b63e;
 
-$body-color: $color-text-main;
+$body-color: $color-dark;
 $min-contrast-ratio: 4.5;
-$color-contrast-dark: $color-text-main;
+$color-contrast-dark: $color-dark;
 $color-contrast-light: $color-white;
 
 $xs: 0;
@@ -51,7 +41,6 @@ $font-weight-medium: 600;
 $font-weight-bold: 700;
 
 $theme-colors: (
-	'gold': $color-gold,
 	'danger': $color-red,
 	'success': $color-green,
 	'sub': $color-text-sub,
@@ -61,12 +50,14 @@ $theme-colors: (
 	'tags': $color-tags,
 	'info': #0dcaf0,
 	'warning': #ffc107,
-	'blue': $color-text-main,
-	'primary-blue': $color-main,
-	'light-blue': $color-light-blue,
-	'blue-grey': $color-text-main-grey,
-	'light-grey': $color-line,
-	'grey': $color-text-sub,
+	'dark': $color-dark,
+	'footer-dark': $color-footer-dark,
+	'primary': $color-primary,
+	'primary-dark': $color-primary-dark,
+	'line': $color-line,
+	'tags': $color-tags,
+	'sub': $color-sub,
+	'gold': $color-gold,
 	'black': $color-black,
 	'white': $color-white
 );

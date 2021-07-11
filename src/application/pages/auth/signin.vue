@@ -1,56 +1,57 @@
 <template>
-	<form @submit.prevent="signin">
-		<h1 class="mb-2 text-center">
-			Sign In With
-		</h1>
-		<AuthProviders class="mb-2" />
-		<div class="form-group mb-1">
-			<label for="email" class="label">Email</label>
+	<div class="py-md-1 px-0-5 px-md-3 px-lg-4 py-lg-1-5 d-flex flex-column flex-lg-row gap-2">
+		<form class="gap-2 d-flex flex-column w-100 flex-grow-1" @submit.prevent="signin">
+			<h1 class="mb-0">
+				Sign In
+			</h1>
+			<!-- TODO: add back validation errors -->
 			<input
 				id="email"
 				v-model="factory.email"
 				type="email"
 				name="email"
-				:class="{ 'is-valid': factory.isValid('email'), 'is-invalid': factory.errors.email }"
 				required
+				placeholder="Email"
 				class="form-control"
 				autocomplete="email"
-				autofocus
 			>
-			<span v-if="factory.errors.email" class="text-danger">{{ factory.errors.email }}</span>
-		</div>
-		<div class="form-group mb-1">
-			<label class="label d-flex align-items-end" for="password">
-				<span>Password</span>
-				<NuxtLink to="/auth/forgot" class="label-sm ms-0-5">Forgot?</NuxtLink>
-				<a class="label-sm ms-auto" @click.prevent="toggle">{{ show ? 'Hide' : 'Show' }} password</a>
-			</label>
 			<input
 				id="password"
 				v-model="factory.password"
-				:type="show ? 'text' : 'password'"
+				type="password"
 				name="password"
-				:class="{ 'is-valid': factory.isValid('password'), 'is-invalid': factory.errors.password }"
 				required
+				placeholder="Password"
 				class="form-control"
-				autocomplete="current-password"
+				autocomplete="password"
 			>
-			<span v-if="factory.errors.password" class="text-danger">{{ factory.errors.password }}</span>
-		</div>
-		<div class="text-center">
-			<button type="submit" class="w-100 btn btn-blue py-1" :disabled="loading || !factory.valid">
+			<div class="text-end">
+				<NuxtLink class="linkText text-decoration-none" to="/auth/forgot">
+					Forgot Password
+				</NuxtLink>
+			</div>
+			<button class="btn btn-lg btn-custom py-1 " type="submit">
 				Sign In
 			</button>
 			<DisplayError :error="error" />
 			<PageLoading v-if="loading" />
+			<div class="d-flex gap-1 align-items-center">
+				<div class="flex-grow-1 border-bottom border-line" style="height: 2px;" />
+				<span>or sign in with</span>
+				<div class="flex-grow-1 border-bottom border-line" style="height: 2px;" />
+			</div>
+			<AuthProviders />
+			<div class="d-flex align-items-center justify-content-center gap-0-25">
+				<span>Not a member yet?</span>
+				<NuxtLink class="linkText" to="/auth/signup">
+					Sign Up
+				</NuxtLink>
+			</div>
+		</form>
+		<div class="text-center d-lg-block d-none w-100 flex-grow-1">
+			<img src="@app/assets/images/auth/loginImage.svg" style="width: 100%;">
 		</div>
-		<div class="text-center mt-2">
-			<span class="label-sm">Not a member?</span>
-			<NuxtLink to="/auth/signup" class="label-sm">
-				Sign up now
-			</NuxtLink>
-		</div>
-	</form>
+	</div>
 </template>
 
 <script lang="ts">
@@ -70,3 +71,32 @@ export default defineComponent({
 	}
 })
 </script>
+<style lang="scss" scoped>
+	.headerStyle {
+		font-weight: bolder;
+		text-transform: none;
+		color: $color-dark;
+	}
+
+	input {
+		border: 1px solid $color-sub;
+		border-radius: 6px;
+		color: $color-sub;
+		padding: 1rem;
+	}
+
+	.btn-custom {
+		background-color: $color-primary-dark;
+		color: $color-white;
+		border: 2px solid;
+		border-radius: 6px;
+		font-size: 16px;
+		font-weight: bold;
+	}
+
+	.linkText {
+		color: $color-primary-dark;
+		text-decoration: underline;
+		font-weight: bold;
+	}
+</style>

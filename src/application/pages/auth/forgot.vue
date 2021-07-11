@@ -1,35 +1,38 @@
 <template>
-	<form @submit.prevent="resetPassword">
-		<h1 class="mb-2 text-center">
-			Forgot Password
-		</h1>
-		<div class="form-group mb-1">
-			<label for="email" class="label">Email</label>
+	<div class="py-md-1 px-0-5 px-md-3 px-lg-4 py-lg-1-5 d-flex flex-column flex-lg-row align-items-lg-center gap-2">
+		<form class="gap-2 d-flex flex-column w-100 flex-grow-1" @submit.prevent="resetPassword">
+			<h1 class="mb-0">
+				Forgot Your Password?
+			</h1>
+			<span class="textStyle mt-n1">
+				To reset your password, type your email address
+			</span>
 			<input
 				id="email"
 				v-model="factory.email"
 				type="email"
 				name="email"
-				:class="{ 'is-valid': factory.isValid('email'), 'is-invalid': factory.errors.email }"
 				required
+				placeholder="Email"
 				class="form-control"
 				autocomplete="email"
-				autofocus
 			>
-		</div>
-		<div class="text-center">
-			<button type="submit" class="w-100 btn btn-blue py-1" :disabled="loading || !factory.valid">
-				Send Reset Email
+			<button class="btn btn-lg btn-custom py-1 " type="submit">
+				Send Reset Mail
 			</button>
 			<DisplayError :error="error" />
 			<PageLoading v-if="loading" />
+			<div class="d-flex align-items-center justify-content-center gap-0-25">
+				<span>Return to</span>
+				<NuxtLink class="linkText" to="/auth/signin">
+					Sign In
+				</NuxtLink>
+			</div>
+		</form>
+		<div class="text-center d-lg-block d-none w-100 flex-grow-1">
+			<img src="@app/assets/images/auth/forgotImage.svg" style="width: 100%;">
 		</div>
-		<div class="text-center mt-1">
-			<NuxtLink to="/auth/signin" class="label-sm">
-				Return to Signin
-			</NuxtLink>
-		</div>
-	</form>
+	</div>
 </template>
 
 <script lang="ts">
@@ -45,3 +48,32 @@ export default defineComponent({
 	}
 })
 </script>
+<style lang="scss" scoped>
+	.headerStyle {
+		font-weight: bolder;
+		text-transform: none;
+		color: $color-dark;
+	}
+
+	input {
+		border: 1px solid $color-sub;
+		border-radius: 6px;
+		color: $color-sub;
+		padding: 1rem;
+	}
+
+	.btn-custom {
+		background-color: $color-primary-dark;
+		color: $color-white;
+		border: 2px solid;
+		border-radius: 6px;
+		font-size: 16px;
+		font-weight: bold;
+	}
+
+	.linkText {
+		color: $color-primary-dark;
+		text-decoration: underline;
+		font-weight: bold;
+	}
+</style>

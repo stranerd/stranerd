@@ -39,7 +39,7 @@ export default defineComponent({
 
 <style scoped lang="scss">
 	.main-background {
-		background: $main-background-color;
+		background: $color-primary-dark;
 		color: $color-white;
 	}
 

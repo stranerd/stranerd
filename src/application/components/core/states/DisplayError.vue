@@ -1,5 +1,5 @@
 <template>
-	<div v-if="error" class="small alert alert-danger mx-auto my-0-5 text-center" role="alert">
+	<div v-if="error" class="small alert alert-danger w-100 my-0-25 text-center" role="alert">
 		<span>{{ error }}</span>
 	</div>
 </template>

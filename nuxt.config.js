@@ -25,7 +25,7 @@ export const head = {
 	],
 	link: [
 		{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-		{ rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap' }
+		{ rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap' }
 	]
 }
 
@@ -97,7 +97,7 @@ export const pwa = {
 		source: 'src/application/static/images/icon.png'
 	},
 	meta: {
-		theme_color: '#395C7F',
+		theme_color: '#546dd3',
 		ogHost: 'https://stranerd.com',
 		ogImage: 'https://stranerd.com/images/banner.jpg',
 		twitterCard: 'https://stranerd.com/images/banner.jpg',

@@ -44,7 +44,7 @@ export default defineComponent({
 		border: 1px solid $color-line;
 
 		h1 {
-			color: $color-text-main;
+			color: $color-dark;
 			font-size: 36px;
 			margin-bottom: 1.25rem;
 		}

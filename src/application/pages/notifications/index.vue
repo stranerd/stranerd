@@ -27,7 +27,7 @@ export default defineComponent({
 		h1 {
 			padding: 2.25rem;
 			margin: 0;
-			color: $color-text-main;
+			color: $color-dark;
 			border-bottom: 1px solid $color-line;
 			font-size: 36px;
 		}

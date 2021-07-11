@@ -96,18 +96,18 @@ export default defineComponent({
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			border: 1px solid #a4b1a8;
+			border: 1px solid $color-line;
 			border-radius: 13px;
-			box-shadow: 0 4px 14px #0000;
-			background: #fbfbfb 0% 0% no-repeat padding-box;
-			color: grey;
+			box-shadow: 0 4px 14px rgba($color-black, 0);
+			background: $color-tags 0% 0% no-repeat padding-box;
+			color: $color-sub;
 			padding: 1rem;
 			@media (min-width: $md) { padding: 2rem; }
 			@media (min-width: $lg) { padding: 3rem; }
-			&:hover { box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2); }
+			&:hover { box-shadow: 0 8px 16px 0 rgba($color-black, 0.2); }
 
 			& > h2 {
-				color: $main-background-color;
+				color: $color-primary-dark;
 				margin: 0;
 				font-weight: bold;
 				font-size: 20px;
@@ -149,7 +149,7 @@ export default defineComponent({
 	}
 
 	.main-background-text {
-		color: $main-background-color;
+		color: $color-primary-dark;
 	}
 
 	h1 {

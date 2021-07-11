@@ -78,6 +78,7 @@ export class UserEntity extends BaseEntity {
 	get fullName () { return this.bio.name.fullName! }
 	get email () { return this.bio.email }
 	get avatar () { return this.bio.avatar! }
+	get description () { return this.bio.description }
 
 	get isOnline () { return Object.keys(this.status.connections).length > 0 }
 	get lastSeen () { return this.isOnline ? Date.now() : this.status.lastSeen }

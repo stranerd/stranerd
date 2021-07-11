@@ -31,9 +31,9 @@
 			<span>{{ formatNumber(tutor.meta.tutorSessions.length) }} {{ pluralize(tutor.meta.tutorSessions.length, 'Session', 'Sessions') }} Hosted</span>
 		</div>
 
-		<div v-if="subject" class="nerd-card gap-1-5">
+		<div v-if="tutor.subject" class="nerd-card gap-1-5">
 			<span>Strongest In</span>
-			<span class="sub-text">{{ subject.name }}</span>
+			<Subject :subject-id="tutor.subject.id" class="sub-text" />
 		</div>
 
 		<div v-if="tutor.tags.length" class="nerd-card gap-1-5">
@@ -49,20 +49,19 @@
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { UserEntity } from '@modules/users'
 import { formatNumber, pluralize } from '@utils/commons'
-import { useSubject } from '@app/hooks/questions/subjects'
 import TagListCard from '@app/components/questions/tags/TagListCard.vue'
+import Subject from '@app/components/questions/subjects/Subject.vue'
 export default defineComponent({
 	name: 'TutorsListCard',
-	components: { TagListCard },
+	components: { TagListCard, Subject },
 	props: {
 		tutor: {
 			type: Object as PropType<UserEntity>,
 			required: true
 		}
 	},
-	setup (props) {
-		const { subject } = useSubject(props.tutor.subject?.id ?? '')
-		return { formatNumber, pluralize, subject }
+	setup () {
+		return { formatNumber, pluralize }
 	}
 })
 </script>

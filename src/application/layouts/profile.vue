@@ -9,7 +9,7 @@
 				<Nuxt />
 			</main>
 			<section class="layout-side-right">
-				<ProfileSidebar />
+				<ProfileRightSidebar />
 			</section>
 			<ModalBase />
 		</section>
@@ -19,12 +19,12 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import Sidebar from '@app/components/layouts/sidebars/DefaultSidebar.vue'
-import ProfileSidebar from '@app/components/layouts/sidebars/ProfileSidebar.vue'
+import ProfileRightSidebar from '@app/components/layouts/sidebars/ProfileRightSidebar.vue'
 import TopNavigation from '@app/components/layouts/topNavigations/DefaultTopNavigation.vue'
 import { useMenuModal } from '@app/hooks/core/modals'
 export default defineComponent({
-	name: 'DashboardLayout',
-	components: { Sidebar, TopNavigation, ProfileSidebar },
+	name: 'ProfileLayout',
+	components: { Sidebar, TopNavigation, ProfileRightSidebar },
 	setup () {
 		const { openSidebar } = useMenuModal()
 		return { openSidebar }

@@ -87,9 +87,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from '@nuxtjs/composition-api'
+import { defineComponent, onBeforeUnmount, PropType } from '@nuxtjs/composition-api'
 import { useUpdateProfile } from '@app/hooks/users/account'
-import { useAuth } from '@app/hooks/auth/auth'
+import { useAuth, setShowProfileModal } from '@app/hooks/auth/auth'
 import { usePassword } from '@app/hooks/core/forms'
 import { Avatars } from '@modules/users'
 import SelectAvatar from '@app/components/users/account/SelectAvatar.vue'
@@ -106,6 +106,7 @@ export default defineComponent({
 		const { auth } = useAuth()
 		const { show, toggle } = usePassword()
 		const { factory, error, loading, updateProfile } = useUpdateProfile()
+		onBeforeUnmount(() => setShowProfileModal(false))
 		return {
 			auth, show, toggle,
 			factory, error, loading, updateProfile, Avatars

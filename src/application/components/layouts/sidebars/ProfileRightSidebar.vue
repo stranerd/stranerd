@@ -27,7 +27,7 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
 import TagsList from '@app/components/questions/tags/TagsList.vue'
 export default defineComponent({
-	name: 'RightSidebar',
+	name: 'ProfileRightSidebar',
 	components: { TagsList },
 	setup () {
 		const { id, isLoggedIn, user } = useAuth()

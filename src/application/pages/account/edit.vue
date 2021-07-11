@@ -16,7 +16,7 @@ export default defineComponent({
 	middleware: 'isAuthenticated',
 	setup () {
 		const router = useRouter()
-		const cancel = () => router.replace('/account/')
+		const cancel = () => router.push('/account/')
 		return { cancel }
 	}
 })

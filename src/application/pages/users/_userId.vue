@@ -2,7 +2,7 @@
 	<section>
 		<PageLoading v-if="loading" />
 		<template v-else-if="user">
-			<UserTopNavigation class="mb-2" />
+			<UserTopNavigation :user="user" class="mb-2" />
 			<NuxtChild />
 		</template>
 		<DisplayError v-else error="No such user exists!" />

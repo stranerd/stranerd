@@ -1,22 +1,10 @@
 <template>
-	<div :id="answer.id">
+	<div :id="answer.id" class="p-1">
 		<NuxtLink class="text-18 d-block mb-0-5" :to="`/questions/${answer.questionId}#${answer.id}`">
 			{{ answer.trimmedBody }}
 		</NuxtLink>
 		<div class="d-flex gap-0-5">
-			<span class="text-wrap me-auto">
-				{{ subject ? subject.name : 'Subject' }}
-				|
-				{{ formatTime(answer.createdAt) }}
-			</span>
-			<span>
-				<span>+{{ formatNumber(answer.coins) }}</span>
-				<Coins :size="16" />
-			</span>
-			<span v-if="answer.best" class="text-success">
-				<span>Best</span>
-				<i class="fas fa-check" />
-			</span>
+			<img v-if="answer.best" src="@app/assets/images/icons/profile-best-answers.svg" class="icons ms-auto">
 		</div>
 	</div>
 </template>
@@ -24,9 +12,6 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { AnswerEntity } from '@modules/questions'
-import { useSubject } from '@app/hooks/questions/subjects'
-import { formatNumber } from '@utils/commons'
-import { formatTime } from '@utils/dates'
 export default defineComponent({
 	name: 'UserAnswerListCard',
 	props: {
@@ -34,10 +19,13 @@ export default defineComponent({
 			required: true,
 			type: Object as PropType<AnswerEntity>
 		}
-	},
-	setup (props) {
-		const { subject } = useSubject(props.answer.subjectId)
-		return { subject, formatTime, formatNumber }
 	}
 })
 </script>
+
+<style lang="scss" scoped>
+	.icons {
+		width: 24px;
+		height: 24px;
+	}
+</style>

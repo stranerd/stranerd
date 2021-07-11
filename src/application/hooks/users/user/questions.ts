@@ -3,10 +3,23 @@ import { GetUserQuestions, QuestionEntity } from '@modules/questions'
 import { PAGINATION_LIMIT } from '@utils/constants'
 import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 
+enum Answered {
+	All,
+	Answered,
+	Unanswered
+}
+const answeredChoices = [
+	{ val: Answered.All, key: 'All' },
+	{ val: Answered.Answered, key: 'Answered' },
+	{ val: Answered.Unanswered, key: 'Unanswered' }
+]
+
 const global = {} as Record<string, {
 	questions: Ref<QuestionEntity[]>,
 	fetched: Ref<boolean>,
-	hasMore: Ref<boolean>
+	hasMore: Ref<boolean>,
+	subjectId: Ref<string>,
+	answered: Ref<Answered>
 } & ReturnType<typeof useErrorHandler> & ReturnType<typeof useLoadingHandler>>
 
 const pushToQuestionList = (id: string, question: QuestionEntity) => {
@@ -18,11 +31,15 @@ const pushToQuestionList = (id: string, question: QuestionEntity) => {
 export const useUserQuestionList = (id: string) => {
 	if (global[id] === undefined) global[id] = {
 		questions: ssrRef([]),
+		subjectId: ssrRef(''),
 		fetched: ssrRef(false),
 		hasMore: ssrRef(false),
+		answered: ssrRef(answeredChoices[0].val),
 		...useErrorHandler(),
 		...useLoadingHandler()
 	}
+
+	// TODO: Add filtering logic to user questions
 
 	const fetchQuestions = async () => {
 		global[id].setError('')
@@ -41,5 +58,5 @@ export const useUserQuestionList = (id: string) => {
 		if (!global[id].fetched.value && !global[id].loading.value) await fetchQuestions()
 	})
 
-	return { ...global[id], fetchOlderQuestions: fetchQuestions }
+	return { ...global[id], answeredChoices, fetchOlderQuestions: fetchQuestions }
 }

@@ -129,9 +129,10 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 
-p{
-	margin: 0;
-}
+	p {
+		margin: 0;
+	}
+
 	.tag {
 		border: 1.2px solid $color-line;
 		background-color: $color-tags;
@@ -140,6 +141,7 @@ p{
 		padding: 0.125em 1em;
 		margin-top: 1rem;
 	}
+
 	.tags {
 		background: $color-tags;
 		border: 1px solid $color-line;
@@ -152,20 +154,24 @@ p{
 		border: 1px solid $color-line;
 		padding: 36px;
 		max-width: 30rem;
-		h1{
+
+		h1 {
 			font-size: 1.5rem;
 			margin: 0;
 		}
-		.rank{
+
+		.rank {
 			font-size: 1.25rem;
 		}
 	}
-	.sidebar-btn{
+
+	.sidebar-btn {
 		border: none;
 		outline: none;
 		border-radius: 6px;
 		font-size: 1rem;
 	}
+
 	.img-rank {
 		width: 9rem;
 	}
@@ -177,11 +183,10 @@ p{
 	}
 
 	.stats {
-		img{
+		img {
 			height: 1.5rem;
 			width: 1.5rem;
 		}
-
 	}
 
 </style>

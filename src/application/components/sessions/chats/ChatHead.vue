@@ -150,7 +150,7 @@ export default defineComponent({
 		display: flex;
 		flex-direction: column;
 		background: $color-white;
-		color: $color-text-main;
+		color: $color-dark;
 		border-radius: 0.5rem;
 
 		a {

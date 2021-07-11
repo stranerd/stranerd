@@ -9,14 +9,14 @@
 			</div>
 		</div>
 
-		<div class="d-flex flex-column gap-1 ranking">
+		<!-- <div class="d-flex flex-column gap-1 ranking">
 			<div class="d-flex flex-column gap-1 align-items-center text-blue">
 				<h1 class="ranking-header">
 					Chinelo's Nerd Score
 				</h1>
 				<img :src="user.rank.image" alt="" class="img-rank">
 			</div>
-		</div>
+		</div> -->
 	</div>
 </template>
 
@@ -52,13 +52,13 @@ export default defineComponent({
 	.ranking-header {
 		text-align: center;
 		font-size: 24px;
-		color: $color-text-main;
+		color: $color-dark;
 	}
 
 	.stat {
 		width: 350px;
 		font-size: 14px;
 		font-weight: 600;
-		color: $color-text-sub;
+		color: $color-sub;
 	}
 </style>

@@ -31,3 +31,12 @@ export default defineComponent({
 	}
 })
 </script>
+
+<style lang="scss" scoped>
+.layout-side-left{
+	width: 28% !important;
+	border:none !important;
+	padding-left: 3rem;
+}
+
+</style>

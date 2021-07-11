@@ -49,7 +49,7 @@ export default defineComponent({
 			border-radius: 10rem;
 			color: $color-dark;
 			background: $color-tags;
-			border: 1px solid $color-sub;
+			border: 1px solid $color-line;
 		}
 	}
 </style>

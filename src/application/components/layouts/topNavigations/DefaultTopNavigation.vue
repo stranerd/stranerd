@@ -116,7 +116,7 @@ export default defineComponent({
 			box-shadow: 0 10px 10px rgba($color-primary, 0.1);
 			border-radius: 6px;
 
-			span {
+			& > * {
 				display: flex;
 				color: $color-dark;
 				font-weight: 600;

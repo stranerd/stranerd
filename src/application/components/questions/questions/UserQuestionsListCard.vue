@@ -1,6 +1,6 @@
 <template>
-	<div :id="question.id" class="p-1">
-		<NuxtLink class="text-18 d-block mb-1" :to="`/questions/${question.id}`">
+	<div :id="question.id" class="d-flex flex-column gap-1 p-1">
+		<NuxtLink class="text-18" :to="`/questions/${question.id}`">
 			{{ question.trimmedBody }}
 		</NuxtLink>
 		<div class="d-flex align-items-center gap-0-5">

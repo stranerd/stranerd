@@ -1,7 +1,5 @@
 <template>
-	<section>
-		<AnswersList :user-id="user.id" />
-	</section>
+	<AnswersList :user-id="user.id" />
 </template>
 
 <script lang="ts">

@@ -1,12 +1,12 @@
 <template>
-	<div>
+	<div class="layout-page">
 		<TopNavigation :open-menu="openSidebar" />
 		<section class="layout-body">
 			<section class="layout-side-left">
 				<Sidebar />
 			</section>
 			<main class="layout-main">
-				<Nuxt class="layout-content" />
+				<Nuxt />
 			</main>
 			<section class="layout-side-right">
 				<ProfileSidebar />

@@ -1,19 +1,16 @@
 <template>
-	<div class="d-flex py-1-25 px-2 align-items-center position-relative bg-line b-rad mb-1">
-		<!-- <NuxtLink to="/messages" class="me-0-5">
-			<i class="fas fa-arrow-left" />
-		</NuxtLink> -->
+	<div class="d-flex py-0-5 px-2 gap-1 align-items-center position-relative bg-line b-rad">
 		<NuxtLink :to="`/users/${user.id}`">
 			<Avatar :src="user.avatar" :size="63" />
 		</NuxtLink>
-		<div class="ms-1 me-auto">
-			<NuxtLink :to="`/users/${user.id}`" class="d-block text-wrap">
-				<span class="fw-bold username">{{ user.fullName }}</span>
+		<div class="me-auto">
+			<NuxtLink :to="`/users/${user.id}`" class="text-wrap username">
+				{{ user.fullName }}
 			</NuxtLink>
 			<span class="small">{{ user.isOnline ? 'Active now' : time }}</span>
 		</div>
-		<span v-if="inSession" class="lead ms-0-5">{{ countDown }}</span>
-		<button class="btn navbar-toggler ms-0-5" @click="show = !show">
+		<span v-if="inSession" class="lead">{{ countDown }}</span>
+		<button class="btn navbar-toggler" @click="show = !show">
 			<i class="fas fa-ellipsis-v" />
 		</button>
 		<div v-if="show" class="under" @click="show = false" />
@@ -128,7 +125,9 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 	.username {
+		display: block;
 		font-size: 24px;
+		line-height: 24px;
 		font-weight: 700;
 	}
 
@@ -161,8 +160,8 @@ export default defineComponent({
 		a:hover {
 			font-size: unset;
 			transform: unset;
-			padding: 0.9rem;
-			background: $color-line;
+			background: $color-primary;
+			color: $color-white;
 		}
 
 		animation: slide-down 0.1s;

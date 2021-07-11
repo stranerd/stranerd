@@ -1,13 +1,11 @@
 <template>
-	<div class="d-flex">
-		<div class="chat" :class="isMine ? 'is-mine' : 'is-not-mine'">
-			<a v-if="chat.isMedia" class="text-truncate" :href="chat.media.link" target="__blank">
-				<i class="fas fa-paperclip me-0-25" />
-				<span class="text-truncate">{{ chat.media.name }}</span>
-			</a>
-			<span v-else class="text-wrap text-break">{{ chat.content || 'Hello' }}</span>
-			<span class="ms-auto small">{{ formatTimeAsDigits(new Date(chat.createdAt)) }}</span>
-		</div>
+	<div class="chat gap-0-25" :class="isMine ? 'is-mine' : 'is-not-mine'">
+		<a v-if="chat.isMedia" class="text-truncate" :href="chat.media.link" target="__blank">
+			<i class="fas fa-paperclip me-0-25" />
+			<span class="text-truncate">{{ chat.media.name }}</span>
+		</a>
+		<span v-else class="text-wrap text-break">{{ chat.content || 'Hello' }}</span>
+		<span class="mt-auto pt-0-5 small">{{ formatTimeAsDigits(new Date(chat.createdAt)) }}</span>
 	</div>
 </template>
 
@@ -49,13 +47,12 @@ export default defineComponent({
 		min-width: 6rem;
 		max-width: 75%;
 		padding: 0.25rem 0.75rem;
-		margin: 0.25rem 0;
 		display: flex;
-		flex-direction: column;
+		flex-direction: row;
 	}
 
 	.is-mine {
-		border-radius: 0.6rem 0.6rem 0 0.6rem;
+		border-radius: 0.6rem 0 0.6rem 0.6rem;
 		background: $color-line;
 		color: $color-dark;
 		margin-left: auto;
@@ -63,7 +60,8 @@ export default defineComponent({
 
 	.is-not-mine {
 		border-radius: 0 0.6rem 0.6rem 0.6rem;
-		background: $color-dark;
-		color: $color-line;
+		background: $color-primary-dark;
+		color: $color-white;
+		margin-right: auto;
 	}
 </style>

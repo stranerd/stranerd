@@ -1,18 +1,12 @@
 <template>
-	<div class="page-body flex-grow-1 d-flex flex-column justify-content-center">
+	<div class="flex-grow-1 d-flex flex-column">
 		<PageLoading v-if="loading" />
-		<template v-else-if="user">
-			<div class="page-content flex-grow-1 d-flex flex-column b-rad">
-				<ChatHead :key="hash" :user="user" />
-				<!-- <div class="thin" /> -->
-				<ChatList :user-id="userId" class="flex-grow-1" />
-				<div class="thin" />
-				<ChatForm :key="hash" :user-id="userId" :session-id="sessionId" />
-			</div>
-		</template>
-		<div v-else class="page-content">
-			<DisplayError error="No such user exists!" />
+		<div v-else-if="user" class="flex-grow-1 d-flex flex-column bg-white b-rad">
+			<ChatHead :key="hash" :user="user" />
+			<ChatList :user-id="userId" class="flex-grow-1" />
+			<ChatForm :key="hash" :user-id="userId" :session-id="sessionId" />
 		</div>
+		<DisplayError v-else error="No such user exists!" />
 	</div>
 </template>
 
@@ -56,14 +50,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-	// .page-body{
-	// 	width: 1056px;
-	// }
-	.page-content {
-		width: 1056px;
-		padding: 0;
-	}
-
 	.b-rad {
 		border-radius: 12px;
 	}

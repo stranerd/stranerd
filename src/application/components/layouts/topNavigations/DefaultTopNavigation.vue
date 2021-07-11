@@ -135,7 +135,7 @@ export default defineComponent({
 		color: $color-dark !important;
 	}
 
-	.slide-enter-active, .slide-leave-active { transition: 0.5s; }
+	.slide-enter-active, .slide-leave-active { transition: 0.25s; }
 
 	.slide-enter, .slide-leave-to { transform: translateY(-170px); }
 </style>

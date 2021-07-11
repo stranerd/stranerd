@@ -1,12 +1,12 @@
 <template>
-	<section>
+	<section class="layout-page">
 		<TopNavigation :open-menu="openSidebar" />
 		<section class="layout-body">
 			<section class="layout-side-left">
 				<AdminSidebar />
 			</section>
 			<main class="layout-main flex-grow-1">
-				<Nuxt class="layout-content" />
+				<Nuxt />
 			</main>
 			<ModalBase />
 		</section>

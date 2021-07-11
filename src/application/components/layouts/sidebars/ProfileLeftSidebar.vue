@@ -69,43 +69,44 @@
 			</div>
 		</div>
 
-		<div class="d-flex flex-column gap-1 box">
-			<div class="d-flex flex-column gap-0-5 text-dark">
-				<template v-if="description">
-					<h1 class="fw-bold">
-						About Me
-					</h1>
-					<p>
-						{{ user.description }}
-					</p>
-					<div class="thick mx-n1" />
-				</template>
+		<div
+			v-if="user.description || user.strongestSubject || user.tags.length > 0"
+			class="d-flex flex-column gap-0-5 text-dark box"
+		>
+			<template v-if="user.description">
+				<h1 class="fw-bold">
+					About Me
+				</h1>
+				<p>{{ user.description }}</p>
+				<div class="thick mx-n1" />
+			</template>
 
-				<template v-if="user.subject">
-					<h1 class="fw-bold">
-						Strongest In
-					</h1>
-					<Subject :subject-id="user.subject.id" />
+			<template v-if="user.strongestSubject">
+				<h1 class="fw-bold">
+					Strongest In
+				</h1>
+				<Subject :subject-id="user.strongestSubject.id" />
+				<div class="thick mx-n1" />
+			</template>
 
-					<div class="thick mx-n1" />
+			<template v-if="user.weakerSubjects.length > 0">
+				<h1 class="fw-bold">
+					Also Good In
+				</h1>
+				<div class="d-flex flex-wrap gap-0-25">
+					<Subject v-for="subject in user.weakerSubjects" :key="subject.id" :subject-id="subject.id" />
+				</div>
+				<div class="thick mx-n1" />
+			</template>
 
-					<h1 class="fw-bold">
-						Also Good In
-					</h1>
-					<p>
-						Mathematics Biology Chemistry
-					</p>
-					<!-- TODO: figure out concept behind also good in other subjects -->
-					<div class="thick mx-n1" />
-				</template>
-
+			<template v-if="user.tags.length > 0">
 				<h1 class="fw-bold">
 					Frequent Tags
 				</h1>
-				<p class="d-flex flex-wrap gap-0-5">
-					<Tag v-for="tag in user.tags" :key="tag.id" :tag="tag" />
-				</p>
-			</div>
+				<div class="d-flex flex-wrap gap-0-5">
+					<Tag v-for="tag in user.tags" :key="tag.id" :tag="tag.id" />
+				</div>
+			</template>
 		</div>
 	</div>
 </template>

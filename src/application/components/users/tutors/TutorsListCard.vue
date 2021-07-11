@@ -31,15 +31,15 @@
 			<span>{{ formatNumber(tutor.meta.tutorSessions.length) }} {{ pluralize(tutor.meta.tutorSessions.length, 'Session', 'Sessions') }} Hosted</span>
 		</div>
 
-		<div v-if="tutor.subject" class="nerd-card gap-1-5">
+		<div v-if="tutor.strongestSubject" class="nerd-card gap-1-5">
 			<span>Strongest In</span>
-			<Subject :subject-id="tutor.subject.id" class="sub-text" />
+			<Subject :subject-id="tutor.strongestSubject.id" class="sub-text" />
 		</div>
 
 		<div v-if="tutor.tags.length" class="nerd-card gap-1-5">
 			<span>Routine Tags</span>
 			<div class="d-flex align-items-cnter gap-0-75 flex-wrap">
-				<Tag v-for="tag in tutor.tags" :key="tag.id" :tag="tag" />
+				<Tag v-for="tag in tutor.tags" :key="tag.id" :tag="tag.id" />
 			</div>
 		</div>
 	</div>

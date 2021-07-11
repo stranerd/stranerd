@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<form class="d-flex flex-row mb-2" style="align-items:center;" @submit.prevent="getUsersByEmail">
+		<form class="d-flex flex-row mb-2" style="align-items: center;" @submit.prevent="getUsersByEmail">
 			<div class="flex-grow-1">
 				<input
 					id="email"
@@ -12,7 +12,7 @@
 					autocomplete="email"
 				>
 			</div>
-			<div style="margin-left:auto;">
+			<div style="margin-left: auto;">
 				<button class="btn btn-lg btn-custom btn-block py-1 px-3" type="submit">
 					Find User
 				</button>
@@ -66,7 +66,7 @@ export default defineComponent({
 		border-radius: 6px;
 		font-size: 16px;
 		background-color: $color-tags;
-		width:100%;
+		width: 100%;
 		color: grey;
 	}
 

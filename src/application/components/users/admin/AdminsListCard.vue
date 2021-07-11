@@ -1,9 +1,9 @@
 <template>
-	<div class="mb-1 px-1 py-1 d-flex flex-row wrapper" style="align-items:center;">
+	<div class="mb-1 px-1 py-1 d-flex flex-row wrapper" style="align-items: center;">
 		<div class="subject-custom">
 			Timmy Nuetron
 		</div>
-		<div style="margin-left:auto;font-size:14px;" class="text-danger">
+		<div style="margin-left: auto; font-size: 14px;" class="text-danger">
 			Remove admin
 		</div>
 	</div>
@@ -49,15 +49,15 @@ export default defineComponent({
 })
 </script>
 <style lang="scss" scoped>
-.subject-custom {
-	font-weight: bold;
-	font-size: 17px;
-	color: $color-text-main;
-}
+	.subject-custom {
+		font-weight: bold;
+		font-size: 17px;
+		color: $color-text-main;
+	}
 
-.wrapper {
-	border: 1px solid $color-line;
-	border-radius: 5px;
-	background-color: $color-tags;
-}
+	.wrapper {
+		border: 1px solid $color-line;
+		border-radius: 5px;
+		background-color: $color-tags;
+	}
 </style>

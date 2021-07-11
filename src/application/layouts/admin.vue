@@ -2,7 +2,7 @@
 	<section>
 		<TopNavigation :open-menu="openSidebar" />
 		<div class="px-2 navBackground">
-			<div class="col-lg-8 offset-lg-2 col-md-10 offset-sm-1 py-0 d-flex flex-row" style="align-items:center;">
+			<div class="col-lg-8 offset-lg-2 col-md-10 offset-sm-1 py-0 d-flex flex-row" style="align-items: center;">
 				<NuxtLink :class="checkTab() == 'subjects' ? 'nav-link-custom py-1 px-2 selectedTab' : 'nav-link-custom py-1 px-2'" to="/admin/questions/subjects">
 					<span>Subjects</span>
 				</NuxtLink>
@@ -42,17 +42,18 @@ export default defineComponent({
 })
 </script>
 <style lang="scss" scoped>
-.navBackground {
-	background: $color-main-dark;
-}
-.nav-link-custom {
-	font-size: 17px;
-	color: white;
-}
+	.navBackground {
+		background: $color-main-dark;
+	}
 
-.selectedTab {
-    font-size: 17px;
-	color: white;
-	background-color: $color-text-main;
-}
+	.nav-link-custom {
+		font-size: 17px;
+		color: white;
+	}
+
+	.selectedTab {
+		font-size: 17px;
+		color: white;
+		background-color: $color-text-main;
+	}
 </style>

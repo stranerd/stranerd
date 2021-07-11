@@ -1,8 +1,8 @@
 <template>
 	<div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 d-flex flex-column">
 		<!-- TODO - add a new subject form -->
-		<form class="d-flex flex-row mb-2" style="align-items:center;">
-			<div style="width:100%;">
+		<form class="d-flex flex-row mb-2" style="align-items: center;">
+			<div style="width: 100%;">
 				<input
 					id="subject_name"
 					name="subject_name"
@@ -43,7 +43,7 @@ export default defineComponent({
 		border-radius: 6px;
 		font-size: 16px;
 		background-color: $color-tags;
-		width:100%;
+		width: 100%;
 		color: grey;
 	}
 

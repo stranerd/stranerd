@@ -1,9 +1,9 @@
 <template>
-	<section>
+	<section class="layout-page">
 		<HomeTopNavigation />
 		<section class="layout-body">
 			<main class="layout-main">
-				<Nuxt class="layout-content" />
+				<Nuxt />
 			</main>
 			<ModalBase />
 		</section>
@@ -18,3 +18,11 @@ export default defineComponent({
 	components: { HomeTopNavigation }
 })
 </script>
+
+<style lang="scss" scoped>
+	.layout-body {
+		max-width: 1440px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+</style>

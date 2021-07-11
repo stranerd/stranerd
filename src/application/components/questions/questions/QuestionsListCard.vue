@@ -1,5 +1,5 @@
 <template>
-	<div class="d-flex flex-column p-1 gap-1 gap-lg-2">
+	<div :id="question.id" class="d-flex flex-column p-1 gap-1 gap-lg-2">
 		<div class="question-head d-flex align-items-center gap-1">
 			<div class="d-flex align-items-center gap-0-5 me-auto">
 				<NuxtLink :to="`/users/${question.userId}`">

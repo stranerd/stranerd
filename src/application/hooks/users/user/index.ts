@@ -1,14 +1,17 @@
-import { Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
+import { Ref, ssrRef, useFetch, watch } from '@nuxtjs/composition-api'
 import { FindUser, ListenToUser, UserEntity } from '@modules/users'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
+import { useAuth } from '@app/hooks/auth/auth'
 
 const global = {} as Record<string, {
 	user: Ref<UserEntity | null>,
 	fetched: Ref<boolean>
 } & ReturnType<typeof useErrorHandler> & ReturnType<typeof useLoadingHandler>>
 
-export const useUser = (id: string) => {
-	if (global[id] === undefined) global[id] = {
+export const useUser = (userId: string) => {
+	const { id, user } = useAuth()
+
+	if (global[userId] === undefined) global[userId] = {
 		user: ssrRef(null),
 		fetched: ssrRef(false),
 		...useLoadingHandler(),
@@ -16,28 +19,37 @@ export const useUser = (id: string) => {
 	}
 
 	const fetchUser = async () => {
-		global[id].setError('')
+		global[userId].setError('')
 		try {
-			global[id].setLoading(true)
-			global[id].user.value = await FindUser.call(id)
-			global[id].fetched.value = true
-		} catch (error) { global[id].setError(error) }
-		global[id].setLoading(false)
+			global[userId].setLoading(true)
+			// Dont fetch if it is the current auth user
+			// Instead get auth user details
+			if (id.value && id.value === userId) global[userId].user.value = user.value
+			else global[userId].user.value = await FindUser.call(userId)
+			global[userId].fetched.value = true
+		} catch (error) { global[userId].setError(error) }
+		global[userId].setLoading(false)
 	}
 
 	useFetch(async () => {
-		if (!global[id].fetched.value && !global[id].loading.value) await fetchUser()
+		if (!global[userId].fetched.value && !global[userId].loading.value) await fetchUser()
 	})
 
 	const listener = useListener(async () => {
-		const callback = (user: UserEntity | null) => global[id].user.value = user
-		return await ListenToUser.call(id, callback)
+		if (id.value && id.value === userId) {
+			// Dont start a listener if it is the current auth user
+			// Instead watch the auth user for changes
+			watch(() => user.value, () => global[userId].user.value = user.value)
+			return () => {}
+		}
+		const callback = (user: UserEntity | null) => global[userId].user.value = user
+		return await ListenToUser.call(userId, callback)
 	})
 
 	return {
-		error: global[id].error,
-		loading: global[id].loading,
-		user: global[id].user,
+		error: global[userId].error,
+		loading: global[userId].loading,
+		user: global[userId].user,
 		listener
 	}
 }

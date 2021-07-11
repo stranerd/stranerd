@@ -1,8 +1,8 @@
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
-import { Ref, ssrRef, watch } from '@nuxtjs/composition-api'
+import { Ref, ssrRef, watch, useRouter } from '@nuxtjs/composition-api'
 import { ProfileUpdateFactory, UpdateProfile } from '@modules/auth'
 import { useAuth } from '@app/hooks/auth/auth'
-import { useAccountModal, useEditModal, usePaymentModal } from '@app/hooks/core/modals'
+import { useAccountModal, usePaymentModal } from '@app/hooks/core/modals'
 import { BuyCoins, TipTutor } from '@modules/meta'
 import { UserBio } from '@modules/users'
 import { setPaymentProps } from '@app/hooks/payment/payment'
@@ -10,6 +10,7 @@ import { Alert } from '@app/hooks/core/notifications'
 import { analytics } from '@modules/core/services/initFirebase'
 
 export const useUpdateProfile = () => {
+	const router = useRouter()
 	const factory = ssrRef(new ProfileUpdateFactory()) as Ref<ProfileUpdateFactory>
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
@@ -29,7 +30,7 @@ export const useUpdateProfile = () => {
 			try {
 				setLoading(true)
 				await UpdateProfile.call(factory.value)
-				useEditModal().closeAccountProfile()
+				await router.push('/account/')
 				setMessage('Profile updated successfully!')
 			} catch (error) { setError(error) }
 			setLoading(false)

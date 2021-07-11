@@ -83,11 +83,16 @@ export default defineComponent({
 				span {
 					color: $color-sub;
 					font-size: 15px;
+					@media (min-width: $md) { font-size: 17px; }
+					@media (min-width: $lg) { font-size: 21px; }
 				}
 
 				h4 {
 					color: $color-dark;
 					font-weight: 700;
+					font-size: 21px;
+					@media (min-width: $md) { font-size: 26px; }
+					@media (min-width: $md) { font-size: 30px; }
 				}
 			}
 		}

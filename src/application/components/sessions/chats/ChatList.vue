@@ -1,21 +1,17 @@
 <template>
-	<div class="comtainer">
-		<div class="d-flex flex-column mx-2">
-			<span v-if="hasMore" class="small mb-1 mx-auto cursor-pointer" @click="fetchOlderChats">Fetch more</span>
-			<p v-if="chats.length === 0" class="text-center my-auto">
-				No messages found. Send a message now
-			</p>
-			<div v-for="session in chats" :key="session.hash">
-				<p class="text-center small mb-0 ">
-					<span class="bg-line session-date">
-						{{ formatTime(session.date, true) }}
-					</span>
-				</p>
-				<ChatListCard v-for="chat in session.chats" :key="chat.hash" :chat="chat" :user-id="userId" />
-			</div>
-			<PageLoading v-if="loading" />
-			<DisplayError :error="error" />
+	<div class="d-flex flex-column px-2 py-1 background gap-0-5">
+		<span v-if="hasMore" class="small mb-1 mx-auto cursor-pointer" @click="fetchOlderChats">Fetch more</span>
+		<p v-if="chats.length === 0" class="text-center my-auto">
+			No messages found. Send a message now
+		</p>
+		<div v-for="session in chats" :key="session.hash" class="d-flex flex-column gap-0-5">
+			<span class="bg-line session-date mx-auto">
+				{{ formatTime(session.date, true) }}
+			</span>
+			<ChatListCard v-for="chat in session.chats" :key="chat.hash" :chat="chat" :user-id="userId" />
 		</div>
+		<PageLoading v-if="loading" />
+		<DisplayError :error="error" />
 	</div>
 </template>
 
@@ -46,11 +42,10 @@ export default defineComponent({
 	.session-date {
 		width: fit-content;
 		padding: 3px 12px;
-		margin: 2rem 0;
 		border-radius: 4px;
 	}
 
-	.comtainer {
+	.background {
 		background: url("@app/assets/images/doodle.png");
 	}
 </style>

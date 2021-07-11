@@ -13,7 +13,6 @@ import NotificationsList from '@app/components/users/notifications/Notifications
 export default defineComponent({
 	name: 'NotificationsPage',
 	components: { NotificationsList },
-	layout: 'default',
 	middleware: ['isAuthenticated']
 })
 </script>

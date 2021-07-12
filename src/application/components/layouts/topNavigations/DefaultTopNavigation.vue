@@ -1,11 +1,11 @@
 <template>
-	<nav class="default-top-nav gap-1-5 gap-lg-3" role="navigation">
+	<nav class="default-top-nav gap-1" role="navigation">
 		<NuxtLink to="/">
 			<Logo :secondary="true" class="nav-logo" />
 		</NuxtLink>
 
 		<SearchBar class="middle-body" />
-		<div class="right-body gap-1-5 gap-lg-3">
+		<div class="right-body gap-1-5 gap-lg-4-5">
 			<MessageLink :key="'messages' + isLoggedIn" class="link" />
 			<NotificationBell :key="'notifications' + isLoggedIn" class="link" />
 
@@ -89,14 +89,14 @@ export default defineComponent({
 		padding: 1rem;
 		border-bottom: 5px solid $color-primary;
 		@media (min-width: $md) { padding: 1rem 2rem; }
-		@media (min-width: $lg) { padding: 1rem 4rem; }
+		@media (min-width: $lg) { padding: 1rem 4.5rem; }
 
 		background: $color-white 0 0 no-repeat padding-box;
 	}
 
 	.middle-body {
 		flex-grow: 1;
-		max-width: 50%;
+		max-width: 51.25%;
 	}
 
 	.right-body {

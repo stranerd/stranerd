@@ -53,7 +53,7 @@
 				</div>
 				<span class="count">{{ formatNumber(Object.entries(user.meta.sessions).length) }}</span>
 			</div>
-			<div class="stats">
+			<div v-if="user.isScholar" class="stats">
 				<div class="stat-title gap-1">
 					<img src="@app/assets/images/icons/profileSidebar/sessions-hosted.svg" alt="">
 					<span>Sessions Hosted</span>

@@ -8,7 +8,7 @@
 				</span>
 			</div>
 		</template>
-		<div class="d-flex flex-column flex-sm-row align-items-center gap-2">
+		<div class="d-flex flex-column flex-md-row align-items-center gap-2">
 			<div class="d-flex flex-column gap-1 flex-grow-1 w-100">
 				<h5 class="headertext">
 					Bronze

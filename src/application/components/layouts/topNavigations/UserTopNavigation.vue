@@ -6,7 +6,7 @@
 		<NuxtLink :to="`/users/${user.id}/answers`">
 			Answers
 		</NuxtLink>
-		<NuxtLink :to="`/users/${user.id}/reviews`">
+		<NuxtLink v-if="user.isScholar" :to="`/users/${user.id}/reviews`">
 			Reviews
 		</NuxtLink>
 	</nav>

@@ -1,42 +1,16 @@
 <template>
-	<div class="col-12 d-flex flex-column" style="align-items: center; justify-content: center;">
-		<div class="text-center my-2 col-12">
-			<h4 class="headertext">
-				Available Balance
-			</h4>
-		</div>
-		<div class="py-3 px-3 boxStyle d-flex flex-row col-10 " style="align-items: center; justify-content: center;">
-			<div class="d-flex flex-row col-6" style="align-items: center; justify-content: center; border-right: 1px solid #c5c5c5;">
-				<div class="px-2">
-					<Coins :size="45" style="z-index: 1;" />
-				</div>
-				<div>
-					<span class="largeText">{{ formatNumber(user.account.coins.bronze) }}</span>
-				</div>
+	<div class="d-flex flex-column gap-2 align-items-center justify-content-center">
+		<h4 class="headertext mb-0">
+			Available Balance
+		</h4>
+		<div class="p-3 boxStyle d-flex flex-row col-10 align-content-center justify-content-center">
+			<div class="d-flex col-6 gap-2 align-items-center justify-content-center border-end border-light-grey">
+				<Coins :size="45" style="z-index: 1;" />
+				<span class="largeText">{{ formatNumber(user.account.coins.bronze) }}</span>
 			</div>
-			<div class="d-flex flex-row col-6" style="align-items: center; justify-content: center;">
-				<div class="px-2">
-					<span class="largeText">{{ formatNumber(user.account.coins.gold) }}</span>
-				</div>
-				<div>
-					<Coins :gold="true" :size="45" style="z-index: 1;" />
-				</div>
-				=======
-				<div class="d-flex flex-column gap-2 align-items-center justify-content-center">
-					<h4 class="headertext mb-0">
-						Available Balance
-					</h4>
-					<div class="p-3 boxStyle d-flex flex-row col-10 align-content-center justify-content-center">
-						<div class="d-flex col-6 gap-2 align-items-center justify-content-center border-end border-light-grey">
-							<Coins :size="45" style="z-index: 1;" />
-							<span class="largeText">{{ formatNumber(user.account.coins.bronze) }}</span>
-						</div>
-						<div class="d-flex col-6 gap-2 align-items-center justify-content-center">
-							<span class="largeText">{{ formatNumber(user.account.coins.gold) }}</span>
-							<Coins :gold="true" :size="45" style="z-index: 1;" />
-						</div>
-					</div>
-				</div>
+			<div class="d-flex col-6 gap-2 align-items-center justify-content-center">
+				<span class="largeText">{{ formatNumber(user.account.coins.gold) }}</span>
+				<Coins :gold="true" :size="45" style="z-index: 1;" />
 			</div>
 		</div>
 	</div>

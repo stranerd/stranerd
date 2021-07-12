@@ -16,8 +16,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { SubjectEntity } from '@modules/questions'
-import { setCurrentSubject, useDeleteSubject } from '@app/hooks/questions/subjects'
-import { useEditModal } from '@app/hooks/core/modals'
+import { useDeleteSubject } from '@app/hooks/questions/subjects'
 export default defineComponent({
 	name: 'AdminSubjectsListCard',
 	props: {
@@ -28,11 +27,7 @@ export default defineComponent({
 	},
 	setup (props) {
 		const { loading, error, deleteSubject } = useDeleteSubject(props.subject)
-		const openEditModal = () => {
-			setCurrentSubject(props.subject)
-			useEditModal().openSubject()
-		}
-		return { loading, error, deleteSubject, openEditModal }
+		return { loading, error, deleteSubject }
 	}
 })
 </script>

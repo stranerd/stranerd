@@ -1,7 +1,5 @@
 import { reqRef } from '@nuxtjs/composition-api'
 import { useModal } from '@app/hooks/core/modal'
-import CreateSubject from '@app/components/modals/create/CreateSubject.vue'
-import EditSubject from '@app/components/modals/edit/EditSubject.vue'
 import MakePayment from '@app/components/modals/payments/MakePayment.vue'
 import BuyCoins from '@app/components/modals/account/AccountBuyCoins.vue'
 import TipTutor from '@app/components/modals/account/AccountTipTutor.vue'
@@ -12,30 +10,22 @@ import Sidebar from '@app/components/modals/menus/SidebarMenu.vue'
 import CreateSession from '@app/components/modals/sessions/SessionCreateSession.vue'
 import Ratings from '@app/components/modals/sessions/SessionRatings.vue'
 
-type CreateTypes = 'Subject'
-type EditTypes = 'Subject'
 type AccountTypes = 'BuyCoins' | 'TipTutor' | 'ReportUser'
 type MenuTypes = 'RightSidebar' | 'AdminSidebar' | 'Sidebar'
 type SessionTypes = 'CreateSession' | 'Ratings'
 type PaymentTypes = 'MakePayment'
 
-const CreateModals = { Subject: CreateSubject } as Record<CreateTypes, any>
-const EditModals = { Subject: EditSubject } as Record<EditTypes, any>
 const AccountModals = { BuyCoins, TipTutor, ReportUser } as Record<AccountTypes, any>
 const MenuModals = { RightSidebar, AdminSidebar, Sidebar } as Record<MenuTypes, any>
 const SessionModals = { CreateSession, Ratings } as Record<SessionTypes, any>
 const PaymentModals = { MakePayment } as Record<PaymentTypes, any>
 
 export const modal = useModal(reqRef([] as string[]))
-const createModal = modal.register('Create', CreateModals)
-const editModal = modal.register('Edit', EditModals)
 const accountModal = modal.register('Account', AccountModals)
 const menuModal = modal.register('Menu', MenuModals)
 const sessionModal = modal.register('Session', SessionModals)
 const paymentModal = modal.register('Payment', PaymentModals)
 
-export const useCreateModal = () => createModal
-export const useEditModal = () => editModal
 export const useAccountModal = () => accountModal
 export const useMenuModal = () => menuModal
 export const useSessionModal = () => sessionModal

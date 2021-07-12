@@ -9,6 +9,14 @@
 				<img :src="user.rank.image" alt="" class="img-rank">
 			</div>
 		</div>
+		<div class="d-flex flex-column gap-1 ranking">
+			<div class="d-flex flex-column gap-1 align-items-center text-blue">
+				<h1 class="ranking-header">
+					Nerd Score
+				</h1>
+				<donut-chart :score="5000" />
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -16,9 +24,10 @@
 import { defineComponent, useRoute } from '@nuxtjs/composition-api'
 import { useUser } from '@app/hooks/users/user'
 import ProfileHeadCard from '@app/components/users/account/ProfileHeadCard.vue'
+import DonutChart from '@app/components/users/account/DonutChart.vue'
 export default defineComponent({
 	name: 'ProfileRightSidebar',
-	components: { ProfileHeadCard },
+	components: { ProfileHeadCard, DonutChart },
 	setup () {
 		const { userId } = useRoute().value.params
 		const { error, loading, user } = useUser(userId)

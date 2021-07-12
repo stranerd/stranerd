@@ -3,6 +3,9 @@ import Vue from 'vue'
 // @ts-ignore
 import Flutterwave from 'flutterwave-vue-v3'
 import { flutterwaveConfig } from '@utils/environment'
+// @ts-ignore
+import Donut from 'vue-css-donut-chart'
+import 'vue-css-donut-chart/dist/vcdonut.css'
 
 export default defineNuxtPlugin(async () => {
 	const hasNoGapSupport = () => {
@@ -25,4 +28,5 @@ export default defineNuxtPlugin(async () => {
 	})
 
 	Vue.use(Flutterwave, { publicKey: flutterwaveConfig.publicKey })
+	Vue.use(Donut)
 })

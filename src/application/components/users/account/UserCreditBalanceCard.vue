@@ -21,7 +21,7 @@
 				<div>
 					<Coins :gold="true" :size="45" style="z-index: 1;" />
 				</div>
-				=======
+				<!-- ======= -->
 				<div class="d-flex flex-column gap-2 align-items-center justify-content-center">
 					<h4 class="headertext mb-0">
 						Available Balance

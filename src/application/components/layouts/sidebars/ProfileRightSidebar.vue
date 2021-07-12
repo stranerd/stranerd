@@ -31,7 +31,7 @@
 			<h1 class="ranking-header">
 				{{ user.id === id ? '' : user.firstName + "'s" }} Nerd Score
 			</h1>
-			<DonutChart :score="user.score" :total="user.expectedScore" />
+			<DonutChart :score="user.score <= user.expectedScore ? user.score : user.expectedScore" :total="user.expectedScore" />
 			<span v-if="user.id === id" class="text-18 text-dark text-center">
 				{{
 					user.score / user.expectedScore > 0.75 ? 'Your Nerd Score is high. Nice job.' :

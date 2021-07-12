@@ -1,7 +1,10 @@
 <template>
 	<nav class="default-top-nav gap-0-5 gap-md-1" role="navigation">
 		<template v-if="showSearch">
-			<SearchBar />
+			<span class="link" @click="showSearch = false">
+				<img src="@app/assets/images/icons/close.svg" alt="">
+			</span>
+			<SearchBar class="flex-grow-1" />
 		</template>
 		<template v-else>
 			<span class="link d-lg-none" @click="openLeftMenu">
@@ -15,7 +18,7 @@
 			<SearchBar class="middle-body mx-auto d-none d-lg-flex" />
 
 			<div class="right-body gap-1-5 gap-md-2-25 gap-lg-3 gap-xl-4-5">
-				<span class="d-lg-none link">
+				<span class="d-lg-none link" @click="showSearch = !showSearch">
 					<img src="@app/assets/images/icons/search.svg">
 				</span>
 				<MessageLink :key="'messages' + isLoggedIn" class="link d-none d-lg-flex" />

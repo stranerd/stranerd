@@ -1,6 +1,6 @@
 <template>
 	<section class="layout-page">
-		<TopNavigation :open-menu="openSidebar" />
+		<TopNavigation :open-left-menu="openAdminSidebar" />
 		<AdminTopNavigation />
 		<section class="layout-body">
 			<main class="layout-main">

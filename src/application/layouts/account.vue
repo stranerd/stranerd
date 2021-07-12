@@ -1,6 +1,6 @@
 <template>
 	<section class="layout-page">
-		<TopNavigation :open-menu="openSidebar" />
+		<TopNavigation :open-left-menu="openSidebar" />
 		<section class="layout-body">
 			<section class="layout-side-left">
 				<Sidebar />

@@ -1,6 +1,6 @@
 <template>
 	<div class="layout-page">
-		<TopNavigation :open-menu="openSidebar" />
+		<TopNavigation :open-left-menu="openSidebar" />
 		<section class="layout-body">
 			<main class="layout-main">
 				<Nuxt />

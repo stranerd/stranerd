@@ -20,8 +20,7 @@ export const useAuth = () => {
 
 	const isLoggedIn = computed({ get: () => !!id.value && !!global.user.value, set: () => {} })
 	const isVerified = computed({ get: () => !!global.auth.value?.isVerified, set: () => {} })
-	// const isAdmin = computed({ get: () => !!global.user.value?.roles.isAdmin, set: () => {} })
-	const isAdmin = computed({ get: () => true, set: () => {} })
+	const isAdmin = computed({ get: () => !!global.user.value?.roles.isAdmin, set: () => {} })
 	const currentSessionId = computed({
 		get: () => global.user.value?.currentSession ?? null,
 		set: () => {}

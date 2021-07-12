@@ -28,6 +28,7 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
 import ProfileHeadCard from '@app/components/users/account/ProfileHeadCard.vue'
 import TagsList from '@app/components/questions/tags/TagsList.vue'
+
 export default defineComponent({
 	name: 'RightSidebar',
 	components: { ProfileHeadCard, TagsList },

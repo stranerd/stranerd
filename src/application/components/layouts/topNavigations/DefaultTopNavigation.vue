@@ -20,9 +20,13 @@
 				<div v-if="show" class="menu-bg">
 					<div class="under" @click="show = false" />
 					<div class="drop-menu gap-1-5">
-						<NuxtLink to="/account/">
+						<NuxtLink :to="'/users/' + user.id">
 							<img src="@app/assets/images/icons/user.svg" alt="">
 							Profile
+						</NuxtLink>
+						<NuxtLink to="/admin /">
+							<img src="@app/assets/images/icons/admin.svg" alt="">
+							Admin
 						</NuxtLink>
 						<span @click="signout">
 							<img src="@app/assets/images/icons/signout.svg" alt="">

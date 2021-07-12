@@ -1,9 +1,12 @@
 <template>
 	<SideMenu :close="close" background-class="menu-background" menu-class="menu-left">
-		<NuxtLink class="d-lg-none mx-auto logo" to="/">
-			<Logo />
-		</NuxtLink>
-		<div class="px-0-5 d-flex flex-column flex-grow-1">
+		<div class="head gap-1">
+			<Logo :secondary="true" />
+			<span class="link" @click="close">
+				<img src="@app/assets/images/icons/close.svg" alt="">
+			</span>
+		</div>
+		<div class="d-flex flex-column flex-grow-1">
 			<slot />
 		</div>
 	</SideMenu>
@@ -27,3 +30,21 @@ export default defineComponent({
 	}
 })
 </script>
+
+<style lang="scss" scoped>
+	/deep/ .head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 1rem 2rem;
+		border-bottom: 5px solid $color-primary;
+		margin-bottom: 1rem;
+
+		.link {
+			& > img {
+				width: 24px !important;
+				height: 24px !important;
+			}
+		}
+	}
+</style>

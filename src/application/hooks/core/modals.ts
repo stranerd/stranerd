@@ -5,18 +5,17 @@ import BuyCoins from '@app/components/modals/account/AccountBuyCoins.vue'
 import TipTutor from '@app/components/modals/account/AccountTipTutor.vue'
 import ReportUser from '@app/components/modals/account/AccountReportUser.vue'
 import RightSidebar from '@app/components/modals/menus/RightSidebarMenu.vue'
-import AdminSidebar from '@app/components/modals/menus/AdminSidebarMenu.vue'
 import Sidebar from '@app/components/modals/menus/SidebarMenu.vue'
 import CreateSession from '@app/components/modals/sessions/SessionCreateSession.vue'
 import Ratings from '@app/components/modals/sessions/SessionRatings.vue'
 
 type AccountTypes = 'BuyCoins' | 'TipTutor' | 'ReportUser'
-type MenuTypes = 'RightSidebar' | 'AdminSidebar' | 'Sidebar'
+type MenuTypes = 'RightSidebar' | 'Sidebar'
 type SessionTypes = 'CreateSession' | 'Ratings'
 type PaymentTypes = 'MakePayment'
 
 const AccountModals = { BuyCoins, TipTutor, ReportUser } as Record<AccountTypes, any>
-const MenuModals = { RightSidebar, AdminSidebar, Sidebar } as Record<MenuTypes, any>
+const MenuModals = { RightSidebar, Sidebar } as Record<MenuTypes, any>
 const SessionModals = { CreateSession, Ratings } as Record<SessionTypes, any>
 const PaymentModals = { MakePayment } as Record<PaymentTypes, any>
 

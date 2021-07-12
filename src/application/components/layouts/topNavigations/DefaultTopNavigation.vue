@@ -1,42 +1,60 @@
 <template>
-	<nav class="default-top-nav gap-1" role="navigation">
-		<NuxtLink to="/">
-			<Logo :secondary="true" class="nav-logo" />
-		</NuxtLink>
+	<nav class="default-top-nav gap-0-5 gap-md-1" role="navigation">
+		<template v-if="showSearch">
+			<SearchBar />
+		</template>
+		<template v-else>
+			<span class="link d-lg-none" @click="openLeftMenu">
+				<img src="@app/assets/images/icons/hamburger.svg" alt="">
+			</span>
 
-		<SearchBar class="middle-body" />
-		<div class="right-body gap-1-5 gap-lg-4-5">
-			<MessageLink :key="'messages' + isLoggedIn" class="link" />
-			<NotificationBell :key="'notifications' + isLoggedIn" class="link" />
+			<NuxtLink class="me-auto mx-md-auto mx-lg-0" to="/">
+				<Logo :secondary="true" class="nav-logo" />
+			</NuxtLink>
 
-			<div v-if="isLoggedIn" class="d-flex gap-0-25 gap-lg-1 align-items-center cursor-pointer" @click="show = !show">
-				<Avatar :src="user.avatar" :size="48" />
-				<span class="d-flex gap-0-5 align-items-center">
-					<span class="username text-truncate">{{ user.fullName }}</span>
-					<i class="fas" :class="show ? 'fa-angle-up' : 'fa-angle-down'" />
+			<SearchBar class="middle-body mx-auto d-none d-lg-flex" />
+
+			<div class="right-body gap-1-5 gap-md-2-25 gap-lg-3 gap-xl-4-5">
+				<span class="d-lg-none link">
+					<img src="@app/assets/images/icons/search.svg">
 				</span>
-			</div>
-			<transition name="slide" appear>
-				<div v-if="show" class="menu-bg">
-					<div class="under" @click="show = false" />
-					<div class="drop-menu gap-1-5">
-						<NuxtLink to="/account/">
-							<img src="@app/assets/images/icons/user.svg" alt="">
-							Profile
-						</NuxtLink>
-						<NuxtLink v-if="user.isAdmin" to="/admin/">
-							<img src="@app/assets/images/icons/admin.svg" alt="">
-							Admin
-						</NuxtLink>
-						<span @click="signout">
-							<img src="@app/assets/images/icons/signout.svg" alt="">
-							Log Out
-						</span>
-						<PageLoading v-if="loading" />
-					</div>
+				<MessageLink :key="'messages' + isLoggedIn" class="link d-none d-lg-flex" />
+				<NotificationBell :key="'notifications' + isLoggedIn" class="link" />
+
+				<span class="link d-lg-none" @click="openRightMenu">
+					<img src="@app/assets/images/icons/right-nav.svg" alt="">
+				</span>
+
+				<div v-if="isLoggedIn" class="d-none d-lg-flex gap-0-25 gap-lg-1 align-items-center cursor-pointer" @click="show = !show">
+					<Avatar :src="user.avatar" :size="48" />
+					<span class="d-flex gap-0-5 align-items-center">
+						<span class="username text-truncate">{{ user.fullName }}</span>
+						<i class="fas" :class="show ? 'fa-angle-up' : 'fa-angle-down'" />
+					</span>
 				</div>
-			</transition>
-		</div>
+
+				<transition name="slide" appear>
+					<div v-if="show" class="menu-bg">
+						<div class="under" @click="show = false" />
+						<div class="drop-menu gap-1-5">
+							<NuxtLink to="/account/">
+								<img src="@app/assets/images/icons/user.svg" alt="">
+								Profile
+							</NuxtLink>
+							<NuxtLink v-if="user.isAdmin" to="/admin/">
+								<img src="@app/assets/images/icons/admin.svg" alt="">
+								Admin
+							</NuxtLink>
+							<span @click="signout">
+								<img src="@app/assets/images/icons/signout.svg" alt="">
+								Log Out
+							</span>
+							<PageLoading v-if="loading" />
+						</div>
+					</div>
+				</transition>
+			</div>
+		</template>
 	</nav>
 </template>
 
@@ -44,17 +62,31 @@
 import SearchBar from '@app/components/search/SearchBar.vue'
 import NotificationBell from '@app/components/layouts/topNavigations/NotificationBell.vue'
 import MessageLink from '@app/components/layouts/topNavigations/MessageLink.vue'
-import { defineComponent, ref } from '@nuxtjs/composition-api'
+import { defineComponent, PropType, ref } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useSessionSignout } from '@app/hooks/auth/session'
+import { useMenuModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'DefaultTopNavigation',
 	components: { SearchBar, NotificationBell, MessageLink },
+	props: {
+		openLeftMenu: {
+			type: Function as PropType<() => {}>,
+			required: false,
+			default: useMenuModal().openSidebar
+		},
+		openRightMenu: {
+			type: Function as PropType<() => {}>,
+			required: false,
+			default: useMenuModal().openRightSidebar
+		}
+	},
 	setup () {
 		const { isLoggedIn, user } = useAuth()
 		const show = ref(false)
+		const showSearch = ref(false)
 		const { loading, error, signout } = useSessionSignout()
-		return { show, isLoggedIn, user, loading, error, signout }
+		return { show, isLoggedIn, user, loading, error, signout, showSearch }
 	}
 })
 </script>
@@ -86,14 +118,14 @@ export default defineComponent({
 
 	.default-top-nav {
 		display: flex;
-		justify-content: space-between;
 		align-items: center;
 		color: $color-dark;
-		min-height: 60px;
+		min-height: 6px;
 		padding: 1rem;
 		border-bottom: 5px solid $color-primary;
 		@media (min-width: $md) { padding: 1rem 2rem; }
-		@media (min-width: $lg) { padding: 1rem 4.5rem; }
+		@media (min-width: $lg) { padding: 1rem 3rem; }
+		@media (min-width: $xl) { padding: 1rem 4.5rem; }
 
 		background: $color-white 0 0 no-repeat padding-box;
 	}
@@ -136,10 +168,17 @@ export default defineComponent({
 	.username {
 		font-size: 18px;
 		font-weight: 600;
-		color: $color-dark !important;
+		color: $color-primary-dark;
 	}
 
 	.slide-enter-active, .slide-leave-active { transition: 0.25s; }
 
 	.slide-enter, .slide-leave-to { transform: translateY(-170px); }
+
+	.link {
+		& > img, /deep/ img {
+			width: 24px !important;
+			height: 24px !important;
+		}
+	}
 </style>

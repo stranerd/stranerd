@@ -1,6 +1,6 @@
 <template>
 	<div class="layout-page">
-		<TopNavigation :open-left-menu="openSidebar" />
+		<TopNavigation />
 		<section class="layout-body">
 			<section class="layout-side-left">
 				<Sidebar />
@@ -21,13 +21,8 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import Sidebar from '@app/components/layouts/sidebars/DefaultSidebar.vue'
 import RightSidebar from '@app/components/layouts/sidebars/RightSidebar.vue'
 import TopNavigation from '@app/components/layouts/topNavigations/DefaultTopNavigation.vue'
-import { useMenuModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'DashboardLayout',
-	components: { Sidebar, TopNavigation, RightSidebar },
-	setup () {
-		const { openSidebar } = useMenuModal()
-		return { openSidebar }
-	}
+	components: { Sidebar, TopNavigation, RightSidebar }
 })
 </script>

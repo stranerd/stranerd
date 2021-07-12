@@ -1,6 +1,6 @@
 <template>
 	<section class="layout-page">
-		<TopNavigation :open-left-menu="openAdminSidebar" />
+		<TopNavigation />
 		<AdminTopNavigation />
 		<section class="layout-body">
 			<main class="layout-main">
@@ -15,15 +15,10 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import TopNavigation from '@app/components/layouts/topNavigations/DefaultTopNavigation.vue'
 import AdminTopNavigation from '@app/components/layouts/topNavigations/AdminTopNavigation.vue'
-import { useMenuModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'AdminLayout',
 	components: { TopNavigation, AdminTopNavigation },
-	middleware: ['isAdmin'],
-	setup () {
-		const { openAdminSidebar } = useMenuModal()
-		return { openAdminSidebar }
-	}
+	middleware: ['isAdmin']
 })
 </script>
 

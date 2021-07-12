@@ -20,6 +20,7 @@ export default defineComponent({
 			type: Object as PropType<AnswerEntity>
 		}
 	}
+})
 </script>
 
 <style lang="scss" scoped>

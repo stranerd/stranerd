@@ -1,7 +1,7 @@
 <template>
-	<div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 d-flex flex-column">
+	<div class="d-flex flex-column gap-2">
 		<!-- TODO - add a new subject form -->
-		<form class="d-flex flex-row mb-2" style="align-items: center;">
+		<form class="d-flex align-items-center">
 			<div style="width: 100%;">
 				<input
 					id="subject_name"
@@ -12,29 +12,21 @@
 					autocomplete="subject_name"
 				>
 			</div>
-			<div>
-				<button class="btn btn btn-lg btn-custom py-1 px-3" type="submit">
-					Add
-				</button>
-			</div>
+			<button class="btn btn-lg btn-custom" type="submit">
+				Add
+			</button>
 		</form>
-		<div>
-			<SubjectsList />
-		</div>
+		<SubjectsList />
 	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import SubjectsList from '@app/components/questions/subjects/AdminSubjectsList.vue'
-import { useCreateModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'AdminQuestionsSubjectsPage',
 	components: { SubjectsList },
-	layout: 'admin',
-	setup () {
-		return { openSubject: useCreateModal().openSubject }
-	}
+	layout: 'admin'
 })
 </script>
 <style lang="scss" scoped>
@@ -44,15 +36,15 @@ export default defineComponent({
 		font-size: 16px;
 		background-color: $color-tags;
 		width: 100%;
-		color: grey;
 	}
 
 	.btn-custom {
-		background-color: $color-btn;
-		color: #fff;
+		background-color: $color-primary-dark;
+		color: $color-white;
 		border: 2px solid;
 		border-radius: 6px;
 		font-size: 16px;
 		font-weight: bold;
+		padding: 1rem 3rem;
 	}
 </style>

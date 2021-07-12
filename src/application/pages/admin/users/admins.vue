@@ -1,9 +1,7 @@
 <template>
-	<div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 d-flex flex-column">
+	<div class="d-flex flex-column gap-2">
 		<UpgradeUserToAdmin />
-		<div>
-			<AdminsList />
-		</div>
+		<AdminsList />
 	</div>
 </template>
 

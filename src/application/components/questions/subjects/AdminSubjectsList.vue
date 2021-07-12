@@ -1,14 +1,9 @@
 <template>
-	<div class="d-flex flex-column">
-		<SubjectCard />
-		<SubjectCard />
-		<SubjectCard />
-		<SubjectCard />
-		<SubjectCard />
-		<SubjectCard />
-		<!-- <DisplayWarning v-if="!loading && !error && subjects.length === 0" message="No subjects found" />
+	<div class="d-flex flex-column gap-1">
+		<SubjectCard v-for="subject in subjects" :key="subject.hash" :subject="subject" />
+		<DisplayWarning v-if="!loading && !error && subjects.length === 0" message="No subjects found" />
 		<PageLoading v-if="loading" />
-		<DisplayError :error="error" /> -->
+		<DisplayError :error="error" />
 	</div>
 </template>
 
@@ -26,23 +21,3 @@ export default defineComponent({
 	}
 })
 </script>
-
-<style lang="scss" scoped>
-	.grid {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		grid-gap: 2rem 1rem;
-	}
-
-	@media (min-width: $sm) {
-		.grid {
-			grid-template-columns: repeat(3, 1fr);
-		}
-	}
-
-	@media (min-width: $md) {
-		.grid {
-			grid-template-columns: repeat(4, 1fr);
-		}
-	}
-</style>

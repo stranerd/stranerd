@@ -8,8 +8,8 @@
 				</span>
 			</div>
 		</template>
-		<div class="d-flex flex-column flex-md-row align-items-center gap-2">
-			<div class="d-flex flex-column gap-1 flex-grow-1 w-100">
+		<div class="d-flex flex-column flex-md-row align-items-center">
+			<div class="d-flex flex-column gap-1 flex-grow-1 w-100 border-lg p-1">
 				<h5 class="headertext">
 					Bronze
 				</h5>
@@ -21,7 +21,7 @@
 					</button>
 				</div>
 			</div>
-			<div class="d-flex flex-column gap-1 flex-grow-1 w-100">
+			<div class="d-flex flex-column gap-1 flex-grow-1 w-100 p-1">
 				<h5 class="headertext">
 					Gold
 				</h5>
@@ -73,5 +73,10 @@ export default defineComponent({
 	.customStyle {
 		border-radius: 10rem;
 		font-size: 18px;
+	}
+
+	.border-lg {
+		border: 0;
+		@media (min-width: $lg) { border-right: 1px solid $color-line; }
 	}
 </style>

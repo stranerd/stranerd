@@ -24,7 +24,7 @@
 							<img src="@app/assets/images/icons/user.svg" alt="">
 							Profile
 						</NuxtLink>
-						<NuxtLink to="/admin /">
+						<NuxtLink v-if="user.isAdmin" to="/admin/">
 							<img src="@app/assets/images/icons/admin.svg" alt="">
 							Admin
 						</NuxtLink>

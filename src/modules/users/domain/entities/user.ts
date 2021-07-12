@@ -58,7 +58,7 @@ export class UserEntity extends BaseEntity {
 			lastSeen: status?.lastSeen ?? 0
 		}
 		this.tutor = {
-			subject: tutor?.subject as DeepRequired<UserTutor['subject']> ?? null,
+			subjects: tutor?.subjects ?? {},
 			tags: tutor?.tags ?? {}
 		}
 		this.session = {
@@ -78,6 +78,7 @@ export class UserEntity extends BaseEntity {
 	get fullName () { return this.bio.name.fullName! }
 	get email () { return this.bio.email }
 	get avatar () { return this.bio.avatar! }
+	get description () { return this.bio.description }
 
 	get isOnline () { return Object.keys(this.status.connections).length > 0 }
 	get lastSeen () { return this.isOnline ? Date.now() : this.status.lastSeen }
@@ -85,10 +86,17 @@ export class UserEntity extends BaseEntity {
 	get averageRating () { return catchDivideByZero(this.account.ratings.total, this.ratingCount) }
 	get ratingCount () { return this.account.ratings.count }
 	get orderRating () { return Math.pow(this.account.ratings.total, this.averageRating) }
-	get subject () { return this.tutor.subject ?? null }
+	get strongestSubject () { return this.subjects[0] }
+	get weakerSubjects () { return this.subjects.slice(1) }
+	get subjects () {
+		return Object.entries(this.tutor.subjects)
+			.map(([key, val]) => ({ id: key, count: val }))
+			.sort((a, b) => a.count >= b.count ? -1 : 1)
+	}
+
 	get tags () {
 		return Object.entries(this.tutor.tags)
-			.map(([key, val]) => ({ id: key, name: key, count: val }))
+			.map(([key, val]) => ({ id: key, count: val }))
 			.sort((a, b) => a.count >= b.count ? -1 : 1)
 	}
 
@@ -182,15 +190,7 @@ export interface UserDates {
 	deletedAt: number | null
 }
 export interface UserTutor {
-	subject: {
-		id: string
-		level: number
-		upgrades: Record<number, {
-			score: number
-			takenAt: number
-			passed: boolean
-		}>
-	} | null
+	subjects: Record<string, number>
 	tags: Record<string, number>
 }
 

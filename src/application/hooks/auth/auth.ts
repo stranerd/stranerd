@@ -3,7 +3,6 @@ import { FindUser, ListenToUser, UserEntity, UpdateStreak } from '@modules/users
 import { AuthDetails, UserLocation } from '@modules/auth/domain/entities/auth'
 import { SessionSignout } from '@modules/auth'
 import { isClient } from '@utils/environment'
-import { useEditModal } from '@app/hooks/core/modals'
 import { analytics, auth } from '@modules/core/services/initFirebase'
 import VueRouter from 'vue-router'
 
@@ -21,8 +20,7 @@ export const useAuth = () => {
 
 	const isLoggedIn = computed({ get: () => !!id.value && !!global.user.value, set: () => {} })
 	const isVerified = computed({ get: () => !!global.auth.value?.isVerified, set: () => {} })
-	// const isAdmin = computed({ get: () => !!global.user.value?.roles.isAdmin, set: () => {} })
-	const isAdmin = computed({ get: () => true, set: () => {} })
+	const isAdmin = computed({ get: () => !!global.user.value?.roles.isAdmin, set: () => {} })
 	const currentSessionId = computed({
 		get: () => global.user.value?.currentSession ?? null,
 		set: () => {}
@@ -45,12 +43,12 @@ export const useAuth = () => {
 		return true
 	}
 
-	const startProfileListener = async () => {
+	const startProfileListener = async (router: VueRouter) => {
 		if (global.listener) global.listener()
 
 		const id = global.auth.value?.id
 		const setUser = (user: UserEntity | null) => {
-			if (user?.bio.isNew && global.showProfileModal.value) useEditModal().openAccountProfile()
+			if (user?.bio.isNew && global.showProfileModal.value) router.push('/account/edit')
 			global.user.value = user
 		}
 		if (id) {
@@ -59,10 +57,10 @@ export const useAuth = () => {
 		}
 	}
 
-	const signin = async (remembered: boolean) => {
+	const signin = async (remembered: boolean, router: VueRouter) => {
 		try {
 			if (global.auth.value?.token) await auth.signInWithCustomToken(global.auth.value.token)
-			await startProfileListener()
+			await startProfileListener(router)
 			analytics.logEvent('login', { remembered })
 		} catch (e) { await signout() }
 	}

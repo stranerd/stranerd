@@ -1,6 +1,6 @@
 <template>
-	<div>
-		<form class="d-flex flex-row mb-2" style="align-items: center;" @submit.prevent="getUsersByEmail">
+	<div class="d-flex flex-column gap-1">
+		<form class="d-flex flex-row align-items-center" @submit.prevent="getUsersByEmail">
 			<div class="flex-grow-1">
 				<input
 					id="email"
@@ -12,32 +12,29 @@
 					autocomplete="email"
 				>
 			</div>
-			<div style="margin-left: auto;">
-				<button class="btn btn-lg btn-custom btn-block py-1 px-3" type="submit">
-					Find User
+			<button class="btn btn-lg btn-custom btn-block py-1 px-3 ms-auto" type="submit">
+				Find User
+			</button>
+		</form>
+		<div v-if="fetched" class="d-flex flex-column gap-1">
+			<DisplayError v-if="users.length === 0" error="No user with such email exists" />
+			<div v-for="user in users" :key="user.hash" class="d-flex flex-wrap justify-content-between gap-0-5 align-items-center">
+				<div class="text-truncate">
+					<p class="lead mb-0 text-wrap">
+						{{ user.fullName }}
+					</p>
+					<p class="small mb-0 text-wrap">
+						{{ user.email }}
+					</p>
+				</div>
+				<span v-if="user.roles.isAdmin" class="text-danger">
+					Already an admin
+				</span>
+				<button v-else class="btn btn-sm btn-success" @click="adminUser(user)">
+					Make admin
 				</button>
 			</div>
-		</form>
-		<div v-if="fetched" class="mt-0-5">
-			<DisplayError v-if="users.length === 0" error="No user with such email exists" />
-			<div v-for="user in users" :key="user.hash" class="mb-1-5">
-				<div class="d-flex flex-wrap justify-content-between align-items-center">
-					<div class="text-truncate mb-0-5">
-						<p class="lead mb-0 text-wrap">
-							{{ user.fullName }}
-						</p>
-						<p class="small mb-0 text-wrap">
-							{{ user.email }}
-						</p>
-					</div>
-					<span v-if="user.roles.isAdmin" class="text-danger">
-						Already an admin
-					</span>
-					<button v-else class="btn btn-sm btn-success" @click="adminUser(user)">
-						Make admin
-					</button>
-				</div>
-			</div>
+			<hr class="my-0">
 		</div>
 		<DisplayError :error="error" />
 		<PageLoading v-if="loading" />
@@ -71,7 +68,7 @@ export default defineComponent({
 	}
 
 	.btn-custom {
-		background-color: $color-btn;
+		background-color: $color-primary-dark;
 		color: #fff;
 		border: 2px solid;
 		border-radius: 6px;

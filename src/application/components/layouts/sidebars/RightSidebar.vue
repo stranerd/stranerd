@@ -1,7 +1,7 @@
 <template>
 	<div class="d-flex flex-column gap-2-25">
 		<template v-if="isLoggedIn">
-			<ProfileHeadCard :user="user" />
+			<ProfileHeadCard :user="user" class="balance" />
 			<div class="d-flex flex-column gap-1 ranking">
 				<h1 class="ranking-header">
 					Ranking Up
@@ -39,6 +39,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+	.balance {
+		background: $color-tags;
+		border: 1px solid $color-line;
+		width: -webkit-fill-available;
+	}
+
 	.tags {
 		background: $color-tags;
 		border: 1px solid $color-line;

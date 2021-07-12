@@ -16,7 +16,6 @@ import { TagRepository } from './data/repositories/tag'
 import { GetSubjectsUseCase } from './domain/usecases/subjects/getSubjects'
 import { DeleteSubjectUseCase } from './domain/usecases/subjects/deleteSubject'
 import { AddSubjectUseCase } from './domain/usecases/subjects/addSubject'
-import { UpdateSubjectUseCase } from './domain/usecases/subjects/updateSubject'
 import { FindSubjectUseCase } from './domain/usecases/subjects/findSubject'
 import { FindQuestionUseCase } from './domain/usecases/questions/findQuestion'
 import { GetQuestionsUseCase } from './domain/usecases/questions/getQuestions'
@@ -68,7 +67,6 @@ const tagRepository = new TagRepository(tagDataSource, tagTransformer)
 export const GetSubjects = new GetSubjectsUseCase(subjectRepository)
 export const DeleteSubject = new DeleteSubjectUseCase(subjectRepository)
 export const AddSubject = new AddSubjectUseCase(subjectRepository)
-export const UpdateSubject = new UpdateSubjectUseCase(subjectRepository)
 export const FindSubject = new FindSubjectUseCase(subjectRepository)
 
 export const GetQuestions = new GetQuestionsUseCase(questionRepository)

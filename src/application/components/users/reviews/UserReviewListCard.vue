@@ -36,13 +36,13 @@ export default defineComponent({
 
 			.name {
 				margin-left: 6px;
-				color: $color-text-main;
+				color: $color-dark;
 				font-size: 17px;
 				font-weight: 600;
 			}
 
 			.subject {
-				color: $color-text-sub;
+				color: $color-dark;
 				font-weight: 600;
 			}
 		}
@@ -50,7 +50,7 @@ export default defineComponent({
 
 	.textStyle {
 		font-size: 16px;
-		color: $color-text-main;
+		color: $color-dark;
 	}
 
 	.bl {
@@ -61,7 +61,7 @@ export default defineComponent({
 		border: 1.2px solid $color-line;
 		background-color: $color-tags;
 		border-radius: 50px;
-		color: $color-text-main;
+		color: $color-dark;
 		padding: 1px 14px;
 	}
 

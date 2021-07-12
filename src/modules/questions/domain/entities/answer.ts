@@ -42,7 +42,8 @@ export class AnswerEntity extends BaseEntity {
 	get votes () { return this.ratings.count }
 	get userName () { return this.user.name.fullName }
 	get avatar () { return this.user.avatar }
-	get trimmedBody () { return trimToLength(extractTextFromHTML(this.body), 200) }
+	get trimmedBody () { return trimToLength(this.strippedBody, 200) }
+	get strippedBody () { return extractTextFromHTML(this.body) }
 }
 
 type AnswerConstructorArgs = {

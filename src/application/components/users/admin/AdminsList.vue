@@ -1,20 +1,9 @@
 <template>
-	<div class="d-flex flex-column">
-		<AdminsListCard />
-		<AdminsListCard />
-		<AdminsListCard />
-		<AdminsListCard />
-		<AdminsListCard />
-		<AdminsListCard />
-		<AdminsListCard />
-		<AdminsListCard />
-		<AdminsListCard />
-		<AdminsListCard />
-		<AdminsListCard />
-		<AdminsListCard />
-		<!-- <DisplayWarning v-if="!loading && !error && admins.length === 0" message="No admins found apart from you" />
+	<div class="d-flex flex-column gap-1">
+		<AdminsListCard v-for="admin in filteredAdmins" :key="admin.hash" :admin="admin" />
+		<DisplayWarning v-if="!loading && !error && admins.length === 0" message="No admins found apart from you" />
 		<PageLoading v-if="loading" />
-		<DisplayError :error="error" /> -->
+		<DisplayError :error="error" />
 	</div>
 </template>
 

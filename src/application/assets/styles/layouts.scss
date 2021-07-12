@@ -8,8 +8,15 @@ body {
 	margin: 31px 0;
 }
 
-.layout-body {
+.layout-page {
+	display: flex;
+	flex-direction: column;
 	min-height: vh(100);
+}
+
+.layout-body {
+	width: 100%;
+	flex-grow: 1;
 	display: flex;
 	flex-direction: row;
 }
@@ -38,12 +45,6 @@ body {
 	flex-direction: column;
 	padding: 3rem 1rem;
 	@media (min-width: $lg) { width: 55.75%; }
-}
-
-.layout-content {
-	flex-grow: 0;
-	display: flex;
-	flex-direction: column;
 }
 
 .sidebar-links {

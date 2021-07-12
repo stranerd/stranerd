@@ -1,12 +1,12 @@
 <template>
-	<div>
-		<TopNavigation :open-menu="openSidebar" />
+	<div class="layout-page">
+		<TopNavigation :open-left-menu="openSidebar" />
 		<section class="layout-body">
 			<section class="layout-side-left">
 				<ProfileLeftSidebar />
 			</section>
 			<main class="layout-main">
-				<Nuxt class="layout-content" />
+				<Nuxt />
 			</main>
 			<section class="layout-side-right">
 				<ProfileRightSidebar />
@@ -23,7 +23,7 @@ import ProfileRightSidebar from '@app/components/layouts/sidebars/ProfileRightSi
 import TopNavigation from '@app/components/layouts/topNavigations/DefaultTopNavigation.vue'
 import { useMenuModal } from '@app/hooks/core/modals'
 export default defineComponent({
-	name: 'DashboardLayout',
+	name: 'ProfileLayout',
 	components: { TopNavigation, ProfileRightSidebar, ProfileLeftSidebar },
 	setup () {
 		const { openSidebar } = useMenuModal()
@@ -34,9 +34,12 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 	.layout-side-left {
-		width: 28% !important;
+		width: 27.5% !important;
 		border: none !important;
 		padding-left: 3rem;
 	}
 
+	.layout-side-right {
+		width: 25% !important;
+	}
 </style>

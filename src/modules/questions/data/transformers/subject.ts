@@ -4,17 +4,15 @@ import { SubjectEntity } from '../../domain/entities/subject'
 
 export class SubjectTransformer {
 	fromJSON (model: SubjectFromModel) {
-		const { id, name, icon, dates: { createdAt } } = model
+		const { id, name, dates: { createdAt } } = model
 		return new SubjectEntity({
-			id, name, iconData: icon,
-			createdAt: timestampToMs(createdAt)
+			id, name, createdAt: timestampToMs(createdAt)
 		})
 	}
 
 	toJSON (entity: SubjectEntity) :SubjectToModel {
 		return {
-			name: entity.name,
-			icon: entity.iconData
+			name: entity.name
 		}
 	}
 }

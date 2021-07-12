@@ -1,5 +1,5 @@
 <template>
-	<div class="d-flex flex-column p-1 gap-1 gap-lg-2">
+	<div :id="question.id" class="d-flex flex-column p-1 gap-1 gap-lg-2">
 		<div class="question-head d-flex align-items-center gap-1">
 			<div class="d-flex align-items-center gap-0-5 me-auto">
 				<NuxtLink :to="`/users/${question.userId}`">
@@ -9,7 +9,7 @@
 					{{ question.userName }}
 				</NuxtLink>
 				<div class="dot" />
-				<span class="subject">{{ subject ? subject.name : 'Subject' }}</span>
+				<Subject :subject-id="question.subjectId" class="subject" />
 			</div>
 			<img v-if="question.isAnswered" src="@app/assets/images/icons/profile-best-answers.svg" alt="" style="width: 2rem; height: 2rem;">
 			<div v-else-if="showAnswerButton" class="d-flex align-items-center gap-1">
@@ -30,7 +30,7 @@
 		<div class="d-flex align-items-center gap-2">
 			<span class="name">Posted {{ formatTime(question.createdAt) }}</span>
 			<div class="gap-0-75 d-flex align-items-center">
-				<TagListCard v-for="tag in question.tags" :key="tag" :tag="tag" />
+				<Tag v-for="tag in question.tags" :key="tag" :tag="tag" />
 			</div>
 			<div class="ms-auto d-flex align-items-center gap-1">
 				<span class="d-flex align-items-center gap-0-5">
@@ -45,15 +45,15 @@
 <script lang="ts">
 import { computed, defineComponent, PropType, useRouter } from '@nuxtjs/composition-api'
 import { QuestionEntity } from '@modules/questions'
-import { useSubject } from '@app/hooks/questions/subjects'
 import { useAuth } from '@app/hooks/auth/auth'
 import { openAnswerModal } from '@app/hooks/questions/answers'
 import { formatNumber, pluralize } from '@utils/commons'
 import { formatTime } from '@utils/dates'
-import TagListCard from '@app/components/questions/tags/TagListCard.vue'
+import Tag from '@app/components/questions/tags/Tag.vue'
+import Subject from '@app/components/questions/subjects/Subject.vue'
 export default defineComponent({
 	name: 'QuestionsListCard',
-	components: { TagListCard },
+	components: { Tag, Subject },
 	props: {
 		question: {
 			required: true,
@@ -63,13 +63,12 @@ export default defineComponent({
 	setup (props) {
 		const { id, user } = useAuth()
 		const router = useRouter()
-		const { subject } = useSubject(props.question.subjectId)
 		const showAnswerButton = computed({
 			get: () => props.question.userId !== id.value && !props.question.isAnswered && !user.value?.meta.answeredQuestions.includes(props.question.id),
 			set: () => {}
 		})
 		return {
-			id, subject, formatTime, formatNumber, pluralize, showAnswerButton,
+			id, formatTime, formatNumber, pluralize, showAnswerButton,
 			openAnswerModal: () => openAnswerModal(props.question, router)
 		}
 	}

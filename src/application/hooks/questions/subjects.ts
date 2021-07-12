@@ -1,9 +1,8 @@
 import { computed, ref, Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import {
 	GetSubjects, AddSubject, FindSubject, DeleteSubject,
-	UpdateSubject, SubjectEntity, SubjectFactory
+	SubjectEntity, SubjectFactory
 } from '@modules/questions'
-import { useCreateModal, useEditModal } from '@app/hooks/core/modals'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { Alert } from '@app/hooks/core/notifications'
 
@@ -62,10 +61,9 @@ export const useCreateSubject = () => {
 			setLoading(true)
 			try {
 				const id = await AddSubject.call(factory.value)
-				const subject = await FindSubject.call(id) ?? undefined
+				const subject = await FindSubject.call(id)
 				if (subject) pushToGlobalSubjects(subject)
 				factory.value.reset()
-				useCreateModal().closeSubject()
 				setMessage('Subject created successfully')
 			} catch (error) { setError(error) }
 			setLoading(false)
@@ -101,36 +99,4 @@ export const useDeleteSubject = (subject: SubjectEntity) => {
 	}
 
 	return { loading, error, deleteSubject }
-}
-
-let currentSubject = null as SubjectEntity | null
-export const setCurrentSubject = (subject: SubjectEntity) => currentSubject = subject
-
-export const useEditSubject = (subject = currentSubject) => {
-	const factory = ssrRef(new SubjectFactory()) as Ref<SubjectFactory>
-	const { error, setError } = useErrorHandler()
-	const { setMessage } = useSuccessHandler()
-	const { loading, setLoading } = useLoadingHandler()
-
-	if (subject) factory.value.loadEntity(subject)
-
-	const editSubject = async () => {
-		setError('')
-		if (factory.value.valid && !loading.value) {
-			setLoading(true)
-			try {
-				if (subject) {
-					await UpdateSubject.call(subject.id, factory.value)
-					const s = await FindSubject.call(subject.id)
-					if (s) pushToGlobalSubjects(s)
-				}
-				factory.value.reset()
-				useEditModal().closeSubject()
-				setMessage('Subject updated successfully')
-			} catch (error) { setError(error) }
-			setLoading(false)
-		} else factory.value.validateAll()
-	}
-
-	return { factory, loading, error, editSubject }
 }

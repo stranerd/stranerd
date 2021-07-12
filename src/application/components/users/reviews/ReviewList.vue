@@ -38,7 +38,7 @@ export default defineComponent({
 		border-radius: 6px;
 		border: 1px solid $color-line;
 		font-size: 15px;
-		color: $color-text-sub;
+		color: $color-dark;
 		width: 100%;
 		font-weight: bold;
 	}

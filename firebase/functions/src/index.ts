@@ -24,7 +24,6 @@ import {
 import { personalChatsCreated, personalChatMediaDeleted } from './modules/sessions/chats'
 
 import { questionCommentCreated, questionCommentDeleted, answerCommentCreated, answerCommentDeleted } from './modules/questions/comments'
-import { subjectIconUpdated, subjectDeleted } from './modules/questions/subjects'
 import { questionCreated, questionDeleted } from './modules/questions/questions'
 import { answerCreated, answerDeleted, answerRated } from './modules/questions/answers'
 
@@ -54,8 +53,6 @@ export {
 export { personalChatsCreated, personalChatMediaDeleted }
 
 // Questions Module
-// Subjects
-export { subjectIconUpdated, subjectDeleted }
 // Questions
 export { questionCreated, questionDeleted }
 // Answers

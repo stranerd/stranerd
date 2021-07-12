@@ -33,7 +33,6 @@ import { defineComponent, onMounted, onBeforeUnmount } from '@nuxtjs/composition
 import QuestionCard from '@app/components/questions/questions/QuestionsListCard.vue'
 import { useQuestionList } from '@app/hooks/questions/questions'
 import SelectSubject from '@app/components/questions/subjects/SelectSubject.vue'
-import { useAccountModal } from '@app/hooks/core/modals'
 import { useAuth } from '@app/hooks/auth/auth'
 export default defineComponent({
 	name: 'QuestionsList',
@@ -45,14 +44,12 @@ export default defineComponent({
 			fetchOlderQuestions, listener
 		} = useQuestionList()
 		const { isLoggedIn, user } = useAuth()
-		const { openMeetTutor } = useAccountModal()
 		onMounted(listener.startListener)
 		onBeforeUnmount(listener.closeListener)
 		return {
 			questions, error, loading, hasMore, fetchOlderQuestions,
 			answeredChoices, answered, subjectId,
-			user,
-			isLoggedIn, openMeetTutor
+			user, isLoggedIn
 		}
 	}
 })

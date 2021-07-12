@@ -9,7 +9,7 @@ import { createNotification } from '../../helpers/modules/users/notifications'
 export const answerCreated = functions.firestore.document('answers/{answerId}')
 	.onCreate(async (snap, context) => {
 		const answer = snap.data()
-		const { coins, userId, questionId, tags = [] } = answer
+		const { coins, userId, questionId, subjectId, tags = [] } = answer
 
 		const questionRef = await admin.firestore().collection('questions').doc(questionId)
 
@@ -29,6 +29,7 @@ export const answerCreated = functions.firestore.document('answers/{answerId}')
 				.update({
 					[`account/meta/answers/${snap.id}`]: true,
 					[`account/meta/answeredQuestions/${questionId}`]: admin.database.ServerValue.increment(1),
+					[`tutor/subjects/${subjectId}`]: admin.database.ServerValue.increment(1),
 					...tagsData
 				})
 			await addUserCoins(userId, { bronze: coins, gold: 0 },
@@ -58,7 +59,7 @@ export const answerUpdated = functions.firestore.document('answers/{answerId}')
 
 export const answerDeleted = functions.firestore.document('answers/{answerId}')
 	.onDelete(async (snap) => {
-		const { questionId, userId, tags = [] } = snap.data()
+		const { questionId, subjectId, userId, tags = [] } = snap.data()
 
 		const tagsData = Object.fromEntries(
 			tags.map((tag: string) => [
@@ -78,6 +79,7 @@ export const answerDeleted = functions.firestore.document('answers/{answerId}')
 				[`account/meta/answers/${snap.id}`]: null,
 				[`account/meta/bestAnswers/${snap.id}`]: null,
 				[`account/meta/answeredQuestions/${questionId}`]: admin.database.ServerValue.increment(-1),
+				[`tutor/subjects/${subjectId}`]: admin.database.ServerValue.increment(-1),
 				...tagsData
 			})
 

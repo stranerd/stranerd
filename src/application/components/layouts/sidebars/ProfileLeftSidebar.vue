@@ -1,17 +1,14 @@
 <template>
-	<div class="d-flex flex-column gap-2-25">
-		<div class="d-flex flex-column gap-1 ranking">
+	<div v-if="user" class="d-flex flex-column gap-2-25">
+		<div class="d-flex flex-column gap-1 box">
 			<div class="d-flex flex-column gap-1-5 align-items-center text-blue">
-				<Avatar :src="user.avatar" :size="150" />
-				<div class="d-flex flex-column gap-0-3 align-items-center">
-					<h1>
-						{{ user.fullName }}
-					</h1>
+				<Avatar :src="user.avatar" :size="144" />
+				<div class="d-flex flex-column gap-0-25 align-items-center">
+					<h1>{{ user.fullName }}</h1>
 					<span class="text-primary">{{ user.rank.id }}</span>
-					<div class="d-flex">
-						<!-- <ShowRatings class="ms-auto" :rating="user.averageRating" /> -->
-						<ShowRatings class="ms-auto" :rating="5" />
-						<span class="ms-0-5">(974 reviews)</span>
+					<div class="d-flex align-items-center gap-0-5">
+						<ShowRatings :rating="user.averageRating" />
+						<span>{{ formatNumber(user.ratingCount) }} {{ pluralize(user.ratingCount, 'review', 'reviews') }}</span>
 					</div>
 				</div>
 				<button class="sidebar-btn px-2">
@@ -20,109 +17,114 @@
 			</div>
 
 			<div class="thick mx-n1" />
-			<div class="d-flex justify-content-between align-items-center">
-				<div class="stats d-flex align-items-center gap-1">
+
+			<div class="stats">
+				<div class="stat-title gap-1">
 					<img src="@app/assets/images/icons/profileSidebar/questions.svg" alt="">
-					<span class="name">Questions</span>
+					<span>Questions</span>
 				</div>
-				<span class="count text-dark fw-bold">{{ Object.entries(user.meta.questions).length }}</span>
+				<span class="count fw-bold">{{ formatNumber(Object.entries(user.meta.questions).length) }}</span>
 			</div>
-			<div class="d-flex justify-content-between align-items-center">
-				<div class="stats d-flex align-items-center gap-1">
+			<div class="stats">
+				<div class="stat-title gap-1">
 					<img src="@app/assets/images/icons/profileSidebar/answered.svg" alt="">
-					<span class="name">Answered Questions</span>
+					<span>Answered Questions</span>
 				</div>
-				<span class="count text-dark fw-bold">{{ Object.entries(user.meta.answeredQuestions).length }}</span>
+				<span class="count fw-bold">{{ formatNumber(Object.entries(user.meta.answeredQuestions).length) }}</span>
 			</div>
-			<div class="d-flex justify-content-between align-items-center">
-				<div class="stats d-flex align-items-center gap-1">
+			<div class="stats">
+				<div class="stat-title gap-1">
 					<img src="@app/assets/images/icons/profileSidebar/answers.svg" alt="">
-					<span class="name">answers</span>
+					<span>Answers</span>
 				</div>
-				<span class="count text-dark fw-bold">{{ Object.entries(user.meta.answers).length }}</span>
+				<span class="count fw-bold">{{ formatNumber(Object.entries(user.meta.answers).length) }}</span>
 			</div>
-			<div class="d-flex justify-content-between align-items-center">
-				<div class="stats d-flex align-items-center gap-1">
+			<div class="stats">
+				<div class="stat-title gap-1">
 					<img src="@app/assets/images/icons/profileSidebar/best-answer.svg" alt="">
-					<span class="name">Best Answers</span>
+					<span>Best Answers</span>
 				</div>
-				<span class="count text-dark fw-bold">{{ Object.entries(user.meta.bestAnswers).length }} </span>
+				<span class="count">{{ formatNumber(Object.entries(user.meta.bestAnswers).length) }} </span>
 			</div>
-			<div class="d-flex justify-content-between align-items-center">
-				<div class="stats d-flex align-items-center gap-1">
+			<div class="stats">
+				<div class="stat-title gap-1">
 					<img src="@app/assets/images/icons/profileSidebar/sessions-attended.svg" alt="">
-					<span class="name">Sessions Attended</span>
+					<span>Sessions Attended</span>
 				</div>
-				<span class="count text-dark fw-bold">{{ Object.entries(user.meta.sessions).length }}</span>
+				<span class="count">{{ formatNumber(Object.entries(user.meta.sessions).length) }}</span>
 			</div>
-			<div class="d-flex justify-content-between align-items-center">
-				<div class="stats d-flex align-items-center gap-1">
+			<div class="stats">
+				<div class="stat-title gap-1">
 					<img src="@app/assets/images/icons/profileSidebar/sessions-hosted.svg" alt="">
-					<span class="name">Sessions Hosted</span>
+					<span>Sessions Hosted</span>
 				</div>
-				<span class="count text-dark fw-bold">{{ Object.entries(user.meta.sessions).length }}</span>
+				<span class="count">{{ formatNumber(Object.entries(user.meta.sessions).length) }}</span>
 			</div>
-			<div class="d-flex justify-content-between align-items-center">
-				<div class="stats d-flex align-items-center gap-1">
+			<div class="stats">
+				<div class="stat-title gap-1">
 					<img src="@app/assets/images/icons/profileSidebar/member-since.svg" alt="">
-					<span class="name">Member Since</span>
+					<span>Member Since</span>
 				</div>
-				<span class="count text-dark fw-bold">May 2020</span>
+				<span class="count">{{ formatTime(user.dates.signedUpAt) }}</span>
 			</div>
 		</div>
 
-		<div class="d-flex flex-column gap-1 ranking">
-			<div class="d-flex flex-column gap-0-5 align-items-center text-blue">
-				<h1 class="text-dark fw-bold text-start w-100">
+		<div
+			v-if="user.description || user.strongestSubject || user.tags.length > 0"
+			class="d-flex flex-column gap-0-5 text-dark box"
+		>
+			<template v-if="user.description">
+				<h1 class="fw-bold">
 					About Me
 				</h1>
-				<p class="text-dark text-start">
-					I am a Physics major in the University of Kentucky. I am passionate about physics and love to contribute to any community that I can help and assist anyone with their problems in Physics.
-				</p>
+				<p>{{ user.description }}</p>
+				<div class="thick mx-n1" />
+			</template>
 
-				<div class="thick mx-n1 w-100" />
-
-				<h1 class="text-dark fw-bold text-start w-100">
+			<template v-if="user.strongestSubject">
+				<h1 class="fw-bold">
 					Strongest In
 				</h1>
-				<p class="text-dark text-start w-100">
-					Physics
-				</p>
+				<Subject :subject-id="user.strongestSubject.id" />
+				<div class="thick mx-n1" />
+			</template>
 
-				<div class="thick mx-n1 w-100" />
-
-				<h1 class="text-dark fw-bold text-start w-100">
+			<template v-if="user.weakerSubjects.length > 0">
+				<h1 class="fw-bold">
 					Also Good In
 				</h1>
-				<p class="text-dark text-start w-100">
-					Mathematics Biology Chemistry
-				</p>
+				<div class="d-flex flex-wrap gap-0-25">
+					<Subject v-for="subject in user.weakerSubjects" :key="subject.id" :subject-id="subject.id" />
+				</div>
+				<div class="thick mx-n1" />
+			</template>
 
-				<div class="thick mx-n1 w-100" />
-
-				<h1 class="text-dark fw-bold text-start w-100">
+			<template v-if="user.tags.length > 0">
+				<h1 class="fw-bold">
 					Frequent Tags
 				</h1>
-				<p class="text-dark text-start w-100">
-					<span class="tag">waves</span>
-					<span class="tag">motion</span>
-					<span class="tag">algebra</span>
-					<span class="tag">projectiles</span>
-					<span class="tag">simple-harmonic-motion</span>
-				</p>
-			</div>
+				<div class="d-flex flex-wrap gap-0-5">
+					<Tag v-for="tag in user.tags" :key="tag.id" :tag="tag.id" />
+				</div>
+			</template>
 		</div>
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
-import { useAuth } from '@app/hooks/auth/auth'
+import { defineComponent, useRoute } from '@nuxtjs/composition-api'
+import { useUser } from '@app/hooks/users/user'
+import { formatNumber, pluralize } from '@utils/commons'
+import { formatTime } from '@utils/dates'
+import Tag from '@app/components/questions/tags/Tag.vue'
+import Subject from '@app/components/questions/subjects/Subject.vue'
 export default defineComponent({
-	name: 'RightSidebar',
+	name: 'ProfileLeftSidebar',
+	components: { Tag, Subject },
 	setup () {
-		const { id, user } = useAuth()
-		return { id, user }
+		const { userId } = useRoute().value.params
+		const { error, loading, user } = useUser(userId)
+		return { error, loading, user, formatNumber, formatTime, pluralize }
 	}
 })
 </script>
@@ -133,23 +135,8 @@ export default defineComponent({
 		margin: 0;
 	}
 
-	.tag {
-		border: 1.2px solid $color-line;
-		background-color: $color-tags;
-		border-radius: 50em;
-		color: $color-dark;
-		padding: 0.125em 1em;
-		margin-top: 1rem;
-	}
-
-	.tags {
-		background: $color-tags;
-		border: 1px solid $color-line;
-		padding: 36px;
-	}
-
-	.ranking {
-		background: #fff;
+	.box {
+		background: $color-white;
 		border-radius: 6px;
 		border: 1px solid $color-line;
 		padding: 36px;
@@ -158,10 +145,6 @@ export default defineComponent({
 		h1 {
 			font-size: 1.5rem;
 			margin: 0;
-		}
-
-		.rank {
-			font-size: 1.25rem;
 		}
 	}
 
@@ -172,21 +155,22 @@ export default defineComponent({
 		font-size: 1rem;
 	}
 
-	.img-rank {
-		width: 9rem;
-	}
-
-	.ranking-header {
-		text-align: center;
-		font-size: 24px;
-		color: $color-dark;
-	}
-
 	.stats {
-		img {
-			height: 1.5rem;
-			width: 1.5rem;
-		}
-	}
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		color: $color-dark;
 
+		.stat-title {
+			display: flex;
+			align-items: center;
+
+			img {
+				height: 1.5rem;
+				width: 1.5rem;
+			}
+		}
+
+		.count { font-weight: bold; }
+	}
 </style>

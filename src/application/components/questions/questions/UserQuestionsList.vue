@@ -1,37 +1,19 @@
 <template>
 	<div>
-		<div class="mb-1 d-flex flex-row" style="justify-content: center; align-items: center;">
-			<div style="margin-right: 4px;">
-				<button class="btn btn btn-lg btn-custom-outlined ">
-					Unanswered <img src="@app/assets/images/icons/down-arrow.svg" style="margin-left: 3px;" alt="">
-				</button>
-			</div>
-			<div>
-				<button class="btn btn btn-lg btn-custom-outlined ">
-					Subject <img src="@app/assets/images/icons/down-arrow.svg" style="margin-left: 3px;" alt="">
-				</button>
-			</div>
+		<form class="d-flex justify-content-center options border-bottom border-line gap-0-75 px-1">
+			<select v-model="answered" class="form-select">
+				<option v-for="choice in answeredChoices" :key="choice.val" :value="choice.val">
+					{{ choice.key }}
+				</option>
+			</select>
+			<SelectSubject :subject-id.sync="subjectId" />
+		</form>
+		<QuestionCard v-for="question in questions" :key="question.hash" :question="question" class="border-bottom border-line" />
+		<div v-if="hasMore" class="text-center py-1 text-18">
+			<a @click.prevent="fetchOlderQuestions">Load More</a>
 		</div>
-		<div class="mb-1">
-			<QuestionCard />
-		</div>
-		<div class="mb-1">
-			<QuestionCard />
-		</div>
-		<div class="mb-1">
-			<QuestionCard />
-		</div>
-		<div class="mb-1">
-			<QuestionCard />
-		</div>
-		<div class="mb-1">
-			<QuestionCard />
-		</div>
-		<div v-if="hasMore" class="text-center py-0-5 text-18">
-			<a class="fw-bold" @click.prevent="fetchOlderQuestions">LOAD MORE</a>
-		</div>
-		<!-- <DisplayWarning v-if="!loading && !error && questions.length === 0" message="This user has not asked any questions yet." /> -->
-		<!-- <DisplayError :error="error" /> -->
+		<DisplayWarning v-if="!loading && !error && questions.length === 0" message="No questions found." />
+		<DisplayError :error="error" />
 		<PageLoading v-if="loading" />
 	</div>
 </template>
@@ -41,9 +23,10 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import QuestionCard from '@app/components/questions/questions/UserQuestionsListCard.vue'
 import { useUserQuestionList } from '@app/hooks/users/user/questions'
 import { useAuth } from '@app/hooks/auth/auth'
+import SelectSubject from '@app/components/questions/subjects/SelectSubject.vue'
 export default defineComponent({
 	name: 'UserQuestionsList',
-	components: { QuestionCard },
+	components: { QuestionCard, SelectSubject },
 	props: {
 		userId: {
 			type: String,
@@ -52,23 +35,24 @@ export default defineComponent({
 	},
 	setup (props) {
 		const { id } = useAuth()
-		const { questions, error, loading, hasMore, fetchOlderQuestions } = useUserQuestionList(props.userId)
+		const { filteredQuestions: questions, subjectId, error, loading, hasMore, answered, answeredChoices, fetchOlderQuestions } = useUserQuestionList(props.userId)
 		return {
 			id,
-			questions, error, loading, hasMore,
+			questions, error, loading, hasMore, subjectId,
+			answeredChoices, answered,
 			fetchOlderQuestions
 		}
 	}
 })
 </script>
+
 <style lang="scss" scoped>
-	.btn-custom-outlined {
-		background-color: $color-tags;
-		border-radius: 6px;
-		border: 1px solid $color-line;
-		font-size: 15px;
-		color: $color-text-sub;
-		width: 100%;
-		font-weight: bold;
+	.options {
+		select {
+			display: inline;
+			width: 156px;
+			border: 1px solid $color-line;
+			padding: 11px;
+		}
 	}
 </style>

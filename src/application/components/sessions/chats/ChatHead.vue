@@ -1,27 +1,23 @@
 <template>
-	<div class="d-flex py-1-25 px-2 align-items-center position-relative bg-line b-rad mb-1">
-		<!-- <NuxtLink to="/messages" class="me-0-5">
-			<i class="fas fa-arrow-left" />
-		</NuxtLink> -->
+	<div class="d-flex py-0-5 px-2 gap-1 align-items-center position-relative bg-line bor-rad">
 		<NuxtLink :to="`/users/${user.id}`">
 			<Avatar :src="user.avatar" :size="63" />
 		</NuxtLink>
-		<div class="ms-1 me-auto">
-			<NuxtLink :to="`/users/${user.id}`" class="d-block text-wrap">
-				<span class="fw-bold username">{{ user.fullName }}</span>
+		<div class="me-auto">
+			<NuxtLink :to="`/users/${user.id}`" class="text-wrap username">
+				{{ user.fullName }}
 			</NuxtLink>
 			<span class="small">{{ user.isOnline ? 'Active now' : time }}</span>
 		</div>
-		<span v-if="inSession" class="lead ms-0-5">{{ countDown }}</span>
-		<button class="btn navbar-toggler ms-0-5" @click="show = !show">
+		<span v-if="inSession" class="lead">{{ countDown }}</span>
+		<button class="btn navbar-toggler" @click="show = !show">
 			<i class="fas fa-ellipsis-v" />
 		</button>
 		<div v-if="show" class="under" @click="show = false" />
-		<div v-if="show" class="menu gap-0-5">
+		<div v-if="show" class="drop-menu gap-0-5">
 			<a v-if="canRequestSession" @click.prevent="requestNewSession">
 				Request Session
 			</a>
-			<a @click="tipUser">Tip Nerd</a>
 			<a @click="reportUser">Report</a>
 			<PageLoading v-if="loading" />
 			<a v-if="canEndSession" @click.prevent="cancelSession">End Session</a>
@@ -39,7 +35,6 @@ import { useAccountModal, useSessionModal } from '@app/hooks/core/modals'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useCurrentSession } from '@app/hooks/sessions/session'
 import { setReportedBioAndId } from '@app/hooks/forms/reports'
-import { setNerdBioAndId } from '@app/hooks/users/account'
 import { analytics } from '@modules/core/services/initFirebase'
 export default defineComponent({
 	name: 'ChatHead',
@@ -97,11 +92,6 @@ export default defineComponent({
 			useAccountModal().openReportUser()
 			show.value = false
 		}
-		const tipUser = () => {
-			setNerdBioAndId({ id: props.user.id, bio: props.user.bio })
-			useAccountModal().openTipTutor()
-			show.value = false
-		}
 		if (otherParticipantId.value) setOtherParticipantId(otherParticipantId.value)
 		const canRequestSession = computed({
 			get: () => user.value?.canRequestSessions && props.user.canHostSessions,
@@ -120,7 +110,7 @@ export default defineComponent({
 		return {
 			canRequestSession, canEndSession, inSession,
 			show, time, countDown, requestNewSession,
-			cancelSession, loading, error, reportUser, tipUser
+			cancelSession, loading, error, reportUser
 		}
 	}
 })
@@ -128,7 +118,9 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 	.username {
+		display: block;
 		font-size: 24px;
+		line-height: 24px;
 		font-weight: 700;
 	}
 
@@ -140,7 +132,7 @@ export default defineComponent({
 		top: 0;
 	}
 
-	.menu {
+	.drop-menu {
 		padding: 0.9rem 0;
 		position: absolute;
 		top: 5rem;
@@ -152,6 +144,7 @@ export default defineComponent({
 		background: $color-white;
 		color: $color-dark;
 		border-radius: 0.5rem;
+		border: 1px solid $color-line;
 
 		a {
 			padding: 0.5rem;
@@ -168,8 +161,9 @@ export default defineComponent({
 		animation: slide-down 0.1s;
 	}
 
-	.b-rad {
-		border-radius: 12px 12px 0 0 !important;
+	.bor-rad {
+		border-radius: 12px 12px 0 0;
+		@media (min-width: $lg) { border-radius: 0 12px 0 0; }
 	}
 
 	@keyframes slide-down {

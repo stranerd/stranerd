@@ -1,9 +1,9 @@
 <template>
-	<div>
+	<div class="layout-page">
 		<TopNavigation :open-menu="openSidebar" />
 		<section class="layout-body">
 			<main class="layout-main">
-				<Nuxt class="layout-content" />
+				<Nuxt />
 			</main>
 			<ModalBase />
 		</section>

@@ -1,18 +1,16 @@
 <template>
 	<NuxtLink :to="`/messages/${meta.id}`" class="gap-0-5">
-		<Avatar :src="meta.bio.avatar" :size="60" />
+		<Avatar :src="meta.bio.avatar" :size="64" />
 		<div class="flex-grow-1 text-truncate">
-			<div class="d-flex justify-content-between gap-0-5">
-				<span class="fw-bold lead d-inline-block text-truncate">{{ meta.bio.name.fullName }}</span>
+			<div class="d-flex justify-content-between align-items-center gap-0-5">
+				<span class="name d-inline-block text-truncate">{{ meta.bio.name.fullName }}</span>
+				<span>{{ formatTime(meta.last.createdAt, true) }}</span>
 			</div>
-			<div class="d-flex justify-content-between text-truncate gap-0-5">
-				<p class="mb-0 text-truncate">
-					<span v-if="meta.unRead.length > 0" class="btn-dark text-white rounded-pill d-inline-flex align-items-center justify-content-center" style="height: 1.25em; width: 1.25em;">
-						<span>{{ meta.unRead.length }}</span>
-					</span>
-					<i v-if="meta.last.isMedia" class="fas fa-paperclip mx-0-25" />
+			<div class="d-flex align-items-center text-truncate gap-0-25">
+				<i v-if="meta.last.isMedia" class="fas fa-paperclip" />
+				<span :class="{ 'unread': meta.unRead.length > 0 }">
 					{{ meta.last.isMedia ? meta.last.media.name : meta.last.content }}
-				</p>
+				</span>
 			</div>
 		</div>
 	</NuxtLink>
@@ -38,10 +36,15 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 	a {
-		padding: 0.5rem;
+		padding: 0.6rem;
 		display: flex;
-		align-items: flex-start;
-		border-radius: 1rem;
+		align-items: center;
+		font-weight: 600;
+		border-bottom: 1px solid $color-line;
+	}
+
+	a.nuxt-link-exact-active {
+		background: $color-tags;
 	}
 
 	a:hover {
@@ -49,6 +52,12 @@ export default defineComponent({
 		font-size: inherit;
 		color: inherit;
 		text-decoration: none;
-		background: $color-primary-dark;
 	}
+
+	.name {
+		font-size: 1.25rem;
+		color: $color-dark;
+	}
+
+	.unread { font-weight: 600; }
 </style>

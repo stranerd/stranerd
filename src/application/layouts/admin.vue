@@ -1,5 +1,5 @@
 <template>
-	<section>
+	<section class="layout-page">
 		<TopNavigation :open-menu="openSidebar" />
 		<div class="px-2 navBackground">
 			<div class="col-lg-8 offset-lg-2 col-md-10 offset-sm-1 py-0 d-flex flex-row" style="align-items: center;">
@@ -13,7 +13,7 @@
 		</div>
 		<section class="layout-body">
 			<main class="layout-main flex-grow-1">
-				<Nuxt class="layout-content" />
+				<Nuxt />
 			</main>
 			<ModalBase />
 		</section>

@@ -9,10 +9,10 @@
 				<NuxtLink class="btn btn-lg btn-custom px-3" to="/auth/signin">
 					Sign In
 				</NuxtLink>
-				<NuxtLink class="link-custom px-1" to="/contact-us">
+				<NuxtLink class="link-custom px-1" to="/#contact-us">
 					Contact
 				</NuxtLink>
-				<NuxtLink class="link-custom px-1" to="/how-it-works">
+				<NuxtLink class="link-custom px-1" to="/#how-it-works">
 					How it works
 				</NuxtLink>
 				<NuxtLink class="link-custom px-1" to="/">
@@ -36,10 +36,10 @@
 							Home
 						</div>
 					</NuxtLink>
-					<NuxtLink class="smallScreenLink link-custom" to="/how-it-works">
+					<NuxtLink class="smallScreenLink link-custom" to="/#how-it-works">
 						How it works
 					</NuxtLink>
-					<NuxtLink class="smallScreenLink link-custom" to="/contact-us">
+					<NuxtLink class="smallScreenLink link-custom" to="/#contact-us">
 						Contact
 					</NuxtLink>
 					<NuxtLink

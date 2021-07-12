@@ -6,14 +6,14 @@
 			<Features />
 		</div>
 		<div class="py-2-5 px-1 px-md-2 py-md-4 py-lg-5">
-			<HowItWorks />
+			<HowItWorks id="how-it-works" />
 		</div>
 		<div class="main-background py-2-5 px-1 px-md-2 py-md-4 py-lg-5">
 			<Connect />
 		</div>
 		<div class="message py-2-5 px-1 px-md-2 py-md-4 py-lg-5 gap-4">
 			<div class="message-form">
-				<MessageForm />
+				<MessageForm id="contact-us" />
 			</div>
 			<span class="d-none d-lg-inline">
 				<img src="@app/assets/images/homepage/contact.svg">
@@ -49,18 +49,18 @@ export default defineComponent({
 
 		& > *:first-child {
 			display: flex;
-			flex: 6;
+			flex: 1;
 
 			& > * {
 				margin: 0 auto;
 				@media (min-width: $md) { width: 80%; }
-				@media (min-width: $lg) { margin-right: 0; }
+				@media (min-width: $lg) { margin-right: 0; max-width: 600px; }
 			}
 		}
 
 		& > *:last-child {
 			text-align: center;
-			flex: 4;
+			flex: 1;
 
 			img {
 				width: 60%;

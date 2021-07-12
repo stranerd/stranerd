@@ -1,29 +1,19 @@
 <template>
-	<div class="tag">
-		{{ tag.name ? tag.name : tag }}
-	</div>
+	<Tag :tag="tag.name" />
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { TagEntity } from '@modules/questions'
+import Tag from '@app/components/questions/tags/Tag.vue'
 export default defineComponent({
 	name: 'TagListCard',
+	components: { Tag },
 	props: {
 		tag: {
-			type: [String, Object] as PropType<string | TagEntity>,
+			type: Object as PropType<TagEntity>,
 			required: true
 		}
 	}
 })
 </script>
-
-<style lang="scss" scoped>
-	.tag {
-		border: 1.2px solid $color-line;
-		background-color: $color-tags;
-		border-radius: 50em;
-		color: $color-dark;
-		padding: 0.125em 1em;
-	}
-</style>

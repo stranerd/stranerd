@@ -1,10 +1,10 @@
 <template>
-	<div>
+	<div class="layout-page">
 		<HomeTopNavigation class="fixed-top" />
 		<div style="height: 76px;" />
 		<section class="layout-body">
 			<main class="layout-main p-0">
-				<Nuxt class="layout-content" />
+				<Nuxt />
 				<HomeBottomNavigation />
 			</main>
 			<ModalBase />

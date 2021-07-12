@@ -1,6 +1,6 @@
 import { BaseEntity } from '@modules/core/domains/entities/base'
 import { generateDefaultBio, UserBio } from '@modules/users'
-import { ChatEntity } from '@modules/sessions/domain/entities/chat'
+import { ChatEntity } from './chat'
 
 export class ChatMetaEntity extends BaseEntity {
 	readonly id: string

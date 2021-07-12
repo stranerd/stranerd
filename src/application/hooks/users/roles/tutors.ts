@@ -23,7 +23,7 @@ export const useTutorsList = () => {
 	const filteredTutors = computed({
 		get: () => global.tutors.value.filter((tutor) => {
 			let matched = true
-			if (global.subjectId.value && tutor.subject?.id !== global.subjectId.value) matched = false
+			if (global.subjectId.value && !tutor.subjects.find((s) => s.id === global.subjectId.value)) matched = false
 			return matched
 		}),
 		set: (tutors) => { global.tutors.value = tutors }

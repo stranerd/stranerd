@@ -67,7 +67,7 @@ export default defineComponent({
 		font-size: 16px;
 		@media (min-width: $md) { font-size: 20px; }
 		@media (min-width: $lg) { font-size: 24px; }
-		@media (min-width: $xxl) { font-size: 28px; }
+		@media (min-width: $xl) { font-size: 28px; }
 	}
 
 	.headerStyle {

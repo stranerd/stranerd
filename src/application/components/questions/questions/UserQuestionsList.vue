@@ -12,7 +12,7 @@
 		<div v-if="hasMore" class="text-center py-1 text-18">
 			<a @click.prevent="fetchOlderQuestions">Load More</a>
 		</div>
-		<DisplayWarning v-if="!loading && !error && questions.length === 0" message="This user has not asked any questions yet." />
+		<DisplayWarning v-if="!loading && !error && questions.length === 0" message="No questions found." />
 		<DisplayError :error="error" />
 		<PageLoading v-if="loading" />
 	</div>
@@ -35,7 +35,7 @@ export default defineComponent({
 	},
 	setup (props) {
 		const { id } = useAuth()
-		const { questions, subjectId, error, loading, hasMore, answered, answeredChoices, fetchOlderQuestions } = useUserQuestionList(props.userId)
+		const { filteredQuestions: questions, subjectId, error, loading, hasMore, answered, answeredChoices, fetchOlderQuestions } = useUserQuestionList(props.userId)
 		return {
 			id,
 			questions, error, loading, hasMore, subjectId,

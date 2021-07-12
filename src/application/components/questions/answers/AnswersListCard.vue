@@ -11,31 +11,31 @@
 		</div>
 		<div class="answer-content d-flex flex-column gap-1">
 			<span class="lead text-dark">{{ answer.title }}</span>
-			<div class="d-flex gap-1 align-items-center">
-				<span class="d-flex align-items-center gap-0-25" @click="showExplanation = !showExplanation">
-					<span class="fw-bold">Explanation</span>
+			<div class="d-flex gap-2 align-items-center text-primary fw-bold">
+				<span class="d-flex align-items-center gap-0-25 me-auto" @click="showExplanation = !showExplanation">
+					<span>Explanation</span>
 					<i class="fas" :class="showExplanation ? 'fa-angle-up' : 'fa-angle-down'" />
 				</span>
-				<div class="d-flex flex-row ms-auto gap-2 fw-bold">
-					<a v-if="answer.commentsCount" class="d-flex align-items-center gap-0-25" @click.prevent="showComments = !showComments">
-						<span>{{ showComments ? 'Hide' : 'Show' }} Comments</span>
-						<i class="fas" :class="showComments ? 'fa-angle-up' : 'fa-angle-down'" />
-					</a>
-					<!-- TODO: add isBest indicator -->
-					<span v-if="isLoggedIn && question && !question.isAnswered && question.userId === id" class="d-flex align-items-center gap-0-25" @click.prevent="markBestAnswer">
-						<span>Mark as best</span>
-						<i class="fas fa-check-circle" />
-					</span>
-					<SelectRating v-if="showRatingButton && isLoggedIn && answer.userId !== id" :rating="0" :set-rating="rateAnswer" />
-					<!-- TODO: add share component -->
-					<span>
-						<i class="fas fa-reply" />
-					</span>
-					<!-- TODO: add report answer functionality -->
-					<span>
-						<i class="fas fa-flag" />
-					</span>
-				</div>
+				<span v-if="question.isAnswered" class="d-flex align-items-center gap-0-25 text-success" @click.prevent="markBestAnswer">
+					<span>Best answer</span>
+					<i class="fas fa-check-circle" />
+				</span>
+				<a v-if="answer.commentsCount" class="d-flex align-items-center gap-0-25" @click.prevent="showComments = !showComments">
+					<span>{{ showComments ? 'Hide' : 'Show' }} Comments</span>
+					<i class="fas" :class="showComments ? 'fa-angle-up' : 'fa-angle-down'" />
+				</a>
+				<span v-if="isLoggedIn && question && !question.isAnswered && question.userId === id" class="d-flex align-items-center gap-0-25" @click.prevent="markBestAnswer">
+					<span>Mark as best</span>
+					<i class="fas fa-check-circle" />
+				</span>
+				<SelectRating v-if="showRatingButton && isLoggedIn && answer.userId !== id" :rating="0" :set-rating="rateAnswer" />
+				<Share :title="answer.title" :text="answer.strippedBody" :link="`/questions/${answer.questionId}#${answer.id}`">
+					<i class="fas fa-reply" />
+				</Share>
+				<!-- TODO: add report answer functionality -->
+				<span>
+					<i class="fas fa-flag" />
+				</span>
 			</div>
 		</div>
 		<div v-if="showExplanation" class="answer-content bg-line">

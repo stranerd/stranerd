@@ -1,4 +1,4 @@
-import { Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
+import { computed, Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import { GetUserQuestions, QuestionEntity } from '@modules/questions'
 import { PAGINATION_LIMIT } from '@utils/constants'
 import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
@@ -39,7 +39,17 @@ export const useUserQuestionList = (id: string) => {
 		...useLoadingHandler()
 	}
 
-	// TODO: Add filtering logic to user questions
+	const filteredQuestions = computed({
+		get: () => global[id].questions.value.filter((q) => {
+			let matched = true
+			if (global[id].subjectId.value && q.subjectId !== global[id].subjectId.value) matched = false
+			if (global[id].answered.value === Answered.Answered && !q.isAnswered) matched = false
+			if (global[id].answered.value === Answered.Unanswered && q.isAnswered) matched = false
+			return matched
+		}).sort((a, b) => {
+			return new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
+		}), set: (questions) => { questions.map((q) => pushToQuestionList(id, q)) }
+	})
 
 	const fetchQuestions = async () => {
 		global[id].setError('')
@@ -58,5 +68,5 @@ export const useUserQuestionList = (id: string) => {
 		if (!global[id].fetched.value && !global[id].loading.value) await fetchQuestions()
 	})
 
-	return { ...global[id], answeredChoices, fetchOlderQuestions: fetchQuestions }
+	return { ...global[id], filteredQuestions, answeredChoices, fetchOlderQuestions: fetchQuestions }
 }

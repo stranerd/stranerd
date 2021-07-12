@@ -14,7 +14,7 @@
 			<i class="fas fa-ellipsis-v" />
 		</button>
 		<div v-if="show" class="under" @click="show = false" />
-		<div v-if="show" class="menu gap-0-5">
+		<div v-if="show" class="drop-menu gap-0-5">
 			<a v-if="canRequestSession" @click.prevent="requestNewSession">
 				Request Session
 			</a>
@@ -110,7 +110,7 @@ export default defineComponent({
 		return {
 			canRequestSession, canEndSession, inSession,
 			show, time, countDown, requestNewSession,
-			cancelSession, loading, error, reportUser, tipUser
+			cancelSession, loading, error, reportUser
 		}
 	}
 })
@@ -132,7 +132,7 @@ export default defineComponent({
 		top: 0;
 	}
 
-	.menu {
+	.drop-menu {
 		padding: 0.9rem 0;
 		position: absolute;
 		top: 5rem;
@@ -144,6 +144,7 @@ export default defineComponent({
 		background: $color-white;
 		color: $color-dark;
 		border-radius: 0.5rem;
+		border: 1px solid $color-line;
 
 		a {
 			padding: 0.5rem;

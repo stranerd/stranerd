@@ -41,13 +41,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.score, .cdc-text{
-	font-size: 2rem !important;
-	font-weight: 700;
-	color: $color-primary;
-}
-.small{
-	font-size: 18px;
-	color:$color-dark
-}
+	.score, .cdc-text {
+		font-size: 2rem !important;
+		font-weight: 700;
+		color: $color-primary;
+	}
+
+	.small {
+		font-size: 18px;
+		color: $color-dark;
+	}
 </style>

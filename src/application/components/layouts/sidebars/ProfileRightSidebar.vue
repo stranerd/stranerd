@@ -69,6 +69,7 @@ export default defineComponent({
 		font-size: 24px;
 		color: $color-dark;
 	}
+
 	.stat {
 		width: 350px;
 		font-size: 14px;

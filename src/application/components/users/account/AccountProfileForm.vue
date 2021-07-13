@@ -1,6 +1,6 @@
 <template>
 	<form class="d-flex flex-column gap-1-5" @submit.prevent="updateProfile">
-		<SelectAvatar :avatar="factory.avatar || Avatars.default.id" :set-avatar="(a) => factory.avatar = a" />
+		<!-- <SelectAvatar :avatar="factory.avatar" :set-avatar="(a) => factory.avatar = a" /> -->
 		<!-- TODO: toggle back visibility after implementing profile image -->
 		<div class="form-group d-none">
 			<label id="uploadbtn" for="picture" class="px-3 bg-tags text-dark border border-line text-center">Upload New Profile Picture</label>
@@ -91,11 +91,8 @@ import { defineComponent, onBeforeUnmount, PropType } from '@nuxtjs/composition-
 import { useUpdateProfile } from '@app/hooks/users/account'
 import { useAuth, setShowProfileModal } from '@app/hooks/auth/auth'
 import { usePassword } from '@app/hooks/core/forms'
-import { Avatars } from '@modules/users'
-import SelectAvatar from '@app/components/users/account/SelectAvatar.vue'
 export default defineComponent({
 	name: 'AccountProfileForm',
-	components: { SelectAvatar },
 	props: {
 		cancel: {
 			required: true,
@@ -109,7 +106,7 @@ export default defineComponent({
 		onBeforeUnmount(() => setShowProfileModal(false))
 		return {
 			auth, show, toggle,
-			factory, error, loading, updateProfile, Avatars
+			factory, error, loading, updateProfile
 		}
 	}
 })

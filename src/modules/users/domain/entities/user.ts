@@ -1,6 +1,6 @@
 import { BaseEntity } from '@modules/core/domains/entities/base'
+import { Media } from '@modules/core/data/models/base'
 import { capitalize, catchDivideByZero } from '@utils/commons'
-import { Avatars } from './avatar'
 import { getScore, getMyRank, getRankProgress, getScholarLevel, getExpectedScore } from './rank'
 
 export class UserEntity extends BaseEntity {
@@ -77,7 +77,7 @@ export class UserEntity extends BaseEntity {
 	get lastName () { return this.bio.name.last }
 	get fullName () { return this.bio.name.fullName! }
 	get email () { return this.bio.email }
-	get avatar () { return this.bio.avatar! }
+	get avatar () { return this.bio.avatar }
 	get description () { return this.bio.description }
 
 	get isOnline () { return Object.keys(this.status.connections).length > 0 }
@@ -137,7 +137,7 @@ export interface UserBio {
 	}
 	email: string
 	description: string
-	avatar: keyof typeof Avatars | null
+	avatar: Media | null
 	isNew?: boolean | null
 }
 export interface UserRoles {
@@ -202,7 +202,7 @@ export const generateDefaultBio = (bio: Partial<UserBio>) :DeepRequired<UserBio>
 	const fullName = first + ' ' + last
 	const email = bio?.email ?? 'anon@ymous.com'
 	const description = bio?.description ?? ''
-	const avatar = Avatars[bio?.avatar!] ? bio?.avatar! : Avatars.default.id
+	const avatar = bio?.avatar ?? null
 	const isNew = !!bio?.isNew ?? false
 	return { name: { first, last, fullName }, email, description, avatar, isNew }
 }

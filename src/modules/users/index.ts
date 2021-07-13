@@ -20,7 +20,6 @@ import { GetNotificationsUseCase } from './domain/usecases/notifications/getNoti
 import { ListenToNotificationsUseCase } from './domain/usecases/notifications/listenToNotifications'
 import { MarkNotificationSeenUseCase } from './domain/usecases/notifications/markNotificationSeen'
 import { UserEntity, UserBio, generateDefaultBio } from './domain/entities/user'
-import { Avatar, Avatars } from './domain/entities/avatar'
 import { NotificationEntity } from './domain/entities/notification'
 import { MailingListFactory } from './domain/factories/mailingList'
 
@@ -51,6 +50,6 @@ export const GetNotifications = new GetNotificationsUseCase(notificationReposito
 export const ListenToNotifications = new ListenToNotificationsUseCase(notificationRepository)
 export const MarkNotificationSeen = new MarkNotificationSeenUseCase(notificationRepository)
 
-export { UserEntity, generateDefaultBio, NotificationEntity, Avatars }
+export { UserEntity, generateDefaultBio, NotificationEntity }
 export { MailingListFactory }
-export type { UserBio, Avatar }
+export type { UserBio }

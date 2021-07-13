@@ -2,7 +2,7 @@
 	<form @submit.prevent="submitComment">
 		<div class="form-group">
 			<div class="d-flex align-items-center gap-1">
-				<Avatar :src="isLoggedIn ? user.avatar : Avatars.default.link" :size="35" />
+				<Avatar :src="isLoggedIn ? user.avatar : null" :size="35" />
 				<input
 					v-model="factory.body"
 					class="form-control flex-grow-1"
@@ -24,7 +24,6 @@
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { CommentFactory } from '@modules/questions'
 import { useAuth } from '@app/hooks/auth/auth'
-import { Avatars } from '@modules/users'
 import { useRedirectToAuth } from '@app/hooks/auth/session'
 export default defineComponent({
 	name: 'CommentForm',
@@ -53,7 +52,7 @@ export default defineComponent({
 			if (isLoggedIn.value) props.submit()
 			else redirect()
 		}
-		return { isLoggedIn, user, Avatars, submitComment }
+		return { isLoggedIn, user, submitComment }
 	}
 })
 </script>

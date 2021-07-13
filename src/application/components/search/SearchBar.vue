@@ -36,7 +36,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 	form {
 		flex-grow: 1;
-		display: flex;
 		font-size: 0.9rem;
 		border: 1px solid $color-line;
 		background-color: $color-tags;

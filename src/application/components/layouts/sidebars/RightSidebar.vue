@@ -1,8 +1,15 @@
 <template>
-	<div class="d-flex flex-column gap-2-25">
+	<div class="d-flex flex-column gap-0-75 gap-md-1-5 gap-lg-2-25 mt-1 mt-lg-0 background">
 		<template v-if="isLoggedIn">
-			<ProfileHeadCard :user="user" class="balance" />
-			<div class="d-flex flex-column gap-1 ranking">
+			<div class="d-flex d-lg-none flex-column gap-0-5 inner-bg">
+				<Avatar class="align-self-center" :src="user.avatar" :size="72" />
+				<span class="align-self-center text-center name">{{ user.fullName }}</span>
+				<NuxtLink to="/account/" class="btn btn-primary btn-lg">
+					View Profile
+				</NuxtLink>
+			</div>
+			<ProfileHeadCard :user="user" class="inner-bg" />
+			<div class="d-flex flex-column gap-1 inner-bg">
 				<h1 class="ranking-header">
 					Ranking Up
 				</h1>
@@ -19,7 +26,7 @@
 				</div>
 			</div>
 		</template>
-		<TagsList class="tags" />
+		<TagsList class="inner-bg" />
 	</div>
 </template>
 
@@ -40,22 +47,20 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-	.balance {
-		background: $color-tags;
-		border: 1px solid $color-line;
-		width: -webkit-fill-available;
+	.background {
+		background: $color-line;
+		@media (min-width: $lg) {
+			background: unset;
+		}
 	}
 
-	.tags {
-		background: $color-tags;
-		border: 1px solid $color-line;
-		padding: 36px;
-	}
-
-	.ranking {
-		background: $color-tags;
-		border: 1px solid $color-line;
-		padding: 36px;
+	.inner-bg {
+		background: $color-white;
+		padding: 30px;
+		@media (min-width: $lg) {
+			background: $color-tags;
+			padding: 36px;
+		}
 	}
 
 	.img-rank {
@@ -73,5 +78,11 @@ export default defineComponent({
 		font-size: 14px;
 		font-weight: 600;
 		color: $color-sub;
+	}
+
+	.name {
+		font-size: 20px;
+		color: $color-dark;
+		font-weight: 600;
 	}
 </style>

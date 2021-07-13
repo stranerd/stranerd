@@ -1,6 +1,6 @@
 <template>
 	<div class="layout-page bg-dark">
-		<TopNavigation :open-left-menu="openSidebar" />
+		<TopNavigation />
 		<section class="layout-body">
 			<main class="layout-main py-1">
 				<Nuxt />
@@ -13,14 +13,9 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import TopNavigation from '@app/components/layouts/topNavigations/DefaultTopNavigation.vue'
-import { useMenuModal } from '@app/hooks/core/modals'
 export default defineComponent({
 	name: 'ChatLayout',
-	components: { TopNavigation },
-	setup () {
-		const { openSidebar } = useMenuModal()
-		return { openSidebar }
-	}
+	components: { TopNavigation }
 })
 </script>
 

@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="25.532" viewBox="0 0 30 25.532">
     <defs>
         <style>
-            .a {
-                fill: #132740;
-                fill-rule: evenodd;
-            }
+			.a {
+				fill: #374b99;
+				fill-rule: evenodd;
+			}
         </style>
     </defs>
     <path class="a"

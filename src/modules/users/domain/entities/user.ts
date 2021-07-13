@@ -1,7 +1,7 @@
 import { BaseEntity } from '@modules/core/domains/entities/base'
 import { capitalize, catchDivideByZero } from '@utils/commons'
 import { Avatars } from './avatar'
-import { getScore, getMyRank, getRankProgress, getScholarLevel } from './rank'
+import { getScore, getMyRank, getRankProgress, getScholarLevel, getExpectedScore } from './rank'
 
 export class UserEntity extends BaseEntity {
 	public readonly id: string
@@ -101,11 +101,13 @@ export class UserEntity extends BaseEntity {
 	}
 
 	get score () { return getScore(this) }
+	get expectedScore () { return getExpectedScore(this) }
 	get rank () { return getMyRank(this) }
 	get rankProgress () { return getRankProgress(this) }
 
+	get isScholar () { return this.rank.level >= getScholarLevel() }
 	get currentSession () { return this.session.currentSession || this.session.currentTutorSession || null }
-	get canHostSessions () { return !this.currentSession && this.rank.level >= getScholarLevel() }
+	get canHostSessions () { return !this.currentSession && this.isScholar }
 	get canRequestSessions () { return !this.currentSession && Object.keys(this.session.requests).length === 0 } // this.rank.level >= Ranks.Scholar.level }
 
 	get meta () {

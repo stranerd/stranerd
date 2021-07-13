@@ -46,6 +46,8 @@ type Rank = {
 	score: number
 	ratings: number
 	image: string
+	expectedDays: number,
+	expectedScore: number
 }
 
 export const Ranks :Record<RankTypes, Rank> = {
@@ -60,7 +62,9 @@ export const Ranks :Record<RankTypes, Rank> = {
 		dailyLogin: 30,
 		score: 0,
 		ratings: 0,
-		image: '/images/ranking/rookie.svg'
+		image: '/images/ranking/rookie.svg',
+		expectedDays: 30,
+		expectedScore: 26.125
 	},
 	[RankTypes.Comrade]: {
 		id: RankTypes.Comrade,
@@ -73,7 +77,9 @@ export const Ranks :Record<RankTypes, Rank> = {
 		dailyLogin: 60,
 		score: 75,
 		ratings: 0,
-		image: '/images/ranking/comrade.svg'
+		image: '/images/ranking/comrade.svg',
+		expectedDays: 60,
+		expectedScore: 75
 	},
 	[RankTypes.Scholar]: {
 		id: RankTypes.Scholar,
@@ -86,7 +92,9 @@ export const Ranks :Record<RankTypes, Rank> = {
 		dailyLogin: 90,
 		score: 250,
 		ratings: 3.5,
-		image: '/images/ranking/scholar.svg'
+		image: '/images/ranking/scholar.svg',
+		expectedDays: 90,
+		expectedScore: 205.25
 	},
 	[RankTypes.Einstein]: {
 		id: RankTypes.Comrade,
@@ -99,7 +107,9 @@ export const Ranks :Record<RankTypes, Rank> = {
 		dailyLogin: 100,
 		score: 400,
 		ratings: 4,
-		image: '/images/ranking/einstein.svg'
+		image: '/images/ranking/einstein.svg',
+		expectedDays: 120,
+		expectedScore: 296.25
 	}
 }
 
@@ -161,4 +171,10 @@ export const getRankProgress = (user: UserEntity) => {
 const getNextRank = (rank: RankTypes) :Rank | null => {
 	const index = ranks.findIndex((r) => r.id === rank)
 	return ranks[index + 1] ?? null
+}
+
+export const getExpectedScore = (user: UserEntity) => {
+	const dayInMs = 1000 * 60 * 60 * 24
+	const days = Math.round((Date.now() - user.dates.signedUpAt) / dayInMs)
+	return user.rank.expectedScore * days / user.rank.expectedDays
 }

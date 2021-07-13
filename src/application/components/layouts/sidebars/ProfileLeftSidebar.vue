@@ -2,8 +2,14 @@
 	<div v-if="user" class="d-flex flex-column gap-2-25">
 		<div class="d-flex flex-column gap-1 box">
 			<div class="d-flex flex-column gap-1-5 align-items-center text-blue">
-				<Avatar :src="user.avatar" :size="144" />
-				<div class="d-flex flex-column gap-0-25 align-items-center">
+				<div class="d-flex flex-column">
+					<Avatar :src="user.avatar" :size="144" />
+					<NuxtLink to="/account/edit">
+						<i class="fa fa-pen pen" />
+					</NuxtLink>
+				</div>
+
+				<div class="d-flex flex-column gap-0-25 align-items-center mt-n3">
 					<h1>{{ user.fullName }}</h1>
 					<span class="text-primary">{{ user.rank.id }}</span>
 					<div class="d-flex align-items-center gap-0-5">
@@ -130,6 +136,19 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.pen{
+	background-color: $color-primary;
+	color: white;
+	padding: 1rem;
+	position: relative;
+	bottom:55px;
+	left: 100px;
+	border-radius: 50px;
+	width: 45px;
+	height: 45px;
+	display: grid;
+	place-items: center;
+}
 
 	p {
 		margin: 0;

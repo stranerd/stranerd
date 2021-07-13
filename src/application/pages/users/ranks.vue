@@ -126,7 +126,8 @@ export default defineComponent({
 				flex-direction: column;
 				justify-content: center;
 				align-items: center;
-			 }
+			}
+
 			.rank-contain {
 				background: $color-tags;
 				padding: 2rem;
@@ -150,6 +151,7 @@ export default defineComponent({
 				@media (max-width: $mmd) {
 					width: 100%;
 				}
+
 				p {
 					margin: 0;
 					width: 100%;

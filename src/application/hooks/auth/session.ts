@@ -4,7 +4,7 @@ import { isClient, isServer } from '@utils/environment'
 import { REDIRECT_SESSION_NAME } from '@utils/constants'
 import Cookie from 'cookie'
 import { AfterAuthUser } from '@modules/auth/domain/entities/auth'
-import { useContext } from '@nuxtjs/composition-api'
+import { useContext, useRouter } from '@nuxtjs/composition-api'
 import VueRouter from 'vue-router'
 import { useAuth } from '@app/hooks/auth/auth'
 import { Alert } from '@app/hooks/core/notifications'
@@ -23,6 +23,7 @@ export const createSession = async (user: AfterAuthUser, router: VueRouter) => {
 }
 
 export const useSessionSignout = () => {
+	const router = useRouter()
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const signout = async () => {
@@ -36,7 +37,7 @@ export const useSessionSignout = () => {
 		if (accepted) {
 			setLoading(true)
 			try {
-				await useAuth().signout()
+				await useAuth().signout(router)
 			} catch (error) { setError(error) }
 			setLoading(false)
 		}

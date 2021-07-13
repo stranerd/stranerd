@@ -136,19 +136,19 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.pen{
-	background-color: $color-primary;
-	color: white;
-	padding: 1rem;
-	position: relative;
-	bottom:55px;
-	left: 100px;
-	border-radius: 50px;
-	width: 45px;
-	height: 45px;
-	display: grid;
-	place-items: center;
-}
+	.pen {
+		background-color: $color-primary;
+		color: white;
+		padding: 1rem;
+		position: relative;
+		bottom: 55px;
+		left: 100px;
+		border-radius: 50px;
+		width: 45px;
+		height: 45px;
+		display: grid;
+		place-items: center;
+	}
 
 	p {
 		margin: 0;

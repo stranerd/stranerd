@@ -14,7 +14,7 @@ export default defineComponent({
 	name: 'Avatar',
 	props: {
 		src: {
-			type: Object as PropType<Media>,
+			type: Object as PropType<Media | null>,
 			default: null,
 			validator: (p: any) => p === null || typeof p.link === 'string'
 		},
@@ -26,7 +26,7 @@ export default defineComponent({
 	},
 	setup (props) {
 		const source = computed({
-			get: () => props.src?.link ?? DEFAULT_PROFILE_IMAGE,
+			get: () => props.src?.link === 'string' ? props.src.link : DEFAULT_PROFILE_IMAGE,
 			set: () => {}
 		})
 		return { source }

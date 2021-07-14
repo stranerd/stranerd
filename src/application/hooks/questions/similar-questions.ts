@@ -1,4 +1,4 @@
-import { Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
+import { Ref, reqRef, useFetch } from '@nuxtjs/composition-api'
 import { QuestionEntity, GetSimilarQuestions, ListenToSimilarQuestions } from '@modules/questions'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 
@@ -9,8 +9,8 @@ const global = {} as Record<string, {
 
 export const useSimilarQuestionList = (question: QuestionEntity) => {
 	if (global[question.id] === undefined) global[question.id] = {
-		questions: ssrRef([]),
-		fetched: ssrRef(false),
+		questions: reqRef([]),
+		fetched: reqRef(false),
 		...useErrorHandler(),
 		...useLoadingHandler()
 	}

@@ -1,11 +1,11 @@
-import { computed, ssrRef, useFetch } from '@nuxtjs/composition-api'
+import { computed, reqRef, useFetch } from '@nuxtjs/composition-api'
 import { GetTutorsByRatings, ListenToTutorsByRatings, UserEntity } from '@modules/users'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 
 const global = {
-	tutors: ssrRef([] as UserEntity[]),
-	fetched: ssrRef(false),
-	subjectId: ssrRef(''),
+	tutors: reqRef([] as UserEntity[]),
+	fetched: reqRef(false),
+	subjectId: reqRef(''),
 	...useErrorHandler(),
 	...useLoadingHandler()
 }

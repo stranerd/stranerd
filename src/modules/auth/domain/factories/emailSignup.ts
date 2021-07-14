@@ -1,4 +1,4 @@
-import { BaseFactory } from '@modules/core/domains/factories/base'
+import { BaseFactory } from '@modules/core'
 import { isLongerThan, isShorterThan, isEmail, isShallowEqualTo } from 'sd-validate/lib/rules'
 import { AuthUser } from '../entities/auth'
 

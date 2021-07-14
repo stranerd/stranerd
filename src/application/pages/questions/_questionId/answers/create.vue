@@ -31,7 +31,7 @@ import { defineComponent, onMounted } from '@nuxtjs/composition-api'
 import { useCreateAnswer, getAnsweringQuestion } from '@app/hooks/questions/answers'
 import AnswerForm from '@app/components/questions/answers/AnswerForm.vue'
 import Tag from '@app/components/questions/tags/Tag.vue'
-import { analytics } from '@modules/core/services/initFirebase'
+import { analytics } from '@modules/core'
 import { useAuth } from '@app/hooks/auth/auth'
 export default defineComponent({
 	name: 'QuestionPageAnswersCreatePage',

@@ -48,7 +48,7 @@ import { algoliaConfig } from '@utils/environment'
 import algoliaSearch from 'algoliasearch/lite'
 // @ts-ignore
 import { AisStateResults, AisSearchBox, AisHits, AisPoweredBy, AisInstantSearch } from 'vue-instantsearch'
-import { analytics } from '@modules/core/services/initFirebase'
+import { analytics } from '@modules/core'
 export default defineComponent({
 	name: 'Search',
 	components: {

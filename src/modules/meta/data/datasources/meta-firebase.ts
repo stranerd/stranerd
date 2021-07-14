@@ -1,4 +1,4 @@
-import { FunctionsService } from '@modules/core/services/firebase'
+import { FunctionsService } from '@modules/core'
 import { MetaBaseDataSource } from './meta-base'
 
 export class MetaFirebaseDataSource implements MetaBaseDataSource {

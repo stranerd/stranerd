@@ -1,4 +1,4 @@
-import { FirestoreGetClauses } from '@modules/core/data/datasources/base'
+import { FirestoreGetClauses } from '@modules/core'
 import { IQuestionRepository } from '../../irepositories/iquestion'
 import { QuestionEntity } from '../../entities/question'
 

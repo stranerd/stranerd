@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { DatabaseGetClauses } from '@modules/core'
 import { CommentFromModel, CommentToModel } from '../models/comment'
 
 export abstract class CommentBaseDataSource {

@@ -7,7 +7,7 @@ import { BuyCoins, TipTutor } from '@modules/meta'
 import { UserBio } from '@modules/users'
 import { setPaymentProps } from '@app/hooks/payment/payment'
 import { Alert } from '@app/hooks/core/notifications'
-import { analytics } from '@modules/core/services/initFirebase'
+import { analytics } from '@modules/core'
 
 export const useUpdateProfile = () => {
 	const router = useRouter()

@@ -3,7 +3,7 @@ import { FindUser, ListenToUser, UserEntity, UpdateStreak } from '@modules/users
 import { AuthDetails, UserLocation } from '@modules/auth/domain/entities/auth'
 import { SessionSignout } from '@modules/auth'
 import { isClient } from '@utils/environment'
-import { analytics, auth } from '@modules/core/services/initFirebase'
+import { analytics, auth } from '@modules/core'
 import VueRouter from 'vue-router'
 
 const global = {

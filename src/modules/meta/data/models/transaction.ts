@@ -1,4 +1,4 @@
-import { Timestamp } from '@modules/core/data/models/base'
+import { Timestamp } from '@modules/core'
 
 export interface TransactionFromModel {
 	id: string

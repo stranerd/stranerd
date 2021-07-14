@@ -1,5 +1,4 @@
-import { BaseFactory } from '@modules/core/domains/factories/base'
-import { Media } from '@modules/core/data/models/base'
+import { BaseFactory, Media } from '@modules/core'
 import { isLongerThan, isEmail, isShorterThan, isRequiredIf, isShallowEqualTo, isImage } from 'sd-validate/lib/rules'
 import { UserBio } from '@modules/users'
 import { UpdateUser } from '../entities/auth'

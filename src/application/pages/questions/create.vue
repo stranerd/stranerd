@@ -22,7 +22,7 @@
 import { defineComponent, onMounted } from '@nuxtjs/composition-api'
 import QuestionForm from '@app/components/questions/questions/QuestionForm.vue'
 import { useCreateQuestion } from '@app/hooks/questions/questions'
-import { analytics } from '@modules/core/services/initFirebase'
+import { analytics } from '@modules/core'
 export default defineComponent({
 	name: 'QuestionCreatePage',
 	components: { QuestionForm },

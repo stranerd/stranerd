@@ -1,4 +1,4 @@
-import { Timestamp } from '@modules/core/data/models/base'
+import { Timestamp } from '../../../services/initFirebase'
 
 export const timestampToMs = (timestamp: Timestamp | number | undefined) => {
 	if (typeof timestamp === 'number') return timestamp

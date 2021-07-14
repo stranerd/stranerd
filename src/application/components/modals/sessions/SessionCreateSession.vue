@@ -32,7 +32,7 @@ import { defineComponent, onMounted } from '@nuxtjs/composition-api'
 import { useAccountModal } from '@app/hooks/core/modals'
 import { useCreateSession } from '@app/hooks/sessions/sessions'
 import { useAuth } from '@app/hooks/auth/auth'
-import { analytics } from '@modules/core/services/initFirebase'
+import { analytics } from '@modules/core'
 export default defineComponent({
 	name: 'SessionCreateSession',
 	setup () {

@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { DatabaseGetClauses } from '@modules/core'
 import { TagFromModel } from '../models/tag'
 
 export abstract class TagBaseDataSource {

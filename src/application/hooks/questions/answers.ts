@@ -6,7 +6,7 @@ import {
 import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
 import { Alert } from '@app/hooks/core/notifications'
-import { analytics } from '@modules/core/services/initFirebase'
+import { analytics } from '@modules/core'
 import VueRouter from 'vue-router'
 
 const global = {} as Record<string, {

@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { DatabaseGetClauses } from '@modules/core'
 import { PAGINATION_LIMIT } from '@utils/constants'
 import { INotificationRepository } from '../../irepositories/inotification'
 

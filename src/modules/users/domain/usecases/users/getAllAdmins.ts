@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { DatabaseGetClauses } from '@modules/core'
 import { IUserRepository } from '../../irepositories/iuser'
 
 export class GetAllAdminsUseCase {

@@ -1,5 +1,5 @@
 import { isLongerThan, isExtractedHTMLLongerThan } from 'sd-validate/lib/rules'
-import { BaseFactory } from '@modules/core/domains/factories/base'
+import { BaseFactory } from '@modules/core'
 import { UserBio } from '@modules/users'
 import { AnswerEntity } from '../entities/answer'
 import { AnswerToModel } from '../../data/models/answer'

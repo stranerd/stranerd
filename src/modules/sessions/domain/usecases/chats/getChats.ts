@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { DatabaseGetClauses } from '@modules/core'
 import { CHAT_PAGINATION_LIMIT } from '@utils/constants'
 import { IChatRepository } from '../../irepositories/ichat'
 

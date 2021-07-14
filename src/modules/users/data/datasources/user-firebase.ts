@@ -1,5 +1,4 @@
-import { DatabaseService, FunctionsService } from '@modules/core/services/firebase'
-import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { DatabaseService, FunctionsService, DatabaseGetClauses } from '@modules/core'
 import { UserBaseDataSource } from '../datasources/user-base'
 import { UserFromModel, UserToModel } from '../models/user'
 

@@ -1,4 +1,4 @@
-import { BaseFactory } from '@modules/core/domains/factories/base'
+import { BaseFactory } from '@modules/core'
 import { isLongerThan, isEmail } from 'sd-validate/lib/rules'
 import { MessageToModel } from '../../data/models/message'
 import { MessageEntity } from '../entities/message'

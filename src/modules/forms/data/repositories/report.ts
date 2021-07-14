@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { DatabaseGetClauses } from '@modules/core'
 import { IReportRepository } from '../../domain/irepositories/ireport'
 import { FormBaseDataSource } from '../datasources/form-base'
 import { ReportTransformer } from '../transformers/report'

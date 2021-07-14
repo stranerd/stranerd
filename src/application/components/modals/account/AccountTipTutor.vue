@@ -26,7 +26,7 @@ import { useTipTutor } from '@app/hooks/users/account'
 import { useAuth } from '@app/hooks/auth/auth'
 import { formatNumber } from '@utils/commons'
 import AccountCoinBalance from '@app/components/users/account/AccountCoinBalance.vue'
-import { analytics } from '@modules/core/services/initFirebase'
+import { analytics } from '@modules/core'
 export default defineComponent({
 	name: 'AccountTipTutor',
 	components: { AccountCoinBalance },

@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { DatabaseGetClauses } from '@modules/core'
 import { IMessageRepository } from '../../domain/irepositories/imessage'
 import { FormBaseDataSource } from '../datasources/form-base'
 import { MessageTransformer } from '../transformers/message'

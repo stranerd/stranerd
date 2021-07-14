@@ -6,7 +6,7 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useSessionModal } from '@app/hooks/core/modals'
 import { Alert } from '@app/hooks/core/notifications'
-import { analytics } from '@modules/core/services/initFirebase'
+import { analytics } from '@modules/core'
 
 const SESSION_PRICES = {
 	15: 10,

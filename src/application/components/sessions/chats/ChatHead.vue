@@ -35,7 +35,7 @@ import { useAccountModal, useSessionModal } from '@app/hooks/core/modals'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useCurrentSession } from '@app/hooks/sessions/session'
 import { setReportedBioAndId } from '@app/hooks/forms/reports'
-import { analytics } from '@modules/core/services/initFirebase'
+import { analytics } from '@modules/core'
 export default defineComponent({
 	name: 'ChatHead',
 	props: {

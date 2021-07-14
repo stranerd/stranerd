@@ -1,4 +1,4 @@
-import { BaseEntity } from '@modules/core/domains/entities/base'
+import { BaseEntity } from '@modules/core'
 
 export class MessageEntity extends BaseEntity {
 	readonly id: string

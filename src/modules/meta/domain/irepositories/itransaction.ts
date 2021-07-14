@@ -1,4 +1,4 @@
-import { FirestoreGetClauses } from '@modules/core/data/datasources/base'
+import { FirestoreGetClauses } from '@modules/core'
 import { TransactionEntity } from '../entities/transaction'
 
 export abstract class ITransactionRepository {

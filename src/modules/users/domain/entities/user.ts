@@ -1,5 +1,4 @@
-import { BaseEntity } from '@modules/core/domains/entities/base'
-import { Media } from '@modules/core/data/models/base'
+import { BaseEntity, Media } from '@modules/core'
 import { capitalize, catchDivideByZero } from '@utils/commons'
 import { getScore, getMyRank, getRankProgress, getScholarLevel, getExpectedScore } from './rank'
 

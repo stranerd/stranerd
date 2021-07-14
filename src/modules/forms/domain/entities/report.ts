@@ -1,4 +1,4 @@
-import { BaseEntity } from '@modules/core/domains/entities/base'
+import { BaseEntity } from '@modules/core'
 import { UserBio } from '@modules/users'
 
 export class ReportEntity extends BaseEntity {

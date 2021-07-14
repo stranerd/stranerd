@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from '@nuxtjs/composition-api'
-import { Media } from '@modules/core/data/models/base'
+import { Media } from '@modules/core'
 import { DEFAULT_PROFILE_IMAGE } from '@utils/constants'
 export default defineComponent({
 	name: 'Avatar',

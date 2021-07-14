@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { DatabaseGetClauses } from '@modules/core'
 import { SubjectFromModel, SubjectToModel } from '../models/subject'
 
 export abstract class SubjectBaseDataSource {

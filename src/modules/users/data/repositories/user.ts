@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { DatabaseGetClauses } from '@modules/core'
 import { IUserRepository } from '../../domain/irepositories/iuser'
 import { UserBaseDataSource } from '../datasources/user-base'
 import { UserTransformer } from '../transformers/user'

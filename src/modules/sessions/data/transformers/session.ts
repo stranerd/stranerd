@@ -1,4 +1,4 @@
-import { timestampToMs } from '@modules/core/data/transformers/converters/getFirestoreDate'
+import { timestampToMs } from '@modules/core'
 import { SessionFromModel, SessionToModel } from '../models/session'
 import { SessionEntity } from '../../domain/entities/session'
 

@@ -1,6 +1,4 @@
-import firebase, { auth } from '@modules/core/services/initFirebase'
-import { AxiosInstance } from '@modules/core/services/http'
-import { DatabaseService } from '@modules/core/services/firebase'
+import { auth, AxiosInstance, firebase, DatabaseService } from '@modules/core'
 import { isDev } from '@utils/environment'
 import { AfterAuthUser, UpdateUser } from '../../domain/entities/auth'
 import { AuthBaseDataSource } from './auth-base'

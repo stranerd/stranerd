@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { DatabaseGetClauses } from '@modules/core'
 import { ReportEntity } from '../entities/report'
 import { ReportToModel } from '../../data/models/report'
 

@@ -1,5 +1,4 @@
-import { DatabaseService } from '@modules/core/services/firebase'
-import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { DatabaseService, DatabaseGetClauses } from '@modules/core'
 import { ReportFromModel, ReportToModel } from '../models/report'
 import { FormBaseDataSource } from './form-base'
 

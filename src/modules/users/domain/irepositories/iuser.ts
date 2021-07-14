@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { DatabaseGetClauses } from '@modules/core'
 import { UserEntity } from '../entities/user'
 import { UserToModel } from '../../data/models/user'
 

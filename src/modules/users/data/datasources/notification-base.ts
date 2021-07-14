@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { DatabaseGetClauses } from '@modules/core'
 import { NotificationFromModel, NotificationToModel } from '../models/notification'
 
 export abstract class NotificationBaseDataSource {

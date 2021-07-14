@@ -15,7 +15,8 @@ export default defineComponent({
 	props: {
 		src: {
 			type: Object as PropType<Media>,
-			required: true
+			default: null,
+			validator: (p: any) => p === null || typeof p.link === 'string'
 		},
 		size: {
 			required: false,

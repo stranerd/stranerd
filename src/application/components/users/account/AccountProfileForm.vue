@@ -1,8 +1,19 @@
 <template>
 	<form class="d-flex flex-column gap-1-5" @submit.prevent="updateProfile">
-		<!-- <SelectAvatar :avatar="factory.avatar" :set-avatar="(a) => factory.avatar = a" /> -->
-		<!-- TODO: toggle back visibility after implementing profile image -->
-		<div class="form-group d-none">
+		<div class="position-relative mx-auto">
+			<img
+				:src="imageLink || DEFAULT_PROFILE_IMAGE"
+				alt=""
+				style="width: 72px; height: 72px; border-radius: 10rem; border: 1.5px solid transparent;"
+			>
+			<i
+				v-if="imageLink"
+				class="fas fa-times position-absolute rounded-pill text-danger"
+				style="z-index: 1; right: 0; bottom: 0; font-size: 1.5rem;"
+				@click="removeImage"
+			/>
+		</div>
+		<div class="form-group">
 			<label id="uploadbtn" for="picture" class="px-3 bg-tags text-dark border border-line text-center">Upload New Profile Picture</label>
 			<input
 				id="picture"
@@ -10,6 +21,7 @@
 				type="file"
 				name="file"
 				accept="image/*"
+				@change.prevent="catchFiles"
 			>
 		</div>
 		<div class="form-group d-flex flex-column flex-md-row gap-1">
@@ -87,10 +99,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeUnmount, PropType } from '@nuxtjs/composition-api'
+import { defineComponent, onBeforeUnmount, PropType, ref } from '@nuxtjs/composition-api'
 import { useUpdateProfile } from '@app/hooks/users/account'
 import { useAuth, setShowProfileModal } from '@app/hooks/auth/auth'
-import { usePassword } from '@app/hooks/core/forms'
+import { useFileInputs, usePassword } from '@app/hooks/core/forms'
+import { isClient } from '@utils/environment'
+import { DEFAULT_PROFILE_IMAGE } from '@utils/constants'
 export default defineComponent({
 	name: 'AccountProfileForm',
 	props: {
@@ -103,10 +117,19 @@ export default defineComponent({
 		const { auth } = useAuth()
 		const { show, toggle } = usePassword()
 		const { factory, error, loading, updateProfile } = useUpdateProfile()
+		const imageLink = ref((factory.value.avatar as any)?.link ?? '')
+		const { catchFiles } = useFileInputs((file) => {
+			if (isClient()) imageLink.value = window.URL.createObjectURL(file)
+			factory.value.avatar = file
+		})
+		const removeImage = () => {
+			imageLink.value = ''
+			factory.value.avatar = null
+		}
 		onBeforeUnmount(() => setShowProfileModal(false))
 		return {
-			auth, show, toggle,
-			factory, error, loading, updateProfile
+			auth, show, toggle, catchFiles, imageLink, removeImage,
+			factory, error, loading, updateProfile, DEFAULT_PROFILE_IMAGE
 		}
 	}
 })

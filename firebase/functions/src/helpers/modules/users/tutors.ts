@@ -21,26 +21,19 @@ export const addTutorRatings = async (userId: string, ratings: number) => {
 		})
 }
 
-export const addTutorReview = async (userId: string, review: string) => {
+export const addTutorReview = async (userId: string, authId: string, review: string, rating: number) => {
 	if (!review) return
-	const lastReviews = await getLastReviews(userId, 4)
-	lastReviews.push(review)
-	const newKey = Date.now() + Math.random().toString(36).substr(2)
-	await admin.database().ref()
-		.update({
-			[`profiles/${userId}/account/reviews`]: lastReviews,
-			[`reviews/${userId}/${newKey}`]: review
-		})
-}
-
-const getLastReviews = async (userId: string, count: number) => {
-	const ref = await admin.database().ref('reviews')
+	if (rating > 5) rating = 5
+	if (rating < 0) rating = 0
+	const bioRef = await admin.database().ref(`profiles/${authId}/bio`).once('value')
+	const bio = bioRef.val()
+	const data = {
+		review, rating,
+		userId: authId, userBio: bio,
+		dates: { createdAt: Date.now() }
+	}
+	await admin.database().ref('users')
 		.child(userId)
-		.limitToLast(count)
-		.once('value')
-	const reviews = [] as string[]
-	ref.forEach((child) => {
-		reviews.push(child.val())
-	})
-	return reviews
+		.child('reviews')
+		.push(data)
 }

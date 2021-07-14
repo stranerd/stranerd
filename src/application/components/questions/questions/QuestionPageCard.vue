@@ -1,9 +1,9 @@
 <template>
 	<div class="d-flex flex-column pb-1 pb-lg-2 gap-1 gap-lg-2 bl">
-		<div class="question-head d-flex align-items-center gap-1">
-			<div class="d-flex align-items-center gap-0-5 me-auto">
-				<NuxtLink :to="`/users/${question.userId}`">
-					<Avatar :src="question.avatar" :size="36" />
+		<div class="question-head d-flex flex-row flex-wrap align-items-center">
+			<div class="d-flex align-items-center col-md-6 col-12 px-0 pb-1">
+				<NuxtLink :to="`/users/${question.userId}`" style="margin-right:3px;">
+					<Avatar :src="question.avatar" :size="38" />
 				</NuxtLink>
 				<NuxtLink class="name" :to="`/users/${question.userId}`">
 					{{ question.userName }}
@@ -11,22 +11,26 @@
 				<div class="dot" />
 				<Subject :subject-id="question.subjectId" class="subject" />
 			</div>
-			<img v-if="question.isAnswered" src="@app/assets/images/icons/profile-best-answers.svg" alt="" style="width: 2rem; height: 2rem;">
-			<div v-else-if="showAnswerButton" class="d-flex align-items-center gap-1">
-				<div class="coin d-flex align-items-center gap-0-25">
-					<span>+{{ formatNumber(question.creditable) }}</span>
-					<Coins :size="28" style="z-index: 1;" />
-				</div>
-				<button class="answer-btn" @click="openAnswerModal">
-					Answer
-				</button>
+			<div class="d-flex align-items-center col-md-6 col-12 px-0 pb-1 flex-row-reverse ">
+				<template v-if="question.isAnswered">
+					<img src="@app/assets/images/icons/profile-best-answers.svg" alt="" style="width: 2rem; height: 2rem;">
+				</template>
+				<template v-else-if="showAnswerButton">
+					<button class="answer-btn" @click="openAnswerModal">
+						Answer
+					</button>
+					<div class="coin d-flex align-items-center gap-0-25 px-1">
+						<span>+{{ formatNumber(question.creditable) }}</span>
+						<Coins :size="28" style="z-index: 1;" />
+					</div>
+				</template>
 			</div>
 		</div>
 
 		<div class="question-body editor-body" v-html="question.body" />
 
-		<div class="d-flex align-items-center gap-2">
-			<span class="name">Posted {{ formatTime(question.createdAt) }}</span>
+		<div class="d-flex align-items-center flex-row flex-wrap">
+			<span class="name pe-1">Posted {{ formatTime(question.createdAt) }}</span>
 			<div class="gap-0-75 d-flex align-items-center">
 				<Tag v-for="tag in question.tags" :key="tag" :tag="tag" />
 			</div>

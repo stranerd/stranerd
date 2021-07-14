@@ -5,11 +5,11 @@
 				Question
 			</h1>
 			<div class="mb-0-5 editor-body" v-html="question.body" />
-			<div class="gap-0-5 d-flex align-items-center">
+			<div class="gap-0-5 d-flex align-items-center flex-row flex-wrap">
 				<Tag v-for="tag in question.tags" :key="tag" :tag="tag" />
 			</div>
 		</div>
-		<div class="answer-body p-3">
+		<div class="answer-body p-md-3 p-1">
 			<h1>Give Your Answer</h1>
 
 			<AnswerForm

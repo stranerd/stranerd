@@ -1,6 +1,6 @@
 <template>
 	<nav class="px-2 bg-primary-dark">
-		<div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 py-0 d-flex align-items-center">
+		<div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 py-0 d-flex align-items-center justify-content-sm-center justify-content-md-center">
 			<NuxtLink class="nav-link-custom" to="/admin/questions/subjects">
 				<span>Subjects</span>
 			</NuxtLink>

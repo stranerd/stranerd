@@ -1,5 +1,5 @@
 <template>
-	<div class="d-flex flex-column gap-2">
+	<div class="d-flex flex-column">
 		<PageLoading v-if="loading" />
 		<div class="d-flex flex-column">
 			<QuestionPageCard v-if="question" :key="question.hash" :question="question" />

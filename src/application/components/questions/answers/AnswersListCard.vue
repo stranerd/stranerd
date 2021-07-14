@@ -11,7 +11,7 @@
 		</div>
 		<div class="answer-content d-flex flex-column gap-1">
 			<span class="lead text-dark">{{ answer.title }}</span>
-			<div class="d-flex gap-2 align-items-center text-primary fw-bold">
+			<div class="d-flex gap-2 align-items-center text-primary fw-bold flex-row flex-wrap">
 				<span class="d-flex align-items-center gap-0-25 me-auto" @click="showExplanation = !showExplanation">
 					<span>Explanation</span>
 					<i class="fas" :class="showExplanation ? 'fa-angle-up' : 'fa-angle-down'" />

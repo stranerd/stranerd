@@ -14,7 +14,9 @@ service cloud.firestore {
             allow update: if isMine(resource.data.tutorId) || isMine(resource.data.studentId);
         }
 
-        match /users/{userId}/transactions/{id} {}
+        match /users/{userId}/transactions/{id} {
+            allow write: if false;
+        }
 
 		match /{document=**} {
 			allow read: if true;

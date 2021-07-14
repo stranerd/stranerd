@@ -1,20 +1,25 @@
 <template>
 	<form class="d-flex flex-column gap-1-5" @submit.prevent="updateProfile">
-		<div class="position-relative mx-auto">
-			<img
-				:src="imageLink || DEFAULT_PROFILE_IMAGE"
-				alt=""
-				style="width: 72px; height: 72px; border-radius: 10rem; border: 1.5px solid transparent;"
-			>
-			<i
-				v-if="imageLink"
-				class="fas fa-times position-absolute rounded-pill text-danger"
-				style="z-index: 1; right: 0; bottom: 0; font-size: 1.5rem;"
-				@click="removeImage"
-			/>
+		<div class="mx-auto">
+			<div class="position-relative mx-auto">
+				<img
+					:src="imageLink || DEFAULT_PROFILE_IMAGE"
+					alt=""
+					style="width: 72px; height: 72px; border-radius: 10rem; border: 1.5px solid transparent;"
+				>
+				<i
+					v-if="imageLink"
+					class="fas fa-times position-absolute rounded-pill text-danger"
+					style="z-index: 1; right: 0; bottom: 0; font-size: 1.5rem;"
+					@click="removeImage"
+				/>
+			</div>
+			<small v-if="factory.errors.avatar" class="small text-danger d-block">{{ factory.errors.avatar }}</small>
 		</div>
 		<div class="form-group">
-			<label id="uploadbtn" for="picture" class="px-3 bg-tags text-dark border border-line text-center">Upload New Profile Picture</label>
+			<label id="uploadbtn" for="picture" class="px-3 bg-tags text-dark border border-line text-center">
+				{{ imageLink ? 'Change' : 'Upload' }} Profile Picture
+			</label>
 			<input
 				id="picture"
 				class="d-none"
@@ -31,9 +36,10 @@
 					v-model="factory.first"
 					class="form-control"
 					placeholder="First Name"
+					autocomplete="first-name"
 					:class="{'is-invalid': factory.errors.first}"
 				>
-				<small v-if="factory.errors.name" class="small text-danger d-block">{{ factory.errors.first }}</small>
+				<small v-if="factory.errors.first" class="small text-danger d-block">{{ factory.errors.first }}</small>
 			</div>
 			<div class="flex-grow-1 w-100">
 				<input
@@ -41,9 +47,10 @@
 					v-model="factory.last"
 					class="form-control"
 					placeholder="Last Name"
+					autocomplete="last-name"
 					:class="{'is-invalid': factory.errors.last}"
 				>
-				<small v-if="factory.errors.name" class="small text-danger d-block">{{ factory.errors.last }}</small>
+				<small v-if="factory.errors.last" class="small text-danger d-block">{{ factory.errors.last }}</small>
 			</div>
 		</div>
 		<div class="form-group">

@@ -9,7 +9,6 @@ export class SignupWithEmailUseCase {
 	}
 
 	async call (factory: EmailSignupFactory) {
-		const { email, password } = await factory.toModel()
-		return await this.repository.signupWithEmail(email, password)
+		return await this.repository.signupWithEmail(await factory.toModel())
 	}
 }

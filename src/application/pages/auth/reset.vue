@@ -8,26 +8,32 @@
 			<span class="textStyle mt-n1">
 				To reset your password, type your new password below and reset
 			</span>
-			<input
-				id="password"
-				v-model="factory.password"
-				type="password"
-				name="password"
-				required
-				placeholder="New Password"
-				class="form-control"
-				autocomplete="password"
-			>
-			<input
-				id="cPassword"
-				v-model="factory.cPassword"
-				type="password"
-				name="cPassword"
-				required
-				placeholder="Confirm Password"
-				class="form-control"
-				autocomplete="password"
-			>
+			<div>
+				<input
+					id="password"
+					v-model="factory.password"
+					type="password"
+					name="password"
+					required
+					placeholder="New Password"
+					class="form-control"
+					autocomplete="password"
+				>
+				<small v-if="factory.errors.password" class="small text-danger d-block">{{ factory.errors.password }}</small>
+			</div>
+			<div>
+				<input
+					id="cPassword"
+					v-model="factory.cPassword"
+					type="password"
+					name="cPassword"
+					required
+					placeholder="Confirm Password"
+					class="form-control"
+					autocomplete="password"
+				>
+				<small v-if="factory.errors.cPassword" class="small text-danger d-block">{{ factory.errors.cPassword }}</small>
+			</div>
 			<button class="btn btn-lg btn-custom py-1 " type="submit">
 				Reset Password
 			</button>

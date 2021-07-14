@@ -4,47 +4,73 @@
 			<h1 class="mb-0">
 				Sign Up
 			</h1>
-			<!-- TODO, factory for name and username -->
-			<input
-				id="name"
-				v-model="factory.name"
-				type="text"
-				name="name"
-				required
-				placeholder="Name"
-				class="form-control"
-				autocomplete="name"
-			>
-			<input
-				id="email"
-				v-model="factory.email"
-				type="email"
-				name="email"
-				required
-				placeholder="Email"
-				class="form-control"
-				autocomplete="email"
-			>
-			<input
-				id="password"
-				v-model="factory.password"
-				type="password"
-				name="password"
-				required
-				placeholder="Password"
-				class="form-control"
-				autocomplete="password"
-			>
-			<input
-				id="cPassword"
-				v-model="factory.cPassword"
-				type="password"
-				name="cPassword"
-				required
-				placeholder="Confirm Password"
-				class="form-control"
-				autocomplete="password"
-			>
+			<div class="d-flex flex-column gap-2 flex-md-row">
+				<div>
+					<input
+						id="first"
+						v-model="factory.first"
+						type="text"
+						name="first"
+						required
+						placeholder="First name"
+						class="form-control"
+						autocomplete="first-name"
+					>
+					<small v-if="factory.errors.first" class="small text-danger d-block">{{ factory.errors.first }}</small>
+				</div>
+				<div>
+					<input
+						id="last"
+						v-model="factory.last"
+						type="text"
+						name="last"
+						required
+						placeholder="Last name"
+						class="form-control"
+						autocomplete="last-name"
+					>
+					<small v-if="factory.errors.last" class="small text-danger d-block">{{ factory.errors.last }}</small>
+				</div>
+			</div>
+			<div>
+				<input
+					id="email"
+					v-model="factory.email"
+					type="email"
+					name="email"
+					required
+					placeholder="Email"
+					class="form-control"
+					autocomplete="email"
+				>
+				<small v-if="factory.errors.email" class="small text-danger d-block">{{ factory.errors.email }}</small>
+			</div>
+			<div>
+				<input
+					id="password"
+					v-model="factory.password"
+					type="password"
+					name="password"
+					required
+					placeholder="Password"
+					class="form-control"
+					autocomplete="password"
+				>
+				<small v-if="factory.errors.password" class="small text-danger d-block">{{ factory.errors.password }}</small>
+			</div>
+			<div>
+				<input
+					id="cPassword"
+					v-model="factory.cPassword"
+					type="password"
+					name="cPassword"
+					required
+					placeholder="Confirm Password"
+					class="form-control"
+					autocomplete="password"
+				>
+				<small v-if="factory.errors.cPassword" class="small text-danger d-block">{{ factory.errors.cPassword }}</small>
+			</div>
 			<button class="btn btn-lg btn-custom py-1 " type="submit">
 				Sign Up
 			</button>

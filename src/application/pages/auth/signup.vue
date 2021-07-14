@@ -5,7 +5,7 @@
 				Sign Up
 			</h1>
 			<div class="d-flex flex-column gap-2 flex-md-row">
-				<div>
+				<div class="flew-grow-1 w-100">
 					<input
 						id="first"
 						v-model="factory.first"
@@ -18,7 +18,7 @@
 					>
 					<small v-if="factory.errors.first" class="small text-danger d-block">{{ factory.errors.first }}</small>
 				</div>
-				<div>
+				<div class="flew-grow-1 w-100">
 					<input
 						id="last"
 						v-model="factory.last"

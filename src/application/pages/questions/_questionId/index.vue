@@ -7,10 +7,8 @@
 			<DisplayError :error="error" />
 		</div>
 		<template v-if="question">
-			<div id="answers">
-				<AnswersList :question="question" />
-			</div>
-			<QuestionsList :question-id="questionId" />
+			<AnswersList id="answers" :question="question" />
+			<QuestionsList :question="question" />
 		</template>
 	</div>
 </template>

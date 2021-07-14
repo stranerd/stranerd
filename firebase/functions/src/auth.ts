@@ -5,7 +5,11 @@ import { isProduction } from './helpers/environment'
 import { deleteFromAlgolia } from './helpers/algolia'
 
 export const authUserCreated = functions.auth.user().onCreate(async (user) => {
+	const [first = null, last = null] = user.displayName?.split(' ') ?? []
+
 	const data = {
+		...(first ? { 'bio/name/first': first } : {}),
+		...(last ? { 'bio/name/last': last } : {}),
 		'bio/email': user.email,
 		'bio/isNew': true,
 		'dates/signedUpAt': admin.database.ServerValue.TIMESTAMP,

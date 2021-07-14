@@ -3,7 +3,7 @@
 		<h2 class="headerStyle">
 			Similar Questions
 		</h2>
-		<QuestionCard v-for="question in questions" :key="question.hash" :question="question" class="pb-1" />
+		<QuestionCard v-for="similarQuestion in questions" :key="similarQuestion.hash" :question="similarQuestion" />
 		<span>
 			<DisplayWarning v-if="!loading && !error && questions.length === 0" message="No other questions found." />
 			<DisplayError :error="error" />
@@ -13,30 +13,27 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, onBeforeUnmount } from '@nuxtjs/composition-api'
-import QuestionCard from '@app/components/questions/questions/RecentQuestionsListCard.vue'
-import { useQuestionList } from '@app/hooks/questions/questions'
+import { defineComponent, onMounted, onBeforeUnmount, PropType } from '@nuxtjs/composition-api'
+import QuestionCard from '@app/components/questions/questions/SimilarQuestionsListCard.vue'
+import { useSimilarQuestionList } from '@app/hooks/questions/similar-questions'
+import { QuestionEntity } from '@modules/questions'
 export default defineComponent({
 	name: 'SimilarQuestionsList',
 	components: { QuestionCard },
 	props: {
-		questionId: {
+		question: {
 			required: true,
-			type: String
+			type: Object as PropType<QuestionEntity>
 		}
 	},
 	setup (props) {
-		const { filteredQuestions, error, loading, listener, subjectId } = useQuestionList()
-		onMounted(listener.startListener)
-		onBeforeUnmount(listener.closeListener)
-		// TODO: Reimplement logic for similar questions
-		const recentQuestions = computed({
-			get: () => filteredQuestions.value
-				.filter((q) => q.id !== props.questionId)
-				.slice(0, 5),
-			set: () => {}
-		})
-		return { questions: recentQuestions, error, loading, subjectId }
+		const { questions, error, loading } = useSimilarQuestionList(props.question)
+		// TODO: Consider whether to watch similar questions
+		// onMounted(listener.startListener)
+		// onBeforeUnmount(listener.closeListener)
+		onMounted(() => {})
+		onBeforeUnmount(() => {})
+		return { questions, error, loading }
 	}
 })
 </script>

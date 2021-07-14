@@ -11,7 +11,7 @@ import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { QuestionEntity } from '@modules/questions'
 import { formatNumber } from '@utils/commons'
 export default defineComponent({
-	name: 'RecentQuestionsListCard',
+	name: 'SimilarQuestionsListCard',
 	props: {
 		question: {
 			required: true,
@@ -28,6 +28,7 @@ export default defineComponent({
 	.questionStyle {
 		font-size: 16px;
 		color: $color-sub;
+		padding-bottom: 1rem;
 		border-bottom: 1px solid $color-line;
 	}
 </style>

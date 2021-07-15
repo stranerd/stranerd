@@ -1,13 +1,13 @@
 <template>
-	<QuestionsList :user-id="userId" />
+	<ReviewsList :user-id="userId" />
 </template>
 
 <script lang="ts">
 import { defineComponent, useRoute } from '@nuxtjs/composition-api'
-import QuestionsList from '@app/components/questions/questions/UserQuestionsList.vue'
+import ReviewsList from '@app/components/users/reviews/ReviewsList.vue'
 export default defineComponent({
-	name: 'UserQuestionsPage',
-	components: { QuestionsList },
+	name: 'UserReviewsPage',
+	components: { ReviewsList },
 	layout: 'profile',
 	setup () {
 		const { userId } = useRoute().value.params

@@ -14,7 +14,7 @@
 			</div>
 			<button class="btn btn-lg btn-custom btn-block py-1 px-md-3 px-1 ms-auto" type="submit">
 				<span class="d-none d-md-inline-block">Find User</span>
-				<span style="font-size:13px;width:80px;" class="d-inline-block d-md-none">Find User</span>
+				<span style="font-size: 13px; width: 80px;" class="d-inline-block d-md-none">Find User</span>
 			</button>
 		</form>
 		<div v-if="fetched" class="d-flex flex-column gap-1">

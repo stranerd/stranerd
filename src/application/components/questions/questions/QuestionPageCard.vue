@@ -1,8 +1,8 @@
 <template>
-	<div class="d-flex flex-column pb-1 pb-lg-2 gap-1 gap-lg-2 bl">
+	<div class="d-flex flex-column pb-1 pb-lg-2 gap-lg-2 ">
 		<div class="question-head d-flex flex-row flex-wrap align-items-center">
-			<div class="d-flex align-items-center col-md-6 col-12 px-0 pb-1">
-				<NuxtLink :to="`/users/${question.userId}`" style="margin-right:3px;">
+			<div class="d-flex align-items-center px-0 pb-1 d-md-inline-block d-none">
+				<NuxtLink :to="`/users/${question.userId}`" style="margin-right: 3px;">
 					<Avatar :src="question.avatar" :size="38" />
 				</NuxtLink>
 				<NuxtLink class="name" :to="`/users/${question.userId}`">
@@ -11,15 +11,33 @@
 				<div class="dot" />
 				<Subject :subject-id="question.subjectId" class="subject" />
 			</div>
-			<div class="d-flex align-items-center col-md-6 col-12 px-0 pb-1 flex-row-reverse ">
+			<!-- smaller screens -->
+			<div class="d-flex px-0 pb-1 flex-row d-md-none align-items-center">
+				<NuxtLink :to="`/users/${question.userId}`" style="margin-right: 3px;">
+					<Avatar :src="question.avatar" :size="38" />
+				</NuxtLink>
+				<div class="ms-1 d-flex flex-column justify-content-center header">
+					<NuxtLink class="name" :to="`/users/${question.userId}`">
+						{{ question.userName }}
+					</NuxtLink>
+					<div>
+						<Subject :subject-id="question.subjectId" class="subject" />
+					</div>
+				</div>
+			</div>
+			<!-- ends -->
+			<div class="d-flex align-items-center px-0 pb-1 flex-row-reverse ml-auto">
 				<template v-if="question.isAnswered">
 					<img src="@app/assets/images/icons/profile-best-answers.svg" alt="" style="width: 2rem; height: 2rem;">
 				</template>
 				<template v-else-if="showAnswerButton">
-					<button class="answer-btn" @click="openAnswerModal">
+					<button class="answer-btn d-md-inline-block d-none" @click="openAnswerModal">
 						Answer
 					</button>
-					<div class="coin d-flex align-items-center gap-0-25 px-1">
+					<button class="btn btn-sm answer-btn-sm d-inline-block d-md-none" @click="openAnswerModal">
+						Add Your Answer
+					</button>
+					<div class="coin d-flex align-items-center gap-0-25 px-1 d-md-inline-block d-none">
 						<span>+{{ formatNumber(question.creditable) }}</span>
 						<Coins :size="28" style="z-index: 1;" />
 					</div>
@@ -29,12 +47,22 @@
 
 		<div class="question-body editor-body" v-html="question.body" />
 
-		<div class="d-flex align-items-center flex-row flex-wrap">
-			<span class="name pe-1">Posted {{ formatTime(question.createdAt) }}</span>
-			<div class="gap-0-75 d-flex align-items-center">
-				<Tag v-for="tag in question.tags" :key="tag" :tag="tag" />
+		<div class="d-flex align-items-center flex-row flex-wrap border-bottom bl mb-1 mt-1">
+			<div class="col-12 px-0 py-0 d-md-none d-block d-flex flex-row">
+				<div>
+					<span class="name pe-1">Posted {{ formatTime(question.createdAt) }}</span>
+				</div>
+				<div style="margin-left:auto;">
+					<i class="fas fa-flag icons" />
+				</div>
 			</div>
-			<div class="ms-auto d-flex align-items-center gap-1">
+			<span class="name pe-1 d-md-inline-block d-none">Posted {{ formatTime(question.createdAt) }}</span>
+			<div class="d-flex align-items-center py-1">
+				<span v-for="tag in question.tags" :key="tag" class="smallPadding">
+					<Tag :tag="tag" />
+				</span>
+			</div>
+			<div class="ms-auto d-flex align-items-center gap-1  d-md-inline-block d-none">
 				<span class="d-none align-items-center gap-0-5">
 					<img src="@app/assets/images/icons/answers.svg" alt="" class="icons">
 					<span>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</span>
@@ -126,5 +154,25 @@ export default defineComponent({
 			transform: scale(1.1);
 			transition: 0.5s;
 		}
+	}
+
+	.answer-btn-sm {
+		background: $color-primary;
+		color: $color-white;
+		font-size: 13px;
+		border: none;
+		border-radius: 18px;
+	}
+
+	.ml-auto {
+		margin-left: auto;
+	}
+
+	.smallPadding {
+		padding-left: 4px;
+	}
+
+	.header {
+		font-weight: bold;
 	}
 </style>

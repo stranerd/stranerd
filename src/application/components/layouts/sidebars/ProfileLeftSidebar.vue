@@ -17,7 +17,7 @@
 						<span>{{ formatNumber(user.ratingCount) }} {{ pluralize(user.ratingCount, 'review', 'reviews') }}</span>
 					</div>
 				</div>
-				<button class="sidebar-btn px-2">
+				<button v-if="canRequestSession" class="sidebar-btn px-2" @click="requestNewSession">
 					Request a Session
 				</button>
 			</div>
@@ -118,21 +118,34 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useRoute } from '@nuxtjs/composition-api'
+import { computed, defineComponent, useRoute } from '@nuxtjs/composition-api'
 import { useUser } from '@app/hooks/users/user'
 import { formatNumber, pluralize } from '@utils/commons'
 import { formatTime } from '@utils/dates'
 import Tag from '@app/components/questions/tags/Tag.vue'
 import Subject from '@app/components/questions/subjects/Subject.vue'
 import { useAuth } from '@app/hooks/auth/auth'
+import { useSessionModal } from '@app/hooks/core/modals'
+import { setNewSessionTutorIdBio } from '@app/hooks/sessions/sessions'
 export default defineComponent({
 	name: 'ProfileLeftSidebar',
 	components: { Tag, Subject },
 	setup () {
-		const { id } = useAuth()
+		const { id, user: authUser } = useAuth()
 		const { userId } = useRoute().value.params
 		const { error, loading, user } = useUser(userId)
-		return { id, error, loading, user, formatNumber, formatTime, pluralize }
+		const canRequestSession = computed({
+			get: () => authUser.value &&
+				authUser.value.id !== user.value?.id &&
+				authUser.value.canRequestSessions &&
+				user.value?.canHostSessions,
+			set: () => {}
+		})
+		const requestNewSession = () => {
+			setNewSessionTutorIdBio({ id: user.value?.id!, user: user.value?.bio! })
+			useSessionModal().openCreateSession()
+		}
+		return { id, error, loading, user, formatNumber, formatTime, pluralize, canRequestSession, requestNewSession }
 	}
 })
 </script>

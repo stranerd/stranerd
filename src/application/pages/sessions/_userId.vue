@@ -11,14 +11,14 @@ import ContactList from '@app/components/sessions/chats/ContactList.vue'
 import ContactListMessages from '@app/components/sessions/chats/ContactListMessages.vue'
 import { useAuth } from '@app/hooks/auth/auth'
 export default defineComponent({
-	name: 'MessagePage',
+	name: 'SessionPage',
 	components: { ContactList, ContactListMessages },
 	layout: 'chat',
 	middleware: ['isAuthenticated',
 		({ redirect, route }) => {
 			const { id } = useAuth()
 			const { userId } = route.params
-			if (id.value === userId) redirect('/messages')
+			if (id.value === userId) redirect('/sessions')
 		}
 	],
 	setup () {

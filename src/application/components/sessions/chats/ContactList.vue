@@ -2,7 +2,7 @@
 	<div class="d-flex flex-column bg-white">
 		<div class="head">
 			<h1>
-				<NuxtLink to="/messages">
+				<NuxtLink to="/sessions">
 					Inbox
 				</NuxtLink>
 			</h1>

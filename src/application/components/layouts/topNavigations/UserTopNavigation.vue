@@ -29,8 +29,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 	a {
 		border: 1px solid $color-line;
-		padding: 0.75rem 2rem;
-		font-size: 1.5rem;
+		padding: 1rem;
 	}
 
 	.nuxt-link-exact-active {

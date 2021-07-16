@@ -1,4 +1,4 @@
-import { reqRef } from '@nuxtjs/composition-api'
+import { ssrRef } from '@nuxtjs/composition-api'
 import { useModal } from '@app/hooks/core/modal'
 import MakePayment from '@app/components/modals/payments/MakePayment.vue'
 import BuyCoins from '@app/components/modals/account/AccountBuyCoins.vue'
@@ -19,7 +19,7 @@ const MenuModals = { RightSidebar, Sidebar } as Record<MenuTypes, any>
 const SessionModals = { CreateSession, Ratings } as Record<SessionTypes, any>
 const PaymentModals = { MakePayment } as Record<PaymentTypes, any>
 
-export const modal = useModal(reqRef([] as string[]))
+export const modal = useModal(ssrRef([] as string[]))
 const accountModal = modal.register('Account', AccountModals)
 const menuModal = modal.register('Menu', MenuModals)
 const sessionModal = modal.register('Session', SessionModals)

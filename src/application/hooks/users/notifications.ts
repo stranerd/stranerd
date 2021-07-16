@@ -1,4 +1,4 @@
-import { Ref, reqRef, useFetch } from '@nuxtjs/composition-api'
+import { Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 import { GetNotifications, ListenToNotifications, MarkNotificationSeen, NotificationEntity } from '@modules/users'
 import { PAGINATION_LIMIT } from '@utils/constants'
@@ -34,9 +34,9 @@ export const useNotificationList = () => {
 			return ListenToNotifications.call(id.value, appendNotifications, date)
 		})
 		global[userId] = {
-			notifications: reqRef([]),
-			hasMore: reqRef(false),
-			fetched: reqRef(false),
+			notifications: ssrRef([]),
+			hasMore: ssrRef(false),
+			fetched: ssrRef(false),
 			listener,
 			...useErrorHandler(),
 			...useLoadingHandler()

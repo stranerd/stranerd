@@ -1,4 +1,4 @@
-import { Ref, ref, reqRef, useFetch, useRouter, watch } from '@nuxtjs/composition-api'
+import { Ref, ref, ssrRef, useFetch, useRouter, watch } from '@nuxtjs/composition-api'
 import {
 	AddAnswer, AnswerEntity, AnswerFactory, GetAnswers,
 	ListenToAnswers, MarkAsBestAnswer, QuestionEntity, RateAnswer
@@ -16,8 +16,8 @@ const global = {} as Record<string, {
 
 export const useAnswerList = (questionId: string) => {
 	if (global[questionId] === undefined) global[questionId] = {
-		answers: reqRef([]),
-		fetched: reqRef(false),
+		answers: ssrRef([]),
+		fetched: ssrRef(false),
 		...useErrorHandler(),
 		...useLoadingHandler()
 	}

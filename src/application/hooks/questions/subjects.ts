@@ -1,4 +1,4 @@
-import { computed, ref, Ref, reqRef, useFetch } from '@nuxtjs/composition-api'
+import { computed, ref, Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import {
 	GetSubjects, AddSubject, FindSubject, DeleteSubject,
 	SubjectEntity, SubjectFactory
@@ -7,8 +7,8 @@ import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hook
 import { Alert } from '@app/hooks/core/notifications'
 
 const global = {
-	fetched: reqRef(false),
-	subjects: reqRef([] as SubjectEntity[]),
+	fetched: ssrRef(false),
+	subjects: ssrRef([] as SubjectEntity[]),
 	...useErrorHandler(),
 	...useLoadingHandler()
 }

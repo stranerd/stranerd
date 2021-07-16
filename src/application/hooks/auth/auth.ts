@@ -1,4 +1,4 @@
-import { computed, reqRef } from '@nuxtjs/composition-api'
+import { computed, reqSsrRef } from '@nuxtjs/composition-api'
 import { FindUser, ListenToUser, UserEntity, UpdateStreak } from '@modules/users'
 import { AuthDetails, UserLocation } from '@modules/auth/domain/entities/auth'
 import { SessionSignout } from '@modules/auth'
@@ -7,11 +7,11 @@ import { analytics, auth } from '@modules/core'
 import VueRouter from 'vue-router'
 
 const global = {
-	auth: reqRef(null as AuthDetails | null),
-	user: reqRef(null as UserEntity | null),
-	location: reqRef(null as UserLocation | null),
+	auth: reqSsrRef(null as AuthDetails | null),
+	user: reqSsrRef(null as UserEntity | null),
+	location: reqSsrRef(null as UserLocation | null),
 	listener: null as null | (() => void),
-	showProfileModal: reqRef(true)
+	showProfileModal: reqSsrRef(true)
 }
 
 export const useAuth = () => {

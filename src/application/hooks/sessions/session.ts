@@ -1,11 +1,11 @@
-import { computed, Ref, reqRef, useFetch, useRouter, watch } from '@nuxtjs/composition-api'
+import { computed, Ref, ssrRef, useFetch, useRouter, watch } from '@nuxtjs/composition-api'
 import { useListener, useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 import { GetSession, GetSessions, ListenToSession, ListenToSessions, SessionEntity } from '@modules/sessions'
 import { useAuth } from '@app/hooks/auth/auth'
 import { Notify } from '../core/notifications'
 
 const currentGlobal = {
-	currentSession: reqRef(null as SessionEntity | null),
+	currentSession: ssrRef(null as SessionEntity | null),
 	listener: useListener(async () => () => {})
 }
 
@@ -74,8 +74,8 @@ const useSession = (key: SessionKey, callback: (key: SessionKey, sessions: Sessi
 	}
 
 	if (global[key] === undefined) global[key] = {
-		sessions: reqRef([]),
-		fetched: reqRef(false),
+		sessions: ssrRef([]),
+		fetched: ssrRef(false),
 		...useErrorHandler(),
 		...useLoadingHandler(),
 		listener: useListener(listenerCb)

@@ -1,5 +1,5 @@
 <template>
-	<div class="d-flex py-0-5 px-2 gap-1 align-items-center position-relative bg-line bor-rad">
+	<div class="d-flex py-0-5 px-2 gap-1 align-items-center position-relative bg-line">
 		<NuxtLink :to="`/users/${user.id}`">
 			<Avatar :src="user.avatar" :size="63" />
 		</NuxtLink>
@@ -159,11 +159,6 @@ export default defineComponent({
 		}
 
 		animation: slide-down 0.1s;
-	}
-
-	.bor-rad {
-		border-radius: 12px 12px 0 0;
-		@media (min-width: $lg) { border-radius: 0 12px 0 0; }
 	}
 
 	@keyframes slide-down {

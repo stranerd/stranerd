@@ -1,7 +1,11 @@
 <template>
-	<div class="d-flex flex-column bg-white b-rad">
+	<div class="d-flex flex-column bg-white">
 		<div class="head">
-			<h1>Inbox</h1>
+			<h1>
+				<NuxtLink to="/messages">
+					Inbox
+				</NuxtLink>
+			</h1>
 		</div>
 		<span v-if="meta.length === 0" class="text-center align-self-center my-auto">
 			No chats found. Go message a nerd
@@ -28,18 +32,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-	.b-rad {
-		border-radius: 12px;
-		@media (min-width: $lg) { border-radius: 12px 0 0 12px; }
-	}
-
 	.head {
 		display: flex;
 		align-items: center;
 		padding: 1.5rem 2rem;
 		background: $color-line;
-		border-radius: 12px 12px 0 0;
-		@media (min-width: $lg) { border-radius: 12px 0 0 0; }
 
 		h1 {
 			font-size: 1.5rem;

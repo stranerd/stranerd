@@ -74,6 +74,7 @@ $spacers: ();
 }
 
 $border-radius-lg: 0.5rem;
+$body-max-width: 1920px;
 
 @function vh($quantity) {
 	@return calc(var(--vh, 1vh) * #{$quantity});

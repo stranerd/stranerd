@@ -1,10 +1,10 @@
 <template>
-	<div class="flex-grow-1 d-flex flex-column b-rad">
+	<div class="flex-grow-1 d-flex flex-column">
 		<PageLoading v-if="loading" />
-		<div v-else-if="user" class="flex-grow-1 d-flex flex-column bg-white b-rad">
+		<div v-else-if="user" class="flex-grow-1 d-flex flex-column bg-white">
 			<ChatHead :key="hash" :user="user" />
 			<ChatList :user-id="userId" class="flex-grow-1" />
-			<ChatForm :key="sessionId" :user-id="userId" :session-id="sessionId" />
+			<ChatForm v-if="sessionId" :user-id="userId" :session-id="sessionId" />
 		</div>
 		<DisplayError v-else error="No such user exists!" />
 	</div>
@@ -45,10 +45,3 @@ export default defineComponent({
 	}
 })
 </script>
-
-<style lang="scss" scoped>
-	.b-rad {
-		border-radius: 12px;
-		@media (min-width: $lg) { border-radius: 0 12px 12px 0; }
-	}
-</style>

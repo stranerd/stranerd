@@ -31,17 +31,13 @@ export default defineComponent({
 <style lang="scss" scoped>
 	.contact-messages {
 		width: 68%;
-		max-width: 1056px;
 		flex-grow: 1;
-		border-radius: 12px;
-		@media (min-width: $lg) { border-radius: 0 12px 12px 0; }
 	}
 
 	.contact-list {
 		display: none !important;
 		width: 32%;
 		flex-grow: 1;
-		border-radius: 12px 0 0 12px;
 		@media (min-width: $lg) { display: flex !important; }
 	}
 </style>

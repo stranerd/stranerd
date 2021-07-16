@@ -171,7 +171,6 @@ export default defineComponent({
 	.username {
 		font-size: 18px;
 		font-weight: 600;
-		color: $color-primary-dark;
 	}
 
 	.slide-enter-active, .slide-leave-active { transition: 0.25s; }

@@ -31,7 +31,7 @@ import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, ref } 
 import { UserEntity } from '@modules/users'
 import { useCountdown, useTimeDifference } from '@app/hooks/core/dates'
 import { setNewSessionTutorIdBio, useSession, setOtherParticipantId } from '@app/hooks/sessions/sessions'
-import { useAccountModal, useSessionModal } from '@app/hooks/core/modals'
+import { useReportModal, useSessionModal } from '@app/hooks/core/modals'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useCurrentSession } from '@app/hooks/sessions/session'
 import { setReportedBioAndId } from '@app/hooks/forms/reports'
@@ -89,7 +89,7 @@ export default defineComponent({
 		}
 		const reportUser = () => {
 			setReportedBioAndId({ id: props.user.id, bio: props.user.bio })
-			useAccountModal().openReportUser()
+			useReportModal().openReportUser()
 			show.value = false
 		}
 		if (otherParticipantId.value) setOtherParticipantId(otherParticipantId.value)

@@ -148,7 +148,7 @@ div.thin {
 				gap: 0 !important;
 
 				& > * {
-					margin: calc(#{$val} * 0.5);
+					margin: calc(#{$val} * 0.25);
 				}
 			}
 		}

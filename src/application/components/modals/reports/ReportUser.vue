@@ -12,7 +12,7 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import { useCreateReport } from '@app/hooks/forms/reports'
 import ReportForm from '@app/components/forms/ReportForm.vue'
 export default defineComponent({
-	name: 'AccountReportUser',
+	name: 'ReportUser',
 	components: { ReportForm },
 	setup () {
 		const { factory, loading, error, message, createReport } = useCreateReport()

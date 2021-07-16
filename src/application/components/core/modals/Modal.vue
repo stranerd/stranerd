@@ -1,6 +1,6 @@
 <template>
 	<ModalRoot :close="closeModal" :close-on-background="closeOnBackground" background-class="modal-background" modal-class="modal-inner">
-		<div class="d-flex justify-content-end mb-2">
+		<div class="d-flex justify-content-end mb-1">
 			<a class="fas fa-times" style="font-size: 2rem;" @click.prevent="closeModal" />
 		</div>
 		<h3 class="my-1">

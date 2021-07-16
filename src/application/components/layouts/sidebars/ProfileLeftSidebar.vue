@@ -2,14 +2,14 @@
 	<div v-if="user" class="d-flex flex-column gap-2-25">
 		<div class="d-flex flex-column gap-1 box">
 			<div class="d-flex flex-column gap-1-5 align-items-center text-blue">
-				<div class="d-flex flex-column">
+				<div class="position-relative">
 					<Avatar :src="user.avatar" :size="144" />
-					<NuxtLink to="/account/edit">
+					<NuxtLink v-if="user.id === id" to="/account/edit">
 						<i class="fa fa-pen pen" />
 					</NuxtLink>
 				</div>
 
-				<div class="d-flex flex-column gap-0-25 align-items-center mt-n3">
+				<div class="d-flex flex-column gap-0-25 align-items-center">
 					<h1>{{ user.fullName }}</h1>
 					<span class="text-primary">{{ user.rank.id }}</span>
 					<div class="d-flex align-items-center gap-0-5">
@@ -124,13 +124,15 @@ import { formatNumber, pluralize } from '@utils/commons'
 import { formatTime } from '@utils/dates'
 import Tag from '@app/components/questions/tags/Tag.vue'
 import Subject from '@app/components/questions/subjects/Subject.vue'
+import { useAuth } from '@app/hooks/auth/auth'
 export default defineComponent({
 	name: 'ProfileLeftSidebar',
 	components: { Tag, Subject },
 	setup () {
+		const { id } = useAuth()
 		const { userId } = useRoute().value.params
 		const { error, loading, user } = useUser(userId)
-		return { error, loading, user, formatNumber, formatTime, pluralize }
+		return { id, error, loading, user, formatNumber, formatTime, pluralize }
 	}
 })
 </script>
@@ -139,15 +141,15 @@ export default defineComponent({
 	.pen {
 		background-color: $color-primary;
 		color: white;
-		padding: 1rem;
-		position: relative;
-		bottom: 55px;
-		left: 100px;
+		position: absolute;
+		bottom: 0;
+		right: 0;
 		border-radius: 50px;
 		width: 45px;
 		height: 45px;
-		display: grid;
-		place-items: center;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 
 	p {

@@ -17,8 +17,8 @@ import TopNavigation from '@app/components/layouts/topNavigations/DefaultTopNavi
 import AdminTopNavigation from '@app/components/layouts/topNavigations/AdminTopNavigation.vue'
 export default defineComponent({
 	name: 'AdminLayout',
-	components: { TopNavigation, AdminTopNavigation }
-	// middleware: ['isAdmin']
+	components: { TopNavigation, AdminTopNavigation },
+	middleware: ['isAdmin']
 })
 </script>
 

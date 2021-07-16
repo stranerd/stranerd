@@ -52,7 +52,7 @@
 				<div>
 					<span class="name pe-1">Posted {{ formatTime(question.createdAt) }}</span>
 				</div>
-				<div style="margin-left:auto;">
+				<div style="margin-left: auto;">
 					<i class="fas fa-flag icons" />
 				</div>
 			</div>

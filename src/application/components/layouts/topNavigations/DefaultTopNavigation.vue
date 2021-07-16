@@ -44,7 +44,7 @@
 								<img src="@app/assets/images/icons/user.svg" alt="">
 								Profile
 							</NuxtLink>
-							<NuxtLink v-if="user.isAdmin" to="/admin/">
+							<NuxtLink v-if="isAdmin" to="/admin/">
 								<img src="@app/assets/images/icons/admin.svg" alt="">
 								Admin
 							</NuxtLink>
@@ -85,11 +85,11 @@ export default defineComponent({
 		}
 	},
 	setup () {
-		const { isLoggedIn, user } = useAuth()
+		const { isLoggedIn, isAdmin, user } = useAuth()
 		const show = ref(false)
 		const showSearch = ref(false)
 		const { loading, error, signout } = useSessionSignout()
-		return { show, isLoggedIn, user, loading, error, signout, showSearch }
+		return { show, isLoggedIn, isAdmin, user, loading, error, signout, showSearch }
 	}
 })
 </script>

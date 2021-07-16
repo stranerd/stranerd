@@ -1,12 +1,12 @@
 <template>
 	<nav role="navigation" class="d-flex justify-content-center align-items-center">
-		<NuxtLink :to="`/users/${user.id}/questions`" class="px-1 py-1 ">
+		<NuxtLink :to="`/users/${user.id}/questions`">
 			Questions
 		</NuxtLink>
-		<NuxtLink :to="`/users/${user.id}/answers`" class="px-1 py-1">
+		<NuxtLink :to="`/users/${user.id}/answers`">
 			Answers
 		</NuxtLink>
-		<NuxtLink v-if="user.isScholar" :to="`/users/${user.id}/reviews`" class="px-1 py-1">
+		<NuxtLink v-if="user.isScholar" :to="`/users/${user.id}/reviews`">
 			Reviews
 		</NuxtLink>
 	</nav>
@@ -29,6 +29,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 	a {
 		border: 1px solid $color-line;
+		padding: 1rem;
 	}
 
 	.nuxt-link-exact-active {

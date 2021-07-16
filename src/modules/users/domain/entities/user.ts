@@ -107,7 +107,7 @@ export class UserEntity extends BaseEntity {
 	get isScholar () { return this.rank.level >= getScholarLevel() }
 	get currentSession () { return this.session.currentSession || this.session.currentTutorSession || null }
 	get canHostSessions () { return !this.currentSession && this.isScholar }
-	get canRequestSessions () { return !this.currentSession && Object.keys(this.session.requests).length === 0 }
+	get canRequestSessions () { return !this.currentSession && Object.keys(this.session.requests).length === 0 && Object.keys(this.session.lobby).length === 0 }
 
 	get meta () {
 		return Object.fromEntries(

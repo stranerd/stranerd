@@ -3,6 +3,7 @@ import { Timestamp } from '@modules/core'
 
 export interface SessionFromModel {
 	id: string
+	message: string
 	studentId: string
 	studentBio: UserBio
 	tutorId: string
@@ -22,6 +23,7 @@ export interface SessionFromModel {
 }
 
 export interface SessionToModel {
+	message: string
 	studentId: string
 	studentBio: UserBio
 	tutorId: string

@@ -1,6 +1,6 @@
 <template>
 	<AisInstantSearch :search-client="searchClient" :index-name="collection" class="w-100">
-		<AisSearchBox class="w-100">
+		<AisSearchBox>
 			<template
 				slot="default"
 				slot-scope="{ currentRefinement, isSearchStalled, refine }"

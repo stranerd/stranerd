@@ -19,6 +19,7 @@ $color-contrast-light: $color-white;
 
 $xs: 0;
 $sm: 360px;
+$mmd: 575px;
 $md: 768px;
 $lg: 1280px;
 $xl: 1600px;
@@ -27,6 +28,7 @@ $grid-breakpoints: (
 	xs: $xs,
 	sm: $sm,
 	md: $md,
+	mmd: $mmd,
 	lg: $lg,
 	xl: $xl
 );

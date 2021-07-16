@@ -1,13 +1,13 @@
 <template>
 	<span class="w-100 mx-auto d-flex justify-content-center gap-2" style="max-width: 300px;">
 		<span class="balance">
-			<Coins :size="32" />
+			<Coins :size="30" />
 			<span class="amount">
 				{{ formatNumber(user.account.coins.bronze) }}
 			</span>
 		</span>
 		<span class="balance">
-			<Coins :gold="true" :size="32" />
+			<Coins :gold="true" :size="30" />
 			<span class="amount">
 				{{ formatNumber(user.account.coins.gold) }}
 			</span>

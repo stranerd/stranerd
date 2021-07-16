@@ -122,14 +122,25 @@ export default defineComponent({
 			display: flex;
 			border: 1px solid $color-line;
 			border-radius: 12px;
+			@media (max-width: $mmd) {
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+			}
 
 			.rank-contain {
 				background: $color-tags;
 				padding: 2rem;
 				border-radius: 12px;
 				border-right: 1px solid $color-line;
-
+				display: flex;
+				justify-content: center;
 				img { width: 144px; }
+				@media (max-width: $mmd) {
+					width: 100%;
+					border-right: none;
+					border-bottom: 1px solid $color-line;
+				}
 			}
 
 			.ranking-card-main {
@@ -137,6 +148,9 @@ export default defineComponent({
 				padding: 2rem;
 				display: flex;
 				flex-direction: column;
+				@media (max-width: $mmd) {
+					width: 100%;
+				}
 
 				p {
 					margin: 0;

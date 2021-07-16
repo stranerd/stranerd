@@ -1,5 +1,5 @@
 <template>
-	<form class="gap-1">
+	<form class="gap-1 d-flex">
 		<div />
 		<QuestionSearch v-if="search === SEARCH_TYPES.Questions" :key="search" />
 		<AnswerSearch v-else-if="search === SEARCH_TYPES.Answers" :key="search" />

@@ -34,7 +34,7 @@ import { setNewSessionTutorIdBio, useSession, setOtherParticipantId } from '@app
 import { useReportModal, useSessionModal } from '@app/hooks/core/modals'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useCurrentSession } from '@app/hooks/sessions/session'
-import { setReportedBioAndId } from '@app/hooks/forms/reports'
+import { setReportedEntity } from '@app/hooks/reports/users'
 import { analytics } from '@modules/core'
 export default defineComponent({
 	name: 'ChatHead',
@@ -88,7 +88,7 @@ export default defineComponent({
 			})
 		}
 		const reportUser = () => {
-			setReportedBioAndId({ id: props.user.id, bio: props.user.bio })
+			setReportedEntity(props.user)
 			useReportModal().openReportUser()
 			show.value = false
 		}

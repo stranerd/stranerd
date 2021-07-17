@@ -3,11 +3,11 @@ import { UserReportFactory, AddUserReport } from '@modules/reports'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useReportModal } from '@app/hooks/core/modals'
 import { useAuth } from '@app/hooks/auth/auth'
-import { UserBio } from '@modules/users'
+import { UserEntity, UserBio } from '@modules/users'
 
-let reportedBioAndId = null as { id: string, reported: UserBio } | null
-export const setReportedBioAndId = ({ id, bio }: { id: string, bio: UserBio }) => {
-	reportedBioAndId = { id, reported: bio }
+let reportedEntity = null as { id: string, reported: UserBio } | null
+export const setReportedEntity = (user: UserEntity) => {
+	reportedEntity = { id: user.id, reported: user.bio }
 }
 
 export const useCreateReport = () => {
@@ -20,7 +20,7 @@ export const useCreateReport = () => {
 	factory.value.reporterBioAndId = { id: id.value!, bio: bio.value! }
 	watch(() => id.value, () => factory.value.reporterBioAndId = { id: id.value!, bio: bio.value! })
 	watch(() => bio.value, () => factory.value.reporterBioAndId = { id: id.value!, bio: bio.value! })
-	factory.value.reported = reportedBioAndId!
+	factory.value.reported = reportedEntity!
 
 	const createReport = async () => {
 		setError('')

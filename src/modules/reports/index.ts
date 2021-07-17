@@ -1,16 +1,18 @@
-import { UserReportFirebaseDataSource } from './data/datasources/user-report-firebase'
-import { UserReportTransformer } from './data/transformers/user-report'
-import { UserReportRepository } from './data/repositories/user-report'
-import { AddUserReportUseCase } from './domain/usecases/users/addUserReport'
-import { UserReportFactory } from './domain/factories/user-report'
-import { UserReportEntity } from './domain/entities/user-report'
+import { UserBio } from '@modules/users'
+import { ReportFirebaseDataSource } from './data/datasources/report-firebase'
+import { ReportTransformer } from './data/transformers/report'
+import { ReportRepository } from './data/repositories/report'
+import { AddReportUseCase } from './domain/usecases/addReport'
+import { ReportFactory } from './domain/factories/report'
+import { ReportEntity } from './domain/entities/report'
 
-const userReportDataSource = new UserReportFirebaseDataSource()
+const userReportDataSource = new ReportFirebaseDataSource<'users', UserBio>('users')
 
-const userReportTransformer = new UserReportTransformer()
+const userReportTransformer = new ReportTransformer<UserBio>()
 
-const userReportRepository = new UserReportRepository(userReportDataSource, userReportTransformer)
+const userReportRepository = new ReportRepository<'users', UserBio>(userReportDataSource, userReportTransformer)
 
-export const AddUserReport = new AddUserReportUseCase(userReportRepository)
+export const AddUserReport = new AddReportUseCase(userReportRepository)
 
-export { UserReportFactory, UserReportEntity }
+export class UserReportFactory extends ReportFactory<UserBio> {}
+export class UserReportEntity extends ReportEntity<UserBio> {}

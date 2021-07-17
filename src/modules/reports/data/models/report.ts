@@ -1,23 +1,21 @@
 import { UserBio } from '@modules/users'
 
-export interface UserReportFromModel {
+export interface ReportFromModel<ReportedType> {
 	id: string
 	reporterId: string
-	reporterBio: UserBio
 	reportedId: string
-	reportedBio: UserBio
-	title: string
+	reporterBio: UserBio
+	reported: ReportedType
 	message: string
 	dates: {
 		createdAt: number
 	}
 }
 
-export interface UserReportToModel {
+export interface ReportToModel<ReportedType> {
 	reporterId: string
-	reporterBio: UserBio
 	reportedId: string
-	reportedBio: UserBio
-	title: string
+	reporterBio: UserBio
 	message: string
+	reported: ReportedType
 }

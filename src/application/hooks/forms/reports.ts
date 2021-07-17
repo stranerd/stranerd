@@ -5,9 +5,9 @@ import { useReportModal } from '@app/hooks/core/modals'
 import { useAuth } from '@app/hooks/auth/auth'
 import { UserBio } from '@modules/users'
 
-let reportedBioAndId = null as { id: string, bio: UserBio } | null
+let reportedBioAndId = null as { id: string, reported: UserBio } | null
 export const setReportedBioAndId = ({ id, bio }: { id: string, bio: UserBio }) => {
-	reportedBioAndId = { id, bio }
+	reportedBioAndId = { id, reported: bio }
 }
 
 export const useCreateReport = () => {
@@ -20,7 +20,7 @@ export const useCreateReport = () => {
 	factory.value.reporterBioAndId = { id: id.value!, bio: bio.value! }
 	watch(() => id.value, () => factory.value.reporterBioAndId = { id: id.value!, bio: bio.value! })
 	watch(() => bio.value, () => factory.value.reporterBioAndId = { id: id.value!, bio: bio.value! })
-	factory.value.reportedBioAndId = reportedBioAndId!
+	factory.value.reported = reportedBioAndId!
 
 	const createReport = async () => {
 		setError('')

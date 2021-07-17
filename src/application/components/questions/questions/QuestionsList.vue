@@ -4,11 +4,16 @@
 			Ask A Question
 		</NuxtLink>
 
-		<div class="d-flex justify-content-between align-items-center gap-1 px-1 mb-2">
-			<h1 class="text-dark my-0">
-				Questions
+		<div class="d-flex justify-content-between align-items-center gap-1 px-1 mb-2 ">
+			<h1 class="text-dark my-0 d-flex align-items-center questions">
+				<div class="dash" />
+				<span class="mx-0-5">
+					Questions
+				</span>
+
+				<div class="dash" />
 			</h1>
-			<NuxtLink class="d-none d-md-inline btn btn-primary px-2 py-1" to="/questions/create">
+			<NuxtLink class=" btn btn-primary px-2 py-1 d-none d-md-inline" to="/questions/create">
 				Ask A Question
 			</NuxtLink>
 		</div>
@@ -62,14 +67,31 @@ export default defineComponent({
 <style lang="scss" scoped>
 	.bl {
 		border-bottom: 1px solid $color-line;
+		@media (max-width: $sm) { border-bottom: none !important;}
 	}
 
 	.options {
+		@media (max-width: $md) { justify-content: center;}
 		select {
 			display: inline;
 			width: 156px;
 			border: 1px solid $color-line;
 			padding: 11px;
+			background-color: $color-tags;
+
 		}
+	}
+	.dash{
+		width: 100%;
+		background-color: $color-line;
+		border: 1px solid $color-line;
+
+		@media (min-width: $md) { display: none; }
+
+	}
+	.questions{
+		width: 100%;
+		@media (min-width: $md) { width: 50%;}
+
 	}
 </style>

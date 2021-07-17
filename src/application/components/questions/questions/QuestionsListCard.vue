@@ -28,11 +28,11 @@
 		</NuxtLink>
 
 		<div class="d-flex flex-wrap align-items-center justify-content-between gap-1 gap-md-2">
-			<span class="name">Posted {{ formatTime(question.createdAt) }}</span>
-			<div class="gap-0-75 d-flex flex-wrap align-items-center">
+			<span class="name order-1 order-md-1">Posted {{ formatTime(question.createdAt) }}</span>
+			<div class="gap-0-75 d-flex flex-wrap align-items-center order-3 order-md-2">
 				<Tag v-for="tag in question.tags" :key="tag" :tag="tag" />
 			</div>
-			<div class="d-flex align-items-center gap-1">
+			<div class="d-flex align-items-center gap-1 order-md-3 order-2">
 				<span class="d-flex align-items-center gap-0-5">
 					<img src="@app/assets/images/icons/answers.svg" alt="" class="icons">
 					<span>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</span>

@@ -1,5 +1,5 @@
 import { ssrRef, watch } from '@nuxtjs/composition-api'
-import { ReportFactory, AddReport } from '@modules/forms'
+import { UserReportFactory, AddUserReport } from '@modules/reports'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useReportModal } from '@app/hooks/core/modals'
 import { useAuth } from '@app/hooks/auth/auth'
@@ -12,7 +12,7 @@ export const setReportedBioAndId = ({ id, bio }: { id: string, bio: UserBio }) =
 
 export const useCreateReport = () => {
 	const { id, bio } = useAuth()
-	const factory = ssrRef(new ReportFactory())
+	const factory = ssrRef(new UserReportFactory())
 	const { message, setMessage } = useSuccessHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
@@ -27,7 +27,7 @@ export const useCreateReport = () => {
 		if (factory.value.valid && !loading.value) {
 			try {
 				setLoading(true)
-				await AddReport.call(factory.value)
+				await AddUserReport.call(factory.value)
 				useReportModal().closeReportUser()
 				factory.value.reset()
 				setMessage('Report sent successfully')

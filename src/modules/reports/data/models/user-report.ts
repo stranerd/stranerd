@@ -1,6 +1,6 @@
 import { UserBio } from '@modules/users'
 
-export interface ReportFromModel {
+export interface UserReportFromModel {
 	id: string
 	reporterId: string
 	reporterBio: UserBio
@@ -13,7 +13,7 @@ export interface ReportFromModel {
 	}
 }
 
-export interface ReportToModel {
+export interface UserReportToModel {
 	reporterId: string
 	reporterBio: UserBio
 	reportedId: string

@@ -1,7 +1,7 @@
 import { BaseEntity } from '@modules/core'
 import { generateDefaultBio, UserBio } from '@modules/users'
 
-export class ReportEntity extends BaseEntity {
+export class UserReportEntity extends BaseEntity {
 	readonly id: string
 	readonly reporterId: string
 	readonly reportedId: string
@@ -11,7 +11,7 @@ export class ReportEntity extends BaseEntity {
 	readonly message: string
 	readonly createdAt: number
 
-	constructor ({ id, reporterId, reportedId, reporterBio, reportedBio, title, message, createdAt }: ReportConstructorArgs) {
+	constructor ({ id, reporterId, reportedId, reporterBio, reportedBio, title, message, createdAt }: UserReportConstructorArgs) {
 		super()
 		this.id = id
 		this.reportedId = reportedId
@@ -24,7 +24,7 @@ export class ReportEntity extends BaseEntity {
 	}
 }
 
-type ReportConstructorArgs = {
+type UserReportConstructorArgs = {
 	id: string,
 	reporterId: string
 	reportedId: string

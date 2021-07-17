@@ -1,18 +1,18 @@
 import { timestampToMs } from '@modules/core'
-import { ReportFromModel, ReportToModel } from '../models/report'
-import { ReportEntity } from '../../domain/entities/report'
+import { UserReportFromModel, UserReportToModel } from '../models/user-report'
+import { UserReportEntity } from '../../domain/entities/user-report'
 
-export class ReportTransformer {
-	fromJSON (model: ReportFromModel) {
+export class UserReportTransformer {
+	fromJSON (model: UserReportFromModel) {
 		const { id, reporterId, reportedId, reportedBio, reporterBio, title, message, dates: { createdAt } } = model
-		return new ReportEntity({
+		return new UserReportEntity({
 			id,
 			reporterId, reportedId, reportedBio, reporterBio, title, message,
 			createdAt: timestampToMs(createdAt)!
 		})
 	}
 
-	toJSON (entity: ReportEntity) :ReportToModel {
+	toJSON (entity: UserReportEntity) :UserReportToModel {
 		return {
 			reporterId: entity.reporterId,
 			reportedId: entity.reportedId,

@@ -1,8 +1,8 @@
 import { BaseFactory } from '@modules/core'
 import { isLongerThan } from 'sd-validate/lib/rules'
 import { UserBio } from '@modules/users'
-import { ReportToModel } from '../../data/models/report'
-import { ReportEntity } from '../entities/report'
+import { UserReportToModel } from '../../data/models/user-report'
+import { UserReportEntity } from '../entities/user-report'
 
 type Keys = {
 	reporterId: string, reportedId: string,
@@ -10,7 +10,7 @@ type Keys = {
 	title: string, message: string
 }
 
-export class ReportFactory extends BaseFactory<ReportEntity, ReportToModel, Keys> {
+export class UserReportFactory extends BaseFactory<UserReportEntity, UserReportToModel, Keys> {
 	public rules = {
 		reporterId: { required: true, rules: [] },
 		reportedId: { required: true, rules: [] },
@@ -49,7 +49,7 @@ export class ReportFactory extends BaseFactory<ReportEntity, ReportToModel, Keys
 		}
 	}
 
-	public loadEntity = (entity: ReportEntity) => {
+	public loadEntity = (entity: UserReportEntity) => {
 		this.reporterBioAndId = {
 			id: entity.reporterId,
 			bio: entity.reporterBio

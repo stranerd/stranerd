@@ -1,8 +1,15 @@
 <template>
 	<form @submit.prevent="submit">
-		<button class="btn btn-dark fw-bold" type="submit" :disabled="loading || !factory.valid">
+		<p>What is wrong with this question?</p>
+		<div class="d-flex flex-column gap-0-5 mb-1">
+			<span v-for="message in QuestionMessages" :key="message.id" class="d-flex gap-0-5 align-items-center fw-bold">
+				<input v-model="factory.message" name="message" type="radio" :value="message.id">
+				<span>It {{ message.body }}</span>
+			</span>
+		</div>
+		<button class="btn btn-primary fw-bold" type="submit" :disabled="loading || !factory.valid">
 			<PageLoading v-if="loading" />
-			<span>Report Question</span>
+			<span>Report</span>
 		</button>
 		<DisplayError :error="error" />
 	</form>
@@ -11,6 +18,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { QuestionReportFactory } from '@modules/reports'
+import { QuestionMessages } from '@app/hooks/reports/form'
 export default defineComponent({
 	name: 'QuestionReportForm',
 	props: {
@@ -30,6 +38,16 @@ export default defineComponent({
 			type: String,
 			required: true
 		}
+	},
+	setup () {
+		return { QuestionMessages }
 	}
 })
 </script>
+
+<style lang="scss" scoped>
+	input[type="radio"] {
+		width: 18px;
+		height: 18px;
+	}
+</style>

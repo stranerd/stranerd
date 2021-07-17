@@ -1,5 +1,5 @@
 <template>
-	<Modal :modal="$attrs.modal">
+	<Modal :modal="$attrs.modal" :hide-separator="true">
 		<template slot="title">
 			Report User
 		</template>

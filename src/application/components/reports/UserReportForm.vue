@@ -14,7 +14,7 @@
 		</div>
 		<button class="btn btn-dark fw-bold" type="submit" :disabled="loading || !factory.valid">
 			<PageLoading v-if="loading" />
-			<span>Report User</span>
+			<span>Report</span>
 		</button>
 		<DisplayError :error="error" />
 	</form>

@@ -8,7 +8,7 @@
 				Title
 			</slot>
 		</h3>
-		<hr v-if="showSeparator">
+		<hr v-if="!hideSeparator">
 		<slot>
 			<p>This is the default content of the modal</p>
 		</slot>
@@ -32,10 +32,10 @@ export default defineComponent({
 			required: false,
 			default: () => {}
 		},
-		showSeparator: {
+		hideSeparator: {
 			type: Boolean,
 			required: false,
-			default: true
+			default: false
 		},
 		closeOnBackground: {
 			type: Boolean,

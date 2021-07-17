@@ -1,6 +1,6 @@
 <template>
 	<div :id="question.id" class="d-flex flex-column p-1 gap-1 gap-lg-2">
-		<div class="question-head d-flex align-items-center gap-1">
+		<div class="question-head d-flex flex-wrap align-items-center gap-1">
 			<div class="d-flex align-items-center gap-0-5 me-auto">
 				<NuxtLink :to="`/users/${question.userId}`">
 					<Avatar :src="question.avatar" :size="36" />
@@ -27,12 +27,12 @@
 			{{ question.trimmedBody }}
 		</NuxtLink>
 
-		<div class="d-flex align-items-center gap-2">
+		<div class="d-flex flex-wrap align-items-center justify-content-between gap-1 gap-md-2">
 			<span class="name">Posted {{ formatTime(question.createdAt) }}</span>
-			<div class="gap-0-75 d-flex align-items-center">
+			<div class="gap-0-75 d-flex flex-wrap align-items-center">
 				<Tag v-for="tag in question.tags" :key="tag" :tag="tag" />
 			</div>
-			<div class="ms-auto d-flex align-items-center gap-1">
+			<div class="d-flex align-items-center gap-1">
 				<span class="d-flex align-items-center gap-0-5">
 					<img src="@app/assets/images/icons/answers.svg" alt="" class="icons">
 					<span>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</span>

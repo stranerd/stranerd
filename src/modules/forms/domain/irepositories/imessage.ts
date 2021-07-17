@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { DatabaseGetClauses } from '@modules/core'
 import { MessageEntity } from '../entities/message'
 import { MessageToModel } from '../../data/models/message'
 

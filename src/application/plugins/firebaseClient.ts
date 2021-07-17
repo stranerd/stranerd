@@ -1,5 +1,5 @@
 import { defineNuxtPlugin, onGlobalSetup } from '@nuxtjs/composition-api'
-import firebase from '@modules/core/services/initFirebase'
+import { firebase } from '@modules/core'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useRequestSessions, useLobbySessions, useCurrentSession } from '@app/hooks/sessions/session'
 

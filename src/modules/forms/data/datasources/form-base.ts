@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { DatabaseGetClauses } from '@modules/core'
 
 export abstract class FormBaseDataSource<From, To> {
 	abstract create: (data: To) => Promise<string>

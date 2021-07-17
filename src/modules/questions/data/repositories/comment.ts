@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { DatabaseGetClauses } from '@modules/core'
 import { ICommentRepository } from '../../domain/irepositories/icomment'
 import { CommentEntity } from '../../domain/entities/comment'
 import { CommentBaseDataSource } from '../datasources/comment-base'

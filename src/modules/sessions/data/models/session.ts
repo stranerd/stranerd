@@ -1,5 +1,5 @@
 import { UserBio } from '@modules/users'
-import { Timestamp } from '@modules/core/data/models/base'
+import { Timestamp } from '@modules/core'
 
 export interface SessionFromModel {
 	id: string

@@ -8,13 +8,15 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from '@nuxtjs/composition-api'
-import { Avatars } from '@modules/users'
+import { Media } from '@modules/core'
+import { DEFAULT_PROFILE_IMAGE } from '@utils/constants'
 export default defineComponent({
 	name: 'Avatar',
 	props: {
 		src: {
-			type: String as PropType<keyof typeof Avatars>,
-			required: true
+			type: Object as PropType<Media | null>,
+			default: null,
+			validator: (p: any) => p === null || typeof p.link === 'string'
 		},
 		size: {
 			required: false,
@@ -24,7 +26,7 @@ export default defineComponent({
 	},
 	setup (props) {
 		const source = computed({
-			get: () => Avatars[props.src]?.link ?? Avatars.default.link,
+			get: () => props.src?.link === 'string' ? props.src.link : DEFAULT_PROFILE_IMAGE,
 			set: () => {}
 		})
 		return { source }

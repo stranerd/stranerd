@@ -19,7 +19,7 @@
 					<Tag :tag="tag" />
 				</span>
 			</div>
-			<div class="ml-auto d-md-inline-block d-none">
+			<div class="ms-auto d-md-inline-block d-none">
 				<span class="d-flex align-items-center gap-0-5">
 					<span>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</span>
 					<img src="@app/assets/images/icons/answers.svg" alt="" class="icons">
@@ -31,7 +31,7 @@
 						<Tag :tag="tag" />
 					</span>
 				</div>
-				<div class="ml-auto">
+				<div class="ms-auto">
 					<span class="d-flex align-items-center">
 						<span style="padding-right: 4px;">{{ formatNumber(question.answers) }} </span>
 						<img src="@app/assets/images/icons/answers.svg" alt="" class="icons">
@@ -76,9 +76,5 @@ export default defineComponent({
 	.icons {
 		width: 24px;
 		height: 24px;
-	}
-
-	.ml-auto {
-		margin-left: auto;
 	}
 </style>

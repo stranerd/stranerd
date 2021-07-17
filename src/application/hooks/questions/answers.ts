@@ -1,4 +1,4 @@
-import { Ref, ref, ssrRef, useFetch, useRouter, watch } from '@nuxtjs/composition-api'
+import { Ref, ref, reqRef, useFetch, useRouter, watch } from '@nuxtjs/composition-api'
 import {
 	AddAnswer, AnswerEntity, AnswerFactory, GetAnswers,
 	ListenToAnswers, MarkAsBestAnswer, QuestionEntity, RateAnswer
@@ -6,7 +6,7 @@ import {
 import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
 import { Alert } from '@app/hooks/core/notifications'
-import { analytics } from '@modules/core/services/initFirebase'
+import { analytics } from '@modules/core'
 import VueRouter from 'vue-router'
 
 const global = {} as Record<string, {
@@ -16,8 +16,8 @@ const global = {} as Record<string, {
 
 export const useAnswerList = (questionId: string) => {
 	if (global[questionId] === undefined) global[questionId] = {
-		answers: ssrRef([]),
-		fetched: ssrRef(false),
+		answers: reqRef([]),
+		fetched: reqRef(false),
 		...useErrorHandler(),
 		...useLoadingHandler()
 	}

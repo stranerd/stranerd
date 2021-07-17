@@ -1,4 +1,4 @@
-import { Media } from '@modules/core/data/models/base'
+import { Media } from '@modules/core'
 import { UserBio } from '@modules/users'
 
 export interface ChatFromModel {

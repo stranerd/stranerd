@@ -32,25 +32,23 @@
 			<template v-if="show">
 				<div class="menuBackground d-lg-none d-flex flex-column text-center" @click="show = false">
 					<NuxtLink class="py-1 mt-2 smallScreenLink" style="width: 100%;" to="/">
-						<div class="link-custom px-1" style="font-size: 15px;">
-							Home
-						</div>
+						Home
 					</NuxtLink>
-					<NuxtLink class="smallScreenLink link-custom" to="/#how-it-works">
+					<NuxtLink class="smallScreenLink py-1 link-custom" to="/#how-it-works">
 						How it works
 					</NuxtLink>
-					<NuxtLink class="smallScreenLink link-custom" to="/#contact-us">
+					<NuxtLink class="smallScreenLink py-1 link-custom" to="/#contact-us">
 						Contact
 					</NuxtLink>
 					<NuxtLink
-						class="btn btn-lg btn-custom mx-auto w-100"
+						class="btn btn-lg btn-custom mx-auto my-1 w-100"
 						style="max-width: 400px;"
 						to="/auth/signin"
 					>
 						Sign In
 					</NuxtLink>
 					<NuxtLink
-						class="btn btn-lg btn-custom mx-auto w-100"
+						class="btn btn-lg btn-custom mx-auto my-1 w-100"
 						style="max-width: 400px;"
 						to="/auth/signup"
 					>

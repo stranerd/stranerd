@@ -1,5 +1,5 @@
 import { defineNuxtPlugin } from '@nuxtjs/composition-api'
-import { AxiosInstance } from '@modules/core/services/http'
+import { AxiosInstance } from '@modules/core'
 import { useAuth } from '@app/hooks/auth/auth'
 
 export default defineNuxtPlugin(async () => {

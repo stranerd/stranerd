@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { DatabaseGetClauses } from '@modules/core'
 import { NotificationEntity } from '../entities/notification'
 import { NotificationToModel } from '../../data/models/notification'
 

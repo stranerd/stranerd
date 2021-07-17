@@ -1,4 +1,4 @@
-import { timestampToMs } from '@modules/core/data/transformers/converters/getFirestoreDate'
+import { timestampToMs } from '@modules/core'
 import { MessageFromModel, MessageToModel } from '../models/message'
 import { MessageEntity } from '../../domain/entities/message'
 

@@ -4,27 +4,32 @@
 			<h1 class="mb-0">
 				Sign In
 			</h1>
-			<!-- TODO: add back validation errors -->
-			<input
-				id="email"
-				v-model="factory.email"
-				type="email"
-				name="email"
-				required
-				placeholder="Email"
-				class="form-control"
-				autocomplete="email"
-			>
-			<input
-				id="password"
-				v-model="factory.password"
-				type="password"
-				name="password"
-				required
-				placeholder="Password"
-				class="form-control"
-				autocomplete="password"
-			>
+			<div>
+				<input
+					id="email"
+					v-model="factory.email"
+					type="email"
+					name="email"
+					required
+					placeholder="Email"
+					class="form-control"
+					autocomplete="email"
+				>
+				<small v-if="factory.errors.email" class="small text-danger d-block">{{ factory.errors.email }}</small>
+			</div>
+			<div>
+				<input
+					id="password"
+					v-model="factory.password"
+					type="password"
+					name="password"
+					required
+					placeholder="Password"
+					class="form-control"
+					autocomplete="password"
+				>
+				<small v-if="factory.errors.password" class="small text-danger d-block">{{ factory.errors.password }}</small>
+			</div>
 			<div class="text-end">
 				<NuxtLink class="linkText text-decoration-none" to="/auth/forgot">
 					Forgot Password

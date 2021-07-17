@@ -1,4 +1,4 @@
-import { ssrRef, watch, computed, useRouter, useFetch, ref, Ref } from '@nuxtjs/composition-api'
+import { reqRef, watch, computed, useRouter, useFetch, ref, Ref } from '@nuxtjs/composition-api'
 import {
 	AddQuestion, FindQuestion, GetQuestions, ListenToQuestion,
 	ListenToQuestions, QuestionEntity, QuestionFactory
@@ -6,7 +6,7 @@ import {
 import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { COINS_GAP, MAXIMUM_COINS, MINIMUM_COINS, PAGINATION_LIMIT } from '@utils/constants'
 import { useAuth } from '@app/hooks/auth/auth'
-import { analytics } from '@modules/core/services/initFirebase'
+import { analytics } from '@modules/core'
 
 enum Answered {
 	All,
@@ -19,11 +19,11 @@ const answeredChoices = [
 	{ val: Answered.Unanswered, key: 'Unanswered' }
 ]
 const global = {
-	questions: ssrRef([] as QuestionEntity[]),
-	subjectId: ssrRef(''),
-	answered: ssrRef(answeredChoices[0].val),
-	fetched: ssrRef(false),
-	hasMore: ssrRef(false),
+	questions: reqRef([] as QuestionEntity[]),
+	subjectId: reqRef(''),
+	answered: reqRef(answeredChoices[0].val),
+	fetched: reqRef(false),
+	hasMore: reqRef(false),
 	...useErrorHandler(),
 	...useLoadingHandler()
 }

@@ -1,4 +1,4 @@
-import { BaseFactory } from '@modules/core/domains/factories/base'
+import { BaseFactory } from '@modules/core'
 import { isEmail } from 'sd-validate/lib/rules'
 
 type Keys = { email: string }

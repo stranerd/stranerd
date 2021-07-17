@@ -1,5 +1,5 @@
 <template>
-	<div class="d-flex flex-column px-1">
+	<div class="d-flex flex-column gap-1 gap-md-2">
 		<SubjectForm :submit="createSubject" :loading="loading" :factory="factory" :error="error">
 			<template slot="buttonText">
 				Add

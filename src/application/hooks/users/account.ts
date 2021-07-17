@@ -1,5 +1,5 @@
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
-import { Ref, ssrRef, watch, useRouter } from '@nuxtjs/composition-api'
+import { Ref, reqRef, watch, useRouter } from '@nuxtjs/composition-api'
 import { ProfileUpdateFactory, UpdateProfile } from '@modules/auth'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useAccountModal, usePaymentModal } from '@app/hooks/core/modals'
@@ -7,11 +7,11 @@ import { BuyCoins, TipTutor } from '@modules/meta'
 import { UserBio } from '@modules/users'
 import { setPaymentProps } from '@app/hooks/payment/payment'
 import { Alert } from '@app/hooks/core/notifications'
-import { analytics } from '@modules/core/services/initFirebase'
+import { analytics } from '@modules/core'
 
 export const useUpdateProfile = () => {
 	const router = useRouter()
-	const factory = ssrRef(new ProfileUpdateFactory()) as Ref<ProfileUpdateFactory>
+	const factory = reqRef(new ProfileUpdateFactory()) as Ref<ProfileUpdateFactory>
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const { setMessage } = useSuccessHandler()

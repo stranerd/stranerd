@@ -1,5 +1,5 @@
 import { isLongerThan } from 'sd-validate/lib/rules'
-import { BaseFactory } from '@modules/core/domains/factories/base'
+import { BaseFactory } from '@modules/core'
 import { SubjectEntity } from '../entities/subject'
 import { SubjectToModel } from '../../data/models/subject'
 

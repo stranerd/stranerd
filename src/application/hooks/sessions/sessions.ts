@@ -1,4 +1,4 @@
-import { computed, Ref, ref, ssrRef, useRouter, watch } from '@nuxtjs/composition-api'
+import { computed, Ref, ref, reqRef, useRouter, watch } from '@nuxtjs/composition-api'
 import { AddSession, BeginSession, CancelSession, SessionFactory } from '@modules/sessions'
 import { UserBio } from '@modules/users'
 import { RateTutor } from '@modules/meta'
@@ -6,7 +6,7 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useSessionModal } from '@app/hooks/core/modals'
 import { Alert } from '@app/hooks/core/notifications'
-import { analytics } from '@modules/core/services/initFirebase'
+import { analytics } from '@modules/core'
 
 const SESSION_PRICES = {
 	15: 10,
@@ -114,8 +114,8 @@ export const setOtherParticipantId = (id: string) => { otherParticipantId = id }
 export const useRateSession = () => {
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
-	const rating = ssrRef(0)
-	const review = ssrRef('')
+	const rating = reqRef(0)
+	const review = reqRef('')
 
 	const rateSession = async () => {
 		if (!otherParticipantId) return

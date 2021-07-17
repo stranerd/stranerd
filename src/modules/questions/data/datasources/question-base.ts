@@ -1,4 +1,4 @@
-import { FirestoreGetClauses } from '@modules/core/data/datasources/base'
+import { FirestoreGetClauses } from '@modules/core'
 import { QuestionFromModel, QuestionToModel } from '../models/question'
 
 export abstract class QuestionBaseDataSource {

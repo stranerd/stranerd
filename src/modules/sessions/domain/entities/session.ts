@@ -1,4 +1,4 @@
-import { BaseEntity } from '@modules/core/domains/entities/base'
+import { BaseEntity } from '@modules/core'
 import { generateDefaultBio, UserBio } from '@modules/users'
 
 export class SessionEntity extends BaseEntity {

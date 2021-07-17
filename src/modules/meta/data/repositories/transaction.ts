@@ -1,4 +1,4 @@
-import { FirestoreGetClauses } from '@modules/core/data/datasources/base'
+import { FirestoreGetClauses } from '@modules/core'
 import { ITransactionRepository } from '../../domain/irepositories/itransaction'
 import { TransactionBaseDataSource } from '../datasources/transaction-base'
 import { TransactionTransformer } from '../transformers/transaction'

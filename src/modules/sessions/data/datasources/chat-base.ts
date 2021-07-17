@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { DatabaseGetClauses } from '@modules/core'
 import { ChatFromModel, ChatMeta, ChatToModel } from '../models/chat'
 
 export abstract class ChatBaseDataSource {

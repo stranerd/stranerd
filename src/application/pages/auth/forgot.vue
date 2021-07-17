@@ -7,16 +7,19 @@
 			<span class="textStyle mt-n1">
 				To reset your password, type your email address
 			</span>
-			<input
-				id="email"
-				v-model="factory.email"
-				type="email"
-				name="email"
-				required
-				placeholder="Email"
-				class="form-control"
-				autocomplete="email"
-			>
+			<div>
+				<input
+					id="email"
+					v-model="factory.email"
+					type="email"
+					name="email"
+					required
+					placeholder="Email"
+					class="form-control"
+					autocomplete="email"
+				>
+				<small v-if="factory.errors.email" class="small text-danger d-block">{{ factory.errors.email }}</small>
+			</div>
 			<button class="btn btn-lg btn-custom py-1 " type="submit">
 				Send Reset Mail
 			</button>

@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { DatabaseGetClauses } from '@modules/core'
 import { IChatRepository } from '../../irepositories/ichat'
 import { ChatMetaEntity } from '../../entities/chatMeta'
 

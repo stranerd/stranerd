@@ -1,4 +1,6 @@
-export class NotificationEntity {
+import { BaseEntity } from '@modules/core'
+
+export class NotificationEntity extends BaseEntity {
 	public readonly id: string
 	public readonly body: string
 	public readonly action: string
@@ -6,6 +8,7 @@ export class NotificationEntity {
 	public readonly createdAt: number
 
 	constructor ({ id, body, action, createdAt, seen }: NotificationConstructorArgs) {
+		super()
 		this.id = id
 		this.body = body
 		this.action = action

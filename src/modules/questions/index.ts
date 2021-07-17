@@ -19,11 +19,13 @@ import { AddSubjectUseCase } from './domain/usecases/subjects/addSubject'
 import { FindSubjectUseCase } from './domain/usecases/subjects/findSubject'
 import { FindQuestionUseCase } from './domain/usecases/questions/findQuestion'
 import { GetQuestionsUseCase } from './domain/usecases/questions/getQuestions'
+import { GetSimilarQuestionsUseCase } from './domain/usecases/questions/getSimilarQuestions'
 import { GetUserQuestionsUseCase } from './domain/usecases/questions/getUserQuestions'
 import { AddQuestionUseCase } from './domain/usecases/questions/addQuestion'
 import { MarkAsBestAnswerUseCase } from './domain/usecases/answers/markAsBestAnswer'
 import { ListenToQuestionUseCase } from './domain/usecases/questions/listenToQuestion'
 import { ListenToQuestionsUseCase } from './domain/usecases/questions/listenToQuestions'
+import { ListenToSimilarQuestionsUseCase } from './domain/usecases/questions/listenToSimilarQuestions'
 import { GetAnswersUseCase } from './domain/usecases/answers/getAnswers'
 import { GetUserAnswersUseCase } from './domain/usecases/answers/getUserAnswers'
 import { AddAnswerUseCase } from './domain/usecases/answers/addAnswer'
@@ -70,9 +72,11 @@ export const AddSubject = new AddSubjectUseCase(subjectRepository)
 export const FindSubject = new FindSubjectUseCase(subjectRepository)
 
 export const GetQuestions = new GetQuestionsUseCase(questionRepository)
+export const GetSimilarQuestions = new GetSimilarQuestionsUseCase(questionRepository)
 export const GetUserQuestions = new GetUserQuestionsUseCase(questionRepository)
 export const ListenToQuestion = new ListenToQuestionUseCase(questionRepository)
 export const ListenToQuestions = new ListenToQuestionsUseCase(questionRepository)
+export const ListenToSimilarQuestions = new ListenToSimilarQuestionsUseCase(questionRepository)
 export const AddQuestion = new AddQuestionUseCase(questionRepository)
 export const FindQuestion = new FindQuestionUseCase(questionRepository)
 

@@ -1,4 +1,4 @@
-import { BaseFactory } from '@modules/core/domains/factories/base'
+import { BaseFactory } from '@modules/core'
 import { isLongerThan, isMoreThan } from 'sd-validate/lib/rules'
 import { UserBio } from '@modules/users'
 import { SessionToModel } from '../../data/models/session'

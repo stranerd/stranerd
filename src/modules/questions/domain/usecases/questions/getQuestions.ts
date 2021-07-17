@@ -1,4 +1,4 @@
-import { FirestoreGetClauses } from '@modules/core/data/datasources/base'
+import { FirestoreGetClauses } from '@modules/core'
 import { PAGINATION_LIMIT } from '@utils/constants'
 import { IQuestionRepository } from '../../irepositories/iquestion'
 

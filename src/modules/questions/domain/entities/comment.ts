@@ -1,5 +1,5 @@
 import { UserBio, generateDefaultBio } from '@modules/users'
-import { BaseEntity } from '@modules/core/domains/entities/base'
+import { BaseEntity } from '@modules/core'
 
 export class CommentEntity extends BaseEntity {
 	public readonly id: string

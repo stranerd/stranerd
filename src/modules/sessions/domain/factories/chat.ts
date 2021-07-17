@@ -1,6 +1,5 @@
-import { BaseFactory } from '@modules/core/domains/factories/base'
+import { BaseFactory, Media } from '@modules/core'
 import { isLongerThan, isFile, isRequiredIf } from 'sd-validate/lib/rules'
-import { Media } from '@modules/core/data/models/base'
 import { ChatToModel } from '../../data/models/chat'
 import { ChatEntity } from '../entities/chat'
 

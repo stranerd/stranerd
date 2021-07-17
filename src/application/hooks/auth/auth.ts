@@ -1,17 +1,17 @@
-import { computed, reqSsrRef } from '@nuxtjs/composition-api'
+import { computed, reqRef } from '@nuxtjs/composition-api'
 import { FindUser, ListenToUser, UserEntity, UpdateStreak } from '@modules/users'
 import { AuthDetails, UserLocation } from '@modules/auth/domain/entities/auth'
 import { SessionSignout } from '@modules/auth'
 import { isClient } from '@utils/environment'
-import { analytics, auth } from '@modules/core/services/initFirebase'
+import { analytics, auth } from '@modules/core'
 import VueRouter from 'vue-router'
 
 const global = {
-	auth: reqSsrRef(null as AuthDetails | null),
-	user: reqSsrRef(null as UserEntity | null),
-	location: reqSsrRef(null as UserLocation | null),
+	auth: reqRef(null as AuthDetails | null),
+	user: reqRef(null as UserEntity | null),
+	location: reqRef(null as UserLocation | null),
 	listener: null as null | (() => void),
-	showProfileModal: reqSsrRef(true)
+	showProfileModal: reqRef(true)
 }
 
 export const useAuth = () => {
@@ -62,17 +62,18 @@ export const useAuth = () => {
 			if (global.auth.value?.token) await auth.signInWithCustomToken(global.auth.value.token)
 			await startProfileListener(router)
 			analytics.logEvent('login', { remembered })
-		} catch (e) { await signout() }
+		} catch (e) { await signout(router) }
 	}
 
-	const signout = async () => {
+	const signout = async (router: VueRouter) => {
 		await SessionSignout.call()
-		await setAuthUser(null, {} as VueRouter)
+		await setAuthUser(null, router)
+		await router.push('/')
 		await auth.signOut()
-		if (isClient()) window.location.assign('/')
+		if (isClient()) window.location.reload()
 	}
 
-	const getLocalCurrency = () => global.location.value?.currencyCode ?? 'USD'
+	const getLocalCurrency = () => (global.location.value?.currencyCode ?? 'USD') as keyof typeof CONVERSION_RATES
 	const getLocalCurrencySymbol = () => global.location.value?.currencySymbol ?? '$'
 
 	const getLocalAmount = (amount: number) => parseFloat(Number(amount * CONVERSION_RATES[getLocalCurrency()]).toFixed(2))
@@ -90,4 +91,4 @@ export const setShowProfileModal = (show: boolean) => global.showProfileModal.va
 export const CONVERSION_RATES = {
 	USD: 1,
 	NGN: 421
-} as Record<string, number>
+} as const

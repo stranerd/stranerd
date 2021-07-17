@@ -1,6 +1,4 @@
-import { Media } from '@modules/core/data/models/base'
-import { BaseEntity } from '@modules/core/domains/entities/base'
-
+import { Media, BaseEntity } from '@modules/core'
 export class ChatEntity extends BaseEntity {
 	readonly id: string
 	readonly content: string | undefined

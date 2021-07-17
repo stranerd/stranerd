@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { DatabaseGetClauses } from '@modules/core'
 import { ChatToModel } from '../../data/models/chat'
 import { ChatEntity } from '../entities/chat'
 import { ChatMetaEntity } from '../entities/chatMeta'

@@ -5,9 +5,11 @@ import {
 } from '../../helpers/modules/users/users'
 import { saveToAlgolia } from '../../helpers/algolia'
 import { checkRank } from '../../helpers/modules/users/ranks'
+import { deleteFromStorage } from '../../helpers/storage'
 
 export const userProfileUpdated = functions.database.ref('profiles/{userId}/bio')
 	.onUpdate(async (snap, context) => {
+		const oldBio = snap.before.val()
 		const newBio = snap.after.val()
 		const { userId } = context.params
 
@@ -20,6 +22,8 @@ export const userProfileUpdated = functions.database.ref('profiles/{userId}/bio'
 		await updateMyAnswerCommentsBio(userId, newBio)
 		await updateMySessionsBio(userId, newBio)
 		await updateMyTutorSessionsBio(userId, newBio)
+
+		if (oldBio?.avatar?.path !== newBio?.avatar?.path) await deleteFromStorage(oldBio?.avatar?.path)
 	})
 
 const path = 'profiles/{userId}/account/'

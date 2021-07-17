@@ -1,9 +1,10 @@
-import { BaseFactory } from '@modules/core/domains/factories/base'
-import { isLongerThan, isEmail, isShorterThan, isRequiredIf, isShallowEqualTo } from 'sd-validate/lib/rules'
-import { Avatar, UserBio } from '@modules/users'
+import { BaseFactory, Media } from '@modules/core'
+import { isLongerThan, isEmail, isShorterThan, isRequiredIf, isShallowEqualTo, isImage } from 'sd-validate/lib/rules'
+import { UserBio } from '@modules/users'
 import { UpdateUser } from '../entities/auth'
 
-type Keys = { first: string, last: string, email: string, description: string, avatar: Avatar | null, password: string | undefined, cPassword: string | undefined }
+type Content = File | UserBio['avatar']
+type Keys = { first: string, last: string, email: string, description: string, avatar: Content, password: string | undefined, cPassword: string | undefined }
 const isLongerThan2 = (value:string) => isLongerThan(value, 2)
 const isLongerThan5 = (value:string) => isLongerThan(value, 5)
 const isShorterThan17 = (value:string) => isShorterThan(value, 17)
@@ -13,13 +14,16 @@ export class ProfileUpdateFactory extends BaseFactory<UserBio, UpdateUser, Keys>
 		last: { required: true, rules: [isLongerThan2] },
 		email: { required: true, rules: [isEmail] },
 		description: { required: true, rules: [] },
-		avatar: { required: false, rules: [] },
+		avatar: { required: false, rules: [isImage] },
 		password: { required: false, rules: [isLongerThan5, isShorterThan17] },
 		cPassword: { required: false, rules: [(value: string) => isRequiredIf(value, !!this.password), (value: string) => isShallowEqualTo(value, this.password), isLongerThan5, isShorterThan17] }
 	}
 
 	constructor () {
-		super({ first: '', last: '', email: '', description: '', avatar: null, password: undefined, cPassword: undefined })
+		super({
+			first: '', last: '', email: '', description: '',
+			avatar: null, password: undefined, cPassword: undefined
+		})
 	}
 
 	reserved = []
@@ -33,7 +37,7 @@ export class ProfileUpdateFactory extends BaseFactory<UserBio, UpdateUser, Keys>
 	get description () { return this.values.description }
 	set description (value: string) { this.set('description', value) }
 	get avatar () { return this.values.avatar! }
-	set avatar (avatarId: Avatar | null) { this.set('avatar', avatarId) }
+	set avatar (avatar: Content) { this.set('avatar', avatar) }
 	get password () { return this.values.password! }
 	set password (value: string) { this.set('password', value); this.set('cPassword', '') }
 	get cPassword () { return this.values.cPassword! }
@@ -41,9 +45,15 @@ export class ProfileUpdateFactory extends BaseFactory<UserBio, UpdateUser, Keys>
 
 	toModel = async () => {
 		if (this.valid) {
+			if (this.avatar instanceof File) this.avatar = await this.uploadFile('profiles', this.avatar)
+
 			const { first, last, email, description, avatar, password } = this.validValues
 			return {
-				bio: { name: { first, last }, email, description, avatar },
+				bio: {
+					name: { first, last },
+					email, description,
+					avatar: avatar as Media
+				},
 				password: password!
 			}
 		} else throw new Error('Validation errors')

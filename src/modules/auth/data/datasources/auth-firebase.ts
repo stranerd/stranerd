@@ -1,6 +1,4 @@
-import firebase, { auth } from '@modules/core/services/initFirebase'
-import { AxiosInstance } from '@modules/core/services/http'
-import { DatabaseService } from '@modules/core/services/firebase'
+import { auth, AxiosInstance, firebase, DatabaseService } from '@modules/core'
 import { isDev } from '@utils/environment'
 import { AfterAuthUser, UpdateUser } from '../../domain/entities/auth'
 import { AuthBaseDataSource } from './auth-base'
@@ -21,9 +19,11 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
-	async signupWithEmail (email: string, password: string) {
+	async signupWithEmail ({ email, password, first, last }: { first: string, last: string, email: string, password: string }) {
 		try {
 			const record = await auth.createUserWithEmailAndPassword(email, password)
+			await DatabaseService.update(
+				`profiles/${record.user!.uid}/bio/name`, { first, last })
 			return await getUserDetails(record.user!)
 		} catch (error) { throw filterFirebaseError(error) }
 	}

@@ -1,4 +1,4 @@
-import { timestampToMs } from '@modules/core/data/transformers/converters/getFirestoreDate'
+import { timestampToMs } from '@modules/core'
 import { ChatFromModel, ChatMeta, ChatToModel } from '../models/chat'
 import { ChatEntity } from '../../domain/entities/chat'
 import { ChatMetaEntity } from '../../domain/entities/chatMeta'

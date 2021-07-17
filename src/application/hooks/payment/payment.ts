@@ -5,7 +5,7 @@ import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 import { getTwoDigits } from '@utils/dates'
 import { isClient, isProd, stripeConfig } from '@utils/environment'
 import { usePaymentModal } from '@app/hooks/core/modals'
-import { analytics } from '@modules/core/services/initFirebase'
+import { analytics } from '@modules/core'
 import { loadStripe } from '@stripe/stripe-js'
 import { useAuth } from '../auth/auth'
 

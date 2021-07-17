@@ -1,4 +1,4 @@
-import { FirestoreGetClauses } from '@modules/core/data/datasources/base'
+import { FirestoreGetClauses } from '@modules/core'
 import { SessionBaseDataSource } from '../datasources/session-base'
 import { SessionTransformer } from '../transformers/session'
 import { ISessionRepository } from '../../domain/irepositories/isession'

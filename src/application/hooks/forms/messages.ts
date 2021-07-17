@@ -1,9 +1,9 @@
-import { ssrRef } from '@nuxtjs/composition-api'
+import { reqRef } from '@nuxtjs/composition-api'
 import { MessageFactory, AddMessage } from '@modules/forms'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 
 export const useCreateMessage = () => {
-	const factory = ssrRef(new MessageFactory())
+	const factory = reqRef(new MessageFactory())
 	const { message, setMessage } = useSuccessHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()

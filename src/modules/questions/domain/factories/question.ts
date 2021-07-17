@@ -1,5 +1,5 @@
 import { isLongerThan, isMoreThan, isLessThan, isExtractedHTMLLongerThan, hasMoreThan, hasLessThan } from 'sd-validate/lib/rules'
-import { BaseFactory } from '@modules/core/domains/factories/base'
+import { BaseFactory } from '@modules/core'
 import { UserBio } from '@modules/users'
 import { MAXIMUM_COINS, MINIMUM_COINS } from '@utils/constants'
 import { QuestionEntity } from '../entities/question'

@@ -1,7 +1,7 @@
 import { reqRef } from '@nuxtjs/composition-api'
 import { Notify } from '@app/hooks/core/notifications'
 import { isClient } from '@utils/environment'
-import { analytics } from '@modules/core/services/initFirebase'
+import { analytics } from '@modules/core'
 
 export const useErrorHandler = () => {
 	const errorState = reqRef('')

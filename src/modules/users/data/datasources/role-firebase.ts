@@ -1,4 +1,4 @@
-import { FunctionsService } from '@modules/core/services/firebase'
+import { FunctionsService } from '@modules/core'
 import { RoleBaseDataSource } from '../datasources/role-base'
 
 export class RoleFirebaseDataSource implements RoleBaseDataSource {

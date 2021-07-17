@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { DatabaseGetClauses } from '@modules/core'
 import { ITagRepository } from '../../irepositories/itag'
 import { TagEntity } from '../../entities/tag'
 

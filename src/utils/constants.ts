@@ -13,3 +13,5 @@ export const MAXIMUM_COINS = 20
 
 const PATH_SEPARATOR = '---'
 export const getChatsPath = (path: [string, string]) => [...path].sort().join(PATH_SEPARATOR)
+
+export const DEFAULT_PROFILE_IMAGE = '/images/avatars/user_profile.svg'

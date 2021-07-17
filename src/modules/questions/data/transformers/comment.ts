@@ -1,4 +1,4 @@
-import { timestampToMs } from '@modules/core/data/transformers/converters/getFirestoreDate'
+import { timestampToMs } from '@modules/core'
 import { CommentFromModel, CommentToModel } from '../models/comment'
 import { CommentEntity } from '../../domain/entities/comment'
 

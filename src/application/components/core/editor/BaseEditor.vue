@@ -16,7 +16,7 @@
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
 import { Notify } from '@app/hooks/core/notifications'
-import { UploaderService } from '@modules/core/services/uploader'
+import { UploaderService } from '@modules/core'
 import { isClient } from '@utils/environment'
 
 let VueEditor = null

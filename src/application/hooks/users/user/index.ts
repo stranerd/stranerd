@@ -1,4 +1,4 @@
-import { Ref, ssrRef, useFetch, watch } from '@nuxtjs/composition-api'
+import { Ref, reqRef, useFetch, watch } from '@nuxtjs/composition-api'
 import { FindUser, ListenToUser, UserEntity } from '@modules/users'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
@@ -12,8 +12,8 @@ export const useUser = (userId: string) => {
 	const { id, user } = useAuth()
 
 	if (global[userId] === undefined) global[userId] = {
-		user: ssrRef(null),
-		fetched: ssrRef(false),
+		user: reqRef(null),
+		fetched: reqRef(false),
 		...useLoadingHandler(),
 		...useErrorHandler()
 	}

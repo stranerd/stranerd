@@ -1,5 +1,5 @@
-import { BaseEntity } from '@modules/core/domains/entities/base'
-import { UserBio } from '@modules/users'
+import { BaseEntity } from '@modules/core'
+import { generateDefaultBio, UserBio } from '@modules/users'
 
 export class ReportEntity extends BaseEntity {
 	readonly id: string
@@ -16,8 +16,8 @@ export class ReportEntity extends BaseEntity {
 		this.id = id
 		this.reportedId = reportedId
 		this.reporterId = reporterId
-		this.reporterBio = reporterBio
-		this.reportedBio = reportedBio
+		this.reporterBio = generateDefaultBio(reporterBio)
+		this.reportedBio = generateDefaultBio(reportedBio)
 		this.title = title
 		this.message = message
 		this.createdAt = createdAt

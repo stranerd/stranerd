@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { DatabaseGetClauses } from '@modules/core'
 import { ISubjectRepository } from '../../domain/irepositories/isubject'
 import { SubjectBaseDataSource } from '../datasources/subject-base'
 import { SubjectTransformer } from '../transformers/subject'

@@ -1,4 +1,4 @@
-import { FirestoreGetClauses } from '@modules/core/data/datasources/base'
+import { FirestoreGetClauses } from '@modules/core'
 import { AnswerToModel } from '../../data/models/answer'
 import { AnswerEntity } from '../entities/answer'
 

@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core/data/datasources/base'
+import { DatabaseGetClauses } from '@modules/core'
 import { UserFromModel, UserToModel } from '../models/user'
 
 export abstract class UserBaseDataSource {

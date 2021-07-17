@@ -60,6 +60,7 @@ import CommentForm from '@app/components/questions/comments/AnswerCommentForm.vu
 import CommentList from '@app/components/questions/comments/AnswerCommentsList.vue'
 import { formatTime } from '@utils/dates'
 import { useReportModal } from '@app/hooks/core/modals'
+import { setReportedEntity } from '@app/hooks/reports/answers'
 export default defineComponent({
 	name: 'AnswerListCard',
 	components: {
@@ -85,7 +86,10 @@ export default defineComponent({
 			set: () => {}
 		})
 		const { error, loading, rateAnswer, markBestAnswer } = useAnswer(props.answer)
-		const reportAnswer = () => useReportModal().openReportAnswer()
+		const reportAnswer = () => {
+			setReportedEntity(props.answer)
+			useReportModal().openReportAnswer()
+		}
 		return {
 			id, isLoggedIn, user, formatTime, showComments, showExplanation,
 			error, loading, rateAnswer, showRatingButton,

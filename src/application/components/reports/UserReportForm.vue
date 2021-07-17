@@ -1,17 +1,6 @@
 <template>
 	<form @submit.prevent="submit">
 		<div class="form-group mb-1">
-			<label for="title">One Line Summary</label>
-			<input
-				id="title"
-				v-model="factory.title"
-				class="form-control"
-				placeholder="Eg. I want to report this user for ..."
-				:class="{'is-invalid': factory.errors.title, 'is-valid': factory.isValid('title')}"
-			>
-			<small v-if="factory.errors.title" class="small text-danger d-block">{{ factory.errors.title }}</small>
-		</div>
-		<div class="form-group mb-1">
 			<label for="message">Message</label>
 			<textarea
 				id="message"
@@ -35,7 +24,7 @@
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { UserReportFactory } from '@modules/reports'
 export default defineComponent({
-	name: 'ReportForm',
+	name: 'UserReportForm',
 	props: {
 		factory: {
 			type: Object as PropType<UserReportFactory>,

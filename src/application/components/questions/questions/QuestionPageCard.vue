@@ -5,7 +5,7 @@
 				<NuxtLink :to="`/users/${question.userId}`">
 					<Avatar :src="question.avatar" :size="50" />
 				</NuxtLink>
-				<div class="d-flex flex-column flex-md-row gap-md-0-5 fw-bold">
+				<div class="d-flex flex-column align-items-md-center flex-md-row gap-md-0-5 fw-bold">
 					<NuxtLink class="name" :to="`/users/${question.userId}`">
 						{{ question.userName }}
 					</NuxtLink>
@@ -63,6 +63,7 @@ import { formatTime } from '@utils/dates'
 import Tag from '@app/components/questions/tags/Tag.vue'
 import Subject from '@app/components/questions/subjects/Subject.vue'
 import { useReportModal } from '@app/hooks/core/modals'
+import { setReportedEntity } from '@app/hooks/reports/questions'
 export default defineComponent({
 	name: 'QuestionPageCard',
 	components: { Tag, Subject },
@@ -79,7 +80,10 @@ export default defineComponent({
 			get: () => props.question.userId !== id.value && !props.question.isAnswered && !user.value?.meta.answeredQuestions.includes(props.question.id),
 			set: () => {}
 		})
-		const reportQuestion = () => useReportModal().openReportQuestion()
+		const reportQuestion = () => {
+			setReportedEntity(props.question)
+			useReportModal().openReportQuestion()
+		}
 		return {
 			id, formatTime, formatNumber, pluralize, showAnswerButton,
 			openAnswerModal: () => openAnswerModal(props.question, router),

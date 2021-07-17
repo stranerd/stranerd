@@ -10,7 +10,7 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useCreateReport } from '@app/hooks/reports/users'
-import ReportForm from '@app/components/forms/ReportForm.vue'
+import ReportForm from '@app/components/reports/UserReportForm.vue'
 export default defineComponent({
 	name: 'ReportUser',
 	components: { ReportForm },

@@ -15,6 +15,6 @@ export class GetNotificationsUseCase {
 		    limit: { count: PAGINATION_LIMIT + 1, bottom: true }
 	    }
 	    if (date) conditions!.order!.condition = { '<': date }
-	    return await this.repository.get(userId, { order: { field: 'dates/createdAt' } })
+	    return await this.repository.get(userId, conditions)
     }
 }

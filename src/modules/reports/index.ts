@@ -3,6 +3,7 @@ import { ReportFirebaseDataSource } from './data/datasources/report-firebase'
 import { ReportTransformer } from './data/transformers/report'
 import { ReportRepository } from './data/repositories/report'
 import { AddReportUseCase } from './domain/usecases/addReport'
+import { GetReportsUseCase } from './domain/usecases/getReports'
 import { ReportFactory } from './domain/factories/report'
 import { ReportEntity } from './domain/entities/report'
 
@@ -21,6 +22,10 @@ const answerReportRepository = new ReportRepository(answerReportDataSource, answ
 export const AddUserReport = new AddReportUseCase(userReportRepository)
 export const AddQuestionReport = new AddReportUseCase(questionReportRepository)
 export const AddAnswerReport = new AddReportUseCase(answerReportRepository)
+
+export const GetUserReports = new GetReportsUseCase(userReportRepository)
+export const GetQuestionReports = new GetReportsUseCase(questionReportRepository)
+export const GetAnswerReports = new GetReportsUseCase(answerReportRepository)
 
 export class UserReportFactory extends ReportFactory<UserBio> {}
 export class QuestionReportFactory extends ReportFactory<QuestionReportType> {}

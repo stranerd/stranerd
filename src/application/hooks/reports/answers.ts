@@ -1,9 +1,10 @@
-import { ssrRef, watch } from '@nuxtjs/composition-api'
-import { AnswerReportFactory, AddAnswerReport, AnswerReportType } from '@modules/reports'
+import { ssrRef, useFetch, watch } from '@nuxtjs/composition-api'
+import { AnswerReportFactory, AddAnswerReport, AnswerReportType, AnswerReportEntity, GetAnswerReports } from '@modules/reports'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useReportModal } from '@app/hooks/core/modals'
 import { useAuth } from '@app/hooks/auth/auth'
 import { AnswerEntity } from '@modules/questions'
+import { PAGINATION_LIMIT } from '@utils/constants'
 
 let reportedEntity = null as { id: string, reported: AnswerReportType } | null
 export const setReportedEntity = (answer: AnswerEntity) => {
@@ -47,4 +48,39 @@ export const useCreateReport = () => {
 		factory, error, loading, message,
 		createReport
 	}
+}
+
+const global = {
+	reports: ssrRef([] as AnswerReportEntity[]),
+	fetched: ssrRef(false),
+	hasMore: ssrRef(false),
+	...useErrorHandler(),
+	...useLoadingHandler()
+}
+
+const pushToReportList = (report: AnswerReportEntity) => {
+	const index = global.reports.value.findIndex((r) => r.id === report.id)
+	if (index !== -1) global.reports.value.splice(index, 1, report)
+	else global.reports.value.push(report)
+}
+
+export const useReportsList = () => {
+	const fetchReports = async () => {
+		global.setError('')
+		try {
+			global.setLoading(true)
+			const lastDate = global.reports.value[global.reports.value.length - 1]?.createdAt
+			const reports = await GetAnswerReports.call(lastDate)
+			global.hasMore.value = reports.length === PAGINATION_LIMIT + 1
+			reports.slice(0, PAGINATION_LIMIT).forEach(pushToReportList)
+			global.fetched.value = true
+		} catch (error) { global.setError(error) }
+		global.setLoading(false)
+	}
+
+	useFetch(async () => {
+		if (!global.fetched.value && !global.loading.value) await fetchReports()
+	})
+
+	return { ...global, fetchOlderReports: fetchReports }
 }

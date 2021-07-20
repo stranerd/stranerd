@@ -4,6 +4,7 @@ import { ReportTransformer } from './data/transformers/report'
 import { ReportRepository } from './data/repositories/report'
 import { AddReportUseCase } from './domain/usecases/addReport'
 import { GetReportsUseCase } from './domain/usecases/getReports'
+import { DeleteReportUseCase } from './domain/usecases/deleteReport'
 import { ReportFactory } from './domain/factories/report'
 import { ReportEntity } from './domain/entities/report'
 
@@ -26,6 +27,10 @@ export const AddAnswerReport = new AddReportUseCase(answerReportRepository)
 export const GetUserReports = new GetReportsUseCase(userReportRepository)
 export const GetQuestionReports = new GetReportsUseCase(questionReportRepository)
 export const GetAnswerReports = new GetReportsUseCase(answerReportRepository)
+
+export const DeleteUserReport = new DeleteReportUseCase(userReportRepository)
+export const DeleteQuestionReport = new DeleteReportUseCase(questionReportRepository)
+export const DeleteAnswerReport = new DeleteReportUseCase(answerReportRepository)
 
 export class UserReportFactory extends ReportFactory<UserBio> {}
 export class QuestionReportFactory extends ReportFactory<QuestionReportType> {}

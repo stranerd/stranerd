@@ -67,31 +67,30 @@ export default defineComponent({
 <style lang="scss" scoped>
 	.bl {
 		border-bottom: 1px solid $color-line;
-		@media (max-width: $sm) { border-bottom: none !important;}
+		@media (max-width: $sm) { border-bottom: none !important; }
 	}
 
 	.options {
-		@media (max-width: $md) { justify-content: center;}
+		@media (max-width: $md) { justify-content: center; }
+
 		select {
 			display: inline;
 			width: 156px;
 			border: 1px solid $color-line;
 			padding: 11px;
 			background-color: $color-tags;
-
 		}
 	}
-	.dash{
+
+	.dash {
 		width: 100%;
 		background-color: $color-line;
 		border: 1px solid $color-line;
-
 		@media (min-width: $md) { display: none; }
-
 	}
-	.questions{
-		width: 100%;
-		@media (min-width: $md) { width: 50%;}
 
+	.questions {
+		width: 100%;
+		@media (min-width: $md) { width: 50%; }
 	}
 </style>

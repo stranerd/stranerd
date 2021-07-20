@@ -33,7 +33,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 	.search-container {
 		display: flex;
-		width: clamp(200px, 50%, 550px);
 		border-radius: 12px;
 		box-shadow: -5px 5px 15px rgba($color-primary, 0.1);
 

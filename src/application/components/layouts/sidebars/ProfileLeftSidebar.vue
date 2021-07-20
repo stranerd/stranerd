@@ -1,6 +1,6 @@
 <template>
-	<div v-if="user" class="d-flex flex-column gap-2-25">
-		<div class="d-flex flex-column gap-1 box">
+	<div v-if="user" :class="['d-flex flex-column ', min ? 'bg-line gap-0-5' : 'gap-2-25']">
+		<div :class="['d-flex flex-column gap-1 bg-white' , min ? 'mini-box pb-2' : 'box']">
 			<div class="d-flex flex-column gap-1-5 align-items-center text-blue">
 				<div class="position-relative">
 					<Avatar :src="user.avatar" :size="144" />
@@ -77,7 +77,7 @@
 
 		<div
 			v-if="user.description || user.strongestSubject || user.tags.length > 0"
-			class="d-flex flex-column gap-0-5 text-dark box"
+			:class="['d-flex flex-column gap-0-5 text-dark bg-white', min ?'mini-box pt-2': 'box']"
 		>
 			<template v-if="user.description">
 				<h1 class="fw-bold">
@@ -114,6 +114,11 @@
 				</div>
 			</template>
 		</div>
+		<!--  -->
+		<div v-if="min" :class="['bg-white d-flex align-items-center justify-content-evenly', min ?'mini-box pt-2': 'box']">
+			<img :src="user.rank.image" alt="" class="img-rank">
+			<DonutChart :score="user.score <= user.expectedScore ? user.score : user.expectedScore" :total="user.expectedScore" :size="100" />
+		</div>
 	</div>
 </template>
 
@@ -130,6 +135,12 @@ import { setNewSessionTutorIdBio } from '@app/hooks/sessions/sessions'
 export default defineComponent({
 	name: 'ProfileLeftSidebar',
 	components: { Tag, Subject },
+	props: {
+		min: {
+			default: false,
+			type: Boolean
+		}
+	},
 	setup () {
 		const { id, user: authUser } = useAuth()
 		const { userId } = useRoute().value.params
@@ -151,6 +162,10 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+	.img-rank {
+		width: 6.25rem;
+	}
+
 	.pen {
 		background-color: $color-primary;
 		color: white;
@@ -180,6 +195,10 @@ export default defineComponent({
 			font-size: 1.5rem;
 			margin: 0;
 		}
+	}
+
+	.mini-box {
+		padding: 1rem;
 	}
 
 	.sidebar-btn {

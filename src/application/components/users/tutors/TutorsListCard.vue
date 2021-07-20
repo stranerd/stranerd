@@ -18,7 +18,6 @@
 					</NuxtLink>
 					<span class="rank">{{ tutor.rank.id }}</span>
 				</div>
-				<!-- TODO: Logic to request a session  -->
 				<button v-if="canRequestSession" class="btn btn-primary ms-auto" @click="requestNewSession">
 					Request A Session
 				</button>
@@ -90,7 +89,7 @@
 				</div>
 			</div>
 			<div class="d-flex flexx-row justify-content-sm-center align-items-sm-center">
-				<button class="btn-sm btn btn-primary" style="border-radius: 20px;">
+				<button v-if="canRequestSession" class="btn-sm btn btn-primary" style="border-radius: 20px;" @click="requestNewSession">
 					Request A Session
 				</button>
 			</div>

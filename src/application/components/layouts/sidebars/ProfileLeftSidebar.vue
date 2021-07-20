@@ -1,6 +1,6 @@
 <template>
-	<div v-if="user" :class="['d-flex flex-column ', min?'bg-line gap-0-5':'gap-2-25']">
-		<div :class="['d-flex flex-column gap-1 bg-white' , min?'mini-box pb-2':'box']">
+	<div v-if="user" :class="['d-flex flex-column ', min ? 'bg-line gap-0-5' : 'gap-2-25']">
+		<div :class="['d-flex flex-column gap-1 bg-white' , min ? 'mini-box pb-2' : 'box']">
 			<div class="d-flex flex-column gap-1-5 align-items-center text-blue">
 				<div class="position-relative">
 					<Avatar :src="user.avatar" :size="144" />
@@ -115,7 +115,7 @@
 			</template>
 		</div>
 		<!--  -->
-		<div v-if="min && user.id !== id" :class="['bg-white d-flex align-items-center justify-content-evenly', min ?'mini-box pt-2': 'box']">
+		<div v-if="min" :class="['bg-white d-flex align-items-center justify-content-evenly', min ?'mini-box pt-2': 'box']">
 			<img :src="user.rank.image" alt="" class="img-rank">
 			<DonutChart :score="user.score <= user.expectedScore ? user.score : user.expectedScore" :total="user.expectedScore" :size="100" />
 		</div>
@@ -197,9 +197,10 @@ export default defineComponent({
 		}
 	}
 
-	.mini-box{
+	.mini-box {
 		padding: 1rem;
 	}
+
 	.sidebar-btn {
 		border: none;
 		outline: none;

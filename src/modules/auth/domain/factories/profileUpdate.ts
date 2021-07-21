@@ -52,7 +52,7 @@ export class ProfileUpdateFactory extends BaseFactory<UserBio, UpdateUser, Keys>
 				bio: {
 					name: { first, last },
 					email, description,
-					avatar: avatar as Media
+					avatar: (avatar ?? null) as Media
 				},
 				password: password!
 			}

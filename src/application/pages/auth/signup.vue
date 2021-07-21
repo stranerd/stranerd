@@ -1,5 +1,5 @@
 <template>
-	<div class="py-md-1 px-0-5 px-md-3 px-lg-4 py-lg-1-5 d-flex flex-column flex-lg-row gap-2">
+	<div class="py-md-1 px-0-5 px-md-3 px-lg-4 py-lg-1-5 d-flex flex-column align-items-center flex-lg-row gap-2">
 		<form class="gap-2 d-flex flex-column w-100 flex-grow-1" @submit.prevent="signup">
 			<h1 class="mb-0">
 				Sign Up

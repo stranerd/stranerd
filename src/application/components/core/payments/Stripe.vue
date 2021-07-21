@@ -16,11 +16,14 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { StripeElementCard } from '@vue-stripe/vue-stripe'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useStripePayment } from '@app/hooks/payment/payment'
-import { stripeConfig } from '@utils/environment'
+import { isClient, stripeConfig } from '@utils/environment'
 import { getRandomValue } from '@utils/commons'
+
+let StripeElementCard = null
+if (isClient()) StripeElementCard = require('@vue-stripe/vue-stripe').StripeElementCard
+
 export default defineComponent({
 	name: 'Stripe',
 	components: { StripeElementCard },

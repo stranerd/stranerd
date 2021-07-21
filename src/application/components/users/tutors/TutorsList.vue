@@ -40,7 +40,7 @@ export default defineComponent({
 			flex-grow: 1;
 			color: $color-sub;
 			height: 64px;
-			border-radius: 12px 0 0 12px !important;
+			border-radius: 12px !important;
 			box-sizing: border-box;
 			padding: 0 32px;
 			border: 0;

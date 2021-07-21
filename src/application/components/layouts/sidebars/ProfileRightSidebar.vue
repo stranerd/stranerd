@@ -22,14 +22,14 @@
 		<div v-else class="d-flex flex-column gap-1 ranking">
 			<div class="d-flex flex-column gap-1 align-items-center text-blue">
 				<h1 class="ranking-header">
-					{{ user.firstName }}'s Badge
+					<DynamicText :text="user.firstName + '\'s Badge'" />
 				</h1>
 				<img :src="user.rank.image" alt="" class="img-rank">
 			</div>
 		</div>
 		<div class="d-flex flex-column gap-1 align-items-center ranking">
 			<h1 class="ranking-header">
-				{{ user.id === id ? '' : user.firstName + "'s" }} Nerd Score
+				<DynamicText :text="(user.id === id ? '' : user.firstName + '\'s') + 'Nerd Score'" />
 			</h1>
 			<DonutChart :score="user.score <= user.expectedScore ? user.score : user.expectedScore" :total="user.expectedScore" />
 			<span v-if="user.id === id && user.score" class="text-18 text-dark text-center">

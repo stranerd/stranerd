@@ -10,7 +10,9 @@
 				</div>
 
 				<div class="d-flex flex-column gap-0-25 align-items-center">
-					<h1>{{ user.fullName }}</h1>
+					<h1>
+						<DynamicText :text="user.fullName" />
+					</h1>
 					<span class="text-primary">{{ user.rank.id }}</span>
 					<div class="d-flex align-items-center gap-0-5">
 						<ShowRatings :rating="user.averageRating" />
@@ -83,7 +85,9 @@
 				<h1 class="fw-bold">
 					About Me
 				</h1>
-				<p>{{ user.description }}</p>
+				<p>
+					<DynamicText :text="user.description" />
+				</p>
 				<div class="thick mx-n1" />
 			</template>
 

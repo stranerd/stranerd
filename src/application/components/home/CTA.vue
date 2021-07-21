@@ -6,7 +6,7 @@
 			</h1>
 			<span class="paragraphStyle">
 				Leverage a large community of smart student for your academic needs
-				while make connections that would impact you for life.
+				while making connections that would impact you for life.
 			</span>
 			<NuxtLink
 				class="btn btn-lg btn-custom px-3"

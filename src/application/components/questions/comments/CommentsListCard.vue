@@ -5,10 +5,10 @@
 		</NuxtLink>
 		<div>
 			<NuxtLink :to="`/users/${comment.userId}`" class="d-block fw-bold text-wrap">
-				<span>{{ comment.userName }}</span>
+				<DynamicText :text="comment.userName" />
 			</NuxtLink>
 			<p class="mb-0">
-				{{ comment.body }}
+				<DynamicText :text="comment.body" />
 			</p>
 		</div>
 		<span class="ms-auto">

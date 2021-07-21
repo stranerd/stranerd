@@ -3,7 +3,9 @@
 		<template v-if="isLoggedIn">
 			<div class="d-flex d-lg-none flex-column gap-0-5 inner-bg">
 				<Avatar class="align-self-center" :src="user.avatar" :size="72" />
-				<span class="align-self-center text-center name">{{ user.fullName }}</span>
+				<span class="align-self-center text-center name">
+					<DynamicText :text="user.fullName" />
+				</span>
 				<NuxtLink to="/account/" class="btn btn-primary btn-lg">
 					View Profile
 				</NuxtLink>

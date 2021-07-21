@@ -1,7 +1,7 @@
 <template>
 	<div :id="answer.id" class="d-flex flex-column gap-0-5">
 		<NuxtLink class="text-18" :to="`/questions/${answer.questionId}#${answer.id}`">
-			{{ answer.trimmedBody }}
+			<DynamicText :text="answer.trimmedBody" />
 		</NuxtLink>
 		<div class="d-flex gap-0-5">
 			<span>Posted {{ formatTime(answer.createdAt) }}</span>

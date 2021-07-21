@@ -35,7 +35,9 @@
 					class="p-0-5 d-flex gap-0-5 cursor-pointer btn-dark rounded-3"
 					@click="removeTag(tag)"
 				>
-					<span class="text-white">{{ tag }}</span>
+					<span class="text-white">
+						<DynamicText :text="tag" />
+					</span>
 					<span class="text-danger">&times;</span>
 				</span>
 			</p>

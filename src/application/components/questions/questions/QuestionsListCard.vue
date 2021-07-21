@@ -24,7 +24,7 @@
 		</div>
 
 		<NuxtLink class="question-body" :to="`/questions/${question.id}`">
-			{{ question.trimmedBody }}
+			<DynamicText :text="question.trimmedBody" />
 		</NuxtLink>
 
 		<div class="d-flex flex-wrap align-items-center justify-content-between gap-1 gap-md-2">

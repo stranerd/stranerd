@@ -27,7 +27,7 @@ jobs:
           PROJECT_ID: ${{ secrets.GCLOUD_PROJECT }}
           APPLICATION_CREDENTIALS: ${{ secrets.GCLOUD_AUTH }}
         with:
-          args: "app deploy --quiet --no-cache"
+          args: "app deploy --quiet"
   publish-fb:
     environment: staging
     runs-on: ubuntu-latest

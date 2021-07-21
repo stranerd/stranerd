@@ -29,7 +29,7 @@
 		</div>
 		<div class="d-flex flex-column gap-1 align-items-center ranking">
 			<h1 class="ranking-header">
-				<DynamicText :text="(user.id === id ? '' : user.firstName + '\'s') + 'Nerd Score'" />
+				<DynamicText :text="(user.id === id ? 'My' : user.firstName + '\'s') + ' Nerd Score'" />
 			</h1>
 			<DonutChart :score="user.score <= user.expectedScore ? user.score : user.expectedScore" :total="user.expectedScore" />
 			<span v-if="user.id === id && user.score" class="text-18 text-dark text-center">

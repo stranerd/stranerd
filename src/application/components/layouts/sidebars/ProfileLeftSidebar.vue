@@ -13,7 +13,9 @@
 					<h1>
 						<DynamicText :text="user.fullName" />
 					</h1>
-					<span class="text-primary">{{ user.rank.id }}</span>
+					<NuxtLink to="/users/ranks" class="text-primary">
+						{{ user.rank.id }}
+					</NuxtLink>
 					<div class="d-flex align-items-center gap-0-5">
 						<ShowRatings :rating="user.averageRating" />
 						<span>{{ formatNumber(user.ratingCount) }} {{ pluralize(user.ratingCount, 'review', 'reviews') }}</span>

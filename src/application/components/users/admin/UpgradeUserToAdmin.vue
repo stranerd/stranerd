@@ -22,10 +22,10 @@
 			<div v-for="user in users" :key="user.hash" class="d-flex flex-wrap justify-content-between gap-0-5 align-items-center">
 				<div class="text-truncate">
 					<p class="lead mb-0 text-wrap">
-						{{ user.fullName }}
+						<DynamicText :text="user.fullName" />
 					</p>
 					<p class="small mb-0 text-wrap">
-						{{ user.email }}
+						<DynamicText :text="user.email" />
 					</p>
 				</div>
 				<span v-if="user.roles.isAdmin" class="text-danger">

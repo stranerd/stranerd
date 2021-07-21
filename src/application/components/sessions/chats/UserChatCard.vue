@@ -3,13 +3,15 @@
 		<Avatar :src="meta.bio.avatar" :size="64" />
 		<div class="flex-grow-1 text-truncate">
 			<div class="d-flex justify-content-between align-items-center gap-0-5">
-				<span class="name d-inline-block text-truncate">{{ meta.bio.name.fullName }}</span>
+				<span class="name d-inline-block text-truncate">
+					<DynamicText :text="meta.bio.name.fullName" />
+				</span>
 				<span>{{ formatTime(meta.last.createdAt, true) }}</span>
 			</div>
 			<div class="d-flex align-items-center text-truncate gap-0-25">
 				<i v-if="meta.last.isMedia" class="fas fa-paperclip" />
 				<span :class="{ 'unread': meta.unRead.length > 0 }">
-					{{ meta.last.isMedia ? meta.last.media.name : meta.last.content }}
+					<DynamicText :text="meta.last.isMedia ? meta.last.media.name : meta.last.content" />
 				</span>
 			</div>
 		</div>

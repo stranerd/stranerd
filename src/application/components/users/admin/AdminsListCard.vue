@@ -2,7 +2,7 @@
 	<div :id="admin.id" class="wrapper p-1">
 		<div class="d-flex align-items-center gap-1">
 			<div class="name-custom">
-				{{ admin.fullName }}
+				<DynamicText :text="admin.fullName" />
 			</div>
 			<a style="font-size: 14px;" class="text-danger ms-auto" @click.prevent="deAdminUser(admin)">
 				Remove admin

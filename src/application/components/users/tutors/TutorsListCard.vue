@@ -14,7 +14,7 @@
 				</span>
 				<div class="d-flex align-items-start flex-column ms-0-5">
 					<NuxtLink :to="`/users/${tutor.id}`" class="name">
-						{{ tutor.fullName }}
+						<DynamicText :text="tutor.fullName" />
 					</NuxtLink>
 					<span class="rank">{{ tutor.rank.id }}</span>
 				</div>
@@ -58,7 +58,7 @@
 				</div>
 				<div class="d-flex align-items-center flex-column">
 					<NuxtLink :to="`/users/${tutor.id}`" class="name" style="font-size: 19px;">
-						{{ tutor.fullName }}
+						<DynamicText :text="tutor.fullName" />
 					</NuxtLink>
 					<div class="rank">
 						{{ tutor.rank.id }}

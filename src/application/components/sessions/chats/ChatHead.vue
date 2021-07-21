@@ -5,7 +5,7 @@
 		</NuxtLink>
 		<div class="me-auto">
 			<NuxtLink :to="`/users/${user.id}`" class="text-wrap username">
-				{{ user.fullName }}
+				<DynamicText :text="user.fullName" />
 			</NuxtLink>
 			<span class="small">{{ user.isOnline ? 'Active now' : time }}</span>
 		</div>

@@ -1,6 +1,6 @@
 <template>
 	<div class="d-flex gap-1 align-items-center bg-white p-0-25">
-		Waiting for {{ session.tutorBio.name.fullName }} to accept session
+		Waiting for <DynamicText :text="session.tutorBio.name.fullName" /> to accept session
 	</div>
 </template>
 

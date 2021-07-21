@@ -1,6 +1,6 @@
 <template>
 	<div class="d-flex flex-column align-items-center gap-0-5 p-2">
-		<h1>{{ user.firstName }}'s Balance</h1>
+		<h1><DynamicText :text="user.firstName" />'s Balance</h1>
 		<NuxtLink class="d-block w-92" to="/account/e-wallet">
 			<AccountCoinBalance class="justify-content-center" :user="user" />
 		</NuxtLink>

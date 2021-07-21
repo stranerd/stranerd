@@ -2,7 +2,9 @@
 	<div class="notification gap-0-5">
 		<PageLoading v-if="loading" />
 		<span class="main cursor-pointer" @click.prevent="click">
-			<span :class="{'fw-bold': !notification.seen}">{{ notification.body }}</span>
+			<span :class="{'fw-bold': !notification.seen}">
+				<DynamicText :text="notification.body" />
+			</span>
 		</span>
 		<span class="sub">{{ formatTime(notification.createdAt) }}</span>
 	</div>

@@ -3,7 +3,7 @@ import { isLongerThan, isEmail, isShorterThan, isRequiredIf, isShallowEqualTo, i
 import { UserBio } from '@modules/users'
 import { UpdateUser } from '../entities/auth'
 
-type Content = File | UserBio['avatar']
+type Content = File | Media | undefined
 type Keys = { first: string, last: string, email: string, description: string, avatar: Content, password: string | undefined, cPassword: string | undefined }
 const isLongerThan2 = (value:string) => isLongerThan(value, 2)
 const isLongerThan5 = (value:string) => isLongerThan(value, 5)
@@ -22,7 +22,7 @@ export class ProfileUpdateFactory extends BaseFactory<UserBio, UpdateUser, Keys>
 	constructor () {
 		super({
 			first: '', last: '', email: '', description: '',
-			avatar: null, password: undefined, cPassword: undefined
+			avatar: undefined, password: undefined, cPassword: undefined
 		})
 	}
 
@@ -52,7 +52,7 @@ export class ProfileUpdateFactory extends BaseFactory<UserBio, UpdateUser, Keys>
 				bio: {
 					name: { first, last },
 					email, description,
-					avatar: avatar as Media
+					avatar: (avatar ?? null) as Media
 				},
 				password: password!
 			}
@@ -64,6 +64,6 @@ export class ProfileUpdateFactory extends BaseFactory<UserBio, UpdateUser, Keys>
 		this.last = bio.name.last
 		this.email = bio.email
 		this.description = bio.description
-		this.avatar = bio.avatar
+		this.avatar = bio.avatar ?? undefined
 	}
 }

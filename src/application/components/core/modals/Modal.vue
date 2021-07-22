@@ -1,14 +1,14 @@
 <template>
 	<ModalRoot :close="closeModal" :close-on-background="closeOnBackground" background-class="modal-background" modal-class="modal-inner">
-		<div class="d-flex justify-content-end mb-2">
-			<a class="fas fa-times" style="font-size: 2rem;" @click.prevent="closeModal" />
+		<div class="d-flex justify-content-end">
+			<a class="fas fa-times" style="font-size: 1.5rem;" @click.prevent="closeModal" />
 		</div>
 		<h3 class="my-1">
 			<slot name="title">
 				Title
 			</slot>
 		</h3>
-		<hr v-if="showSeparator">
+		<hr v-if="!hideSeparator">
 		<slot>
 			<p>This is the default content of the modal</p>
 		</slot>
@@ -32,10 +32,10 @@ export default defineComponent({
 			required: false,
 			default: () => {}
 		},
-		showSeparator: {
+		hideSeparator: {
 			type: Boolean,
 			required: false,
-			default: true
+			default: false
 		},
 		closeOnBackground: {
 			type: Boolean,

@@ -32,8 +32,7 @@
 				<Share :title="answer.title" :text="answer.strippedBody" :link="`/questions/${answer.questionId}#${answer.id}`">
 					<i class="fas fa-reply" />
 				</Share>
-				<!-- TODO: add report answer functionality -->
-				<span>
+				<span v-if="answer.userId !== id" @click="reportAnswer">
 					<i class="fas fa-flag" />
 				</span>
 			</div>
@@ -60,6 +59,8 @@ import { useAuth } from '@app/hooks/auth/auth'
 import CommentForm from '@app/components/questions/comments/AnswerCommentForm.vue'
 import CommentList from '@app/components/questions/comments/AnswerCommentsList.vue'
 import { formatTime } from '@utils/dates'
+import { useReportModal } from '@app/hooks/core/modals'
+import { setReportedEntity } from '@app/hooks/reports/answers'
 export default defineComponent({
 	name: 'AnswerListCard',
 	components: {
@@ -85,10 +86,15 @@ export default defineComponent({
 			set: () => {}
 		})
 		const { error, loading, rateAnswer, markBestAnswer } = useAnswer(props.answer)
+		const reportAnswer = () => {
+			setReportedEntity(props.answer)
+			useReportModal().openReportAnswer()
+		}
 		return {
 			id, isLoggedIn, user, formatTime, showComments, showExplanation,
 			error, loading, rateAnswer, showRatingButton,
-			markBestAnswer: () => markBestAnswer(props.question)
+			markBestAnswer: () => markBestAnswer(props.question),
+			reportAnswer
 		}
 	}
 })

@@ -13,8 +13,8 @@ export class ListenToNotificationsUseCase {
 	    const conditions: DatabaseGetClauses = {
 		    order: { field: 'dates/createdAt' }
 	    }
-	    if (date) conditions!.order!.condition = { '<': date }
+	    if (date) conditions!.order!.condition = { '>': date }
 	    const cb = (entities: NotificationEntity[]) => callback(entities)
-	    return await this.repository.listen(userId, cb, { order: { field: 'dates/createdAt' } })
+	    return await this.repository.listen(userId, cb, conditions)
     }
 }

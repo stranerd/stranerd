@@ -1,4 +1,4 @@
-import { computed, Ref, ref, reqRef, useRouter, watch } from '@nuxtjs/composition-api'
+import { computed, Ref, ref, ssrRef, useRouter, watch } from '@nuxtjs/composition-api'
 import { AddSession, BeginSession, CancelSession, SessionFactory } from '@modules/sessions'
 import { UserBio } from '@modules/users'
 import { RateTutor } from '@modules/meta'
@@ -114,8 +114,8 @@ export const setOtherParticipantId = (id: string) => { otherParticipantId = id }
 export const useRateSession = () => {
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
-	const rating = reqRef(0)
-	const review = reqRef('')
+	const rating = ssrRef(0)
+	const review = ssrRef('')
 
 	const rateSession = async () => {
 		if (!otherParticipantId) return

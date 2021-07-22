@@ -1,26 +1,36 @@
 <template>
-	<div>
-		<div v-if="user && user.canHostSessions" class="page-content">
-			<LobbySessionsList />
-		</div>
-		<div class="page-content">
-			<RequestSessionsList />
+	<div class="flex-grow-1 d-flex gap-0-25">
+		<ContactList class="contact-list" />
+		<div class="contact-messages">
+			<span>Select a contact to message</span>
 		</div>
 	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import RequestSessionsList from '@app/components/sessions/sessions/RequestSessionsList.vue'
-import LobbySessionsList from '@app/components/sessions/sessions/LobbySessionsList.vue'
-import { useAuth } from '@app/hooks/auth/auth'
+import ContactList from '@app/components/sessions/chats/ContactList.vue'
 export default defineComponent({
 	name: 'SessionsPage',
-	components: { RequestSessionsList, LobbySessionsList },
-	middleware: ['isAuthenticated'],
-	setup () {
-		const { user } = useAuth()
-		return { user }
-	}
+	components: { ContactList },
+	layout: 'chat',
+	middleware: ['isAuthenticated']
 })
 </script>
+
+<style lang="scss" scoped>
+	.contact-messages {
+		background: $color-white;
+		display: none;
+		justify-content: center;
+		align-items: center;
+		width: 68%;
+		flex-grow: 1;
+		@media (min-width: $lg) { display: flex; }
+	}
+
+	.contact-list {
+		width: 32%;
+		flex-grow: 1;
+	}
+</style>

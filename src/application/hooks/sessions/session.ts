@@ -1,11 +1,10 @@
-import { computed, Ref, reqRef, useFetch, useRouter, watch } from '@nuxtjs/composition-api'
+import { computed, Ref, ssrRef, useFetch, useRouter, watch } from '@nuxtjs/composition-api'
 import { useListener, useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 import { GetSession, GetSessions, ListenToSession, ListenToSessions, SessionEntity } from '@modules/sessions'
 import { useAuth } from '@app/hooks/auth/auth'
-import { Notify } from '../core/notifications'
 
 const currentGlobal = {
-	currentSession: reqRef(null as SessionEntity | null),
+	currentSession: ssrRef(null as SessionEntity | null),
 	listener: useListener(async () => () => {})
 }
 
@@ -31,7 +30,7 @@ export const useCurrentSession = () => {
 			if (session) {
 				currentGlobal.currentSession.value = session
 				const id = userId === session.tutorId ? session.tutorId : session.studentId
-				await router.push(`/messages/${id}`)
+				await router.push(`/sessions/${id}`)
 			}
 		}
 	}
@@ -61,21 +60,20 @@ export const useCurrentSession = () => {
 	return { ...currentGlobal, otherParticipantId, endDate }
 }
 
-const useSession = (key: SessionKey, callback: (key: SessionKey, sessions: SessionEntity[], id: string) => void) => {
-	const { user, id } = useAuth()
+const useSession = (key: SessionKey) => {
+	const { user } = useAuth()
 	const listenerCb = async () => {
 		const sessionIds = Object.keys(user.value?.session?.[key] ?? {})
 		if (sessionIds.length === 0) return () => {}
 		const cb = (sessions: SessionEntity[]) => {
-			callback(key, sessions, id.value!)
 			global[key].sessions.value = sessions
 		}
 		return ListenToSessions.call(sessionIds, cb)
 	}
 
 	if (global[key] === undefined) global[key] = {
-		sessions: reqRef([]),
-		fetched: reqRef(false),
+		sessions: ssrRef([]),
+		fetched: ssrRef(false),
 		...useErrorHandler(),
 		...useLoadingHandler(),
 		listener: useListener(listenerCb)
@@ -88,7 +86,6 @@ const useSession = (key: SessionKey, callback: (key: SessionKey, sessions: Sessi
 		try {
 			global[key].setLoading(true)
 			const sessions = await GetSessions.call(sessionIds)
-			callback(key, sessions, id.value!)
 			global[key].sessions.value = sessions
 			global[key].fetched.value = true
 		} catch (error) { global[key].setError(error) }
@@ -106,51 +103,17 @@ const useSession = (key: SessionKey, callback: (key: SessionKey, sessions: Sessi
 	return { ...global[key] }
 }
 
-const callback = (key: SessionKey, sessions: SessionEntity[], id: string) => {
-	sessions
-		.map((session) => {
-			const index = global[key].sessions.value.findIndex((s) => s.id === session.id)
-			return index === -1 ? session : null
-		}) // check if the session has been fetched before
-		.filter((session) => !!session) // remove fetched sessions
-		.map((session) => getSessionState(id, session!)) // get session state
-		.filter((state, index, self) => self.indexOf(state) === index) // filter down to unique states
-		.forEach(async (state) => { // send notification
-			let title = ''
-			if (state === SessionState.NewSessionRequest) title = 'New Session Request'
-			else if (state === SessionState.TutorAccepted) title = 'Your session request was accepted'
-			else if (state === SessionState.TutorCancelled) title = 'Your session request was rejected'
-			else if (state === SessionState.StudentCancelled) title = 'Your current session was just cancelled'
-			else if (state === SessionState.BusyCancelled) title = 'Your session request was rejected'
-			if (title) await Notify({ title, icon: 'info' })
-		})
-}
-
-export const useRequestSessions = () => useSession('requests', callback)
-export const useLobbySessions = () => useSession('lobby', callback)
+export const useRequestSessions = () => useSession('requests')
+export const useLobbySessions = () => useSession('lobby')
 
 type SessionKey = 'requests' | 'lobby'
 
-enum SessionState {
-	NewSessionRequest = 100,
-	TutorAccepted = 201,
-	TutorCancelled = 202,
-	StudentCancelled = 203,
-	BusyCancelled = 204,
-	Unknown = 300
-}
+export const isRequestingSessionWith = (userId: string) => computed({
+	get: () => global.requests?.sessions?.value?.find((s) => s.tutorId === userId) ?? null,
+	set: () => {}
+})
 
-const getSessionState = (id: string, session: SessionEntity) :SessionState => {
-	const newSessionRequest = session.tutorId === id && !session.accepted && !session.cancelled.tutor && !session.cancelled.student && !session.cancelled.busy
-	const tutorAcceptedSession = session.studentId === id && session.accepted && !session.cancelled.tutor && !session.cancelled.student && !session.cancelled.busy
-	const tutorCancelledSession = session.studentId === id && session.cancelled.tutor && !session.cancelled.student && !session.cancelled.busy
-	const studentCancelledSession = session.tutorId === id && session.cancelled.student && !session.cancelled.tutor && !session.cancelled.busy
-	const busyCancelledSession = session.studentId === id && !session.cancelled.tutor && !session.cancelled.student && session.cancelled.busy
-
-	if (newSessionRequest) return SessionState.NewSessionRequest
-	if (tutorAcceptedSession) return SessionState.TutorAccepted
-	if (tutorCancelledSession) return SessionState.TutorCancelled
-	if (studentCancelledSession) return SessionState.StudentCancelled
-	if (busyCancelledSession) return SessionState.BusyCancelled
-	return SessionState.Unknown
-}
+export const hasRequestedSessionWith = (userId: string) => computed({
+	get: () => global.lobby?.sessions?.value?.find((s) => s.studentId === userId) ?? null,
+	set: () => {}
+})

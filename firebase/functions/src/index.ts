@@ -28,7 +28,6 @@ import { questionCreated, questionDeleted } from './modules/questions/questions'
 import { answerCreated, answerDeleted, answerRated } from './modules/questions/answers'
 
 import { messageCreated } from './modules/forms/messages'
-import { reportCreated } from './modules/forms/reports'
 
 admin.initializeApp()
 
@@ -62,7 +61,7 @@ export { questionCommentCreated, questionCommentDeleted, answerCommentCreated, a
 
 // Forms Module
 // Message
-export { messageCreated, reportCreated }
+export { messageCreated }
 
 // On Call
 // Roles

@@ -18,8 +18,7 @@
 					</NuxtLink>
 					<span class="rank">{{ tutor.rank.id }}</span>
 				</div>
-				<!-- TODO: Logic to request a session  -->
-				<button class="btn btn-primary ms-auto">
+				<button v-if="canRequestSession" class="btn btn-primary ms-auto" @click="requestNewSession">
 					Request A Session
 				</button>
 			</div>
@@ -90,7 +89,7 @@
 				</div>
 			</div>
 			<div class="d-flex flexx-row justify-content-sm-center align-items-sm-center">
-				<button class="btn-sm btn btn-primary" style="border-radius: 20px;">
+				<button v-if="canRequestSession" class="btn-sm btn btn-primary" style="border-radius: 20px;" @click="requestNewSession">
 					Request A Session
 				</button>
 			</div>
@@ -100,11 +99,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from '@nuxtjs/composition-api'
+import { computed, defineComponent, PropType } from '@nuxtjs/composition-api'
 import { UserEntity } from '@modules/users'
 import { formatNumber, pluralize } from '@utils/commons'
 import Tag from '@app/components/questions/tags/Tag.vue'
 import Subject from '@app/components/questions/subjects/Subject.vue'
+import { useAuth } from '@app/hooks/auth/auth'
+import { useSessionModal } from '@app/hooks/core/modals'
+import { setNewSessionTutorIdBio } from '@app/hooks/sessions/sessions'
 export default defineComponent({
 	name: 'TutorsListCard',
 	components: { Tag, Subject },
@@ -114,8 +116,20 @@ export default defineComponent({
 			required: true
 		}
 	},
-	setup () {
-		return { formatNumber, pluralize }
+	setup (props) {
+		const { user } = useAuth()
+		const canRequestSession = computed({
+			get: () => user.value &&
+				user.value.id !== props.tutor.id &&
+				user.value.canRequestSessions &&
+				props.tutor.canHostSessions,
+			set: () => {}
+		})
+		const requestNewSession = () => {
+			setNewSessionTutorIdBio({ id: props.tutor.id!, user: props.tutor.bio })
+			useSessionModal().openCreateSession()
+		}
+		return { formatNumber, pluralize, canRequestSession, requestNewSession }
 	}
 })
 </script>

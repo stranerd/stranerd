@@ -16,7 +16,7 @@
 				<span>E-Wallet</span>
 			</NuxtLink>
 		</div>
-		<div class="sidebar-links px-1 px-md-3 gap-1">
+		<div class="sidebar-links px-1-5 gap-1">
 			<button v-if="isLoggedIn" class="sidebar-btn btn" @click="buy">
 				<span>Buy Coins</span>
 			</button>

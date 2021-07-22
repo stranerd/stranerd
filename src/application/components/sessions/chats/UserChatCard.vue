@@ -1,5 +1,5 @@
 <template>
-	<NuxtLink :to="`/messages/${meta.id}`" class="gap-0-5">
+	<NuxtLink :to="`/sessions/${meta.id}`" class="gap-0-5">
 		<Avatar :src="meta.bio.avatar" :size="64" />
 		<div class="flex-grow-1 text-truncate">
 			<div class="d-flex justify-content-between align-items-center gap-0-5">

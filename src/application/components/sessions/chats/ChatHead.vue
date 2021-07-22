@@ -1,5 +1,5 @@
 <template>
-	<div class="d-flex py-0-5 px-2 gap-1 align-items-center position-relative bg-line bor-rad">
+	<div class="d-flex py-0-5 px-2 gap-1 align-items-center position-relative bg-line">
 		<NuxtLink :to="`/users/${user.id}`">
 			<Avatar :src="user.avatar" :size="63" />
 		</NuxtLink>
@@ -31,10 +31,10 @@ import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, ref } 
 import { UserEntity } from '@modules/users'
 import { useCountdown, useTimeDifference } from '@app/hooks/core/dates'
 import { setNewSessionTutorIdBio, useSession, setOtherParticipantId } from '@app/hooks/sessions/sessions'
-import { useAccountModal, useSessionModal } from '@app/hooks/core/modals'
+import { useReportModal, useSessionModal } from '@app/hooks/core/modals'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useCurrentSession } from '@app/hooks/sessions/session'
-import { setReportedBioAndId } from '@app/hooks/forms/reports'
+import { setReportedEntity } from '@app/hooks/reports/users'
 import { analytics } from '@modules/core'
 export default defineComponent({
 	name: 'ChatHead',
@@ -88,8 +88,8 @@ export default defineComponent({
 			})
 		}
 		const reportUser = () => {
-			setReportedBioAndId({ id: props.user.id, bio: props.user.bio })
-			useAccountModal().openReportUser()
+			setReportedEntity(props.user)
+			useReportModal().openReportUser()
 			show.value = false
 		}
 		if (otherParticipantId.value) setOtherParticipantId(otherParticipantId.value)
@@ -159,11 +159,6 @@ export default defineComponent({
 		}
 
 		animation: slide-down 0.1s;
-	}
-
-	.bor-rad {
-		border-radius: 12px 12px 0 0;
-		@media (min-width: $lg) { border-radius: 0 12px 0 0; }
 	}
 
 	@keyframes slide-down {

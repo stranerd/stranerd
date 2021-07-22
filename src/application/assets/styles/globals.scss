@@ -27,8 +27,8 @@ $xl: 1600px;
 $grid-breakpoints: (
 	xs: $xs,
 	sm: $sm,
-	md: $md,
 	mmd: $mmd,
+	md: $md,
 	lg: $lg,
 	xl: $xl
 );
@@ -74,6 +74,7 @@ $spacers: ();
 }
 
 $border-radius-lg: 0.5rem;
+$body-max-width: 1920px;
 
 @function vh($quantity) {
 	@return calc(var(--vh, 1vh) * #{$quantity});

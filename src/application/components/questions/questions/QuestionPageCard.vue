@@ -1,32 +1,20 @@
 <template>
-	<div class="d-flex flex-column pb-1 pb-lg-2 gap-lg-2 ">
+	<div class="d-flex flex-column gap-1 gap-lg-2 pb-1 border-bottom border-line">
 		<div class="question-head d-flex flex-row flex-wrap align-items-center">
-			<div class="d-flex align-items-center px-0 pb-1 d-md-inline-block d-none">
-				<NuxtLink :to="`/users/${question.userId}`" style="margin-right: 3px;">
-					<Avatar :src="question.avatar" :size="38" />
+			<div class="d-flex align-items-center gap-0-5">
+				<NuxtLink :to="`/users/${question.userId}`">
+					<Avatar :src="question.avatar" :size="50" />
 				</NuxtLink>
-				<NuxtLink class="name" :to="`/users/${question.userId}`">
-					{{ question.userName }}
-				</NuxtLink>
-				<div class="dot" />
-				<Subject :subject-id="question.subjectId" class="subject" />
-			</div>
-			<!-- smaller screens -->
-			<div class="d-flex px-0 pb-1 flex-row d-md-none align-items-center">
-				<NuxtLink :to="`/users/${question.userId}`" style="margin-right: 3px;">
-					<Avatar :src="question.avatar" :size="38" />
-				</NuxtLink>
-				<div class="ms-1 d-flex flex-column justify-content-center header">
+				<div class="d-flex flex-column align-items-md-center flex-md-row gap-md-0-5 fw-bold">
 					<NuxtLink class="name" :to="`/users/${question.userId}`">
 						{{ question.userName }}
 					</NuxtLink>
-					<div>
-						<Subject :subject-id="question.subjectId" class="subject" />
-					</div>
+					<div class="dot d-none d-md-inline" />
+					<Subject :subject-id="question.subjectId" class="subject" />
 				</div>
 			</div>
-			<!-- ends -->
-			<div class="d-flex align-items-center px-0 pb-1 flex-row-reverse ml-auto">
+
+			<div class="d-flex align-items-center flex-row-reverse ml-auto">
 				<template v-if="question.isAnswered">
 					<img src="@app/assets/images/icons/profile-best-answers.svg" alt="" style="width: 2rem; height: 2rem;">
 				</template>
@@ -47,28 +35,19 @@
 
 		<div class="question-body editor-body" v-html="question.body" />
 
-		<div class="d-flex align-items-center flex-row flex-wrap border-bottom bl mb-1 mt-1">
-			<div class="col-12 px-0 py-0 d-md-none d-block d-flex flex-row">
-				<div>
-					<span class="name pe-1">Posted {{ formatTime(question.createdAt) }}</span>
-				</div>
-				<div style="margin-left: auto;">
-					<i class="fas fa-flag icons" />
-				</div>
+		<div class="d-flex align-items-center flex-row flex-wrap gap-1">
+			<span class="name me-auto">Posted {{ formatTime(question.createdAt) }}</span>
+			<div class="d-flex align-items-center gap-0-5 mx-auto gap-md-1">
+				<Tag v-for="tag in question.tags" :key="tag" :tag="tag" />
 			</div>
-			<span class="name pe-1 d-md-inline-block d-none">Posted {{ formatTime(question.createdAt) }}</span>
-			<div class="d-flex align-items-center py-1">
-				<span v-for="tag in question.tags" :key="tag" class="smallPadding">
-					<Tag :tag="tag" />
-				</span>
-			</div>
-			<div class="ms-auto d-flex align-items-center gap-1  d-md-inline-block d-none">
-				<span class="d-none align-items-center gap-0-5">
+			<div class="ms-auto d-flex align-items-center gap-1">
+				<span class="d-flex align-items-center gap-0-5">
 					<img src="@app/assets/images/icons/answers.svg" alt="" class="icons">
 					<span>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</span>
 				</span>
-				<!-- TODO: add report question functionality -->
-				<i class="fas fa-flag icons" />
+				<span v-if="question.userId !== id" @click="reportQuestion">
+					<i class="fas fa-flag icons" />
+				</span>
 			</div>
 		</div>
 	</div>
@@ -83,6 +62,8 @@ import { formatNumber, pluralize } from '@utils/commons'
 import { formatTime } from '@utils/dates'
 import Tag from '@app/components/questions/tags/Tag.vue'
 import Subject from '@app/components/questions/subjects/Subject.vue'
+import { useReportModal } from '@app/hooks/core/modals'
+import { setReportedEntity } from '@app/hooks/reports/questions'
 export default defineComponent({
 	name: 'QuestionPageCard',
 	components: { Tag, Subject },
@@ -99,19 +80,20 @@ export default defineComponent({
 			get: () => props.question.userId !== id.value && !props.question.isAnswered && !user.value?.meta.answeredQuestions.includes(props.question.id),
 			set: () => {}
 		})
+		const reportQuestion = () => {
+			setReportedEntity(props.question)
+			useReportModal().openReportQuestion()
+		}
 		return {
 			id, formatTime, formatNumber, pluralize, showAnswerButton,
-			openAnswerModal: () => openAnswerModal(props.question, router)
+			openAnswerModal: () => openAnswerModal(props.question, router),
+			reportQuestion
 		}
 	}
 })
 </script>
 
 <style lang="scss" scoped>
-	.bl {
-		border-bottom: 1px solid $color-line;
-	}
-
 	.question-body {
 		font-size: 20px;
 	}
@@ -166,13 +148,5 @@ export default defineComponent({
 
 	.ml-auto {
 		margin-left: auto;
-	}
-
-	.smallPadding {
-		padding-left: 4px;
-	}
-
-	.header {
-		font-weight: bold;
 	}
 </style>

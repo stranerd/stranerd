@@ -1,4 +1,4 @@
-import { Ref, reqRef, useFetch } from '@nuxtjs/composition-api'
+import { Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import { GetReviews, ReviewEntity } from '@modules/users'
 import { PAGINATION_LIMIT } from '@utils/constants'
 import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
@@ -17,9 +17,9 @@ const pushToReviewList = (id: string, review: ReviewEntity) => {
 
 export const useUserReviewList = (id: string) => {
 	if (!global[id]) global[id] = {
-		reviews: reqRef([]),
-		fetched: reqRef(false),
-		hasMore: reqRef(false),
+		reviews: ssrRef([]),
+		fetched: ssrRef(false),
+		hasMore: ssrRef(false),
 		...useErrorHandler(),
 		...useLoadingHandler()
 	}

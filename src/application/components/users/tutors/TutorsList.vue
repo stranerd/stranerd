@@ -2,13 +2,9 @@
 	<div>
 		<div class="d-flex flex-column align-items-center">
 			<h1>Find Top Nerds to have One-On-One Chat Sessions with, for help with your homework and study problems.</h1>
-			<div class="col-md-8 search-container col-12 mt-2 mb-md-4 mb-1">
-				<SelectSubject subject-id.sync="" />
-				<button class="btn btn-primary px-2 py-1">
-					Search
-				</button>
+			<div class="search-container mt-2 mb-4">
+				<SelectSubject :subject-id.sync="subjectId" />
 			</div>
-			<!-- TODO: Implement tutor filtering logic -->
 		</div>
 		<TutorsListCard v-for="tutor in tutors" :key="tutor.hash" :tutor="tutor" />
 		<DisplayWarning v-if="!loading && !error && tutors.length === 0" message="No nerds found." />
@@ -26,7 +22,7 @@ export default defineComponent({
 	name: 'TutorsList',
 	components: { TutorsListCard, SelectSubject },
 	setup () {
-		const { subjectId, tutors, listener, loading, error } = useTutorsList()
+		const { subjectId, filteredTutors: tutors, listener, loading, error } = useTutorsList()
 		onMounted(listener.startListener)
 		onBeforeUnmount(listener.closeListener)
 		return { subjectId, tutors, loading, error }
@@ -44,7 +40,7 @@ export default defineComponent({
 			flex-grow: 1;
 			color: $color-sub;
 			height: 64px;
-			border-radius: 12px 0 0 12px !important;
+			border-radius: 12px !important;
 			box-sizing: border-box;
 			padding: 0 32px;
 			border: 0;
@@ -53,8 +49,6 @@ export default defineComponent({
 			outline: 0 !important;
 			-webkit-appearance: none;
 		}
-
-		button { border-radius: 0 12px 12px 0; }
 	}
 
 	h1 {

@@ -1,10 +1,10 @@
-import { reqRef } from '@nuxtjs/composition-api'
+import { ssrRef } from '@nuxtjs/composition-api'
 import { Notify } from '@app/hooks/core/notifications'
 import { isClient } from '@utils/environment'
 import { analytics } from '@modules/core'
 
 export const useErrorHandler = () => {
-	const errorState = reqRef('')
+	const errorState = ssrRef('')
 	const setError = (error: any) => {
 		errorState.value = error.message ?? error
 		if (isClient() && errorState.value) Notify({
@@ -19,7 +19,7 @@ export const useErrorHandler = () => {
 }
 
 export const useSuccessHandler = () => {
-	const successState = reqRef('')
+	const successState = ssrRef('')
 	const setMessage = (message: string) => {
 		successState.value = message
 		if (isClient() && successState.value) Notify({
@@ -31,7 +31,7 @@ export const useSuccessHandler = () => {
 }
 
 export const useLoadingHandler = () => {
-	const loadingState = reqRef(false)
+	const loadingState = ssrRef(false)
 	const setLoading = (loading: boolean) => loadingState.value = loading
 	return { loading: loadingState, setLoading }
 }

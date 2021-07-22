@@ -4,6 +4,7 @@
 			Request Session
 		</template>
 		<form @submit.prevent="createSession">
+			// TODO: Add rich text editor for session's message
 			<div class="form-group my-1">
 				<select v-model="factory.duration" class="form-select">
 					<option disabled value="0">
@@ -18,7 +19,7 @@
 					<a class="ml-half" @click.prevent="buy">Buy More Coins</a>
 				</template>
 			</div>
-			<button class="btn btn-dark my-1 w-100" type="submit" :disabled="loading || !factory.valid || user.account.coins.gold < factory.duration">
+			<button class="btn btn-dark my-1 w-100" type="submit" :disabled="loading || !factory.valid || user.account.coins.gold < factory.price">
 				Request Session
 			</button>
 			<DisplayError :error="error" />

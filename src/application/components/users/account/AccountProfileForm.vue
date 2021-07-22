@@ -131,7 +131,7 @@ export default defineComponent({
 		})
 		const removeImage = () => {
 			imageLink.value = ''
-			factory.value.avatar = null
+			factory.value.avatar = undefined
 		}
 		onBeforeUnmount(() => setShowProfileModal(false))
 		return {

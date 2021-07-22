@@ -2,7 +2,7 @@
 	<div class="layout-page bg-dark">
 		<TopNavigation />
 		<section class="layout-body">
-			<main class="layout-main py-1">
+			<main class="layout-main p-0">
 				<Nuxt />
 			</main>
 			<ModalBase />
@@ -18,11 +18,3 @@ export default defineComponent({
 	components: { TopNavigation }
 })
 </script>
-
-<style lang="scss" scoped>
-	.layout-body {
-		max-width: 1536px;
-		margin-left: auto;
-		margin-right: auto;
-	}
-</style>

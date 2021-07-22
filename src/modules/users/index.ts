@@ -14,8 +14,8 @@ import { MakeAdminUseCase } from './domain/usecases/roles/makeAdmin'
 import { RemoveAdminUseCase } from './domain/usecases/roles/removeAdmin'
 import { GetUsersByEmailUseCase } from './domain/usecases/users/getUsersByEmail'
 import { GetAllAdminsUseCase } from './domain/usecases/users/getAllAdmins'
-import { GetTutorsByRatingsUseCase } from './domain/usecases/users/getTutorsByRatings'
-import { ListenToTutorsByRatingsUseCase } from './domain/usecases/users/listenToTutorsByRatings'
+import { GetAllSessionTutorsUseCase } from './domain/usecases/users/getAllSessionTutors'
+import { ListenToAllSessionTutorsUseCase } from './domain/usecases/users/listenToAllSessionTutors'
 import { ListenToUserUseCase } from './domain/usecases/users/listenToUser'
 import { UpdateStreakUseCase } from './domain/usecases/users/updateStreak'
 import { GetNotificationsUseCase } from './domain/usecases/notifications/getNotifications'
@@ -44,8 +44,8 @@ const reviewRepository = new ReviewRepository(reviewDataSource, reviewTransforme
 export const FindUser = new FindUserUseCase(userRepository)
 export const GetUsersByEmail = new GetUsersByEmailUseCase(userRepository)
 export const GetAllAdmins = new GetAllAdminsUseCase(userRepository)
-export const GetTutorsByRatings = new GetTutorsByRatingsUseCase(userRepository)
-export const ListenToTutorsByRatings = new ListenToTutorsByRatingsUseCase(userRepository)
+export const GetAllSessionTutors = new GetAllSessionTutorsUseCase(userRepository)
+export const ListenToAllSessionTutors = new ListenToAllSessionTutorsUseCase(userRepository)
 export const ListenToUser = new ListenToUserUseCase(userRepository)
 export const UpdateStreak = new UpdateStreakUseCase(userRepository)
 

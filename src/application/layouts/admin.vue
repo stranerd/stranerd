@@ -25,7 +25,5 @@ export default defineComponent({
 <style lang="scss" scoped>
 	.layout-body {
 		max-width: 1200px;
-		margin-left: auto;
-		margin-right: auto;
 	}
 </style>

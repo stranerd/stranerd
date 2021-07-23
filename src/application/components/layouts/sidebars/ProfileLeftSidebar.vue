@@ -197,9 +197,10 @@ export default defineComponent({
 		}
 	}
 
-	.mini-box{
+	.mini-box {
 		padding: 1rem;
 	}
+
 	.sidebar-btn {
 		border: none;
 		outline: none;

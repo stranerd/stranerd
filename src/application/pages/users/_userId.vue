@@ -2,7 +2,7 @@
 	<section>
 		<PageLoading v-if="loading" />
 		<template v-else-if="user">
-			<ProfileLeftSidebar class="d-md-none mb-3" :min="true" />
+			<ProfileLeftSidebar class="d-lg-none mb-3" :min="true" />
 			<UserTopNavigation :user="user" class="mb-1 mb-md-2" />
 			<NuxtChild />
 		</template>

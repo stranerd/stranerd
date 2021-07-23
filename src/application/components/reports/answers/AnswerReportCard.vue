@@ -1,14 +1,14 @@
 <template>
 	<div class="wrapper mb-1">
 		<div class="d-flex flex-row flex-sm-wrap flex-md-nowrap">
-			<div class="d-flex flex-column py-1 px-md-2 px-1 " style="width:100%;">
+			<div class="d-flex flex-column py-1 px-md-2 px-1 " style="width: 100%;">
 				<div class="p-custom">
 					How can you be so stupid! That’s too easy, lol
 				</div>
 				<div class="p-custom pt-1">
 					Reported by <span class="text-primary text-small">Eniola Holmes</span>
 				</div>
-				<div class="p-custom pt-1" style="font-size:14px;">
+				<div class="p-custom pt-1" style="font-size: 14px;">
 					This answer contains abuse.
 				</div>
 			</div>
@@ -23,29 +23,13 @@
 				</a>
 			</div>
 		</div>
-		<PageLoading v-if="loading" />
-		<DisplayError :error="error" />
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from '@nuxtjs/composition-api'
-import { useAdminRoles } from '@app/hooks/users/roles/admins'
-import { UserEntity } from '@modules/users'
+import { defineComponent } from '@nuxtjs/composition-api'
 export default defineComponent({
-	name: 'AnswerCard',
-	props: {
-		admin: {
-			required: true,
-			type: Object as PropType<UserEntity>
-		}
-	},
-	setup () {
-		const { loading, error, deAdminUser } = useAdminRoles()
-		return {
-			loading, error, deAdminUser
-		}
-	}
+	name: 'AnswerReportCard'
 })
 </script>
 <style lang="scss" scoped>
@@ -62,11 +46,11 @@ export default defineComponent({
 
 	.sideBorder {
 		border-left: 1px solid $color-line;
-		min-width:200px;
+		min-width: 200px;
 	}
 
 	.ml-auto {
-		margin-left:auto;
+		margin-left: auto;
 	}
 
 </style>

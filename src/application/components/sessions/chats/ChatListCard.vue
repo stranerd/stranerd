@@ -2,10 +2,16 @@
 	<div class="chat gap-0-25" :class="isMine ? 'is-mine' : 'is-not-mine'">
 		<a v-if="chat.isMedia" class="text-truncate" :href="chat.media.link" target="__blank">
 			<i class="fas fa-paperclip me-0-25" />
-			<DynamicText :truncate="true" :text="chat.media.name" />
+			<DynamicText :truncate="true">
+				{{ chat.media.name }}
+			</DynamicText>
 		</a>
-		<DynamicText v-else :text="chat.content || 'Hello'" class="text-wrap" />
-		<span class="mt-auto pt-0-5 small">{{ formatTimeAsDigits(new Date(chat.createdAt)) }}</span>
+		<DynamicText v-else>
+			{{ chat.content || 'Hello' }}
+		</DynamicText>
+		<DynamicText class="mt-auto pt-0-5 small">
+			{{ formatTimeAsDigits(new Date(chat.createdAt)) }}
+		</DynamicText>
 	</div>
 </template>
 

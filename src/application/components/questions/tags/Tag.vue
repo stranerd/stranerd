@@ -1,7 +1,7 @@
 <template>
-	<span class="tag">
+	<DynamicText class="tag">
 		{{ tag }}
-	</span>
+	</DynamicText>
 </template>
 
 <script lang="ts">

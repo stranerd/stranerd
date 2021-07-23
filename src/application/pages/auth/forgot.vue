@@ -18,7 +18,9 @@
 					class="form-control"
 					autocomplete="email"
 				>
-				<small v-if="factory.errors.email" class="small text-danger d-block">{{ factory.errors.email }}</small>
+				<DynamicText v-if="factory.errors.email" class="small text-danger d-block">
+					{{ factory.errors.email }}
+				</DynamicText>
 			</div>
 			<button class="btn btn-lg btn-custom py-1 " type="submit">
 				Send Reset Mail

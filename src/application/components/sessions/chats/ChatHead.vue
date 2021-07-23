@@ -5,11 +5,17 @@
 		</NuxtLink>
 		<div class="me-auto">
 			<NuxtLink :to="`/users/${user.id}`" class="text-wrap username">
-				<DynamicText :text="user.fullName" />
+				<DynamicText>
+					{{ user.fullName }}
+				</DynamicText>
 			</NuxtLink>
-			<span class="small">{{ user.isOnline ? 'Active now' : time }}</span>
+			<DynamicText class="small">
+				{{ user.isOnline ? 'Active now' : time }}
+			</DynamicText>
 		</div>
-		<span v-if="inSession" class="lead">{{ countDown }}</span>
+		<DynamicText v-if="inSession" class="lead">
+			{{ countDown }}
+		</DynamicText>
 		<button class="btn navbar-toggler" @click="show = !show">
 			<i class="fas fa-ellipsis-v" />
 		</button>

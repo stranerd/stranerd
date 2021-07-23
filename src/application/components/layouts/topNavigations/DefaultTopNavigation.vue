@@ -31,7 +31,9 @@
 				<div v-if="isLoggedIn" class="d-none d-lg-flex gap-0-25 gap-lg-1 align-items-center cursor-pointer" @click="show = !show">
 					<Avatar :src="user.avatar" :size="48" />
 					<span class="d-flex gap-0-5 align-items-center">
-						<DynamicText class="username text-truncate" :text="user.fullName" :truncate="true" />
+						<DynamicText class="username" :truncate="true">
+							{{ user.fullName }}
+						</DynamicText>
 						<i class="fas" :class="show ? 'fa-angle-up' : 'fa-angle-down'" />
 					</span>
 				</div>

@@ -1,9 +1,9 @@
 <template>
 	<div :id="subject.id" class="wrapper">
 		<div class="p-1 d-flex flex-row align-items-center">
-			<div class="subject-custom">
+			<DynamicText class="subject-custom">
 				{{ subject.name }}
-			</div>
+			</DynamicText>
 			<span style="font-size: 14px;" class="ms-auto text-danger" @click.prevent="deleteSubject">
 				Delete
 			</span>

@@ -12,7 +12,9 @@
 		:auto-adjust-text-size="false"
 		@section-click="onClick"
 	>
-		<span class="score">{{ formatNumber(score) }}</span>
+		<DynamicText class="score">
+			{{ formatNumber(score) }}
+		</DynamicText>
 	</vc-donut>
 </template>
 

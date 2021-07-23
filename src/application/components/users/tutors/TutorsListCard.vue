@@ -14,9 +14,11 @@
 				</span>
 				<div class="d-flex align-items-start flex-column ms-0-5">
 					<NuxtLink :to="`/users/${tutor.id}`" class="name">
-						<DynamicText :text="tutor.fullName" />
+						<DynamicText>{{ tutor.fullName }}</DynamicText>
 					</NuxtLink>
-					<span class="rank">{{ tutor.rank.id }}</span>
+					<DynamicText class="rank">
+						{{ tutor.rank.id }}
+					</DynamicText>
 				</div>
 				<button v-if="canRequestSession" class="btn btn-primary ms-auto" @click="requestNewSession">
 					Request A Session
@@ -24,11 +26,9 @@
 			</div>
 
 			<div class="nerd-card gap-1-5">
-				<span>
-					<ShowRatings class="ms-auto" :rating="tutor.averageRating" />
-				</span>
-				<span>{{ formatNumber(tutor.meta.answers.length) }} {{ pluralize(tutor.meta.answers.length, 'Question', 'Questions') }} Answered</span>
-				<span>{{ formatNumber(tutor.meta.tutorSessions.length) }} {{ pluralize(tutor.meta.tutorSessions.length, 'Session', 'Sessions') }} Hosted</span>
+				<ShowRatings class="ms-auto" :rating="tutor.averageRating" />
+				<DynamicText>{{ formatNumber(tutor.meta.answers.length) }} {{ pluralize(tutor.meta.answers.length, 'Question', 'Questions') }} Answered</DynamicText>
+				<DynamicText>{{ formatNumber(tutor.meta.tutorSessions.length) }} {{ pluralize(tutor.meta.tutorSessions.length, 'Session', 'Sessions') }} Hosted</DynamicText>
 			</div>
 
 			<div v-if="tutor.strongestSubject" class="nerd-card gap-1-5">
@@ -58,11 +58,11 @@
 				</div>
 				<div class="d-flex align-items-center flex-column">
 					<NuxtLink :to="`/users/${tutor.id}`" class="name" style="font-size: 19px;">
-						<DynamicText :text="tutor.fullName" />
+						<DynamicText>{{ tutor.fullName }}</DynamicText>
 					</NuxtLink>
-					<div class="rank">
+					<DynamicText class="rank">
 						{{ tutor.rank.id }}
-					</div>
+					</DynamicText>
 				</div>
 			</div>
 
@@ -70,12 +70,12 @@
 				<div style="margin-bottom: 5px;">
 					<ShowRatings class="ms-auto" :rating="tutor.averageRating" />
 				</div>
-				<div style="margin-bottom: 5px; font-weight: bold;">
+				<DynamicText style="margin-bottom: 5px; font-weight: bold;">
 					{{ formatNumber(tutor.meta.answers.length) }} {{ pluralize(tutor.meta.answers.length, 'Question', 'Questions') }} Answered
-				</div>
-				<div style="margin-bottom: 5px; font-weight: bold;">
+				</DynamicText>
+				<DynamicText style="margin-bottom: 5px; font-weight: bold;">
 					{{ formatNumber(tutor.meta.tutorSessions.length) }} {{ pluralize(tutor.meta.tutorSessions.length, 'Session', 'Sessions') }} Hosted
-				</div>
+				</DynamicText>
 			</div>
 
 			<div v-if="tutor.strongestSubject" class="nerd-card px-1 mb-1 " style="font-weight: bold;">

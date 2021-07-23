@@ -1,6 +1,6 @@
 <template>
 	<div v-if="error" class="small alert alert-danger w-100 my-0-25 text-center" role="alert">
-		<DynamicText :text="error" />
+		<DynamicText>{{ error }}</DynamicText>
 	</div>
 </template>
 

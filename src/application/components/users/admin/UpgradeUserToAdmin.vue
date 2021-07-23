@@ -20,13 +20,13 @@
 		<div v-if="fetched" class="d-flex flex-column gap-1">
 			<DisplayError v-if="users.length === 0" error="No user with such email exists" />
 			<div v-for="user in users" :key="user.hash" class="d-flex flex-wrap justify-content-between gap-0-5 align-items-center">
-				<div class="text-truncate">
-					<p class="lead mb-0 text-wrap">
-						<DynamicText :text="user.fullName" />
-					</p>
-					<p class="small mb-0 text-wrap">
-						<DynamicText :text="user.email" />
-					</p>
+				<div>
+					<DynamicText :truncate="true" class="lead">
+						{{ user.fullName }}
+					</DynamicText>
+					<DynamicText :truncate="true" class="small">
+						{{ user.email }}
+					</DynamicText>
 				</div>
 				<span v-if="user.roles.isAdmin" class="text-danger">
 					Already an admin

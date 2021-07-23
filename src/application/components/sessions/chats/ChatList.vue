@@ -5,9 +5,9 @@
 			No messages found. Send a message now
 		</p>
 		<div v-for="session in chats" :key="session.hash" class="d-flex flex-column gap-0-5">
-			<span class="bg-line session-date mx-auto">
+			<DynamicText class="bg-line session-date mx-auto">
 				{{ formatTime(session.date, true) }}
-			</span>
+			</DynamicText>
 			<ChatListCard v-for="chat in session.chats" :key="chat.hash" :chat="chat" :user-id="userId" />
 		</div>
 		<PageLoading v-if="loading" />

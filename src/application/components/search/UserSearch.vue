@@ -4,12 +4,14 @@
 			<NuxtLink :to="`/users/${item.model.id}`" class="d-flex align-items-center gap-0-5">
 				<Avatar :src="item.model.avatar" :size="45" />
 				<div class="flex-grow-1">
-					<h5 class="mb-0 text-truncate">
-						{{ item.model.fullName }}
+					<h5 class="mb-0">
+						<DynamicText :truncate="true">
+							{{ item.model.fullName }}
+						</DynamicText>
 					</h5>
-					<p class="mb-0 text-truncate">
+					<DynamicText :truncate="true">
 						{{ item.model.email }}
-					</p>
+					</DynamicText>
 				</div>
 			</NuxtLink>
 		</template>

@@ -5,7 +5,7 @@
 				Verify Your Email Address
 			</h1>
 			<span class="textStyle">
-				An email was just sent to <b><DynamicText :text="email" /></b>. Follow the link to verify your account.
+				An email was just sent to <b><DynamicText>{{ email }}</DynamicText></b>. Follow the link to verify your account.
 				If an error occured or you didn't recieve the email, click the button below to resend the email.
 			</span>
 			<button class="btn btn-lg btn-custom py-1 " @click="verifyEmail">

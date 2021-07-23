@@ -19,7 +19,9 @@
 					class="form-control"
 					autocomplete="password"
 				>
-				<small v-if="factory.errors.password" class="small text-danger d-block">{{ factory.errors.password }}</small>
+				<DynamicText v-if="factory.errors.password" class="small text-danger d-block">
+					{{ factory.errors.password }}
+				</DynamicText>
 			</div>
 			<div>
 				<input
@@ -32,7 +34,9 @@
 					class="form-control"
 					autocomplete="password"
 				>
-				<small v-if="factory.errors.cPassword" class="small text-danger d-block">{{ factory.errors.cPassword }}</small>
+				<DynamicText v-if="factory.errors.cPassword" class="small text-danger d-block">
+					{{ factory.errors.cPassword }}
+				</DynamicText>
 			</div>
 			<button class="btn btn-lg btn-custom py-1 " type="submit">
 				Reset Password

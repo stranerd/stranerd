@@ -9,7 +9,7 @@
 			@input="$emit('update:value',$event)"
 			@image-added="handleImageUpload"
 		/>
-		<span v-if="error" class="small text-danger">{{ error }}</span>
+		<DynamicText v-if="error" class="small text-danger">{{ error }}</DynamicText>
 	</span>
 </template>
 

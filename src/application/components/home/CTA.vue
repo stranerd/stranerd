@@ -52,13 +52,13 @@ export default defineComponent({
 		}
 
 		& > * {
-			flex-grow: 1;
 			max-width: 90%;
 			@media (min-width: $md) {
 				max-width: 80%;
 			}
 			@media (min-width: $lg) {
 				max-width: 40%;
+				flex-grow: 1;
 			}
 		}
 	}

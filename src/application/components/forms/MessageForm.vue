@@ -15,7 +15,9 @@
 						placeholder="John"
 						:class="{'is-invalid': factory.errors.fName, 'is-valid': factory.isValid('fName')}"
 					>
-					<small v-if="factory.errors.fName" class="small text-danger d-block">{{ factory.errors.fName }}</small>
+					<DynamicText v-if="factory.errors.fName" class="small text-danger d-block">
+						{{ factory.errors.fName }}
+					</DynamicText>
 				</div>
 			</div>
 			<div class="col-lg-2 d-none d-lg-block" />
@@ -32,7 +34,9 @@
 							placeholder="Smith"
 							:class="{'is-invalid': factory.errors.lName, 'is-valid': factory.isValid('lName')}"
 						>
-						<small v-if="factory.errors.lName" class="small text-danger d-block">{{ factory.errors.lName }}</small>
+						<DynamicText v-if="factory.errors.lName" class="small text-danger d-block">
+							{{ factory.errors.lName }}
+						</DynamicText>
 					</div>
 				</div>
 			</div>
@@ -52,7 +56,9 @@
 						placeholder="johnsmith@gmail.com"
 						:class="{'is-invalid': factory.errors.name, 'is-valid': factory.isValid('email')}"
 					>
-					<small v-if="factory.errors.email" class="small text-danger d-block">{{ factory.errors.email }}</small>
+					<DynamicText v-if="factory.errors.email" class="small text-danger d-block">
+						{{ factory.errors.email }}
+					</DynamicText>
 				</div>
 			</div>
 		</div>
@@ -71,7 +77,9 @@
 						:class="{'is-invalid': factory.errors.message, 'is-valid': factory.isValid('message')}"
 						placeholder="I love Stranerd"
 					/>
-					<small v-if="factory.errors.message" class="small text-danger d-block">{{ factory.errors.message }}</small>
+					<DynamicText v-if="factory.errors.message" class="small text-danger d-block">
+						{{ factory.errors.message }}
+					</DynamicText>
 				</div>
 			</div>
 		</div>

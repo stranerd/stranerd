@@ -15,7 +15,9 @@
 					class="form-control"
 					autocomplete="email"
 				>
-				<small v-if="factory.errors.email" class="small text-danger d-block">{{ factory.errors.email }}</small>
+				<DynamicText v-if="factory.errors.email" class="small text-danger d-block">
+					{{ factory.errors.email }}
+				</DynamicText>
 			</div>
 			<div>
 				<input
@@ -28,7 +30,9 @@
 					class="form-control"
 					autocomplete="password"
 				>
-				<small v-if="factory.errors.password" class="small text-danger d-block">{{ factory.errors.password }}</small>
+				<DynamicText v-if="factory.errors.password" class="small text-danger d-block">
+					{{ factory.errors.password }}
+				</DynamicText>
 			</div>
 			<div class="text-end">
 				<NuxtLink class="linkText text-decoration-none" to="/auth/forgot">

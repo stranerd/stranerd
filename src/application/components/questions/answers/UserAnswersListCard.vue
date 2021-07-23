@@ -1,10 +1,12 @@
 <template>
 	<div :id="answer.id" class="d-flex flex-column gap-0-5">
 		<NuxtLink class="text-18" :to="`/questions/${answer.questionId}#${answer.id}`">
-			<DynamicText :text="answer.trimmedBody" />
+			<DynamicText>
+				{{ answer.trimmedBody }}
+			</DynamicText>
 		</NuxtLink>
 		<div class="d-flex gap-0-5">
-			<span>Posted {{ formatTime(answer.createdAt) }}</span>
+			<DynamicText>Posted {{ formatTime(answer.createdAt) }}</DynamicText>
 			<img v-if="answer.best" src="@app/assets/images/icons/profile-best-answers.svg" class="icons ms-auto">
 		</div>
 	</div>

@@ -1,9 +1,9 @@
 <template>
 	<div :id="admin.id" class="wrapper p-1">
 		<div class="d-flex align-items-center gap-1">
-			<div class="name-custom">
+			<DynamicText class="name-custom">
 				{{ admin.fullName }}
-			</div>
+			</DynamicText>
 			<a style="font-size: 14px;" class="text-danger ms-auto" @click.prevent="deAdminUser(admin)">
 				Remove admin
 			</a>

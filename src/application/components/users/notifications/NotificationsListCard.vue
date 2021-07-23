@@ -1,10 +1,12 @@
 <template>
 	<div class="notification gap-0-5">
 		<PageLoading v-if="loading" />
-		<span class="main cursor-pointer" @click.prevent="click">
-			<span :class="{'fw-bold': !notification.seen}">{{ notification.body }}</span>
-		</span>
-		<span class="sub">{{ formatTime(notification.createdAt) }}</span>
+		<DynamicText class="main cursor-pointer" :class="{'fw-bold': !notification.seen}" @click.prevent="click">
+			{{ notification.body }}
+		</DynamicText>
+		<DynamicText class="sub">
+			{{ formatTime(notification.createdAt) }}
+		</DynamicText>
 	</div>
 </template>
 

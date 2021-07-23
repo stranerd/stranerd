@@ -1,5 +1,5 @@
 <template>
-	<div class="py-md-1 px-0-5 px-md-3 px-lg-4 py-lg-1-5 d-flex flex-column flex-lg-row align-items-lg-center gap-2">
+	<div class="py-md-1 px-0-5 px-md-3 px-lg-4 py-lg-1-5 d-flex flex-column flex-lg-row align-items-center gap-2">
 		<form class="gap-2 d-flex flex-column w-100 flex-grow-1" @submit.prevent="resetPassword">
 			<h1 class="mb-0">
 				Forgot Your Password?
@@ -18,7 +18,9 @@
 					class="form-control"
 					autocomplete="email"
 				>
-				<small v-if="factory.errors.email" class="small text-danger d-block">{{ factory.errors.email }}</small>
+				<DynamicText v-if="factory.errors.email" class="small text-danger d-block">
+					{{ factory.errors.email }}
+				</DynamicText>
 			</div>
 			<button class="btn btn-lg btn-custom py-1 " type="submit">
 				Send Reset Mail

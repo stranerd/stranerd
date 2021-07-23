@@ -102,13 +102,6 @@ export const answerRated = functions.database.ref('answers/{answerId}/ratings/{u
 			const { total = 0, count = 0 } = answer.ratings ?? {}
 			const rating = count === 0 ? 0 : total / count
 
-			t.set(answerRef, {
-				ratings: {
-					total: admin.firestore.FieldValue.increment(ratings),
-					count: admin.firestore.FieldValue.increment(1)
-				}
-			}, { merge: true })
-
 			if (questionId) {
 				const questionRef = admin.firestore().collection('questions').doc(questionId)
 				const question = (await t.get(questionRef)).data() ?? {}
@@ -122,5 +115,12 @@ export const answerRated = functions.database.ref('answers/{answerId}/ratings/{u
 					})
 				}
 			}
+
+			t.set(answerRef, {
+				ratings: {
+					total: admin.firestore.FieldValue.increment(ratings),
+					count: admin.firestore.FieldValue.increment(1)
+				}
+			}, { merge: true })
 		})
 	})

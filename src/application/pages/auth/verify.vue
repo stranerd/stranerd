@@ -1,11 +1,11 @@
 <template>
-	<div class="py-md-1 px-0-5 px-md-3 px-lg-4 py-lg-1-5 d-flex flex-column flex-lg-row align-items-lg-center gap-2">
+	<div class="py-md-1 px-0-5 px-md-3 px-lg-4 py-lg-1-5 d-flex flex-column flex-lg-row align-items-center gap-2">
 		<div class="gap-2 d-flex flex-column w-100 flex-grow-1">
 			<h1 class="mb-0">
 				Verify Your Email Address
 			</h1>
 			<span class="textStyle">
-				An email was just sent to <b>{{ email }}</b>. Follow the link to verify your account.
+				An email was just sent to <b><DynamicText>{{ email }}</DynamicText></b>. Follow the link to verify your account.
 				If an error occured or you didn't recieve the email, click the button below to resend the email.
 			</span>
 			<button class="btn btn-lg btn-custom py-1 " @click="verifyEmail">

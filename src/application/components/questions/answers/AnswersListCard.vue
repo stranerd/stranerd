@@ -5,12 +5,16 @@
 				<Avatar :src="answer.avatar" :size="50" />
 			</NuxtLink>
 			<NuxtLink :to="`/users/${answer.userId}`" class="d-block text-dark text-wrap">
-				<span>{{ answer.userName }}</span>
+				<DynamicText>
+					{{ answer.userName }}
+				</DynamicText>
 			</NuxtLink>
 			<ShowRatings class="ms-auto" :rating="answer.averageRating" />
 		</div>
 		<div class="answer-content d-flex flex-column gap-1">
-			<span class="lead text-dark">{{ answer.title }}</span>
+			<DynamicText class="lead text-dark">
+				{{ answer.title }}
+			</DynamicText>
 			<div class="d-flex gap-1 gap-md-2 align-items-center text-primary fw-bold flex-row flex-wrap">
 				<span class="d-flex align-items-center gap-0-25 me-auto" @click="showExplanation = !showExplanation">
 					<span>Explanation</span>

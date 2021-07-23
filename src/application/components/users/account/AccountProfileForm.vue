@@ -14,7 +14,9 @@
 					@click="removeImage"
 				/>
 			</div>
-			<small v-if="factory.errors.avatar" class="small text-danger d-block">{{ factory.errors.avatar }}</small>
+			<DynamicText v-if="factory.errors.avatar" class="small text-danger d-block">
+				{{ factory.errors.avatar }}
+			</DynamicText>
 		</div>
 		<div class="form-group">
 			<label id="uploadbtn" for="picture" class="px-3 bg-tags text-dark border border-line text-center">
@@ -39,7 +41,9 @@
 					autocomplete="first-name"
 					:class="{'is-invalid': factory.errors.first}"
 				>
-				<small v-if="factory.errors.first" class="small text-danger d-block">{{ factory.errors.first }}</small>
+				<DynamicText v-if="factory.errors.first" class="small text-danger d-block">
+					{{ factory.errors.first }}
+				</DynamicText>
 			</div>
 			<div class="flex-grow-1 w-100">
 				<input
@@ -50,7 +54,9 @@
 					autocomplete="last-name"
 					:class="{'is-invalid': factory.errors.last}"
 				>
-				<small v-if="factory.errors.last" class="small text-danger d-block">{{ factory.errors.last }}</small>
+				<DynamicText v-if="factory.errors.last" class="small text-danger d-block">
+					{{ factory.errors.last }}
+				</DynamicText>
 			</div>
 		</div>
 		<div class="form-group">
@@ -62,7 +68,9 @@
 				:class="{'is-invalid': factory.errors.description}"
 				rows="6"
 			/>
-			<small v-if="factory.errors.description" class="small text-danger d-block">{{ factory.errors.description }}</small>
+			<DynamicText v-if="factory.errors.description" class="small text-danger d-block">
+				{{ factory.errors.description }}
+			</DynamicText>
 		</div>
 		<template v-if="auth.signInMethod === 'password'">
 			<hr>
@@ -78,7 +86,9 @@
 					:type="show ? 'text' : 'password'"
 					:class="{'is-invalid': factory.errors.password}"
 				>
-				<small v-if="factory.errors.password" class="small text-danger d-block">{{ factory.errors.password }}</small>
+				<DynamicText v-if="factory.errors.password" class="small text-danger d-block">
+					{{ factory.errors.password }}
+				</DynamicText>
 			</div>
 			<div class="form-group">
 				<input
@@ -89,7 +99,9 @@
 					:type="show ? 'text' : 'password'"
 					:class="{'is-invalid': factory.errors.cPassword}"
 				>
-				<small v-if="factory.errors.cPassword" class="small text-danger d-block">{{ factory.errors.cPassword }}</small>
+				<DynamicText v-if="factory.errors.cPassword" class="small text-danger d-block">
+					{{ factory.errors.cPassword }}
+				</DynamicText>
 			</div>
 		</template>
 		<div class="d-flex justify-content-center align-items-center gap-1">

@@ -24,7 +24,9 @@
 				autocomplete="email"
 				autofocus
 			>
-			<span v-if="factory.errors.email" class="text-danger">{{ factory.errors.email }}</span>
+			<DynamicText v-if="factory.errors.email" class="text-danger">
+				{{ factory.errors.email }}
+			</DynamicText>
 		</div>
 		<div class="mt-1 text-center">
 			<button type="submit" class="w-100 btn btn-dark py-1" :disabled="loading || !factory.valid">

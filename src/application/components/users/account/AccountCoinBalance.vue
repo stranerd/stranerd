@@ -2,15 +2,15 @@
 	<span class="w-100 mx-auto d-flex justify-content-center gap-2" style="max-width: 300px;">
 		<span class="balance">
 			<Coins :size="30" />
-			<span class="amount">
+			<DynamicText class="amount">
 				{{ formatNumber(user.account.coins.bronze) }}
-			</span>
+			</DynamicText>
 		</span>
 		<span class="balance">
 			<Coins :gold="true" :size="30" />
-			<span class="amount">
+			<DynamicText class="amount">
 				{{ formatNumber(user.account.coins.gold) }}
-			</span>
+			</DynamicText>
 		</span>
 	</span>
 </template>

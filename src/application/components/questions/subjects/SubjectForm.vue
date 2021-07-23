@@ -8,7 +8,9 @@
 					placeholder="Add a new subject"
 					:class="{'is-invalid': factory.errors.name, 'is-valid': factory.isValid('name')}"
 				>
-				<small v-if="factory.errors.name" class="small text-danger d-block">{{ factory.errors.name }}</small>
+				<DynamicText v-if="factory.errors.name" class="small text-danger d-block">
+					{{ factory.errors.name }}
+				</DynamicText>
 			</div>
 			<button class="btn btn-lg btn-custom" type="submit" :disabled="loading || !factory.valid">
 				<span><slot name="buttonText">Submit</slot></span>

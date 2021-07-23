@@ -1,11 +1,11 @@
 rules_version = '2';
 service firebase.storage {
 	match /b/{bucket}/o {
-		match /chats {
+		match /chats/{imageId} {
 			allow create: if isAuthenticated()
 		}
 
-		match /profiles {
+		match /profiles/{imageId} {
 			allow create: if isAuthenticated()
 		}
 

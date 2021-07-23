@@ -14,7 +14,9 @@
 				Select the subject of the question you asked
 			</span>
 			<SelectSubject class="form-select" :show-all="false" :subject-id.sync="factory.subjectId" />
-			<span v-if="factory.errors.subjectId" class="text-danger small">{{ factory.errors.subjectId }}</span>
+			<DynamicText v-if="factory.errors.subjectId" class="text-danger small">
+				{{ factory.errors.subjectId }}
+			</DynamicText>
 		</div>
 
 		<div class="form-group">
@@ -35,11 +37,15 @@
 					class="p-0-5 d-flex gap-0-5 cursor-pointer btn-dark rounded-3"
 					@click="removeTag(tag)"
 				>
-					<span class="text-white">{{ tag }}</span>
+					<DynamicText class="text-white">
+						{{ tag }}
+					</DynamicText>
 					<span class="text-danger">&times;</span>
 				</span>
 			</p>
-			<span v-if="factory.errors.tags" class="text-danger small">{{ factory.errors.tags }}</span>
+			<DynamicText v-if="factory.errors.tags" class="text-danger small">
+				{{ factory.errors.tags }}
+			</DynamicText>
 		</div>
 
 		<div class="form-group">
@@ -55,7 +61,9 @@
 					{{ coin }}
 				</option>
 			</select>
-			<span v-if="factory.errors.coins" class="text-danger small mt-0-5">{{ factory.errors.coins }}</span>
+			<DynamicText v-if="factory.errors.coins" class="text-danger small mt-0-5">
+				{{ factory.errors.coins }}
+			</DynamicText>
 			<div class="text-end mt-0-5">
 				<span>Out of coins?&nbsp;</span>
 				<a class="fw-bold text-decoration-underline" @click="openBuyCoins">Buy more coins</a>

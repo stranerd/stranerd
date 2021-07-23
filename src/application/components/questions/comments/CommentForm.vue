@@ -13,7 +13,9 @@
 					send
 				</button>
 			</div>
-			<small v-if="factory.errors.body" class="small text-danger d-block">{{ factory.errors.body }}</small>
+			<DynamicText v-if="factory.errors.body" class="small text-danger d-block">
+				{{ factory.errors.body }}
+			</DynamicText>
 		</div>
 		<PageLoading v-if="loading" />
 		<DisplayError :error="error" />

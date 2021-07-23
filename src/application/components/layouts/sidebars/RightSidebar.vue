@@ -3,7 +3,9 @@
 		<template v-if="isLoggedIn">
 			<div class="d-flex d-lg-none flex-column gap-0-5 inner-bg">
 				<Avatar class="align-self-center" :src="user.avatar" :size="72" />
-				<span class="align-self-center text-center name">{{ user.fullName }}</span>
+				<DynamicText class="name align-self-center text-center">
+					{{ user.fullName }}
+				</DynamicText>
 				<NuxtLink to="/account/" class="btn btn-primary btn-lg">
 					View Profile
 				</NuxtLink>
@@ -20,7 +22,9 @@
 				</div>
 				<div class="d-flex flex-column gap-1">
 					<div v-for="detail in user.rankProgress.progresses" :key="detail.title" class="d-flex justify-content-between align-items-center gap-0-25">
-						<span class="stat">{{ detail.title }}</span>
+						<DynamicText class="stat">
+							{{ detail.title }}
+						</DynamicText>
 						<ProgressBar :current="detail.progress" />
 					</div>
 				</div>

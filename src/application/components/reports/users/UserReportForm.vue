@@ -10,7 +10,9 @@
 				:class="{'is-invalid': factory.errors.message, 'is-valid': factory.isValid('message')}"
 				placeholder="Explain in full detail what happened"
 			/>
-			<small v-if="factory.errors.message" class="small text-danger d-block">{{ factory.errors.message }}</small>
+			<DynamicText v-if="factory.errors.message" class="small text-danger d-block">
+				{{ factory.errors.message }}
+			</DynamicText>
 		</div>
 		<button class="btn btn-dark fw-bold" type="submit" :disabled="loading || !factory.valid">
 			<PageLoading v-if="loading" />

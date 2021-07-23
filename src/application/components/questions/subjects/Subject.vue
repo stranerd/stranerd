@@ -1,5 +1,5 @@
 <template>
-	<span>{{ subject ? subject.name : 'Subject' }}</span>
+	<DynamicText>{{ subject ? subject.name : 'Subject' }}</DynamicText>
 </template>
 
 <script lang="ts">

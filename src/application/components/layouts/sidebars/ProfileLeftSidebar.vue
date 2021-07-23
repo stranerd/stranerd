@@ -1,6 +1,6 @@
 <template>
-	<div v-if="user" :class="['d-flex flex-column ', min?'bg-line gap-0-5':'gap-2-25']">
-		<div :class="['d-flex flex-column gap-1 bg-white' , min?'mini-box pb-2':'box']">
+	<div v-if="user" :class="['d-flex flex-column ', min ? 'bg-line gap-0-5' : 'gap-2-25']">
+		<div :class="['d-flex flex-column gap-1 bg-white' , min ? 'mini-box pb-2' : 'box']">
 			<div class="d-flex flex-column gap-1-5 align-items-center text-blue">
 				<div class="position-relative">
 					<Avatar :src="user.avatar" :size="144" />
@@ -10,11 +10,15 @@
 				</div>
 
 				<div class="d-flex flex-column gap-0-25 align-items-center">
-					<h1>{{ user.fullName }}</h1>
-					<span class="text-primary">{{ user.rank.id }}</span>
+					<h1>
+						<DynamicText>{{ user.fullName }}</DynamicText>
+					</h1>
+					<NuxtLink to="/users/ranks" class="text-primary">
+						<DynamicText>{{ user.rank.id }}</DynamicText>
+					</NuxtLink>
 					<div class="d-flex align-items-center gap-0-5">
 						<ShowRatings :rating="user.averageRating" />
-						<span>{{ formatNumber(user.ratingCount) }} {{ pluralize(user.ratingCount, 'review', 'reviews') }}</span>
+						<DynamicText>{{ formatNumber(user.ratingCount) }} {{ pluralize(user.ratingCount, 'review', 'reviews') }}</DynamicText>
 					</div>
 				</div>
 				<button v-if="canRequestSession" class="sidebar-btn px-2" @click="requestNewSession">
@@ -29,49 +33,63 @@
 					<img src="@app/assets/images/icons/profileSidebar/questions.svg" alt="">
 					<span>Questions</span>
 				</div>
-				<span class="count fw-bold">{{ formatNumber(Object.entries(user.meta.questions).length) }}</span>
+				<DynamicText class="count fw-bold">
+					{{ formatNumber(Object.entries(user.meta.questions).length) }}
+				</DynamicText>
 			</div>
 			<div class="stats">
 				<div class="stat-title gap-1">
 					<img src="@app/assets/images/icons/profileSidebar/answered.svg" alt="">
 					<span>Answered Questions</span>
 				</div>
-				<span class="count fw-bold">{{ formatNumber(Object.entries(user.meta.answeredQuestions).length) }}</span>
+				<DynamicText class="count fw-bold">
+					{{ formatNumber(Object.entries(user.meta.answeredQuestions).length) }}
+				</DynamicText>
 			</div>
 			<div class="stats">
 				<div class="stat-title gap-1">
 					<img src="@app/assets/images/icons/profileSidebar/answers.svg" alt="">
 					<span>Answers</span>
 				</div>
-				<span class="count fw-bold">{{ formatNumber(Object.entries(user.meta.answers).length) }}</span>
+				<DynamicText class="count fw-bold">
+					{{ formatNumber(Object.entries(user.meta.answers).length) }}
+				</DynamicText>
 			</div>
 			<div class="stats">
 				<div class="stat-title gap-1">
 					<img src="@app/assets/images/icons/profileSidebar/best-answer.svg" alt="">
 					<span>Best Answers</span>
 				</div>
-				<span class="count">{{ formatNumber(Object.entries(user.meta.bestAnswers).length) }} </span>
+				<DynamicText class="count">
+					{{ formatNumber(Object.entries(user.meta.bestAnswers).length) }}
+				</DynamicText>
 			</div>
 			<div class="stats">
 				<div class="stat-title gap-1">
 					<img src="@app/assets/images/icons/profileSidebar/sessions-attended.svg" alt="">
 					<span>Sessions Attended</span>
 				</div>
-				<span class="count">{{ formatNumber(Object.entries(user.meta.sessions).length) }}</span>
+				<DynamicText class="count">
+					{{ formatNumber(Object.entries(user.meta.sessions).length) }}
+				</DynamicText>
 			</div>
 			<div v-if="user.isScholar" class="stats">
 				<div class="stat-title gap-1">
 					<img src="@app/assets/images/icons/profileSidebar/sessions-hosted.svg" alt="">
 					<span>Sessions Hosted</span>
 				</div>
-				<span class="count">{{ formatNumber(Object.entries(user.meta.sessions).length) }}</span>
+				<DynamicText class="count">
+					{{ formatNumber(Object.entries(user.meta.sessions).length) }}
+				</DynamicText>
 			</div>
 			<div class="stats">
 				<div class="stat-title gap-1">
 					<img src="@app/assets/images/icons/profileSidebar/member-since.svg" alt="">
 					<span>Member Since</span>
 				</div>
-				<span class="count">{{ formatTime(user.dates.signedUpAt) }}</span>
+				<DynamicText class="count">
+					{{ formatTime(user.dates.signedUpAt) }}
+				</DynamicText>
 			</div>
 		</div>
 
@@ -83,7 +101,7 @@
 				<h1 class="fw-bold">
 					About Me
 				</h1>
-				<p>{{ user.description }}</p>
+				<DynamicText>{{ user.description }}</DynamicText>
 				<div class="thick mx-n1" />
 			</template>
 
@@ -115,7 +133,7 @@
 			</template>
 		</div>
 		<!--  -->
-		<div v-if="min && user.id !== id" :class="['bg-white d-flex align-items-center justify-content-evenly', min ?'mini-box pt-2': 'box']">
+		<div v-if="min" :class="['bg-white d-flex align-items-center justify-content-evenly', min ?'mini-box pt-2': 'box']">
 			<img :src="user.rank.image" alt="" class="img-rank">
 			<DonutChart :score="user.score <= user.expectedScore ? user.score : user.expectedScore" :total="user.expectedScore" :size="100" />
 		</div>

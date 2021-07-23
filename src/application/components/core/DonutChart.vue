@@ -12,12 +12,15 @@
 		:auto-adjust-text-size="false"
 		@section-click="onClick"
 	>
-		<span class="score">{{ score }}</span>
+		<DynamicText class="score">
+			{{ formatNumber(score) }}
+		</DynamicText>
 	</vc-donut>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from '@nuxtjs/composition-api'
+import { formatNumber } from '@utils/commons'
 export default defineComponent({
 	name: 'DonutChart',
 	props: {
@@ -49,7 +52,7 @@ export default defineComponent({
 			get: () => [{ value: props.score, color: '#546DD3' }],
 			set: () => {}
 		})
-		return { sections }
+		return { sections, formatNumber }
 	}
 
 })

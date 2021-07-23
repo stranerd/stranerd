@@ -175,6 +175,6 @@ const getNextRank = (rank: RankTypes) :Rank | null => {
 
 export const getExpectedScore = (user: UserEntity) => {
 	const dayInMs = 1000 * 60 * 60 * 24
-	const days = Math.round((Date.now() - user.dates.signedUpAt) / dayInMs)
+	const days = Math.ceil((Date.now() - user.dates.signedUpAt) / dayInMs)
 	return user.rank.expectedScore * days / user.rank.expectedDays
 }

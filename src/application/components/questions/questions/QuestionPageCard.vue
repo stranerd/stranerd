@@ -7,7 +7,7 @@
 				</NuxtLink>
 				<div class="d-flex flex-column align-items-md-center flex-md-row gap-md-0-5 fw-bold">
 					<NuxtLink class="name" :to="`/users/${question.userId}`">
-						{{ question.userName }}
+						<DynamicText>{{ question.userName }}</DynamicText>
 					</NuxtLink>
 					<div class="dot d-none d-md-inline" />
 					<Subject :subject-id="question.subjectId" class="subject" />
@@ -26,7 +26,7 @@
 						Add Your Answer
 					</button>
 					<div class="coin d-flex align-items-center gap-0-25 px-1 d-md-inline-block d-none">
-						<span>+{{ formatNumber(question.creditable) }}</span>
+						<DynamicText>+{{ formatNumber(question.creditable) }}</DynamicText>
 						<Coins :size="28" style="z-index: 1;" />
 					</div>
 				</template>
@@ -36,14 +36,16 @@
 		<div class="question-body editor-body" v-html="question.body" />
 
 		<div class="d-flex align-items-center flex-row flex-wrap gap-1">
-			<span class="name me-auto">Posted {{ formatTime(question.createdAt) }}</span>
+			<DynamicText class="name me-auto">
+				Posted {{ formatTime(question.createdAt) }}
+			</DynamicText>
 			<div class="d-flex align-items-center gap-0-5 mx-auto gap-md-1">
 				<Tag v-for="tag in question.tags" :key="tag" :tag="tag" />
 			</div>
 			<div class="ms-auto d-flex align-items-center gap-1">
 				<span class="d-flex align-items-center gap-0-5">
 					<img src="@app/assets/images/icons/answers.svg" alt="" class="icons">
-					<span>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</span>
+					<DynamicText>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</DynamicText>
 				</span>
 				<span v-if="question.userId !== id" @click="reportQuestion">
 					<i class="fas fa-flag icons" />

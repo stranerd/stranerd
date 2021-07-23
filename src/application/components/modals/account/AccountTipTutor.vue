@@ -1,12 +1,12 @@
 <template>
 	<Modal :modal="$attrs.modal">
 		<template slot="title">
-			Tip {{ nerdBioAndId.bio.name.first }}
+			Tip <DynamicText>{{ nerdBioAndId.bio.name.first }}</DynamicText>
 		</template>
 		<AccountCoinBalance class="mb-1 px-1-5" :user="user" />
 		<div class="d-flex flex-wrap gap-1">
 			<button v-for="amount in TIP_AMOUNTS" :key="amount" :disabled="user.account.coins.gold < amount" class="tip btn btn-outline-dark" @click="tipTutor(amount)">
-				<span>{{ amount }}</span>
+				<DynamicText>{{ amount }}</DynamicText>
 				<Coins :gold="true" :size="20" />
 			</button>
 		</div>

@@ -16,8 +16,6 @@
 
 # Node.js dependencies:
 node_modules/
-build/
-dist/
 
 # IDEs config
 .idea/

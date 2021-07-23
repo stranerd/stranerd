@@ -6,7 +6,7 @@
 					<Avatar :src="question.avatar" :size="36" />
 				</NuxtLink>
 				<NuxtLink class="name" :to="`/users/${question.userId}`">
-					{{ question.userName }}
+					<DynamicText>{{ question.userName }}</DynamicText>
 				</NuxtLink>
 				<div class="dot" />
 				<Subject :subject-id="question.subjectId" class="subject" />
@@ -14,7 +14,7 @@
 			<img v-if="question.isAnswered" src="@app/assets/images/icons/profile-best-answers.svg" alt="" style="width: 2rem; height: 2rem;">
 			<div v-else-if="showAnswerButton" class="d-flex align-items-center gap-1">
 				<div class="coin d-flex align-items-center gap-0-25">
-					<span>+{{ formatNumber(question.creditable) }}</span>
+					<DynamicText>+{{ formatNumber(question.creditable) }}</DynamicText>
 					<Coins :size="28" style="z-index: 1;" />
 				</div>
 				<button class="answer-btn" @click="openAnswerModal">
@@ -24,18 +24,22 @@
 		</div>
 
 		<NuxtLink class="question-body" :to="`/questions/${question.id}`">
-			{{ question.trimmedBody }}
+			<DynamicText>
+				{{ question.trimmedBody }}
+			</DynamicText>
 		</NuxtLink>
 
 		<div class="d-flex flex-wrap align-items-center justify-content-between gap-1 gap-md-2">
-			<span class="name order-1 order-md-1">Posted {{ formatTime(question.createdAt) }}</span>
+			<DynamicText class="name order-1 order-md-1">
+				Posted {{ formatTime(question.createdAt) }}
+			</DynamicText>
 			<div class="gap-0-75 d-flex flex-wrap align-items-center order-3 order-md-2">
 				<Tag v-for="tag in question.tags" :key="tag" :tag="tag" />
 			</div>
 			<div class="d-flex align-items-center gap-1 order-md-3 order-2">
 				<span class="d-flex align-items-center gap-0-5">
 					<img src="@app/assets/images/icons/answers.svg" alt="" class="icons">
-					<span>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</span>
+					<DynamicText>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</DynamicText>
 				</span>
 			</div>
 		</div>

@@ -9,7 +9,6 @@
     "start": "nuxt start",
     "generate": "nuxt generate",
     "lint": "eslint src/ --ext .ts,.js,.vue --fix && stylelint src/**/*.scss src/**/*.vue --fix",
-    "gcp-build": "npm run build",
     "firebase:start": "npm run firebase:functions:build && npm run env:copy:functions && firebase emulators:start --import ./firebase/docs/exports -P development",
     "firebase:save": "firebase emulators:export ./firebase/docs/exports -P development",
     "firebase:functions:watch": "npm run watch --prefix ./firebase/functions",

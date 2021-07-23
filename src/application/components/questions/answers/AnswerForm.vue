@@ -11,7 +11,9 @@
 				class="form-control"
 				placeholder="Example: The answer is 14 seconds."
 			>
-			<span v-if="factory.errors.title" class="text-danger small">{{ factory.errors.title }}</span>
+			<DynamicText v-if="factory.errors.title" class="text-danger small">
+				{{ factory.errors.title }}
+			</DynamicText>
 		</div>
 
 		<div class="form-group">

@@ -85,9 +85,9 @@ a {
 
 	&:hover {
 		text-decoration: none;
-		font-size: 1.02em;
+		// font-size: 1.02em;
 		transition: all 0.2s;
-		transform: scale(1.02);
+		// transform: scale(1.02);
 	}
 }
 
@@ -108,7 +108,7 @@ a {
 }
 
 .editor-body {
-	p { margin-bottom: 0.5rem; }
+	p { margin-bottom: 0.25rem; }
 	& > p:last-child { margin-bottom: 0; }
 }
 

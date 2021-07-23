@@ -1,7 +1,9 @@
 <template>
 	<div :id="question.id" class="questionStyle">
 		<NuxtLink class="d-block" :to="`/questions/${question.id}`">
-			{{ question.trimmedBody }}
+			<DynamicText>
+				{{ question.trimmedBody }}
+			</DynamicText>
 		</NuxtLink>
 	</div>
 </template>

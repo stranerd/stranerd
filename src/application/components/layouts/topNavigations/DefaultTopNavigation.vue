@@ -12,7 +12,7 @@
 			</span>
 
 			<NuxtLink class="me-auto mx-md-auto mx-lg-0" to="/">
-				<Logo :secondary="true" class="nav-logo" />
+				<Logo :secondary="true" />
 			</NuxtLink>
 
 			<SearchBar class="middle-body mx-auto d-none d-lg-flex" />
@@ -31,7 +31,9 @@
 				<div v-if="isLoggedIn" class="d-none d-lg-flex gap-0-25 gap-lg-1 align-items-center cursor-pointer" @click="show = !show">
 					<Avatar :src="user.avatar" :size="48" />
 					<span class="d-flex gap-0-5 align-items-center">
-						<span class="username text-truncate">{{ user.fullName }}</span>
+						<DynamicText class="username" :truncate="true">
+							{{ user.fullName }}
+						</DynamicText>
 						<i class="fas" :class="show ? 'fa-angle-up' : 'fa-angle-down'" />
 					</span>
 				</div>
@@ -109,13 +111,6 @@ export default defineComponent({
 			right: 0;
 			top: 0;
 			bottom: 0;
-		}
-	}
-
-	.nav-logo {
-		&:hover {
-			transition: all 0.3s;
-			transform: scale(1.2);
 		}
 	}
 

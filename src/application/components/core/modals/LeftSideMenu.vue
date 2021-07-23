@@ -32,7 +32,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-	/deep/ .head {
+	.head, /deep/ .head {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;

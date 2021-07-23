@@ -1,6 +1,6 @@
 <template>
 	<span class="d-inline-block text-break text-wrap" :class="{'text-truncate': truncate}">
-		{{ text }}
+		<slot />
 	</span>
 </template>
 

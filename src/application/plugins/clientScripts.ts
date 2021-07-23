@@ -9,10 +9,16 @@ import 'vue-css-donut-chart/dist/vcdonut.css'
 
 export default defineNuxtPlugin(async () => {
 	const hasNoGapSupport = () => {
-		const { userAgent } = window.navigator
-		const keys = ['Intel Mac OS X', 'iPad; CPU OS', 'iPhone OS', 'iPhone; Opera Mini/']
-		const index = keys.findIndex((key) => userAgent.includes(key))
-		return index !== -1
+		const flex = document.createElement('div')
+		flex.style.display = 'flex'
+		flex.style.flexDirection = 'column'
+		flex.style.rowGap = '1px'
+		flex.appendChild(document.createElement('div'))
+		flex.appendChild(document.createElement('div'))
+		document.body.appendChild(flex)
+		const hasSupport = flex.scrollHeight === 1
+		flex.parentNode?.removeChild(flex)
+		return !hasSupport
 	}
 
 	document.body.setAttribute('data-no-gap', hasNoGapSupport() ? 'true' : 'false')

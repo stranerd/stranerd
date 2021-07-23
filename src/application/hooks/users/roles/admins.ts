@@ -60,7 +60,7 @@ export const useAdminRoles = () => {
 		if (state.email) {
 			setLoading(true)
 			try {
-				state.users = reactive(await GetUsersByEmail.call(state.email))
+				state.users = reactive(await GetUsersByEmail.call(state.email.toLowerCase()))
 				state.fetched = true
 			} catch (error) { setError(error) }
 			setLoading(false)

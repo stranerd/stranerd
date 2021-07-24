@@ -46,8 +46,9 @@ body {
 	display: flex;
 	flex-grow: 1;
 	flex-direction: column;
-	padding: 2rem 1rem;
-	@media (min-width: $lg) { padding: 3rem 1rem; }
+	padding: 1.5rem 1rem;
+	@media (min-width: $md) { padding: 2rem 2rem; }
+	@media (min-width: $lg) { padding: 3rem 0; }
 	@media (min-width: $lg) { width: 55.75%; }
 }
 
@@ -88,6 +89,8 @@ body {
 	color: $color-sub;
 	padding: 1rem 2rem;
 	@media (min-width: $md) { padding: 1rem 2.86rem; }
+	@media (min-width: $lg) { padding: 1rem 2rem; }
+	@media (min-width: $xl) { padding: 1rem 2.86rem; }
 
 	img {
 		height: 24px;
@@ -137,7 +140,7 @@ body {
 
 .menu-background {
 	height: vh(100);
-	background: $color-dark;
+	background: rgba($color-dark, 0.8);
 }
 
 .menu {

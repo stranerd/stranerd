@@ -38,7 +38,7 @@ export class QuestionEntity extends BaseEntity {
 	get creditable () { return Math.round(this.coins * 0.25) }
 	get userName () { return this.user.name.fullName }
 	get avatar () { return this.user.avatar }
-	get trimmedBody () { return trimToLength(this.strippedBody, 200) }
+	get trimmedBody () { return trimToLength(this.strippedBody, 100) }
 	get strippedBody () { return extractTextFromHTML(this.body) }
 }
 

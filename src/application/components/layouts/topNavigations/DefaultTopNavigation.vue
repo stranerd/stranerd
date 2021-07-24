@@ -1,5 +1,5 @@
 <template>
-	<nav class="default-top-nav gap-0-5 gap-md-1" role="navigation">
+	<nav class="default-top-nav gap-1" role="navigation">
 		<template v-if="showSearch">
 			<span class="link" @click="showSearch = false">
 				<img src="@app/assets/images/icons/close.svg" alt="">
@@ -11,17 +11,17 @@
 				<img src="@app/assets/images/icons/hamburger.svg" alt="">
 			</span>
 
-			<NuxtLink class="me-auto mx-md-auto mx-lg-0" to="/">
+			<NuxtLink to="/">
 				<Logo :secondary="true" />
 			</NuxtLink>
 
 			<SearchBar class="middle-body mx-auto d-none d-lg-flex" />
 
-			<div class="right-body gap-1-5 gap-md-2-25 gap-lg-3 gap-xl-4-5">
+			<div class="right-body gap-1-5 gap-md-2-25 gap-lg-3 gap-xl-4-5 ms-auto">
 				<span class="d-lg-none link" @click="showSearch = !showSearch">
 					<img src="@app/assets/images/icons/search.svg">
 				</span>
-				<MessageLink :key="'messages' + isLoggedIn" class="link d-none d-lg-flex" />
+				<MessageLink :key="'messages' + isLoggedIn" class="link" />
 				<NotificationBell :key="'notifications' + isLoggedIn" class="link" />
 
 				<span class="link d-lg-none" @click="openRightMenu">
@@ -118,8 +118,7 @@ export default defineComponent({
 		display: flex;
 		align-items: center;
 		color: $color-dark;
-		min-height: 6px;
-		padding: 1rem;
+		padding: 0.75rem 1rem;
 		border-bottom: 5px solid $color-primary;
 		@media (min-width: $md) { padding: 1rem 2rem; }
 		@media (min-width: $lg) { padding: 1rem 3rem; }
@@ -174,8 +173,12 @@ export default defineComponent({
 
 	.link {
 		& > img, /deep/ img {
-			width: 24px !important;
-			height: 24px !important;
+			width: 20px !important;
+			height: 20px !important;
+			@media (min-width: $md) {
+				width: 24px !important;
+				height: 24px !important;
+			}
 		}
 	}
 </style>

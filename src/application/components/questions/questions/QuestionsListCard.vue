@@ -1,14 +1,10 @@
 <template>
-	<div :id="question.id" class="d-flex flex-column p-1 gap-1 gap-lg-2">
+	<div :id="question.id" class="d-flex flex-column py-1-5 gap-1 gap-lg-1-5 border-bottom border-line">
 		<div class="question-head d-flex flex-wrap align-items-center gap-1">
 			<div class="d-flex align-items-center gap-0-5 me-auto">
 				<NuxtLink :to="`/users/${question.userId}`">
 					<Avatar :src="question.avatar" :size="36" />
 				</NuxtLink>
-				<NuxtLink class="name" :to="`/users/${question.userId}`">
-					<DynamicText>{{ question.userName }}</DynamicText>
-				</NuxtLink>
-				<div class="dot" />
 				<Subject :subject-id="question.subjectId" class="subject" />
 			</div>
 			<img v-if="question.isAnswered" src="@app/assets/images/icons/profile-best-answers.svg" alt="" style="width: 2rem; height: 2rem;">
@@ -29,7 +25,7 @@
 			</DynamicText>
 		</NuxtLink>
 
-		<div class="d-flex flex-wrap align-items-center justify-content-between gap-1 gap-md-2">
+		<div class="d-flex flex-wrap align-items-center justify-content-between gap-1 gap-md-2 sec-text">
 			<DynamicText class="name order-1 order-md-1">
 				Posted {{ formatTime(question.createdAt) }}
 			</DynamicText>
@@ -81,7 +77,13 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 	.question-body {
-		font-size: 20px;
+		font-size: 16px;
+		@media (min-width: $md) { font-size: 20px; }
+	}
+
+	.sec-text {
+		font-size: 14px;
+		@media (min-width: $md) { font-size: 16px; }
 	}
 
 	.question-head {
@@ -113,9 +115,9 @@ export default defineComponent({
 		background: $color-primary;
 		color: $color-white;
 		border: none;
-		border-radius: 18px;
+		border-radius: 10rem;
 		width: fit-content;
-		padding: 9px 27px;
+		padding: 4px 18px;
 
 		&:hover {
 			color: $color-white;

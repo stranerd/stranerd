@@ -4,7 +4,7 @@
 			Request Session
 		</template>
 		<form @submit.prevent="createSession">
-			// TODO: Add rich text editor for session's message
+			<!-- TODO: Add rich text editor for session's message -->
 			<div class="form-group my-1">
 				<select v-model="factory.duration" class="form-select">
 					<option disabled value="0">

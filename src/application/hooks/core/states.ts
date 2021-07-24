@@ -38,19 +38,19 @@ export const useLoadingHandler = () => {
 
 export const useListener = (start: () => Promise<() => void>) => {
 	let listener = null as null | (() => void)
-	let isRunning = false
+	const isRunning = reqRef(false)
 	const startListener = async () => {
 		closeListener()
 		listener = await start()
-		isRunning = true
+		isRunning.value = true
 	}
 	const closeListener = () => {
 		listener?.()
-		isRunning = false
+		isRunning.value = false
 	}
 	const resetListener = async (reset: () => Promise<() => void>) => {
 		start = reset
-		if (isRunning) await startListener()
+		if (isRunning.value) await startListener()
 	}
 	return { startListener, closeListener, resetListener, isRunning }
 }

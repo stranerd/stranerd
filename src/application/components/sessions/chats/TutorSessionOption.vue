@@ -3,8 +3,8 @@
 		<button class="btn btn-sm btn-success flex-grow-1 w-100" @click="acceptSession">
 			Accept
 		</button>
-		<button class="btn btn-sm btn-danger flex-grow-1 w-100" @click="cancelSession">
-			Cancel
+		<button class="btn btn-sm btn-danger flex-grow-1 w-100" @click="rejectSession">
+			Reject
 		</button>
 		<PageLoading v-if="loading" />
 	</div>
@@ -23,8 +23,8 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
-		const { acceptSession, cancelSession, loading, error } = useSession(props.session.id)
-		return { acceptSession, cancelSession, loading, error }
+		const { acceptSession, rejectSession, loading, error } = useSession(props.session.id)
+		return { acceptSession, rejectSession, loading, error }
 	}
 })
 </script>

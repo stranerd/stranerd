@@ -7,7 +7,7 @@ export class BeginSessionUseCase {
 		this.repository = repository
 	}
 
-	async call (id: string) {
-		return await this.repository.begin(id)
+	async call (id: string, accepted: boolean) {
+		return await this.repository.accept(id, accepted)
 	}
 }

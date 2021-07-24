@@ -22,7 +22,7 @@ export default defineComponent({
 			set: () => {}
 		})
 		onMounted(() => {
-			if (!listener.isRunning) listener.startListener()
+			if (!listener.isRunning.value) listener.startListener()
 		})
 		return { unreadMessages, formatNumber }
 	}

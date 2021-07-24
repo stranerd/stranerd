@@ -98,14 +98,33 @@ export const useSession = (sessionId: string) => {
 		if (accepted) {
 			try {
 				setLoading(true)
-				if (sessionId) await BeginSession.call(sessionId)
-				analytics.logEvent('session_accepted', { sessionId })
+				if (sessionId) await BeginSession.call(sessionId, true)
+				analytics.logEvent('session_accepted', { sessionId, accepted: true })
 			} catch (error) { setError(error) }
 			setLoading(false)
 		}
 	}
 
-	return { loading, error, cancelSession, acceptSession }
+	const rejectSession = async () => {
+		setError('')
+		const accepted = await Alert({
+			title: 'Are you sure you want to reject this session',
+			text: '',
+			icon: 'info',
+			confirmButtonText: 'Yes, reject',
+			cancelButtonText: 'No, ignore'
+		})
+		if (accepted) {
+			try {
+				setLoading(true)
+				if (sessionId) await BeginSession.call(sessionId, false)
+				analytics.logEvent('session_accepted', { sessionId, accepted: false })
+			} catch (error) { setError(error) }
+			setLoading(false)
+		}
+	}
+
+	return { loading, error, cancelSession, acceptSession, rejectSession }
 }
 
 let otherParticipantId = null as null | string

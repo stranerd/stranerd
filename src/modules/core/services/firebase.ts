@@ -154,7 +154,7 @@ export interface FUNCTIONS {
 	toggleAdmin: { id: string, isAdmin: boolean },
 	subscribeToMailingList: { email: string },
 	requestNewSession: { session: Partial<SessionToModel> },
-	acceptSession: { id: string },
+	acceptSession: { id: string, accepted: boolean },
 	cancelSession: { id: string },
 	getClientToken: {},
 	makePayment: { amount: number, nonce: string },

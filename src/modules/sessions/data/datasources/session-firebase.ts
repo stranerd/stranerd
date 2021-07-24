@@ -7,8 +7,8 @@ export class SessionFirebaseDataSource implements SessionBaseDataSource {
 		return await FunctionsService.call('requestNewSession', { session })
 	}
 
-	async begin (id: string) {
-		return await FunctionsService.call('acceptSession', { id })
+	async accept (id: string, accepted: boolean) {
+		return await FunctionsService.call('acceptSession', { id, accepted })
 	}
 
 	async cancel (id: string) {

@@ -4,9 +4,9 @@
 		<div v-else-if="user" class="flex-grow-1 d-flex flex-column bg-white">
 			<ChatHead :key="hash" :user="user" />
 			<ChatList :user-id="userId" class="flex-grow-1" />
-			<ChatForm v-if="sessionId" :user-id="userId" :session-id="sessionId" />
 			<TutorSessionOption v-if="requestedSession" :session="requestedSession" />
 			<StudentWaitingSession v-if="requestingSession" :session="requestingSession" />
+			<ChatForm v-if="sessionId" :user-id="userId" :session-id="sessionId" />
 		</div>
 		<DisplayError v-else error="No such user exists!" />
 	</div>

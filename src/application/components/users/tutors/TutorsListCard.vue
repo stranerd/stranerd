@@ -1,7 +1,7 @@
 <template>
-	<div>
-		<div class="d-flex flex-column nerd-body gap-1 mb-2-25 d-md-block d-none">
-			<div class="nerd-head nerd-card gap-1">
+	<div class="mb-2 mb-md-2-25">
+		<div class="flex-column nerd-body gap-1 d-md-flex d-none">
+			<div class="d-flex align-items-center nerd-card gap-1">
 				<span class="d-flex justify-content-end">
 					<NuxtLink :to="`/users/${tutor.id}`" class="position-relative">
 						<Avatar :src="tutor.avatar" :size="72" />
@@ -12,7 +12,7 @@
 						/>
 					</NuxtLink>
 				</span>
-				<div class="d-flex align-items-start flex-column ms-0-5">
+				<div class="d-flex align-items-start align-self-end flex-column ms-0-5 gap-0-75">
 					<NuxtLink :to="`/users/${tutor.id}`" class="name">
 						<DynamicText>{{ tutor.fullName }}</DynamicText>
 					</NuxtLink>
@@ -20,79 +20,74 @@
 						{{ tutor.rank.id }}
 					</DynamicText>
 				</div>
-				<button v-if="canRequestSession" class="btn btn-primary ms-auto" @click="requestNewSession">
+				<button v-if="canRequestSession" class="btn btn-primary ms-auto rounded-pill" @click="requestNewSession">
 					Request A Session
 				</button>
 			</div>
 
 			<div class="nerd-card gap-1-5">
-				<ShowRatings class="ms-auto" :rating="tutor.averageRating" />
-				<DynamicText>{{ formatNumber(tutor.meta.answers.length) }} {{ pluralize(tutor.meta.answers.length, 'Question', 'Questions') }} Answered</DynamicText>
-				<DynamicText>{{ formatNumber(tutor.meta.tutorSessions.length) }} {{ pluralize(tutor.meta.tutorSessions.length, 'Session', 'Sessions') }} Hosted</DynamicText>
+				<span>
+					<ShowRatings class="ms-auto" :rating="tutor.averageRating" />
+				</span>
+				<DynamicText class="head-text">
+					{{ formatNumber(tutor.meta.answers.length) }} {{ pluralize(tutor.meta.answers.length, 'Question', 'Questions') }} Answered
+				</DynamicText>
+				<DynamicText class="head-text">
+					{{ formatNumber(tutor.meta.tutorSessions.length) }} {{ pluralize(tutor.meta.tutorSessions.length, 'Session', 'Sessions') }} Hosted
+				</DynamicText>
 			</div>
 
 			<div v-if="tutor.strongestSubject" class="nerd-card gap-1-5">
-				<span>Strongest In</span>
+				<span class="head-text">Strongest In</span>
 				<Subject :subject-id="tutor.strongestSubject.id" class="sub-text" />
 			</div>
 
 			<div v-if="tutor.tags.length" class="nerd-card gap-1-5">
-				<span>Routine Tags</span>
+				<span class="head-text">Frequent Tags</span>
 				<div class="d-flex align-items-center gap-0-75 flex-wrap">
 					<Tag v-for="tag in tutor.tags" :key="tag.id" :tag="tag.id" />
 				</div>
 			</div>
 		</div>
 		<!-- smaller screens -->
-		<div class="d-flex flex-column nerd-body  mb-2 px-1  py-2 d-md-none d-block">
-			<div class="nerd-head nerd-card px-1 d-flex flex-column align-items-sm-center justify-content-sm-center">
-				<div class="d-flex justify-content-center">
-					<NuxtLink :to="`/users/${tutor.id}`" class="position-relative">
-						<Avatar :src="tutor.avatar" :size="70" />
-						<i
-							class="fas fa-circle position-absolute rounded-pill"
-							:class="tutor.isOnline ? 'text-success' : 'text-sub'"
-							style="z-index: 1; right: 0; bottom: 0; font-size: 1rem; border: 3px solid white;"
-						/>
-					</NuxtLink>
-				</div>
-				<div class="d-flex align-items-center flex-column">
-					<NuxtLink :to="`/users/${tutor.id}`" class="name" style="font-size: 19px;">
-						<DynamicText>{{ tutor.fullName }}</DynamicText>
-					</NuxtLink>
-					<DynamicText class="rank">
-						{{ tutor.rank.id }}
-					</DynamicText>
-				</div>
+		<div class="d-flex flex-column align-items-center nerd-body gap-0-75 d-md-none">
+			<NuxtLink :to="`/users/${tutor.id}`" class="position-relative">
+				<Avatar :src="tutor.avatar" :size="70" />
+				<i
+					class="fas fa-circle position-absolute rounded-pill"
+					:class="tutor.isOnline ? 'text-success' : 'text-sub'"
+					style="z-index: 1; right: 0; bottom: 0; font-size: 1rem; border: 3px solid white;"
+				/>
+			</NuxtLink>
+
+			<NuxtLink :to="`/users/${tutor.id}`" class="name" style="font-size: 19px;">
+				<DynamicText>{{ tutor.fullName }}</DynamicText>
+			</NuxtLink>
+
+			<DynamicText class="rank">
+				{{ tutor.rank.id }}
+			</DynamicText>
+
+			<ShowRatings :rating="tutor.averageRating" />
+			<DynamicText class="fw-bold head-text">
+				{{ formatNumber(tutor.meta.answers.length) }} {{ pluralize(tutor.meta.answers.length, 'Question', 'Questions') }} Answered
+			</DynamicText>
+			<DynamicText class="fw-bold head-text">
+				{{ formatNumber(tutor.meta.tutorSessions.length) }} {{ pluralize(tutor.meta.tutorSessions.length, 'Session', 'Sessions') }} Hosted
+			</DynamicText>
+
+			<div v-if="1 || tutor.strongestSubject" class="d-flex align-items-center gap-0-25 fw-bold">
+				<span class="head-text">Strongest In</span>
+				<Subject :subject-id="'hek' || tutor.strongestSubject.id" class="sub-text" />
 			</div>
 
-			<div class="nerd-card d-flex flex-column align-items-sm-center justify-content-sm-center mb-1">
-				<div style="margin-bottom: 5px;">
-					<ShowRatings class="ms-auto" :rating="tutor.averageRating" />
-				</div>
-				<DynamicText style="margin-bottom: 5px; font-weight: bold;">
-					{{ formatNumber(tutor.meta.answers.length) }} {{ pluralize(tutor.meta.answers.length, 'Question', 'Questions') }} Answered
-				</DynamicText>
-				<DynamicText style="margin-bottom: 5px; font-weight: bold;">
-					{{ formatNumber(tutor.meta.tutorSessions.length) }} {{ pluralize(tutor.meta.tutorSessions.length, 'Session', 'Sessions') }} Hosted
-				</DynamicText>
+			<div v-if="tutor.tags.length" class="d-flex justify-content-center flex-wrap gap-0-25">
+				<Tag v-for="tag in tutor.tags" :key="tag.id" :tag="tag.id" />
 			</div>
 
-			<div v-if="tutor.strongestSubject" class="nerd-card px-1 mb-1 " style="font-weight: bold;">
-				<span>Strongest In</span>
-				<Subject :subject-id="tutor.strongestSubject.id" class="sub-text" />
-			</div>
-
-			<div v-if="tutor.tags.length" class="nerd-card px-1 mb-1 d-flex flex-row flex-wrap">
-				<div v-for="tag in tutor.tags" :key="tag.id" style="margin-right: 3px;">
-					<Tag :tag="tag.id" />
-				</div>
-			</div>
-			<div class="d-flex flexx-row justify-content-sm-center align-items-sm-center">
-				<button v-if="canRequestSession" class="btn-sm btn btn-primary" style="border-radius: 20px;" @click="requestNewSession">
-					Request A Session
-				</button>
-			</div>
+			<button v-if="canRequestSession" class="btn-sm btn btn-primary rounded-pill" @click="requestNewSession">
+				Request A Session
+			</button>
 		</div>
 		<!-- ends -->
 	</div>
@@ -138,47 +133,44 @@ export default defineComponent({
 	.nerd-card {
 		display: flex;
 		align-items: center;
-
-		& > *:first-child {
-			min-width: 120px;
-			text-align: right;
-			font-size: 1rem;
+		@media (min-width: $md) {
+			& > *:first-child {
+				min-width: 120px;
+				text-align: right;
+				font-size: 1rem;
+			}
 		}
+	}
 
-		.sub-text {
-			font-size: 18px;
-			color: $color-primary;
-			font-weight: normal;
-		}
+	.head-text {
+		color: $color-sub;
+		font-size: 18px;
+		font-weight: 600;
+	}
 
-		span {
-			color: $color-sub;
-			font-size: 18px;
-			font-weight: 600;
-		}
+	.sub-text {
+		font-size: 18px;
+		color: $color-primary;
+		font-weight: normal;
 	}
 
 	.nerd-body {
 		background: $color-white;
 		border: 1px solid $color-line;
-		padding: 1.5rem 3rem;
 		border-radius: 12px;
+		padding: 1rem 1rem;
+		@media (min-width: $md) { padding: 1.5rem 3rem; }
 	}
 
-	.nerd-head {
-		display: flex;
-		align-items: center;
+	.name {
+		color: $color-dark;
+		font-size: 24px;
+		font-weight: 600;
+	}
 
-		.name {
-			color: $color-dark;
-			font-size: 24px;
-			font-weight: 600;
-		}
-
-		.rank {
-			color: $color-primary;
-			font-weight: 600;
-			font-size: 18px;
-		}
+	.rank {
+		color: $color-primary;
+		font-size: 18px;
+		font-weight: 400;
 	}
 </style>

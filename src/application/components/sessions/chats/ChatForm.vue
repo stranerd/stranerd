@@ -1,5 +1,5 @@
 <template>
-	<form class="d-flex align-items-center py-1 gap-2 px-2 bg-line" @submit.prevent="createTextChat">
+	<form class="d-flex align-items-center py-1 gap-1 gap-md-2 bg-line" @submit.prevent="createTextChat">
 		<input v-model="factory.content" class="form-control bg-white p-0-5" placeholder="Type a message here...">
 		<a class="fas fa-paperclip" @click.prevent="() => { $refs.mediaInput.value= ''; $refs.mediaInput.click() }" />
 		<a class="fas fa-paper-plane" @click.prevent="() => { factory.content && createTextChat() }" />
@@ -36,7 +36,6 @@ export default defineComponent({
 	a {
 		border-radius: 10rem;
 		font-size: 1.25rem;
-		margin-left: 1rem;
 		color: $color-dark;
 	}
 

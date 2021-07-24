@@ -2,14 +2,11 @@
 	<div class="chat gap-0-25" :class="isMine ? 'is-mine' : 'is-not-mine'">
 		<a v-if="chat.isMedia" class="text-truncate" :href="chat.media.link" target="__blank">
 			<i class="fas fa-paperclip me-0-25" />
-			<DynamicText :truncate="true">
-				{{ chat.media.name }}
-			</DynamicText>
 		</a>
-		<DynamicText v-else>
-			{{ chat.content || 'Hello' }}
+		<DynamicText @click="copy">
+			{{ chat.isMedia ? chat.media.name : chat.content }}
 		</DynamicText>
-		<DynamicText class="mt-auto pt-0-5 small">
+		<DynamicText class="mt-auto pt-0-5 small" @click="copy">
 			{{ formatTimeAsDigits(new Date(chat.createdAt)) }}
 		</DynamicText>
 	</div>
@@ -21,6 +18,7 @@ import { ChatEntity } from '@modules/sessions'
 import { useAuth } from '@app/hooks/auth/auth'
 import { formatTimeAsDigits } from '@utils/dates'
 import { useChat } from '@app/hooks/sessions/chats'
+import { isClient } from '@utils/environment'
 export default defineComponent({
 	name: 'ChatListCard',
 	props: {
@@ -40,10 +38,18 @@ export default defineComponent({
 			set: () => {}
 		})
 		const { markChatRead } = useChat(props.chat, props.userId)
+		const copy = async () => {
+			if (!isClient()) return
+			const result = await window.navigator.permissions.query({ name: 'clipboard-write' })
+			if (result.state === 'granted' || result.state === 'prompt') {
+				await window.navigator.clipboard
+					.writeText(props.chat.isMedia ? props.chat.media!.link : props.chat.content!)
+			}
+		}
 		onMounted(async () => {
 			if (!isMine.value && !props.chat.isRead) await markChatRead()
 		})
-		return { isMine, formatTimeAsDigits }
+		return { isMine, formatTimeAsDigits, copy }
 	}
 })
 </script>

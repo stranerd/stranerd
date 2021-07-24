@@ -76,7 +76,8 @@ export default defineComponent({
 
 	.ranking {
 		background: $color-tags;
-		border: 1px solid $color-line;
+		border-radius: 6px;
+		border: 0.5px solid $color-line;
 		padding: 36px;
 	}
 

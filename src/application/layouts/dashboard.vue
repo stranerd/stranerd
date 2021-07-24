@@ -1,7 +1,7 @@
 <template>
 	<div class="layout-page">
 		<TopNavigation />
-		<section class="layout-body">
+		<section class="layout-body gap-3">
 			<section class="layout-side-left">
 				<Sidebar />
 			</section>
@@ -11,8 +11,8 @@
 			<section class="layout-side-right">
 				<RightSidebar />
 			</section>
-			<ModalBase />
 		</section>
+		<ModalBase />
 	</div>
 </template>
 

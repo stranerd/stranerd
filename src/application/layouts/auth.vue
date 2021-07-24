@@ -1,12 +1,12 @@
 <template>
 	<section class="layout-page">
 		<HomeTopNavigation />
-		<section class="layout-body">
+		<section class="layout-body gap-3">
 			<main class="layout-main">
 				<Nuxt />
 			</main>
-			<ModalBase />
 		</section>
+		<ModalBase />
 	</section>
 </template>
 

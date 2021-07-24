@@ -49,7 +49,7 @@ export default defineComponent({
 		align-items: center;
 		justify-content: space-between;
 		padding: 1rem 1.5rem;
-		border-bottom: 5px solid $color-primary;
+		border-bottom: 6px solid $color-primary;
 
 		.link {
 			& > img {

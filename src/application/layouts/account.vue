@@ -1,15 +1,15 @@
 <template>
 	<section class="layout-page">
 		<TopNavigation />
-		<section class="layout-body">
+		<section class="layout-body gap-3">
 			<section class="layout-side-left">
 				<Sidebar />
 			</section>
 			<main class="layout-main">
 				<Nuxt />
 			</main>
-			<ModalBase />
 		</section>
+		<ModalBase />
 	</section>
 </template>
 

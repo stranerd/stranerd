@@ -2,11 +2,11 @@
 	<div class="flex-grow-1 d-flex flex-column">
 		<PageLoading v-if="loading" />
 		<div v-else-if="user" class="flex-grow-1 d-flex flex-column bg-white">
-			<ChatHead :key="hash" :user="user" />
-			<ChatList :user-id="userId" class="flex-grow-1" />
-			<ChatForm v-if="sessionId" :user-id="userId" :session-id="sessionId" />
-			<TutorSessionOption v-if="requestedSession" :session="requestedSession" />
-			<StudentWaitingSession v-if="requestingSession" :session="requestingSession" />
+			<ChatHead :key="hash" :user="user" class="px-1 px-md-2" />
+			<ChatList :user-id="userId" class="flex-grow-1 px-1 px-md-2" />
+			<TutorSessionOption v-if="requestedSession" :session="requestedSession" class="px-1 px-md-2" />
+			<StudentWaitingSession v-if="requestingSession" :session="requestingSession" class="px-1 px-md-2" />
+			<ChatForm v-if="sessionId" :user-id="userId" :session-id="sessionId" class="px-1 px-md-2" />
 		</div>
 		<DisplayError v-else error="No such user exists!" />
 	</div>

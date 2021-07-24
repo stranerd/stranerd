@@ -2,13 +2,13 @@
 	<div class="layout-page">
 		<HomeTopNavigation class="fixed-top" />
 		<div style="height: 76px;" />
-		<section class="layout-body">
+		<section class="layout-body gap-3">
 			<main class="layout-main p-0">
 				<Nuxt />
 				<HomeBottomNavigation />
 			</main>
-			<ModalBase />
 		</section>
+		<ModalBase />
 	</div>
 </template>
 

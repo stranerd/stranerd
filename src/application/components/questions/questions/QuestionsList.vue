@@ -1,24 +1,26 @@
 <template>
 	<div>
-		<NuxtLink class="w-100 d-md-none mb-1-5 btn btn-primary mx-auto px-2 py-1" to="/questions/create">
-			Ask A Question
-		</NuxtLink>
+		<div class="d-flex align-items-center gap-0-5 d-md-none position-fixed" style="right: 2rem; bottom: 2rem;">
+			<span class="bg-primary text-white small rounded-3 py-0-25 px-0-5">
+				Ask your question
+			</span>
+			<NuxtLink class="d-flex align-items-center justify-content-center rounded-pill d-md-none bg-primary text-white" style="width: 3rem; height: 3rem; font-size: 1.5rem;" to="/questions/create">
+				+
+			</NuxtLink>
+		</div>
 
-		<div class="d-flex justify-content-between align-items-center gap-1 px-1 mb-2 ">
+		<div class="d-flex justify-content-between align-items-center gap-1 mb-1 mb-md-2 ">
 			<h1 class="text-dark my-0 d-flex align-items-center questions">
-				<div class="dash" />
-				<span class="mx-0-5">
-					Questions
-				</span>
-
-				<div class="dash" />
+				<div class="dash me-0-5" />
+				<span>Questions</span>
+				<div class="dash ms-0-5" />
 			</h1>
 			<NuxtLink class=" btn btn-primary px-2 py-1 d-none d-md-inline" to="/questions/create">
 				Ask A Question
 			</NuxtLink>
 		</div>
 
-		<form class="d-flex options bl gap-1-5 px-1">
+		<form class="d-flex options gap-1-5">
 			<select v-model="answered" class="form-select">
 				<option v-for="choice in answeredChoices" :key="choice.val" :value="choice.val">
 					{{ choice.key }}
@@ -27,7 +29,7 @@
 			<SelectSubject :subject-id.sync="subjectId" />
 		</form>
 
-		<QuestionCard v-for="question in questions" :key="question.hash" :question="question" class="bl" />
+		<QuestionCard v-for="question in questions" :key="question.hash" :question="question" />
 		<div v-if="hasMore" class="text-center py-1 text-18">
 			<a @click.prevent="fetchOlderQuestions">Load More</a>
 		</div>
@@ -65,20 +67,22 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-	.bl {
-		border-bottom: 1px solid $color-line;
-		@media (max-width: $sm) { border-bottom: none !important; }
-	}
-
 	.options {
-		@media (max-width: $md) { justify-content: center; }
+		justify-content: center;
+		@media (min-width: $md) {
+			justify-content: flex-start;
+			border-bottom: 1px solid $color-line;
+		}
 
 		select {
 			display: inline;
 			width: 156px;
 			border: 1px solid $color-line;
-			padding: 11px;
+			padding: 0.25rem;
 			background-color: $color-tags;
+			@media (min-width: $md) {
+				padding: 0.5rem;
+			}
 		}
 	}
 

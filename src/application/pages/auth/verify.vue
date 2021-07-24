@@ -20,7 +20,6 @@
 				</NuxtLink>
 			</div>
 		</div>
-		<!-- TODO: fix sizing issue -->
 		<span class="w-25 d-none d-lg-inline" style="flex-grow: 0.25;" />
 		<div class="text-center d-lg-block d-none w-100 flex-grow-1">
 			<img src="@app/assets/images/auth/verify.svg" style="width: 100%;">

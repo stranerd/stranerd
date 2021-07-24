@@ -49,7 +49,7 @@
 		},
 		"profiles": {
 			".read": true,
-			".indexOn": ["roles/isAdmin","bio/email"],
+			".indexOn": ["roles/isAdmin","bio/email", "account/rank"],
 			"$userId": {
 				".read": true,
 				".write": "auth.uid === $userId",

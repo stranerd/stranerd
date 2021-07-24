@@ -50,10 +50,7 @@ export const useListener = (start: () => Promise<() => void>) => {
 	}
 	const resetListener = async (reset: () => Promise<() => void>) => {
 		start = reset
-		if (isRunning) {
-			closeListener()
-			await startListener()
-		}
+		if (isRunning) await startListener()
 	}
 	return { startListener, closeListener, resetListener, isRunning }
 }

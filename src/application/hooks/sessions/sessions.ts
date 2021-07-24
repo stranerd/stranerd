@@ -48,7 +48,7 @@ export const useCreateSession = () => {
 				setLoading(true)
 				const sessionId = await AddSession.call(factory.value)
 				useSessionModal().closeCreateSession()
-				await router.push('/sessions')
+				await router.push(`/sessions/${newSessionTutorIdBio?.id}`)
 				factory.value.reset()
 				setMessage('Session request successful.')
 				analytics.logEvent('session_request', { sessionId })

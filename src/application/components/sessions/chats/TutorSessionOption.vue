@@ -6,6 +6,7 @@
 		<button class="btn btn-sm btn-danger flex-grow-1 w-100" @click="cancelSession">
 			Cancel
 		</button>
+		<PageLoading v-if="loading" />
 	</div>
 </template>
 

@@ -29,7 +29,7 @@ export const useCurrentSession = () => {
 			)
 			if (session) {
 				currentGlobal.currentSession.value = session
-				const id = userId === session.tutorId ? session.tutorId : session.studentId
+				const id = userId === session.tutorId ? session.studentId : session.tutorId
 				await router.push(`/sessions/${id}`)
 			}
 		}

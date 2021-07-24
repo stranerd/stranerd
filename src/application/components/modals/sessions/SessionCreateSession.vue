@@ -10,12 +10,9 @@
 				<textarea
 					id="email"
 					v-model="factory.message"
-					type="email"
-					name="email"
 					required
-					placeholder="Email"
+					placeholder="Leave a message for the nerd"
 					class="form-control"
-					autocomplete="email"
 				/>
 				<DynamicText v-if="factory.errors.message" class="small text-danger d-block">
 					{{ factory.errors.message }}

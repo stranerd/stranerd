@@ -4,7 +4,23 @@
 			Request Session
 		</template>
 		<form @submit.prevent="createSession">
-			<SessionEditor :model.sync="factory.message" :error="factory.errors.message" :valid="factory.isValid('message')" />
+			<!-- <SessionEditor :model.sync="factory.message" :error="factory.errors.message" :valid="factory.isValid('message')" /> -->
+			<!-- Add editor and check if text is for editor in chat cards -->
+			<div>
+				<textarea
+					id="email"
+					v-model="factory.message"
+					type="email"
+					name="email"
+					required
+					placeholder="Email"
+					class="form-control"
+					autocomplete="email"
+				/>
+				<DynamicText v-if="factory.errors.message" class="small text-danger d-block">
+					{{ factory.errors.message }}
+				</DynamicText>
+			</div>
 			<div class="form-group my-1">
 				<select v-model="factory.duration" class="form-select">
 					<option disabled value="0">
@@ -34,10 +50,10 @@ import { useAccountModal } from '@app/hooks/core/modals'
 import { useCreateSession } from '@app/hooks/sessions/sessions'
 import { useAuth } from '@app/hooks/auth/auth'
 import { analytics } from '@modules/core'
-import SessionEditor from '@app/components/core/editor/SessionEditor.vue'
+// import SessionEditor from '@app/components/core/editor/SessionEditor.vue'
 export default defineComponent({
 	name: 'SessionCreateSession',
-	components: { SessionEditor },
+	// components: { SessionEditor },
 	setup () {
 		const { user } = useAuth()
 		const buy = useAccountModal().openBuyCoins

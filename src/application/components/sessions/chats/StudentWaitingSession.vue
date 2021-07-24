@@ -1,5 +1,5 @@
 <template>
-	<div class="d-flex gap-1 align-items-center bg-white p-0-25">
+	<div class="d-flex gap-1 align-items-center justify-content-center bg-white p-0-25">
 		Waiting for <DynamicText>{{ session.tutorBio.name.fullName }}</DynamicText> to accept session
 	</div>
 </template>

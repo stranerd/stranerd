@@ -89,7 +89,6 @@ export default {
 		return {
 			donutEl: null,
 			fontSize: '1em',
-
 			resizeListener: null
 		}
 	},

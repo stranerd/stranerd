@@ -64,7 +64,10 @@ const useSession = (key: SessionKey) => {
 	const { user } = useAuth()
 	const listenerCb = async () => {
 		const sessionIds = Object.keys(user.value?.session?.[key] ?? {})
-		if (sessionIds.length === 0) return () => {}
+		if (sessionIds.length === 0) {
+			global[key].sessions.value = []
+			return () => {}
+		}
 		const cb = (sessions: SessionEntity[]) => {
 			global[key].sessions.value = sessions
 		}
@@ -82,7 +85,7 @@ const useSession = (key: SessionKey) => {
 	const fetchSessions = async () => {
 		global[key].setError('')
 		const sessionIds = Object.keys(user.value?.session?.[key] ?? {})
-		if (sessionIds.length === 0) return
+		if (sessionIds.length === 0) return global[key].sessions.value = []
 		try {
 			global[key].setLoading(true)
 			const sessions = await GetSessions.call(sessionIds)

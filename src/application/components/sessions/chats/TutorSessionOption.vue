@@ -1,5 +1,5 @@
 <template>
-	<div class="d-flex gap-1 align-items-center justify-content-center bg-white p-0-25">
+	<div class="d-flex gap-1 align-items-center justify-content-center bg-line py-1">
 		<button class="btn btn-sm btn-success flex-grow-1 w-100" @click="acceptSession">
 			Accept
 		</button>

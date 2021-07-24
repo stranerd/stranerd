@@ -78,8 +78,11 @@ export default defineComponent({
 			display: inline;
 			width: 156px;
 			border: 1px solid $color-line;
-			padding: 4px;
+			padding: 0.25rem;
 			background-color: $color-tags;
+			@media (min-width: $md) {
+				padding: 0.5rem;
+			}
 		}
 	}
 

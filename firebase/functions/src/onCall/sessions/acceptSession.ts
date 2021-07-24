@@ -12,17 +12,15 @@ export const acceptSession = functions.https.onCall(async ({ id, accepted }, con
 	const session = (await ref.get()).data()!
 	const { duration, studentId, tutorId, price } = session
 
-	const tutorRef = admin.database().ref('profiles').child(tutorId).child('session')
-	const lobby = (await tutorRef.child('lobby').once('value')).val() ?? {}
-	const lobbiedSessions = Object.entries(lobby).filter(([_, val]) => Boolean(val)).map(([key, _]) => key)
-	console.log(lobby)
-	console.log(lobbiedSessions)
-
 	if (context.auth.uid !== session?.tutorId)
 		throw new functions.https.HttpsError('failed-precondition', 'Only the nerd of the session can accept or reject it')
 
 	try {
 		if (accepted) {
+			const tutorRef = admin.database().ref('profiles').child(tutorId).child('session')
+			const lobby = (await tutorRef.child('lobby').once('value')).val() ?? {}
+			const lobbiedSessions = Object.entries(lobby).filter(([_, val]) => Boolean(val)).map(([key, _]) => key)
+
 			const taskName = await createTask({
 				queue: 'sessions',
 				endpoint: 'endSession',
@@ -45,15 +43,6 @@ export const acceptSession = functions.https.onCall(async ({ id, accepted }, con
 				})
 			await batch.commit()
 
-			// TODO: charge user on request new session and refund if rejected
-
-			await addUserCoins(studentId, { gold: 0 - price, bronze: 0 },
-				'You paid coins for a session'
-			)
-			await addUserCoins(tutorId, { gold: price, bronze: 0 },
-				'You got coins for a session'
-			)
-
 			await admin.database().ref('profiles')
 				.update({
 					[`${studentId}/session/requests/${id}`]: null,
@@ -66,11 +55,13 @@ export const acceptSession = functions.https.onCall(async ({ id, accepted }, con
 						])
 					)
 				})
+
+			await addUserCoins(tutorId, { gold: price, bronze: 0 },
+				'You got coins for a session'
+			)
 		} else {
 			await ref.set({
-				cancelled: {
-					[context.auth.uid === studentId ? 'student' : 'tutor']: true
-				}
+				cancelled: { tutor: true }
 			}, { merge: true })
 
 			const chat = {
@@ -91,6 +82,10 @@ export const acceptSession = functions.https.onCall(async ({ id, accepted }, con
 					[`chats/meta/${path[1]}/${path[0]}/last`]: { ...chat, id: chatId },
 					[`chats/meta/${path[1]}/${path[0]}/unRead/${chatId}`]: true
 				})
+
+			await addUserCoins(studentId, { gold: price, bronze: 0 },
+				'You got refunded for a rejected session'
+			)
 		}
 	} catch (error) {
 		throw new functions.https.HttpsError('unknown', error.message)

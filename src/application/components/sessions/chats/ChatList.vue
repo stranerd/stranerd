@@ -1,10 +1,10 @@
 <template>
-	<div class="d-flex flex-column px-2 py-1 background gap-0-5">
+	<div class="d-flex flex-column align-items-center py-1 background gap-0-5">
 		<span v-if="hasMore" class="small mb-1 mx-auto cursor-pointer" @click="fetchOlderChats">Fetch more</span>
-		<p v-if="chats.length === 0" class="text-center my-auto">
+		<span v-if="chats.length === 0" class="text-center my-auto bg-line p-1">
 			No messages found. Send a message now
-		</p>
-		<div v-for="session in chats" :key="session.hash" class="d-flex flex-column gap-0-5">
+		</span>
+		<div v-for="session in chats" :key="session.hash" class="d-flex flex-column w-100 gap-0-5">
 			<DynamicText class="bg-line session-date mx-auto">
 				{{ formatTime(session.date, true) }}
 			</DynamicText>

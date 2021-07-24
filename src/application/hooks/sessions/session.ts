@@ -1,7 +1,9 @@
 import { computed, Ref, ssrRef, useFetch, useRouter, watch } from '@nuxtjs/composition-api'
+import VueRouter from 'vue-router'
 import { useListener, useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 import { GetSession, GetSessions, ListenToSession, ListenToSessions, SessionEntity } from '@modules/sessions'
 import { useAuth } from '@app/hooks/auth/auth'
+import { Alert } from '../core/notifications'
 
 const currentGlobal = {
 	currentSession: ssrRef(null as SessionEntity | null),
@@ -60,8 +62,8 @@ export const useCurrentSession = () => {
 	return { ...currentGlobal, otherParticipantId, endDate }
 }
 
-const useSession = (key: SessionKey) => {
-	const { user } = useAuth()
+const useSession = (key: SessionKey, router: VueRouter, callback: (key: SessionKey, sessions: SessionEntity[], id: string, router: VueRouter) => void) => {
+	const { user, id } = useAuth()
 	const listenerCb = async () => {
 		const sessionIds = Object.keys(user.value?.session?.[key] ?? {})
 		if (sessionIds.length === 0) {
@@ -69,6 +71,7 @@ const useSession = (key: SessionKey) => {
 			return () => {}
 		}
 		const cb = (sessions: SessionEntity[]) => {
+			callback(key, sessions, id.value!, router)
 			global[key].sessions.value = sessions
 		}
 		return ListenToSessions.call(sessionIds, cb)
@@ -89,6 +92,7 @@ const useSession = (key: SessionKey) => {
 		try {
 			global[key].setLoading(true)
 			const sessions = await GetSessions.call(sessionIds)
+			callback(key, sessions, id.value!, router)
 			global[key].sessions.value = sessions
 			global[key].fetched.value = true
 		} catch (error) { global[key].setError(error) }
@@ -106,8 +110,31 @@ const useSession = (key: SessionKey) => {
 	return { ...global[key] }
 }
 
-export const useRequestSessions = () => useSession('requests')
-export const useLobbySessions = () => useSession('lobby')
+const callback = (key: SessionKey, sessions: SessionEntity[], userId: string, router: VueRouter) => {
+	sessions
+		.filter((session) => {
+			const index = global[key].sessions.value.findIndex((s) => s.id === session.id)
+			return index === -1
+		}) // check if the session has been fetched before
+		.filter((session) => session.tutorId === userId)
+		.forEach(async (session) => {
+			const route = `/sessions/${session.studentId}`
+			if (!router || router.currentRoute.path === route) return
+			const res = await Alert({
+				title: 'New session request',
+				text: '',
+				icon: 'info',
+				showCancelButton: false,
+				confirmButtonText: 'Continue'
+			})
+			if (res) await router.push(route)
+		})
+		// TODO: Create modal to allow tutor navigate to said page
+		// If using modal though, remember that only one instance of the modal can be open at once
+}
+
+export const useRequestSessions = (router: VueRouter) => useSession('requests', router, callback)
+export const useLobbySessions = (router: VueRouter) => useSession('lobby', router, callback)
 
 type SessionKey = 'requests' | 'lobby'
 

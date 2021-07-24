@@ -13,7 +13,7 @@ export default defineNuxtPlugin(async ({ app }) => {
 
 	onGlobalSetup(() => {
 		useCurrentSession().listener.startListener()
-		useRequestSessions().listener.startListener()
-		useLobbySessions().listener.startListener()
+		useRequestSessions(app.router!).listener.startListener()
+		useLobbySessions(app.router!).listener.startListener()
 	})
 })

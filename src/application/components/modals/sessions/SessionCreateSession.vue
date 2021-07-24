@@ -4,7 +4,7 @@
 			Request Session
 		</template>
 		<form @submit.prevent="createSession">
-			<!-- TODO: Add rich text editor for session's message -->
+			<SessionEditor :model.sync="factory.message" :error="factory.errors.message" :valid="factory.isValid('message')" />
 			<div class="form-group my-1">
 				<select v-model="factory.duration" class="form-select">
 					<option disabled value="0">
@@ -34,8 +34,10 @@ import { useAccountModal } from '@app/hooks/core/modals'
 import { useCreateSession } from '@app/hooks/sessions/sessions'
 import { useAuth } from '@app/hooks/auth/auth'
 import { analytics } from '@modules/core'
+import SessionEditor from '@app/components/core/editor/SessionEditor.vue'
 export default defineComponent({
 	name: 'SessionCreateSession',
+	components: { SessionEditor },
 	setup () {
 		const { user } = useAuth()
 		const buy = useAccountModal().openBuyCoins

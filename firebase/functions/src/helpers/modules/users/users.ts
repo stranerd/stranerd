@@ -1,5 +1,4 @@
 import * as admin from 'firebase-admin'
-import { updateCustomerName } from '../../braintree'
 import { PATH_SEPARATOR } from '../../index'
 
 export const getAllUserIds = async () => {
@@ -80,17 +79,6 @@ export const updateMyAnswerCommentsBio = async (userId: string, user: any) => {
 		)
 		await admin.database().ref('comments/answers').update(data)
 	} catch (error) { console.log(`Error setting bios of ${userId} answer-comments`) }
-}
-
-export const updateBraintreeBio = async (userId: string, bio: any) => {
-	try {
-		const fullName = bio?.name?.first ?? 'Anonymous' + ' ' + bio?.name?.last ?? ''
-		const braintreeId = await admin.database().ref('profiles')
-			.child(userId)
-			.child('account/account/braintreeId')
-			.once('value')
-		if (braintreeId.val()) await updateCustomerName(braintreeId.val(), fullName)
-	} catch (error) { console.log(`Error updating braintree bio of ${userId}`) }
 }
 
 export const updateMySessionsBio = async (userId: string, user: any) => {

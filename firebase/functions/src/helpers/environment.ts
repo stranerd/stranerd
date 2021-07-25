@@ -7,20 +7,9 @@ export const isDev = () => environment()?.environment === 'development'
 export const isStaging = () => environment()?.environment === 'staging'
 export const isProduction = () => environment()?.environment === 'production'
 
-export const paypal = () => ({
-	clientId: environment()?.paypal?.client_id,
-	clientSecret: environment()?.paypal?.client_secret
-})
-
 export const stripe = () => ({
 	secretKey: environment()?.stripe?.secret_key,
 	publicKey: environment()?.stripe?.public_key
-})
-
-export const braintree = () => ({
-	merchantId: environment()?.braintree?.merchant_id,
-	publicKey: environment()?.braintree?.public_key,
-	privateKey: environment()?.braintree?.private_key
 })
 
 export const algolia = () => ({

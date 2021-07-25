@@ -2,14 +2,6 @@ import { FunctionsService } from '@modules/core'
 import { MetaBaseDataSource } from './meta-base'
 
 export class MetaFirebaseDataSource implements MetaBaseDataSource {
-	async getClientToken () {
-		return await FunctionsService.call('getClientToken', {})
-	}
-
-	async makePayment (data: { amount: number, nonce: string }) {
-		return await FunctionsService.call('makePayment', data)
-	}
-
 	async makeStripePayment (data: { amount: number, currency: string }) {
 		return await FunctionsService.call('makeStripePayment', data)
 	}

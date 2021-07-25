@@ -115,7 +115,7 @@ const callback = (key: SessionKey, sessions: SessionEntity[], userId: string, ro
 		.filter((session) => {
 			const index = global[key].sessions.value.findIndex((s) => s.id === session.id)
 			return index === -1
-		}) // check if the session has been fetched before
+		}) // * check if the session has been fetched before
 		.filter((session) => session.tutorId === userId)
 		.forEach(async (session) => {
 			const route = `/sessions/${session.studentId}`
@@ -124,7 +124,7 @@ const callback = (key: SessionKey, sessions: SessionEntity[], userId: string, ro
 				title: 'New session request',
 				text: '',
 				icon: 'info',
-				showCancelButton: false,
+				cancelButtonText: 'Cancel',
 				confirmButtonText: 'Continue'
 			})
 			if (res) await router.push(route)

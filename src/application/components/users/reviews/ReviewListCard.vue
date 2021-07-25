@@ -1,15 +1,15 @@
 <template>
-	<div :id="review.id" class="d-flex flex-column gap-1 p-1 text-dark">
-		<div class="d-flex gap-1 align-items-center">
+	<div :id="review.id" class="d-flex flex-column gap-0-5 gap-md-1 py-1 text-dark border-bottom border-line">
+		<div class="d-flex gap-0-5 gap-md-1 align-items-center">
 			<Avatar :src="review.avatar" :size="36" />
 			<DynamicText class="name">
 				{{ review.userBio.name.fullName }}
 			</DynamicText>
-			<span class="d-flex align-items-center gap-0-25">
+			<span class="d-flex align-items-baseline gap-0-25 mx-auto">
 				<i class="fas fa-star text-gold" style="font-size: 21px;" />
-				<DynamicText class="text-primary" style="height: 1rem;">{{ review.rating }}/5</DynamicText>
+				<DynamicText class="text-primary">{{ review.rating }}/5</DynamicText>
 			</span>
-			<DynamicText style="font-size: 14px; height: 14px;">
+			<DynamicText style="font-size: 14px;">
 				{{ formatTime(review.createdAt) }}
 			</DynamicText>
 		</div>

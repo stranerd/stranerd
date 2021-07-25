@@ -1,14 +1,14 @@
 <template>
 	<nav class="default-top-nav gap-1" role="navigation">
 		<template v-if="showSearch">
-			<span class="link" @click="showSearch = false">
-				<img src="@app/assets/images/icons/close.svg" alt="">
+			<span @click="showSearch = false">
+				<img class="head-icons" src="@app/assets/images/icons/close.svg" alt="">
 			</span>
 			<SearchBar class="flex-grow-1" />
 		</template>
 		<template v-else>
-			<span class="link d-lg-none" @click="openLeftMenu">
-				<img src="@app/assets/images/icons/hamburger.svg" alt="">
+			<span class="d-lg-none" @click="openLeftMenu">
+				<img class="head-icons" src="@app/assets/images/icons/hamburger.svg" alt="">
 			</span>
 
 			<NuxtLink to="/">
@@ -18,14 +18,14 @@
 			<SearchBar class="middle-body mx-auto d-none d-lg-flex" />
 
 			<div class="right-body gap-1-5 gap-md-2-25 gap-lg-3 gap-xl-4-5 ms-auto">
-				<span class="d-lg-none link" @click="showSearch = !showSearch">
-					<img src="@app/assets/images/icons/search.svg">
+				<span class="d-lg-none" @click="showSearch = !showSearch">
+					<img class="head-icons" src="@app/assets/images/icons/search.svg">
 				</span>
-				<MessageLink :key="'messages' + isLoggedIn" class="link" />
-				<NotificationBell :key="'notifications' + isLoggedIn" class="link" />
+				<MessageLink :key="'messages' + isLoggedIn" />
+				<NotificationBell :key="'notifications' + isLoggedIn" />
 
-				<span class="link d-lg-none" @click="openRightMenu">
-					<img src="@app/assets/images/icons/right-nav.svg" alt="">
+				<span class="d-lg-none" @click="openRightMenu">
+					<img class="head-icons" src="@app/assets/images/icons/right-nav.svg" alt="">
 				</span>
 
 				<div v-if="isLoggedIn" class="d-none d-lg-flex gap-0-25 gap-lg-1 align-items-center cursor-pointer" @click="show = !show">
@@ -170,15 +170,4 @@ export default defineComponent({
 	.slide-enter-active, .slide-leave-active { transition: 0.25s; }
 
 	.slide-enter, .slide-leave-to { transform: translateY(-170px); }
-
-	.link {
-		& > img, /deep/ img {
-			width: 20px !important;
-			height: 20px !important;
-			@media (min-width: $md) {
-				width: 24px !important;
-				height: 24px !important;
-			}
-		}
-	}
 </style>

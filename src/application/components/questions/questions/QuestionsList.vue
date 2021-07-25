@@ -1,10 +1,10 @@
 <template>
 	<div>
-		<div class="d-flex align-items-center gap-0-5 d-md-none position-fixed" style="right: 2rem; bottom: 2rem;">
-			<span class="bg-primary text-white small rounded-3 py-0-25 px-0-5">
+		<div class="d-flex text-white align-items-center gap-0-5 d-md-none position-fixed" style="right: 1.5rem; bottom: 1.5rem; z-index: 10;">
+			<span class="bg-primary small rounded-3 py-0-25 px-0-5">
 				Ask your question
 			</span>
-			<NuxtLink class="d-flex align-items-center justify-content-center rounded-pill d-md-none bg-primary text-white" style="width: 3rem; height: 3rem; font-size: 1.5rem;" to="/questions/create">
+			<NuxtLink class="d-flex align-items-center justify-content-center rounded-pill bg-primary" style="width: 3rem; height: 3rem; font-size: 1.5rem;" to="/questions/create">
 				+
 			</NuxtLink>
 		</div>

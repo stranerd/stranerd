@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<form class="d-flex justify-content-center options border-bottom border-line gap-0-75 px-1">
+		<form class="d-flex justify-content-center options border-bottom border-line gap-0-75">
 			<select v-model="answered" class="form-select">
 				<option v-for="choice in answeredChoices" :key="choice.val" :value="choice.val">
 					{{ choice.key }}
@@ -8,7 +8,7 @@
 			</select>
 			<SelectSubject :subject-id.sync="subjectId" />
 		</form>
-		<QuestionCard v-for="question in questions" :key="question.hash" :question="question" class="border-bottom border-line" />
+		<QuestionCard v-for="question in questions" :key="question.hash" :question="question" />
 		<div v-if="hasMore" class="text-center py-1 text-18">
 			<a @click.prevent="fetchOlderQuestions">Load More</a>
 		</div>
@@ -52,7 +52,11 @@ export default defineComponent({
 			display: inline;
 			width: 156px;
 			border: 1px solid $color-line;
-			padding: 11px;
+			padding: 0.25rem;
+			background-color: $color-tags;
+			@media (min-width: $md) {
+				padding: 0.5rem;
+			}
 		}
 	}
 </style>

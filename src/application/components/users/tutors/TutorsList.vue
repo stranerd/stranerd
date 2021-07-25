@@ -50,11 +50,10 @@ export default defineComponent({
 		text-align: center;
 		margin: 0;
 		font-size: 18px;
-		line-height: 1.3rem;
+		line-height: 1.35em;
 		@media (min-width: $md) {
 			max-width: 80%;
 			font-size: 1.5rem;
-			line-height: 1.6rem;
 		}
 	}
 </style>

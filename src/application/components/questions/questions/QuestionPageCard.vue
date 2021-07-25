@@ -16,7 +16,7 @@
 
 			<div class="d-flex align-items-center flex-row-reverse ml-auto">
 				<template v-if="question.isAnswered">
-					<img src="@app/assets/images/icons/profile-best-answers.svg" alt="" style="width: 2rem; height: 2rem;">
+					<img src="@app/assets/images/icons/profile-best-answers.svg" alt="" class="sub-icons">
 				</template>
 				<template v-else-if="showAnswerButton">
 					<button class="answer-btn d-md-inline-block d-none" @click="openAnswerModal">
@@ -44,11 +44,11 @@
 			</div>
 			<div class="ms-auto d-flex align-items-center gap-1">
 				<span class="d-flex align-items-center gap-0-5">
-					<img src="@app/assets/images/icons/answers.svg" alt="" class="icons">
+					<img src="@app/assets/images/icons/answers.svg" alt="" class="sub-icons">
 					<DynamicText>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</DynamicText>
 				</span>
 				<span v-if="question.userId !== id" @click="reportQuestion">
-					<i class="fas fa-flag icons" />
+					<i class="fas fa-flag sub-icons" />
 				</span>
 			</div>
 		</div>
@@ -119,10 +119,6 @@ export default defineComponent({
 			color: $color-sub;
 			font-weight: 600;
 		}
-	}
-
-	.icons {
-		width: 20px;
 	}
 
 	.answer-btn {

@@ -1,51 +1,57 @@
 <template>
-	<div v-if="user" class="d-flex flex-column gap-2-25">
-		<template v-if="user.id === id">
-			<ProfileHeadCard :user="user" class="balance" />
-			<div class="d-flex flex-column gap-1 ranking">
-				<h1 class="ranking-header">
-					Ranking Up
-				</h1>
-				<div class="d-flex gap-1 align-items-center text-dark">
-					<img :src="user.rank.image" alt="" class="img-rank-2">
-					<ProgressBar :current="user.rankProgress.overall" :primary="true" />
-					<img v-if="user.rankProgress.next" :src="user.rankProgress.next.image" alt="" class="img-rank-2">
-				</div>
-				<div class="d-flex flex-column gap-1">
-					<div v-for="detail in user.rankProgress.progresses" :key="detail.title" class="d-flex justify-content-between align-items-center gap-0-25">
-						<DynamicText class="stat">
-							{{ detail.title }}
-						</DynamicText>
-						<ProgressBar :current="detail.progress" />
+	<div v-if="user">
+		<div class="d-flex d-lg-none justify-content-evenly align-items-center gap-0-5 px-1 py-1-5">
+			<img :src="user.rank.image" alt="" class="img-rank">
+			<DonutChart :score="user.score <= user.expectedScore ? user.score : user.expectedScore" :total="user.expectedScore" :size="100" />
+		</div>
+		<div class="d-none d-lg-flex flex-column gap-2-25">
+			<template v-if="user.id === id">
+				<ProfileHeadCard :user="user" class="balance" />
+				<div class="d-flex flex-column gap-1 ranking">
+					<h1 class="ranking-header">
+						Ranking Up
+					</h1>
+					<div class="d-flex gap-1 align-items-center text-dark">
+						<img :src="user.rank.image" alt="" class="img-rank-2">
+						<ProgressBar :current="user.rankProgress.overall" :primary="true" />
+						<img v-if="user.rankProgress.next" :src="user.rankProgress.next.image" alt="" class="img-rank-2">
+					</div>
+					<div class="d-flex flex-column gap-1">
+						<div v-for="detail in user.rankProgress.progresses" :key="detail.title" class="d-flex justify-content-between align-items-center gap-0-25">
+							<DynamicText class="stat">
+								{{ detail.title }}
+							</DynamicText>
+							<ProgressBar :current="detail.progress" />
+						</div>
 					</div>
 				</div>
+			</template>
+			<div v-else class="d-flex flex-column gap-1 ranking">
+				<div class="d-flex flex-column gap-1 align-items-center text-blue">
+					<h1 class="ranking-header">
+						<DynamicText>
+							{{ user.firstName }}'s Badge'
+						</DynamicText>
+					</h1>
+					<img :src="user.rank.image" alt="" class="img-rank">
+				</div>
 			</div>
-		</template>
-		<div v-else class="d-flex flex-column gap-1 ranking">
-			<div class="d-flex flex-column gap-1 align-items-center text-blue">
+			<div class="d-flex flex-column gap-1 align-items-center ranking">
 				<h1 class="ranking-header">
 					<DynamicText>
-						{{ user.firstName }}'s Badge'
+						{{ user.id === id ? 'My' : user.firstName + '\'s' }} Nerd Score
 					</DynamicText>
 				</h1>
-				<img :src="user.rank.image" alt="" class="img-rank">
+				<DonutChart :score="user.score <= user.expectedScore ? user.score : user.expectedScore" :total="user.expectedScore" />
+				<span v-if="user.id === id && user.score" class="text-18 text-dark text-center">
+					{{
+						user.score / user.expectedScore > 0.75 ? 'Your Nerd Score is high. Nice job.' :
+						user.score / user.expectedScore > 0.5 ? 'Your Nerd Score is ok but not there yet. Keep pushing.' :
+						user.score / user.expectedScore > 0.25 ? 'Your Nerd Score is not strong. You can do better.' :
+						'Your Nerd Score is low. Try to bring it up.'
+					}}
+				</span>
 			</div>
-		</div>
-		<div class="d-flex flex-column gap-1 align-items-center ranking">
-			<h1 class="ranking-header">
-				<DynamicText>
-					{{ user.id === id ? 'My' : user.firstName + '\'s' }} Nerd Score
-				</DynamicText>
-			</h1>
-			<DonutChart :score="user.score <= user.expectedScore ? user.score : user.expectedScore" :total="user.expectedScore" />
-			<span v-if="user.id === id && user.score" class="text-18 text-dark text-center">
-				{{
-					user.score / user.expectedScore > 0.75 ? 'Your Nerd Score is high. Nice job.' :
-					user.score / user.expectedScore > 0.5 ? 'Your Nerd Score is ok but not there yet. Keep pushing.' :
-					user.score / user.expectedScore > 0.25 ? 'Your Nerd Score is not strong. You can do better.' :
-					'Your Nerd Score is low. Try to bring it up.'
-				}}
-			</span>
 		</div>
 	</div>
 </template>

@@ -34,7 +34,7 @@
 			</div>
 			<div class="d-flex align-items-center gap-1 order-md-3 order-2">
 				<span class="d-flex align-items-center gap-0-5">
-					<img src="@app/assets/images/icons/answers.svg" alt="" class="icons">
+					<img src="@app/assets/images/icons/answers.svg" alt="" class="sub-icons">
 					<DynamicText>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</DynamicText>
 				</span>
 			</div>
@@ -105,10 +105,6 @@ export default defineComponent({
 			color: $color-sub;
 			font-weight: 600;
 		}
-	}
-
-	.icons {
-		width: 24px;
 	}
 
 	.answer-btn {

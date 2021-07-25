@@ -32,13 +32,13 @@
 			>
 			<p class="my-0-5 d-flex gap-0-5 flex-wrap">
 				<span
-					v-for="tag in factory.tags"
-					:key="tag"
+					v-for="qTag in factory.tags"
+					:key="qTag"
 					class="p-0-5 d-flex gap-0-5 cursor-pointer btn-dark rounded-3"
-					@click="removeTag(tag)"
+					@click="removeTag(qTag)"
 				>
 					<DynamicText class="text-white">
-						{{ tag }}
+						{{ qTag }}
 					</DynamicText>
 					<span class="text-danger">&times;</span>
 				</span>

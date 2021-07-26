@@ -1,6 +1,6 @@
 <template>
 	<div v-if="user" class="d-flex flex-column gap-0-5 gap-lg-2-25 background">
-		<div class="d-flex flex-column gap-1 box">
+		<div class="d-flex flex-column gap-0-5 gap-md-1 box">
 			<div class="d-flex flex-column gap-0-5 gap-md-1-5 align-items-center text-blue">
 				<div class="position-relative">
 					<Avatar :src="user.avatar" :size="96" class="d-md-none" />

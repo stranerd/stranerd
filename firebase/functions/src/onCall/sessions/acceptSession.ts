@@ -3,46 +3,61 @@ import * as admin from 'firebase-admin'
 import { createTask } from '../../helpers/cloud-task'
 import { addUserCoins } from '../../helpers/modules/payments/transactions'
 import { getRandomValue, getChatsPath } from '../../helpers/'
+import { chunkArray } from '../../helpers/modules/users/users'
 
 export const acceptSession = functions.https.onCall(async ({ id, accepted }, context) => {
 	if (!context.auth)
 		throw new functions.https.HttpsError('unauthenticated', 'Only authenticated users can accept sessions')
 
 	const ref = admin.firestore().collection('sessions').doc(id)
-	const session = (await ref.get()).data()!
-	const { duration, studentId, tutorId, price } = session
+	const { duration = 15, studentId = '', tutorId = '', price = 10 } = (await ref.get()).data() ?? {}
 
-	if (context.auth.uid !== session?.tutorId)
+	if (context.auth.uid !== tutorId)
 		throw new functions.https.HttpsError('failed-precondition', 'Only the nerd of the session can accept or reject it')
 
 	try {
 		if (accepted) {
 			const tutorRef = admin.database().ref('profiles').child(tutorId).child('session')
 			const lobby = (await tutorRef.child('lobby').once('value')).val() ?? {}
-			const lobbiedSessions = Object.entries(lobby).filter(([_, val]) => Boolean(val)).map(([key, _]) => key)
+			const lobbiedSessions = Object.entries<string>(lobby)
 
+			// * Create a gcloud task
 			const taskName = await createTask({
 				queue: 'sessions',
 				endpoint: 'endSession',
 				payload: { studentId, tutorId, id },
-				timeInSecs: ((session?.duration ?? 15) * 60) + (Date.now() / 1000) + 5 // plus 5 to account for round trips to servers
-			}).catch(() => {}) ?? ''
+				timeInSecs: (duration * 60) + (Date.now() / 1000) + 5 // plus 5 to account for round trips to servers
+			})
 
+			// * Create data object containing endTime, accepted and taskName
 			const endedAt = admin.firestore.Timestamp.now().toDate()
-			endedAt.setSeconds(endedAt.getSeconds() + 60 * (duration ?? 0))
-			const data = { dates: { endedAt }, accepted: true } as Record<string, any>
-			if (taskName) data.taskName = taskName
+			endedAt.setSeconds(endedAt.getSeconds() + 60 * duration)
+			const data = { dates: { endedAt }, accepted: true, taskName: taskName ?? '' } as Record<string, any>
 
+			// * Create a batch to update accepted session and 499 other pending sessions
 			const batch = admin.firestore().batch()
 			batch.set(ref, data, { merge: true })
-			lobbiedSessions
-				.filter((sessionId) => id !== sessionId)
-				.forEach((sessionId) => {
-					const ref = admin.firestore().collection('sessions').doc(sessionId)
-					batch.set(ref, { cancelled: { busy: true } }, { merge: true })
-				})
-			await batch.commit()
+			const filteredLobbiedSessions = lobbiedSessions.filter(([sessionId]) => id !== sessionId)
+			filteredLobbiedSessions.slice(0, 499).forEach(([sessionId]) => {
+				const ref = admin.firestore().collection('sessions').doc(sessionId)
+				batch.set(ref, { cancelled: { busy: true } }, { merge: true })
+			})
 
+			// * Create chunks of batches to handle remaining pending sessions
+			await Promise.all([
+				batch.commit(),
+				...chunkArray(filteredLobbiedSessions.slice(499), 500)
+					.map((chunk) => {
+						const newBatch = admin.firestore().batch()
+						chunk.forEach(([sessionId]) => {
+							const ref = admin.firestore().collection('sessions').doc(sessionId)
+							newBatch.set(ref, { cancelled: { busy: true } }, { merge: true })
+						})
+						return newBatch.commit()
+					})
+			])
+
+			// * Update necessary things in rtdb
 			await admin.database().ref('profiles')
 				.update({
 					[`${studentId}/session/requests/${id}`]: null,
@@ -55,9 +70,18 @@ export const acceptSession = functions.https.onCall(async ({ id, accepted }, con
 						])
 					)
 				})
-
+			// * Pay tutor
 			await addUserCoins(tutorId, { gold: price, bronze: 0 },
-				'You got coins for a session'
+				'You got paid for a session'
+			)
+
+			// * Refund other pending sessions
+			await Promise.all(
+				filteredLobbiedSessions
+					.map(([_, student]) => student)
+					.map(async (student) => await addUserCoins(student, { gold: price, bronze: 0 },
+						'You got refunded for a rejected session'
+					))
 			)
 		} else {
 			await ref.set({

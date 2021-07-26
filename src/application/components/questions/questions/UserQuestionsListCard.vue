@@ -52,8 +52,4 @@ export default defineComponent({
 		background-color: $color-sub;
 		border-radius: 50px;
 	}
-
-	.order-md-1 {
-		@media (min-width: $md) { order: 1 !important; }
-	}
 </style>

@@ -44,10 +44,10 @@ export default defineComponent({
 })
 </script>
 <style lang="scss" scoped>
-    button {
+	button {
 		border: 1px solid $color-line;
 		color: $color-sub;
-		background: #ffffff;
+		background: #fff;
 	}
 
 	.link_active {
@@ -59,6 +59,6 @@ export default defineComponent({
 	.pcustom {
 		padding-top: 8px;
 		font-weight: bold;
-		padding-bottom:8px;
+		padding-bottom: 8px;
 	}
 </style>

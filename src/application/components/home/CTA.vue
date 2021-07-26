@@ -1,23 +1,25 @@
 <template>
-	<div class="cta gap-2">
-		<div class="cta-info d-flex flex-column align-items-center align-items-lg-start gap-1">
-			<h1 class="headerStyle text-primary-dark mb-0">
-				Get quick help for homework and study problems
-			</h1>
-			<span class="paragraphStyle">
-				Leverage a large community of smart student for your academic needs
-				while make connections that would impact you for life.
-			</span>
+	<div class="d-flex flex-column align-items-center justify-content-center gap-2 mb-2 mt-md-4">
+		<div class="text-center col-12 mt-3">
+			<img src="@app/assets/images/homepage/connect.svg" class="image-custom">
+		</div>
+		<div class=" d-flex flex-column align-items-center justify-content-center col-lg-6 col-12 px-1 mt-2">
+			<div class="text-center mb-2">
+				<h1 class="headerStyle text-primary-dark mb-1">
+					Get quick help for homework and study problems
+				</h1>
+				<span class="paragraphStyle">
+					Leverage a large community of smart student for your academic needs
+					while make connections that would impact you for life.
+				</span>
+			</div>
 			<NuxtLink
-				class="btn btn-lg btn-custom px-3"
+				class="btn btn-lg btn-custom px-3 py-1"
 				style="font-size: 18px; font-weight: bold;"
 				to="/auth/signup"
 			>
 				Join Today
 			</NuxtLink>
-		</div>
-		<div class="text-center">
-			<img src="@app/assets/images/homepage/home_image.svg" class="w-100">
 		</div>
 	</div>
 </template>
@@ -64,26 +66,36 @@ export default defineComponent({
 	}
 
 	.paragraphStyle {
-		font-size: 16px;
-		@media (min-width: $md) { font-size: 20px; }
-		@media (min-width: $lg) { font-size: 24px; }
-		@media (min-width: $xl) { font-size: 28px; }
+		font-size: 15px;
+		color:$color-sub;
+		@media (min-width: $md) { font-size: 18px; }
+		@media (min-width: $lg) { font-size: 20px; }
+		@media (min-width: $xl) { font-size: 24px; }
 	}
 
 	.headerStyle {
 		font-weight: bold;
 		text-transform: none;
-		font-size: 22px;
-		@media (min-width: $md) { font-size: 42px; }
-		@media (min-width: $lg) { font-size: 48px; }
-		@media (min-width: $xl) { font-size: 56px; }
+		font-size: 24px;
+		color:$color-text-header;
+		@media (min-width: $md) { font-size: 34px; }
+		@media (min-width: $lg) { font-size: 40px; }
+		@media (min-width: $xl) { font-size: 48px; }
 	}
 
 	.btn-custom {
-		background-color: $color-primary-dark;
+		background-color: $color-primary;
 		color: $color-white;
-		border: 2px solid $color-primary-dark;
+		border: 2px solid $color-primary;
 		border-radius: 6px;
 		font-weight: bold;
 	}
+
+	.image-custom {
+		width: 80%;
+		@media (min-width: $md) { width: 80% }
+		@media (min-width: $lg) { width: 43% }
+		@media (min-width: $xl) { width: 45%}
+	}
+
 </style>

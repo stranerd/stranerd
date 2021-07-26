@@ -1,6 +1,9 @@
 <template>
-	<div class="col-12 py-0 px-0 pt-2 pb-1 bg-footer-dark">
-		<div class="col-lg-10 offset-lg-1 col-12 d-flex flex-row flex-wrap py-3 px-0">
+	<div class="col-12 py-0 px-0 pt-2 pb-1 content_wrapper">
+		<img src="@app/assets/images/homepage/bottom_bg.svg" class="bgImage d-lg-block d-none">
+		<img src="@app/assets/images/homepage/bottom_bg_sm.svg" class="bgImage d-block d-md-none">
+		<img src="@app/assets/images/homepage/bottom_md.svg" class="bgImage d-md-block d-lg-none d-none">
+		<div class="col-lg-10 offset-lg-1 col-12 d-flex flex-row flex-wrap py-3 px-0 inner-wrapper">
 			<div class="col-lg-6 col-12 d-flex flex-row py-2 px-0">
 				<div class="col-6 d-flex flex-row px-0" style="align-items: center; justify-content: center;">
 					<div class="d-flex flex-column">
@@ -30,13 +33,31 @@
 					<div class="d-flex flex-column">
 						<div>
 							<h5 class="sessionHead">
-								Community
+								<i class="fas fa-circle" style="margin-left:3px;font-size:15px;" />
+								<i class="fas fa-circle" style="margin-left:3px;font-size:15px;" />
+								<i class="fas fa-circle" style="margin-left:3px;font-size:15px;" />
 							</h5>
 						</div>
 						<div class="text-left">
 							<NuxtLink class="linkText" to="/#">
-								Become A Nerd
+								Terms & Conditions
 							</NuxtLink>
+						</div>
+						<div class="text-left">
+							<NuxtLink class="linkText" to="/#">
+								Terms of Service
+							</NuxtLink>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6 col-12 d-flex px-0 flex-row py-2">
+				<div class="col-6 d-flex flex-row px-0" style="align-items: center; justify-content: center;">
+					<div class="d-flex flex-column">
+						<div>
+							<h5 class="sessionHead">
+								Community
+							</h5>
 						</div>
 						<div class="text-left">
 							<NuxtLink class="linkText" to="/#">
@@ -50,8 +71,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-lg-6 col-12 d-flex px-0 flex-row py-2">
+
 				<div class="col-6 d-flex flex-row px-0" style="align-items: center; justify-content: center;">
 					<div class="d-flex flex-column">
 						<div>
@@ -66,31 +86,7 @@
 						</div>
 						<div>
 							<NuxtLink class="linkText" to="/#">
-								Contact
-							</NuxtLink>
-						</div>
-					</div>
-				</div>
-				<div class="col-6 d-flex flex-row px-0" style="align-items: center; justify-content: center;">
-					<div class="d-flex flex-column">
-						<div>
-							<h5 class="sessionHead">
-								Contact
-							</h5>
-						</div>
-						<div>
-							<img src="@app/assets/images/homepage/phone_icon.png" height="18"><NuxtLink class="linkText" style="padding-right: 3px;" to="/#">
-								+1 800 STRANERD
-							</NuxtLink>
-						</div>
-						<div>
-							<img src="@app/assets/images/homepage/mail_icon.png" height="16"><NuxtLink class="linkText" style="padding-right: 3px;" to="/#">
-								support@stranerd.com
-							</NuxtLink>
-						</div>
-						<div>
-							<img src="@app/assets/images/homepage/mail_icon.png" height="16"><NuxtLink class="linkText" style="padding-right: 3px;" to="/#">
-								favour@stranerd.com
+								Customer Care
 							</NuxtLink>
 						</div>
 					</div>
@@ -122,16 +118,6 @@
 				<div class="linkText" style="font-size: 14px;">
 					&copy; 2020 - 2021 | Stranerd LLC. All rights reserved.
 				</div>
-				<div class="linkText">
-					<NuxtLink style="font-size: 14px;" to="/#">
-						Nerds Terms & Conditions
-					</NuxtLink>
-				</div>
-				<div class="linkText">
-					<NuxtLink style="font-size: 14px;" to="/#">
-						Terms & Conditions
-					</NuxtLink>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -154,4 +140,22 @@ export default defineComponent({
 		font-size: 13px;
 		color: white;
 	}
+
+	.bgImage {
+		position:absolute;
+		width:100%;
+		height: auto;
+	}
+
+	  .content_wrapper {
+	   height: auto;
+	   position: relative;
+   }
+
+     .inner-wrapper {
+	    position:relative;
+		height: 500px;
+		  @media (min-width: $md) { height: 700px;}
+	    @media (min-width: $lg) { height: 500px;}
+   }
 </style>

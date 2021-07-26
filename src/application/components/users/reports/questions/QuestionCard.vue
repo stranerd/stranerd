@@ -1,14 +1,14 @@
 <template>
 	<div class="wrapper mb-1">
 		<div class="d-flex flex-row flex-sm-wrap flex-md-nowrap">
-			<div class="d-flex flex-column py-1 px-md-2 px-1 " style="width:100%;">
+			<div class="d-flex flex-column py-1 px-md-2 px-1 " style="width: 100%;">
 				<div class="p-custom">
 					From the top of a building with a height of 16 meters, a ball is thrown at angle of 30 degrees to the hori zontal plane at a speed of 21 m/s. Calculate the total time the ball is in the air?
 				</div>
 				<div class="p-custom pt-1">
 					Reported by <span class="text-primary text-small">Eniola Holmes</span>
 				</div>
-				<div class="p-custom pt-1" style="font-size:14px;">
+				<div class="p-custom pt-1" style="font-size: 14px;">
 					This question contains offensive content.
 				</div>
 			</div>
@@ -62,11 +62,11 @@ export default defineComponent({
 
 	.sideBorder {
 		border-left: 1px solid $color-line;
-		min-width:200px;
+		min-width: 200px;
 	}
 
 	.ml-auto {
-		margin-left:auto;
+		margin-left: auto;
 	}
 
 </style>

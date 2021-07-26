@@ -1,77 +1,156 @@
 <template>
-	<div class="works gap-2 gap-md-2-5 gap-lg-4">
-		<h1>How it works</h1>
-		<div class="d-flex flex-column gap-2 gap-md-3 gap-lg-4">
-			<div class="feature gap-1 gap-md-2">
-				<h2>Ask A Question</h2>
-				<div class="list">
-					<div class="d-flex flex-row gap-1 align-items-center">
-						<i class="fa fa-circle main-background-text" />
-						<span>Ask questions on various subjects</span>
-					</div>
-					<div class="d-flex flex-row gap-1 align-items-center">
-						<i class="fa fa-circle main-background-text" />
-						<span>Go through all available answers</span>
-					</div>
-					<div class="d-flex flex-row gap-1 align-items-center">
-						<i class="fa fa-circle main-background-text" />
-						<span>Choose your best answer (Leave a tip!)</span>
+	<div class="px-1 col-12 content_wrapper">
+		<div class="d-flex flex-column col-lg-10 offset-lg-1 col-12  inner-wrapper">
+			<div class="d-flex flex-row flex-wrap align-items-center justify-content-center position-relative">
+				<div class="col-lg-6 col-12 text-center d-flex flex-column justify-content-center  align-items-center mdMargin">
+					<img src="@app/assets/images/homepage/purple_bubble.svg" class="ImageBubble">
+					<div class="zindexhiger">
+						<img src="@app/assets/images/homepage/ask_your_question_new.svg" width="80%">
 					</div>
 				</div>
-				<div class="images">
-					<span>
-						<img src="@app/assets/images/homepage/ask_question.png">
-					</span>
-					<span>
-						<img src="@app/assets/images/homepage/answers.png">
-					</span>
-				</div>
-			</div>
-			<div class="feature gap-1 gap-md-2">
-				<h2>Be A Nerd</h2>
-				<div class="list">
-					<div class="d-flex flex-row gap-1 align-items-center">
-						<i class="fa fa-circle main-background-text" />
-						<span>Help others in subject you're adept at</span>
+				<div class="col-lg-6 col-12 text-left d-none align-items-md-start align-items-sm-center justify-content-sm-center d-lg-flex flex-column px-md-3 mt-3 mt-md-0">
+					<h1>
+						Ask A Question
+					</h1>
+					<div class="py-2 d-none d-lg-block">
+						<span>
+							Ask questions on various subjects and make sure your question is very detailed. You get answers from other Nerds and go through all available answers to choose which answer is the best.
+						</span>
 					</div>
-					<div class="d-flex flex-row gap-1 align-items-center">
-						<i class="fa fa-circle main-background-text" />
-						<span>Collaborate and learn with other Nerds</span>
-					</div>
-					<div class="d-flex flex-row gap-1 align-items-center">
-						<i class="fa fa-circle main-background-text" />
-						<span>Share relevant files to aid learning</span>
+					<div class="text-sm-center">
+						<button class="btn btn-md btn-custom py-1">
+							Ask A Question
+						</button>
 					</div>
 				</div>
-				<div class="images">
-					<span>
-						<img src="@app/assets/images/homepage/top_nerd.png">
-					</span>
-					<span>
-						<img src="@app/assets/images/homepage/chat_view.png">
-					</span>
+				<div class="col-lg-6 col-12 d-lg-none text-center align-items-center justify-content-center d-flex flex-column px-md-3 mt-3 mt-md-0">
+					<h1>
+						Ask A Question
+					</h1>
+					<div class="py-2">
+						<span>
+							Ask questions on various subjects and make sure your question is very detailed. You get answers from other Nerds and go through all available answers to choose which answer is the best.
+						</span>
+					</div>
+					<div class="text-sm-center">
+						<button class="btn btn-md btn-custom py-1">
+							Ask A Question
+						</button>
+					</div>
 				</div>
 			</div>
-			<div class="feature gap-1 gap-md-2">
-				<h2>Coin System</h2>
-				<div class="list">
-					<div class="d-flex flex-row gap-1 align-items-center">
-						<i class="fa fa-circle main-background-text" />
-						<span>Buy affordable coins to interact</span>
+			<div class="d-flex flex-row  flex-wrap align-items-center justify-content-center position-relative mt-5 pt-5">
+				<div class="col-lg-6 col-12 text-left px-md-3 d-none d-lg-block">
+					<h1>
+						Answer Questions
+					</h1>
+					<div class="py-2">
+						<span>
+							Answer questions on subjects that you are very good at. Make sure your answer is correct and detailed. You get a minimum reward for answering and get the full reward if your answer is chosen as the best.
+						</span>
 					</div>
-					<div class="d-flex flex-row gap-1 align-items-center">
-						<i class="fa fa-circle main-background-text" />
-						<span>Bronze Coins are used to Ask Questions</span>
-					</div>
-					<div class="d-flex flex-row gap-1 align-items-center">
-						<i class="fa fa-circle main-background-text" />
-						<span>Gold Coins are used for Tipping</span>
+					<div>
+						<button class="btn btn-md btn-custom py-1">
+							Answer A Question
+						</button>
 					</div>
 				</div>
-				<div class="images">
-					<span>
-						<img src="@app/assets/images/homepage/buy_coin_new.svg">
-					</span>
+				<div class="col-lg-6 col-12 text-center d-flex flex-column justify-content-center  align-items-center mdMargin">
+					<img src="@app/assets/images/homepage/green_bubble.svg" class="ImageBubble">
+					<div class="zindexhiger">
+						<img src="@app/assets/images/homepage/ask_your_question.svg" width="80%">
+					</div>
+				</div>
+				<div class="col-lg-6 col-12  d-lg-none text-center align-items-center justify-content-center d-flex flex-column px-md-3 mt-3 mt-md-0">
+					<h1>
+						Answer Questions
+					</h1>
+					<div class="py-2">
+						<span>
+							Answer questions on subjects that you are very good at. Make sure your answer is correct and detailed. You get a minimum reward for answering and get the full reward if your answer is chosen as the best.
+						</span>
+					</div>
+					<div class="text-sm-center">
+						<button class="btn btn-md btn-custom py-1">
+							Answer A Question
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="d-flex flex-row  flex-wrap align-items-center justify-content-center position-relative mt-5 pt-5">
+				<div class="col-lg-6 col-12 text-center d-flex flex-column justify-content-center  align-items-center mdMargin">
+					<img src="@app/assets/images/homepage/faded_blue_bubble.svg" class="ImageBubbleSpecial">
+					<div class="zindexhiger">
+						<img src="@app/assets/images/homepage/meet_top_nerd.svg" width="80%">
+					</div>
+				</div>
+				<div class="col-lg-6 col-12 text-left d-none align-items-md-start align-items-sm-center justify-content-sm-center d-lg-flex flex-column px-md-3 mt-3 mt-md-0">
+					<h1>
+						Meet Top Nerds
+					</h1>
+					<div class="py-2 d-none d-lg-block">
+						<span>
+							Get a more in-depth experience to better help with problems. Request or Accept a Session to chat with others; in order to collaborate better, get help for your problems and solve the problems of others.
+						</span>
+					</div>
+					<div class="text-sm-center">
+						<button class="btn btn-md btn-custom py-1">
+							Meet Top Nerds
+						</button>
+					</div>
+				</div>
+				<div class="col-lg-6 col-12 d-lg-none text-center align-items-center justify-content-center d-flex flex-column px-md-3 mt-3 mt-md-0">
+					<h1>
+						Meet Top Nerds
+					</h1>
+					<div class="py-2">
+						<span>
+							Get a more in-depth experience to better help with problems. Request or Accept a Session to chat with others; in order to collaborate better, get help for your problems and solve the problems of others.
+						</span>
+					</div>
+					<div class="text-sm-center">
+						<button class="btn btn-md btn-custom py-1">
+							Meet Top Nerds
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="d-flex flex-row  flex-wrap align-items-center justify-content-center position-relative mt-5 pt-5">
+				<div class="col-lg-6 col-12 text-left px-md-3  d-lg-block d-none ">
+					<h1>
+						Coin System
+					</h1>
+					<div class="py-2">
+						<span>
+							Buy affordable coins to be used for your interactions. You use Bronze coins as reward to get answers to your questions and Gold coins to request chat sessions with Top Nerds for an in-depth learning experience.
+						</span>
+					</div>
+					<div>
+						<button class="btn btn-md btn-custom py-1">
+							Buy Coins
+						</button>
+					</div>
+				</div>
+				<div class="col-lg-6 col-12 text-center d-flex flex-column justify-content-center  align-items-center mdMargin">
+					<img src="@app/assets/images/homepage/pink_bubble.svg" class="ImageBubbleCoin">
+					<div class="zindexhiger">
+						<img src="@app/assets/images/homepage/coin_system.svg" width="85%">
+					</div>
+				</div>
+				<div class="col-lg-6 col-12 d-lg-none text-center align-items-center justify-content-center d-flex flex-column px-md-3 mt-3 mt-md-0">
+					<h1>
+						Coin System
+					</h1>
+					<div class="py-2">
+						<span>
+							Buy affordable coins to be used for your interactions. You use Bronze coins as reward to get answers to your questions and Gold coins to request chat sessions with Top Nerds for an in-depth learning experience.
+						</span>
+					</div>
+					<div class="text-sm-center">
+						<button class="btn btn-md btn-custom py-1">
+							Buy Coins
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -86,77 +165,73 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-	.works {
-		margin: 0 auto;
-		display: flex;
-		flex-direction: column;
-		@media (min-width: $lg) { width: 68%; }
-
-		.feature {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			border: 1px solid $color-line;
-			border-radius: 13px;
-			box-shadow: 0 4px 14px rgba($color-black, 0);
-			background: $color-tags 0% 0% no-repeat padding-box;
-			color: $color-sub;
-			padding: 1rem;
-			@media (min-width: $md) { padding: 2rem; }
-			@media (min-width: $lg) { padding: 3rem; }
-			&:hover { box-shadow: 0 8px 16px 0 rgba($color-black, 0.2); }
-
-			& > h2 {
-				color: $color-primary-dark;
-				margin: 0;
-				font-weight: bold;
-				font-size: 20px;
-				@media (min-width: $md) { font-size: 32px; }
-				@media (min-width: $lg) { font-size: 40px; }
-			}
-
-			.list {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				width: 80%;
-				margin: 0 auto;
-
-				i {
-					font-size: 0.5em;
-				}
-
-				span {
-					font-size: 16px;
-					@media (min-width: $md) { font-size: 21px; }
-					@media (min-width: $lg) { font-size: 26px; }
-				}
-			}
-
-			.images {
-				width: 100%;
-				display: flex;
-				justify-content: center;
-				flex-direction: column;
-				& > * { flex-grow: 1; }
-				img { width: 100%; }
-				@media (min-width: $lg) {
-					flex-direction: row;
-					align-items: center;
-				}
-			}
-		}
-	}
 
 	.main-background-text {
 		color: $color-primary-dark;
 	}
 
 	h1 {
-		text-align: center;
 		margin-bottom: 0;
 		font-size: 24px;
-		@media (min-width: $md) { font-size: 42px; }
-		@media (min-width: $lg) { font-size: 52px; }
+		color:$color-text-header;
+		@media (min-width: $md) { font-size: 34px; }
+		@media (min-width: $lg) { font-size: 40px; }
+		@media (min-width: $xl) { font-size: 48px; }
 	}
+
+	.mdMargin {
+		margin-bottom: 0px;
+		@media (min-width: $md) { margin-bottom:110px; }
+		@media (min-width: $lg) { margin-bottom:0px; }
+		@media (min-width: $xl) { margin-bottom:0px; }
+	}
+
+		.btn-custom {
+		background-color: $color-primary;
+		color: $color-white;
+		border: 2px solid $color-primary;
+		border-radius: 6px;
+	}
+	 .content_wrapper {
+	    height: auto;
+	   position: relative;
+	   margin-bottom: 40px;
+	    margin-top: 100px;
+   }
+
+   .ImageBubble {
+        width: 90%;
+		height: 90%;
+		position: absolute;
+	}
+
+	.ImageBubbleCoin {
+		 width: 60%;
+		height: 60%;
+		  @media (min-width: $md) {  width: 60%;
+		height: 60%;}
+	    @media (min-width: $lg) {  width: 90%;
+		height: 90%; }
+		position: absolute;
+	}
+
+	.ImageBubbleSpecial {
+		 width: 100%;
+		height: 100%;
+		  @media (min-width: $md) {  width: 120%;
+		height: 120%;}
+	    @media (min-width: $lg) {  width: 120%;
+		height: 120%; }
+		position: absolute;
+	}
+
+	.zindexhiger {
+		z-index: 3;
+	}
+
+	 .inner-wrapper {
+	    position:relative;
+		height: auto;
+   }
+
 </style>

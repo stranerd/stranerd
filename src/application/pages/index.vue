@@ -1,24 +1,12 @@
 <template>
-	<div>
+	<div class="overflow-x-hidden">
 		<CTA />
 		<IGStat />
-		<div class="py-2-5 px-1 py-md-4 py-lg-5">
-			<Features />
-		</div>
 		<div class="py-2-5 px-1 px-md-2 py-md-4 py-lg-5">
 			<HowItWorks id="how-it-works" />
 		</div>
-		<div class="main-background py-2-5 px-1 px-md-2 py-md-4 py-lg-5">
-			<Connect />
-		</div>
-		<div class="message py-2-5 px-1 px-md-2 py-md-4 py-lg-5 gap-4">
-			<div class="message-form">
-				<MessageForm id="contact-us" />
-			</div>
-			<span class="d-none d-lg-inline">
-				<img src="@app/assets/images/homepage/contact.svg">
-			</span>
-		</div>
+		<Connect />
+		<MessageForm id="contact-us" />
 	</div>
 </template>
 
@@ -27,12 +15,11 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import MessageForm from '@app/components/forms/MessageForm.vue'
 import CTA from '@app/components/home/CTA.vue'
 import IGStat from '@app/components/home/IGStat.vue'
-import Features from '@app/components/home/Features.vue'
 import HowItWorks from '@app/components/home/HowItWorks.vue'
 import Connect from '@app/components/home/Connect.vue'
 export default defineComponent({
 	name: 'IndexPage',
-	components: { MessageForm, CTA, IGStat, Features, HowItWorks, Connect },
+	components: { MessageForm, CTA, IGStat, HowItWorks, Connect },
 	layout: 'home'
 })
 </script>

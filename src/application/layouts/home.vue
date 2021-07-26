@@ -1,7 +1,7 @@
 <template>
-	<div class="layout-page">
+	<div class="layout-page overflow-x-hidden">
 		<HomeTopNavigation class="fixed-top" />
-		<div style="height: 76px;" />
+		<div style="height: 66px;" />
 		<section class="layout-body">
 			<main class="layout-main p-0">
 				<Nuxt />

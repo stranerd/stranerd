@@ -1,15 +1,11 @@
 <template>
 	<SideMenu :close="close" background-class="menu-background" menu-class="menu-right">
 		<div class="head gap-1 text-primary">
-			<span class="link" @click="close">
-				<img src="@app/assets/images/icons/close.svg" alt="">
-			</span>
+			<img class="head-icons" src="@app/assets/images/icons/close.svg" alt="" @click="close">
 			<NuxtLink v-if="isAdmin" to="/admin/">
 				<img class="head-icons" src="@app/assets/images/icons/admin.svg" alt="">
 			</NuxtLink>
-			<span v-if="isLoggedIn" @click="signout">
-				<img class="head-icons" src="@app/assets/images/icons/signout.svg" alt="">
-			</span>
+			<img v-if="isLoggedIn" class="head-icons" src="@app/assets/images/icons/signout.svg" alt="" @click="signout">
 			<PageLoading v-if="loading" />
 		</div>
 		<div class="d-flex flex-column flex-grow-1">

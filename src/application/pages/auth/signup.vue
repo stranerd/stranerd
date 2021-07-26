@@ -1,10 +1,10 @@
 <template>
 	<div class="py-md-1 px-0-5 px-md-3 px-lg-4 py-lg-1-5 d-flex flex-column align-items-center flex-lg-row gap-2">
-		<form class="gap-2 d-flex flex-column w-100 flex-grow-1" @submit.prevent="signup">
+		<form class="gap-1 gap-md-2 d-flex flex-column w-100 flex-grow-1" @submit.prevent="signup">
 			<h1 class="mb-0">
 				Sign Up
 			</h1>
-			<div class="d-flex flex-column gap-2 flex-md-row">
+			<div class="d-flex flex-column gap-1 gap-md-2 flex-md-row">
 				<div class="flew-grow-1 w-100">
 					<input
 						id="first"

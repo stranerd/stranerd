@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="question-body p-3">
+		<div class="question-body">
 			<h1>Ask Your Question</h1>
 
 			<QuestionForm
@@ -40,13 +40,15 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 	.question-body {
-		background: $color-tags;
-		border: 1px solid $color-line;
-
 		h1 {
 			color: $color-dark;
 			font-size: 36px;
 			margin-bottom: 1.25rem;
+		}
+		@media (min-width: $lg) {
+			background: $color-tags;
+			border: 1px solid $color-line;
+			padding: 3rem;
 		}
 	}
 </style>

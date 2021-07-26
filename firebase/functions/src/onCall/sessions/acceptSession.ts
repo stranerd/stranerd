@@ -5,9 +5,11 @@ import { addUserCoins } from '../../helpers/modules/payments/transactions'
 import { getRandomValue, getChatsPath } from '../../helpers/'
 import { chunkArray } from '../../helpers/modules/users/users'
 
-export const acceptSession = functions.https.onCall(async ({ id, accepted }, context) => {
+export const acceptSession = functions.https.onCall(async (data, context) => {
 	if (!context.auth)
 		throw new functions.https.HttpsError('unauthenticated', 'Only authenticated users can accept sessions')
+
+	const { id = '', accepted = false } = data
 
 	const ref = admin.firestore().collection('sessions').doc(id)
 	const { duration = 15, studentId = '', tutorId = '', price = 10 } = (await ref.get()).data() ?? {}
@@ -32,7 +34,7 @@ export const acceptSession = functions.https.onCall(async ({ id, accepted }, con
 			// * Create data object containing endTime, accepted and taskName
 			const endedAt = admin.firestore.Timestamp.now().toDate()
 			endedAt.setSeconds(endedAt.getSeconds() + 60 * duration)
-			const data = { dates: { endedAt }, accepted: true, taskName: taskName ?? '' } as Record<string, any>
+			const data = { dates: { endedAt }, accepted: true, taskName }
 
 			// * Create a batch to update accepted session and 499 other pending sessions
 			const batch = admin.firestore().batch()
@@ -64,7 +66,7 @@ export const acceptSession = functions.https.onCall(async ({ id, accepted }, con
 					[`${studentId}/session/currentSession`]: id,
 					[`${tutorId}/session/currentTutorSession`]: id,
 					...Object.fromEntries(
-						lobbiedSessions.map((sessionId) => [
+						lobbiedSessions.map(([sessionId]) => [
 							`${tutorId}/session/lobby/${sessionId}`,
 							null
 						])

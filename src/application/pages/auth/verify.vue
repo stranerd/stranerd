@@ -1,6 +1,6 @@
 <template>
 	<div class="py-md-1 px-0-5 px-md-3 px-lg-4 py-lg-1-5 d-flex flex-column flex-lg-row align-items-center gap-2">
-		<div class="gap-2 d-flex flex-column w-100 flex-grow-1">
+		<div class="gap-1 gap-md-2 d-flex flex-column w-100 flex-grow-1">
 			<h1 class="mb-0">
 				Verify Your Email Address
 			</h1>

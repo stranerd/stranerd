@@ -1,12 +1,14 @@
 <template>
 	<div class="chat gap-0-25" :class="isMine ? 'is-mine' : 'is-not-mine'">
-		<a v-if="chat.isMedia" class="text-truncate" :href="chat.media.link" target="__blank">
-			<i class="fas fa-paperclip me-0-25" />
-		</a>
-		<DynamicText @click="copy">
-			{{ chat.isMedia ? chat.media.name : chat.content }}
-		</DynamicText>
-		<DynamicText class="mt-auto pt-0-5 small" @click="copy">
+		<div class="d-flex gap-0-25">
+			<a v-if="chat.isMedia" class="text-truncate" :href="chat.media.link" target="__blank">
+				<i class="fas fa-paperclip me-0-25" />
+			</a>
+			<DynamicText @click="copy">
+				{{ chat.isMedia ? chat.media.name : chat.content }}
+			</DynamicText>
+		</div>
+		<DynamicText class="small ms-auto" @click="copy">
 			{{ formatTimeAsDigits(new Date(chat.createdAt)) }}
 		</DynamicText>
 	</div>
@@ -60,7 +62,7 @@ export default defineComponent({
 		max-width: 75%;
 		padding: 0.25rem 0.75rem;
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 	}
 
 	.is-mine {

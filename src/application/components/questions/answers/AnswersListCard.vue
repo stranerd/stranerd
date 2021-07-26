@@ -36,7 +36,7 @@
 				<Share :title="answer.title" :text="answer.strippedBody" :link="`/questions/${answer.questionId}#${answer.id}`">
 					<i class="fas fa-reply" />
 				</Share>
-				<span v-if="answer.userId !== id" @click="reportAnswer">
+				<span v-if="id && answer.userId !== id" @click="reportAnswer">
 					<i class="fas fa-flag" />
 				</span>
 			</div>

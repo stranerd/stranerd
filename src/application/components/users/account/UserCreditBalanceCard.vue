@@ -1,5 +1,5 @@
 <template>
-	<div class="d-flex flex-column gap-2 align-items-center justify-content-center">
+	<div class="d-flex flex-column gap-1 gap-md-2 align-items-center justify-content-center">
 		<h4 class="headertext mb-0">
 			Available Balance
 		</h4>

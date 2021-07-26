@@ -6,7 +6,7 @@
 				slot-scope="{ currentRefinement, isSearchStalled, refine }"
 			>
 				<div class="search-container gap-0-25">
-					<img src="@app/assets/images/icons/search.svg" alt="" class="img-search">
+					<img src="@app/assets/images/icons/search.svg" alt="" class="sub-icons">
 					<input
 						placeholder="Search for anything..."
 						class="form-control"
@@ -81,27 +81,22 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-	.img-search {
-		width: 21px;
-	}
-
-	.AisSearchBox {
-		widows: 100%;
-	}
-
 	.search-container {
 		display: flex;
 		align-items: center;
 
-		input {
+		input.form-control {
 			color: inherit;
 			border: none;
 			outline: none;
 			box-shadow: none;
 			min-height: unset;
+			padding: 0.5em;
+			font-size: 0.9rem;
+			line-height: 1em;
 		}
 
-		input:focus {
+		input.form-control:focus {
 			color: inherit;
 			box-shadow: none;
 		}

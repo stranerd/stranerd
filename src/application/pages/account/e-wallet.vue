@@ -14,6 +14,7 @@ export default defineComponent({
 	name: 'AccountEWalletPage',
 	components: { UserTransactionList, UserCreditBalanceCard },
 	layout: 'dashboard',
+	middleware: 'isAuthenticated',
 	setup () {
 		const { id, user } = useAuth()
 		return { id, user }

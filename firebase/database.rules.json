@@ -58,6 +58,14 @@
 				}
 			}
 		},
+		"reports": {
+			"$reportType": {
+				".read": "auth.token.isAdmin === true",
+				"$reportId": {
+					".write": "auth.uid != null"
+				}
+			}
+		},
 		"subjects": {
 			".read": true,
 			"$id": {

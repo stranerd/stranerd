@@ -47,7 +47,7 @@
 					<img src="@app/assets/images/icons/answers.svg" alt="" class="sub-icons">
 					<DynamicText>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</DynamicText>
 				</span>
-				<span v-if="question.userId !== id" @click="reportQuestion">
+				<span v-if="id && question.userId !== id" @click="reportQuestion">
 					<i class="fas fa-flag sub-icons" />
 				</span>
 			</div>

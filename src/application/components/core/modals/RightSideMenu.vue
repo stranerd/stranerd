@@ -44,8 +44,8 @@ export default defineComponent({
 		justify-content: space-between;
 		padding: 0.75rem 1rem;
 		border-bottom: 5px solid $color-primary;
-		@media (min-width: $md) { padding: 1rem 2rem; }
-		@media (min-width: $lg) { padding: 1rem 3rem; }
-		@media (min-width: $xl) { padding: 1rem 4.5rem; }
+		@media (min-width: $md) { padding: 0.75rem 2rem; }
+		@media (min-width: $lg) { padding: 0.75rem 3rem; }
+		@media (min-width: $xl) { padding: 0.75rem 4.5rem; }
 	}
 </style>

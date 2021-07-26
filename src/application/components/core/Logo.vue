@@ -23,10 +23,10 @@ export default defineComponent({
 	.logo-img {
 		height: 20px;
 		@media (min-width: $md) {
-			height: 30px;
+			height: 24px;
 		}
 		@media (min-width: $lg) {
-			height: 30px;
+			height: 28px;
 		}
 	}
 </style>

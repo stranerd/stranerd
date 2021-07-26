@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<form class="d-flex justify-content-center options border-bottom border-line gap-0-75">
+		<form class="d-flex justify-content-center options gap-0-75">
 			<select v-model="answered" class="form-select">
 				<option v-for="choice in answeredChoices" :key="choice.val" :value="choice.val">
 					{{ choice.key }}
@@ -57,6 +57,9 @@ export default defineComponent({
 			@media (min-width: $md) {
 				padding: 0.5rem;
 			}
+		}
+		@media (min-width: $lg) {
+			border-bottom: 1px solid $color-line;
 		}
 	}
 </style>

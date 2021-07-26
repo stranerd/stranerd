@@ -6,7 +6,6 @@
 				<Nuxt />
 			</main>
 		</section>
-		<ModalBase />
 	</section>
 </template>
 

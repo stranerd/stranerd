@@ -154,7 +154,7 @@ div.thin {
 			@media (min-width: $width) {
 				gap: 0 !important;
 
-				& > * {
+				& > *:not(:only-child) {
 					margin: calc(#{$val} * 0.25);
 				}
 			}

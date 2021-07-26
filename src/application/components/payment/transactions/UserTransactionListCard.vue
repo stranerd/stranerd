@@ -1,9 +1,9 @@
 <template>
-	<div class="d-flex table-data-style p-1">
+	<div class="d-flex align-items-start table-data-style p-1">
 		<div class="col-3">
 			<DynamicText>{{ formatTime(transaction.createdAt) }}</DynamicText>
 		</div>
-		<div class="col-3 d-flex align-items-center justify-content-center gap-0-25">
+		<div class="col-3 d-flex align-items-center gap-0-25">
 			<Coins :size="24" :gold="transaction.isGold" />
 			<DynamicText :class="transaction.isGain ? 'text-success' : 'text-danger'">
 				{{ formatNumber(transaction.amount) }}

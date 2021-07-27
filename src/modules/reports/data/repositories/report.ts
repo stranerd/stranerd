@@ -4,7 +4,7 @@ import { ReportBaseDataSource } from '../datasources/report-base'
 import { ReportTransformer } from '../transformers/report'
 import { ReportFromModel, ReportToModel } from '../models/report'
 
-export class ReportRepository<Key extends string, ReportType> implements IReportRepository<ReportType> {
+export class ReportRepository<Key extends string, ReportType extends { userId: string }> implements IReportRepository<ReportType> {
 	private dataSource: ReportBaseDataSource<Key, ReportType>
 	private transformer: ReportTransformer<ReportType>
 

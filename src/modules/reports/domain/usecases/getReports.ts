@@ -2,7 +2,7 @@ import { DatabaseGetClauses } from '@modules/core'
 import { PAGINATION_LIMIT } from '@utils/constants'
 import { IReportRepository } from '../irepositories/ireport'
 
-export class GetReportsUseCase<ReportedType> {
+export class GetReportsUseCase<ReportedType extends { userId: string }> {
 	private repository: IReportRepository<ReportedType>
 
 	constructor (repository: IReportRepository<ReportedType>) {

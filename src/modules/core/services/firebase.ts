@@ -163,6 +163,7 @@ export interface FUNCTIONS {
 	rateTutor: { tutorId: string, rating: number, review: string | undefined },
 	approveTutorApplication: { id: string, approved: boolean },
 	markAsBestAnswer: { questionId: string, answerId: string }
+	handleReport: { id: string, key: string, userId: string }
 }
 
 export interface FUNCTION_RETURNS {
@@ -178,6 +179,7 @@ export interface FUNCTION_RETURNS {
 	rateTutor: void,
 	approveTutorApplication: void,
 	markAsBestAnswer: void
+	handleReport: void
 }
 
 export const FunctionsService = {

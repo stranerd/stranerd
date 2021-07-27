@@ -8,11 +8,11 @@ import { DeleteReportUseCase } from './domain/usecases/deleteReport'
 import { ReportFactory } from './domain/factories/report'
 import { ReportEntity } from './domain/entities/report'
 
-const userReportDataSource = new ReportFirebaseDataSource<'users', UserBio>('users')
+const userReportDataSource = new ReportFirebaseDataSource<'users', UserReportType>('users')
 const questionReportDataSource = new ReportFirebaseDataSource<'questions', QuestionReportType>('questions')
 const answerReportDataSource = new ReportFirebaseDataSource<'answers', AnswerReportType>('answers')
 
-const userReportTransformer = new ReportTransformer<UserBio>()
+const userReportTransformer = new ReportTransformer<UserReportType>()
 const questionReportTransformer = new ReportTransformer<QuestionReportType>()
 const answerReportTransformer = new ReportTransformer<AnswerReportType>()
 
@@ -32,19 +32,26 @@ export const DeleteUserReport = new DeleteReportUseCase(userReportRepository)
 export const DeleteQuestionReport = new DeleteReportUseCase(questionReportRepository)
 export const DeleteAnswerReport = new DeleteReportUseCase(answerReportRepository)
 
-export class UserReportFactory extends ReportFactory<UserBio> {}
+export class UserReportFactory extends ReportFactory<UserReportType> {}
 export class QuestionReportFactory extends ReportFactory<QuestionReportType> {}
 export class AnswerReportFactory extends ReportFactory<AnswerReportType> {}
 
-export class UserReportEntity extends ReportEntity<UserBio> {}
+export class UserReportEntity extends ReportEntity<UserReportType> {}
 export class QuestionReportEntity extends ReportEntity<QuestionReportType> {}
 export class AnswerReportEntity extends ReportEntity<AnswerReportType> {}
 
+export type UserReportType = {
+	bio: UserBio
+	userId: string
+}
+
 export type QuestionReportType = {
 	body: string
+	userId: string
 }
 export type AnswerReportType = {
 	title: string
 	body: string
 	questionId: string
+	userId: string
 }

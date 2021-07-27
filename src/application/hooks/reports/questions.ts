@@ -12,7 +12,8 @@ export const setReportedEntity = (question: QuestionEntity) => {
 	reportedEntity = {
 		id: question.id,
 		reported: {
-			body: question.body
+			body: question.body,
+			userId: question.userId
 		}
 	}
 }

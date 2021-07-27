@@ -1,7 +1,7 @@
 import { BaseEntity } from '@modules/core'
 import { generateDefaultBio, UserBio } from '@modules/users'
 
-export class ReportEntity<ReportedType> extends BaseEntity {
+export class ReportEntity<ReportedType extends { userId: string }> extends BaseEntity {
 	readonly id: string
 	readonly reporterId: string
 	readonly reportedId: string

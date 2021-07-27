@@ -1,6 +1,6 @@
 import { IReportRepository } from '../irepositories/ireport'
 
-export class DeleteReportUseCase<ReportedType> {
+export class DeleteReportUseCase<ReportedType extends { userId: string }> {
 	private repository: IReportRepository<ReportedType>
 
 	constructor (repository: IReportRepository<ReportedType>) {

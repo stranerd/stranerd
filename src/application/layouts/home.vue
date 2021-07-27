@@ -7,8 +7,8 @@
 				<Nuxt />
 				<HomeBottomNavigation />
 			</main>
-			<ModalBase />
 		</section>
+		<ModalBase />
 	</div>
 </template>
 

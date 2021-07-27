@@ -1,6 +1,7 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { getChatsPath, getRandomValue } from '../../helpers'
+import { addUserCoins } from '../../helpers/modules/payments/transactions'
 
 export const requestNewSession = functions.https.onCall(async (data, context) => {
 	if (!context.auth)
@@ -44,11 +45,15 @@ export const requestNewSession = functions.https.onCall(async (data, context) =>
 				[`profiles/${tutorId}/account/meta/tutorSessions/${sessionId}`]: true,
 				[`profiles/${tutorId}/session/lobby/${sessionId}`]: true,
 				// Chat Data
-				[`chats/single/${getChatsPath(path)}/${chatId}`]: data,
+				[`chats/single/${getChatsPath(path)}/${chatId}`]: chat,
 				[`chats/meta/${path[0]}/${path[1]}/last`]: { ...chat, id: chatId },
 				[`chats/meta/${path[1]}/${path[0]}/last`]: { ...chat, id: chatId },
 				[`chats/meta/${path[1]}/${path[0]}/unRead/${chatId}`]: true
 			})
+
+		await addUserCoins(studentId, { gold: 0 - price, bronze: 0 },
+			'You paid coins for a session'
+		)
 
 		return sessionId
 	} catch (error) {

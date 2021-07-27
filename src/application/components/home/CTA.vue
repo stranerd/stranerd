@@ -54,20 +54,20 @@ export default defineComponent({
 		}
 
 		& > * {
-			flex-grow: 1;
 			max-width: 90%;
 			@media (min-width: $md) {
 				max-width: 80%;
 			}
 			@media (min-width: $lg) {
 				max-width: 40%;
+				flex-grow: 1;
 			}
 		}
 	}
 
 	.paragraphStyle {
 		font-size: 15px;
-		color:$color-sub;
+		color: $color-sub;
 		@media (min-width: $md) { font-size: 18px; }
 		@media (min-width: $lg) { font-size: 20px; }
 		@media (min-width: $xl) { font-size: 24px; }
@@ -77,7 +77,7 @@ export default defineComponent({
 		font-weight: bold;
 		text-transform: none;
 		font-size: 24px;
-		color:$color-text-header;
+		color: $color-text-header;
 		@media (min-width: $md) { font-size: 34px; }
 		@media (min-width: $lg) { font-size: 40px; }
 		@media (min-width: $xl) { font-size: 48px; }
@@ -93,9 +93,9 @@ export default defineComponent({
 
 	.image-custom {
 		width: 80%;
-		@media (min-width: $md) { width: 80% }
-		@media (min-width: $lg) { width: 43% }
-		@media (min-width: $xl) { width: 45%}
+		@media (min-width: $md) { width: 80%; }
+		@media (min-width: $lg) { width: 43%; }
+		@media (min-width: $xl) { width: 45%; }
 	}
 
 </style>

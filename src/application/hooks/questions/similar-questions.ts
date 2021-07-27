@@ -20,7 +20,7 @@ export const useSimilarQuestionList = (question: QuestionEntity) => {
 		try {
 			global[question.id].setLoading(true)
 			const questions = await GetSimilarQuestions.call(question.tags)
-			global[question.id].questions.value = questions.filter((q) => q.id !== question.id)
+			global[question.id].questions.value = questions.filter((q) => q.id !== question.id).slice(0, 10)
 			global[question.id].fetched.value = true
 		} catch (error) { global[question.id].setError(error) }
 		global[question.id].setLoading(false)
@@ -28,7 +28,7 @@ export const useSimilarQuestionList = (question: QuestionEntity) => {
 
 	const listener = useListener(async () => {
 		const callback = (questions: QuestionEntity[]) => {
-			global[question.id].questions.value = questions.filter((q) => q.id !== question.id)
+			global[question.id].questions.value = questions.filter((q) => q.id !== question.id).slice(0, 10)
 		}
 		return await ListenToSimilarQuestions.call(question.tags, callback)
 	})

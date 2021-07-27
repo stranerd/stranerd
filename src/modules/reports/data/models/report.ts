@@ -1,6 +1,6 @@
 import { UserBio } from '@modules/users'
 
-export interface ReportFromModel<ReportedType> {
+export interface ReportFromModel<ReportedType extends { userId: string }> {
 	id: string
 	reporterId: string
 	reportedId: string
@@ -12,7 +12,7 @@ export interface ReportFromModel<ReportedType> {
 	}
 }
 
-export interface ReportToModel<ReportedType> {
+export interface ReportToModel<ReportedType extends { userId: string }> {
 	reporterId: string
 	reportedId: string
 	reporterBio: UserBio

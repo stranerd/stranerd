@@ -5,12 +5,16 @@ import { createNotification } from '../users/notifications'
 export const markAnswerAsBest = async (questionId: string, answerId: string, question?: Record<string, any>, answer?: Record<string, any>) => {
 	if (questionId && answerId) {
 		const questionRef = admin.firestore().collection('questions').doc(questionId)
-		const { coins, userId: questionUserId } = question || (await questionRef.get()).data() || {}
+		const { coins, userId: questionUserId, answerId: answered } = question || (await questionRef.get()).data() || {}
 		const answerRef = admin.firestore().collection('answers').doc(answerId)
 		const { userId } = answer || (await answerRef.get()).data() || {}
 
 		const batch = admin.firestore().batch()
-		batch.set(questionRef, { answerId }, { merge: true })
+		batch.set(questionRef, {
+			answerId: {
+				[answered.first ? 'second' : 'first']: answerId
+			}
+		}, { merge: true })
 		batch.set(answerRef, { best: true }, { merge: true })
 		await batch.commit()
 

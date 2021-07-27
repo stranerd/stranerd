@@ -1,13 +1,11 @@
 <template>
-	<div class="d-flex flex-column gap-2">
-		<div>
-			<button type="button" class="btn btn-auth" @click="googleSignin">
-				<img src="@app/assets/images/icons/google.svg" alt="">
-				<span>Google</span>
-			</button>
-			<DisplayError :error="googleError" />
-			<PageLoading v-if="googleLoading" />
-		</div>
+	<div class="d-flex flex-column gap-1 gap-md-2">
+		<button type="button" class="btn btn-auth" @click="googleSignin">
+			<img src="@app/assets/images/icons/google.svg" alt="">
+			<span>Google</span>
+		</button>
+		<DisplayError :error="googleError" />
+		<PageLoading v-if="googleLoading" />
 	</div>
 </template>
 
@@ -36,7 +34,6 @@ export default defineComponent({
 		font-weight: bold;
 		padding: 0.75rem 0;
 		transition: all 0.4s;
-		z-index: 1;
 
 		img {
 			height: 30px;

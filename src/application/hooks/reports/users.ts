@@ -1,15 +1,21 @@
 import { ssrRef, useFetch, watch } from '@nuxtjs/composition-api'
-import { UserReportFactory, AddUserReport, GetUserReports, UserReportEntity, DeleteUserReport } from '@modules/reports'
+import { UserReportFactory, AddUserReport, GetUserReports, UserReportEntity, DeleteUserReport, UserReportType } from '@modules/reports'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useReportModal } from '@app/hooks/core/modals'
 import { useAuth } from '@app/hooks/auth/auth'
-import { UserEntity, UserBio } from '@modules/users'
+import { UserEntity } from '@modules/users'
 import { PAGINATION_LIMIT } from '@utils/constants'
 import { Alert } from '../core/notifications'
 
-let reportedEntity = null as { id: string, reported: UserBio } | null
+let reportedEntity = null as { id: string, reported: UserReportType } | null
 export const setReportedEntity = (user: UserEntity) => {
-	reportedEntity = { id: user.id, reported: user.bio }
+	reportedEntity = {
+		id: user.id,
+		reported: {
+			bio: user.bio,
+			userId: user.id
+		}
+	}
 }
 
 export const useCreateReport = () => {

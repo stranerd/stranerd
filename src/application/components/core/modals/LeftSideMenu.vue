@@ -1,10 +1,8 @@
 <template>
-	<SideMenu :close="close" background-class="menu-background" menu-class="menu-left">
+	<SideMenu :close="close" background-class="sd-menu-background" menu-class="sd-menu-left">
 		<div class="head gap-1">
 			<Logo :secondary="true" />
-			<span class="link" @click="close">
-				<img src="@app/assets/images/icons/close.svg" alt="">
-			</span>
+			<img class="head-icons" src="@app/assets/images/icons/close.svg" alt="" @click="close">
 		</div>
 		<div class="d-flex flex-column flex-grow-1">
 			<slot />
@@ -36,15 +34,11 @@ export default defineComponent({
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		padding: 1rem 2rem;
-		border-bottom: 5px solid $color-primary;
 		margin-bottom: 1rem;
-
-		.link {
-			& > img {
-				width: 24px !important;
-				height: 24px !important;
-			}
-		}
+		padding: 0.75rem 1rem;
+		border-bottom: 5px solid $color-primary;
+		@media (min-width: $md) { padding: 0.75rem 2rem; }
+		@media (min-width: $lg) { padding: 0.75rem 3rem; }
+		@media (min-width: $xl) { padding: 0.75rem 4.5rem; }
 	}
 </style>

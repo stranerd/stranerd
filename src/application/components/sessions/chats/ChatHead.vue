@@ -1,15 +1,22 @@
 <template>
-	<div class="d-flex py-0-5 px-2 gap-1 align-items-center position-relative bg-line">
+	<div class="d-flex py-0-5 gap-1 align-items-center position-relative bg-line">
 		<NuxtLink :to="`/users/${user.id}`">
-			<Avatar :src="user.avatar" :size="63" />
+			<Avatar :src="user.avatar" :size="40" class="d-md-none" />
+			<Avatar :src="user.avatar" :size="63" class="d-none d-md-inline" />
 		</NuxtLink>
 		<div class="me-auto">
 			<NuxtLink :to="`/users/${user.id}`" class="text-wrap username">
-				{{ user.fullName }}
+				<DynamicText>
+					{{ user.fullName }}
+				</DynamicText>
 			</NuxtLink>
-			<span class="small">{{ user.isOnline ? 'Active now' : time }}</span>
+			<DynamicText class="small">
+				{{ user.isOnline ? 'Active now' : time }}
+			</DynamicText>
 		</div>
-		<span v-if="inSession" class="lead">{{ countDown }}</span>
+		<DynamicText v-if="inSession" class="lead">
+			{{ countDown }}
+		</DynamicText>
 		<button class="btn navbar-toggler" @click="show = !show">
 			<i class="fas fa-ellipsis-v" />
 		</button>
@@ -119,9 +126,10 @@ export default defineComponent({
 <style lang="scss" scoped>
 	.username {
 		display: block;
-		font-size: 24px;
-		line-height: 24px;
 		font-weight: 700;
+		@media (min-width: $md) {
+			font-size: 20px;
+		}
 	}
 
 	.under {

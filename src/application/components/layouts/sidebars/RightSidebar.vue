@@ -1,10 +1,12 @@
 <template>
-	<div class="d-flex flex-column gap-0-75 gap-md-1-5 gap-lg-2-25 mt-1 mt-lg-0 background">
+	<div class="d-flex flex-column gap-0-5 gap-lg-2-25 background">
 		<template v-if="isLoggedIn">
-			<div class="d-flex d-lg-none flex-column gap-0-5 inner-bg">
+			<div class="d-flex d-lg-none flex-column align-items-center gap-0-5 inner-bg">
 				<Avatar class="align-self-center" :src="user.avatar" :size="72" />
-				<span class="align-self-center text-center name">{{ user.fullName }}</span>
-				<NuxtLink to="/account/" class="btn btn-primary btn-lg">
+				<DynamicText class="name align-self-center text-center">
+					{{ user.fullName }}
+				</DynamicText>
+				<NuxtLink to="/account/" class="btn btn-primary btn">
 					View Profile
 				</NuxtLink>
 			</div>
@@ -20,7 +22,9 @@
 				</div>
 				<div class="d-flex flex-column gap-1">
 					<div v-for="detail in user.rankProgress.progresses" :key="detail.title" class="d-flex justify-content-between align-items-center gap-0-25">
-						<span class="stat">{{ detail.title }}</span>
+						<DynamicText class="stat">
+							{{ detail.title }}
+						</DynamicText>
 						<ProgressBar :current="detail.progress" />
 					</div>
 				</div>
@@ -58,8 +62,10 @@ export default defineComponent({
 		background: $color-white;
 		padding: 30px;
 		@media (min-width: $lg) {
+			border: 0.5px solid $color-line;
 			background: $color-tags;
 			padding: 36px;
+			border-radius: 6px;
 		}
 	}
 

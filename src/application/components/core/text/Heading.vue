@@ -1,0 +1,31 @@
+<template>
+	<component :is="`h${variant}`" class="fw-bold m-0">
+		<slot />
+	</component>
+</template>
+
+<script lang="ts">
+import { defineComponent } from '@nuxtjs/composition-api'
+export default defineComponent({
+	name: 'Heading',
+	props: {
+		variant: {
+			type: String,
+			default: '1',
+			validator: (val: string) => parseInt(val) > 0 && parseInt(val) < 7
+		}
+	}
+})
+</script>
+
+<style lang="scss" scoped>
+	h1 {
+		font-size: 1.75em;
+		@media (min-width: $md) {
+			font-size: 2em;
+		}
+		@media (min-width: $lg) {
+			font-size: 2.5em;
+		}
+	}
+</style>

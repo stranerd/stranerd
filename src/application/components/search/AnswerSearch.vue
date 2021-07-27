@@ -2,14 +2,14 @@
 	<Search collection="answers" :transform-results="transformResults">
 		<template #item="{ item }">
 			<NuxtLink :to="`/questions/${item.model.questionId}#${item.model.id}`">
-				<p class="mb-0 text-truncate lead">
+				<DynamicText class="lead">
 					{{ extractTextFromHTML(item.model.body) }}
-				</p>
+				</DynamicText>
 				<div class="d-flex gap-0-5 align-items-center">
 					<Avatar :src="item.model.avatar" :size="30" />
-					<span class="text-truncate">
+					<DynamicText :truncate="true">
 						{{ item.model.userName }}
-					</span>
+					</DynamicText>
 				</div>
 			</NuxtLink>
 		</template>

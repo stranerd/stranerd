@@ -9,7 +9,7 @@ export interface QuestionFromModel {
 	subjectId: string
 	userId: string
 	user: UserBio
-	answerId?: string
+	answerId?: { first: string | null, second: string | null }
 	answers?: number
 	comments?: {
 		count: number
@@ -26,5 +26,5 @@ export interface QuestionToModel {
 	subjectId: string
 	userId: string
 	user: UserBio
-	answerId?: string
+	answerId?: { first: string | null, second: string | null }
 }

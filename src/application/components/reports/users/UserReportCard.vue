@@ -47,29 +47,13 @@
 				</div>
 			</div>
 		</div>
-		<PageLoading v-if="loading" />
-		<DisplayError :error="error" />
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from '@nuxtjs/composition-api'
-import { useAdminRoles } from '@app/hooks/users/roles/admins'
-import { UserEntity } from '@modules/users'
+import { defineComponent } from '@nuxtjs/composition-api'
 export default defineComponent({
-	name: 'ReportCard',
-	props: {
-		admin: {
-			required: true,
-			type: Object as PropType<UserEntity>
-		}
-	},
-	setup () {
-		const { loading, error, deAdminUser } = useAdminRoles()
-		return {
-			loading, error, deAdminUser
-		}
-	}
+	name: 'UserReportCard'
 })
 </script>
 <style lang="scss" scoped>

@@ -91,12 +91,14 @@ export class UserEntity extends BaseEntity {
 		return Object.entries(this.tutor.subjects)
 			.map(([key, val]) => ({ id: key, count: val }))
 			.sort((a, b) => a.count >= b.count ? -1 : 1)
+			.slice(0, 3)
 	}
 
 	get tags () {
 		return Object.entries(this.tutor.tags)
 			.map(([key, val]) => ({ id: key, count: val }))
 			.sort((a, b) => a.count >= b.count ? -1 : 1)
+			.slice(0, 6)
 	}
 
 	get score () { return getScore(this) }

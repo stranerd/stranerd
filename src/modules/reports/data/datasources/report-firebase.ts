@@ -1,8 +1,8 @@
-import { DatabaseService, DatabaseGetClauses } from '@modules/core'
+import { DatabaseService, DatabaseGetClauses, FunctionsService } from '@modules/core'
 import { ReportFromModel, ReportToModel } from '../models/report'
 import { ReportBaseDataSource } from './report-base'
 
-export class ReportFirebaseDataSource<Key extends string, ReportType> implements ReportBaseDataSource<Key, ReportType> {
+export class ReportFirebaseDataSource<Key extends string, ReportType extends { userId: string }> implements ReportBaseDataSource<Key, ReportType> {
 	readonly key: Key
 
 	constructor (key: Key) {
@@ -27,5 +27,9 @@ export class ReportFirebaseDataSource<Key extends string, ReportType> implements
 
 	async delete (id: string) {
 		return await DatabaseService.delete(`reports/${this.key}/${id}`)
+	}
+
+	async handle ({ id, userId }: { id: string, userId: string }) {
+		return await FunctionsService.call('handleReport', { id, userId, key: this.key })
 	}
 }

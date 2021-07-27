@@ -36,15 +36,15 @@ export default defineComponent({
 <style lang="scss" scoped>
 	form {
 		flex-grow: 1;
-		font-size: 0.9rem;
 		border: 1px solid $color-line;
 		background-color: $color-tags;
 		border-radius: 12px;
+		font-size: 14px;
 		color: $color-sub;
 
 		select {
 			width: auto;
-			padding: 0.6em 2.25em 0.6em 1.5em;
+			padding: 4px 32px 4px 21px;
 			border-left: 1px solid $color-line;
 			background-color: $color-tags;
 			border-radius: 12px;

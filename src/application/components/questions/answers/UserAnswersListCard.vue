@@ -1,11 +1,15 @@
 <template>
-	<div :id="answer.id" class="d-flex flex-column gap-0-5">
+	<div :id="answer.id" class="d-flex flex-column gap-0-5 py-1 border-bottom border-line">
 		<NuxtLink class="text-18" :to="`/questions/${answer.questionId}#${answer.id}`">
-			{{ answer.trimmedBody }}
+			<DynamicText>
+				{{ answer.trimmedBody }}
+			</DynamicText>
 		</NuxtLink>
-		<div class="d-flex gap-0-5">
-			<span>Posted {{ formatTime(answer.createdAt) }}</span>
-			<img v-if="answer.best" src="@app/assets/images/icons/profile-best-answers.svg" class="icons ms-auto">
+		<div class="d-flex align-items-center gap-0-5">
+			<DynamicText class="me-auto">
+				Posted {{ formatTime(answer.createdAt) }}
+			</DynamicText>
+			<img v-if="answer.best" src="@app/assets/images/icons/profile-best-answers.svg" class="sub-icons">
 		</div>
 	</div>
 </template>
@@ -27,10 +31,3 @@ export default defineComponent({
 	}
 })
 </script>
-
-<style lang="scss" scoped>
-	.icons {
-		width: 24px;
-		height: 24px;
-	}
-</style>

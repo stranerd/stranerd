@@ -4,7 +4,7 @@
 		<div class="d-flex flex-column gap-0-5 mb-1">
 			<span v-for="message in QuestionMessages" :key="message.id" class="d-flex gap-0-5 align-items-center fw-bold">
 				<input v-model="factory.message" name="message" type="radio" :value="message.id">
-				<span>It {{ message.body }}</span>
+				<DynamicText>It {{ message.body }}</DynamicText>
 			</span>
 		</div>
 		<button class="btn btn-primary fw-bold" type="submit" :disabled="loading || !factory.valid">

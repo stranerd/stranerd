@@ -1,11 +1,16 @@
 <template>
 	<div class="chat gap-0-25" :class="isMine ? 'is-mine' : 'is-not-mine'">
-		<a v-if="chat.isMedia" class="text-truncate" :href="chat.media.link" target="__blank">
-			<i class="fas fa-paperclip me-0-25" />
-			<span class="text-truncate">{{ chat.media.name }}</span>
-		</a>
-		<span v-else class="text-wrap text-break">{{ chat.content || 'Hello' }}</span>
-		<span class="mt-auto pt-0-5 small">{{ formatTimeAsDigits(new Date(chat.createdAt)) }}</span>
+		<div class="d-flex gap-0-25">
+			<a v-if="chat.isMedia" class="text-truncate" :href="chat.media.link" target="__blank">
+				<i class="fas fa-paperclip me-0-25" />
+			</a>
+			<DynamicText @click="copy">
+				{{ chat.isMedia ? chat.media.name : chat.content }}
+			</DynamicText>
+		</div>
+		<DynamicText class="small ms-auto" @click="copy">
+			{{ formatTimeAsDigits(new Date(chat.createdAt)) }}
+		</DynamicText>
 	</div>
 </template>
 
@@ -15,6 +20,7 @@ import { ChatEntity } from '@modules/sessions'
 import { useAuth } from '@app/hooks/auth/auth'
 import { formatTimeAsDigits } from '@utils/dates'
 import { useChat } from '@app/hooks/sessions/chats'
+import { isClient } from '@utils/environment'
 export default defineComponent({
 	name: 'ChatListCard',
 	props: {
@@ -34,10 +40,18 @@ export default defineComponent({
 			set: () => {}
 		})
 		const { markChatRead } = useChat(props.chat, props.userId)
+		const copy = async () => {
+			if (!isClient()) return
+			const result = await window.navigator.permissions.query({ name: 'clipboard-write' })
+			if (result.state === 'granted' || result.state === 'prompt') {
+				await window.navigator.clipboard
+					.writeText(props.chat.isMedia ? props.chat.media!.link : props.chat.content!)
+			}
+		}
 		onMounted(async () => {
 			if (!isMine.value && !props.chat.isRead) await markChatRead()
 		})
-		return { isMine, formatTimeAsDigits }
+		return { isMine, formatTimeAsDigits, copy }
 	}
 })
 </script>
@@ -48,7 +62,7 @@ export default defineComponent({
 		max-width: 75%;
 		padding: 0.25rem 0.75rem;
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 	}
 
 	.is-mine {

@@ -14,7 +14,8 @@ export const setReportedEntity = (answer: AnswerEntity) => {
 		reported: {
 			title: answer.title,
 			body: answer.body,
-			questionId: answer.questionId
+			questionId: answer.questionId,
+			userId: answer.userId
 		}
 	}
 }

@@ -4,14 +4,12 @@ body {
 	// font-size: clamp(16px, calc(1rem + 20%), 30px) !important;
 }
 
-.logo {
-	margin: 31px 0;
-}
-
 .layout-page {
 	display: flex;
 	flex-direction: column;
 	min-height: vh(100);
+	margin: 0 auto;
+	max-width: $body-max-width;
 }
 
 .layout-body {
@@ -20,7 +18,6 @@ body {
 	display: flex;
 	flex-direction: row;
 	margin: 0 auto;
-	max-width: $body-max-width;
 }
 
 .layout-side-left {
@@ -46,8 +43,9 @@ body {
 	display: flex;
 	flex-grow: 1;
 	flex-direction: column;
-	padding: 2rem 1rem;
-	@media (min-width: $lg) { padding: 3rem 1rem; }
+	padding: 1.5rem 1rem;
+	@media (min-width: $md) { padding: 2rem 2rem; }
+	@media (min-width: $lg) { padding: 3rem 0; }
 	@media (min-width: $lg) { width: 55.75%; }
 }
 
@@ -55,6 +53,28 @@ body {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
+}
+
+.head-icons {
+	width: 20px;
+	height: 20px;
+	font-weight: 20px;
+	@media (min-width: $md) {
+		width: 24px;
+		height: 24px;
+		font-weight: 24px;
+	}
+}
+
+.sub-icons {
+	width: 18px;
+	height: 18px;
+	font-weight: 18px;
+	@media (min-width: $md) {
+		width: 20px;
+		height: 20px;
+		font-weight: 20px;
+	}
 }
 
 .sidebar-btn {
@@ -88,6 +108,8 @@ body {
 	color: $color-sub;
 	padding: 1rem 2rem;
 	@media (min-width: $md) { padding: 1rem 2.86rem; }
+	@media (min-width: $lg) { padding: 1rem 2rem; }
+	@media (min-width: $xl) { padding: 1rem 2.86rem; }
 
 	img {
 		height: 24px;
@@ -135,46 +157,36 @@ body {
 	}
 }
 
-.menu-background {
+.sd-menu-background {
 	height: vh(100);
-	background: $color-dark;
+	background: rgba($color-dark, 0.8);
 }
 
-.menu {
+.sd-menu {
 	background: $color-white;
-	width: clamp(300px, 100%, 360px);
+	width: clamp(300px, 100%, $sm);
 }
 
-.menu-left {
-	@extend .menu;
+.sd-menu-left {
+	@extend .sd-menu;
 
 	left: 0;
 	animation: slide-right 0.25s;
 }
 
 @keyframes slide-right {
-	from {
-		left: -100px;
-	}
-
-	to {
-		left: 0;
-	}
+	from { left: -100px; }
+	to { left: 0; }
 }
 
-.menu-right {
-	@extend .menu;
+.sd-menu-right {
+	@extend .sd-menu;
 
 	right: 0;
 	animation: slide-left 0.25s;
 }
 
 @keyframes slide-left {
-	from {
-		right: -100px;
-	}
-
-	to {
-		right: 0;
-	}
+	from { right: -100px; }
+	to { right: 0; }
 }

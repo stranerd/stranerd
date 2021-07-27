@@ -9,8 +9,7 @@ import { subscribeToMailingList } from './onCall/roles/mailing'
 import { requestNewSession } from './onCall/sessions/requestNewSession'
 import { acceptSession } from './onCall/sessions/acceptSession'
 import { cancelSession } from './onCall/sessions/cancelSession'
-import { getClientToken } from './onCall/payments/getClientToken'
-import { makePayment, makeStripePayment } from './onCall/payments/makePayment'
+import { makeStripePayment } from './onCall/payments/makePayment'
 import { buyCoins } from './onCall/payments/buyCoins'
 import { updateStreak } from './onCall/users/updateStreak'
 import { tipTutor } from './onCall/users/tipTutor'
@@ -69,7 +68,7 @@ export { toggleAdmin, subscribeToMailingList }
 // Sessions
 export { requestNewSession, acceptSession, cancelSession }
 // Payments
-export { getClientToken, makePayment, makeStripePayment, buyCoins }
+export { makeStripePayment, buyCoins }
 // Users
 export { updateStreak, tipTutor, rateTutor }
 // Questions

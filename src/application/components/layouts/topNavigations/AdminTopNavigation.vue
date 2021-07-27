@@ -27,7 +27,7 @@ export default defineComponent({
 		color: white;
 	}
 
-	a.nuxt-link-exact-active {
+	a.nuxt-link-active {
 		font-size: 17px;
 		color: white;
 		background-color: $color-dark;

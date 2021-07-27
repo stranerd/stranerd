@@ -10,7 +10,7 @@ type Keys<ReportType> = {
 	message: string
 }
 
-export class ReportFactory<ReportType> extends BaseFactory<ReportEntity<ReportType>, ReportToModel<ReportType>, Keys<ReportType>> {
+export class ReportFactory<ReportType extends { userId: string }> extends BaseFactory<ReportEntity<ReportType>, ReportToModel<ReportType>, Keys<ReportType>> {
 	public rules = {
 		reporterId: { required: true, rules: [] },
 		reportedId: { required: true, rules: [] },

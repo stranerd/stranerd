@@ -1,18 +1,20 @@
 <template>
 	<div class="layout-page">
 		<TopNavigation />
-		<section class="layout-body">
+		<section class="layout-body gap-3">
 			<section class="layout-side-left">
 				<ProfileLeftSidebar />
 			</section>
-			<main class="layout-main">
-				<Nuxt />
+			<main class="layout-main p-0 py-lg-3">
+				<ProfileLeftSidebar class="d-lg-none border-bottom-sm" />
+				<ProfileRightSidebar class="d-lg-none border-bottom-sm" />
+				<Nuxt class="py-1-5 px-1 p-lg-0" />
 			</main>
 			<section class="layout-side-right">
 				<ProfileRightSidebar />
 			</section>
-			<ModalBase />
 		</section>
+		<ModalBase />
 	</div>
 </template>
 
@@ -36,5 +38,9 @@ export default defineComponent({
 
 	.layout-side-right {
 		width: 25% !important;
+	}
+
+	.border-bottom-sm {
+		border-bottom: 0.5rem solid $color-line;
 	}
 </style>

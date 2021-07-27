@@ -128,10 +128,10 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-	 h2 {
+	h2 {
 		margin-bottom: 0;
 		font-size: 21px;
-		color:$color-text-header;
+		color: $color-text-header;
 		@media (min-width: $md) { font-size: 34px; }
 		@media (min-width: $lg) { font-size: 37px; }
 		@media (min-width: $xl) { font-size: 40px; }
@@ -153,23 +153,28 @@ export default defineComponent({
 		font-weight: bold;
 	}
 
-	 .content_wrapper {
-	    height: auto;
-	   position: relative;
-	   margin-bottom: 60px;
-	    margin-top: 120px;
-   }
+	.content_wrapper {
+		height: auto;
+		position: relative;
+		margin-bottom: 60px;
+		margin-top: 120px;
+	}
 
-   .ImageBubble {
-        width: 95%;
+	.ImageBubble {
+		width: 95%;
 		height: 95%;
-		top:30%;
-		@media (min-width: $md) {  width: 55%;
-		top:50%;
-		height: 55%; }
-		@media (min-width: $lg) {  width: 50%;
-		top:50%;
-		height: 50%; }
+		top: 30%;
+		@media (min-width: $md) {
+			width: 55%;
+			top: 50%;
+			height: 55%;
+		}
+		@media (min-width: $lg) {
+			width: 50%;
+			top: 50%;
+			height: 50%;
+		}
+
 		position: absolute;
 	}
 
@@ -177,10 +182,10 @@ export default defineComponent({
 		z-index: 3;
 	}
 
-	 .inner-wrapper {
-	    position:relative;
+	.inner-wrapper {
+		position: relative;
 		height: auto;
-   }
+	}
 
 	.btn-custom {
 		background-color: $color-primary;
@@ -191,17 +196,17 @@ export default defineComponent({
 		font-weight: bold;
 	}
 
-.cardform {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
-  background: $color-white;
-}
+	.cardform {
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+		transition: 0.3s;
+		background: $color-white;
+	}
 
-.cardform:hover {
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
+	.cardform:hover {
+		box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+	}
 
-.contactText {
-	font-weight: bold;
-}
+	.contactText {
+		font-weight: bold;
+	}
 </style>

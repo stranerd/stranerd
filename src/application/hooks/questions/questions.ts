@@ -106,7 +106,7 @@ export const useCreateQuestion = () => {
 				setError(`You need at least ${MINIMUM_COINS} coins to ask a question`)
 				return []
 			}
-			const coins = []
+			const coins = [] as number[]
 			const maximum = user.value!.account.coins.bronze <= MAXIMUM_COINS ? user.value!.account.coins.bronze : MAXIMUM_COINS
 			for (let i = MINIMUM_COINS; i <= maximum; i = i + COINS_GAP) coins.push(i)
 			return coins

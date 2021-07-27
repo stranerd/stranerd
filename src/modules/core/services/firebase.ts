@@ -154,10 +154,8 @@ export interface FUNCTIONS {
 	toggleAdmin: { id: string, isAdmin: boolean },
 	subscribeToMailingList: { email: string },
 	requestNewSession: { session: Partial<SessionToModel> },
-	acceptSession: { id: string },
+	acceptSession: { id: string, accepted: boolean },
 	cancelSession: { id: string },
-	getClientToken: {},
-	makePayment: { amount: number, nonce: string },
 	makeStripePayment: { amount: number, currency: string },
 	buyCoins: { amount: number, isGold: boolean },
 	updateStreak: {},
@@ -165,6 +163,7 @@ export interface FUNCTIONS {
 	rateTutor: { tutorId: string, rating: number, review: string | undefined },
 	approveTutorApplication: { id: string, approved: boolean },
 	markAsBestAnswer: { questionId: string, answerId: string }
+	handleReport: { id: string, key: string, userId: string }
 }
 
 export interface FUNCTION_RETURNS {
@@ -173,8 +172,6 @@ export interface FUNCTION_RETURNS {
 	requestNewSession: string,
 	acceptSession: void,
 	cancelSession: void,
-	getClientToken: { braintree: string, paypal: string },
-	makePayment: boolean,
 	makeStripePayment: string,
 	buyCoins: void,
 	updateStreak: { skip: boolean, increase: boolean, reset: boolean, streak: number },
@@ -182,6 +179,7 @@ export interface FUNCTION_RETURNS {
 	rateTutor: void,
 	approveTutorApplication: void,
 	markAsBestAnswer: void
+	handleReport: void
 }
 
 export const FunctionsService = {

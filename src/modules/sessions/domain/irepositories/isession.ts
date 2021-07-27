@@ -8,6 +8,6 @@ export interface ISessionRepository {
 	find: (id: string) => Promise<SessionEntity | null>
 	listenToOne: (id: string, callback: (entity: SessionEntity | null) => void) => Promise<() => void>
 	listenToMany: (callback: (entities: SessionEntity[]) => void, conditions?: FirestoreGetClauses) => Promise<() => void>
-	begin: (id: string) => Promise<void>
+	accept: (id: string, accepted: boolean) => Promise<void>
 	cancel: (id: string) => Promise<void>
 }

@@ -24,7 +24,7 @@ export default defineComponent({
 	setup () {
 		const { meta, listener } = useChatsList()
 		onMounted(() => {
-			if (!listener.isRunning) listener.startListener()
+			if (!listener.isRunning.value) listener.startListener()
 		})
 		return { meta }
 	}
@@ -35,8 +35,11 @@ export default defineComponent({
 	.head {
 		display: flex;
 		align-items: center;
-		padding: 1.5rem 2rem;
 		background: $color-line;
+		padding: 1rem 1rem;
+		@media (min-width: $lg) {
+			padding: 1.5rem 2rem;
+		}
 
 		h1 {
 			font-size: 1.5rem;

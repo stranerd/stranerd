@@ -1,16 +1,16 @@
 <template>
-	<div class="d-flex table-data-style p-1">
+	<div class="d-flex align-items-start table-data-style p-1">
 		<div class="col-3">
-			<span>{{ formatTime(transaction.createdAt) }}</span>
+			<DynamicText>{{ formatTime(transaction.createdAt) }}</DynamicText>
 		</div>
-		<div class="col-3 d-flex align-items-center justify-content-center gap-0-25">
+		<div class="col-3 d-flex align-items-center gap-0-25">
 			<Coins :size="24" :gold="transaction.isGold" />
-			<span :class="transaction.isGain ? 'text-success' : 'text-danger'">
+			<DynamicText :class="transaction.isGain ? 'text-success' : 'text-danger'">
 				{{ formatNumber(transaction.amount) }}
-			</span>
+			</DynamicText>
 		</div>
 		<div class="col-6">
-			<span>{{ transaction.event }}</span>
+			<DynamicText>{{ transaction.event }}</DynamicText>
 		</div>
 	</div>
 </template>

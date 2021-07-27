@@ -1,10 +1,10 @@
 <template>
-	<div class="py-md-1 px-0-5 px-md-3 px-lg-4 py-lg-1-5 d-flex flex-column flex-lg-row gap-2">
-		<form class="gap-2 d-flex flex-column w-100 flex-grow-1" @submit.prevent="signup">
+	<div class="py-md-1 px-0-5 px-md-3 px-lg-4 py-lg-1-5 d-flex flex-column align-items-center flex-lg-row gap-2">
+		<form class="gap-1 gap-md-2 d-flex flex-column w-100 flex-grow-1" @submit.prevent="signup">
 			<h1 class="mb-0">
 				Sign Up
 			</h1>
-			<div class="d-flex flex-column gap-2 flex-md-row">
+			<div class="d-flex flex-column gap-1 gap-md-2 flex-md-row">
 				<div class="flew-grow-1 w-100">
 					<input
 						id="first"
@@ -16,7 +16,9 @@
 						class="form-control"
 						autocomplete="first-name"
 					>
-					<small v-if="factory.errors.first" class="small text-danger d-block">{{ factory.errors.first }}</small>
+					<DynamicText v-if="factory.errors.first" class="small text-danger d-block">
+						{{ factory.errors.first }}
+					</DynamicText>
 				</div>
 				<div class="flew-grow-1 w-100">
 					<input
@@ -29,7 +31,9 @@
 						class="form-control"
 						autocomplete="last-name"
 					>
-					<small v-if="factory.errors.last" class="small text-danger d-block">{{ factory.errors.last }}</small>
+					<DynamicText v-if="factory.errors.last" class="small text-danger d-block">
+						{{ factory.errors.last }}
+					</DynamicText>
 				</div>
 			</div>
 			<div>
@@ -43,7 +47,9 @@
 					class="form-control"
 					autocomplete="email"
 				>
-				<small v-if="factory.errors.email" class="small text-danger d-block">{{ factory.errors.email }}</small>
+				<DynamicText v-if="factory.errors.email" class="small text-danger d-block">
+					{{ factory.errors.email }}
+				</DynamicText>
 			</div>
 			<div>
 				<input
@@ -56,7 +62,9 @@
 					class="form-control"
 					autocomplete="password"
 				>
-				<small v-if="factory.errors.password" class="small text-danger d-block">{{ factory.errors.password }}</small>
+				<DynamicText v-if="factory.errors.password" class="small text-danger d-block">
+					{{ factory.errors.password }}
+				</DynamicText>
 			</div>
 			<div>
 				<input
@@ -69,7 +77,9 @@
 					class="form-control"
 					autocomplete="password"
 				>
-				<small v-if="factory.errors.cPassword" class="small text-danger d-block">{{ factory.errors.cPassword }}</small>
+				<DynamicText v-if="factory.errors.cPassword" class="small text-danger d-block">
+					{{ factory.errors.cPassword }}
+				</DynamicText>
 			</div>
 			<button class="btn btn-lg btn-custom py-1 " type="submit">
 				Sign Up

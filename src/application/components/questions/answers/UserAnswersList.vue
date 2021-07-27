@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<AnswerCard v-for="answer in answers" :key="answer.hash" :answer="answer" class="border-bottom border-line" />
+		<AnswerCard v-for="answer in answers" :key="answer.hash" :answer="answer" />
 		<div v-if="hasMore" class="text-center py-1 text-18">
 			<a @click.prevent="fetchOlderAnswers">Load More</a>
 		</div>

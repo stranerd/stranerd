@@ -1,5 +1,4 @@
 import * as admin from 'firebase-admin'
-import { updateCustomerName } from '../../braintree'
 import { PATH_SEPARATOR } from '../../index'
 
 export const getAllUserIds = async () => {
@@ -8,9 +7,10 @@ export const getAllUserIds = async () => {
 	return Object.keys(userIdsObjects ?? {})
 }
 
-const chunkArray = <T>(arr: T[], size: number) => new Array(Math.ceil(arr.length / size))
+export const chunkArray = <T>(arr: T[], size: number) => new Array(Math.ceil(arr.length / size))
 	.fill([])
 	.map((_, index) => arr.slice(index * size, (index + 1) * size))
+	.filter((chunk) => chunk.length > 0)
 
 export const updateMyQuestionsBio = async (userId: string, user: any) => {
 	try {
@@ -27,7 +27,7 @@ export const updateMyQuestionsBio = async (userId: string, user: any) => {
 					const ref = admin.firestore().collection('questions').doc(questionId)
 					batch.set(ref, { user }, { merge: true })
 				})
-				if (chunk.length > 0) await batch.commit()
+				return await batch.commit()
 			})
 		)
 	} catch (error) { console.log(`Error updating bios of ${userId} questions`) }
@@ -48,7 +48,7 @@ export const updateMyAnswersBio = async (userId: string, user: any) => {
 					const ref = admin.firestore().collection('answers').doc(answerId)
 					batch.set(ref, { user }, { merge: true })
 				})
-				if (chunk.length > 0) await batch.commit()
+				return await batch.commit()
 			})
 		)
 	} catch (error) { console.log(`Error updating bios of ${userId} answers`) }
@@ -82,17 +82,6 @@ export const updateMyAnswerCommentsBio = async (userId: string, user: any) => {
 	} catch (error) { console.log(`Error setting bios of ${userId} answer-comments`) }
 }
 
-export const updateBraintreeBio = async (userId: string, bio: any) => {
-	try {
-		const fullName = bio?.name?.first ?? 'Anonymous' + ' ' + bio?.name?.last ?? ''
-		const braintreeId = await admin.database().ref('profiles')
-			.child(userId)
-			.child('account/account/braintreeId')
-			.once('value')
-		if (braintreeId.val()) await updateCustomerName(braintreeId.val(), fullName)
-	} catch (error) { console.log(`Error updating braintree bio of ${userId}`) }
-}
-
 export const updateMySessionsBio = async (userId: string, user: any) => {
 	try {
 		const sessionIdRefs = await admin.database().ref('profiles')
@@ -108,7 +97,7 @@ export const updateMySessionsBio = async (userId: string, user: any) => {
 					const ref = admin.firestore().collection('sessions').doc(sessionId)
 					batch.set(ref, { studentBio: user }, { merge: true })
 				})
-				if (chunk.length > 0) await batch.commit()
+				return await batch.commit()
 			})
 		)
 	} catch (error) { console.log(`Error updating bios of ${userId} attended sessions`) }
@@ -129,7 +118,7 @@ export const updateMyTutorSessionsBio = async (userId: string, user: any) => {
 					const ref = admin.firestore().collection('sessions').doc(sessionId)
 					batch.set(ref, { tutorBio: user }, { merge: true })
 				})
-				if (chunk.length > 0) await batch.commit()
+				return await batch.commit()
 			})
 		)
 	} catch (error) { console.log(`Error updating bios of ${userId} hosted sessions`) }

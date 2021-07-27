@@ -1,7 +1,6 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { markAnswerAsBest } from '../../helpers/modules/questions/answers'
-import { addUserCoins } from '../../helpers/modules/payments/transactions'
 import { addTutorRatings } from '../../helpers/modules/users/tutors'
 import { deleteFromAlgolia, saveToAlgolia } from '../../helpers/algolia'
 import { createNotification } from '../../helpers/modules/users/notifications'
@@ -32,9 +31,6 @@ export const answerCreated = functions.firestore.document('answers/{answerId}')
 					[`tutor/subjects/${subjectId}`]: admin.database.ServerValue.increment(1),
 					...tagsData
 				})
-			await addUserCoins(userId, { bronze: coins, gold: 0 },
-				'You got coins for answering a question'
-			)
 		}
 
 		const { userId: questionUserId } = (await questionRef.get()).data()!
@@ -102,17 +98,11 @@ export const answerRated = functions.database.ref('answers/{answerId}/ratings/{u
 			const { total = 0, count = 0 } = answer.ratings ?? {}
 			const rating = count === 0 ? 0 : total / count
 
-			t.set(answerRef, {
-				ratings: {
-					total: admin.firestore.FieldValue.increment(ratings),
-					count: admin.firestore.FieldValue.increment(1)
-				}
-			}, { merge: true })
-
 			if (questionId) {
 				const questionRef = admin.firestore().collection('questions').doc(questionId)
 				const question = (await t.get(questionRef)).data() ?? {}
-				if (!question.answerId && count >= 19 && rating > 3.5) await markAnswerAsBest(questionId, answerId, question, answer)
+				const isAnswered = question?.answerId?.first && question?.answerId?.second
+				if (!isAnswered && count >= 19 && rating > 3.5) await markAnswerAsBest(questionId, answerId, question, answer)
 
 				if (tutorId) {
 					await addTutorRatings(tutorId, ratings)
@@ -122,5 +112,12 @@ export const answerRated = functions.database.ref('answers/{answerId}/ratings/{u
 					})
 				}
 			}
+
+			t.set(answerRef, {
+				ratings: {
+					total: admin.firestore.FieldValue.increment(ratings),
+					count: admin.firestore.FieldValue.increment(1)
+				}
+			}, { merge: true })
 		})
 	})

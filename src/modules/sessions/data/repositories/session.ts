@@ -42,8 +42,8 @@ export class SessionRepository implements ISessionRepository {
 		return await this.dataSource.listenToMany(listenCB, conditions)
 	}
 
-	async begin (id: string) {
-		return await this.dataSource.begin(id)
+	async accept (id: string, accepted: boolean) {
+		return await this.dataSource.accept(id, accepted)
 	}
 
 	async cancel (id: string) {

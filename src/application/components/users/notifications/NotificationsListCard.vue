@@ -1,10 +1,12 @@
 <template>
-	<div class="notification gap-0-5">
+	<div class="notification gap-0-5 text-dark">
 		<PageLoading v-if="loading" />
-		<span class="main cursor-pointer" @click.prevent="click">
-			<span :class="{'fw-bold': !notification.seen}">{{ notification.body }}</span>
-		</span>
-		<span class="sub">{{ formatTime(notification.createdAt) }}</span>
+		<BodyText variant="large" class="main cursor-pointer" :class="{'fw-bold': !notification.seen}" @click.prevent="click">
+			<DynamicText>{{ notification.body }}</DynamicText>
+		</BodyText>
+		<BodyText variant="sub">
+			<DynamicText>{{ formatTime(notification.createdAt) }}</DynamicText>
+		</BodyText>
 	</div>
 </template>
 
@@ -39,15 +41,5 @@ export default defineComponent({
 		flex-direction: column;
 		border-bottom: 1px solid $color-line;
 		padding: 1.5rem 0;
-
-		.main {
-			color: $color-dark;
-			font-size: 1.25rem;
-		}
-
-		.sub {
-			color: $color-sub;
-			font-size: 1rem;
-		}
 	}
 </style>

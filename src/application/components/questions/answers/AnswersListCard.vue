@@ -5,12 +5,16 @@
 				<Avatar :src="answer.avatar" :size="50" />
 			</NuxtLink>
 			<NuxtLink :to="`/users/${answer.userId}`" class="d-block text-dark text-wrap">
-				<span>{{ answer.userName }}</span>
+				<DynamicText>
+					{{ answer.userName }}
+				</DynamicText>
 			</NuxtLink>
 			<ShowRatings class="ms-auto" :rating="answer.averageRating" />
 		</div>
 		<div class="answer-content d-flex flex-column gap-1">
-			<span class="lead text-dark">{{ answer.title }}</span>
+			<DynamicText class="lead text-dark">
+				{{ answer.title }}
+			</DynamicText>
 			<div class="d-flex gap-1 gap-md-2 align-items-center text-primary fw-bold flex-row flex-wrap">
 				<span class="d-flex align-items-center gap-0-25 me-auto" @click="showExplanation = !showExplanation">
 					<span>Explanation</span>
@@ -24,7 +28,7 @@
 					<span>{{ showComments ? 'Hide' : 'Show' }} Comments</span>
 					<i class="fas" :class="showComments ? 'fa-angle-up' : 'fa-angle-down'" />
 				</a>
-				<span v-if="isLoggedIn && question && !question.isAnswered && question.userId === id" class="d-flex align-items-center gap-0-25" @click.prevent="markBestAnswer">
+				<span v-if="isLoggedIn && question && !question.isAnswered && !answer.best && question.userId === id" class="d-flex align-items-center gap-0-25" @click.prevent="markBestAnswer">
 					<span>Mark as best</span>
 					<i class="fas fa-check-circle" />
 				</span>
@@ -32,7 +36,7 @@
 				<Share :title="answer.title" :text="answer.strippedBody" :link="`/questions/${answer.questionId}#${answer.id}`">
 					<i class="fas fa-reply" />
 				</Share>
-				<span v-if="answer.userId !== id" @click="reportAnswer">
+				<span v-if="id && answer.userId !== id" @click="reportAnswer">
 					<i class="fas fa-flag" />
 				</span>
 			</div>
@@ -108,7 +112,8 @@ export default defineComponent({
 
 		.answer-content {
 			border-bottom: 1px solid $color-line;
-			padding: 1rem;
+			padding: 0.5rem 0.75rem;
+			@media (min-width: $md) { padding: 1rem; }
 		}
 	}
 

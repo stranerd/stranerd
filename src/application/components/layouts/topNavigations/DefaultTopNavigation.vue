@@ -1,37 +1,39 @@
 <template>
-	<nav class="default-top-nav gap-0-5 gap-md-1" role="navigation">
+	<nav class="default-top-nav gap-1" role="navigation">
 		<template v-if="showSearch">
-			<span class="link" @click="showSearch = false">
-				<img src="@app/assets/images/icons/close.svg" alt="">
+			<span @click="showSearch = false">
+				<img class="head-icons" src="@app/assets/images/icons/close.svg" alt="">
 			</span>
 			<SearchBar class="flex-grow-1" />
 		</template>
 		<template v-else>
-			<span class="link d-lg-none" @click="openLeftMenu">
-				<img src="@app/assets/images/icons/hamburger.svg" alt="">
+			<span class="d-lg-none" @click="openLeftMenu">
+				<img class="head-icons" src="@app/assets/images/icons/hamburger.svg" alt="">
 			</span>
 
-			<NuxtLink class="me-auto mx-md-auto mx-lg-0" to="/">
-				<Logo :secondary="true" class="nav-logo" />
+			<NuxtLink to="/">
+				<Logo :secondary="true" />
 			</NuxtLink>
 
 			<SearchBar class="middle-body mx-auto d-none d-lg-flex" />
 
-			<div class="right-body gap-1-5 gap-md-2-25 gap-lg-3 gap-xl-4-5">
-				<span class="d-lg-none link" @click="showSearch = !showSearch">
-					<img src="@app/assets/images/icons/search.svg">
+			<div class="right-body gap-1-5 gap-md-2-25 gap-lg-3 gap-xl-4-5 ms-auto">
+				<span class="d-lg-none" @click="showSearch = !showSearch">
+					<img class="head-icons" src="@app/assets/images/icons/search.svg">
 				</span>
-				<MessageLink :key="'messages' + isLoggedIn" class="link d-none d-lg-flex" />
-				<NotificationBell :key="'notifications' + isLoggedIn" class="link" />
+				<MessageLink :key="'messages' + isLoggedIn" />
+				<NotificationBell :key="'notifications' + isLoggedIn" />
 
-				<span class="link d-lg-none" @click="openRightMenu">
-					<img src="@app/assets/images/icons/right-nav.svg" alt="">
+				<span class="d-lg-none" @click="openRightMenu">
+					<img class="head-icons" src="@app/assets/images/icons/right-nav.svg" alt="">
 				</span>
 
-				<div v-if="isLoggedIn" class="d-none d-lg-flex gap-0-25 gap-lg-1 align-items-center cursor-pointer" @click="show = !show">
-					<Avatar :src="user.avatar" :size="48" />
+				<div v-if="isLoggedIn" class="d-none d-lg-flex gap-0-25 gap-lg-0-5 align-items-center cursor-pointer" @click="show = !show">
+					<Avatar :src="user.avatar" :size="36" />
 					<span class="d-flex gap-0-5 align-items-center">
-						<span class="username text-truncate">{{ user.fullName }}</span>
+						<DynamicText class="username" :truncate="true">
+							{{ user.fullName }}
+						</DynamicText>
 						<i class="fas" :class="show ? 'fa-angle-up' : 'fa-angle-down'" />
 					</span>
 				</div>
@@ -101,7 +103,7 @@ export default defineComponent({
 		height: vh(100);
 		left: 0;
 		top: 0;
-		z-index: 2;
+		z-index: 1;
 
 		.under {
 			position: absolute;
@@ -112,23 +114,15 @@ export default defineComponent({
 		}
 	}
 
-	.nav-logo {
-		&:hover {
-			transition: all 0.3s;
-			transform: scale(1.2);
-		}
-	}
-
 	.default-top-nav {
 		display: flex;
 		align-items: center;
 		color: $color-dark;
-		min-height: 6px;
-		padding: 1rem;
+		padding: 0.75rem 1rem;
 		border-bottom: 5px solid $color-primary;
-		@media (min-width: $md) { padding: 1rem 2rem; }
-		@media (min-width: $lg) { padding: 1rem 3rem; }
-		@media (min-width: $xl) { padding: 1rem 4.5rem; }
+		@media (min-width: $md) { padding: 0.75rem 2rem; }
+		@media (min-width: $lg) { padding: 0.75rem 3rem; }
+		@media (min-width: $xl) { padding: 0.75rem 4.5rem; }
 
 		background: $color-white 0 0 no-repeat padding-box;
 	}
@@ -176,11 +170,4 @@ export default defineComponent({
 	.slide-enter-active, .slide-leave-active { transition: 0.25s; }
 
 	.slide-enter, .slide-leave-to { transform: translateY(-170px); }
-
-	.link {
-		& > img, /deep/ img {
-			width: 24px !important;
-			height: 24px !important;
-		}
-	}
 </style>

@@ -1,7 +1,7 @@
 import { IReportRepository } from '../irepositories/ireport'
 import { ReportFactory } from '../factories/report'
 
-export class AddReportUseCase<ReportedType> {
+export class AddReportUseCase<ReportedType extends { userId: string }> {
 	private repository: IReportRepository<ReportedType>
 
 	constructor (repository: IReportRepository<ReportedType>) {

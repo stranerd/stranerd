@@ -5,15 +5,17 @@
 		</NuxtLink>
 		<div>
 			<NuxtLink :to="`/users/${comment.userId}`" class="d-block fw-bold text-wrap">
-				<span>{{ comment.userName }}</span>
+				<DynamicText>
+					{{ comment.userName }}
+				</DynamicText>
 			</NuxtLink>
-			<p class="mb-0">
+			<DynamicText>
 				{{ comment.body }}
-			</p>
+			</DynamicText>
 		</div>
-		<span class="ms-auto">
+		<DynamicText class="ms-auto">
 			{{ formatTime(comment.createdAt) }}
-		</span>
+		</DynamicText>
 	</div>
 </template>
 

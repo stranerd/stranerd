@@ -1,5 +1,5 @@
 <template>
-	<SideMenu :close="close" background-class="menu-background" menu-class="menu-right">
+	<SideMenu :close="close" background-class="sd-menu-background" menu-class="sd-menu-right">
 		<div class="head gap-1 text-primary">
 			<img class="head-icons" src="@app/assets/images/icons/close.svg" alt="" @click="close">
 			<NuxtLink v-if="isAdmin" to="/admin/">

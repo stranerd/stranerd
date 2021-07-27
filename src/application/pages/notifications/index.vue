@@ -1,8 +1,10 @@
 <template>
 	<div>
 		<div class="notification-body">
-			<h1>Notifications</h1>
-			<NotificationsList class="px-3" />
+			<Heading variant="1" class="p-1 p-md-3 text-dark border bottom border-line">
+				Notifications
+			</Heading>
+			<NotificationsList class="px-1 px-md-3" />
 		</div>
 	</div>
 </template>
@@ -22,13 +24,5 @@ export default defineComponent({
 		background: $color-white;
 		border: 1px solid $color-line;
 		border-radius: 6px;
-
-		h1 {
-			padding: 2.25rem;
-			margin: 0;
-			color: $color-dark;
-			border-bottom: 1px solid $color-line;
-			font-size: 36px;
-		}
 	}
 </style>

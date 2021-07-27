@@ -34,7 +34,6 @@ export default defineComponent({
 		font-weight: bold;
 		padding: 0.75rem 0;
 		transition: all 0.4s;
-		z-index: 1;
 
 		img {
 			height: 30px;

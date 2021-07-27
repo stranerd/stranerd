@@ -25,9 +25,9 @@
 					<button class="btn btn-sm answer-btn-sm d-inline-block d-md-none" @click="openAnswerModal">
 						Add Your Answer
 					</button>
-					<div class="coin d-flex align-items-center gap-0-25 px-1 d-md-inline-block d-none">
+					<div class="d-flex align-items-center gap-0-25 px-1 d-md-inline-block d-none">
 						<DynamicText>+{{ formatNumber(question.creditable) }}</DynamicText>
-						<Coins :size="28" style="z-index: 1;" />
+						<Coins :size="28" />
 					</div>
 				</template>
 			</div>

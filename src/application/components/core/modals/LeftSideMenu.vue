@@ -1,10 +1,8 @@
 <template>
-	<SideMenu :close="close" background-class="menu-background" menu-class="menu-left">
+	<SideMenu :close="close" background-class="sd-menu-background" menu-class="sd-menu-left">
 		<div class="head gap-1">
 			<Logo :secondary="true" />
-			<span @click="close">
-				<img class="head-icons" src="@app/assets/images/icons/close.svg" alt="">
-			</span>
+			<img class="head-icons" src="@app/assets/images/icons/close.svg" alt="" @click="close">
 		</div>
 		<div class="d-flex flex-column flex-grow-1">
 			<slot />

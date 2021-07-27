@@ -86,14 +86,14 @@ export default defineComponent({
 		align-items: center;
 
 		input.form-control {
+			font-size: 1em;
+			line-height: 1em;
 			color: inherit;
 			border: none;
 			outline: none;
 			box-shadow: none;
 			min-height: unset;
 			padding: 0.5em;
-			font-size: 0.9rem;
-			line-height: 1em;
 		}
 
 		input.form-control:focus {

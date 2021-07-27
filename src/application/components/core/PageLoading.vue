@@ -1,7 +1,7 @@
 <template>
 	<div class="position-relative">
 		<div class="center">
-			<div class="spinner-border text-dark" role="status" :style="`width:${size}rem;height:${size}rem;z-index:999999999999999999999999999999999;`">
+			<div class="spinner-border text-dark" role="status" :style="`width:${size}rem;height:${size}rem;`">
 				<span class="sr-only">Loading...</span>
 			</div>
 		</div>
@@ -32,6 +32,6 @@ export default defineComponent({
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		z-index: 1000000;
+		z-index: 1000;
 	}
 </style>

@@ -1,18 +1,22 @@
 <template>
 	<form @submit.prevent="submit">
 		<div class="form-group">
-			<span class="title">Body</span>
-			<span class="sub-title">
-				Write your question here and make sure it is explained in full detail
-			</span>
+			<BodyText variant="large" class="title">
+				Body
+			</BodyText>
+			<BodyText variant="normal" class="sub-title">
+				Explain your question in full detail
+			</BodyText>
 			<QuestionEditor :model.sync="factory.body" :error="factory.errors.body" :valid="factory.isValid('body')" />
 		</div>
 
 		<div class="form-group">
-			<span class="title">Subject</span>
-			<span class="sub-title">
+			<BodyText variant="large" class="title">
+				Subject
+			</BodyText>
+			<BodyText variant="normal" class="sub-title">
 				Select the subject of the question you asked
-			</span>
+			</BodyText>
 			<SelectSubject class="form-select" :show-all="false" :subject-id.sync="factory.subjectId" />
 			<DynamicText v-if="factory.errors.subjectId" class="text-danger small">
 				{{ factory.errors.subjectId }}
@@ -20,10 +24,12 @@
 		</div>
 
 		<div class="form-group">
-			<span class="title">Tags</span>
-			<span class="sub-title">
-				Add up to 3 tags to describe what your question is about
-			</span>
+			<BodyText variant="large" class="title">
+				Tags
+			</BodyText>
+			<BodyText variant="normal" class="sub-title">
+				Add up to 3 tags to describe your question
+			</BodyText>
 			<input
 				v-model="tag"
 				type="text"
@@ -49,10 +55,12 @@
 		</div>
 
 		<div class="form-group">
-			<span class="title">Reward</span>
-			<span class="sub-title">
-				Choose how much bronze coins to give the Nerd with the best answer. Consider the questions’ difficulty
-			</span>
+			<BodyText variant="large" class="title">
+				Reward
+			</BodyText>
+			<BodyText variant="normal" class="sub-title">
+				Choose how much bronze coins to give the Nerd with the best answer. Consider the question's difficulty
+			</BodyText>
 			<select v-model="factory.coins" class="form-select">
 				<option disabled value="0">
 					Bronze Coins Quotas
@@ -131,14 +139,12 @@ export default defineComponent({
 
 		.title {
 			color: $color-dark;
-			font-size: 1.5rem;
 			font-weight: 600;
 			margin-bottom: 8px;
 		}
 
 		.sub-title {
 			color: $color-dark;
-			font-size: 1.125rem;
 			font-weight: 500;
 			margin-bottom: 8px;
 		}

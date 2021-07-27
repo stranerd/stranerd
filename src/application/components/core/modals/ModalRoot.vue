@@ -43,7 +43,7 @@ export default defineComponent({
 		top: 0;
 		bottom: 0;
 		display: flex;
-		z-index: 1050;
+		z-index: 100;
 
 		.sd-modal-under {
 			width: 100%;
@@ -59,7 +59,6 @@ export default defineComponent({
 			max-height: 99.9%;
 			max-width: 800px;
 			border-radius: 0.5rem;
-			z-index: 1;
 			overflow-y: auto;
 			-ms-overflow-style: none;
 			padding: 0.5rem;

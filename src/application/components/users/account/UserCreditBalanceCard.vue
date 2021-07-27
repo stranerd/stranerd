@@ -5,7 +5,7 @@
 		</h4>
 		<div class="px-0-5 px-sm-1 py-3 p-md-3 boxStyle d-flex col-12 col-md-10 gap-1 align-content-center justify-content-center">
 			<div class="d-flex col-6 gap-2 align-items-center justify-content-center ">
-				<Coins :size="45" style="z-index: 1;" />
+				<Coins :size="45" />
 				<DynamicText class="largeText">
 					{{ formatNumber(user.account.coins.bronze) }}
 				</DynamicText>
@@ -15,7 +15,7 @@
 				<DynamicText class="largeText">
 					{{ formatNumber(user.account.coins.gold) }}
 				</DynamicText>
-				<Coins :gold="true" :size="45" style="z-index: 1;" />
+				<Coins :gold="true" :size="45" />
 			</div>
 		</div>
 	</div>

@@ -1,8 +1,8 @@
 <template>
 	<div>
-		<div class="d-flex text-white align-items-center gap-0-5 d-md-none position-fixed" style="right: 1.5rem; bottom: 1.5rem; z-index: 10;">
+		<div class="d-flex text-white align-items-center gap-0-5 d-md-none position-fixed" style="right: 1.5rem; bottom: 1.5rem; z-index: 2;">
 			<span class="bg-primary small rounded-3 py-0-25 px-0-5">
-				Ask your question
+				Ask A Question
 			</span>
 			<NuxtLink class="d-flex align-items-center justify-content-center rounded-pill bg-primary" style="width: 3rem; height: 3rem; font-size: 1.5rem;" to="/questions/create">
 				+
@@ -10,11 +10,11 @@
 		</div>
 
 		<div class="d-flex justify-content-between align-items-center gap-1 mb-1 mb-md-2 ">
-			<h1 class="text-dark my-0 d-flex align-items-center questions">
+			<Heading variant="1" class="text-dark d-flex align-items-center flex-grow-1">
 				<div class="dash me-0-5" />
 				<span>Questions</span>
 				<div class="dash ms-0-5" />
-			</h1>
+			</Heading>
 			<NuxtLink class=" btn btn-primary px-2 py-1 d-none d-md-inline" to="/questions/create">
 				Ask A Question
 			</NuxtLink>
@@ -91,10 +91,5 @@ export default defineComponent({
 		background-color: $color-line;
 		border: 1px solid $color-line;
 		@media (min-width: $md) { display: none; }
-	}
-
-	.questions {
-		width: 100%;
-		@media (min-width: $md) { width: 50%; }
 	}
 </style>

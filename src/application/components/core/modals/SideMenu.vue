@@ -37,7 +37,7 @@ export default defineComponent({
 		left: 0;
 		width: 100vw;
 		height: 100%;
-		z-index: 1;
+		z-index: 100;
 		overflow-y: auto;
 
 		.sd-menu-under {

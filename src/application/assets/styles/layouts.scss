@@ -4,14 +4,12 @@ body {
 	// font-size: clamp(16px, calc(1rem + 20%), 30px) !important;
 }
 
-.logo {
-	margin: 31px 0;
-}
-
 .layout-page {
 	display: flex;
 	flex-direction: column;
 	min-height: vh(100);
+	margin: 0 auto;
+	max-width: $body-max-width;
 }
 
 .layout-body {
@@ -20,7 +18,6 @@ body {
 	display: flex;
 	flex-direction: row;
 	margin: 0 auto;
-	max-width: $body-max-width;
 }
 
 .layout-side-left {
@@ -160,46 +157,36 @@ body {
 	}
 }
 
-.menu-background {
+.sd-menu-background {
 	height: vh(100);
 	background: rgba($color-dark, 0.8);
 }
 
-.menu {
+.sd-menu {
 	background: $color-white;
-	width: clamp(300px, 100%, 360px);
+	width: clamp(300px, 100%, $sm);
 }
 
-.menu-left {
-	@extend .menu;
+.sd-menu-left {
+	@extend .sd-menu;
 
 	left: 0;
 	animation: slide-right 0.25s;
 }
 
 @keyframes slide-right {
-	from {
-		left: -100px;
-	}
-
-	to {
-		left: 0;
-	}
+	from { left: -100px; }
+	to { left: 0; }
 }
 
-.menu-right {
-	@extend .menu;
+.sd-menu-right {
+	@extend .sd-menu;
 
 	right: 0;
 	animation: slide-left 0.25s;
 }
 
 @keyframes slide-left {
-	from {
-		right: -100px;
-	}
-
-	to {
-		right: 0;
-	}
+	from { right: -100px; }
+	to { right: 0; }
 }

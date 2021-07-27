@@ -11,7 +11,7 @@
 			<div v-else-if="showAnswerButton" class="d-flex align-items-center gap-1">
 				<div class="coin d-flex align-items-center gap-0-25">
 					<DynamicText>+{{ formatNumber(question.creditable) }}</DynamicText>
-					<Coins :size="28" style="z-index: 1;" />
+					<Coins :size="28" />
 				</div>
 				<button class="answer-btn" @click="openAnswerModal">
 					Answer

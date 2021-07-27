@@ -39,6 +39,7 @@ export default defineComponent({
 		align-items: center;
 
 		img {
+			position: relative;
 			z-index: 1;
 		}
 

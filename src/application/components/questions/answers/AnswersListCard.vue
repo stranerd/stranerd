@@ -28,7 +28,7 @@
 					<span>{{ showComments ? 'Hide' : 'Show' }} Comments</span>
 					<i class="fas" :class="showComments ? 'fa-angle-up' : 'fa-angle-down'" />
 				</a>
-				<span v-if="isLoggedIn && question && !question.isAnswered && question.userId === id" class="d-flex align-items-center gap-0-25" @click.prevent="markBestAnswer">
+				<span v-if="isLoggedIn && question && !question.isAnswered && !answer.best && question.userId === id" class="d-flex align-items-center gap-0-25" @click.prevent="markBestAnswer">
 					<span>Mark as best</span>
 					<i class="fas fa-check-circle" />
 				</span>
@@ -112,7 +112,8 @@ export default defineComponent({
 
 		.answer-content {
 			border-bottom: 1px solid $color-line;
-			padding: 1rem;
+			padding: 0.5rem 0.75rem;
+			@media (min-width: $md) { padding: 1rem; }
 		}
 	}
 

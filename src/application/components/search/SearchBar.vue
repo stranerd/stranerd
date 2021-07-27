@@ -44,8 +44,6 @@ export default defineComponent({
 
 		select {
 			width: auto;
-			line-height: 1em;
-			height: 30px;
 			padding: 4px 32px 4px 21px;
 			border-left: 1px solid $color-line;
 			background-color: $color-tags;

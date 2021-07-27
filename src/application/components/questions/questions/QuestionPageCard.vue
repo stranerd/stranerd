@@ -39,10 +39,10 @@
 			<DynamicText class="name me-auto">
 				Posted {{ formatTime(question.createdAt) }}
 			</DynamicText>
-			<div class="d-flex align-items-center gap-0-5 mx-auto gap-md-1">
+			<div class="d-flex align-items-center gap-0-5 gap-md-1 order-3 order-md-2">
 				<Tag v-for="tag in question.tags" :key="tag" :tag="tag" />
 			</div>
-			<div class="ms-auto d-flex align-items-center gap-1">
+			<div class="ms-auto d-flex align-items-center gap-1 order-md-3 order-2">
 				<span class="d-flex align-items-center gap-0-5">
 					<img src="@app/assets/images/icons/answers.svg" alt="" class="sub-icons">
 					<DynamicText>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</DynamicText>

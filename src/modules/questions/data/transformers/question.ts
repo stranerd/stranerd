@@ -22,7 +22,10 @@ export class QuestionTransformer {
 			coins: entity.coins,
 			tags: entity.tags,
 			subjectId: entity.subjectId,
-			answerId: entity.answerId,
+			answerId: {
+				first: entity.answerId.first,
+				second: entity.answerId.second
+			},
 			userId: entity.userId,
 			user: entity.user
 		}

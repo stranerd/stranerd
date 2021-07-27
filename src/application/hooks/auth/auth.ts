@@ -73,8 +73,13 @@ export const useAuth = () => {
 		if (isClient()) window.location.reload()
 	}
 
-	const getLocalCurrency = () => (global.location.value?.currencyCode ?? 'USD') as keyof typeof CONVERSION_RATES
-	const getLocalCurrencySymbol = () => global.location.value?.currencySymbol ?? '$'
+	const getKey = () :keyof typeof CONVERSION_RATES | null => {
+		if (!global.location.value) return null
+		const key = global.location.value.currencyCode as keyof typeof CONVERSION_RATES
+		return CONVERSION_RATES[key] ? key : null
+	}
+	const getLocalCurrency = () => getKey() ?? 'USD'
+	const getLocalCurrencySymbol = () => getKey() ? global.location.value?.currencySymbol ?? '$' : '$'
 
 	const getLocalAmount = (amount: number) => parseFloat(Number(amount * CONVERSION_RATES[getLocalCurrency()]).toFixed(2))
 

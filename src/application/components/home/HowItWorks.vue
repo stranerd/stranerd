@@ -57,7 +57,7 @@
 				</div>
 				<div class="col-lg-6 col-12 text-center d-flex flex-column justify-content-center  align-items-center mdMargin">
 					<img src="@app/assets/images/homepage/green_bubble.svg" class="ImageBubble">
-					<div class="zindexhiger">
+					<div>
 						<img src="@app/assets/images/homepage/ask_your_question.svg" width="80%">
 					</div>
 				</div>
@@ -80,7 +80,7 @@
 			<div class="d-flex flex-row  flex-wrap align-items-center justify-content-center position-relative mt-5 pt-5">
 				<div class="col-lg-6 col-12 text-center d-flex flex-column justify-content-center  align-items-center mdMargin">
 					<img src="@app/assets/images/homepage/faded_blue_bubble.svg" class="ImageBubbleSpecial">
-					<div class="zindexhiger">
+					<div>
 						<img src="@app/assets/images/homepage/meet_top_nerd.svg" width="80%">
 					</div>
 				</div>
@@ -133,7 +133,7 @@
 				</div>
 				<div class="col-lg-6 col-12 text-center d-flex flex-column justify-content-center  align-items-center mdMargin">
 					<img src="@app/assets/images/homepage/pink_bubble.svg" class="ImageBubbleCoin">
-					<div class="zindexhiger">
+					<div>
 						<img src="@app/assets/images/homepage/coin_system.svg" width="85%">
 					</div>
 				</div>
@@ -173,65 +173,75 @@ export default defineComponent({
 	h1 {
 		margin-bottom: 0;
 		font-size: 24px;
-		color:$color-text-header;
+		color: $color-primary-dark;
 		@media (min-width: $md) { font-size: 34px; }
 		@media (min-width: $lg) { font-size: 40px; }
 		@media (min-width: $xl) { font-size: 48px; }
 	}
 
 	.mdMargin {
-		margin-bottom: 0px;
-		@media (min-width: $md) { margin-bottom:110px; }
-		@media (min-width: $lg) { margin-bottom:0px; }
-		@media (min-width: $xl) { margin-bottom:0px; }
+		margin-bottom: 0;
+		@media (min-width: $md) { margin-bottom: 110px; }
+		@media (min-width: $lg) { margin-bottom: 0; }
+		@media (min-width: $xl) { margin-bottom: 0; }
 	}
 
-		.btn-custom {
+	.btn-custom {
 		background-color: $color-primary;
 		color: $color-white;
 		border: 2px solid $color-primary;
 		border-radius: 6px;
 	}
-	 .content_wrapper {
-	    height: auto;
-	   position: relative;
-	   margin-bottom: 40px;
-	    margin-top: 100px;
-   }
 
-   .ImageBubble {
-        width: 90%;
+	.content_wrapper {
+		height: auto;
+		position: relative;
+		margin-bottom: 40px;
+		margin-top: 100px;
+	}
+
+	.ImageBubble {
+		width: 90%;
 		height: 90%;
 		position: absolute;
+		z-index: -1;
 	}
 
 	.ImageBubbleCoin {
-		 width: 60%;
+		width: 60%;
 		height: 60%;
-		  @media (min-width: $md) {  width: 60%;
-		height: 60%;}
-	    @media (min-width: $lg) {  width: 90%;
-		height: 90%; }
+		@media (min-width: $md) {
+			width: 60%;
+			height: 60%;
+		}
+		@media (min-width: $lg) {
+			width: 90%;
+			height: 90%;
+		}
+
+		z-index: -1;
 		position: absolute;
 	}
 
 	.ImageBubbleSpecial {
-		 width: 100%;
+		width: 100%;
 		height: 100%;
-		  @media (min-width: $md) {  width: 120%;
-		height: 120%;}
-	    @media (min-width: $lg) {  width: 120%;
-		height: 120%; }
+		@media (min-width: $md) {
+			width: 120%;
+			height: 120%;
+		}
+		@media (min-width: $lg) {
+			width: 120%;
+			height: 120%;
+		}
+
+		z-index: -1;
 		position: absolute;
 	}
 
-	.zindexhiger {
-		z-index: 3;
-	}
-
-	 .inner-wrapper {
-	    position:relative;
+	.inner-wrapper {
+		position: relative;
 		height: auto;
-   }
+	}
 
 </style>

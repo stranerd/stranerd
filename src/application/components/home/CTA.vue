@@ -77,7 +77,7 @@ export default defineComponent({
 		font-weight: bold;
 		text-transform: none;
 		font-size: 24px;
-		color: $color-text-header;
+		color: $color-primary-dark;
 		@media (min-width: $md) { font-size: 34px; }
 		@media (min-width: $lg) { font-size: 40px; }
 		@media (min-width: $xl) { font-size: 48px; }

@@ -7,7 +7,7 @@
 			<div class="d-flex flex-row align-items-center justify-content-center position-relative mt-3">
 				<div class="col-md-8  d-flex flex-column justify-content-center  align-items-center">
 					<img src="@app/assets/images/homepage/yellow_bubble.svg" class="ImageBubble">
-					<form class="formStyle zindexhiger cardform d-flex flex-column py-2 px-2" @submit.prevent="createMessage">
+					<form class="formStyle cardform d-flex flex-column py-2 px-2" @submit.prevent="createMessage">
 						<div class="col-12 py-0 px-0 d-flex flex-row flex-wrap">
 							<div class="col-lg-5 col-12 d-flex flex-column mb-1 mb-lg-0">
 								<div>
@@ -131,7 +131,7 @@ export default defineComponent({
 	h2 {
 		margin-bottom: 0;
 		font-size: 21px;
-		color: $color-text-header;
+		color: $color-primary-dark;
 		@media (min-width: $md) { font-size: 34px; }
 		@media (min-width: $lg) { font-size: 37px; }
 		@media (min-width: $xl) { font-size: 40px; }
@@ -175,11 +175,8 @@ export default defineComponent({
 			height: 50%;
 		}
 
+		z-index: -1;
 		position: absolute;
-	}
-
-	.zindexhiger {
-		z-index: 3;
 	}
 
 	.inner-wrapper {

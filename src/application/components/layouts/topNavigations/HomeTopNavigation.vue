@@ -1,9 +1,8 @@
 <template>
-	<nav role="navigation">
-		<div class="px-md-2 px-1 py-md-1 bg-white d-flex flex-row align-items-center zindexHigher">
-			<img src="@app/assets/images/homepage/logo.svg" height="30" class="d-lg-inline-block d-none">
-			<img src="/images/logo-white.svg" height="30" class="customPadding d-inline-block d-md-none zindexHigher">
-			<img src="/images/logo-white.svg" height="30" class=" d-md-inline-block d-none d-lg-none zindexHigher">
+	<nav role="navigation" class="bg-white">
+		<div class="px-md-2 p-1 py-md-1 d-flex align-items-center">
+			<Logo :secondary="true" class="d-lg-inline-block d-none" />
+			<Logo class="d-inline-block d-lg-none" />
 			<div class="ms-auto gap-2 flex-row-reverse d-lg-flex d-none align-items-center">
 				<NuxtLink class="btn btn-lg white-btn-custom px-3" to="/auth/signup">
 					Sign Up
@@ -21,11 +20,11 @@
 					Home
 				</NuxtLink>
 			</div>
-			<div class="ms-auto flex-row-reverse d-inline-flex align-items-center d-lg-none customPadding zindexHigher">
+			<div class="ms-auto flex-row-reverse d-inline-flex align-items-center d-lg-none">
 				<span class="cursor-pointer" @click="show = !show">
 					<i
 						:class="show ? 'fas fa-times' : 'fas fa-bars'"
-						style="color: #ffffff; font-size: 28px;"
+						style="color: #fff; font-size: 28px;"
 					/>
 				</span>
 			</div>
@@ -35,30 +34,31 @@
 				<div class="menuBackground d-lg-none d-flex flex-column text-center" @click="show = false">
 					<img src="@app/assets/images/homepage/ig_session_sm.svg" class="bgImageNav">
 					<div class="px-2 d-flex flex-column text-center position-relative">
-						<NuxtLink class="py-1 mt-2 smallScreenLink link-custom-sm zindexHigher" style="width: 100%;" to="/">
+						<NuxtLink class="py-1 mt-2 smallScreenLink link-custom-sm" style="width: 100%;" to="/">
 							Home
 						</NuxtLink>
-						<NuxtLink class="smallScreenLink py-1 link-custom-sm zindexHigher" to="/#how-it-works">
+						<NuxtLink class="smallScreenLink py-1 link-custom-sm" to="/#how-it-works">
 							How it works
 						</NuxtLink>
-						<NuxtLink class="smallScreenLink py-1 link-custom-sm zindexHigher" to="/#contact-us">
+						<NuxtLink class="smallScreenLink py-1 link-custom-sm" to="/#contact-us">
 							Contact
 						</NuxtLink>
 						<NuxtLink
-							class="btn btn-lg btn-custom-sm mx-auto my-1 w-100 zindexHigher"
+							class="btn btn-lg btn-custom-sm mx-auto my-1 w-100"
 							style="max-width: 400px;"
 							to="/auth/signin"
 						>
 							Sign In
 						</NuxtLink>
 						<NuxtLink
-							class="btn btn-lg white-btn-custom mx-auto my-1 w-100 zindexHigher"
+							class="btn btn-lg white-btn-custom mx-auto my-1 w-100"
 							style="max-width: 400px;"
 							to="/auth/signup"
 						>
 							Sign Up
 						</NuxtLink>
-						<div class="bottomLogo d-flex flex-row align-items-center justify-content-center zindexHigher">
+						<div class="bottomLogo d-flex flex-row align-items-center justify-content-center">
+							<!--  TODO: Add social links -->
 							<div class="me-1">
 								<NuxtLink to="#">
 									<img src="@app/assets/images/homepage/instagram_white.svg" height="30">
@@ -103,7 +103,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 	.white-btn-custom {
 		background-color: $color-white;
-		color:$color-primary-dark;
+		color: $color-primary-dark;
 		font-size: 16px;
 		border: 2px solid $color-primary;
 		border-radius: 6px;
@@ -141,10 +141,10 @@ export default defineComponent({
 
 	.menuBackground {
 		position: fixed;
-		height: 91%;
 		width: 100%;
 		left: 0;
-		top:9%;
+		top: 7%;
+		bottom: 0;
 	}
 
 	.bgImageNav {
@@ -159,22 +159,18 @@ export default defineComponent({
 	}
 
 	.bottomLogo {
-		position:fixed;
-		bottom:2%;
+		position: fixed;
+		bottom: 2%;
 		width: 100%;
 		left: 0%;
 	}
 
 	.floatImage {
-		position: fixed;
-		top: 0px;
-		left: 0px;
-		width:100%;
-		z-index: 0;
-	}
-
-	.zindexHigher {
-		z-index: 1000 !important;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		z-index: -1;
 	}
 
 	.customPadding {

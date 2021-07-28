@@ -33,9 +33,9 @@
 					<div class="d-flex flex-column">
 						<div>
 							<h5 class="sessionHead">
-								<i class="fas fa-circle" style="margin-left:3px;font-size:15px;" />
-								<i class="fas fa-circle" style="margin-left:3px;font-size:15px;" />
-								<i class="fas fa-circle" style="margin-left:3px;font-size:15px;" />
+								<i class="fas fa-circle" style="margin-left: 3px; font-size: 15px;" />
+								<i class="fas fa-circle" style="margin-left: 3px; font-size: 15px;" />
+								<i class="fas fa-circle" style="margin-left: 3px; font-size: 15px;" />
 							</h5>
 						</div>
 						<div class="text-left">
@@ -71,7 +71,7 @@
 						</div>
 					</div>
 				</div>
-
+				<!--  TODO: Add legal links -->
 				<div class="col-6 d-flex flex-row px-0" style="align-items: center; justify-content: center;">
 					<div class="d-flex flex-column">
 						<div>
@@ -94,6 +94,7 @@
 			</div>
 			<div class="col-12 mt-2 d-flex flex-column class border-top border-white align-items-center justify-content-center">
 				<div class="py-1 d-flex flex-row">
+					<!--  TODO: Add social links -->
 					<div class="px-1">
 						<NuxtLink class="linkText" to="/#">
 							<img src="@app/assets/images/homepage/facebook_icon.png" height="21">
@@ -116,7 +117,7 @@
 					</div>
 				</div>
 				<div class="linkText" style="font-size: 14px;">
-					&copy; 2020 - 2021 | Stranerd LLC. All rights reserved.
+					&copy; {{ new Date().getFullYear() }} | Stranerd LLC. All rights reserved.
 				</div>
 			</div>
 		</div>
@@ -142,20 +143,20 @@ export default defineComponent({
 	}
 
 	.bgImage {
-		position:absolute;
-		width:100%;
+		position: absolute;
+		width: 100%;
 		height: auto;
 	}
 
-	  .content_wrapper {
-	   height: auto;
-	   position: relative;
-   }
+	.content_wrapper {
+		height: auto;
+		position: relative;
+	}
 
-     .inner-wrapper {
-	    position:relative;
+	.inner-wrapper {
+		position: relative;
 		height: 500px;
-		  @media (min-width: $md) { height: 700px;}
-	    @media (min-width: $lg) { height: 500px;}
-   }
+		@media (min-width: $md) { height: 700px; }
+		@media (min-width: $lg) { height: 500px; }
+	}
 </style>

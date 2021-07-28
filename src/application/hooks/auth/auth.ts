@@ -68,8 +68,8 @@ export const useAuth = () => {
 	const signout = async (router: VueRouter) => {
 		await SessionSignout.call()
 		await setAuthUser(null, router)
-		await router.push('/')
 		await auth.signOut()
+		await router.push('/')
 		if (isClient()) window.location.reload()
 	}
 

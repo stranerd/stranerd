@@ -6,7 +6,7 @@
 			<ChatList :user-id="userId" class="flex-grow-1 px-1 px-md-2" />
 			<TutorSessionOption v-if="requestedSession" :session="requestedSession" class="px-1 px-md-2" />
 			<StudentWaitingSession v-if="requestingSession" :session="requestingSession" class="px-1 px-md-2" />
-			<ChatForm v-if="1 || sessionId" :user-id="userId" :session-id="sessionId" class="px-1 px-md-2" />
+			<ChatForm v-if="sessionId" :user-id="userId" :session-id="sessionId" class="px-1 px-md-2" />
 		</div>
 		<DisplayError v-else error="No such user exists!" />
 	</div>

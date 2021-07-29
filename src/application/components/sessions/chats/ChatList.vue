@@ -1,11 +1,11 @@
 <template>
-	<div class="d-flex flex-column align-items-center py-1 background gap-0-5">
-		<span v-if="hasMore" class="small mb-1 mx-auto cursor-pointer" @click="fetchOlderChats">Fetch more</span>
+	<div class="d-flex flex-column align-items-center py-0-5 background gap-0-5">
 		<span v-if="chats.length === 0" class="text-center my-auto bg-line p-1">
 			No messages found. Send a message now
 		</span>
-		<div v-chat-scroll="{smooth: true, notSmoothOnInit: true, always: false}" class="chat-box flex-grow-1">
-			<div v-for="session in chats" :key="session.hash" class="d-flex flex-column w-100 gap-0-5">
+		<div v-chat-scroll="{smooth: true, notSmoothOnInit: true, always: false}" class="chat-box w-100">
+			<span v-if="hasMore" class="small mb-1 mx-auto cursor-pointer" @click="fetchOlderChats">Fetch more</span>
+			<div v-for="session in chats" :key="session.hash" class="d-flex flex-column gap-0-5">
 				<DynamicText class="bg-line session-date mx-auto">
 					{{ formatTime(session.date, true) }}
 				</DynamicText>
@@ -52,6 +52,7 @@ export default defineComponent({
 	}
 
 	.chat-box {
+		flex: 1 1 0;
 		overflow: auto;
 		-ms-overflow-style: none;
 

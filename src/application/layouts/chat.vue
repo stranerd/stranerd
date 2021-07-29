@@ -18,3 +18,10 @@ export default defineComponent({
 	components: { TopNavigation }
 })
 </script>
+
+<style lang="scss" scoped>
+	.layout-page {
+		height: vh(100);
+		overflow-y: hidden;
+	}
+</style>

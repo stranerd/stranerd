@@ -24,13 +24,13 @@ export default defineComponent({
 		display: none;
 		justify-content: center;
 		align-items: center;
-		width: 68%;
+		width: 70%;
 		flex-grow: 1;
 		@media (min-width: $lg) { display: flex; }
 	}
 
 	.contact-list {
-		width: 32%;
+		width: 30%;
 		flex-grow: 1;
 	}
 </style>

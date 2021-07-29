@@ -2,7 +2,7 @@
 	<div class="d-flex py-0-5 gap-1 align-items-center position-relative bg-line">
 		<NuxtLink :to="`/users/${user.id}`">
 			<Avatar :src="user.avatar" :size="40" class="d-md-none" />
-			<Avatar :src="user.avatar" :size="63" class="d-none d-md-inline" />
+			<Avatar :src="user.avatar" :size="58" class="d-none d-md-inline" />
 		</NuxtLink>
 		<div class="me-auto">
 			<NuxtLink :to="`/users/${user.id}`" class="text-wrap username">

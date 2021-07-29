@@ -35,9 +35,10 @@ export const useChats = (userId: string) => {
 	const path = [id.value, userId] as [string, string]
 
 	const chats = computed({
-		get: () => global[userId].chats.value.sort((a, b) => {
+		// TODO: figure out if the sort is important cos it slows down initial request
+		get: () => global[userId].chats.value, /* .sort((a, b) => {
 			return a.createdAt - b.createdAt < 0 ? -1 : 1
-		}),
+		}), */
 		set: (chats) => chats.map((c) => pushToChats(userId, c))
 	})
 

@@ -1,6 +1,5 @@
 export const appName = process.env.APP_NAME
 export const isDev = process.env.ENVIRONMENT === 'development'
-export const isProd = process.env.ENVIRONMENT === 'production'
 
 export const isServer = () => process.server
 export const isClient = () => process.client

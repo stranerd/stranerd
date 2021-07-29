@@ -1,9 +1,9 @@
 <template>
-	<div class="d-flex flex-column align-items-center py-0-5 background gap-0-5">
+	<div class="d-flex flex-column align-items-center py-0-5 background">
 		<span v-if="chats.length === 0" class="text-center my-auto bg-line p-1">
 			No messages found. Send a message now
 		</span>
-		<div v-chat-scroll="{smooth: true, notSmoothOnInit: true, always: false}" class="chat-box w-100">
+		<div v-chat-scroll="chatProps" class="chat-box w-100 gap-0-5">
 			<span v-if="hasMore" class="small mb-1 mx-auto cursor-pointer" @click="fetchOlderChats">Fetch more</span>
 			<div v-for="session in chats" :key="session.hash" class="d-flex flex-column gap-0-5">
 				<DynamicText class="bg-line session-date mx-auto">
@@ -35,7 +35,8 @@ export default defineComponent({
 		const { chats, listener, fetchOlderChats, hasMore, error, loading } = useChats(props.userId)
 		onMounted(listener.startListener)
 		onBeforeUnmount(listener.closeListener)
-		return { chats, error, loading, fetchOlderChats, hasMore, formatTime }
+		const chatProps = { smooth: true, notSmoothOnInit: true, always: false, scrollonremoved: true }
+		return { chats, error, loading, fetchOlderChats, hasMore, formatTime, chatProps }
 	}
 })
 </script>
@@ -52,12 +53,11 @@ export default defineComponent({
 	}
 
 	.chat-box {
+		@extend .hide-scrollbar;
+
+		display: flex;
+		flex-direction: column;
 		flex: 1 1 0;
 		overflow: auto;
-		-ms-overflow-style: none;
-
-		&::-webkit-scrollbar {
-			display: none;
-		}
 	}
 </style>

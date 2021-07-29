@@ -2,6 +2,8 @@ import { defineNuxtPlugin } from '@nuxtjs/composition-api'
 import Vue from 'vue'
 // @ts-ignore
 import Flutterwave from 'flutterwave-vue-v3'
+// @ts-ignore
+import VueChatScroll from 'vue-chat-scroll'
 import { flutterwaveConfig } from '@utils/environment'
 
 export default defineNuxtPlugin(async () => {
@@ -31,4 +33,5 @@ export default defineNuxtPlugin(async () => {
 	})
 
 	Vue.use(Flutterwave, { publicKey: flutterwaveConfig.publicKey })
+	Vue.use(VueChatScroll)
 })

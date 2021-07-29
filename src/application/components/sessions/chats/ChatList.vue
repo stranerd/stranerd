@@ -4,11 +4,13 @@
 		<span v-if="chats.length === 0" class="text-center my-auto bg-line p-1">
 			No messages found. Send a message now
 		</span>
-		<div v-for="session in chats" :key="session.hash" class="d-flex flex-column w-100 gap-0-5">
-			<DynamicText class="bg-line session-date mx-auto">
-				{{ formatTime(session.date, true) }}
-			</DynamicText>
-			<ChatListCard v-for="chat in session.chats" :key="chat.hash" :chat="chat" :user-id="userId" />
+		<div v-chat-scroll="{smooth: true, notSmoothOnInit: true, always: false}" class="chat-box flex-grow-1">
+			<div v-for="session in chats" :key="session.hash" class="d-flex flex-column w-100 gap-0-5">
+				<DynamicText class="bg-line session-date mx-auto">
+					{{ formatTime(session.date, true) }}
+				</DynamicText>
+				<ChatListCard v-for="chat in session.chats" :key="chat.hash" :chat="chat" :user-id="userId" />
+			</div>
 		</div>
 		<PageLoading v-if="loading" />
 		<DisplayError :error="error" />
@@ -47,5 +49,14 @@ export default defineComponent({
 
 	.background {
 		background: url("@app/assets/images/doodle.png");
+	}
+
+	.chat-box {
+		overflow: auto;
+		-ms-overflow-style: none;
+
+		&::-webkit-scrollbar {
+			display: none;
+		}
 	}
 </style>

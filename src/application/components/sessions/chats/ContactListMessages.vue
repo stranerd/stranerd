@@ -32,7 +32,7 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
-		const { currentSessionId } = useAuth()
+		const { currentSessionId, user: authUser } = useAuth()
 		const { user, loading, error, listener } = useUser(props.userId)
 		onMounted(listener.startListener)
 		onBeforeUnmount(listener.closeListener)
@@ -43,7 +43,7 @@ export default defineComponent({
 			set: () => {}
 		})
 		const hash = computed({
-			get: () => user.value?.hash + sessionId.value,
+			get: () => authUser.value?.hash ?? '' + user.value?.hash ?? '' + sessionId.value,
 			set: () => {}
 		})
 		const requestedSession = hasRequestedSessionWith(props.userId)

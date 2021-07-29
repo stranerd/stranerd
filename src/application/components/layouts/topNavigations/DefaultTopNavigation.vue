@@ -12,7 +12,7 @@
 			</span>
 
 			<NuxtLink to="/">
-				<Logo :secondary="true" />
+				<Logo />
 			</NuxtLink>
 
 			<SearchBar class="middle-body mx-auto d-none d-lg-flex" />
@@ -117,14 +117,16 @@ export default defineComponent({
 	.default-top-nav {
 		display: flex;
 		align-items: center;
-		color: $color-dark;
+		color: $color-white;
+		background: $color-primary;
 		padding: 0.75rem 1rem;
-		border-bottom: 5px solid $color-primary;
 		@media (min-width: $md) { padding: 0.75rem 2rem; }
 		@media (min-width: $lg) { padding: 0.75rem 3rem; }
 		@media (min-width: $xl) { padding: 0.75rem 4.5rem; }
 
-		background: $color-white 0 0 no-repeat padding-box;
+		.head-icons, /deep/ .head-icons {
+			filter: brightness(500%);
+		}
 	}
 
 	.middle-body {

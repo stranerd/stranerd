@@ -74,7 +74,7 @@ export default defineComponent({
 
 	.is-not-mine {
 		border-radius: 0 0.6rem 0.6rem 0.6rem;
-		background: $color-primary-dark;
+		background: $color-primary;
 		color: $color-white;
 		margin-right: auto;
 	}

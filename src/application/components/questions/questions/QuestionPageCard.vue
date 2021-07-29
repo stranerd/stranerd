@@ -3,18 +3,21 @@
 		<div class="question-head d-flex flex-row flex-wrap align-items-center">
 			<div class="d-flex align-items-center gap-0-5">
 				<NuxtLink :to="`/users/${question.userId}`">
-					<Avatar :src="question.avatar" :size="50" />
+					<Avatar :src="question.avatar" :size="40" class="d-md-none" />
+					<Avatar :src="question.avatar" :size="50" class="d-none d-md-inline" />
 				</NuxtLink>
-				<div class="d-flex flex-column align-items-md-center flex-md-row gap-md-0-5 fw-bold">
-					<NuxtLink class="name" :to="`/users/${question.userId}`">
-						<DynamicText>{{ question.userName }}</DynamicText>
+				<div class="d-flex flex-column align-items-md-center flex-md-row gap-md-0-5">
+					<NuxtLink class="name d-none d-md-inline" :to="`/users/${question.userId}`">
+						<BodyText><DynamicText>{{ question.userName }}</DynamicText></BodyText>
 					</NuxtLink>
-					<div class="dot d-none d-md-inline" />
-					<Subject :subject-id="question.subjectId" class="subject" />
+					<div class="dot d-none d-md-inline ms-0-25 me-0-75" />
+					<BodyText>
+						<Subject :subject-id="question.subjectId" />
+					</BodyText>
 				</div>
 			</div>
 
-			<div class="d-flex align-items-center flex-row-reverse ml-auto">
+			<div class="d-flex align-items-center flex-row-reverse ms-auto">
 				<template v-if="question.isAnswered">
 					<img src="@app/assets/images/icons/profile-best-answers.svg" alt="" class="sub-icons">
 				</template>
@@ -36,13 +39,14 @@
 		<div class="question-body editor-body" v-html="question.body" />
 
 		<div class="d-flex align-items-center flex-row flex-wrap gap-1">
-			<DynamicText class="name me-auto">
-				Posted {{ formatTime(question.createdAt) }}
-			</DynamicText>
-			<div class="d-flex align-items-center gap-0-5 gap-md-1 order-3 order-md-2">
+			<div class="d-flex align-items-center gap-0-5 gap-md-1 me-auto tags">
 				<Tag v-for="tag in question.tags" :key="tag" :tag="tag" />
 			</div>
-			<div class="ms-auto d-flex align-items-center gap-1 order-md-3 order-2">
+			<DynamicText class="name">
+				Posted {{ formatTime(question.createdAt) }}
+			</DynamicText>
+			<div class="dot" />
+			<div class="d-flex align-items-center gap-1">
 				<span class="d-flex align-items-center gap-0-5">
 					<img src="@app/assets/images/icons/answers.svg" alt="" class="sub-icons">
 					<DynamicText>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</DynamicText>
@@ -100,23 +104,17 @@ export default defineComponent({
 		font-size: 20px;
 	}
 
-	.question-head {
-		.dot {
-			width: 6px;
-			height: 6px;
-			background-color: $color-sub;
-			margin: 0 12px 0 3px;
-			border-radius: 50px;
-		}
+	.dot {
+		width: 6px;
+		height: 6px;
+		background-color: $color-sub;
+		border-radius: 50px;
+	}
 
+	.question-head {
 		.name {
 			color: $color-dark;
 			font-size: 18px;
-			font-weight: 600;
-		}
-
-		.subject {
-			color: $color-sub;
 			font-weight: 600;
 		}
 	}
@@ -144,7 +142,8 @@ export default defineComponent({
 		border-radius: 18px;
 	}
 
-	.ml-auto {
-		margin-left: auto;
+	.tags {
+		flex: 1 0 100%;
+		@media (min-width: $md) { flex: 1 1 0; }
 	}
 </style>

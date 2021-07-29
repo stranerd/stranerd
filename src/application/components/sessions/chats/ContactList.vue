@@ -1,11 +1,11 @@
 <template>
 	<div class="d-flex flex-column bg-white">
 		<div class="head">
-			<h1>
-				<NuxtLink to="/sessions">
+			<NuxtLink to="/sessions">
+				<Heading variant="1">
 					Inbox
-				</NuxtLink>
-			</h1>
+				</Heading>
+			</NuxtLink>
 		</div>
 		<span v-if="meta.length === 0" class="text-center align-self-center my-auto">
 			No chats found. Go message a nerd
@@ -35,15 +35,11 @@ export default defineComponent({
 	.head {
 		display: flex;
 		align-items: center;
-		background: $color-line;
+		background: $color-primary;
+		color: $color-white;
 		padding: 1rem 1rem;
 		@media (min-width: $lg) {
-			padding: 1.5rem 2rem;
-		}
-
-		h1 {
-			font-size: 1.5rem;
-			margin: 0;
+			padding: 1rem 2rem;
 		}
 	}
 </style>

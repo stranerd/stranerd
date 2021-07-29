@@ -1,5 +1,5 @@
 <template>
-	<div class="bg-line py-1 lead text-center">
+	<div class="bg-primary text-white py-1 lead text-center">
 		Waiting for&nbsp;
 		<DynamicText>{{ session.tutorBio.name.fullName }}</DynamicText>
 		&nbsp;to accept session

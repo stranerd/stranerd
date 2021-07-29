@@ -10,7 +10,7 @@
 					{{ formatNumber(user.account.coins.bronze) }}
 				</DynamicText>
 			</div>
-			<div class="border border-end border-light-grey" />
+			<div class="border border-line" />
 			<div class="d-flex col-6 gap-2 align-items-center justify-content-center">
 				<DynamicText class="largeText">
 					{{ formatNumber(user.account.coins.gold) }}

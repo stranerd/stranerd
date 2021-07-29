@@ -12,7 +12,7 @@ export class ListenToTagsUseCase {
 	async call (callback: (entities: TagEntity[]) => void) {
 		const conditions: DatabaseGetClauses = {
 			order: { field: 'count' },
-			limit: { count: 25, bottom: true }
+			limit: { count: 18, bottom: true }
 		}
 		const cb = (entities: TagEntity[]) => {
 			callback(entities.reverse())

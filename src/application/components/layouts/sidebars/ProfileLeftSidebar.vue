@@ -4,7 +4,7 @@
 			<div class="d-flex flex-column gap-0-5 gap-md-1-5 align-items-center text-blue">
 				<div class="position-relative">
 					<Avatar :src="user.avatar" :size="96" class="d-md-none" />
-					<Avatar :src="user.avatar" :size="144" class="d-none d-md-inline-block" />
+					<Avatar :src="user.avatar" :size="120" class="d-none d-md-inline-block" />
 					<NuxtLink v-if="user.id === id" to="/account/edit">
 						<i class="fa fa-pen pen" />
 					</NuxtLink>
@@ -192,8 +192,9 @@ export default defineComponent({
 		bottom: 0;
 		right: 0;
 		border-radius: 10rem;
-		width: 2em;
-		height: 2em;
+		width: 2.5em;
+		height: 2.5em;
+		font-size: 1em;
 		display: flex;
 		align-items: center;
 		justify-content: center;

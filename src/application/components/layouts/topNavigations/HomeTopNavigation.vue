@@ -1,8 +1,10 @@
 <template>
-	<nav role="navigation" class="bg-white">
+	<nav role="navigation">
 		<div class="px-md-2 p-1 py-md-1 d-flex align-items-center">
-			<Logo :secondary="true" class="d-lg-inline-block d-none" />
-			<Logo class="d-inline-block d-lg-none" />
+			<NuxtLink to="/">
+				<Logo :secondary="true" class="d-lg-inline-block d-none" />
+				<Logo class="d-lg-none" />
+			</NuxtLink>
 			<div class="ms-auto gap-2 flex-row-reverse d-lg-flex d-none align-items-center">
 				<NuxtLink class="btn btn-lg white-btn-custom px-3" to="/auth/signup">
 					Sign Up
@@ -23,8 +25,9 @@
 			<div class="ms-auto flex-row-reverse d-inline-flex align-items-center d-lg-none">
 				<span class="cursor-pointer" @click="show = !show">
 					<i
-						:class="show ? 'fas fa-times' : 'fas fa-bars'"
-						style="color: #fff; font-size: 28px;"
+						class="text-white fas"
+						:class="show ? 'fa-times' : 'fa-bars'"
+						style="font-size: 28px;"
 					/>
 				</span>
 			</div>

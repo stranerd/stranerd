@@ -1,9 +1,9 @@
 <template>
 	<div class="py-md-1 px-0-5 px-md-3 px-lg-4 py-lg-1-5 d-flex flex-column align-items-center flex-lg-row gap-2">
 		<form class="gap-1 gap-md-2 d-flex flex-column w-100 flex-grow-1" @submit.prevent="signup">
-			<h1 class="mb-0">
+			<Heading variant="1" class="text-center">
 				Sign Up
-			</h1>
+			</Heading>
 			<div class="d-flex flex-column gap-1 gap-md-2 flex-md-row">
 				<div class="flew-grow-1 w-100">
 					<input
@@ -93,7 +93,7 @@
 			</div>
 			<AuthProviders />
 			<div class="d-flex align-items-center justify-content-center gap-0-25">
-				<span>Already have an accout?</span>
+				<span>Already have an account?</span>
 				<NuxtLink class="linkText" to="/auth/signin">
 					Sign in
 				</NuxtLink>
@@ -123,12 +123,6 @@ export default defineComponent({
 })
 </script>
 <style lang="scss" scoped>
-	.headerStyle {
-		font-weight: bolder;
-		text-transform: none;
-		color: $color-dark;
-	}
-
 	input {
 		border: 1px solid $color-sub;
 		border-radius: 6px;
@@ -137,7 +131,7 @@ export default defineComponent({
 	}
 
 	.btn-custom {
-		background-color: $color-primary-dark;
+		background-color: $color-primary;
 		color: $color-white;
 		border: 2px solid;
 		border-radius: 6px;
@@ -146,7 +140,7 @@ export default defineComponent({
 	}
 
 	.linkText {
-		color: $color-primary-dark;
+		color: $color-primary;
 		text-decoration: underline;
 		font-weight: bold;
 	}

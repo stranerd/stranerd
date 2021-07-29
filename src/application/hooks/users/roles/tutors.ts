@@ -27,7 +27,7 @@ export const useTutorsList = () => {
 				let matched = true
 				if (global.subjectId.value && !tutor.subjects.find((s) => s.id === global.subjectId.value)) matched = false
 				return matched
-			}),
+			}).slice(0, 50),
 		set: (tutors) => { global.tutors.value = tutors }
 	})
 	const listener = useListener(async () => {

@@ -1,10 +1,10 @@
 <template>
-	<div class="py-md-1 px-0-5 px-md-3 px-lg-4 py-lg-1-5 d-flex flex-column flex-lg-row align-items-center gap-2">
+	<div class="py-md-1 px-0-5 px-md-3 px-lg-4 py-lg-1-5 d-flex flex-column flex-lg-row align-items-center gap-3">
 		<div class="gap-1 gap-md-2 d-flex flex-column w-100 flex-grow-1">
-			<h1 class="mb-0">
+			<Heading variant="1" class="text-center">
 				Verify Your Email Address
-			</h1>
-			<span class="textStyle">
+			</Heading>
+			<span class="textStyle text-center">
 				An email was just sent to <b><DynamicText>{{ email }}</DynamicText></b>. Follow the link to verify your account.
 				If an error occured or you didn't recieve the email, click the button below to resend the email.
 			</span>
@@ -20,7 +20,6 @@
 				</NuxtLink>
 			</div>
 		</div>
-		<span class="w-25 d-none d-lg-inline" style="flex-grow: 0.25;" />
 		<div class="text-center d-lg-block d-none w-100 flex-grow-1">
 			<img src="@app/assets/images/auth/verify.svg" style="width: 100%;">
 		</div>
@@ -48,12 +47,6 @@ export default defineComponent({
 })
 </script>
 <style lang="scss" scoped>
-	.headerStyle {
-		font-weight: bolder;
-		text-transform: none;
-		color: $color-dark;
-	}
-
 	input {
 		border: 1px solid $color-sub;
 		border-radius: 6px;
@@ -62,7 +55,7 @@ export default defineComponent({
 	}
 
 	.btn-custom {
-		background-color: $color-primary-dark;
+		background-color: $color-primary;
 		color: $color-white;
 		border: 2px solid;
 		border-radius: 6px;
@@ -71,7 +64,7 @@ export default defineComponent({
 	}
 
 	.linkText {
-		color: $color-primary-dark;
+		color: $color-primary;
 		text-decoration: underline;
 		font-weight: bold;
 	}

@@ -31,7 +31,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 	.layout-side-left {
-		width: 27.5% !important;
+		width: 30% !important;
 		border: none !important;
 		padding-left: 3rem;
 	}

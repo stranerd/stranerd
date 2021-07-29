@@ -12,20 +12,13 @@ export default defineComponent({
 		variant: {
 			type: String,
 			default: 'normal',
-			validator: (val: string) => ['title', 'large', 'normal', 'sub'].includes(val)
+			validator: (val: string) => ['large', 'normal', 'sub'].includes(val)
 		}
 	}
 })
 </script>
 
 <style lang="scss" scoped>
-	.title {
-		font-size: 24px;
-		@media (min-width: $md) { font-size: 24px; }
-		@media (min-width: $lg) { font-size: 26px; }
-		@media (min-width: $xl) { font-size: 28px; }
-	}
-
 	.large {
 		font-size: 18px;
 		@media (min-width: $md) { font-size: 20px; }

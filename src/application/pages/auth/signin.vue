@@ -1,9 +1,9 @@
 <template>
 	<div class="py-md-1 px-0-5 px-md-3 px-lg-4 py-lg-1-5 d-flex flex-column align-items-center flex-lg-row gap-2">
 		<form class="gap-1 gap-md-2 d-flex flex-column w-100 flex-grow-1" @submit.prevent="signin">
-			<h1 class="mb-0">
+			<Heading variant="1" class="text-center">
 				Sign In
-			</h1>
+			</Heading>
 			<div>
 				<input
 					id="email"
@@ -33,11 +33,11 @@
 				<DynamicText v-if="factory.errors.password" class="small text-danger d-block">
 					{{ factory.errors.password }}
 				</DynamicText>
-			</div>
-			<div class="text-end">
-				<NuxtLink class="linkText text-decoration-none" to="/auth/forgot">
-					Forgot Password
-				</NuxtLink>
+				<div class="text-end mt-1">
+					<NuxtLink class="linkText text-decoration-none" to="/auth/forgot">
+						Forgot Password
+					</NuxtLink>
+				</div>
 			</div>
 			<button class="btn btn-lg btn-custom py-1 " type="submit">
 				Sign In
@@ -81,12 +81,6 @@ export default defineComponent({
 })
 </script>
 <style lang="scss" scoped>
-	.headerStyle {
-		font-weight: bolder;
-		text-transform: none;
-		color: $color-dark;
-	}
-
 	input {
 		border: 1px solid $color-sub;
 		border-radius: 6px;
@@ -95,7 +89,7 @@ export default defineComponent({
 	}
 
 	.btn-custom {
-		background-color: $color-primary-dark;
+		background-color: $color-primary;
 		color: $color-white;
 		border: 2px solid;
 		border-radius: 6px;
@@ -104,7 +98,7 @@ export default defineComponent({
 	}
 
 	.linkText {
-		color: $color-primary-dark;
+		color: $color-primary;
 		text-decoration: underline;
 		font-weight: bold;
 	}

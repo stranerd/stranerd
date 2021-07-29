@@ -1,17 +1,15 @@
 <template>
 	<div class="d-flex flex-column gap-1">
-		<h2 v-if="answers.length > 0" class="headerStyle">
+		<Heading v-if="answers.length > 0" variant="2">
 			Answers
-		</h2>
+		</Heading>
 		<AnswerCard v-for="answer in answers" :key="answer.hash" :answer="answer" :question="question" />
 		<div v-if="!loading && !error && answers.length === 0" class="bg-line rounded-3 p-1-5 text-center">
 			<DynamicText>
 				{{ question.userName }} needs your help!<br>Answer the question and earn some bronze coins.
 			</DynamicText>
 		</div>
-		<span>
-			<DisplayError :error="error" />
-		</span>
+		<DisplayError :error="error" />
 		<PageLoading v-if="loading" />
 	</div>
 </template>
@@ -40,11 +38,3 @@ export default defineComponent({
 	}
 })
 </script>
-<style lang="scss" scoped>
-	.headerStyle {
-		font-weight: bold;
-		text-transform: none;
-		color: $color-dark;
-		margin-bottom: 0;
-	}
-</style>

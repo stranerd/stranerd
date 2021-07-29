@@ -1,5 +1,5 @@
 import { BaseEntity, Media } from '@modules/core'
-import { capitalize, catchDivideByZero } from '@utils/commons'
+import { capitalize, catchDivideByZero, formatNumber } from '@utils/commons'
 import { getScore, getMyRank, getRankProgress, getScholarLevel, getExpectedScore } from './rank'
 
 export class UserEntity extends BaseEntity {
@@ -106,6 +106,7 @@ export class UserEntity extends BaseEntity {
 	get expectedScore () { return getExpectedScore(this) }
 	get rank () { return getMyRank(this) }
 	get rankProgress () { return getRankProgress(this) }
+	get formattedScore () { return formatNumber(this.score, 2) }
 
 	get isScholar () { return this.rank.level >= getScholarLevel() }
 	get currentSession () { return this.session.currentSession || this.session.currentTutorSession || null }

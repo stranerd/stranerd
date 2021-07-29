@@ -37,27 +37,24 @@
 						<i class="fas" :class="show ? 'fa-angle-up' : 'fa-angle-down'" />
 					</span>
 				</div>
-
-				<transition name="slide" appear>
-					<div v-if="show" class="menu-bg">
-						<div class="under" @click="show = false" />
-						<div class="drop-menu gap-1-5">
-							<NuxtLink to="/account/">
-								<img src="@app/assets/images/icons/user.svg" alt="">
-								Profile
-							</NuxtLink>
-							<NuxtLink v-if="isAdmin" to="/admin/">
-								<img src="@app/assets/images/icons/admin.svg" alt="">
-								Admin
-							</NuxtLink>
-							<span @click="signout">
-								<img src="@app/assets/images/icons/signout.svg" alt="">
-								Log Out
-							</span>
-							<PageLoading v-if="loading" />
-						</div>
-					</div>
-				</transition>
+			</div>
+			<div v-if="show" class="menu-bg">
+				<div class="under" @click="show = false" />
+				<div class="drop-menu gap-1-5">
+					<NuxtLink to="/account/">
+						<img src="@app/assets/images/icons/user.svg" alt="">
+						Profile
+					</NuxtLink>
+					<NuxtLink v-if="isAdmin" to="/admin/">
+						<img src="@app/assets/images/icons/admin.svg" alt="">
+						Admin
+					</NuxtLink>
+					<span @click="signout">
+						<img src="@app/assets/images/icons/signout.svg" alt="">
+						Log Out
+					</span>
+					<PageLoading v-if="loading" />
+				</div>
 			</div>
 		</template>
 	</nav>
@@ -112,6 +109,33 @@ export default defineComponent({
 			top: 0;
 			bottom: 0;
 		}
+
+		.drop-menu {
+			position: absolute;
+			top: 60px;
+			right: 24px;
+			display: flex;
+			flex-direction: column;
+			width: auto;
+			min-width: 200px;
+			padding: 1.5rem;
+			background: $color-white 0% 0% no-repeat padding-box;
+			box-shadow: 0 10px 10px rgba($color-primary, 0.2);
+			border-radius: 6px;
+
+			& > * {
+				display: flex;
+				align-items: center;
+				color: $color-dark;
+				font-weight: 600;
+
+				img {
+					margin-right: 18px;
+					width: 24px;
+					filter: brightness(50%);
+				}
+			}
+		}
 	}
 
 	.default-top-nav {
@@ -137,39 +161,10 @@ export default defineComponent({
 	.right-body {
 		display: flex;
 		align-items: center;
-
-		.drop-menu {
-			position: absolute;
-			top: 96px;
-			right: 24px;
-			display: flex;
-			flex-direction: column;
-			width: auto;
-			min-width: 200px;
-			padding: 1.5rem;
-			background: $color-white 0% 0% no-repeat padding-box;
-			box-shadow: 0 10px 10px rgba($color-primary, 0.1);
-			border-radius: 6px;
-
-			& > * {
-				display: flex;
-				color: $color-dark;
-				font-weight: 600;
-
-				img {
-					margin-right: 18px;
-					width: 24px;
-				}
-			}
-		}
 	}
 
 	.username {
 		font-size: 18px;
 		font-weight: 600;
 	}
-
-	.slide-enter-active, .slide-leave-active { transition: 0.25s; }
-
-	.slide-enter, .slide-leave-to { transform: translateY(-170px); }
 </style>

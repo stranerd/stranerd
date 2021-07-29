@@ -1,11 +1,11 @@
 <template>
 	<form @submit.prevent="submitComment">
 		<div class="form-group">
-			<div class="d-flex align-items-center gap-1">
+			<div class="d-flex align-items-center gap-0-5 gap-md-1">
 				<Avatar :src="isLoggedIn ? user.avatar : null" :size="35" />
 				<input
 					v-model="factory.body"
-					class="form-control flex-grow-1"
+					class="form-control p-0 flex-grow-1"
 					placeholder="Add a comment..."
 					:class="{'is-invalid': factory.errors.body, 'is-valid': factory.isValid('body') }"
 				>

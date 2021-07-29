@@ -9,9 +9,9 @@ enum Numbers {
 
 export const catchDivideByZero = (num: number, den: number) => den === 0 ? 0 : num / den
 
-export const formatNumber = (num: number) => {
+export const formatNumber = (num: number, dp = 0) => {
 	num = Math.abs(num)
-	if (num < Numbers.thousand) return num.toFixed(0).replace('.0', '')
+	if (num < Numbers.thousand) return num.toFixed(dp).replace('.0', '')
 	else if (num < Numbers.million) return (num / Numbers.thousand).toFixed(1).replace('.0', '') + 'k'
 	else if (num < Numbers.billion) return (num / Numbers.million).toFixed(1).replace('.0', '') + 'm'
 	else if (num < Numbers.trillion) return (num / Numbers.billion).toFixed(1).replace('.0', '') + 'b'

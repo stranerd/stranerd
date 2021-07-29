@@ -50,11 +50,9 @@ export default defineComponent({
 		height: 24px;
 
 		.progress-bar {
-			background: #00f332;
+			background: $color-green;
 			border-radius: 0;
-			border-top: 1px solid $color-sub;
-			border-bottom: 1px solid $color-sub;
-			border-left: 1px solid $color-sub;
+			border: 2px solid $color-sub;
 		}
 	}
 </style>

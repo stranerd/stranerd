@@ -1,11 +1,11 @@
 <template>
-	<div class="py-md-1 px-0-5 px-md-3 px-lg-4 py-lg-1-5 d-flex flex-column flex-lg-row align-items-center gap-2">
+	<div class="py-md-1 px-0-5 px-md-3 px-lg-4 py-lg-1-5 d-flex flex-column flex-lg-row align-items-center gap-3">
 		<form class="gap-1 gap-md-2 d-flex flex-column w-100 flex-grow-1" @submit.prevent="resetPassword">
-			<h1 class="mb-0">
+			<Heading variant="1" class="text-center">
 				Reset Password
-			</h1>
+			</Heading>
 			<!-- TODO: add logic for reset password in app -->
-			<span class="textStyle mt-n1">
+			<span class="textStyle text-center">
 				To reset your password, type your new password below and reset
 			</span>
 			<div>
@@ -70,12 +70,6 @@ export default defineComponent({
 })
 </script>
 <style lang="scss" scoped>
-	.headerStyle {
-		font-weight: bolder;
-		text-transform: none;
-		color: $color-dark;
-	}
-
 	input {
 		border: 1px solid $color-sub;
 		border-radius: 6px;
@@ -84,7 +78,7 @@ export default defineComponent({
 	}
 
 	.btn-custom {
-		background-color: $color-primary-dark;
+		background-color: $color-primary;
 		color: $color-white;
 		border: 2px solid;
 		border-radius: 6px;
@@ -93,7 +87,7 @@ export default defineComponent({
 	}
 
 	.linkText {
-		color: $color-primary-dark;
+		color: $color-primary;
 		text-decoration: underline;
 		font-weight: bold;
 	}

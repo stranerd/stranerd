@@ -1,8 +1,8 @@
 <template>
 	<div class="d-flex flex-column gap-1">
-		<h2 class="headerStyle">
+		<Heading variant="2">
 			Similar Questions
-		</h2>
+		</Heading>
 		<QuestionCard v-for="similarQuestion in questions" :key="similarQuestion.hash" :question="similarQuestion" />
 		<span>
 			<DisplayWarning v-if="!loading && !error && questions.length === 0" message="No other questions found." />
@@ -37,11 +37,3 @@ export default defineComponent({
 	}
 })
 </script>
-
-<style lang="scss" scoped>
-	.headerStyle {
-		font-weight: bold;
-		color: $color-dark;
-		margin-bottom: 0;
-	}
-</style>

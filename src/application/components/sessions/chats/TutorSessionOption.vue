@@ -1,9 +1,10 @@
 <template>
-	<div class="d-flex gap-1 align-items-center justify-content-center bg-line py-1">
-		<button class="btn btn-sm btn-success flex-grow-1 w-100" @click="acceptSession">
+	<div class="d-flex justify-content-center bg-primary text-white">
+		<button class="btn text-white flex-grow-1 w-100 py-1" @click="acceptSession">
 			Accept
 		</button>
-		<button class="btn btn-sm btn-danger flex-grow-1 w-100" @click="rejectSession">
+		<div class="bg-white my-0-5" style="width: 1px; height: inherit;" />
+		<button class="btn text-dark flex-grow-1 w-100 py-1" @click="rejectSession">
 			Reject
 		</button>
 		<PageLoading v-if="loading" />

@@ -1,9 +1,11 @@
 <template>
-	<div class="notification gap-0-5 text-dark">
+	<div class="notification gap-0-5 text-dark" @click="markSeen">
 		<PageLoading v-if="loading" />
-		<BodyText variant="large" class="main cursor-pointer" :class="{'fw-bold': !notification.seen}" @click.prevent="click">
-			<DynamicText>{{ notification.body }}</DynamicText>
-		</BodyText>
+		<NuxtLink :to="notification.action" :class="{'fw-bold': !notification.seen}">
+			<BodyText variant="large" class="main cursor-pointer">
+				<DynamicText>{{ notification.body }}</DynamicText>
+			</BodyText>
+		</NuxtLink>
 		<BodyText variant="sub">
 			<DynamicText>{{ formatTime(notification.createdAt) }}</DynamicText>
 		</BodyText>
@@ -11,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, useRouter } from '@nuxtjs/composition-api'
+import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { NotificationEntity } from '@modules/users'
 import { formatTime } from '@utils/dates'
 import { useNotification } from '@app/hooks/users/notifications'
@@ -24,13 +26,11 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
-		const router = useRouter()
 		const { loading, error, markNotificationSeen } = useNotification(props.notification)
-		const click = async () => {
+		const markSeen = async () => {
 			await markNotificationSeen()
-			await router.push(props.notification.action)
 		}
-		return { loading, error, click, formatTime }
+		return { loading, error, markSeen, formatTime }
 	}
 })
 </script>

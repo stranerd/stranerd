@@ -26,7 +26,7 @@ export default defineComponent({
 	},
 	setup (props) {
 		const source = computed({
-			get: () => props.src?.link === 'string' ? props.src.link : DEFAULT_PROFILE_IMAGE,
+			get: () => typeof props.src?.link === 'string' ? props.src.link : DEFAULT_PROFILE_IMAGE,
 			set: () => {}
 		})
 		return { source }

@@ -1,25 +1,29 @@
 <template>
 	<section class="layout-page">
-		<HomeTopNavigation />
+		<div class="d-flex pt-1 p-1 px-2 py-md-2">
+			<NuxtLink to="/" class="ms-auto">
+				<img src="@app/assets/images/icons/close.svg" width="24" alt="" class="d-md-none">
+				<img src="@app/assets/images/icons/close.svg" width="30" alt="" class="d-none d-md-inline">
+			</NuxtLink>
+		</div>
 		<section class="layout-body gap-3">
 			<main class="layout-main">
 				<Nuxt />
 			</main>
 		</section>
+		<ModalBase />
 	</section>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import HomeTopNavigation from '@app/components/layouts/topNavigations/HomeTopNavigation.vue'
 export default defineComponent({
-	name: 'AuthLayout',
-	components: { HomeTopNavigation }
+	name: 'AuthLayout'
 })
 </script>
 
 <style lang="scss" scoped>
 	.layout-body {
-		max-width: 1440px;
+		max-width: 1200px;
 	}
 </style>

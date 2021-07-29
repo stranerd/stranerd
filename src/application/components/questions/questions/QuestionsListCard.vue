@@ -5,7 +5,13 @@
 				<NuxtLink :to="`/users/${question.userId}`">
 					<Avatar :src="question.avatar" :size="36" />
 				</NuxtLink>
-				<Subject :subject-id="question.subjectId" class="subject" />
+				<div class="d-flex flex-column align-items-md-center flex-md-row gap-md-0-5 fw-bold">
+					<NuxtLink class="name d-none d-md-inline" :to="`/users/${question.userId}`">
+						<DynamicText>{{ question.userName }}</DynamicText>
+					</NuxtLink>
+					<div class="dot d-none d-md-inline ms-0-25 me-0-75" />
+					<Subject :subject-id="question.subjectId" class="subject" />
+				</div>
 			</div>
 			<img v-if="question.isAnswered" src="@app/assets/images/icons/profile-best-answers.svg" alt="" style="width: 2rem; height: 2rem;">
 			<div v-else-if="showAnswerButton" class="d-flex align-items-center gap-1">
@@ -25,14 +31,15 @@
 			</DynamicText>
 		</NuxtLink>
 
-		<div class="d-flex flex-wrap align-items-center justify-content-between gap-1 gap-md-2 sec-text">
-			<DynamicText class="name order-1 order-md-1">
-				Posted {{ formatTime(question.createdAt) }}
-			</DynamicText>
-			<div class="gap-0-75 d-flex flex-wrap align-items-center order-3 order-md-2">
+		<div class="d-flex align-items-center flex-row flex-wrap gap-1">
+			<div class="d-flex align-items-center gap-0-5 gap-md-1 me-auto tags">
 				<Tag v-for="tag in question.tags" :key="tag" :tag="tag" />
 			</div>
-			<div class="d-flex align-items-center gap-1 order-md-3 order-2">
+			<DynamicText class="name">
+				Posted {{ formatTime(question.createdAt) }}
+			</DynamicText>
+			<div class="dot" />
+			<div class="d-flex align-items-center gap-1">
 				<span class="d-flex align-items-center gap-0-5">
 					<img src="@app/assets/images/icons/answers.svg" alt="" class="sub-icons">
 					<DynamicText>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</DynamicText>
@@ -86,15 +93,14 @@ export default defineComponent({
 		@media (min-width: $md) { font-size: 16px; }
 	}
 
-	.question-head {
-		.dot {
-			width: 6px;
-			height: 6px;
-			background-color: $color-sub;
-			margin: 0 12px 0 3px;
-			border-radius: 50px;
-		}
+	.dot {
+		width: 6px;
+		height: 6px;
+		background-color: $color-sub;
+		border-radius: 50px;
+	}
 
+	.question-head {
 		.name {
 			color: $color-dark;
 			font-size: 18px;
@@ -120,5 +126,10 @@ export default defineComponent({
 			transform: scale(1.1);
 			transition: 0.5s;
 		}
+	}
+
+	.tags {
+		flex: 1 0 100%;
+		@media (min-width: $md) { flex: 1 1 0; }
 	}
 </style>

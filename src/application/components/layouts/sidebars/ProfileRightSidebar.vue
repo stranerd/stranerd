@@ -1,8 +1,34 @@
 <template>
 	<div v-if="user">
-		<div class="d-flex d-lg-none justify-content-evenly align-items-center gap-0-5 px-1 py-1-5">
-			<img :src="user.rank.image" alt="" class="img-rank">
-			<DonutChart :score="user.score <= user.expectedScore ? user.score : user.expectedScore" :total="user.expectedScore" :size="100" />
+		<div class="d-flex flex-column flex-md-row d-lg-none justify-content-center align-items-center gap-1-5 px-1 py-1-5">
+			<div class="col-md-6 d-flex flex-column gap-1 align-items-center">
+				<Heading variant="1" class="ranking-header">
+					<DynamicText>
+						{{ user.id === id ? 'My Rank' : user.firstName + '\'s Badge' }}
+					</DynamicText>
+				</Heading>
+				<img :src="user.rank.image" alt="" class="img-rank">
+			</div>
+			<div class="border border-line align-self-stretch w-75 mx-auto" style="border-width: 1px !important;" />
+			<div class="col-md-6 d-flex flex-column gap-1 align-items-center">
+				<Heading variant="1" class="ranking-header">
+					<DynamicText>
+						{{ user.id === id ? 'My' : user.firstName + '\'s' }} Nerd Score
+					</DynamicText>
+				</Heading>
+				<template v-if="user.id === id">
+					<DonutChart :score="user.score <= user.expectedScore ? user.score : user.expectedScore" :total="user.expectedScore" :size="120" />
+					<span class="text-18 text-dark text-center">
+						{{
+							user.score / user.expectedScore > 0.75 ? 'Your Nerd Score is high. Nice job.' :
+							user.score / user.expectedScore > 0.5 ? 'Your Nerd Score is ok but not there yet. Keep pushing.' :
+							user.score / user.expectedScore > 0.25 ? 'Your Nerd Score is not strong. You can do better.' :
+							'Your Nerd Score is low. Try to bring it up.'
+						}}
+					</span>
+				</template>
+				<span v-else class="score">{{ user.formattedScore }}</span>
+			</div>
 		</div>
 		<div class="d-none d-lg-flex flex-column gap-2-25">
 			<template v-if="user.id === id">
@@ -28,29 +54,32 @@
 			</template>
 			<div v-else class="d-flex flex-column gap-1 ranking">
 				<div class="d-flex flex-column gap-1 align-items-center text-blue">
-					<h1 class="ranking-header">
+					<Heading variant="1" class="ranking-header">
 						<DynamicText>
-							{{ user.firstName }}'s Badge'
+							{{ user.id === id ? 'My Rank' : user.firstName + '\'s Badge' }}
 						</DynamicText>
-					</h1>
+					</Heading>
 					<img :src="user.rank.image" alt="" class="img-rank">
 				</div>
 			</div>
 			<div class="d-flex flex-column gap-1 align-items-center ranking">
-				<h1 class="ranking-header">
+				<Heading variant="1" class="ranking-header">
 					<DynamicText>
 						{{ user.id === id ? 'My' : user.firstName + '\'s' }} Nerd Score
 					</DynamicText>
-				</h1>
-				<DonutChart :score="user.score <= user.expectedScore ? user.score : user.expectedScore" :total="user.expectedScore" />
-				<span v-if="user.id === id && user.score" class="text-18 text-dark text-center">
-					{{
-						user.score / user.expectedScore > 0.75 ? 'Your Nerd Score is high. Nice job.' :
-						user.score / user.expectedScore > 0.5 ? 'Your Nerd Score is ok but not there yet. Keep pushing.' :
-						user.score / user.expectedScore > 0.25 ? 'Your Nerd Score is not strong. You can do better.' :
-						'Your Nerd Score is low. Try to bring it up.'
-					}}
-				</span>
+				</Heading>
+				<template v-if="user.id === id">
+					<DonutChart :score="user.score <= user.expectedScore ? user.score : user.expectedScore" :total="user.expectedScore" :size="120" />
+					<span class="text-18 text-dark text-center">
+						{{
+							user.score / user.expectedScore > 0.75 ? 'Your Nerd Score is high. Nice job.' :
+							user.score / user.expectedScore > 0.5 ? 'Your Nerd Score is ok but not there yet. Keep pushing.' :
+							user.score / user.expectedScore > 0.25 ? 'Your Nerd Score is not strong. You can do better.' :
+							'Your Nerd Score is low. Try to bring it up.'
+						}}
+					</span>
+				</template>
+				<span v-else class="score">{{ user.formattedScore }}</span>
 			</div>
 		</div>
 	</div>
@@ -106,5 +135,18 @@ export default defineComponent({
 		font-size: 14px;
 		font-weight: 600;
 		color: $color-sub;
+	}
+
+	.score {
+		font-size: 2rem !important;
+		font-weight: 700;
+		width: 7.5rem;
+		height: 7.5rem;
+		border-radius: 10rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: $color-sub;
+		color: $color-white;
 	}
 </style>

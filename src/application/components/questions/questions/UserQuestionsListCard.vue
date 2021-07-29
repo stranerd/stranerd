@@ -3,21 +3,23 @@
 		<NuxtLink class="text-18" :to="`/questions/${question.id}`">
 			<DynamicText>{{ question.trimmedBody }}</DynamicText>
 		</NuxtLink>
-		<div class="d-flex flex-row flex-wrap align-items-center gap-0-5">
+		<div class="d-flex align-items-center flex-row flex-wrap gap-1">
+			<div class="d-flex align-items-center gap-0-5 gap-md-1 me-auto tags">
+				<Tag v-for="tag in question.tags" :key="tag" :tag="tag" />
+			</div>
 			<img v-if="question.isAnswered" src="@app/assets/images/icons/profile-best-answers.svg" class="sub-icons">
+			<div v-if="question.isAnswered" class="dot" />
 			<Subject :subject-id="question.subjectId" />
 			<div class="dot" />
-			<DynamicText class="me-auto">
+			<DynamicText class="name">
 				Posted {{ formatTime(question.createdAt) }}
 			</DynamicText>
-			<div class="order-md-1 ms-auto">
+			<div class="dot" />
+			<div class="d-flex align-items-center gap-1">
 				<span class="d-flex align-items-center gap-0-5">
-					<DynamicText>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</DynamicText>
 					<img src="@app/assets/images/icons/answers.svg" alt="" class="sub-icons">
+					<DynamicText>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</DynamicText>
 				</span>
-			</div>
-			<div class="gap-0-25 d-flex align-items-center flex-wrap">
-				<Tag v-for="tag in question.tags" :key="tag" :tag="tag" />
 			</div>
 		</div>
 	</div>
@@ -51,5 +53,10 @@ export default defineComponent({
 		height: 6px;
 		background-color: $color-sub;
 		border-radius: 50px;
+	}
+
+	.tags {
+		flex: 1 0 100%;
+		@media (min-width: $md) { flex: 1 1 0; }
 	}
 </style>

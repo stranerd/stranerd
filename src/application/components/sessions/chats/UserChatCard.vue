@@ -14,7 +14,7 @@
 				<DynamicText :truncate="true">
 					{{ meta.last.isMedia ? meta.last.media.name : meta.last.content }}
 				</DynamicText>
-				<span v-if="meta.unRead.length" class="bg-success ms-auto">
+				<span v-if="meta.unRead.length" class="bg-success ms-auto d-flex align-items-center justify-content-center rounded-pill text-white" style="height: 1.5em; width: 1.5em;">
 					{{ meta.unRead.length }}
 				</span>
 			</div>

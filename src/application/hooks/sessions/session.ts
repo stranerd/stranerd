@@ -3,9 +3,12 @@ import VueRouter from 'vue-router'
 import { useListener, useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 import { GetSession, GetSessions, ListenToSession, ListenToSessions, SessionEntity } from '@modules/sessions'
 import { useAuth } from '@app/hooks/auth/auth'
-import { Alert } from '../core/notifications'
+import { Alert } from '@app/hooks/core/notifications'
+import { setOtherParticipantId } from '@app/hooks/sessions/sessions'
+import { useSessionModal } from '@app/hooks/core/modals'
 
 const currentGlobal = {
+	previousSession: ssrRef(null as SessionEntity | null),
 	currentSession: ssrRef(null as SessionEntity | null),
 	listener: useListener(async () => () => {})
 }
@@ -26,6 +29,13 @@ export const useCurrentSession = () => {
 			const session = await GetSession.call(id)
 			currentGlobal.listener.resetListener(
 				async () => ListenToSession.call(id, (s) => {
+					const oldDone = currentGlobal.currentSession.value?.done ?? false
+					if (!oldDone && s?.done) {
+						const id = userId === s.tutorId ? s.studentId : s.tutorId
+						setOtherParticipantId(id)
+						useSessionModal().openRatings()
+					}
+					currentGlobal.previousSession.value = currentGlobal.currentSession.value
 					if (s) currentGlobal.currentSession.value = s
 				})
 			)
@@ -124,7 +134,7 @@ const callback = (key: SessionKey, sessions: SessionEntity[], userId: string, ro
 				title: 'New session request',
 				text: '',
 				icon: 'info',
-				cancelButtonText: 'Cancel',
+				cancelButtonText: 'Ignore',
 				confirmButtonText: 'Continue'
 			})
 			if (res) await router.push(route)

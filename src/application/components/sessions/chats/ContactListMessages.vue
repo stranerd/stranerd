@@ -6,7 +6,7 @@
 			<ChatList :user-id="userId" class="flex-grow-1 px-1 px-md-2" />
 			<TutorSessionOption v-if="requestedSession" :session="requestedSession" class="px-1 px-md-2" />
 			<StudentWaitingSession v-if="requestingSession" :session="requestingSession" class="px-1 px-md-2" />
-			<ChatForm v-if="sessionId" :user-id="userId" :session-id="sessionId" class="px-1 px-md-2" />
+			<ChatForm v-if="1 || sessionId" :user-id="userId" :session-id="sessionId" class="px-1 px-md-2" />
 		</div>
 		<DisplayError v-else error="No such user exists!" />
 	</div>
@@ -21,7 +21,7 @@ import TutorSessionOption from '@app/components/sessions/chats/TutorSessionOptio
 import StudentWaitingSession from '@app/components/sessions/chats/StudentWaitingSession.vue'
 import { useUser } from '@app/hooks/users/user'
 import { useAuth } from '@app/hooks/auth/auth'
-import { hasRequestedSessionWith, isRequestingSessionWith } from '@app/hooks/sessions/session'
+import { hasRequestedSessionWith, isRequestingSessionWith, useCurrentSession } from '@app/hooks/sessions/session'
 export default defineComponent({
 	name: 'ContactListMessages',
 	components: { ChatHead, ChatList, ChatForm, TutorSessionOption, StudentWaitingSession },
@@ -34,6 +34,7 @@ export default defineComponent({
 	setup (props) {
 		const { currentSessionId, user: authUser } = useAuth()
 		const { user, loading, error, listener } = useUser(props.userId)
+		const { currentSession } = useCurrentSession()
 		onMounted(listener.startListener)
 		onBeforeUnmount(listener.closeListener)
 		const sessionId = computed({
@@ -43,7 +44,12 @@ export default defineComponent({
 			set: () => {}
 		})
 		const hash = computed({
-			get: () => authUser.value?.hash ?? '' + user.value?.hash ?? '' + sessionId.value,
+			get: () => [
+				authUser.value?.hash ?? 'auth',
+				user.value?.hash ?? 'user',
+				sessionId.value,
+				currentSession.value?.hash ?? ''
+			].join('--'),
 			set: () => {}
 		})
 		const requestedSession = hasRequestedSessionWith(props.userId)

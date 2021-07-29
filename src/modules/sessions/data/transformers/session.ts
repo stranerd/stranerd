@@ -7,12 +7,12 @@ export class SessionTransformer {
 		const {
 			id, duration, price, message,
 			studentId, tutorId, studentBio, tutorBio,
-			accepted, cancelled, reviews,
+			accepted, done, cancelled, reviews,
 			dates: { createdAt, endedAt }
 		} = model
 		return new SessionEntity({
 			id, message, studentId, tutorId, studentBio, tutorBio,
-			duration, price, accepted, cancelled, reviews,
+			duration, price, accepted, done, cancelled, reviews,
 			createdAt: timestampToMs(createdAt),
 			endedAt: endedAt ? timestampToMs(endedAt) : undefined
 		})
@@ -28,6 +28,7 @@ export class SessionTransformer {
 			duration: entity.duration,
 			price: entity.price,
 			accepted: entity.accepted,
+			done: entity.done,
 			cancelled: entity.cancelled,
 			reviews: entity.reviews
 		}

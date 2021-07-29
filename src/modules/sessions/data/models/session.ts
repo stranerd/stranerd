@@ -10,6 +10,7 @@ export interface SessionFromModel {
 	tutorBio: UserBio
 	duration: number
 	accepted: boolean
+	done: boolean
 	price: number
 	cancelled: { tutor: boolean, student: boolean, busy: boolean }
 	reviews: {
@@ -31,6 +32,7 @@ export interface SessionToModel {
 	duration: number
 	price: number
 	accepted: boolean
+	done: boolean
 	reviews: {
 		student?: { rating: number, comment: string }
 		tutor?: { rating: number, comment: string }

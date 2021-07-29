@@ -11,6 +11,7 @@ export class SessionEntity extends BaseEntity {
 	readonly duration: number
 	readonly price: number
 	readonly accepted: boolean
+	readonly done: boolean
 	readonly cancelled: { student: boolean, tutor: boolean, busy: boolean }
 	readonly reviews: {
 		student?: { rating: number, comment: string }
@@ -23,7 +24,7 @@ export class SessionEntity extends BaseEntity {
 	constructor ({
 		id, duration, price, message,
 		studentId, tutorId, studentBio, tutorBio,
-		accepted, createdAt, cancelled, reviews, endedAt
+		accepted, done, createdAt, cancelled, reviews, endedAt
 	}: SessionConstructorArgs) {
 		super()
 		this.id = id
@@ -34,7 +35,8 @@ export class SessionEntity extends BaseEntity {
 		this.tutorBio = generateDefaultBio(tutorBio)
 		this.duration = duration
 		this.price = price
-		this.accepted = accepted
+		this.accepted = accepted ?? false
+		this.done = done ?? false
 		this.cancelled = cancelled
 		this.reviews = reviews
 		this.createdAt = createdAt
@@ -43,12 +45,15 @@ export class SessionEntity extends BaseEntity {
 
 	get studentAvatar () { return this.studentBio.avatar }
 	get tutorAvatar () { return this.tutorBio.avatar }
+
+	get wasCancelled () { return this.cancelled.busy || this.cancelled.student || this.cancelled.tutor }
 }
 
 type SessionConstructorArgs = {
 	id: string, duration: number, price: number, message: string,
 	studentId: string, tutorId: string, studentBio: UserBio, tutorBio: UserBio,
-	accepted: boolean, cancelled: { tutor: boolean, student: boolean, busy: boolean },
+	accepted: boolean, done: boolean,
+	cancelled: { tutor: boolean, student: boolean, busy: boolean },
 	reviews: {
 		student?: { rating: number, comment: string }
 		tutor?: { rating: number, comment: string }

@@ -17,7 +17,8 @@ export const cancelSession = functions.https.onCall(async ({ id }, context) => {
 		await ref.set({
 			cancelled: {
 				[context.auth.uid === studentId ? 'student' : 'tutor']: true
-			}
+			},
+			done: true
 		}, { merge: true })
 
 		await admin.database().ref('profiles')

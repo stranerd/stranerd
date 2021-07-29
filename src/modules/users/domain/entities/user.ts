@@ -40,6 +40,7 @@ export class UserEntity extends BaseEntity {
 				answerComments: account?.meta?.answerComments ?? {},
 				sessions: account?.meta?.sessions ?? {},
 				completedSessions: account?.meta?.completedSessions ?? {},
+				completedTutorSessions: account?.meta?.completedTutorSessions ?? {},
 				tutorSessions: account?.meta?.tutorSessions ?? {}
 			},
 			streak: {
@@ -165,6 +166,7 @@ export interface UserAccount {
 		answerComments: Record<string, boolean>
 		sessions: Record<string, boolean>
 		completedSessions: Record<string, boolean>
+		completedTutorSessions: Record<string, boolean>
 		tutorSessions: Record<string, boolean>
 	}
 	streak: {

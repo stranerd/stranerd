@@ -4,7 +4,8 @@
 			Rate Session
 		</template>
 		<p class="text-center my-0">
-			Time to leave a rating for the session
+			<span v-if="session && session.wasCancelled">The session was cancelled.</span>
+			<span>Time to leave a rating for the session</span>
 		</p>
 		<div class="text-center my-1">
 			<SelectRating :rating="rating" :set-rating="(val) => rating = val" />
@@ -23,13 +24,15 @@
 </template>
 
 <script>
+import { useCurrentSession } from '@app/hooks/sessions/session'
 import { useRateSession } from '@app/hooks/sessions/sessions'
 import { defineComponent } from '@nuxtjs/composition-api'
 export default defineComponent({
 	name: 'SessionRatings',
 	setup () {
+		const { previousSession: session } = useCurrentSession()
 		const { loading, error, rating, review, rateSession } = useRateSession('')
-		return { loading, error, rating, review, rateSession }
+		return { loading, error, rating, review, rateSession, session }
 	}
 })
 </script>

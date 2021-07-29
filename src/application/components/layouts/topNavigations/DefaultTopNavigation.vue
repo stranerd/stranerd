@@ -118,7 +118,7 @@ export default defineComponent({
 		display: flex;
 		align-items: center;
 		color: $color-white;
-		background: $color-primary;
+		background: $color-primary-dark;
 		padding: 0.75rem 1rem;
 		@media (min-width: $md) { padding: 0.75rem 2rem; }
 		@media (min-width: $lg) { padding: 0.75rem 3rem; }

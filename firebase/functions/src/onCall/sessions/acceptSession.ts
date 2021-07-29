@@ -27,7 +27,7 @@ export const acceptSession = functions.https.onCall(async (data, context) => {
 			const taskName = await createTask({
 				queue: 'sessions',
 				endpoint: 'endSession',
-				payload: { studentId, tutorId, id },
+				payload: { id },
 				timeInSecs: (duration * 60) + (Date.now() / 1000) + 5 // plus 5 to account for round trips to servers
 			})
 

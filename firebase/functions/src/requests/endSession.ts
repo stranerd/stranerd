@@ -3,13 +3,16 @@ import * as admin from 'firebase-admin'
 
 export const endSession = functions.https.onRequest(async (request, response) => {
 	try {
-		const { studentId, tutorId, id } = request.body
+		const { id } = request.body
 
-		const session = await admin.firestore().collection('sessions')
-			.doc(id)
-			.get()
-		const { cancelled = {} } = session.data() ?? {}
-		const { student = false, tutor = false, busy = false } = cancelled
+		const ref = admin.firestore().collection('sessions').doc(id)
+		const session = await ref.get()
+		const {
+			cancelled: { student = false, tutor = false, busy = false } = {},
+			studentId = '',
+			tutorId = ''
+		} = session.data() ?? {}
+		await ref.set({ done: true }, { merge: true })
 
 		await admin.database().ref('profiles')
 			.child(studentId)
@@ -28,9 +31,10 @@ export const endSession = functions.https.onRequest(async (request, response) =>
 			})
 
 		if (!student && !tutor && !busy) await admin.database().ref('profiles')
-			.child(studentId)
-			.child(`account/meta/completedSessions/${id}`)
-			.set(true)
+			.update({
+				[`${studentId}/account/meta/completedSessions/${id}`]: true,
+				[`${tutorId}/account/meta/completedTutorSessions/${id}`]: true
+			})
 
 		response.json({ success: true })
 	} catch (error) {

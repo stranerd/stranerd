@@ -37,7 +37,7 @@
 import { computed, defineComponent, onBeforeUnmount, onMounted, PropType, ref } from '@nuxtjs/composition-api'
 import { UserEntity } from '@modules/users'
 import { useCountdown, useTimeDifference } from '@app/hooks/core/dates'
-import { setNewSessionTutorIdBio, useSession, setOtherParticipantId } from '@app/hooks/sessions/sessions'
+import { setNewSessionTutorIdBio, useSession } from '@app/hooks/sessions/sessions'
 import { useReportModal, useSessionModal } from '@app/hooks/core/modals'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useCurrentSession } from '@app/hooks/sessions/session'
@@ -55,10 +55,8 @@ export default defineComponent({
 		const show = ref(false)
 		const { time, startTimer, stopTimer } = useTimeDifference(props.user.lastSeen)
 		const { id, currentSessionId, user } = useAuth()
-		const { currentSession, endDate, otherParticipantId } = useCurrentSession()
-		const { diffInSec, startTimer: startCountdown, stopTimer: stopCountdown } = useCountdown(endDate.value, {
-			0: useSessionModal().openRatings
-		})
+		const { currentSession, endDate } = useCurrentSession()
+		const { diffInSec, startTimer: startCountdown, stopTimer: stopCountdown } = useCountdown(endDate.value, {})
 		onMounted(() => {
 			startTimer()
 			startCountdown()
@@ -99,7 +97,6 @@ export default defineComponent({
 			useReportModal().openReportUser()
 			show.value = false
 		}
-		if (otherParticipantId.value) setOtherParticipantId(otherParticipantId.value)
 		const canRequestSession = computed({
 			get: () => user.value?.canRequestSessions && props.user.canHostSessions,
 			set: () => {}

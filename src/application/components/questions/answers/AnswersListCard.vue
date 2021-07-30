@@ -20,7 +20,7 @@
 					<span>Explanation</span>
 					<i class="fas" :class="showExplanation ? 'fa-angle-up' : 'fa-angle-down'" />
 				</span>
-				<span v-if="question.isAnswered" class="d-flex align-items-center gap-0-25 text-success" @click.prevent="markBestAnswer">
+				<span v-if="answer.best" class="d-flex align-items-center gap-0-25 text-success" @click.prevent="markBestAnswer">
 					<span>Best answer</span>
 					<i class="fas fa-check-circle" />
 				</span>

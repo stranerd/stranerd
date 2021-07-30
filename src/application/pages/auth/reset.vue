@@ -1,59 +1,54 @@
 <template>
-	<div class="py-md-1 px-0-5 px-md-3 px-lg-4 py-lg-1-5 d-flex flex-column flex-lg-row align-items-center gap-3">
-		<form class="gap-1 gap-md-2 d-flex flex-column w-100 flex-grow-1" @submit.prevent="resetPassword">
-			<Heading variant="1" class="text-center">
-				Reset Password
-			</Heading>
-			<!-- TODO: add logic for reset password in app -->
-			<span class="textStyle text-center">
-				To reset your password, type your new password below and reset
-			</span>
-			<div>
-				<input
-					id="password"
-					v-model="factory.password"
-					type="password"
-					name="password"
-					required
-					placeholder="New Password"
-					class="form-control"
-					autocomplete="password"
-				>
-				<DynamicText v-if="factory.errors.password" class="small text-danger d-block">
-					{{ factory.errors.password }}
-				</DynamicText>
-			</div>
-			<div>
-				<input
-					id="cPassword"
-					v-model="factory.cPassword"
-					type="password"
-					name="cPassword"
-					required
-					placeholder="Confirm Password"
-					class="form-control"
-					autocomplete="password"
-				>
-				<DynamicText v-if="factory.errors.cPassword" class="small text-danger d-block">
-					{{ factory.errors.cPassword }}
-				</DynamicText>
-			</div>
-			<button class="btn btn-lg btn-custom py-1 " type="submit">
-				Reset Password
-			</button>
-			<DisplayError :error="error" />
-			<PageLoading v-if="loading" />
-			<div class="d-flex align-items-center justify-content-center gap-0-25">
-				<span>Return to</span>
-				<NuxtLink class="linkText" to="/auth/signin">
-					Sign In
-				</NuxtLink>
-			</div>
-		</form>
-		<div class="text-center d-lg-block d-none w-100 flex-grow-1">
-			<img src="@app/assets/images/auth/reset.svg" style="width: 100%;">
+	<form class="gap-1 gap-md-2 d-flex flex-column" @submit.prevent="resetPassword">
+		<Heading variant="1" class="text-center">
+			Reset Password
+		</Heading>
+		<!-- TODO: add logic for reset password in app -->
+		<span class="textStyle text-center">
+			To reset your password, type your new password below and reset
+		</span>
+		<div>
+			<input
+				id="password"
+				v-model="factory.password"
+				type="password"
+				name="password"
+				required
+				placeholder="New Password"
+				class="form-control"
+				autocomplete="password"
+			>
+			<DynamicText v-if="factory.errors.password" class="small text-danger d-block">
+				{{ factory.errors.password }}
+			</DynamicText>
 		</div>
-	</div>
+		<div>
+			<input
+				id="cPassword"
+				v-model="factory.cPassword"
+				type="password"
+				name="cPassword"
+				required
+				placeholder="Confirm Password"
+				class="form-control"
+				autocomplete="password"
+			>
+			<DynamicText v-if="factory.errors.cPassword" class="small text-danger d-block">
+				{{ factory.errors.cPassword }}
+			</DynamicText>
+		</div>
+		<button class="btn btn-lg btn-custom py-1 " type="submit">
+			Reset Password
+		</button>
+		<DisplayError :error="error" />
+		<PageLoading v-if="loading" />
+		<div class="d-flex align-items-center justify-content-center gap-0-25">
+			<span>Return to</span>
+			<NuxtLink class="linkText" to="/auth/signin">
+				Sign In
+			</NuxtLink>
+		</div>
+	</form>
 </template>
 
 <script lang="ts">

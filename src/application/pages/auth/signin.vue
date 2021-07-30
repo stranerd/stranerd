@@ -1,66 +1,61 @@
 <template>
-	<div class="py-md-1 px-0-5 px-md-3 px-lg-4 py-lg-1-5 d-flex flex-column align-items-center flex-lg-row gap-2">
-		<form class="gap-1 gap-md-2 d-flex flex-column w-100 flex-grow-1" @submit.prevent="signin">
-			<Heading variant="1" class="text-center">
-				Sign In
-			</Heading>
-			<div>
-				<input
-					id="email"
-					v-model="factory.email"
-					type="email"
-					name="email"
-					required
-					placeholder="Email"
-					class="form-control"
-					autocomplete="email"
-				>
-				<DynamicText v-if="factory.errors.email" class="small text-danger d-block">
-					{{ factory.errors.email }}
-				</DynamicText>
-			</div>
-			<div>
-				<input
-					id="password"
-					v-model="factory.password"
-					type="password"
-					name="password"
-					required
-					placeholder="Password"
-					class="form-control"
-					autocomplete="password"
-				>
-				<DynamicText v-if="factory.errors.password" class="small text-danger d-block">
-					{{ factory.errors.password }}
-				</DynamicText>
-				<div class="text-end mt-1">
-					<NuxtLink class="linkText text-decoration-none" to="/auth/forgot">
-						Forgot Password
-					</NuxtLink>
-				</div>
-			</div>
-			<button class="btn btn-lg btn-custom py-1 " type="submit">
-				Sign In
-			</button>
-			<DisplayError :error="error" />
-			<PageLoading v-if="loading" />
-			<div class="d-flex gap-1 align-items-center">
-				<div class="flex-grow-1 border-bottom border-line" style="height: 2px;" />
-				<span>or sign in with</span>
-				<div class="flex-grow-1 border-bottom border-line" style="height: 2px;" />
-			</div>
-			<AuthProviders />
-			<div class="d-flex align-items-center justify-content-center gap-0-25">
-				<span>Not a member yet?</span>
-				<NuxtLink class="linkText" to="/auth/signup">
-					Sign Up
+	<form class="gap-1 gap-md-2 d-flex flex-column" @submit.prevent="signin">
+		<Heading variant="1" class="text-center">
+			Sign In
+		</Heading>
+		<div>
+			<input
+				id="email"
+				v-model="factory.email"
+				type="email"
+				name="email"
+				required
+				placeholder="Email"
+				class="form-control"
+				autocomplete="email"
+			>
+			<DynamicText v-if="factory.errors.email" class="small text-danger d-block">
+				{{ factory.errors.email }}
+			</DynamicText>
+		</div>
+		<div>
+			<input
+				id="password"
+				v-model="factory.password"
+				type="password"
+				name="password"
+				required
+				placeholder="Password"
+				class="form-control"
+				autocomplete="password"
+			>
+			<DynamicText v-if="factory.errors.password" class="small text-danger d-block">
+				{{ factory.errors.password }}
+			</DynamicText>
+			<div class="text-end mt-1">
+				<NuxtLink class="linkText text-decoration-none" to="/auth/forgot">
+					Forgot Password
 				</NuxtLink>
 			</div>
-		</form>
-		<div class="text-center d-lg-block d-none w-100 flex-grow-1">
-			<img src="@app/assets/images/auth/loginImage.svg" style="width: 100%;">
 		</div>
-	</div>
+		<button class="btn btn-lg btn-custom py-1 " type="submit">
+			Sign In
+		</button>
+		<DisplayError :error="error" />
+		<PageLoading v-if="loading" />
+		<div class="d-flex gap-1 align-items-center">
+			<div class="flex-grow-1 border-bottom border-line" style="height: 2px;" />
+			<span>or sign in with</span>
+			<div class="flex-grow-1 border-bottom border-line" style="height: 2px;" />
+		</div>
+		<AuthProviders />
+		<div class="d-flex align-items-center justify-content-center gap-0-25">
+			<span>Not a member yet?</span>
+			<NuxtLink class="linkText" to="/auth/signup">
+				Sign Up
+			</NuxtLink>
+		</div>
+	</form>
 </template>
 
 <script lang="ts">

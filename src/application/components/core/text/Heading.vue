@@ -21,21 +21,15 @@ export default defineComponent({
 <style lang="scss" scoped>
 	h1 {
 		font-size: 1.75em;
-		@media (min-width: $md) {
-			font-size: 2em;
-		}
-		@media (min-width: $lg) {
-			font-size: 2.5em;
-		}
+		@media (min-width: $md) { font-size: 2em; }
+		@media (min-width: $lg) { font-size: 2.5em; }
+		@media (min-width: $xl) { font-size: 3em; }
 	}
 
 	h2 {
 		font-size: 1.5em;
-		@media (min-width: $md) {
-			font-size: 1.75em;
-		}
-		@media (min-width: $lg) {
-			font-size: 2.25em;
-		}
+		@media (min-width: $md) { font-size: 1.75em; }
+		@media (min-width: $lg) { font-size: 2.25em; }
+		@media (min-width: $xl) { font-size: 2.5em; }
 	}
 </style>

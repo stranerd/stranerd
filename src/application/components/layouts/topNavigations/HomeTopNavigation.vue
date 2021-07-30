@@ -1,6 +1,6 @@
 <template>
-	<nav role="navigation">
-		<div class="px-md-2 p-1 py-md-1 d-flex align-items-center">
+	<nav role="navigation" :class="{'fixed-nav':show}">
+		<div class="px-md-2 p-1 d-flex align-items-center">
 			<NuxtLink to="/">
 				<Logo :secondary="true" class="d-lg-inline-block d-none" />
 				<Logo class="d-lg-none" />
@@ -34,61 +34,58 @@
 		</div>
 		<transition name="slide-fade">
 			<template v-if="show">
-				<div class="menuBackground d-lg-none d-flex flex-column text-center" @click="show = false">
-					<img src="@app/assets/images/homepage/ig_session_sm.svg" class="bgImageNav">
-					<div class="px-2 d-flex flex-column text-center position-relative">
-						<NuxtLink class="py-1 mt-2 smallScreenLink link-custom-sm" style="width: 100%;" to="/">
-							Home
-						</NuxtLink>
-						<NuxtLink class="smallScreenLink py-1 link-custom-sm" to="/#how-it-works">
-							How it works
-						</NuxtLink>
-						<NuxtLink class="smallScreenLink py-1 link-custom-sm" to="/#contact-us">
-							Contact
-						</NuxtLink>
-						<NuxtLink
-							class="btn btn-lg btn-custom-sm mx-auto my-1 w-100"
-							style="max-width: 400px;"
-							to="/auth/signin"
-						>
-							Sign In
-						</NuxtLink>
-						<NuxtLink
-							class="btn btn-lg white-btn-custom mx-auto my-1 w-100"
-							style="max-width: 400px;"
-							to="/auth/signup"
-						>
-							Sign Up
-						</NuxtLink>
-						<div class="bottomLogo d-flex flex-row align-items-center justify-content-center">
-							<!--  TODO: Add social links -->
-							<div class="me-1">
-								<NuxtLink to="#">
-									<img src="@app/assets/images/homepage/instagram_white.svg" height="30">
-								</NuxtLink>
-							</div>
-							<div class="me-1">
-								<NuxtLink to="#">
-									<img src="@app/assets/images/homepage/twitter_white.svg" height="30">
-								</NuxtLink>
-							</div>
-							<div class="me-1">
-								<NuxtLink to="#">
-									<img src="@app/assets/images/homepage/facebook_white.svg" height="30">
-								</NuxtLink>
-							</div>
-							<div class="me-1">
-								<NuxtLink to="#">
-									<img src="@app/assets/images/homepage/youtube_white.svg" height="30">
-								</NuxtLink>
-							</div>
+				<div class="flex-grow-1 d-lg-none px-2 d-flex text-center flex-column text-center mt-2" @click="show = false">
+					<NuxtLink class="mb-2 smallScreenLink link-custom-sm" style="width: 100%;" to="/">
+						Home
+					</NuxtLink>
+					<NuxtLink class="mb-2 smallScreenLink link-custom-sm" to="/#how-it-works">
+						How it works
+					</NuxtLink>
+					<NuxtLink class="mb-2 smallScreenLink link-custom-sm" to="/#contact-us">
+						Contact
+					</NuxtLink>
+					<NuxtLink
+						class="btn btn-lg btn-custom-sm mx-auto mb-1 w-100"
+						style="max-width: 400px;"
+						to="/auth/signin"
+					>
+						Sign In
+					</NuxtLink>
+					<NuxtLink
+						class="btn btn-lg white-btn-custom mx-auto w-100"
+						style="max-width: 400px;"
+						to="/auth/signup"
+					>
+						Sign Up
+					</NuxtLink>
+					<div class="bottomLogo d-flex flex-row align-items-center justify-content-center">
+						<!--  TODO: Add social links -->
+						<div class="me-1">
+							<NuxtLink to="#">
+								<img src="@app/assets/images/homepage/instagram_white.svg" height="30">
+							</NuxtLink>
+						</div>
+						<div class="me-1">
+							<NuxtLink to="#">
+								<img src="@app/assets/images/homepage/twitter_white.svg" height="30">
+							</NuxtLink>
+						</div>
+						<div class="me-1">
+							<NuxtLink to="#">
+								<img src="@app/assets/images/homepage/facebook_white.svg" height="30">
+							</NuxtLink>
+						</div>
+						<div class="me-1">
+							<NuxtLink to="#">
+								<img src="@app/assets/images/homepage/youtube_white.svg" height="30">
+							</NuxtLink>
 						</div>
 					</div>
 				</div>
 			</template>
 		</transition>
-		<img src="@app/assets/images/homepage/sm_top_bg.svg" class="floatImage d-md-none">
-		<img src="@app/assets/images/homepage/top_bar_md.svg" class="floatImage d-none d-md-block d-lg-none">
+		<img v-if="!show" src="@app/assets/images/homepage/sm_top_bg.svg" class="floatImage d-md-none">
+		<img v-if="!show" src="@app/assets/images/homepage/top_bar_md.svg" class="floatImage d-none d-md-block d-lg-none">
 	</nav>
 </template>
 
@@ -104,6 +101,20 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+	nav {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.fixed-nav {
+		position: fixed;
+		background: $color-primary;
+		top: 0;
+		bottom: 0;
+		width: 100%;
+		z-index: 1;
+	}
+
 	.white-btn-custom {
 		background-color: $color-white;
 		color: $color-primary-dark;
@@ -140,21 +151,6 @@ export default defineComponent({
 		color: $color-white;
 		font-weight: $font-weight-bold;
 		font-size: 14px;
-	}
-
-	.menuBackground {
-		position: fixed;
-		width: 100%;
-		left: 0;
-		top: 7%;
-		bottom: 0;
-	}
-
-	.bgImageNav {
-		position: absolute;
-		width: 100%;
-		left: 0%;
-		top: 0%;
 	}
 
 	.smallScreenLink:hover {

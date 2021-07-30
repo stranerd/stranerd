@@ -1,8 +1,8 @@
 <template>
 	<div class="mt-5 text-white content_wrapper">
-		<img src="@app/assets/images/homepage/ig_session.svg" class="bgImage d-none d-lg-block">
 		<img src="@app/assets/images/homepage/ig_session_sm.svg" class="bgImage d-md-none d-block">
 		<img src="@app/assets/images/homepage/ig_session_md.svg" class="bgImage d-none d-md-block d-lg-none">
+		<img src="@app/assets/images/homepage/ig_session.svg" class="bgImage d-none d-lg-block">
 		<div class="text py-md-2 px-2 text-center">
 			<span class="sub">Already trusted by more than 33,000 students</span>
 		</div>

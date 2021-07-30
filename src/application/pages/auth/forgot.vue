@@ -1,43 +1,38 @@
 <template>
-	<div class="py-md-1 px-0-5 px-md-3 px-lg-4 py-lg-1-5 d-flex flex-column flex-lg-row align-items-center gap-2">
-		<form class="gap-1 gap-md-2 d-flex flex-column w-100 flex-grow-1" @submit.prevent="resetPassword">
-			<Heading variant="1" class="text-center">
-				Forgot Your Password?
-			</Heading>
-			<span class="textStyle text-center">
-				To reset your password, type your email address
-			</span>
-			<div>
-				<input
-					id="email"
-					v-model="factory.email"
-					type="email"
-					name="email"
-					required
-					placeholder="Email"
-					class="form-control"
-					autocomplete="email"
-				>
-				<DynamicText v-if="factory.errors.email" class="small text-danger d-block">
-					{{ factory.errors.email }}
-				</DynamicText>
-			</div>
-			<button class="btn btn-lg btn-custom py-1 " type="submit">
-				Send Reset Mail
-			</button>
-			<DisplayError :error="error" />
-			<PageLoading v-if="loading" />
-			<div class="d-flex align-items-center justify-content-center gap-0-25">
-				<span>Return to</span>
-				<NuxtLink class="linkText" to="/auth/signin">
-					Sign In
-				</NuxtLink>
-			</div>
-		</form>
-		<div class="text-center d-lg-block d-none w-100 flex-grow-1">
-			<img src="@app/assets/images/auth/forgotImage.svg" style="width: 100%;">
+	<form class="gap-1 gap-md-2 d-flex flex-column" @submit.prevent="resetPassword">
+		<Heading variant="1" class="text-center">
+			Forgot Your Password?
+		</Heading>
+		<span class="textStyle text-center">
+			To reset your password, type your email address
+		</span>
+		<div>
+			<input
+				id="email"
+				v-model="factory.email"
+				type="email"
+				name="email"
+				required
+				placeholder="Email"
+				class="form-control"
+				autocomplete="email"
+			>
+			<DynamicText v-if="factory.errors.email" class="small text-danger d-block">
+				{{ factory.errors.email }}
+			</DynamicText>
 		</div>
-	</div>
+		<button class="btn btn-lg btn-custom py-1 " type="submit">
+			Send Reset Mail
+		</button>
+		<DisplayError :error="error" />
+		<PageLoading v-if="loading" />
+		<div class="d-flex align-items-center justify-content-center gap-0-25">
+			<span>Return to</span>
+			<NuxtLink class="linkText" to="/auth/signin">
+				Sign In
+			</NuxtLink>
+		</div>
+	</form>
 </template>
 
 <script lang="ts">

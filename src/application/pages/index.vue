@@ -1,5 +1,5 @@
 <template>
-	<div class="overflow-x-hidden">
+	<div>
 		<CTA />
 		<IGStat />
 		<div class="py-2-5 px-1 px-md-2 py-md-4 py-lg-5">

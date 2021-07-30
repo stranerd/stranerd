@@ -1,27 +1,22 @@
 <template>
-	<div class="py-md-1 px-0-5 px-md-3 px-lg-4 py-lg-1-5 d-flex flex-column flex-lg-row align-items-center gap-3">
-		<div class="gap-1 gap-md-2 d-flex flex-column w-100 flex-grow-1">
-			<Heading variant="1" class="text-center">
-				Verify Your Email Address
-			</Heading>
-			<span class="textStyle text-center">
-				An email was just sent to <b><DynamicText>{{ email }}</DynamicText></b>. Follow the link to verify your account.
-				If an error occured or you didn't recieve the email, click the button below to resend the email.
-			</span>
-			<button class="btn btn-lg btn-custom py-1 " @click="verifyEmail">
-				Resend Mail
-			</button>
-			<DisplayError :error="error" />
-			<PageLoading v-if="loading" />
-			<div class="d-flex align-items-center justify-content-center gap-0-25">
-				<span>Return to</span>
-				<NuxtLink class="linkText" to="/auth/signin">
-					Sign In
-				</NuxtLink>
-			</div>
-		</div>
-		<div class="text-center d-lg-block d-none w-100 flex-grow-1">
-			<img src="@app/assets/images/auth/verify.svg" style="width: 100%;">
+	<div class="gap-1 gap-md-2 d-flex flex-column">
+		<Heading variant="1" class="text-center">
+			Verify Your Email Address
+		</Heading>
+		<span class="textStyle text-center">
+			An email was just sent to <b><DynamicText>{{ email }}</DynamicText></b>. Follow the link to verify your account.
+			If an error occured or you didn't recieve the email, click the button below to resend the email.
+		</span>
+		<button class="btn btn-lg btn-custom py-1 " @click="verifyEmail">
+			Resend Mail
+		</button>
+		<DisplayError :error="error" />
+		<PageLoading v-if="loading" />
+		<div class="d-flex align-items-center justify-content-center gap-0-25">
+			<span>Return to</span>
+			<NuxtLink class="linkText" to="/auth/signin">
+				Sign In
+			</NuxtLink>
 		</div>
 	</div>
 </template>

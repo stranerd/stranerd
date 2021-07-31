@@ -35,12 +35,12 @@ export const answerCreated = functions.firestore.document('answers/{answerId}')
 
 		const { userId: questionUserId } = (await questionRef.get()).data()!
 		await createNotification(questionUserId, {
-			body: 'Your question has been answered. Head over to your dashboard to check it out',
+			body: 'Your question has been answered. Go have a look',
 			action: `/questions/${questionId}#${context.params.answerId}`
 		})
 		await createNotification(questionUserId, {
 			title: 'New Answer',
-			body: 'You asked a question and we\'ve answered! Click here to get on your dashboard and view all answers on your question',
+			body: 'You asked a question and we\'ve answered! Go view all answers to your question',
 			action: `/questions/${questionId}#${context.params.answerId}`
 		})
 
@@ -107,7 +107,7 @@ export const answerRated = functions.database.ref('answers/{answerId}/ratings/{u
 				if (tutorId) {
 					await addTutorRatings(tutorId, ratings)
 					await createNotification(tutorId, {
-						body: 'Your answer just got rated. Go to your dashboard and have a look',
+						body: 'Your answer just got rated. Go have a look',
 						action: `/questions/${questionId}#${answerId}`
 					})
 				}

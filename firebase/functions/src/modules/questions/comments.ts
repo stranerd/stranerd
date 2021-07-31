@@ -21,12 +21,7 @@ export const questionCommentCreated = functions.database.ref('comments/questions
 
 		const { userId: questionUserId } = (await questionRef.get()).data()!
 		await createNotification(questionUserId, {
-			body: 'Your question has a new comment. Head over to your dashboard to check it out',
-			action: `/questions/${questionId}`
-		})
-		await createNotification(questionUserId, {
-			title: 'New comment',
-			body: 'Your question has a new comment. Head over to your dashboard to check it out',
+			body: 'Your question has a new comment. Go have a look',
 			action: `/questions/${questionId}`
 		})
 	})
@@ -49,7 +44,7 @@ export const answerCommentCreated = functions.database.ref('comments/answers/{an
 
 		const { userId: answerUserId, questionId } = (await answerRef.get()).data()!
 		await createNotification(answerUserId, {
-			body: 'Your question has a new comment. Head over to your dashboard to check it out',
+			body: 'Your question has a new comment. Go have a look',
 			action: `/questions/${questionId}#${answerId}`
 		})
 	})

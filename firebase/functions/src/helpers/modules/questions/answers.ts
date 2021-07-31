@@ -27,7 +27,7 @@ export const markAnswerAsBest = async (questionId: string, answerId: string, que
 			'You got coins for a best answer'
 		)
 		await createNotification(userId, {
-			body: 'Congratulations. Your answer was selected as one of the best answer. Go to your dashboard to have a look',
+			body: 'Congratulations. Your answer was selected as one of the best answers. Go have a look',
 			action: `/questions/${questionId}#${answerId}`
 		})
 	}

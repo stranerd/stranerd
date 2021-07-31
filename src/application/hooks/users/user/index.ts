@@ -39,7 +39,7 @@ export const useUser = (userId: string) => {
 		if (id.value && id.value === userId) {
 			// Dont start a listener if it is the current auth user
 			// Instead watch the auth user for changes
-			watch(() => user.value, () => global[userId].user.value = user.value)
+			watch(() => user.value?.hash, () => global[userId].user.value = user.value)
 			return () => {}
 		}
 		const callback = (user: UserEntity | null) => global[userId].user.value = user

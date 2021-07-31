@@ -1,7 +1,7 @@
 <template>
 	<SideMenu :close="close" background-class="sd-menu-background" menu-class="sd-menu-left">
 		<div class="head gap-1">
-			<Logo :secondary="true" />
+			<Logo />
 			<img class="head-icons" src="@app/assets/images/icons/close.svg" alt="" @click="close">
 		</div>
 		<div class="d-flex flex-column flex-grow-1">
@@ -35,10 +35,15 @@ export default defineComponent({
 		align-items: center;
 		justify-content: space-between;
 		margin-bottom: 1rem;
+		background: $color-primary-dark;
+		color: $color-white;
 		padding: 0.75rem 1rem;
-		border-bottom: 5px solid $color-primary;
 		@media (min-width: $md) { padding: 0.75rem 2rem; }
 		@media (min-width: $lg) { padding: 0.75rem 3rem; }
 		@media (min-width: $xl) { padding: 0.75rem 4.5rem; }
+	}
+
+	.head-icons, /deep/ .head-icons {
+		filter: brightness(500%);
 	}
 </style>

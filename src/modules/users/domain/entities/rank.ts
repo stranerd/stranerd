@@ -76,7 +76,7 @@ export const Ranks :Record<RankTypes, Rank> = {
 		bestAnswer: 10,
 		dailyLogin: 60,
 		score: 75,
-		ratings: 0,
+		ratings: 3.5,
 		image: '/images/ranking/comrade.svg',
 		expectedDays: 60,
 		expectedScore: 75
@@ -91,7 +91,7 @@ export const Ranks :Record<RankTypes, Rank> = {
 		bestAnswer: 20,
 		dailyLogin: 90,
 		score: 250,
-		ratings: 3.5,
+		ratings: 4,
 		image: '/images/ranking/scholar.svg',
 		expectedDays: 90,
 		expectedScore: 205.25

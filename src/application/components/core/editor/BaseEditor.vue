@@ -4,7 +4,7 @@
 			:value="value"
 			use-custom-image-handler
 			:placeholder="placeholder"
-			:class="{'border border-danger': error, 'border border-success': valid }"
+			:class="{'is-invalid': error, 'is-valid': valid }"
 			:editor-toolbar="toolbar"
 			@input="$emit('update:value',$event)"
 			@image-added="handleImageUpload"
@@ -86,7 +86,9 @@ export default defineComponent({
 		position: relative;
 		display: flex;
 		flex-direction: column;
-		font-family: 'Nunito Sans', sans-serif !important;
+		font-family: inherit !important;
+
+		.ql-container { font-family: inherit !important; }
 
 		.ql-toolbar {
 			display: flex;
@@ -117,5 +119,30 @@ export default defineComponent({
 				border-left: 1px solid $color-sub;
 			}
 		}
+	}
+
+	.ql-toolbar.ql-snow { border: 1px solid $color-line !important; }
+	.ql-container.ql-snow { border: 0 !important; }
+
+	.ql-editor {
+		border: 1px solid $color-line;
+		transition: border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+	}
+
+	.ql-editor:focus {
+		outline: 0;
+		border-radius: 6px;
+		border: 1px solid #86b7fe;
+		box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+	}
+
+	.is-valid .ql-editor:focus {
+		border: 1px solid $color-green;
+		box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
+	}
+
+	.is-invalid .ql-editor:focus {
+		border: 1px solid $color-red;
+		box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
 	}
 </style>

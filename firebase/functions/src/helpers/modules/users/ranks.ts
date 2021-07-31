@@ -55,7 +55,7 @@ const Ranks :Record<RankTypes, Rank> = {
 		bestAnswer: 10,
 		dailyLogin: 60,
 		score: 75,
-		ratings: 0
+		ratings: 3.5
 	},
 	[RankTypes.Scholar]: {
 		id: RankTypes.Scholar,
@@ -67,7 +67,7 @@ const Ranks :Record<RankTypes, Rank> = {
 		bestAnswer: 20,
 		dailyLogin: 90,
 		score: 250,
-		ratings: 3.5
+		ratings: 4
 	},
 	[RankTypes.Einstein]: {
 		id: RankTypes.Comrade,

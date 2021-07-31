@@ -42,10 +42,15 @@ export default defineComponent({
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		background: $color-primary-dark;
+		color: $color-white;
 		padding: 0.75rem 1rem;
-		border-bottom: 5px solid $color-primary;
 		@media (min-width: $md) { padding: 0.75rem 2rem; }
 		@media (min-width: $lg) { padding: 0.75rem 3rem; }
 		@media (min-width: $xl) { padding: 0.75rem 4.5rem; }
+	}
+
+	.head-icons, /deep/ .head-icons {
+		filter: brightness(500%);
 	}
 </style>

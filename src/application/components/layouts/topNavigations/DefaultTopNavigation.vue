@@ -17,7 +17,7 @@
 
 			<SearchBar class="middle-body mx-auto d-none d-lg-flex" />
 
-			<div class="right-body gap-1-5 gap-md-2-25 gap-lg-3 gap-xl-4-5 ms-auto">
+			<div class="right-body gap-1-5 gap-md-2-25 gap-lg-3 gap-xl-4 ms-auto ms-lg-0">
 				<span class="d-lg-none" @click="showSearch = !showSearch">
 					<img class="head-icons" src="@app/assets/images/icons/search.svg">
 				</span>
@@ -146,7 +146,7 @@ export default defineComponent({
 		padding: 0.75rem 1rem;
 		@media (min-width: $md) { padding: 0.75rem 2rem; }
 		@media (min-width: $lg) { padding: 0.75rem 3rem; }
-		@media (min-width: $xl) { padding: 0.75rem 4.5rem; }
+		@media (min-width: $xl) { padding: 0.75rem 4rem; }
 
 		.head-icons, /deep/ .head-icons {
 			filter: brightness(500%);
@@ -155,7 +155,7 @@ export default defineComponent({
 
 	.middle-body {
 		flex-grow: 1;
-		max-width: 51.25%;
+		max-width: 45%;
 	}
 
 	.right-body {

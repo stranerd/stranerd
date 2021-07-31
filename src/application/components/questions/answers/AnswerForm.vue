@@ -11,6 +11,7 @@
 				v-model="factory.title"
 				type="text"
 				class="form-control"
+				:class="{'is-invalid': factory.errors.title, 'is-valid': factory.isValid('title')}"
 				placeholder="Example: The answer is 14 seconds."
 			>
 			<DynamicText v-if="factory.errors.title" class="text-danger small">

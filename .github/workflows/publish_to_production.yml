@@ -7,7 +7,7 @@ on:
 
 jobs:
   publish-gae:
-    environment: release
+    environment: production
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -33,7 +33,7 @@ jobs:
         with:
           args: "app deploy --quiet"
   publish-fb:
-    environment: release
+    environment: production
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo

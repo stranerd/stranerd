@@ -2,7 +2,8 @@
 	<div class="cta gap-2 pt-3 pb-5">
 		<div class="text-center">
 			<img src="@app/assets/images/homepage/connect.svg" width="100%" class="d-md-none">
-			<img src="@app/assets/images/homepage/connect.svg" width="80%" class="d-none d-md-inline-block">
+			<img src="@app/assets/images/homepage/connect.svg" width="90%" class="d-none d-md-inline-block d-lg-none">
+			<img src="@app/assets/images/homepage/connect.svg" width="80%" class="d-none d-lg-inline-block">
 		</div>
 		<div class="d-flex flex-column align-items-center justify-content-center col-lg-6 mt-2">
 			<div class="text-center mb-2">

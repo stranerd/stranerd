@@ -22,7 +22,7 @@
 					Home
 				</NuxtLink>
 			</div>
-			<div class="ms-auto flex-row-reverse d-inline-flex align-items-center d-lg-none">
+			<div class="ms-auto d-flex align-items-center">
 				<span class="cursor-pointer" @click="show = !show">
 					<i
 						class="text-white fas"
@@ -32,60 +32,46 @@
 				</span>
 			</div>
 		</div>
-		<transition name="slide-fade">
-			<template v-if="show">
-				<div class="flex-grow-1 d-lg-none px-2 d-flex text-center flex-column text-center mt-2" @click="show = false">
-					<NuxtLink class="mb-2 smallScreenLink link-custom-sm" style="width: 100%;" to="/">
-						Home
-					</NuxtLink>
-					<NuxtLink class="mb-2 smallScreenLink link-custom-sm" to="/#how-it-works">
-						How it works
-					</NuxtLink>
-					<NuxtLink class="mb-2 smallScreenLink link-custom-sm" to="/#contact-us">
-						Contact
-					</NuxtLink>
-					<NuxtLink
-						class="btn btn-lg btn-custom-sm mx-auto mb-1 w-100"
-						style="max-width: 400px;"
-						to="/auth/signin"
-					>
-						Sign In
-					</NuxtLink>
-					<NuxtLink
-						class="btn btn-lg white-btn-custom mx-auto w-100"
-						style="max-width: 400px;"
-						to="/auth/signup"
-					>
-						Sign Up
-					</NuxtLink>
-					<div class="bottomLogo d-flex flex-row align-items-center justify-content-center">
-						<!--  TODO: Add social links -->
-						<div class="me-1">
-							<NuxtLink to="#">
-								<img src="@app/assets/images/homepage/instagram_white.svg" height="30">
-							</NuxtLink>
-						</div>
-						<div class="me-1">
-							<NuxtLink to="#">
-								<img src="@app/assets/images/homepage/twitter_white.svg" height="30">
-							</NuxtLink>
-						</div>
-						<div class="me-1">
-							<NuxtLink to="#">
-								<img src="@app/assets/images/homepage/facebook_white.svg" height="30">
-							</NuxtLink>
-						</div>
-						<div class="me-1">
-							<NuxtLink to="#">
-								<img src="@app/assets/images/homepage/youtube_white.svg" height="30">
-							</NuxtLink>
-						</div>
-					</div>
-				</div>
-			</template>
-		</transition>
-		<img v-if="!show" src="@app/assets/images/homepage/sm_top_bg.svg" class="floatImage d-md-none">
-		<img v-if="!show" src="@app/assets/images/homepage/top_bar_md.svg" class="floatImage d-none d-md-block d-lg-none">
+		<div v-if="show" class="flex-grow-1 d-lg-none px-2 d-flex flex-column text-center mt-2" @click="show = false">
+			<NuxtLink class="mb-2 smallScreenLink link-custom-sm" to="/">
+				Home
+			</NuxtLink>
+			<NuxtLink class="mb-2 smallScreenLink link-custom-sm" to="/#how-it-works">
+				How it works
+			</NuxtLink>
+			<NuxtLink class="mb-2 smallScreenLink link-custom-sm" to="/#contact-us">
+				Contact
+			</NuxtLink>
+			<NuxtLink
+				class="btn btn-lg btn-custom-sm mx-auto mb-1 w-100"
+				style="max-width: 400px;"
+				to="/auth/signin"
+			>
+				Sign In
+			</NuxtLink>
+			<NuxtLink
+				class="btn btn-lg btn-custom-sm mx-auto w-100"
+				style="max-width: 400px;"
+				to="/auth/signup"
+			>
+				Sign Up
+			</NuxtLink>
+			<div class="bottomLogo d-flex flex-row align-items-center justify-content-center gap-1">
+				<!--  TODO: Add social links -->
+				<NuxtLink to="#">
+					<img src="@app/assets/images/homepage/instagram_white.svg" height="30">
+				</NuxtLink>
+				<NuxtLink to="#">
+					<img src="@app/assets/images/homepage/twitter_white.svg" height="30">
+				</NuxtLink>
+				<NuxtLink to="#">
+					<img src="@app/assets/images/homepage/facebook_white.svg" height="30">
+				</NuxtLink>
+				<NuxtLink to="#">
+					<img src="@app/assets/images/homepage/youtube_white.svg" height="30">
+				</NuxtLink>
+			</div>
+		</div>
 	</nav>
 </template>
 
@@ -104,6 +90,9 @@ export default defineComponent({
 	nav {
 		display: flex;
 		flex-direction: column;
+		background-color: $color-primary;
+		color: $color-white;
+		z-index: 2;
 	}
 
 	.fixed-nav {
@@ -112,12 +101,9 @@ export default defineComponent({
 		top: 0;
 		bottom: 0;
 		width: 100%;
-		z-index: 1;
 	}
 
 	.white-btn-custom {
-		background-color: $color-white;
-		color: $color-primary-dark;
 		font-size: 16px;
 		border: 2px solid $color-primary;
 		border-radius: 6px;
@@ -162,17 +148,5 @@ export default defineComponent({
 		bottom: 2%;
 		width: 100%;
 		left: 0%;
-	}
-
-	.floatImage {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		z-index: -1;
-	}
-
-	.customPadding {
-		padding-top: 10px;
 	}
 </style>

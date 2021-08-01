@@ -70,7 +70,7 @@ export const useAuth = () => {
 		await setAuthUser(null, router)
 		await auth.signOut()
 		await router.push('/')
-		if (isClient()) window.location.reload()
+		if (isClient()) window.location.assign('/')
 	}
 
 	const getKey = () :keyof typeof CONVERSION_RATES | null => {

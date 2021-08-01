@@ -23,6 +23,8 @@ export const SigninController = async (req: Request, res: Response) => {
 			error: null
 		}).end()
 	} catch (err) {
+		// eslint-disable-next-line no-console
+		console.log(err)
 		return res.status(400).json({
 			success: false,
 			error: 'Failed to sign in'
@@ -43,6 +45,8 @@ export const SignoutController = async (req: Request, res: Response) => {
 			error: null
 		}).end()
 	} catch (err) {
+		// eslint-disable-next-line no-console
+		console.log(err)
 		return res.status(400).json({
 			success: false,
 			error: 'Failed to sign out!'

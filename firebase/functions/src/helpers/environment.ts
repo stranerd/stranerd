@@ -5,7 +5,7 @@ const environment = () => functions.config().env ?? {}
 export const appName = environment()?.app_name
 export const isDev = () => environment()?.environment === 'development'
 export const isStaging = () => environment()?.environment === 'staging'
-export const isProduction = () => environment()?.environment === 'production'
+export const isProduction = () => environment()?.environment === 'release'
 
 export const stripe = () => ({
 	secretKey: environment()?.stripe?.secret_key,

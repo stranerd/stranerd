@@ -2,7 +2,7 @@
 	<div class="d-flex flex-column">
 		<flutterwave-pay-button
 			:tx_ref="getRandomValue()"
-			:amount="amount"
+			:amount="getLocalAmount(amount)"
 			:currency="getLocalCurrency()"
 			payment_options="card,ussd"
 			redirect_url=""
@@ -38,13 +38,13 @@ import { useFlutterwavePayment } from '@app/hooks/payment/payment'
 export default defineComponent({
 	name: 'Flutterwave',
 	setup () {
-		const { user, getLocalCurrency } = useAuth()
+		const { user, getLocalCurrency, getLocalAmount } = useAuth()
 		const { loading, error, amount, pay } = useFlutterwavePayment()
 		const makePaymentCallback = async (response: any) => await pay(response.status === 'successful')
 		const closedPaymentModal = () => 'closed'
 		return {
 			makePaymentCallback, closedPaymentModal, getRandomValue,
-			user, logo, getLocalCurrency,
+			user, logo, getLocalCurrency, getLocalAmount,
 			amount, loading, error
 		}
 	}

@@ -58,22 +58,22 @@ body {
 .head-icons {
 	width: 20px;
 	height: 20px;
-	font-weight: 20px;
+	font-size: 20px;
 	@media (min-width: $md) {
 		width: 24px;
 		height: 24px;
-		font-weight: 24px;
+		font-size: 24px;
 	}
 }
 
 .sub-icons {
 	width: 18px;
 	height: 18px;
-	font-weight: 18px;
+	font-size: 18px;
 	@media (min-width: $md) {
 		width: 20px;
 		height: 20px;
-		font-weight: 20px;
+		font-size: 20px;
 	}
 }
 
@@ -164,7 +164,7 @@ body {
 
 .sd-menu {
 	background: $color-white;
-	width: clamp(300px, 100%, $sm);
+	width: clamp(300px, 100%, 360px);
 }
 
 .sd-menu-left {

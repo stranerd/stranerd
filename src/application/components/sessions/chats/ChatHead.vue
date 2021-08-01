@@ -143,7 +143,7 @@ export default defineComponent({
 		top: 5rem;
 		right: 1.5rem;
 		width: 200px;
-		z-index: 1;
+		z-index: 2;
 		display: flex;
 		flex-direction: column;
 		background: $color-white;

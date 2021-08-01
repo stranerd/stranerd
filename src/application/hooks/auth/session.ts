@@ -19,7 +19,7 @@ export const createSession = async (user: AfterAuthUser, router: VueRouter) => {
 
 	const { [REDIRECT_SESSION_NAME]: redirect } = Cookie.parse(document.cookie ?? '')
 	document.cookie = Cookie.serialize(REDIRECT_SESSION_NAME, '', { expires: new Date(0) })
-	await router.push(redirect ?? '/dashboard')
+	if (redirect) await router.push(redirect)
 }
 
 export const useSessionSignout = () => {

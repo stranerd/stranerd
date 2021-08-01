@@ -1,10 +1,16 @@
 <template>
 	<div>
+		<img src="@app/assets/images/homepage/wave-bottom.svg" width="100%" style="margin-top: -2px;" class="d-lg-none">
 		<CTA />
+		<img src="@app/assets/images/homepage/wave-top.svg" width="100%" style="margin-bottom: -2px;">
 		<IGStat />
+		<img src="@app/assets/images/homepage/wave-bottom.svg" width="100%" style="margin-top: -2px;">
 		<HowItWorks id="how-it-works" />
+		<img src="@app/assets/images/homepage/wave-top.svg" width="100%" style="margin-bottom: -2px;">
 		<Connect />
-		<ConatctUs id="contact-us" />
+		<img src="@app/assets/images/homepage/wave-bottom.svg" width="100%" style="margin-top: -2px;">
+		<ContactUs id="contact-us" />
+		<img src="@app/assets/images/homepage/wave-footer.svg" width="100%" style="margin-bottom: -2px;">
 	</div>
 </template>
 
@@ -14,10 +20,10 @@ import CTA from '@app/components/home/CTA.vue'
 import IGStat from '@app/components/home/IGStat.vue'
 import HowItWorks from '@app/components/home/HowItWorks.vue'
 import Connect from '@app/components/home/Connect.vue'
-import ConatctUs from '@app/components/home/ContactUs.vue'
+import ContactUs from '@app/components/home/ContactUs.vue'
 export default defineComponent({
 	name: 'IndexPage',
-	components: { CTA, IGStat, HowItWorks, Connect, ConatctUs },
+	components: { CTA, IGStat, HowItWorks, Connect, ContactUs },
 	layout: 'home'
 })
 </script>

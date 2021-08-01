@@ -1,11 +1,11 @@
 <template>
 	<nav role="navigation" :class="{'fixed-nav':show}">
 		<div class="px-md-2 p-1 d-flex align-items-center">
-			<NuxtLink to="/">
+			<NuxtLink to="/" class="me-auto">
 				<Logo :secondary="true" class="d-lg-inline-block d-none" />
 				<Logo class="d-lg-none" />
 			</NuxtLink>
-			<div class="ms-auto gap-2 flex-row-reverse d-lg-flex d-none align-items-center">
+			<div class="gap-2 flex-row-reverse d-lg-flex d-none align-items-center">
 				<NuxtLink class="btn btn-lg white-btn-custom px-3" to="/auth/signup">
 					Sign Up
 				</NuxtLink>
@@ -22,10 +22,10 @@
 					Home
 				</NuxtLink>
 			</div>
-			<div class="ms-auto d-flex align-items-center">
+			<div class="d-lg-none">
 				<span class="cursor-pointer" @click="show = !show">
 					<i
-						class="text-white fas"
+						class="fas"
 						:class="show ? 'fa-times' : 'fa-bars'"
 						style="font-size: 28px;"
 					/>
@@ -88,11 +88,16 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 	nav {
+		width: 100%;
 		display: flex;
 		flex-direction: column;
 		background-color: $color-primary;
 		color: $color-white;
 		z-index: 2;
+		@media (min-width: $lg) {
+			background-color: $color-white;
+			color: $color-primary;
+		}
 	}
 
 	.fixed-nav {
@@ -100,7 +105,6 @@ export default defineComponent({
 		background: $color-primary;
 		top: 0;
 		bottom: 0;
-		width: 100%;
 	}
 
 	.white-btn-custom {

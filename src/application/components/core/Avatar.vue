@@ -2,7 +2,7 @@
 	<img
 		:src="source"
 		alt=""
-		:style="`width: ${size}px;height: ${size}px; border-radius: 10rem; border: 1.5px solid transparent;`"
+		:style="`width: ${size}px;height: ${size}px; border-radius: 10rem; border: 1.5px solid transparent; object-fit: cover;`"
 	>
 </template>
 

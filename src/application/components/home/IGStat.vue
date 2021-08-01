@@ -55,15 +55,15 @@ export default defineComponent({
 				author: 'Taiwo Toluwalase'
 			},
 			{
-				text: 'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document',
-				author: 'Joseph King'
+				text: 'Only just looked at the website and it looks solid! I can’t wait to use Stranerd for all my homework problems this semester in school.',
+				author: 'Josephine King'
 			},
 			{
-				text: 'Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs!!!',
+				text: 'I know Stranerd from Instagram and their posts alone have been very helpful for me when I need help with my school work. I already like the website from first glance, can’t wait to use it.',
 				author: 'Akin James'
 			},
 			{
-				text: 'Reference site about Lorem Ipsum, giving information on its origins, as well as a random Lipsum generator.!!!',
+				text: 'It’s a cool website!',
 				author: 'Idris Mike'
 			}
 		]

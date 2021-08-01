@@ -9,7 +9,7 @@
 					Ask A Question
 				</Heading>
 				<div class="py-2">
-					Ask questions on various subjects and make sure your question is very detailed. You get answers from other Nerds and go through all available answers to choose which answer is the best.
+					Ask questions on various subjects. Go through all available answers. Choose your best answers
 				</div>
 				<NuxtLink to="/questions/create" class="btn btn-md btn-custom py-1">
 					Ask A Question
@@ -25,7 +25,7 @@
 					Answer A Question
 				</Heading>
 				<div class="py-2">
-					Answer questions on subjects that you are very good at. Make sure your answer is correct and detailed. You get a minimum reward for answering and get the full reward if your answer is chosen as the best.
+					Answer questions in subjects you’re good at. Get rewards if your answer is chosen as one of the best answers.
 				</div>
 				<NuxtLink to="/questions/" class="btn btn-md btn-custom py-1">
 					Answer A Question
@@ -38,10 +38,10 @@
 			</div>
 			<div>
 				<Heading variant="1">
-					Meet Top Nerds
+					Be/Meet Top Nerds
 				</Heading>
 				<div class="py-2">
-					Get a more in-depth experience to better help with problems. Request or Accept a Session to chat with others; in order to collaborate better, get help for your problems and solve the problems of others.
+					Get or give in-depth answers to homework questions. Request or accept sessions to help out with homework. Collaborate to solve problems and earn rewards
 				</div>
 				<NuxtLink to="/nerds/" class="btn btn-md btn-custom py-1">
 					Meet Top Nerds
@@ -58,7 +58,7 @@
 					Coin System
 				</Heading>
 				<div class="py-2">
-					Buy affordable coins to be used for your interactions. You use Bronze coins as reward to get answers to your questions and Gold coins to request chat sessions with Top Nerds for an in-depth learning experience.
+					Buy affordable coins to interact. Bronze Coins are used to Ask Questions. Gold Coins are used to request chat sessions with Top Nerds
 				</div>
 				<NuxtLink to="/account/e-wallet" class="btn btn-md btn-custom py-1">
 					Buy Coins

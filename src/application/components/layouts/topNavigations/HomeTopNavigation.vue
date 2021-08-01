@@ -57,19 +57,15 @@
 				Sign Up
 			</NuxtLink>
 			<div class="bottomLogo d-flex flex-row align-items-center justify-content-center gap-1">
-				<!--  TODO: Add social links -->
-				<NuxtLink to="#">
-					<img src="@app/assets/images/homepage/instagram_white.svg" height="30">
-				</NuxtLink>
-				<NuxtLink to="#">
-					<img src="@app/assets/images/homepage/twitter_white.svg" height="30">
-				</NuxtLink>
-				<NuxtLink to="#">
-					<img src="@app/assets/images/homepage/facebook_white.svg" height="30">
-				</NuxtLink>
-				<NuxtLink to="#">
-					<img src="@app/assets/images/homepage/youtube_white.svg" height="30">
-				</NuxtLink>
+				<a href="https://instagram.com/officialstranerd" target="_blank">
+					<img src="@app/assets/images/homepage/instagram_white.svg" height="30" alt="">
+				</a>
+				<a href="https://twitter.com/stranerds" target="_blank">
+					<img src="@app/assets/images/homepage/twitter_white.svg" height="30" alt="">
+				</a>
+				<a href="https://facebook.com/officialstranerd" target="_blank">
+					<img src="@app/assets/images/homepage/facebook_white.svg" height="30" alt="">
+				</a>
 			</div>
 		</div>
 	</nav>

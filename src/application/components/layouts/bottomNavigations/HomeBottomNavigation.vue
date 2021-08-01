@@ -6,15 +6,12 @@
 					<h5 class="sessionHead">
 						Company
 					</h5>
-					<NuxtLink class="linkText" to="/#">
+					<NuxtLink class="linkText" to="/#how-it-works">
 						About Us
 					</NuxtLink>
-					<NuxtLink class="linkText" to="/#">
-						Term of Use
-					</NuxtLink>
-					<NuxtLink class="linkText" to="/#">
+					<a class="linkText" href="/legal/privacy-policy.pdf" target="_blank">
 						Privacy Policy
-					</NuxtLink>
+					</a>
 				</div>
 				<div class="block">
 					<h5 class="sessionHead">
@@ -22,52 +19,48 @@
 						<i class="fas fa-circle" style="margin-left: 3px; font-size: 15px;" />
 						<i class="fas fa-circle" style="margin-left: 3px; font-size: 15px;" />
 					</h5>
-					<NuxtLink class="linkText" to="/#">
+					<a class="linkText" href="/legal/terms-of-use.pdf" target="_blank">
+						Term of Use
+					</a>
+					<a class="linkText" href="/legal/terms-and-conditions.pdf" target="_blank">
 						Terms & Conditions
-					</NuxtLink>
-					<NuxtLink class="linkText" to="/#">
-						Terms of Service
-					</NuxtLink>
+					</a>
 				</div>
+				<!-- TODO: Add community and help links-->
 				<div class="block">
 					<h5 class="sessionHead">
 						Community
 					</h5>
-					<NuxtLink class="linkText" to="/#">
+					<NuxtLink class="linkText" to="/">
 						Blog
 					</NuxtLink>
-					<NuxtLink class="linkText" to="/#">
+					<NuxtLink class="linkText" to="/">
 						Honor Code
 					</NuxtLink>
 				</div>
-				<!--  TODO: Add legal links -->
 				<div class="block">
 					<h5 class="sessionHead">
 						Help
 					</h5>
-					<NuxtLink class="linkText" to="/#">
+					<NuxtLink class="linkText" to="/">
 						FAQ
 					</NuxtLink>
-					<NuxtLink class="linkText" to="/#">
+					<NuxtLink class="linkText" to="/">
 						Customer Care
 					</NuxtLink>
 				</div>
 			</div>
 			<div class="w-100 mt-3 d-flex flex-column gap-1 pt-3 class border-top border-white align-items-center justify-content-center">
 				<div class="d-flex gap-2">
-					<!--  TODO: Add social links -->
-					<NuxtLink class="linkText" to="/#">
-						<img src="@app/assets/images/homepage/facebook_icon.png" height="21">
-					</NuxtLink>
-					<NuxtLink class="linkText" to="/#">
-						<img src="@app/assets/images/homepage/instagram_icon.png" height="21">
-					</NuxtLink>
-					<NuxtLink class="linkText" to="/#">
-						<img src="@app/assets/images/homepage/twitter_icon.png" height="21">
-					</NuxtLink>
-					<NuxtLink class="linkText" to="/#">
-						<img src="@app/assets/images/homepage/youtube_icon.png" height="21">
-					</NuxtLink>
+					<a class="linkText" href="https://instagram.com/officialstranerd" target="_blank">
+						<img src="@app/assets/images/homepage/instagram_white.svg" height="30" alt="">
+					</a>
+					<a class="linkText" href="https://twitter.com/stranerds" target="_blank">
+						<img src="@app/assets/images/homepage/twitter_white.svg" height="30" alt="">
+					</a>
+					<a class="linkText" href="https://facebook.com/officialstranerd" target="_blank">
+						<img src="@app/assets/images/homepage/facebook_white.svg" height="30" alt="">
+					</a>
 				</div>
 				<div class="linkText" style="font-size: 14px;">
 					&copy; {{ new Date().getFullYear() }} | Stranerd LLC. All rights reserved.
@@ -109,7 +102,6 @@ export default defineComponent({
 	.block {
 		display: flex;
 		flex-direction: column;
-		// align-items: center;
 		@media (min-width: $md) { justify-content: center; }
 	}
 </style>

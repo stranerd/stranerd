@@ -95,5 +95,6 @@ export const setShowProfileModal = (show: boolean) => global.showProfileModal.va
 
 export const CONVERSION_RATES = {
 	USD: 1,
-	NGN: 421
+	NGN: 100,
+	INR: 70
 } as const

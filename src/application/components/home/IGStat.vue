@@ -29,7 +29,7 @@
 						<a
 							v-for="(comment,index) in comments"
 							:key="'comment'+ index"
-							:class="currentIndex == index ? 'commentIconsDotActive' : 'commentIconsDot'"
+							:class="currentIndex === index ? 'commentIconsDotActive' : 'commentIconsDot'"
 							@click.prevent="goToComment(index)"
 						>
 							<i class="fas fa-circle" />
@@ -113,13 +113,10 @@ export default defineComponent({
 	}
 
 	.ImageBubble {
-		width: 70%;
-		@media (min-width: $md) {
-			width: 60%;
-		}
-		@media (min-width: $lg) {
-			width: 70%;
-		}
+		width: 90%;
+		@media (min-width: $md) { width: 50%; }
+		@media (min-width: $lg) { width: 60%; }
+		@media (min-width: $xl) { width: 50%; }
 	}
 
 	.sub {

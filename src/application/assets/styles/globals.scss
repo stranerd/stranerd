@@ -80,6 +80,10 @@ $body-max-width: 1920px;
 	@return calc(var(--vh, 1vh) * #{$quantity});
 }
 
+@function vw($quantity) {
+	@return calc(var(--vw, 1vw) * #{$quantity});
+}
+
 .hide-scrollbar {
 	-ms-overflow-style: none;
 

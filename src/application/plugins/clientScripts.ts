@@ -22,14 +22,17 @@ export default defineNuxtPlugin(async () => {
 
 	document.body.setAttribute('data-no-gap', hasNoGapSupport() ? 'true' : 'false')
 	document.documentElement.style.setProperty('--vh', `${window.innerHeight / 100}px`)
+	document.documentElement.style.setProperty('--vw', `${window.innerWidth / 100}px`)
 
 	window.addEventListener('resize', () => {
 		document.body.setAttribute('data-no-gap', hasNoGapSupport() ? 'true' : 'false')
 		document.documentElement.style.setProperty('--vh', `${window.innerHeight / 100}px`)
+		document.documentElement.style.setProperty('--vw', `${window.innerWidth / 100}px`)
 	})
 	window.addEventListener('orientationchange', () => {
 		document.body.setAttribute('data-no-gap', hasNoGapSupport() ? 'true' : 'false')
 		document.documentElement.style.setProperty('--vh', `${window.innerHeight / 100}px`)
+		document.documentElement.style.setProperty('--vw', `${window.innerWidth / 100}px`)
 	})
 
 	Vue.use(Flutterwave, { publicKey: flutterwaveConfig.publicKey })

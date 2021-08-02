@@ -142,6 +142,10 @@ export const pwa = {
 						config: { maxEntries: 100, maxAgeSeconds: 14 * 24 * 60 * 60 }
 					}
 				]
+			},
+			{
+				urlPattern: 'https://ssl.geoplugin.net/.*',
+				handler: 'NetworkOnly'
 			}
 		]
 	}

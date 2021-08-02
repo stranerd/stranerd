@@ -11,7 +11,7 @@ export const authUserCreated = functions.auth.user().onCreate(async (user) => {
 		...(first ? { 'bio/name/first': first } : {}),
 		...(last ? { 'bio/name/last': last } : {}),
 		'bio/email': user.email?.toLowerCase() ?? null,
-		'bio/isNew': true,
+		...(first && last ? {} : { 'bio/isNew': true }),
 		'dates/signedUpAt': admin.database.ServerValue.TIMESTAMP,
 		'account/coins/bronze': admin.database.ServerValue.increment(100),
 		'account/coins/gold': admin.database.ServerValue.increment(10),

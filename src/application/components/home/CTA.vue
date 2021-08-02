@@ -8,7 +8,7 @@
 		<div class="d-flex flex-column align-items-center justify-content-center col-lg-6 mt-2">
 			<div class="text-center mb-2">
 				<h1 class="headerStyle text-primary-dark mb-1">
-					Get quick help for your homework and study problems…
+					Your quick help for Maths, Chemistry homework problems...
 				</h1>
 				<span class="paragraphStyle">
 					Leverage a large community of students for your academic needs while making connections that will impact you for life

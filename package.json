@@ -1,7 +1,7 @@
 {
   "name": "stranerd",
   "version": "1.0.0",
-  "description": "welcome to the stranerd official page",
+  "description": "Post your homework problems, get answers and help other students! Stranerd is a place where students can learn from, help and connect with each other.",
   "private": true,
   "scripts": {
     "dev": "npm run env:copy:app && nuxt",

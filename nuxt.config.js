@@ -14,7 +14,7 @@ export const server = {
 export const target = 'server'
 
 export const head = {
-	title: 'Stranerd',
+	title: 'STRANERD: Your quick help for Maths, Chemistry homework problems',
 	htmlAttrs: {
 		lang: 'en'
 	},
@@ -98,10 +98,11 @@ export const pwa = {
 		source: 'src/application/static/images/icon.png'
 	},
 	meta: {
+		name: 'STRANERD: Your quick help for Maths, Chemistry homework problems',
 		theme_color: '#546dd2',
 		ogHost: 'https://stranerd.com',
-		ogImage: 'https://stranerd.com/images/banner.jpg',
-		twitterCard: 'https://stranerd.com/images/banner.jpg',
+		ogImage: 'https://stranerd.com/images/banner.png',
+		twitterCard: 'https://stranerd.com/images/banner.png',
 		twitterSite: 'https://stranerd.com'
 	},
 	manifest: {},

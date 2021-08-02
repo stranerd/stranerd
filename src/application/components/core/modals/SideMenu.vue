@@ -8,7 +8,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from '@nuxtjs/composition-api'
+import { defineComponent, onBeforeUnmount, onMounted, PropType } from '@nuxtjs/composition-api'
+import { disableScroll, enableScroll } from '@utils/html'
 export default defineComponent({
 	name: 'SideMenu',
 	props: {
@@ -26,6 +27,10 @@ export default defineComponent({
 			required: false,
 			default: ''
 		}
+	},
+	setup () {
+		onMounted(disableScroll)
+		onBeforeUnmount(enableScroll)
 	}
 })
 </script>

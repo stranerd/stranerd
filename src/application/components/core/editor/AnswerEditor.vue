@@ -5,7 +5,7 @@
 			:error="error"
 			:valid="valid"
 			:toolbar="toolbar"
-			path="questions"
+			path="answers"
 			placeholder="Explain your answer in full detail."
 			@update:value="$emit('update:model',$event)"
 		/>

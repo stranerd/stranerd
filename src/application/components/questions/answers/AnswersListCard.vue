@@ -42,7 +42,7 @@
 			</div>
 		</div>
 		<div v-if="showExplanation" class="answer-content bg-line">
-			<div class="editor-body" v-html="answer.body" />
+			<div class="editor-body" v-html="answer.body || 'No explanation'" />
 		</div>
 		<div v-if="showComments && answer.commentsCount" class="answer-content">
 			<CommentList :answer-id="answer.id" />

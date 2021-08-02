@@ -5,7 +5,7 @@
 			:error="error"
 			:valid="valid"
 			:toolbar="toolbar"
-			path="questions"
+			path="sessions"
 			placeholder="Leave a message for the nerd."
 			@update:value="$emit('update:model',$event)"
 		/>

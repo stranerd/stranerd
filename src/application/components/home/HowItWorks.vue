@@ -38,7 +38,7 @@
 			</div>
 			<div>
 				<Heading variant="1">
-					Be/Meet Top Nerds
+					Meet Top Nerds
 				</Heading>
 				<div class="py-2">
 					Get or give in-depth answers to homework questions. Request or accept sessions to help out with homework. Collaborate to solve problems and earn rewards

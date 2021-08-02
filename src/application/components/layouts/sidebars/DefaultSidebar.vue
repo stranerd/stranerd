@@ -3,12 +3,12 @@
 		<div class="sidebar-links">
 			<NuxtLink class="sidebar-link" to="/dashboard">
 				<img src="@app/assets/images/icons/dashboard.svg" alt="">
-				<span>Home</span>
+				<span>Questions</span>
 			</NuxtLink>
 
 			<NuxtLink class="sidebar-link" to="/nerds">
 				<img src="@app/assets/images/icons/nerd.svg" alt="">
-				<span>Nerds</span>
+				<span>Top Nerds</span>
 			</NuxtLink>
 
 			<NuxtLink class="sidebar-link" to="/account/e-wallet">

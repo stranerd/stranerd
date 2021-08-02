@@ -1,5 +1,5 @@
 <template>
-	<DynamicText class="tag">
+	<DynamicText class="tag text-no-wrap">
 		{{ tag }}
 	</DynamicText>
 </template>

@@ -4,7 +4,8 @@ import { useAuth } from '@app/hooks/auth/auth'
 
 export default defineNuxtPlugin(async () => {
 	try {
-		const res = await AxiosInstance.get('http://www.geoplugin.net/json.gp', {
+		const geopluginApiSite = 'https://ssl.geoplugin.net/json.gp?k=5c113cbeb772aab6'
+		const res = await AxiosInstance.get(geopluginApiSite, {
 			withCredentials: false
 		})
 		const {

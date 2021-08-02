@@ -14,7 +14,7 @@ const isLongerThan2 = (value: string) => isExtractedHTMLLongerThan(value, 2)
 export class AnswerFactory extends BaseFactory<AnswerEntity, AnswerToModel, Keys> {
 	readonly rules = {
 		title: { required: true, rules: [isLongerThan2] },
-		body: { required: true, rules: [isLongerThan2] },
+		body: { required: true, rules: [isLongerThan0] },
 		coins: { required: true, rules: [] },
 		questionId: { required: true, rules: [isLongerThan0] },
 		subjectId: { required: true, rules: [isLongerThan0] },

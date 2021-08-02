@@ -8,7 +8,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from '@nuxtjs/composition-api'
+import { defineComponent, onBeforeUnmount, onMounted, PropType } from '@nuxtjs/composition-api'
+import { disableScroll, enableScroll } from '@utils/html'
 export default defineComponent({
 	name: 'Modal',
 	props: {
@@ -31,6 +32,10 @@ export default defineComponent({
 			required: false,
 			default: ''
 		}
+	},
+	setup () {
+		onMounted(disableScroll)
+		onBeforeUnmount(enableScroll)
 	}
 })
 </script>
@@ -44,6 +49,7 @@ export default defineComponent({
 		bottom: 0;
 		display: flex;
 		z-index: 100;
+		overflow: none;
 
 		.sd-modal-under {
 			width: 100%;

@@ -17,7 +17,7 @@ export default defineComponent({
 	name: 'MakePayment',
 	setup () {
 		const isAfrican = computed({
-			get: () => useAuth().location.value?.continent === 'Africa',
+			get: () => useAuth().location.value?.continentCode === 'AF',
 			set: () => {}
 		})
 		return { isAfrican }

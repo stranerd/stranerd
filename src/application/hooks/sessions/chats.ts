@@ -1,10 +1,9 @@
-import { computed, Ref, ssrRef, ref, useFetch, watch } from '@nuxtjs/composition-api'
+import { computed, Ref, reqRef, ref, useFetch, watch } from '@nuxtjs/composition-api'
 import { AddPersonalChat, ChatEntity, ChatFactory, GetPersonalChats, ListenToPersonalChats, MarkPersonalChatRead } from '@modules/sessions'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
 import { CHAT_PAGINATION_LIMIT } from '@utils/constants'
 import { getRandomValue } from '@utils/commons'
-import { isServer } from '@utils/environment'
 
 const global = {} as Record<string, {
 	chats: Ref<ChatEntity[]>,
@@ -25,10 +24,10 @@ const unshiftToChats = (userId: string, chat: ChatEntity) => {
 
 export const useChats = (userId: string) => {
 	const { id } = useAuth()
-	if (global[userId] === undefined || isServer()) global[userId] = {
-		chats: ssrRef([]),
-		fetched: ssrRef(false),
-		hasMore: ssrRef(false),
+	if (global[userId] === undefined) global[userId] = {
+		chats: reqRef([]),
+		fetched: reqRef(false),
+		hasMore: reqRef(false),
 		...useErrorHandler(),
 		...useLoadingHandler()
 	}

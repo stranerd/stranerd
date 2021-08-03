@@ -1,4 +1,4 @@
-import { computed, Ref, ref, ssrRef, useRouter, watch } from '@nuxtjs/composition-api'
+import { Ref, ref, ssrRef, useRouter, watch } from '@nuxtjs/composition-api'
 import { AddSession, BeginSession, CancelSession, SessionFactory } from '@modules/sessions'
 import { UserBio } from '@modules/users'
 import { RateTutor } from '@modules/meta'
@@ -30,14 +30,11 @@ export const useCreateSession = () => {
 	factory.value.studentBioAndId = { id: id.value, user: bio.value! }
 	watch(() => id.value, () => factory.value.studentBioAndId = { id: id.value!, user: bio.value! })
 	watch(() => bio.value, () => factory.value.studentBioAndId = { id: id.value!, user: bio.value! })
-	const prices = computed({
-		get: () => {
-			const entries = Object.entries(SESSION_PRICES)
-			entries.sort((a, b) => a[1] - b[1])
-			return entries.map((arr) => ({ duration: parseFloat(arr[0]), price: arr[1] }))
-		},
-		set: () => {}
-	})
+	const prices = (() => {
+		const entries = Object.entries(SESSION_PRICES)
+		entries.sort((a, b) => a[1] - b[1])
+		return entries.map((arr) => ({ duration: parseFloat(arr[0]), price: arr[1] }))
+	})()
 	watch(() => factory.value.duration, () => factory.value.price = SESSION_PRICES[factory.value.duration as keyof typeof SESSION_PRICES])
 
 	const createSession = async () => {

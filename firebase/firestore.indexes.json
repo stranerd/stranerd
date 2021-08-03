@@ -62,7 +62,7 @@
 			"fields": [
 				{
 					"fieldPath": "tags",
-					"order": "CONTAINS"
+					"arrayConfig": "CONTAINS"
 				},
 				{
 					"fieldPath": "dates.createdAt",

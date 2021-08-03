@@ -16,6 +16,6 @@ export class SubjectEntity extends BaseEntity {
 type SubjectConstructorArgs = { id: string, name: string, createdAt: number }
 
 const capitalize = (value: string) => {
-	const c = (v: string) => v[0].toUpperCase() + v.slice(1)
-	return value.split(' ').map(c).join(' ')
+	const c = (v: string) => (v[0]?.toUpperCase() ?? '') + v.slice(1)
+	return value.trim().split(' ').map(c).join(' ')
 }

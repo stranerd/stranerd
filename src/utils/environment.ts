@@ -44,5 +44,6 @@ export const email = Object.fromEntries(
 	}])
 )
 
-export const domain = `http${!isDev ? 's' : ''}://${process.env.DOMAIN}${isDev ? `:${process.env.PORT}` : ''}`
+export const host = (process.env.DOMAIN ?? '') + (isDev ? `:${process.env.PORT}` : '')
+export const domain = `http${!isDev ? 's' : ''}://${host}`
 export const logo = `${domain}/images/logo-blue.svg`

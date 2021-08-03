@@ -114,10 +114,15 @@ export default defineComponent({
 		background: $color-white;
 		z-index: 3;
 		white-space: normal;
-		max-width: vw(100) - 4rem;
+		max-width: vw(90);
 		box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
-		@media (max-width: 500px) {
-			right: 0.25rem;
+		right: 0.25rem;
+		@media (min-width: 500px) {
+			max-width: vw(75);
+			right: unset;
+		}
+		@media (min-width: $lg) {
+			max-width: vw(60);
 		}
 	}
 </style>

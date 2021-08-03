@@ -39,7 +39,7 @@
 				</span>
 			</div>
 		</div>
-		<div v-if="showExplanation" class="answer-content bg-line">
+		<div v-if="showExplanation" class="answer-content bg-tags">
 			<div class="editor-body" v-html="answer.body || 'No explanation'" />
 		</div>
 		<div v-if="showComments && answer.commentsCount" class="answer-content">

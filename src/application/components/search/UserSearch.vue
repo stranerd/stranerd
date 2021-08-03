@@ -9,9 +9,6 @@
 							{{ item.model.fullName }}
 						</DynamicText>
 					</h5>
-					<DynamicText :truncate="true">
-						{{ item.model.email }}
-					</DynamicText>
 				</div>
 			</NuxtLink>
 		</template>

@@ -32,7 +32,7 @@
 		</NuxtLink>
 
 		<div class="d-flex align-items-center flex-row flex-wrap gap-1">
-			<div class="d-flex align-items-center gap-0-5 gap-md-1 me-auto tags">
+			<div class="d-flex align-items-center flex-wrap gap-0-5 gap-md-1 me-auto tags">
 				<Tag v-for="tag in question.tags" :key="tag" :tag="tag" />
 			</div>
 			<DynamicText class="name">

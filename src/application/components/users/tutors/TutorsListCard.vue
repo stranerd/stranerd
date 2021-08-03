@@ -44,7 +44,7 @@
 
 			<div v-if="tutor.tags.length" class="nerd-card gap-1-5">
 				<span class="head-text">Frequent Tags</span>
-				<div class="d-flex align-items-center gap-0-75 flex-wrap">
+				<div class="d-flex align-items-center flex-wrap gap-0-75 flex-wrap">
 					<Tag v-for="tag in tutor.tags" :key="tag.id" :tag="tag.id" />
 				</div>
 			</div>

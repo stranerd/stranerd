@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<NotificationsListCard v-for="notification in notifications" :key="notification.hassssssh" :notification="notification" />
-		<div v-if="hasMore" class="text-center py-1-5 text-18">
+		<div v-if="hasMore" class="text-center py-2 text-18 text-primary-dark">
 			<a @click.prevent="fetchOlderNotifications">Load More</a>
 		</div>
 		<DisplayWarning v-if="!loading && !error && notifications.length === 0" message="No notifications found." />

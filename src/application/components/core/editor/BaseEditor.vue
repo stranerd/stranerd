@@ -145,4 +145,10 @@ export default defineComponent({
 		border: 1px solid $color-red;
 		box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
 	}
+
+	.ql-editor.ql-blank::before {
+		color: inherit;
+		opacity: 0.5;
+		font-size: 1em;
+	}
 </style>

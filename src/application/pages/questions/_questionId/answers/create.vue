@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<div class="question-body mb-1-5 mb-md-2-5">
-			<Heading variant="1" class="color-dark mb-0-5">
+		<div class="d-flex flex-column gap-1 gap-lg-2 mb-1-5 mb-md-2-5">
+			<Heading variant="1" class="color-dark">
 				Question
 			</Heading>
 			<BodyText variant="large">

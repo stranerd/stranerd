@@ -4,16 +4,16 @@
 			<NuxtLink :to="`/users/${answer.userId}`">
 				<Avatar :src="answer.avatar" :size="40" />
 			</NuxtLink>
-			<NuxtLink :to="`/users/${answer.userId}`" class="d-block text-dark text-wrap">
-				<DynamicText>
-					{{ answer.userName }}
-				</DynamicText>
+			<NuxtLink :to="`/users/${answer.userId}`" class="d-block fw-bold text-dark text-wrap">
+				<BodyText variant="large" class="text-dark">
+					<DynamicText>{{ answer.userName }}</DynamicText>
+				</BodyText>
 			</NuxtLink>
 			<ShowRatings class="ms-auto" :rating="answer.averageRating" />
 		</div>
 		<div class="answer-content d-flex flex-column gap-1">
 			<BodyText variant="large" class="text-dark">
-				<DynamicText>{{ answer.title }}</DynamicText>
+				<DynamicText>{{ answer.title || 'N/A' }}</DynamicText>
 			</BodyText>
 			<div class="d-flex gap-1 gap-md-2 align-items-center text-primary fw-bold flex-row flex-wrap">
 				<span class="d-flex align-items-center gap-0-25 me-auto" @click="showExplanation = !showExplanation">
@@ -33,9 +33,7 @@
 					<i class="fas fa-check-circle" />
 				</span>
 				<SelectRating v-if="showRatingButton && isLoggedIn && answer.userId !== id" :rating="0" :set-rating="rateAnswer" />
-				<Share :title="answer.title" :text="answer.strippedBody" :link="`/questions/${answer.questionId}#${answer.id}`">
-					<i class="fas fa-reply" />
-				</Share>
+				<Share :title="answer.title" :text="answer.strippedBody" :link="`/questions/${answer.questionId}#${answer.id}`" />
 				<span v-if="id && answer.userId !== id" @click="reportAnswer">
 					<i class="fas fa-flag" />
 				</span>

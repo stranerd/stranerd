@@ -11,7 +11,8 @@
 					<div class="cardform fw-bold p-1 flex-column gap-1 flex-md-row d-flex align-items-center">
 						<div class="w-100 flex-grow-1 d-flex align-items-center gap-0-5">
 							<img src="@app/assets/images/homepage/call.svg" height="30">
-							<a href="tel:+1 800 STRANERD">+1 800 STRANERD</a>
+							<a v-if="isNigerian" href="tel:+2348130322791">+234 813 032-2791</a>
+							<a v-else href="tel:+14044035611">+1 (404) 403-5611</a>
 						</div>
 						<div class="w-100 flex-grow-1 d-flex align-items-center gap-0-5">
 							<img src="@app/assets/images/homepage/message.svg" height="30">
@@ -25,11 +26,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { computed, defineComponent } from '@nuxtjs/composition-api'
 import MessageForm from '@app/components/forms/MessageForm.vue'
+import { useAuth } from '@app/hooks/auth/auth'
 export default defineComponent({
 	name: 'ContactUs',
-	components: { MessageForm }
+	components: { MessageForm },
+	setup () {
+		const isNigerian = computed({
+			get: () => useAuth().location.value?.countryCode === 'NG',
+			set: () => {}
+		})
+		return { isNigerian }
+	}
 })
 </script>
 

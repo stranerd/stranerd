@@ -31,7 +31,7 @@ export const useTags = (addCb: callback, removeCb: callback) => {
 	watch(() => tag.value, () => {
 		if (tag.value.includes(' ')) {
 			tag.value.split(' ').forEach((tag) => {
-				if (tag) addCb(tag.toLowerCase())
+				if (tag) addCb(tag.replaceAll(',', '').toLowerCase())
 			})
 			tag.value = ''
 		}

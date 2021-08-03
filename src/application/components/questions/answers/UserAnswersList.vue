@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<AnswerCard v-for="answer in answers" :key="answer.hash" :answer="answer" />
-		<div v-if="hasMore" class="text-center py-1 text-18">
+		<div v-if="hasMore" class="text-center py-2 text-18 text-primary-dark">
 			<a @click.prevent="fetchOlderAnswers">Load More</a>
 		</div>
 		<DisplayWarning v-if="!loading && !error && answers.length === 0" message="This user has not answered any questions yet." />

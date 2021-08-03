@@ -1,5 +1,5 @@
 <template>
-	<div class="layout-page">
+	<div :key="$route.fullPath" class="layout-page">
 		<HomeTopNavigation />
 		<section class="layout-body">
 			<main class="layout-main p-0">

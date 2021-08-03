@@ -9,19 +9,19 @@
 					<NuxtLink class="linkText" to="/#how-it-works">
 						About Us
 					</NuxtLink>
-					<a class="linkText" href="/legal/terms-of-use.pdf" target="_blank">
-						Term of Use
-					</a>
-				</div>
-				<div class="block">
-					<h5 class="sessionHead">
-						<i class="fas fa-circle" style="margin-left: 3px; font-size: 15px;" />
-						<i class="fas fa-circle" style="margin-left: 3px; font-size: 15px;" />
-						<i class="fas fa-circle" style="margin-left: 3px; font-size: 15px;" />
-					</h5>
 					<NuxtLink class="linkText" to="/">
 						Honor Code
 					</NuxtLink>
+				</div>
+				<div class="block">
+					<h5 class="sessionHead d-flex gap-0-25" style="font-size: 15px">
+						<i class="fas fa-circle" />
+						<i class="fas fa-circle" />
+						<i class="fas fa-circle" />
+					</h5>
+					<a class="linkText" href="/legal/terms-of-use.pdf" target="_blank">
+						Term of Use
+					</a>
 					<a class="linkText" href="/legal/privacy-policy.pdf" target="_blank">
 						Privacy Policy
 					</a>
@@ -47,9 +47,6 @@
 					</h5>
 					<NuxtLink class="linkText" to="/">
 						FAQ
-					</NuxtLink>
-					<NuxtLink class="linkText" to="/">
-						Customer Care
 					</NuxtLink>
 				</div>
 			</div>

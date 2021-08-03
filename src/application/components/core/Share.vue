@@ -1,7 +1,7 @@
 <template>
 	<client-only v-if="canShare">
 		<span @click.prevent="share">
-			<slot><i class="fas fa-share-alt" /></slot>
+			<slot><i class="fas fa-share" /></slot>
 		</span>
 	</client-only>
 </template>

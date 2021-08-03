@@ -6,7 +6,7 @@
 				<Logo class="d-lg-none" />
 			</NuxtLink>
 			<div class="gap-2 flex-row-reverse d-lg-flex d-none align-items-center">
-				<NuxtLink class="btn btn-lg white-btn-custom px-3" to="/auth/signup">
+				<NuxtLink class="btn btn-lg btn-custom bg-white text-primary px-3" to="/auth/signup">
 					Sign Up
 				</NuxtLink>
 				<NuxtLink class="btn btn-lg btn-custom px-3" to="/auth/signin">
@@ -33,29 +33,29 @@
 			</div>
 		</div>
 		<div v-if="show" class="flex-grow-1 d-lg-none px-2 d-flex flex-column text-center mt-2">
-			<NuxtLink class="mb-2 smallScreenLink link-custom-sm" to="/">
+			<a class="mb-2 smallScreenLink link-custom-sm" @click="navigate('/')">
 				Home
-			</NuxtLink>
-			<NuxtLink class="mb-2 smallScreenLink link-custom-sm" to="/#how-it-works">
+			</a>
+			<a class="mb-2 smallScreenLink link-custom-sm" @click="navigate('/#how-it-works')">
 				How it works
-			</NuxtLink>
-			<NuxtLink class="mb-2 smallScreenLink link-custom-sm" to="/#contact-us">
+			</a>
+			<a class="mb-2 smallScreenLink link-custom-sm" @click="navigate('/#contact-us')">
 				Contact
-			</NuxtLink>
-			<NuxtLink
-				class="btn btn-lg btn-custom-sm mx-auto mb-1 w-100"
+			</a>
+			<a
+				class="btn btn-lg btn-custom-sm bg-white text-primary mx-auto mb-1 w-100"
 				style="max-width: 400px;"
-				to="/auth/signin"
+				@click="navigate('/auth/signin')"
 			>
 				Sign In
-			</NuxtLink>
-			<NuxtLink
+			</a>
+			<a
 				class="btn btn-lg btn-custom-sm mx-auto w-100"
 				style="max-width: 400px;"
-				to="/auth/signup"
+				@click="navigate('/auth/signup')"
 			>
 				Sign Up
-			</NuxtLink>
+			</a>
 			<div class="bottomLogo d-flex flex-row align-items-center justify-content-center gap-1">
 				<a href="https://instagram.com/officialstranerd" target="_blank">
 					<img src="@app/assets/images/homepage/instagram_white.svg" height="30" alt="">
@@ -72,17 +72,22 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@nuxtjs/composition-api'
+import { defineComponent, ref, useRouter } from '@nuxtjs/composition-api'
 import { disableScroll, enableScroll } from '@utils/html'
 export default defineComponent({
 	name: 'HomeTopNavigation',
 	setup () {
+		const router = useRouter()
 		const show = ref(false)
 		const toggleMenu = () => {
 			show.value ? enableScroll() : disableScroll()
 			show.value = !show.value
 		}
-		return { show, toggleMenu }
+		const navigate = (link: string) => {
+			toggleMenu()
+			router.push(link)
+		}
+		return { show, toggleMenu, navigate }
 	}
 })
 </script>
@@ -119,15 +124,6 @@ export default defineComponent({
 		color: $color-white;
 		font-size: 16px;
 		border: 2px solid $color-primary;
-		font-weight: $font-weight-bold;
-		border-radius: 6px;
-	}
-
-	.btn-custom-sm {
-		background-color: $color-primary;
-		color: $color-white;
-		font-size: 15px;
-		border: 2px solid  $color-white;
 		font-weight: $font-weight-bold;
 		border-radius: 6px;
 	}

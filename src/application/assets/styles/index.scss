@@ -75,6 +75,7 @@ input.form-control, textarea.form-control {
 
 .form-control::placeholder {
 	color: inherit;
+	opacity: 0.5;
 	font-size: 0.9em;
 }
 

@@ -30,7 +30,7 @@
 		</form>
 
 		<QuestionCard v-for="question in questions" :key="question.hash" :question="question" />
-		<div v-if="hasMore" class="text-center py-1 text-18">
+		<div v-if="hasMore" class="text-center py-2 text-18 text-primary-dark">
 			<a @click.prevent="fetchOlderQuestions">Load More</a>
 		</div>
 		<DisplayWarning v-if="!loading && !error && questions.length === 0" message="No questions found." />

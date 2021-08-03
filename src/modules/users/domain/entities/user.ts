@@ -116,7 +116,12 @@ export class UserEntity extends BaseEntity {
 	get meta () {
 		return Object.fromEntries(
 			Object.entries(this.account.meta)
-				.map(([key, val]) => [key, Object.keys(val)])
+				.map(([key, val]) => [
+					key,
+					Object.entries(val)
+						.filter(([_, val]) => !!val)
+						.map(([key, _]) => key)
+				])
 		) as Record<keyof UserAccount['meta'], string[]>
 	}
 }
@@ -200,7 +205,7 @@ export interface UserTutor {
 	tags: Record<string, number>
 }
 
-export const generateDefaultBio = (bio: Partial<UserBio>) :DeepRequired<UserBio> => {
+export const generateDefaultBio = (bio: Partial<UserBio>) :UserBio => {
 	const first = capitalize(bio?.name?.first ?? 'Anon')
 	const last = capitalize(bio?.name?.last ?? 'Ymous')
 	const fullName = first + ' ' + last

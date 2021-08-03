@@ -22,7 +22,6 @@ export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel
 		coins: { required: true, rules: [isMoreThanMinimum, isLessThanMaximum] },
 		subjectId: { required: true, rules: [isLongerThan0] },
 		userId: { required: true, rules: [isLongerThan0] },
-		answerId: { required: false, rules: [] },
 		user: { required: true, rules: [] },
 		tags: { required: true, rules: [hasMoreThan2, hasLessThan6] }
 	}

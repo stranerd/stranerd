@@ -49,7 +49,7 @@ export default defineComponent({
 		bottom: 0;
 		display: flex;
 		z-index: 100;
-		overflow: none;
+		overflow: scroll;
 
 		.sd-modal-under {
 			width: 100%;

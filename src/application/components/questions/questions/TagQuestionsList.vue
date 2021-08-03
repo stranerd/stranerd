@@ -42,12 +42,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.tag {
-	display: inline-block;
-	font-size: 1.5rem;
-	margin-bottom: 2rem;
-	@media (min-width: $md) {
-		font-size: 2.25rem;
+	.tag {
+		display: inline-block;
+		font-size: 1.5rem;
+		margin-bottom: 2rem;
+		@media (min-width: $md) {
+			font-size: 2.25rem;
+		}
 	}
-}
 </style>

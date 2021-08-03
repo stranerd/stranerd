@@ -178,13 +178,13 @@ export default defineComponent({
 
 	.dummy {
 		height: 44px;
-		@media (min-width: $md) { height: 48px }
-		@media (min-width: $lg) { height: 60px }
+		@media (min-width: $md) { height: 48px; }
+		@media (min-width: $lg) { height: 60px; }
 
 		&.search {
 			height: 57px;
-			@media (min-width: $md) { height: 57px }
-			@media (min-width: $lg) { height: 60px }
+			@media (min-width: $md) { height: 57px; }
+			@media (min-width: $lg) { height: 60px; }
 		}
 	}
 </style>

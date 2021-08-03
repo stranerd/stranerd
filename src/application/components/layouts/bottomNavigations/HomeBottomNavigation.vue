@@ -14,7 +14,7 @@
 					</NuxtLink>
 				</div>
 				<div class="block">
-					<h5 class="sessionHead d-flex gap-0-25" style="font-size: 15px">
+					<h5 class="sessionHead d-flex gap-0-25" style="font-size: 15px;">
 						<i class="fas fa-circle" />
 						<i class="fas fa-circle" />
 						<i class="fas fa-circle" />

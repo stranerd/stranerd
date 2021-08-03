@@ -13,7 +13,7 @@
 		@section-click="onClick"
 	>
 		<DynamicText class="score">
-			{{ formatNumber(score) }}
+			{{ formatNumber(score, 2) }}
 		</DynamicText>
 	</Donut>
 </template>

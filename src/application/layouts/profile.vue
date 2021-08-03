@@ -1,5 +1,5 @@
 <template>
-	<div class="layout-page">
+	<div :key="$route.fullPath" class="layout-page">
 		<TopNavigation />
 		<section class="layout-body gap-3">
 			<section class="layout-side-left">

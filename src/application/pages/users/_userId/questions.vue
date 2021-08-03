@@ -8,7 +8,6 @@ import QuestionsList from '@app/components/questions/questions/UserQuestionsList
 export default defineComponent({
 	name: 'UserQuestionsPage',
 	components: { QuestionsList },
-	layout: 'profile',
 	setup () {
 		const { userId } = useRoute().value.params
 		return { userId }

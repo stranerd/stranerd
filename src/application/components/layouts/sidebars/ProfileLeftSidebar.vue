@@ -96,7 +96,7 @@
 
 		<div class="d-flex flex-column gap-0-5 text-dark box">
 			<h1 class="fw-bold">
-				About Me
+				About {{ user.id === id ? 'Me' : user.firstName }}
 			</h1>
 			<template v-if="user.id === id">
 				<DynamicText v-if="!user.description">

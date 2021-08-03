@@ -8,11 +8,21 @@ import { COINS_GAP, MAXIMUM_COINS, MINIMUM_COINS, PAGINATION_LIMIT } from '@util
 import { useAuth } from '@app/hooks/auth/auth'
 import { analytics } from '@modules/core'
 
+enum BestAnswers {
+	All,
+	BestAnswers,
+	None
+}
 enum Answered {
 	All,
 	Answered,
 	Unanswered
 }
+const bestAnswersChoices = [
+	{ val: BestAnswers.All, key: 'All' },
+	{ val: BestAnswers.BestAnswers, key: 'Best Answers' },
+	{ val: BestAnswers.None, key: 'None' }
+]
 const answeredChoices = [
 	{ val: Answered.All, key: 'All' },
 	{ val: Answered.Answered, key: 'Answered' },
@@ -22,6 +32,7 @@ const global = {
 	questions: ssrRef([] as QuestionEntity[]),
 	subjectId: ssrRef(''),
 	answered: ssrRef(answeredChoices[0].val),
+	bestAnswers: ssrRef(bestAnswersChoices[0].val),
 	fetched: ssrRef(false),
 	hasMore: ssrRef(false),
 	...useErrorHandler(),
@@ -59,11 +70,12 @@ export const useQuestionList = () => {
 	})
 	const filteredQuestions = computed({
 		get: () => global.questions.value.filter((q) => {
-			let matched = true
-			if (global.subjectId.value && q.subjectId !== global.subjectId.value) matched = false
-			if (global.answered.value === Answered.Answered && !q.isAnswered) matched = false
-			if (global.answered.value === Answered.Unanswered && q.isAnswered) matched = false
-			return matched
+			if (global.subjectId.value && q.subjectId !== global.subjectId.value) return false
+			if (global.answered.value === Answered.Answered && q.answers === 0) return false
+			if (global.answered.value === Answered.Unanswered && q.answers > 0) return false
+			if (global.bestAnswers.value === BestAnswers.BestAnswers && !q.isAnswered) return false
+			if (global.bestAnswers.value === BestAnswers.None && q.isAnswered) return false
+			return true
 		}).sort((a, b) => {
 			return new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
 		}), set: (questions) => { questions.map(pushToQuestionList) }
@@ -84,7 +96,7 @@ export const useQuestionList = () => {
 
 	return {
 		...global, listener,
-		filteredQuestions, answeredChoices,
+		filteredQuestions, answeredChoices, bestAnswersChoices,
 		fetchOlderQuestions
 	}
 }

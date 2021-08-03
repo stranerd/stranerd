@@ -11,7 +11,8 @@ export const catchDivideByZero = (num: number, den: number) => den === 0 ? 0 : n
 
 export const formatNumber = (num: number, dp = 0) => {
 	num = Math.abs(num)
-	if (num < Numbers.thousand) return num.toFixed(dp).replace('.0', '')
+	const zerosOfDp = '.' + new Array(dp).fill('0').map((x) => x).join('')
+	if (num < Numbers.thousand) return num.toFixed(dp).replace(zerosOfDp, '')
 	else if (num < Numbers.million) return (num / Numbers.thousand).toFixed(1).replace('.0', '') + 'k'
 	else if (num < Numbers.billion) return (num / Numbers.million).toFixed(1).replace('.0', '') + 'm'
 	else if (num < Numbers.trillion) return (num / Numbers.billion).toFixed(1).replace('.0', '') + 'b'

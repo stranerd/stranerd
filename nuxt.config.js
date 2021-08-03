@@ -144,7 +144,7 @@ export const pwa = {
 				]
 			},
 			{
-				urlPattern: 'https://ssl.geoplugin.net/.*',
+				urlPattern: 'https://ssl.geoplugin.net/*',
 				handler: 'NetworkOnly'
 			}
 		]

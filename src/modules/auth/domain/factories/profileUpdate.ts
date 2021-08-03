@@ -29,9 +29,9 @@ export class ProfileUpdateFactory extends BaseFactory<UserBio, UpdateUser, Keys>
 	reserved = []
 
 	get first () { return this.values.first }
-	set first (value: string) { this.set('first', value) }
+	set first (value: string) { this.set('first', value.replaceAll(' ', '')) }
 	get last () { return this.values.last }
-	set last (value: string) { this.set('last', value) }
+	set last (value: string) { this.set('last', value.replaceAll(' ', '')) }
 	get email () { return this.values.email }
 	set email (value: string) { this.set('email', value) }
 	get description () { return this.values.description }

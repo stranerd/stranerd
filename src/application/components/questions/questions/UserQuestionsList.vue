@@ -6,6 +6,11 @@
 					{{ choice.key }}
 				</option>
 			</select>
+			<select v-model="bestAnswers" class="form-select">
+				<option v-for="choice in bestAnswersChoices" :key="choice.val" :value="choice.val">
+					{{ choice.key }}
+				</option>
+			</select>
 			<SelectSubject :subject-id.sync="subjectId" />
 		</form>
 		<QuestionCard v-for="question in questions" :key="question.hash" :question="question" />
@@ -35,11 +40,14 @@ export default defineComponent({
 	},
 	setup (props) {
 		const { id } = useAuth()
-		const { filteredQuestions: questions, subjectId, error, loading, hasMore, answered, answeredChoices, fetchOlderQuestions } = useUserQuestionList(props.userId)
+		const {
+			filteredQuestions: questions, subjectId, error, loading, hasMore,
+			answered, answeredChoices, bestAnswersChoices, bestAnswers, fetchOlderQuestions
+		} = useUserQuestionList(props.userId)
 		return {
 			id,
 			questions, error, loading, hasMore, subjectId,
-			answeredChoices, answered,
+			answeredChoices, answered, bestAnswersChoices, bestAnswers,
 			fetchOlderQuestions
 		}
 	}
@@ -50,7 +58,7 @@ export default defineComponent({
 	.options {
 		select {
 			display: inline;
-			width: 156px;
+			max-width: 156px;
 			border: 1px solid $color-line;
 			padding: 0.25rem;
 			background-color: $color-tags;

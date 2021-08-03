@@ -20,9 +20,14 @@
 			</NuxtLink>
 		</div>
 
-		<form class="d-flex options gap-1-5">
+		<form class="d-flex options gap-0-5 gap-md-1-5">
 			<select v-model="answered" class="form-select">
 				<option v-for="choice in answeredChoices" :key="choice.val" :value="choice.val">
+					{{ choice.key }}
+				</option>
+			</select>
+			<select v-model="bestAnswers" class="form-select">
+				<option v-for="choice in bestAnswersChoices" :key="choice.val" :value="choice.val">
 					{{ choice.key }}
 				</option>
 			</select>
@@ -51,7 +56,7 @@ export default defineComponent({
 	setup () {
 		const {
 			filteredQuestions: questions, error, loading, hasMore,
-			answeredChoices, answered, subjectId,
+			answeredChoices, bestAnswersChoices, bestAnswers, answered, subjectId,
 			fetchOlderQuestions, listener
 		} = useQuestionList()
 		const { isLoggedIn, user } = useAuth()
@@ -59,7 +64,7 @@ export default defineComponent({
 		onBeforeUnmount(listener.closeListener)
 		return {
 			questions, error, loading, hasMore, fetchOlderQuestions,
-			answeredChoices, answered, subjectId,
+			answeredChoices, answered, subjectId, bestAnswersChoices, bestAnswers,
 			user, isLoggedIn
 		}
 	}
@@ -76,7 +81,7 @@ export default defineComponent({
 
 		select {
 			display: inline;
-			width: 156px;
+			max-width: 156px;
 			border: 1px solid $color-line;
 			padding: 0.25rem;
 			background-color: $color-tags;

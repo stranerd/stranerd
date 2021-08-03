@@ -23,7 +23,7 @@
 				</NuxtLink>
 			</div>
 			<div class="d-lg-none">
-				<span class="cursor-pointer" @click="show = !show">
+				<span class="cursor-pointer" @click="toggleMenu">
 					<i
 						class="fas"
 						:class="show ? 'fa-times' : 'fa-bars'"
@@ -32,7 +32,7 @@
 				</span>
 			</div>
 		</div>
-		<div v-if="show" class="flex-grow-1 d-lg-none px-2 d-flex flex-column text-center mt-2" @click="show = false">
+		<div v-if="show" class="flex-grow-1 d-lg-none px-2 d-flex flex-column text-center mt-2">
 			<NuxtLink class="mb-2 smallScreenLink link-custom-sm" to="/">
 				Home
 			</NuxtLink>
@@ -73,11 +73,16 @@
 
 <script lang="ts">
 import { defineComponent, ref } from '@nuxtjs/composition-api'
+import { disableScroll, enableScroll } from '@utils/html'
 export default defineComponent({
 	name: 'HomeTopNavigation',
 	setup () {
 		const show = ref(false)
-		return { show }
+		const toggleMenu = () => {
+			show.value ? enableScroll() : disableScroll()
+			show.value = !show.value
+		}
+		return { show, toggleMenu }
 	}
 })
 </script>

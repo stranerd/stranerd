@@ -1,13 +1,13 @@
 <template>
 	<div>
 		<form class="d-flex justify-content-center options gap-0-75 mb-1">
-			<select v-model="answered" class="form-select">
-				<option v-for="choice in answeredChoices" :key="choice.val" :value="choice.val">
+			<select v-model="bestAnswers" class="form-select">
+				<option v-for="choice in bestAnswersChoices" :key="choice.val" :value="choice.val">
 					{{ choice.key }}
 				</option>
 			</select>
-			<select v-model="bestAnswers" class="form-select">
-				<option v-for="choice in bestAnswersChoices" :key="choice.val" :value="choice.val">
+			<select v-model="answered" class="form-select">
+				<option v-for="choice in answeredChoices" :key="choice.val" :value="choice.val">
 					{{ choice.key }}
 				</option>
 			</select>

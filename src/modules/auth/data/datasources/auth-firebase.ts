@@ -1,47 +1,29 @@
-import { auth, AxiosInstance, firebase, DatabaseService } from '@modules/core'
-import { isDev } from '@utils/environment'
-import { AfterAuthUser, UpdateUser } from '../../domain/entities/auth'
+import { auth, AxiosInstance, firebase, DatabaseService, FunctionsService } from '@modules/core'
+import { AfterAuthUser, AuthExtras, UpdateUser } from '../../domain/entities/auth'
 import { AuthBaseDataSource } from './auth-base'
 
 export class AuthFirebaseDataSource implements AuthBaseDataSource {
-	async signinWithEmail (email: string, password: string) {
+	async signinWithEmail (email: string, password: string, extras: AuthExtras) {
 		try {
 			const record = await auth.signInWithEmailAndPassword(email, password)
-			return await getUserDetails(record.user!)
+			return await runAfterAuth(record, extras)
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
-	async signinWithGoogle () {
+	async signinWithGoogle (extras: AuthExtras) {
 		try {
 			const googleProvider = new firebase.auth.GoogleAuthProvider()
 			const record = await auth.signInWithPopup(googleProvider)
-			return await getUserDetails(record.user!)
+			return await runAfterAuth(record, extras)
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
-	async signupWithEmail ({ email, password, first, last }: { first: string, last: string, email: string, password: string }) {
+	async signupWithEmail ({ email, password, first, last }: { first: string, last: string, email: string, password: string }, extras: AuthExtras) {
 		try {
 			const record = await auth.createUserWithEmailAndPassword(email, password)
 			await DatabaseService.update(
 				`profiles/${record.user!.uid}/bio/name`, { first, last })
-			return await getUserDetails(record.user!)
-		} catch (error) { throw filterFirebaseError(error) }
-	}
-
-	async sendSigninEmail (email: string, redirectUrl: string) {
-		if (isDev) await auth.sendSignInLinkToEmail(email, {
-			url: redirectUrl,
-			handleCodeInApp: true
-		}).catch((error) => { throw filterFirebaseError(error) })
-		else await AxiosInstance.post('/auth/emails/signin', { email, redirectUrl })
-			.catch((error) => { throw new Error(error?.response?.data?.error ?? 'Error sending signin email') })
-	}
-
-	async signinWithEmailLink (email: string, emailUrl: string) {
-		if (!auth.isSignInWithEmailLink(emailUrl)) throw new Error('Url is not a valid email link')
-		try {
-			const record = await auth.signInWithEmailLink(email, emailUrl)
-			return await getUserDetails(record.user!)
+			return await runAfterAuth(record, extras)
 		} catch (error) { throw filterFirebaseError(error) }
 	}
 
@@ -89,14 +71,6 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 	}
 }
 
-const getUserDetails = async (user: firebase.User) :Promise<AfterAuthUser> => {
-	const email = user.email!
-	const idToken = await user.getIdToken(true)
-	const data = { id: user.uid, email, idToken }
-	await auth.signOut()
-	return data
-}
-
 const filterFirebaseError = (error: any) => {
 	switch (error.code) {
 		case 'auth/invalid-email': return new Error('Email address is invalid')
@@ -129,4 +103,18 @@ const filterFirebaseError = (error: any) => {
 
 		default: return new Error(error.message)
 	}
+}
+
+const runAfterAuth = async (record: firebase.auth.UserCredential, extras: AuthExtras) => {
+	const getUserDetails = async (user: firebase.User) :Promise<AfterAuthUser> => {
+		const email = user.email!
+		const idToken = await user.getIdToken(true)
+		const data = { id: user.uid, email, idToken }
+		await auth.signOut()
+		return data
+	}
+
+	if (extras.referrer && record.additionalUserInfo?.isNewUser && record.user!.email) await FunctionsService.call('newReferral', { email: record.user!.email, referrerId: extras.referrer })
+
+	return await getUserDetails(record.user!)
 }

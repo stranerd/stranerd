@@ -1,12 +1,11 @@
-import { Ref, ref, useRouter } from '@nuxtjs/composition-api'
-import {
-	EmailLinkSigninFactory, SendSigninEmail, SigninWithGoogle, SigninWithEmailLink,
-	EmailSigninFactory, SigninWithEmail, EmailSignupFactory, SignupWithEmail
-} from '@modules/auth'
-import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
+import { Ref, ref, reqRef, useRouter } from '@nuxtjs/composition-api'
+import { SigninWithGoogle, EmailSigninFactory, SigninWithEmail, EmailSignupFactory, SignupWithEmail } from '@modules/auth'
+import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 import { createSession } from '@app/hooks/auth/session'
-import { isClient } from '@utils/environment'
-import { EMAIL_SIGNIN_STORAGE_KEY } from '@utils/constants'
+
+const global = {
+	referrerId: reqRef(undefined as string | undefined)
+}
 
 export const useGoogleSignin = () => {
 	const router = useRouter()
@@ -17,67 +16,15 @@ export const useGoogleSignin = () => {
 		if (!loading.value) {
 			setLoading(true)
 			try {
-				const user = await SigninWithGoogle.call()
+				const user = await SigninWithGoogle.call({
+					referrer: global.referrerId.value
+				})
 				await createSession(user, router)
 			} catch (error) { setError(error) }
 			setLoading(false)
 		}
 	}
 	return { loading, error, signin }
-}
-
-export const useSendEmailLink = () => {
-	const factory = ref(new EmailLinkSigninFactory()) as Ref<EmailLinkSigninFactory>
-	const { error, setError } = useErrorHandler()
-	const { loading, setLoading } = useLoadingHandler()
-	const { message, setMessage } = useSuccessHandler()
-	const sendSigninEmail = async () => {
-		setError('')
-		if (factory.value.valid && !loading.value) {
-			setLoading(true)
-			try {
-				const email = factory.value.email
-				const redirectUrl = (isClient() ? window.location.origin : '') + '/auth/email-redirect'
-				await SendSigninEmail.call(factory.value, redirectUrl)
-				if (isClient()) window.localStorage.setItem(EMAIL_SIGNIN_STORAGE_KEY, email)
-				setMessage(`An email with a link to proceed has been sent to ${email}`)
-			} catch (error) { setError(error) }
-			setLoading(false)
-		} else factory.value.validateAll()
-	}
-	return { factory, loading, error, message, sendSigninEmail }
-}
-
-export const useEmailLinkSignin = () => {
-	const router = useRouter()
-	const factory = ref(new EmailLinkSigninFactory()) as Ref<EmailLinkSigninFactory>
-	const { error, setError } = useErrorHandler()
-	const { loading, setLoading } = useLoadingHandler()
-
-	const checkCachedEmail = async () => {
-		if (isClient()) {
-			const email = window.localStorage.getItem(EMAIL_SIGNIN_STORAGE_KEY)
-			window.localStorage.removeItem(EMAIL_SIGNIN_STORAGE_KEY)
-			if (email) {
-				factory.value.email = email
-				await signin()
-			}
-		}
-	}
-
-	const signin = async () => {
-		setError('')
-		if (factory.value.valid && !loading.value) {
-			setLoading(true)
-			try {
-				const url = isClient() ? window.location.href : ''
-				const user = await SigninWithEmailLink.call(factory.value, url)
-				await createSession(user, router)
-			} catch (error) { setError(error) }
-			setLoading(false)
-		} else factory.value.validateAll()
-	}
-	return { factory, loading, error, signin, checkCachedEmail }
 }
 
 export const useEmailSignin = () => {
@@ -90,7 +37,9 @@ export const useEmailSignin = () => {
 		if (factory.value.valid && !loading.value) {
 			setLoading(true)
 			try {
-				const user = await SigninWithEmail.call(factory.value)
+				const user = await SigninWithEmail.call(factory.value, {
+					referrer: global.referrerId.value
+				})
 				await createSession(user, router)
 			} catch (error) { setError(error) }
 			setLoading(false)
@@ -109,7 +58,9 @@ export const useEmailSignup = () => {
 		if (factory.value.valid && !loading.value) {
 			setLoading(true)
 			try {
-				const user = await SignupWithEmail.call(factory.value)
+				const user = await SignupWithEmail.call(factory.value, {
+					referrer: global.referrerId.value
+				})
 				await createSession(user, router)
 			} catch (error) { setError(error) }
 			setLoading(false)
@@ -117,3 +68,5 @@ export const useEmailSignup = () => {
 	}
 	return { factory, loading, error, signup }
 }
+
+export const setReferrerId = (id: string) => global.referrerId.value = id

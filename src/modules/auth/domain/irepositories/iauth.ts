@@ -1,11 +1,9 @@
-import { AfterAuthUser, AuthDetails, UpdateUser } from '../entities/auth'
+import { AfterAuthUser, AuthDetails, UpdateUser, AuthExtras } from '../entities/auth'
 
 export interface IAuthRepository {
-	signinWithEmail: (email: string, password: string) => Promise<AfterAuthUser>
-	signinWithGoogle: () => Promise<AfterAuthUser>
-	signupWithEmail: (data: { email: string, password: string, first: string, last: string }) => Promise<AfterAuthUser>
-	sendSigninEmail: (email: string, redirectUrl: string) => Promise<void>
-	signinWithEmailLink: (email: string, emailUrl: string) => Promise<AfterAuthUser>
+	signinWithEmail: (email: string, password: string, extras: AuthExtras) => Promise<AfterAuthUser>
+	signinWithGoogle: (extras: AuthExtras) => Promise<AfterAuthUser>
+	signupWithEmail: (data: { email: string, password: string, first: string, last: string }, extras: AuthExtras) => Promise<AfterAuthUser>
 	sendVerificationEmail: (email: string, redirectUrl: string) => Promise<void>
 	resetPassword: (email: string, redirectUrl: string) => Promise<void>
 	confirmPasswordReset: (code: string, password: string) => Promise<void>

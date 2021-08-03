@@ -39,3 +39,7 @@ export type AuthDetails = {
 	isVerified: boolean
 	signInMethod: string
 }
+
+export type AuthExtras = {
+	referrer?: string
+}

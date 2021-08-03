@@ -1,4 +1,5 @@
 import { IAuthRepository } from '../../irepositories/iauth'
+import { AuthExtras } from '../../entities/auth'
 
 export class SigninWithGoogleUseCase {
 	private repository: IAuthRepository
@@ -7,7 +8,7 @@ export class SigninWithGoogleUseCase {
 		this.repository = repository
 	}
 
-	async call () {
-		return await this.repository.signinWithGoogle()
+	async call (extras: AuthExtras) {
+		return await this.repository.signinWithGoogle(extras)
 	}
 }

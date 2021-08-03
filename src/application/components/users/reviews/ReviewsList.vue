@@ -14,7 +14,6 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import ReviewCard from '@app/components/users/reviews/ReviewListCard.vue'
 import { useUserReviewList } from '@app/hooks/users/user/reviews'
-import { useAuth } from '@app/hooks/auth/auth'
 export default defineComponent({
 	name: 'ReviewsList',
 	components: { ReviewCard },
@@ -25,10 +24,8 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
-		const { id } = useAuth()
 		const { reviews, error, loading, hasMore, fetchOlderReviews } = useUserReviewList(props.userId)
 		return {
-			id,
 			reviews, error, loading, hasMore,
 			fetchOlderReviews
 		}

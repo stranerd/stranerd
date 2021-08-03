@@ -1,4 +1,4 @@
-import { ssrRef, useFetch, watch } from '@nuxtjs/composition-api'
+import { reqRef, useFetch, watch } from '@nuxtjs/composition-api'
 import { AnswerReportFactory, AddAnswerReport, AnswerReportType, AnswerReportEntity, GetAnswerReports, DeleteAnswerReport } from '@modules/reports'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useReportModal } from '@app/hooks/core/modals'
@@ -22,7 +22,7 @@ export const setReportedEntity = (answer: AnswerEntity) => {
 
 export const useCreateReport = () => {
 	const { id, bio } = useAuth()
-	const factory = ssrRef(new AnswerReportFactory())
+	const factory = reqRef(new AnswerReportFactory())
 	const { message, setMessage } = useSuccessHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
@@ -53,9 +53,9 @@ export const useCreateReport = () => {
 }
 
 const global = {
-	reports: ssrRef([] as AnswerReportEntity[]),
-	fetched: ssrRef(false),
-	hasMore: ssrRef(false),
+	reports: reqRef([] as AnswerReportEntity[]),
+	fetched: reqRef(false),
+	hasMore: reqRef(false),
 	...useErrorHandler(),
 	...useLoadingHandler()
 }

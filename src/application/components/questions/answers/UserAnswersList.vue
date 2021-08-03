@@ -14,7 +14,6 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import AnswerCard from '@app/components/questions/answers/UserAnswersListCard.vue'
 import { useUserAnswerList } from '@app/hooks/users/user/answers'
-import { useAuth } from '@app/hooks/auth/auth'
 export default defineComponent({
 	name: 'UserAnswersList',
 	components: { AnswerCard },
@@ -25,10 +24,8 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
-		const { id } = useAuth()
 		const { answers, error, loading, hasMore, fetchOlderAnswers } = useUserAnswerList(props.userId)
 		return {
-			id,
 			answers, error, loading, hasMore,
 			fetchOlderAnswers
 		}

@@ -1,7 +1,7 @@
 <template>
-	<DynamicText class="tag text-nowrap">
-		{{ tag }}
-	</DynamicText>
+	<NuxtLink :to="`/questions/tags/${tag}`" class="tag text-nowrap">
+		<DynamicText>{{ tag }}</DynamicText>
+	</NuxtLink>
 </template>
 
 <script lang="ts">

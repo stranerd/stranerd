@@ -2,7 +2,7 @@
 	<div class="layout-page">
 		<TopNavigation />
 		<section class="layout-body gap-3">
-			<main class="layout-main ps-lg-3">
+			<main class="layout-main">
 				<Nuxt />
 			</main>
 			<section class="layout-side-right">

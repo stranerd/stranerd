@@ -22,7 +22,6 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import QuestionCard from '@app/components/questions/questions/UserQuestionsListCard.vue'
 import { useUserQuestionList } from '@app/hooks/users/user/questions'
-import { useAuth } from '@app/hooks/auth/auth'
 import SelectSubject from '@app/components/questions/subjects/SelectSubject.vue'
 export default defineComponent({
 	name: 'UserQuestionsList',
@@ -34,13 +33,11 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
-		const { id } = useAuth()
 		const {
 			filteredQuestions: questions, subjectId, error, loading, hasMore,
 			answered, answeredChoices, fetchOlderQuestions
 		} = useUserQuestionList(props.userId)
 		return {
-			id,
 			questions, error, loading, hasMore, subjectId,
 			answeredChoices, answered,
 			fetchOlderQuestions

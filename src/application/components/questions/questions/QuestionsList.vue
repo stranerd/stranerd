@@ -21,11 +21,6 @@
 		</div>
 
 		<form class="d-flex options gap-0-5 gap-md-1-5">
-			<select v-model="bestAnswers" class="form-select">
-				<option v-for="choice in bestAnswersChoices" :key="choice.val" :value="choice.val">
-					{{ choice.key }}
-				</option>
-			</select>
 			<select v-model="answered" class="form-select">
 				<option v-for="choice in answeredChoices" :key="choice.val" :value="choice.val">
 					{{ choice.key }}
@@ -56,7 +51,7 @@ export default defineComponent({
 	setup () {
 		const {
 			filteredQuestions: questions, error, loading, hasMore,
-			answeredChoices, bestAnswersChoices, bestAnswers, answered, subjectId,
+			answeredChoices, answered, subjectId,
 			fetchOlderQuestions, listener
 		} = useQuestionList()
 		const { isLoggedIn, user } = useAuth()
@@ -64,7 +59,7 @@ export default defineComponent({
 		onBeforeUnmount(listener.closeListener)
 		return {
 			questions, error, loading, hasMore, fetchOlderQuestions,
-			answeredChoices, answered, subjectId, bestAnswersChoices, bestAnswers,
+			answeredChoices, answered, subjectId,
 			user, isLoggedIn
 		}
 	}

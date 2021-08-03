@@ -3,23 +3,15 @@ import { GetUserQuestions, QuestionEntity } from '@modules/questions'
 import { PAGINATION_LIMIT } from '@utils/constants'
 import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 
-enum BestAnswers {
-	All,
-	BestAnswers,
-	None
-}
 enum Answered {
 	All,
+	BestAnswered,
 	Answered,
 	Unanswered
 }
-const bestAnswersChoices = [
-	{ val: BestAnswers.All, key: 'All' },
-	{ val: BestAnswers.BestAnswers, key: 'Best Answers' },
-	{ val: BestAnswers.None, key: 'None' }
-]
 const answeredChoices = [
 	{ val: Answered.All, key: 'All' },
+	{ val: Answered.BestAnswered, key: 'Best Answered' },
 	{ val: Answered.Answered, key: 'Answered' },
 	{ val: Answered.Unanswered, key: 'Unanswered' }
 ]
@@ -30,7 +22,6 @@ const global = {} as Record<string, {
 	hasMore: Ref<boolean>,
 	subjectId: Ref<string>,
 	answered: Ref<Answered>
-	bestAnswers: Ref<BestAnswers>
 } & ReturnType<typeof useErrorHandler> & ReturnType<typeof useLoadingHandler>>
 
 const pushToQuestionList = (id: string, question: QuestionEntity) => {
@@ -46,7 +37,6 @@ export const useUserQuestionList = (id: string) => {
 		fetched: reqRef(false),
 		hasMore: reqRef(false),
 		answered: reqRef(answeredChoices[0].val),
-		bestAnswers: reqRef(bestAnswersChoices[0].val),
 		...useErrorHandler(),
 		...useLoadingHandler()
 	}
@@ -56,8 +46,7 @@ export const useUserQuestionList = (id: string) => {
 			if (global[id].subjectId.value && q.subjectId !== global[id].subjectId.value) return false
 			if (global[id].answered.value === Answered.Answered && q.answers === 0) return false
 			if (global[id].answered.value === Answered.Unanswered && q.answers > 0) return false
-			if (global[id].bestAnswers.value === BestAnswers.BestAnswers && !q.isAnswered) return false
-			if (global[id].bestAnswers.value === BestAnswers.None && q.isAnswered) return false
+			if (global[id].answered.value === Answered.BestAnswered && !q.isAnswered) return false
 			return true
 		}).sort((a, b) => {
 			return new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
@@ -81,5 +70,5 @@ export const useUserQuestionList = (id: string) => {
 		if (!global[id].fetched.value && !global[id].loading.value) await fetchQuestions()
 	})
 
-	return { ...global[id], filteredQuestions, answeredChoices, bestAnswersChoices, fetchOlderQuestions: fetchQuestions }
+	return { ...global[id], filteredQuestions, answeredChoices, fetchOlderQuestions: fetchQuestions }
 }

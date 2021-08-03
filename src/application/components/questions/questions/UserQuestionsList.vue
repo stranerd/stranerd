@@ -1,11 +1,6 @@
 <template>
 	<div>
 		<form class="d-flex justify-content-center options gap-0-75 mb-1">
-			<select v-model="bestAnswers" class="form-select">
-				<option v-for="choice in bestAnswersChoices" :key="choice.val" :value="choice.val">
-					{{ choice.key }}
-				</option>
-			</select>
 			<select v-model="answered" class="form-select">
 				<option v-for="choice in answeredChoices" :key="choice.val" :value="choice.val">
 					{{ choice.key }}
@@ -42,12 +37,12 @@ export default defineComponent({
 		const { id } = useAuth()
 		const {
 			filteredQuestions: questions, subjectId, error, loading, hasMore,
-			answered, answeredChoices, bestAnswersChoices, bestAnswers, fetchOlderQuestions
+			answered, answeredChoices, fetchOlderQuestions
 		} = useUserQuestionList(props.userId)
 		return {
 			id,
 			questions, error, loading, hasMore, subjectId,
-			answeredChoices, answered, bestAnswersChoices, bestAnswers,
+			answeredChoices, answered,
 			fetchOlderQuestions
 		}
 	}

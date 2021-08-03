@@ -7,7 +7,7 @@
 				<DynamicText>It {{ message.body }}</DynamicText>
 			</span>
 		</div>
-		<button class="btn btn-primary fw-bold" type="submit" :disabled="loading || !factory.valid">
+		<button class="btn btn-primary fw-bold px-2 btn-lg" type="submit" :disabled="loading || !factory.valid">
 			<PageLoading v-if="loading" />
 			<span>Report</span>
 		</button>

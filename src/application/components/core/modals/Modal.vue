@@ -3,11 +3,11 @@
 		<div class="d-flex justify-content-end">
 			<a class="fas fa-times" style="font-size: 1.5rem;" @click.prevent="closeModal" />
 		</div>
-		<h3 class="my-1">
+		<Heading variant="3" class="my-1">
 			<slot name="title">
 				Title
 			</slot>
-		</h3>
+		</Heading>
 		<hr v-if="!hideSeparator">
 		<slot>
 			<p>This is the default content of the modal</p>

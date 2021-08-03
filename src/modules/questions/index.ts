@@ -21,6 +21,9 @@ import { FindQuestionUseCase } from './domain/usecases/questions/findQuestion'
 import { GetQuestionsUseCase } from './domain/usecases/questions/getQuestions'
 import { GetSimilarQuestionsUseCase } from './domain/usecases/questions/getSimilarQuestions'
 import { GetUserQuestionsUseCase } from './domain/usecases/questions/getUserQuestions'
+import { ListenToUserQuestionsUseCase } from './domain/usecases/questions/listenToUserQuestions'
+import { GetTagQuestionsUseCase } from './domain/usecases/questions/getTagQuestions'
+import { ListenToTagQuestionsUseCase } from './domain/usecases/questions/listenToTagQuestions'
 import { AddQuestionUseCase } from './domain/usecases/questions/addQuestion'
 import { MarkAsBestAnswerUseCase } from './domain/usecases/answers/markAsBestAnswer'
 import { ListenToQuestionUseCase } from './domain/usecases/questions/listenToQuestion'
@@ -28,6 +31,7 @@ import { ListenToQuestionsUseCase } from './domain/usecases/questions/listenToQu
 import { ListenToSimilarQuestionsUseCase } from './domain/usecases/questions/listenToSimilarQuestions'
 import { GetAnswersUseCase } from './domain/usecases/answers/getAnswers'
 import { GetUserAnswersUseCase } from './domain/usecases/answers/getUserAnswers'
+import { ListenToUserAnswersUseCase } from './domain/usecases/answers/listenToUserAnswers'
 import { AddAnswerUseCase } from './domain/usecases/answers/addAnswer'
 import { RateAnswerUseCase } from './domain/usecases/answers/rateAnswer'
 import { ListenToAnswersUseCase } from './domain/usecases/answers/listenToAnswers'
@@ -74,8 +78,11 @@ export const FindSubject = new FindSubjectUseCase(subjectRepository)
 export const GetQuestions = new GetQuestionsUseCase(questionRepository)
 export const GetSimilarQuestions = new GetSimilarQuestionsUseCase(questionRepository)
 export const GetUserQuestions = new GetUserQuestionsUseCase(questionRepository)
+export const GetTagQuestions = new GetTagQuestionsUseCase(questionRepository)
 export const ListenToQuestion = new ListenToQuestionUseCase(questionRepository)
 export const ListenToQuestions = new ListenToQuestionsUseCase(questionRepository)
+export const ListenToUserQuestions = new ListenToUserQuestionsUseCase(questionRepository)
+export const ListenToTagQuestions = new ListenToTagQuestionsUseCase(questionRepository)
 export const ListenToSimilarQuestions = new ListenToSimilarQuestionsUseCase(questionRepository)
 export const AddQuestion = new AddQuestionUseCase(questionRepository)
 export const FindQuestion = new FindQuestionUseCase(questionRepository)
@@ -83,6 +90,7 @@ export const FindQuestion = new FindQuestionUseCase(questionRepository)
 export const GetAnswers = new GetAnswersUseCase(answerRepository)
 export const GetUserAnswers = new GetUserAnswersUseCase(answerRepository)
 export const ListenToAnswers = new ListenToAnswersUseCase(answerRepository)
+export const ListenToUserAnswers = new ListenToUserAnswersUseCase(answerRepository)
 export const AddAnswer = new AddAnswerUseCase(answerRepository)
 export const RateAnswer = new RateAnswerUseCase(answerRepository)
 export const MarkAsBestAnswer = new MarkAsBestAnswerUseCase(answerRepository)

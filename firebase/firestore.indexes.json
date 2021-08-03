@@ -55,6 +55,20 @@
 					"order": "DESCENDING"
 				}
 			]
+		},
+		{
+			"collectionGroup": "questions",
+			"queryScope": "COLLECTION",
+			"fields": [
+				{
+					"fieldPath": "tags",
+					"order": "CONTAINS"
+				},
+				{
+					"fieldPath": "dates.createdAt",
+					"order": "DESCENDING"
+				}
+			]
 		}
 	],
 	"fieldOverrides": []

@@ -42,7 +42,9 @@ export class AnswerEntity extends BaseEntity {
 	get votes () { return this.ratings.count }
 	get userName () { return this.user.name.fullName }
 	get avatar () { return this.user.avatar }
+	get trimmedTitle () { return trimToLength(this.strippedTitle, 200) }
 	get trimmedBody () { return trimToLength(this.strippedBody, 200) }
+	get strippedTitle () { return extractTextFromHTML(this.title) }
 	get strippedBody () { return extractTextFromHTML(this.body) }
 }
 

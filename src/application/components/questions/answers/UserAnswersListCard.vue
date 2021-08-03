@@ -2,7 +2,7 @@
 	<div :id="answer.id" class="d-flex flex-column gap-0-5 py-1 border-bottom border-line">
 		<NuxtLink class="text-18" :to="`/questions/${answer.questionId}#${answer.id}`">
 			<DynamicText>
-				{{ answer.trimmedBody }}
+				{{ answer.trimmedTitle }}
 			</DynamicText>
 		</NuxtLink>
 		<div class="d-flex align-items-center gap-0-5">

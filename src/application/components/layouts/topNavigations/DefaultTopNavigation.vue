@@ -46,6 +46,10 @@
 							<img src="@app/assets/images/icons/user.svg" alt="">
 							Profile
 						</NuxtLink>
+						<NuxtLink to="/invite/">
+							<i class="fas fa-user-friends" />
+							Invite A Friend
+						</NuxtLink>
 						<NuxtLink v-if="isAdmin" to="/admin/">
 							<img src="@app/assets/images/icons/admin.svg" alt="">
 							Admin
@@ -132,9 +136,10 @@ export default defineComponent({
 				color: $color-dark;
 				font-weight: 600;
 
-				img {
+				img, i {
 					margin-right: 18px;
 					width: 24px;
+					font-size: 24px;
 					filter: brightness(50%);
 				}
 			}

@@ -51,7 +51,8 @@ export class UserEntity extends BaseEntity {
 			ratings: {
 				total: account?.ratings?.total ?? 0,
 				count: account?.ratings?.count ?? 0
-			}
+			},
+			referrals: account?.referrals ?? {}
 		}
 		this.status = {
 			connections: status?.connections ?? {},
@@ -124,6 +125,10 @@ export class UserEntity extends BaseEntity {
 				])
 		) as Record<keyof UserAccount['meta'], string[]>
 	}
+
+	get referrals () {
+		return Object.keys(this.account.referrals)
+	}
 }
 
 type UserConstructorArgs = {
@@ -184,6 +189,7 @@ export interface UserAccount {
 		total: number
 		count: number
 	}
+	referrals: Record<string, boolean>
 }
 export interface UserStatus {
 	connections: Record<string, boolean>

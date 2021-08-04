@@ -1,4 +1,5 @@
 import * as functions from 'firebase-functions'
+import * as admin from 'firebase-admin'
 import { addUserCoins } from '../../helpers/modules/payments/transactions'
 import { createNotification } from '../../helpers/modules/users/notifications'
 
@@ -14,6 +15,7 @@ export const newReferral = functions.https.onCall(async (data, context) => {
 			body: `A new user with the email: ${email} just signed up with your referral link. Checkout his/her profile`,
 			action: `/users/${userId}`
 		})
+		await admin.database().ref('profiles').child(referrerId).child('account/referrals').child(userId).set(true)
 	} catch (e) {
 		throw new functions.https.HttpsError('unknown', 'Error saving new referral')
 	}

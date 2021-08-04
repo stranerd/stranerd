@@ -1,3 +1,5 @@
+import { isClient } from '@utils/environment'
+
 enum Numbers {
 	thousand = 10 ** 3,
 	million = 10 ** 6,
@@ -31,4 +33,14 @@ export const extractTextFromHTML = (html: string) => html?.trim().replace(/<[^>]
 export const trimToLength = (body: string, length: number) => {
 	if (body.length < length) return body
 	return `${body.slice(0, length)}...`
+}
+
+export const copyToClipboard = async (data: string) => {
+	if (!isClient()) return false
+	const result = await window.navigator.permissions.query({ name: 'clipboard-write' })
+	if (result.state === 'granted' || result.state === 'prompt') {
+		await window.navigator.clipboard.writeText(data)
+		return true
+	}
+	return false
 }

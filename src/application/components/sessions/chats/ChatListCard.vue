@@ -20,7 +20,7 @@ import { ChatEntity } from '@modules/sessions'
 import { useAuth } from '@app/hooks/auth/auth'
 import { formatTimeAsDigits } from '@utils/dates'
 import { useChat } from '@app/hooks/sessions/chats'
-import { isClient } from '@utils/environment'
+import { copyToClipboard } from '@utils/commons'
 export default defineComponent({
 	name: 'ChatListCard',
 	props: {
@@ -41,12 +41,7 @@ export default defineComponent({
 		})
 		const { markChatRead } = useChat(props.chat, props.userId)
 		const copy = async () => {
-			if (!isClient()) return
-			const result = await window.navigator.permissions.query({ name: 'clipboard-write' })
-			if (result.state === 'granted' || result.state === 'prompt') {
-				await window.navigator.clipboard
-					.writeText(props.chat.isMedia ? props.chat.media!.link : props.chat.content!)
-			}
+			await copyToClipboard(props.chat.isMedia ? props.chat.media!.link : props.chat.content!)
 		}
 		onMounted(async () => {
 			if (!isMine.value && !props.chat.isRead) await markChatRead()

@@ -6,8 +6,11 @@
 				<DynamicText class="name align-self-center text-center">
 					{{ user.fullName }}
 				</DynamicText>
-				<NuxtLink to="/account/" class="btn btn-primary btn">
+				<NuxtLink to="/account/" class="btn btn-primary">
 					View Profile
+				</NuxtLink>
+				<NuxtLink to="/invite/" class="btn btn-outline-primary">
+					Invite A Friend
 				</NuxtLink>
 			</div>
 			<ProfileHeadCard :user="user" class="inner-bg" />
@@ -90,5 +93,10 @@ export default defineComponent({
 		font-size: 20px;
 		color: $color-dark;
 		font-weight: 600;
+	}
+
+	.btn {
+		width: 100%;
+		max-width: 200px;
 	}
 </style>

@@ -10,7 +10,7 @@
 				</BodyText>
 			</NuxtLink>
 			<span class="d-flex align-items-baseline gap-0-25 ms-auto">
-				<DynamicText class="text-primary">{{ formatNumber(answer.averageRating, 2) }}/5</DynamicText>
+				<DynamicText class="text-primary">{{ formatNumber(answer.averageRating, 1) }}/5</DynamicText>
 				<i class="fas fa-star text-gold" style="font-size: 21px;" />
 			</span>
 		</div>
@@ -35,7 +35,7 @@
 					<span>Mark as best</span>
 					<i class="fas fa-check-circle" />
 				</span>
-				<SelectRating v-if="showRatingButton && isLoggedIn && answer.userId !== id" :rating="0" :set-rating="rateAnswer" />
+				<SelectRating v-if="showRatingButton" :rating="0" :set-rating="rateAnswer" />
 				<Share :title="answer.title" :text="answer.strippedBody" :link="`/questions/${answer.questionId}#${answer.id}`" />
 				<span v-if="id && answer.userId !== id" @click="reportAnswer">
 					<i class="fas fa-flag" />
@@ -88,7 +88,7 @@ export default defineComponent({
 		const showExplanation = ref(false)
 		const { id, isLoggedIn, user } = useAuth()
 		const showRatingButton = computed({
-			get: () => isLoggedIn.value && !user.value?.meta.ratedAnswers.includes(props.answer.id),
+			get: () => isLoggedIn.value && props.answer.userId !== id.value && !user.value?.meta.ratedAnswers.includes(props.answer.id),
 			set: () => {}
 		})
 		const { error, loading, rateAnswer, markBestAnswer } = useAnswer(props.answer)

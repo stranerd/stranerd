@@ -1,8 +1,8 @@
 <template>
 	<div class="layout-page">
 		<TopNavigation />
-		<section class="layout-body gap-3">
-			<main class="layout-main ps-lg-3">
+		<section class="layout-body ps-lg-2 pe-lg-1-5">
+			<main class="layout-main">
 				<Nuxt />
 			</main>
 			<section class="layout-side-right">

@@ -1,7 +1,7 @@
 <template>
 	<div class="layout-page bg-dark">
 		<TopNavigation />
-		<section class="layout-body gap-3">
+		<section class="layout-body p-0">
 			<main class="layout-main p-0">
 				<Nuxt />
 			</main>
@@ -18,10 +18,3 @@ export default defineComponent({
 	components: { TopNavigation }
 })
 </script>
-
-<style lang="scss" scoped>
-	.layout-page {
-		height: vh(100);
-		overflow-y: hidden;
-	}
-</style>

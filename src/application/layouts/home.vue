@@ -1,7 +1,7 @@
 <template>
 	<div :key="$route.fullPath" class="layout-page">
 		<HomeTopNavigation />
-		<section class="layout-body">
+		<section class="layout-body p-0">
 			<main class="layout-main p-0">
 				<Nuxt />
 				<HomeBottomNavigation />

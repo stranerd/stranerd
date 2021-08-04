@@ -1,7 +1,7 @@
 <template>
 	<div class="layout-page">
 		<TopNavigation />
-		<section class="layout-body gap-3">
+		<section class="layout-body">
 			<section class="layout-side-left">
 				<Sidebar />
 			</section>

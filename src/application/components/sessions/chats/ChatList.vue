@@ -4,9 +4,9 @@
 			No messages found. Send a message now
 		</span>
 		<div v-else v-chat-scroll="chatProps" class="chat-box w-100 gap-0-5">
-			<span v-if="hasMore" class="small mb-1 mx-auto cursor-pointer" @click="fetchOlderChats">Fetch more</span>
+			<span v-if="hasMore" class="mb-1 mx-auto cursor-pointer bg-line info" @click="fetchOlderChats">Fetch Older Messages</span>
 			<div v-for="session in chats" :key="session.hash" class="d-flex flex-column gap-0-5">
-				<DynamicText class="bg-line session-date mx-auto">
+				<DynamicText class="bg-line info mx-auto">
 					{{ formatTime(session.date, true) }}
 				</DynamicText>
 				<ChatListCard v-for="chat in session.chats" :key="chat.hash" :chat="chat" :user-id="userId" />
@@ -42,10 +42,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-	.session-date {
+	.info {
 		width: fit-content;
-		padding: 3px 12px;
+		padding: 4px 12px;
 		border-radius: 4px;
+		font-size: 0.9em;
 	}
 
 	.background {

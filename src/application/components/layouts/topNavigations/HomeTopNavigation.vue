@@ -43,15 +43,15 @@
 				Contact
 			</a>
 			<a
-				class="btn btn-lg btn-custom-sm bg-white text-primary mx-auto mb-1 w-100"
-				style="max-width: 400px;"
+				class="btn bg-white text-primary mx-auto mb-1 w-100"
+				style="max-width: 400px; font-size: 14px;"
 				@click="navigate('/auth/signin')"
 			>
 				Sign In
 			</a>
 			<a
-				class="btn btn-lg btn-custom-sm mx-auto w-100"
-				style="max-width: 400px;"
+				class="btn text-white mx-auto w-100"
+				style="max-width: 400px; font-size: 14px;"
 				@click="navigate('/auth/signup')"
 			>
 				Sign Up

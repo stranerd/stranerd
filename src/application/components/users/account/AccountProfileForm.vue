@@ -105,7 +105,7 @@
 			</div>
 		</template>
 		<div class="d-flex justify-content-center align-items-center gap-1">
-			<button class="btn btn-danger" @click="cancel">
+			<button class="btn btn-danger" type="button" @click="cancel">
 				Cancel
 			</button>
 			<button class="btn btn-primary" type="submit" :disabled="loading || !factory.valid">

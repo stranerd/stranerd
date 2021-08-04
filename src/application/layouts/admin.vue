@@ -2,7 +2,7 @@
 	<section class="layout-page">
 		<TopNavigation />
 		<AdminTopNavigation />
-		<section class="layout-body gap-3">
+		<section class="layout-body">
 			<main class="layout-main">
 				<Nuxt />
 			</main>

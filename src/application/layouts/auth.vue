@@ -9,7 +9,7 @@
 				<img src="@app/assets/images/icons/close.svg" width="30" alt="" class="d-none d-md-inline">
 			</NuxtLink>
 		</div>
-		<section class="layout-body gap-3">
+		<section class="layout-body">
 			<main class="layout-main px-lg-4 py-md-2-5">
 				<Nuxt />
 			</main>

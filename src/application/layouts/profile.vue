@@ -1,11 +1,11 @@
 <template>
 	<div :key="$route.fullPath" class="layout-page">
 		<TopNavigation />
-		<section class="layout-body gap-3">
+		<section class="layout-body p-0 py-lg-3">
 			<section class="layout-side-left">
 				<ProfileLeftSidebar />
 			</section>
-			<main class="layout-main p-0 py-lg-3">
+			<main class="layout-main p-0">
 				<ProfileLeftSidebar class="d-lg-none border-bottom-sm" />
 				<ProfileRightSidebar class="d-lg-none border-bottom-sm" />
 				<Nuxt class="py-1-5 px-1 p-lg-0" />
@@ -33,7 +33,7 @@ export default defineComponent({
 	.layout-side-left {
 		width: 30% !important;
 		border: none !important;
-		padding-left: 3rem;
+		margin-left: 3rem;
 	}
 
 	.layout-side-right {

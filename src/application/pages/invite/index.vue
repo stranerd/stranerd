@@ -1,58 +1,60 @@
 <template>
-	<div class="d-flex flex-column align-items-center text-center gap-1 gap-1-5 box py-1">
-		<Heading variant="1">
-			Invite A Friend
-		</Heading>
-		<p>
-			Refer your friends who are not using stranerd and get 10 Bronze Coins and 1 Gold Coin for every one that successfully signs up.
-		</p>
-		<Heading variant="3" class="mt-1">
-			This is your unique invitation link:
-		</Heading>
-		<div class="w-100">
-			<div class="p-1 bg-line border border-sub rounded-3">
-				<DynamicText :truncate="true">
-					{{ link }}
-				</DynamicText>
-			</div>
-			<div class="d-flex rounded-3">
-				<button
-					class="flex-grow-1 w-100 btn btn-primary-dark rounded-3"
-					style="border-bottom-right-radius: 0 !important; border-top-right-radius: 0 !important;"
-					@click="copy"
-				>
-					Copy
-				</button>
-				<Share
-					class="flex-grow-1 w-100 btn btn-primary rounded-3"
-					style="border-bottom-left-radius: 0 !important; border-top-left-radius: 0 !important;"
-					tabindex="0"
-				>
-					Share
-				</Share>
-			</div>
-		</div>
-		<div class="p-1 border border-line w-100 rounded-3 d-flex gap-1 flex-column text-">
-			<Heading variant="3">
-				How It Works
+	<div class="d-flex flex-column">
+		<div class="d-flex flex-column align-items-center text-center gap-1 gap-1-5 box py-1">
+			<Heading variant="1">
+				Invite A Friend
 			</Heading>
-			<span class="li">
-				<i class="fas fa-circle" />
-				<span>Copy your unique link or share it directly via text, social media or email.</span>
-			</span>
-			<span class="li">
-				<i class="fas fa-circle" />
-				<span>You will be notified of each successful referrals and can check the count at the bottom of the page.</span>
-			</span>
-			<span class="li">
-				<i class="fas fa-circle" />
-				<span>You will receive 1 gold and 10 bronze coins for each successful referral.</span>
-			</span>
-		</div>
+			<p>
+				Refer your friends who are not using Stranerd and get 1 Gold and 10 Bronze Coins for every one that successfully signs up.
+			</p>
+			<Heading variant="3" class="mt-1">
+				This is your unique invitation link:
+			</Heading>
+			<div class="w-100">
+				<div class="p-1 bg-line border border-sub rounded-3">
+					<DynamicText :truncate="true">
+						{{ link }}
+					</DynamicText>
+				</div>
+				<div class="d-flex rounded-3">
+					<button
+						class="flex-grow-1 w-100 btn btn-primary-dark rounded-3"
+						style="border-bottom-right-radius: 0 !important; border-top-right-radius: 0 !important;"
+						@click="copy"
+					>
+						Copy
+					</button>
+					<Share
+						class="flex-grow-1 w-100 btn btn-primary rounded-3"
+						style="border-bottom-left-radius: 0 !important; border-top-left-radius: 0 !important;"
+						tabindex="0"
+					>
+						Share
+					</Share>
+				</div>
+			</div>
+			<div class="p-1 border border-line w-100 rounded-3 d-flex gap-1 flex-column text-">
+				<Heading variant="3">
+					How It Works
+				</Heading>
+				<span class="li">
+					<i class="fas fa-circle" />
+					<span>Copy your unique link or share it directly via text, social media or email.</span>
+				</span>
+				<span class="li">
+					<i class="fas fa-circle" />
+					<span>You will be notified of each successful referrals and can check the count at the bottom of the page.</span>
+				</span>
+				<span class="li">
+					<i class="fas fa-circle" />
+					<span>You will receive 1 gold and 10 bronze coins for each successful referral.</span>
+				</span>
+			</div>
 
-		<BodyText variant="large">
-			Successful Referrals ({{ user.referrals.length }})
-		</BodyText>
+			<BodyText variant="large">
+				Successful Referrals ({{ user.referrals.length }})
+			</BodyText>
+		</div>
 	</div>
 </template>
 
@@ -82,6 +84,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 	.box {
+		width: 100%;
 		max-width: 600px;
 		margin: 0 auto;
 	}

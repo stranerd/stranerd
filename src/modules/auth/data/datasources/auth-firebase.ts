@@ -114,7 +114,11 @@ const runAfterAuth = async (record: firebase.auth.UserCredential, extras: AuthEx
 		return data
 	}
 
-	if (extras.referrer && record.additionalUserInfo?.isNewUser && record.user!.email) await FunctionsService.call('newReferral', { email: record.user!.email, referrerId: extras.referrer })
+	if (extras.referrer && record.additionalUserInfo?.isNewUser && record.user!.email) await FunctionsService.call('newReferral', {
+		userId: record.user!.uid,
+		email: record.user!.email,
+		referrerId: extras.referrer
+	})
 
 	return await getUserDetails(record.user!)
 }

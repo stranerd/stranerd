@@ -124,7 +124,10 @@
 				Also Good In
 			</h1>
 			<div v-if="user.weakerSubjects.length > 0" class="d-flex flex-wrap gap-0-25">
-				<Subject v-for="subject in user.weakerSubjects" :key="subject.id" :subject-id="subject.id" />
+				<span v-for="(subject, index) in user.weakerSubjects" :key="subject.id">
+					<Subject :subject-id="subject.id" />
+					<span v-if="index < user.weakerSubjects.length - 1">,&nbsp;</span>
+				</span>
 			</div>
 			<span v-else>N/A</span>
 			<div class="thin" />

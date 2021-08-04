@@ -125,6 +125,7 @@ export default defineComponent({
 	.ql-container.ql-snow { border: 0 !important; }
 
 	.ql-editor {
+		background: $color-white;
 		border: 1px solid $color-line;
 		transition: border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
 	}

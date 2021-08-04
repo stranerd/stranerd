@@ -14,6 +14,7 @@ import { buyCoins } from './onCall/payments/buyCoins'
 import { updateStreak } from './onCall/users/updateStreak'
 import { tipTutor } from './onCall/users/tipTutor'
 import { rateTutor } from './onCall/users/rateTutor'
+import { newReferral } from './onCall/users/newReferral'
 import { markAsBestAnswer } from './onCall/questions/markAsBestAnswer'
 import {
 	userProfileUpdated, userAccountRatingsUpdated, userAccountTutorSessionsUpdated, userAccountSessionsUpdated, userAccountQuestionsUpdated,
@@ -70,6 +71,6 @@ export { requestNewSession, acceptSession, cancelSession }
 // Payments
 export { makeStripePayment, buyCoins }
 // Users
-export { updateStreak, tipTutor, rateTutor }
+export { updateStreak, tipTutor, rateTutor, newReferral }
 // Questions
 export { markAsBestAnswer }

@@ -17,7 +17,7 @@
 					</DynamicText>
 				</Heading>
 				<template v-if="user.id === id">
-					<DonutChart :score="user.score <= user.expectedScore ? user.score : user.expectedScore" :total="user.expectedScore" :size="120" />
+					<DonutChart :score="user.score" :total="user.score <= user.expectedScore ? user.expectedScore : user.score" :size="120" />
 					<span class="text-18 text-dark text-center">
 						{{
 							user.score / user.expectedScore > 0.75 ? 'Your Nerd Score is high. Nice job.' :
@@ -146,7 +146,7 @@ export default defineComponent({
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background: $color-sub;
+		background: $color-primary;
 		color: $color-white;
 	}
 </style>

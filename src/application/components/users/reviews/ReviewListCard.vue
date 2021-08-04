@@ -7,7 +7,7 @@
 			</DynamicText>
 			<span class="d-flex align-items-baseline gap-0-25 mx-auto">
 				<i class="fas fa-star text-gold" style="font-size: 21px;" />
-				<DynamicText class="text-primary">{{ review.rating }}/5</DynamicText>
+				<DynamicText class="text-primary">{{ formatNumber(review.rating, 2) }}/5</DynamicText>
 			</span>
 			<DynamicText style="font-size: 14px;">
 				{{ formatTime(review.createdAt) }}
@@ -22,6 +22,7 @@
 import { ReviewEntity } from '@modules/users'
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { formatTime } from '@utils/dates'
+import { formatNumber } from '@utils/commons'
 export default defineComponent({
 	name: 'ReviewListCard',
 	props: {
@@ -31,7 +32,7 @@ export default defineComponent({
 		}
 	},
 	setup () {
-		return { formatTime }
+		return { formatTime, formatNumber }
 	}
 })
 </script>

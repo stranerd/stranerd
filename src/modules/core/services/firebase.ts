@@ -164,7 +164,7 @@ export interface FUNCTIONS {
 	approveTutorApplication: { id: string, approved: boolean },
 	markAsBestAnswer: { questionId: string, answerId: string }
 	handleReport: { id: string, key: string, userId: string }
-	newReferral: { referrerId: string, email: string }
+	newReferral: { referrerId: string, userId: string, email: string }
 }
 
 export interface FUNCTION_RETURNS {

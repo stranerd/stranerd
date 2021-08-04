@@ -123,7 +123,7 @@ export default defineComponent({
 			min-width: 200px;
 			padding: 1.5rem;
 			background: $color-white 0% 0% no-repeat padding-box;
-			box-shadow: 0 10px 10px rgba($color-primary, 0.2);
+			box-shadow: 0 10px 10px rgba($color-primary, 0.1);
 			border-radius: 6px;
 
 			& > * {

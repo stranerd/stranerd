@@ -9,7 +9,10 @@
 					<DynamicText>{{ answer.userName }}</DynamicText>
 				</BodyText>
 			</NuxtLink>
-			<ShowRatings class="ms-auto" :rating="answer.averageRating" />
+			<span class="d-flex align-items-baseline gap-0-25 ms-auto">
+				<DynamicText class="text-primary">{{ formatNumber(answer.averageRating, 2) }}/5</DynamicText>
+				<i class="fas fa-star text-gold" style="font-size: 21px;" />
+			</span>
 		</div>
 		<div class="answer-content d-flex flex-column gap-1">
 			<BodyText variant="large" class="text-dark">
@@ -63,6 +66,7 @@ import CommentList from '@app/components/questions/comments/AnswerCommentsList.v
 import { formatTime } from '@utils/dates'
 import { useReportModal } from '@app/hooks/core/modals'
 import { setReportedEntity } from '@app/hooks/reports/answers'
+import { formatNumber } from '@utils/commons'
 export default defineComponent({
 	name: 'AnswerListCard',
 	components: {
@@ -94,7 +98,7 @@ export default defineComponent({
 		}
 		return {
 			id, isLoggedIn, user, formatTime, showComments, showExplanation,
-			error, loading, rateAnswer, showRatingButton,
+			error, loading, rateAnswer, showRatingButton, formatNumber,
 			markBestAnswer: () => markBestAnswer(props.question),
 			reportAnswer
 		}
@@ -105,7 +109,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 	.answer {
 		border: 1px solid $color-line;
-		border-radius: 7px;
 		border-radius: 12px;
 
 		.answer-content {

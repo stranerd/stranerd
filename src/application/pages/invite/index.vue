@@ -28,6 +28,9 @@
 						class="flex-grow-1 w-100 btn btn-primary rounded-3"
 						style="border-bottom-left-radius: 0 !important; border-top-left-radius: 0 !important;"
 						tabindex="0"
+						title="Invite your friends to join Stranerd and earn coins"
+						text="Copy your unique link or share it directly via text, social media or email. You will be notified of each successful referrals. You will receive 1 gold and 10 bronze coins for each successful referral."
+						:link="link"
 					>
 						Share
 					</Share>

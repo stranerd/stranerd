@@ -20,7 +20,7 @@
 			</div>
 			<div class="form-group my-1">
 				<select v-model="factory.duration" class="form-select">
-					<option disabled value="0">
+					<option disabled :value="0">
 						Select Session Duration
 					</option>
 					<option v-for="option in prices" :key="option.duration" :value="option.duration">

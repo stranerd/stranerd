@@ -1,7 +1,7 @@
 <template>
 	<div class="notification gap-0-5 text-dark" @click="markSeen">
 		<PageLoading v-if="loading" />
-		<NuxtLink :to="notification.action" :class="{'fw-bold': !notification.seen}">
+		<NuxtLink :to="notification.action" :class="{'text-primary-dark': !notification.seen}">
 			<BodyText variant="large" class="main cursor-pointer">
 				<DynamicText>{{ notification.body }}</DynamicText>
 			</BodyText>

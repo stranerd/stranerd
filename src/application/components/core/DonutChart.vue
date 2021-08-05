@@ -1,19 +1,19 @@
 <template>
 	<Donut
-		background="white"
+		background="#FFFFFF"
 		foreground="#D7E2EC"
 		:size="size"
 		unit="px"
 		:thickness="32"
 		:has-legend="false"
 		:sections="sections"
-		:total="total"
+		:total="totalSections < total ? total : totalSections"
 		:start-angle="0"
-		:auto-adjust-text-size="false"
+		:auto-adjust-text-size="true"
 		@section-click="onClick"
 	>
 		<DynamicText class="score">
-			{{ formatNumber(score, 2) }}
+			{{ formatNumber(score, 1) }}
 		</DynamicText>
 	</Donut>
 </template>
@@ -54,7 +54,11 @@ export default defineComponent({
 			get: () => [{ value: props.score, color: '#546DD3' }],
 			set: () => {}
 		})
-		return { sections, formatNumber }
+		const totalSections = computed({
+			get: () => sections.value.map((s) => s.value).reduce((acc, v) => acc + v, 0),
+			set: () => {}
+		})
+		return { sections, formatNumber, totalSections }
 	}
 
 })
@@ -62,7 +66,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 	.score, .cdc-text {
-		font-size: 2rem !important;
+		font-size: 1.5rem;
 		font-weight: 700;
 		color: $color-primary;
 	}

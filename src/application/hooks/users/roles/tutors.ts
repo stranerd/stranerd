@@ -25,9 +25,8 @@ export const useTutorsList = () => {
 			// TODO: Check if sorting is cause of empty flash in prod
 			//  .sort((a, b) => a.orderRating > b.orderRating ? -1 : a.orderRating === b.orderRating ? 0 : 1)
 			.filter((tutor) => {
-				let matched = true
-				if (global.subjectId.value && !tutor.subjects.find((s) => s.id === global.subjectId.value)) matched = false
-				return matched
+				if (global.subjectId.value && !tutor.subjects.find((s) => s.id === global.subjectId.value)) return false
+				return true
 			}), // .slice(0, 50),
 		set: (tutors) => {
 			tutors?.forEach?.((t) => {

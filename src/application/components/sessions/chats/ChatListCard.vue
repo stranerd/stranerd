@@ -3,9 +3,12 @@
 		<div class="d-flex gap-0-25">
 			<a v-if="chat.isMedia" class="text-truncate" :href="chat.media.link" target="__blank">
 				<i class="fas fa-paperclip me-0-25" />
+				<DynamicText>
+					{{ chat.media.name }}
+				</DynamicText>
 			</a>
-			<DynamicText @click="copy">
-				{{ chat.isMedia ? chat.media.name : chat.content }}
+			<DynamicText v-else @click="copy">
+				{{ chat.content }}
 			</DynamicText>
 		</div>
 		<DynamicText class="small ms-auto" @click="copy">

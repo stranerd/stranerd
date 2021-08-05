@@ -27,7 +27,7 @@
 				<div class="py-2">
 					Answer questions in subjects you’re good at. Get rewards if your answer is chosen as one of the best answers.
 				</div>
-				<NuxtLink to="/questions/" class="btn btn-md btn-custom py-1">
+				<NuxtLink to="/dashboard" class="btn btn-md btn-custom py-1">
 					Answer A Question
 				</NuxtLink>
 			</div>

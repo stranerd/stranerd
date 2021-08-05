@@ -29,10 +29,13 @@ type callback = (tag: string) => void
 export const useTags = (addCb: callback, removeCb: callback) => {
 	const tag = ref('')
 	watch(() => tag.value, () => {
-		if (tag.value.includes(' ')) {
-			tag.value.split(' ').forEach((tag) => {
-				if (tag) addCb(tag.replaceAll(',', '').toLowerCase())
-			})
+		if (tag.value.includes(' ') || tag.value.includes(',')) {
+			tag.value
+				.toLowerCase()
+				.replaceAll(',', ' ')
+				.trim()
+				.split(' ')
+				.forEach(addCb)
 			tag.value = ''
 		}
 	})

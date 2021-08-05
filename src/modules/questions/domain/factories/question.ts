@@ -13,8 +13,8 @@ const isLongerThan0 = (value: string) => isLongerThan(value, 0)
 const isLongerThan2 = (value: string) => isExtractedHTMLLongerThan(value, 2)
 const isMoreThanMinimum = (value: number) => isMoreThan(value, MINIMUM_COINS - 1)
 const isLessThanMaximum = (value: number) => isLessThan(value, MAXIMUM_COINS + 1)
-const hasMoreThan2 = (value: string[]) => hasMoreThan(value, 2)
-const hasLessThan6 = (value: string[]) => hasLessThan(value, 6)
+const hasMoreThan0 = (value: string[]) => hasMoreThan(value, 0)
+const hasLessThan4 = (value: string[]) => hasLessThan(value, 4)
 
 export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel, Keys> {
 	readonly rules = {
@@ -23,7 +23,7 @@ export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel
 		subjectId: { required: true, rules: [isLongerThan0] },
 		userId: { required: true, rules: [isLongerThan0] },
 		user: { required: true, rules: [] },
-		tags: { required: true, rules: [hasMoreThan2, hasLessThan6] }
+		tags: { required: true, rules: [hasMoreThan0, hasLessThan4] }
 	}
 
 	constructor () {

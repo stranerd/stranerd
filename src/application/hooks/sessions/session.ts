@@ -27,6 +27,7 @@ export const useCurrentSession = () => {
 		if (!id) currentGlobal.listener.closeListener()
 		if (id && currentGlobal.currentSession.value?.id !== id) {
 			const session = await GetSession.call(id)
+			// TODO: figure out why listener doesnt start
 			currentGlobal.listener.resetListener(
 				async () => ListenToSession.call(id, (s) => {
 					const oldDone = currentGlobal.currentSession.value?.done ?? false

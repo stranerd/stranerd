@@ -36,6 +36,7 @@ export const useCreateSession = () => {
 		return entries.map((arr) => ({ duration: parseFloat(arr[0]), price: arr[1] }))
 	})()
 	watch(() => factory.value.duration, () => factory.value.price = SESSION_PRICES[factory.value.duration as keyof typeof SESSION_PRICES])
+	factory.value.duration = 15
 
 	const createSession = async () => {
 		setError('')

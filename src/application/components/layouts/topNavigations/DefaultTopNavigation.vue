@@ -56,7 +56,7 @@
 						</NuxtLink>
 						<span @click="signout">
 							<img src="@app/assets/images/icons/signout.svg" alt="">
-							Log Out
+							Sign Out
 						</span>
 						<PageLoading v-if="loading" />
 					</div>

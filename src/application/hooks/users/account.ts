@@ -63,7 +63,7 @@ export const useBuyCoins = () => {
 	const { message, setMessage } = useSuccessHandler()
 
 	const buyCoins = async (option: typeof BRONZE_PRICES[0], isGold: boolean) => {
-		await setPaymentProps({
+		setPaymentProps({
 			amount: option.price,
 			afterPayment: async (res: boolean) => {
 				if (res) {

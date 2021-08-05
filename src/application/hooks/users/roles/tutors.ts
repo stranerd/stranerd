@@ -30,8 +30,8 @@ export const useTutorsList = () => {
 				return matched
 			}), // .slice(0, 50),
 		set: (tutors) => {
-			tutors.forEach((t) => {
-				const index = global.tutors.value.findIndex((x) => x.id === t?.id)
+			tutors?.forEach?.((t) => {
+				const index = global.tutors.value.findIndex((x) => x.id === t.id)
 				if (index === -1) global.tutors.value.push(t)
 				else global.tutors.value.splice(index, 1, t)
 			})

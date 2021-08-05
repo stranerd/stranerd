@@ -76,7 +76,7 @@
 				{{ formatNumber(tutor.meta.tutorSessions.length) }} {{ pluralize(tutor.meta.tutorSessions.length, 'Session', 'Sessions') }} Hosted
 			</DynamicText>
 
-			<div v-if="1 || tutor.strongestSubject" class="d-flex align-items-center gap-0-25 fw-bold">
+			<div v-if="tutor.strongestSubject" class="d-flex align-items-center gap-0-25 fw-bold">
 				<span class="head-text">Strongest In</span>
 				<Subject :subject-id="tutor.strongestSubject.id" class="sub-text" />
 			</div>

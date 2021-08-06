@@ -35,9 +35,23 @@ export class SessionFactory extends BaseFactory<SessionEntity, Partial<SessionTo
 	get message () { return this.values.message }
 	set message (value: string) { this.set('message', value) }
 	get price () { return this.values.price }
-	set price (value: number) { this.set('price', value) }
 	get duration () { return this.values.duration }
-	set duration (value: number) { this.set('duration', value) }
+	set duration (value: number) {
+		this.set('duration', value)
+		const ent = this.prices.find((p) => p.duration === value)
+		this.set('price', ent?.price ?? 0)
+	}
+
+	get prices () {
+		return [
+			{ duration: 15, price: 10 },
+			{ duration: 30, price: 20 },
+			{ duration: 60, price: 40 },
+			{ duration: 120, price: 80 },
+			{ duration: 180, price: 120 }
+		]
+	}
+
 	set studentBioAndId (value: { id: string, user: UserBio }) {
 		this.set('studentId', value.id)
 		this.set('studentBio', value.user)

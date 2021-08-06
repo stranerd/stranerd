@@ -1,4 +1,4 @@
-import { Ref, ref, ssrRef, useRouter, watch } from '@nuxtjs/composition-api'
+import { computed, Ref, ref, ssrRef, useRouter, watch } from '@nuxtjs/composition-api'
 import { AddSession, BeginSession, CancelSession, SessionFactory } from '@modules/sessions'
 import { UserBio } from '@modules/users'
 import { RateTutor } from '@modules/meta'
@@ -7,14 +7,6 @@ import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hook
 import { useSessionModal } from '@app/hooks/core/modals'
 import { Alert } from '@app/hooks/core/notifications'
 import { analytics } from '@modules/core'
-
-const SESSION_PRICES = {
-	15: 10,
-	30: 20,
-	60: 40,
-	120: 80,
-	180: 120
-}
 
 let newSessionTutorIdBio = null as null | { id: string, user: UserBio }
 export const setNewSessionTutorIdBio = (data: { id: string, user: UserBio }) => { newSessionTutorIdBio = data }
@@ -30,17 +22,14 @@ export const useCreateSession = () => {
 	factory.value.studentBioAndId = { id: id.value, user: bio.value! }
 	watch(() => id.value, () => factory.value.studentBioAndId = { id: id.value!, user: bio.value! })
 	watch(() => bio.value, () => factory.value.studentBioAndId = { id: id.value!, user: bio.value! })
-	const prices = (() => {
-		const entries = Object.entries(SESSION_PRICES)
-		entries.sort((a, b) => a[1] - b[1])
-		return entries.map((arr) => ({ duration: parseFloat(arr[0]), price: arr[1] }))
-	})()
-	watch(() => factory.value.duration, () => factory.value.price = SESSION_PRICES[factory.value.duration as keyof typeof SESSION_PRICES])
+	const hasEnoughCoins = computed({
+		get: () => factory.value.price <= (user.value?.account?.coins?.gold ?? 0),
+		set: () => {}
+	})
 
 	const createSession = async () => {
 		setError('')
-		const hasEnoughCoins = factory.value.price < (user.value?.account?.coins?.gold ?? 0)
-		if (factory.value.valid && hasEnoughCoins && !loading.value) {
+		if (factory.value.valid && hasEnoughCoins.value && !loading.value) {
 			try {
 				setLoading(true)
 				const sessionId = await AddSession.call(factory.value)
@@ -55,8 +44,7 @@ export const useCreateSession = () => {
 	}
 
 	return {
-		prices,
-		factory, loading, error,
+		factory, loading, error, hasEnoughCoins,
 		createSession
 	}
 }

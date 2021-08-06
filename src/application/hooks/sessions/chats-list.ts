@@ -20,15 +20,15 @@ export const useChatsList = () => {
 			if (!id.value) return () => {}
 			const cb = async (entities: ChatMetaEntity[]) => {
 				const hasNewMessage = entities.some((entity) => {
-					const globalUnReads = global[id.value].meta.value.find((m) => m.id === entity.id)
+					const globalUnReads = global[userId].meta.value.find((m) => m.id === entity.id)
 					if (!globalUnReads) return true
 					return entity.unRead.some((unread) => !globalUnReads.unRead.includes(unread))
 				})
-				global[id.value].meta.value = entities
+				global[userId].meta.value = entities
 				if (hasNewMessage) await player.play()
 			 }
 
-			return ListenToPersonalChatsMeta.call(id.value, cb)
+			return ListenToPersonalChatsMeta.call(userId, cb)
 		})
 		global[userId] = {
 			meta: reqRef([]),
@@ -40,17 +40,17 @@ export const useChatsList = () => {
 	}
 	const fetchMeta = async () => {
 		if (!id.value) return
-		global[id.value].setError('')
+		global[userId].setError('')
 		try {
-			global[id.value].setLoading(true)
-			global[id.value].meta.value = await GetPersonalChatsMeta.call(id.value)
-			global[id.value].fetched.value = true
-		} catch (e) { global[id.value].setError(e) }
-		global[id.value].setLoading(false)
+			global[userId].setLoading(true)
+			global[userId].meta.value = await GetPersonalChatsMeta.call(userId)
+			global[userId].fetched.value = true
+		} catch (e) { global[userId].setError(e) }
+		global[userId].setLoading(false)
 	}
 	useFetch(async () => {
 		if (!id.value) return
-		if (!global[id.value].fetched.value && !global[id.value].loading.value) await fetchMeta()
+		if (!global[userId].fetched.value && !global[userId].loading.value) await fetchMeta()
 	})
 	return { ...global[userId] }
 }

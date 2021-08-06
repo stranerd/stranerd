@@ -29,9 +29,9 @@ export const useNotificationList = () => {
 	if (global[userId] === undefined) {
 		const listener = useListener(async () => {
 			if (!id.value) return () => {}
-			const appendNotifications = (notifications: NotificationEntity[]) => { notifications.forEach((notification) => unshiftToNotificationList(id.value, notification)) }
-			const date = global[id.value].notifications.value[0]?.createdAt
-			return ListenToNotifications.call(id.value, appendNotifications, date)
+			const appendNotifications = (notifications: NotificationEntity[]) => { notifications.forEach((notification) => unshiftToNotificationList(userId, notification)) }
+			const date = global[userId].notifications.value[0]?.createdAt
+			return ListenToNotifications.call(userId, appendNotifications, date)
 		})
 		global[userId] = {
 			notifications: reqRef([]),
@@ -45,20 +45,19 @@ export const useNotificationList = () => {
 
 	const fetchNotifications = async () => {
 		if (!id.value) return
-		global[id.value].setError('')
-		global[id.value].setLoading(true)
+		global[userId].setError('')
+		global[userId].setLoading(true)
 		try {
-			const notifications = await GetNotifications.call(id.value)
-			global[id.value].hasMore.value = notifications.length === PAGINATION_LIMIT + 1
-			notifications.reverse().slice(0, PAGINATION_LIMIT).forEach((t) => pushToNotificationList(id.value, t))
-			global[id.value].fetched.value = true
-		} catch (e) { global[id.value].setError(e) }
-		global[id.value].setLoading(false)
+			const notifications = await GetNotifications.call(userId)
+			global[userId].hasMore.value = notifications.length === PAGINATION_LIMIT + 1
+			notifications.reverse().slice(0, PAGINATION_LIMIT).forEach((t) => pushToNotificationList(userId, t))
+		} catch (e) { global[userId].setError(e) }
+		global[userId].setLoading(false)
 	}
 
 	useFetch(async () => {
 		if (!id.value) return
-		if (!global[id.value].fetched.value && !global[id.value].loading.value) await fetchNotifications()
+		if (!global[userId].fetched.value && !global[userId].loading.value) await fetchNotifications()
 	})
 
 	return { ...global[userId], fetchOlderNotifications: fetchNotifications }

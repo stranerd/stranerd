@@ -11,8 +11,8 @@ module.exports = {
 	],
 	rules: {
 		'vue/no-v-html': 'off',
-		'no-console': process.env.NODE_ENV === 'development' ? 'warn' : 'error',
-		'no-debugger': process.env.NODE_ENV === 'development' ? 'warn' : 'error',
+		'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
+		'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
 		'no-tabs': 'off',
 		'no-var': 'error',
 		'accessor-pairs': 'off',

@@ -40,6 +40,7 @@ export const useListener = (start: () => Promise<() => void>) => {
 	let listener = null as null | (() => void)
 	const isRunning = reqRef(false)
 	const startListener = async () => {
+		if (isRunning.value) return
 		closeListener()
 		listener = await start()
 		isRunning.value = true

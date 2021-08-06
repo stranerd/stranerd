@@ -1,5 +1,12 @@
 <template>
-	<span class="d-inline-block text-break text-wrap" :class="{'text-truncate': truncate}">
+	<span
+		class="d-inline-block"
+		:class="{
+			'text-truncate': truncate,
+			'text-nowrap': noWrap,
+			'text-wrap text-break': !noWrap
+		}"
+	>
 		<slot />
 	</span>
 </template>
@@ -10,6 +17,11 @@ export default defineComponent({
 	name: 'DynamicText',
 	props: {
 		truncate: {
+			required: false,
+			type: Boolean,
+			default: false
+		},
+		noWrap: {
 			required: false,
 			type: Boolean,
 			default: false

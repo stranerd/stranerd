@@ -1,6 +1,6 @@
 <template>
 	<div :id="comment.id" class="my-0-5 d-flex align-items-start gap-0-5">
-		<NuxtLink :to="`/users/${comment.userId}`">
+		<NuxtLink class="flex-shrink-0" :to="`/users/${comment.userId}`">
 			<Avatar :src="comment.avatar" :size="35" />
 		</NuxtLink>
 		<div>
@@ -13,7 +13,7 @@
 				{{ comment.body }}
 			</DynamicText>
 		</div>
-		<DynamicText class="ms-auto">
+		<DynamicText class="ms-auto" :no-wrap="true">
 			{{ formatTime(comment.createdAt) }}
 		</DynamicText>
 	</div>

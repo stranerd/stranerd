@@ -1,10 +1,10 @@
-import { Ref, ref, reqRef, useRouter } from '@nuxtjs/composition-api'
+import { Ref, ref, ssrRef, useRouter } from '@nuxtjs/composition-api'
 import { SigninWithGoogle, EmailSigninFactory, SigninWithEmail, EmailSignupFactory, SignupWithEmail } from '@modules/auth'
 import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 import { createSession } from '@app/hooks/auth/session'
 
 const global = {
-	referrerId: reqRef(undefined as string | undefined)
+	referrerId: ssrRef(undefined as string | undefined)
 }
 
 export const useGoogleSignin = () => {

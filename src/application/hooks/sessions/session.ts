@@ -32,8 +32,6 @@ export const useCurrentSession = () => {
 				const id = userId === session.tutorId ? session.studentId : session.tutorId
 				await router.push(`/sessions/${id}`)
 			}
-			// TODO: listener doesnt start at all if you just logged in
-			// TODO: figure out why listener doesnt start
 			await currentGlobal.listener.resetListener(
 				async () => ListenToSession.call(id, (s) => {
 					const oldDone = currentGlobal.currentSession.value?.done ?? false

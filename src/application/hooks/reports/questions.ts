@@ -1,4 +1,4 @@
-import { reqRef, useFetch, watch } from '@nuxtjs/composition-api'
+import { ssrRef, useFetch, watch } from '@nuxtjs/composition-api'
 import { QuestionReportFactory, AddQuestionReport, QuestionReportType, QuestionReportEntity, GetQuestionReports, DeleteQuestionReport } from '@modules/reports'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useReportModal } from '@app/hooks/core/modals'
@@ -20,7 +20,7 @@ export const setReportedEntity = (question: QuestionEntity) => {
 
 export const useCreateReport = () => {
 	const { id, bio } = useAuth()
-	const factory = reqRef(new QuestionReportFactory())
+	const factory = ssrRef(new QuestionReportFactory())
 	const { message, setMessage } = useSuccessHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
@@ -51,9 +51,9 @@ export const useCreateReport = () => {
 }
 
 const global = {
-	reports: reqRef([] as QuestionReportEntity[]),
-	fetched: reqRef(false),
-	hasMore: reqRef(false),
+	reports: ssrRef([] as QuestionReportEntity[]),
+	fetched: ssrRef(false),
+	hasMore: ssrRef(false),
 	...useErrorHandler(),
 	...useLoadingHandler()
 }

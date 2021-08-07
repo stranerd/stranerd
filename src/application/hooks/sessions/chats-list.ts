@@ -1,4 +1,4 @@
-import { Ref, reqRef, useFetch } from '@nuxtjs/composition-api'
+import { Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
 import { ChatMetaEntity, GetPersonalChatsMeta, ListenToPersonalChatsMeta } from '@modules/sessions'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
@@ -31,8 +31,8 @@ export const useChatsList = () => {
 			return ListenToPersonalChatsMeta.call(userId, cb)
 		})
 		global[userId] = {
-			meta: reqRef([]),
-			fetched: reqRef(false),
+			meta: ssrRef([]),
+			fetched: ssrRef(false),
 			listener,
 			...useErrorHandler(),
 			...useLoadingHandler()

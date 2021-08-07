@@ -1,4 +1,4 @@
-import { computed, Ref, reqRef, useFetch } from '@nuxtjs/composition-api'
+import { computed, Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import { GetTagQuestions, ListenToQuestions, QuestionEntity } from '@modules/questions'
 import { PAGINATION_LIMIT } from '@utils/constants'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
@@ -38,11 +38,11 @@ const unshiftToQuestionList = (tag: string, question: QuestionEntity) => {
 
 export const useTagQuestionList = (tag: string) => {
 	if (global[tag] === undefined) global[tag] = {
-		questions: reqRef([]),
-		subjectId: reqRef(''),
-		fetched: reqRef(false),
-		hasMore: reqRef(false),
-		answered: reqRef(answeredChoices[0].val),
+		questions: ssrRef([]),
+		subjectId: ssrRef(''),
+		fetched: ssrRef(false),
+		hasMore: ssrRef(false),
+		answered: ssrRef(answeredChoices[0].val),
 		...useErrorHandler(),
 		...useLoadingHandler()
 	}

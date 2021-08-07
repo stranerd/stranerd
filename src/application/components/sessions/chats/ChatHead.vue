@@ -1,5 +1,8 @@
 <template>
 	<div class="d-flex py-0-5 gap-1 align-items-center position-relative bg-primary text-white">
+		<NuxtLink to="/sessions">
+			<i class="fas fa-arrow-left" />
+		</NuxtLink>
 		<NuxtLink :to="`/users/${user.id}`">
 			<Avatar :src="user.avatar" :size="40" class="d-md-none" />
 			<Avatar :src="user.avatar" :size="60" class="d-none d-md-inline" />

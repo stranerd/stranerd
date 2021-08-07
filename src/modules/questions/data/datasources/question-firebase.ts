@@ -26,4 +26,8 @@ export class QuestionFirebaseDataSource implements QuestionBaseDataSource {
 	async listenToMany (callback: (documents: QuestionFromModel[]) => void, conditions?: FirestoreGetClauses) {
 		return await FirestoreService.listenToMany<QuestionFromModel>(callback, 'questions', conditions)
 	}
+
+	async delete (id: string) {
+		return await FirestoreService.delete('questions', id)
+	}
 }

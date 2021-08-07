@@ -46,4 +46,8 @@ export class QuestionRepository implements IQuestionRepository {
 	async update (id: string, data: Partial<QuestionToModel>) {
 		return this.dataSource.update(id, data)
 	}
+
+	async delete (id: string) {
+		return this.dataSource.delete(id)
+	}
 }

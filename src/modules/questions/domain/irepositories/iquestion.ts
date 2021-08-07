@@ -9,4 +9,5 @@ export interface IQuestionRepository {
 	listenToMany: (callback: (entities: QuestionEntity[]) => void, conditions?: FirestoreGetClauses) => Promise<() => void>
 	find: (id: string) => Promise<QuestionEntity | null>
 	update: (id: string, data: Partial<QuestionToModel>) => Promise<void>
+	delete: (id: string) => Promise<void>
 }

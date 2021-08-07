@@ -27,9 +27,14 @@
 						Answer
 					</button>
 				</template>
-				<template v-else-if="showEditButton">
+				<template v-if="showEditButton">
 					<button class="btn btn-sm action-btn bg-warning" @click="openEditModal">
 						Edit
+					</button>
+				</template>
+				<template v-if="showDeleteButton">
+					<button class="btn btn-sm action-btn bg-danger" @click="deleteQuestion">
+						Delete
 					</button>
 				</template>
 			</div>
@@ -56,6 +61,9 @@
 				</span>
 			</div>
 		</div>
+
+		<PageLoading v-if="loading" />
+		<DisplayError :error="error" />
 	</div>
 </template>
 
@@ -68,7 +76,7 @@ import { formatNumber, pluralize } from '@utils/commons'
 import { formatTime } from '@utils/dates'
 import Tag from '@app/components/questions/tags/Tag.vue'
 import Subject from '@app/components/questions/subjects/Subject.vue'
-import { openQuestionEditModal } from '@app/hooks/questions/questions'
+import { openQuestionEditModal, useDeleteQuestion } from '@app/hooks/questions/questions'
 export default defineComponent({
 	name: 'QuestionsListCard',
 	components: { Tag, Subject },
@@ -89,8 +97,14 @@ export default defineComponent({
 			get: () => props.question.userId === id.value && props.question.canBeEdited,
 			set: () => {}
 		})
+		const showDeleteButton = computed({
+			get: () => props.question.userId === id.value && props.question.canBeDeleted,
+			set: () => {}
+		})
+		const { loading, error, deleteQuestion } = useDeleteQuestion(props.question.id)
 		return {
-			id, formatTime, formatNumber, pluralize, showAnswerButton, showEditButton,
+			id, formatTime, formatNumber, pluralize, showAnswerButton, showEditButton, showDeleteButton,
+			loading, error, deleteQuestion,
 			openAnswerModal: () => openAnswerModal(props.question, router),
 			openEditModal: () => openQuestionEditModal(props.question, router)
 		}

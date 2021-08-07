@@ -47,6 +47,7 @@ export default defineComponent({
 		padding: 4px 12px;
 		border-radius: 4px;
 		font-size: 0.9em;
+		text-transform: uppercase;
 	}
 
 	.background {

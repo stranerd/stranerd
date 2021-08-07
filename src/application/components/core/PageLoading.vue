@@ -23,11 +23,11 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 	.center {
-		background: rgba($color-white, 0.6);
+		background: rgba($color-white, 0.9);
 		position: fixed;
 		left: 0;
 		top: 0;
-		width: 100vw;
+		width: vw(100);
 		height: vh(100);
 		display: flex;
 		justify-content: center;

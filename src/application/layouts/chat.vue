@@ -1,6 +1,6 @@
 <template>
 	<div class="layout-page bg-dark">
-		<TopNavigation />
+		<TopNavigation :show-left-menu="true" :show-right-menu="true" />
 		<section class="layout-body p-0">
 			<main class="layout-main p-0">
 				<Nuxt />

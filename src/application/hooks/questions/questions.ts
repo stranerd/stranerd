@@ -1,6 +1,6 @@
 import { ssrRef, watch, computed, useRouter, useFetch, ref, Ref } from '@nuxtjs/composition-api'
 import {
-	AddQuestion, EditQuestion, FindQuestion, GetQuestions, ListenToQuestion,
+	AddQuestion, DeleteQuestion, EditQuestion, FindQuestion, GetQuestions, ListenToQuestion,
 	ListenToQuestions, QuestionEntity, QuestionFactory
 } from '@modules/questions'
 import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
@@ -8,6 +8,7 @@ import { COINS_GAP, MAXIMUM_COINS, MINIMUM_COINS, PAGINATION_LIMIT } from '@util
 import { useAuth } from '@app/hooks/auth/auth'
 import { analytics } from '@modules/core'
 import VueRouter from 'vue-router'
+import { Alert } from '@app/hooks/core/notifications'
 
 enum Answered {
 	All,
@@ -227,4 +228,34 @@ export const useEditQuestion = (questionId: string) => {
 	}
 
 	return { error, loading, factory, coins, editQuestion }
+}
+
+export const useDeleteQuestion = (questionId: string) => {
+	const { loading, setLoading } = useLoadingHandler()
+	const { error, setError } = useErrorHandler()
+	const { setMessage } = useSuccessHandler()
+	const router = useRouter()
+
+	const deleteQuestion = async () => {
+		setError('')
+		const accepted = await Alert({
+			title: 'Are you sure you want to delete this question?',
+			text: 'This cannot be reversed',
+			icon: 'warning',
+			confirmButtonText: 'Yes, delete'
+		})
+		if (accepted) {
+			setLoading(true)
+			try {
+				await DeleteQuestion.call(questionId)
+				global.questions.value = global.questions.value
+					.filter((q) => q.id !== questionId)
+				setMessage('Question deleted successfully')
+				await router.push('/questions')
+			} catch (error) { setError(error) }
+			setLoading(false)
+		}
+	}
+
+	return { loading, error, deleteQuestion }
 }

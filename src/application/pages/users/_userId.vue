@@ -23,7 +23,7 @@ export default defineComponent({
 		const { userId } = useRoute().value.params
 		const { error, loading, user } = useUser(userId)
 		useMeta(() => ({
-			title: (userId === id.value ? 'Your' : user.value?.firstName ?? 'Unknown') + ' Profile | Stranerd'
+			title: (userId === id.value ? 'Your' : (user.value?.firstName ?? 'Unknown') + '\'s') + ' Profile | Stranerd'
 		}))
 		return { error, loading, user }
 	},

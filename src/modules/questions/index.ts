@@ -26,6 +26,7 @@ import { GetTagQuestionsUseCase } from './domain/usecases/questions/getTagQuesti
 import { ListenToTagQuestionsUseCase } from './domain/usecases/questions/listenToTagQuestions'
 import { AddQuestionUseCase } from './domain/usecases/questions/addQuestion'
 import { EditQuestionUseCase } from './domain/usecases/questions/editQuestion'
+import { DeleteQuestionUseCase } from './domain/usecases/questions/deleteQuestion'
 import { MarkAsBestAnswerUseCase } from './domain/usecases/answers/markAsBestAnswer'
 import { ListenToQuestionUseCase } from './domain/usecases/questions/listenToQuestion'
 import { ListenToQuestionsUseCase } from './domain/usecases/questions/listenToQuestions'
@@ -88,6 +89,7 @@ export const ListenToSimilarQuestions = new ListenToSimilarQuestionsUseCase(ques
 export const AddQuestion = new AddQuestionUseCase(questionRepository)
 export const EditQuestion = new EditQuestionUseCase(questionRepository)
 export const FindQuestion = new FindQuestionUseCase(questionRepository)
+export const DeleteQuestion = new DeleteQuestionUseCase(questionRepository)
 
 export const GetAnswers = new GetAnswersUseCase(answerRepository)
 export const GetUserAnswers = new GetUserAnswersUseCase(answerRepository)

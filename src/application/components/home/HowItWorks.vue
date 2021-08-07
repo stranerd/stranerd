@@ -8,8 +8,10 @@
 				<Heading variant="1">
 					Ask A Question
 				</Heading>
-				<div class="py-2">
-					Ask questions on various subjects. Go through all available answers. Choose your best answers
+				<div class="py-2 d-flex flex-column gap-0-5">
+					<span>- Ask questions on various subjects to clear your doubts</span>
+					<span>- Go through all available answers from smart students</span>
+					<span>- Choose your best answers and ask another question</span>
 				</div>
 				<NuxtLink to="/questions/create" class="btn btn-md btn-custom py-1">
 					Ask A Question
@@ -24,8 +26,9 @@
 				<Heading variant="1">
 					Answer A Question
 				</Heading>
-				<div class="py-2">
-					Answer questions in subjects you’re good at. Get rewards if your answer is chosen as one of the best answers.
+				<div class="py-2 d-flex flex-column gap-0-5">
+					<span>- Answer questions in subjects you are very good at</span>
+					<span>- Get reward if your answer is chosen as one of the best answer</span>
 				</div>
 				<NuxtLink to="/dashboard" class="btn btn-md btn-custom py-1">
 					Answer A Question
@@ -40,8 +43,10 @@
 				<Heading variant="1">
 					Meet Top Nerds
 				</Heading>
-				<div class="py-2">
-					Get or give in-depth answers to homework questions. Request or accept sessions to help out with homework. Collaborate to solve problems and earn rewards
+				<div class="py-2 d-flex flex-column gap-0-5">
+					<span>- Get in-depth answers to homework questions</span>
+					<span>- Request sessions to help out with homework</span>
+					<span>- Collaborate to solve problems and earn rewards</span>
 				</div>
 				<NuxtLink to="/nerds/" class="btn btn-md btn-custom py-1">
 					Meet Top Nerds
@@ -57,8 +62,10 @@
 				<Heading variant="1">
 					Coin System
 				</Heading>
-				<div class="py-2">
-					Buy affordable coins to interact. Bronze Coins are used to Ask Questions. Gold Coins are used to request chat sessions with Top Nerds
+				<div class="py-2 d-flex flex-column gap-0-5">
+					<span>- Buy or gain affordable coins to interact on the site</span>
+					<span>- Bronze Coins are used to Ask Questions while</span>
+					<span>- Gold Coins are used for Booking Sessions with Nerds</span>
 				</div>
 				<NuxtLink to="/account/e-wallet" class="btn btn-md btn-custom py-1">
 					Buy Coins

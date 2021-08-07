@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from '@nuxtjs/composition-api'
+import { defineComponent, onMounted, useMeta } from '@nuxtjs/composition-api'
 import { useCreateAnswer, getAnsweringQuestion } from '@app/hooks/questions/answers'
 import AnswerForm from '@app/components/questions/answers/AnswerForm.vue'
 import Tag from '@app/components/questions/tags/Tag.vue'
@@ -60,8 +60,12 @@ export default defineComponent({
 				subject: answeringQuestion?.subjectId
 			})
 		})
+		useMeta(() => ({
+			title: 'Answer A Question | Stranerd'
+		}))
 		return { loading, createAnswer, factory, error, question: getAnsweringQuestion() }
-	}
+	},
+	head: {}
 })
 </script>
 

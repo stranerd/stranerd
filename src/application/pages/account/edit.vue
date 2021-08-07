@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import AccountProfileForm from '@app/components/users/account/AccountProfileForm.vue'
-import { defineComponent, useRouter } from '@nuxtjs/composition-api'
+import { defineComponent, useMeta, useRouter } from '@nuxtjs/composition-api'
 export default defineComponent({
 	name: 'AccountEditPage',
 	components: { AccountProfileForm },
@@ -17,7 +17,11 @@ export default defineComponent({
 	setup () {
 		const router = useRouter()
 		const cancel = () => router.push('/account/')
+		useMeta(() => ({
+			title: 'Edit Your Profile | Stranerd'
+		}))
 		return { cancel }
-	}
+	},
+	head: {}
 })
 </script>

@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, useMeta } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
 import UserTransactionList from '@app/components/payment/transactions/UserTransactionList.vue'
 import UserCreditBalanceCard from '@app/components/users/account/UserCreditBalanceCard.vue'
@@ -17,7 +17,11 @@ export default defineComponent({
 	middleware: 'isAuthenticated',
 	setup () {
 		const { id, user } = useAuth()
+		useMeta(() => ({
+			title: 'Wallet: Check your balances | Stranerd'
+		}))
 		return { id, user }
-	}
+	},
+	head: {}
 })
 </script>

@@ -8,7 +8,7 @@
 				<SearchBar class="flex-grow-1" />
 			</template>
 			<template v-else>
-				<span class="d-lg-none" @click="openLeftMenu">
+				<span :class="{'d-lg-none': !showLeftMenu}" @click="openLeftMenu">
 					<img class="head-icons" src="@app/assets/images/icons/hamburger.svg" alt="">
 				</span>
 
@@ -25,7 +25,7 @@
 					<MessageLink :key="'messages' + isLoggedIn" />
 					<NotificationBell :key="'notifications' + isLoggedIn" />
 
-					<span class="d-lg-none" @click="openRightMenu">
+					<span :class="{'d-lg-none': !showRightMenu}" @click="openRightMenu">
 						<img class="head-icons" src="@app/assets/images/icons/right-nav.svg" alt="">
 					</span>
 
@@ -79,6 +79,16 @@ export default defineComponent({
 	name: 'DefaultTopNavigation',
 	components: { SearchBar, NotificationBell, MessageLink },
 	props: {
+		showLeftMenu: {
+			type: Boolean,
+			required: false,
+			default: false
+		},
+		showRightMenu: {
+			type: Boolean,
+			required: false,
+			default: false
+		},
 		openLeftMenu: {
 			type: Function as PropType<() => {}>,
 			required: false,

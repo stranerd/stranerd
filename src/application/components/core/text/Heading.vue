@@ -39,4 +39,11 @@ export default defineComponent({
 		@media (min-width: $lg) { font-size: 2em; }
 		@media (min-width: $xl) { font-size: 2.25em; }
 	}
+
+	h4 {
+		font-size: 1em;
+		@media (min-width: $md) { font-size: 1.25em; }
+		@media (min-width: $lg) { font-size: 1.75em; }
+		@media (min-width: $xl) { font-size: 2em; }
+	}
 </style>

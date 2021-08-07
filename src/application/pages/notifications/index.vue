@@ -10,12 +10,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, useMeta } from '@nuxtjs/composition-api'
 import NotificationsList from '@app/components/users/notifications/NotificationsList.vue'
 export default defineComponent({
 	name: 'NotificationsPage',
 	components: { NotificationsList },
-	middleware: ['isAuthenticated']
+	middleware: ['isAuthenticated'],
+	setup () {
+		useMeta(() => ({
+			title: 'Your Notifications | Stranerd'
+		}))
+		return {}
+	},
+	head: {}
 })
 </script>
 

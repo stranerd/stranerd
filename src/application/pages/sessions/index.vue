@@ -8,13 +8,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, useMeta } from '@nuxtjs/composition-api'
 import ContactList from '@app/components/sessions/chats/ContactList.vue'
 export default defineComponent({
 	name: 'SessionsPage',
 	components: { ContactList },
 	layout: 'chat',
-	middleware: ['isAuthenticated']
+	middleware: ['isAuthenticated'],
+	setup () {
+		useMeta(() => ({
+			title: 'Your Sessions | Stranerd'
+		}))
+		return {}
+	},
+	head: {}
 })
 </script>
 

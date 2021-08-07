@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useRoute } from '@nuxtjs/composition-api'
+import { defineComponent, useMeta, useRoute } from '@nuxtjs/composition-api'
 import TagQuestionsList from '@app/components/questions/questions/TagQuestionsList.vue'
 export default defineComponent({
 	name: 'TagPage',
@@ -11,6 +11,9 @@ export default defineComponent({
 	layout: 'justified',
 	setup () {
 		const { tagId } = useRoute().value.params
+		useMeta(() => ({
+			title: `Questions under ${tagId} | Stranerd`
+		}))
 		return { tagId }
 	}
 })

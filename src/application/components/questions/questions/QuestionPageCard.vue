@@ -17,21 +17,24 @@
 				</div>
 			</div>
 
-			<div class="d-flex align-items-center flex-row-reverse ms-auto">
+			<div class="d-flex align-items-center ms-auto gap-0-5">
 				<template v-if="question.isAnswered">
 					<img src="@app/assets/images/icons/profile-best-answers.svg" alt="" class="sub-icons">
 				</template>
 				<template v-else-if="showAnswerButton">
-					<button class="answer-btn d-md-inline-block d-none" @click="openAnswerModal">
-						Answer
-					</button>
-					<button class="btn btn-sm answer-btn-sm d-inline-block d-md-none" @click="openAnswerModal">
-						Add Your Answer
-					</button>
-					<div class="d-flex align-items-center gap-0-25 px-1 d-md-inline-block d-none">
+					<div class="d-flex align-items-center gap-0-25">
 						<DynamicText>+{{ formatNumber(question.creditable) }}</DynamicText>
 						<Coins :size="28" />
 					</div>
+					<button class="action-btn btn btn-sm bg-primary" @click="openAnswerModal">
+						<span class="d-lg-inline d-none">Add Your&nbsp;</span>
+						Answer
+					</button>
+				</template>
+				<template v-else-if="showEditButton">
+					<button class="btn btn-sm action-btn bg-warning" @click="openEditModal">
+						Edit
+					</button>
 				</template>
 			</div>
 		</div>
@@ -70,6 +73,7 @@ import Tag from '@app/components/questions/tags/Tag.vue'
 import Subject from '@app/components/questions/subjects/Subject.vue'
 import { useReportModal } from '@app/hooks/core/modals'
 import { setReportedEntity } from '@app/hooks/reports/questions'
+import { openQuestionEditModal } from '@app/hooks/questions/questions'
 export default defineComponent({
 	name: 'QuestionPageCard',
 	components: { Tag, Subject },
@@ -86,13 +90,18 @@ export default defineComponent({
 			get: () => props.question.userId !== id.value && !props.question.isAnswered && !user.value?.meta.answeredQuestions.includes(props.question.id),
 			set: () => {}
 		})
+		const showEditButton = computed({
+			get: () => props.question.userId === id.value && props.question.canBeEdited,
+			set: () => {}
+		})
 		const reportQuestion = () => {
 			setReportedEntity(props.question)
 			useReportModal().openReportQuestion()
 		}
 		return {
-			id, formatTime, formatNumber, pluralize, showAnswerButton,
+			id, formatTime, formatNumber, pluralize, showAnswerButton, showEditButton,
 			openAnswerModal: () => openAnswerModal(props.question, router),
+			openEditModal: () => openQuestionEditModal(props.question, router),
 			reportQuestion
 		}
 	}
@@ -119,8 +128,7 @@ export default defineComponent({
 		}
 	}
 
-	.answer-btn {
-		background: $color-primary;
+	.action-btn {
 		color: $color-white;
 		border: none;
 		border-radius: 18px;
@@ -128,18 +136,12 @@ export default defineComponent({
 		padding: 9px 27px;
 
 		&:hover {
-			color: $color-white;
 			transform: scale(1.1);
 			transition: 0.5s;
 		}
-	}
-
-	.answer-btn-sm {
-		background: $color-primary;
-		color: $color-white;
-		font-size: 13px;
-		border: none;
-		border-radius: 18px;
+		@media (max-width: $md) {
+			font-size: 13px;
+		}
 	}
 
 	.tags {

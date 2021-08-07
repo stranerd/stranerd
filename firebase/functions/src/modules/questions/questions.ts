@@ -29,7 +29,33 @@ export const questionCreated = functions.firestore.document('questions/{question
 
 export const questionUpdated = functions.firestore.document('questions/{questionId}')
 	.onUpdate(async (snap) => {
+		const before = snap.before.data()
 		const after = snap.after.data()
+
+		const coins = after.coins - before.coins
+
+		const oldTags = before.tags.filter((t: string) => !after.tags.includes(t))
+		const newTags = after.tags.filter((t: string) => !before.tags.includes(t))
+
+		const oldTagsData = Object.fromEntries(
+			oldTags.map((t: string) => [
+				`${t}/count`,
+				admin.database.ServerValue.increment(-1)
+			])
+		)
+		const newTagsData = Object.fromEntries(
+			newTags.map((t: string) => [
+				`${t}/count`,
+				admin.database.ServerValue.increment(1)
+			])
+		)
+
+		await admin.database().ref('tags').update({ ...oldTagsData, ...newTagsData })
+
+		if (coins !== 0) await addUserCoins(after.userId, { bronze: 0 - coins, gold: 0 },
+			 coins > 0 ? 'You paid coins to upgrade a question' : 'You got refunded coins from downgrading a question'
+		)
+
 		await saveToAlgolia('questions', snap.after.id, { question: after })
 	})
 

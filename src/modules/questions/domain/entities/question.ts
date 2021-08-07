@@ -41,6 +41,9 @@ export class QuestionEntity extends BaseEntity {
 	get avatar () { return this.user.avatar }
 	get trimmedBody () { return trimToLength(this.strippedBody, 100) }
 	get strippedBody () { return extractTextFromHTML(this.body) }
+	get isModified () { return this.answers > 0 }
+	get canBeEdited () { return !this.isModified }
+	get canBeDeleted () { return !this.isModified }
 }
 
 type QuestionConstructorArgs = {

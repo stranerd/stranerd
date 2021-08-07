@@ -46,6 +46,9 @@ export class AnswerEntity extends BaseEntity {
 	get trimmedBody () { return trimToLength(this.strippedBody, 200) }
 	get strippedTitle () { return extractTextFromHTML(this.title) }
 	get strippedBody () { return extractTextFromHTML(this.body) }
+	get isModified () { return this.best || this.ratings.count > 0 }
+	get canBeEdited () { return !this.isModified }
+	get canBeDeleted () { return !this.isModified }
 }
 
 type AnswerConstructorArgs = {

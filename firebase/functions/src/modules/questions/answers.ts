@@ -49,7 +49,33 @@ export const answerCreated = functions.firestore.document('answers/{answerId}')
 
 export const answerUpdated = functions.firestore.document('answers/{answerId}')
 	.onUpdate(async (snap) => {
+		const before = snap.before.data()
 		const after = snap.after.data()
+
+		const oldTags = before.tags.filter((t: string) => !after.tags.includes(t))
+		const newTags = after.tags.filter((t: string) => !before.tags.includes(t))
+
+		const oldTagsData = Object.fromEntries(
+			oldTags.map((t: string) => [
+				`tutor/tags/${t}`,
+				admin.database.ServerValue.increment(-1)
+			])
+		)
+		const newTagsData = Object.fromEntries(
+			newTags.map((t: string) => [
+				`tutor/tags/${t}`,
+				admin.database.ServerValue.increment(1)
+			])
+		)
+		const subject = before.subjectId !== after.subjectId
+			? {
+				[`tutor/subjects/${before.subjectId}`]: admin.database.ServerValue.increment(-1),
+				[`tutor/subjects/${after.subjectId}`]: admin.database.ServerValue.increment(1)
+			}
+			: {}
+		await admin.database().ref('profiles').child(after.userId)
+			.update({ ...oldTagsData, ...newTagsData, ...subject })
+
 		await saveToAlgolia('answers', snap.after.id, { answer: after })
 	})
 

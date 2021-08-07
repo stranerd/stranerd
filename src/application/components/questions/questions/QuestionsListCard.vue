@@ -1,7 +1,7 @@
 <template>
 	<div :id="question.id" class="d-flex flex-column py-1-5 gap-1 gap-lg-1-5 border-bottom border-line">
 		<div class="question-head d-flex flex-wrap align-items-center gap-1">
-			<div class="d-flex align-items-center gap-0-5 me-auto">
+			<div class="d-flex align-items-center gap-0-5">
 				<NuxtLink :to="`/users/${question.userId}`">
 					<Avatar :src="question.avatar" :size="36" />
 				</NuxtLink>
@@ -13,15 +13,25 @@
 					<Subject :subject-id="question.subjectId" class="subject" />
 				</div>
 			</div>
-			<img v-if="question.isAnswered" src="@app/assets/images/icons/profile-best-answers.svg" alt="" style="width: 2rem; height: 2rem;">
-			<div v-else-if="showAnswerButton" class="d-flex align-items-center gap-1">
-				<div class="coin d-flex align-items-center gap-0-25">
-					<DynamicText>+{{ formatNumber(question.creditable) }}</DynamicText>
-					<Coins :size="28" />
-				</div>
-				<button class="answer-btn" @click="openAnswerModal">
-					Answer
-				</button>
+			<div class="d-flex align-items-center ms-auto gap-0-5">
+				<template v-if="question.isAnswered">
+					<img src="@app/assets/images/icons/profile-best-answers.svg" alt="" class="sub-icons">
+				</template>
+				<template v-else-if="showAnswerButton">
+					<div class="d-flex align-items-center gap-0-25">
+						<DynamicText>+{{ formatNumber(question.creditable) }}</DynamicText>
+						<Coins :size="28" />
+					</div>
+					<button class="action-btn btn btn-sm bg-primary" @click="openAnswerModal">
+						<span class="d-lg-inline d-none">Add Your&nbsp;</span>
+						Answer
+					</button>
+				</template>
+				<template v-else-if="showEditButton">
+					<button class="btn btn-sm action-btn bg-warning" @click="openEditModal">
+						Edit
+					</button>
+				</template>
 			</div>
 		</div>
 
@@ -58,6 +68,7 @@ import { formatNumber, pluralize } from '@utils/commons'
 import { formatTime } from '@utils/dates'
 import Tag from '@app/components/questions/tags/Tag.vue'
 import Subject from '@app/components/questions/subjects/Subject.vue'
+import { openQuestionEditModal } from '@app/hooks/questions/questions'
 export default defineComponent({
 	name: 'QuestionsListCard',
 	components: { Tag, Subject },
@@ -74,9 +85,14 @@ export default defineComponent({
 			get: () => props.question.userId !== id.value && !props.question.isAnswered && !user.value?.meta.answeredQuestions.includes(props.question.id),
 			set: () => {}
 		})
+		const showEditButton = computed({
+			get: () => props.question.userId === id.value && props.question.canBeEdited,
+			set: () => {}
+		})
 		return {
-			id, formatTime, formatNumber, pluralize, showAnswerButton,
-			openAnswerModal: () => openAnswerModal(props.question, router)
+			id, formatTime, formatNumber, pluralize, showAnswerButton, showEditButton,
+			openAnswerModal: () => openAnswerModal(props.question, router),
+			openEditModal: () => openQuestionEditModal(props.question, router)
 		}
 	}
 })
@@ -113,18 +129,19 @@ export default defineComponent({
 		}
 	}
 
-	.answer-btn {
-		background: $color-primary;
+	.action-btn {
 		color: $color-white;
 		border: none;
-		border-radius: 10rem;
+		border-radius: 18px;
 		width: fit-content;
-		padding: 4px 18px;
+		padding: 9px 27px;
 
 		&:hover {
-			color: $color-white;
 			transform: scale(1.1);
 			transition: 0.5s;
+		}
+		@media (max-width: $md) {
+			font-size: 13px;
 		}
 	}
 

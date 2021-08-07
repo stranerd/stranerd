@@ -1,12 +1,13 @@
 import { ssrRef, watch, computed, useRouter, useFetch, ref, Ref } from '@nuxtjs/composition-api'
 import {
-	AddQuestion, FindQuestion, GetQuestions, ListenToQuestion,
+	AddQuestion, EditQuestion, FindQuestion, GetQuestions, ListenToQuestion,
 	ListenToQuestions, QuestionEntity, QuestionFactory
 } from '@modules/questions'
 import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { COINS_GAP, MAXIMUM_COINS, MINIMUM_COINS, PAGINATION_LIMIT } from '@utils/constants'
 import { useAuth } from '@app/hooks/auth/auth'
 import { analytics } from '@modules/core'
+import VueRouter from 'vue-router'
 
 enum Answered {
 	All,
@@ -172,4 +173,58 @@ export const useQuestion = (questionId: string) => {
 	useFetch(fetchQuestion)
 
 	return { error, loading, question, listener }
+}
+
+let editingQuestion = null as QuestionEntity | null
+export const getEditingQuestion = () => editingQuestion
+export const openQuestionEditModal = (question: QuestionEntity, router: VueRouter) => {
+	editingQuestion = question
+	router.push(`/questions/${question.id}/edit`)
+}
+export const useEditQuestion = (questionId: string) => {
+	const { id, bio, user, isLoggedIn } = useAuth()
+	const { error, setError } = useErrorHandler()
+	const { loading, setLoading } = useLoadingHandler()
+	const { setMessage } = useSuccessHandler()
+	const router = useRouter()
+	const coins = computed({
+		get: () => {
+			if (!isLoggedIn) {
+				setError('Login to continue')
+				return []
+			}
+			if (user.value!.account.coins.bronze < MINIMUM_COINS) {
+				setError(`You need at least ${MINIMUM_COINS} coins to ask a question`)
+				return []
+			}
+			const coins = [] as number[]
+			const maximum = user.value!.account.coins.bronze <= MAXIMUM_COINS ? user.value!.account.coins.bronze : MAXIMUM_COINS
+			for (let i = MINIMUM_COINS; i <= maximum; i = i + COINS_GAP) coins.push(i)
+			return coins
+		}, set: () => {}
+	})
+
+	if (editingQuestion) factory.value.loadEntity(editingQuestion)
+	watch(() => id.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
+	watch(() => bio.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
+
+	const editQuestion = async () => {
+		setError('')
+		if (factory.value.valid && !loading.value) {
+			try {
+				setLoading(true)
+				await EditQuestion.call(questionId, factory.value)
+				setMessage('Question edited successfully')
+				factory.value.reset()
+				await router.replace(`/questions/${questionId}`)
+				analytics.logEvent('edit_question_completed', {
+					questionId,
+					subject: factory.value.subjectId
+				})
+			} catch (error) { setError(error) }
+			setLoading(false)
+		} else factory.value.validateAll()
+	}
+
+	return { error, loading, factory, coins, editQuestion }
 }

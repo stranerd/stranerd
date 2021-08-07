@@ -2,24 +2,30 @@ rules_version = '2';
 service cloud.firestore {
 	match /databases/{database}/documents {
 		match /answers/{id} {
+			allow read: if true;
             allow create: if isAuthenticated();
+			allow update: if isMine(resource.data.userId);
         }
 
 		match /questions/{id} {
+			allow read: if true;
             allow create: if isAuthenticated();
+			allow update: if isMine(resource.data.userId);
         }
 
         match /sessions/{id} {
+			allow read: if true;
             allow create: if isAuthenticated();
             allow update: if isMine(resource.data.tutorId) || isMine(resource.data.studentId);
         }
 
         match /users/{userId}/transactions/{id} {
+			allow read: if true;
             allow write: if false;
         }
 
 		match /{document=**} {
-			allow read: if true;
+			allow read: if false;
 			allow write: if false;
 		}
 

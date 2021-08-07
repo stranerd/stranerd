@@ -102,10 +102,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, useMeta } from '@nuxtjs/composition-api'
 export default defineComponent({
 	name: 'UsersRanksPage',
-	layout: 'justified'
+	layout: 'justified',
+	setup () {
+		useMeta(() => ({
+			title: 'Ranking Requirements | Stranerd'
+		}))
+	},
+	head: {}
 })
 </script>
 

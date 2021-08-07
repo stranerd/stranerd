@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, useRoute } from '@nuxtjs/composition-api'
+import { defineComponent, onMounted, useMeta, useRoute } from '@nuxtjs/composition-api'
 import { useEditQuestion, getEditingQuestion } from '@app/hooks/questions/questions'
 import QuestionForm from '@app/components/questions/questions/QuestionForm.vue'
 import { analytics } from '@modules/core'
@@ -46,8 +46,12 @@ export default defineComponent({
 		onMounted(() => {
 			analytics.logEvent('edit_question_start')
 		})
+		useMeta(() => ({
+			title: 'Edit Your Question | Stranerd'
+		}))
 		return { loading, editQuestion, factory, error, coins }
-	}
+	},
+	head: {}
 })
 </script>
 

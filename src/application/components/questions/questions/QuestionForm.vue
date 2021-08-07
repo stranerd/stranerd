@@ -17,7 +17,7 @@
 			<BodyText variant="normal" class="sub-title">
 				Select the subject of the question you asked
 			</BodyText>
-			<SelectSubject style="min-height: 3rem;" :show-all="false" :subject-id.sync="factory.subjectId" />
+			<SelectSubject class="border border-line p-0-25 rounded-3" style="min-height: 3rem;" :show-all="false" :subject-id.sync="factory.subjectId" />
 			<DynamicText v-if="factory.errors.subjectId" class="text-danger small">
 				{{ factory.errors.subjectId }}
 			</DynamicText>

@@ -59,7 +59,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, useMeta } from '@nuxtjs/composition-api'
 import AuthProviders from '@app/components/auth/AuthProviders.vue'
 import { usePassword } from '@app/hooks/core/forms'
 import { useEmailSignin } from '@app/hooks/auth/signin'
@@ -71,8 +71,12 @@ export default defineComponent({
 	setup () {
 		const { show, toggle } = usePassword()
 		const { loading, signin, factory, error } = useEmailSignin()
+		useMeta(() => ({
+			title: 'Sign in for Stranerd'
+		}))
 		return { show, toggle, factory, loading, error, signin }
-	}
+	},
+	head: {}
 })
 </script>
 <style lang="scss" scoped>

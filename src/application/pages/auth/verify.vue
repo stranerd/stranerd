@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from '@nuxtjs/composition-api'
+import { defineComponent, onMounted, useMeta } from '@nuxtjs/composition-api'
 import { useVerifyEmail } from '@app/hooks/auth/session'
 import { useAuth } from '@app/hooks/auth/auth'
 export default defineComponent({
@@ -37,8 +37,12 @@ export default defineComponent({
 	setup () {
 		const { email, loading, error, message, verifyEmail } = useVerifyEmail()
 		onMounted(verifyEmail)
+		useMeta(() => ({
+			title: 'Email Verification | Stranerd'
+		}))
 		return { email, loading, error, message, verifyEmail }
-	}
+	},
+	head: {}
 })
 </script>
 <style lang="scss" scoped>

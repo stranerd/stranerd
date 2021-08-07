@@ -32,14 +32,14 @@ export default defineComponent({
 	.select {
 		flex-grow: 1;
 		color: $color-sub;
-		height: 64px;
 		box-sizing: border-box;
 		max-width: 400px;
 		margin: 0 auto;
 		border-radius: 12px;
 		box-shadow: -5px 5px 15px rgba($color-primary, 0.1);
-		border: 0;
+		border: 1px solid $color-line;
 		background-color: $color-white;
+		padding: 0.5rem;
 	}
 
 	h1 {

@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeUnmount, onMounted, useRoute } from '@nuxtjs/composition-api'
+import { defineComponent, onBeforeUnmount, onMounted, useMeta, useRoute } from '@nuxtjs/composition-api'
 import QuestionPageCard from '@app/components/questions/questions/QuestionPageCard.vue'
 import AnswersList from '@app/components/questions/answers/AnswersList.vue'
 import QuestionsList from '@app/components/questions/questions/SimilarQuestionsList.vue'
@@ -28,7 +28,11 @@ export default defineComponent({
 		const { error, loading, question, listener } = useQuestion(questionId)
 		onMounted(listener.startListener)
 		onBeforeUnmount(listener.closeListener)
+		useMeta(() => ({
+			title: 'Question and Answers | Stranerd'
+		}))
 		return { questionId, question, error, loading }
-	}
+	},
+	head: {}
 })
 </script>

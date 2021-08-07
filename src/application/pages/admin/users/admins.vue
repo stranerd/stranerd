@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, useMeta } from '@nuxtjs/composition-api'
 import UpgradeUserToAdmin from '@app/components/users/admin/UpgradeUserToAdmin.vue'
 import AdminsList from '@app/components/users/admin/AdminsList.vue'
 export default defineComponent({
@@ -15,6 +15,12 @@ export default defineComponent({
 		UpgradeUserToAdmin,
 		AdminsList
 	},
-	layout: 'admin'
+	layout: 'admin',
+	setup () {
+		useMeta(() => ({
+			title: 'Admins | Stranerd'
+		}))
+	},
+	head: {}
 })
 </script>

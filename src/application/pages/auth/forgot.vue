@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, useMeta } from '@nuxtjs/composition-api'
 import { usePasswordReset } from '@app/hooks/auth/passwords'
 export default defineComponent({
 	name: 'AuthForgotPage',
@@ -44,8 +44,12 @@ export default defineComponent({
 	middleware: ['isNotAuthenticated'],
 	setup () {
 		const { factory, loading, resetPassword, error, message } = usePasswordReset()
+		useMeta(() => ({
+			title: 'Forgot Password | Stranerd'
+		}))
 		return { factory, loading, resetPassword, error, message }
-	}
+	},
+	head: {}
 })
 </script>
 <style lang="scss" scoped>

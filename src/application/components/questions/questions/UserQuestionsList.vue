@@ -52,15 +52,13 @@ export default defineComponent({
 			display: inline;
 			max-width: 156px;
 			padding: 0.25rem;
+			border: 1px solid $color-line;
 			background-color: $color-tags;
 			@media (min-width: $md) {
 				padding: 0.5rem;
 			}
 		}
 
-		select {
-			border: 1px solid $color-line;
-		}
 		@media (min-width: $lg) {
 			border-bottom: 1px solid $color-line;
 		}

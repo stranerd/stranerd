@@ -41,7 +41,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from '@nuxtjs/composition-api'
+import { computed, defineComponent, useMeta } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
 import { domain } from '@utils/environment'
 import { copyToClipboard } from '@utils/commons'
@@ -59,8 +59,12 @@ export default defineComponent({
 			const res = await copyToClipboard(link.value)
 			if (res) await Notify({ title: 'Copied to clipboard', icon: 'success' })
 		}
+		useMeta(() => ({
+			title: 'Invite Your Friends to Stranerd'
+		}))
 		return { link, user, copy }
-	}
+	},
+	head: {}
 })
 </script>
 

@@ -102,6 +102,8 @@ export default defineComponent({
 		font-size: 1em;
 		line-height: 1em;
 		color: inherit;
+		border: 0;
+		outline: 0;
 		background-color: inherit;
 		box-shadow: none;
 		min-height: unset;

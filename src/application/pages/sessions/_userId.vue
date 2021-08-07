@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useRoute } from '@nuxtjs/composition-api'
+import { defineComponent, useMeta, useRoute } from '@nuxtjs/composition-api'
 import ContactList from '@app/components/sessions/chats/ContactList.vue'
 import ContactListMessages from '@app/components/sessions/chats/ContactListMessages.vue'
 import { useAuth } from '@app/hooks/auth/auth'
@@ -23,8 +23,12 @@ export default defineComponent({
 	],
 	setup () {
 		const { userId } = useRoute().value.params
+		useMeta(() => ({
+			title: 'Nerd Chat Session | Stranerd'
+		}))
 		return { userId }
-	}
+	},
+	head: {}
 })
 </script>
 

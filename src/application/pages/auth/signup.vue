@@ -101,7 +101,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, useMeta } from '@nuxtjs/composition-api'
 import AuthProviders from '@app/components/auth/AuthProviders.vue'
 import { usePassword } from '@app/hooks/core/forms'
 import { useEmailSignup } from '@app/hooks/auth/signin'
@@ -113,8 +113,12 @@ export default defineComponent({
 	setup () {
 		const { show, toggle } = usePassword()
 		const { factory, loading, error, signup } = useEmailSignup()
+		useMeta(() => ({
+			title: 'Sign up for Stranerd'
+		}))
 		return { show, toggle, factory, loading, error, signup }
-	}
+	},
+	head: {}
 })
 </script>
 <style lang="scss" scoped>

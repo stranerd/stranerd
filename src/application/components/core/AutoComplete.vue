@@ -5,9 +5,9 @@
 			class="form-control w-100"
 			:placeholder="placeholder"
 			type="text"
-			@keydown.enter="onEnter"
-			@keydown.down="onDown"
-			@keydown.up="onUp"
+			@keydown.enter.prevent="onEnter"
+			@keydown.down.prevent="onDown"
+			@keydown.up.prevent="onUp"
 		>
 		<div v-if="openSuggestion" class="suggestions">
 			<a

@@ -24,7 +24,6 @@ export const useCurrentSession = () => {
 	const router = useRouter()
 
 	const fetchSession = async (userId: string, id: string | null) => {
-		if (!id) currentGlobal.listener.closeListener()
 		if (id && currentGlobal.currentSession.value?.id !== id) {
 			const session = await GetSession.call(id)
 			currentGlobal.currentSession.value = session
@@ -33,16 +32,18 @@ export const useCurrentSession = () => {
 				await router.push(`/sessions/${id}`)
 			}
 			await currentGlobal.listener.resetListener(
-				async () => ListenToSession.call(id, (s) => {
-					const oldDone = currentGlobal.currentSession.value?.done ?? false
-					if (!oldDone && s?.done) {
-						const id = userId === s.tutorId ? s.studentId : s.tutorId
-						setOtherParticipantId(id)
-						useSessionModal().openRatings()
-					}
-					currentGlobal.previousSession.value = currentGlobal.currentSession.value
-					if (s) currentGlobal.currentSession.value = s
-				})
+				async () => id
+					? ListenToSession.call(id, (s) => {
+						const oldDone = currentGlobal.currentSession.value?.done ?? false
+						if (!oldDone && s?.done) {
+							const id = userId === s.tutorId ? s.studentId : s.tutorId
+							setOtherParticipantId(id)
+							useSessionModal().openRatings()
+						}
+						currentGlobal.previousSession.value = currentGlobal.currentSession.value
+						if (s) currentGlobal.currentSession.value = s
+					})
+					: () => () => {}
 			)
 		}
 	}

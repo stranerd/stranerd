@@ -6,7 +6,7 @@
 					{{ choice.key }}
 				</option>
 			</select>
-			<SelectSubject :subject-id.sync="subjectId" />
+			<SelectSubject :subject-id.sync="subjectId" class="p-0" />
 		</form>
 		<QuestionCard v-for="question in questions" :key="question.hash" :question="question" />
 		<div v-if="hasMore" class="text-center py-2 text-18 text-primary-dark">
@@ -48,15 +48,18 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 	.options {
-		select {
+		& > * {
 			display: inline;
 			max-width: 156px;
-			border: 1px solid $color-line;
 			padding: 0.25rem;
 			background-color: $color-tags;
 			@media (min-width: $md) {
 				padding: 0.5rem;
 			}
+		}
+
+		select {
+			border: 1px solid $color-line;
 		}
 		@media (min-width: $lg) {
 			border-bottom: 1px solid $color-line;

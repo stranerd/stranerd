@@ -15,6 +15,7 @@ export default defineComponent({
 			title: `Questions under ${tagId} | Stranerd`
 		}))
 		return { tagId }
-	}
+	},
+	head: {}
 })
 </script>

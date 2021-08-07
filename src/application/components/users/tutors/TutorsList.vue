@@ -2,7 +2,7 @@
 	<div>
 		<div class="d-flex flex-column align-items-center">
 			<h1>Find Top Nerds to have One-On-One Chat Sessions with, for help with your homework and study problems.</h1>
-			<SelectSubject class="mt-1 mt-md-2 mb-2 mb-md-4" :subject-id.sync="subjectId" />
+			<SelectSubject class="select mt-1 mt-md-2 mb-2 mb-md-4" :subject-id.sync="subjectId" />
 		</div>
 		<TutorsListCard v-for="tutor in tutors" :key="tutor.hash" :tutor="tutor" />
 		<DisplayWarning v-if="!loading && !error && tutors.length === 0" message="No nerds found." />
@@ -29,7 +29,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-	select {
+	.select {
 		flex-grow: 1;
 		color: $color-sub;
 		height: 64px;
@@ -40,9 +40,6 @@ export default defineComponent({
 		box-shadow: -5px 5px 15px rgba($color-primary, 0.1);
 		border: 0;
 		background-color: $color-white;
-		appearance: none;
-		outline: 0 !important;
-		-webkit-appearance: none;
 	}
 
 	h1 {

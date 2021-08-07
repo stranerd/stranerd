@@ -1,20 +1,17 @@
 <template>
-	<select
-		class="form-select"
-		:value="subjectId"
-		@change="$emit('update:subjectId',$event.target.value)"
-	>
-		<option value="" :disabled="!showAll">
-			{{ showAll ? 'All Subjects' : placeholder || 'Select A Subject' }}
-		</option>
-		<option v-for="subject in subjects" :key="subject.hash" :value="subject.id">
-			{{ subject.name }}
-		</option>
-	</select>
+	<AutoComplete
+		:suggestions="subjects.map((s) => ({ search: s.name, value: s.id, title: s.name }))"
+		:value="value"
+		:default="def"
+		:placeholder="showAll ? 'All Subjects' : placeholder"
+		class="w-100"
+		:class="{'showAll': showAll}"
+		@update:value="update($event)"
+	/>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, ref } from '@nuxtjs/composition-api'
 import { useSubjectList } from '@app/hooks/questions/subjects'
 export default defineComponent({
 	name: 'SelectSubject',
@@ -31,12 +28,30 @@ export default defineComponent({
 		placeholder: {
 			type: String,
 			required: false,
-			default: ''
+			default: 'Select a Subject'
 		}
 	},
-	setup () {
+	setup (_, { emit }) {
+		const def = { search: '', value: '', title: 'All' }
+		const value = ref(def.search)
 		const { subjects } = useSubjectList()
-		return { subjects }
+		const update = (res: { term: string, value: string}) => {
+			value.value = res.term
+			emit('update:subjectId', res.value)
+		}
+		return { def, subjects, value, update }
 	}
 })
 </script>
+
+<style lang="scss" scoped>
+	.showAll /deep/ input.form-control {
+		background-color: inherit;
+		color: $color-sub;
+
+		&::placeholder {
+			font-size: 1em !important;
+			opacity: 1 !important;
+		}
+	}
+</style>

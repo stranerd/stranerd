@@ -1,0 +1,133 @@
+<template>
+	<div class="position-relative">
+		<input
+			v-model="term"
+			class="form-control w-100"
+			:placeholder="placeholder"
+			type="text"
+			@keydown.enter="onEnter"
+			@keydown.down="onDown"
+			@keydown.up="onUp"
+		>
+		<div v-if="openSuggestion" class="suggestions">
+			<a
+				v-for="(suggestion, i) in matches"
+				:key="suggestion.value"
+				:class="{'isActive': current === i}"
+				@click="select(suggestion.search)"
+			>
+				{{ suggestion.title }}
+			</a>
+		</div>
+	</div>
+</template>
+
+<script lang="ts">
+import { computed, defineComponent, PropType, ref } from '@nuxtjs/composition-api'
+export default defineComponent({
+	name: 'AutoComplete',
+	props: {
+		suggestions: {
+			type: Array as PropType<{ search: string, value: string, title: string }[]>,
+			required: true
+		},
+		value: {
+			type: String,
+			required: true
+		},
+		default: {
+			type: Object as PropType<{ search: string, value: string, title: string }>,
+			required: true
+		},
+		placeholder: {
+			type: String,
+			required: false,
+			default: ''
+		}
+	},
+	setup (props, { emit }) {
+		const open = ref(false)
+		const current = ref(0)
+
+		const matches = computed({
+			get: () => props.suggestions.filter(
+				(s) => s.search.toLowerCase().includes(props.value.toLowerCase())
+			),
+			set: () => {}
+		})
+
+		const openSuggestion = computed({
+			get: () => props.value && matches.value.length !== 0 && open.value,
+			set: () => {}
+		})
+
+		const update = (value: string) => {
+			if (!open.value) {
+				open.value = true
+				current.value = 0
+			}
+			if (!value) return emit('update:value', { term: value, ...props.default })
+			const match = props.suggestions.find(
+				(s) => s.search.toLowerCase() === value.toLowerCase()
+			)
+			return emit('update:value', { term: value, ...(match ?? props.default) })
+		}
+		const select = (value: string) => {
+			update(value)
+			open.value = false
+		}
+
+		const term = computed({
+			get: () => props.value,
+			set: update
+		})
+
+		const onEnter = () => {
+			select(matches.value[current.value].search)
+			open.value = false
+		}
+		const onUp = () => current.value > 0 ? current.value-- : 0
+		const onDown = () => {
+			const index = matches.value.length - 1
+			return current.value < index ? current.value++ : index
+		}
+
+		return { open, current, matches, openSuggestion, term, update, select, onEnter, onUp, onDown }
+	}
+})
+</script>
+
+<style lang="scss" scoped>
+	input.form-control {
+		font-size: 1em;
+		line-height: 1em;
+		color: inherit;
+		background-color: inherit;
+		box-shadow: none;
+		min-height: unset;
+		padding: 0.5em;
+	}
+
+	.suggestions {
+		z-index: 3;
+		display: flex;
+		flex-direction: column;
+		position: absolute;
+		width: 100%;
+		top: 100%;
+		background: $color-white;
+		border: 1px solid $color-line;
+		border-radius: 0.25rem;
+
+		& > * {
+			padding: 0.5rem 1rem;
+			border-bottom: 1px solid $color-line;
+			text-transform: capitalize;
+		}
+
+		.isActive {
+			background-color: $color-primary;
+			color: $color-white;
+		}
+	}
+</style>

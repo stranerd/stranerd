@@ -37,9 +37,9 @@ export default defineComponent({
 		align-items: center;
 		background: $color-primary;
 		color: $color-white;
-		padding: 1rem 1rem;
+		padding: 0.75rem 1rem;
 		@media (min-width: $lg) {
-			padding: 1rem 2rem;
+			padding: 0.75rem 2rem;
 		}
 	}
 </style>

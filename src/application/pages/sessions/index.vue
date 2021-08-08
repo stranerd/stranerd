@@ -2,7 +2,7 @@
 	<div class="flex-grow-1 d-flex gap-0-25">
 		<ContactList class="contact-list" />
 		<div class="contact-messages">
-			<span>Select a contact to message</span>
+			<span class="lead p-0-5 rounded-3 bg-line">Select a contact to message</span>
 		</div>
 	</div>
 </template>
@@ -27,7 +27,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 	.contact-messages {
-		background: $color-white;
+		background: url("~@app/assets/images/doodle.png") $color-white;
 		display: none;
 		justify-content: center;
 		align-items: center;

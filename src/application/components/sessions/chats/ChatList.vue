@@ -1,5 +1,5 @@
 <template>
-	<div class="d-flex flex-column align-items-center py-0-5 background">
+	<div class="d-flex flex-column align-items-center py-0-5">
 		<span v-if="chats.length === 0" class="text-center my-auto bg-line p-1">
 			No messages found. Send a message now
 		</span>
@@ -48,10 +48,6 @@ export default defineComponent({
 		border-radius: 4px;
 		font-size: 0.9em;
 		text-transform: uppercase;
-	}
-
-	.background {
-		background: url("@app/assets/images/doodle.png");
 	}
 
 	.chat-box {

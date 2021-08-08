@@ -9,7 +9,7 @@
 			@keydown.down.prevent="onDown"
 			@keydown.up.prevent="onUp"
 		>
-		<div v-if="openSuggestion" class="suggestions">
+		<div v-if="value && open" class="suggestions">
 			<a
 				v-for="(suggestion, i) in matches"
 				:key="suggestion.value"
@@ -17,6 +17,9 @@
 				@click="select(suggestion.search)"
 			>
 				{{ suggestion.title }}
+			</a>
+			<a v-if="matches.length === 0" class="text-lowercase">
+				<span class="text-capitalize">No</span> option matches '{{ value }}'
 			</a>
 		</div>
 	</div>
@@ -56,11 +59,6 @@ export default defineComponent({
 			set: () => {}
 		})
 
-		const openSuggestion = computed({
-			get: () => props.value && matches.value.length !== 0 && open.value,
-			set: () => {}
-		})
-
 		const update = (value: string) => {
 			if (!open.value) {
 				open.value = true
@@ -92,7 +90,7 @@ export default defineComponent({
 			return current.value < index ? current.value++ : index
 		}
 
-		return { open, current, matches, openSuggestion, term, update, select, onEnter, onUp, onDown }
+		return { open, current, matches, term, update, select, onEnter, onUp, onDown }
 	}
 })
 </script>

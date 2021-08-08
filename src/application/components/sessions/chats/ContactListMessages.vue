@@ -1,7 +1,7 @@
 <template>
 	<div class="flex-grow-1 d-flex flex-column">
 		<PageLoading v-if="loading" />
-		<div v-else-if="user" class="flex-grow-1 d-flex flex-column bg-white">
+		<div v-else-if="user" class="flex-grow-1 d-flex flex-column">
 			<ChatHead :key="hash" :user="user" class="px-1 px-md-2" />
 			<ChatList :user-id="userId" class="flex-grow-1 px-1 px-md-2" />
 			<TutorSessionOption v-if="requestedSession" :session="requestedSession" class="px-0" />

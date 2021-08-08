@@ -31,10 +31,10 @@ export default defineComponent({
 			default: 'Select a Subject'
 		}
 	},
-	setup (_, { emit }) {
+	setup (props, { emit }) {
 		const def = { search: '', value: '', title: 'All' }
-		const value = ref(def.search)
 		const { subjects } = useSubjectList()
+		const value = ref(subjects.value.find((s) => s.id === props.subjectId)?.name ?? def.search)
 		const update = (res: { term: string, value: string}) => {
 			value.value = res.term
 			emit('update:subjectId', res.value)

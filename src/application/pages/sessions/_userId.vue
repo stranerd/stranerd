@@ -35,6 +35,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 	.contact-messages {
 		width: 70%;
+		background: url("~@app/assets/images/doodle.png") $color-white;
 		flex-grow: 1;
 	}
 

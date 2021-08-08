@@ -60,8 +60,10 @@
 		},
 		"reports": {
 			"$reportType": {
-				".read": "auth.token.isAdmin === true",
+				".read": true,
+				".indexOn": ["dates/createdAt"],
 				"$reportId": {
+					".read": true,
 					".write": "auth.uid != null"
 				}
 			}

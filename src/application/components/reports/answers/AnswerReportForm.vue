@@ -3,7 +3,7 @@
 		<p>What is wrong with this answer?</p>
 		<div class="d-flex flex-column gap-0-5 mb-1">
 			<span v-for="message in AnswerMessages" :key="message.id" class="d-flex gap-0-5 align-items-center fw-bold">
-				<input v-model="factory.message" name="message" type="radio" :value="message.id">
+				<input v-model="factory.message" name="message" type="radio" :value="message.body">
 				<DynamicText>It {{ message.body }}</DynamicText>
 			</span>
 		</div>

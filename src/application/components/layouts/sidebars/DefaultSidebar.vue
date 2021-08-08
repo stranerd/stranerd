@@ -13,7 +13,7 @@
 
 			<NuxtLink class="sidebar-link" to="/account/e-wallet">
 				<img src="@app/assets/images/icons/e-wallet.svg" alt="">
-				<span>E-Wallet</span>
+				<span>e-Wallet</span>
 			</NuxtLink>
 		</div>
 		<div class="sidebar-links px-1-5 gap-1">

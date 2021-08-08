@@ -26,6 +26,7 @@ body {
 
 	img {
 		flex-shrink: 0;
+		object-fit: contain;
 	}
 
 	.text-truncate {

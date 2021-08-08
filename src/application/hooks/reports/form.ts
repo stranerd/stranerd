@@ -11,4 +11,7 @@ export const QuestionMessages = [
 	{ id: '8', body: 'is being used for malpractice' }
 ] as Message[]
 
-export const AnswerMessages = QuestionMessages
+export const AnswerMessages = [
+	...QuestionMessages,
+	{ id: '10', body: 'is a duplicate' }
+]

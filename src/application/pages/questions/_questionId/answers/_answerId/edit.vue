@@ -65,7 +65,7 @@ export default defineComponent({
 		useMeta(() => ({
 			title: 'Edit An Answer | Stranerd'
 		}))
-		return { loading, editAnswer, factory, error, question: getEditingAnswer()?.question }
+		return { loading, editAnswer, factory, error, question: edit?.question }
 	},
 	head: {}
 })

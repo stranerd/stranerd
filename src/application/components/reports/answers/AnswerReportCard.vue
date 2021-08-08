@@ -1,56 +1,54 @@
 <template>
-	<div class="wrapper mb-1">
-		<div class="d-flex flex-row flex-sm-wrap flex-md-nowrap">
-			<div class="d-flex flex-column py-1 px-md-2 px-1 " style="width: 100%;">
-				<div class="p-custom">
-					How can you be so stupid! That’s too easy, lol
-				</div>
-				<div class="p-custom pt-1">
-					Reported by <span class="text-primary text-small">Eniola Holmes</span>
-				</div>
-				<div class="p-custom pt-1" style="font-size: 14px;">
-					This answer contains abuse.
-				</div>
+	<div class="bg-tags border border-line rounded-3 mb-1">
+		<div class="d-flex flex-column flex-md-row gap-1 p-1 px-md-2">
+			<div class="d-flex flex-column gap-1 w-100 color-dark">
+				<NuxtLink :to="`/questions/${report.reported.questionId}#${report.reportedId}`">
+					<div class="mb-1">
+						{{ report.reported.title }}
+					</div>
+					<div class="editor-body" v-html="report.reported.body" />
+				</NuxtLink>
+				<span>
+					Reported by <NuxtLink :to="`/users/${report.reporterId}`">
+						<DynamicText class="text-primary">
+							{{ report.reporterBio.name.fullName }}
+						</DynamicText>
+					</NuxtLink>
+				</span>
+				<span>This answer {{ report.message }}.</span>
 			</div>
-			<div class="text-danger text-center ml-auto px-2 py-1 sideBorder d-none d-md-flex ">
-				<a style="font-size: 14px;">
-					Delete Answer
-				</a>
-			</div>
-			<div class="text-danger px-1 pt-0 pb-1 d-md-none d-block col-12 ">
-				<a style="font-size: 13px;">
-					Delete Answer
-				</a>
+			<div class="text-danger ms-md-auto d-flex flex-wrap flex-md-column gap-1 text-nowrap custom-border" style="font-size: 14px;">
+				<a>Send warning</a>
+				<a>Suspend User</a>
+				<a>Delete Answer</a>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, PropType } from '@nuxtjs/composition-api'
+import { AnswerReportEntity } from '@modules/reports'
 export default defineComponent({
-	name: 'AnswerReportCard'
+	name: 'AnswerReportCard',
+	props: {
+		report: {
+			type: Object as PropType<AnswerReportEntity>,
+			required: true
+		}
+	}
 })
 </script>
+
 <style lang="scss" scoped>
-	.p-custom {
-		font-size: 15px;
-		color: $color-dark;
+	.custom-border {
+		border-top: 1px solid $color-line;
+		padding-top: 1rem;
+		@media (min-width: $md) {
+			border-top: 0;
+			padding-top: 0;
+			padding-left: 1rem;
+			border-left: 1px solid $color-line;
+		}
 	}
-
-	.wrapper {
-		border: 1px solid $color-line;
-		border-radius: 5px;
-		background-color: $color-tags;
-	}
-
-	.sideBorder {
-		border-left: 1px solid $color-line;
-		min-width: 200px;
-	}
-
-	.ml-auto {
-		margin-left: auto;
-	}
-
 </style>

@@ -52,13 +52,14 @@ export default defineComponent({
 		}
 	],
 	setup () {
+		const edit = getEditingAnswer()
 		const { answerId } = useRoute().value.params
-		const { loading, editAnswer, factory, error, answeringQuestion } = useEditAnswer(answerId)
+		const { loading, editAnswer, factory, error } = useEditAnswer(answerId)
 		onMounted(() => {
 			analytics.logEvent('answer_question_start', {
-				questionId: answeringQuestion?.id,
+				questionId: edit?.answer.questionId,
 				answerId,
-				subject: answeringQuestion?.subjectId
+				subject: edit?.answer.subjectId
 			})
 		})
 		useMeta(() => ({

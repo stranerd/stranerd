@@ -2,10 +2,11 @@ import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { sendMail } from '../helpers/email'
 import { EMAILS } from '../helpers/environment'
+import { defaultConfig } from '../helpers/functions'
 
 type EmailError = { subject: string, to: string, content: string, from: EMAILS }
 
-export const resendEmails = functions.https.onRequest(async (_, res) => {
+export const resendEmails = functions.runWith(defaultConfig).https.onRequest(async (_, res) => {
 	const ref = await admin.database().ref('errors/emails').once('value')
 	const emails = Object.entries((ref.val() ?? {}) as Record<string, EmailError>)
 		.map(([id, data]) => ({ ...data, id }))

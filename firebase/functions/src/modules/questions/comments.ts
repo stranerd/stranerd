@@ -2,8 +2,9 @@ import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { PATH_SEPARATOR } from '../../helpers'
 import { createNotification } from '../../helpers/modules/users/notifications'
+import { defaultConfig } from '../../helpers/functions'
 
-export const questionCommentCreated = functions.database.ref('comments/questions/{questionId}/{commentId}')
+export const questionCommentCreated = functions.runWith(defaultConfig).database.ref('comments/questions/{questionId}/{commentId}')
 	.onCreate(async (snap, context) => {
 		const { questionId, commentId } = context.params
 
@@ -26,7 +27,7 @@ export const questionCommentCreated = functions.database.ref('comments/questions
 		})
 	})
 
-export const answerCommentCreated = functions.database.ref('comments/answers/{answerId}/{commentId}')
+export const answerCommentCreated = functions.runWith(defaultConfig).database.ref('comments/answers/{answerId}/{commentId}')
 	.onCreate(async (snap, context) => {
 		const { answerId, commentId } = context.params
 
@@ -49,7 +50,7 @@ export const answerCommentCreated = functions.database.ref('comments/answers/{an
 		})
 	})
 
-export const questionCommentDeleted = functions.database.ref('comments/questions/{questionId}/{commentId}')
+export const questionCommentDeleted = functions.runWith(defaultConfig).database.ref('comments/questions/{questionId}/{commentId}')
 	.onDelete(async (snap, context) => {
 		const { questionId, commentId } = context.params
 
@@ -67,7 +68,7 @@ export const questionCommentDeleted = functions.database.ref('comments/questions
 			.child(`questionComments/${questionId}${PATH_SEPARATOR}${commentId}`).set(null)
 	})
 
-export const answerCommentDeleted = functions.database.ref('comments/answers/{answerId}/{commentId}')
+export const answerCommentDeleted = functions.runWith(defaultConfig).database.ref('comments/answers/{answerId}/{commentId}')
 	.onDelete(async (snap, context) => {
 		const { answerId, commentId } = context.params
 

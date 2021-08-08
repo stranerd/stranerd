@@ -40,6 +40,14 @@
 				<span v-if="id && answer.userId !== id" @click="reportAnswer">
 					<i class="fas fa-flag" />
 				</span>
+				<span v-if="showEditButton" class="d-flex align-items-center gap-0-25 text-warning" @click.prevent="openEditModal">
+					<span>Edit answer</span>
+					<i class="fas fa-pen" />
+				</span>
+				<span v-if="showDeleteButton" class="d-flex align-items-center gap-0-25 text-danger" @click.prevent="deleteAnswer">
+					<span>Delete answer</span>
+					<i class="fas fa-trash" />
+				</span>
 			</div>
 		</div>
 		<div v-if="showExplanation" class="answer-content bg-tags">
@@ -52,14 +60,16 @@
 			<CommentForm :answer-id="answer.id" />
 		</div>
 		<DisplayError style="margin: 0 !important;" :error="error" />
+		<DisplayError style="margin: 0 !important;" :error="deleteError" />
 		<PageLoading v-if="loading" />
+		<PageLoading v-if="deleteLoading" />
 	</div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, ref } from '@nuxtjs/composition-api'
+import { computed, defineComponent, PropType, ref, useRouter } from '@nuxtjs/composition-api'
 import { AnswerEntity, QuestionEntity } from '@modules/questions'
-import { useAnswer } from '@app/hooks/questions/answers'
+import { openAnswerEditModal, useAnswer, useDeleteAnswer } from '@app/hooks/questions/answers'
 import { useAuth } from '@app/hooks/auth/auth'
 import CommentForm from '@app/components/questions/comments/AnswerCommentForm.vue'
 import CommentList from '@app/components/questions/comments/AnswerCommentsList.vue'
@@ -84,6 +94,7 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
+		const router = useRouter()
 		const showComments = ref(false)
 		const showExplanation = ref(false)
 		const { id, isLoggedIn, user } = useAuth()
@@ -91,13 +102,24 @@ export default defineComponent({
 			get: () => isLoggedIn.value && props.answer.userId !== id.value && !user.value?.meta.ratedAnswers.includes(props.answer.id),
 			set: () => {}
 		})
+		const showEditButton = computed({
+			get: () => props.answer.userId === id.value && props.answer.canBeEdited,
+			set: () => {}
+		})
+		const showDeleteButton = computed({
+			get: () => props.answer.userId === id.value && props.answer.canBeDeleted,
+			set: () => {}
+		})
 		const { error, loading, rateAnswer, markBestAnswer } = useAnswer(props.answer)
 		const reportAnswer = () => {
 			setReportedEntity(props.answer)
 			useReportModal().openReportAnswer()
 		}
+		const { loading: deleteLoading, error: deleteError, deleteAnswer } = useDeleteAnswer(props.answer.id)
 		return {
 			id, isLoggedIn, user, formatTime, showComments, showExplanation,
+			showEditButton, showDeleteButton, deleteLoading, deleteError, deleteAnswer,
+			openEditModal: () => openAnswerEditModal({ question: props.question, answer: props.answer }, router),
 			error, loading, rateAnswer, showRatingButton, formatNumber,
 			markBestAnswer: () => markBestAnswer(props.question),
 			reportAnswer

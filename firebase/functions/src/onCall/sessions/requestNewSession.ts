@@ -2,8 +2,9 @@ import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { getChatsPath, getRandomValue } from '../../helpers'
 import { addUserCoins } from '../../helpers/modules/payments/transactions'
+import { defaultConfig } from '../../helpers/functions'
 
-export const requestNewSession = functions.https.onCall(async (data, context) => {
+export const requestNewSession = functions.runWith(defaultConfig).https.onCall(async (data, context) => {
 	if (!context.auth)
 		throw new functions.https.HttpsError('unauthenticated', 'Only authenticated users can request sessions')
 

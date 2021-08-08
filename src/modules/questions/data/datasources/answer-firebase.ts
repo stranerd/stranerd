@@ -27,6 +27,10 @@ export class AnswerFirebaseDataSource implements AnswerBaseDataSource {
 		return await FirestoreService.update<Partial<AnswerToModel>>('answers', id, data)
 	}
 
+	async delete (id: string) {
+		return await FirestoreService.delete('answers', id)
+	}
+
 	async rate (id: string, userId: string, rating: number) {
 		return await DatabaseService.update<Record<string, number>>(`answers/${id}/ratings`, { [userId]: rating })
 	}

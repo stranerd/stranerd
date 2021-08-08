@@ -128,11 +128,11 @@ export const useCreateQuestion = () => {
 				setLoading(true)
 				const questionId = await AddQuestion.call(factory.value)
 				setMessage('Question submitted successfully')
+				const subject = factory.value.subjectId
 				factory.value.reset()
 				await router.replace(`/questions/${questionId}`)
 				analytics.logEvent('ask_question_completed', {
-					questionId,
-					subject: factory.value.subjectId
+					questionId, subject
 				})
 			} catch (error) { setError(error) }
 			setLoading(false)
@@ -188,6 +188,7 @@ export const useEditQuestion = (questionId: string) => {
 	const { loading, setLoading } = useLoadingHandler()
 	const { setMessage } = useSuccessHandler()
 	const router = useRouter()
+	const factory = ref(new QuestionFactory()) as Ref<QuestionFactory>
 	const coins = computed({
 		get: () => {
 			if (!isLoggedIn) {
@@ -216,11 +217,11 @@ export const useEditQuestion = (questionId: string) => {
 				setLoading(true)
 				await EditQuestion.call(questionId, factory.value)
 				setMessage('Question edited successfully')
+				const subject = factory.value.subjectId
 				factory.value.reset()
 				await router.replace(`/questions/${questionId}`)
 				analytics.logEvent('edit_question_completed', {
-					questionId,
-					subject: factory.value.subjectId
+					questionId, subject
 				})
 			} catch (error) { setError(error) }
 			setLoading(false)

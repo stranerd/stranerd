@@ -1,8 +1,9 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { deleteTask } from '../../helpers/cloud-task'
+import { defaultConfig } from '../../helpers/functions'
 
-export const cancelSession = functions.https.onCall(async ({ id }, context) => {
+export const cancelSession = functions.runWith(defaultConfig).https.onCall(async ({ id }, context) => {
 	if (!context.auth)
 		throw new functions.https.HttpsError('unauthenticated', 'Only authenticated users can cancel the sessions')
 

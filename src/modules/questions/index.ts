@@ -35,6 +35,8 @@ import { GetAnswersUseCase } from './domain/usecases/answers/getAnswers'
 import { GetUserAnswersUseCase } from './domain/usecases/answers/getUserAnswers'
 import { ListenToUserAnswersUseCase } from './domain/usecases/answers/listenToUserAnswers'
 import { AddAnswerUseCase } from './domain/usecases/answers/addAnswer'
+import { EditAnswerUseCase } from './domain/usecases/answers/editAnswer'
+import { DeleteAnswerUseCase } from './domain/usecases/answers/deleteAnswer'
 import { RateAnswerUseCase } from './domain/usecases/answers/rateAnswer'
 import { ListenToAnswersUseCase } from './domain/usecases/answers/listenToAnswers'
 import { AddQuestionCommentUseCase, AddAnswerCommentUseCase } from './domain/usecases/comments/addComment'
@@ -96,6 +98,8 @@ export const GetUserAnswers = new GetUserAnswersUseCase(answerRepository)
 export const ListenToAnswers = new ListenToAnswersUseCase(answerRepository)
 export const ListenToUserAnswers = new ListenToUserAnswersUseCase(answerRepository)
 export const AddAnswer = new AddAnswerUseCase(answerRepository)
+export const EditAnswer = new EditAnswerUseCase(answerRepository)
+export const DeleteAnswer = new DeleteAnswerUseCase(answerRepository)
 export const RateAnswer = new RateAnswerUseCase(answerRepository)
 export const MarkAsBestAnswer = new MarkAsBestAnswerUseCase(answerRepository)
 

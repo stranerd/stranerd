@@ -2,8 +2,9 @@ import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { deleteFromStorage } from '../../helpers/storage'
 import { PATH_SEPARATOR } from '../../helpers'
+import { defaultConfig } from '../../helpers/functions'
 
-export const personalChatsCreated = functions.database.ref('chats/single/{path}')
+export const personalChatsCreated = functions.runWith(defaultConfig).database.ref('chats/single/{path}')
 	.onCreate(async (snap) => {
 		const [id1, id2] = snap.key.split(PATH_SEPARATOR)
 		const user1Ref = await admin.database().ref('profiles')
@@ -22,7 +23,7 @@ export const personalChatsCreated = functions.database.ref('chats/single/{path}'
 			})
 	})
 
-export const personalChatMediaDeleted = functions.database.ref('chats/single/{path}/{chatId}/media')
+export const personalChatMediaDeleted = functions.runWith(defaultConfig).database.ref('chats/single/{path}/{chatId}/media')
 	.onDelete(async (snap) => {
 		await deleteFromStorage(snap.val()?.path)
 	})

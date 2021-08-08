@@ -11,7 +11,7 @@
 			<Heading variant="3" class="mt-1 text-primary">
 				This is your unique invitation link:
 			</Heading>
-			<div class="p-1 bg-line border border-sub rounded-3 w-100">
+			<div class="p-1 bg-tags border border-line rounded-3 w-100">
 				<DynamicText :truncate="true">
 					{{ link }}
 				</DynamicText>

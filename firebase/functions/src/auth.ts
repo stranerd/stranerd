@@ -3,8 +3,9 @@ import * as admin from 'firebase-admin'
 import { subscribeToMailchimpList } from './helpers/mailingList'
 import { isProduction } from './helpers/environment'
 import { deleteFromAlgolia } from './helpers/algolia'
+import { defaultConfig } from './helpers/functions'
 
-export const authUserCreated = functions.auth.user().onCreate(async (user) => {
+export const authUserCreated = functions.runWith(defaultConfig).auth.user().onCreate(async (user) => {
 	const [first = null, last = null] = user.displayName?.split(' ') ?? []
 
 	const data = {
@@ -38,7 +39,7 @@ export const authUserCreated = functions.auth.user().onCreate(async (user) => {
 	}
 })
 
-export const authUserDeleted = functions.auth.user().onDelete(async (user) => {
+export const authUserDeleted = functions.runWith(defaultConfig).auth.user().onDelete(async (user) => {
 	await admin.database().ref()
 		.update({
 			[`profiles/${user.uid}/dates/deletedAt`]: admin.database.ServerValue.TIMESTAMP,

@@ -1,6 +1,6 @@
 import { Ref, ref, ssrRef, useFetch, useRouter, watch } from '@nuxtjs/composition-api'
 import {
-	AddAnswer, AnswerEntity, AnswerFactory, GetAnswers,
+	AddAnswer, AnswerEntity, AnswerFactory, DeleteAnswer, EditAnswer, GetAnswers,
 	ListenToAnswers, MarkAsBestAnswer, QuestionEntity, RateAnswer
 } from '@modules/questions'
 import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
@@ -78,12 +78,13 @@ export const useCreateAnswer = () => {
 		if (factory.value.valid && !loading.value) {
 			try {
 				setLoading(true)
-				await AddAnswer.call(factory.value)
+				const answerId = await AddAnswer.call(factory.value)
 				setMessage('Answer submitted successfully.')
 				factory.value.reset()
-				await router.replace(`/questions/${answeringQuestion?.id ?? ''}`)
+				await router.replace(`/questions/${answeringQuestion?.id ?? ''}/#${answerId}`)
 				analytics.logEvent('answer_question_completed', {
 					questionId: answeringQuestion?.id,
+					answerId,
 					subject: answeringQuestion?.subjectId
 				})
 			} catch (error) { setError(error) }
@@ -144,4 +145,70 @@ export const useAnswer = (answer: AnswerEntity) => {
 	return {
 		loading, error, rateAnswer, markBestAnswer
 	}
+}
+
+let editingQuestionAnswer = null as { answer: AnswerEntity, question: QuestionEntity } | null
+export const getEditingAnswer = () => editingQuestionAnswer
+export const openAnswerEditModal = (data: { question: QuestionEntity, answer: AnswerEntity }, router: VueRouter) => {
+	editingQuestionAnswer = data
+	router.push(`/questions/${data.question.id}/answers/${data.answer.id}/edit`)
+}
+export const useEditAnswer = (answerId: string) => {
+	const { id, bio } = useAuth()
+	const { error, setError } = useErrorHandler()
+	const { loading, setLoading } = useLoadingHandler()
+	const { setMessage } = useSuccessHandler()
+	const factory = ref(new AnswerFactory()) as Ref<AnswerFactory>
+	const router = useRouter()
+
+	if (editingQuestionAnswer) factory.value.loadEntity(editingQuestionAnswer.answer)
+	watch(() => id.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
+	watch(() => bio.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
+
+	const editAnswer = async () => {
+		setError('')
+		if (factory.value.valid && !loading.value) {
+			try {
+				setLoading(true)
+				await EditAnswer.call(answerId, factory.value)
+				setMessage('Answer edited successfully')
+				factory.value.reset()
+				await router.replace(`/questions/${editingQuestionAnswer?.question.id}#${answerId}`)
+				analytics.logEvent('edit_answer_completed', {
+					questionId: editingQuestionAnswer?.answer.questionId,
+					answerId,
+					subject: editingQuestionAnswer?.answer.subjectId
+				})
+			} catch (error) { setError(error) }
+			setLoading(false)
+		} else factory.value.validateAll()
+	}
+
+	return { error, loading, factory, editAnswer }
+}
+
+export const useDeleteAnswer = (answerId: string) => {
+	const { loading, setLoading } = useLoadingHandler()
+	const { error, setError } = useErrorHandler()
+	const { setMessage } = useSuccessHandler()
+
+	const deleteAnswer = async () => {
+		setError('')
+		const accepted = await Alert({
+			title: 'Are you sure you want to delete this answer?',
+			text: 'This cannot be reversed',
+			icon: 'warning',
+			confirmButtonText: 'Yes, delete'
+		})
+		if (accepted) {
+			setLoading(true)
+			try {
+				await DeleteAnswer.call(answerId)
+				setMessage('Answer deleted successfully')
+			} catch (error) { setError(error) }
+			setLoading(false)
+		}
+	}
+
+	return { loading, error, deleteAnswer }
 }

@@ -4,8 +4,9 @@ import { createTask } from '../../helpers/cloud-task'
 import { addUserCoins } from '../../helpers/modules/payments/transactions'
 import { getRandomValue, getChatsPath } from '../../helpers/'
 import { chunkArray } from '../../helpers/modules/users/users'
+import { defaultConfig } from '../../helpers/functions'
 
-export const acceptSession = functions.https.onCall(async (data, context) => {
+export const acceptSession = functions.runWith(defaultConfig).https.onCall(async (data, context) => {
 	if (!context.auth)
 		throw new functions.https.HttpsError('unauthenticated', 'Only authenticated users can accept sessions')
 

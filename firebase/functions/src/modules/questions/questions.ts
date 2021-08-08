@@ -2,6 +2,7 @@ import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { saveToAlgolia, deleteFromAlgolia } from '../../helpers/algolia'
 import { addUserCoins } from '../../helpers/modules/payments/transactions'
+import { defaultConfig } from '../../helpers/functions'
 
 export const questionCreated = functions.firestore.document('questions/{questionId}')
 	.onCreate(async (snap) => {
@@ -27,7 +28,7 @@ export const questionCreated = functions.firestore.document('questions/{question
 		await saveToAlgolia('questions', snap.id, { question })
 	})
 
-export const questionUpdated = functions.firestore.document('questions/{questionId}')
+export const questionUpdated = functions.runWith(defaultConfig).firestore.document('questions/{questionId}')
 	.onUpdate(async (snap) => {
 		const before = snap.before.data()
 		const after = snap.after.data()
@@ -59,7 +60,7 @@ export const questionUpdated = functions.firestore.document('questions/{question
 		await saveToAlgolia('questions', snap.after.id, { question: after })
 	})
 
-export const questionDeleted = functions.firestore.document('questions/{questionId}')
+export const questionDeleted = functions.runWith(defaultConfig).firestore.document('questions/{questionId}')
 	.onDelete(async (snap) => {
 		const { userId, tags } = snap.data()
 

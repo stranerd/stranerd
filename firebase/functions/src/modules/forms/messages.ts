@@ -1,7 +1,8 @@
 import * as functions from 'firebase-functions'
 import { sendNewFormMessageEmail } from '../../helpers/email'
+import { defaultConfig } from '../../helpers/functions'
 
-export const messageCreated = functions.database.ref('forms/messages/{messageId}')
+export const messageCreated = functions.runWith(defaultConfig).database.ref('forms/messages/{messageId}')
 	.onCreate(async (snap) => {
 		const { fName, lName, email, message, dates: { createdAt } } = snap.val()
 		await sendNewFormMessageEmail({

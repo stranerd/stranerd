@@ -1,7 +1,8 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
+import { defaultConfig } from '../helpers/functions'
 
-export const endSession = functions.https.onRequest(async (request, response) => {
+export const endSession = functions.runWith(defaultConfig).https.onRequest(async (request, response) => {
 	try {
 		const { id } = request.body
 

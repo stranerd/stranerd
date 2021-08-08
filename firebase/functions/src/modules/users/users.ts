@@ -6,8 +6,9 @@ import {
 import { saveToAlgolia } from '../../helpers/algolia'
 import { checkRank } from '../../helpers/modules/users/ranks'
 import { deleteFromStorage } from '../../helpers/storage'
+import { defaultConfig } from '../../helpers/functions'
 
-export const userProfileUpdated = functions.database.ref('profiles/{userId}/bio')
+export const userProfileUpdated = functions.runWith(defaultConfig).database.ref('profiles/{userId}/bio')
 	.onUpdate(async (snap, context) => {
 		const oldBio = snap.before.val()
 		const newBio = snap.after.val()

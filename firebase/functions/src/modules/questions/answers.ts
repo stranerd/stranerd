@@ -4,8 +4,9 @@ import { markAnswerAsBest } from '../../helpers/modules/questions/answers'
 import { addTutorRatings } from '../../helpers/modules/users/tutors'
 import { deleteFromAlgolia, saveToAlgolia } from '../../helpers/algolia'
 import { createNotification } from '../../helpers/modules/users/notifications'
+import { defaultConfig } from '../../helpers/functions'
 
-export const answerCreated = functions.firestore.document('answers/{answerId}')
+export const answerCreated = functions.runWith(defaultConfig).firestore.document('answers/{answerId}')
 	.onCreate(async (snap, context) => {
 		const answer = snap.data()
 		const { userId = '', questionId = '', subjectId = '', tags = [] } = answer
@@ -45,7 +46,7 @@ export const answerCreated = functions.firestore.document('answers/{answerId}')
 		await saveToAlgolia('answers', snap.id, { answer })
 	})
 
-export const answerUpdated = functions.firestore.document('answers/{answerId}')
+export const answerUpdated = functions.runWith(defaultConfig).firestore.document('answers/{answerId}')
 	.onUpdate(async (snap) => {
 		const before = snap.before.data()
 		const after = snap.after.data()
@@ -77,7 +78,7 @@ export const answerUpdated = functions.firestore.document('answers/{answerId}')
 		await saveToAlgolia('answers', snap.after.id, { answer: after })
 	})
 
-export const answerDeleted = functions.firestore.document('answers/{answerId}')
+export const answerDeleted = functions.runWith(defaultConfig).firestore.document('answers/{answerId}')
 	.onDelete(async (snap) => {
 		const { questionId, subjectId, userId, tags = [] } = snap.data()
 
@@ -115,7 +116,7 @@ export const answerDeleted = functions.firestore.document('answers/{answerId}')
 		await deleteFromAlgolia('answers', snap.id)
 	})
 
-export const answerRated = functions.database.ref('answers/{answerId}/ratings/{userId}')
+export const answerRated = functions.runWith(defaultConfig).database.ref('answers/{answerId}/ratings/{userId}')
 	.onCreate(async (snap, context) => {
 		const { answerId, userId } = context.params
 		const ratings = snap.val() ?? 0

@@ -48,6 +48,10 @@ export class AnswerRepository implements IAnswerRepository {
 		return await this.dataSource.update(id, data)
 	}
 
+	async delete (id: string) {
+		return await this.dataSource.delete(id)
+	}
+
 	async rate (id: string, userId: string, rating: number) {
 		return await this.dataSource.rate(id, userId, rating)
 	}

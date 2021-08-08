@@ -1,7 +1,8 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
+import { defaultConfig } from '../helpers/functions'
 
-export const makeSuperAdmin = functions.https.onRequest(async (_, response) => {
+export const makeSuperAdmin = functions.runWith(defaultConfig).https.onRequest(async (_, response) => {
 	try {
 		const user = await admin.auth().getUserByEmail('kevinfizu@gmail.com')
 		if (user) {

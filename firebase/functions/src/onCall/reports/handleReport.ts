@@ -1,10 +1,11 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
+import { defaultConfig } from '../../helpers/functions'
 
 const WARNING_COUNT = 3
 const SUSPEND_COUNT = 3
 
-export const handleReport = functions.https.onCall(async (data, context) => {
+export const handleReport = functions.runWith(defaultConfig).https.onCall(async (data, context) => {
 	if (!context.auth || !context.auth.token.isAdmin)
 		throw new functions.https.HttpsError('unauthenticated', 'Only admins can handle reports')
 

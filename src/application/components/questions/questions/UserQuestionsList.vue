@@ -58,7 +58,6 @@ export default defineComponent({
 				padding: 0.5rem;
 			}
 		}
-
 		@media (min-width: $lg) {
 			border-bottom: 1px solid $color-line;
 		}

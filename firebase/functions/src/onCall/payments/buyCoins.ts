@@ -1,8 +1,9 @@
 import * as functions from 'firebase-functions'
 import { addUserCoins } from '../../helpers/modules/payments/transactions'
 import { createNotification } from '../../helpers/modules/users/notifications'
+import { defaultConfig } from '../../helpers/functions'
 
-export const buyCoins = functions.https.onCall(async (data, context) => {
+export const buyCoins = functions.runWith(defaultConfig).https.onCall(async (data, context) => {
 	if (!context.auth)
 		throw new functions.https.HttpsError('unauthenticated', 'Only authenticated users can buy coins')
 

@@ -23,7 +23,6 @@
 						<Coins :size="28" />
 					</div>
 					<button class="action-btn btn btn-sm bg-primary" @click="openAnswerModal">
-						<span class="d-lg-inline d-none">Add Your&nbsp;</span>
 						Answer
 					</button>
 				</template>

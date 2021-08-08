@@ -67,7 +67,8 @@ export const DecodeSessionCookieMiddleware = async (req: Request, res: Response,
 const setCookie = (res: Response, key: string, value: any) => res.cookie(key, value, {
 	maxAge: 14 * 24 * 60 * 60 * 1000,
 	httpOnly: true,
-	sameSite: 'lax'
+	sameSite: 'lax',
+	secure: true
 })
 
 const deleteCookie = (res: Response, key: string) => res.clearCookie(key, { sameSite: 'lax' })

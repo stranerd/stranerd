@@ -8,7 +8,7 @@ import { createNotification } from '../../helpers/modules/users/notifications'
 export const answerCreated = functions.firestore.document('answers/{answerId}')
 	.onCreate(async (snap, context) => {
 		const answer = snap.data()
-		const { coins, userId, questionId, subjectId, tags = [] } = answer
+		const { userId = '', questionId = '', subjectId = '', tags = [] } = answer
 
 		const questionRef = await admin.firestore().collection('questions').doc(questionId)
 
@@ -23,15 +23,13 @@ export const answerCreated = functions.firestore.document('answers/{answerId}')
 			])
 		)
 
-		if (coins && userId) {
-			await admin.database().ref('profiles').child(userId)
-				.update({
-					[`account/meta/answers/${snap.id}`]: true,
-					[`account/meta/answeredQuestions/${questionId}`]: admin.database.ServerValue.increment(1),
-					[`tutor/subjects/${subjectId}`]: admin.database.ServerValue.increment(1),
-					...tagsData
-				})
-		}
+		await admin.database().ref('profiles').child(userId)
+			.update({
+				[`account/meta/answers/${snap.id}`]: true,
+				[`account/meta/answeredQuestions/${questionId}`]: admin.database.ServerValue.increment(1),
+				[`tutor/subjects/${subjectId}`]: admin.database.ServerValue.increment(1),
+				...tagsData
+			})
 
 		const { userId: questionUserId } = (await questionRef.get()).data()!
 		await createNotification(questionUserId, {
@@ -90,11 +88,18 @@ export const answerDeleted = functions.firestore.document('answers/{answerId}')
 			])
 		)
 
-		await admin.firestore().collection('questions')
-			.doc(questionId)
-			.set({
-				answers: admin.firestore.FieldValue.increment(-1)
-			}, { merge: true })
+		await admin.firestore().runTransaction(async (t) => {
+			const questionRef = admin.firestore().collection('questions').doc(questionId)
+			const question = await t.get(questionRef)
+			const { answered: { first = null, second = null } = {} } = question.data() ?? {}
+			const data = {
+				answers: admin.firestore.FieldValue.increment(-1),
+				answered: {}
+			}
+			if (first === snap.id) data.answered = { first: null, second }
+			if (second === snap.id) data.answered = { first, second: null }
+			await t.set(questionRef, data, { merge: true })
+		})
 
 		await admin.database().ref('profiles').child(userId)
 			.update({
@@ -102,6 +107,8 @@ export const answerDeleted = functions.firestore.document('answers/{answerId}')
 				[`account/meta/bestAnswers/${snap.id}`]: null,
 				[`account/meta/answeredQuestions/${questionId}`]: admin.database.ServerValue.increment(-1),
 				[`tutor/subjects/${subjectId}`]: admin.database.ServerValue.increment(-1),
+				[`comments/answers/${snap.id}`]: null,
+				[`answers/${snap.id}/ratings`]: null,
 				...tagsData
 			})
 

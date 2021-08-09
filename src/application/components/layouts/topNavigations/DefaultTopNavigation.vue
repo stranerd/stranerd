@@ -172,7 +172,7 @@ export default defineComponent({
 		@media (min-width: $xl) { padding: 0.75rem 4rem; }
 
 		.head-icons, /deep/ .head-icons {
-			filter: brightness(500%);
+			filter: brightness(1000%);
 		}
 	}
 

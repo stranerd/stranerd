@@ -41,6 +41,6 @@ export default defineComponent({
 	}
 
 	.head-icons, /deep/ .head-icons {
-		filter: brightness(500%);
+		filter: brightness(1000%);
 	}
 </style>

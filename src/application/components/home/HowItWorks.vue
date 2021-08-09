@@ -28,7 +28,7 @@
 				</Heading>
 				<div class="py-2 d-flex flex-column gap-0-5">
 					<span>- Answer questions in subjects you are very good at</span>
-					<span>- Get reward if your answer is chosen as one of the best answer</span>
+					<span>- Get rewarded if your answer is chosen as one of the best answers</span>
 				</div>
 				<NuxtLink to="/dashboard" class="btn btn-md btn-custom py-1">
 					Answer A Question

@@ -35,13 +35,11 @@ export default defineComponent({
 			required: true,
 			type: Number,
 			default: 0
-
 		},
 		total: {
 			required: true,
 			type: Number,
 			default: 0
-
 		},
 		onClick: {
 			required: false,
@@ -50,14 +48,8 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
-		const sections = computed({
-			get: () => [{ value: props.score, color: '#546DD3' }],
-			set: () => {}
-		})
-		const totalSections = computed({
-			get: () => sections.value.map((s) => s.value).reduce((acc, v) => acc + v, 0),
-			set: () => {}
-		})
+		const sections = computed(() => [{ value: props.score, color: '#546DD3' }])
+		const totalSections = computed(() => sections.value.map((s) => s.value).reduce((acc, v) => acc + v, 0))
 		return { sections, formatNumber, totalSections }
 	}
 

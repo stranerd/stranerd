@@ -11,7 +11,10 @@
 			<Heading variant="3" class="mt-1 text-primary">
 				This is your unique invitation link:
 			</Heading>
-			<div class="p-1 bg-tags border border-line rounded-3 w-100">
+			<div
+				class="p-1 bg-tags border border-line rounded-3 w-100 link"
+				@click="copy"
+			>
 				<DynamicText :truncate="true">
 					{{ link }}
 				</DynamicText>
@@ -69,6 +72,14 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.link{
+	&:hover{
+		background: #546dd2 !important;
+		color: white;
+		transition: 0.3s;
+		cursor: pointer;
+	}
+}
 	.box {
 		width: 100%;
 		max-width: 600px;

@@ -12,19 +12,16 @@
 			<div class="w-100 flex-grow-1 text-center d-flex flex-column justify-content-center align-items-center position-relative">
 				<img src="@app/assets/images/homepage/testimonial.svg" class="ImageBubble">
 				<div class="py-3 box">
-					<div class="d-flex flex-column justify-content-center align-items-center">
-						<div class="col-md-10 commentsBox py-1 -2 px-2 d-flex flex-column align-items-center justify-content-center">
-							<!-- <div class="testimonial-image bg-sub" /> -->
-							<img :src="comments[currentIndex].img" class="testimonial-image">
-							<div class="mb-1">
-								{{ comments[currentIndex].text }}
-							</div>
-							<div class="mt-auto authorname">
-								{{ comments[currentIndex].author }}
-							</div>
+					<div class="col-md-10 commentsBox p-1 d-flex flex-column justify-content-center align-items-center mx-auto">
+						<img :src="comments[currentIndex].img" class="testimonial-image">
+						<div class="mb-1">
+							{{ comments[currentIndex].text }}
+						</div>
+						<div class="mt-auto authorname">
+							{{ comments[currentIndex].author }}
 						</div>
 					</div>
-					<div class="d-flex justify-content-center align-items-center mt-1 mt-md-2">
+					<div class="d-flex justify-content-center align-items-center mt-1">
 						<a to="#" class="commentIcons" @click.prevent="goToPrev">
 							<i class="fas fa-chevron-left" />
 						</a>
@@ -75,10 +72,9 @@ export default defineComponent({
 		]
 		const currentIndex = ref(0)
 		const goToComment = (index: number) => {
-			if (index >= comments.length || index < 0) {
-				return currentIndex.value = 0
-			 }
-			currentIndex.value = index
+			if (index < 0) return currentIndex.value = comments.length - 1
+			if (index >= comments.length) return currentIndex.value = 0
+			return currentIndex.value = index
 		}
 		const goToNext = () => goToComment(currentIndex.value + 1)
 		const goToPrev = () => goToComment(currentIndex.value - 1)
@@ -89,13 +85,14 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.testimonial-image{
-	height: 60px;
-	width:60px;
-	border-radius: 100%;
-	object-fit: cover;
-	margin-bottom: 9px;
-}
+	.testimonial-image {
+		height: 60px;
+		width: 60px;
+		border-radius: 100%;
+		object-fit: cover;
+		margin-bottom: 9px;
+	}
+
 	.content_wrapper {
 		display: flex;
 		flex-direction: column;
@@ -129,7 +126,6 @@ export default defineComponent({
 		width: 90%;
 		@media (min-width: $md) { width: 50%; }
 		@media (min-width: $lg) { width: 60%; }
-		@media (min-width: $xl) { width: 50%; }
 	}
 
 	.sub {

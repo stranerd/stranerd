@@ -30,6 +30,8 @@ export const capitalize = (text: string) => text[0].toUpperCase() + text.slice(1
 
 export const extractTextFromHTML = (html: string) => html?.trim().replace(/<[^>]+>/g, '') ?? ''
 
+export const getStringCount = (text: string, occ: string) => (text.match(new RegExp(occ, 'gi')) ?? []).length
+
 export const trimToLength = (body: string, length: number) => {
 	if (body.length < length) return body
 	return `${body.slice(0, length)}...`

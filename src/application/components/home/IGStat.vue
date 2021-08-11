@@ -12,17 +12,16 @@
 			<div class="w-100 flex-grow-1 text-center d-flex flex-column justify-content-center align-items-center position-relative">
 				<img src="@app/assets/images/homepage/testimonial.svg" class="ImageBubble">
 				<div class="py-3 box">
-					<div class="d-flex flex-column justify-content-center align-items-center">
-						<div class="col-md-10 commentsBox py-1 -2 px-2 d-flex flex-column align-items-center justify-content-center">
-							<div class="mb-1">
-								{{ comments[currentIndex].text }}
-							</div>
-							<div class="mt-auto authorname">
-								{{ comments[currentIndex].author }}
-							</div>
+					<div class="col-md-10 commentsBox p-1 d-flex flex-column justify-content-center align-items-center mx-auto">
+						<img :src="comments[currentIndex].img" class="testimonial-image">
+						<div class="mb-1">
+							{{ comments[currentIndex].text }}
+						</div>
+						<div class="mt-auto authorname">
+							{{ comments[currentIndex].author }}
 						</div>
 					</div>
-					<div class="d-flex justify-content-center align-items-center mt-1 mt-md-2">
+					<div class="d-flex justify-content-center align-items-center mt-1">
 						<a to="#" class="commentIcons" @click.prevent="goToPrev">
 							<i class="fas fa-chevron-left" />
 						</a>
@@ -51,28 +50,31 @@ export default defineComponent({
 	setup () {
 		const comments = [
 			{
-				text: 'Stranerd has been a very helpful platform for me. They have standby assistance for any problems I had and that was through DM on Instagram. The website would be even better!!!',
-				author: 'Taiwo Toluwalase'
+				text: 'I’d say, for someone like me who has difficulty concentrating on stuff, you made navigation very easy. User interface, beautiful and easy to navigate. Cool and simple colors that do not confuse or hurt the eyes. And yay, I got my answer faster than I expected. I loved it.',
+				author: 'Eunice Apo',
+				img: require('@app/assets/images/testimonials/eunice.jpeg')
 			},
 			{
-				text: 'Only just looked at the website and it looks solid! I can’t wait to use Stranerd for all my homework problems this semester in school.',
-				author: 'Josephine King'
+				text: 'I like how it\'s very well spelt-out what I have to do to advance in ranking.',
+				author: 'Emmanuel Bello',
+				img: require('@app/assets/images/testimonials/emmanuel.jpeg')
 			},
 			{
 				text: 'I know Stranerd from Instagram and their posts alone have been very helpful for me when I need help with my school work. I already like the website from first glance, can’t wait to use it.',
-				author: 'Akin James'
+				author: 'Laureen Abayomi',
+				img: require('@app/assets/images/testimonials/laureen.jpeg')
 			},
 			{
-				text: 'It’s a cool website!',
-				author: 'Idris Mike'
+				text: 'I\'ve been impressed mostly! I really like the "coin system”',
+				author: 'Daniel Uwagwu',
+				img: require('@app/assets/images/testimonials/daniel.jpeg')
 			}
 		]
 		const currentIndex = ref(0)
 		const goToComment = (index: number) => {
-			if (index >= comments.length || index < 0) {
-				return currentIndex.value = 0
-			 }
-			currentIndex.value = index
+			if (index < 0) return currentIndex.value = comments.length - 1
+			if (index >= comments.length) return currentIndex.value = 0
+			return currentIndex.value = index
 		}
 		const goToNext = () => goToComment(currentIndex.value + 1)
 		const goToPrev = () => goToComment(currentIndex.value - 1)
@@ -83,6 +85,14 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+	.testimonial-image {
+		height: 60px;
+		width: 60px;
+		border-radius: 100%;
+		object-fit: cover;
+		margin-bottom: 9px;
+	}
+
 	.content_wrapper {
 		display: flex;
 		flex-direction: column;
@@ -109,14 +119,13 @@ export default defineComponent({
 		position: absolute;
 		z-index: 1;
 		top: 50%;
-		transform: translateY(-50%);
+		transform: translateY(-40%);
 	}
 
 	.ImageBubble {
 		width: 90%;
 		@media (min-width: $md) { width: 50%; }
 		@media (min-width: $lg) { width: 60%; }
-		@media (min-width: $xl) { width: 50%; }
 	}
 
 	.sub {

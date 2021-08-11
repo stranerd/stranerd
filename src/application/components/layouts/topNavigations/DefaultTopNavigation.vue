@@ -54,7 +54,7 @@
 							<img src="@app/assets/images/icons/admin.svg" alt="">
 							Admin
 						</NuxtLink>
-						<span @click="signout">
+						<span class="cursor-pointer" @click="signout">
 							<img src="@app/assets/images/icons/signout.svg" alt="">
 							Sign Out
 						</span>

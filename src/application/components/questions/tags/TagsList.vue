@@ -1,8 +1,8 @@
 <template>
 	<div>
-		<h1 class="ranking-header mb-2">
+		<Heading variant="2" no-grow class="color-dark text-center mb-1">
 			Popular Tags
-		</h1>
+		</Heading>
 		<div class="d-flex flex-wrap gap-0-5">
 			<TagListCard v-for="tag in tags" :key="tag.hash" :tag="tag" class="bg-white" />
 		</div>
@@ -27,11 +27,3 @@ export default defineComponent({
 	}
 })
 </script>
-
-<style lang="scss" scoped>
-	.ranking-header {
-		text-align: center;
-		font-size: 20px;
-		color: $color-dark;
-	}
-</style>

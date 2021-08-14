@@ -1,6 +1,6 @@
 import { UserBio, generateDefaultBio } from '@modules/users'
 import { BaseEntity } from '@modules/core'
-import { extractTextFromHTML, trimToLength } from '@utils/commons'
+import { extractTextFromHTML, getStringCount, trimToLength } from '@utils/commons'
 import { BEST_ANSWERS_COUNT, QUESTION_DISCOUNT } from '@utils/constants'
 
 export class QuestionEntity extends BaseEntity {
@@ -44,6 +44,7 @@ export class QuestionEntity extends BaseEntity {
 	get isModified () { return this.answers > 0 }
 	get canBeEdited () { return !this.isModified }
 	get canBeDeleted () { return !this.isModified }
+	get attachments () { return getStringCount(this.body, '<img') }
 }
 
 type QuestionConstructorArgs = {

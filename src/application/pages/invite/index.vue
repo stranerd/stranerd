@@ -8,7 +8,7 @@
 			<p>
 				Refer your friends who are not using Stranerd and get 1 Gold and 10 Bronze Coins for every one that successfully signs up.
 			</p>
-			<Heading variant="3" class="mt-1 text-primary">
+			<Heading variant="4" class="mt-1 text-primary">
 				This is your unique invitation link:
 			</Heading>
 			<div
@@ -74,8 +74,8 @@ export default defineComponent({
 <style lang="scss" scoped>
 	.link {
 		&:hover {
-			background: #546dd2 !important;
-			color: white;
+			background: $color-primary !important;
+			color: $color-white;
 			transition: 0.3s;
 			cursor: pointer;
 		}

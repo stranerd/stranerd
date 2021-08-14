@@ -1,6 +1,8 @@
 <template>
 	<div class="d-flex flex-column align-items-center gap-0-5 p-2">
-		<h1>Balance</h1>
+		<Heading variant="2" no-grow class="color-dark">
+			Balance
+		</Heading>
 		<NuxtLink class="d-block w-92" to="/account/e-wallet">
 			<AccountCoinBalance class="justify-content-center" :user="user" />
 		</NuxtLink>
@@ -24,11 +26,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-	h1 {
-		font-size: 24px;
-		color: $color-dark;
-	}
-
 	.w-92 {
 		width: 92%;
 	}

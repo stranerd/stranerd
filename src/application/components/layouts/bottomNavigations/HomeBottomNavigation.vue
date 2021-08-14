@@ -63,7 +63,7 @@
 					</a>
 				</div>
 				<div class="linkText" style="font-size: 14px;">
-					&copy; {{ new Date().getFullYear() }} | Stranerd LLC. All rights reserved.
+					&copy; <DynamicText>{{ new Date().getFullYear() }}</DynamicText> | Stranerd LLC. All rights reserved.
 				</div>
 			</div>
 		</div>

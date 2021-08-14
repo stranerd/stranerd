@@ -8,7 +8,7 @@
 			/>
 			<div class="cdc-overlay" :style="overlayStyles">
 				<div class="cdc-text" :style="donutTextStyles">
-					<slot>{{ text }}</slot>
+					<slot><DynamicText>{{ text }}</DynamicText></slot>
 				</div>
 			</div>
 		</div>
@@ -17,7 +17,8 @@
 			<div v-if="hasLegend" class="cdc-legend" :style="placementStyles.legend">
 				<span v-for="(item, idx) in legend" :key="idx" class="cdc-legend-item" :title="item.percent">
 					<span class="cdc-legend-item-color" :style="item.styles" />
-					<span>{{ item.label }}</span>
+					<span><DynamicText>{{ item.label }}</DynamicText></span>
+
 				</span>
 			</div>
 		</slot>

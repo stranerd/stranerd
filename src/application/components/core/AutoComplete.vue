@@ -16,7 +16,8 @@
 				:class="{'isActive': current === i}"
 				@click="select(suggestion.search)"
 			>
-				{{ suggestion.title }}
+				<DynamicText>{{ suggestion.title }}</DynamicText>
+
 			</a>
 			<a v-if="matches.length === 0" class="text-lowercase">
 				<span class="text-capitalize">No</span> option matches '{{ value }}'

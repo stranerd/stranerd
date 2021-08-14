@@ -24,7 +24,7 @@
 						Select Session Duration
 					</option>
 					<option v-for="option in factory.prices" :key="option.duration" :value="option.duration">
-						{{ option.duration }} minutes - {{ option.price }} gold coins
+						<DynamicText>{{ option.duration }}</DynamicText> minutes - <DynamicText>{{ option.price }}</DynamicText> gold coins
 					</option>
 				</select>
 				<template v-if="!hasEnoughCoins" class="small">

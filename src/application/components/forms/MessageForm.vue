@@ -13,7 +13,8 @@
 					placeholder="John"
 					:class="{'is-invalid': factory.errors.fName, 'is-valid': factory.isValid('fName')}"
 				>
-				<small v-if="factory.errors.fName" class="small text-danger d-block">{{ factory.errors.fName }}</small>
+				<small v-if="factory.errors.fName" class="small text-danger d-block"><DynamicText>{{ factory.errors.fName }}</DynamicText></small>
+				<DynamicText>{{ factory.errors.fName }}</DynamicText>
 			</div>
 			<div class="w-100 flex-grow-1 d-flex flex-column">
 				<span>
@@ -27,7 +28,7 @@
 					placeholder="Smith"
 					:class="{'is-invalid': factory.errors.lName, 'is-valid': factory.isValid('lName')}"
 				>
-				<small v-if="factory.errors.lName" class="small text-danger d-block">{{ factory.errors.lName }}</small>
+				<small v-if="factory.errors.lName" class="small text-danger d-block"><DynamicText>{{ factory.errors.lName }}</DynamicText></small>
 			</div>
 		</div>
 
@@ -44,7 +45,7 @@
 				placeholder="johnsmith@gmail.com"
 				:class="{'is-invalid': factory.errors.name, 'is-valid': factory.isValid('email')}"
 			>
-			<small v-if="factory.errors.email" class="small text-danger d-block">{{ factory.errors.email }}</small>
+			<small v-if="factory.errors.email" class="small text-danger d-block"><DynamicText>{{ factory.errors.email }}</DynamicText></small>
 		</div>
 
 		<div class="d-flex flex-column">
@@ -60,7 +61,7 @@
 				:class="{'is-invalid': factory.errors.message, 'is-valid': factory.isValid('message')}"
 				placeholder="I love Stranerd"
 			/>
-			<small v-if="factory.errors.message" class="small text-danger d-block">{{ factory.errors.message }}</small>
+			<small v-if="factory.errors.message" class="small text-danger d-block"><DynamicText>{{ factory.errors.message }}</DynamicText></small>
 		</div>
 
 		<button class="btn btn btn-lg btn-custom w-100" type="submit" :disabled="loading || !factory.valid">

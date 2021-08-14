@@ -4,7 +4,7 @@
 			<div class="d-flex flex-column gap-1 w-100 color-dark">
 				<NuxtLink :to="`/questions/${report.reported.questionId}#${report.reportedId}`">
 					<div class="mb-1">
-						{{ report.reported.title }}
+						<DynamicText>It {{ report.reported.title }}</DynamicText>
 					</div>
 					<div class="editor-body" v-html="report.reported.body" />
 				</NuxtLink>
@@ -15,7 +15,8 @@
 						</DynamicText>
 					</NuxtLink>
 				</span>
-				<span>This answer {{ report.message }}.</span>
+
+				<span>This answer <DynamicText>It {{ report.message }}</DynamicText>.</span>
 			</div>
 			<div class="text-danger ms-md-auto d-flex flex-wrap flex-md-column gap-1 text-nowrap custom-border" style="font-size: 14px;">
 				<a>Send warning</a>

@@ -2,7 +2,8 @@
 	<div class="bg-tags border border-line rounded-3 mb-1">
 		<div class="d-flex flex-column flex-md-row gap-1 p-1 px-md-2">
 			<div class="d-flex flex-column gap-1 w-100 color-dark">
-				<span>{{ report.message }}</span>
+				<span><DynamicText>{{ report.message }}</DynamicText></span>
+
 				<span>
 					Reported by <NuxtLink :to="`/users/${report.reporterId}`">
 						<DynamicText class="text-primary">

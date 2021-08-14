@@ -32,7 +32,7 @@
 							</template>
 						</AisHits>
 						<li v-else class="list-group-item h5 mb-0">
-							No results found for <q>{{ query }}</q>
+							No results found for <q><DynamicText>{{ query }}</DynamicText></q>
 						</li>
 						<AisPoweredBy class="m-2" :theme="theme" />
 					</template>

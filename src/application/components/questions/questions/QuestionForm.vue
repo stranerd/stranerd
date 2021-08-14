@@ -66,7 +66,8 @@
 					Bronze Coins Quotas
 				</option>
 				<option v-for="coin in coins" :key="coin" :value="coin">
-					{{ coin }}
+					<DynamicText>{{ coin }}</DynamicText>
+
 				</option>
 			</select>
 			<DynamicText v-if="factory.errors.coins" class="text-danger small mt-0-5">

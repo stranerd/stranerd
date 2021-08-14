@@ -27,7 +27,7 @@
 						}}
 					</span>
 				</template>
-				<span v-else class="score">{{ user.formattedScore }}</span>
+				<span v-else class="score"><DynamicText>{{ user.formattedScore }}</DynamicText></span>
 			</div>
 		</div>
 		<div class="d-none d-lg-flex flex-column gap-2-25">
@@ -79,7 +79,7 @@
 						}}
 					</span>
 				</template>
-				<span v-else class="score">{{ user.formattedScore }}</span>
+				<span v-else class="score"><DynamicText>{{ user.formattedScore }}</DynamicText></span>
 			</div>
 		</div>
 	</div>

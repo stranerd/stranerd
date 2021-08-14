@@ -63,7 +63,7 @@ export default defineComponent({
 				img: require('@app/assets/images/testimonials/emmanuel.jpeg')
 			},
 			{
-				text: 'I know Stranerd from Instagram and their posts alone have been very helpful for me when I need help with my school work. I already like the website from first glance, can’t wait to use it.',
+				text: 'It\'s very user friendly, and as someone mentioned earlier, the color palette of the website is easy on the eyes.',
 				author: 'Laureen Abayomi',
 				img: require('@app/assets/images/testimonials/laureen.jpeg')
 			},
@@ -89,13 +89,14 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.testimonial-image{
-	height: 60px;
-	width:60px;
-	border-radius: 100%;
-	object-fit: cover;
-	margin-bottom: 9px;
-}
+	.testimonial-image {
+		height: 60px;
+		width: 60px;
+		border-radius: 100%;
+		object-fit: cover;
+		margin-bottom: 9px;
+	}
+
 	.content_wrapper {
 		display: flex;
 		flex-direction: column;

@@ -72,14 +72,15 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.link{
-	&:hover{
-		background: #546dd2 !important;
-		color: white;
-		transition: 0.3s;
-		cursor: pointer;
+	.link {
+		&:hover {
+			background: #546dd2 !important;
+			color: white;
+			transition: 0.3s;
+			cursor: pointer;
+		}
 	}
-}
+
 	.box {
 		width: 100%;
 		max-width: 600px;

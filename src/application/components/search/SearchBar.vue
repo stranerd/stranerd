@@ -6,7 +6,7 @@
 		<UserSearch v-else-if="search === SEARCH_TYPES.Users" :key="search" />
 		<select v-model="search" class="form-select form-select-sm ms-auto" type="search">
 			<option v-for="key in searchTerms" :key="key" :value="key">
-				<DynamicText>{{ key }}</DynamicText>
+				{{ key }}
 			</option>
 		</select>
 	</form>

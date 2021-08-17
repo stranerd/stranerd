@@ -23,7 +23,7 @@
 		<form class="d-flex options gap-0-5 gap-md-1-5">
 			<select v-model="answered" class="form-select">
 				<option v-for="choice in answeredChoices" :key="choice.val" :value="choice.val">
-					<DynamicText>{{ choice.key }}</DynamicText>
+					{{ choice.key }}
 				</option>
 			</select>
 			<SelectSubject :subject-id.sync="subjectId" class="p-0" />

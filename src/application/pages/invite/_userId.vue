@@ -3,16 +3,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, onMounted, useRoute, useRouter } from '@nuxtjs/composition-api'
 import { setReferrerId } from '@app/hooks/auth/signin'
 export default defineComponent({
 	name: 'InviteUserPage',
+	layout: 'auth',
 	middleware: [
-		'isNotAuthenticated',
-		({ params, redirect }) => {
-			setReferrerId(params.userId)
-			redirect('/auth/signup')
-		}
-	]
+		'isNotAuthenticated'
+	],
+	setup () {
+		const route = useRoute()
+		const router = useRouter()
+		onMounted(() => {
+			setReferrerId(route.value.params.userId)
+			router.replace('/auth/signup')
+		})
+	}
 })
 </script>

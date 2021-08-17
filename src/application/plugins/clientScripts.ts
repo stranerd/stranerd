@@ -5,6 +5,7 @@ import Flutterwave from 'flutterwave-vue-v3'
 // @ts-ignore
 import VueChatScroll from 'vue-chat-scroll'
 import { flutterwaveConfig } from '@utils/environment'
+import { saveReferrerId } from '@app/hooks/auth/signin'
 
 export default defineNuxtPlugin(async () => {
 	const hasNoGapSupport = () => {
@@ -37,4 +38,6 @@ export default defineNuxtPlugin(async () => {
 
 	Vue.use(Flutterwave, { publicKey: flutterwaveConfig.publicKey })
 	Vue.use(VueChatScroll)
+
+	saveReferrerId()
 })

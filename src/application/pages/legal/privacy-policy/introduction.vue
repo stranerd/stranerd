@@ -41,7 +41,7 @@
 </template>
 
 <style lang="scss" scoped>
-	li{
+	li {
 		margin-bottom: 10px;
 	}
 </style>

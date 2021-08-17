@@ -151,7 +151,7 @@
 </template>
 
 <style>
-h6{
-	font-style: italic;
-}
+	h6 {
+		font-style: italic;
+	}
 </style>

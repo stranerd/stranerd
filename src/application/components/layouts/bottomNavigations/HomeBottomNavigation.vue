@@ -9,7 +9,7 @@
 					<NuxtLink class="linkText" to="/#how-it-works">
 						About Us
 					</NuxtLink>
-					<NuxtLink class="linkText" to="/">
+					<NuxtLink class="linkText" to="/legal/honor-code">
 						Honor Code
 					</NuxtLink>
 				</div>
@@ -19,16 +19,16 @@
 						<i class="fas fa-circle" />
 						<i class="fas fa-circle" />
 					</h5>
-					<a class="linkText" href="/legal/terms-of-use.pdf" target="_blank">
-						Term of Use
-					</a>
 
 					<NuxtLink class="linkText" to="/legal/privacy-policy">
 						Privacy Policy
 					</NuxtLink>
-					<a class="linkText" href="/legal/terms-and-conditions.pdf" target="_blank">
+					<NuxtLink class="linkText" to="/legal/term-of-service">
+						Terms Of Service
+					</NuxtLink>
+					<NuxtLink class="linkText" to="/legal/terms&condition">
 						Terms & Conditions
-					</a>
+					</NuxtLink>
 				</div>
 				<!-- TODO: Add community and help links-->
 				<div class="block">

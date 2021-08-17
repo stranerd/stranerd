@@ -196,12 +196,13 @@
 
 <style  scoped>
 
-.list{
-	margin-left: 12px;
-	margin-top: 10px;
-	font-weight: 600;
-}
-br{
-	margin-top: 1rem;
-}
+	.list {
+		margin-left: 12px;
+		margin-top: 10px;
+		font-weight: 600;
+	}
+
+	br {
+		margin-top: 1rem;
+	}
 </style>

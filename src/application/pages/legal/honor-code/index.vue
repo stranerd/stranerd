@@ -12,37 +12,37 @@
 			Stranerd embodies a spirit of trust, honesty amongst others, which is central to facilitating the learning process of every academic. Stranerd’s vision is one that intends to facilitate learning but the adoption of good learning habits and discipline. Our core values are embedded in the very letters of our name:
 		</p>
 		<div>
-			<p class="flex align-items-center">
-				<span class="h1 text-primary fw-bold">S -</span>
-				<span class="mb-5 h3 fw-normal"> Student forever, because life is an endless learning experience.</span>
+			<p class="d-flex align-items-center">
+				<span class="h1 text-primary fw-bold text-nowrap">S -</span>
+				<span class="ms-0-5 h3 fw-normal"> Student forever, because life is an endless learning experience.</span>
 			</p>
-			<p class="flex align-items-center">
-				<span class="h1 text-primary fw-bold">T -</span>
-				<span class="mb-5 h3 fw-normal"> Teacher when I can be, because knowledge shared is knowledge gained.</span>
+			<p class="d-flex align-items-center">
+				<span class="h1 text-primary fw-bold text-nowrap">T -</span>
+				<span class="ms-0-5 h3 fw-normal"> Teacher when I can be, because knowledge shared is knowledge gained.</span>
 			</p>
-			<p class="flex align-items-center">
-				<span class="h1 text-primary fw-bold">R -</span>
-				<span class="mb-5 h3 fw-normal"> Responsibility to the learning community, to uphold such principles that contribute to the learning process.</span>
+			<p class="d-flex align-items-center">
+				<span class="h1 text-primary fw-bold text-nowrap">R -</span>
+				<span class=" ms-0-5 h3 fw-normal"> Responsibility to the learning community, to uphold such principles that contribute to the learning process.</span>
 			</p>
-			<p class="flex align-items-center">
-				<span class="h1 text-primary fw-bold">A -</span>
-				<span class="mb-5 h3 fw-normal"> Academic honesty must be demonstrated at all times, in terms of attribution where and when due, reporting accomplishments accurately, paying the required body for services rendered.</span>
+			<p class="d-flex align-items-center">
+				<span class="h1 text-primary fw-bold text-nowrap">A -</span>
+				<span class="ms-0-5 h3 fw-normal"> Academic honesty must be demonstrated at all times, in terms of attribution where and when due, reporting accomplishments accurately, paying the required body for services rendered.</span>
 			</p>
-			<p class="flex align-items-center">
-				<span class="h1 text-primary fw-bold">N -</span>
-				<span class="mb-5 h3 fw-normal"> Never stop learning. </span>
+			<p class="d-flex align-items-center">
+				<span class="h1 text-primary fw-bold text-nowrap">N -</span>
+				<span class="ms-0-5 h3 fw-normal"> Never stop learning. </span>
 			</p>
-			<p class="flex align-items-center">
-				<span class="h1 text-primary fw-bold">E -</span>
-				<span class="mb-5 h3 fw-normal"> Expertise is a result of constant stimulation of the mind.</span>
+			<p class="d-flex align-items-center">
+				<span class="h1 text-primary fw-bold text-nowrap">E -</span>
+				<span class="ms-0-5 h3 fw-normal"> Expertise is a result of constant stimulation of the mind.</span>
 			</p>
-			<p class="flex align-items-center">
-				<span class="h1 text-primary fw-bold">R -</span>
-				<span class="mb-5 h3 fw-normal"> Reading develops mental ability .</span>
+			<p class="d-flex align-items-center">
+				<span class="h1 text-primary fw-bold text-nowrap">R -</span>
+				<span class="ms-0-5 h3 fw-normal"> Reading develops mental ability .</span>
 			</p>
-			<p class="flex align-items-center">
-				<span class="h1 text-primary fw-bold">D -</span>
-				<span class="mb-5 h3 fw-normal"> Diligence in all academic endeavors. </span>
+			<p class="d-flex align-items-center">
+				<span class="h1 text-primary fw-bold text-nowrap">D -</span>
+				<span class="ms-0-5 h3 fw-normal"> Diligence in all academic endeavors. </span>
 			</p>
 		</div>
 		<div>
@@ -104,3 +104,5 @@ export default defineComponent({
 	head: {}
 })
 </script>
+
+<style  scoped>

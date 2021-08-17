@@ -19,7 +19,7 @@
 			</DynamicText>
 		</div>
 		<div class="form-group">
-			<label id="uploadbtn" for="picture" class="px-3 bg-tags text-dark border border-line text-center">
+			<label id="uploadbtn" for="picture" class="px-3 bg-tags text-primary border border-line text-center">
 				{{ imageLink ? 'Change' : 'Upload' }} Profile Picture
 			</label>
 			<input
@@ -45,6 +45,8 @@
 					{{ factory.errors.first }}
 				</DynamicText>
 			</div>
+		</div>
+		<div class="form-group d-flex flex-column">
 			<div class="flex-grow-1 w-100">
 				<input
 					id="lName"
@@ -58,6 +60,18 @@
 					{{ factory.errors.last }}
 				</DynamicText>
 			</div>
+		</div>
+		<div class="form-group w-100 justify-content-between d-flex align-items-center">
+			<span class="text-dark fw-bold">
+				What subject are you strongest in?
+			</span>
+			<SelectSubject :subject-id.sync="subjectId" class="p-0 select" />
+		</div>
+		<div class="form-group w-100 justify-content-between d-flex align-items-center">
+			<span class="text-dark fw-bold">
+				What subject are you also good in?
+			</span>
+			<SelectSubject :subject-id.sync="subjectId" class="p-0 select" />
 		</div>
 		<div class="form-group">
 			<textarea
@@ -104,12 +118,12 @@
 				</DynamicText>
 			</div>
 		</template>
-		<div class="d-flex justify-content-center align-items-center gap-1">
-			<button class="btn btn-danger" type="button" @click="cancel">
+		<div class="d-flex justify-content-between align-items-center gap-1">
+			<button class="btn btn-dark w-50 mx-0" type="button" @click="cancel">
 				Cancel
 			</button>
-			<button class="btn btn-primary" type="submit" :disabled="loading || !factory.valid">
-				Save Profile
+			<button class="btn btn-primary w-50 mx-0" type="submit" :disabled="loading || !factory.valid">
+				Save
 			</button>
 		</div>
 		<PageLoading v-if="loading" />
@@ -124,14 +138,17 @@ import { useAuth, setShowProfileModal } from '@app/hooks/auth/auth'
 import { useFileInputs, usePassword } from '@app/hooks/core/forms'
 import { isClient } from '@utils/environment'
 import { DEFAULT_PROFILE_IMAGE } from '@utils/constants'
+import SelectSubject from '@app/components/questions/subjects/SelectSubject.vue'
 export default defineComponent({
 	name: 'AccountProfileForm',
+	components: { SelectSubject },
 	props: {
 		cancel: {
 			required: true,
 			type: Function as PropType<() => {}>
 		}
 	},
+
 	setup () {
 		const { auth } = useAuth()
 		const { show, toggle } = usePassword()
@@ -156,7 +173,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 	form {
-		max-width: 42rem;
+		max-width: 45rem;
 		margin: 0 auto;
 	}
 
@@ -180,7 +197,7 @@ export default defineComponent({
 		font-size: 1.125rem;
 		outline: none;
 		min-height: 3rem;
-		padding: 1rem;
+		padding: 0.5rem;
 		padding-left: 24px !important;
 	}
 
@@ -193,5 +210,17 @@ export default defineComponent({
 		font-size: 24px;
 		color: white;
 		margin: 0 12px;
+	}
+	.select {
+		flex-grow: 1;
+		color: $color-sub;
+		box-sizing: border-box;
+		max-width: 40%;
+		margin: 0;
+		border-radius: 0.1rem;
+		box-shadow: -5px 5px 15px rgba($color-primary, 0.1);
+		border: 1px solid $color-line;
+		background-color: $color-white;
+		padding: 0.5rem;
 	}
 </style>

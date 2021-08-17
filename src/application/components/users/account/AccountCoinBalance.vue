@@ -3,13 +3,13 @@
 		<span class="balance">
 			<Coins :size="30" />
 			<span class="amount">
-				<DynamicText no-wrap>{{ formatNumber(user.account.coins.bronze) }}</DynamicText>
+				<DynamicText :no-wrap="true">{{ formatNumber(user.account.coins.bronze) }}</DynamicText>
 			</span>
 		</span>
 		<span class="balance">
 			<Coins :gold="true" :size="30" />
 			<span class="amount">
-				<DynamicText no-wrap>{{ formatNumber(user.account.coins.gold) }}</DynamicText>
+				<DynamicText :no-wrap="true">{{ formatNumber(user.account.coins.gold) }}</DynamicText>
 			</span>
 		</span>
 	</span>

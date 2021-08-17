@@ -48,7 +48,7 @@
 						</NuxtLink>
 						<NuxtLink to="/invite/">
 							<i class="fas fa-user-friends" />
-							Invite A Friend
+							Refer A Friend
 						</NuxtLink>
 						<NuxtLink v-if="isAdmin" to="/admin/">
 							<img src="@app/assets/images/icons/admin.svg" alt="">

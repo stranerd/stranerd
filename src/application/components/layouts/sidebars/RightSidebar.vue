@@ -10,14 +10,14 @@
 					View Profile
 				</NuxtLink>
 				<NuxtLink to="/invite/" class="btn btn-outline-primary">
-					Invite A Friend
+					Refer A Friend
 				</NuxtLink>
 			</div>
 			<ProfileHeadCard :user="user" class="inner-bg" />
 			<div class="d-flex flex-column gap-1 inner-bg">
-				<h1 class="ranking-header">
+				<Heading variant="2" no-grow class="color-dark text-center">
 					Ranking Up
-				</h1>
+				</Heading>
 				<div class="d-flex gap-1 align-items-center text-dark">
 					<img :src="user.rank.image" alt="" class="img-rank">
 					<ProgressBar :current="user.rankProgress.overall" :primary="true" />
@@ -74,12 +74,6 @@ export default defineComponent({
 
 	.img-rank {
 		width: 62px;
-	}
-
-	.ranking-header {
-		text-align: center;
-		font-size: 20px;
-		color: $color-dark;
 	}
 
 	.stat {

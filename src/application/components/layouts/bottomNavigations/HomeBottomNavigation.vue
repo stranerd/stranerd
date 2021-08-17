@@ -22,9 +22,10 @@
 					<a class="linkText" href="/legal/terms-of-use.pdf" target="_blank">
 						Term of Use
 					</a>
-					<a class="linkText" href="/legal/privacy-policy.pdf" target="_blank">
+
+					<NuxtLink class="linkText" to="/legal/privacy-policy">
 						Privacy Policy
-					</a>
+					</NuxtLink>
 					<a class="linkText" href="/legal/terms-and-conditions.pdf" target="_blank">
 						Terms & Conditions
 					</a>

@@ -1,5 +1,5 @@
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
-import { Ref, ssrRef, watch, useRouter } from '@nuxtjs/composition-api'
+import { Ref, ref, watch, useRouter } from '@nuxtjs/composition-api'
 import { ProfileUpdateFactory, UpdateProfile } from '@modules/auth'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useAccountModal, usePaymentModal } from '@app/hooks/core/modals'
@@ -11,7 +11,8 @@ import { analytics } from '@modules/core'
 
 export const useUpdateProfile = () => {
 	const router = useRouter()
-	const factory = ssrRef(new ProfileUpdateFactory()) as Ref<ProfileUpdateFactory>
+	// @ts-ignore
+	const factory = ref(new ProfileUpdateFactory()) as Ref<ProfileUpdateFactory>
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const { setMessage } = useSuccessHandler()
@@ -21,6 +22,7 @@ export const useUpdateProfile = () => {
 	watch(() => user.value?.bio.name.last, () => user.value?.bio.name ? factory.value.last = user.value.bio.name.last : null)
 	watch(() => user.value?.email, () => user.value?.email ? factory.value.email = user.value.email : null)
 	watch(() => user.value?.description, () => user.value?.description ? factory.value.description = user.value.description : null)
+	watch(() => user.value?.avatar, () => user.value?.avatar ? factory.value.avatar = user.value.avatar : null)
 	watch(() => user.value?.avatar, () => user.value?.avatar ? factory.value.avatar = user.value.avatar : null)
 
 	const updateProfile = async () => {

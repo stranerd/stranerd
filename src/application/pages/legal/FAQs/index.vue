@@ -206,23 +206,26 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.accordion-header{
-	background: #000;
-}
-.accordion-button{
-	border-bottom: 1px solid $color-line;
-	background: $color-dark;
-	color: $color-line;
-}
-button{
-	outline: none !important;
-	box-shadow: none !important;
-}
-.accordion-button:not(.collapsed)::after {
-    background-image: none !important;
+	.accordion-header {
+		background: #000;
+	}
 
-}
-.mw-lg{
-	max-width: $lg !important;
-}
+	.accordion-button {
+		border-bottom: 1px solid $color-line;
+		background: $color-dark;
+		color: $color-line;
+	}
+
+	button {
+		outline: none !important;
+		box-shadow: none !important;
+	}
+
+	.accordion-button:not(.collapsed)::after {
+		background-image: none !important;
+	}
+
+	.mw-lg {
+		max-width: $lg !important;
+	}
 </style>

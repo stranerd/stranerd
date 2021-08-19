@@ -1,5 +1,5 @@
 import { BaseFactory, Media } from '@modules/core'
-import { isLongerThan, isEmail, isShorterThan, isRequiredIf, isShallowEqualTo, isImage, hasMoreThan, hasLessThan } from 'sd-validate/lib/rules'
+import { isLongerThan, isEmail, isShorterThan, isRequiredIf, isShallowEqualTo, isImage } from 'sd-validate/lib/rules'
 import { UserEntity } from '@modules/users'
 import { UpdateUser } from '../entities/auth'
 
@@ -8,8 +8,7 @@ type Keys = { first: string, last: string, email: string, description: string, a
 const isLongerThan2 = (value:string) => isLongerThan(value, 2)
 const isLongerThan5 = (value:string) => isLongerThan(value, 5)
 const isShorterThan17 = (value:string) => isShorterThan(value, 17)
-const hasMoreThan0 = (value: string[]) => hasMoreThan(value, 0)
-const hasLessThan4 = (value: string[]) => hasLessThan(value, 4)
+// const hasMoreThan0 = (value: string[]) => hasMoreThan(value, 0)
 export class ProfileUpdateFactory extends BaseFactory<UserEntity, UpdateUser, Keys> {
 	readonly rules = {
 		first: { required: true, rules: [isLongerThan2] },
@@ -20,7 +19,7 @@ export class ProfileUpdateFactory extends BaseFactory<UserEntity, UpdateUser, Ke
 		password: { required: false, rules: [isLongerThan5, isShorterThan17] },
 		cPassword: { required: false, rules: [(value: string) => isRequiredIf(value, !!this.password), (value: string) => isShallowEqualTo(value, this.password), isLongerThan5, isShorterThan17] },
 		strongestSubject: { required: true, rules: [] },
-		weakerSubjects: { required: true, rules: [hasMoreThan0, hasLessThan4] }
+		weakerSubjects: { required: true, rules: [] }
 
 	}
 
@@ -79,7 +78,7 @@ export class ProfileUpdateFactory extends BaseFactory<UserEntity, UpdateUser, Ke
 		this.email = entity.email
 		this.description = entity.description
 		this.avatar = entity.avatar ?? undefined
-		// this.strongestSubject = entity.strongestSubject
+		this.strongestSubject = entity.strongestSubject
 		this.set('weakerSubjects', entity.weakerSubjects)
 	}
 }

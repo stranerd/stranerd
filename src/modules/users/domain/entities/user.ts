@@ -52,7 +52,11 @@ export class UserEntity extends BaseEntity {
 				total: account?.ratings?.total ?? 0,
 				count: account?.ratings?.count ?? 0
 			},
-			referrals: account?.referrals ?? {}
+			referrals: account?.referrals ?? {},
+			subjects: {
+				strongestSubject: account?.subjects?.strongestSubject ?? '',
+				weakestSubject: account?.subjects?.weakestSubject ?? []
+			}
 		}
 		this.status = {
 			connections: status?.connections ?? {},
@@ -87,8 +91,8 @@ export class UserEntity extends BaseEntity {
 	get averageRating () { return catchDivideByZero(this.account.ratings.total, this.ratingCount) }
 	get ratingCount () { return this.account.ratings.count }
 	get orderRating () { return Math.pow(this.account.ratings.total, this.averageRating) }
-	get strongestSubject () { return this.subjects[0] }
-	get weakerSubjects () { return this.subjects.slice(1) }
+	get strongestSubject () { return this.account.subjects.strongestSubject }
+	get weakerSubjects () { return this.account.subjects.weakestSubject }
 	get subjects () {
 		return Object.entries(this.tutor.subjects)
 			.map(([key, val]) => ({ id: key, count: val }))
@@ -184,6 +188,10 @@ export interface UserAccount {
 		count: number,
 		longestStreak: number,
 		lastSeen: number
+	}
+	subjects:{
+		strongestSubject: string,
+		weakestSubject: string[]
 	}
 	ratings: {
 		total: number

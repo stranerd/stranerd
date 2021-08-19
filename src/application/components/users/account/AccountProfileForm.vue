@@ -65,13 +65,13 @@
 			<span class="text-dark fw-bold">
 				What subject are you strongest in?
 			</span>
-			<SelectSubject :subject-id.sync="subjectId" class="p-0 select" />
+			<SelectSubject v-model="factory.strongestSubject" :subject-id.sync="subjectId" class="p-0 select" />
 		</div>
 		<div class="form-group w-100 justify-content-between d-flex align-items-center">
 			<span class="text-dark fw-bold">
 				What subject are you also good in?
 			</span>
-			<SelectSubject v-model=" factory.subjects" :subject-id.sync="subjectId" class="p-0 select" />
+			<SelectSubject v-model=" factory.weakerSubjects" :subject-id.sync="subjectId" class="p-0 select" />
 		</div>
 		<div class="form-group">
 			<textarea
@@ -171,8 +171,13 @@ export default defineComponent({
 			auth, show, toggle, catchFiles, imageLink, removeImage,
 			factory, error, loading, updateProfile, DEFAULT_PROFILE_IMAGE, subjectId
 		}
+	},
+	watch: {
+		factory (value) {
+			// eslint-disable-next-line no-console
+			console.log(value)
+		}
 	}
-
 })
 </script>
 

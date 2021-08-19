@@ -1,6 +1,6 @@
 import { BaseEntity, Media } from '@modules/core'
 import { capitalize, catchDivideByZero, formatNumber } from '@utils/commons'
-import { getScore, getMyRank, getRankProgress, getScholarLevel, getExpectedScore } from './rank'
+import { getExpectedScore, getMyRank, getRankProgress, getScholarLevel, getScore } from './rank'
 
 export class UserEntity extends BaseEntity {
 	public readonly id: string
@@ -52,11 +52,7 @@ export class UserEntity extends BaseEntity {
 				total: account?.ratings?.total ?? 0,
 				count: account?.ratings?.count ?? 0
 			},
-			referrals: account?.referrals ?? {},
-			subjects: {
-				strongestSubject: account?.subjects?.strongestSubject ?? '',
-				weakestSubject: account?.subjects?.weakestSubject ?? []
-			}
+			referrals: account?.referrals ?? {}
 		}
 		this.status = {
 			connections: status?.connections ?? {},
@@ -64,7 +60,9 @@ export class UserEntity extends BaseEntity {
 		}
 		this.tutor = {
 			subjects: tutor?.subjects ?? {},
-			tags: tutor?.tags ?? {}
+			tags: tutor?.tags ?? {},
+			strongestSubject: tutor?.strongestSubject ?? null,
+			weakerSubjects: tutor?.weakerSubjects ?? []
 		}
 		this.session = {
 			currentSession: session?.currentSession ?? null,
@@ -78,21 +76,58 @@ export class UserEntity extends BaseEntity {
 		}
 	}
 
-	get firstName () { return this.bio.name.first }
-	get lastName () { return this.bio.name.last }
-	get fullName () { return this.bio.name.fullName! }
-	get email () { return this.bio.email }
-	get avatar () { return this.bio.avatar }
-	get description () { return this.bio.description }
+	get firstName () {
+		return this.bio.name.first
+	}
 
-	get isOnline () { return Object.keys(this.status.connections).length > 0 }
-	get lastSeen () { return this.isOnline ? Date.now() : this.status.lastSeen }
+	get lastName () {
+		return this.bio.name.last
+	}
 
-	get averageRating () { return catchDivideByZero(this.account.ratings.total, this.ratingCount) }
-	get ratingCount () { return this.account.ratings.count }
-	get orderRating () { return Math.pow(this.account.ratings.total, this.averageRating) }
-	get strongestSubject () { return this.account.subjects.strongestSubject }
-	get weakerSubjects () { return this.account.subjects.weakestSubject }
+	get fullName () {
+		return this.bio.name.fullName!
+	}
+
+	get email () {
+		return this.bio.email
+	}
+
+	get avatar () {
+		return this.bio.avatar
+	}
+
+	get description () {
+		return this.bio.description
+	}
+
+	get isOnline () {
+		return Object.keys(this.status.connections).length > 0
+	}
+
+	get lastSeen () {
+		return this.isOnline ? Date.now() : this.status.lastSeen
+	}
+
+	get averageRating () {
+		return catchDivideByZero(this.account.ratings.total, this.ratingCount)
+	}
+
+	get ratingCount () {
+		return this.account.ratings.count
+	}
+
+	get orderRating () {
+		return Math.pow(this.account.ratings.total, this.averageRating)
+	}
+
+	get strongestSubject () {
+		return this.tutor.strongestSubject
+	}
+
+	get weakerSubjects () {
+		return this.tutor.weakerSubjects
+	}
+
 	get subjects () {
 		return Object.entries(this.tutor.subjects)
 			.map(([key, val]) => ({ id: key, count: val }))
@@ -107,16 +142,41 @@ export class UserEntity extends BaseEntity {
 			.slice(0, 6)
 	}
 
-	get score () { return getScore(this) }
-	get expectedScore () { return getExpectedScore(this) }
-	get rank () { return getMyRank(this) }
-	get rankProgress () { return getRankProgress(this) }
-	get formattedScore () { return formatNumber(this.score, 2) }
+	get score () {
+		return getScore(this)
+	}
 
-	get isScholar () { return this.rank.level >= getScholarLevel() }
-	get currentSession () { return this.session.currentSession || this.session.currentTutorSession || null }
-	get canHostSessions () { return !this.currentSession && this.isScholar }
-	get canRequestSessions () { return !this.currentSession && Object.keys(this.session.requests).length === 0 && Object.keys(this.session.lobby).length === 0 }
+	get expectedScore () {
+		return getExpectedScore(this)
+	}
+
+	get rank () {
+		return getMyRank(this)
+	}
+
+	get rankProgress () {
+		return getRankProgress(this)
+	}
+
+	get formattedScore () {
+		return formatNumber(this.score, 2)
+	}
+
+	get isScholar () {
+		return this.rank.level >= getScholarLevel()
+	}
+
+	get currentSession () {
+		return this.session.currentSession || this.session.currentTutorSession || null
+	}
+
+	get canHostSessions () {
+		return !this.currentSession && this.isScholar
+	}
+
+	get canRequestSessions () {
+		return !this.currentSession && Object.keys(this.session.requests).length === 0 && Object.keys(this.session.lobby).length === 0
+	}
 
 	get meta () {
 		return Object.fromEntries(
@@ -157,9 +217,11 @@ export interface UserBio {
 	avatar: Media | null
 	isNew?: boolean | null
 }
+
 export interface UserRoles {
 	isAdmin: boolean
 }
+
 export interface UserAccount {
 	rank: number | null
 	coins: {
@@ -189,16 +251,13 @@ export interface UserAccount {
 		longestStreak: number,
 		lastSeen: number
 	}
-	subjects:{
-		strongestSubject: string,
-		weakestSubject: string[]
-	}
 	ratings: {
 		total: number
 		count: number
 	}
 	referrals: Record<string, boolean>
 }
+
 export interface UserStatus {
 	connections: Record<string, boolean>
 	lastSeen: number
@@ -210,16 +269,20 @@ export interface UserSession {
 	requests: Record<string, boolean>
 	lobby: Record<string, boolean>
 }
+
 export interface UserDates {
 	signedUpAt: number
 	deletedAt: number | null
 }
+
 export interface UserTutor {
 	subjects: Record<string, number>
 	tags: Record<string, number>
+	strongestSubject: string | null,
+	weakerSubjects: string[]
 }
 
-export const generateDefaultBio = (bio: Partial<UserBio>) :UserBio => {
+export const generateDefaultBio = (bio: Partial<UserBio>): UserBio => {
 	const first = capitalize(bio?.name?.first ?? 'Anon')
 	const last = capitalize(bio?.name?.last ?? 'Ymous')
 	const fullName = first + ' ' + last

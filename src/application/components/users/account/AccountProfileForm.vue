@@ -71,7 +71,7 @@
 			<span class="text-dark fw-bold">
 				What subject are you also good in?
 			</span>
-			<SelectSubject :subject-id.sync="subjectId" class="p-0 select" />
+			<SelectSubject v-model=" factory.subjects" :subject-id.sync="subjectId" class="p-0 select" />
 		</div>
 		<div class="form-group">
 			<textarea
@@ -137,6 +137,7 @@ import { useUpdateProfile } from '@app/hooks/users/account'
 import { useAuth, setShowProfileModal } from '@app/hooks/auth/auth'
 import { useFileInputs, usePassword } from '@app/hooks/core/forms'
 import { isClient } from '@utils/environment'
+import { useQuestionList } from '@app/hooks/questions/questions'
 import { DEFAULT_PROFILE_IMAGE } from '@utils/constants'
 import SelectSubject from '@app/components/questions/subjects/SelectSubject.vue'
 export default defineComponent({
@@ -150,6 +151,9 @@ export default defineComponent({
 	},
 
 	setup () {
+		const {
+			subjectId
+		} = useQuestionList()
 		const { auth } = useAuth()
 		const { show, toggle } = usePassword()
 		const { factory, error, loading, updateProfile } = useUpdateProfile()
@@ -165,9 +169,10 @@ export default defineComponent({
 		onBeforeUnmount(() => setShowProfileModal(false))
 		return {
 			auth, show, toggle, catchFiles, imageLink, removeImage,
-			factory, error, loading, updateProfile, DEFAULT_PROFILE_IMAGE
+			factory, error, loading, updateProfile, DEFAULT_PROFILE_IMAGE, subjectId
 		}
 	}
+
 })
 </script>
 
@@ -211,6 +216,7 @@ export default defineComponent({
 		color: white;
 		margin: 0 12px;
 	}
+
 	.select {
 		flex-grow: 1;
 		color: $color-sub;

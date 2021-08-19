@@ -23,7 +23,7 @@ export const useTutorsList = () => {
 	const filteredTutors = computed({
 		get: () => global.tutors.value
 			// TODO: Check if sorting is cause of empty flash in prod
-			//  .sort((a, b) => a.orderRating > b.orderRating ? -1 : a.orderRating === b.orderRating ? 0 : 1)
+			 .sort((a, b) => a.score > b.score ? -1 : a.score === b.score ? 0 : 1)
 			.filter((tutor) => {
 				if (global.subjectId.value && !tutor.subjects.find((s) => s.id === global.subjectId.value)) return false
 				return true

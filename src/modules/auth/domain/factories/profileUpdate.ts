@@ -1,14 +1,16 @@
 import { BaseFactory, Media } from '@modules/core'
-import { isLongerThan, isEmail, isShorterThan, isRequiredIf, isShallowEqualTo, isImage } from 'sd-validate/lib/rules'
-import { UserBio } from '@modules/users'
+import { isLongerThan, isEmail, isShorterThan, isRequiredIf, isShallowEqualTo, isImage, hasMoreThan, hasLessThan } from 'sd-validate/lib/rules'
+import { UserEntity } from '@modules/users'
 import { UpdateUser } from '../entities/auth'
 
 type Content = File | Media | undefined
-type Keys = { first: string, last: string, email: string, description: string, avatar: Content, password: string | undefined, cPassword: string | undefined }
+type Keys = { first: string, last: string, email: string, description: string, avatar: Content, password: string | undefined, cPassword: string | undefined, strongestSubject: string, weakerSubjects:string[] }
 const isLongerThan2 = (value:string) => isLongerThan(value, 2)
 const isLongerThan5 = (value:string) => isLongerThan(value, 5)
 const isShorterThan17 = (value:string) => isShorterThan(value, 17)
-export class ProfileUpdateFactory extends BaseFactory<UserBio, UpdateUser, Keys> {
+const hasMoreThan0 = (value: string[]) => hasMoreThan(value, 0)
+const hasLessThan4 = (value: string[]) => hasLessThan(value, 4)
+export class ProfileUpdateFactory extends BaseFactory<UserEntity, UpdateUser, Keys> {
 	readonly rules = {
 		first: { required: true, rules: [isLongerThan2] },
 		last: { required: true, rules: [isLongerThan2] },
@@ -16,12 +18,15 @@ export class ProfileUpdateFactory extends BaseFactory<UserBio, UpdateUser, Keys>
 		description: { required: true, rules: [] },
 		avatar: { required: false, rules: [isImage] },
 		password: { required: false, rules: [isLongerThan5, isShorterThan17] },
-		cPassword: { required: false, rules: [(value: string) => isRequiredIf(value, !!this.password), (value: string) => isShallowEqualTo(value, this.password), isLongerThan5, isShorterThan17] }
+		cPassword: { required: false, rules: [(value: string) => isRequiredIf(value, !!this.password), (value: string) => isShallowEqualTo(value, this.password), isLongerThan5, isShorterThan17] },
+		strongestSubject: { required: true, rules: [] },
+		weakerSubjects: { required: true, rules: [hasMoreThan0, hasLessThan4] }
+
 	}
 
 	constructor () {
 		super({
-			first: '', last: '', email: '', description: '',
+			first: '', last: '', email: '', description: '', strongestSubject: '', weakerSubjects: [],
 			avatar: undefined, password: undefined, cPassword: undefined
 		})
 	}
@@ -42,28 +47,39 @@ export class ProfileUpdateFactory extends BaseFactory<UserBio, UpdateUser, Keys>
 	set password (value: string) { this.set('password', value); this.set('cPassword', '') }
 	get cPassword () { return this.values.cPassword! }
 	set cPassword (value: string) { this.set('cPassword', value) }
+	get strongestSubject () { return this.values.strongestSubject }
+	set strongestSubject (value: string) { this.set('strongestSubject', value) }
+	get weakerSubjects () {
+		return this.values.weakerSubjects
+	}
+
+	addWeakerSubjects = (value: string) => this.set('weakerSubjects', [...this.weakerSubjects, value.toLowerCase()])
+	removeWeakerSubjects = (value: string) => this.set('weakerSubjects', this.weakerSubjects.filter((weakSubject) => weakSubject !== value))
 
 	toModel = async () => {
 		if (this.valid) {
 			if (this.avatar instanceof File) this.avatar = await this.uploadFile('profiles', this.avatar)
 
-			const { first, last, email, description, avatar, password } = this.validValues
+			const { first, last, email, description, avatar, password, strongestSubject, weakerSubjects } = this.validValues
 			return {
 				bio: {
 					name: { first, last },
 					email, description,
 					avatar: (avatar ?? null) as Media
 				},
-				password: password!
+				password: password!,
+				strongestSubject, weakerSubjects
 			}
 		} else throw new Error('Validation errors')
 	}
 
-	loadEntity = (bio: UserBio) => {
-		this.first = bio.name.first
-		this.last = bio.name.last
-		this.email = bio.email
-		this.description = bio.description
-		this.avatar = bio.avatar ?? undefined
+	loadEntity = (entity: UserEntity) => {
+		this.first = entity.bio.name.first
+		this.last = entity.bio.name.last
+		this.email = entity.email
+		this.description = entity.description
+		this.avatar = entity.avatar ?? undefined
+		// this.strongestSubject = entity.strongestSubject
+		this.set('weakerSubjects', entity.weakerSubjects)
 	}
 }

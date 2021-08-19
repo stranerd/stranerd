@@ -15,14 +15,13 @@ export const useUpdateProfile = () => {
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const { setMessage } = useSuccessHandler()
-	const { bio } = useAuth()
+	const { user } = useAuth()
 
-	if (bio.value) factory.value.loadEntity(bio.value)
-	watch(() => bio.value?.name.first, () => bio.value?.name ? factory.value.first = bio.value.name.first : null)
-	watch(() => bio.value?.name.last, () => bio.value?.name ? factory.value.last = bio.value.name.last : null)
-	watch(() => bio.value?.email, () => bio.value?.email ? factory.value.email = bio.value.email : null)
-	watch(() => bio.value?.description, () => bio.value?.description ? factory.value.description = bio.value.description : null)
-	watch(() => bio.value?.avatar, () => bio.value?.avatar ? factory.value.avatar = bio.value.avatar : null)
+	if (user.value) factory.value.loadEntity(user.value)
+	watch(() => user.value?.bio.name.last, () => user.value?.bio.name ? factory.value.last = user.value.bio.name.last : null)
+	watch(() => user.value?.email, () => user.value?.email ? factory.value.email = user.value.email : null)
+	watch(() => user.value?.description, () => user.value?.description ? factory.value.description = user.value.description : null)
+	watch(() => user.value?.avatar, () => user.value?.avatar ? factory.value.avatar = user.value.avatar : null)
 
 	const updateProfile = async () => {
 		setError('')

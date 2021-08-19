@@ -104,5 +104,3 @@ export default defineComponent({
 	head: {}
 })
 </script>
-
-<style  scoped>

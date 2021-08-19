@@ -46,7 +46,7 @@
 					<h5 class="sessionHead">
 						Help
 					</h5>
-					<NuxtLink class="linkText" to="/">
+					<NuxtLink class="linkText" to="/legal/FAQs">
 						FAQ
 					</NuxtLink>
 				</div>

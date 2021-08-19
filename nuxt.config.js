@@ -105,7 +105,9 @@ export const pwa = {
 		twitterCard: 'https://stranerd.com/images/banner.png',
 		twitterSite: 'https://stranerd.com'
 	},
-	manifest: {},
+	manifest: {
+		start_url: '/dashboard?standalone=true'
+	},
 	workbox: {
 		runtimeCaching: [
 			{

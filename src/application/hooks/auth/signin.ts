@@ -2,6 +2,7 @@ import { Ref, ref, ssrRef, useRouter } from '@nuxtjs/composition-api'
 import { SigninWithGoogle, EmailSigninFactory, SigninWithEmail, EmailSignupFactory, SignupWithEmail } from '@modules/auth'
 import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 import { createSession } from '@app/hooks/auth/session'
+import { isClient } from '@utils/environment'
 
 const global = {
 	referrerId: ssrRef(undefined as string | undefined)
@@ -17,9 +18,10 @@ export const useGoogleSignin = () => {
 			setLoading(true)
 			try {
 				const user = await SigninWithGoogle.call({
-					referrer: global.referrerId.value
+					referrer: getReferrerId()
 				})
 				await createSession(user, router)
+				if (isClient()) window.localStorage.removeItem('referrer')
 			} catch (error) { setError(error) }
 			setLoading(false)
 		}
@@ -38,9 +40,10 @@ export const useEmailSignin = () => {
 			setLoading(true)
 			try {
 				const user = await SigninWithEmail.call(factory.value, {
-					referrer: global.referrerId.value
+					referrer: getReferrerId()
 				})
 				await createSession(user, router)
+				if (isClient()) window.localStorage.removeItem('referrer')
 			} catch (error) { setError(error) }
 			setLoading(false)
 		} else factory.value.validateAll()
@@ -59,9 +62,10 @@ export const useEmailSignup = () => {
 			setLoading(true)
 			try {
 				const user = await SignupWithEmail.call(factory.value, {
-					referrer: global.referrerId.value
+					referrer: getReferrerId()
 				})
 				await createSession(user, router)
+				if (isClient()) window.localStorage.removeItem('referrer')
 			} catch (error) { setError(error) }
 			setLoading(false)
 		} else factory.value.validateAll()
@@ -69,4 +73,14 @@ export const useEmailSignup = () => {
 	return { factory, loading, error, signup }
 }
 
-export const setReferrerId = (id: string) => global.referrerId.value = id
+export const setReferrerId = (id: string) => {
+	global.referrerId.value = id
+	if (isClient()) window.localStorage.setItem('referrer', id)
+}
+export const saveReferrerId = () => {
+	const id = getReferrerId()
+	if (id && isClient()) window.localStorage.setItem('referrer', id)
+}
+export const getReferrerId = () => isClient()
+	? (window.localStorage.getItem('referrer') ?? global.referrerId.value)
+	: global.referrerId.value

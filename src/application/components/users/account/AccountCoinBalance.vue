@@ -3,7 +3,6 @@
 		<span class="balance">
 			<Coins :size="30" />
 			<span class="amount">
-
 				<DynamicText :no-wrap="true">{{ formatNumber(user.account.coins.bronze) }}</DynamicText>
 			</span>
 		</span>

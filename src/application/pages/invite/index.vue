@@ -1,6 +1,6 @@
 <template>
 	<div class="d-flex flex-column">
-		<div class="d-flex flex-column align-items-center text-center gap-1 gap-1-5 box py-1">
+		<div v-if="isLoggedIn" class="d-flex flex-column align-items-center text-center gap-1 gap-1-5 box py-1">
 			<img src="@app/assets/images/invite.svg" class="w-100">
 			<Heading variant="1" class="text-primary">
 				Invite A Friend
@@ -53,7 +53,7 @@ export default defineComponent({
 	name: 'InvitePage',
 	middleware: 'isAuthenticated',
 	setup () {
-		const { id, user } = useAuth()
+		const { id, user, isLoggedIn } = useAuth()
 		const link = computed({
 			get: () => `${domain}/invite/${id.value}`,
 			set: () => {}
@@ -65,7 +65,7 @@ export default defineComponent({
 		useMeta(() => ({
 			title: 'Invite Your Friends to Stranerd'
 		}))
-		return { link, user, copy }
+		return { link, user, copy, isLoggedIn }
 	},
 	head: {}
 })

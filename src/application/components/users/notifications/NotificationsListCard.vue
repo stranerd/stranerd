@@ -1,8 +1,8 @@
 <template>
 	<div class="notification gap-0-5 text-dark" @click="markSeen">
 		<PageLoading v-if="loading" />
-		<NuxtLink :to="notification.action" :class="{'text-primary-dark': !notification.seen}">
-			<BodyText variant="large" class="main cursor-pointer">
+		<NuxtLink :class="{'text-primary-dark': !notification.seen}" :to="notification.action">
+			<BodyText class="main cursor-pointer" variant="large">
 				<DynamicText>{{ notification.body }}</DynamicText>
 			</BodyText>
 		</NuxtLink>
@@ -17,6 +17,7 @@ import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { NotificationEntity } from '@modules/users'
 import { formatTime } from '@utils/dates'
 import { useNotification } from '@app/hooks/users/notifications'
+
 export default defineComponent({
 	name: 'NotificationsListCard',
 	props: {

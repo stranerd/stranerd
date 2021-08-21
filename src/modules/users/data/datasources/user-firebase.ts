@@ -1,4 +1,4 @@
-import { DatabaseService, FunctionsService, DatabaseGetClauses } from '@modules/core'
+import { DatabaseGetClauses, DatabaseService, FunctionsService } from '@modules/core'
 import { UserBaseDataSource } from '../datasources/user-base'
 import { UserFromModel, UserToModel } from '../models/user'
 

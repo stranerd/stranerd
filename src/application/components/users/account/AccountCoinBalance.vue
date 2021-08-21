@@ -19,6 +19,7 @@
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { formatNumber } from '@utils/commons'
 import { UserEntity } from '@modules/users'
+
 export default defineComponent({
 	name: 'AccountCoinBalance',
 	props: {

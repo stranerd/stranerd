@@ -1,4 +1,11 @@
-import { isLongerThan, isMoreThan, isLessThan, isExtractedHTMLLongerThan, hasMoreThan, hasLessThan } from 'sd-validate/lib/rules'
+import {
+	hasLessThan,
+	hasMoreThan,
+	isExtractedHTMLLongerThan,
+	isLessThan,
+	isLongerThan,
+	isMoreThan
+} from 'sd-validate/lib/rules'
 import { BaseFactory } from '@modules/core'
 import { UserBio } from '@modules/users'
 import { MAXIMUM_COINS, MINIMUM_COINS } from '@utils/constants'
@@ -26,6 +33,8 @@ export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel
 		tags: { required: true, rules: [hasMoreThan0, hasLessThan4] }
 	}
 
+	reserved = []
+
 	constructor () {
 		super({
 			body: '', coins: 0, subjectId: '',
@@ -33,20 +42,39 @@ export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel
 		})
 	}
 
-	reserved = []
+	get body () {
+		return this.values.body
+	}
 
-	get body () { return this.values.body }
-	set body (value: string) { this.set('body', value) }
-	get coins () { return this.values.coins }
-	set coins (value: number) { this.set('coins', value) }
-	get subjectId () { return this.values.subjectId }
-	set subjectId (value: string) { this.set('subjectId', value) }
+	set body (value: string) {
+		this.set('body', value)
+	}
+
+	get coins () {
+		return this.values.coins
+	}
+
+	set coins (value: number) {
+		this.set('coins', value)
+	}
+
+	get subjectId () {
+		return this.values.subjectId
+	}
+
+	set subjectId (value: string) {
+		this.set('subjectId', value)
+	}
+
 	set userBioAndId (value: { id: string, user: UserBio }) {
 		this.set('userId', value.id)
 		this.set('user', value.user)
 	}
 
-	get tags () { return this.values.tags }
+	get tags () {
+		return this.values.tags
+	}
+
 	addTag = (value: string) => this.set('tags', [...this.tags, value.toLowerCase()])
 	removeTag = (value: string) => this.set('tags', this.tags.filter((tag) => tag !== value))
 

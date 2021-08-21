@@ -1,10 +1,11 @@
 <template>
-	<img v-if="gold" src="@app/assets/images/icons/gold.svg" alt="" :width="size" :height="size">
-	<img v-else src="@app/assets/images/icons/bronze.svg" alt="" :width="size" :height="size">
+	<img v-if="gold" :height="size" :width="size" alt="" src="@app/assets/images/icons/gold.svg">
+	<img v-else :height="size" :width="size" alt="" src="@app/assets/images/icons/bronze.svg">
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
+
 export default defineComponent({
 	name: 'Coins',
 	props: {

@@ -1,8 +1,11 @@
 <template>
 	<div>
 		<div class="d-flex flex-column align-items-center">
-			<h1>Find Top Nerds to have One-On-One Chat Sessions with, for help with your homework and study problems.</h1>
-			<SelectSubject class="select mt-1 mt-md-2 mb-2 mb-md-4" :subject-id.sync="subjectId" />
+			<h1>
+				Find Top Nerds to have One-On-One Chat Sessions with, for help with your homework and study
+				problems.
+			</h1>
+			<SelectSubject :subject-id.sync="subjectId" class="select mt-1 mt-md-2 mb-2 mb-md-4" />
 		</div>
 		<TutorsListCard v-for="tutor in tutors" :key="tutor.hash" :tutor="tutor" />
 		<DisplayWarning v-if="!loading && !error && tutors.length === 0" message="No nerds found." />
@@ -16,6 +19,7 @@ import { defineComponent, onBeforeUnmount, onMounted } from '@nuxtjs/composition
 import { useTutorsList } from '@app/hooks/users/roles/tutors'
 import TutorsListCard from '@app/components/users/tutors/TutorsListCard.vue'
 import SelectSubject from '@app/components/questions/subjects/SelectSubject.vue'
+
 export default defineComponent({
 	name: 'TutorsList',
 	components: { TutorsListCard, SelectSubject },

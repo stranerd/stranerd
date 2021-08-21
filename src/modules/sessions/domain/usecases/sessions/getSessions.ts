@@ -9,7 +9,7 @@ export class GetSessionsUseCase {
 	}
 
 	async call (ids: string[]) {
-		const conditions :FirestoreGetClauses = {
+		const conditions: FirestoreGetClauses = {
 			where: [
 				{ field: '__name__', condition: 'in', value: ids }
 			]

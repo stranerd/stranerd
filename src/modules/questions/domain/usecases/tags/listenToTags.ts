@@ -6,7 +6,7 @@ export class ListenToTagsUseCase {
 	private repository: ITagRepository
 
 	constructor (repository: ITagRepository) {
-	    this.repository = repository
+		this.repository = repository
 	}
 
 	async call (callback: (entities: TagEntity[]) => void) {
@@ -17,6 +17,6 @@ export class ListenToTagsUseCase {
 		const cb = (entities: TagEntity[]) => {
 			callback(entities.reverse())
 		}
-	    return await this.repository.listen(cb, conditions)
+		return await this.repository.listen(cb, conditions)
 	}
 }

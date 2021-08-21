@@ -14,7 +14,7 @@ export class CommentTransformer {
 		})
 	}
 
-	toJSON (entity: CommentEntity) :CommentToModel {
+	toJSON (entity: CommentEntity): CommentToModel {
 		return {
 			body: entity.body,
 			userId: entity.userId,

@@ -1,11 +1,17 @@
 <template>
 	<SideMenu :close="close" background-class="sd-menu-background" menu-class="sd-menu-right">
 		<div class="head gap-1 text-primary">
-			<img class="head-icons" src="@app/assets/images/icons/close.svg" alt="" @click="close">
+			<img alt="" class="head-icons" src="@app/assets/images/icons/close.svg" @click="close">
 			<NuxtLink v-if="isAdmin" to="/admin/">
-				<img class="head-icons" src="@app/assets/images/icons/admin.svg" alt="">
+				<img alt="" class="head-icons" src="@app/assets/images/icons/admin.svg">
 			</NuxtLink>
-			<img v-if="isLoggedIn" class="head-icons" src="@app/assets/images/icons/signout.svg" alt="" @click="signout">
+			<img
+				v-if="isLoggedIn"
+				alt=""
+				class="head-icons"
+				src="@app/assets/images/icons/signout.svg"
+				@click="signout"
+			>
 			<PageLoading v-if="loading" />
 		</div>
 		<div class="d-flex flex-column flex-grow-1">
@@ -20,6 +26,7 @@ import { modal } from '@app/hooks/core/modals'
 import SideMenu from '@app/components/core/modals/SideMenu.vue'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useSessionSignout } from '@app/hooks/auth/session'
+
 export default defineComponent({
 	name: 'RightSideMenu',
 	components: { SideMenu },

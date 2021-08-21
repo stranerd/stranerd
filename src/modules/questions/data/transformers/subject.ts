@@ -10,7 +10,7 @@ export class SubjectTransformer {
 		})
 	}
 
-	toJSON (entity: SubjectEntity) :SubjectToModel {
+	toJSON (entity: SubjectEntity): SubjectToModel {
 		return {
 			name: entity.name
 		}

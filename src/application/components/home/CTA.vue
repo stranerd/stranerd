@@ -1,16 +1,16 @@
 <template>
 	<div class="cta gap-2 pt-3 pb-5">
 		<div class="text-center">
-			<img src="@app/assets/images/homepage/connect.svg" width="100%" class="d-md-none">
-			<img src="@app/assets/images/homepage/connect.svg" width="90%" class="d-none d-md-inline-block d-lg-none">
-			<img src="@app/assets/images/homepage/connect.svg" width="80%" class="d-none d-lg-inline-block">
+			<img class="d-md-none" src="@app/assets/images/homepage/connect.svg" width="100%">
+			<img class="d-none d-md-inline-block d-lg-none" src="@app/assets/images/homepage/connect.svg" width="90%">
+			<img class="d-none d-lg-inline-block" src="@app/assets/images/homepage/connect.svg" width="80%">
 		</div>
 		<div class="d-flex flex-column align-items-center justify-content-center col-lg-6 mt-2">
 			<div class="text-center mb-2">
-				<Heading variant="1" class="text-primary-dark mb-1">
+				<Heading class="text-primary-dark mb-1" variant="1">
 					Your quick help for homework and study problems…
 				</Heading>
-				<Heading variant="4" class="text-primary-dark mb-1">
+				<Heading class="text-primary-dark mb-1" variant="4">
 					Link up with smart students in various subjects
 				</Heading>
 				<span class="paragraphStyle">
@@ -30,12 +30,13 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
+
 export default defineComponent({
 	name: 'CTA'
 })
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 	.cta {
 		display: flex;
 		flex-direction: column;
@@ -55,9 +56,15 @@ export default defineComponent({
 	.paragraphStyle {
 		font-size: 15px;
 		color: $color-sub;
-		@media (min-width: $md) { font-size: 18px; }
-		@media (min-width: $lg) { font-size: 20px; }
-		@media (min-width: $xl) { font-size: 24px; }
+		@media (min-width: $md) {
+			font-size: 18px;
+		}
+		@media (min-width: $lg) {
+			font-size: 20px;
+		}
+		@media (min-width: $xl) {
+			font-size: 24px;
+		}
 	}
 
 	.btn-custom {

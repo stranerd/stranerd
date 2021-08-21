@@ -1,4 +1,4 @@
-import { SessionSignin, SendVerificationEmail } from '@modules/auth'
+import { SendVerificationEmail, SessionSignin } from '@modules/auth'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { isClient, isServer } from '@utils/environment'
 import { REDIRECT_SESSION_NAME } from '@utils/constants'
@@ -38,7 +38,9 @@ export const useSessionSignout = () => {
 			setLoading(true)
 			try {
 				await useAuth().signout(router)
-			} catch (error) { setError(error) }
+			} catch (error) {
+				setError(error)
+			}
 			setLoading(false)
 		}
 	}
@@ -72,7 +74,9 @@ export const useVerifyEmail = () => {
 			const redirectUrl = (isClient() ? window.location.origin : '') + '/auth/signin'
 			await SendVerificationEmail.call(email, redirectUrl)
 			setMessage(`A verification email was just sent to ${email}. Proceed to your email to complete your verification.`)
-		} catch (error) { setError(error) }
+		} catch (error) {
+			setError(error)
+		}
 		setLoading(false)
 	}
 

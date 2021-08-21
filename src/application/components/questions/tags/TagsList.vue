@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<Heading variant="2" no-grow class="color-dark text-center mb-1">
+		<Heading class="color-dark text-center mb-1" no-grow variant="2">
 			Popular Tags
 		</Heading>
 		<div class="d-flex flex-wrap gap-0-5">
@@ -16,6 +16,7 @@
 import { defineComponent, onBeforeUnmount, onMounted } from '@nuxtjs/composition-api'
 import TagListCard from '@app/components/questions/tags/TagListCard.vue'
 import { useTagsList } from '@app/hooks/questions/tags'
+
 export default defineComponent({
 	name: 'TagsList',
 	components: { TagListCard },

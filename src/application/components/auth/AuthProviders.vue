@@ -1,7 +1,7 @@
 <template>
 	<div class="d-flex flex-column gap-1 gap-md-2">
-		<button type="button" class="btn btn-auth" @click="googleSignin">
-			<img src="@app/assets/images/icons/google.svg" alt="">
+		<button class="btn btn-auth" type="button" @click="googleSignin">
+			<img alt="" src="@app/assets/images/icons/google.svg">
 			<span>Google</span>
 		</button>
 		<DisplayError :error="googleError" />
@@ -12,6 +12,7 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useGoogleSignin } from '@app/hooks/auth/signin'
+
 export default defineComponent({
 	setup () {
 		const { loading: googleLoading, signin: googleSignin, error: googleError } = useGoogleSignin()

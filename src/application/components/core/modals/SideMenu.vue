@@ -1,7 +1,7 @@
 <template>
-	<div class="sd-menu-background" :class="backgroundClass">
+	<div :class="backgroundClass" class="sd-menu-background">
 		<div class="sd-menu-under" @click="close" />
-		<div class="sd-menu-sidebar" :class="menuClass">
+		<div :class="menuClass" class="sd-menu-sidebar">
 			<slot />
 		</div>
 	</div>
@@ -10,6 +10,7 @@
 <script lang="ts">
 import { defineComponent, onBeforeUnmount, onMounted, PropType } from '@nuxtjs/composition-api'
 import { disableScroll, enableScroll } from '@utils/html'
+
 export default defineComponent({
 	name: 'SideMenu',
 	props: {

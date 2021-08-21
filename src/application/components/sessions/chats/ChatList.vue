@@ -22,6 +22,7 @@ import { defineComponent, onBeforeUnmount, onMounted } from '@nuxtjs/composition
 import { useChats } from '@app/hooks/sessions/chats'
 import ChatListCard from '@app/components/sessions/chats/ChatListCard.vue'
 import { formatTime } from '@utils/dates'
+
 export default defineComponent({
 	name: 'ChatList',
 	components: { ChatListCard },

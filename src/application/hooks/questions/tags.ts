@@ -1,6 +1,6 @@
 import { ssrRef, useFetch } from '@nuxtjs/composition-api'
-import { GetTags, TagEntity, ListenToTags } from '@modules/questions'
-import { useErrorHandler, useLoadingHandler, useListener } from '@app/hooks/core/states'
+import { GetTags, ListenToTags, TagEntity } from '@modules/questions'
+import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 
 const cb = async (entities: TagEntity[]) => {
 	global.tags.value = entities
@@ -21,7 +21,9 @@ const fetchTags = async () => {
 	try {
 		global.tags.value = await GetTags.call()
 		global.fetched.value = true
-	} catch (error) { global.setError(error) }
+	} catch (error) {
+		global.setError(error)
+	}
 	global.setLoading(false)
 }
 

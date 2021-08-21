@@ -4,8 +4,8 @@
 			<i class="fas fa-arrow-left" />
 		</NuxtLink>
 		<NuxtLink :to="`/users/${user.id}`">
-			<Avatar :src="user.avatar" :size="40" class="d-md-none" />
-			<Avatar :src="user.avatar" :size="60" class="d-none d-md-inline" />
+			<Avatar :size="40" :src="user.avatar" class="d-md-none" />
+			<Avatar :size="60" :src="user.avatar" class="d-none d-md-inline" />
 		</NuxtLink>
 		<div class="me-auto">
 			<NuxtLink :to="`/users/${user.id}`" class="text-wrap username">
@@ -46,6 +46,7 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { useCurrentSession } from '@app/hooks/sessions/session'
 import { setReportedEntity } from '@app/hooks/reports/users'
 import { analytics } from '@modules/core'
+
 export default defineComponent({
 	name: 'ChatHead',
 	props: {
@@ -78,7 +79,8 @@ export default defineComponent({
 				const rest = `${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`
 				return hr + rest
 			},
-			set: () => {}
+			set: () => {
+			}
 		})
 		const requestNewSession = () => {
 			setNewSessionTutorIdBio({ id: props.user.id, user: props.user.bio })
@@ -102,17 +104,20 @@ export default defineComponent({
 		}
 		const canRequestSession = computed({
 			get: () => user.value?.canRequestSessions && props.user.canHostSessions,
-			set: () => {}
+			set: () => {
+			}
 		})
 		const inSession = computed({
 			get: () => currentSessionId.value &&
-				currentSessionId.value === props.user.currentSession,
-			set: () => {}
+					currentSessionId.value === props.user.currentSession,
+			set: () => {
+			}
 		})
 		const canEndSession = computed({
 			get: () => currentSessionId.value === props.user.currentSession &&
-				currentSession.value?.studentId === id.value,
-			set: () => {}
+					currentSession.value?.studentId === id.value,
+			set: () => {
+			}
 		})
 		return {
 			canRequestSession, canEndSession, inSession,
@@ -170,7 +175,12 @@ export default defineComponent({
 	}
 
 	@keyframes slide-down {
-		from { top: -50px; }
-		to { top: 0; }
+		from {
+			top: -50px;
+		}
+
+		to {
+			top: 0;
+		}
 	}
 </style>

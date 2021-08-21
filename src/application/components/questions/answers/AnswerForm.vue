@@ -1,7 +1,7 @@
 <template>
 	<form @submit.prevent="submit">
 		<div class="form-group">
-			<BodyText variant="large" class="title">
+			<BodyText class="title" variant="large">
 				Main Answer
 			</BodyText>
 			<BodyText class="sub-title">
@@ -9,10 +9,10 @@
 			</BodyText>
 			<input
 				v-model="factory.title"
-				type="text"
-				class="form-control"
 				:class="{'is-invalid': factory.errors.title, 'is-valid': factory.isValid('title')}"
+				class="form-control"
 				placeholder="Example: The answer is 14 seconds."
+				type="text"
 			>
 			<DynamicText v-if="factory.errors.title" class="text-danger small">
 				{{ factory.errors.title }}
@@ -20,16 +20,16 @@
 		</div>
 
 		<div class="form-group">
-			<BodyText variant="large" class="title">
+			<BodyText class="title" variant="large">
 				Explanation
 			</BodyText>
 			<BodyText class="sub-title">
 				Write out the step-by-step explanation of the answer you gave above
 			</BodyText>
-			<AnswerEditor :model.sync="factory.body" :error="factory.errors.body" :valid="factory.isValid('body')" />
+			<AnswerEditor :error="factory.errors.body" :model.sync="factory.body" :valid="factory.isValid('body')" />
 		</div>
 
-		<button class="btn btn-primary px-2 py-1" type="submit" :disabled="loading || !factory.valid">
+		<button :disabled="loading || !factory.valid" class="btn btn-primary px-2 py-1" type="submit">
 			<slot name="buttonText">
 				Submit
 			</slot>
@@ -43,6 +43,7 @@
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { AnswerFactory } from '@modules/questions'
 import AnswerEditor from '@app/components/core/editor/AnswerEditor.vue'
+
 export default defineComponent({
 	name: 'AnswerForm',
 	components: { AnswerEditor },

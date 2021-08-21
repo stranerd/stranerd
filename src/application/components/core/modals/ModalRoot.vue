@@ -1,7 +1,7 @@
 <template>
-	<div class="sd-modal-background" :class="backgroundClass">
+	<div :class="backgroundClass" class="sd-modal-background">
 		<div v-if="closeOnBackground" class="sd-modal-under" @click="close" />
-		<div class="sd-modal-inner" :class="modalClass">
+		<div :class="modalClass" class="sd-modal-inner">
 			<slot />
 		</div>
 	</div>
@@ -10,6 +10,7 @@
 <script lang="ts">
 import { defineComponent, onBeforeUnmount, onMounted, PropType } from '@nuxtjs/composition-api'
 import { disableScroll, enableScroll } from '@utils/html'
+
 export default defineComponent({
 	name: 'Modal',
 	props: {
@@ -68,9 +69,15 @@ export default defineComponent({
 			overflow-y: auto;
 			-ms-overflow-style: none;
 			padding: 0.5rem 0.5rem 1rem;
-			@media (min-width: $sm) { padding: 1rem 1rem 1.5rem; }
-			@media (min-width: $md) { padding: 1.5rem 1.5rem 2rem; }
-			@media (min-width: $lg) { padding: 2rem 2rem 2.5rem; }
+			@media (min-width: $sm) {
+				padding: 1rem 1rem 1.5rem;
+			}
+			@media (min-width: $md) {
+				padding: 1.5rem 1.5rem 2rem;
+			}
+			@media (min-width: $lg) {
+				padding: 2rem 2rem 2.5rem;
+			}
 
 			&::-webkit-scrollbar {
 				display: none;

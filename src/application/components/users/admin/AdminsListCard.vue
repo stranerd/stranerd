@@ -4,7 +4,7 @@
 			<DynamicText class="name-custom">
 				{{ admin.fullName }}
 			</DynamicText>
-			<a style="font-size: 14px;" class="text-danger ms-auto" @click.prevent="deAdminUser(admin)">
+			<a class="text-danger ms-auto" style="font-size: 14px;" @click.prevent="deAdminUser(admin)">
 				Remove admin
 			</a>
 		</div>
@@ -17,6 +17,7 @@
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { useAdminRoles } from '@app/hooks/users/roles/admins'
 import { UserEntity } from '@modules/users'
+
 export default defineComponent({
 	name: 'AdminsListCard',
 	props: {

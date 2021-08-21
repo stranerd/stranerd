@@ -3,7 +3,7 @@
 		<div class="ranking-body d-flex flex-column gap-2-25">
 			<div class="ranking-card">
 				<div class="rank-contain">
-					<img src="/images/ranking/rookie.svg" alt="">
+					<img alt="" src="/images/ranking/rookie.svg">
 				</div>
 				<div class="ranking-card-main gap-1">
 					<p class="first">
@@ -23,11 +23,12 @@
 
 			<div class="ranking-card">
 				<div class="rank-contain">
-					<img src="/images/ranking/comrade.svg" alt="">
+					<img alt="" src="/images/ranking/comrade.svg">
 				</div>
 				<div class="ranking-card-main gap-1">
 					<p class="first">
-						A Comrade is a Level Two Nerd. This status proves that you are an active and valuable member of the Stranerd community.
+						A Comrade is a Level Two Nerd. This status proves that you are an active and valuable member of
+						the Stranerd community.
 					</p>
 					<p class="second">
 						The following challenges need to be completed to progress to the next level:
@@ -45,16 +46,18 @@
 
 			<div class="ranking-card">
 				<div class="rank-contain">
-					<img src="/images/ranking/scholar.svg" alt="">
+					<img alt="" src="/images/ranking/scholar.svg">
 				</div>
 
 				<div class="ranking-card-main gap-1">
 					<p class="first">
-						A Scholar is a Level Three Nerd. This status is a guarantee that you are a Nerd whose solutions can be trusted.
+						A Scholar is a Level Three Nerd. This status is a guarantee that you are a Nerd whose solutions
+						can be trusted.
 					</p>
 					<p class="second">
 						<span class="highlight">New!!!</span>
-						A Scholar is able to host Chat Sessions with other Nerds to help them with solutions to their homework and study problems.
+						A Scholar is able to host Chat Sessions with other Nerds to help them with solutions to their
+						homework and study problems.
 					</p>
 
 					<p class="third">
@@ -74,14 +77,16 @@
 
 			<div class="ranking-card">
 				<div class="rank-contain">
-					<img src="/images/ranking/einstein.svg" alt="">
+					<img alt="" src="/images/ranking/einstein.svg">
 				</div>
 				<div class="ranking-card-main gap-1">
 					<p class="first">
-						Einstein! this is the highest level a Nerd can attain. This status is a guarantee that you are a Nerd who is an expert in your specialized field of study.
+						Einstein! this is the highest level a Nerd can attain. This status is a guarantee that you are a
+						Nerd who is an expert in your specialized field of study.
 					</p>
 					<p class="second">
-						An Einstein possesses the ability of all ranks below him (for example; an Einstein can host Chat Sessions).
+						An Einstein possesses the ability of all ranks below him (for example; an Einstein can host Chat
+						Sessions).
 					</p>
 					<p class="third">
 						The following challenges need to be completed to progress to the next level:
@@ -89,7 +94,7 @@
 
 					<ul>
 						<li> - Host 100 sessions</li>
-						<li> - Complete 100 days login  </li>
+						<li> - Complete 100 days login</li>
 						<li> - Keep an average of 4 star</li>
 						<li> - Have at least 30 best answers</li>
 						<li> - Have a nerd score of ≥ 400</li>
@@ -103,6 +108,7 @@
 
 <script lang="ts">
 import { defineComponent, useMeta } from '@nuxtjs/composition-api'
+
 export default defineComponent({
 	name: 'UsersRanksPage',
 	layout: 'justified',
@@ -141,7 +147,10 @@ export default defineComponent({
 				border-right: 1px solid $color-line;
 				display: flex;
 				justify-content: center;
-				img { width: 144px; }
+
+				img {
+					width: 144px;
+				}
 				@media (max-width: $mmd) {
 					width: 100%;
 					border-right: none;

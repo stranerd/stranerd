@@ -1,4 +1,4 @@
-import { DatabaseService, DatabaseGetClauses } from '@modules/core'
+import { DatabaseGetClauses, DatabaseService } from '@modules/core'
 import { SubjectBaseDataSource } from '../datasources/subject-base'
 import { SubjectFromModel, SubjectToModel } from '../models/subject'
 

@@ -10,7 +10,15 @@ export class ReportEntity<ReportedType extends { userId: string }> extends BaseE
 	readonly message: string
 	readonly createdAt: number
 
-	constructor ({ id, reporterId, reportedId, reporterBio, reported, message, createdAt }: ReportConstructorArgs<ReportedType>) {
+	constructor ({
+		             id,
+		             reporterId,
+		             reportedId,
+		             reporterBio,
+		             reported,
+		             message,
+		             createdAt
+	             }: ReportConstructorArgs<ReportedType>) {
 		super()
 		this.id = id
 		this.reportedId = reportedId

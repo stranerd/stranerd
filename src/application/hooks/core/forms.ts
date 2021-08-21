@@ -42,3 +42,14 @@ export const useTags = (addCb: callback, removeCb: callback) => {
 	const removeTag = (tag: string) => removeCb(tag.toLowerCase())
 	return { tag, removeTag }
 }
+export const useSubjectAsTags = (addCb: callback, removeCb: callback) => {
+	const sTag = ref('')
+	watch(() => sTag.value, () => {
+		if (sTag.value) {
+			addCb(sTag.value)
+			sTag.value = ''
+		}
+	})
+	const removeTag = (tag: string) => removeCb(tag)
+	return { sTag, removeTag }
+}

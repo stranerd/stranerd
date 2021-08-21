@@ -27,7 +27,9 @@ export const useUser = (userId: string) => {
 			if (id.value && id.value === userId) global[userId].user.value = user.value
 			else global[userId].user.value = await FindUser.call(userId)
 			global[userId].fetched.value = true
-		} catch (error) { global[userId].setError(error) }
+		} catch (error) {
+			global[userId].setError(error)
+		}
 		global[userId].setLoading(false)
 	}
 
@@ -40,7 +42,8 @@ export const useUser = (userId: string) => {
 			// Dont start a listener if it is the current auth user
 			// Instead watch the auth user for changes
 			watch(() => user.value?.hash, () => global[userId].user.value = user.value)
-			return () => {}
+			return () => {
+			}
 		}
 		const callback = (user: UserEntity | null) => global[userId].user.value = user
 		return await ListenToUser.call(userId, callback)

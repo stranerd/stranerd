@@ -26,7 +26,9 @@ export const useAdminsList = () => {
 			const admins = await GetAllAdmins.call()
 			admins.forEach(pushToAdminsList)
 			global.fetched.value = true
-		} catch (error) { global.setError(error) }
+		} catch (error) {
+			global.setError(error)
+		}
 		global.setLoading(false)
 	}
 	const filteredAdmins = computed({
@@ -35,9 +37,12 @@ export const useAdminsList = () => {
 			if (admin.id === id.value) matched = false
 			return matched
 		}),
-		set: (admins) => { admins.map(pushToAdminsList) }
+		set: (admins) => {
+			admins.map(pushToAdminsList)
+		}
 	})
-	const listener = useListener(async () => () => {})
+	const listener = useListener(async () => () => {
+	})
 
 	useFetch(async () => {
 		if (!global.fetched.value && !global.loading.value) await fetchAdmins()
@@ -62,7 +67,9 @@ export const useAdminRoles = () => {
 			try {
 				state.users = reactive(await GetUsersByEmail.call(state.email.toLowerCase()))
 				state.fetched = true
-			} catch (error) { setError(error) }
+			} catch (error) {
+				setError(error)
+			}
 			setLoading(false)
 		}
 	}
@@ -89,7 +96,9 @@ export const useAdminRoles = () => {
 				pushToAdminsList(user)
 				reset()
 				setMessage('Successfully upgraded to admin')
-			} catch (error) { setError(error) }
+			} catch (error) {
+				setError(error)
+			}
 			setLoading(false)
 		}
 	}
@@ -109,7 +118,9 @@ export const useAdminRoles = () => {
 				global.admins.value = global.admins.value
 					.filter((u) => u.id !== user.id)
 				setMessage('Successfully downgraded from admin')
-			} catch (error) { setError(error) }
+			} catch (error) {
+				setError(error)
+			}
 			setLoading(false)
 		}
 	}

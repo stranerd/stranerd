@@ -14,7 +14,10 @@
 				</span>
 				<span>This question {{ report.message }}.</span>
 			</div>
-			<div class="text-danger ms-md-auto d-flex flex-wrap flex-md-column gap-1 text-nowrap custom-border" style="font-size: 14px;">
+			<div
+				class="text-danger ms-md-auto d-flex flex-wrap flex-md-column gap-1 text-nowrap custom-border"
+				style="font-size: 14px;"
+			>
 				<a>Send warning</a>
 				<a>Suspend User</a>
 				<a>Delete Question</a>
@@ -26,6 +29,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { QuestionReportEntity } from '@modules/reports'
+
 export default defineComponent({
 	name: 'QuestionReportCard',
 	props: {

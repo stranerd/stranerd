@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import { TOKEN_SESSION_NAME, USER_SESSION_NAME } from '../../../utils/constants'
 import { decodeSessionCookie, signin, signout } from '../utils/auth'
 

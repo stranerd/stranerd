@@ -1,40 +1,45 @@
 <template>
 	<form @submit.prevent="submit">
 		<div class="form-group">
-			<BodyText variant="large" class="title">
+			<BodyText class="title" variant="large">
 				Body
 			</BodyText>
-			<BodyText variant="normal" class="sub-title">
+			<BodyText class="sub-title" variant="normal">
 				Explain your question in full detail
 			</BodyText>
-			<QuestionEditor :model.sync="factory.body" :error="factory.errors.body" :valid="factory.isValid('body')" />
+			<QuestionEditor :error="factory.errors.body" :model.sync="factory.body" :valid="factory.isValid('body')" />
 		</div>
 
 		<div class="form-group">
-			<BodyText variant="large" class="title">
+			<BodyText class="title" variant="large">
 				Subject
 			</BodyText>
-			<BodyText variant="normal" class="sub-title">
+			<BodyText class="sub-title" variant="normal">
 				Select the subject of the question you asked
 			</BodyText>
-			<SelectSubject class="border border-line p-0-25 rounded-3" style="min-height: 3rem;" :show-all="false" :subject-id.sync="factory.subjectId" />
+			<SelectSubject
+				:show-all="false"
+				:subject-id.sync="factory.subjectId"
+				class="border border-line p-0-25 rounded-3"
+				style="min-height: 3rem;"
+			/>
 			<DynamicText v-if="factory.errors.subjectId" class="text-danger small">
 				{{ factory.errors.subjectId }}
 			</DynamicText>
 		</div>
 
 		<div class="form-group">
-			<BodyText variant="large" class="title">
+			<BodyText class="title" variant="large">
 				Tags
 			</BodyText>
-			<BodyText variant="normal" class="sub-title">
+			<BodyText class="sub-title" variant="normal">
 				Add up to 3 tags to describe your question
 			</BodyText>
 			<input
 				v-model="tag"
-				type="text"
 				class="form-control"
 				placeholder="Example: Algebra, quadratic-equation, linear-equation"
+				type="text"
 			>
 			<p class="my-0-5 d-flex gap-0-5 flex-wrap">
 				<span
@@ -55,10 +60,10 @@
 		</div>
 
 		<div class="form-group">
-			<BodyText variant="large" class="title">
+			<BodyText class="title" variant="large">
 				Reward
 			</BodyText>
-			<BodyText variant="normal" class="sub-title">
+			<BodyText class="sub-title" variant="normal">
 				Choose how much bronze coins to give the Nerd with the best answer. Consider the question's difficulty
 			</BodyText>
 			<select v-model="factory.coins" class="form-select">
@@ -78,7 +83,7 @@
 			</div>
 		</div>
 
-		<button class="btn btn-primary px-2 py-1" type="submit" :disabled="loading || !factory.valid">
+		<button :disabled="loading || !factory.valid" class="btn btn-primary px-2 py-1" type="submit">
 			<slot name="buttonText">
 				Submit
 			</slot>
@@ -95,6 +100,7 @@ import QuestionEditor from '@app/components/core/editor/QuestionEditor.vue'
 import { useAccountModal } from '@app/hooks/core/modals'
 import { useTags } from '@app/hooks/core/forms'
 import SelectSubject from '@app/components/questions/subjects/SelectSubject.vue'
+
 export default defineComponent({
 	name: 'QuestionForm',
 	components: { QuestionEditor, SelectSubject },

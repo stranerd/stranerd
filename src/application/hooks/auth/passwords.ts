@@ -17,7 +17,9 @@ export const usePasswordReset = () => {
 				await ResetPassword.call(factory.value, redirectUrl)
 				factory.value.reset()
 				setMessage('Proceed to your email to continue')
-			} catch (error) { setError(error) }
+			} catch (error) {
+				setError(error)
+			}
 			setLoading(false)
 		} else factory.value.validateAll()
 	}

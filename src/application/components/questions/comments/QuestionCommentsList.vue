@@ -11,6 +11,7 @@
 import { defineComponent, onBeforeUnmount, onMounted } from '@nuxtjs/composition-api'
 import { useQuestionCommentList } from '@app/hooks/questions/question-comments'
 import CommentCard from '@app/components/questions/comments/CommentsListCard.vue'
+
 export default defineComponent({
 	name: 'QuestionCommentsList',
 	components: { CommentCard },

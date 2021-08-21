@@ -19,14 +19,20 @@ export class ReportFactory<ReportType extends { userId: string }> extends BaseFa
 		message: { required: true, rules: [(value: string) => isLongerThan(value, 0)] }
 	}
 
+	reserved = []
+
 	constructor () {
 		super({ reporterId: '', reportedId: '', reporterBio: undefined, reported: undefined, message: '' })
 	}
 
-	reserved = []
+	get message () {
+		return this.values.message
+	}
 
-	get message () { return this.values.message }
-	set message (value: string) { this.set('message', value) }
+	set message (value: string) {
+		this.set('message', value)
+	}
+
 	set reporterBioAndId (value: { id: string, bio: UserBio }) {
 		this.set('reporterId', value.id)
 		this.set('reporterBio', value.bio)

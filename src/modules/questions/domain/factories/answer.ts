@@ -1,4 +1,4 @@
-import { isLongerThan, isExtractedHTMLLongerThan } from 'sd-validate/lib/rules'
+import { isExtractedHTMLLongerThan, isLongerThan } from 'sd-validate/lib/rules'
 import { BaseFactory } from '@modules/core'
 import { UserBio } from '@modules/users'
 import { AnswerEntity } from '../entities/answer'
@@ -23,6 +23,8 @@ export class AnswerFactory extends BaseFactory<AnswerEntity, AnswerToModel, Keys
 		tags: { required: true, rules: [] }
 	}
 
+	reserved = ['questionId', 'coins', 'tags']
+
 	constructor () {
 		super({
 			title: '', body: '', coins: 10, questionId: '',
@@ -30,20 +32,54 @@ export class AnswerFactory extends BaseFactory<AnswerEntity, AnswerToModel, Keys
 		})
 	}
 
-	reserved = ['questionId', 'coins', 'tags']
+	get title () {
+		return this.values.title
+	}
 
-	get title () { return this.values.title }
-	set title (value: string) { this.set('title', value) }
-	get body () { return this.values.body }
-	set body (value: string) { this.set('body', value) }
-	get coins () { return this.values.coins }
-	set coins (value: number) { this.set('coins', value) }
-	get tags () { return this.values.tags }
-	set tags (value: string[]) { this.set('tags', value) }
-	get questionId () { return this.values.questionId }
-	set questionId (value: string) { this.set('questionId', value) }
-	get subjectId () { return this.values.subjectId }
-	set subjectId (value: string) { this.set('subjectId', value) }
+	set title (value: string) {
+		this.set('title', value)
+	}
+
+	get body () {
+		return this.values.body
+	}
+
+	set body (value: string) {
+		this.set('body', value)
+	}
+
+	get coins () {
+		return this.values.coins
+	}
+
+	set coins (value: number) {
+		this.set('coins', value)
+	}
+
+	get tags () {
+		return this.values.tags
+	}
+
+	set tags (value: string[]) {
+		this.set('tags', value)
+	}
+
+	get questionId () {
+		return this.values.questionId
+	}
+
+	set questionId (value: string) {
+		this.set('questionId', value)
+	}
+
+	get subjectId () {
+		return this.values.subjectId
+	}
+
+	set subjectId (value: string) {
+		this.set('subjectId', value)
+	}
+
 	set userBioAndId (value: { id: string, user: UserBio }) {
 		this.set('userId', value.id)
 		this.set('user', value.user)

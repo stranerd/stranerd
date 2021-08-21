@@ -9,6 +9,7 @@
 <script lang="ts">
 import { SessionEntity } from '@modules/sessions'
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
+
 export default defineComponent({
 	name: 'StudentWaitingSession',
 	props: {

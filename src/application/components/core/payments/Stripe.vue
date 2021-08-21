@@ -2,11 +2,11 @@
 	<div v-if="isLoggedIn" class="p-1 d-flex flex-column">
 		<StripeElementCard
 			ref="cardRef"
-			:pk="publicKey"
 			:disabled="loading"
+			:pk="publicKey"
 			@token="tokenCreated"
 		/>
-		<button class="btn btn-lg btn-primary w-100" :disabled="loading" @click="tokenize">
+		<button :disabled="loading" class="btn btn-lg btn-primary w-100" @click="tokenize">
 			Pay With Stripe
 		</button>
 		<PageLoading v-if="loading" />

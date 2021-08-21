@@ -1,12 +1,12 @@
 <template>
-	<div class="progress" :class="{'progress-primary': primary}">
+	<div :class="{'progress-primary': primary}" class="progress">
 		<div
+			:aria-valuenow="current"
+			:style=" `width:${current}%;`"
+			aria-valuemax="100"
+			aria-valuemin="0"
 			class="progress-bar"
 			role="progressbar"
-			:style=" `width:${current}%;`"
-			:aria-valuenow="current"
-			aria-valuemin="0"
-			aria-valuemax="100"
 		>
 			<!-- {{ current }}% -->
 		</div>
@@ -15,6 +15,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
+
 export default defineComponent({
 	name: 'ProgressBar',
 	props: {

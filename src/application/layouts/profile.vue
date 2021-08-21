@@ -23,6 +23,7 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import ProfileLeftSidebar from '@app/components/layouts/sidebars/ProfileLeftSidebar.vue'
 import ProfileRightSidebar from '@app/components/layouts/sidebars/ProfileRightSidebar.vue'
 import TopNavigation from '@app/components/layouts/topNavigations/DefaultTopNavigation.vue'
+
 export default defineComponent({
 	name: 'ProfileLayout',
 	components: { TopNavigation, ProfileRightSidebar, ProfileLeftSidebar }

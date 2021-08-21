@@ -2,8 +2,9 @@
 	<div class="position-relative">
 		<input
 			v-model="term"
-			class="form-control w-100"
 			:placeholder="placeholder"
+			autocomplete="autocomplete"
+			class="form-control w-100"
 			type="text"
 			@keydown.enter.prevent="onEnter"
 			@keydown.down.prevent="onDown"
@@ -28,6 +29,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, ref } from '@nuxtjs/composition-api'
+
 export default defineComponent({
 	name: 'AutoComplete',
 	props: {
@@ -57,7 +59,8 @@ export default defineComponent({
 			get: () => props.suggestions.filter(
 				(s) => s.search.toLowerCase().includes(props.value.toLowerCase())
 			),
-			set: () => {}
+			set: () => {
+			}
 		})
 
 		const update = (value: string) => {

@@ -1,5 +1,5 @@
-import { ref, watch, computed } from '@nuxtjs/composition-api'
-import { TIMES, getTimeFormatted } from '@utils/dates'
+import { computed, ref, watch } from '@nuxtjs/composition-api'
+import { getTimeFormatted, TIMES } from '@utils/dates'
 
 const startInterval = (dif: number, caller: (time: number) => void) => {
 	if (dif <= TIMES.minute) return window.setInterval(() => caller(1), 1000)
@@ -33,7 +33,8 @@ export const useTimeDifference = (timeInMs: number) => {
 				][date.getMonth()]
 				return `${month} ${year}`
 			}
-		}, set: () => {}
+		}, set: () => {
+		}
 	})
 
 	const startTimer = () => {
@@ -65,7 +66,8 @@ export const useCountdown = (timeInMs: number, triggers: Record<number, () => vo
 
 	const time = computed({
 		get: () => getTimeFormatted(diffInSec.value),
-		set: () => {}
+		set: () => {
+		}
 	})
 
 	const startTimer = () => {

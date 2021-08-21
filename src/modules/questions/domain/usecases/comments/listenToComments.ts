@@ -2,15 +2,15 @@ import { ICommentRepository } from '../../irepositories/icomment'
 import { CommentEntity } from '../../entities/comment'
 
 export class ListenToQuestionCommentsUseCase {
-    private repository: ICommentRepository
+	private repository: ICommentRepository
 
-    constructor (repository: ICommentRepository) {
-	    this.repository = repository
-    }
+	constructor (repository: ICommentRepository) {
+		this.repository = repository
+	}
 
-    async call (questionId: string, callback: (entities: CommentEntity[]) => void) {
-	    return await this.repository.listen(questionId, callback)
-    }
+	async call (questionId: string, callback: (entities: CommentEntity[]) => void) {
+		return await this.repository.listen(questionId, callback)
+	}
 }
 
 export class ListenToAnswerCommentsUseCase {

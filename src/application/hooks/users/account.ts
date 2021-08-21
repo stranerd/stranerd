@@ -1,5 +1,5 @@
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
-import { Ref, ssrRef, watch, useRouter } from '@nuxtjs/composition-api'
+import { Ref, ref, useRouter, watch } from '@nuxtjs/composition-api'
 import { ProfileUpdateFactory, UpdateProfile } from '@modules/auth'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useAccountModal, usePaymentModal } from '@app/hooks/core/modals'
@@ -11,18 +11,14 @@ import { analytics } from '@modules/core'
 
 export const useUpdateProfile = () => {
 	const router = useRouter()
-	const factory = ssrRef(new ProfileUpdateFactory()) as Ref<ProfileUpdateFactory>
+	const factory = ref(new ProfileUpdateFactory()) as Ref<ProfileUpdateFactory>
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const { setMessage } = useSuccessHandler()
-	const { bio } = useAuth()
+	const { user } = useAuth()
 
-	if (bio.value) factory.value.loadEntity(bio.value)
-	watch(() => bio.value?.name.first, () => bio.value?.name ? factory.value.first = bio.value.name.first : null)
-	watch(() => bio.value?.name.last, () => bio.value?.name ? factory.value.last = bio.value.name.last : null)
-	watch(() => bio.value?.email, () => bio.value?.email ? factory.value.email = bio.value.email : null)
-	watch(() => bio.value?.description, () => bio.value?.description ? factory.value.description = bio.value.description : null)
-	watch(() => bio.value?.avatar, () => bio.value?.avatar ? factory.value.avatar = bio.value.avatar : null)
+	if (user.value) factory.value.loadEntity(user.value)
+	watch(() => user.value?.hash, () => user.value ? factory.value.loadEntity(user.value) : null)
 
 	const updateProfile = async () => {
 		setError('')
@@ -32,7 +28,9 @@ export const useUpdateProfile = () => {
 				await UpdateProfile.call(factory.value)
 				await router.replace('/account/')
 				setMessage('Profile updated successfully!')
-			} catch (error) { setError(error) }
+			} catch (error) {
+				setError(error)
+			}
 			setLoading(false)
 		} else factory.value.validateAll()
 	}
@@ -78,7 +76,9 @@ export const useBuyCoins = () => {
 								isGold
 							})
 							setMessage('Coins purchased successfully')
-						} catch (e) { setError(e) }
+						} catch (e) {
+							setError(e)
+						}
 						setLoading(false)
 					}
 				}
@@ -122,7 +122,9 @@ export const useTipTutor = () => {
 					useAccountModal().closeTipTutor()
 					setMessage('Tipped successfully')
 					analytics.logEvent('tip_nerd_completed', { amount })
-				} catch (e) { setError(e) }
+				} catch (e) {
+					setError(e)
+				}
 				setLoading(false)
 			}
 		}

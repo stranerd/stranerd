@@ -5,6 +5,7 @@
 <script lang="ts">
 import { defineComponent, useMeta, useRoute } from '@nuxtjs/composition-api'
 import TagQuestionsList from '@app/components/questions/questions/TagQuestionsList.vue'
+
 export default defineComponent({
 	name: 'TagPage',
 	components: { TagQuestionsList },

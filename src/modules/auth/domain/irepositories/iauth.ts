@@ -1,4 +1,4 @@
-import { AfterAuthUser, AuthDetails, UpdateUser, AuthExtras } from '../entities/auth'
+import { AfterAuthUser, AuthDetails, AuthExtras, UpdateUser } from '../entities/auth'
 
 export interface IAuthRepository {
 	signinWithEmail: (email: string, password: string, extras: AuthExtras) => Promise<AfterAuthUser>

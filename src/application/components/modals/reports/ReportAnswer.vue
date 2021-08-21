@@ -1,9 +1,9 @@
 <template>
-	<Modal :modal="$attrs.modal" :hide-separator="true">
+	<Modal :hide-separator="true" :modal="$attrs.modal">
 		<template slot="title">
 			Report Answer
 		</template>
-		<ReportForm :factory="factory" :error="error" :loading="loading" :submit="createReport" />
+		<ReportForm :error="error" :factory="factory" :loading="loading" :submit="createReport" />
 	</Modal>
 </template>
 
@@ -11,6 +11,7 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useCreateReport } from '@app/hooks/reports/answers'
 import ReportForm from '@app/components/reports/answers/AnswerReportForm.vue'
+
 export default defineComponent({
 	name: 'ReportAnswer',
 	components: { ReportForm },

@@ -21,6 +21,7 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import Sidebar from '@app/components/layouts/sidebars/DefaultSidebar.vue'
 import RightSidebar from '@app/components/layouts/sidebars/RightSidebar.vue'
 import TopNavigation from '@app/components/layouts/topNavigations/DefaultTopNavigation.vue'
+
 export default defineComponent({
 	name: 'DashboardLayout',
 	components: { Sidebar, TopNavigation, RightSidebar }

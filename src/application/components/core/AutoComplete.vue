@@ -3,6 +3,7 @@
 		<input
 			v-model="term"
 			:placeholder="placeholder"
+			autocomplete="autocomplete"
 			class="form-control w-100"
 			type="text"
 			@keydown.enter.prevent="onEnter"

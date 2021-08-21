@@ -65,20 +65,33 @@
 			<span class="text-dark fw-bold">
 				What subject are you strongest in?
 			</span>
-			<SelectSubject :subject-id.sync="factory.strongestSubject" class="p-0 select" />
+			<SelectSubject
+				:exclude="factory.weakerSubjects"
+				:show-all="false"
+				:subject-id.sync="factory.strongestSubject"
+				class="p-0 select"
+			/>
 		</div>
 		<span v-if="factory.strongestSubject">
 			Strongest subject chosen: <Subject :subject-id="factory.strongestSubject" />
 		</span>
+		<DynamicText v-if="factory.errors.strongestSubject" class="small text-danger d-block">
+			{{ factory.errors.strongestSubject }}
+		</DynamicText>
 
 		<div class="form-group w-100 justify-content-between d-flex align-items-center">
 			<span class="text-dark fw-bold">
 				What subject are you also good in?
 			</span>
-			<SelectSubject :subject-id.sync="sTag" class="p-0 select" />
+			<SelectSubject
+				:exclude="[factory.strongestSubject]"
+				:show-all="false"
+				:subject-id.sync="sTag"
+				class="p-0 select"
+			/>
 		</div>
-		<DynamicText v-if="factory.errors.strongestSubject" class="small text-danger d-block">
-			{{ factory.errors.strongestSubject }}
+		<DynamicText v-if="factory.errors.weakerSubjects" class="small text-danger d-block">
+			{{ factory.errors.weakerSubjects }}
 		</DynamicText>
 		<div class="d-flex gap-0-5">
 			<span
@@ -93,9 +106,6 @@
 				<span class="text-danger">&times;</span>
 			</span>
 		</div>
-		<DynamicText v-if="factory.errors.weakerSubjects" class="small text-danger d-block">
-			{{ factory.errors.weakerSubjects }}
-		</DynamicText>
 		<div class="form-group">
 			<textarea
 				id="description"

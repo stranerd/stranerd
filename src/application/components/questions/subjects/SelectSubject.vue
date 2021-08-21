@@ -3,7 +3,7 @@
 		:class="{'showAll': showAll}"
 		:default="def"
 		:placeholder="showAll ? 'All Subjects' : placeholder"
-		:suggestions="subjects.map((s) => ({ search: s.name, value: s.id, title: s.name }))"
+		:suggestions="subjects.filter((s) => !exclude.includes(s.id)).map((s) => ({ search: s.name, value: s.id, title: s.name }))"
 		:value="value"
 		class="w-100"
 		@update:value="update($event)"
@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@nuxtjs/composition-api'
+import { defineComponent, PropType, ref } from '@nuxtjs/composition-api'
 import { useSubjectList } from '@app/hooks/questions/subjects'
 
 export default defineComponent({
@@ -30,6 +30,11 @@ export default defineComponent({
 			type: String,
 			required: false,
 			default: 'Select a Subject'
+		},
+		exclude: {
+			type: Array as PropType<string[]>,
+			required: false,
+			default: () => []
 		}
 	},
 	setup (props, { emit }) {

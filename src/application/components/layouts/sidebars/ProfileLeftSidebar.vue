@@ -116,7 +116,7 @@
 			<h1 class="fw-bold">
 				Strongest In
 			</h1>
-			<Subject v-if="user.strongestSubject" :subject-id="user.strongestSubject.id" />
+			<Subject v-if="user.strongestSubject" :subject-id="user.strongestSubject" />
 			<span v-else>N/A</span>
 			<div class="thin" />
 
@@ -125,7 +125,7 @@
 			</h1>
 			<div v-if="user.weakerSubjects.length > 0" class="d-flex flex-wrap gap-0-25">
 				<span v-for="(subject, index) in user.weakerSubjects" :key="subject.id">
-					<Subject :subject-id="subject.id" />
+					<Subject :subject-id="subject" />
 					<span v-if="index < user.weakerSubjects.length - 1">,&nbsp;</span>
 				</span>
 			</div>

@@ -39,7 +39,7 @@
 
 			<div v-if="tutor.strongestSubject" class="nerd-card gap-1-5">
 				<span class="head-text">Strongest In</span>
-				<Subject :subject-id="tutor.strongestSubject.id" class="sub-text" />
+				<Subject :subject-id="tutor.strongestSubject" class="sub-text" />
 			</div>
 
 			<div v-if="tutor.tags.length" class="nerd-card gap-1-5">
@@ -78,7 +78,7 @@
 
 			<div v-if="tutor.strongestSubject" class="d-flex align-items-center gap-0-25 fw-bold">
 				<span class="head-text">Strongest In</span>
-				<Subject :subject-id="tutor.strongestSubject.id" class="sub-text" />
+				<Subject :subject-id="tutor.strongestSubject" class="sub-text" />
 			</div>
 
 			<div v-if="tutor.tags.length" class="d-flex justify-content-center flex-wrap gap-0-25">

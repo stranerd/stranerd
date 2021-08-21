@@ -199,56 +199,56 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-form {
-	max-width: 45rem;
-	margin: 0 auto;
-}
+	form {
+		max-width: 45rem;
+		margin: 0 auto;
+	}
 
-label {
-	box-sizing: border-box;
-	border-radius: 0.375rem;
-	border: 1px solid $color-line;
-	font-size: 1.125rem;
-	text-align: center;
-	height: 3rem;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
+	label {
+		box-sizing: border-box;
+		border-radius: 0.375rem;
+		border: 1px solid $color-line;
+		font-size: 1.125rem;
+		text-align: center;
+		height: 3rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 
-input, textarea {
-	background: $color-white;
-	color: $color-sub;
-	border-radius: 0.375rem;
-	border: 1px solid $color-line;
-	font-size: 1.125rem;
-	outline: none;
-	min-height: 3rem;
-	padding: 0.5rem;
-	padding-left: 24px !important;
-}
+	input, textarea {
+		background: $color-white;
+		color: $color-sub;
+		border-radius: 0.375rem;
+		border: 1px solid $color-line;
+		font-size: 1.125rem;
+		outline: none;
+		min-height: 3rem;
+		padding: 0.5rem;
+		padding-left: 24px !important;
+	}
 
-button {
-	display: grid;
-	place-items: center;
-	outline: none;
-	border-radius: 6px;
-	border: none;
-	font-size: 24px;
-	color: white;
-	margin: 0 12px;
-}
+	button {
+		display: grid;
+		place-items: center;
+		outline: none;
+		border-radius: 6px;
+		border: none;
+		font-size: 24px;
+		color: white;
+		margin: 0 12px;
+	}
 
-.select {
-	flex-grow: 1;
-	color: $color-sub;
-	box-sizing: border-box;
-	max-width: 40%;
-	margin: 0;
-	border-radius: 0.1rem;
-	box-shadow: -5px 5px 15px rgba($color-primary, 0.1);
-	border: 1px solid $color-line;
-	background-color: $color-white;
-	padding: 0.5rem;
-}
+	.select {
+		flex-grow: 1;
+		color: $color-sub;
+		box-sizing: border-box;
+		max-width: 40%;
+		margin: 0;
+		border-radius: 0.1rem;
+		box-shadow: -5px 5px 15px rgba($color-primary, 0.1);
+		border: 1px solid $color-line;
+		background-color: $color-white;
+		padding: 0.5rem;
+	}
 </style>

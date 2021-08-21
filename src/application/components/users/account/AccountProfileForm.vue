@@ -75,7 +75,23 @@
 			<span class="text-dark fw-bold">
 				What subject are you also good in?
 			</span>
-			<SelectSubject v-model=" factory.weakerSubjects" :subject-id.sync="factory.email" class="p-0 select" />
+			<SelectSubject :subject-id.sync="sTag" class="p-0 select" />
+		</div>
+		<DynamicText v-if="factory.errors.weakerSubjects" class="small text-danger d-block">
+			{{ factory.errors.weakerSubjects }}
+		</DynamicText>
+		<div class="d-flex gap-0-5">
+			<span
+				v-for="subTag in factory.weakerSubjects"
+				:key="subTag"
+				class="p-0-5 d-flex gap-0-5 cursor-pointer btn-dark rounded-3"
+				@click="removeTag(subTag)"
+			>
+				<DynamicText class="text-white">
+					<Subject :subject-id="subTag" />
+				</DynamicText>
+				<span class="text-danger">&times;</span>
+			</span>
 		</div>
 		<div class="form-group">
 			<textarea
@@ -139,7 +155,7 @@
 import { defineComponent, onBeforeUnmount, PropType, ref } from '@nuxtjs/composition-api'
 import { useUpdateProfile } from '@app/hooks/users/account'
 import { setShowProfileModal, useAuth } from '@app/hooks/auth/auth'
-import { useFileInputs, usePassword } from '@app/hooks/core/forms'
+import { useFileInputs, usePassword, useSubjectTags } from '@app/hooks/core/forms'
 import { isClient } from '@utils/environment'
 import { DEFAULT_PROFILE_IMAGE } from '@utils/constants'
 import SelectSubject from '@app/components/questions/subjects/SelectSubject.vue'
@@ -167,12 +183,18 @@ export default defineComponent({
 			imageLink.value = ''
 			factory.value.avatar = undefined
 		}
+
+		const { sTag, removeTag } = useSubjectTags(
+			(sTag: string) => factory.value.addWeakerSubjects(sTag),
+			(sTag: string) => factory.value.removeWeakerSubjects(sTag)
+		)
 		onBeforeUnmount(() => setShowProfileModal(false))
 		return {
-			auth, show, toggle, catchFiles, imageLink, removeImage,
+			auth, show, toggle, catchFiles, imageLink, removeImage, sTag, removeTag,
 			factory, error, loading, updateProfile, DEFAULT_PROFILE_IMAGE
 		}
 	}
+
 })
 </script>
 

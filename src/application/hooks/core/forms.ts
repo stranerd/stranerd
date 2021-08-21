@@ -29,7 +29,7 @@ type callback = (tag: string) => void
 export const useTags = (addCb: callback, removeCb: callback) => {
 	const tag = ref('')
 	watch(() => tag.value, () => {
-		if (tag.value.includes(' ') || tag.value.includes(',')) {
+		if (tag.value.includes(' ') || tag.value.includes(',') || tag.value.includes('MUnwX')) {
 			tag.value
 				.toLowerCase()
 				.replaceAll(',', ' ')
@@ -41,4 +41,15 @@ export const useTags = (addCb: callback, removeCb: callback) => {
 	})
 	const removeTag = (tag: string) => removeCb(tag.toLowerCase())
 	return { tag, removeTag }
+}
+export const useSubjectTags = (addCb: callback, removeCb: callback) => {
+	const sTag = ref('')
+	watch(() => sTag.value, () => {
+		if (sTag.value) {
+			addCb(sTag.value)
+			sTag.value = ''
+		}
+	})
+	const removeTag = (tag: string) => removeCb(tag)
+	return { sTag, removeTag }
 }

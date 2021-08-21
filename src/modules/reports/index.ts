@@ -32,13 +32,23 @@ export const DeleteUserReport = new DeleteReportUseCase(userReportRepository)
 export const DeleteQuestionReport = new DeleteReportUseCase(questionReportRepository)
 export const DeleteAnswerReport = new DeleteReportUseCase(answerReportRepository)
 
-export class UserReportFactory extends ReportFactory<UserReportType> {}
-export class QuestionReportFactory extends ReportFactory<QuestionReportType> {}
-export class AnswerReportFactory extends ReportFactory<AnswerReportType> {}
+export class UserReportFactory extends ReportFactory<UserReportType> {
+}
 
-export class UserReportEntity extends ReportEntity<UserReportType> {}
-export class QuestionReportEntity extends ReportEntity<QuestionReportType> {}
-export class AnswerReportEntity extends ReportEntity<AnswerReportType> {}
+export class QuestionReportFactory extends ReportFactory<QuestionReportType> {
+}
+
+export class AnswerReportFactory extends ReportFactory<AnswerReportType> {
+}
+
+export class UserReportEntity extends ReportEntity<UserReportType> {
+}
+
+export class QuestionReportEntity extends ReportEntity<QuestionReportType> {
+}
+
+export class AnswerReportEntity extends ReportEntity<AnswerReportType> {
+}
 
 export type UserReportType = {
 	bio: UserBio

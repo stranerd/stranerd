@@ -10,9 +10,9 @@
 				<textarea
 					id="email"
 					v-model="factory.message"
-					required
-					placeholder="Leave a message for the nerd"
 					class="form-control"
+					placeholder="Leave a message for the nerd"
+					required
 				/>
 				<DynamicText v-if="factory.errors.message" class="small text-danger d-block">
 					{{ factory.errors.message }}
@@ -20,7 +20,7 @@
 			</div>
 			<div class="form-group my-1">
 				<select v-model="factory.duration" class="form-select">
-					<option disabled :value="0">
+					<option :value="0" disabled>
 						Select Session Duration
 					</option>
 					<option v-for="option in factory.prices" :key="option.duration" :value="option.duration">
@@ -32,7 +32,11 @@
 					<a class="ml-half" @click.prevent="buy">Buy More Coins</a>
 				</template>
 			</div>
-			<button class="btn btn-dark my-1 w-100" type="submit" :disabled="loading || !factory.valid || !hasEnoughCoins">
+			<button
+				:disabled="loading || !factory.valid || !hasEnoughCoins"
+				class="btn btn-dark my-1 w-100"
+				type="submit"
+			>
 				Request Session
 			</button>
 			<DisplayError :error="error" />

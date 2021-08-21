@@ -1,9 +1,14 @@
 <template>
-	<ModalRoot :close="closeModal" :close-on-background="closeOnBackground" background-class="modal-background" modal-class="modal-inner">
+	<ModalRoot
+		:close="closeModal"
+		:close-on-background="closeOnBackground"
+		background-class="modal-background"
+		modal-class="modal-inner"
+	>
 		<div class="d-flex justify-content-end">
 			<a class="fas fa-times" style="font-size: 1.5rem;" @click.prevent="closeModal" />
 		</div>
-		<Heading variant="3" class="my-1">
+		<Heading class="my-1" variant="3">
 			<slot name="title">
 				Title
 			</slot>
@@ -19,6 +24,7 @@
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import ModalRoot from '@app/components/core/modals/ModalRoot.vue'
 import { modal } from '@app/hooks/core/modals'
+
 export default defineComponent({
 	name: 'Modal',
 	components: { ModalRoot },
@@ -30,7 +36,8 @@ export default defineComponent({
 		close: {
 			type: Function as PropType<() => void>,
 			required: false,
-			default: () => {}
+			default: () => {
+			}
 		},
 		hideSeparator: {
 			type: Boolean,
@@ -72,7 +79,12 @@ export default defineComponent({
 	}
 
 	@keyframes slide-up {
-		from { bottom: -100px; }
-		to { bottom: 0; }
+		from {
+			bottom: -100px;
+		}
+
+		to {
+			bottom: 0;
+		}
 	}
 </style>

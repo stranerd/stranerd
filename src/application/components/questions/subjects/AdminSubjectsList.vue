@@ -11,6 +11,7 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useSubjectList } from '@app/hooks/questions/subjects'
 import SubjectCard from '@app/components/questions/subjects/AdminSubjectsListCard.vue'
+
 export default defineComponent({
 	name: 'AdminSubjectsList',
 	components: { SubjectCard },

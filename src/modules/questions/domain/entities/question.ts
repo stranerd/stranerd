@@ -1,4 +1,4 @@
-import { UserBio, generateDefaultBio } from '@modules/users'
+import { generateDefaultBio, UserBio } from '@modules/users'
 import { BaseEntity } from '@modules/core'
 import { extractTextFromHTML, getStringCount, trimToLength } from '@utils/commons'
 import { BEST_ANSWERS_COUNT, QUESTION_DISCOUNT } from '@utils/constants'
@@ -17,10 +17,10 @@ export class QuestionEntity extends BaseEntity {
 	public readonly createdAt: number
 
 	constructor ({
-		id, body, coins, subjectId,
-		answerId, createdAt, userId, user, comments,
-		answers, tags
-	}: QuestionConstructorArgs) {
+		             id, body, coins, subjectId,
+		             answerId, createdAt, userId, user, comments,
+		             answers, tags
+	             }: QuestionConstructorArgs) {
 		super()
 		this.id = id
 		this.body = body
@@ -35,16 +35,45 @@ export class QuestionEntity extends BaseEntity {
 		this.createdAt = createdAt
 	}
 
-	get isAnswered () { return this.answerId.first && this.answerId.second }
-	get creditable () { return Math.floor(this.coins * QUESTION_DISCOUNT / BEST_ANSWERS_COUNT) }
-	get userName () { return this.user.name.fullName }
-	get avatar () { return this.user.avatar }
-	get trimmedBody () { return trimToLength(this.strippedBody, 100) }
-	get strippedBody () { return extractTextFromHTML(this.body) }
-	get isModified () { return this.answers > 0 }
-	get canBeEdited () { return !this.isModified }
-	get canBeDeleted () { return !this.isModified }
-	get attachments () { return getStringCount(this.body, '<img') }
+	get isAnswered () {
+		return this.answerId.first && this.answerId.second
+	}
+
+	get creditable () {
+		return Math.floor(this.coins * QUESTION_DISCOUNT / BEST_ANSWERS_COUNT)
+	}
+
+	get userName () {
+		return this.user.name.fullName
+	}
+
+	get avatar () {
+		return this.user.avatar
+	}
+
+	get trimmedBody () {
+		return trimToLength(this.strippedBody, 100)
+	}
+
+	get strippedBody () {
+		return extractTextFromHTML(this.body)
+	}
+
+	get isModified () {
+		return this.answers > 0
+	}
+
+	get canBeEdited () {
+		return !this.isModified
+	}
+
+	get canBeDeleted () {
+		return !this.isModified
+	}
+
+	get attachments () {
+		return getStringCount(this.body, '<img')
+	}
 }
 
 type QuestionConstructorArgs = {

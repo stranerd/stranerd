@@ -1,5 +1,11 @@
 import { Ref, ref, ssrRef, useRouter } from '@nuxtjs/composition-api'
-import { SigninWithGoogle, EmailSigninFactory, SigninWithEmail, EmailSignupFactory, SignupWithEmail } from '@modules/auth'
+import {
+	EmailSigninFactory,
+	EmailSignupFactory,
+	SigninWithEmail,
+	SigninWithGoogle,
+	SignupWithEmail
+} from '@modules/auth'
 import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 import { createSession } from '@app/hooks/auth/session'
 import { isClient } from '@utils/environment'
@@ -22,7 +28,9 @@ export const useGoogleSignin = () => {
 				})
 				await createSession(user, router)
 				if (isClient()) window.localStorage.removeItem('referrer')
-			} catch (error) { setError(error) }
+			} catch (error) {
+				setError(error)
+			}
 			setLoading(false)
 		}
 	}
@@ -44,7 +52,9 @@ export const useEmailSignin = () => {
 				})
 				await createSession(user, router)
 				if (isClient()) window.localStorage.removeItem('referrer')
-			} catch (error) { setError(error) }
+			} catch (error) {
+				setError(error)
+			}
 			setLoading(false)
 		} else factory.value.validateAll()
 	}
@@ -66,7 +76,9 @@ export const useEmailSignup = () => {
 				})
 				await createSession(user, router)
 				if (isClient()) window.localStorage.removeItem('referrer')
-			} catch (error) { setError(error) }
+			} catch (error) {
+				setError(error)
+			}
 			setLoading(false)
 		} else factory.value.validateAll()
 	}

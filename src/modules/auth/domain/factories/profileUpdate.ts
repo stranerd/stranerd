@@ -113,8 +113,13 @@ export class ProfileUpdateFactory extends BaseFactory<UserEntity, UpdateUser, Ke
 		return this.values.weakerSubjects
 	}
 
-	 addWeakerSubjects = (value: string) => { if (!this.weakerSubjects.includes(value)) { this.set('weakerSubjects', [...this.weakerSubjects, value]) } }
-	 removeWeakerSubjects = (value: string) => this.set('weakerSubjects', this.weakerSubjects.filter((weakSubject) => weakSubject !== value))
+	addWeakerSubjects = (value: string) => {
+		if (!this.weakerSubjects.includes(value)) {
+			this.set('weakerSubjects', [...this.weakerSubjects, value])
+		}
+	}
+
+	removeWeakerSubjects = (value: string) => this.set('weakerSubjects', this.weakerSubjects.filter((weakSubject) => weakSubject !== value))
 
 	toModel = async () => {
 		if (this.valid) {

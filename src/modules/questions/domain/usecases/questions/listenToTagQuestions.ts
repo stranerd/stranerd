@@ -4,22 +4,22 @@ import { IQuestionRepository } from '../../irepositories/iquestion'
 import { QuestionEntity } from '../../entities/question'
 
 export class ListenToTagQuestionsUseCase {
-    private repository: IQuestionRepository
+	private repository: IQuestionRepository
 
-    constructor (repository: IQuestionRepository) {
-	    this.repository = repository
-    }
+	constructor (repository: IQuestionRepository) {
+		this.repository = repository
+	}
 
-    async call (tag: string, callback: (entities: QuestionEntity[]) => void, date?: Date) {
-	    const conditions: FirestoreGetClauses = {
-		    order: { field: 'dates.createdAt', desc: true },
-		    limit: PAGINATION_LIMIT + 1,
-		    where: [
-			    { field: 'tags', value: tag, condition: 'array-contains' }
-		    ]
-	    }
-	    if (date) conditions.where!.push({ field: 'dates.createdAt', condition: '>=', value: date })
+	async call (tag: string, callback: (entities: QuestionEntity[]) => void, date?: Date) {
+		const conditions: FirestoreGetClauses = {
+			order: { field: 'dates.createdAt', desc: true },
+			limit: PAGINATION_LIMIT + 1,
+			where: [
+				{ field: 'tags', value: tag, condition: 'array-contains' }
+			]
+		}
+		if (date) conditions.where!.push({ field: 'dates.createdAt', condition: '>=', value: date })
 
-	    return await this.repository.listenToMany(callback, conditions)
-    }
+		return await this.repository.listenToMany(callback, conditions)
+	}
 }

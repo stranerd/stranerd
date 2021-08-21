@@ -14,7 +14,7 @@ export class ChatTransformer {
 		})
 	}
 
-	toJSON (entity: ChatEntity) :ChatToModel {
+	toJSON (entity: ChatEntity): ChatToModel {
 		return {
 			from: entity.from,
 			...(entity.content ? { content: entity.content } : {}),

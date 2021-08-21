@@ -36,7 +36,7 @@ export default defineComponent({
 		useMeta(() => ({
 			title: 'FAQs | Stranerd'
 		}))
-		const toggle = (item:{show:Boolean}) => {
+		const toggle = (item: { show: Boolean }) => {
 			item.show = !item.show
 		}
 		const faqs = [
@@ -205,7 +205,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 	.accordion-header {
 		background: #000;
 	}

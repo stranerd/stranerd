@@ -17,7 +17,7 @@ export class AnswerTransformer {
 		})
 	}
 
-	toJSON (entity: AnswerEntity) :AnswerToModel {
+	toJSON (entity: AnswerEntity): AnswerToModel {
 		return {
 			title: entity.title,
 			body: entity.body,

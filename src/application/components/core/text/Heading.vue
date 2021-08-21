@@ -1,11 +1,12 @@
 <template>
-	<component :is="`h${variant}`" class="fw-bold m-0" :class="noGrow ? 'no-grow' : 'grow'">
+	<component :is="`h${variant}`" :class="noGrow ? 'no-grow' : 'grow'" class="fw-bold m-0">
 		<slot />
 	</component>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
+
 export default defineComponent({
 	name: 'Heading',
 	props: {
@@ -28,9 +29,15 @@ export default defineComponent({
 		font-size: 1.75em;
 
 		&.grow {
-			@media (min-width: $md) { font-size: 2em; }
-			@media (min-width: $lg) { font-size: 2.5em; }
-			@media (min-width: $xl) { font-size: 3em; }
+			@media (min-width: $md) {
+				font-size: 2em;
+			}
+			@media (min-width: $lg) {
+				font-size: 2.5em;
+			}
+			@media (min-width: $xl) {
+				font-size: 3em;
+			}
 		}
 	}
 
@@ -38,9 +45,15 @@ export default defineComponent({
 		font-size: 1.5em;
 
 		&.grow {
-			@media (min-width: $md) { font-size: 1.75em; }
-			@media (min-width: $lg) { font-size: 2.25em; }
-			@media (min-width: $xl) { font-size: 2.5em; }
+			@media (min-width: $md) {
+				font-size: 1.75em;
+			}
+			@media (min-width: $lg) {
+				font-size: 2.25em;
+			}
+			@media (min-width: $xl) {
+				font-size: 2.5em;
+			}
 		}
 	}
 
@@ -48,9 +61,15 @@ export default defineComponent({
 		font-size: 1.25em;
 
 		&.grow {
-			@media (min-width: $md) { font-size: 1.5em; }
-			@media (min-width: $lg) { font-size: 2em; }
-			@media (min-width: $xl) { font-size: 2.25em; }
+			@media (min-width: $md) {
+				font-size: 1.5em;
+			}
+			@media (min-width: $lg) {
+				font-size: 2em;
+			}
+			@media (min-width: $xl) {
+				font-size: 2.25em;
+			}
 		}
 	}
 
@@ -58,9 +77,15 @@ export default defineComponent({
 		font-size: 1em;
 
 		&.grow {
-			@media (min-width: $md) { font-size: 1.25em; }
-			@media (min-width: $lg) { font-size: 1.75em; }
-			@media (min-width: $xl) { font-size: 2em; }
+			@media (min-width: $md) {
+				font-size: 1.25em;
+			}
+			@media (min-width: $lg) {
+				font-size: 1.75em;
+			}
+			@media (min-width: $xl) {
+				font-size: 2em;
+			}
 		}
 	}
 </style>

@@ -1,7 +1,7 @@
 <template>
 	<NuxtLink :to="`/sessions/${meta.id}`" class="gap-0-5">
-		<Avatar :src="meta.bio.avatar" :size="40" class="d-md-none" />
-		<Avatar :src="meta.bio.avatar" :size="56" class="d-none d-md-inline" />
+		<Avatar :size="40" :src="meta.bio.avatar" class="d-md-none" />
+		<Avatar :size="56" :src="meta.bio.avatar" class="d-none d-md-inline" />
 		<div class="flex-grow-1 text-truncate">
 			<div class="d-flex justify-content-between align-items-center gap-0-5">
 				<DynamicText :truncate="true" class="name">
@@ -14,7 +14,11 @@
 				<DynamicText :truncate="true">
 					{{ meta.last.isMedia ? meta.last.media.name : meta.last.content }}
 				</DynamicText>
-				<span v-if="meta.unRead.length" class="bg-success ms-auto d-flex align-items-center justify-content-center rounded-pill text-white" style="height: 1.5em; width: 1.5em;">
+				<span
+					v-if="meta.unRead.length"
+					class="bg-success ms-auto d-flex align-items-center justify-content-center rounded-pill text-white"
+					style="height: 1.5em; width: 1.5em;"
+				>
 					{{ meta.unRead.length }}
 				</span>
 			</div>
@@ -26,6 +30,7 @@
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { formatTime } from '@utils/dates'
 import { ChatMetaEntity } from '@modules/sessions'
+
 export default defineComponent({
 	name: 'UserChatCard',
 	props: {

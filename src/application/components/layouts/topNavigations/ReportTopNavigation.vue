@@ -1,5 +1,5 @@
 <template>
-	<nav role="navigation" class="d-flex justify-content-center align-items-center">
+	<nav class="d-flex justify-content-center align-items-center" role="navigation">
 		<NuxtLink to="/admin/reports/questions">
 			Questions
 		</NuxtLink>
@@ -14,6 +14,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
+
 export default defineComponent({
 	name: 'AdminTopNavigation'
 })
@@ -26,7 +27,9 @@ export default defineComponent({
 		background: #fff;
 		font-weight: bold;
 		padding: 0.5rem 1rem;
-		@media (min-width: $md) { padding: 0.5rem 2rem; }
+		@media (min-width: $md) {
+			padding: 0.5rem 2rem;
+		}
 	}
 
 	a.nuxt-link-exact-active {

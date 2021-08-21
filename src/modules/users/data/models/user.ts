@@ -1,6 +1,11 @@
 import {
-	UserBio, UserRoles, UserAccount, UserStatus,
-	UserDates, UserTutor, UserSession
+	UserAccount,
+	UserBio,
+	UserDates,
+	UserRoles,
+	UserSession,
+	UserStatus,
+	UserTutor
 } from '../../domain/entities/user'
 
 export interface UserFromModel {

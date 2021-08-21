@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { SigninController, SignoutController } from '../controllers/auth'
-import { SignInEmailController, VerifyEmailController, PasswordResetController } from '../controllers/email'
+import { PasswordResetController, SignInEmailController, VerifyEmailController } from '../controllers/email'
 
 export const setupRoutes = () => {
 	const router = Router()

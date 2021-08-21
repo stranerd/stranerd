@@ -1,4 +1,4 @@
-import { UserBio, generateDefaultBio } from '@modules/users'
+import { generateDefaultBio, UserBio } from '@modules/users'
 import { BaseEntity } from '@modules/core'
 
 export class CommentEntity extends BaseEntity {
@@ -17,8 +17,13 @@ export class CommentEntity extends BaseEntity {
 		this.createdAt = createdAt
 	}
 
-	get userName () { return this.user.name.fullName }
-	get avatar () { return this.user.avatar }
+	get userName () {
+		return this.user.name.fullName
+	}
+
+	get avatar () {
+		return this.user.avatar
+	}
 }
 
 type CommentConstructorArgs = {

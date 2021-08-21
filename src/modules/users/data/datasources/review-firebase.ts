@@ -1,4 +1,4 @@
-import { DatabaseService, DatabaseGetClauses } from '@modules/core'
+import { DatabaseGetClauses, DatabaseService } from '@modules/core'
 import { ReviewFromModel } from '../models/review'
 import { ReviewBaseDataSource } from './review-base'
 

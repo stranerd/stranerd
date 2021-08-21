@@ -10,11 +10,11 @@ export class GetReportsUseCase<ReportedType extends { userId: string }> {
 	}
 
 	async call (date?: number) {
-	    const conditions: DatabaseGetClauses = {
-		    order: { field: 'dates/createdAt' },
-		    limit: { count: PAGINATION_LIMIT + 1, bottom: true }
-	    }
-	    if (date) conditions!.order!.condition = { '<': date }
-	    return await this.repository.get(conditions)
+		const conditions: DatabaseGetClauses = {
+			order: { field: 'dates/createdAt' },
+			limit: { count: PAGINATION_LIMIT + 1, bottom: true }
+		}
+		if (date) conditions!.order!.condition = { '<': date }
+		return await this.repository.get(conditions)
 	}
 }

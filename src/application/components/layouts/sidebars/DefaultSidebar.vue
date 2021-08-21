@@ -2,17 +2,17 @@
 	<aside class="d-flex flex-column gap-1">
 		<div class="sidebar-links">
 			<NuxtLink class="sidebar-link" to="/dashboard">
-				<img src="@app/assets/images/icons/dashboard.svg" alt="">
+				<img alt="" src="@app/assets/images/icons/dashboard.svg">
 				<span>Questions</span>
 			</NuxtLink>
 
 			<NuxtLink class="sidebar-link" to="/nerds">
-				<img src="@app/assets/images/icons/nerd.svg" alt="">
+				<img alt="" src="@app/assets/images/icons/nerd.svg">
 				<span>Top Nerds</span>
 			</NuxtLink>
 
 			<NuxtLink class="sidebar-link" to="/account/e-wallet">
-				<img src="@app/assets/images/icons/e-wallet.svg" alt="">
+				<img alt="" src="@app/assets/images/icons/e-wallet.svg">
 				<span>e-Wallet</span>
 			</NuxtLink>
 		</div>
@@ -28,6 +28,7 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useAccountModal } from '@app/hooks/core/modals'
+
 export default defineComponent({
 	name: 'DefaultSidebar',
 	setup () {

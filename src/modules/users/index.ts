@@ -23,7 +23,7 @@ import { ListenToNotificationsUseCase } from './domain/usecases/notifications/li
 import { MarkNotificationSeenUseCase } from './domain/usecases/notifications/markNotificationSeen'
 import { GetReviewsUseCase } from './domain/usecases/reviews/getReviews'
 import { ListenToReviewsUseCase } from './domain/usecases/reviews/listenToReviews'
-import { UserEntity, UserBio, generateDefaultBio } from './domain/entities/user'
+import { generateDefaultBio, UserBio, UserEntity } from './domain/entities/user'
 import { NotificationEntity } from './domain/entities/notification'
 import { ReviewEntity } from './domain/entities/review'
 

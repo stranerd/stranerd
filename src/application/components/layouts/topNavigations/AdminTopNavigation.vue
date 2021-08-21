@@ -1,6 +1,8 @@
 <template>
 	<nav class="px-2 bg-primary">
-		<div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 py-0 d-flex px-0 align-items-center justify-content-center">
+		<div
+			class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 py-0 d-flex px-0 align-items-center justify-content-center"
+		>
 			<NuxtLink class="nav-link-custom px-md-3 py-md-1 px-1 py-1" to="/admin/questions/subjects">
 				<span>Subjects</span>
 			</NuxtLink>
@@ -16,6 +18,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
+
 export default defineComponent({
 	name: 'AdminTopNavigation'
 })

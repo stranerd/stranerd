@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="d-flex flex-column gap-1 gap-lg-2 mb-1-5 mb-md-2-5">
-			<Heading variant="1" class="color-dark">
+			<Heading class="color-dark" variant="1">
 				Question
 			</Heading>
 			<BodyText variant="large">
@@ -12,15 +12,15 @@
 			</div>
 		</div>
 		<div class="answer-body p-md-3 p-1">
-			<Heading variant="2" class="mb-0-5">
+			<Heading class="mb-0-5" variant="2">
 				Give Your Answer
 			</Heading>
 
 			<AnswerForm
-				:submit="createAnswer"
-				:loading="loading"
-				:factory="factory"
 				:error="error"
+				:factory="factory"
+				:loading="loading"
+				:submit="createAnswer"
 			>
 				<template slot="buttonText">
 					Add Answer
@@ -32,11 +32,12 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, useMeta } from '@nuxtjs/composition-api'
-import { useCreateAnswer, getAnsweringQuestion } from '@app/hooks/questions/answers'
+import { getAnsweringQuestion, useCreateAnswer } from '@app/hooks/questions/answers'
 import AnswerForm from '@app/components/questions/answers/AnswerForm.vue'
 import Tag from '@app/components/questions/tags/Tag.vue'
 import { analytics } from '@modules/core'
 import { useAuth } from '@app/hooks/auth/auth'
+
 export default defineComponent({
 	name: 'QuestionPageAnswersCreatePage',
 	components: { AnswerForm, Tag },
@@ -48,7 +49,7 @@ export default defineComponent({
 			const question = getAnsweringQuestion()
 			if (!question) return redirect(`/questions/${questionId}`)
 			const canAnswer = question.userId !== id.value &&
-				!question.isAnswered && !user.value!.meta.answeredQuestions.includes(question.id)
+					!question.isAnswered && !user.value!.meta.answeredQuestions.includes(question.id)
 			if (!canAnswer) return redirect(`/questions/${question.id}`)
 		}
 	],

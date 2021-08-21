@@ -6,7 +6,7 @@
 			<ChatList :user-id="userId" class="flex-grow-1 px-1 px-md-2" />
 			<TutorSessionOption v-if="requestedSession" :session="requestedSession" class="px-0" />
 			<StudentWaitingSession v-if="requestingSession" :session="requestingSession" class="px-1" />
-			<ChatForm v-if="sessionId" :user-id="userId" :session-id="sessionId" class="px-1 px-md-2" />
+			<ChatForm v-if="sessionId" :session-id="sessionId" :user-id="userId" class="px-1 px-md-2" />
 		</div>
 		<DisplayError v-else error="No such user exists!" />
 	</div>
@@ -22,6 +22,7 @@ import StudentWaitingSession from '@app/components/sessions/chats/StudentWaiting
 import { useUser } from '@app/hooks/users/user'
 import { useAuth } from '@app/hooks/auth/auth'
 import { hasRequestedSessionWith, isRequestingSessionWith, useCurrentSession } from '@app/hooks/sessions/session'
+
 export default defineComponent({
 	name: 'ContactListMessages',
 	components: { ChatHead, ChatList, ChatForm, TutorSessionOption, StudentWaitingSession },
@@ -41,7 +42,8 @@ export default defineComponent({
 			get: () => currentSessionId.value && user.value?.currentSession === currentSessionId.value
 				? currentSessionId.value
 				: '',
-			set: () => {}
+			set: () => {
+			}
 		})
 		const hash = computed({
 			get: () => [
@@ -50,7 +52,8 @@ export default defineComponent({
 				sessionId.value,
 				currentSession.value?.hash ?? ''
 			].join('--'),
-			set: () => {}
+			set: () => {
+			}
 		})
 		const requestedSession = hasRequestedSessionWith(props.userId)
 		const requestingSession = isRequestingSessionWith(props.userId)

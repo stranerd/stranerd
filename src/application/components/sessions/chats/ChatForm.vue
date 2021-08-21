@@ -4,7 +4,7 @@
 		<a class="fas fa-paperclip" @click.prevent="() => { $refs.mediaInput.value= ''; $refs.mediaInput.click() }" />
 		<a class="fas fa-paper-plane" @click.prevent="() => { factory.content && createTextChat() }" />
 		<PageLoading v-if="loading" />
-		<input ref="mediaInput" type="file" multiple class="d-none" @change.prevent="catchMultipleFiles">
+		<input ref="mediaInput" class="d-none" multiple type="file" @change.prevent="catchMultipleFiles">
 	</form>
 </template>
 
@@ -12,6 +12,7 @@
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { useCreateChat } from '@app/hooks/sessions/chats'
 import { useMultipleFileInputs } from '@app/hooks/core/forms'
+
 export default defineComponent({
 	name: 'ChatForm',
 	props: {
@@ -25,7 +26,13 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
-		const { createMediaChat, createTextChat, error, loading, factory } = useCreateChat(props.userId, props.sessionId)
+		const {
+			createMediaChat,
+			createTextChat,
+			error,
+			loading,
+			factory
+		} = useCreateChat(props.userId, props.sessionId)
 		const { catchMultipleFiles } = useMultipleFileInputs(createMediaChat)
 		return { factory, error, loading, createTextChat, catchMultipleFiles }
 	}

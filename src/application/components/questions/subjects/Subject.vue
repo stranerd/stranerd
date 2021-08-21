@@ -5,6 +5,7 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useSubject } from '@app/hooks/questions/subjects'
+
 export default defineComponent({
 	name: 'Subject',
 	props: {

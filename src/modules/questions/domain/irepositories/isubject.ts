@@ -4,7 +4,7 @@ import { SubjectToModel } from '../../data/models/subject'
 
 export interface ISubjectRepository {
 	add: (data: SubjectToModel) => Promise<string>
-	update: (id:string, data: SubjectToModel) => Promise<void>
+	update: (id: string, data: SubjectToModel) => Promise<void>
 	get: (conditions?: DatabaseGetClauses) => Promise<SubjectEntity[]>
 	find: (id: string) => Promise<SubjectEntity | null>
 	delete: (id: string) => Promise<void>

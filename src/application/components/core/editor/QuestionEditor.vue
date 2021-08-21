@@ -1,10 +1,10 @@
 <template>
 	<client-only>
 		<BaseEditor
-			:value="model"
 			:error="error"
-			:valid="valid"
 			:toolbar="toolbar"
+			:valid="valid"
+			:value="model"
 			path="questions"
 			placeholder="Explain your question in full detail."
 			@update:value="$emit('update:model',$event)"
@@ -15,6 +15,7 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import BaseEditor from '@app/components/core/editor/BaseEditor.vue'
+
 export default defineComponent({
 	name: 'QuestionEditor',
 	components: { BaseEditor },

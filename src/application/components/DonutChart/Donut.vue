@@ -1,22 +1,24 @@
 <template>
-	<div class="cdc-container" :style="placementStyles.container">
-		<div ref="donut" class="cdc" :style="donutStyles">
+	<div :style="placementStyles.container" class="cdc-container">
+		<div ref="donut" :style="donutStyles" class="cdc">
 			<donut-sections
 				:sections="donutSections"
 				:start-angle="startAngle"
 				v-on="sectionListeners"
 			/>
-			<div class="cdc-overlay" :style="overlayStyles">
-				<div class="cdc-text" :style="donutTextStyles">
-					<slot><DynamicText>{{ text }}</DynamicText></slot>
+			<div :style="overlayStyles" class="cdc-overlay">
+				<div :style="donutTextStyles" class="cdc-text">
+					<slot>
+						<DynamicText>{{ text }}</DynamicText>
+					</slot>
 				</div>
 			</div>
 		</div>
 
 		<slot name="legend">
-			<div v-if="hasLegend" class="cdc-legend" :style="placementStyles.legend">
-				<span v-for="(item, idx) in legend" :key="idx" class="cdc-legend-item" :title="item.percent">
-					<span class="cdc-legend-item-color" :style="item.styles" />
+			<div v-if="hasLegend" :style="placementStyles.legend" class="cdc-legend">
+				<span v-for="(item, idx) in legend" :key="idx" :title="item.percent" class="cdc-legend-item">
+					<span :style="item.styles" class="cdc-legend-item-color" />
 					<span><DynamicText>{{ item.label }}</DynamicText></span>
 
 				</span>
@@ -129,7 +131,12 @@ export default {
 
 						sections.push(
 							{ ...section, degree: remainingDegreesInCurrentSection, color, $section: section },
-							{ ...section, degree: degree - remainingDegreesInCurrentSection, color, $section: section }
+							{
+								...section,
+								degree: degree - remainingDegreesInCurrentSection,
+								color,
+								$section: section
+							}
 						)
 					} else {
 						sections.push({ ...section, degree, color, $section: section })

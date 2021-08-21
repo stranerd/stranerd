@@ -6,7 +6,7 @@ export enum TIMES {
 	year = 60 * 60 * 24 * 30 * 12
 }
 
-export const getTwoDigits = (digit: number) :string => (digit < 10 ? '0' : '') + digit
+export const getTwoDigits = (digit: number): string => (digit < 10 ? '0' : '') + digit
 export const formatTimeAsDigits = (date: Date) => {
 	const hour = getTwoDigits(date.getHours())
 	const minute = getTwoDigits(date.getMinutes())

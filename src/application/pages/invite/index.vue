@@ -1,14 +1,15 @@
 <template>
 	<div class="d-flex flex-column">
 		<div v-if="isLoggedIn" class="d-flex flex-column align-items-center text-center gap-1 gap-1-5 box py-1">
-			<img src="@app/assets/images/invite.svg" class="w-100">
-			<Heading variant="1" class="text-primary">
+			<img class="w-100" src="@app/assets/images/invite.svg">
+			<Heading class="text-primary" variant="1">
 				Invite A Friend
 			</Heading>
 			<p>
-				Refer your friends who are not using Stranerd and get 1 Gold and 10 Bronze Coins for every one that successfully signs up.
+				Refer your friends who are not using Stranerd and get 1 Gold and 10 Bronze Coins for every one that
+				successfully signs up.
 			</p>
-			<Heading variant="4" class="mt-1 text-primary">
+			<Heading class="mt-1 text-primary" variant="4">
 				This is your unique invitation link:
 			</Heading>
 			<div
@@ -27,11 +28,11 @@
 					Copy
 				</button>
 				<Share
+					:link="link"
 					class="flex-grow-1 w-100 btn btn-primary rounded-3"
 					tabindex="0"
-					title="Invite your friends to join Stranerd and earn coins"
 					text="Copy your unique link or share it directly via text, social media or email. You will be notified of each successful referrals. You will receive 1 gold and 10 bronze coins for each successful referral."
-					:link="link"
+					title="Invite your friends to join Stranerd and earn coins"
 				>
 					Share
 				</Share>
@@ -49,6 +50,7 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { domain } from '@utils/environment'
 import { copyToClipboard } from '@utils/commons'
 import { Notify } from '@app/hooks/core/notifications'
+
 export default defineComponent({
 	name: 'InvitePage',
 	middleware: 'isAuthenticated',
@@ -56,7 +58,8 @@ export default defineComponent({
 		const { id, user, isLoggedIn } = useAuth()
 		const link = computed({
 			get: () => `${domain}/invite/${id.value}`,
-			set: () => {}
+			set: () => {
+			}
 		})
 		const copy = async () => {
 			const res = await copyToClipboard(link.value)

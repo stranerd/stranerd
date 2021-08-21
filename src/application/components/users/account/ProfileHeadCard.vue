@@ -1,10 +1,10 @@
 <template>
 	<div class="d-flex flex-column align-items-center gap-0-5 p-2">
-		<Heading variant="2" no-grow class="color-dark">
+		<Heading class="color-dark" no-grow variant="2">
 			Balance
 		</Heading>
 		<NuxtLink class="d-block w-92" to="/account/e-wallet">
-			<AccountCoinBalance class="justify-content-center" :user="user" />
+			<AccountCoinBalance :user="user" class="justify-content-center" />
 		</NuxtLink>
 	</div>
 </template>
@@ -13,6 +13,7 @@
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { UserEntity } from '@modules/users'
 import AccountCoinBalance from '@app/components/users/account/AccountCoinBalance.vue'
+
 export default defineComponent({
 	name: 'ProfileHeadCard',
 	components: { AccountCoinBalance },

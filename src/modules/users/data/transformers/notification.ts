@@ -12,7 +12,7 @@ export class NotificationTransformer {
 		})
 	}
 
-	toJSON (entity: NotificationEntity) :NotificationToModel {
+	toJSON (entity: NotificationEntity): NotificationToModel {
 		return {
 			body: entity.body,
 			action: entity.action,

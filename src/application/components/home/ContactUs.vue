@@ -1,21 +1,21 @@
 <template>
 	<div class="py-5">
 		<div class="d-flex flex-column col-lg-10 offset-lg-1 inner-wrapper">
-			<Heading variant="2" class="text-center mx-1-25 mb-2 text-primary-dark">
+			<Heading class="text-center mx-1-25 mb-2 text-primary-dark" variant="2">
 				Get in touch with us
 			</Heading>
 			<div class="position-relative">
-				<img src="@app/assets/images/homepage/yellow_bubble.svg" class="ImageBubble">
+				<img class="ImageBubble" src="@app/assets/images/homepage/yellow_bubble.svg">
 				<div class="d-flex flex-column flex-column gap-2 col-md-8 offset-md-2 col-lg-6 offset-lg-3 px-1-25">
 					<MessageForm class="cardform" />
 					<div class="cardform fw-bold p-1 flex-column gap-1 flex-md-row d-flex align-items-center">
 						<div class="w-100 flex-grow-1 d-flex align-items-center gap-0-5">
-							<img src="@app/assets/images/homepage/call.svg" height="30">
+							<img height="30" src="@app/assets/images/homepage/call.svg">
 							<a v-if="isNigerian" href="tel:+2348130322791">+234 813 032-2791</a>
 							<a v-else href="tel:+14044035611">+1 (404) 403-5611</a>
 						</div>
 						<div class="w-100 flex-grow-1 d-flex align-items-center gap-0-5">
-							<img src="@app/assets/images/homepage/message.svg" height="30">
+							<img height="30" src="@app/assets/images/homepage/message.svg">
 							<a href="mailto:support@stranerd.com">support@stranerd.com</a>
 						</div>
 					</div>
@@ -29,13 +29,15 @@
 import { computed, defineComponent } from '@nuxtjs/composition-api'
 import MessageForm from '@app/components/forms/MessageForm.vue'
 import { useAuth } from '@app/hooks/auth/auth'
+
 export default defineComponent({
 	name: 'ContactUs',
 	components: { MessageForm },
 	setup () {
 		const isNigerian = computed({
 			get: () => useAuth().location.value?.countryCode === 'NG',
-			set: () => {}
+			set: () => {
+			}
 		})
 		return { isNigerian }
 	}

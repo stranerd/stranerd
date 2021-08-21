@@ -9,11 +9,13 @@
 				<input
 					id="first_name"
 					v-model="factory.fName"
+					:class="{'is-invalid': factory.errors.fName, 'is-valid': factory.isValid('fName')}"
 					class="form-control"
 					placeholder="John"
-					:class="{'is-invalid': factory.errors.fName, 'is-valid': factory.isValid('fName')}"
 				>
-				<small v-if="factory.errors.fName" class="small text-danger d-block"><DynamicText>{{ factory.errors.fName }}</DynamicText></small>
+				<small v-if="factory.errors.fName" class="small text-danger d-block">
+					<DynamicText>{{ factory.errors.fName }}</DynamicText>
+				</small>
 				<DynamicText>{{ factory.errors.fName }}</DynamicText>
 			</div>
 			<div class="w-100 flex-grow-1 d-flex flex-column">
@@ -24,11 +26,13 @@
 				<input
 					id="last_name"
 					v-model="factory.lName"
+					:class="{'is-invalid': factory.errors.lName, 'is-valid': factory.isValid('lName')}"
 					class="form-control"
 					placeholder="Smith"
-					:class="{'is-invalid': factory.errors.lName, 'is-valid': factory.isValid('lName')}"
 				>
-				<small v-if="factory.errors.lName" class="small text-danger d-block"><DynamicText>{{ factory.errors.lName }}</DynamicText></small>
+				<small v-if="factory.errors.lName" class="small text-danger d-block">
+					<DynamicText>{{ factory.errors.lName }}</DynamicText>
+				</small>
 			</div>
 		</div>
 
@@ -40,12 +44,14 @@
 			<input
 				id="email"
 				v-model="factory.email"
-				class="form-control"
-				type="email"
-				placeholder="johnsmith@gmail.com"
 				:class="{'is-invalid': factory.errors.name, 'is-valid': factory.isValid('email')}"
+				class="form-control"
+				placeholder="johnsmith@gmail.com"
+				type="email"
 			>
-			<small v-if="factory.errors.email" class="small text-danger d-block"><DynamicText>{{ factory.errors.email }}</DynamicText></small>
+			<small v-if="factory.errors.email" class="small text-danger d-block">
+				<DynamicText>{{ factory.errors.email }}</DynamicText>
+			</small>
 		</div>
 
 		<div class="d-flex flex-column">
@@ -56,15 +62,17 @@
 			<textarea
 				id="message"
 				v-model="factory.message"
-				class="form-control"
-				rows="4"
 				:class="{'is-invalid': factory.errors.message, 'is-valid': factory.isValid('message')}"
+				class="form-control"
 				placeholder="I love Stranerd"
+				rows="4"
 			/>
-			<small v-if="factory.errors.message" class="small text-danger d-block"><DynamicText>{{ factory.errors.message }}</DynamicText></small>
+			<small v-if="factory.errors.message" class="small text-danger d-block">
+				<DynamicText>{{ factory.errors.message }}</DynamicText>
+			</small>
 		</div>
 
-		<button class="btn btn btn-lg btn-custom w-100" type="submit" :disabled="loading || !factory.valid">
+		<button :disabled="loading || !factory.valid" class="btn btn btn-lg btn-custom w-100" type="submit">
 			Send Message
 		</button>
 		<PageLoading v-if="loading" />
@@ -75,6 +83,7 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useCreateMessage } from '@app/hooks/forms/messages'
+
 export default defineComponent({
 	name: 'MessageForm',
 	setup () {

@@ -39,7 +39,9 @@ export const useTransactionList = (userId: string) => {
 			global[userId].hasMore.value = transactions.length === PAGINATION_LIMIT + 1
 			transactions.slice(0, PAGINATION_LIMIT).reverse().forEach((t) => unshiftToTransactionList(userId, t))
 			global[userId].fetched.value = true
-		} catch (e) { global[userId].setError(e) }
+		} catch (e) {
+			global[userId].setError(e)
+		}
 		global[userId].setLoading(false)
 	}
 
@@ -51,7 +53,9 @@ export const useTransactionList = (userId: string) => {
 			const transactions = await GetOlderTransactions.call(userId, lastDate ? new Date(lastDate) : undefined)
 			global[userId].hasMore.value = transactions.length === PAGINATION_LIMIT + 1
 			transactions.slice(0, PAGINATION_LIMIT).forEach((t) => pushToTransactionList(userId, t))
-		} catch (e) { global[userId].setError(e) }
+		} catch (e) {
+			global[userId].setError(e)
+		}
 		global[userId].setLoading(false)
 	}
 

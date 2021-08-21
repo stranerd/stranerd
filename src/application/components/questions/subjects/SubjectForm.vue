@@ -4,15 +4,15 @@
 			<div class="form-group w-100">
 				<input
 					v-model="factory.name"
+					:class="{'is-invalid': factory.errors.name, 'is-valid': factory.isValid('name')}"
 					class="form-control p-1"
 					placeholder="Add a new subject"
-					:class="{'is-invalid': factory.errors.name, 'is-valid': factory.isValid('name')}"
 				>
 				<DynamicText v-if="factory.errors.name" class="small text-danger d-block">
 					{{ factory.errors.name }}
 				</DynamicText>
 			</div>
-			<button class="btn btn-lg btn-custom" type="submit" :disabled="loading || !factory.valid">
+			<button :disabled="loading || !factory.valid" class="btn btn-lg btn-custom" type="submit">
 				<span><slot name="buttonText">Submit</slot></span>
 			</button>
 		</div>
@@ -24,6 +24,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { SubjectFactory } from '@modules/questions'
+
 export default defineComponent({
 	name: 'SubjectForm',
 	props: {

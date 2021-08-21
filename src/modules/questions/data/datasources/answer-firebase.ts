@@ -1,4 +1,4 @@
-import { FirestoreGetClauses, FirestoreService, DatabaseService, FunctionsService } from '@modules/core'
+import { DatabaseService, FirestoreGetClauses, FirestoreService, FunctionsService } from '@modules/core'
 import { AnswerFromModel, AnswerToModel } from '../models/answer'
 import { AnswerBaseDataSource } from './answer-base'
 

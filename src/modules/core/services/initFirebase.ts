@@ -5,7 +5,7 @@ import 'firebase/database'
 import 'firebase/firestore'
 import 'firebase/functions'
 import 'firebase/storage'
-import { isClient, isDev, firebaseConfig } from '@utils/environment'
+import { firebaseConfig, isClient, isDev } from '@utils/environment'
 
 if (firebase.apps.length === 0) {
 	firebase.initializeApp(firebaseConfig)
@@ -26,7 +26,10 @@ export const functions = firebase.functions()
 export const storage = firebase.storage()
 export const analytics = isClient()
 	? firebase.analytics()
-	: { logEvent: () => {} } as unknown as firebase.analytics.Analytics
+	: {
+		logEvent: () => {
+		}
+	} as unknown as firebase.analytics.Analytics
 export type Timestamp = firebase.firestore.Timestamp
 
 export const uploadFile = async (path: string, file: File) => {
@@ -35,5 +38,7 @@ export const uploadFile = async (path: string, file: File) => {
 		await storage.ref(path).put(file)
 		const link = await storage.ref(path).getDownloadURL()
 		return { name: file.name, path, link, type: file.type }
-	} catch { throw new Error(`Error uploading ${file.name}`) }
+	} catch {
+		throw new Error(`Error uploading ${file.name}`)
+	}
 }

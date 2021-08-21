@@ -1,6 +1,6 @@
 <template>
 	<form class="gap-1 gap-md-2 d-flex flex-column" @submit.prevent="resetPassword">
-		<Heading variant="1" class="text-center">
+		<Heading class="text-center" variant="1">
 			Reset Password
 		</Heading>
 		<!-- TODO: add logic for reset password in app -->
@@ -11,12 +11,12 @@
 			<input
 				id="password"
 				v-model="factory.password"
-				type="password"
-				name="password"
-				required
-				placeholder="New Password"
-				class="form-control"
 				autocomplete="password"
+				class="form-control"
+				name="password"
+				placeholder="New Password"
+				required
+				type="password"
 			>
 			<DynamicText v-if="factory.errors.password" class="small text-danger d-block">
 				{{ factory.errors.password }}
@@ -26,12 +26,12 @@
 			<input
 				id="cPassword"
 				v-model="factory.cPassword"
-				type="password"
-				name="cPassword"
-				required
-				placeholder="Confirm Password"
-				class="form-control"
 				autocomplete="password"
+				class="form-control"
+				name="cPassword"
+				placeholder="Confirm Password"
+				required
+				type="password"
 			>
 			<DynamicText v-if="factory.errors.cPassword" class="small text-danger d-block">
 				{{ factory.errors.cPassword }}
@@ -54,6 +54,7 @@
 <script lang="ts">
 import { defineComponent, useMeta } from '@nuxtjs/composition-api'
 import { usePasswordReset } from '@app/hooks/auth/passwords'
+
 export default defineComponent({
 	name: 'AuthResetPage',
 	layout: 'auth',

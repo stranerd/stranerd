@@ -1,7 +1,7 @@
 import { isClient } from '@utils/environment'
 
 export enum AudioSounds {
-	CHAT= '/audios/new-chat.mp3'
+	CHAT = '/audios/new-chat.mp3'
 }
 
 export const useAudioPlayer = (sound: AudioSounds) => {

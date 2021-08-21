@@ -26,7 +26,9 @@ export const useFlutterwavePayment = () => {
 			analytics.logEvent('purchase', {
 				value: props.amount!
 			})
-		} catch (e) { setError(e) }
+		} catch (e) {
+			setError(e)
+		}
 		setLoading(false)
 	}
 
@@ -58,7 +60,9 @@ export const useStripePayment = () => {
 			analytics.logEvent('purchase', {
 				value: props.amount!
 			})
-		} catch (e) { setError(e) }
+		} catch (e) {
+			setError(e)
+		}
 		setLoading(false)
 	}
 

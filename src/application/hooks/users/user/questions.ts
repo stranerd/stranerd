@@ -9,6 +9,7 @@ enum Answered {
 	Answered,
 	Unanswered
 }
+
 const answeredChoices = [
 	{ val: Answered.All, key: 'All' },
 	{ val: Answered.BestAnswered, key: 'Best Answered' },
@@ -50,7 +51,9 @@ export const useUserQuestionList = (id: string) => {
 			return true
 		}).sort((a, b) => {
 			return new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
-		}), set: (questions) => { questions.map((q) => pushToQuestionList(id, q)) }
+		}), set: (questions) => {
+			questions.map((q) => pushToQuestionList(id, q))
+		}
 	})
 
 	const fetchQuestions = async () => {
@@ -62,7 +65,9 @@ export const useUserQuestionList = (id: string) => {
 			global[id].hasMore.value = questions.length === PAGINATION_LIMIT + 1
 			questions.slice(0, PAGINATION_LIMIT).forEach((q) => pushToQuestionList(id, q))
 			global[id].fetched.value = true
-		} catch (error) { global[id].setError(error) }
+		} catch (error) {
+			global[id].setError(error)
+		}
 		global[id].setLoading(false)
 	}
 

@@ -12,7 +12,7 @@ export class ReportTransformer<ReportType extends { userId: string }> {
 		})
 	}
 
-	toJSON (entity: ReportEntity<ReportType>) :ReportToModel<ReportType> {
+	toJSON (entity: ReportEntity<ReportType>): ReportToModel<ReportType> {
 		return {
 			reporterId: entity.reporterId,
 			reportedId: entity.reportedId,

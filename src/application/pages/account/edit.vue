@@ -10,6 +10,7 @@
 <script lang="ts">
 import AccountProfileForm from '@app/components/users/account/AccountProfileForm.vue'
 import { defineComponent, useMeta, useRouter } from '@nuxtjs/composition-api'
+
 export default defineComponent({
 	name: 'AccountEditPage',
 	components: { AccountProfileForm },

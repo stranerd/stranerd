@@ -1,5 +1,5 @@
 import { BaseFactory, Media } from '@modules/core'
-import { isLongerThan, isFile, isRequiredIf } from 'sd-validate/lib/rules'
+import { isFile, isLongerThan, isRequiredIf } from 'sd-validate/lib/rules'
 import { ChatToModel } from '../../data/models/chat'
 import { ChatEntity } from '../entities/chat'
 
@@ -15,20 +15,43 @@ export class ChatFactory extends BaseFactory<ChatEntity, ChatToModel, Keys> {
 		media: { required: false, rules: [(val: Content) => isRequiredIf(val, !this.content), isFile] }
 	}
 
+	reserved = ['from']
+
 	constructor () {
 		super({ content: undefined, from: '', media: undefined, sessionId: undefined })
 	}
 
-	reserved = ['from']
+	get content () {
+		return this.values.content
+	}
 
-	get content () { return this.values.content }
-	set content (value: string | undefined) { this.set('content', value) }
-	get from () { return this.values.from }
-	set from (value: string) { this.set('from', value) }
-	get media () { return this.values.media }
-	set media (value: Content) { this.set('media', value) }
-	get sessionId () { return this.values.sessionId }
-	set sessionId (value: string | undefined) { this.set('sessionId', value) }
+	set content (value: string | undefined) {
+		this.set('content', value)
+	}
+
+	get from () {
+		return this.values.from
+	}
+
+	set from (value: string) {
+		this.set('from', value)
+	}
+
+	get media () {
+		return this.values.media
+	}
+
+	set media (value: Content) {
+		this.set('media', value)
+	}
+
+	get sessionId () {
+		return this.values.sessionId
+	}
+
+	set sessionId (value: string | undefined) {
+		this.set('sessionId', value)
+	}
 
 	toModel = async () => {
 		if (this.valid) {

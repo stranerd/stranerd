@@ -10,7 +10,9 @@ export class TagEntity extends BaseEntity {
 		this.count = count
 	}
 
-	get name () { return this.id }
+	get name () {
+		return this.id
+	}
 }
 
 type TagConstructorArgs = { id: string, count: number }

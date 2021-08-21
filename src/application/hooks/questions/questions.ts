@@ -1,7 +1,14 @@
-import { ssrRef, watch, computed, useRouter, useFetch, ref, Ref } from '@nuxtjs/composition-api'
+import { computed, ref, Ref, ssrRef, useFetch, useRouter, watch } from '@nuxtjs/composition-api'
 import {
-	AddQuestion, DeleteQuestion, EditQuestion, FindQuestion, GetQuestions, ListenToQuestion,
-	ListenToQuestions, QuestionEntity, QuestionFactory
+	AddQuestion,
+	DeleteQuestion,
+	EditQuestion,
+	FindQuestion,
+	GetQuestions,
+	ListenToQuestion,
+	ListenToQuestions,
+	QuestionEntity,
+	QuestionFactory
 } from '@modules/questions'
 import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { COINS_GAP, MAXIMUM_COINS, MINIMUM_COINS, PAGINATION_LIMIT } from '@utils/constants'
@@ -16,6 +23,7 @@ enum Answered {
 	Answered,
 	Unanswered
 }
+
 const answeredChoices = [
 	{ val: Answered.All, key: 'All' },
 	{ val: Answered.BestAnswered, key: 'Best Answered' },
@@ -53,11 +61,15 @@ export const useQuestionList = () => {
 			global.hasMore.value = questions.length === PAGINATION_LIMIT + 1
 			questions.slice(0, PAGINATION_LIMIT).forEach(pushToQuestionList)
 			global.fetched.value = true
-		} catch (error) { global.setError(error) }
+		} catch (error) {
+			global.setError(error)
+		}
 		global.setLoading(false)
 	}
 	const listener = useListener(async () => {
-		const appendQuestions = (questions: QuestionEntity[]) => { questions.map(unshiftToQuestionList) }
+		const appendQuestions = (questions: QuestionEntity[]) => {
+			questions.map(unshiftToQuestionList)
+		}
 		const lastDate = global.questions.value[global.questions.value.length - 1]?.createdAt
 		return await ListenToQuestions.call(appendQuestions, lastDate ? new Date(lastDate) : undefined)
 	})
@@ -70,13 +82,17 @@ export const useQuestionList = () => {
 			return true
 		}).sort((a, b) => {
 			return new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1
-		}), set: (questions) => { questions.map(pushToQuestionList) }
+		}), set: (questions) => {
+			questions.map(pushToQuestionList)
+		}
 	})
 
 	const fetchOlderQuestions = async () => {
 		await fetchQuestions()
 		await listener.resetListener(async () => {
-			const appendQuestions = (questions: QuestionEntity[]) => { questions.map(unshiftToQuestionList) }
+			const appendQuestions = (questions: QuestionEntity[]) => {
+				questions.map(unshiftToQuestionList)
+			}
 			const lastDate = global.questions.value[global.questions.value.length - 1]?.createdAt
 			return await ListenToQuestions.call(appendQuestions, lastDate ? new Date(lastDate) : undefined)
 		})
@@ -114,7 +130,8 @@ export const useCreateQuestion = () => {
 			const maximum = user.value!.account.coins.bronze <= MAXIMUM_COINS ? user.value!.account.coins.bronze : MAXIMUM_COINS
 			for (let i = MINIMUM_COINS; i <= maximum; i = i + COINS_GAP) coins.push(i)
 			return coins
-		}, set: () => {}
+		}, set: () => {
+		}
 	})
 
 	factory.value.userBioAndId = { id: id.value!, user: bio.value! }
@@ -134,7 +151,9 @@ export const useCreateQuestion = () => {
 				analytics.logEvent('ask_question_completed', {
 					questionId, subject
 				})
-			} catch (error) { setError(error) }
+			} catch (error) {
+				setError(error)
+			}
 			setLoading(false)
 		} else factory.value.validateAll()
 	}
@@ -147,7 +166,9 @@ export const useQuestion = (questionId: string) => {
 	const { loading, setLoading } = useLoadingHandler()
 	const question = computed({
 		get: () => global.questions.value.find((q) => q.id === questionId) ?? null,
-		set: (q) => { if (q) pushToQuestionList(q) }
+		set: (q) => {
+			if (q) pushToQuestionList(q)
+		}
 	})
 
 	const fetchQuestion = async () => {
@@ -161,7 +182,9 @@ export const useQuestion = (questionId: string) => {
 			}
 			question = await FindQuestion.call(questionId)
 			if (question) unshiftToQuestionList(question)
-		} catch (error) { setError(error) }
+		} catch (error) {
+			setError(error)
+		}
 		setLoading(false)
 	}
 	const listener = useListener(async () => {
@@ -203,7 +226,8 @@ export const useEditQuestion = (questionId: string) => {
 			const maximum = user.value!.account.coins.bronze <= MAXIMUM_COINS ? user.value!.account.coins.bronze : MAXIMUM_COINS
 			for (let i = MINIMUM_COINS; i <= maximum; i = i + COINS_GAP) coins.push(i)
 			return coins
-		}, set: () => {}
+		}, set: () => {
+		}
 	})
 
 	if (editingQuestion) factory.value.loadEntity(editingQuestion)
@@ -223,7 +247,9 @@ export const useEditQuestion = (questionId: string) => {
 				analytics.logEvent('edit_question_completed', {
 					questionId, subject
 				})
-			} catch (error) { setError(error) }
+			} catch (error) {
+				setError(error)
+			}
 			setLoading(false)
 		} else factory.value.validateAll()
 	}
@@ -253,7 +279,9 @@ export const useDeleteQuestion = (questionId: string) => {
 					.filter((q) => q.id !== questionId)
 				setMessage('Question deleted successfully')
 				await router.push('/questions')
-			} catch (error) { setError(error) }
+			} catch (error) {
+				setError(error)
+			}
 			setLoading(false)
 		}
 	}

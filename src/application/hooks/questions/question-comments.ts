@@ -1,6 +1,10 @@
 import { Ref, ref, ssrRef, useFetch, watch } from '@nuxtjs/composition-api'
 import {
-	AddQuestionComment, CommentEntity, CommentFactory, GetQuestionComments, ListenToQuestionComments
+	AddQuestionComment,
+	CommentEntity,
+	CommentFactory,
+	GetQuestionComments,
+	ListenToQuestionComments
 } from '@modules/questions'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
@@ -24,7 +28,9 @@ export const useQuestionCommentList = (questionId: string) => {
 			global[questionId].setLoading(true)
 			global[questionId].comments.value = await GetQuestionComments.call(questionId)
 			global[questionId].fetched.value = true
-		} catch (error) { global[questionId].setError(error) }
+		} catch (error) {
+			global[questionId].setError(error)
+		}
 		global[questionId].setLoading(false)
 	}
 
@@ -62,7 +68,9 @@ export const useCreateQuestionComments = (questionId: string) => {
 				setLoading(true)
 				await AddQuestionComment.call(questionId, factory.value)
 				factory.value.reset()
-			} catch (error) { setError(error) }
+			} catch (error) {
+				setError(error)
+			}
 			setLoading(false)
 		} else factory.value.validateAll()
 	}

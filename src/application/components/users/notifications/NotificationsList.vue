@@ -1,6 +1,10 @@
 <template>
 	<div>
-		<NotificationsListCard v-for="notification in notifications" :key="notification.hassssssh" :notification="notification" />
+		<NotificationsListCard
+			v-for="notification in notifications"
+			:key="notification.hassssssh"
+			:notification="notification"
+		/>
 		<div v-if="hasMore" class="text-center py-2 text-18 text-primary-dark">
 			<a @click.prevent="fetchOlderNotifications">Load More</a>
 		</div>
@@ -14,6 +18,7 @@
 import { defineComponent, onMounted } from '@nuxtjs/composition-api'
 import { useNotificationList } from '@app/hooks/users/notifications'
 import NotificationsListCard from '@app/components/users/notifications/NotificationsListCard.vue'
+
 export default defineComponent({
 	name: 'NotificationsList',
 	components: { NotificationsListCard },

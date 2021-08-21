@@ -19,6 +19,7 @@ import { defineComponent, onBeforeUnmount, onMounted, PropType } from '@nuxtjs/c
 import { useAnswerList } from '@app/hooks/questions/answers'
 import AnswerCard from '@app/components/questions/answers/AnswersListCard.vue'
 import { QuestionEntity } from '@modules/questions'
+
 export default defineComponent({
 	name: 'AnswersList',
 	components: { AnswerCard },

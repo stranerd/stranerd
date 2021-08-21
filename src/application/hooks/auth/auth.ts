@@ -1,5 +1,5 @@
 import { computed, reqSsrRef } from '@nuxtjs/composition-api'
-import { FindUser, ListenToUser, UserEntity, UpdateStreak } from '@modules/users'
+import { FindUser, ListenToUser, UpdateStreak, UserEntity } from '@modules/users'
 import { AuthDetails, UserLocation } from '@modules/auth/domain/entities/auth'
 import { SessionSignout } from '@modules/auth'
 import { isClient } from '@utils/environment'
@@ -15,15 +15,31 @@ const global = {
 }
 
 export const useAuth = () => {
-	const id = computed({ get: () => global.auth.value?.id ?? '', set: () => {} })
-	const bio = computed({ get: () => global.user.value?.bio, set: () => {} })
+	const id = computed({
+		get: () => global.auth.value?.id ?? '', set: () => {
+		}
+	})
+	const bio = computed({
+		get: () => global.user.value?.bio, set: () => {
+		}
+	})
 
-	const isLoggedIn = computed({ get: () => !!id.value && !!global.user.value, set: () => {} })
-	const isVerified = computed({ get: () => !!global.auth.value?.isVerified, set: () => {} })
-	const isAdmin = computed({ get: () => !!global.user.value?.roles.isAdmin, set: () => {} })
+	const isLoggedIn = computed({
+		get: () => !!id.value && !!global.user.value, set: () => {
+		}
+	})
+	const isVerified = computed({
+		get: () => !!global.auth.value?.isVerified, set: () => {
+		}
+	})
+	const isAdmin = computed({
+		get: () => !!global.user.value?.roles.isAdmin, set: () => {
+		}
+	})
 	const currentSessionId = computed({
 		get: () => global.user.value?.currentSession ?? null,
-		set: () => {}
+		set: () => {
+		}
 	})
 
 	const setUserLocation = (data: UserLocation) => {
@@ -53,7 +69,8 @@ export const useAuth = () => {
 		}
 		if (id) {
 			global.listener = await ListenToUser.call(id, setUser, true)
-			await UpdateStreak.call().catch(() => {})
+			await UpdateStreak.call().catch(() => {
+			})
 		}
 	}
 
@@ -62,7 +79,9 @@ export const useAuth = () => {
 			if (global.auth.value?.token) await auth.signInWithCustomToken(global.auth.value.token)
 			await startProfileListener(router)
 			analytics.logEvent('login', { remembered })
-		} catch (e) { await signout(router) }
+		} catch (e) {
+			await signout(router)
+		}
 	}
 
 	const signout = async (router: VueRouter) => {
@@ -73,7 +92,7 @@ export const useAuth = () => {
 		if (isClient()) window.location.assign('/')
 	}
 
-	const getKey = () :keyof typeof CONVERSION_RATES | null => {
+	const getKey = (): keyof typeof CONVERSION_RATES | null => {
 		if (!global.location.value) return null
 		const key = global.location.value.currencyCode as keyof typeof CONVERSION_RATES
 		return CONVERSION_RATES[key] ? key : null

@@ -1,11 +1,11 @@
 <template>
 	<span
-		class="d-inline-block"
 		:class="{
 			'text-truncate': truncate,
 			'text-nowrap': noWrap,
 			'text-wrap text-break': !noWrap
 		}"
+		class="d-inline-block"
 	>
 		<slot />
 	</span>
@@ -13,6 +13,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
+
 export default defineComponent({
 	name: 'DynamicText',
 	props: {

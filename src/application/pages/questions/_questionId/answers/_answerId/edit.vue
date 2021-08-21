@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="d-flex flex-column gap-1 gap-lg-2 mb-1-5 mb-md-2-5">
-			<Heading variant="1" class="color-dark">
+			<Heading class="color-dark" variant="1">
 				Question
 			</Heading>
 			<BodyText variant="large">
@@ -12,15 +12,15 @@
 			</div>
 		</div>
 		<div class="answer-body p-md-3 p-1">
-			<Heading variant="2" class="mb-0-5">
+			<Heading class="mb-0-5" variant="2">
 				Edit Your Answer
 			</Heading>
 
 			<AnswerForm
-				:submit="editAnswer"
-				:loading="loading"
-				:factory="factory"
 				:error="error"
+				:factory="factory"
+				:loading="loading"
+				:submit="editAnswer"
 			>
 				<template slot="buttonText">
 					Edit Answer
@@ -32,11 +32,12 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, useMeta, useRoute } from '@nuxtjs/composition-api'
-import { useEditAnswer, getEditingAnswer } from '@app/hooks/questions/answers'
+import { getEditingAnswer, useEditAnswer } from '@app/hooks/questions/answers'
 import AnswerForm from '@app/components/questions/answers/AnswerForm.vue'
 import Tag from '@app/components/questions/tags/Tag.vue'
 import { analytics } from '@modules/core'
 import { useAuth } from '@app/hooks/auth/auth'
+
 export default defineComponent({
 	name: 'QuestionPageAnswerEditPage',
 	components: { AnswerForm, Tag },

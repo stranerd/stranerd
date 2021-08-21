@@ -10,6 +10,7 @@
 <script lang="ts">
 import { defineComponent, useMeta } from '@nuxtjs/composition-api'
 import ContactList from '@app/components/sessions/chats/ContactList.vue'
+
 export default defineComponent({
 	name: 'SessionsPage',
 	components: { ContactList },
@@ -33,7 +34,9 @@ export default defineComponent({
 		align-items: center;
 		width: 70%;
 		flex-grow: 1;
-		@media (min-width: $lg) { display: flex; }
+		@media (min-width: $lg) {
+			display: flex;
+		}
 	}
 
 	.contact-list {

@@ -4,10 +4,10 @@
 			<div class="d-flex align-items-center nerd-card gap-1">
 				<span class="d-flex justify-content-end">
 					<NuxtLink :to="`/users/${tutor.id}`" class="position-relative">
-						<Avatar :src="tutor.avatar" :size="72" />
+						<Avatar :size="72" :src="tutor.avatar" />
 						<i
-							class="fas fa-circle position-absolute rounded-pill"
 							:class="tutor.isOnline ? 'text-success' : 'text-sub'"
+							class="fas fa-circle position-absolute rounded-pill"
 							style="z-index: 1; right: 0; bottom: 0; font-size: 1.25rem; border: 3px solid white;"
 						/>
 					</NuxtLink>
@@ -20,26 +20,32 @@
 						{{ tutor.rank.id }}
 					</DynamicText>
 				</div>
-				<button v-if="canRequestSession" class="btn btn-primary ms-auto rounded-pill" @click="requestNewSession">
+				<button
+					v-if="canRequestSession"
+					class="btn btn-primary ms-auto rounded-pill"
+					@click="requestNewSession"
+				>
 					Request A Session
 				</button>
 			</div>
 
 			<div class="nerd-card gap-1-5">
 				<span>
-					<ShowRatings class="ms-auto" :rating="tutor.averageRating" />
+					<ShowRatings :rating="tutor.averageRating" class="ms-auto" />
 				</span>
 				<DynamicText class="head-text">
-					{{ formatNumber(tutor.meta.answers.length) }} {{ pluralize(tutor.meta.answers.length, 'Question', 'Questions') }} Answered
+					{{ formatNumber(tutor.meta.answers.length) }}
+					{{ pluralize(tutor.meta.answers.length, 'Question', 'Questions') }} Answered
 				</DynamicText>
 				<DynamicText class="head-text">
-					{{ formatNumber(tutor.meta.tutorSessions.length) }} {{ pluralize(tutor.meta.tutorSessions.length, 'Session', 'Sessions') }} Hosted
+					{{ formatNumber(tutor.meta.tutorSessions.length) }}
+					{{ pluralize(tutor.meta.tutorSessions.length, 'Session', 'Sessions') }} Hosted
 				</DynamicText>
 			</div>
 
 			<div v-if="tutor.strongestSubject" class="nerd-card gap-1-5">
 				<span class="head-text">Strongest In</span>
-				<Subject :subject-id="tutor.strongestSubject.id" class="sub-text" />
+				<Subject :subject-id="tutor.strongestSubject" class="sub-text" />
 			</div>
 
 			<div v-if="tutor.tags.length" class="nerd-card gap-1-5">
@@ -52,10 +58,10 @@
 		<!-- smaller screens -->
 		<div class="d-flex flex-column align-items-center nerd-body gap-0-75 d-md-none">
 			<NuxtLink :to="`/users/${tutor.id}`" class="position-relative">
-				<Avatar :src="tutor.avatar" :size="70" />
+				<Avatar :size="70" :src="tutor.avatar" />
 				<i
-					class="fas fa-circle position-absolute rounded-pill"
 					:class="tutor.isOnline ? 'text-success' : 'text-sub'"
+					class="fas fa-circle position-absolute rounded-pill"
 					style="z-index: 1; right: 0; bottom: 0; font-size: 1rem; border: 3px solid white;"
 				/>
 			</NuxtLink>
@@ -70,15 +76,17 @@
 
 			<ShowRatings :rating="tutor.averageRating" />
 			<DynamicText class="fw-bold head-text">
-				{{ formatNumber(tutor.meta.answers.length) }} {{ pluralize(tutor.meta.answers.length, 'Question', 'Questions') }} Answered
+				{{ formatNumber(tutor.meta.answers.length) }}
+				{{ pluralize(tutor.meta.answers.length, 'Question', 'Questions') }} Answered
 			</DynamicText>
 			<DynamicText class="fw-bold head-text">
-				{{ formatNumber(tutor.meta.tutorSessions.length) }} {{ pluralize(tutor.meta.tutorSessions.length, 'Session', 'Sessions') }} Hosted
+				{{ formatNumber(tutor.meta.tutorSessions.length) }}
+				{{ pluralize(tutor.meta.tutorSessions.length, 'Session', 'Sessions') }} Hosted
 			</DynamicText>
 
 			<div v-if="tutor.strongestSubject" class="d-flex align-items-center gap-0-25 fw-bold">
 				<span class="head-text">Strongest In</span>
-				<Subject :subject-id="tutor.strongestSubject.id" class="sub-text" />
+				<Subject :subject-id="tutor.strongestSubject" class="sub-text" />
 			</div>
 
 			<div v-if="tutor.tags.length" class="d-flex justify-content-center flex-wrap gap-0-25">
@@ -102,6 +110,7 @@ import Subject from '@app/components/questions/subjects/Subject.vue'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useSessionModal } from '@app/hooks/core/modals'
 import { setNewSessionTutorIdBio } from '@app/hooks/sessions/sessions'
+
 export default defineComponent({
 	name: 'TutorsListCard',
 	components: { Tag, Subject },
@@ -115,10 +124,11 @@ export default defineComponent({
 		const { user } = useAuth()
 		const canRequestSession = computed({
 			get: () => user.value &&
-				user.value.id !== props.tutor.id &&
-				user.value.canRequestSessions &&
-				props.tutor.canHostSessions,
-			set: () => {}
+					user.value.id !== props.tutor.id &&
+					user.value.canRequestSessions &&
+					props.tutor.canHostSessions,
+			set: () => {
+			}
 		})
 		const requestNewSession = () => {
 			setNewSessionTutorIdBio({ id: props.tutor.id!, user: props.tutor.bio })
@@ -159,7 +169,9 @@ export default defineComponent({
 		border: 1px solid $color-line;
 		border-radius: 12px;
 		padding: 1rem 1rem;
-		@media (min-width: $md) { padding: 1.5rem 3rem; }
+		@media (min-width: $md) {
+			padding: 1.5rem 3rem;
+		}
 	}
 
 	.name {

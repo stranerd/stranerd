@@ -1,6 +1,6 @@
 <template>
 	<form class="gap-1 gap-md-2 d-flex flex-column" @submit.prevent="resetPassword">
-		<Heading variant="1" class="text-center">
+		<Heading class="text-center" variant="1">
 			Forgot Your Password?
 		</Heading>
 		<span class="textStyle text-center">
@@ -10,12 +10,12 @@
 			<input
 				id="email"
 				v-model="factory.email"
-				type="email"
-				name="email"
-				required
-				placeholder="Email"
-				class="form-control"
 				autocomplete="email"
+				class="form-control"
+				name="email"
+				placeholder="Email"
+				required
+				type="email"
 			>
 			<DynamicText v-if="factory.errors.email" class="small text-danger d-block">
 				{{ factory.errors.email }}
@@ -38,6 +38,7 @@
 <script lang="ts">
 import { defineComponent, useMeta } from '@nuxtjs/composition-api'
 import { usePasswordReset } from '@app/hooks/auth/passwords'
+
 export default defineComponent({
 	name: 'AuthForgotPage',
 	layout: 'auth',

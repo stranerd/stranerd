@@ -4,7 +4,10 @@
 		<div v-if="hasMore" class="text-center py-2 text-18 text-primary-dark">
 			<a @click.prevent="fetchOlderReviews">Load More</a>
 		</div>
-		<DisplayWarning v-if="!loading && !error && reviews.length === 0" message="This user has not received any reviews yet." />
+		<DisplayWarning
+			v-if="!loading && !error && reviews.length === 0"
+			message="This user has not received any reviews yet."
+		/>
 		<DisplayError :error="error" />
 		<PageLoading v-if="loading" />
 	</div>
@@ -14,6 +17,7 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import ReviewCard from '@app/components/users/reviews/ReviewListCard.vue'
 import { useUserReviewList } from '@app/hooks/users/user/reviews'
+
 export default defineComponent({
 	name: 'ReviewsList',
 	components: { ReviewCard },

@@ -13,10 +13,19 @@
 				<h5 class="headertext">
 					Bronze
 				</h5>
-				<div v-for="option in BRONZE_PRICES" :key="option.amount" class="d-flex align-items-center gap-1" style="font-size: 1.5rem;">
+				<div
+					v-for="option in BRONZE_PRICES"
+					:key="option.amount"
+					class="d-flex align-items-center gap-1"
+					style="font-size: 1.5rem;"
+				>
 					<img :src="option.src" alt="" width="48">
 					<DynamicText>{{ option.amount }}</DynamicText>
-					<button class="btn ms-auto customStyle" :class="option.suggested ? 'btn-dark' : 'btn-primary'" @click="buyCoins(option, false)">
+					<button
+						:class="option.suggested ? 'btn-dark' : 'btn-primary'"
+						class="btn ms-auto customStyle"
+						@click="buyCoins(option, false)"
+					>
 						{{ getLocalCurrencySymbol() }}{{ getLocalAmount(option.price) }}
 					</button>
 				</div>
@@ -25,10 +34,19 @@
 				<h5 class="headertext">
 					Gold
 				</h5>
-				<div v-for="option in GOLD_PRICES" :key="option.amount" class="d-flex align-items-center gap-1" style="font-size: 1.5rem;">
+				<div
+					v-for="option in GOLD_PRICES"
+					:key="option.amount"
+					class="d-flex align-items-center gap-1"
+					style="font-size: 1.5rem;"
+				>
 					<img :src="option.src" alt="" width="48">
 					<DynamicText>{{ option.amount }}</DynamicText>
-					<button class="btn ms-auto customStyle" :class="option.suggested ? 'btn-dark' : 'btn-primary'" @click="buyCoins(option, true)">
+					<button
+						:class="option.suggested ? 'btn-dark' : 'btn-primary'"
+						class="btn ms-auto customStyle"
+						@click="buyCoins(option, true)"
+					>
 						{{ getLocalCurrencySymbol() }}{{ getLocalAmount(option.price) }}
 					</button>
 				</div>
@@ -46,6 +64,7 @@ import { formatNumber } from '@utils/commons'
 import { useBuyCoins } from '@app/hooks/users/account'
 import AccountCoinBalance from '@app/components/users/account/AccountCoinBalance.vue'
 import { analytics } from '@modules/core'
+
 export default defineComponent({
 	name: 'AccountBuyCoins',
 	components: { AccountCoinBalance },
@@ -77,6 +96,8 @@ export default defineComponent({
 
 	.border-lg {
 		border: 0;
-		@media (min-width: $lg) { border-right: 1px solid $color-line; }
+		@media (min-width: $lg) {
+			border-right: 1px solid $color-line;
+		}
 	}
 </style>

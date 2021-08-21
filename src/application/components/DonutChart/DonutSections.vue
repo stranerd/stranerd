@@ -1,14 +1,14 @@
 <template>
-	<div class="cdc-sections" :style="containerStyles">
+	<div :style="containerStyles" class="cdc-sections">
 		<div
 			v-for="(section, idx) in donutSections"
 			:key="idx"
-			class="cdc-section"
 			:class="section.className"
 			:style="section.sectionStyles"
+			class="cdc-section"
 			v-on="section.listeners"
 		>
-			<div class="cdc-filler" :style="section.fillerStyles" :title="section.label" />
+			<div :style="section.fillerStyles" :title="section.label" class="cdc-filler" />
 		</div>
 	</div>
 </template>

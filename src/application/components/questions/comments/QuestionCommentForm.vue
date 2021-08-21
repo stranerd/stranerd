@@ -1,19 +1,20 @@
 <template>
-	<CommentForm :factory="factory" :error="error" :loading="loading" :submit="createComment" />
+	<CommentForm :error="error" :factory="factory" :loading="loading" :submit="createComment" />
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useCreateQuestionComments } from '@app/hooks/questions/question-comments'
 import CommentForm from '@app/components/questions/comments/CommentForm.vue'
+
 export default defineComponent({
 	name: 'QuestionCommentForm',
 	components: { CommentForm },
 	props: {
-	    questionId: {
+		questionId: {
 			required: true,
-		    type: String
-	    }
+			type: String
+		}
 	},
 	setup (props) {
 		const { loading, error, factory, createComment } = useCreateQuestionComments(props.questionId)

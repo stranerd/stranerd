@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="notification-body">
-			<Heading variant="1" class="p-1 p-md-3 text-dark border bottom border-line">
+			<Heading class="p-1 p-md-3 text-dark border bottom border-line" variant="1">
 				Notifications
 			</Heading>
 			<NotificationsList class="px-1 px-md-3" />
@@ -12,6 +12,7 @@
 <script lang="ts">
 import { defineComponent, useMeta } from '@nuxtjs/composition-api'
 import NotificationsList from '@app/components/users/notifications/NotificationsList.vue'
+
 export default defineComponent({
 	name: 'NotificationsPage',
 	components: { NotificationsList },

@@ -5,6 +5,7 @@
 <script lang="ts">
 import { defineComponent, useRoute } from '@nuxtjs/composition-api'
 import QuestionsList from '@app/components/questions/questions/UserQuestionsList.vue'
+
 export default defineComponent({
 	name: 'UserQuestionsPage',
 	components: { QuestionsList },

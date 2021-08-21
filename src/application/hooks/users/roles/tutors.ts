@@ -17,13 +17,15 @@ export const useTutorsList = () => {
 			global.setLoading(true)
 			global.tutors.value = await GetAllSessionTutors.call()
 			global.fetched.value = true
-		} catch (error) { global.setError(error) }
+		} catch (error) {
+			global.setError(error)
+		}
 		global.setLoading(false)
 	}
 	const filteredTutors = computed({
 		get: () => global.tutors.value
 			// TODO: Check if sorting is cause of empty flash in prod
-			//  .sort((a, b) => a.orderRating > b.orderRating ? -1 : a.orderRating === b.orderRating ? 0 : 1)
+			.sort((a, b) => a.score > b.score ? -1 : a.score === b.score ? 0 : 1)
 			.filter((tutor) => {
 				if (global.subjectId.value && !tutor.subjects.find((s) => s.id === global.subjectId.value)) return false
 				return true
@@ -37,7 +39,9 @@ export const useTutorsList = () => {
 		}
 	})
 	const listener = useListener(async () => {
-		const appendTutors = (tutors: UserEntity[]) => { global.tutors.value = tutors }
+		const appendTutors = (tutors: UserEntity[]) => {
+			global.tutors.value = tutors
+		}
 		return await ListenToAllSessionTutors.call(appendTutors)
 	})
 

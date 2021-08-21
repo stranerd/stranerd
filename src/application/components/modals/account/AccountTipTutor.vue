@@ -1,11 +1,18 @@
 <template>
 	<Modal :modal="$attrs.modal">
 		<template slot="title">
-			Tip <DynamicText>{{ nerdBioAndId.bio.name.first }}</DynamicText>
+			Tip
+			<DynamicText>{{ nerdBioAndId.bio.name.first }}</DynamicText>
 		</template>
-		<AccountCoinBalance class="mb-1 px-1-5" :user="user" />
+		<AccountCoinBalance :user="user" class="mb-1 px-1-5" />
 		<div class="d-flex flex-wrap gap-1">
-			<button v-for="amount in TIP_AMOUNTS" :key="amount" :disabled="user.account.coins.gold < amount" class="tip btn btn-outline-dark" @click="tipTutor(amount)">
+			<button
+				v-for="amount in TIP_AMOUNTS"
+				:key="amount"
+				:disabled="user.account.coins.gold < amount"
+				class="tip btn btn-outline-dark"
+				@click="tipTutor(amount)"
+			>
 				<DynamicText>{{ amount }}</DynamicText>
 				<Coins :gold="true" :size="20" />
 			</button>
@@ -27,6 +34,7 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { formatNumber } from '@utils/commons'
 import AccountCoinBalance from '@app/components/users/account/AccountCoinBalance.vue'
 import { analytics } from '@modules/core'
+
 export default defineComponent({
 	name: 'AccountTipTutor',
 	components: { AccountCoinBalance },
@@ -53,6 +61,9 @@ export default defineComponent({
 		padding: 0.25rem 0.75rem;
 		display: flex;
 		align-items: center;
-		span { margin-right: 0.25rem; }
+
+		span {
+			margin-right: 0.25rem;
+		}
 	}
 </style>

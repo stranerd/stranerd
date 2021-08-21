@@ -15,6 +15,7 @@
 import { SessionEntity } from '@modules/sessions'
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { useSession } from '@app/hooks/sessions/sessions'
+
 export default defineComponent({
 	name: 'TutorSessionOption',
 	props: {

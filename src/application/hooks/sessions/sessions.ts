@@ -9,7 +9,9 @@ import { Alert } from '@app/hooks/core/notifications'
 import { analytics } from '@modules/core'
 
 let newSessionTutorIdBio = null as null | { id: string, user: UserBio }
-export const setNewSessionTutorIdBio = (data: { id: string, user: UserBio }) => { newSessionTutorIdBio = data }
+export const setNewSessionTutorIdBio = (data: { id: string, user: UserBio }) => {
+	newSessionTutorIdBio = data
+}
 
 export const useCreateSession = () => {
 	const { id, bio, user } = useAuth()
@@ -24,7 +26,8 @@ export const useCreateSession = () => {
 	watch(() => bio.value, () => factory.value.studentBioAndId = { id: id.value!, user: bio.value! })
 	const hasEnoughCoins = computed({
 		get: () => factory.value.price <= (user.value?.account?.coins?.gold ?? 0),
-		set: () => {}
+		set: () => {
+		}
 	})
 
 	const createSession = async () => {
@@ -38,7 +41,9 @@ export const useCreateSession = () => {
 				factory.value.reset()
 				setMessage('Session request successful.')
 				analytics.logEvent('session_request', { sessionId })
-			} catch (error) { setError(error) }
+			} catch (error) {
+				setError(error)
+			}
 			setLoading(false)
 		} else factory.value.validateAll()
 	}
@@ -66,7 +71,9 @@ export const useSession = (sessionId: string) => {
 			try {
 				setLoading(true)
 				if (sessionId) await CancelSession.call(sessionId)
-			} catch (error) { setError(error) }
+			} catch (error) {
+				setError(error)
+			}
 			setLoading(false)
 		}
 	}
@@ -85,7 +92,9 @@ export const useSession = (sessionId: string) => {
 				setLoading(true)
 				if (sessionId) await BeginSession.call(sessionId, true)
 				analytics.logEvent('session_accepted', { sessionId, accepted: true })
-			} catch (error) { setError(error) }
+			} catch (error) {
+				setError(error)
+			}
 			setLoading(false)
 		}
 	}
@@ -104,7 +113,9 @@ export const useSession = (sessionId: string) => {
 				setLoading(true)
 				if (sessionId) await BeginSession.call(sessionId, false)
 				analytics.logEvent('session_accepted', { sessionId, accepted: false })
-			} catch (error) { setError(error) }
+			} catch (error) {
+				setError(error)
+			}
 			setLoading(false)
 		}
 	}
@@ -113,7 +124,9 @@ export const useSession = (sessionId: string) => {
 }
 
 let otherParticipantId = null as null | string
-export const setOtherParticipantId = (id: string) => { otherParticipantId = id }
+export const setOtherParticipantId = (id: string) => {
+	otherParticipantId = id
+}
 
 export const useRateSession = () => {
 	const { loading, setLoading } = useLoadingHandler()
@@ -128,7 +141,9 @@ export const useRateSession = () => {
 			setLoading(true)
 			try {
 				await RateTutor.call(otherParticipantId, rating.value, review.value)
-			} catch (error) { setError(error) }
+			} catch (error) {
+				setError(error)
+			}
 			setLoading(false)
 		}
 	}

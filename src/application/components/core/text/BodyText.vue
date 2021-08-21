@@ -6,6 +6,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
+
 export default defineComponent({
 	name: 'BodyText',
 	props: {
@@ -21,19 +22,31 @@ export default defineComponent({
 <style lang="scss" scoped>
 	.large {
 		font-size: 18px;
-		@media (min-width: $md) { font-size: 20px; }
-		@media (min-width: $lg) { font-size: 22px; }
+		@media (min-width: $md) {
+			font-size: 20px;
+		}
+		@media (min-width: $lg) {
+			font-size: 22px;
+		}
 	}
 
 	.normal {
 		font-size: 16px;
-		@media (min-width: $md) { font-size: 18px; }
-		@media (min-width: $lg) { font-size: 20px; }
+		@media (min-width: $md) {
+			font-size: 18px;
+		}
+		@media (min-width: $lg) {
+			font-size: 20px;
+		}
 	}
 
 	.sub {
 		font-size: 14px;
-		@media (min-width: $md) { font-size: 16px; }
-		@media (min-width: $lg) { font-size: 18px; }
+		@media (min-width: $md) {
+			font-size: 16px;
+		}
+		@media (min-width: $lg) {
+			font-size: 18px;
+		}
 	}
 </style>

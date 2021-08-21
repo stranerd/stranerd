@@ -50,7 +50,7 @@ type Rank = {
 	expectedScore: number
 }
 
-export const Ranks :Record<RankTypes, Rank> = {
+export const Ranks: Record<RankTypes, Rank> = {
 	[RankTypes.Rookie]: {
 		id: RankTypes.Rookie,
 		level: 1,
@@ -168,7 +168,7 @@ export const getRankProgress = (user: UserEntity) => {
 	}
 }
 
-const getNextRank = (rank: RankTypes) :Rank | null => {
+const getNextRank = (rank: RankTypes): Rank | null => {
 	const index = ranks.findIndex((r) => r.id === rank)
 	return ranks[index + 1] ?? null
 }

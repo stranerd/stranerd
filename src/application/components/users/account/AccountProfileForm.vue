@@ -19,15 +19,15 @@
 			</DynamicText>
 		</div>
 		<div class="form-group">
-			<label id="uploadbtn" for="picture" class="px-3 bg-tags text-dark border border-line text-center">
+			<label id="uploadbtn" class="px-3 bg-tags text-primary border border-line text-center" for="picture">
 				{{ imageLink ? 'Change' : 'Upload' }} Profile Picture
 			</label>
 			<input
 				id="picture"
-				class="d-none"
-				type="file"
-				name="file"
 				accept="image/*"
+				class="d-none"
+				name="file"
+				type="file"
 				@change.prevent="catchFiles"
 			>
 		</div>
@@ -36,36 +36,83 @@
 				<input
 					id="fName"
 					v-model="factory.first"
+					:class="{'is-invalid': factory.errors.first}"
+					autocomplete="first-name"
 					class="form-control"
 					placeholder="First Name"
-					autocomplete="first-name"
-					:class="{'is-invalid': factory.errors.first}"
 				>
 				<DynamicText v-if="factory.errors.first" class="small text-danger d-block">
 					{{ factory.errors.first }}
 				</DynamicText>
 			</div>
+		</div>
+		<div class="form-group d-flex flex-column">
 			<div class="flex-grow-1 w-100">
 				<input
 					id="lName"
 					v-model="factory.last"
+					:class="{'is-invalid': factory.errors.last}"
+					autocomplete="last-name"
 					class="form-control"
 					placeholder="Last Name"
-					autocomplete="last-name"
-					:class="{'is-invalid': factory.errors.last}"
 				>
 				<DynamicText v-if="factory.errors.last" class="small text-danger d-block">
 					{{ factory.errors.last }}
 				</DynamicText>
 			</div>
 		</div>
+		<div class="form-group w-100 justify-content-between d-flex align-items-center">
+			<span class="text-dark fw-bold">
+				What subject are you strongest in?
+			</span>
+			<SelectSubject
+				:exclude="factory.weakerSubjects"
+				:show-all="false"
+				:subject-id.sync="factory.strongestSubject"
+				class="p-0 select"
+			/>
+		</div>
+		<span v-if="factory.strongestSubject">
+			Strongest subject chosen: <Subject :subject-id="factory.strongestSubject" />
+		</span>
+		<DynamicText v-if="factory.errors.strongestSubject" class="small text-danger d-block">
+			{{ factory.errors.strongestSubject }}
+		</DynamicText>
+
+		<div class="form-group w-100 justify-content-between d-flex align-items-center">
+			<span class="text-dark fw-bold">
+				What subject are you also good in?
+			</span>
+			<SelectSubject
+				:exclude="[factory.strongestSubject]"
+				:show-all="false"
+				:subject-id.sync="sTag"
+				class="p-0 select"
+			/>
+		</div>
+		<DynamicText v-if="factory.errors.weakerSubjects" class="small text-danger d-block">
+			{{ factory.errors.weakerSubjects }}
+		</DynamicText>
+		<div class="d-flex gap-0-5">
+			<span
+				v-for="subTag in factory.weakerSubjects"
+				:key="subTag"
+				class="p-0-5 d-flex gap-0-5 cursor-pointer btn-dark rounded-3"
+				@click="removeTag(subTag)"
+			>
+				<DynamicText class="text-white">
+					<Subject :subject-id="subTag" />
+				</DynamicText>
+				<span class="text-danger">&times;</span>
+			</span>
+		</div>
 		<div class="form-group">
 			<textarea
 				id="description"
 				v-model="factory.description"
+				:class="{'is-invalid': factory.errors.description}"
 				class="form-control"
 				placeholder="Write a short description about yourself"
-				:class="{'is-invalid': factory.errors.description}"
 				rows="6"
 			/>
 			<DynamicText v-if="factory.errors.description" class="small text-danger d-block">
@@ -81,10 +128,10 @@
 				<input
 					id="password"
 					v-model="factory.password"
-					placeholder="New Password"
-					class="form-control"
-					:type="show ? 'text' : 'password'"
 					:class="{'is-invalid': factory.errors.password}"
+					:type="show ? 'text' : 'password'"
+					class="form-control"
+					placeholder="New Password"
 				>
 				<DynamicText v-if="factory.errors.password" class="small text-danger d-block">
 					{{ factory.errors.password }}
@@ -94,22 +141,22 @@
 				<input
 					id="cPassword"
 					v-model="factory.cPassword"
+					:class="{'is-invalid': factory.errors.cPassword}"
+					:type="show ? 'text' : 'password'"
 					class="form-control"
 					placeholder="Confirm New Password"
-					:type="show ? 'text' : 'password'"
-					:class="{'is-invalid': factory.errors.cPassword}"
 				>
 				<DynamicText v-if="factory.errors.cPassword" class="small text-danger d-block">
 					{{ factory.errors.cPassword }}
 				</DynamicText>
 			</div>
 		</template>
-		<div class="d-flex justify-content-center align-items-center gap-1">
-			<button class="btn btn-danger" type="button" @click="cancel">
+		<div class="d-flex justify-content-between align-items-center gap-1">
+			<button class="btn btn-dark w-50 mx-0" type="button" @click="cancel">
 				Cancel
 			</button>
-			<button class="btn btn-primary" type="submit" :disabled="loading || !factory.valid">
-				Save Profile
+			<button :disabled="loading || !factory.valid" class="btn btn-primary w-50 mx-0" type="submit">
+				Save
 			</button>
 		</div>
 		<PageLoading v-if="loading" />
@@ -120,12 +167,16 @@
 <script lang="ts">
 import { defineComponent, onBeforeUnmount, PropType, ref } from '@nuxtjs/composition-api'
 import { useUpdateProfile } from '@app/hooks/users/account'
-import { useAuth, setShowProfileModal } from '@app/hooks/auth/auth'
-import { useFileInputs, usePassword } from '@app/hooks/core/forms'
+import { setShowProfileModal, useAuth } from '@app/hooks/auth/auth'
+import { useFileInputs, usePassword, useSubjectAsTags } from '@app/hooks/core/forms'
 import { isClient } from '@utils/environment'
 import { DEFAULT_PROFILE_IMAGE } from '@utils/constants'
+import SelectSubject from '@app/components/questions/subjects/SelectSubject.vue'
+import Subject from '@app/components/questions/subjects/Subject.vue'
+
 export default defineComponent({
 	name: 'AccountProfileForm',
+	components: { SelectSubject, Subject },
 	props: {
 		cancel: {
 			required: true,
@@ -145,18 +196,24 @@ export default defineComponent({
 			imageLink.value = ''
 			factory.value.avatar = undefined
 		}
+
+		const { sTag, removeTag } = useSubjectAsTags(
+			(sTag: string) => factory.value.addWeakerSubjects(sTag),
+			(sTag: string) => factory.value.removeWeakerSubjects(sTag)
+		)
 		onBeforeUnmount(() => setShowProfileModal(false))
 		return {
-			auth, show, toggle, catchFiles, imageLink, removeImage,
+			auth, show, toggle, catchFiles, imageLink, removeImage, sTag, removeTag,
 			factory, error, loading, updateProfile, DEFAULT_PROFILE_IMAGE
 		}
 	}
+
 })
 </script>
 
 <style lang="scss" scoped>
 	form {
-		max-width: 42rem;
+		max-width: 45rem;
 		margin: 0 auto;
 	}
 
@@ -180,7 +237,7 @@ export default defineComponent({
 		font-size: 1.125rem;
 		outline: none;
 		min-height: 3rem;
-		padding: 1rem;
+		padding: 0.5rem;
 		padding-left: 24px !important;
 	}
 
@@ -193,5 +250,18 @@ export default defineComponent({
 		font-size: 24px;
 		color: white;
 		margin: 0 12px;
+	}
+
+	.select {
+		flex-grow: 1;
+		color: $color-sub;
+		box-sizing: border-box;
+		max-width: 40%;
+		margin: 0;
+		border-radius: 0.1rem;
+		box-shadow: -5px 5px 15px rgba($color-primary, 0.1);
+		border: 1px solid $color-line;
+		background-color: $color-white;
+		padding: 0.5rem;
 	}
 </style>

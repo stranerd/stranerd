@@ -1,5 +1,5 @@
 import { Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
-import { GetUserAnswers, AnswerEntity } from '@modules/questions'
+import { AnswerEntity, GetUserAnswers } from '@modules/questions'
 import { PAGINATION_LIMIT } from '@utils/constants'
 import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 
@@ -34,7 +34,9 @@ export const useUserAnswerList = (id: string) => {
 			global[id].hasMore.value = answers.length === PAGINATION_LIMIT + 1
 			answers.slice(0, PAGINATION_LIMIT).forEach((a) => pushToAnswerList(id, a))
 			global[id].fetched.value = true
-		} catch (error) { global[id].setError(error) }
+		} catch (error) {
+			global[id].setError(error)
+		}
 		global[id].setLoading(false)
 	}
 

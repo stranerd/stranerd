@@ -22,10 +22,10 @@ export class SessionEntity extends BaseEntity {
 	readonly endedAt?: number
 
 	constructor ({
-		id, duration, price, message,
-		studentId, tutorId, studentBio, tutorBio,
-		accepted, done, createdAt, cancelled, reviews, endedAt
-	}: SessionConstructorArgs) {
+		             id, duration, price, message,
+		             studentId, tutorId, studentBio, tutorBio,
+		             accepted, done, createdAt, cancelled, reviews, endedAt
+	             }: SessionConstructorArgs) {
 		super()
 		this.id = id
 		this.message = message
@@ -43,10 +43,17 @@ export class SessionEntity extends BaseEntity {
 		this.endedAt = endedAt
 	}
 
-	get studentAvatar () { return this.studentBio.avatar }
-	get tutorAvatar () { return this.tutorBio.avatar }
+	get studentAvatar () {
+		return this.studentBio.avatar
+	}
 
-	get wasCancelled () { return this.cancelled.busy || this.cancelled.student || this.cancelled.tutor }
+	get tutorAvatar () {
+		return this.tutorBio.avatar
+	}
+
+	get wasCancelled () {
+		return this.cancelled.busy || this.cancelled.student || this.cancelled.tutor
+	}
 }
 
 type SessionConstructorArgs = {

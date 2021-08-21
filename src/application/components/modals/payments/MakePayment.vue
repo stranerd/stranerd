@@ -13,12 +13,14 @@
 <script lang="ts">
 import { computed, defineComponent } from '@nuxtjs/composition-api'
 import { useAuth } from '@app/hooks/auth/auth'
+
 export default defineComponent({
 	name: 'MakePayment',
 	setup () {
 		const isAfrican = computed({
 			get: () => useAuth().location.value?.continentCode === 'AF',
-			set: () => {}
+			set: () => {
+			}
 		})
 		return { isAfrican }
 	}

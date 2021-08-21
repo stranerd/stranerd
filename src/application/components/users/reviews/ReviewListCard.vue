@@ -1,7 +1,7 @@
 <template>
 	<div :id="review.id" class="d-flex flex-column gap-0-5 gap-md-1 py-1 text-dark border-bottom border-line">
 		<div class="d-flex gap-0-5 gap-md-1 align-items-center">
-			<Avatar :src="review.avatar" :size="36" />
+			<Avatar :size="36" :src="review.avatar" />
 			<DynamicText class="name">
 				{{ review.userBio.name.fullName }}
 			</DynamicText>
@@ -23,6 +23,7 @@ import { ReviewEntity } from '@modules/users'
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { formatTime } from '@utils/dates'
 import { formatNumber } from '@utils/commons'
+
 export default defineComponent({
 	name: 'ReviewListCard',
 	props: {

@@ -8,7 +8,7 @@ export class AddReportUseCase<ReportedType extends { userId: string }> {
 		this.repository = repository
 	}
 
-	async call (factory: ReportFactory<ReportedType>) : Promise<string> {
+	async call (factory: ReportFactory<ReportedType>): Promise<string> {
 		return await this.repository.add(await factory.toModel())
 	}
 }

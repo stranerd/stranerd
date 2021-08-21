@@ -8,14 +8,19 @@ export class PasswordResetFactory extends BaseFactory<null, Keys, Keys> {
 		email: { required: true, rules: [isEmail] }
 	}
 
+	reserved = []
+
 	constructor () {
 		super({ email: '' })
 	}
 
-	reserved = []
+	get email () {
+		return this.values.email
+	}
 
-	get email () { return this.values.email }
-	set email (value: string) { this.set('email', value) }
+	set email (value: string) {
+		this.set('email', value)
+	}
 
 	toModel = async () => {
 		if (this.valid) {

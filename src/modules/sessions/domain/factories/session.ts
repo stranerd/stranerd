@@ -23,6 +23,8 @@ export class SessionFactory extends BaseFactory<SessionEntity, Partial<SessionTo
 		tutorBio: { required: true, rules: [] }
 	}
 
+	reserved = ['studentId', 'studentBio']
+
 	constructor () {
 		super({
 			message: '', price: 0, duration: 0,
@@ -30,12 +32,22 @@ export class SessionFactory extends BaseFactory<SessionEntity, Partial<SessionTo
 		})
 	}
 
-	reserved = ['studentId', 'studentBio']
+	get message () {
+		return this.values.message
+	}
 
-	get message () { return this.values.message }
-	set message (value: string) { this.set('message', value) }
-	get price () { return this.values.price }
-	get duration () { return this.values.duration }
+	set message (value: string) {
+		this.set('message', value)
+	}
+
+	get price () {
+		return this.values.price
+	}
+
+	get duration () {
+		return this.values.duration
+	}
+
 	set duration (value: number) {
 		this.set('duration', value)
 		const ent = this.prices.find((p) => p.duration === value)
@@ -71,5 +83,7 @@ export class SessionFactory extends BaseFactory<SessionEntity, Partial<SessionTo
 		}
 	}
 
-	loadEntity = (entity: SessionEntity) => { throw new Error(`Cannot load an entity into this factory, ${entity}`) }
+	loadEntity = (entity: SessionEntity) => {
+		throw new Error(`Cannot load an entity into this factory, ${entity}`)
+	}
 }

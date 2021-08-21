@@ -106,8 +106,13 @@ a {
 }
 
 .editor-body {
-	p { margin-bottom: 0.25rem; }
-	& > p:last-child { margin-bottom: 0; }
+	p {
+		margin-bottom: 0.25rem;
+	}
+
+	& > p:last-child {
+		margin-bottom: 0;
+	}
 
 	* {
 		word-wrap: break-word;
@@ -159,10 +164,24 @@ div.thin {
 	}
 }
 
-.swal2-popup.swal2-toast .swal2-title { margin: 1em 0 !important; }
-.swal2-popup.swal2-toast { padding: 0.5em 1em !important; }
-.swal2-popup.swal2-modal { width: 25em; }
-.swal2-title { padding: 0 !important; }
-.swal2-actions { margin-top: 1em !important; }
+.swal2-popup.swal2-toast .swal2-title {
+	margin: 1em 0 !important;
+}
+
+.swal2-popup.swal2-toast {
+	padding: 0.5em 1em !important;
+}
+
+.swal2-popup.swal2-modal {
+	width: 25em;
+}
+
+.swal2-title {
+	padding: 0 !important;
+}
+
+.swal2-actions {
+	margin-top: 1em !important;
+}
 
 /*! purgecss end ignore */

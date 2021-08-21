@@ -1,8 +1,10 @@
 <template>
 	<div v-if="user">
-		<div class="d-flex flex-column flex-md-row d-lg-none justify-content-center align-items-center gap-1-5 px-1 py-1-5">
+		<div
+			class="d-flex flex-column flex-md-row d-lg-none justify-content-center align-items-center gap-1-5 px-1 py-1-5"
+		>
 			<div class="col-md-6 d-flex flex-column gap-1 align-items-center">
-				<Heading variant="2" class="color-dark" no-grow>
+				<Heading class="color-dark" no-grow variant="2">
 					<DynamicText>
 						{{ user.id === id ? 'My Rank' : user.firstName + '\'s Badge' }}
 					</DynamicText>
@@ -11,13 +13,13 @@
 			</div>
 			<div class="border border-line align-self-stretch w-75 mx-auto" style="border-width: 1px !important;" />
 			<div class="col-md-6 d-flex flex-column gap-1 align-items-center">
-				<Heading variant="2" class="color-dark" no-grow>
+				<Heading class="color-dark" no-grow variant="2">
 					<DynamicText>
 						{{ user.id === id ? 'My' : user.firstName + '\'s' }} Nerd Score
 					</DynamicText>
 				</Heading>
 				<template v-if="user.id === id">
-					<DonutChart :score="user.score" :total="user.expectedScore" :size="120" />
+					<DonutChart :score="user.score" :size="120" :total="user.expectedScore" />
 					<span class="text-18 text-dark text-center">
 						{{
 							user.score / user.expectedScore > 0.75 ? 'Your Nerd Score is high. Nice job.' :
@@ -34,16 +36,25 @@
 			<template v-if="user.id === id">
 				<ProfileHeadCard :user="user" class="balance" />
 				<div class="d-flex flex-column gap-1 ranking">
-					<Heading varaint="2" class="text-center color-dark" no-grow>
+					<Heading class="text-center color-dark" no-grow varaint="2">
 						Ranking Up
 					</Heading>
 					<div class="d-flex gap-1 align-items-center text-dark">
 						<img :src="user.rank.image" alt="" class="img-rank-2">
 						<ProgressBar :current="user.rankProgress.overall" :primary="true" />
-						<img v-if="user.rankProgress.next" :src="user.rankProgress.next.image" alt="" class="img-rank-2">
+						<img
+							v-if="user.rankProgress.next"
+							:src="user.rankProgress.next.image"
+							alt=""
+							class="img-rank-2"
+						>
 					</div>
 					<div class="d-flex flex-column gap-1">
-						<div v-for="detail in user.rankProgress.progresses" :key="detail.title" class="d-flex justify-content-between align-items-center gap-0-25">
+						<div
+							v-for="detail in user.rankProgress.progresses"
+							:key="detail.title"
+							class="d-flex justify-content-between align-items-center gap-0-25"
+						>
 							<DynamicText class="stat">
 								{{ detail.title }}
 							</DynamicText>
@@ -54,7 +65,7 @@
 			</template>
 			<div v-else class="d-flex flex-column gap-1 ranking">
 				<div class="d-flex flex-column gap-1 align-items-center text-blue">
-					<Heading variant="2" class="color-dark" no-grow>
+					<Heading class="color-dark" no-grow variant="2">
 						<DynamicText>
 							{{ user.id === id ? 'My Rank' : user.firstName + '\'s Badge' }}
 						</DynamicText>
@@ -63,13 +74,13 @@
 				</div>
 			</div>
 			<div class="d-flex flex-column gap-1 align-items-center ranking">
-				<Heading variant="2" class="color-dark" no-grow>
+				<Heading class="color-dark" no-grow variant="2">
 					<DynamicText>
 						{{ user.id === id ? 'My' : user.firstName + '\'s' }} Nerd Score
 					</DynamicText>
 				</Heading>
 				<template v-if="user.id === id">
-					<DonutChart :score="user.score" :total="user.expectedScore" :size="120" />
+					<DonutChart :score="user.score" :size="120" :total="user.expectedScore" />
 					<span class="text-18 text-dark text-center">
 						{{
 							user.score / user.expectedScore > 0.75 ? 'Your Nerd Score is high. Nice job.' :
@@ -90,6 +101,7 @@ import { defineComponent, useRoute } from '@nuxtjs/composition-api'
 import { useUser } from '@app/hooks/users/user'
 import ProfileHeadCard from '@app/components/users/account/ProfileHeadCard.vue'
 import { useAuth } from '@app/hooks/auth/auth'
+
 export default defineComponent({
 	name: 'ProfileRightSidebar',
 	components: { ProfileHeadCard },

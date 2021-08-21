@@ -1,5 +1,5 @@
 import { Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
-import { QuestionEntity, GetSimilarQuestions, ListenToSimilarQuestions } from '@modules/questions'
+import { GetSimilarQuestions, ListenToSimilarQuestions, QuestionEntity } from '@modules/questions'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 
 const global = {} as Record<string, {
@@ -22,7 +22,9 @@ export const useSimilarQuestionList = (question: QuestionEntity) => {
 			const questions = await GetSimilarQuestions.call(question.tags)
 			global[question.id].questions.value = questions.filter((q) => q.id !== question.id).slice(0, 10)
 			global[question.id].fetched.value = true
-		} catch (error) { global[question.id].setError(error) }
+		} catch (error) {
+			global[question.id].setError(error)
+		}
 		global[question.id].setLoading(false)
 	}
 

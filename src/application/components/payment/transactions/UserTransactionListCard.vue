@@ -4,7 +4,7 @@
 			<DynamicText>{{ formatTime(transaction.createdAt) }}</DynamicText>
 		</div>
 		<div class="col-3 d-flex align-items-center gap-0-25">
-			<Coins :size="24" :gold="transaction.isGold" />
+			<Coins :gold="transaction.isGold" :size="24" />
 			<DynamicText :class="transaction.isGain ? 'text-success' : 'text-danger'">
 				{{ formatNumber(transaction.amount) }}
 			</DynamicText>
@@ -20,6 +20,7 @@ import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { TransactionEntity } from '@modules/meta'
 import { formatNumber } from '@utils/commons'
 import { formatTime } from '@utils/dates'
+
 export default defineComponent({
 	name: 'UserTransactionListCard',
 	props: {

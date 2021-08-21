@@ -4,7 +4,10 @@
 		<div v-if="hasMore" class="text-center py-2 text-18 text-primary-dark">
 			<a @click.prevent="fetchOlderAnswers">Load More</a>
 		</div>
-		<DisplayWarning v-if="!loading && !error && answers.length === 0" message="This user has not answered any questions yet." />
+		<DisplayWarning
+			v-if="!loading && !error && answers.length === 0"
+			message="This user has not answered any questions yet."
+		/>
 		<DisplayError :error="error" />
 		<PageLoading v-if="loading" />
 	</div>
@@ -14,6 +17,7 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import AnswerCard from '@app/components/questions/answers/UserAnswersListCard.vue'
 import { useUserAnswerList } from '@app/hooks/users/user/answers'
+
 export default defineComponent({
 	name: 'UserAnswersList',
 	components: { AnswerCard },

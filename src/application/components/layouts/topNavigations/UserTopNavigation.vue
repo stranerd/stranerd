@@ -1,5 +1,5 @@
 <template>
-	<nav role="navigation" class="d-flex justify-content-center align-items-center">
+	<nav class="d-flex justify-content-center align-items-center" role="navigation">
 		<NuxtLink :to="`/users/${user.id}/questions`">
 			Questions
 		</NuxtLink>
@@ -15,6 +15,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { UserEntity } from '@modules/users'
+
 export default defineComponent({
 	name: 'UserTopNavigation',
 	props: {

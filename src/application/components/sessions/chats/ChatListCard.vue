@@ -1,7 +1,7 @@
 <template>
-	<div class="chat gap-0-25" :class="isMine ? 'is-mine' : 'is-not-mine'">
+	<div :class="isMine ? 'is-mine' : 'is-not-mine'" class="chat gap-0-25">
 		<div class="d-flex gap-0-25">
-			<a v-if="chat.isMedia" class="text-truncate" :href="chat.media.link" target="__blank">
+			<a v-if="chat.isMedia" :href="chat.media.link" class="text-truncate" target="__blank">
 				<i class="fas fa-paperclip me-0-25" />
 				<DynamicText>
 					{{ chat.media.name }}
@@ -24,6 +24,7 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { formatTimeAsDigits } from '@utils/dates'
 import { useChat } from '@app/hooks/sessions/chats'
 import { copyToClipboard } from '@utils/commons'
+
 export default defineComponent({
 	name: 'ChatListCard',
 	props: {
@@ -40,7 +41,8 @@ export default defineComponent({
 		const { id } = useAuth()
 		const isMine = computed({
 			get: () => props.chat.from === id.value,
-			set: () => {}
+			set: () => {
+			}
 		})
 		const { markChatRead } = useChat(props.chat, props.userId)
 		const copy = async () => {

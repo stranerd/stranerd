@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { sendSigninEmail, sendVerificationEmail, sendPasswordResetEmail } from '../utils/emails'
+import { sendPasswordResetEmail, sendSigninEmail, sendVerificationEmail } from '../utils/emails'
 import { getFirebaseAdmin } from '../utils/firebase'
 
 export const SignInEmailController = async (req: Request, res: Response) => {

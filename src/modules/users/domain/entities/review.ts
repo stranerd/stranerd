@@ -19,7 +19,9 @@ export class ReviewEntity extends BaseEntity {
 		this.createdAt = createdAt
 	}
 
-	get avatar () { return this.userBio.avatar }
+	get avatar () {
+		return this.userBio.avatar
+	}
 }
 
 type ReviewConstructorArgs = {

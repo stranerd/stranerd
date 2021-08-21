@@ -1,6 +1,6 @@
 <template>
 	<div class="d-flex flex-column gap-1 gap-md-2">
-		<SubjectForm :submit="createSubject" :loading="loading" :factory="factory" :error="error">
+		<SubjectForm :error="error" :factory="factory" :loading="loading" :submit="createSubject">
 			<template slot="buttonText">
 				Add
 			</template>
@@ -14,6 +14,7 @@ import { defineComponent, useMeta } from '@nuxtjs/composition-api'
 import SubjectsList from '@app/components/questions/subjects/AdminSubjectsList.vue'
 import { useCreateSubject } from '@app/hooks/questions/subjects'
 import SubjectForm from '@app/components/questions/subjects/SubjectForm.vue'
+
 export default defineComponent({
 	name: 'AdminQuestionsSubjectsPage',
 	components: { SubjectsList, SubjectForm },

@@ -28,5 +28,6 @@ export default defineNuxtPlugin(async () => {
 			city, state, stateCode, country, countryCode, continent,
 			continentCode, currencyCode, currencySymbol, timezone
 		})
-	} catch (err) {}
+	} catch (err) {
+	}
 })

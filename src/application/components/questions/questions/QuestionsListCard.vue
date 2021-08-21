@@ -3,10 +3,10 @@
 		<div class="question-head d-flex flex-wrap align-items-center gap-1">
 			<div class="d-flex align-items-center gap-0-5">
 				<NuxtLink :to="`/users/${question.userId}`">
-					<Avatar :src="question.avatar" :size="36" />
+					<Avatar :size="36" :src="question.avatar" />
 				</NuxtLink>
 				<div class="d-flex flex-column align-items-md-center flex-md-row gap-md-0-5 fw-bold">
-					<NuxtLink class="name d-none d-md-inline" :to="`/users/${question.userId}`">
+					<NuxtLink :to="`/users/${question.userId}`" class="name d-none d-md-inline">
 						<DynamicText>{{ question.userName }}</DynamicText>
 					</NuxtLink>
 					<div class="dot d-none d-md-inline ms-0-25 me-0-75" />
@@ -15,7 +15,7 @@
 			</div>
 			<div class="d-flex align-items-center ms-auto gap-0-5">
 				<template v-if="question.isAnswered">
-					<img src="@app/assets/images/icons/profile-best-answers.svg" alt="" class="sub-icons">
+					<img alt="" class="sub-icons" src="@app/assets/images/icons/profile-best-answers.svg">
 				</template>
 				<template v-else-if="showAnswerButton">
 					<div class="d-flex align-items-center gap-0-25">
@@ -39,7 +39,7 @@
 			</div>
 		</div>
 
-		<NuxtLink class="question-body" :to="`/questions/${question.id}`">
+		<NuxtLink :to="`/questions/${question.id}`" class="question-body">
 			<DynamicText>
 				{{ question.trimmedBody }}
 			</DynamicText>
@@ -55,12 +55,16 @@
 			<div class="dot" />
 			<div class="d-flex align-items-center gap-1">
 				<span class="d-flex align-items-center gap-0-25">
-					<img src="@app/assets/images/icons/answers.svg" alt="" class="sub-icons">
-					<DynamicText>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</DynamicText>
+					<img alt="" class="sub-icons" src="@app/assets/images/icons/answers.svg">
+					<DynamicText>{{
+						formatNumber(question.answers)
+					}} {{ pluralize(question.answers, 'answer', 'answers') }}</DynamicText>
 				</span>
 				<span v-if="question.attachments" class="d-flex align-items-center gap-0-25">
 					<i class="sub-icons fas fa-paperclip" />
-					<DynamicText>{{ formatNumber(question.attachments) }} {{ pluralize(question.attachments, 'image', 'images') }}</DynamicText>
+					<DynamicText>{{
+						formatNumber(question.attachments)
+					}} {{ pluralize(question.attachments, 'image', 'images') }}</DynamicText>
 				</span>
 			</div>
 		</div>
@@ -80,6 +84,7 @@ import { formatTime } from '@utils/dates'
 import Tag from '@app/components/questions/tags/Tag.vue'
 import Subject from '@app/components/questions/subjects/Subject.vue'
 import { openQuestionEditModal, useDeleteQuestion } from '@app/hooks/questions/questions'
+
 export default defineComponent({
 	name: 'QuestionsListCard',
 	components: { Tag, Subject },
@@ -94,15 +99,18 @@ export default defineComponent({
 		const router = useRouter()
 		const showAnswerButton = computed({
 			get: () => props.question.userId !== id.value && !props.question.isAnswered && !user.value?.meta.answeredQuestions.includes(props.question.id),
-			set: () => {}
+			set: () => {
+			}
 		})
 		const showEditButton = computed({
 			get: () => props.question.userId === id.value && props.question.canBeEdited,
-			set: () => {}
+			set: () => {
+			}
 		})
 		const showDeleteButton = computed({
 			get: () => props.question.userId === id.value && props.question.canBeDeleted,
-			set: () => {}
+			set: () => {
+			}
 		})
 		const { loading, error, deleteQuestion } = useDeleteQuestion(props.question.id)
 		return {
@@ -118,12 +126,16 @@ export default defineComponent({
 <style lang="scss" scoped>
 	.question-body {
 		font-size: 16px;
-		@media (min-width: $md) { font-size: 20px; }
+		@media (min-width: $md) {
+			font-size: 20px;
+		}
 	}
 
 	.sec-text {
 		font-size: 14px;
-		@media (min-width: $md) { font-size: 16px; }
+		@media (min-width: $md) {
+			font-size: 16px;
+		}
 	}
 
 	.dot {
@@ -164,6 +176,8 @@ export default defineComponent({
 
 	.tags {
 		flex: 1 0 100%;
-		@media (min-width: $md) { flex: 1 1 0; }
+		@media (min-width: $md) {
+			flex: 1 1 0;
+		}
 	}
 </style>

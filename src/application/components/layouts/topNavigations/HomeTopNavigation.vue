@@ -1,7 +1,7 @@
 <template>
-	<nav role="navigation" :class="{'fixed-nav':show}">
+	<nav :class="{'fixed-nav':show}" role="navigation">
 		<div class="px-md-2 p-1 d-flex align-items-center">
-			<NuxtLink to="/" class="me-auto">
+			<NuxtLink class="me-auto" to="/">
 				<Logo :secondary="true" class="d-lg-inline-block d-none" />
 				<Logo class="d-lg-none" />
 			</NuxtLink>
@@ -25,8 +25,8 @@
 			<div class="d-lg-none">
 				<span class="cursor-pointer" @click="toggleMenu">
 					<i
-						class="fas"
 						:class="show ? 'fa-times' : 'fa-bars'"
+						class="fas"
 						style="font-size: 28px;"
 					/>
 				</span>
@@ -58,13 +58,13 @@
 			</a>
 			<div class="bottomLogo d-flex flex-row align-items-center justify-content-center gap-1">
 				<a href="https://instagram.com/officialstranerd" target="_blank">
-					<img src="@app/assets/images/homepage/instagram_white.svg" height="30" alt="">
+					<img alt="" height="30" src="@app/assets/images/homepage/instagram_white.svg">
 				</a>
 				<a href="https://twitter.com/stranerds" target="_blank">
-					<img src="@app/assets/images/homepage/twitter_white.svg" height="30" alt="">
+					<img alt="" height="30" src="@app/assets/images/homepage/twitter_white.svg">
 				</a>
 				<a href="https://facebook.com/officialstranerd" target="_blank">
-					<img src="@app/assets/images/homepage/facebook_white.svg" height="30" alt="">
+					<img alt="" height="30" src="@app/assets/images/homepage/facebook_white.svg">
 				</a>
 			</div>
 		</div>
@@ -74,6 +74,7 @@
 <script lang="ts">
 import { defineComponent, ref, useRouter } from '@nuxtjs/composition-api'
 import { disableScroll, enableScroll } from '@utils/html'
+
 export default defineComponent({
 	name: 'HomeTopNavigation',
 	setup () {

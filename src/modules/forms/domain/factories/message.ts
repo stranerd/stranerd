@@ -1,9 +1,10 @@
 import { BaseFactory } from '@modules/core'
-import { isLongerThan, isEmail } from 'sd-validate/lib/rules'
+import { isEmail, isLongerThan } from 'sd-validate/lib/rules'
 import { MessageToModel } from '../../data/models/message'
 import { MessageEntity } from '../entities/message'
 
 type Keys = { fName: string, lName: string, email: string, message: string }
+
 export class MessageFactory extends BaseFactory<MessageEntity, MessageToModel, Keys> {
 	public rules = {
 		fName: { required: true, rules: [(value: string) => isLongerThan(value, 2)] },
@@ -12,20 +13,43 @@ export class MessageFactory extends BaseFactory<MessageEntity, MessageToModel, K
 		message: { required: true, rules: [(value: string) => isLongerThan(value, 0)] }
 	}
 
+	reserved = []
+
 	constructor () {
 		super({ fName: '', lName: '', email: '', message: '' })
 	}
 
-	reserved = []
+	get fName () {
+		return this.values.fName
+	}
 
-	get fName () { return this.values.fName }
-	set fName (value: string) { this.set('fName', value) }
-	get lName () { return this.values.lName }
-	set lName (value: string) { this.set('lName', value) }
-	get email () { return this.values.email }
-	set email (value: string) { this.set('email', value) }
-	get message () { return this.values.message }
-	set message (value: string) { this.set('message', value) }
+	set fName (value: string) {
+		this.set('fName', value)
+	}
+
+	get lName () {
+		return this.values.lName
+	}
+
+	set lName (value: string) {
+		this.set('lName', value)
+	}
+
+	get email () {
+		return this.values.email
+	}
+
+	set email (value: string) {
+		this.set('email', value)
+	}
+
+	get message () {
+		return this.values.message
+	}
+
+	set message (value: string) {
+		this.set('message', value)
+	}
 
 	public toModel = async () => {
 		if (this.valid) {

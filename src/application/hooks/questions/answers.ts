@@ -1,7 +1,15 @@
 import { Ref, ref, ssrRef, useFetch, useRouter, watch } from '@nuxtjs/composition-api'
 import {
-	AddAnswer, AnswerEntity, AnswerFactory, DeleteAnswer, EditAnswer, GetAnswers,
-	ListenToAnswers, MarkAsBestAnswer, QuestionEntity, RateAnswer
+	AddAnswer,
+	AnswerEntity,
+	AnswerFactory,
+	DeleteAnswer,
+	EditAnswer,
+	GetAnswers,
+	ListenToAnswers,
+	MarkAsBestAnswer,
+	QuestionEntity,
+	RateAnswer
 } from '@modules/questions'
 import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
@@ -28,7 +36,9 @@ export const useAnswerList = (questionId: string) => {
 			global[questionId].setLoading(true)
 			global[questionId].answers.value = await GetAnswers.call(questionId)
 			global[questionId].fetched.value = true
-		} catch (error) { global[questionId].setError(error) }
+		} catch (error) {
+			global[questionId].setError(error)
+		}
 		global[questionId].setLoading(false)
 	}
 
@@ -87,7 +97,9 @@ export const useCreateAnswer = () => {
 					answerId,
 					subject: answeringQuestion?.subjectId
 				})
-			} catch (error) { setError(error) }
+			} catch (error) {
+				setError(error)
+			}
 			setLoading(false)
 		} else factory.value.validateAll()
 	}
@@ -118,7 +130,9 @@ export const useAnswer = (answer: AnswerEntity) => {
 			try {
 				setLoading(true)
 				await RateAnswer.call(answer.id, userId, rating)
-			} catch (error) { setError(error) }
+			} catch (error) {
+				setError(error)
+			}
 			setLoading(false)
 		}
 	}
@@ -137,7 +151,9 @@ export const useAnswer = (answer: AnswerEntity) => {
 			try {
 				setLoading(true)
 				await MarkAsBestAnswer.call(question.id, answer.id)
-			} catch (error) { setError(error) }
+			} catch (error) {
+				setError(error)
+			}
 			setLoading(false)
 		}
 	}
@@ -179,7 +195,9 @@ export const useEditAnswer = (answerId: string) => {
 					answerId,
 					subject: editingQuestionAnswer?.answer.subjectId
 				})
-			} catch (error) { setError(error) }
+			} catch (error) {
+				setError(error)
+			}
 			setLoading(false)
 		} else factory.value.validateAll()
 	}
@@ -205,7 +223,9 @@ export const useDeleteAnswer = (answerId: string) => {
 			try {
 				await DeleteAnswer.call(answerId)
 				setMessage('Answer deleted successfully')
-			} catch (error) { setError(error) }
+			} catch (error) {
+				setError(error)
+			}
 			setLoading(false)
 		}
 	}

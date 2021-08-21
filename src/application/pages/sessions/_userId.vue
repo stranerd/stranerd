@@ -10,6 +10,7 @@ import { defineComponent, useMeta, useRoute } from '@nuxtjs/composition-api'
 import ContactList from '@app/components/sessions/chats/ContactList.vue'
 import ContactListMessages from '@app/components/sessions/chats/ContactListMessages.vue'
 import { useAuth } from '@app/hooks/auth/auth'
+
 export default defineComponent({
 	name: 'SessionPage',
 	components: { ContactList, ContactListMessages },
@@ -43,6 +44,8 @@ export default defineComponent({
 		display: none !important;
 		width: 30%;
 		flex-grow: 1;
-		@media (min-width: $lg) { display: flex !important; }
+		@media (min-width: $lg) {
+			display: flex !important;
+		}
 	}
 </style>

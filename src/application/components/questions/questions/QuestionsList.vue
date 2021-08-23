@@ -46,6 +46,7 @@ import { useQuestionList } from '@app/hooks/questions/questions'
 import SelectSubject from '@app/components/questions/subjects/SelectSubject.vue'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useQuestionsModal } from '@app/hooks/core/modals'
+import { useRedirectToAuth } from '@app/hooks/auth/session'
 export default defineComponent({
 	name: 'QuestionsList',
 	components: { SelectSubject, QuestionCard },
@@ -55,9 +56,10 @@ export default defineComponent({
 			answeredChoices, answered, subjectId,
 			fetchOlderQuestions, listener
 		} = useQuestionList()
-
+		const { redirect } = useRedirectToAuth()
 		const askQuestion = () => {
-			useQuestionsModal().openAskQuestions()
+			if (isLoggedIn.value) useQuestionsModal().openAskQuestions()
+			else redirect()
 		}
 
 		const { isLoggedIn, user } = useAuth()

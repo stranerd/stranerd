@@ -10,7 +10,7 @@ export class ListenToSessionsUseCase {
 	}
 
 	async call (ids: string[], callback: (entities: SessionEntity[]) => void) {
-		const conditions :FirestoreGetClauses = {
+		const conditions: FirestoreGetClauses = {
 			where: [
 				{ field: '__name__', condition: 'in', value: ids }
 			]

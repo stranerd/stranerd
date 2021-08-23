@@ -3,12 +3,14 @@
 		<div class="question-head d-flex flex-row flex-wrap align-items-center">
 			<div class="d-flex align-items-center gap-0-5">
 				<NuxtLink :to="`/users/${question.userId}`">
-					<Avatar :src="question.avatar" :size="40" class="d-md-none" />
-					<Avatar :src="question.avatar" :size="50" class="d-none d-md-inline" />
+					<Avatar :size="40" :src="question.avatar" class="d-md-none" />
+					<Avatar :size="50" :src="question.avatar" class="d-none d-md-inline" />
 				</NuxtLink>
 				<div class="d-flex flex-column align-items-md-center flex-md-row gap-md-0-5">
-					<NuxtLink class="name d-none d-md-inline" :to="`/users/${question.userId}`">
-						<BodyText><DynamicText>{{ question.userName }}</DynamicText></BodyText>
+					<NuxtLink :to="`/users/${question.userId}`" class="name d-none d-md-inline">
+						<BodyText>
+							<DynamicText>{{ question.userName }}</DynamicText>
+						</BodyText>
 					</NuxtLink>
 					<div class="dot d-none d-md-inline ms-0-25 me-0-75" />
 					<BodyText>
@@ -19,7 +21,7 @@
 
 			<div class="d-flex align-items-center ms-auto gap-0-5">
 				<template v-if="question.isAnswered">
-					<img src="@app/assets/images/icons/profile-best-answers.svg" alt="" class="sub-icons">
+					<img alt="" class="sub-icons" src="@app/assets/images/icons/profile-best-answers.svg">
 				</template>
 				<template v-else-if="showAnswerButton">
 					<div class="d-flex align-items-center gap-0-25">
@@ -55,8 +57,10 @@
 			<div class="dot" />
 			<div class="d-flex align-items-center gap-1">
 				<span class="d-flex align-items-center gap-0-5">
-					<img src="@app/assets/images/icons/answers.svg" alt="" class="sub-icons">
-					<DynamicText>{{ formatNumber(question.answers) }} {{ pluralize(question.answers, 'answer', 'answers') }}</DynamicText>
+					<img alt="" class="sub-icons" src="@app/assets/images/icons/answers.svg">
+					<DynamicText>{{
+						formatNumber(question.answers)
+					}} {{ pluralize(question.answers, 'answer', 'answers') }}</DynamicText>
 				</span>
 				<span v-if="id && question.userId !== id" @click="reportQuestion">
 					<i class="fas fa-flag sub-icons" />
@@ -81,6 +85,7 @@ import Subject from '@app/components/questions/subjects/Subject.vue'
 import { useReportModal } from '@app/hooks/core/modals'
 import { setReportedEntity } from '@app/hooks/reports/questions'
 import { openQuestionEditModal, useDeleteQuestion } from '@app/hooks/questions/questions'
+
 export default defineComponent({
 	name: 'QuestionPageCard',
 	components: { Tag, Subject },
@@ -95,15 +100,18 @@ export default defineComponent({
 		const router = useRouter()
 		const showAnswerButton = computed({
 			get: () => props.question.userId !== id.value && !props.question.isAnswered && !user.value?.meta.answeredQuestions.includes(props.question.id),
-			set: () => {}
+			set: () => {
+			}
 		})
 		const showEditButton = computed({
 			get: () => props.question.userId === id.value && props.question.canBeEdited,
-			set: () => {}
+			set: () => {
+			}
 		})
 		const showDeleteButton = computed({
 			get: () => props.question.userId === id.value && props.question.canBeDeleted,
-			set: () => {}
+			set: () => {
+			}
 		})
 		const reportQuestion = () => {
 			setReportedEntity(props.question)
@@ -159,6 +167,8 @@ export default defineComponent({
 
 	.tags {
 		flex: 1 0 100%;
-		@media (min-width: $md) { flex: 1 1 0; }
+		@media (min-width: $md) {
+			flex: 1 1 0;
+		}
 	}
 </style>

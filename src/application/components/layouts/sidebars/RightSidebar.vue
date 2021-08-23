@@ -2,20 +2,20 @@
 	<div class="d-flex flex-column gap-0-5 gap-lg-2-25 background">
 		<template v-if="isLoggedIn">
 			<div class="d-flex d-lg-none flex-column align-items-center gap-0-5 inner-bg">
-				<Avatar class="align-self-center" :src="user.avatar" :size="72" />
+				<Avatar :size="72" :src="user.avatar" class="align-self-center" />
 				<DynamicText class="name align-self-center text-center">
 					{{ user.fullName }}
 				</DynamicText>
-				<NuxtLink to="/account/" class="btn btn-primary">
+				<NuxtLink class="btn btn-primary" to="/account/">
 					View Profile
 				</NuxtLink>
-				<NuxtLink to="/invite/" class="btn btn-outline-primary">
+				<NuxtLink class="btn btn-outline-primary" to="/invite/">
 					Refer A Friend
 				</NuxtLink>
 			</div>
 			<ProfileHeadCard :user="user" class="inner-bg" />
 			<div class="d-flex flex-column gap-1 inner-bg">
-				<Heading variant="2" no-grow class="color-dark text-center">
+				<Heading class="color-dark text-center" no-grow variant="2">
 					Ranking Up
 				</Heading>
 				<div class="d-flex gap-1 align-items-center text-dark">
@@ -24,7 +24,11 @@
 					<img v-if="user.rankProgress.next" :src="user.rankProgress.next.image" alt="" class="img-rank">
 				</div>
 				<div class="d-flex flex-column gap-1">
-					<div v-for="detail in user.rankProgress.progresses" :key="detail.title" class="d-flex justify-content-between align-items-center gap-0-25">
+					<div
+						v-for="detail in user.rankProgress.progresses"
+						:key="detail.title"
+						class="d-flex justify-content-between align-items-center gap-0-25"
+					>
 						<DynamicText class="stat">
 							{{ detail.title }}
 						</DynamicText>

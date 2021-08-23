@@ -7,6 +7,7 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import { modal } from '@app/hooks/core/modals'
+
 export default defineComponent({
 	name: 'ModalBase',
 	setup () {

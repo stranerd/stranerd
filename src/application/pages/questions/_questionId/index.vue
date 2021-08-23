@@ -19,6 +19,7 @@ import QuestionPageCard from '@app/components/questions/questions/QuestionPageCa
 import AnswersList from '@app/components/questions/answers/AnswersList.vue'
 import QuestionsList from '@app/components/questions/questions/SimilarQuestionsList.vue'
 import { useQuestion } from '@app/hooks/questions/questions'
+
 export default defineComponent({
 	name: 'QuestionPage',
 	components: { QuestionPageCard, AnswersList, QuestionsList },

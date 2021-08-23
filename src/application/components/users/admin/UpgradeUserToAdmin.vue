@@ -5,21 +5,25 @@
 				<input
 					id="email"
 					v-model="email"
-					name="subject_name"
-					required
-					placeholder="Enter user's email address"
-					class="form-control py-1 px-1"
 					autocomplete="email"
+					class="form-control py-1 px-1"
+					name="subject_name"
+					placeholder="Enter user's email address"
+					required
 				>
 			</div>
 			<button class="btn btn-lg btn-custom btn-block py-1 px-md-3 px-1 ms-auto" type="submit">
 				<span class="d-none d-md-inline-block">Find User</span>
-				<span style="font-size: 13px; width: 80px;" class="d-inline-block d-md-none">Find User</span>
+				<span class="d-inline-block d-md-none" style="font-size: 13px; width: 80px;">Find User</span>
 			</button>
 		</form>
 		<div v-if="fetched" class="d-flex flex-column gap-1">
 			<DisplayError v-if="users.length === 0" error="No user with such email exists" />
-			<div v-for="user in users" :key="user.hash" class="d-flex flex-wrap justify-content-between gap-0-5 align-items-center">
+			<div
+				v-for="user in users"
+				:key="user.hash"
+				class="d-flex flex-wrap justify-content-between gap-0-5 align-items-center"
+			>
 				<div>
 					<DynamicText :truncate="true" class="lead">
 						{{ user.fullName }}
@@ -45,6 +49,7 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useAdminRoles } from '@app/hooks/users/roles/admins'
+
 export default defineComponent({
 	setup () {
 		const {

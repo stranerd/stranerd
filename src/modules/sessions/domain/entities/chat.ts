@@ -1,4 +1,5 @@
-import { Media, BaseEntity } from '@modules/core'
+import { BaseEntity, Media } from '@modules/core'
+
 export class ChatEntity extends BaseEntity {
 	readonly id: string
 	readonly content: string | undefined
@@ -19,9 +20,13 @@ export class ChatEntity extends BaseEntity {
 		this.readAt = readAt
 	}
 
-	get isMedia () { return !!this.media }
+	get isMedia () {
+		return !!this.media
+	}
 
-	get isRead () { return !!this.readAt }
+	get isRead () {
+		return !!this.readAt
+	}
 }
 
 type ChatConstructorArgs = {

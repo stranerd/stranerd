@@ -2,10 +2,10 @@
 	<div :id="answer.id" class="answer">
 		<div class="border-bottom-line answer-content d-flex align-items-center gap-0-5">
 			<NuxtLink :to="`/users/${answer.userId}`">
-				<Avatar :src="answer.avatar" :size="40" />
+				<Avatar :size="40" :src="answer.avatar" />
 			</NuxtLink>
 			<NuxtLink :to="`/users/${answer.userId}`" class="d-block fw-bold text-dark text-wrap">
-				<BodyText variant="large" class="text-dark">
+				<BodyText class="text-dark" variant="large">
 					<DynamicText>{{ answer.userName }}</DynamicText>
 				</BodyText>
 			</NuxtLink>
@@ -15,36 +15,60 @@
 			</span>
 		</div>
 		<div class="answer-content d-flex flex-column gap-1">
-			<BodyText variant="large" class="text-dark">
+			<BodyText class="text-dark" variant="large">
 				<DynamicText>{{ answer.title || 'N/A' }}</DynamicText>
 			</BodyText>
 			<div class="d-flex gap-1 gap-md-2 align-items-center text-primary fw-bold flex-row flex-wrap">
 				<span class="d-flex align-items-center gap-0-25 me-auto" @click="showExplanation = !showExplanation">
 					<span>Explanation</span>
-					<i class="fas" :class="showExplanation ? 'fa-angle-up' : 'fa-angle-down'" />
+					<i :class="showExplanation ? 'fa-angle-up' : 'fa-angle-down'" class="fas" />
 				</span>
-				<span v-if="answer.best" class="d-flex align-items-center gap-0-25 text-success" @click.prevent="markBestAnswer">
+				<span
+					v-if="answer.best"
+					class="d-flex align-items-center gap-0-25 text-success"
+					@click.prevent="markBestAnswer"
+				>
 					<span>Best answer</span>
 					<i class="fas fa-check-circle" />
 				</span>
-				<a v-if="answer.commentsCount" class="d-flex align-items-center gap-0-25" @click.prevent="showComments = !showComments">
+				<a
+					v-if="answer.commentsCount"
+					class="d-flex align-items-center gap-0-25"
+					@click.prevent="showComments = !showComments"
+				>
 					<span>{{ showComments ? 'Hide' : 'Show' }} Comments</span>
-					<i class="fas" :class="showComments ? 'fa-angle-up' : 'fa-angle-down'" />
+					<i :class="showComments ? 'fa-angle-up' : 'fa-angle-down'" class="fas" />
 				</a>
-				<span v-if="isLoggedIn && question && !question.isAnswered && !answer.best && question.userId === id" class="d-flex align-items-center gap-0-25" @click.prevent="markBestAnswer">
+				<span
+					v-if="isLoggedIn && question && !question.isAnswered && !answer.best && question.userId === id"
+					class="d-flex align-items-center gap-0-25"
+					@click.prevent="markBestAnswer"
+				>
 					<span>Mark as best</span>
 					<i class="fas fa-check-circle" />
 				</span>
 				<SelectRating v-if="showRatingButton" :rating="0" :set-rating="rateAnswer" />
-				<Share :title="answer.title" :text="answer.strippedBody" :link="`/questions/${answer.questionId}#${answer.id}`" />
+				<Share
+					:link="`/questions/${answer.questionId}#${answer.id}`"
+					:text="answer.strippedBody"
+					:title="answer.title"
+				/>
 				<span v-if="id && answer.userId !== id" @click="reportAnswer">
 					<i class="fas fa-flag" />
 				</span>
-				<span v-if="showEditButton" class="d-flex align-items-center gap-0-25 text-warning" @click.prevent="openEditModal">
+				<span
+					v-if="showEditButton"
+					class="d-flex align-items-center gap-0-25 text-warning"
+					@click.prevent="openEditModal"
+				>
 					<span>Edit answer</span>
 					<i class="fas fa-pen" />
 				</span>
-				<span v-if="showDeleteButton" class="d-flex align-items-center gap-0-25 text-danger" @click.prevent="deleteAnswer">
+				<span
+					v-if="showDeleteButton"
+					class="d-flex align-items-center gap-0-25 text-danger"
+					@click.prevent="deleteAnswer"
+				>
 					<span>Delete answer</span>
 					<i class="fas fa-trash" />
 				</span>
@@ -59,8 +83,8 @@
 		<div class="border-0 answer-content">
 			<CommentForm :answer-id="answer.id" />
 		</div>
-		<DisplayError style="margin: 0 !important;" :error="error" />
-		<DisplayError style="margin: 0 !important;" :error="deleteError" />
+		<DisplayError :error="error" style="margin: 0 !important;" />
+		<DisplayError :error="deleteError" style="margin: 0 !important;" />
 		<PageLoading v-if="loading" />
 		<PageLoading v-if="deleteLoading" />
 	</div>
@@ -77,6 +101,7 @@ import { formatTime } from '@utils/dates'
 import { useReportModal } from '@app/hooks/core/modals'
 import { setReportedEntity } from '@app/hooks/reports/answers'
 import { formatNumber } from '@utils/commons'
+
 export default defineComponent({
 	name: 'AnswerListCard',
 	components: {
@@ -100,15 +125,18 @@ export default defineComponent({
 		const { id, isLoggedIn, user } = useAuth()
 		const showRatingButton = computed({
 			get: () => isLoggedIn.value && props.answer.userId !== id.value && !user.value?.meta.ratedAnswers.includes(props.answer.id),
-			set: () => {}
+			set: () => {
+			}
 		})
 		const showEditButton = computed({
 			get: () => props.answer.userId === id.value && props.answer.canBeEdited,
-			set: () => {}
+			set: () => {
+			}
 		})
 		const showDeleteButton = computed({
 			get: () => props.answer.userId === id.value && props.answer.canBeDeleted,
-			set: () => {}
+			set: () => {
+			}
 		})
 		const { error, loading, rateAnswer, markBestAnswer } = useAnswer(props.answer)
 		const reportAnswer = () => {
@@ -136,7 +164,9 @@ export default defineComponent({
 		.answer-content {
 			border-bottom: 1px solid $color-line;
 			padding: 0.5rem 0.75rem;
-			@media (min-width: $md) { padding: 1rem; }
+			@media (min-width: $md) {
+				padding: 1rem;
+			}
 		}
 	}
 

@@ -16,7 +16,7 @@ export class QuestionTransformer {
 		})
 	}
 
-	toJSON (entity: QuestionEntity) :QuestionToModel {
+	toJSON (entity: QuestionEntity): QuestionToModel {
 		return {
 			body: entity.body,
 			coins: entity.coins,

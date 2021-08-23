@@ -24,6 +24,8 @@ export type UserLocation = {
 export type UpdateUser = {
 	bio: UserBio
 	password: string
+	strongestSubject: string,
+	weakerSubjects: string[]
 }
 
 export type AfterAuthUser = {

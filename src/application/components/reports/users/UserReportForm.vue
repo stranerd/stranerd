@@ -5,16 +5,16 @@
 			<textarea
 				id="message"
 				v-model="factory.message"
-				class="form-control"
-				rows="6"
 				:class="{'is-invalid': factory.errors.message, 'is-valid': factory.isValid('message')}"
+				class="form-control"
 				placeholder="Explain in full detail what happened"
+				rows="6"
 			/>
 			<DynamicText v-if="factory.errors.message" class="small text-danger d-block">
 				{{ factory.errors.message }}
 			</DynamicText>
 		</div>
-		<button class="btn btn-dark fw-bold px-2 btn-lg" type="submit" :disabled="loading || !factory.valid">
+		<button :disabled="loading || !factory.valid" class="btn btn-dark fw-bold px-2 btn-lg" type="submit">
 			<PageLoading v-if="loading" />
 			<span>Report</span>
 		</button>
@@ -25,6 +25,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { UserReportFactory } from '@modules/reports'
+
 export default defineComponent({
 	name: 'UserReportForm',
 	props: {

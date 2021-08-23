@@ -9,7 +9,7 @@ export class TagTransformer {
 		})
 	}
 
-	toJSON (entity: TagEntity) :TagToModel {
+	toJSON (entity: TagEntity): TagToModel {
 		return {
 			count: entity.count
 		}

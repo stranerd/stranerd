@@ -14,6 +14,7 @@ import { defineComponent, useMeta, useRoute } from '@nuxtjs/composition-api'
 import { useUser } from '@app/hooks/users/user'
 import UserTopNavigation from '@app/components/layouts/topNavigations/UserTopNavigation.vue'
 import { useAuth } from '@app/hooks/auth/auth'
+
 export default defineComponent({
 	name: 'UserParentPage',
 	components: { UserTopNavigation },

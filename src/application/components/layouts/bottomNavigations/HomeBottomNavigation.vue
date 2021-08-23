@@ -9,7 +9,7 @@
 					<NuxtLink class="linkText" to="/about-us">
 						About Us
 					</NuxtLink>
-					<NuxtLink class="linkText" to="/">
+					<NuxtLink class="linkText" to="/legal/honor-code">
 						Honor Code
 					</NuxtLink>
 				</div>
@@ -19,16 +19,16 @@
 						<i class="fas fa-circle" />
 						<i class="fas fa-circle" />
 					</h5>
-					<a class="linkText" href="/legal/terms-of-use.pdf" target="_blank">
-						Term of Use
-					</a>
 
 					<NuxtLink class="linkText" to="/legal/privacy-policy">
 						Privacy Policy
 					</NuxtLink>
-					<a class="linkText" href="/legal/terms-and-conditions.pdf" target="_blank">
+					<NuxtLink class="linkText" to="/legal/term-of-service">
+						Terms Of Service
+					</NuxtLink>
+					<NuxtLink class="linkText" to="/legal/terms&condition">
 						Terms & Conditions
-					</a>
+					</NuxtLink>
 				</div>
 				<!-- TODO: Add community and help links-->
 				<div class="block">
@@ -46,25 +46,29 @@
 					<h5 class="sessionHead">
 						Help
 					</h5>
-					<NuxtLink class="linkText" to="/">
+					<NuxtLink class="linkText" to="/legal/FAQs">
 						FAQ
 					</NuxtLink>
 				</div>
 			</div>
-			<div class="w-100 mt-3 d-flex flex-column gap-1 pt-3 class border-top border-white align-items-center justify-content-center">
+			<div
+				class="w-100 mt-3 d-flex flex-column gap-1 pt-3 class border-top border-white align-items-center justify-content-center"
+			>
 				<div class="d-flex gap-2">
 					<a class="linkText" href="https://instagram.com/officialstranerd" target="_blank">
-						<img src="@app/assets/images/homepage/instagram_white.svg" height="30" alt="">
+						<img alt="" height="30" src="@app/assets/images/homepage/instagram_white.svg">
 					</a>
 					<a class="linkText" href="https://twitter.com/stranerds" target="_blank">
-						<img src="@app/assets/images/homepage/twitter_white.svg" height="30" alt="">
+						<img alt="" height="30" src="@app/assets/images/homepage/twitter_white.svg">
 					</a>
 					<a class="linkText" href="https://facebook.com/officialstranerd" target="_blank">
-						<img src="@app/assets/images/homepage/facebook_white.svg" height="30" alt="">
+						<img alt="" height="30" src="@app/assets/images/homepage/facebook_white.svg">
 					</a>
 				</div>
 				<div class="linkText" style="font-size: 14px;">
-					&copy; <DynamicText>{{ new Date().getFullYear() }}</DynamicText> | Stranerd LLC. All rights reserved.
+					&copy;
+					<DynamicText>{{ new Date().getFullYear() }}</DynamicText>
+					| Stranerd LLC. All rights reserved.
 				</div>
 			</div>
 		</div>
@@ -73,6 +77,7 @@
 
 <script>
 import { defineComponent } from '@nuxtjs/composition-api'
+
 export default defineComponent({
 	name: 'HomeBottomNavigation'
 })
@@ -97,12 +102,16 @@ export default defineComponent({
 		display: grid;
 		grid-gap: 2rem;
 		grid-template-columns: repeat(2, 1fr);
-		@media (min-width: $md) { grid-template-columns: repeat(4, 1fr); }
+		@media (min-width: $md) {
+			grid-template-columns: repeat(4, 1fr);
+		}
 	}
 
 	.block {
 		display: flex;
 		flex-direction: column;
-		@media (min-width: $md) { justify-content: center; }
+		@media (min-width: $md) {
+			justify-content: center;
+		}
 	}
 </style>

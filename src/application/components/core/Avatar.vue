@@ -1,8 +1,8 @@
 <template>
 	<img
 		:src="source"
-		alt=""
 		:style="`width: ${size}px; height: ${size}px; border-radius: 10rem; border: 1.5px solid transparent; object-fit: cover;`"
+		alt=""
 	>
 </template>
 
@@ -10,6 +10,7 @@
 import { computed, defineComponent, PropType } from '@nuxtjs/composition-api'
 import { Media } from '@modules/core'
 import { DEFAULT_PROFILE_IMAGE } from '@utils/constants'
+
 export default defineComponent({
 	name: 'Avatar',
 	props: {
@@ -27,7 +28,8 @@ export default defineComponent({
 	setup (props) {
 		const source = computed({
 			get: () => typeof props.src?.link === 'string' ? props.src.link : DEFAULT_PROFILE_IMAGE,
-			set: () => {}
+			set: () => {
+			}
 		})
 		return { source }
 	}

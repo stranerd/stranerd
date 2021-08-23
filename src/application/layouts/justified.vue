@@ -17,6 +17,7 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import RightSidebar from '@app/components/layouts/sidebars/RightSidebar.vue'
 import TopNavigation from '@app/components/layouts/topNavigations/DefaultTopNavigation.vue'
+
 export default defineComponent({
 	name: 'JustifiedLayout',
 	components: { TopNavigation, RightSidebar }

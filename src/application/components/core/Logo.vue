@@ -1,12 +1,13 @@
 <template>
 	<div>
-		<img v-if="secondary" src="/images/logo-blue.svg" class="logo-img" alt="Stranerd">
-		<img v-else src="/images/logo-white.svg" class="logo-img" alt="Stranerd">
+		<img v-if="secondary" alt="Stranerd" class="logo-img" src="/images/logo-blue.svg">
+		<img v-else alt="Stranerd" class="logo-img" src="/images/logo-white.svg">
 	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
+
 export default defineComponent({
 	name: 'Logo',
 	props: {

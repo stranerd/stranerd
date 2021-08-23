@@ -1,6 +1,6 @@
 import { computed, Ref, ssrRef, useFetch, useRouter, watch } from '@nuxtjs/composition-api'
 import VueRouter from 'vue-router'
-import { useListener, useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
+import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 import { GetSession, GetSessions, ListenToSession, ListenToSessions, SessionEntity } from '@modules/sessions'
 import { useAuth } from '@app/hooks/auth/auth'
 import { Alert } from '@app/hooks/core/notifications'
@@ -10,7 +10,8 @@ import { useSessionModal } from '@app/hooks/core/modals'
 const currentGlobal = {
 	previousSession: ssrRef(null as SessionEntity | null),
 	currentSession: ssrRef(null as SessionEntity | null),
-	listener: useListener(async () => () => {})
+	listener: useListener(async () => () => {
+	})
 }
 
 const global = {} as Record<SessionKey, {
@@ -43,7 +44,8 @@ export const useCurrentSession = () => {
 						currentGlobal.previousSession.value = currentGlobal.currentSession.value
 						if (s) currentGlobal.currentSession.value = s
 					})
-					: () => () => {}
+					: () => () => {
+					}
 			)
 		}
 	}
@@ -58,7 +60,8 @@ export const useCurrentSession = () => {
 
 	const endDate = computed({
 		get: () => currentGlobal.currentSession.value?.endedAt ?? Date.now(),
-		set: () => {}
+		set: () => {
+		}
 	})
 
 	const otherParticipantId = computed({
@@ -67,7 +70,8 @@ export const useCurrentSession = () => {
 			if (!session) return null
 			return session.studentId === id.value ? session.tutorId : session.studentId
 		},
-		set: () => {}
+		set: () => {
+		}
 	})
 
 	return { ...currentGlobal, otherParticipantId, endDate }
@@ -79,7 +83,8 @@ const useSession = (key: SessionKey, router: VueRouter, callback: (key: SessionK
 		const sessionIds = Object.keys(user.value?.session?.[key] ?? {})
 		if (sessionIds.length === 0) {
 			global[key].sessions.value = []
-			return () => {}
+			return () => {
+			}
 		}
 		const cb = (sessions: SessionEntity[]) => {
 			callback(key, sessions, id.value!, router)
@@ -106,7 +111,9 @@ const useSession = (key: SessionKey, router: VueRouter, callback: (key: SessionK
 			callback(key, sessions, id.value!, router)
 			global[key].sessions.value = sessions
 			global[key].fetched.value = true
-		} catch (error) { global[key].setError(error) }
+		} catch (error) {
+			global[key].setError(error)
+		}
 		global[key].setLoading(false)
 	}
 
@@ -140,8 +147,8 @@ const callback = (key: SessionKey, sessions: SessionEntity[], userId: string, ro
 			})
 			if (res) await router.push(route)
 		})
-		// TODO: Create modal to allow tutor navigate to said page
-		// If using modal though, remember that only one instance of the modal can be open at once
+	// TODO: Create modal to allow tutor navigate to said page
+	// If using modal though, remember that only one instance of the modal can be open at once
 }
 
 export const useRequestSessions = (router: VueRouter) => useSession('requests', router, callback)
@@ -151,10 +158,12 @@ type SessionKey = 'requests' | 'lobby'
 
 export const isRequestingSessionWith = (userId: string) => computed({
 	get: () => global.requests?.sessions?.value?.find((s) => s.tutorId === userId) ?? null,
-	set: () => {}
+	set: () => {
+	}
 })
 
 export const hasRequestedSessionWith = (userId: string) => computed({
 	get: () => global.lobby?.sessions?.value?.find((s) => s.studentId === userId) ?? null,
-	set: () => {}
+	set: () => {
+	}
 })

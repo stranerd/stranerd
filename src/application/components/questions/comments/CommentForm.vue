@@ -2,14 +2,14 @@
 	<form @submit.prevent="submitComment">
 		<div class="form-group">
 			<div class="d-flex align-items-center gap-0-5 gap-md-1">
-				<Avatar :src="isLoggedIn ? user.avatar : null" :size="35" />
+				<Avatar :size="35" :src="isLoggedIn ? user.avatar : null" />
 				<input
 					v-model="factory.body"
+					:class="{'is-invalid': factory.errors.body, 'is-valid': factory.isValid('body') }"
 					class="form-control p-0 flex-grow-1"
 					placeholder="Add a comment..."
-					:class="{'is-invalid': factory.errors.body, 'is-valid': factory.isValid('body') }"
 				>
-				<button type="submit" class="btn custom-btn ms-auto">
+				<button class="btn custom-btn ms-auto" type="submit">
 					send
 				</button>
 			</div>
@@ -27,6 +27,7 @@ import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { CommentFactory } from '@modules/questions'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useRedirectToAuth } from '@app/hooks/auth/session'
+
 export default defineComponent({
 	name: 'CommentForm',
 	props: {
@@ -67,7 +68,7 @@ export default defineComponent({
 	}
 
 	.custom-btn {
-		border: 1px solid  $color-line;
+		border: 1px solid $color-line;
 		color: $color-primary;
 		border-radius: 5px;
 		padding: 0.5rem 1.5rem;

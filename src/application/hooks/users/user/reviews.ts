@@ -34,7 +34,9 @@ export const useUserReviewList = (id: string) => {
 			global[id].hasMore.value = reviews.length === PAGINATION_LIMIT + 1
 			reviews.slice(0, PAGINATION_LIMIT).forEach((a) => pushToReviewList(id, a))
 			global[id].fetched.value = true
-		} catch (error) { global[id].setError(error) }
+		} catch (error) {
+			global[id].setError(error)
+		}
 		global[id].setLoading(false)
 	}
 

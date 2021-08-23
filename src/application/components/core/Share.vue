@@ -6,9 +6,10 @@
 
 <script lang="ts">
 import { defineComponent, useRoute } from '@nuxtjs/composition-api'
-import { isClient, domain } from '@utils/environment'
+import { domain, isClient } from '@utils/environment'
 import { Notify } from '@app/hooks/core/notifications'
 import { copyToClipboard } from '@utils/commons'
+
 export default defineComponent({
 	name: 'Share',
 	props: {

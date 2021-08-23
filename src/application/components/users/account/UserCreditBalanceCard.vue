@@ -3,7 +3,9 @@
 		<h4 class="headertext mb-0">
 			Available Balance
 		</h4>
-		<div class="px-0-5 px-sm-1 py-3 p-md-3 boxStyle d-flex col-12 col-md-10 gap-1 align-content-center justify-content-center">
+		<div
+			class="px-0-5 px-sm-1 py-3 p-md-3 boxStyle d-flex col-12 col-md-10 gap-1 align-content-center justify-content-center"
+		>
 			<div class="d-flex col-6 gap-2 align-items-center justify-content-center ">
 				<Coins :size="45" />
 				<DynamicText class="largeText">
@@ -26,6 +28,7 @@ import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { UserEntity } from '@modules/users'
 import { formatNumber } from '@utils/commons'
 import { useAccountModal } from '@app/hooks/core/modals'
+
 export default defineComponent({
 	name: 'UserCreditBalanceCard',
 	props: {

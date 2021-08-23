@@ -54,7 +54,7 @@ $theme-colors: (
 	'white': $color-white
 );
 
-$spacer-values: (0,1,2,3,4,5,6,7,8,9,10);
+$spacer-values: (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 $spacers: ();
 
 @each $key in $spacer-values {

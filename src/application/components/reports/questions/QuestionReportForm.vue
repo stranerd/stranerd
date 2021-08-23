@@ -2,12 +2,16 @@
 	<form @submit.prevent="submit">
 		<p>What is wrong with this question?</p>
 		<div class="d-flex flex-column gap-0-5 mb-1">
-			<span v-for="message in QuestionMessages" :key="message.id" class="d-flex gap-0-5 align-items-center fw-bold">
-				<input v-model="factory.message" name="message" type="radio" :value="message.body">
+			<span
+				v-for="message in QuestionMessages"
+				:key="message.id"
+				class="d-flex gap-0-5 align-items-center fw-bold"
+			>
+				<input v-model="factory.message" :value="message.body" name="message" type="radio">
 				<DynamicText>It {{ message.body }}</DynamicText>
 			</span>
 		</div>
-		<button class="btn btn-primary fw-bold px-2 btn-lg" type="submit" :disabled="loading || !factory.valid">
+		<button :disabled="loading || !factory.valid" class="btn btn-primary fw-bold px-2 btn-lg" type="submit">
 			<PageLoading v-if="loading" />
 			<span>Report</span>
 		</button>
@@ -19,6 +23,7 @@
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { QuestionReportFactory } from '@modules/reports'
 import { QuestionMessages } from '@app/hooks/reports/form'
+
 export default defineComponent({
 	name: 'QuestionReportForm',
 	props: {

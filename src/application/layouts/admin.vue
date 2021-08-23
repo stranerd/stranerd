@@ -15,6 +15,7 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import TopNavigation from '@app/components/layouts/topNavigations/DefaultTopNavigation.vue'
 import AdminTopNavigation from '@app/components/layouts/topNavigations/AdminTopNavigation.vue'
+
 export default defineComponent({
 	name: 'AdminLayout',
 	components: { TopNavigation, AdminTopNavigation },

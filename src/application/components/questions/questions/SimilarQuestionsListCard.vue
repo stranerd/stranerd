@@ -1,6 +1,6 @@
 <template>
 	<div :id="question.id" class="questionStyle">
-		<NuxtLink class="d-block" :to="`/questions/${question.id}`">
+		<NuxtLink :to="`/questions/${question.id}`" class="d-block">
 			<DynamicText>
 				{{ question.trimmedBody }}
 			</DynamicText>
@@ -12,6 +12,7 @@
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { QuestionEntity } from '@modules/questions'
 import { formatNumber } from '@utils/commons'
+
 export default defineComponent({
 	name: 'SimilarQuestionsListCard',
 	props: {

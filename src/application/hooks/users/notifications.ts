@@ -28,8 +28,11 @@ export const useNotificationList = () => {
 	const userId = id.value ?? 'empty'
 	if (global[userId] === undefined) {
 		const listener = useListener(async () => {
-			if (!id.value) return () => {}
-			const appendNotifications = (notifications: NotificationEntity[]) => { notifications.forEach((notification) => unshiftToNotificationList(userId, notification)) }
+			if (!id.value) return () => {
+			}
+			const appendNotifications = (notifications: NotificationEntity[]) => {
+				notifications.forEach((notification) => unshiftToNotificationList(userId, notification))
+			}
 			const date = global[userId].notifications.value[0]?.createdAt
 			return ListenToNotifications.call(userId, appendNotifications, date)
 		})
@@ -51,7 +54,9 @@ export const useNotificationList = () => {
 			const notifications = await GetNotifications.call(userId)
 			global[userId].hasMore.value = notifications.length === PAGINATION_LIMIT + 1
 			notifications.reverse().slice(0, PAGINATION_LIMIT).forEach((t) => pushToNotificationList(userId, t))
-		} catch (e) { global[userId].setError(e) }
+		} catch (e) {
+			global[userId].setError(e)
+		}
 		global[userId].setLoading(false)
 	}
 
@@ -73,7 +78,9 @@ export const useNotification = (notification: NotificationEntity) => {
 		try {
 			setLoading(true)
 			await MarkNotificationSeen.call(id.value!, notification.id, true)
-		} catch (e) { setError(e) }
+		} catch (e) {
+			setError(e)
+		}
 		setLoading(false)
 	}
 

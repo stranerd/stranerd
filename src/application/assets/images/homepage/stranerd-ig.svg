@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Creator: CorelDRAW 2019 (64-Bit) -->
-<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="3125px" height="2500px" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
-viewBox="0 0 3125 2500"
- xmlns:xlink="http://www.w3.org/1999/xlink"
- xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="3125px" height="2500px"
+	 version="1.1"
+	 style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+	 viewBox="0 0 3125 2500"
+>
  <defs>
   <style type="text/css">
    <![CDATA[
@@ -12,17 +13,18 @@ viewBox="0 0 3125 2500"
     .fil1 {fill:white}
    ]]>
   </style>
-     <clipPath id="id0">
+	 <clipPath id="id0">
       <rect y="650" width="3125" height="1200"/>
      </clipPath>
  </defs>
- <g id="Layer_x0020_1">
+	<g id="Layer_x0020_1">
   <metadata id="CorelCorpID_0Corel-Layer"/>
-  <g id="_1950107190096">
-   <path class="fil0" d="M2149.17 2190.34l392.85 -377.14c430.34,-413.13 430.04,-1089.44 -0.65,-1502.91l0 0c-430.7,-413.47 -1135.19,-413.75 -1565.53,-0.63l-392.85 377.14c-430.34,413.13 -430.05,1089.44 0.65,1502.91l0 0c430.7,413.48 1135.19,413.76 1565.53,0.63z"/>
-   <g>
+		<g id="_1950107190096">
+   <path class="fil0"
+		 d="M2149.17 2190.34l392.85 -377.14c430.34,-413.13 430.04,-1089.44 -0.65,-1502.91l0 0c-430.7,-413.47 -1135.19,-413.75 -1565.53,-0.63l-392.85 377.14c-430.34,413.13 -430.05,1089.44 0.65,1502.91l0 0c430.7,413.48 1135.19,413.76 1565.53,0.63z"/>
+			<g>
     <rect class="fil1" y="550" width="3125" height="1400" rx="109.25" ry="100"/>
-    <g style="clip-path:url(#id0)">
+				<g style="clip-path:url(#id0)">
      <image x="0" y="650" width="3125" height="1200" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABOMAAAHhCAIAAAHUjd2wAAAACXBIWXMA
 ABJ0AAASdAHeZh94AAAgAElEQVR4nOxdB2AUxRqebdfvkrtLcuk9IQkhgdCrCCKgD1AERAQRUUGl
 2AUUUEGkSBGx0J6gYgNBwIIgKIjSAkiHhPTec5fr296/u3rmQYAQAiLe93jr3mZ2dmb/+dvszP+T

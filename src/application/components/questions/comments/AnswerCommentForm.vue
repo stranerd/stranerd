@@ -1,19 +1,20 @@
 <template>
-	<CommentForm :factory="factory" :error="error" :loading="loading" :submit="createComment" />
+	<CommentForm :error="error" :factory="factory" :loading="loading" :submit="createComment" />
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useCreateAnswerComments } from '@app/hooks/questions/answer-comments'
 import CommentForm from '@app/components/questions/comments/CommentForm.vue'
+
 export default defineComponent({
 	name: 'AnswerCommentForm',
 	components: { CommentForm },
 	props: {
-	    answerId: {
+		answerId: {
 			required: true,
-		    type: String
-	    }
+			type: String
+		}
 	},
 	setup (props) {
 		const { loading, error, factory, createComment } = useCreateAnswerComments(props.answerId)

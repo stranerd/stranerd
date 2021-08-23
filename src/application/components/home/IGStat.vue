@@ -9,10 +9,14 @@
 			<div class="w-100 flex-grow-1 text-center">
 				<img src="@app/assets/images/homepage/stranerd-ig.svg" width="100%">
 			</div>
-			<div class="w-100 flex-grow-1 text-center d-flex flex-column justify-content-center align-items-center position-relative">
-				<img src="@app/assets/images/homepage/testimonial.svg" class="ImageBubble">
+			<div
+				class="w-100 flex-grow-1 text-center d-flex flex-column justify-content-center align-items-center position-relative"
+			>
+				<img class="ImageBubble" src="@app/assets/images/homepage/testimonial.svg">
 				<div class="py-3 box">
-					<div class="col-md-10 commentsBox p-1 d-flex flex-column justify-content-center align-items-center mx-auto">
+					<div
+						class="col-md-10 commentsBox p-1 d-flex flex-column justify-content-center align-items-center mx-auto"
+					>
 						<img :src="comments[currentIndex].img" class="testimonial-image">
 						<div class="mb-1">
 							{{ comments[currentIndex].text }}
@@ -22,7 +26,7 @@
 						</div>
 					</div>
 					<div class="d-flex justify-content-center align-items-center mt-1">
-						<a to="#" class="commentIcons" @click.prevent="goToPrev">
+						<a class="commentIcons" to="#" @click.prevent="goToPrev">
 							<i class="fas fa-chevron-left" />
 						</a>
 						<a
@@ -33,7 +37,7 @@
 						>
 							<i class="fas fa-circle" />
 						</a>
-						<a to="#" class="commentIcons" @click.prevent="goToNext">
+						<a class="commentIcons" to="#" @click.prevent="goToNext">
 							<i class="fas fa-chevron-right" />
 						</a>
 					</div>
@@ -45,6 +49,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from '@nuxtjs/composition-api'
+
 export default defineComponent({
 	name: 'IGStat',
 	setup () {
@@ -84,7 +89,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 	.testimonial-image {
 		height: 60px;
 		width: 60px;
@@ -124,14 +129,22 @@ export default defineComponent({
 
 	.ImageBubble {
 		width: 90%;
-		@media (min-width: $md) { width: 50%; }
-		@media (min-width: $lg) { width: 60%; }
+		@media (min-width: $md) {
+			width: 50%;
+		}
+		@media (min-width: $lg) {
+			width: 60%;
+		}
 	}
 
 	.sub {
 		font-size: 18px;
-		@media (min-width: $md) { font-size: 25px; }
-		@media (min-width: $lg) { font-size: 30px; }
+		@media (min-width: $md) {
+			font-size: 25px;
+		}
+		@media (min-width: $lg) {
+			font-size: 30px;
+		}
 
 		font-weight: bold;
 	}
@@ -139,8 +152,12 @@ export default defineComponent({
 	.commentIcons {
 		color: $color-white;
 		font-size: 20px;
-		@media (min-width: $md) { font-size: 21px; }
-		@media (min-width: $lg) { font-size: 23px; }
+		@media (min-width: $md) {
+			font-size: 21px;
+		}
+		@media (min-width: $lg) {
+			font-size: 23px;
+		}
 
 		margin-right: 10px;
 	}
@@ -148,8 +165,12 @@ export default defineComponent({
 	.commentIconsDot {
 		color: $color-white;
 		font-size: 10px;
-		@media (min-width: $md) { font-size: 12px; }
-		@media (min-width: $lg) { font-size: 12px; }
+		@media (min-width: $md) {
+			font-size: 12px;
+		}
+		@media (min-width: $lg) {
+			font-size: 12px;
+		}
 
 		margin-right: 10px;
 	}
@@ -157,8 +178,12 @@ export default defineComponent({
 	.commentIconsDotActive {
 		color: $color-primary;
 		font-size: 10px;
-		@media (min-width: $md) { font-size: 12px; }
-		@media (min-width: $lg) { font-size: 12px; }
+		@media (min-width: $md) {
+			font-size: 12px;
+		}
+		@media (min-width: $lg) {
+			font-size: 12px;
+		}
 
 		margin-right: 10px;
 	}

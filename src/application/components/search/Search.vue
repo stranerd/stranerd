@@ -1,16 +1,16 @@
 <template>
-	<AisInstantSearch :search-client="searchClient" :index-name="collection" class="w-100">
+	<AisInstantSearch :index-name="collection" :search-client="searchClient" class="w-100">
 		<AisSearchBox>
 			<template
 				slot="default"
 				slot-scope="{ currentRefinement, isSearchStalled, refine }"
 			>
 				<div class="search-container gap-0-25">
-					<img src="@app/assets/images/icons/search.svg" alt="" class="sub-icons">
+					<img alt="" class="sub-icons" src="@app/assets/images/icons/search.svg">
 					<input
-						placeholder="Search for anything..."
-						class="form-control"
 						:value="currentRefinement"
+						class="form-control"
+						placeholder="Search for anything..."
 						@input="(event) => { refine(event.currentTarget.value); log(event.currentTarget.value) }"
 					>
 				</div>
@@ -27,14 +27,16 @@
 						<AisHits v-if="hits.length > 0" :transform-items="transformResults">
 							<template #default="{ items }">
 								<li v-for="(item, index) in items" :key="item.objectID" class="list-group-item">
-									<slot name="item" :item="item" :index="index" />
+									<slot :index="index" :item="item" name="item" />
 								</li>
 							</template>
 						</AisHits>
 						<li v-else class="list-group-item h5 mb-0">
-							No results found for <q><DynamicText>{{ query }}</DynamicText></q>
+							No results found for <q>
+								<DynamicText>{{ query }}</DynamicText>
+							</q>
 						</li>
-						<AisPoweredBy class="m-2" :theme="theme" />
+						<AisPoweredBy :theme="theme" class="m-2" />
 					</template>
 				</ul>
 			</template>
@@ -47,8 +49,9 @@ import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { algoliaConfig } from '@utils/environment'
 import algoliaSearch from 'algoliasearch/lite'
 // @ts-ignore
-import { AisStateResults, AisSearchBox, AisHits, AisPoweredBy, AisInstantSearch } from 'vue-instantsearch'
+import { AisHits, AisInstantSearch, AisPoweredBy, AisSearchBox, AisStateResults } from 'vue-instantsearch'
 import { analytics } from '@modules/core'
+
 export default defineComponent({
 	name: 'Search',
 	components: {

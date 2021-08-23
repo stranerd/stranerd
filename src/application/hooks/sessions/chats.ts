@@ -1,5 +1,12 @@
-import { computed, Ref, ssrRef, ref, useFetch, watch } from '@nuxtjs/composition-api'
-import { AddPersonalChat, ChatEntity, ChatFactory, GetPersonalChats, ListenToPersonalChats, MarkPersonalChatRead } from '@modules/sessions'
+import { computed, Ref, ref, ssrRef, useFetch, watch } from '@nuxtjs/composition-api'
+import {
+	AddPersonalChat,
+	ChatEntity,
+	ChatFactory,
+	GetPersonalChats,
+	ListenToPersonalChats,
+	MarkPersonalChatRead
+} from '@modules/sessions'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
 import { CHAT_PAGINATION_LIMIT } from '@utils/constants'
@@ -36,8 +43,8 @@ export const useChats = (userId: string) => {
 	const chats = computed({
 		// TODO: figure out if the sort is important cos it slows down initial request
 		get: () => global[userId].chats.value, /* .sort((a, b) => {
-			return a.createdAt - b.createdAt < 0 ? -1 : 1
-		}), */
+		 return a.createdAt - b.createdAt < 0 ? -1 : 1
+		 }), */
 		set: (chats) => chats.map((c) => pushToChats(userId, c))
 	})
 
@@ -50,7 +57,9 @@ export const useChats = (userId: string) => {
 			global[userId].hasMore.value = c.length >= CHAT_PAGINATION_LIMIT + 1
 			c.slice().reverse().slice(0, CHAT_PAGINATION_LIMIT).map((c) => unshiftToChats(userId, c))
 			global[userId].fetched.value = true
-		} catch (e) { global[userId].setError(e) }
+		} catch (e) {
+			global[userId].setError(e)
+		}
 		global[userId].setLoading(false)
 	}
 
@@ -96,7 +105,9 @@ export const useCreateChat = (userId: string, sessionId?: string) => {
 				setLoading(true)
 				await AddPersonalChat.call(path, factory.value)
 				factory.value.reset()
-			} catch (e) { setError(e) }
+			} catch (e) {
+				setError(e)
+			}
 			factory.value.reset()
 			setLoading(false)
 		}
@@ -111,7 +122,9 @@ export const useCreateChat = (userId: string, sessionId?: string) => {
 				mediaFactory.media = file
 				try {
 					await AddPersonalChat.call(path, mediaFactory)
-				} catch (error) { setError(error) }
+				} catch (error) {
+					setError(error)
+				}
 			})
 			await Promise.all(promises)
 			setLoading(false)

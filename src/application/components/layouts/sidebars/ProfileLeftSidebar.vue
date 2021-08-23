@@ -3,8 +3,8 @@
 		<div class="d-flex flex-column gap-0-5 gap-md-1 box">
 			<div class="d-flex flex-column gap-0-5 gap-md-1-5 align-items-center text-blue">
 				<div class="position-relative">
-					<Avatar :src="user.avatar" :size="96" class="d-md-none" />
-					<Avatar :src="user.avatar" :size="120" class="d-none d-md-inline-block" />
+					<Avatar :size="96" :src="user.avatar" class="d-md-none" />
+					<Avatar :size="120" :src="user.avatar" class="d-none d-md-inline-block" />
 					<NuxtLink v-if="user.id === id" to="/account/edit">
 						<i class="fa fa-pen pen" />
 					</NuxtLink>
@@ -14,12 +14,15 @@
 					<h1 class="mb-0">
 						<DynamicText>{{ user.fullName }}</DynamicText>
 					</h1>
-					<NuxtLink to="/users/ranks" class="text-primary text-18">
+					<NuxtLink class="text-primary text-18" to="/users/ranks">
 						<DynamicText>{{ user.rank.id }}</DynamicText>
 					</NuxtLink>
 					<div class="d-flex align-items-baseline gap-0-5">
 						<ShowRatings :rating="user.averageRating" />
-						<DynamicText>({{ formatNumber(user.ratingCount) }} {{ pluralize(user.ratingCount, 'review', 'reviews') }})</DynamicText>
+						<DynamicText>
+							({{ formatNumber(user.ratingCount) }}
+							{{ pluralize(user.ratingCount, 'review', 'reviews') }})
+						</DynamicText>
 					</div>
 				</div>
 				<button v-if="canRequestSession" class="sidebar-btn px-2" @click="requestNewSession">
@@ -31,7 +34,7 @@
 
 			<div class="stats">
 				<div class="stat-title gap-1">
-					<img src="@app/assets/images/icons/profileSidebar/questions.svg" alt="">
+					<img alt="" src="@app/assets/images/icons/profileSidebar/questions.svg">
 					<span>Questions</span>
 				</div>
 				<DynamicText class="count fw-bold">
@@ -40,7 +43,7 @@
 			</div>
 			<div class="stats">
 				<div class="stat-title gap-1">
-					<img src="@app/assets/images/icons/profileSidebar/answered.svg" alt="">
+					<img alt="" src="@app/assets/images/icons/profileSidebar/answered.svg">
 					<span>Answered Questions</span>
 				</div>
 				<DynamicText class="count fw-bold">
@@ -49,7 +52,7 @@
 			</div>
 			<div class="stats">
 				<div class="stat-title gap-1">
-					<img src="@app/assets/images/icons/profileSidebar/answers.svg" alt="">
+					<img alt="" src="@app/assets/images/icons/profileSidebar/answers.svg">
 					<span>Answers</span>
 				</div>
 				<DynamicText class="count fw-bold">
@@ -58,7 +61,7 @@
 			</div>
 			<div class="stats">
 				<div class="stat-title gap-1">
-					<img src="@app/assets/images/icons/profileSidebar/best-answer.svg" alt="">
+					<img alt="" src="@app/assets/images/icons/profileSidebar/best-answer.svg">
 					<span>Best Answers</span>
 				</div>
 				<DynamicText class="count">
@@ -67,7 +70,7 @@
 			</div>
 			<div class="stats">
 				<div class="stat-title gap-1">
-					<img src="@app/assets/images/icons/profileSidebar/sessions-attended.svg" alt="">
+					<img alt="" src="@app/assets/images/icons/profileSidebar/sessions-attended.svg">
 					<span>Sessions Attended</span>
 				</div>
 				<DynamicText class="count">
@@ -76,7 +79,7 @@
 			</div>
 			<div v-if="user.isScholar" class="stats">
 				<div class="stat-title gap-1">
-					<img src="@app/assets/images/icons/profileSidebar/sessions-hosted.svg" alt="">
+					<img alt="" src="@app/assets/images/icons/profileSidebar/sessions-hosted.svg">
 					<span>Sessions Hosted</span>
 				</div>
 				<DynamicText class="count">
@@ -85,7 +88,7 @@
 			</div>
 			<div class="stats">
 				<div class="stat-title gap-1">
-					<img src="@app/assets/images/icons/profileSidebar/member-since.svg" alt="">
+					<img alt="" src="@app/assets/images/icons/profileSidebar/member-since.svg">
 					<span>Member Since</span>
 				</div>
 				<DynamicText class="count">
@@ -100,7 +103,8 @@
 			</h1>
 			<template v-if="user.id === id">
 				<DynamicText v-if="!user.description">
-					Write a short description <NuxtLink to="/account/edit" class="text-primary" style="text-decoration: underline;">
+					Write a short description
+					<NuxtLink class="text-primary" style="text-decoration: underline;" to="/account/edit">
 						here
 					</NuxtLink>
 				</DynamicText>
@@ -116,7 +120,7 @@
 			<h1 class="fw-bold">
 				Strongest In
 			</h1>
-			<Subject v-if="user.strongestSubject" :subject-id="user.strongestSubject.id" />
+			<Subject v-if="user.strongestSubject" :subject-id="user.strongestSubject" />
 			<span v-else>N/A</span>
 			<div class="thin" />
 
@@ -125,7 +129,7 @@
 			</h1>
 			<div v-if="user.weakerSubjects.length > 0" class="d-flex flex-wrap gap-0-25">
 				<span v-for="(subject, index) in user.weakerSubjects" :key="subject.id">
-					<Subject :subject-id="subject.id" />
+					<Subject :subject-id="subject" />
 					<span v-if="index < user.weakerSubjects.length - 1">,&nbsp;</span>
 				</span>
 			</div>
@@ -153,6 +157,7 @@ import Subject from '@app/components/questions/subjects/Subject.vue'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useSessionModal } from '@app/hooks/core/modals'
 import { setNewSessionTutorIdBio } from '@app/hooks/sessions/sessions'
+
 export default defineComponent({
 	name: 'ProfileLeftSidebar',
 	components: { Tag, Subject },
@@ -162,16 +167,27 @@ export default defineComponent({
 		const { error, loading, user } = useUser(userId)
 		const canRequestSession = computed({
 			get: () => authUser.value &&
-				authUser.value.id !== user.value?.id &&
-				authUser.value.canRequestSessions &&
-				user.value?.canHostSessions,
-			set: () => {}
+					authUser.value.id !== user.value?.id &&
+					authUser.value.canRequestSessions &&
+					user.value?.canHostSessions,
+			set: () => {
+			}
 		})
 		const requestNewSession = () => {
 			setNewSessionTutorIdBio({ id: user.value?.id!, user: user.value?.bio! })
 			useSessionModal().openCreateSession()
 		}
-		return { id, error, loading, user, formatNumber, formatTime, pluralize, canRequestSession, requestNewSession }
+		return {
+			id,
+			error,
+			loading,
+			user,
+			formatNumber,
+			formatTime,
+			pluralize,
+			canRequestSession,
+			requestNewSession
+		}
 	}
 })
 </script>
@@ -248,6 +264,8 @@ export default defineComponent({
 			}
 		}
 
-		.count { font-weight: bold; }
+		.count {
+			font-weight: bold;
+		}
 	}
 </style>

@@ -1,12 +1,12 @@
 <template>
-	<Search collection="questions" :transform-results="transformResults">
+	<Search :transform-results="transformResults" collection="questions">
 		<template #item="{ item }">
 			<NuxtLink :to="`/questions/${item.model.id}`">
 				<DynamicText :truncate="true" class="lead">
 					{{ extractTextFromHTML(item.model.body) }}
 				</DynamicText>
 				<div class="d-flex gap-0-5 align-items-center">
-					<Avatar :src="item.model.avatar" :size="30" />
+					<Avatar :size="30" :src="item.model.avatar" />
 					<DynamicText :truncate="true">
 						{{ item.model.userName }}
 					</DynamicText>
@@ -22,6 +22,7 @@ import { QuestionTransformer } from '@modules/questions/data/transformers/questi
 import { QuestionFromModel } from '@modules/questions/data/models/question'
 import Search from '@app/components/search/Search.vue'
 import { extractTextFromHTML } from '@utils/commons'
+
 export default defineComponent({
 	name: 'QuestionSearch',
 	components: { Search },

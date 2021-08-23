@@ -6,7 +6,7 @@
 					<h5 class="sessionHead">
 						Company
 					</h5>
-					<NuxtLink class="linkText" to="/#how-it-works">
+					<NuxtLink class="linkText" to="/about-us">
 						About Us
 					</NuxtLink>
 					<NuxtLink class="linkText" to="/">

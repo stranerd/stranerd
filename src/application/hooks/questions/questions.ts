@@ -16,6 +16,7 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { analytics } from '@modules/core'
 import VueRouter from 'vue-router'
 import { Alert } from '@app/hooks/core/notifications'
+import { useQuestionsModal } from '@app/hooks/core/modals'
 
 enum Answered {
 	All,
@@ -151,6 +152,7 @@ export const useCreateQuestion = () => {
 				analytics.logEvent('ask_question_completed', {
 					questionId, subject
 				})
+				useQuestionsModal().closeAskQuestions()
 			} catch (error) {
 				setError(error)
 			}

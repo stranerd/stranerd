@@ -7,13 +7,19 @@
 			<span class="bg-primary-dark small rounded-3 py-0-25 px-0-5">
 				Ask A Question
 			</span>
-			<NuxtLink
+			<div
 				class="d-flex align-items-center justify-content-center rounded-pill bg-primary-dark"
 				style="width: 3rem; height: 3rem; font-size: 2rem;"
-				to="/questions/create"
+				@click="askQuestion"
 			>
-				+
-			</NuxtLink>
+				<NuxtLink
+					class="d-flex align-items-center justify-content-center rounded-pill bg-primary-dark"
+					style="width: 3rem; height: 3rem; font-size: 2rem;"
+					to="/questions/create"
+				>
+					+
+				</nuxtlink>
+			</div>
 		</div>
 
 		<div class="d-flex justify-content-between align-items-center gap-1 mb-1 mb-md-2 ">
@@ -22,9 +28,9 @@
 				<span>Questions</span>
 				<div class="dash ms-0-5" />
 			</Heading>
-			<NuxtLink class=" btn btn-primary px-2 py-1 d-none d-md-inline" to="/questions/create">
+			<button class=" btn btn-primary px-2 py-1 d-none d-md-inline" @click="askQuestion">
 				Ask A Question
-			</NuxtLink>
+			</button>
 		</div>
 
 		<form class="d-flex options gap-0-5 gap-md-1-5">
@@ -52,6 +58,8 @@ import QuestionCard from '@app/components/questions/questions/QuestionsListCard.
 import { useQuestionList } from '@app/hooks/questions/questions'
 import SelectSubject from '@app/components/questions/subjects/SelectSubject.vue'
 import { useAuth } from '@app/hooks/auth/auth'
+import { useQuestionsModal } from '@app/hooks/core/modals'
+import { useRedirectToAuth } from '@app/hooks/auth/session'
 
 export default defineComponent({
 	name: 'QuestionsList',
@@ -62,13 +70,19 @@ export default defineComponent({
 			answeredChoices, answered, subjectId,
 			fetchOlderQuestions, listener
 		} = useQuestionList()
+		const { redirect } = useRedirectToAuth()
+		const askQuestion = () => {
+			if (isLoggedIn.value) useQuestionsModal().openAskQuestions()
+			else redirect()
+		}
+
 		const { isLoggedIn, user } = useAuth()
 		onMounted(listener.startListener)
 		onBeforeUnmount(listener.closeListener)
 		return {
 			questions, error, loading, hasMore, fetchOlderQuestions,
 			answeredChoices, answered, subjectId,
-			user, isLoggedIn
+			user, isLoggedIn, askQuestion
 		}
 	}
 })

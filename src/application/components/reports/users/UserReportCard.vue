@@ -19,7 +19,10 @@
 					</NuxtLink>
 				</span>
 			</div>
-			<div class="text-danger ms-md-auto d-flex flex-wrap flex-md-column gap-1 text-nowrap custom-border" style="font-size: 14px;">
+			<div
+				class="text-danger ms-md-auto d-flex flex-wrap flex-md-column gap-1 text-nowrap custom-border"
+				style="font-size: 14px;"
+			>
 				<a>Send warning</a>
 				<a>Suspend User</a>
 				<a>Delete User</a>
@@ -31,6 +34,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { UserReportEntity } from '@modules/reports'
+
 export default defineComponent({
 	name: 'UserReportCard',
 	props: {

@@ -4,7 +4,7 @@
 			<DynamicText class="subject-custom">
 				{{ subject.name }}
 			</DynamicText>
-			<span style="font-size: 14px;" class="ms-auto text-danger" @click.prevent="deleteSubject">
+			<span class="ms-auto text-danger" style="font-size: 14px;" @click.prevent="deleteSubject">
 				Delete
 			</span>
 		</div>
@@ -17,6 +17,7 @@
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { SubjectEntity } from '@modules/questions'
 import { useDeleteSubject } from '@app/hooks/questions/subjects'
+
 export default defineComponent({
 	name: 'AdminSubjectsListCard',
 	props: {

@@ -18,6 +18,7 @@
 import { defineComponent, onMounted } from '@nuxtjs/composition-api'
 import UserChatCard from '@app/components/sessions/chats/UserChatCard.vue'
 import { useChatsList } from '@app/hooks/sessions/chats-list'
+
 export default defineComponent({
 	name: 'ContactList',
 	components: { UserChatCard },

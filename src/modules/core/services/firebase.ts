@@ -36,12 +36,12 @@ const buildDatabaseQuery = (ref: firebase.database.Query, conditions?: DatabaseG
 }
 
 export const FirestoreService = {
-	find: async function find<T extends { id: string }> (collection: string, id: string) :Promise<T | null> {
+	find: async function find<T extends { id: string }> (collection: string, id: string): Promise<T | null> {
 		const doc = await firestore.collection(collection).doc(id).get()
 		if (doc.exists) return { id: doc.id, ...doc.data() } as T
 		else return null
 	},
-	get: async function get<T extends { id: string }> (collection: string, conditions?: FirestoreGetClauses) :Promise<T[]> {
+	get: async function get<T extends { id: string }> (collection: string, conditions?: FirestoreGetClauses): Promise<T[]> {
 		let query: firebase.firestore.Query = firestore.collection(collection)
 		query = buildFirestoreQuery(query, conditions)
 		const docs = await query.get()
@@ -78,7 +78,7 @@ export const FirestoreService = {
 }
 
 export const DatabaseService = {
-	get: async function get<T extends { id: string }> (path: string, conditions?: DatabaseGetClauses) :Promise<T | null> {
+	get: async function get<T extends { id: string }> (path: string, conditions?: DatabaseGetClauses): Promise<T | null> {
 		const ref = database.ref(path)
 		const doc = await buildDatabaseQuery(ref, conditions).once('value')
 		if (!doc.exists()) return null
@@ -88,7 +88,7 @@ export const DatabaseService = {
 		})
 		return { ...children, id: doc.key! } as T
 	},
-	getMany: async function getMany<T extends { id: string }> (path: string, conditions?: DatabaseGetClauses) :Promise<T[]> {
+	getMany: async function getMany<T extends { id: string }> (path: string, conditions?: DatabaseGetClauses): Promise<T[]> {
 		const ref = database.ref(path)
 		const doc = await buildDatabaseQuery(ref, conditions).once('value')
 		if (!doc.exists()) return []

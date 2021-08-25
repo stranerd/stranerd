@@ -12,7 +12,7 @@ export class ReviewTransformer {
 		})
 	}
 
-	toJSON (entity: ReviewEntity) :ReviewToModel {
+	toJSON (entity: ReviewEntity): ReviewToModel {
 		return {
 			review: entity.review,
 			rating: entity.rating,

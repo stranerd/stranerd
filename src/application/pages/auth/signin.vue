@@ -1,18 +1,18 @@
 <template>
 	<form class="gap-1 gap-md-2 d-flex flex-column" @submit.prevent="signin">
-		<Heading variant="1" class="text-center">
+		<Heading class="text-center" variant="1">
 			Sign In
 		</Heading>
 		<div>
 			<input
 				id="email"
 				v-model="factory.email"
-				type="email"
-				name="email"
-				required
-				placeholder="Email"
-				class="form-control"
 				autocomplete="email"
+				class="form-control"
+				name="email"
+				placeholder="Email"
+				required
+				type="email"
 			>
 			<DynamicText v-if="factory.errors.email" class="small text-danger d-block">
 				{{ factory.errors.email }}
@@ -22,12 +22,12 @@
 			<input
 				id="password"
 				v-model="factory.password"
-				type="password"
-				name="password"
-				required
-				placeholder="Password"
-				class="form-control"
 				autocomplete="password"
+				class="form-control"
+				name="password"
+				placeholder="Password"
+				required
+				type="password"
 			>
 			<DynamicText v-if="factory.errors.password" class="small text-danger d-block">
 				{{ factory.errors.password }}
@@ -63,6 +63,7 @@ import { defineComponent, useMeta } from '@nuxtjs/composition-api'
 import AuthProviders from '@app/components/auth/AuthProviders.vue'
 import { usePassword } from '@app/hooks/core/forms'
 import { useEmailSignin } from '@app/hooks/auth/signin'
+
 export default defineComponent({
 	name: 'AuthSigninPage',
 	components: { AuthProviders },

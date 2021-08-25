@@ -14,6 +14,7 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import AnswerReportCard from '@app/components/reports/answers/AnswerReportCard.vue'
 import { useReportsList } from '@app/hooks/reports/answers'
+
 export default defineComponent({
 	name: 'AnswerReportsList',
 	components: { AnswerReportCard },

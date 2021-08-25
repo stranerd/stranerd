@@ -30,9 +30,17 @@ export class ProfileUpdateFactory extends BaseFactory<UserEntity, UpdateUser, Ke
 			required: false,
 			rules: [(value: string) => isRequiredIf(value, !!this.password), (value: string) => isShallowEqualTo(value, this.password), isLongerThan5, isShorterThan17]
 		},
-		strongestSubject: { required: true, rules: [isLongerThan2] },
+		strongestSubject: {
+			required: true, rules: [isLongerThan2, (value: string) => {
+				return this.weakerSubjects.includes(value)
+					? {
+						valid: false,
+						error: 'subject already exist in your weaker subjects'
+					}
+					: { valid: true, error: undefined }
+			}]
+		},
 		weakerSubjects: { required: true, rules: [hasLessThan4] }
-
 	}
 
 	reserved = []
@@ -89,8 +97,14 @@ export class ProfileUpdateFactory extends BaseFactory<UserEntity, UpdateUser, Ke
 	}
 
 	set password (value: string) {
-		this.set('password', value)
-		this.set('cPassword', '')
+		if (value) {
+			this.set('password', value)
+			this.set('cPassword', this.cPassword)
+		} else {
+			this.values.password = this.defaults.strongestSubject
+			this.validValues.password = this.defaults.strongestSubject
+			this.errors.password = ''
+		}
 	}
 
 	get cPassword () {
@@ -98,7 +112,12 @@ export class ProfileUpdateFactory extends BaseFactory<UserEntity, UpdateUser, Ke
 	}
 
 	set cPassword (value: string) {
-		this.set('cPassword', value)
+		if (value || this.password) this.set('cPassword', value)
+		else {
+			this.values.cPassword = this.defaults.strongestSubject
+			this.validValues.cPassword = this.defaults.strongestSubject
+			this.errors.cPassword = ''
+		}
 	}
 
 	get strongestSubject () {
@@ -106,15 +125,26 @@ export class ProfileUpdateFactory extends BaseFactory<UserEntity, UpdateUser, Ke
 	}
 
 	set strongestSubject (value: string) {
-		this.set('strongestSubject', value)
+		if (value) this.set('strongestSubject', value)
+		else {
+			this.values.strongestSubject = this.defaults.strongestSubject
+			this.validValues.strongestSubject = this.defaults.strongestSubject
+			this.errors.strongestSubject = ''
+		}
 	}
 
 	get weakerSubjects () {
 		return this.values.weakerSubjects
 	}
 
-	 addWeakerSubjects = (value: string) => { if (!this.weakerSubjects.includes(value)) { this.set('weakerSubjects', [...this.weakerSubjects, value]) } }
-	 removeWeakerSubjects = (value: string) => this.set('weakerSubjects', this.weakerSubjects.filter((weakSubject) => weakSubject !== value))
+	addWeakerSubjects = (value: string) => {
+		if (!this.weakerSubjects.includes(value)) {
+			this.set('weakerSubjects', [...this.weakerSubjects, value])
+			if (this.strongestSubject) this.set('strongestSubject', this.strongestSubject)
+		}
+	}
+
+	removeWeakerSubjects = (value: string) => this.set('weakerSubjects', this.weakerSubjects.filter((weakSubject) => weakSubject !== value))
 
 	toModel = async () => {
 		if (this.valid) {

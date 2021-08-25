@@ -1,4 +1,4 @@
-import { FirestoreService, FunctionsService, FirestoreGetClauses } from '@modules/core'
+import { FirestoreGetClauses, FirestoreService, FunctionsService } from '@modules/core'
 import { SessionFromModel, SessionToModel } from '../models/session'
 import { SessionBaseDataSource } from './session-base'
 

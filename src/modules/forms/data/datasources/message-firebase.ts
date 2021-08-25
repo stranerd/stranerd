@@ -1,4 +1,4 @@
-import { DatabaseService, DatabaseGetClauses } from '@modules/core'
+import { DatabaseGetClauses, DatabaseService } from '@modules/core'
 import { MessageFromModel, MessageToModel } from '../models/message'
 import { FormBaseDataSource } from './form-base'
 

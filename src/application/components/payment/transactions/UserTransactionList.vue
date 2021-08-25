@@ -15,7 +15,11 @@
 					<span>Description</span>
 				</div>
 			</div>
-			<UserTransactionListCard v-for="transaction in transactions" :key="transaction.hash" :transaction="transaction" />
+			<UserTransactionListCard
+				v-for="transaction in transactions"
+				:key="transaction.hash"
+				:transaction="transaction"
+			/>
 		</div>
 		<div v-if="hasMore" class="text-center text-18">
 			<div class="thick my-0" />
@@ -28,6 +32,7 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import { useTransactionList } from '@app/hooks/payment/transactions'
 import UserTransactionListCard from '@app/components/payment/transactions/UserTransactionListCard.vue'
+
 export default defineComponent({
 	name: 'UserTransactionList',
 	components: { UserTransactionListCard },

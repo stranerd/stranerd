@@ -65,17 +65,30 @@
 			<span class="text-dark fw-bold">
 				What subject are you strongest in?
 			</span>
-			<SelectSubject :subject-id.sync="factory.strongestSubject" class="p-0 select" />
+			<SelectSubject
+				:exclude="factory.weakerSubjects"
+				:show-all="false"
+				:subject-id.sync="factory.strongestSubject"
+				class="p-0 select"
+			/>
 		</div>
 		<span v-if="factory.strongestSubject">
 			Strongest subject chosen: <Subject :subject-id="factory.strongestSubject" />
 		</span>
+		<DynamicText v-if="factory.errors.strongestSubject" class="small text-danger d-block">
+			{{ factory.errors.strongestSubject }}
+		</DynamicText>
 
 		<div class="form-group w-100 justify-content-between d-flex align-items-center">
 			<span class="text-dark fw-bold">
 				What subject are you also good in?
 			</span>
-			<SelectSubject :subject-id.sync="sTag" class="p-0 select" />
+			<SelectSubject
+				:exclude="[factory.strongestSubject]"
+				:show-all="false"
+				:subject-id.sync="sTag"
+				class="p-0 select"
+			/>
 		</div>
 		<DynamicText v-if="factory.errors.weakerSubjects" class="small text-danger d-block">
 			{{ factory.errors.weakerSubjects }}
@@ -155,7 +168,7 @@
 import { defineComponent, onBeforeUnmount, PropType, ref } from '@nuxtjs/composition-api'
 import { useUpdateProfile } from '@app/hooks/users/account'
 import { setShowProfileModal, useAuth } from '@app/hooks/auth/auth'
-import { useFileInputs, usePassword, useSubjectTags } from '@app/hooks/core/forms'
+import { useFileInputs, usePassword, useSubjectAsTags } from '@app/hooks/core/forms'
 import { isClient } from '@utils/environment'
 import { DEFAULT_PROFILE_IMAGE } from '@utils/constants'
 import SelectSubject from '@app/components/questions/subjects/SelectSubject.vue'
@@ -184,7 +197,7 @@ export default defineComponent({
 			factory.value.avatar = undefined
 		}
 
-		const { sTag, removeTag } = useSubjectTags(
+		const { sTag, removeTag } = useSubjectAsTags(
 			(sTag: string) => factory.value.addWeakerSubjects(sTag),
 			(sTag: string) => factory.value.removeWeakerSubjects(sTag)
 		)

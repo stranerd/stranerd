@@ -8,7 +8,7 @@ export class AddMessageUseCase {
 		this.repository = repository
 	}
 
-	async call (factory: MessageFactory) : Promise<string> {
+	async call (factory: MessageFactory): Promise<string> {
 		return await this.repository.add(await factory.toModel())
 	}
 }

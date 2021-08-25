@@ -1,5 +1,12 @@
 import { ssrRef, useFetch, watch } from '@nuxtjs/composition-api'
-import { QuestionReportFactory, AddQuestionReport, QuestionReportType, QuestionReportEntity, GetQuestionReports, DeleteQuestionReport } from '@modules/reports'
+import {
+	AddQuestionReport,
+	DeleteQuestionReport,
+	GetQuestionReports,
+	QuestionReportEntity,
+	QuestionReportFactory,
+	QuestionReportType
+} from '@modules/reports'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useReportModal } from '@app/hooks/core/modals'
 import { useAuth } from '@app/hooks/auth/auth'
@@ -39,7 +46,9 @@ export const useCreateReport = () => {
 				useReportModal().closeReportQuestion()
 				factory.value.reset()
 				setMessage('Report sent successfully')
-			} catch (error) { setError(error) }
+			} catch (error) {
+				setError(error)
+			}
 			setLoading(false)
 		} else factory.value.validateAll()
 	}
@@ -74,7 +83,9 @@ export const useReportsList = () => {
 			global.hasMore.value = reports.length === PAGINATION_LIMIT + 1
 			reports.slice(0, PAGINATION_LIMIT).forEach(pushToReportList)
 			global.fetched.value = true
-		} catch (error) { global.setError(error) }
+		} catch (error) {
+			global.setError(error)
+		}
 		global.setLoading(false)
 	}
 
@@ -105,7 +116,9 @@ export const useDeleteReport = (id: string) => {
 				global.reports.value = global.reports.value
 					.filter((r) => r.id !== id)
 				setMessage('Report deleted successfully')
-			} catch (error) { setError(error) }
+			} catch (error) {
+				setError(error)
+			}
 			setLoading(false)
 		}
 	}

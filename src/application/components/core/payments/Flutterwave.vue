@@ -1,15 +1,9 @@
 <template>
 	<div class="d-flex flex-column">
 		<flutterwave-pay-button
-			:tx_ref="getRandomValue()"
 			:amount="getLocalAmount(amount)"
+			:callback="makePaymentCallback"
 			:currency="getLocalCurrency()"
-			payment_options="card,ussd"
-			redirect_url=""
-			class="btn btn-primary btn-lg mx-auto"
-			:meta="{
-				consumer_id: user && user.id
-			}"
 			:customer="{
 				name: user && user.fullName,
 				email: user && user.email
@@ -19,8 +13,14 @@
 				description: '',
 				logo : logo
 			}"
-			:callback="makePaymentCallback"
+			:meta="{
+				consumer_id: user && user.id
+			}"
 			:onclose="closedPaymentModal"
+			:tx_ref="getRandomValue()"
+			class="btn btn-primary btn-lg mx-auto"
+			payment_options="card,ussd"
+			redirect_url=""
 		>
 			Click To Pay With Flutterwave
 		</flutterwave-pay-button>
@@ -35,6 +35,7 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { getRandomValue } from '@utils/commons'
 import { logo } from '@utils/environment'
 import { useFlutterwavePayment } from '@app/hooks/payment/payment'
+
 export default defineComponent({
 	name: 'Flutterwave',
 	setup () {

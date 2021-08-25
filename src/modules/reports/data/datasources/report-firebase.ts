@@ -1,4 +1,4 @@
-import { DatabaseService, DatabaseGetClauses, FunctionsService } from '@modules/core'
+import { DatabaseGetClauses, DatabaseService, FunctionsService } from '@modules/core'
 import { ReportFromModel, ReportToModel } from '../models/report'
 import { ReportBaseDataSource } from './report-base'
 

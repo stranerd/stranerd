@@ -1,7 +1,7 @@
 <template>
 	<div class="position-relative">
 		<div class="center">
-			<div class="spinner-border text-dark" role="status" :style="`width:${size}rem;height:${size}rem;`">
+			<div :style="`width:${size}rem;height:${size}rem;`" class="spinner-border text-dark" role="status">
 				<span class="sr-only">Loading...</span>
 			</div>
 		</div>
@@ -10,6 +10,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
+
 export default defineComponent({
 	name: 'PageLoading',
 	props: {

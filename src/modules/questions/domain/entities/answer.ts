@@ -1,4 +1,4 @@
-import { UserBio, generateDefaultBio } from '@modules/users'
+import { generateDefaultBio, UserBio } from '@modules/users'
 import { BaseEntity } from '@modules/core'
 import { catchDivideByZero, extractTextFromHTML, trimToLength } from '@utils/commons'
 
@@ -18,10 +18,10 @@ export class AnswerEntity extends BaseEntity {
 	public readonly createdAt: number
 
 	constructor ({
-		id, title, body, coins, questionId, tags,
-		subjectId, createdAt, userId, user,
-		best, ratings, comments
-	}: AnswerConstructorArgs) {
+		             id, title, body, coins, questionId, tags,
+		             subjectId, createdAt, userId, user,
+		             best, ratings, comments
+	             }: AnswerConstructorArgs) {
 		super()
 		this.id = id
 		this.title = title
@@ -38,17 +38,49 @@ export class AnswerEntity extends BaseEntity {
 		this.createdAt = createdAt
 	}
 
-	get averageRating () { return catchDivideByZero(this.ratings.total, this.votes) }
-	get votes () { return this.ratings.count }
-	get userName () { return this.user.name.fullName }
-	get avatar () { return this.user.avatar }
-	get trimmedTitle () { return trimToLength(this.strippedTitle, 200) }
-	get trimmedBody () { return trimToLength(this.strippedBody, 200) }
-	get strippedTitle () { return extractTextFromHTML(this.title) }
-	get strippedBody () { return extractTextFromHTML(this.body) }
-	get isModified () { return this.best || this.ratings.count > 0 }
-	get canBeEdited () { return !this.isModified }
-	get canBeDeleted () { return !this.isModified }
+	get averageRating () {
+		return catchDivideByZero(this.ratings.total, this.votes)
+	}
+
+	get votes () {
+		return this.ratings.count
+	}
+
+	get userName () {
+		return this.user.name.fullName
+	}
+
+	get avatar () {
+		return this.user.avatar
+	}
+
+	get trimmedTitle () {
+		return trimToLength(this.strippedTitle, 200)
+	}
+
+	get trimmedBody () {
+		return trimToLength(this.strippedBody, 200)
+	}
+
+	get strippedTitle () {
+		return extractTextFromHTML(this.title)
+	}
+
+	get strippedBody () {
+		return extractTextFromHTML(this.body)
+	}
+
+	get isModified () {
+		return this.best || this.ratings.count > 0
+	}
+
+	get canBeEdited () {
+		return !this.isModified
+	}
+
+	get canBeDeleted () {
+		return !this.isModified
+	}
 }
 
 type AnswerConstructorArgs = {

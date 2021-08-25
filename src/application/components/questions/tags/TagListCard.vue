@@ -6,6 +6,7 @@
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { TagEntity } from '@modules/questions'
 import Tag from '@app/components/questions/tags/Tag.vue'
+
 export default defineComponent({
 	name: 'TagListCard',
 	components: { Tag },

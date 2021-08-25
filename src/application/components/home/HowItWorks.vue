@@ -13,7 +13,7 @@
 					<span>- Go through all available answers from smart students</span>
 					<span>- Choose your best answers and ask another question</span>
 				</div>
-				<NuxtLink to="/questions/create" class="btn btn-md btn-custom py-1">
+				<NuxtLink class="btn btn-md btn-custom py-1" to="/questions/create">
 					Ask A Question
 				</NuxtLink>
 			</div>
@@ -30,7 +30,7 @@
 					<span>- Answer questions in subjects you are very good at</span>
 					<span>- Get rewarded if your answer is chosen as one of the best answers</span>
 				</div>
-				<NuxtLink to="/dashboard" class="btn btn-md btn-custom py-1">
+				<NuxtLink class="btn btn-md btn-custom py-1" to="/dashboard">
 					Answer A Question
 				</NuxtLink>
 			</div>
@@ -45,10 +45,10 @@
 				</Heading>
 				<div class="py-2 d-flex flex-column gap-0-5">
 					<span>- Get in-depth answers to homework questions</span>
-					<span>- Request sessions to help out with homework</span>
+					<span>- Request sessions to get help for your homework</span>
 					<span>- Collaborate to solve problems and earn rewards</span>
 				</div>
-				<NuxtLink to="/nerds/" class="btn btn-md btn-custom py-1">
+				<NuxtLink class="btn btn-md btn-custom py-1" to="/nerds/">
 					Meet Top Nerds
 				</NuxtLink>
 			</div>
@@ -67,7 +67,7 @@
 					<span>- Bronze Coins are used to Ask Questions while</span>
 					<span>- Gold Coins are used for Booking Sessions with Nerds</span>
 				</div>
-				<NuxtLink to="/account/e-wallet" class="btn btn-md btn-custom py-1">
+				<NuxtLink class="btn btn-md btn-custom py-1" to="/account/e-wallet">
 					Buy Coins
 				</NuxtLink>
 			</div>
@@ -78,19 +78,21 @@
 <script lang="ts">
 import { useAuth } from '@app/hooks/auth/auth'
 import { computed, defineComponent } from '@nuxtjs/composition-api'
+
 export default defineComponent({
 	name: 'HowItWorks',
 	setup () {
 		const isNigerian = computed({
 			get: () => useAuth().location.value?.countryCode === 'NG',
-			set: () => {}
+			set: () => {
+			}
 		})
 		return { isNigerian }
 	}
 })
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 	h1 {
 		color: $color-primary-dark;
 	}
@@ -109,9 +111,13 @@ export default defineComponent({
 		align-items: center;
 		justify-content: center;
 		flex-direction: column;
-		@media (min-width: $md) { flex-direction: row; }
+		@media (min-width: $md) {
+			flex-direction: row;
+		}
 
-		& + & { margin-top: 10rem; }
+		& + & {
+			margin-top: 10rem;
+		}
 
 		& > * {
 			text-align: center;

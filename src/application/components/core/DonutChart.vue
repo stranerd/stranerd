@@ -1,15 +1,15 @@
 <template>
 	<Donut
-		background="#FFFFFF"
-		foreground="#D7E2EC"
-		:size="size"
-		unit="px"
-		:thickness="32"
+		:auto-adjust-text-size="true"
 		:has-legend="false"
 		:sections="sections"
-		:total="totalSections < total ? total : totalSections"
+		:size="size"
 		:start-angle="0"
-		:auto-adjust-text-size="true"
+		:thickness="32"
+		:total="totalSections < total ? total : totalSections"
+		background="#FFFFFF"
+		foreground="#D7E2EC"
+		unit="px"
 		@section-click="onClick"
 	>
 		<DynamicText class="score">
@@ -22,6 +22,7 @@
 import { computed, defineComponent, PropType } from '@nuxtjs/composition-api'
 import { formatNumber } from '@utils/commons'
 import Donut from '@app/components/DonutChart/Donut.vue'
+
 export default defineComponent({
 	name: 'DonutChart',
 	components: { Donut },
@@ -44,7 +45,8 @@ export default defineComponent({
 		onClick: {
 			required: false,
 			type: Function as PropType<() => {}>,
-			default: () => {}
+			default: () => {
+			}
 		}
 	},
 	setup (props) {

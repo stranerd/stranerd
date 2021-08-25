@@ -12,7 +12,7 @@ export class MessageTransformer {
 		})
 	}
 
-	toJSON (entity: MessageEntity) :MessageToModel {
+	toJSON (entity: MessageEntity): MessageToModel {
 		return {
 			fName: entity.fName,
 			lName: entity.lName,

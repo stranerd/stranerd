@@ -1,4 +1,4 @@
-import { DatabaseService, DatabaseGetClauses } from '@modules/core'
+import { DatabaseGetClauses, DatabaseService } from '@modules/core'
 import { TagFromModel } from '../models/tag'
 import { TagBaseDataSource } from './tag-base'
 

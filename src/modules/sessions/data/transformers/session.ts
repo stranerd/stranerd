@@ -18,7 +18,7 @@ export class SessionTransformer {
 		})
 	}
 
-	toJSON (entity: SessionEntity) :SessionToModel {
+	toJSON (entity: SessionEntity): SessionToModel {
 		return {
 			message: entity.message,
 			studentId: entity.studentId,

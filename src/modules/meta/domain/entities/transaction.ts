@@ -16,7 +16,9 @@ export class TransactionEntity extends BaseEntity {
 		this.createdAt = createdAt
 	}
 
-	get isGain () { return this.amount >= 0 }
+	get isGain () {
+		return this.amount >= 0
+	}
 }
 
 type TransactionConstructorArgs = {

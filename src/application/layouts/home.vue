@@ -14,6 +14,7 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import HomeTopNavigation from '@app/components/layouts/topNavigations/HomeTopNavigation.vue'
 import HomeBottomNavigation from '@app/components/layouts/bottomNavigations/HomeBottomNavigation.vue'
+
 export default defineComponent({
 	name: 'HomeLayout',
 	components: {

@@ -2,14 +2,14 @@ import { Rule, Validator } from 'sd-validate'
 import { UploaderService } from '../../services/uploader'
 
 export abstract class BaseFactory<E, T, K extends Record<string, any>> {
-	protected abstract readonly rules: Record<keyof K, { required: boolean, rules: Rule[] }>
-	protected readonly defaults: K
-	protected values: K
-	protected validValues: K
 	errors: Record<keyof K, string>
 	abstract toModel: () => Promise<T>
 	abstract loadEntity: (entity: E) => void
 	abstract reserved: string[]
+	protected abstract readonly rules: Record<keyof K, { required: boolean, rules: Rule[] }>
+	protected readonly defaults: K
+	protected values: K
+	protected validValues: K
 
 	protected constructor (keys: K) {
 		this.defaults = { ...keys }
@@ -21,6 +21,12 @@ export abstract class BaseFactory<E, T, K extends Record<string, any>> {
 			}), {} as Record<keyof K, string>)
 	}
 
+	get valid () {
+		return Object.keys(this.defaults)
+			.map((key) => this.isValid(key))
+			.every((valid) => valid)
+	}
+
 	set (property: keyof K, value: any) {
 		const check = this.checkValidity(property, value)
 
@@ -29,12 +35,6 @@ export abstract class BaseFactory<E, T, K extends Record<string, any>> {
 		this.errors[property] = check.message ?? ''
 
 		return check.isValid
-	}
-
-	get valid () {
-		return Object.keys(this.defaults)
-			.map((key) => this.isValid(key))
-			.every((valid) => valid)
 	}
 
 	isValid = (property: keyof K) => this.checkValidity(property, this.validValues[property]).isValid

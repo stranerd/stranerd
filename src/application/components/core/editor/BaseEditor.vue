@@ -1,11 +1,11 @@
 <template>
 	<span>
 		<vue-editor
-			:value="value"
-			use-custom-image-handler
-			:placeholder="placeholder"
 			:class="{'is-invalid': error, 'is-valid': valid }"
 			:editor-toolbar="toolbar"
+			:placeholder="placeholder"
+			:value="value"
+			use-custom-image-handler
 			@input="$emit('update:value',$event)"
 			@image-added="handleImageUpload"
 		/>
@@ -23,18 +23,18 @@ let VueEditor = null
 if (isClient()) VueEditor = require('vue2-editor').VueEditor
 
 /* const customToolBar = [
-	[{ size: ['small', false, 'large', 'huge'] }],
-	[{ header: [false,1,2,3,4,5,6] }],
-	['bold', 'italic', 'underline', 'strike'],
-	[{ script: 'sub' }, { script: 'super' }],
-	[{ indent: '-1' }, { indent: '+1' }],
-	[{ align: '' },{ align: 'center' },{ align: 'right' },{ align: 'justify' }],
-	['blockquote', 'code-block'],
-	[{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
-	[{ color: [] },{ background: [] }],
-	['link', 'image', 'video', 'formula'],
-	['clean']
-] */
+	 [{ size: ['small', false, 'large', 'huge'] }],
+	 [{ header: [false,1,2,3,4,5,6] }],
+	 ['bold', 'italic', 'underline', 'strike'],
+	 [{ script: 'sub' }, { script: 'super' }],
+	 [{ indent: '-1' }, { indent: '+1' }],
+	 [{ align: '' },{ align: 'center' },{ align: 'right' },{ align: 'justify' }],
+	 ['blockquote', 'code-block'],
+	 [{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
+	 [{ color: [] },{ background: [] }],
+	 ['link', 'image', 'video', 'formula'],
+	 ['clean']
+	 ] */
 
 export default defineComponent({
 	name: 'BaseEditor',
@@ -72,7 +72,9 @@ export default defineComponent({
 					const res = await UploaderService.call(props.path, file)
 					editor.insertEmbed(cursorLocation, 'image', res.link)
 					resetUploader()
-				} catch (e) { await Notify({ title: e, icon: 'error' }) }
+				} catch (e) {
+					await Notify({ title: e, icon: 'error' })
+				}
 			}
 		}
 	}
@@ -88,7 +90,9 @@ export default defineComponent({
 		flex-direction: column;
 		font-family: inherit !important;
 
-		.ql-container { font-family: inherit !important; }
+		.ql-container {
+			font-family: inherit !important;
+		}
 
 		.ql-toolbar {
 			display: flex;
@@ -121,8 +125,13 @@ export default defineComponent({
 		}
 	}
 
-	.ql-toolbar.ql-snow { border: 1px solid $color-line !important; }
-	.ql-container.ql-snow { border: 0 !important; }
+	.ql-toolbar.ql-snow {
+		border: 1px solid $color-line !important;
+	}
+
+	.ql-container.ql-snow {
+		border: 0 !important;
+	}
 
 	.ql-editor {
 		background: $color-white;

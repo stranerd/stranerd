@@ -1,6 +1,6 @@
 import { createTransport } from 'nodemailer'
 import Template from 'email-templates'
-import { appName, email, EMAILS, domain, logo } from '../../../utils/environment'
+import { appName, domain, email, EMAILS, logo } from '../../../utils/environment'
 
 export const sendMail = async (to: string, subject: string, content: string, from = EMAILS.NO_REPLY) => {
 	const { clientId, privateKey } = email[from]

@@ -1,8 +1,5 @@
 import { computed, ref, Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
-import {
-	GetSubjects, AddSubject, FindSubject, DeleteSubject,
-	SubjectEntity, SubjectFactory
-} from '@modules/questions'
+import { AddSubject, DeleteSubject, FindSubject, GetSubjects, SubjectEntity, SubjectFactory } from '@modules/questions'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { Alert } from '@app/hooks/core/notifications'
 
@@ -25,7 +22,9 @@ const fetchSubjects = async () => {
 	try {
 		global.subjects.value = await GetSubjects.call()
 		global.fetched.value = true
-	} catch (error) { global.setError(error) }
+	} catch (error) {
+		global.setError(error)
+	}
 	global.setLoading(false)
 }
 
@@ -40,7 +39,9 @@ export const useSubjectList = () => {
 export const useSubject = (id: string) => {
 	const subject = computed({
 		get: () => global.subjects.value.find((s) => s.id === id) ?? null,
-		set: (s) => { if (s) pushToGlobalSubjects(s) }
+		set: (s) => {
+			if (s) pushToGlobalSubjects(s)
+		}
 	})
 	useFetch(async () => {
 		if (!global.fetched.value && !global.loading.value) await fetchSubjects()
@@ -65,7 +66,9 @@ export const useCreateSubject = () => {
 				if (subject) pushToGlobalSubjects(subject)
 				factory.value.reset()
 				setMessage('Subject created successfully')
-			} catch (error) { setError(error) }
+			} catch (error) {
+				setError(error)
+			}
 			setLoading(false)
 		} else factory.value.validateAll()
 	}
@@ -93,7 +96,9 @@ export const useDeleteSubject = (subject: SubjectEntity) => {
 				global.subjects.value = global.subjects.value
 					.filter((s) => s.id !== subject.id)
 				setMessage('Subject deleted successfully')
-			} catch (error) { setError(error) }
+			} catch (error) {
+				setError(error)
+			}
 			setLoading(false)
 		}
 	}

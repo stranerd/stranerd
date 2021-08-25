@@ -3,6 +3,7 @@ export interface FirestoreWhereCondition {
 	condition: '<' | '<=' | '==' | '>=' | '>' | 'array-contains' | 'in' | 'array-contains-any'
 	value: any
 }
+
 export interface FirestoreGetClauses {
 	limit?: number
 	where?: FirestoreWhereCondition[],

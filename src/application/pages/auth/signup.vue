@@ -1,6 +1,6 @@
 <template>
 	<form class="gap-1 gap-md-2 d-flex flex-column" @submit.prevent="signup">
-		<Heading variant="1" class="text-center">
+		<Heading class="text-center" variant="1">
 			Sign Up
 		</Heading>
 		<div class="d-flex flex-column gap-1 gap-md-2 flex-md-row">
@@ -8,12 +8,12 @@
 				<input
 					id="first"
 					v-model="factory.first"
-					type="text"
-					name="first"
-					required
-					placeholder="First name"
-					class="form-control"
 					autocomplete="first-name"
+					class="form-control"
+					name="first"
+					placeholder="First name"
+					required
+					type="text"
 				>
 				<DynamicText v-if="factory.errors.first" class="small text-danger d-block">
 					{{ factory.errors.first }}
@@ -23,12 +23,12 @@
 				<input
 					id="last"
 					v-model="factory.last"
-					type="text"
-					name="last"
-					required
-					placeholder="Last name"
-					class="form-control"
 					autocomplete="last-name"
+					class="form-control"
+					name="last"
+					placeholder="Last name"
+					required
+					type="text"
 				>
 				<DynamicText v-if="factory.errors.last" class="small text-danger d-block">
 					{{ factory.errors.last }}
@@ -39,12 +39,12 @@
 			<input
 				id="email"
 				v-model="factory.email"
-				type="email"
-				name="email"
-				required
-				placeholder="Email"
-				class="form-control"
 				autocomplete="email"
+				class="form-control"
+				name="email"
+				placeholder="Email"
+				required
+				type="email"
 			>
 			<DynamicText v-if="factory.errors.email" class="small text-danger d-block">
 				{{ factory.errors.email }}
@@ -54,12 +54,12 @@
 			<input
 				id="password"
 				v-model="factory.password"
-				type="password"
-				name="password"
-				required
-				placeholder="Password"
-				class="form-control"
 				autocomplete="password"
+				class="form-control"
+				name="password"
+				placeholder="Password"
+				required
+				type="password"
 			>
 			<DynamicText v-if="factory.errors.password" class="small text-danger d-block">
 				{{ factory.errors.password }}
@@ -69,12 +69,12 @@
 			<input
 				id="cPassword"
 				v-model="factory.cPassword"
-				type="password"
-				name="cPassword"
-				required
-				placeholder="Confirm Password"
-				class="form-control"
 				autocomplete="password"
+				class="form-control"
+				name="cPassword"
+				placeholder="Confirm Password"
+				required
+				type="password"
 			>
 			<DynamicText v-if="factory.errors.cPassword" class="small text-danger d-block">
 				{{ factory.errors.cPassword }}
@@ -105,6 +105,7 @@ import { defineComponent, useMeta } from '@nuxtjs/composition-api'
 import AuthProviders from '@app/components/auth/AuthProviders.vue'
 import { usePassword } from '@app/hooks/core/forms'
 import { useEmailSignup } from '@app/hooks/auth/signin'
+
 export default defineComponent({
 	name: 'AuthSignupPage',
 	components: { AuthProviders },

@@ -1,16 +1,16 @@
 <template>
 	<div>
 		<div class="question-body">
-			<Heading variant="1" class="mb-1-25 text-dark">
+			<Heading class="mb-1-25 text-dark" variant="1">
 				Ask Your Question
 			</Heading>
 
 			<QuestionForm
-				:submit="createQuestion"
-				:loading="loading"
-				:factory="factory"
-				:error="error"
 				:coins="coins"
+				:error="error"
+				:factory="factory"
+				:loading="loading"
+				:submit="createQuestion"
 			>
 				<template slot="buttonText">
 					Post Question
@@ -25,6 +25,7 @@ import { defineComponent, onMounted, useMeta } from '@nuxtjs/composition-api'
 import QuestionForm from '@app/components/questions/questions/QuestionForm.vue'
 import { useCreateQuestion } from '@app/hooks/questions/questions'
 import { analytics } from '@modules/core'
+
 export default defineComponent({
 	name: 'QuestionCreatePage',
 	components: { QuestionForm },

@@ -1,6 +1,6 @@
 <template>
 	<div class="gap-1 gap-md-2 d-flex flex-column">
-		<Heading variant="1" class="text-center">
+		<Heading class="text-center" variant="1">
 			Verify Your Email Address
 		</Heading>
 		<span class="textStyle text-center">
@@ -25,6 +25,7 @@
 import { defineComponent, onMounted, useMeta } from '@nuxtjs/composition-api'
 import { useVerifyEmail } from '@app/hooks/auth/session'
 import { useAuth } from '@app/hooks/auth/auth'
+
 export default defineComponent({
 	name: 'AuthVerifyPage',
 	layout: 'auth',

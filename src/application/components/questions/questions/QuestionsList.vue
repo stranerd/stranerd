@@ -1,16 +1,29 @@
 <template>
 	<div>
-		<div class="d-flex text-white align-items-center gap-0-5 d-md-none position-fixed" style="right: 1.5rem; bottom: 1.5rem; z-index: 2;">
+		<div
+			class="d-flex text-white align-items-center gap-0-5 d-md-none position-fixed"
+			style="right: 1.5rem; bottom: 1.5rem; z-index: 2;"
+		>
 			<span class="bg-primary-dark small rounded-3 py-0-25 px-0-5">
 				Ask A Question
 			</span>
-			<div class="d-flex align-items-center justify-content-center rounded-pill bg-primary-dark" style="width: 3rem; height: 3rem; font-size: 2rem;" @click="askQuestion">
-				+
+			<div
+				class="d-flex align-items-center justify-content-center rounded-pill bg-primary-dark"
+				style="width: 3rem; height: 3rem; font-size: 2rem;"
+				@click="askQuestion"
+			>
+				<NuxtLink
+					class="d-flex align-items-center justify-content-center rounded-pill bg-primary-dark"
+					style="width: 3rem; height: 3rem; font-size: 2rem;"
+					to="/questions/create"
+				>
+					+
+				</nuxtlink>
 			</div>
 		</div>
 
 		<div class="d-flex justify-content-between align-items-center gap-1 mb-1 mb-md-2 ">
-			<Heading variant="1" class="text-dark d-flex align-items-center flex-grow-1">
+			<Heading class="text-dark d-flex align-items-center flex-grow-1" variant="1">
 				<div class="dash me-0-5" />
 				<span>Questions</span>
 				<div class="dash ms-0-5" />
@@ -40,13 +53,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onBeforeUnmount } from '@nuxtjs/composition-api'
+import { defineComponent, onBeforeUnmount, onMounted } from '@nuxtjs/composition-api'
 import QuestionCard from '@app/components/questions/questions/QuestionsListCard.vue'
 import { useQuestionList } from '@app/hooks/questions/questions'
 import SelectSubject from '@app/components/questions/subjects/SelectSubject.vue'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useQuestionsModal } from '@app/hooks/core/modals'
 import { useRedirectToAuth } from '@app/hooks/auth/session'
+
 export default defineComponent({
 	name: 'QuestionsList',
 	components: { SelectSubject, QuestionCard },
@@ -98,6 +112,8 @@ export default defineComponent({
 		width: 100%;
 		background-color: $color-line;
 		border: 1px solid $color-line;
-		@media (min-width: $md) { display: none; }
+		@media (min-width: $md) {
+			display: none;
+		}
 	}
 </style>

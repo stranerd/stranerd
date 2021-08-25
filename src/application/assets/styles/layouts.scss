@@ -19,8 +19,12 @@ body {
 	margin: 0 auto;
 	gap: 2rem;
 	padding: 1.5rem 1rem;
-	@media (min-width: $md) { padding: 2rem 2rem; }
-	@media (min-width: $lg) { padding: 3rem 0; }
+	@media (min-width: $md) {
+		padding: 2rem 2rem;
+	}
+	@media (min-width: $lg) {
+		padding: 3rem 0;
+	}
 }
 
 body[data-no-gap='true'] .layout-body {
@@ -38,7 +42,9 @@ body[data-no-gap='true'] .layout-body {
 	border-right: 1px solid $color-line;
 	padding-top: 3rem;
 	margin-top: -3rem;
-	@media (min-width: $lg) { display: flex; }
+	@media (min-width: $lg) {
+		display: flex;
+	}
 }
 
 .layout-side-right {
@@ -122,9 +128,15 @@ body[data-no-gap='true'] .layout-body {
 	font-weight: 600;
 	color: $color-sub;
 	padding: 1rem 2rem;
-	@media (min-width: $md) { padding: 1rem 2.86rem; }
-	@media (min-width: $lg) { padding: 1rem 2rem; }
-	@media (min-width: $xl) { padding: 1rem 2.86rem; }
+	@media (min-width: $md) {
+		padding: 1rem 2.86rem;
+	}
+	@media (min-width: $lg) {
+		padding: 1rem 2rem;
+	}
+	@media (min-width: $xl) {
+		padding: 1rem 2.86rem;
+	}
 
 	img {
 		height: 24px;
@@ -190,8 +202,13 @@ body[data-no-gap='true'] .layout-body {
 }
 
 @keyframes slide-right {
-	from { left: -100px; }
-	to { left: 0; }
+	from {
+		left: -100px;
+	}
+
+	to {
+		left: 0;
+	}
 }
 
 .sd-menu-right {
@@ -202,8 +219,13 @@ body[data-no-gap='true'] .layout-body {
 }
 
 @keyframes slide-left {
-	from { right: -100px; }
-	to { right: 0; }
+	from {
+		right: -100px;
+	}
+
+	to {
+		right: 0;
+	}
 }
 
 // For scroll

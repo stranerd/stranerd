@@ -1,4 +1,4 @@
-import { DatabaseService, firebase, DatabaseGetClauses } from '@modules/core'
+import { DatabaseGetClauses, DatabaseService, firebase } from '@modules/core'
 import { getRandomValue } from '@utils/commons'
 import { getChatsPath } from '@utils/constants'
 import { ChatFromModel, ChatMeta, ChatToModel } from '../models/chat'

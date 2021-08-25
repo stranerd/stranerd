@@ -1,5 +1,5 @@
 import { BaseFactory } from '@modules/core'
-import { isLongerThan, isShorterThan, isEmail, isShallowEqualTo } from 'sd-validate/lib/rules'
+import { isEmail, isLongerThan, isShallowEqualTo, isShorterThan } from 'sd-validate/lib/rules'
 import { AuthUser } from '../entities/auth'
 
 type Keys = { first: string, last: string, email: string, password: string, cPassword: string }
@@ -13,25 +13,58 @@ export class EmailSignupFactory extends BaseFactory<null, AuthUser, Keys> {
 		last: { required: true, rules: [isLongerThan2] },
 		email: { required: true, rules: [isEmail] },
 		password: { required: true, rules: [isLongerThan5, isShorterThan17] },
-		cPassword: { required: true, rules: [(value: string) => isShallowEqualTo(value, this.password), isLongerThan5, isShorterThan17] }
+		cPassword: {
+			required: true,
+			rules: [(value: string) => isShallowEqualTo(value, this.password), isLongerThan5, isShorterThan17]
+		}
 	}
+
+	reserved = []
 
 	constructor () {
 		super({ first: '', last: '', email: '', password: '', cPassword: '' })
 	}
 
-	reserved = []
+	get first () {
+		return this.values.first
+	}
 
-	get first () { return this.values.first }
-	set first (value: string) { this.set('first', value) }
-	get last () { return this.values.last }
-	set last (value: string) { this.set('last', value) }
-	get email () { return this.values.email }
-	set email (value: string) { this.set('email', value) }
-	get password () { return this.values.password }
-	set password (value: string) { this.set('password', value); this.set('cPassword', '') }
-	get cPassword () { return this.values.cPassword }
-	set cPassword (value: string) { this.set('cPassword', value) }
+	set first (value: string) {
+		this.set('first', value)
+	}
+
+	get last () {
+		return this.values.last
+	}
+
+	set last (value: string) {
+		this.set('last', value)
+	}
+
+	get email () {
+		return this.values.email
+	}
+
+	set email (value: string) {
+		this.set('email', value)
+	}
+
+	get password () {
+		return this.values.password
+	}
+
+	set password (value: string) {
+		this.set('password', value)
+		this.set('cPassword', '')
+	}
+
+	get cPassword () {
+		return this.values.cPassword
+	}
+
+	set cPassword (value: string) {
+		this.set('cPassword', value)
+	}
 
 	toModel = async () => {
 		if (this.valid) {
@@ -40,5 +73,7 @@ export class EmailSignupFactory extends BaseFactory<null, AuthUser, Keys> {
 		} else throw new Error('Validation errors')
 	}
 
-	loadEntity = (entity: null) => { throw new Error(`Cannot load an entity into this factory, ${entity}`) }
+	loadEntity = (entity: null) => {
+		throw new Error(`Cannot load an entity into this factory, ${entity}`)
+	}
 }

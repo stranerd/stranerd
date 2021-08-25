@@ -3,6 +3,7 @@ import * as admin from 'firebase-admin'
 import { getChatsPath, getRandomValue } from '../../helpers'
 import { addUserCoins } from '../../helpers/modules/payments/transactions'
 import { defaultConfig } from '../../helpers/functions'
+import { createNotification } from '../../helpers/modules/users/notifications'
 
 export const requestNewSession = functions.runWith(defaultConfig).https.onCall(async (data, context) => {
 	if (!context.auth)
@@ -55,6 +56,12 @@ export const requestNewSession = functions.runWith(defaultConfig).https.onCall(a
 		await addUserCoins(studentId, { gold: 0 - price, bronze: 0 },
 			'You paid coins for a session'
 		)
+
+		await createNotification(tutorId, {
+			title: 'New Session Request',
+			body: `${studentBio?.name?.first ?? 'Anon'} is requesting a new ${duration ?? 15} minutes session with you!`,
+			action: `/sessions/${studentId}`
+		})
 
 		return sessionId
 	} catch (error) {

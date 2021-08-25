@@ -15,14 +15,20 @@ export class CommentFactory extends BaseFactory<CommentEntity, CommentToModel, K
 		user: { required: false, rules: [] }
 	}
 
+	reserved = []
+
 	constructor () {
 		super({ body: '', userId: '', user: undefined })
 	}
 
-	reserved = []
+	get body () {
+		return this.values.body
+	}
 
-	get body () { return this.values.body }
-	set body (value: string) { this.set('body', value) }
+	set body (value: string) {
+		this.set('body', value)
+	}
+
 	set userBioAndId (value: { id: string, user: UserBio }) {
 		this.set('userId', value.id)
 		this.set('user', value.user)

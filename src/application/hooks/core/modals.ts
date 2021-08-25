@@ -32,7 +32,7 @@ const menuModal = modal.register('Menu', MenuModals)
 const sessionModal = modal.register('Session', SessionModals)
 const paymentModal = modal.register('Payment', PaymentModals)
 const reportModal = modal.register('Report', ReportModals)
-const questionModals = modal.register('Report', QuestionModals)
+const questionModals = modal.register('Question', QuestionModals)
 
 export const useAccountModal = () => accountModal
 export const useMenuModal = () => menuModal

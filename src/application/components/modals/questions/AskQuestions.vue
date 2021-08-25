@@ -1,14 +1,14 @@
 <template>
-	<Modal :modal="$attrs.modal" :hide-separator="true">
+	<Modal :hide-separator="true" :modal="$attrs.modal">
 		<template slot="title">
 			Ask Your Question
 		</template>
 		<QuestionForm
-			:submit="createQuestion"
-			:loading="loading"
-			:factory="factory"
-			:error="error"
 			:coins="coins"
+			:error="error"
+			:factory="factory"
+			:loading="loading"
+			:submit="createQuestion"
 		>
 			<template slot="buttonText">
 				Post Question
@@ -22,11 +22,10 @@ import { defineComponent, onMounted, useMeta } from '@nuxtjs/composition-api'
 import QuestionForm from '@app/components/questions/questions/QuestionForm.vue'
 import { useCreateQuestion } from '@app/hooks/questions/questions'
 import { analytics } from '@modules/core'
+
 export default defineComponent({
-	name: 'QuestionCreatePage',
+	name: 'AskQuestion',
 	components: { QuestionForm },
-	layout: 'justified',
-	middleware: ['isAuthenticated'],
 	setup () {
 		const { loading, createQuestion, factory, error, coins } = useCreateQuestion()
 		onMounted(() => {

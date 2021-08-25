@@ -27,6 +27,10 @@ export class ChatEntity extends BaseEntity {
 	get isRead () {
 		return !!this.readAt
 	}
+
+	get isImage () {
+		return this.isMedia && this.media?.type.startsWith('image/')
+	}
 }
 
 type ChatConstructorArgs = {

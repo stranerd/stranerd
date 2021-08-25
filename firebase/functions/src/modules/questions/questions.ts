@@ -1,13 +1,14 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
-import { saveToAlgolia, deleteFromAlgolia } from '../../helpers/algolia'
+import { deleteFromAlgolia, saveToAlgolia } from '../../helpers/algolia'
 import { addUserCoins } from '../../helpers/modules/payments/transactions'
 import { defaultConfig } from '../../helpers/functions'
+import { createNotification } from '../../helpers/modules/users/notifications'
 
 export const questionCreated = functions.firestore.document('questions/{questionId}')
 	.onCreate(async (snap) => {
 		const question = snap.data()
-		const { coins = 0, userId = '', tags = [] } = question
+		const { coins = 0, userId = '', tags = [], subjectId = '' } = question
 
 		const tagsData = Object.fromEntries(
 			tags.map((t: string) => [
@@ -26,6 +27,17 @@ export const questionCreated = functions.firestore.document('questions/{question
 		)
 
 		await saveToAlgolia('questions', snap.id, { question })
+
+		const tutorRefs = await admin.database().ref('profiles')
+			.orderByChild('tutor/strongestSubject')
+			.equalTo(subjectId)
+			.once('value')
+		const tutorIds = Object.keys(tutorRefs.val())
+		await Promise.all(tutorIds.map(async (id) => await createNotification(id, {
+			title: 'New Question',
+			body: 'A new question was just asked on Stranerd that you might be interested in. Go check it out',
+			action: `/questions/${snap.id}`
+		})))
 	})
 
 export const questionUpdated = functions.runWith(defaultConfig).firestore.document('questions/{questionId}')
@@ -54,7 +66,7 @@ export const questionUpdated = functions.runWith(defaultConfig).firestore.docume
 		await admin.database().ref().update({ ...oldTagsData, ...newTagsData })
 
 		if (coins !== 0) await addUserCoins(after.userId, { bronze: 0 - coins, gold: 0 },
-			 coins > 0 ? 'You paid coins to upgrade a question' : 'You got refunded coins from downgrading a question'
+			coins > 0 ? 'You paid coins to upgrade a question' : 'You got refunded coins from downgrading a question'
 		)
 
 		await saveToAlgolia('questions', snap.after.id, { question: after })

@@ -171,11 +171,14 @@ export class UserEntity extends BaseEntity {
 	}
 
 	get canHostSessions () {
-		return !this.currentSession && this.isScholar
+		return !this.currentSession && this.isScholar && this.isOnline
 	}
 
 	get canRequestSessions () {
-		return !this.currentSession && Object.keys(this.session.requests).length === 0 && Object.keys(this.session.lobby).length === 0
+		return !this.currentSession &&
+			Object.keys(this.session.requests).length === 0 &&
+			Object.keys(this.session.lobby).length === 0 &&
+			this.isOnline
 	}
 
 	get meta () {

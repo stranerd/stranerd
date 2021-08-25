@@ -45,7 +45,7 @@
 				</Heading>
 				<div class="py-2 d-flex flex-column gap-0-5">
 					<span>- Get in-depth answers to homework questions</span>
-					<span>- Request sessions to help out with homework</span>
+					<span>- Request sessions to get help for your homework</span>
 					<span>- Collaborate to solve problems and earn rewards</span>
 				</div>
 				<NuxtLink class="btn btn-md btn-custom py-1" to="/nerds/">

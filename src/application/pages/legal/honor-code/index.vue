@@ -112,7 +112,7 @@
 import { defineComponent, useMeta } from '@nuxtjs/composition-api'
 
 export default defineComponent({
-	name: 'PrivacyPolicy',
+	name: 'HonorCodePage',
 	layout: 'home',
 	setup () {
 		useMeta(() => ({

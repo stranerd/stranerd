@@ -26,7 +26,7 @@
 					<NuxtLink class="linkText" to="/legal/term-of-service">
 						Terms Of Service
 					</NuxtLink>
-					<NuxtLink class="linkText" to="/legal/terms&condition">
+					<NuxtLink class="linkText" to="/legal/terms-and-conditions">
 						Terms & Conditions
 					</NuxtLink>
 				</div>

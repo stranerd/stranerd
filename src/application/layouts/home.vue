@@ -3,7 +3,7 @@
 		<HomeTopNavigation />
 		<section class="layout-body p-0">
 			<main class="layout-main p-0">
-				<Nuxt />
+				<Nuxt class="flex-grow-1" />
 				<HomeBottomNavigation />
 			</main>
 		</section>

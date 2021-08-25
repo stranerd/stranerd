@@ -5,21 +5,21 @@
 		</h1>
 		<p>Last updated on <span class="fw-bold">August 3rd, 2021</span></p>
 
-		<introduction />
-		<infoWeCollect />
-		<protection />
+		<Introduction />
+		<InfoWeCollect />
+		<Protection />
 	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent, useMeta } from '@nuxtjs/composition-api'
-import infoWeCollect from './infoWeCollect.vue'
-import introduction from './introduction.vue'
-import protection from './protection.vue'
+import InfoWeCollect from '@app/components/privacyPolicy/InfoWeCollect.vue'
+import Introduction from '@app/components/privacyPolicy/Introduction.vue'
+import Protection from '@app/components/privacyPolicy/Protection.vue'
 
 export default defineComponent({
-	name: 'PrivacyPolicy',
-	components: { infoWeCollect, introduction, protection },
+	name: 'PrivacyPolicyPage',
+	components: { InfoWeCollect, Introduction, Protection },
 	layout: 'home',
 	setup () {
 		useMeta(() => ({

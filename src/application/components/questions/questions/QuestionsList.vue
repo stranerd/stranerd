@@ -12,13 +12,7 @@
 				style="width: 3rem; height: 3rem; font-size: 2rem;"
 				@click="askQuestion"
 			>
-				<NuxtLink
-					class="d-flex align-items-center justify-content-center rounded-pill bg-primary-dark"
-					style="width: 3rem; height: 3rem; font-size: 2rem;"
-					to="/questions/create"
-				>
-					+
-				</nuxtlink>
+				+
 			</div>
 		</div>
 

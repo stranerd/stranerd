@@ -1,4 +1,5 @@
 import { firebase } from './environment'
+
 const { CloudTasksClient } = require('@google-cloud/tasks')
 
 type TaskArgs = {
@@ -9,31 +10,29 @@ type TaskArgs = {
 }
 
 export const createTask = async (args: TaskArgs) => {
-	try {
-		const { projectId, location, taskEmail } = firebase()
-		const tasksClient = new CloudTasksClient()
-		const queuePath = tasksClient.queuePath(projectId, location, args.queue)
+	const { projectId, location, taskEmail } = firebase()
+	const tasksClient = new CloudTasksClient()
+	const queuePath = tasksClient.queuePath(projectId, location, args.queue)
 
-		const url = `https://${location}-${projectId}.cloudfunctions.net/${args.endpoint}`
+	const url = `https://${location}-${projectId}.cloudfunctions.net/${args.endpoint}`
 
-		const [response] = await tasksClient.createTask({
-			parent: queuePath,
-			task: {
-				httpRequest: {
-					httpMethod: 'POST',
-					url,
-					body: Buffer.from(JSON.stringify(args.payload)).toString('base64'),
-					headers: { 'Content-Type': 'application/json' },
-					oidcToken: {
-						serviceAccountEmail: `${taskEmail}@${projectId}.iam.gserviceaccount.com`
-					}
-				},
-				scheduleTime: { seconds: args.timeInSecs }
-			}
-		})
+	const [response] = await tasksClient.createTask({
+		parent: queuePath,
+		task: {
+			httpRequest: {
+				httpMethod: 'POST',
+				url,
+				body: Buffer.from(JSON.stringify(args.payload)).toString('base64'),
+				headers: { 'Content-Type': 'application/json' },
+				oidcToken: {
+					serviceAccountEmail: `${taskEmail}@${projectId}.iam.gserviceaccount.com`
+				}
+			},
+			scheduleTime: { seconds: args.timeInSecs }
+		}
+	})
 
-		return response.name as string
-	} catch (err) { return null }
+	return response.name as string
 }
 
 export const deleteTask = async (name: string) => {

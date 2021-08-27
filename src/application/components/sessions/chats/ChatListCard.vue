@@ -1,7 +1,7 @@
 <template>
 	<div :class="isMine ? 'is-mine' : 'is-not-mine'" class="chat gap-0-25">
 		<div class="d-flex gap-0-25">
-			<a v-if="chat.isMedia" :href="chat.media.link" class="text-truncate" target="__blank">
+			<a v-if="chat.isMedia" :href="chat.media.link" class="text-truncate">
 				<img v-if="chat.isImage" :src="chat.media.link" alt="" class="w-100">
 				<template v-else>
 					<i class="fas fa-paperclip me-0-25" />

@@ -8,7 +8,7 @@
 
 			<NuxtLink class="sidebar-link" to="/nerds">
 				<img alt="" src="@app/assets/images/icons/nerd.svg">
-				<span>Top Nerds</span>
+				<span>Tutors</span>
 			</NuxtLink>
 
 			<NuxtLink class="sidebar-link" to="/account/e-wallet">

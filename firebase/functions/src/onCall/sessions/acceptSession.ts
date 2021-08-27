@@ -2,7 +2,7 @@ import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import { createTask } from '../../helpers/cloud-task'
 import { addUserCoins } from '../../helpers/modules/payments/transactions'
-import { getRandomValue, getChatsPath } from '../../helpers/'
+import { getChatsPath, getRandomValue } from '../../helpers/'
 import { chunkArray } from '../../helpers/modules/users/users'
 import { defaultConfig } from '../../helpers/functions'
 
@@ -40,8 +40,8 @@ export const acceptSession = functions.runWith(defaultConfig).https.onCall(async
 			// * Create a batch to update accepted session and 499 other pending sessions
 			const batch = admin.firestore().batch()
 			batch.set(ref, data, { merge: true })
-			const filteredLobbiedSessions = lobbiedSessions.filter(([sessionId]) => id !== sessionId)
-			filteredLobbiedSessions.slice(0, 499).forEach(([sessionId]) => {
+			const filteredLobbiedSessions = lobbiedSessions.filter(([sessionId, _]) => id !== sessionId)
+			filteredLobbiedSessions.slice(0, 499).forEach(([sessionId, _]) => {
 				const ref = admin.firestore().collection('sessions').doc(sessionId)
 				batch.set(ref, { cancelled: { busy: true } }, { merge: true })
 			})
@@ -52,7 +52,7 @@ export const acceptSession = functions.runWith(defaultConfig).https.onCall(async
 				...chunkArray(filteredLobbiedSessions.slice(499), 500)
 					.map((chunk) => {
 						const newBatch = admin.firestore().batch()
-						chunk.forEach(([sessionId]) => {
+						chunk.forEach(([sessionId, _]) => {
 							const ref = admin.firestore().collection('sessions').doc(sessionId)
 							newBatch.set(ref, { cancelled: { busy: true } }, { merge: true })
 						})
@@ -67,7 +67,7 @@ export const acceptSession = functions.runWith(defaultConfig).https.onCall(async
 					[`${studentId}/session/currentSession`]: id,
 					[`${tutorId}/session/currentTutorSession`]: id,
 					...Object.fromEntries(
-						lobbiedSessions.map(([sessionId]) => [
+						lobbiedSessions.map(([sessionId, _]) => [
 							`${tutorId}/session/lobby/${sessionId}`,
 							null
 						])

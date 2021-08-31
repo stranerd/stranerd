@@ -62,7 +62,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 	.chat {
 		min-width: 6rem;
-		max-width: 75%;
+		max-width: 65%;
 		padding: 0.25rem 0.75rem;
 		display: flex;
 		flex-direction: column;

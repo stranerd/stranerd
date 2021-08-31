@@ -32,7 +32,7 @@ export default defineComponent({
 	name: 'SessionRatings',
 	setup () {
 		const { previousSession: session } = useCurrentSession()
-		const { loading, error, rating, review, rateSession } = useRateSession('')
+		const { loading, error, rating, review, rateSession } = useRateSession()
 		return { loading, error, rating, review, rateSession, session }
 	}
 })

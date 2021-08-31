@@ -141,6 +141,7 @@ export const useRateSession = () => {
 			setLoading(true)
 			try {
 				await RateTutor.call(otherParticipantId, rating.value, review.value)
+				useSessionModal().closeRatings()
 			} catch (error) {
 				setError(error)
 			}

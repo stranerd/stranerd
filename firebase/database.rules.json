@@ -14,14 +14,18 @@
 				"$userId": {
 					".read": true,
 					".write": "auth.uid !== null",
-					".indexOn": ["last/dates/createdAt"]
+					".indexOn": [
+						"last/dates/createdAt"
+					]
 				}
 			},
 			"single": {
 				"$path": {
 					".read": true,
 					".write": "auth.uid != null",
-					".indexOn": ["dates/createdAt"]
+					".indexOn": [
+						"dates/createdAt"
+					]
 				}
 			}
 		},
@@ -49,7 +53,12 @@
 		},
 		"profiles": {
 			".read": true,
-			".indexOn": ["roles/isAdmin","bio/email", "account/rank"],
+			".indexOn": [
+				"roles/isAdmin",
+				"bio/email",
+				"account/rank",
+				"tutor/strongestSubject"
+			],
 			"$userId": {
 				".read": true,
 				".write": "auth.uid === $userId",
@@ -61,7 +70,9 @@
 		"reports": {
 			"$reportType": {
 				".read": true,
-				".indexOn": ["dates/createdAt"],
+				".indexOn": [
+					"dates/createdAt"
+				],
 				"$reportId": {
 					".read": true,
 					".write": "auth.uid != null"
@@ -77,14 +88,19 @@
 		},
 		"tags": {
 			".read": true,
-			".indexOn": ["count"]
+			".indexOn": [
+				"count"
+			]
 		},
 		"users": {
 			"$userId": {
 				".read": true,
 				".write": "auth.uid === $userId",
 				"notifications": {
-					".indexOn": ["dates/createdAt", "seen"]
+					".indexOn": [
+						"dates/createdAt",
+						"seen"
+					]
 				}
 			}
 		},

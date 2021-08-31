@@ -32,7 +32,7 @@ export const questionCreated = functions.firestore.document('questions/{question
 			.orderByChild('tutor/strongestSubject')
 			.equalTo(subjectId)
 			.once('value')
-		const tutorIds = Object.keys(tutorRefs.val())
+		const tutorIds = Object.keys(tutorRefs.val() ?? {})
 		await Promise.all(tutorIds.map(async (id) => await createNotification(id, {
 			title: 'New Question',
 			body: 'A new question was just asked on Stranerd that you might be interested in. Go check it out',

@@ -71,6 +71,7 @@ export default defineComponent({
 				try {
 					const res = await UploaderService.call(props.path, file)
 					editor.insertEmbed(cursorLocation, 'image', res.link)
+					editor.setSelection(cursorLocation + 1, 'silent')
 					resetUploader()
 				} catch (e) {
 					await Notify({ title: e, icon: 'error' })

@@ -43,15 +43,6 @@
 			</div>
 			<div class="stats">
 				<div class="stat-title gap-1">
-					<img alt="" src="@app/assets/images/icons/profileSidebar/answered.svg">
-					<span>Answered Questions</span>
-				</div>
-				<DynamicText class="count fw-bold">
-					{{ formatNumber(Object.entries(user.meta.answeredQuestions).length) }}
-				</DynamicText>
-			</div>
-			<div class="stats">
-				<div class="stat-title gap-1">
 					<img alt="" src="@app/assets/images/icons/profileSidebar/answers.svg">
 					<span>Answers</span>
 				</div>

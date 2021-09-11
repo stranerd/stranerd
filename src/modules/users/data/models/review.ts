@@ -1,19 +1,15 @@
 import { UserBio } from '../../domain/entities/user'
 
-export interface ReviewFromModel {
+export interface ReviewFromModel extends ReviewToModel {
 	id: string
-	review: string
-	rating: number
 	userId: string
 	userBio: UserBio
-	dates: {
-		createdAt: number
-	}
+	createdAt: number
+	updatedAt: number
 }
 
 export interface ReviewToModel {
 	review: string
 	rating: number
-	userId: string
-	userBio: UserBio
+	tutorId: string
 }

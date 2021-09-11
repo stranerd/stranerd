@@ -1,6 +1,6 @@
 import { Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
-import { GetOlderTransactions, GetTransactions, TransactionEntity } from '@modules/meta'
+import { GetOlderTransactions, GetTransactions, TransactionEntity } from '@modules/users'
 import { PAGINATION_LIMIT } from '@utils/constants'
 
 const global = {} as Record<string, {

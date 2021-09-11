@@ -2,18 +2,22 @@ import { BaseEntity } from '@modules/core'
 
 export class TransactionEntity extends BaseEntity {
 	public readonly id: string
+	public readonly userId: string
 	public readonly isGold: boolean
 	public readonly event: string
 	public readonly amount: number
 	public readonly createdAt: number
+	public readonly updatedAt: number
 
-	constructor ({ id, isGold, event, amount, createdAt }: TransactionConstructorArgs) {
+	constructor ({ id, userId, isGold, event, amount, createdAt, updatedAt }: TransactionConstructorArgs) {
 		super()
 		this.id = id
+		this.userId = userId
 		this.isGold = isGold
 		this.event = event
 		this.amount = amount
 		this.createdAt = createdAt
+		this.updatedAt = updatedAt
 	}
 
 	get isGain () {
@@ -22,5 +26,5 @@ export class TransactionEntity extends BaseEntity {
 }
 
 type TransactionConstructorArgs = {
-	id: string, isGold: boolean, event: string, amount: number, createdAt: number
+	id: string, userId: string, isGold: boolean, event: string, amount: number, createdAt: number, updatedAt: number
 }

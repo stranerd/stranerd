@@ -1,13 +1,12 @@
-import { timestampToMs } from '@modules/core'
 import { TransactionFromModel } from '../models/transaction'
 import { TransactionEntity } from '../../domain/entities/transaction'
 
 export class TransactionTransformer {
 	fromJSON (model: TransactionFromModel) {
-		const { id, isGold, event, amount, dates: { createdAt } } = model
+		const { id, userId, isGold, event, amount, createdAt, updatedAt } = model
 		return new TransactionEntity({
-			id, event, amount, isGold,
-			createdAt: timestampToMs(createdAt)
+			id, userId, event, amount, isGold,
+			createdAt, updatedAt
 		})
 	}
 }

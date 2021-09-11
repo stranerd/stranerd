@@ -2,13 +2,16 @@ import { UserFirebaseDataSource } from './data/datasources/user-firebase'
 import { RoleFirebaseDataSource } from './data/datasources/role-firebase'
 import { NotificationFirebaseDataSource } from './data/datasources/notification-firebase'
 import { ReviewFirebaseDataSource } from './data/datasources/review-firebase'
+import { TransactionFirebaseDataSource } from './data/datasources/transaction-firebase'
 import { UserTransformer } from './data/transformers/user'
 import { NotificationTransformer } from './data/transformers/notification'
 import { ReviewTransformer } from './data/transformers/review'
+import { TransactionTransformer } from './data/transformers/transaction'
 import { UserRepository } from './data/repositories/user'
 import { RoleRepository } from './data/repositories/role'
 import { NotificationRepository } from './data/repositories/notification'
 import { ReviewRepository } from './data/repositories/review'
+import { TransactionRepository } from './data/repositories/transaction'
 import { FindUserUseCase } from './domain/usecases/users/findUser'
 import { MakeAdminUseCase } from './domain/usecases/roles/makeAdmin'
 import { RemoveAdminUseCase } from './domain/usecases/roles/removeAdmin'
@@ -23,23 +26,29 @@ import { ListenToNotificationsUseCase } from './domain/usecases/notifications/li
 import { MarkNotificationSeenUseCase } from './domain/usecases/notifications/markNotificationSeen'
 import { GetReviewsUseCase } from './domain/usecases/reviews/getReviews'
 import { ListenToReviewsUseCase } from './domain/usecases/reviews/listenToReviews'
+import { GetTransactionsUseCase } from './domain/usecases/transactions/getTransactions'
+import { GetOlderTransactionsUseCase } from './domain/usecases/transactions/getOlderTransactions'
 import { generateDefaultBio, UserBio, UserEntity } from './domain/entities/user'
 import { NotificationEntity } from './domain/entities/notification'
 import { ReviewEntity } from './domain/entities/review'
+import { TransactionEntity } from './domain/entities/transaction'
 
 const userDataSource = new UserFirebaseDataSource()
 const roleDataSource = new RoleFirebaseDataSource()
 const notificationDataSource = new NotificationFirebaseDataSource()
 const reviewDataSource = new ReviewFirebaseDataSource()
+const transactionDataSource = new TransactionFirebaseDataSource()
 
 const userTransformer = new UserTransformer()
 const notificationTransformer = new NotificationTransformer()
 const reviewTransformer = new ReviewTransformer()
+const transactionTransformer = new TransactionTransformer()
 
 const userRepository = new UserRepository(userDataSource, userTransformer)
 const roleRepository = new RoleRepository(roleDataSource)
 const notificationRepository = new NotificationRepository(notificationDataSource, notificationTransformer)
 const reviewRepository = new ReviewRepository(reviewDataSource, reviewTransformer)
+const transactionRepository = new TransactionRepository(transactionDataSource, transactionTransformer)
 
 export const FindUser = new FindUserUseCase(userRepository)
 export const GetUsersByEmail = new GetUsersByEmailUseCase(userRepository)
@@ -59,5 +68,8 @@ export const MarkNotificationSeen = new MarkNotificationSeenUseCase(notification
 export const GetReviews = new GetReviewsUseCase(reviewRepository)
 export const ListenToReviews = new ListenToReviewsUseCase(reviewRepository)
 
-export { UserEntity, generateDefaultBio, NotificationEntity, ReviewEntity }
+export const GetTransactions = new GetTransactionsUseCase(transactionRepository)
+export const GetOlderTransactions = new GetOlderTransactionsUseCase(transactionRepository)
+
+export { UserEntity, generateDefaultBio, NotificationEntity, ReviewEntity, TransactionEntity }
 export type { UserBio }

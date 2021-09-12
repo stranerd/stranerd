@@ -34,12 +34,12 @@
 					<ShowRatings :rating="tutor.averageRating" class="ms-auto" />
 				</span>
 				<DynamicText class="head-text">
-					{{ formatNumber(tutor.meta.answers.length) }}
-					{{ pluralize(tutor.meta.answers.length, 'Question', 'Questions') }} Answered
+					{{ formatNumber(tutor.meta.answers) }}
+					{{ pluralize(tutor.meta.answers, 'Question', 'Questions') }} Answered
 				</DynamicText>
 				<DynamicText class="head-text">
-					{{ formatNumber(tutor.meta.tutorSessions.length) }}
-					{{ pluralize(tutor.meta.tutorSessions.length, 'Session', 'Sessions') }} Hosted
+					{{ formatNumber(tutor.meta.tutorSessions) }}
+					{{ pluralize(tutor.meta.tutorSessions, 'Session', 'Sessions') }} Hosted
 				</DynamicText>
 			</div>
 
@@ -76,12 +76,12 @@
 
 			<ShowRatings :rating="tutor.averageRating" />
 			<DynamicText class="fw-bold head-text">
-				{{ formatNumber(tutor.meta.answers.length) }}
-				{{ pluralize(tutor.meta.answers.length, 'Question', 'Questions') }} Answered
+				{{ formatNumber(tutor.meta.answers) }}
+				{{ pluralize(tutor.meta.answers, 'Question', 'Questions') }} Answered
 			</DynamicText>
 			<DynamicText class="fw-bold head-text">
-				{{ formatNumber(tutor.meta.tutorSessions.length) }}
-				{{ pluralize(tutor.meta.tutorSessions.length, 'Session', 'Sessions') }} Hosted
+				{{ formatNumber(tutor.meta.tutorSessions) }}
+				{{ pluralize(tutor.meta.tutorSessions, 'Session', 'Sessions') }} Hosted
 			</DynamicText>
 
 			<div v-if="tutor.strongestSubject" class="d-flex align-items-center gap-0-25 fw-bold">
@@ -124,9 +124,9 @@ export default defineComponent({
 		const { user } = useAuth()
 		const canRequestSession = computed({
 			get: () => user.value &&
-					user.value.id !== props.tutor.id &&
-					user.value.canRequestSessions &&
-					props.tutor.canHostSessions,
+				user.value.id !== props.tutor.id &&
+				user.value.canRequestSessions &&
+				props.tutor.canHostSessions,
 			set: () => {
 			}
 		})

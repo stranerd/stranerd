@@ -1,11 +1,11 @@
 <template>
 	<NuxtLink :to="`/sessions/${meta.id}`" class="gap-0-5">
-		<Avatar :size="40" :src="meta.bio.avatar" class="d-md-none" />
-		<Avatar :size="56" :src="meta.bio.avatar" class="d-none d-md-inline" />
+		<Avatar :size="40" :src="meta.avatar" class="d-md-none" />
+		<Avatar :size="56" :src="meta.avatar" class="d-none d-md-inline" />
 		<div class="flex-grow-1 text-truncate">
 			<div class="d-flex justify-content-between align-items-center gap-0-5">
 				<DynamicText :truncate="true" class="name">
-					{{ meta.bio.name.fullName }}
+					{{ meta.bio.fullName }}
 				</DynamicText>
 				<DynamicText>{{ formatTime(meta.last.createdAt, true) }}</DynamicText>
 			</div>

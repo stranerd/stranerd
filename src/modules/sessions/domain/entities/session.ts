@@ -44,11 +44,11 @@ export class SessionEntity extends BaseEntity {
 	}
 
 	get studentAvatar () {
-		return this.studentBio.avatar
+		return this.studentBio.photo
 	}
 
 	get tutorAvatar () {
-		return this.tutorBio.avatar
+		return this.tutorBio.photo
 	}
 
 	get wasCancelled () {

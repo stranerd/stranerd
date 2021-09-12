@@ -1,5 +1,5 @@
 import { ssrRef } from '@nuxtjs/composition-api'
-import { AddMessage, MessageFactory } from '@modules/forms'
+import { AddMessage, MessageFactory } from '@modules/meta'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 
 export const useCreateMessage = () => {

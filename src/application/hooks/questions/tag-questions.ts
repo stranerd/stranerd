@@ -57,8 +57,8 @@ export const useTagQuestionList = (tag: string) => {
 	const filteredQuestions = computed({
 		get: () => global[tag].questions.value.filter((q) => {
 			if (global[tag].subjectId.value && q.subjectId !== global[tag].subjectId.value) return false
-			if (global[tag].answered.value === Answered.Answered && q.answers === 0) return false
-			if (global[tag].answered.value === Answered.Unanswered && q.answers > 0) return false
+			if (global[tag].answered.value === Answered.Answered && q.answers.length === 0) return false
+			if (global[tag].answered.value === Answered.Unanswered && q.answers.length > 0) return false
 			if (global[tag].answered.value === Answered.BestAnswered && !q.isAnswered) return false
 			return true
 		}).sort((a, b) => {

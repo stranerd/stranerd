@@ -18,11 +18,11 @@ import UserSearch from '@app/components/search/UserSearch.vue'
 import QuestionSearch from '@app/components/search/QuestionSearch.vue'
 import AnswerSearch from '@app/components/search/AnswerSearch.vue'
 
-	enum SEARCH_TYPES {
-		Users = 'Users',
-		Questions = 'Questions',
-		Answers = 'Answers'
-	}
+enum SEARCH_TYPES {
+	Users = 'Users',
+	Questions = 'Questions',
+	Answers = 'Answers'
+}
 
 export default defineComponent({
 	name: 'SearchBar',

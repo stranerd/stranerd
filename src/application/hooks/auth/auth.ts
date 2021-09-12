@@ -59,14 +59,11 @@ export const useAuth = () => {
 		return true
 	}
 
-	const startProfileListener = async (router: VueRouter) => {
+	const startProfileListener = async () => {
 		if (global.listener) global.listener()
 
 		const id = global.auth.value?.id
-		const setUser = (user: UserEntity | null) => {
-			if (user?.bio.isNew && global.showProfileModal.value) router.push('/account/edit')
-			global.user.value = user
-		}
+		const setUser = (user: UserEntity | null) => global.user.value = user
 		if (id) {
 			global.listener = await ListenToUser.call(id, setUser, true)
 			await UpdateStreak.call().catch(() => {
@@ -77,7 +74,7 @@ export const useAuth = () => {
 	const signin = async (remembered: boolean, router: VueRouter) => {
 		try {
 			if (global.auth.value?.token) await auth.signInWithCustomToken(global.auth.value.token)
-			await startProfileListener(router)
+			await startProfileListener()
 			analytics.logEvent('login', { remembered })
 		} catch (e) {
 			await signout(router)

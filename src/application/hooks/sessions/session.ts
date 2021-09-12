@@ -80,7 +80,7 @@ export const useCurrentSession = () => {
 const useSession = (key: SessionKey, router: VueRouter, callback: (key: SessionKey, sessions: SessionEntity[], id: string, router: VueRouter) => void) => {
 	const { user, id } = useAuth()
 	const listenerCb = async () => {
-		const sessionIds = Object.keys(user.value?.session?.[key] ?? {})
+		const sessionIds = user.value?.session?.[key] ?? []
 		if (sessionIds.length === 0) {
 			global[key].sessions.value = []
 			return () => {
@@ -103,7 +103,7 @@ const useSession = (key: SessionKey, router: VueRouter, callback: (key: SessionK
 
 	const fetchSessions = async () => {
 		global[key].setError('')
-		const sessionIds = Object.keys(user.value?.session?.[key] ?? {})
+		const sessionIds = user.value?.session?.[key] ?? []
 		if (sessionIds.length === 0) return global[key].sessions.value = []
 		try {
 			global[key].setLoading(true)

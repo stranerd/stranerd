@@ -162,9 +162,9 @@ export class ProfileUpdateFactory extends BaseFactory<UserEntity, UpdateUser, Ke
 			} = this.validValues
 			return {
 				bio: {
-					name: { first, last },
+					firstName: first, lastName: last,
 					email, description,
-					avatar: (avatar ?? null) as Media
+					photo: (avatar ?? null) as Media
 				},
 				password: password!,
 				strongestSubject, weakerSubjects
@@ -173,8 +173,8 @@ export class ProfileUpdateFactory extends BaseFactory<UserEntity, UpdateUser, Ke
 	}
 
 	loadEntity = (entity: UserEntity) => {
-		this.first = entity.bio.name.first
-		this.last = entity.bio.name.last
+		this.first = entity.bio.firstName
+		this.last = entity.bio.lastName
 		this.email = entity.email
 		this.description = entity.description
 		this.avatar = entity.avatar ?? undefined

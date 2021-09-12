@@ -44,12 +44,12 @@ export default defineComponent({
 	middleware: [
 		'isAuthenticated',
 		({ redirect, route }) => {
-			const { user, id } = useAuth()
+			const { id } = useAuth()
 			const { questionId = '' } = route.params
 			const question = getAnsweringQuestion()
 			if (!question) return redirect(`/questions/${questionId}`)
 			const canAnswer = question.userId !== id.value &&
-					!question.isAnswered && !user.value!.meta.answeredQuestions.includes(question.id)
+				!question.isAnswered && !question.answers.find((a) => a.userId === id.value)
 			if (!canAnswer) return redirect(`/questions/${question.id}`)
 		}
 	],

@@ -45,8 +45,8 @@ export const useUserQuestionList = (id: string) => {
 	const filteredQuestions = computed({
 		get: () => global[id].questions.value.filter((q) => {
 			if (global[id].subjectId.value && q.subjectId !== global[id].subjectId.value) return false
-			if (global[id].answered.value === Answered.Answered && q.answers === 0) return false
-			if (global[id].answered.value === Answered.Unanswered && q.answers > 0) return false
+			if (global[id].answered.value === Answered.Answered && q.answers.length === 0) return false
+			if (global[id].answered.value === Answered.Unanswered && q.answers.length > 0) return false
 			if (global[id].answered.value === Answered.BestAnswered && !q.isAnswered) return false
 			return true
 		}).sort((a, b) => {

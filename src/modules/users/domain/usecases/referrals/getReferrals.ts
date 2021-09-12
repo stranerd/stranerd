@@ -1,20 +1,20 @@
 import { DatabaseGetClauses } from '@modules/core'
 import { PAGINATION_LIMIT } from '@utils/constants'
-import { IReportRepository } from '../irepositories/ireport'
+import { IReferralRepository } from '../../irepositories/ireferral'
 
-export class GetReportsUseCase {
-	private repository: IReportRepository
+export class GetReferralsUseCase {
+	private repository: IReferralRepository
 
-	constructor (repository: IReportRepository) {
+	constructor (repository: IReferralRepository) {
 		this.repository = repository
 	}
 
-	async call (date?: number) {
+	async call (userId: string, date?: number) {
 		const conditions: DatabaseGetClauses = {
 			order: { field: 'dates/createdAt' },
 			limit: { count: PAGINATION_LIMIT + 1, bottom: true }
 		}
 		if (date) conditions!.order!.condition = { '<': date }
-		return await this.repository.get(conditions)
+		return await this.repository.get(userId, conditions)
 	}
 }

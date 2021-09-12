@@ -77,8 +77,8 @@ export const useQuestionList = () => {
 	const filteredQuestions = computed({
 		get: () => global.questions.value.filter((q) => {
 			if (global.subjectId.value && q.subjectId !== global.subjectId.value) return false
-			if (global.answered.value === Answered.Answered && q.answers === 0) return false
-			if (global.answered.value === Answered.Unanswered && q.answers > 0) return false
+			if (global.answered.value === Answered.Answered && q.answers.length === 0) return false
+			if (global.answered.value === Answered.Unanswered && q.answers.length > 0) return false
 			if (global.answered.value === Answered.BestAnswered && !q.isAnswered) return false
 			return true
 		}).sort((a, b) => {

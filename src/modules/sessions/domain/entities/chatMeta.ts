@@ -15,6 +15,10 @@ export class ChatMetaEntity extends BaseEntity {
 		this.bio = generateDefaultBio(bio)
 		this.last = last
 	}
+
+	get avatar () {
+		return this.bio.photo
+	}
 }
 
 type ChatMetaConstructorArgs = {

@@ -12,7 +12,7 @@ export class QuestionEntity extends BaseEntity {
 	public readonly userId: string
 	public readonly user: UserBio
 	public readonly answerId: { first: string | null, second: string | null }
-	public readonly answers: number
+	public readonly answers: { id: string, userId: string }[]
 	public readonly commentsCount: number
 	public readonly createdAt: number
 
@@ -44,11 +44,11 @@ export class QuestionEntity extends BaseEntity {
 	}
 
 	get userName () {
-		return this.user.name.fullName
+		return this.user.fullName
 	}
 
 	get avatar () {
-		return this.user.avatar
+		return this.user.photo
 	}
 
 	get trimmedBody () {
@@ -60,7 +60,7 @@ export class QuestionEntity extends BaseEntity {
 	}
 
 	get isModified () {
-		return this.answers > 0
+		return this.answers.length > 0
 	}
 
 	get canBeEdited () {
@@ -86,6 +86,6 @@ type QuestionConstructorArgs = {
 	userId: string
 	user: UserBio
 	answerId?: { first?: string | null, second?: string | null }
-	answers?: number
+	answers: { id: string, userId: string }[]
 	comments?: { count: number }
 }

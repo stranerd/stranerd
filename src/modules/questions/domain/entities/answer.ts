@@ -47,11 +47,11 @@ export class AnswerEntity extends BaseEntity {
 	}
 
 	get userName () {
-		return this.user.name.fullName
+		return this.user.fullName
 	}
 
 	get avatar () {
-		return this.user.avatar
+		return this.user.photo
 	}
 
 	get trimmedTitle () {

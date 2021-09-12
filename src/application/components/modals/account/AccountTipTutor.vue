@@ -2,7 +2,7 @@
 	<Modal :modal="$attrs.modal">
 		<template slot="title">
 			Tip
-			<DynamicText>{{ nerdBioAndId.bio.name.first }}</DynamicText>
+			<DynamicText>{{ nerdBioAndId.bio.firstName }}</DynamicText>
 		</template>
 		<AccountCoinBalance :user="user" class="mb-1 px-1-5" />
 		<div class="d-flex flex-wrap gap-1">

@@ -2,21 +2,25 @@ import { BaseEntity, Media } from '@modules/core'
 
 export class ChatEntity extends BaseEntity {
 	readonly id: string
-	readonly content: string | undefined
-	readonly media: Media | undefined
 	readonly from: string
-	readonly sessionId: string | undefined
+	readonly content: string | null
+	readonly media: Media | null
+	readonly path: [string, string]
+	readonly sessionId: string | null
 	readonly createdAt: number
-	readonly readAt: number | undefined
+	readonly updatedAt: number
+	readonly readAt: number | null
 
-	constructor ({ id, content, media, from, sessionId, createdAt, readAt }: ChatConstructorArgs) {
+	constructor ({ id, from, content, media, path, sessionId, createdAt, updatedAt, readAt }: ChatConstructorArgs) {
 		super()
 		this.id = id
+		this.from = from
 		this.content = content
 		this.media = media
-		this.from = from
+		this.path = path
 		this.sessionId = sessionId
 		this.createdAt = createdAt
+		this.updatedAt = updatedAt
 		this.readAt = readAt
 	}
 
@@ -31,14 +35,20 @@ export class ChatEntity extends BaseEntity {
 	get isImage () {
 		return this.isMedia && this.media?.type.startsWith('image/')
 	}
+
+	get to () {
+		return this.path.find((id) => id !== this.from) ?? ''
+	}
 }
 
 type ChatConstructorArgs = {
 	id: string,
-	content: string | undefined,
-	media: Media | undefined,
+	from: string,
+	path: [string, string],
+	content: string | null,
+	media: Media | null,
 	createdAt: number
-	readAt: number | undefined
-	from: string
-	sessionId: string | undefined
+	updatedAt: number
+	readAt: number | null
+	sessionId: string | null
 }

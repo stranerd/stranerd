@@ -1,34 +1,27 @@
 import { BaseFactory } from '@modules/core'
 import { isLongerThan, isMoreThan } from 'sd-validate/lib/rules'
-import { UserBio } from '@modules/users'
 import { SessionToModel } from '../../data/models/session'
 import { SessionEntity } from '../entities/session'
 
 type Keys = {
-	message: string, price: number, duration: number, studentId: string, tutorId: string,
-	studentBio: UserBio | undefined, tutorBio: UserBio | undefined
+	message: string, duration: number, tutorId: string,
 }
 const isLongerThan0 = (value: string) => isLongerThan(value, 0)
 const isLongerThan2 = (value: string) => isLongerThan(value, 2)
 const isMoreThan0 = (value: number) => isMoreThan(value, 0)
 
-export class SessionFactory extends BaseFactory<SessionEntity, Partial<SessionToModel>, Keys> {
+export class SessionFactory extends BaseFactory<SessionEntity, SessionToModel, Keys> {
 	readonly rules = {
 		message: { required: true, rules: [isLongerThan2] },
-		price: { required: true, rules: [isMoreThan0] },
 		duration: { required: true, rules: [isMoreThan0] },
-		studentId: { required: true, rules: [isLongerThan0] },
-		tutorId: { required: true, rules: [isLongerThan0] },
-		studentBio: { required: true, rules: [] },
-		tutorBio: { required: true, rules: [] }
+		tutorId: { required: true, rules: [isLongerThan0] }
 	}
 
-	reserved = ['studentId', 'studentBio']
+	reserved = []
 
 	constructor () {
 		super({
-			message: '', price: 0, duration: 0,
-			studentId: '', tutorId: '', studentBio: undefined, tutorBio: undefined
+			message: '', duration: 0, tutorId: ''
 		})
 	}
 
@@ -40,8 +33,16 @@ export class SessionFactory extends BaseFactory<SessionEntity, Partial<SessionTo
 		this.set('message', value)
 	}
 
+	get tutorId () {
+		return this.values.tutorId
+	}
+
+	set tutorId (value: string) {
+		this.set('tutorId', value)
+	}
+
 	get price () {
-		return this.values.price
+		return this.prices.find((p) => p.duration === this.duration)?.price ?? 0
 	}
 
 	get duration () {
@@ -50,8 +51,6 @@ export class SessionFactory extends BaseFactory<SessionEntity, Partial<SessionTo
 
 	set duration (value: number) {
 		this.set('duration', value)
-		const ent = this.prices.find((p) => p.duration === value)
-		this.set('price', ent?.price ?? 0)
 	}
 
 	get prices () {
@@ -64,20 +63,10 @@ export class SessionFactory extends BaseFactory<SessionEntity, Partial<SessionTo
 		]
 	}
 
-	set studentBioAndId (value: { id: string, user: UserBio }) {
-		this.set('studentId', value.id)
-		this.set('studentBio', value.user)
-	}
-
-	set tutorBioAndId (value: { id: string, user: UserBio }) {
-		this.set('tutorId', value.id)
-		this.set('tutorBio', value.user)
-	}
-
 	toModel = async () => {
 		if (this.valid) {
-			const { message, price, duration, studentId, tutorId, studentBio, tutorBio } = this.validValues
-			return { message, price, duration, studentId, tutorId, studentBio, tutorBio }
+			const { message, duration, tutorId } = this.validValues
+			return { message, duration, tutorId }
 		} else {
 			throw new Error('Validation errors')
 		}

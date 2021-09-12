@@ -1,4 +1,4 @@
-import { computed, Ref, ref, ssrRef, useFetch, watch } from '@nuxtjs/composition-api'
+import { computed, Ref, ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import {
 	AddPersonalChat,
 	ChatEntity,
@@ -94,8 +94,7 @@ export const useCreateChat = (userId: string, sessionId?: string) => {
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 
-	factory.value.from = id.value!
-	watch(() => id.value, () => factory.value.from = id.value!)
+	factory.value.to = userId
 
 	const createTextChat = async () => {
 		if (sessionId) factory.value.sessionId = sessionId
@@ -118,7 +117,7 @@ export const useCreateChat = (userId: string, sessionId?: string) => {
 			setLoading(true)
 			const promises = files.map(async (file) => {
 				const mediaFactory = new ChatFactory()
-				mediaFactory.from = id.value
+				mediaFactory.to = userId
 				mediaFactory.media = file
 				try {
 					await AddPersonalChat.call(path, mediaFactory)

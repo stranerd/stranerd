@@ -3,6 +3,7 @@ import { generateDefaultBio, UserBio } from '@modules/users'
 
 export class SessionEntity extends BaseEntity {
 	readonly id: string
+	readonly taskId: string | null
 	readonly message: string
 	readonly studentId: string
 	readonly studentBio: UserBio
@@ -13,21 +14,20 @@ export class SessionEntity extends BaseEntity {
 	readonly accepted: boolean
 	readonly done: boolean
 	readonly cancelled: { student: boolean, tutor: boolean, busy: boolean }
-	readonly reviews: {
-		student?: { rating: number, comment: string }
-		tutor?: { rating: number, comment: string }
-	}
-
 	readonly createdAt: number
-	readonly endedAt?: number
+	readonly updatedAt: number
+	readonly startedAt: number | null
+	readonly endedAt: number | null
 
 	constructor ({
-		             id, duration, price, message,
+		             id, taskId, duration, price, message,
 		             studentId, tutorId, studentBio, tutorBio,
-		             accepted, done, createdAt, cancelled, reviews, endedAt
+		             accepted, done, createdAt, cancelled, endedAt,
+		             updatedAt, startedAt
 	             }: SessionConstructorArgs) {
 		super()
 		this.id = id
+		this.taskId = taskId
 		this.message = message
 		this.studentId = studentId
 		this.studentBio = generateDefaultBio(studentBio)
@@ -36,10 +36,11 @@ export class SessionEntity extends BaseEntity {
 		this.duration = duration
 		this.price = price
 		this.accepted = accepted ?? false
-		this.done = done ?? false
+		this.done = done
 		this.cancelled = cancelled
-		this.reviews = reviews
 		this.createdAt = createdAt
+		this.updatedAt = updatedAt
+		this.startedAt = startedAt
 		this.endedAt = endedAt
 	}
 
@@ -59,11 +60,11 @@ export class SessionEntity extends BaseEntity {
 type SessionConstructorArgs = {
 	id: string, duration: number, price: number, message: string,
 	studentId: string, tutorId: string, studentBio: UserBio, tutorBio: UserBio,
-	accepted: boolean, done: boolean,
+	accepted: boolean | null, done: boolean,
 	cancelled: { tutor: boolean, student: boolean, busy: boolean },
-	reviews: {
-		student?: { rating: number, comment: string }
-		tutor?: { rating: number, comment: string }
-	},
-	createdAt: number, endedAt?: number,
+	createdAt: number,
+	updatedAt: number,
+	startedAt: number | null
+	endedAt: number | null
+	taskId: string
 }

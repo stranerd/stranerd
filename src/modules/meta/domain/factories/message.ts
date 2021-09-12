@@ -1,14 +1,13 @@
 import { BaseFactory } from '@modules/core'
 import { isEmail, isLongerThan } from 'sd-validate/lib/rules'
 import { MessageToModel } from '../../data/models/message'
-import { MessageEntity } from '../entities/message'
 
-type Keys = { fName: string, lName: string, email: string, message: string }
+type Keys = { firstName: string, lastName: string, email: string, message: string }
 
-export class MessageFactory extends BaseFactory<MessageEntity, MessageToModel, Keys> {
+export class MessageFactory extends BaseFactory<null, MessageToModel, Keys> {
 	public rules = {
-		fName: { required: true, rules: [(value: string) => isLongerThan(value, 2)] },
-		lName: { required: true, rules: [(value: string) => isLongerThan(value, 2)] },
+		firstName: { required: true, rules: [(value: string) => isLongerThan(value, 2)] },
+		lastName: { required: true, rules: [(value: string) => isLongerThan(value, 2)] },
 		email: { required: true, rules: [isEmail] },
 		message: { required: true, rules: [(value: string) => isLongerThan(value, 0)] }
 	}
@@ -16,23 +15,23 @@ export class MessageFactory extends BaseFactory<MessageEntity, MessageToModel, K
 	reserved = []
 
 	constructor () {
-		super({ fName: '', lName: '', email: '', message: '' })
+		super({ firstName: '', lastName: '', email: '', message: '' })
 	}
 
-	get fName () {
-		return this.values.fName
+	get firstName () {
+		return this.values.firstName
 	}
 
-	set fName (value: string) {
-		this.set('fName', value)
+	set firstName (value: string) {
+		this.set('firstName', value)
 	}
 
-	get lName () {
-		return this.values.lName
+	get lastName () {
+		return this.values.lastName
 	}
 
-	set lName (value: string) {
-		this.set('lName', value)
+	set lastName (value: string) {
+		this.set('lastName', value)
 	}
 
 	get email () {
@@ -53,17 +52,14 @@ export class MessageFactory extends BaseFactory<MessageEntity, MessageToModel, K
 
 	public toModel = async () => {
 		if (this.valid) {
-			const { fName, lName, email, message } = this.validValues
-			return { fName, lName, email, message }
+			const { firstName, lastName, email, message } = this.validValues
+			return { firstName, lastName, email, message }
 		} else {
 			throw new Error('Validation errors')
 		}
 	}
 
-	public loadEntity = (entity: MessageEntity) => {
-		this.fName = entity.fName
-		this.lName = entity.lName
-		this.email = entity.email
-		this.message = entity.message
+	public loadEntity = (entity: null) => {
+		throw new Error(`Cannot load an entity into this factory, ${entity}`)
 	}
 }

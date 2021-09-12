@@ -1,17 +1,12 @@
-export interface MessageFromModel {
+export interface MessageFromModel extends MessageToModel {
 	id: string
-	fName: string
-	lName: string
-	email: string
-	message: string
-	dates: {
-		createdAt: number
-	}
+	createdAt: number
+	updatedAt: number
 }
 
 export interface MessageToModel {
-	fName: string
-	lName: string
+	firstName: string
+	lastName: string
 	email: string
 	message: string
 }

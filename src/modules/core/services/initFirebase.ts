@@ -1,10 +1,10 @@
-import firebase from 'firebase/app'
-import 'firebase/auth'
-import 'firebase/analytics'
-import 'firebase/database'
-import 'firebase/firestore'
-import 'firebase/functions'
-import 'firebase/storage'
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/auth'
+import 'firebase/compat/analytics'
+import 'firebase/compat/database'
+import 'firebase/compat/firestore'
+import 'firebase/compat/functions'
+import 'firebase/compat/storage'
 import { firebaseConfig, isClient, isDev } from '@utils/environment'
 
 if (firebase.apps.length === 0) {

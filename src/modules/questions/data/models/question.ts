@@ -1,12 +1,7 @@
 import { UserBio } from '@modules/users'
-import { Timestamp } from '@modules/core'
 
-export interface QuestionFromModel {
+export interface QuestionFromModel extends QuestionToModel {
 	id: string
-	body: string
-	coins: number
-	tags: string[]
-	subjectId: string
 	userId: string
 	userBio: UserBio
 	bestAnswers: string[]

@@ -24,7 +24,7 @@ export class ReviewEntity extends BaseEntity {
 	}
 
 	get avatar () {
-		return this.userBio.avatar
+		return this.userBio.photo
 	}
 }
 

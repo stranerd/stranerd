@@ -11,7 +11,6 @@ export class TagTransformer {
 
 	toJSON (entity: TagEntity): TagToModel {
 		return {
-			count: entity.count,
 			name: entity.name
 		}
 	}

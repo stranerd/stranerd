@@ -21,12 +21,7 @@
 				<template v-if="user.id === id">
 					<DonutChart :score="user.score" :size="120" :total="user.expectedScore" />
 					<span class="text-18 text-dark text-center">
-						{{
-							user.score / user.expectedScore > 0.75 ? 'Your Nerd Score is high. Nice job.' :
-							user.score / user.expectedScore > 0.5 ? 'Your Nerd Score is ok but not there yet. Keep pushing.' :
-							user.score / user.expectedScore > 0.25 ? 'Your Nerd Score is not strong. You can do better.' :
-							'Your Nerd Score is low. Try to bring it up.'
-						}}
+						{{ user.nerdScoreMessage }}
 					</span>
 				</template>
 				<span v-else class="score"><DynamicText>{{ user.formattedScore }}</DynamicText></span>
@@ -41,25 +36,13 @@
 					</Heading>
 					<div class="d-flex gap-1 align-items-center text-dark">
 						<img :src="user.rank.image" alt="" class="img-rank-2">
-						<ProgressBar :current="user.rankProgress.overall" :primary="true" />
+						<ProgressBar :current="user.rankProgress" :primary="true" />
 						<img
-							v-if="user.rankProgress.next"
-							:src="user.rankProgress.next.image"
+							v-if="user.nextRank"
+							:src="user.nextRankImage"
 							alt=""
 							class="img-rank-2"
 						>
-					</div>
-					<div class="d-flex flex-column gap-1">
-						<div
-							v-for="detail in user.rankProgress.progresses"
-							:key="detail.title"
-							class="d-flex justify-content-between align-items-center gap-0-25"
-						>
-							<DynamicText class="stat">
-								{{ detail.title }}
-							</DynamicText>
-							<ProgressBar :current="detail.progress" />
-						</div>
 					</div>
 				</div>
 			</template>
@@ -82,12 +65,7 @@
 				<template v-if="user.id === id">
 					<DonutChart :score="user.score" :size="120" :total="user.expectedScore" />
 					<span class="text-18 text-dark text-center">
-						{{
-							user.score / user.expectedScore > 0.75 ? 'Your Nerd Score is high. Nice job.' :
-							user.score / user.expectedScore > 0.5 ? 'Your Nerd Score is ok but not there yet. Keep pushing.' :
-							user.score / user.expectedScore > 0.25 ? 'Your Nerd Score is not strong. You can do better.' :
-							'Your Nerd Score is low. Try to bring it up.'
-						}}
+						{{ user.nerdScoreMessage }}
 					</span>
 				</template>
 				<span v-else class="score"><DynamicText>{{ user.formattedScore }}</DynamicText></span>

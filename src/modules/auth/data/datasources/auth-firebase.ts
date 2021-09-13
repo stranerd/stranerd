@@ -66,7 +66,6 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 		try {
 			const { uid: id, updatePassword } = auth.currentUser
 			if (password) await updatePassword(password)
-			bio.isNew = null
 			await DatabaseService.update(`profiles/${id}`, {
 				bio,
 				'tutor/strongestSubject': strongestSubject,
@@ -82,7 +81,7 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 			const { data } = await AxiosInstance.post('/auth/signin', { idToken })
 			if (!data.success) throw new Error(data.error)
 			return data.user
-		} catch (error) {
+		} catch (error: any) {
 			throw new Error(error?.response?.data?.error ?? 'Error signing in')
 		}
 	}
@@ -92,7 +91,7 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 			await auth.signOut()
 			const { data } = await AxiosInstance.post('/auth/signout', {})
 			if (!data.success) throw new Error(data.error)
-		} catch (error) {
+		} catch (error: any) {
 			throw new Error(error?.response?.data?.error ?? 'Error signing out')
 		}
 	}

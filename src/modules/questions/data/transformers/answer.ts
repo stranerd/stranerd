@@ -1,4 +1,3 @@
-import { timestampToMs } from '@modules/core'
 import { AnswerFromModel, AnswerToModel } from '../models/answer'
 import { AnswerEntity } from '../../domain/entities/answer'
 

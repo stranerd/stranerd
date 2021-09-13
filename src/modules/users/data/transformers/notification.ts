@@ -14,7 +14,6 @@ export class NotificationTransformer {
 	toJSON (entity: NotificationEntity): NotificationToModel {
 		return {
 			body: entity.body,
-			userId: entity.userId,
 			data: entity.data,
 			action: entity.action,
 			seen: entity.seen

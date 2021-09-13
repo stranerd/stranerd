@@ -1,11 +1,11 @@
 import { BaseFactory } from '@modules/core'
-import { isEmail } from 'sd-validate/lib/rules'
+import { isEmail, isString } from '@stranerd/validate'
 
 type Keys = { email: string }
 
 export class PasswordResetFactory extends BaseFactory<null, Keys, Keys> {
 	readonly rules = {
-		email: { required: true, rules: [isEmail] }
+		email: { required: true, rules: [isString, isEmail] }
 	}
 
 	reserved = []

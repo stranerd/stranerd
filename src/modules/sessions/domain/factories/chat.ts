@@ -1,40 +1,39 @@
 import { BaseFactory, Media } from '@modules/core'
-import { isFile, isLongerThan, isRequiredIf } from 'sd-validate/lib/rules'
+import { isFile, isLongerThanX, isRequiredIfX, isString } from '@stranerd/validate'
 import { ChatToModel } from '../../data/models/chat'
 import { ChatEntity } from '../entities/chat'
 
-type Content = Media | File | undefined
-type Keys = { content: string | undefined, from: string, sessionId: string | undefined, media: Content | undefined }
-const isLongerThan0 = (value: string) => isLongerThan(value, 0)
+type Content = Media | File | null
+type Keys = { content: string | null, to: string, sessionId: string | null, media: Content | null }
 
 export class ChatFactory extends BaseFactory<ChatEntity, ChatToModel, Keys> {
 	readonly rules = {
-		content: { required: false, rules: [(val: string) => isRequiredIf(val, !this.media), isLongerThan0] },
-		from: { required: true, rules: [isLongerThan0] },
-		sessionId: { required: false, rules: [] },
-		media: { required: false, rules: [(val: Content) => isRequiredIf(val, !this.content), isFile] }
+		content: { required: false, rules: [isRequiredIfX(!this.media), isString, isLongerThanX(0)] },
+		to: { required: true, rules: [isString] },
+		sessionId: { required: false, rules: [isString] },
+		media: { required: false, rules: [isRequiredIfX(!this.content), isFile] }
 	}
 
-	reserved = ['from']
+	reserved = ['to']
 
 	constructor () {
-		super({ content: undefined, from: '', media: undefined, sessionId: undefined })
+		super({ content: null, to: '', media: null, sessionId: null })
 	}
 
 	get content () {
 		return this.values.content
 	}
 
-	set content (value: string | undefined) {
+	set content (value: string | null) {
 		this.set('content', value)
 	}
 
-	get from () {
-		return this.values.from
+	get to () {
+		return this.values.to
 	}
 
-	set from (value: string) {
-		this.set('from', value)
+	set to (value: string) {
+		this.set('to', value)
 	}
 
 	get media () {
@@ -49,7 +48,7 @@ export class ChatFactory extends BaseFactory<ChatEntity, ChatToModel, Keys> {
 		return this.values.sessionId
 	}
 
-	set sessionId (value: string | undefined) {
+	set sessionId (value: string | null) {
 		this.set('sessionId', value)
 	}
 
@@ -57,12 +56,10 @@ export class ChatFactory extends BaseFactory<ChatEntity, ChatToModel, Keys> {
 		if (this.valid) {
 			if (this.media instanceof File) this.media = await this.uploadFile('chats', this.media)
 
-			const { from, content, media, sessionId } = this.validValues
+			const { to, content, media, sessionId } = this.validValues
 			return {
-				from,
-				...(content ? { content } : {}),
-				...(sessionId ? { sessionId } : {}),
-				...(media ? { media: media as Media } : {})
+				to, content, sessionId,
+				media: media as Media ?? null
 			}
 		} else {
 			throw new Error('Validation errors')
@@ -72,7 +69,7 @@ export class ChatFactory extends BaseFactory<ChatEntity, ChatToModel, Keys> {
 	loadEntity = (entity: ChatEntity) => {
 		this.content = entity.content
 		this.media = entity.media
-		this.from = entity.from
+		this.to = entity.to
 		this.sessionId = entity.sessionId
 	}
 }

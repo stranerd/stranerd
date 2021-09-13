@@ -1,14 +1,14 @@
 import { IReportRepository } from '../irepositories/ireport'
 import { ReportFactory } from '../factories/report'
 
-export class AddReportUseCase<ReportedType extends { userId: string }> {
-	private repository: IReportRepository<ReportedType>
+export class AddReportUseCase {
+	private repository: IReportRepository
 
-	constructor (repository: IReportRepository<ReportedType>) {
+	constructor (repository: IReportRepository) {
 		this.repository = repository
 	}
 
-	async call (factory: ReportFactory<ReportedType>): Promise<string> {
+	async call (factory: ReportFactory): Promise<string> {
 		return await this.repository.add(await factory.toModel())
 	}
 }

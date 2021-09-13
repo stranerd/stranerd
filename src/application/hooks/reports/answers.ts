@@ -1,43 +1,28 @@
-import { ssrRef, useFetch, watch } from '@nuxtjs/composition-api'
+import { ssrRef, useFetch } from '@nuxtjs/composition-api'
 import {
 	AddAnswerReport,
 	AnswerReportEntity,
-	AnswerReportFactory,
-	AnswerReportType,
 	DeleteAnswerReport,
-	GetAnswerReports
+	GetAnswerReports,
+	ReportFactory,
+	ReportType
 } from '@modules/reports'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useReportModal } from '@app/hooks/core/modals'
-import { useAuth } from '@app/hooks/auth/auth'
-import { AnswerEntity } from '@modules/questions'
 import { PAGINATION_LIMIT } from '@utils/constants'
 import { Alert } from '../core/notifications'
 
-let reportedEntity = null as { id: string, reported: AnswerReportType } | null
-export const setReportedEntity = (answer: AnswerEntity) => {
-	reportedEntity = {
-		id: answer.id,
-		reported: {
-			title: answer.title,
-			body: answer.body,
-			questionId: answer.questionId,
-			userId: answer.userId
-		}
-	}
-}
+let reportedEntity = null as string | null
+export const setReportedEntity = (answerId: string) => reportedEntity = answerId
 
 export const useCreateReport = () => {
-	const { id, bio } = useAuth()
-	const factory = ssrRef(new AnswerReportFactory())
+	const factory = ssrRef(new ReportFactory())
 	const { message, setMessage } = useSuccessHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
 
-	factory.value.reporterBioAndId = { id: id.value!, bio: bio.value! }
-	watch(() => id.value, () => factory.value.reporterBioAndId = { id: id.value!, bio: bio.value! })
-	watch(() => bio.value, () => factory.value.reporterBioAndId = { id: id.value!, bio: bio.value! })
-	factory.value.reported = reportedEntity!
+	factory.value.type = ReportType.answers
+	factory.value.reportedId = reportedEntity!
 
 	const createReport = async () => {
 		setError('')

@@ -2,31 +2,31 @@ import { DatabaseGetClauses, DatabaseService, FunctionsService } from '@modules/
 import { ReportFromModel, ReportToModel } from '../models/report'
 import { ReportBaseDataSource } from './report-base'
 
-export class ReportFirebaseDataSource<Key extends string, ReportType extends { userId: string }> implements ReportBaseDataSource<Key, ReportType> {
-	readonly key: Key
+export class ReportFirebaseDataSource implements ReportBaseDataSource {
+	readonly key: string
 
-	constructor (key: Key) {
+	constructor (key: string) {
 		this.key = key
 	}
 
-	async create (report: ReportToModel<ReportType>) {
-		return await DatabaseService.create<ReportToModel<ReportType>>(`reports/${this.key}`, report)
+	async create (report: ReportToModel) {
+		return await DatabaseService.create<ReportToModel>('reports', report)
 	}
 
 	async find (id: string) {
-		return await DatabaseService.get<ReportFromModel<ReportType>>(`reports/${this.key}/${id}`)
+		return await DatabaseService.get<ReportFromModel>(`reports/${id}`)
 	}
 
 	async get (conditions?: DatabaseGetClauses) {
-		return await DatabaseService.getMany<ReportFromModel<ReportType>>(`reports/${this.key}`, conditions)
+		return await DatabaseService.getMany<ReportFromModel>('reports', conditions)
 	}
 
-	async update (id: string, data: ReportToModel<ReportType>) {
-		return await DatabaseService.update<ReportToModel<ReportType>>(`reports/${this.key}/${id}`, data)
+	async update (id: string, data: ReportToModel) {
+		return await DatabaseService.update<ReportToModel>(`reports/${id}`, data)
 	}
 
 	async delete (id: string) {
-		return await DatabaseService.delete(`reports/${this.key}/${id}`)
+		return await DatabaseService.delete(`reports/${id}`)
 	}
 
 	async handle ({ id, userId }: { id: string, userId: string }) {

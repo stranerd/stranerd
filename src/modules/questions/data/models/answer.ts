@@ -1,11 +1,8 @@
 import { UserBio } from '@modules/users'
 
-export interface AnswerFromModel {
+export interface AnswerFromModel extends AnswerToModel {
 	id: string
-	title: string
-	body: string
 	coins: number
-	questionId: string
 	tags: string[]
 	createdAt: number
 	updatedAt: number

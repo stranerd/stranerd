@@ -1,28 +1,26 @@
 import { BaseFactory } from '@modules/core'
-import { isLongerThan } from 'sd-validate/lib/rules'
-import { UserBio } from '@modules/users'
+import { arrayContainsX, isLongerThanX, isString } from '@stranerd/validate'
 import { ReportToModel } from '../../data/models/report'
-import { ReportEntity } from '../entities/report'
+import { ReportEntity, ReportType } from '../entities/report'
 
-type Keys<ReportType> = {
-	reporterId: string, reportedId: string,
-	reporterBio: UserBio | undefined, reported: ReportType | undefined,
-	message: string
+type Keys = {
+	reportedId: string, type: ReportType, message: string
 }
 
-export class ReportFactory<ReportType extends { userId: string }> extends BaseFactory<ReportEntity<ReportType>, ReportToModel<ReportType>, Keys<ReportType>> {
+export class ReportFactory extends BaseFactory<ReportEntity<any>, ReportToModel, Keys> {
 	public rules = {
-		reporterId: { required: true, rules: [] },
-		reportedId: { required: true, rules: [] },
-		reporterBio: { required: true, rules: [] },
-		reported: { required: true, rules: [] },
-		message: { required: true, rules: [(value: string) => isLongerThan(value, 0)] }
+		type: {
+			required: true,
+			rules: [isString, arrayContainsX(Object.values<string>(ReportType), (cur, val) => cur === val)]
+		},
+		reportedId: { required: true, rules: [isString] },
+		message: { required: true, rules: [isString, isLongerThanX(0)] }
 	}
 
 	reserved = []
 
 	constructor () {
-		super({ reporterId: '', reportedId: '', reporterBio: undefined, reported: undefined, message: '' })
+		super({ reportedId: '', type: ReportType.users, message: '' })
 	}
 
 	get message () {
@@ -33,34 +31,34 @@ export class ReportFactory<ReportType extends { userId: string }> extends BaseFa
 		this.set('message', value)
 	}
 
-	set reporterBioAndId (value: { id: string, bio: UserBio }) {
-		this.set('reporterId', value.id)
-		this.set('reporterBio', value.bio)
+	get type () {
+		return this.values.type
 	}
 
-	set reported (value: { id: string, reported: ReportType }) {
-		this.set('reportedId', value.id)
-		this.set('reported', value.reported)
+	set type (value: ReportType) {
+		this.set('type', value)
+	}
+
+	get reportedId () {
+		return this.values.reportedId
+	}
+
+	set reportedId (value: string) {
+		this.set('reportedId', value)
 	}
 
 	public toModel = async () => {
 		if (this.valid) {
-			const { reporterId, reportedId, reporterBio, reported, message } = this.validValues
-			return { reporterId, reportedId, reporterBio: reporterBio!, reported: reported!, message }
+			const { type, reportedId, message } = this.validValues
+			return { type, reportedId, message }
 		} else {
 			throw new Error('Validation errors')
 		}
 	}
 
-	public loadEntity = (entity: ReportEntity<ReportType>) => {
-		this.reporterBioAndId = {
-			id: entity.reporterId,
-			bio: entity.reporterBio
-		}
-		this.reported = {
-			id: entity.reportedId,
-			reported: entity.reported
-		}
+	public loadEntity = (entity: ReportEntity<any>) => {
+		this.reportedId = entity.reportedId
+		this.type = entity.type
 		this.message = entity.message
 	}
 }

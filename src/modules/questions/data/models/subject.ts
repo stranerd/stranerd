@@ -1,7 +1,6 @@
-export interface SubjectFromModel {
+export interface SubjectFromModel extends SubjectToModel {
 	id: string
-	name: string
-	createdAt: number, 
+	createdAt: number
 	updatedAt: number
 }
 

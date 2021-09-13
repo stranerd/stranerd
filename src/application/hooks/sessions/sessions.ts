@@ -1,4 +1,4 @@
-import { computed, Ref, ref, ssrRef, useRouter, watch } from '@nuxtjs/composition-api'
+import { computed, Ref, ref, ssrRef, useRouter } from '@nuxtjs/composition-api'
 import { AddSession, BeginSession, CancelSession, SessionFactory } from '@modules/sessions'
 import { UserBio } from '@modules/users'
 import { RateTutor } from '@modules/meta'
@@ -14,16 +14,13 @@ export const setNewSessionTutorIdBio = (data: { id: string, user: UserBio }) => 
 }
 
 export const useCreateSession = () => {
-	const { id, bio, user } = useAuth()
+	const { user } = useAuth()
 	const router = useRouter()
 	const factory = ref(new SessionFactory()) as Ref<SessionFactory>
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
 	const { setMessage } = useSuccessHandler()
-	factory.value.tutorBioAndId = newSessionTutorIdBio!
-	factory.value.studentBioAndId = { id: id.value, user: bio.value! }
-	watch(() => id.value, () => factory.value.studentBioAndId = { id: id.value!, user: bio.value! })
-	watch(() => bio.value, () => factory.value.studentBioAndId = { id: id.value!, user: bio.value! })
+	factory.value.tutorId = newSessionTutorIdBio!.id
 	const hasEnoughCoins = computed({
 		get: () => factory.value.price <= (user.value?.account?.coins?.gold ?? 0),
 		set: () => {

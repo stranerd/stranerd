@@ -6,7 +6,7 @@ export class SubjectEntity extends BaseEntity {
 	public readonly createdAt: number
 	public readonly updatedAt: number
 
-	constructor ({ id, name, createdAt,updatedAt }: SubjectConstructorArgs) {
+	constructor ({ id, name, createdAt, updatedAt }: SubjectConstructorArgs) {
 		super()
 		this.id = id
 		this.name = capitalize(name)
@@ -15,7 +15,7 @@ export class SubjectEntity extends BaseEntity {
 	}
 }
 
-type SubjectConstructorArgs = {id: string, name: string, createdAt: number, updatedAt: number }
+type SubjectConstructorArgs = { id: string, name: string, createdAt: number, updatedAt: number }
 
 const capitalize = (value: string) => {
 	const c = (v: string) => (v[0]?.toUpperCase() ?? '') + v.slice(1)

@@ -1,6 +1,6 @@
 import { generateDefaultBio, UserBio } from '@modules/users'
 import { BaseEntity } from '@modules/core'
-import { catchDivideByZero, extractTextFromHTML, trimToLength } from '@utils/commons'
+import { extractTextFromHTML, trimToLength } from '@utils/commons'
 
 export class AnswerEntity extends BaseEntity {
 	public readonly id: string
@@ -17,7 +17,6 @@ export class AnswerEntity extends BaseEntity {
 	public readonly createdAt: number
 	public readonly updatedAt: number
 
-
 	constructor ({
 		             id, title, body, coins, questionId,
 		             createdAt, userId, userBio, tags,
@@ -31,7 +30,7 @@ export class AnswerEntity extends BaseEntity {
 		this.questionId = questionId
 		this.userId = userId
 		this.tags = tags
-		this.userBio = userBio
+		this.userBio = generateDefaultBio(userBio)
 		this.best = best ?? false
 		this.votes = votes
 		this.commentsCount = commentsCount ?? 0
@@ -39,10 +38,8 @@ export class AnswerEntity extends BaseEntity {
 		this.updatedAt = updatedAt
 	}
 
-
-
 	get userName () {
-		return this.userBio.firstName + this.userBio.lastName
+		return this.userBio.fullName
 	}
 
 	get avatar () {

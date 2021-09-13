@@ -1,46 +1,43 @@
 import { BaseFactory, Media } from '@modules/core'
 import {
-	hasLessThan,
+	hasLessThanX,
+	isArrayOfX,
 	isEmail,
 	isImage,
-	isLongerThan,
-	isRequiredIf,
-	isShallowEqualTo,
-	isShorterThan
-} from 'sd-validate/lib/rules'
+	isInvalid,
+	isLongerThanX,
+	isRequiredIfX,
+	isShallowEqualToX,
+	isShorterThanX,
+	isString,
+	isValid
+} from '@stranerd/validate'
 import { UserEntity } from '@modules/users'
 import { UpdateUser } from '../entities/auth'
 
 type Content = File | Media | undefined
 type Keys = { first: string, last: string, email: string, description: string, avatar: Content, password: string | undefined, cPassword: string | undefined, strongestSubject: string, weakerSubjects: string[] }
-const isLongerThan2 = (value: string) => isLongerThan(value, 2)
-const isLongerThan5 = (value: string) => isLongerThan(value, 5)
-const isShorterThan17 = (value: string) => isShorterThan(value, 17)
-const hasLessThan4 = (value: string[]) => hasLessThan(value, 4)
 
 export class ProfileUpdateFactory extends BaseFactory<UserEntity, UpdateUser, Keys> {
 	readonly rules = {
-		first: { required: true, rules: [isLongerThan2] },
-		last: { required: true, rules: [isLongerThan2] },
-		email: { required: true, rules: [isEmail] },
-		description: { required: true, rules: [] },
+		first: { required: true, rules: [isString, isLongerThanX(2)] },
+		last: { required: true, rules: [isString, isLongerThanX(2)] },
+		email: { required: true, rules: [isString, isEmail] },
+		description: { required: true, rules: [isString] },
 		avatar: { required: false, rules: [isImage] },
-		password: { required: false, rules: [isLongerThan5, isShorterThan17] },
+		password: { required: false, rules: [isString, isLongerThanX(5), isShorterThanX(17)] },
 		cPassword: {
 			required: false,
-			rules: [(value: string) => isRequiredIf(value, !!this.password), (value: string) => isShallowEqualTo(value, this.password), isLongerThan5, isShorterThan17]
+			rules: [isString, isRequiredIfX(!!this.password), isShallowEqualToX(this.password), isLongerThanX(5), isShorterThanX(17)]
 		},
 		strongestSubject: {
-			required: true, rules: [isLongerThan2, (value: string) => {
-				return this.weakerSubjects.includes(value)
-					? {
-						valid: false,
-						error: 'subject already exist in your weaker subjects'
-					}
-					: { valid: true, error: undefined }
-			}]
+			required: true,
+			rules: [isString, (value: string) => this.weakerSubjects.includes(value) ? isInvalid('subject already exist in your weaker subjects') : isValid()]
 		},
-		weakerSubjects: { required: true, rules: [hasLessThan4] }
+		weakerSubjects: {
+			required: true,
+			rules: [isArrayOfX((com) => isString(com).valid, 'string'), hasLessThanX(4)]
+		}
 	}
 
 	reserved = []
@@ -162,9 +159,9 @@ export class ProfileUpdateFactory extends BaseFactory<UserEntity, UpdateUser, Ke
 			} = this.validValues
 			return {
 				bio: {
-					name: { first, last },
+					firstName: first, lastName: last,
 					email, description,
-					avatar: (avatar ?? null) as Media
+					photo: (avatar ?? null) as Media
 				},
 				password: password!,
 				strongestSubject, weakerSubjects
@@ -173,8 +170,8 @@ export class ProfileUpdateFactory extends BaseFactory<UserEntity, UpdateUser, Ke
 	}
 
 	loadEntity = (entity: UserEntity) => {
-		this.first = entity.bio.name.first
-		this.last = entity.bio.name.last
+		this.first = entity.bio.firstName
+		this.last = entity.bio.lastName
 		this.email = entity.email
 		this.description = entity.description
 		this.avatar = entity.avatar ?? undefined

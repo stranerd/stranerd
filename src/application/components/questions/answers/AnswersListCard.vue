@@ -124,7 +124,7 @@ export default defineComponent({
 		const showExplanation = ref(false)
 		const { id, isLoggedIn, user } = useAuth()
 		const showRatingButton = computed({
-			get: () => isLoggedIn.value && props.answer.userId !== id.value && !user.value?.meta.ratedAnswers.includes(props.answer.id),
+			get: () => isLoggedIn.value && props.answer.userId !== id.value,
 			set: () => {
 			}
 		})
@@ -140,7 +140,7 @@ export default defineComponent({
 		})
 		const { error, loading, rateAnswer, markBestAnswer } = useAnswer(props.answer)
 		const reportAnswer = () => {
-			setReportedEntity(props.answer)
+			setReportedEntity(props.answer.id)
 			useReportModal().openReportAnswer()
 		}
 		const { loading: deleteLoading, error: deleteError, deleteAnswer } = useDeleteAnswer(props.answer.id)

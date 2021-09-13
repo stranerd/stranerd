@@ -1,23 +1,20 @@
-import { timestampToMs } from '@modules/core'
 import { ReportFromModel, ReportToModel } from '../models/report'
 import { ReportEntity } from '../../domain/entities/report'
 
-export class ReportTransformer<ReportType extends { userId: string }> {
-	fromJSON (model: ReportFromModel<ReportType>) {
-		const { id, reporterId, reportedId, reported, reporterBio, message, dates: { createdAt } } = model
-		return new ReportEntity<ReportType>({
-			id,
+export class ReportTransformer {
+	fromJSON (model: ReportFromModel) {
+		const { id, type, reporterId, reportedId, reported, reporterBio, message, createdAt, updatedAt } = model
+		return new ReportEntity({
+			id, type,
 			reporterId, reportedId, reported, reporterBio, message,
-			createdAt: timestampToMs(createdAt)!
+			createdAt, updatedAt
 		})
 	}
 
-	toJSON (entity: ReportEntity<ReportType>): ReportToModel<ReportType> {
+	toJSON (entity: ReportEntity<any>): ReportToModel {
 		return {
-			reporterId: entity.reporterId,
+			type: entity.type,
 			reportedId: entity.reportedId,
-			reported: entity.reported,
-			reporterBio: entity.reporterBio,
 			message: entity.message
 		}
 	}

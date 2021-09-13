@@ -1,4 +1,4 @@
-import { computed, ref, Ref, ssrRef, useFetch, useRouter, watch } from '@nuxtjs/composition-api'
+import { computed, ref, Ref, ssrRef, useFetch, useRouter } from '@nuxtjs/composition-api'
 import {
 	AddQuestion,
 	DeleteQuestion,
@@ -77,8 +77,8 @@ export const useQuestionList = () => {
 	const filteredQuestions = computed({
 		get: () => global.questions.value.filter((q) => {
 			if (global.subjectId.value && q.subjectId !== global.subjectId.value) return false
-			if (global.answered.value === Answered.Answered && q.answers === 0) return false
-			if (global.answered.value === Answered.Unanswered && q.answers > 0) return false
+			if (global.answered.value === Answered.Answered && q.answers.length === 0) return false
+			if (global.answered.value === Answered.Unanswered && q.answers.length > 0) return false
 			if (global.answered.value === Answered.BestAnswered && !q.isAnswered) return false
 			return true
 		}).sort((a, b) => {
@@ -112,7 +112,7 @@ export const useQuestionList = () => {
 
 const factory = ref(new QuestionFactory()) as Ref<QuestionFactory>
 export const useCreateQuestion = () => {
-	const { id, bio, user, isLoggedIn } = useAuth()
+	const { user, isLoggedIn } = useAuth()
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const { setMessage } = useSuccessHandler()
@@ -134,10 +134,6 @@ export const useCreateQuestion = () => {
 		}, set: () => {
 		}
 	})
-
-	factory.value.userBioAndId = { id: id.value!, user: bio.value! }
-	watch(() => id.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
-	watch(() => bio.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
 
 	const createQuestion = async () => {
 		setError('')
@@ -208,7 +204,7 @@ export const openQuestionEditModal = (question: QuestionEntity, router: VueRoute
 	router.push(`/questions/${question.id}/edit`)
 }
 export const useEditQuestion = (questionId: string) => {
-	const { id, bio, user, isLoggedIn } = useAuth()
+	const { user, isLoggedIn } = useAuth()
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const { setMessage } = useSuccessHandler()
@@ -233,8 +229,6 @@ export const useEditQuestion = (questionId: string) => {
 	})
 
 	if (editingQuestion) factory.value.loadEntity(editingQuestion)
-	watch(() => id.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
-	watch(() => bio.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
 
 	const editQuestion = async () => {
 		setError('')

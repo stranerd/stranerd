@@ -1,21 +1,18 @@
 import { BaseFactory } from '@modules/core'
-import { isEmail, isLongerThan, isShallowEqualTo, isShorterThan } from 'sd-validate/lib/rules'
+import { isEmail, isLongerThanX, isShallowEqualToX, isShorterThanX, isString } from '@stranerd/validate'
 import { AuthUser } from '../entities/auth'
 
 type Keys = { first: string, last: string, email: string, password: string, cPassword: string }
-const isLongerThan2 = (value: string) => isLongerThan(value, 2)
-const isLongerThan5 = (value: string) => isLongerThan(value, 5)
-const isShorterThan17 = (value: string) => isShorterThan(value, 17)
 
 export class EmailSignupFactory extends BaseFactory<null, AuthUser, Keys> {
 	readonly rules = {
-		first: { required: true, rules: [isLongerThan2] },
-		last: { required: true, rules: [isLongerThan2] },
-		email: { required: true, rules: [isEmail] },
-		password: { required: true, rules: [isLongerThan5, isShorterThan17] },
+		first: { required: true, rules: [isString, isLongerThanX(2)] },
+		last: { required: true, rules: [isString, isLongerThanX(2)] },
+		email: { required: true, rules: [isString, isEmail] },
+		password: { required: true, rules: [isString, isLongerThanX(5), isShorterThanX(17)] },
 		cPassword: {
 			required: true,
-			rules: [(value: string) => isShallowEqualTo(value, this.password), isLongerThan5, isShorterThan17]
+			rules: [isShallowEqualToX(this.password), isLongerThanX(5), isShorterThanX(17)]
 		}
 	}
 

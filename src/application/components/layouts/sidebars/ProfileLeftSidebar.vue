@@ -38,7 +38,7 @@
 					<span>Questions</span>
 				</div>
 				<DynamicText class="count fw-bold">
-					{{ formatNumber(Object.entries(user.meta.questions).length) }}
+					{{ formatNumber(user.meta.questions) }}
 				</DynamicText>
 			</div>
 			<div class="stats">
@@ -47,7 +47,7 @@
 					<span>Answers</span>
 				</div>
 				<DynamicText class="count fw-bold">
-					{{ formatNumber(Object.entries(user.meta.answers).length) }}
+					{{ formatNumber(user.meta.answers) }}
 				</DynamicText>
 			</div>
 			<div class="stats">
@@ -56,7 +56,7 @@
 					<span>Best Answers</span>
 				</div>
 				<DynamicText class="count">
-					{{ formatNumber(Object.entries(user.meta.bestAnswers).length) }}
+					{{ formatNumber(user.meta.bestAnswers) }}
 				</DynamicText>
 			</div>
 			<div class="stats">
@@ -65,7 +65,7 @@
 					<span>Sessions Attended</span>
 				</div>
 				<DynamicText class="count">
-					{{ formatNumber(Object.entries(user.meta.sessions).length) }}
+					{{ formatNumber(user.meta.sessions) }}
 				</DynamicText>
 			</div>
 			<div v-if="user.isScholar" class="stats">
@@ -74,7 +74,7 @@
 					<span>Sessions Hosted</span>
 				</div>
 				<DynamicText class="count">
-					{{ formatNumber(Object.entries(user.meta.sessions).length) }}
+					{{ formatNumber(user.meta.sessions) }}
 				</DynamicText>
 			</div>
 			<div class="stats">
@@ -83,7 +83,7 @@
 					<span>Member Since</span>
 				</div>
 				<DynamicText class="count">
-					{{ formatTime(user.dates.signedUpAt) }}
+					{{ formatTime(user.dates.createdAt) }}
 				</DynamicText>
 			</div>
 		</div>
@@ -158,9 +158,9 @@ export default defineComponent({
 		const { error, loading, user } = useUser(userId)
 		const canRequestSession = computed({
 			get: () => authUser.value &&
-					authUser.value.id !== user.value?.id &&
-					authUser.value.canRequestSessions &&
-					user.value?.canHostSessions,
+				authUser.value.id !== user.value?.id &&
+				authUser.value.canRequestSessions &&
+				user.value?.canHostSessions,
 			set: () => {
 			}
 		})

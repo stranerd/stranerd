@@ -1,4 +1,4 @@
-import { Ref, ref, ssrRef, useFetch, useRouter, watch } from '@nuxtjs/composition-api'
+import { Ref, ref, ssrRef, useFetch, useRouter } from '@nuxtjs/composition-api'
 import {
 	AddAnswer,
 	AnswerEntity,
@@ -67,7 +67,6 @@ export const openAnswerModal = (question: QuestionEntity, router: VueRouter) => 
 }
 
 export const useCreateAnswer = () => {
-	const { id, bio } = useAuth()
 	const router = useRouter()
 	const factory = ref(new AnswerFactory()) as Ref<AnswerFactory>
 	const { loading, setLoading } = useLoadingHandler()
@@ -76,12 +75,6 @@ export const useCreateAnswer = () => {
 
 	if (!answeringQuestion) router.replace('/questions')
 	factory.value.questionId = answeringQuestion!.id
-	factory.value.subjectId = answeringQuestion!.subjectId
-	factory.value.coins = answeringQuestion!.creditable
-	factory.value.tags = answeringQuestion!.tags
-	factory.value.userBioAndId = { id: id.value!, user: bio.value! }
-	watch(() => id.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
-	watch(() => bio.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
 
 	const createAnswer = async () => {
 		setError('')
@@ -170,7 +163,6 @@ export const openAnswerEditModal = (data: { question: QuestionEntity, answer: An
 	router.push(`/questions/${data.question.id}/answers/${data.answer.id}/edit`)
 }
 export const useEditAnswer = (answerId: string) => {
-	const { id, bio } = useAuth()
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const { setMessage } = useSuccessHandler()
@@ -178,8 +170,6 @@ export const useEditAnswer = (answerId: string) => {
 	const router = useRouter()
 
 	if (editingQuestionAnswer) factory.value.loadEntity(editingQuestionAnswer.answer)
-	watch(() => id.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
-	watch(() => bio.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
 
 	const editAnswer = async () => {
 		setError('')
@@ -193,7 +183,7 @@ export const useEditAnswer = (answerId: string) => {
 				analytics.logEvent('edit_answer_completed', {
 					questionId: editingQuestionAnswer?.answer.questionId,
 					answerId,
-					subject: editingQuestionAnswer?.answer.subjectId
+					subject: editingQuestionAnswer?.question.subjectId
 				})
 			} catch (error) {
 				setError(error)

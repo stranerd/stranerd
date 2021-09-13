@@ -8,15 +8,12 @@ export interface QuestionFromModel {
 	tags: string[]
 	subjectId: string
 	userId: string
-	user: UserBio
-	answerId?: { first: string | null, second: string | null }
-	answers?: number
-	comments?: {
-		count: number
-	}
-	dates: {
-		createdAt: Timestamp
-	}
+	userBio: UserBio
+	bestAnswers: string[]
+	answers: { id: string, userId: string }[]
+	commentsCount: number
+	createdAt: number
+	updatedAt: number
 }
 
 export interface QuestionToModel {
@@ -24,7 +21,4 @@ export interface QuestionToModel {
 	coins: number
 	tags: string[]
 	subjectId: string
-	userId: string
-	user: UserBio
-	answerId?: { first: string | null, second: string | null }
 }

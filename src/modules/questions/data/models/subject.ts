@@ -1,9 +1,8 @@
 export interface SubjectFromModel {
 	id: string
 	name: string
-	dates: {
-		createdAt: number
-	}
+	createdAt: number, 
+	updatedAt: number
 }
 
 export interface SubjectToModel {

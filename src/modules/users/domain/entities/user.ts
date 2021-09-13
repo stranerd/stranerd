@@ -209,15 +209,10 @@ type UserConstructorArgs = {
 }
 
 export interface UserBio {
-	name: {
-		first: string
-		last: string
-		fullName?: string
-	}
 	email: string
-	description: string
-	avatar: Media | null
-	isNew?: boolean | null
+	firstName: string
+	lastName: string
+	photo: object | null
 }
 
 export interface UserRoles {

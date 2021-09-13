@@ -10,16 +10,17 @@ export class QuestionEntity extends BaseEntity {
 	public readonly tags: string[]
 	public readonly subjectId: string
 	public readonly userId: string
-	public readonly user: UserBio
-	public readonly answerId: { first: string | null, second: string | null }
-	public readonly answers: number
+	public readonly userBio: UserBio
+	public readonly bestAnswers: string[]
+	public readonly answers: { id: string, userId: string }[]
 	public readonly commentsCount: number
 	public readonly createdAt: number
+	public readonly updatedAt: number
 
 	constructor ({
 		             id, body, coins, subjectId,
-		             answerId, createdAt, userId, user, comments,
-		             answers, tags
+		             bestAnswers, createdAt, userId, userBio,
+		             answers, commentsCount, tags, updatedAt
 	             }: QuestionConstructorArgs) {
 		super()
 		this.id = id
@@ -28,15 +29,16 @@ export class QuestionEntity extends BaseEntity {
 		this.tags = tags
 		this.subjectId = subjectId
 		this.userId = userId
-		this.user = generateDefaultBio(user)
-		this.answerId = { first: answerId?.first ?? null, second: answerId?.second ?? null }
-		this.answers = answers ?? 0
-		this.commentsCount = comments?.count ?? 0
+		this.userBio = userBio
+		this.bestAnswers = bestAnswers
+		this.answers = answers
+		this.commentsCount = commentsCount ?? 0
 		this.createdAt = createdAt
+		this.updatedAt = updatedAt
 	}
 
 	get isAnswered () {
-		return this.answerId.first && this.answerId.second
+		return this.answers.length > 0
 	}
 
 	get creditable () {
@@ -44,11 +46,11 @@ export class QuestionEntity extends BaseEntity {
 	}
 
 	get userName () {
-		return this.user.name.fullName
+		return this.userBio.firstName + this.userBio.lastName
 	}
 
 	get avatar () {
-		return this.user.avatar
+		return this.userBio.photo
 	}
 
 	get trimmedBody () {
@@ -60,7 +62,7 @@ export class QuestionEntity extends BaseEntity {
 	}
 
 	get isModified () {
-		return this.answers > 0
+		return this.commentsCount > 0 || this.isAnswered
 	}
 
 	get canBeEdited () {
@@ -82,10 +84,11 @@ type QuestionConstructorArgs = {
 	coins: number
 	tags: string[]
 	subjectId: string
-	createdAt: number
 	userId: string
-	user: UserBio
-	answerId?: { first?: string | null, second?: string | null }
-	answers?: number
-	comments?: { count: number }
+	userBio: UserBio
+	bestAnswers: string[]
+	answers: { id: string, userId: string }[]
+	commentsCount: number
+	createdAt: number
+	updatedAt: number
 }

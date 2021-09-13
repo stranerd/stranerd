@@ -9,6 +9,7 @@ export const buyCoins = functions.runWith(defaultConfig).https.onCall(async (dat
 
 	const { amount, isGold } = data
 	const userId = context.auth.uid
+
 	try {
 		await addUserCoins(userId,
 			{ bronze: isGold ? 0 : amount, gold: isGold ? amount : 0 },

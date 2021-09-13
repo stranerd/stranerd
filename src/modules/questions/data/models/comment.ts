@@ -4,14 +4,13 @@ export interface CommentFromModel {
 	id: string
 	body: string
 	userId: string
-	user: UserBio
-	dates: {
-		createdAt: number
-	}
+	answerId: string
+	userBio: UserBio
+	createdAt: number
+	updatedAt: number
 }
 
 export interface CommentToModel {
 	body: string
-	userId: string
-	user: UserBio
+	answerId: string
 }

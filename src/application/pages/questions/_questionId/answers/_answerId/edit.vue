@@ -60,7 +60,7 @@ export default defineComponent({
 			analytics.logEvent('answer_question_start', {
 				questionId: edit?.answer.questionId,
 				answerId,
-				subject: edit?.answer.subjectId
+				subject: edit?.question.subjectId
 			})
 		})
 		useMeta(() => ({

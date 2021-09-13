@@ -22,7 +22,7 @@ export type UserLocation = {
 }
 
 export type UpdateUser = {
-	bio: UserBio
+	bio: Omit<UserBio, 'fullName'>
 	password: string
 	strongestSubject: string,
 	weakerSubjects: string[]

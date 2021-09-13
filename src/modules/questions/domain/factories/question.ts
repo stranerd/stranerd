@@ -9,14 +9,12 @@ import {
 	isString
 } from '@stranerd/validate'
 import { BaseFactory } from '@modules/core'
-import { UserBio } from '@modules/users'
 import { MAXIMUM_COINS, MINIMUM_COINS } from '@utils/constants'
 import { QuestionEntity } from '../entities/question'
 import { QuestionToModel } from '../../data/models/question'
 
 type Keys = {
-	body: string, coins: number, subjectId: string,
-	userId: string, user: UserBio | undefined, tags: string[]
+	body: string, coins: number, subjectId: string, tags: string[]
 }
 
 export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel, Keys> {
@@ -24,8 +22,6 @@ export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel
 		body: { required: true, rules: [isString, isExtractedHTMLLongerThanX(2)] },
 		coins: { required: true, rules: [isNumber, isMoreThanX(MINIMUM_COINS - 1), isLessThanX(MAXIMUM_COINS + 1)] },
 		subjectId: { required: true, rules: [isString] },
-		userId: { required: true, rules: [isString] },
-		user: { required: true, rules: [] },
 		tags: {
 			required: true,
 			rules: [isArrayOfX((com) => isString(com).valid, 'string'), hasMoreThanX(0), hasLessThanX(4)]
@@ -35,10 +31,7 @@ export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel
 	reserved = []
 
 	constructor () {
-		super({
-			body: '', coins: 0, subjectId: '',
-			userId: '', user: undefined, tags: []
-		})
+		super({ body: '', coins: 0, subjectId: '', tags: [] })
 	}
 
 	get body () {
@@ -65,11 +58,6 @@ export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel
 		this.set('subjectId', value)
 	}
 
-	set userBioAndId (value: { id: string, user: UserBio }) {
-		this.set('userId', value.id)
-		this.set('user', value.user)
-	}
-
 	get tags () {
 		return this.values.tags
 	}
@@ -81,14 +69,13 @@ export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel
 		this.body = entity.body
 		this.coins = entity.coins
 		this.subjectId = entity.subjectId
-		this.userBioAndId = { id: entity.userId, user: entity.user }
 		this.set('tags', entity.tags)
 	}
 
 	toModel = async () => {
 		if (this.valid) {
-			const { body, coins, tags, subjectId, userId, user } = this.validValues
-			return { body, coins, tags, subjectId, userId, user: user! }
+			const { body, coins, tags, subjectId } = this.validValues
+			return { body, coins, tags, subjectId }
 		} else {
 			throw new Error('Validation errors')
 		}

@@ -181,7 +181,7 @@ type UserConstructorArgs = {
 export interface UserBio {
 	firstName: string
 	lastName: string
-	fullName?: string
+	fullName: string
 	email: string
 	description: string
 	photo: Media | null

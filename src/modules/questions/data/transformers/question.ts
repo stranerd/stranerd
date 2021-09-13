@@ -1,18 +1,17 @@
-import { timestampToMs } from '@modules/core'
 import { QuestionFromModel, QuestionToModel } from '../models/question'
 import { QuestionEntity } from '../../domain/entities/question'
 
 export class QuestionTransformer {
 	fromJSON (model: QuestionFromModel) {
 		const {
-			id, body, coins, subjectId, tags,
-			answerId, userId, user, comments, answers,
-			dates: { createdAt }
+			id, body, coins, subjectId,
+			bestAnswers, createdAt, userId, userBio,
+			answers, commentsCount, tags, updatedAt
 		} = model
 		return new QuestionEntity({
-			id, body, coins, subjectId, tags,
-			answerId, userId, user, comments, answers,
-			createdAt: timestampToMs(createdAt)
+			id, body, coins, subjectId,
+			bestAnswers, createdAt, userId, userBio,
+			answers, commentsCount, tags, updatedAt
 		})
 	}
 
@@ -21,13 +20,7 @@ export class QuestionTransformer {
 			body: entity.body,
 			coins: entity.coins,
 			tags: entity.tags,
-			subjectId: entity.subjectId,
-			answerId: {
-				first: entity.answerId.first,
-				second: entity.answerId.second
-			},
-			userId: entity.userId,
-			user: entity.user
+			subjectId: entity.subjectId
 		}
 	}
 }

@@ -1,6 +1,6 @@
 import { generateDefaultBio, UserBio } from '@modules/users'
 import { BaseEntity } from '@modules/core'
-import { catchDivideByZero, extractTextFromHTML, trimToLength } from '@utils/commons'
+import { extractTextFromHTML, trimToLength } from '@utils/commons'
 
 export class AnswerEntity extends BaseEntity {
 	public readonly id: string
@@ -9,49 +9,41 @@ export class AnswerEntity extends BaseEntity {
 	public readonly coins: number
 	public readonly best: boolean
 	public readonly questionId: string
-	public readonly subjectId: string
 	public readonly tags: string[]
 	public readonly userId: string
-	public readonly user: UserBio
-	public readonly ratings: { total: number, count: number }
+	public readonly userBio: UserBio
+	public readonly votes: { userId: string, vote: 1 | -1 }[]
 	public readonly commentsCount: number
 	public readonly createdAt: number
+	public readonly updatedAt: number
 
 	constructor ({
-		             id, title, body, coins, questionId, tags,
-		             subjectId, createdAt, userId, user,
-		             best, ratings, comments
+		             id, title, body, coins, questionId,
+		             createdAt, userId, userBio, tags,
+		             best, votes, commentsCount, updatedAt
 	             }: AnswerConstructorArgs) {
 		super()
 		this.id = id
 		this.title = title
 		this.body = body
 		this.coins = coins
-		this.tags = tags
 		this.questionId = questionId
-		this.subjectId = subjectId
 		this.userId = userId
-		this.user = generateDefaultBio(user)
+		this.tags = tags
+		this.userBio = generateDefaultBio(userBio)
 		this.best = best ?? false
-		this.ratings = { total: ratings?.total ?? 0, count: ratings?.count ?? 0 }
-		this.commentsCount = comments?.count ?? 0
+		this.votes = votes
+		this.commentsCount = commentsCount ?? 0
 		this.createdAt = createdAt
-	}
-
-	get averageRating () {
-		return catchDivideByZero(this.ratings.total, this.votes)
-	}
-
-	get votes () {
-		return this.ratings.count
+		this.updatedAt = updatedAt
 	}
 
 	get userName () {
-		return this.user.fullName
+		return this.userBio.fullName
 	}
 
 	get avatar () {
-		return this.user.photo
+		return this.userBio.photo
 	}
 
 	get trimmedTitle () {
@@ -71,7 +63,7 @@ export class AnswerEntity extends BaseEntity {
 	}
 
 	get isModified () {
-		return this.best || this.ratings.count > 0
+		return this.best || this.commentsCount > 0
 	}
 
 	get canBeEdited () {
@@ -88,16 +80,13 @@ type AnswerConstructorArgs = {
 	title: string
 	body: string
 	coins: number
-	tags: string[]
 	questionId: string
-	subjectId: string
+	tags: string[]
 	createdAt: number
+	updatedAt: number
 	userId: string
-	user: UserBio
-	best?: boolean
-	ratings?: {
-		total: number
-		count: number
-	}
-	comments?: { count: number }
+	userBio: UserBio
+	best: boolean
+	votes: { userId: string, vote: 1 | -1 }[]
+	commentsCount: number
 }

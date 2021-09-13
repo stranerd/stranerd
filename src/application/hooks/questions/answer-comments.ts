@@ -1,4 +1,4 @@
-import { Ref, ref, ssrRef, useFetch, watch } from '@nuxtjs/composition-api'
+import { Ref, ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import {
 	AddAnswerComment,
 	CommentEntity,
@@ -7,7 +7,6 @@ import {
 	ListenToAnswerComments
 } from '@modules/questions'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
-import { useAuth } from '@app/hooks/auth/auth'
 
 const global = {} as Record<string, {
 	comments: Ref<CommentEntity[]>,
@@ -52,14 +51,9 @@ export const useAnswerCommentList = (answerId: string) => {
 }
 
 export const useCreateAnswerComments = (answerId: string) => {
-	const { id, bio } = useAuth()
 	const factory = ref(new CommentFactory()) as Ref<CommentFactory>
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
-
-	factory.value.userBioAndId = { id: id.value!, user: bio.value! }
-	watch(() => id.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
-	watch(() => bio.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
 
 	const createComment = async () => {
 		setError('')

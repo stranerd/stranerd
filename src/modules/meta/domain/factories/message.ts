@@ -1,15 +1,15 @@
 import { BaseFactory } from '@modules/core'
-import { isEmail, isLongerThan } from 'sd-validate/lib/rules'
+import { isEmail, isLongerThanX, isString } from '@stranerd/validate'
 import { MessageToModel } from '../../data/models/message'
 
 type Keys = { firstName: string, lastName: string, email: string, message: string }
 
 export class MessageFactory extends BaseFactory<null, MessageToModel, Keys> {
 	public rules = {
-		firstName: { required: true, rules: [(value: string) => isLongerThan(value, 2)] },
-		lastName: { required: true, rules: [(value: string) => isLongerThan(value, 2)] },
-		email: { required: true, rules: [isEmail] },
-		message: { required: true, rules: [(value: string) => isLongerThan(value, 0)] }
+		firstName: { required: true, rules: [isString, isLongerThanX(2)] },
+		lastName: { required: true, rules: [isString, isLongerThanX(2)] },
+		email: { required: true, rules: [isString, isEmail] },
+		message: { required: true, rules: [isString, isLongerThanX(0)] }
 	}
 
 	reserved = []

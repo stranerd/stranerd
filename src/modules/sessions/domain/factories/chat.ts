@@ -1,18 +1,17 @@
 import { BaseFactory, Media } from '@modules/core'
-import { isFile, isLongerThan, isRequiredIf } from 'sd-validate/lib/rules'
+import { isFile, isLongerThanX, isRequiredIfX, isString } from '@stranerd/validate'
 import { ChatToModel } from '../../data/models/chat'
 import { ChatEntity } from '../entities/chat'
 
 type Content = Media | File | null
 type Keys = { content: string | null, to: string, sessionId: string | null, media: Content | null }
-const isLongerThan0 = (value: string) => isLongerThan(value, 0)
 
 export class ChatFactory extends BaseFactory<ChatEntity, ChatToModel, Keys> {
 	readonly rules = {
-		content: { required: false, rules: [(val: string) => isRequiredIf(val, !this.media), isLongerThan0] },
-		to: { required: true, rules: [isLongerThan0] },
-		sessionId: { required: false, rules: [] },
-		media: { required: false, rules: [(val: Content) => isRequiredIf(val, !this.content), isFile] }
+		content: { required: false, rules: [isRequiredIfX(!this.media), isString, isLongerThanX(0)] },
+		to: { required: true, rules: [isString] },
+		sessionId: { required: false, rules: [isString] },
+		media: { required: false, rules: [isRequiredIfX(!this.content), isFile] }
 	}
 
 	reserved = ['to']

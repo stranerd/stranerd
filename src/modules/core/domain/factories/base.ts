@@ -1,4 +1,4 @@
-import { Rule, Validator } from 'sd-validate'
+import { Rule, Validator } from '@stranerd/validate'
 import { UploaderService } from '../../services/uploader'
 
 export abstract class BaseFactory<E, T, K extends Record<string, any>> {

@@ -1,11 +1,13 @@
 import {
-	hasLessThan,
-	hasMoreThan,
-	isExtractedHTMLLongerThan,
-	isLessThan,
-	isLongerThan,
-	isMoreThan
-} from 'sd-validate/lib/rules'
+	hasLessThanX,
+	hasMoreThanX,
+	isArrayOfX,
+	isExtractedHTMLLongerThanX,
+	isLessThanX,
+	isMoreThanX,
+	isNumber,
+	isString
+} from '@stranerd/validate'
 import { BaseFactory } from '@modules/core'
 import { UserBio } from '@modules/users'
 import { MAXIMUM_COINS, MINIMUM_COINS } from '@utils/constants'
@@ -16,21 +18,18 @@ type Keys = {
 	body: string, coins: number, subjectId: string,
 	userId: string, user: UserBio | undefined, tags: string[]
 }
-const isLongerThan0 = (value: string) => isLongerThan(value, 0)
-const isLongerThan2 = (value: string) => isExtractedHTMLLongerThan(value, 2)
-const isMoreThanMinimum = (value: number) => isMoreThan(value, MINIMUM_COINS - 1)
-const isLessThanMaximum = (value: number) => isLessThan(value, MAXIMUM_COINS + 1)
-const hasMoreThan0 = (value: string[]) => hasMoreThan(value, 0)
-const hasLessThan4 = (value: string[]) => hasLessThan(value, 4)
 
 export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel, Keys> {
 	readonly rules = {
-		body: { required: true, rules: [isLongerThan2] },
-		coins: { required: true, rules: [isMoreThanMinimum, isLessThanMaximum] },
-		subjectId: { required: true, rules: [isLongerThan0] },
-		userId: { required: true, rules: [isLongerThan0] },
+		body: { required: true, rules: [isString, isExtractedHTMLLongerThanX(2)] },
+		coins: { required: true, rules: [isNumber, isMoreThanX(MINIMUM_COINS - 1), isLessThanX(MAXIMUM_COINS + 1)] },
+		subjectId: { required: true, rules: [isString] },
+		userId: { required: true, rules: [isString] },
 		user: { required: true, rules: [] },
-		tags: { required: true, rules: [hasMoreThan0, hasLessThan4] }
+		tags: {
+			required: true,
+			rules: [isArrayOfX((com) => isString(com).valid, 'string'), hasMoreThanX(0), hasLessThanX(4)]
+		}
 	}
 
 	reserved = []

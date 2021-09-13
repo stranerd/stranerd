@@ -1,5 +1,5 @@
 import { BaseFactory } from '@modules/core'
-import { isLongerThan } from 'sd-validate/lib/rules'
+import { arrayContainsX, isLongerThanX, isString } from '@stranerd/validate'
 import { ReportToModel } from '../../data/models/report'
 import { ReportEntity, ReportType } from '../entities/report'
 
@@ -9,9 +9,12 @@ type Keys = {
 
 export class ReportFactory extends BaseFactory<ReportEntity<any>, ReportToModel, Keys> {
 	public rules = {
-		type: { required: true, rules: [] },
-		reportedId: { required: true, rules: [] },
-		message: { required: true, rules: [(value: string) => isLongerThan(value, 0)] }
+		type: {
+			required: true,
+			rules: [isString, arrayContainsX(Object.values<string>(ReportType), (cur, val) => cur === val)]
+		},
+		reportedId: { required: true, rules: [isString] },
+		message: { required: true, rules: [isString, isLongerThanX(0)] }
 	}
 
 	reserved = []

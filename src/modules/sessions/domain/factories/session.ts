@@ -1,20 +1,20 @@
 import { BaseFactory } from '@modules/core'
-import { isLongerThan, isMoreThan } from 'sd-validate/lib/rules'
+import { arrayContainsX, isLongerThanX, isNumber, isString } from '@stranerd/validate'
 import { SessionToModel } from '../../data/models/session'
 import { SessionEntity } from '../entities/session'
 
 type Keys = {
 	message: string, duration: number, tutorId: string,
 }
-const isLongerThan0 = (value: string) => isLongerThan(value, 0)
-const isLongerThan2 = (value: string) => isLongerThan(value, 2)
-const isMoreThan0 = (value: number) => isMoreThan(value, 0)
 
 export class SessionFactory extends BaseFactory<SessionEntity, SessionToModel, Keys> {
 	readonly rules = {
-		message: { required: true, rules: [isLongerThan2] },
-		duration: { required: true, rules: [isMoreThan0] },
-		tutorId: { required: true, rules: [isLongerThan0] }
+		message: { required: true, rules: [isString, isLongerThanX(2)] },
+		duration: {
+			required: true,
+			rules: [isNumber, arrayContainsX(this.prices.map((p) => p.duration), (cur, val) => cur === val)]
+		},
+		tutorId: { required: true, rules: [isString] }
 	}
 
 	reserved = []

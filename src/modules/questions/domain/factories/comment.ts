@@ -1,17 +1,15 @@
-import { isLongerThan } from 'sd-validate/lib/rules'
+import { isLongerThanX, isString } from '@stranerd/validate'
 import { BaseFactory } from '@modules/core'
 import { UserBio } from '@modules/users'
 import { CommentEntity } from '../entities/comment'
 import { CommentToModel } from '../../data/models/comment'
 
 type Keys = { body: string, userId: string, user: UserBio | undefined }
-const isLongerThan0 = (value: string) => isLongerThan(value, 0)
-const isLongerThan2 = (value: string) => isLongerThan(value, 2)
 
 export class CommentFactory extends BaseFactory<CommentEntity, CommentToModel, Keys> {
 	readonly rules = {
-		body: { required: true, rules: [isLongerThan2] },
-		userId: { required: true, rules: [isLongerThan0] },
+		body: { required: true, rules: [isString, isLongerThanX(2)] },
+		userId: { required: true, rules: [isString] },
 		user: { required: false, rules: [] }
 	}
 

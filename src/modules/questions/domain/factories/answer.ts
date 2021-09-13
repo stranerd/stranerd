@@ -1,4 +1,4 @@
-import { isExtractedHTMLLongerThan, isLongerThan } from 'sd-validate/lib/rules'
+import { isArrayOfX, isExtractedHTMLLongerThanX, isNumber, isString } from '@stranerd/validate'
 import { BaseFactory } from '@modules/core'
 import { UserBio } from '@modules/users'
 import { AnswerEntity } from '../entities/answer'
@@ -8,19 +8,17 @@ type Keys = {
 	title: string, body: string, coins: number, questionId: string, tags: string[]
 	subjectId: string, userId: string, user: UserBio | undefined
 }
-const isLongerThan0 = (value: string) => isLongerThan(value, 0)
-const isLongerThan2 = (value: string) => isExtractedHTMLLongerThan(value, 2)
 
 export class AnswerFactory extends BaseFactory<AnswerEntity, AnswerToModel, Keys> {
 	readonly rules = {
-		title: { required: true, rules: [isLongerThan2] },
-		body: { required: true, rules: [] },
-		coins: { required: true, rules: [] },
-		questionId: { required: true, rules: [isLongerThan0] },
-		subjectId: { required: true, rules: [isLongerThan0] },
-		userId: { required: true, rules: [isLongerThan0] },
+		title: { required: true, rules: [isString, isExtractedHTMLLongerThanX(2)] },
+		body: { required: true, rules: [isString] },
+		coins: { required: true, rules: [isNumber] },
+		questionId: { required: true, rules: [isString] },
+		subjectId: { required: true, rules: [isString] },
+		userId: { required: true, rules: [isString] },
 		user: { required: true, rules: [] },
-		tags: { required: true, rules: [] }
+		tags: { required: true, rules: [isArrayOfX((com) => isString(com).valid, 'string')] }
 	}
 
 	reserved = ['questionId', 'coins', 'tags']

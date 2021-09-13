@@ -1,15 +1,13 @@
 import { BaseFactory } from '@modules/core'
-import { isEmail, isLongerThan, isShorterThan } from 'sd-validate/lib/rules'
+import { isEmail, isLongerThanX, isShorterThanX, isString } from '@stranerd/validate'
 import { AuthUser } from '../entities/auth'
 
 type Keys = { email: string, password: string }
-const isLongerThan5 = (value: string) => isLongerThan(value, 5)
-const isNotLongerThan17 = (value: string) => isShorterThan(value, 17)
 
 export class EmailSigninFactory extends BaseFactory<null, AuthUser, Keys> {
 	readonly rules = {
 		email: { required: true, rules: [isEmail] },
-		password: { required: true, rules: [isLongerThan5, isNotLongerThan17] }
+		password: { required: true, rules: [isString, isLongerThanX(5), isShorterThanX(17)] }
 	}
 
 	reserved = []

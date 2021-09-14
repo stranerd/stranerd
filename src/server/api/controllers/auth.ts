@@ -1,25 +1,34 @@
 import { NextFunction, Request, Response } from 'express'
-import { TOKEN_SESSION_NAME, USER_SESSION_NAME } from '../../../utils/constants'
-import { decodeSessionCookie, signin, signout } from '../utils/auth'
+import {
+	ACCESS_TOKEN_NAME,
+	ACCESS_TOKEN_TTL,
+	REFRESH_TOKEN_NAME,
+	REFRESH_TOKEN_TTL,
+	USER_SESSION_NAME
+} from '../../../utils/constants'
+import { getUser, signout } from '../utils/auth'
 
 export const SigninController = async (req: Request, res: Response) => {
-	const { idToken } = req.body
-	if (!idToken) return res.status(400).json({
+	const { accessToken, refreshToken } = req.body
+	if (!accessToken) return res.status(400).json({
 		success: false,
-		error: 'Id Token is required'
+		error: 'Access Token is required'
+	}).end()
+	if (!refreshToken) return res.status(400).json({
+		success: false,
+		error: 'Refresh Token is required'
 	}).end()
 
 	try {
-		const sessionValue = await signin(idToken)
-		const user = await decodeSessionCookie(sessionValue)
-		if (user.isVerified) {
-			setCookie(res, TOKEN_SESSION_NAME, sessionValue)
-			setCookie(res, USER_SESSION_NAME, JSON.stringify(user))
+		const user = await getUser(accessToken, refreshToken)
+		if (user) {
+			setCookie(res, ACCESS_TOKEN_NAME, accessToken, ACCESS_TOKEN_TTL)
+			setCookie(res, REFRESH_TOKEN_NAME, refreshToken, REFRESH_TOKEN_TTL)
+			setCookie(res, USER_SESSION_NAME, JSON.stringify(user), ACCESS_TOKEN_TTL)
 		}
 
 		return res.json({
 			success: true,
-			user,
 			error: null
 		}).end()
 	} catch (err) {
@@ -31,12 +40,14 @@ export const SigninController = async (req: Request, res: Response) => {
 }
 
 export const SignoutController = async (req: Request, res: Response) => {
-	const session = req.cookies[TOKEN_SESSION_NAME]
-	deleteCookie(res, TOKEN_SESSION_NAME)
+	const accessToken = req.cookies[ACCESS_TOKEN_NAME]
+	const refreshToken = req.cookies[REFRESH_TOKEN_NAME]
+	deleteCookie(res, ACCESS_TOKEN_NAME)
+	deleteCookie(res, REFRESH_TOKEN_NAME)
 	deleteCookie(res, USER_SESSION_NAME)
 
 	try {
-		await signout(session)
+		await signout(accessToken, refreshToken)
 
 		return res.json({
 			success: true,
@@ -50,22 +61,24 @@ export const SignoutController = async (req: Request, res: Response) => {
 	}
 }
 
-export const DecodeSessionCookieMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+export const DecodeAuthUserMiddleware = async (req: Request, res: Response, next: NextFunction) => {
 	try {
-		const session = req.cookies[TOKEN_SESSION_NAME] as string
-		if (!session) throw new Error('no session')
-		const user = await decodeSessionCookie(session)
-		if (user.isVerified) setCookie(res, USER_SESSION_NAME, JSON.stringify(user))
-		else throw new Error('not verified')
+		const accessToken = req.cookies[ACCESS_TOKEN_NAME]
+		const refreshToken = req.cookies[REFRESH_TOKEN_NAME]
+		if (!accessToken) throw new Error('no access token')
+		if (!refreshToken) throw new Error('no refresh token')
+		const user = await getUser(accessToken, refreshToken)
+		if (user) setCookie(res, USER_SESSION_NAME, JSON.stringify(user), ACCESS_TOKEN_TTL)
 	} catch (err) {
-		deleteCookie(res, TOKEN_SESSION_NAME)
+		deleteCookie(res, ACCESS_TOKEN_NAME)
+		deleteCookie(res, REFRESH_TOKEN_NAME)
 		deleteCookie(res, USER_SESSION_NAME)
 	}
 	next()
 }
 
-const setCookie = (res: Response, key: string, value: any) => res.cookie(key, value, {
-	maxAge: 14 * 24 * 60 * 60 * 1000,
+const setCookie = (res: Response, key: string, value: any, ttlInSec: number) => res.cookie(key, value, {
+	maxAge: ttlInSec * 1000,
 	httpOnly: true,
 	sameSite: 'lax'
 })

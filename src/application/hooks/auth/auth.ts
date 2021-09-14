@@ -10,8 +10,7 @@ const global = {
 	auth: reqSsrRef(null as AuthDetails | null),
 	user: reqSsrRef(null as UserEntity | null),
 	location: reqSsrRef(null as UserLocation | null),
-	listener: null as null | (() => void),
-	showProfileModal: reqSsrRef(true)
+	listener: null as null | (() => void)
 }
 
 export const useAuth = () => {
@@ -106,8 +105,6 @@ export const useAuth = () => {
 		getLocalAmount, getLocalCurrency, getLocalCurrencySymbol
 	}
 }
-
-export const setShowProfileModal = (show: boolean) => global.showProfileModal.value = show
 
 export const CONVERSION_RATES = {
 	USD: 1,

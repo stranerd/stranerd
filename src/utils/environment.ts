@@ -47,3 +47,6 @@ export const email = Object.fromEntries(
 export const host = (process.env.DOMAIN ?? '') + (isDev ? `:${process.env.PORT}` : '')
 export const domain = `http${!isDev ? 's' : ''}://${host}`
 export const logo = `${domain}/images/logo-blue.svg`
+
+export const AUTH_API_BASE = 'http://localhost:80/api/auth'
+export const STRANERD_API_BASE = 'http://localhost:80/api/stranerd'

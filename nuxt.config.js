@@ -25,7 +25,10 @@ export const head = {
 	],
 	link: [
 		{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-		{ rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap' }
+		{
+			rel: 'stylesheet',
+			href: 'https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap'
+		}
 	]
 }
 
@@ -40,7 +43,7 @@ export const serverMiddleware = ['./src/server/api/index']
 export const plugins = [
 	{ mode: 'server', src: '@/plugins/parseLoggedInUser' },
 	{ mode: 'client', src: '@/plugins/ipAddressGetter' },
-	{ mode: 'client', src: '@/plugins/firebaseClient' },
+	{ mode: 'client', src: '@/plugins/authClient' },
 	{ mode: 'client', src: '@/plugins/clientScripts' }
 ]
 

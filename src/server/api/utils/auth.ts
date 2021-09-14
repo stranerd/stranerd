@@ -1,23 +1,25 @@
-import { getFirebaseAdmin as getAdmin } from './firebase'
+import axios from 'axios'
+import { AUTH_API_BASE } from '../../../utils/environment'
 
-export const signin = async (idToken: string) => {
-	return await getAdmin().auth().createSessionCookie(idToken, {
-		expiresIn: 14 * 86400 * 1000
-	})
+export const getUser = async (accessToken: string, refreshToken: string) => {
+	const response = await axios
+		.create({
+			baseURL: AUTH_API_BASE,
+			headers: {
+				'Access-Token': accessToken,
+				'Refresh-Token': refreshToken
+			}
+		}).get('/user')
+	return response.data
 }
 
-export const signout = async (session: string) => {
-	const user = await getAdmin().auth().verifySessionCookie(session)
-	if (user) await getAdmin().auth().revokeRefreshTokens(user.uid)
-}
-
-export const decodeSessionCookie = async (session: string) => {
-	const {
-		uid: id,
-		email_verified: isVerified,
-		email,
-		firebase: { sign_in_provider: signInMethod }
-	} = await getAdmin().auth().verifySessionCookie(session)
-	const token = await getAdmin().auth().createCustomToken(id)
-	return { id, isVerified, token, email, signInMethod }
+export const signout = async (accessToken: string, refreshToken: string) => {
+	await axios
+		.create({
+			baseURL: AUTH_API_BASE,
+			headers: {
+				'Access-Token': accessToken,
+				'Refresh-Token': refreshToken
+			}
+		}).post('/user/signout').catch()
 }

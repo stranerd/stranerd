@@ -165,9 +165,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeUnmount, PropType, ref } from '@nuxtjs/composition-api'
+import { defineComponent, PropType, ref } from '@nuxtjs/composition-api'
 import { useUpdateProfile } from '@app/hooks/users/account'
-import { setShowProfileModal, useAuth } from '@app/hooks/auth/auth'
+import { useAuth } from '@app/hooks/auth/auth'
 import { useFileInputs, usePassword, useSubjectAsTags } from '@app/hooks/core/forms'
 import { isClient } from '@utils/environment'
 import { DEFAULT_PROFILE_IMAGE } from '@utils/constants'
@@ -201,7 +201,6 @@ export default defineComponent({
 			(sTag: string) => factory.value.addWeakerSubjects(sTag),
 			(sTag: string) => factory.value.removeWeakerSubjects(sTag)
 		)
-		onBeforeUnmount(() => setShowProfileModal(false))
 		return {
 			auth, show, toggle, catchFiles, imageLink, removeImage, sTag, removeTag,
 			factory, error, loading, updateProfile, DEFAULT_PROFILE_IMAGE

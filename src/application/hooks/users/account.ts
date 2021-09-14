@@ -26,7 +26,7 @@ export const useUpdateProfile = () => {
 			try {
 				setLoading(true)
 				await UpdateProfile.call(factory.value)
-				await router.replace('/account/')
+				await router.push('/account/')
 				setMessage('Profile updated successfully!')
 			} catch (error) {
 				setError(error)

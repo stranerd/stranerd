@@ -11,7 +11,7 @@ import {
 	QuestionFactory
 } from '@modules/questions'
 import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
-import { COINS_GAP, MAXIMUM_COINS, MINIMUM_COINS, PAGINATION_LIMIT } from '@utils/constants'
+import { COINS_GAP, MAXIMUM_COINS, MINIMUM_COINS } from '@utils/constants'
 import { useAuth } from '@app/hooks/auth/auth'
 import { analytics } from '@modules/core'
 import VueRouter from 'vue-router'
@@ -58,9 +58,9 @@ export const useQuestionList = () => {
 		try {
 			global.setLoading(true)
 			const lastDate = global.questions.value[global.questions.value.length - 1]?.createdAt
-			const questions = await GetQuestions.call(lastDate ? new Date(lastDate) : undefined)
-			global.hasMore.value = questions.length === PAGINATION_LIMIT + 1
-			questions.slice(0, PAGINATION_LIMIT).forEach(pushToQuestionList)
+			const questions = await GetQuestions.call(lastDate)
+			global.hasMore.value = !!questions.pages.next
+			questions.results.forEach(pushToQuestionList)
 			global.fetched.value = true
 		} catch (error) {
 			global.setError(error)

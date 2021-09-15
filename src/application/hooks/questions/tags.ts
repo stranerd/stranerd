@@ -19,7 +19,7 @@ const fetchTags = async () => {
 	global.setError('')
 	global.setLoading(true)
 	try {
-		global.tags.value = await GetTags.call()
+		global.tags.value = (await GetTags.call()).results
 		global.fetched.value = true
 	} catch (error) {
 		global.setError(error)

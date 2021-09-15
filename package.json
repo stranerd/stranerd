@@ -40,7 +40,6 @@
 		"flutterwave-vue-v3": "^1.0.5",
 		"nodemailer": "^6.6.3",
 		"nuxt": "^2.15.8",
-		"sd-validate": "^1.0.4",
 		"stripe": "^8.174.0",
 		"sweetalert2": "^11.1.5",
 		"vue": "^2.6.14",

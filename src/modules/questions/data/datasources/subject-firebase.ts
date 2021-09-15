@@ -1,4 +1,4 @@
-import { DatabaseGetClauses, DatabaseService } from '@modules/core'
+import { DatabaseService, QueryParams } from '@modules/core'
 import { SubjectBaseDataSource } from '../datasources/subject-base'
 import { SubjectFromModel, SubjectToModel } from '../models/subject'
 
@@ -7,8 +7,10 @@ export class SubjectFirebaseDataSource implements SubjectBaseDataSource {
 		return await DatabaseService.get<SubjectFromModel>(`subjects/${id}`)
 	}
 
-	async get (conditions?: DatabaseGetClauses) {
-		return await DatabaseService.getMany<SubjectFromModel>('subjects', conditions)
+	// @ts-ignore
+	async get (query: QueryParams) {
+		// @ts-ignore
+		return await DatabaseService.getMany<SubjectFromModel>('subjects', query)
 	}
 
 	async add (data: SubjectToModel) {

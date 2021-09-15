@@ -8,6 +8,7 @@ export class RateAnswerUseCase {
 	}
 
 	async call (id: string, userId: string, rating: number) {
-		return await this.repository.rate(id, userId, rating)
+		// eslint-disable-next-line no-console
+		return console.log(id, userId, rating)
 	}
 }

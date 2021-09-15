@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core'
+import { DatabaseGetClauses, QueryParams } from '@modules/core'
 import { ICommentRepository } from '../../domain/irepositories/icomment'
 import { CommentEntity } from '../../domain/entities/comment'
 import { CommentBaseDataSource } from '../datasources/comment-base'
@@ -14,9 +14,12 @@ export class CommentRepository implements ICommentRepository {
 		this.transformer = transformer
 	}
 
-	async get (baseId: string, conditions?: DatabaseGetClauses) {
-		const models = await this.dataSource.get(baseId, conditions)
-		return models.map(this.transformer.fromJSON)
+	async get (query: QueryParams) {
+		const models = await this.dataSource.get(query)
+		return {
+			...models,
+			results: models.results.map(this.transformer.fromJSON)
+		}
 	}
 
 	async listen (baseId: string, callback: (entities: CommentEntity[]) => void, conditions?: DatabaseGetClauses) {
@@ -27,16 +30,16 @@ export class CommentRepository implements ICommentRepository {
 		return this.dataSource.listen(baseId, cb, conditions)
 	}
 
-	async add (baseId: string, data: CommentToModel) {
-		return await this.dataSource.create(baseId, data)
+	async add (data: CommentToModel) {
+		return await this.dataSource.create(data)
 	}
 
-	async find (baseId: string, id: string) {
-		const model = await this.dataSource.find(baseId, id)
+	async find (id: string) {
+		const model = await this.dataSource.find(id)
 		return model ? this.transformer.fromJSON(model) : null
 	}
 
-	async update (baseId: string, id: string, data: object) {
-		return await this.dataSource.update(baseId, id, data)
+	async update (id: string, data: CommentToModel) {
+		return await this.dataSource.update(id, data)
 	}
 }

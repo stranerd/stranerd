@@ -1,7 +1,7 @@
-import { DatabaseGetClauses } from '@modules/core'
+import { DatabaseGetClauses, QueryParams, QueryResults } from '@modules/core'
 import { TagFromModel } from '../models/tag'
 
 export abstract class TagBaseDataSource {
-	abstract get: (condition?: DatabaseGetClauses) => Promise<TagFromModel[]>
+	abstract get: (query: QueryParams) => Promise<QueryResults<TagFromModel>>
 	abstract listen: (callback: (documents: TagFromModel[]) => void, condition?: DatabaseGetClauses) => Promise<() => void>
 }

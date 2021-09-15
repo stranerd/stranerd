@@ -1,6 +1,5 @@
 import { computed, Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import { GetUserQuestions, QuestionEntity } from '@modules/questions'
-import { PAGINATION_LIMIT } from '@utils/constants'
 import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 
 enum Answered {
@@ -61,9 +60,9 @@ export const useUserQuestionList = (id: string) => {
 		try {
 			global[id].setLoading(true)
 			const lastDate = global[id].questions.value[global[id].questions.value.length - 1]?.createdAt
-			const questions = await GetUserQuestions.call(id, lastDate ? new Date(lastDate) : undefined)
-			global[id].hasMore.value = questions.length === PAGINATION_LIMIT + 1
-			questions.slice(0, PAGINATION_LIMIT).forEach((q) => pushToQuestionList(id, q))
+			const questions = await GetUserQuestions.call(id, lastDate)
+			global[id].hasMore.value = !!questions.pages.next
+			questions.results.forEach((q) => pushToQuestionList(id, q))
 			global[id].fetched.value = true
 		} catch (error) {
 			global[id].setError(error)

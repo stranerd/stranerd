@@ -1,4 +1,4 @@
-import { FirestoreGetClauses } from '@modules/core'
+import { FirestoreGetClauses, QueryParams } from '@modules/core'
 import { IQuestionRepository } from '../../domain/irepositories/iquestion'
 import { QuestionEntity } from '../../domain/entities/question'
 import { QuestionBaseDataSource } from '../datasources/question-base'
@@ -14,9 +14,12 @@ export class QuestionRepository implements IQuestionRepository {
 		this.transformer = transformer
 	}
 
-	async get (conditions?: FirestoreGetClauses) {
-		const models = await this.dataSource.get(conditions)
-		return models.map(this.transformer.fromJSON)
+	async get (query: QueryParams) {
+		const models = await this.dataSource.get(query)
+		return {
+			...models,
+			results: models.results.map(this.transformer.fromJSON)
+		}
 	}
 
 	async listenToOne (id: string, callback: (entity: QuestionEntity | null) => void) {
@@ -43,11 +46,15 @@ export class QuestionRepository implements IQuestionRepository {
 		return model ? this.transformer.fromJSON(model) : null
 	}
 
-	async update (id: string, data: Partial<QuestionToModel>) {
+	async update (id: string, data: QuestionToModel) {
 		return this.dataSource.update(id, data)
 	}
 
 	async delete (id: string) {
 		return this.dataSource.delete(id)
+	}
+
+	async markBestAnswer (questionId: string, answerId: string) {
+		return this.dataSource.markBestAnswer(questionId, answerId)
 	}
 }

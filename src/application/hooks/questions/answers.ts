@@ -7,7 +7,7 @@ import {
 	EditAnswer,
 	GetAnswers,
 	ListenToAnswers,
-	MarkAsBestAnswer,
+	MarkBestAnswer,
 	QuestionEntity,
 	RateAnswer
 } from '@modules/questions'
@@ -34,7 +34,7 @@ export const useAnswerList = (questionId: string) => {
 		global[questionId].setError('')
 		try {
 			global[questionId].setLoading(true)
-			global[questionId].answers.value = await GetAnswers.call(questionId)
+			global[questionId].answers.value = (await GetAnswers.call(questionId)).results
 			global[questionId].fetched.value = true
 		} catch (error) {
 			global[questionId].setError(error)
@@ -143,7 +143,7 @@ export const useAnswer = (answer: AnswerEntity) => {
 		if (accepted) {
 			try {
 				setLoading(true)
-				await MarkAsBestAnswer.call(question.id, answer.id)
+				await MarkBestAnswer.call(question.id, answer.id)
 			} catch (error) {
 				setError(error)
 			}

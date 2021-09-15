@@ -1,6 +1,5 @@
 import { Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import { AnswerEntity, GetUserAnswers } from '@modules/questions'
-import { PAGINATION_LIMIT } from '@utils/constants'
 import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 
 const global = {} as Record<string, {
@@ -30,9 +29,9 @@ export const useUserAnswerList = (id: string) => {
 		try {
 			global[id].setLoading(true)
 			const lastDate = global[id].answers.value[global[id].answers.value.length - 1]?.createdAt
-			const answers = await GetUserAnswers.call(id, lastDate ? new Date(lastDate) : undefined)
-			global[id].hasMore.value = answers.length === PAGINATION_LIMIT + 1
-			answers.slice(0, PAGINATION_LIMIT).forEach((a) => pushToAnswerList(id, a))
+			const answers = await GetUserAnswers.call(id, lastDate)
+			global[id].hasMore.value = !!answers.pages.next
+			answers.results.forEach((a) => pushToAnswerList(id, a))
 			global[id].fetched.value = true
 		} catch (error) {
 			global[id].setError(error)

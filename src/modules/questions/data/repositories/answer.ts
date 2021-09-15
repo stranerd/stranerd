@@ -1,4 +1,4 @@
-import { FirestoreGetClauses } from '@modules/core'
+import { FirestoreGetClauses, QueryParams } from '@modules/core'
 import { IAnswerRepository } from '../../domain/irepositories/ianswer'
 import { AnswerEntity } from '../../domain/entities/answer'
 import { AnswerBaseDataSource } from '../datasources/answer-base'
@@ -14,9 +14,12 @@ export class AnswerRepository implements IAnswerRepository {
 		this.transformer = transformer
 	}
 
-	async get (conditions?: FirestoreGetClauses) {
-		const models = await this.dataSource.get(conditions)
-		return models.map(this.transformer.fromJSON)
+	async get (query: QueryParams) {
+		const models = await this.dataSource.get(query)
+		return {
+			...models,
+			results: models.results.map(this.transformer.fromJSON)
+		}
 	}
 
 	async listenToOne (id: string, callback: (entity: AnswerEntity | null) => void) {
@@ -44,19 +47,11 @@ export class AnswerRepository implements IAnswerRepository {
 		return model ? this.transformer.fromJSON(model) : null
 	}
 
-	async update (id: string, data: Partial<AnswerToModel>) {
+	async update (id: string, data: AnswerToModel) {
 		return await this.dataSource.update(id, data)
 	}
 
 	async delete (id: string) {
 		return await this.dataSource.delete(id)
-	}
-
-	async rate (id: string, userId: string, rating: number) {
-		return await this.dataSource.rate(id, userId, rating)
-	}
-
-	async markAsBestAnswer (questionId: string, answerId: string) {
-		return await this.dataSource.markAsBest({ questionId, answerId })
 	}
 }

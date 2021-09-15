@@ -29,6 +29,7 @@ export const SigninController = async (req: Request, res: Response) => {
 
 		return res.json({
 			success: true,
+			user,
 			error: null
 		}).end()
 	} catch (err) {

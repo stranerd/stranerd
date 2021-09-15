@@ -2,13 +2,6 @@ import axios, { AxiosError, AxiosInstance, AxiosResponse, Method } from 'axios'
 import { getTokens, saveTokens } from '@utils/tokens'
 import { apiBases } from '@utils/environment'
 
-const client = axios.create({
-	baseURL: '/api',
-	withCredentials: true
-})
-
-export { client as AxiosInstance }
-
 export enum StatusCodes {
 	Ok = 200,
 	BadRequest = 400,
@@ -22,6 +15,24 @@ export enum StatusCodes {
 	InvalidToken = 463
 }
 
+export enum Conditions {
+	lt = 'lt', lte = 'lte', gt = 'gt', gte = 'gte',
+	eq = 'eq', ne = 'ne', in = 'in', nin = 'nin'
+}
+
+type Where = { field: string, value: any, condition?: Conditions }
+
+export interface QueryParams {
+	where?: Where[]
+	auth?: Where[]
+	whereType?: 'and' | 'or'
+	sort?: { field: string, order?: 1 | -1 }
+	limit?: number
+	all?: boolean
+	page?: number
+	search?: string
+}
+
 export class NetworkError extends Error {
 	readonly statusCode: StatusCodes
 	readonly errors: { message: string; field?: string }[]
@@ -33,12 +44,14 @@ export class NetworkError extends Error {
 	}
 }
 
-export class AxiosClient {
+export class HttpClient {
 	private readonly client: AxiosInstance
 
 	constructor (baseURL: string) {
 		this.client = axios.create({ baseURL })
 		this.client.interceptors.request.use(async (config) => {
+			const isFromOurServer = Object.values(apiBases).includes(config.baseURL!)
+			if (!isFromOurServer) return config
 			const { accessToken, refreshToken } = await getTokens()
 			if (accessToken) config.headers['Access-Token'] = accessToken
 			if (refreshToken) config.headers['Refresh-Token'] = refreshToken

@@ -1,11 +1,11 @@
 import { defineNuxtPlugin } from '@nuxtjs/composition-api'
-import { AxiosClient } from '@modules/core'
+import { HttpClient } from '@modules/core'
 import { useAuth } from '@app/hooks/auth/auth'
 
 export default defineNuxtPlugin(async () => {
 	try {
 		const geopluginApiSite = 'https://ssl.geoplugin.net/json.gp?k=5c113cbeb772aab6'
-		const res = await new AxiosClient('').get<{}, any>(geopluginApiSite, {})
+		const res = await new HttpClient('').get<{}, any>(geopluginApiSite, {})
 		const {
 			geoplugin_query: ip,
 			geoplugin_city: city,

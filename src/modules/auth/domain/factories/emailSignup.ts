@@ -66,7 +66,7 @@ export class EmailSignupFactory extends BaseFactory<null, AuthUser, Keys> {
 	toModel = async () => {
 		if (this.valid) {
 			const { first, last, email, password } = this.validValues
-			return { first, last, email, password }
+			return { firstName: first, lastName: last, email, password }
 		} else throw new Error('Validation errors')
 	}
 

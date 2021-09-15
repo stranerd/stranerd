@@ -1,8 +1,15 @@
-import { auth, AxiosInstance, DatabaseService, firebase, FunctionsService } from '@modules/core'
+import { auth, DatabaseService, firebase, FunctionsService, HttpClient } from '@modules/core'
+import { domain } from '@utils/environment'
 import { AfterAuthUser, AuthExtras, UpdateUser } from '../../domain/entities/auth'
 import { AuthBaseDataSource } from './auth-base'
 
 export class AuthFirebaseDataSource implements AuthBaseDataSource {
+	private nuxtClient: HttpClient
+
+	constructor () {
+		this.nuxtClient = new HttpClient('/api/auth')
+	}
+
 	async signinWithEmail (email: string, password: string, extras: AuthExtras) {
 		try {
 			const record = await auth.signInWithEmailAndPassword(email, password)
@@ -25,34 +32,36 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 	async signupWithEmail ({
 		                       email,
 		                       password,
-		                       first,
-		                       last
-	                       }: { first: string, last: string, email: string, password: string }, extras: AuthExtras) {
+		                       firstName,
+		                       lastName
+	                       }: { firstName: string, lastName: string, email: string, password: string }, extras: AuthExtras) {
 		try {
 			const record = await auth.createUserWithEmailAndPassword(email, password)
 			await DatabaseService.update(
-				`profiles/${record.user!.uid}/bio/name`, { first, last })
+				`profiles/${record.user!.uid}/bio/name`, { first: firstName, last: lastName })
 			return await runAfterAuth(record, extras)
 		} catch (error) {
 			throw filterFirebaseError(error)
 		}
 	}
 
-	async sendVerificationEmail (email: string, redirectUrl: string) {
-		await AxiosInstance.post('/auth/emails/verify', { email, redirectUrl })
+	async sendVerificationEmail (email: string) {
+		const redirectUrl = domain + '/auth/signin'
+		await this.nuxtClient.post('/emails/verify', { email, redirectUrl })
 			.catch((error) => {
 				throw new Error(error?.response?.data?.error ?? 'Error sending verification email')
 			})
 	}
 
-	async resetPassword (email: string, redirectUrl: string) {
-		await AxiosInstance.post('/auth/emails/password-reset', { email, redirectUrl })
+	async sendPasswordResetEmail (email: string) {
+		const redirectUrl = domain + '/auth/signin'
+		await this.nuxtClient.post('/emails/password-reset', { email, redirectUrl })
 			.catch((error) => {
 				throw new Error(error?.response?.data?.error ?? 'Error sending password-reset email')
 			})
 	}
 
-	async confirmPasswordReset (code: string, newPassword: string) {
+	async resetPassword (code: string, newPassword: string) {
 		try {
 			await auth.verifyPasswordResetCode(code)
 			await auth.confirmPasswordReset(code, newPassword)
@@ -76,9 +85,10 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 		}
 	}
 
-	async session (idToken: string) {
+	async session (afterAuth: AfterAuthUser) {
+		const { accessToken: idToken } = afterAuth
 		try {
-			const { data } = await AxiosInstance.post('/auth/signin', { idToken })
+			const { data } = await this.nuxtClient.post('/signin', { ...afterAuth, idToken })
 			if (!data.success) throw new Error(data.error)
 			return data.user
 		} catch (error: any) {
@@ -89,7 +99,7 @@ export class AuthFirebaseDataSource implements AuthBaseDataSource {
 	async logout () {
 		try {
 			await auth.signOut()
-			const { data } = await AxiosInstance.post('/auth/signout', {})
+			const { data } = await this.nuxtClient.post('/signout', {})
 			if (!data.success) throw new Error(data.error)
 		} catch (error: any) {
 			throw new Error(error?.response?.data?.error ?? 'Error signing out')
@@ -157,9 +167,8 @@ const filterFirebaseError = (error: any) => {
 
 const runAfterAuth = async (record: firebase.auth.UserCredential, extras: AuthExtras) => {
 	const getUserDetails = async (user: firebase.User): Promise<AfterAuthUser> => {
-		const email = user.email!
 		const idToken = await user.getIdToken(true)
-		const data = { id: user.uid, email, idToken }
+		const data = { accessToken: idToken, refreshToken: idToken, user: JSON.parse(JSON.stringify(user)) }
 		await auth.signOut()
 		return data
 	}

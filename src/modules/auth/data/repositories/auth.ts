@@ -1,6 +1,6 @@
 import { AuthBaseDataSource } from '../datasources/auth-base'
 import { IAuthRepository } from '../../domain/irepositories/iauth'
-import { AuthExtras, UpdateUser } from '../../domain/entities/auth'
+import { AfterAuthUser, AuthExtras, NewUser, UpdateUser } from '../../domain/entities/auth'
 
 export class AuthRepository implements IAuthRepository {
 	private dataSource: AuthBaseDataSource
@@ -17,28 +17,28 @@ export class AuthRepository implements IAuthRepository {
 		return await this.dataSource.signinWithGoogle(extras)
 	}
 
-	async signupWithEmail (data: { first: string, last: string, email: string, password: string }, extras: AuthExtras) {
+	async signupWithEmail (data: NewUser, extras: AuthExtras) {
 		return await this.dataSource.signupWithEmail(data, extras)
 	}
 
-	async sendVerificationEmail (email: string, redirectUrl: string) {
-		return await this.dataSource.sendVerificationEmail(email, redirectUrl)
+	async sendVerificationEmail (email: string) {
+		return await this.dataSource.sendVerificationEmail(email)
 	}
 
-	async resetPassword (email: string, redirectUrl: string) {
-		return await this.dataSource.resetPassword(email, redirectUrl)
+	async sendPasswordResetEmail (email: string) {
+		return await this.dataSource.sendPasswordResetEmail(email)
 	}
 
-	async confirmPasswordReset (code: string, password: string) {
-		return await this.dataSource.confirmPasswordReset(code, password)
+	async resetPassword (token: string, password: string) {
+		return await this.dataSource.resetPassword(token, password)
 	}
 
 	async updateProfile (profile: UpdateUser) {
 		return await this.dataSource.updateProfile(profile)
 	}
 
-	async session (idToken: string) {
-		return await this.dataSource.session(idToken)
+	async session (afterAuth: AfterAuthUser) {
+		return await this.dataSource.session(afterAuth)
 	}
 
 	async logout () {

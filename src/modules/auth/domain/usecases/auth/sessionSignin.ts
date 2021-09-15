@@ -1,4 +1,5 @@
 import { IAuthRepository } from '../../irepositories/iauth'
+import { AfterAuthUser } from '../../entities/auth'
 
 export class SessionSigninUseCase {
 	private repository: IAuthRepository
@@ -7,7 +8,7 @@ export class SessionSigninUseCase {
 		this.repository = repository
 	}
 
-	async call (idToken: string) {
-		return await this.repository.session(idToken)
+	async call (afterAuth: AfterAuthUser) {
+		return await this.repository.session(afterAuth)
 	}
 }

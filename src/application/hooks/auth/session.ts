@@ -1,6 +1,6 @@
 import { SendVerificationEmail, SessionSignin } from '@modules/auth'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
-import { isClient, isServer } from '@utils/environment'
+import { isServer } from '@utils/environment'
 import { REDIRECT_SESSION_NAME } from '@utils/constants'
 import Cookie from 'cookie'
 import { AfterAuthUser } from '@modules/auth/domain/entities/auth'
@@ -10,8 +10,8 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { Alert } from '@app/hooks/core/notifications'
 import { serialize } from '@utils/cookie'
 
-export const createSession = async (user: AfterAuthUser, router: VueRouter) => {
-	const authDetails = await SessionSignin.call(user.idToken)
+export const createSession = async (afterAuth: AfterAuthUser, router: VueRouter) => {
+	const authDetails = await SessionSignin.call(afterAuth)
 	const { setAuthUser, signin } = useAuth()
 	const isVerified = await setAuthUser(authDetails, router)
 	if (!isVerified) return
@@ -71,8 +71,7 @@ export const useVerifyEmail = () => {
 		setError('')
 		setLoading(true)
 		try {
-			const redirectUrl = (isClient() ? window.location.origin : '') + '/auth/signin'
-			await SendVerificationEmail.call(email, redirectUrl)
+			await SendVerificationEmail.call(email)
 			setMessage(`A verification email was just sent to ${email}. Proceed to your email to complete your verification.`)
 		} catch (error) {
 			setError(error)

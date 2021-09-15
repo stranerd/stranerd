@@ -5,7 +5,7 @@ export { timestampToMs } from './data/transformers/converters/getFirebaseDate'
 export { BaseEntity } from './domain/entities/base'
 export { BaseFactory } from './domain/factories/base'
 
-export { AxiosInstance, AxiosClient, NetworkError, StatusCodes } from './services/http'
+export { HttpClient, NetworkError, StatusCodes, QueryParams, Conditions } from './services/http'
 export { DatabaseService, FirestoreService, FunctionsService } from './services/firebase'
 export { UploaderService } from './services/uploader'
 export { default as firebase, analytics, firestore, database, auth, storage, functions } from './services/initFirebase'

@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core'
+import { QueryParams, DatabaseGetClauses } from '@modules/core'
 import { ITagRepository } from '../../domain/irepositories/itag'
 import { TagEntity } from '../../domain/entities/tag'
 import { TagBaseDataSource } from '../datasources/tag-base'
@@ -14,8 +14,8 @@ export class TagRepository implements ITagRepository {
 		this.transformer = transformer
 	}
 
-	async get (conditions?: DatabaseGetClauses) {
-		const models = await this.dataSource.get(conditions)
+	async get (query: QueryParams) {
+		const models = await this.dataSource.get(query)
 		return models.map(this.transformer.fromJSON)
 	}
 

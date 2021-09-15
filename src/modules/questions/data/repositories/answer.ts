@@ -1,4 +1,4 @@
-import { FirestoreGetClauses } from '@modules/core'
+import { FirestoreGetClauses, QueryParams } from '@modules/core'
 import { IAnswerRepository } from '../../domain/irepositories/ianswer'
 import { AnswerEntity } from '../../domain/entities/answer'
 import { AnswerBaseDataSource } from '../datasources/answer-base'
@@ -14,8 +14,8 @@ export class AnswerRepository implements IAnswerRepository {
 		this.transformer = transformer
 	}
 
-	async get (conditions?: FirestoreGetClauses) {
-		const models = await this.dataSource.get(conditions)
+	async get (query: QueryParams) {
+		const models = await this.dataSource.get(query)
 		return models.map(this.transformer.fromJSON)
 	}
 
@@ -50,13 +50,5 @@ export class AnswerRepository implements IAnswerRepository {
 
 	async delete (id: string) {
 		return await this.dataSource.delete(id)
-	}
-
-	async rate (id: string, userId: string, rating: number) {
-		return await this.dataSource.rate(id, userId, rating)
-	}
-
-	async markAsBestAnswer (questionId: string, answerId: string) {
-		return await this.dataSource.markAsBest({ questionId, answerId })
 	}
 }

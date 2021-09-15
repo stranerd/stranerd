@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core'
+import { QueryParams } from '@modules/core'
 import { ISubjectRepository } from '../../domain/irepositories/isubject'
 import { SubjectBaseDataSource } from '../datasources/subject-base'
 import { SubjectTransformer } from '../transformers/subject'
@@ -13,8 +13,8 @@ export class SubjectRepository implements ISubjectRepository {
 		this.transformer = transformer
 	}
 
-	async get (conditions?: DatabaseGetClauses) {
-		const models = await this.dataSource.get(conditions)
+	async get (query: QueryParams) {
+		const models = await this.dataSource.get(query)
 		return models.map(this.transformer.fromJSON)
 	}
 
@@ -22,12 +22,12 @@ export class SubjectRepository implements ISubjectRepository {
 		return await this.dataSource.delete(id)
 	}
 
-	async add (data: SubjectToModel) {
-		return await this.dataSource.add(data)
+	async update (id: string, data: Partial<SubjectToModel>) {
+		return this.dataSource.update(id, data)
 	}
 
-	async update (id: string, data: SubjectToModel) {
-		return await this.dataSource.update(id, data)
+	async add (data: SubjectToModel) {
+		return await this.dataSource.add(data)
 	}
 
 	async find (id: string) {

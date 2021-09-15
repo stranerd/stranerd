@@ -8,10 +8,10 @@ export class GetAnswersUseCase {
 	}
 
 	async call (questionId: string) {
-		return (await this.repository.get({
+		return await this.repository.get({
 			where: [{ field: 'questionId', value: questionId }],
 			sort: { field: 'createdAt' },
 			all: true
-		})).results
+		})
 	}
 }

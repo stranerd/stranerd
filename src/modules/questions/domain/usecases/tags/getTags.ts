@@ -8,9 +8,9 @@ export class GetTagsUseCase {
 	}
 
 	async call () {
-		return (await this.repository.get({
+		return await this.repository.get({
 			sort: { field: 'count', order: -1 },
 			limit: 18
-		})).results
+		})
 	}
 }

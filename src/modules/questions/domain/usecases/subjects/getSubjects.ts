@@ -8,9 +8,9 @@ export class GetSubjectsUseCase {
 	}
 
 	async call () {
-		return (await this.repository.get({
+		return await this.repository.get({
 			sort: { field: 'name' },
 			all: true
-		})).results
+		})
 	}
 }

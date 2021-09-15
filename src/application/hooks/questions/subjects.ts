@@ -20,7 +20,7 @@ const fetchSubjects = async () => {
 	global.setError('')
 	global.setLoading(true)
 	try {
-		global.subjects.value = await GetSubjects.call()
+		global.subjects.value = (await GetSubjects.call()).results
 		global.fetched.value = true
 	} catch (error) {
 		global.setError(error)

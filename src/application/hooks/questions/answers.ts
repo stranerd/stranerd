@@ -34,7 +34,7 @@ export const useAnswerList = (questionId: string) => {
 		global[questionId].setError('')
 		try {
 			global[questionId].setLoading(true)
-			global[questionId].answers.value = await GetAnswers.call(questionId)
+			global[questionId].answers.value = (await GetAnswers.call(questionId)).results
 			global[questionId].fetched.value = true
 		} catch (error) {
 			global[questionId].setError(error)

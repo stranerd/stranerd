@@ -33,7 +33,7 @@ export interface QueryParams {
 	search?: string
 }
 
-export type QueryResults<Model> = {
+export interface QueryResults<Model> {
 	pages: {
 		start: number,
 		last: number,

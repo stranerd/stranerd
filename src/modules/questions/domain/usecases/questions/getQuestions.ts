@@ -9,13 +9,13 @@ export class GetQuestionsUseCase {
 		this.repository = repository
 	}
 
-	async call (date?: Date) {
+	async call (date?: number) {
 		const conditions: QueryParams = {
 			sort: { field: 'createdAt' },
-			limit: PAGINATION_LIMIT + 1
+			limit: PAGINATION_LIMIT
 		}
-		if (date) conditions.where = [{ field: 'createdAt', condition: Conditions.lt, value: date.getTime() }]
+		if (date) conditions.where = [{ field: 'createdAt', condition: Conditions.lt, value: date }]
 
-		return (await this.repository.get(conditions)).results
+		return await this.repository.get(conditions)
 	}
 }

@@ -9,14 +9,14 @@ export class GetTagQuestionsUseCase {
 		this.repository = repository
 	}
 
-	async call (tag: string, date?: Date) {
+	async call (tag: string, date?: number) {
 		const conditions: QueryParams = {
 			sort: { field: 'createdAt', order: -1 },
-			limit: PAGINATION_LIMIT + 1,
+			limit: PAGINATION_LIMIT,
 			where: [{ field: 'tags', value: tag }]
 		}
-		if (date) conditions.where!.push({ field: 'createdAt', condition: Conditions.lt, value: date.getTime() })
+		if (date) conditions.where!.push({ field: 'createdAt', condition: Conditions.lt, value: date })
 
-		return (await this.repository.get(conditions)).results
+		return await this.repository.get(conditions)
 	}
 }

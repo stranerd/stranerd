@@ -19,8 +19,7 @@ export const useSimilarQuestionList = (question: QuestionEntity) => {
 		global[question.id].setError('')
 		try {
 			global[question.id].setLoading(true)
-			const questions = await GetSimilarQuestions.call(question.tags)
-			global[question.id].questions.value = questions.filter((q) => q.id !== question.id).slice(0, 10)
+			global[question.id].questions.value = (await GetSimilarQuestions.call(question.id, question.tags)).results
 			global[question.id].fetched.value = true
 		} catch (error) {
 			global[question.id].setError(error)

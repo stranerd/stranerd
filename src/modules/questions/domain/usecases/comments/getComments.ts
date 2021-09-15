@@ -8,9 +8,10 @@ export class GetQuestionCommentsUseCase {
 	}
 
 	async call (questionId: string) {
-		return (await this.repository.get({
-			where: [{ field: 'questionId', value: questionId }]
-		})).results
+		return await this.repository.get({
+			where: [{ field: 'questionId', value: questionId }],
+			all: true
+		})
 	}
 }
 
@@ -22,8 +23,9 @@ export class GetAnswerCommentsUseCase {
 	}
 
 	async call (answerId: string) {
-		return (await this.repository.get({
-			where: [{ field: 'answerId', value: answerId }]
-		})).results
+		return await this.repository.get({
+			where: [{ field: 'answerId', value: answerId }],
+			all: true
+		})
 	}
 }

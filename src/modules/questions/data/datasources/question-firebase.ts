@@ -1,4 +1,4 @@
-import { FirestoreGetClauses, FirestoreService } from '@modules/core'
+import { FirestoreGetClauses, FirestoreService, QueryParams } from '@modules/core'
 import { QuestionFromModel, QuestionToModel } from '../models/question'
 import { QuestionBaseDataSource } from './question-base'
 
@@ -15,8 +15,10 @@ export class QuestionFirebaseDataSource implements QuestionBaseDataSource {
 		return await FirestoreService.find<QuestionFromModel>('questions', id)
 	}
 
-	async get (conditions?: FirestoreGetClauses) {
-		return await FirestoreService.get<QuestionFromModel>('questions', conditions)
+	// @ts-ignore
+	async get (query: QueryParams) {
+		// @ts-ignore
+		return await FirestoreService.get<QuestionFromModel>('questions', query)
 	}
 
 	async listenToOne (id: string, callback: (document: QuestionFromModel | null) => void) {

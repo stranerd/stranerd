@@ -1,4 +1,4 @@
-import { AuthFirebaseDataSource } from './data/datasources/auth-firebase'
+import { AuthApiDataSource } from './data/datasources/auth-api'
 import { AuthRepository } from './data/repositories/auth'
 import { SigninWithGoogleUseCase } from './domain/usecases/auth/signinWithGoogle'
 import { SessionSigninUseCase } from './domain/usecases/auth/sessionSignin'
@@ -13,7 +13,7 @@ import { EmailSigninFactory } from './domain/factories/emailSignin'
 import { EmailSignupFactory } from './domain/factories/emailSignup'
 import { PasswordResetFactory } from './domain/factories/passwordReset'
 
-const authDataSource = new AuthFirebaseDataSource()
+const authDataSource = new AuthApiDataSource()
 
 const authRepository = new AuthRepository(authDataSource)
 

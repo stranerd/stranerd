@@ -8,13 +8,16 @@ export class GetSimilarQuestionsUseCase {
 		this.repository = repository
 	}
 
-	async call (tags: string[]) {
+	async call (questionId: string, tags: string[]) {
 		const conditions: QueryParams = {
-			where: [{ field: 'tags', condition: Conditions.in, value: tags }],
+			where: [
+				{ field: 'tags', condition: Conditions.in, value: tags },
+				{ field: 'id', condition: Conditions.ne, value: questionId }
+			],
 			sort: { field: 'createdAt', order: -1 },
-			limit: 11
+			limit: 10
 		}
 
-		return (await this.repository.get(conditions)).results
+		return await this.repository.get(conditions)
 	}
 }

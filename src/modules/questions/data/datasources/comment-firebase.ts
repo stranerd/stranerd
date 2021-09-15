@@ -1,47 +1,51 @@
-import { DatabaseGetClauses, DatabaseService } from '@modules/core'
+import { DatabaseGetClauses, DatabaseService, QueryParams } from '@modules/core'
 import { CommentFromModel, CommentToModel } from '../models/comment'
 import { CommentBaseDataSource } from './comment-base'
 
 export class QuestionCommentFirebaseDataSource implements CommentBaseDataSource {
-	async create (baseId: string, comment: CommentToModel) {
-		return await DatabaseService.create<CommentToModel>(`comments/questions/${baseId}`, comment)
+	async create (comment: CommentToModel) {
+		return await DatabaseService.create<CommentToModel>('comments/questions', comment)
 	}
 
-	async find (baseId: string, id: string) {
-		return await DatabaseService.get<CommentFromModel>(`comments/questions/${baseId}/${id}`)
+	async find (id: string) {
+		return await DatabaseService.get<CommentFromModel>(`comments/questions/${id}`)
 	}
 
-	async get (baseId: string, conditions?: DatabaseGetClauses) {
-		return await DatabaseService.getMany<CommentFromModel>(`comments/questions/${baseId}`, conditions)
+	// @ts-ignore
+	async get (query: QueryParams) {
+		// @ts-ignore
+		return await DatabaseService.getMany<CommentFromModel>('comments/questions', query)
 	}
 
 	async listen (baseId: string, callback: (documents: CommentFromModel[]) => void, conditions?: DatabaseGetClauses) {
 		return await DatabaseService.listenToMany<CommentFromModel>(`comments/questions/${baseId}`, callback, conditions)
 	}
 
-	async update (baseId: string, id: string, data: object) {
-		return await DatabaseService.update<CommentToModel>(`comments/questions/${baseId}/${id}`, data as CommentToModel)
+	async update (id: string, data: CommentToModel) {
+		return await DatabaseService.update<CommentToModel>(`comments/questions/${id}`, data as CommentToModel)
 	}
 }
 
 export class AnswerCommentFirebaseDataSource implements CommentBaseDataSource {
-	async create (baseId: string, comment: CommentToModel) {
-		return await DatabaseService.create<CommentToModel>(`comments/answers/${baseId}`, comment)
+	async create (comment: CommentToModel) {
+		return await DatabaseService.create<CommentToModel>('comments/answers', comment)
 	}
 
-	async find (baseId: string, id: string) {
-		return await DatabaseService.get<CommentFromModel>(`comments/answers/${baseId}/${id}`)
+	async find (id: string) {
+		return await DatabaseService.get<CommentFromModel>(`comments/answers/${id}`)
 	}
 
-	async get (baseId: string, conditions?: DatabaseGetClauses) {
-		return await DatabaseService.getMany<CommentFromModel>(`comments/answers/${baseId}`, conditions)
+	// @ts-ignore
+	async get (query: QueryParams) {
+		// @ts-ignore
+		return await DatabaseService.getMany<CommentFromModel>('comments/answers', query)
 	}
 
 	async listen (baseId: string, callback: (documents: CommentFromModel[]) => void, conditions?: DatabaseGetClauses) {
 		return await DatabaseService.listenToMany<CommentFromModel>(`comments/answers/${baseId}`, callback, conditions)
 	}
 
-	async update (baseId: string, id: string, data: object) {
-		return await DatabaseService.update<CommentToModel>(`comments/answers/${baseId}/${id}`, data as CommentToModel)
+	async update (id: string, data: CommentToModel) {
+		return await DatabaseService.update<CommentToModel>(`comments/answers/${id}`, data as CommentToModel)
 	}
 }

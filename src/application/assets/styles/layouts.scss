@@ -40,7 +40,7 @@ body[data-no-gap='true'] .layout-body {
 	flex-direction: column;
 	width: 16.25%;
 	// border-right: 1px solid $color-line;
-	box-shadow: 5px 0px 10px rgba(93, 116, 145, 0.047);
+	box-shadow: 5px 0 10px rgba(93, 116, 145, 0.047);
 	padding-top: 3rem;
 	margin-top: -3rem;
 	@media (min-width: $lg) {

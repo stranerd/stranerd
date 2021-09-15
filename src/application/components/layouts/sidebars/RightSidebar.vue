@@ -71,7 +71,7 @@ export default defineComponent({
 	.inner-bg {
 		background: $color-white;
 		padding: 30px;
-		box-shadow: 0px 5px 10px rgba(19, 39, 64, 0.047);
+		box-shadow: 0 5px 10px rgba(19, 39, 64, 0.047);
 		@media (min-width: $lg) {
 			border: 0.5px solid $color-line;
 			background: $color-white;

@@ -119,7 +119,7 @@ export default defineComponent({
 		background: $color-white;
 		border: 0.5px solid $color-line;
 		width: -webkit-fill-available;
-		box-shadow: 0px 5px 10px rgba(19, 39, 64, 0.047);
+		box-shadow: 0 5px 10px rgba(19, 39, 64, 0.047);
 	}
 
 	.ranking {

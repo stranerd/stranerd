@@ -19,7 +19,7 @@
 		<div class="d-flex justify-content-between align-items-center gap-1 mb-1 mb-md-2 ">
 			<Heading class="text-dark d-flex align-items-center flex-grow-1" variant="1">
 				<div class="dash me-0-5" />
-				<span>All Questions</span>
+				<span class="w-100">All Questions</span>
 				<div class="dash ms-0-5" />
 			</Heading>
 			<button class=" btn btn-primary px-2 py-1 d-none d-md-inline" @click="askQuestion">

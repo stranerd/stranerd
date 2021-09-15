@@ -165,7 +165,7 @@ export default defineComponent({
 		position: fixed;
 		top: 0;
 		z-index: 3;
-		box-shadow: 0 8px 16px 5px rgba($color-primary-dark, 0.2);
+		// box-shadow: 0 8px 16px 5px rgba($color-primary-dark, 0.2);
 		width: 100%;
 		display: flex;
 		align-items: center;

@@ -116,9 +116,10 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 	.balance {
-		background: $color-tags;
-		border: 1px solid $color-line;
+		background: $color-white;
+		border: 0.5px solid $color-line;
 		width: -webkit-fill-available;
+		box-shadow: 0px 5px 10px rgba(19, 39, 64, 0.047);
 	}
 
 	.ranking {

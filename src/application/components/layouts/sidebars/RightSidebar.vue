@@ -1,5 +1,5 @@
 <template>
-	<div class="d-flex flex-column gap-0-5 gap-lg-2-25 background">
+	<div class="d-flex flex-column gap-0-5 gap-lg-1-5 background">
 		<template v-if="isLoggedIn">
 			<div class="d-flex d-lg-none flex-column align-items-center gap-0-5 inner-bg">
 				<Avatar :size="72" :src="user.avatar" class="align-self-center" />
@@ -16,8 +16,11 @@
 			<ProfileHeadCard :user="user" class="inner-bg" />
 			<div class="d-flex flex-column gap-1 inner-bg">
 				<Heading class="color-dark text-center" no-grow variant="2">
-					Ranking Up
+					Challenges
 				</Heading>
+				<p class="text-center">
+					Unlock a new badge for every milestone reached
+				</p>
 				<div class="d-flex gap-1 align-items-center text-dark">
 					<img :src="user.rank.image" alt="" class="img-rank">
 					<ProgressBar :current="user.rankProgress.overall" :primary="true" />
@@ -68,9 +71,10 @@ export default defineComponent({
 	.inner-bg {
 		background: $color-white;
 		padding: 30px;
+		box-shadow: 0px 5px 10px rgba(19, 39, 64, 0.047);
 		@media (min-width: $lg) {
 			border: 0.5px solid $color-line;
-			background: $color-tags;
+			background: $color-white;
 			padding: 36px;
 			border-radius: 6px;
 		}

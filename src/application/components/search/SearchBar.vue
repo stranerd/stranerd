@@ -40,7 +40,7 @@ export default defineComponent({
 		flex-grow: 1;
 		border: 1px solid $color-line;
 		background-color: $color-tags;
-		border-radius: 12px;
+		border-radius: 40px;
 		font-size: 14px;
 		color: $color-sub;
 
@@ -49,7 +49,7 @@ export default defineComponent({
 			padding: 4px 32px 4px 21px;
 			border-left: 1px solid $color-line;
 			background-color: $color-tags;
-			border-radius: 12px;
+			border-radius: 40px;
 			color: $color-dark;
 		}
 

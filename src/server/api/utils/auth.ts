@@ -1,10 +1,10 @@
 import axios from 'axios'
-import { AUTH_API_BASE } from '../../../utils/environment'
+import { apiBases } from '../../../utils/environment'
 
 export const getUser = async (accessToken: string, refreshToken: string) => {
 	const response = await axios
 		.create({
-			baseURL: AUTH_API_BASE,
+			baseURL: apiBases.AUTH,
 			headers: {
 				'Access-Token': accessToken,
 				'Refresh-Token': refreshToken
@@ -16,7 +16,7 @@ export const getUser = async (accessToken: string, refreshToken: string) => {
 export const signout = async (accessToken: string, refreshToken: string) => {
 	await axios
 		.create({
-			baseURL: AUTH_API_BASE,
+			baseURL: apiBases.AUTH,
 			headers: {
 				'Access-Token': accessToken,
 				'Refresh-Token': refreshToken

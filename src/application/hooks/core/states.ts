@@ -1,12 +1,16 @@
 import { ssrRef } from '@nuxtjs/composition-api'
 import { Notify } from '@app/hooks/core/notifications'
 import { isClient } from '@utils/environment'
-import { analytics } from '@modules/core'
+import { analytics, NetworkError } from '@modules/core'
+import { capitalize } from '@utils/commons'
 
 export const useErrorHandler = () => {
 	const errorState = ssrRef('')
 	const setError = (error: any) => {
-		errorState.value = error.message ?? error
+		if (error instanceof NetworkError) errorState.value = error.errors
+			.map(({ message, field }) => `${capitalize(field ?? 'Error')}: ${message}`)
+			.join('\n')
+		else errorState.value = error.message ?? error
 		if (isClient() && errorState.value) Notify({
 			title: errorState.value,
 			icon: 'error'

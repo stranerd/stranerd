@@ -1,13 +1,11 @@
 import { defineNuxtPlugin } from '@nuxtjs/composition-api'
-import { AxiosInstance } from '@modules/core'
+import { AxiosClient } from '@modules/core'
 import { useAuth } from '@app/hooks/auth/auth'
 
 export default defineNuxtPlugin(async () => {
 	try {
 		const geopluginApiSite = 'https://ssl.geoplugin.net/json.gp?k=5c113cbeb772aab6'
-		const res = await AxiosInstance.get(geopluginApiSite, {
-			withCredentials: false
-		})
+		const res = await new AxiosClient('').get<{}, any>(geopluginApiSite, {})
 		const {
 			geoplugin_query: ip,
 			geoplugin_city: city,
@@ -22,7 +20,7 @@ export default defineNuxtPlugin(async () => {
 			geoplugin_timezone: timezone,
 			geoplugin_currencyCode: currencyCode,
 			geoplugin_currencySymbol: currencySymbol
-		} = res.data
+		} = res
 		useAuth().setUserLocation({
 			ip, latitude, longitude,
 			city, state, stateCode, country, countryCode, continent,

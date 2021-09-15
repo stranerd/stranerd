@@ -10,7 +10,7 @@ export class AddQuestionCommentUseCase {
 
 	async call (questionId: string, factory: CommentFactory) {
 		const data = await factory.toModel()
-		return await this.repository.add(questionId, { ...data, questionId })
+		return await this.repository.add({ ...data, questionId })
 	}
 }
 
@@ -23,6 +23,6 @@ export class AddAnswerCommentUseCase {
 
 	async call (answerId: string, factory: CommentFactory) {
 		const data = await factory.toModel()
-		return await this.repository.add(answerId, { ...data, answerId })
+		return await this.repository.add({ ...data, answerId })
 	}
 }

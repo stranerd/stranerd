@@ -33,6 +33,22 @@ export interface QueryParams {
 	search?: string
 }
 
+export type QueryResults<Model> = {
+	pages: {
+		start: number,
+		last: number,
+		previous: number | null,
+		next: number | null,
+		current: number,
+	},
+	docs: {
+		limit: number,
+		total: number,
+		count: number
+	},
+	results: Model[]
+}
+
 export class NetworkError extends Error {
 	readonly statusCode: StatusCodes
 	readonly errors: { message: string; field?: string }[]

@@ -15,14 +15,17 @@ export class SubjectRepository implements ISubjectRepository {
 
 	async get (query: QueryParams) {
 		const models = await this.dataSource.get(query)
-		return models.map(this.transformer.fromJSON)
+		return {
+			...models,
+			results: models.results.map(this.transformer.fromJSON)
+		}
 	}
 
 	async delete (id: string) {
 		return await this.dataSource.delete(id)
 	}
 
-	async update (id: string, data: Partial<SubjectToModel>) {
+	async update (id: string, data: SubjectToModel) {
 		return this.dataSource.update(id, data)
 	}
 

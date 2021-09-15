@@ -1,4 +1,3 @@
-import { DatabaseGetClauses } from '@modules/core'
 import { ITagRepository } from '../../irepositories/itag'
 
 export class GetTagsUseCase {
@@ -9,10 +8,9 @@ export class GetTagsUseCase {
 	}
 
 	async call () {
-		const conditions: DatabaseGetClauses = {
-			order: { field: 'count' },
-			limit: { count: 18, bottom: true }
-		}
-		return (await this.repository.get(conditions)).reverse()
+		return (await this.repository.get({
+			sort: { field: 'count', order: -1 },
+			limit: 18
+		})).results
 	}
 }

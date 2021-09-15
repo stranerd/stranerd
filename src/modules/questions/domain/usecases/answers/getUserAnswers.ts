@@ -1,4 +1,4 @@
-import { FirestoreGetClauses } from '@modules/core'
+import { Conditions, QueryParams } from '@modules/core'
 import { IAnswerRepository } from '../../irepositories/ianswer'
 
 export class GetUserAnswersUseCase {
@@ -9,14 +9,12 @@ export class GetUserAnswersUseCase {
 	}
 
 	async call (userId: string, date?: Date) {
-		const conditions: FirestoreGetClauses = {
-			order: { field: 'dates.createdAt', desc: true },
-			where: [
-				{ field: 'userId', condition: '==', value: userId }
-			]
+		const conditions: QueryParams = {
+			sort: { field: 'createdAt' },
+			where: [{ field: 'userId', value: userId }]
 		}
-		if (date) conditions.where!.push({ field: 'dates.createdAt', condition: '<', value: date })
+		if (date) conditions.where!.push({ field: 'createdAt', condition: Conditions.lt, value: date.getTime() })
 
-		return await this.repository.get(conditions)
+		return (await this.repository.get(conditions)).results
 	}
 }

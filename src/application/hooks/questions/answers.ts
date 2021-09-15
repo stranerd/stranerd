@@ -7,7 +7,7 @@ import {
 	EditAnswer,
 	GetAnswers,
 	ListenToAnswers,
-	MarkAsBestAnswer,
+	MarkBestAnswer,
 	QuestionEntity,
 	RateAnswer
 } from '@modules/questions'
@@ -143,7 +143,7 @@ export const useAnswer = (answer: AnswerEntity) => {
 		if (accepted) {
 			try {
 				setLoading(true)
-				await MarkAsBestAnswer.call(question.id, answer.id)
+				await MarkBestAnswer.call(question.id, answer.id)
 			} catch (error) {
 				setError(error)
 			}

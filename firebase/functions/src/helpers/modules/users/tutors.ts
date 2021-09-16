@@ -14,7 +14,7 @@ export const addTutorRatings = async (userId: string, ratings: number) => {
 }
 
 export const addTutorReview = async (userId: string, authId: string, review: string, rating: number) => {
-	if (!review) return
+	if (!review) return ''
 	if (rating > 5) rating = 5
 	if (rating < 0) rating = 0
 	const bioRef = await admin.database().ref(`profiles/${authId}/bio`).once('value')
@@ -24,8 +24,9 @@ export const addTutorReview = async (userId: string, authId: string, review: str
 		userId: authId, userBio: bio,
 		dates: { createdAt: Date.now() }
 	}
-	await admin.database().ref('users')
+	const newReview = await admin.database().ref('users')
 		.child(userId)
 		.child('reviews')
 		.push(data)
+	return newReview.key!
 }

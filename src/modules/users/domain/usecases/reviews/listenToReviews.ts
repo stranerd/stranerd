@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core'
+import { Listeners } from '@modules/core'
 import { IReviewRepository } from '../../irepositories/ireview'
 import { ReviewEntity } from '../../entities/review'
 
@@ -9,12 +9,7 @@ export class ListenToReviewsUseCase {
 		this.repository = repository
 	}
 
-	async call (userId: string, callback: (entities: ReviewEntity[]) => void, date?: number) {
-		const conditions: DatabaseGetClauses = {
-			order: { field: 'dates/createdAt' }
-		}
-		if (date) conditions!.order!.condition = { '>': date }
-		const cb = (entities: ReviewEntity[]) => callback(entities)
-		return await this.repository.listen(userId, cb, conditions)
+	async call (userId: string, listener: Listeners<ReviewEntity>) {
+		return await this.repository.listenToMany(userId, listener)
 	}
 }

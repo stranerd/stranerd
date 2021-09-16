@@ -1,4 +1,4 @@
-import { DatabaseGetClauses, DatabaseService, HttpClient, QueryParams, QueryResults } from '@modules/core'
+import { HttpClient, Listeners, listenOnSocket, QueryParams, QueryResults } from '@modules/core'
 import { apiBases } from '@utils/environment'
 import { ReferralFromModel } from '../models/referral'
 import { ReferralBaseDataSource } from './referral-base'
@@ -14,7 +14,11 @@ export class ReferralApiDataSource implements ReferralBaseDataSource {
 		return await this.stranerdClient.get<QueryParams, QueryResults<ReferralFromModel>>('/referrals', query)
 	}
 
-	async listen (userId: string, callback: (documents: ReferralFromModel[]) => void, conditions?: DatabaseGetClauses) {
-		return await DatabaseService.listenToMany<ReferralFromModel>(`users/${userId}/referrals`, callback, conditions)
+	async listenToOne (_: string, id: string, listener: Listeners<ReferralFromModel>) {
+		return listenOnSocket(`referrals/${id}`, listener)
+	}
+
+	async listenToMany (_: string, listener: Listeners<ReferralFromModel>) {
+		return listenOnSocket('referrals', listener)
 	}
 }

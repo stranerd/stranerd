@@ -33,6 +33,7 @@ import { CreateReviewUseCase } from './domain/usecases/reviews/createReview'
 import { GetReferralsUseCase } from './domain/usecases/referrals/getReferrals'
 import { ListenToReferralsUseCase } from './domain/usecases/referrals/listenToReferrals'
 import { GetTransactionsUseCase } from './domain/usecases/transactions/getTransactions'
+import { ListenToTransactionsUseCase } from './domain/usecases/transactions/listenToTransactions'
 import { generateDefaultBio, UserBio, UserEntity } from './domain/entities/user'
 import { NotificationEntity } from './domain/entities/notification'
 import { ReviewEntity } from './domain/entities/review'
@@ -82,6 +83,7 @@ export const GetReferrals = new GetReferralsUseCase(referralRepository)
 export const ListenToReferrals = new ListenToReferralsUseCase(referralRepository)
 
 export const GetTransactions = new GetTransactionsUseCase(transactionRepository)
+export const ListenToTransactions = new ListenToTransactionsUseCase(transactionRepository)
 
 export { UserEntity, generateDefaultBio, NotificationEntity, ReviewEntity, TransactionEntity, ReferralEntity }
 export type { UserBio }

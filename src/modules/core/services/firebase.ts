@@ -175,7 +175,7 @@ export interface FUNCTION_RETURNS {
 	buyCoins: void,
 	updateStreak: { skip: boolean, increase: boolean, reset: boolean, streak: number },
 	tipTutor: void,
-	rateTutor: void,
+	rateTutor: string,
 	approveTutorApplication: void,
 	markAsBestAnswer: void
 	handleReport: void

@@ -1,4 +1,4 @@
-import { DatabaseGetClauses, DatabaseService, QueryParams } from '@modules/core'
+import { DatabaseService, Listeners, QueryParams } from '@modules/core'
 import { ReferralFromModel } from '../models/referral'
 import { ReferralBaseDataSource } from './referral-base'
 
@@ -9,7 +9,13 @@ export class ReferralFirebaseDataSource implements ReferralBaseDataSource {
 		return await DatabaseService.getMany<ReferralFromModel>(`users/${userId}/referrals`, query)
 	}
 
-	async listen (userId: string, callback: (documents: ReferralFromModel[]) => void, conditions?: DatabaseGetClauses) {
-		return await DatabaseService.listenToMany<ReferralFromModel>(`users/${userId}/referrals`, callback, conditions)
+	async listenToOne (userId: string, id: string, listener: Listeners<ReferralFromModel>) {
+		// @ts-ignore
+		return await DatabaseService.listenToMany<ReferralFromModel>(`users/${userId}/referrals/${id}`, listener)
+	}
+
+	async listenToMany (userId: string, listener: Listeners<ReferralFromModel>) {
+		// @ts-ignore
+		return await DatabaseService.listenToMany<ReferralFromModel>(`users/${userId}/referrals`, listener)
 	}
 }

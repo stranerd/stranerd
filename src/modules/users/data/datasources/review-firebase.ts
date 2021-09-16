@@ -1,11 +1,10 @@
-import { DatabaseGetClauses, DatabaseService, FunctionsService, QueryParams } from '@modules/core'
+import { DatabaseService, FunctionsService, Listeners, QueryParams } from '@modules/core'
 import { ReviewFromModel, ReviewToModel } from '../models/review'
 import { ReviewBaseDataSource } from './review-base'
 
 export class ReviewFirebaseDataSource implements ReviewBaseDataSource {
 	async create (data: ReviewToModel) {
-		await FunctionsService.call('rateTutor', data)
-		return ''
+		return await FunctionsService.call('rateTutor', data)
 	}
 
 	// @ts-ignore
@@ -14,7 +13,13 @@ export class ReviewFirebaseDataSource implements ReviewBaseDataSource {
 		return await DatabaseService.getMany<ReviewFromModel>(`users/${userId}/reviews`, query)
 	}
 
-	async listen (userId: string, callback: (documents: ReviewFromModel[]) => void, conditions?: DatabaseGetClauses) {
-		return await DatabaseService.listenToMany<ReviewFromModel>(`users/${userId}/reviews`, callback, conditions)
+	async listenToOne (userId: string, id: string, listener: Listeners<ReviewFromModel>) {
+		// @ts-ignore
+		return await DatabaseService.listenToMany<ReviewFromModel>(`users/${userId}/reviews/${id}`, listener)
+	}
+
+	async listenToMany (userId: string, listener: Listeners<ReviewFromModel>) {
+		// @ts-ignore
+		return await DatabaseService.listenToMany<ReviewFromModel>(`users/${userId}/reviews`, listener)
 	}
 }

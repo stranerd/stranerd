@@ -12,7 +12,7 @@ export const rateTutor = functions.runWith(defaultConfig).https.onCall(async (da
 		const { tutorId, rating, review } = data
 		if (!tutorId) throw new Error('no tutorId')
 		await addTutorRatings(tutorId, rating)
-		await addTutorReview(tutorId, authId, review, rating)
+		return await addTutorReview(tutorId, authId, review, rating)
 	} catch (e) {
 		throw new functions.https.HttpsError('unknown', 'Error rating nerd')
 	}

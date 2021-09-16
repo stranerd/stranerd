@@ -13,7 +13,7 @@
 				</span>
 
 				<NuxtLink to="/">
-					<Logo />
+					<Logo :secondary="true" class="logo" />
 				</NuxtLink>
 
 				<SearchBar class="middle-body mx-auto d-none d-lg-flex" />
@@ -172,6 +172,11 @@ export default defineComponent({
 		color: $color-white;
 		background: $color-primary-dark;
 		padding: 0.75rem 1rem;
+		@media (max-width: $md) {
+			background: $color-white;
+			border-bottom: 4px solid $color-primary-dark;
+			padding: 0.75rem 2rem;
+		}
 		@media (min-width: $md) {
 			padding: 0.75rem 2rem;
 		}
@@ -220,5 +225,8 @@ export default defineComponent({
 				height: 60px;
 			}
 		}
+	}
+	.logo{
+		color:white !important
 	}
 </style>

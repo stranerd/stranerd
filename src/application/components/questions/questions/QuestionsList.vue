@@ -1,25 +1,13 @@
 <template>
 	<div>
-		<div
-			class="d-flex text-white align-items-center gap-0-5 d-md-none position-fixed"
-			style="right: 1.5rem; bottom: 1.5rem; z-index: 2;"
-		>
-			<span class="bg-primary-dark small rounded-3 py-0-25 px-0-5">
-				Ask A Question
-			</span>
-			<div
-				class="d-flex align-items-center justify-content-center rounded-pill bg-primary-dark"
-				style="width: 3rem; height: 3rem; font-size: 2rem;"
-				@click="askQuestion"
-			>
-				+
-			</div>
-		</div>
+		<button class=" btn btn-primary px-2 py-1 d-md-none d-inline w-100 mb-1" @click="askQuestion">
+			Ask A Question
+		</button>
 
 		<div class="d-flex justify-content-between align-items-center gap-1 mb-1 mb-md-2 ">
 			<Heading class="text-dark d-flex align-items-center flex-grow-1" variant="1">
 				<div class="dash me-0-5" />
-				<span class="w-100">All Questions</span>
+				<span class="w-100 title">All Questions</span>
 				<div class="dash ms-0-5" />
 			</Heading>
 			<button class=" btn btn-primary px-2 py-1 d-none d-md-inline" @click="askQuestion">
@@ -101,7 +89,12 @@ export default defineComponent({
 			}
 		}
 	}
-
+	.title{
+		text-align: center;
+		@media (min-width: $md) {
+			text-align: left;
+		}
+	}
 	.dash {
 		width: 100%;
 		background-color: $color-line;

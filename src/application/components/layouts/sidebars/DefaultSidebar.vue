@@ -2,13 +2,28 @@
 	<aside class="d-flex flex-column gap-1">
 		<div class="sidebar-links">
 			<NuxtLink class="sidebar-link" to="/dashboard">
-				<img alt="" src="@app/assets/images/icons/dashboard.svg">
+				<img alt="" src="@app/assets/images/icons/questions.svg">
 				<span>Questions</span>
 			</NuxtLink>
 
 			<NuxtLink class="sidebar-link" to="/nerds">
-				<img alt="" src="@app/assets/images/icons/nerd.svg">
+				<img alt="" src="@app/assets/images/icons/study.svg">
+				<span>Study</span>
+			</NuxtLink>
+
+			<NuxtLink class="sidebar-link" to="/nerds">
+				<img alt="" src="@app/assets/images/icons/tutors.svg">
 				<span>Tutors</span>
+			</NuxtLink>
+
+			<NuxtLink class="sidebar-link" to="/nerds">
+				<img alt="" src="@app/assets/images/icons/class.svg">
+				<span>Class</span>
+			</NuxtLink>
+
+			<NuxtLink class="sidebar-link" to="/nerds">
+				<img alt="" src="@app/assets/images/icons/schedule.svg">
+				<span>Schedule</span>
 			</NuxtLink>
 
 			<NuxtLink class="sidebar-link" to="/account/e-wallet">

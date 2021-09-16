@@ -39,6 +39,34 @@
 					</div>
 				</div>
 			</div>
+
+			<div class="d-flex flex-column gap-1 inner-bg">
+				<div class="d-flex justify-content-between align-items-center">
+					<Heading class="color-dark w-50" no-grow variant="2">
+						Top Rookies
+					</Heading>
+
+					<select class="form-select">
+						<option>
+							Daily
+						</option>
+					</select>
+				</div>
+
+				<div v-for="n in 5" :key="n" class="d-flex gap-1 align-items-center justify-content-between text-sub">
+					<div class="d-flex align-items-center gap-1">
+						<span class="leaderBoardCount">120</span>
+						<Avatar :size="24" :src="user.avatar" />
+						<span class="text-normal">
+							Jerry Maguire
+						</span>
+					</div>
+					<span class="fw-bold text-primary">14</span>
+				</div>
+				<button v-if="isLoggedIn" class="sidebar-btn btn w-100">
+					<span>Go to Leaderboard</span>
+				</button>
+			</div>
 		</template>
 		<TagsList class="inner-bg" />
 	</div>
@@ -61,6 +89,14 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.leaderBoardCount{
+	font-size: 14px;
+	font-weight: bold;
+	color:$color-sub;
+}
+select{
+	width:45%
+}
 	.background {
 		background: $color-line;
 		@media (min-width: $lg) {
@@ -99,6 +135,6 @@ export default defineComponent({
 
 	.btn {
 		width: 100%;
-		max-width: 200px;
+		max-width: 500px;
 	}
 </style>

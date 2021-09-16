@@ -1,7 +1,6 @@
 import { Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 import { GetNotifications, ListenToNotifications, MarkNotificationSeen, NotificationEntity } from '@modules/users'
-import { PAGINATION_LIMIT } from '@utils/constants'
 import { useAuth } from '@app/hooks/auth/auth'
 
 const global = {} as Record<string, {
@@ -52,8 +51,8 @@ export const useNotificationList = () => {
 		global[userId].setLoading(true)
 		try {
 			const notifications = await GetNotifications.call(userId)
-			global[userId].hasMore.value = notifications.length === PAGINATION_LIMIT + 1
-			notifications.reverse().slice(0, PAGINATION_LIMIT).forEach((t) => pushToNotificationList(userId, t))
+			global[userId].hasMore.value = !!notifications.pages.next
+			notifications.results.forEach((t) => pushToNotificationList(userId, t))
 		} catch (e) {
 			global[userId].setError(e)
 		}

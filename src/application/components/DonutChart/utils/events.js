@@ -9,3 +9,5 @@ export const nativeSectionEvents = [
 	nativeEventName,
 	sectionEventName: `section-${nativeEventName}`
 }))
+
+export default null

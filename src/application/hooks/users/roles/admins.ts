@@ -24,7 +24,7 @@ export const useAdminsList = () => {
 		try {
 			global.setLoading(true)
 			const admins = await GetAllAdmins.call()
-			admins.forEach(pushToAdminsList)
+			admins.results.forEach(pushToAdminsList)
 			global.fetched.value = true
 		} catch (error) {
 			global.setError(error)
@@ -65,7 +65,8 @@ export const useAdminRoles = () => {
 		if (state.email) {
 			setLoading(true)
 			try {
-				state.users = reactive(await GetUsersByEmail.call(state.email.toLowerCase()))
+				const users = await GetUsersByEmail.call(state.email.toLowerCase())
+				state.users = reactive(users.results)
 				state.fetched = true
 			} catch (error) {
 				setError(error)

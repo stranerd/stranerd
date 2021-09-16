@@ -1,6 +1,6 @@
-import { FirestoreGetClauses } from '@modules/core'
+import { QueryParams, QueryResults } from '@modules/core'
 import { TransactionFromModel } from '../models/transaction'
 
 export abstract class TransactionBaseDataSource {
-	abstract get: (userId: string, conditions?: FirestoreGetClauses) => Promise<TransactionFromModel[]>
+	abstract get: (userId: string, query: QueryParams) => Promise<QueryResults<TransactionFromModel>>
 }

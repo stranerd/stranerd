@@ -16,7 +16,10 @@ export class AnswerRepository implements IAnswerRepository {
 
 	async get (query: QueryParams) {
 		const models = await this.dataSource.get(query)
-		return models.map(this.transformer.fromJSON)
+		return {
+			...models,
+			results: models.results.map(this.transformer.fromJSON)
+		}
 	}
 
 	async listenToOne (id: string, callback: (entity: AnswerEntity | null) => void) {
@@ -44,7 +47,7 @@ export class AnswerRepository implements IAnswerRepository {
 		return model ? this.transformer.fromJSON(model) : null
 	}
 
-	async update (id: string, data: Partial<AnswerToModel>) {
+	async update (id: string, data: AnswerToModel) {
 		return await this.dataSource.update(id, data)
 	}
 

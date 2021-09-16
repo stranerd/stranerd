@@ -1,4 +1,4 @@
-import { FirestoreGetClauses } from '@modules/core'
+import { QueryParams } from '@modules/core'
 import { ITransactionRepository } from '../../domain/irepositories/itransaction'
 import { TransactionBaseDataSource } from '../datasources/transaction-base'
 import { TransactionTransformer } from '../transformers/transaction'
@@ -12,8 +12,11 @@ export class TransactionRepository implements ITransactionRepository {
 		this.transformer = transformer
 	}
 
-	async get (userId: string, conditions?: FirestoreGetClauses) {
-		const models = await this.dataSource.get(userId, conditions)
-		return models.map(this.transformer.fromJSON)
+	async get (userId: string, query: QueryParams) {
+		const models = await this.dataSource.get(userId, query)
+		return {
+			...models,
+			results: models.results.map(this.transformer.fromJSON)
+		}
 	}
 }

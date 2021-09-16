@@ -25,7 +25,7 @@ export const useQuestionCommentList = (questionId: string) => {
 		global[questionId].setError('')
 		try {
 			global[questionId].setLoading(true)
-			global[questionId].comments.value = await GetQuestionComments.call(questionId)
+			global[questionId].comments.value = (await GetQuestionComments.call(questionId)).results
 			global[questionId].fetched.value = true
 		} catch (error) {
 			global[questionId].setError(error)

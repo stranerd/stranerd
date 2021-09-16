@@ -16,7 +16,10 @@ export class QuestionRepository implements IQuestionRepository {
 
 	async get (query: QueryParams) {
 		const models = await this.dataSource.get(query)
-		return models.map(this.transformer.fromJSON)
+		return {
+			...models,
+			results: models.results.map(this.transformer.fromJSON)
+		}
 	}
 
 	async listenToOne (id: string, callback: (entity: QuestionEntity | null) => void) {
@@ -43,7 +46,7 @@ export class QuestionRepository implements IQuestionRepository {
 		return model ? this.transformer.fromJSON(model) : null
 	}
 
-	async update (id: string, data: Partial<QuestionToModel>) {
+	async update (id: string, data: QuestionToModel) {
 		return this.dataSource.update(id, data)
 	}
 
@@ -51,7 +54,7 @@ export class QuestionRepository implements IQuestionRepository {
 		return this.dataSource.delete(id)
 	}
 
-	async markBestAnswer (answerid: string) {
-		return this.dataSource.markBestAnswer(answerid)
+	async markBestAnswer (questionId: string, answerId: string) {
+		return this.dataSource.markBestAnswer(questionId, answerId)
 	}
 }

@@ -1,9 +1,9 @@
-import { HttpClient, FirestoreService, QueryParams, FirestoreGetClauses } from '../../../core'
-import { apiBases } from '../../../../utils/environment'
-import { QuestionToModel, QuestionFromModel } from '../models/question'
+import { FirestoreGetClauses, FirestoreService, HttpClient, QueryParams, QueryResults } from '@modules/core'
+import { apiBases } from '@utils/environment'
+import { QuestionFromModel, QuestionToModel } from '../models/question'
 import { QuestionBaseDataSource } from './question-base'
 
-export class QuestionDataSource implements QuestionBaseDataSource {
+export class QuestionApiDataSource implements QuestionBaseDataSource {
 	private stranerdClient: HttpClient
 
 	constructor () {
@@ -11,15 +11,16 @@ export class QuestionDataSource implements QuestionBaseDataSource {
 	}
 
 	async create (data: QuestionToModel) {
-		return await this.stranerdClient.post<QuestionToModel, any>('/questions', data)
+		const question = await this.stranerdClient.post<QuestionToModel, QuestionFromModel>('/questions', data)
+		return question.id
 	}
 
 	async find (id: string) {
-		return await this.stranerdClient.get<string, any>(`/questions/${id}`, '')
+		return await this.stranerdClient.get<{}, QuestionFromModel>(`/questions/${id}`, {})
 	}
 
 	async get (query: QueryParams) {
-		return await this.stranerdClient.get<QueryParams, any>('/questions', query)
+		return await this.stranerdClient.get<QueryParams, QueryResults<QuestionFromModel>>('/questions', query)
 	}
 
 	async listenToOne (id: string, callback: (document: QuestionFromModel | null) => void) {
@@ -31,14 +32,14 @@ export class QuestionDataSource implements QuestionBaseDataSource {
 	}
 
 	async delete (id: string) {
-		return await this.stranerdClient.delete<string, any>(`/questions/${id}`, '')
+		await this.stranerdClient.delete<{}, boolean>(`/questions/${id}`, {})
 	}
 
-	async markBestAnswer (answerId: string) {
-		return await this.stranerdClient.put<string, any>(`/questions/${answerId}/best`, '')
+	async markBestAnswer (questionId: string, answerId: string) {
+		await this.stranerdClient.put<{ answerId: string }, boolean>(`/questions/${questionId}/best`, { answerId })
 	}
 
-	async update (id: string, data: Partial<QuestionToModel>) {
-		return await this.stranerdClient.put<Partial<QuestionToModel>, any>(`/questions/${id}`, data)
+	async update (id: string, data: QuestionToModel) {
+		await this.stranerdClient.put<QuestionToModel, QuestionFromModel>(`/questions/${id}`, data)
 	}
 }

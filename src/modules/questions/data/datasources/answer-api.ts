@@ -1,25 +1,26 @@
-import { HttpClient, FirestoreGetClauses, FirestoreService, QueryParams } from '../../../core'
-import { apiBases } from '../../../../utils/environment'
+import { FirestoreGetClauses, FirestoreService, HttpClient, QueryParams, QueryResults } from '@modules/core'
+import { apiBases } from '@utils/environment'
 import { AnswerFromModel, AnswerToModel } from '../models/answer'
 import { AnswerBaseDataSource } from './answer-base'
 
-export class AnswerDataSource implements AnswerBaseDataSource {
+export class AnswerApiDataSource implements AnswerBaseDataSource {
 	private stranerdClient: HttpClient
 
 	constructor () {
 		this.stranerdClient = new HttpClient(apiBases.STRANERD)
 	}
 
-	async create (answer: AnswerToModel) {
-	  return await this.stranerdClient.post<any, any>('/answers', answer)
+	async create (data: AnswerToModel) {
+		const answer = await this.stranerdClient.post<AnswerToModel, AnswerFromModel>('/answers', data)
+		return answer.id
 	}
 
 	async find (id: string) {
-		return await this.stranerdClient.get<any, any>(`/answers/${id}`, {})
+		return await this.stranerdClient.get<{}, AnswerFromModel>(`/answers/${id}`, {})
 	}
 
 	async get (query: QueryParams) {
-		return await this.stranerdClient.get<QueryParams, any>('/answers', query)
+		return await this.stranerdClient.get<QueryParams, QueryResults<AnswerFromModel>>('/answers', query)
 	}
 
 	async listenToOne (id: string, callback: (document: AnswerFromModel | null) => void) {
@@ -30,11 +31,11 @@ export class AnswerDataSource implements AnswerBaseDataSource {
 		return await FirestoreService.listenToMany<AnswerFromModel>(callback, 'answers', conditions)
 	}
 
-	async update (id: string, data: Partial<AnswerToModel>) {
-		return await this.stranerdClient.put<Partial<AnswerToModel>, any>(`/answers/${id}`, data)
+	async update (id: string, data: AnswerToModel) {
+		await this.stranerdClient.put<AnswerToModel, AnswerFromModel>(`/answers/${id}`, data)
 	}
 
 	async delete (id: string) {
-		return await this.stranerdClient.delete<any, any>(`/answers/${id}`, {})
+		await this.stranerdClient.delete<{}, boolean>(`/answers/${id}`, {})
 	}
 }

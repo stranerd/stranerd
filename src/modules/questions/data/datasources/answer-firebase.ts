@@ -1,4 +1,4 @@
-import { DatabaseService, FirestoreGetClauses, FirestoreService, FunctionsService } from '@modules/core'
+import { DatabaseService, FirestoreGetClauses, FirestoreService, QueryParams } from '@modules/core'
 import { AnswerFromModel, AnswerToModel } from '../models/answer'
 import { AnswerBaseDataSource } from './answer-base'
 
@@ -11,8 +11,10 @@ export class AnswerFirebaseDataSource implements AnswerBaseDataSource {
 		return await FirestoreService.find<AnswerFromModel>('answers', id)
 	}
 
-	async get (conditions?: FirestoreGetClauses) {
-		return await FirestoreService.get<AnswerFromModel>('answers', conditions)
+	// @ts-ignore
+	async get (query: QueryParams) {
+		// @ts-ignore
+		return await FirestoreService.get<AnswerFromModel>('answers', query)
 	}
 
 	async listenToOne (id: string, callback: (document: AnswerFromModel | null) => void) {
@@ -33,9 +35,5 @@ export class AnswerFirebaseDataSource implements AnswerBaseDataSource {
 
 	async rate (id: string, userId: string, rating: number) {
 		return await DatabaseService.update<Record<string, number>>(`answers/${id}/ratings`, { [userId]: rating })
-	}
-
-	async markAsBest (data: { questionId: string, answerId: string }) {
-		return await FunctionsService.call('markAsBestAnswer', data)
 	}
 }

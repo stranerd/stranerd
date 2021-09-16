@@ -1,9 +1,9 @@
-import { HttpClient, QueryParams } from '../../../core'
-import { apiBases } from '../../../../utils/environment'
-import { SubjectToModel } from '../models/subject'
+import { HttpClient, QueryParams, QueryResults } from '@modules/core'
+import { apiBases } from '@utils/environment'
+import { SubjectFromModel, SubjectToModel } from '../models/subject'
 import { SubjectBaseDataSource } from './subject-base'
 
-export class SubjectDataSource implements SubjectBaseDataSource {
+export class SubjectApiDataSource implements SubjectBaseDataSource {
 	private stranerdClient: HttpClient
 
 	constructor () {
@@ -11,22 +11,23 @@ export class SubjectDataSource implements SubjectBaseDataSource {
 	}
 
 	async add (data: SubjectToModel) {
-		return await this.stranerdClient.post<SubjectToModel, any>('/subjects', data)
+		const subject = await this.stranerdClient.post<SubjectToModel, SubjectFromModel>('/subjects', data)
+		return subject.id
 	}
 
 	async find (id: string) {
-		return await this.stranerdClient.get<string, any>(`/subjects/${id}`, '')
+		return await this.stranerdClient.get<{}, SubjectFromModel>(`/subjects/${id}`, {})
 	}
 
 	async get (query: QueryParams) {
-		return await this.stranerdClient.get<QueryParams, any>('/subjects', query)
+		return await this.stranerdClient.get<QueryParams, QueryResults<SubjectFromModel>>('/subjects', query)
 	}
 
-	async update (id: string, data: Partial<SubjectToModel>) {
-		return await this.stranerdClient.put<Partial<SubjectToModel>, any>(`/subjects/${id}`, data)
+	async update (id: string, data: SubjectToModel) {
+		await this.stranerdClient.put<SubjectToModel, SubjectFromModel>(`/subjects/${id}`, data)
 	}
 
 	async delete (id: string) {
-		return await this.stranerdClient.delete<string, any>(`/subjects/${id}`, '')
+		await this.stranerdClient.delete<string, boolean>(`/subjects/${id}`, '')
 	}
 }

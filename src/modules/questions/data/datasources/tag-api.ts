@@ -1,9 +1,9 @@
-import { HttpClient, QueryParams, DatabaseService, DatabaseGetClauses } from '../../../core'
-import { apiBases } from '../../../../utils/environment'
+import { DatabaseGetClauses, DatabaseService, HttpClient, QueryParams, QueryResults } from '@modules/core'
+import { apiBases } from '@utils/environment'
 import { TagFromModel } from '../models/tag'
 import { TagBaseDataSource } from './tag-base'
 
-export class TagDataSource implements TagBaseDataSource {
+export class TagApiDataSource implements TagBaseDataSource {
 	private stranerdClient: HttpClient
 
 	constructor () {
@@ -15,6 +15,6 @@ export class TagDataSource implements TagBaseDataSource {
 	}
 
 	async get (query: QueryParams) {
-		return await this.stranerdClient.get<QueryParams, any>('/tags', query)
+		return await this.stranerdClient.get<QueryParams, QueryResults<TagFromModel>>('/tags', query)
 	}
 }

@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core'
+import { DatabaseGetClauses, QueryParams } from '@modules/core'
 import { IReferralRepository } from '../../domain/irepositories/ireferral'
 import { ReferralBaseDataSource } from '../datasources/referral-base'
 import { ReferralTransformer } from '../transformers/referral'
@@ -14,9 +14,12 @@ export class ReferralRepository implements IReferralRepository {
 		this.transformer = transformer
 	}
 
-	async get (userId: string, conditions?: DatabaseGetClauses) {
-		const models = await this.dataSource.get(userId, conditions)
-		return models.map((model: ReferralFromModel) => this.transformer.fromJSON(model))
+	async get (userId: string, query: QueryParams) {
+		const models = await this.dataSource.get(userId, query)
+		return {
+			...models,
+			results: models.results.map(this.transformer.fromJSON)
+		}
 	}
 
 	async listen (userId: string, callback: (entities: ReferralEntity[]) => void, conditions?: DatabaseGetClauses) {

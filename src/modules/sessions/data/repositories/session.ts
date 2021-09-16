@@ -1,4 +1,4 @@
-import { FirestoreGetClauses } from '@modules/core'
+import { FirestoreGetClauses, QueryParams } from '@modules/core'
 import { SessionBaseDataSource } from '../datasources/session-base'
 import { SessionTransformer } from '../transformers/session'
 import { ISessionRepository } from '../../domain/irepositories/isession'
@@ -14,13 +14,16 @@ export class SessionRepository implements ISessionRepository {
 		this.transformer = transformer
 	}
 
-	async add (data: Partial<SessionToModel>) {
+	async add (data: SessionToModel) {
 		return await this.dataSource.create(data)
 	}
 
-	async get (conditions?: FirestoreGetClauses) {
-		const models = await this.dataSource.get(conditions)
-		return models.map(this.transformer.fromJSON)
+	async get (query: QueryParams) {
+		const models = await this.dataSource.get(query)
+		return {
+			...models,
+			results: models.results.map(this.transformer.fromJSON)
+		}
 	}
 
 	async find (id: string) {

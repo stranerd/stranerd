@@ -9,7 +9,6 @@ import {
 } from '@modules/reports'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useReportModal } from '@app/hooks/core/modals'
-import { PAGINATION_LIMIT } from '@utils/constants'
 import { Alert } from '../core/notifications'
 
 let reportedEntity = null as string | null
@@ -67,8 +66,8 @@ export const useReportsList = () => {
 			global.setLoading(true)
 			const lastDate = global.reports.value[global.reports.value.length - 1]?.createdAt
 			const reports = await GetQuestionReports.call(lastDate)
-			global.hasMore.value = reports.length === PAGINATION_LIMIT + 1
-			reports.slice(0, PAGINATION_LIMIT).forEach(pushToReportList)
+			global.hasMore.value = !!reports.pages.next
+			reports.results.forEach(pushToReportList)
 			global.fetched.value = true
 		} catch (error) {
 			global.setError(error)

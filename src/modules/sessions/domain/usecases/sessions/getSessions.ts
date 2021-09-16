@@ -1,4 +1,4 @@
-import { FirestoreGetClauses } from '@modules/core'
+import { Conditions } from '@modules/core'
 import { ISessionRepository } from '../../irepositories/isession'
 
 export class GetSessionsUseCase {
@@ -9,11 +9,9 @@ export class GetSessionsUseCase {
 	}
 
 	async call (ids: string[]) {
-		const conditions: FirestoreGetClauses = {
-			where: [
-				{ field: '__name__', condition: 'in', value: ids }
-			]
-		}
-		return await this.repository.get(conditions)
+		return await this.repository.get({
+			where: [{ field: 'id', condition: Conditions.in, value: ids }],
+			all: true
+		})
 	}
 }

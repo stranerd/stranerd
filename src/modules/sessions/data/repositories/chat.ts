@@ -1,8 +1,8 @@
-import { DatabaseGetClauses } from '@modules/core'
+import { DatabaseGetClauses, QueryParams } from '@modules/core'
 import { ChatBaseDataSource } from '../datasources/chat-base'
 import { ChatTransformer } from '../transformers/chat'
 import { IChatRepository } from '../../domain/irepositories/ichat'
-import { ChatFromModel, ChatMeta, ChatToModel } from '../models/chat'
+import { ChatFromModel, ChatMetaFromModel, ChatToModel } from '../models/chat'
 import { ChatEntity } from '../../domain/entities/chat'
 import { ChatMetaEntity } from '../../domain/entities/chatMeta'
 
@@ -19,14 +19,20 @@ export class ChatRepository implements IChatRepository {
 		return await this.dataSource.create(path, data)
 	}
 
-	async get (path: [string, string], conditions?: DatabaseGetClauses) {
-		const models = await this.dataSource.get(path, conditions)
-		return models.map(this.transformer.fromJSON)
+	async get (path: [string, string], query: QueryParams) {
+		const models = await this.dataSource.get(path, query)
+		return {
+			...models,
+			results: models.results.map(this.transformer.fromJSON)
+		}
 	}
 
-	async getMeta (id: string, conditions?: DatabaseGetClauses) {
-		const models = await this.dataSource.getMeta(id, conditions)
-		return models.map(this.transformer.metaFromJSON)
+	async getMeta (id: string, query: QueryParams) {
+		const models = await this.dataSource.getMeta(id, query)
+		return {
+			...models,
+			results: models.results.map(this.transformer.metaFromJSON)
+		}
 	}
 
 	async find (path: [string, string], id: string) {
@@ -40,15 +46,11 @@ export class ChatRepository implements IChatRepository {
 	}
 
 	async listenToMeta (id: string, callback: (entities: ChatMetaEntity[]) => void, conditions?: DatabaseGetClauses) {
-		const listenCB = (documents: ChatMeta[]) => callback(documents.map(this.transformer.metaFromJSON))
+		const listenCB = (documents: ChatMetaFromModel[]) => callback(documents.map(this.transformer.metaFromJSON))
 		return await this.dataSource.listenToMeta(id, listenCB, conditions)
 	}
 
-	async markRead (path: [string, string], id: string) {
-		await this.dataSource.markRead(path, id)
-	}
-
-	async delete (path: [string, string], id: string) {
-		return await this.dataSource.delete(path, id)
+	async markRead (path: [string, string], chatId: string, to: string) {
+		await this.dataSource.markRead(path, chatId, to)
 	}
 }

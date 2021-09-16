@@ -9,7 +9,6 @@ import {
 } from '@modules/sessions'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
-import { CHAT_PAGINATION_LIMIT } from '@utils/constants'
 import { getRandomValue } from '@utils/commons'
 
 const global = {} as Record<string, {
@@ -53,9 +52,9 @@ export const useChats = (userId: string) => {
 		try {
 			global[userId].setLoading(true)
 			const lastDate = chats.value[0]?.createdAt
-			const c = await GetPersonalChats.call(path, lastDate ? new Date(lastDate) : undefined)
-			global[userId].hasMore.value = c.length >= CHAT_PAGINATION_LIMIT + 1
-			c.slice().reverse().slice(0, CHAT_PAGINATION_LIMIT).map((c) => unshiftToChats(userId, c))
+			const c = await GetPersonalChats.call(path, lastDate)
+			global[userId].hasMore.value = !!c.pages.next
+			c.results.map((c) => unshiftToChats(userId, c))
 			global[userId].fetched.value = true
 		} catch (e) {
 			global[userId].setError(e)

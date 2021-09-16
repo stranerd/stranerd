@@ -1,8 +1,8 @@
-import { DatabaseGetClauses } from '@modules/core'
+import { QueryParams } from '@modules/core'
 import { IReportRepository } from '../../domain/irepositories/ireport'
 import { ReportBaseDataSource } from '../datasources/report-base'
 import { ReportTransformer } from '../transformers/report'
-import { ReportFromModel, ReportToModel } from '../models/report'
+import { ReportToModel } from '../models/report'
 
 export class ReportRepository implements IReportRepository {
 	private dataSource: ReportBaseDataSource
@@ -23,13 +23,12 @@ export class ReportRepository implements IReportRepository {
 		else return null
 	}
 
-	async get (conditions?: DatabaseGetClauses) {
-		const models = await this.dataSource.get(conditions)
-		return models.map((model: ReportFromModel) => this.transformer.fromJSON(model))
-	}
-
-	async update (id: string, data: ReportToModel) {
-		return await this.dataSource.update(id, data)
+	async get (query: QueryParams) {
+		const models = await this.dataSource.get(query)
+		return {
+			...models,
+			results: models.results.map(this.transformer.fromJSON)
+		}
 	}
 
 	async delete (id: string) {

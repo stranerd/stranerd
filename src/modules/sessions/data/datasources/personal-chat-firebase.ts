@@ -1,7 +1,7 @@
 import { DatabaseGetClauses, DatabaseService, firebase } from '@modules/core'
 import { getRandomValue } from '@utils/commons'
 import { getChatsPath } from '@utils/constants'
-import { ChatFromModel, ChatMeta, ChatToModel } from '../models/chat'
+import { ChatFromModel, ChatMetaFromModel, ChatToModel } from '../models/chat'
 import { ChatBaseDataSource } from './chat-base'
 
 export class PersonalChatFirebaseDataSource implements ChatBaseDataSource {
@@ -18,12 +18,16 @@ export class PersonalChatFirebaseDataSource implements ChatBaseDataSource {
 		return id
 	}
 
+	// @ts-ignore
 	public async get (path: [string, string], conditions?: DatabaseGetClauses) {
+		// @ts-ignore
 		return await DatabaseService.getMany<ChatFromModel>(`chats/single/${getChatsPath(path)}`, conditions)
 	}
 
+	// @ts-ignore
 	public async getMeta (id: string, conditions?: DatabaseGetClauses) {
-		return await DatabaseService.getMany<ChatMeta>(`chats/meta/${id}`, conditions)
+		// @ts-ignore
+		return await DatabaseService.getMany<ChatMetaFromModel>(`chats/meta/${id}`, conditions)
 	}
 
 	public async find (path: [string, string], id: string) {
@@ -34,8 +38,8 @@ export class PersonalChatFirebaseDataSource implements ChatBaseDataSource {
 		return await DatabaseService.listenToMany<ChatFromModel>(`chats/single/${getChatsPath(path)}`, callback, conditions)
 	}
 
-	public async listenToMeta (id: string, callback: (documents: ChatMeta[]) => void, conditions?: DatabaseGetClauses) {
-		return await DatabaseService.listenToMany<ChatMeta>(`chats/meta/${id}`, callback, conditions)
+	public async listenToMeta (id: string, callback: (documents: ChatMetaFromModel[]) => void, conditions?: DatabaseGetClauses) {
+		return await DatabaseService.listenToMany<ChatMetaFromModel>(`chats/meta/${id}`, callback, conditions)
 	}
 
 	public async markRead (path: [string, string], id: string) {
@@ -43,9 +47,5 @@ export class PersonalChatFirebaseDataSource implements ChatBaseDataSource {
 			[`meta/${path[0]}/${path[1]}/unRead/${id}`]: null,
 			[`single/${getChatsPath(path)}/${id}/readAt`]: firebase.database.ServerValue.TIMESTAMP
 		})
-	}
-
-	public async delete (path: [string, string], id: string) {
-		return await DatabaseService.delete(`chats/single/${getChatsPath(path)}/${id}`)
 	}
 }

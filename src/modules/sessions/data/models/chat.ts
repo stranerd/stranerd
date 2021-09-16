@@ -17,7 +17,7 @@ export interface ChatToModel {
 	to: string
 }
 
-export interface ChatMeta {
+export interface ChatMetaFromModel {
 	id: string
 	unRead: string[]
 	ownerId: string

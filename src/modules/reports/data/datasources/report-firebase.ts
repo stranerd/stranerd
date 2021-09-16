@@ -1,4 +1,4 @@
-import { DatabaseGetClauses, DatabaseService, FunctionsService } from '@modules/core'
+import { DatabaseService, FunctionsService, QueryParams } from '@modules/core'
 import { ReportFromModel, ReportToModel } from '../models/report'
 import { ReportBaseDataSource } from './report-base'
 
@@ -17,12 +17,10 @@ export class ReportFirebaseDataSource implements ReportBaseDataSource {
 		return await DatabaseService.get<ReportFromModel>(`reports/${id}`)
 	}
 
-	async get (conditions?: DatabaseGetClauses) {
-		return await DatabaseService.getMany<ReportFromModel>('reports', conditions)
-	}
-
-	async update (id: string, data: ReportToModel) {
-		return await DatabaseService.update<ReportToModel>(`reports/${id}`, data)
+	// @ts-ignore
+	async get (query?: QueryParams) {
+		// @ts-ignore
+		return await DatabaseService.getMany<ReportFromModel>('reports', query)
 	}
 
 	async delete (id: string) {

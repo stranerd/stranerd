@@ -1,7 +1,7 @@
 import { computed, Ref, ssrRef, useFetch, useRouter, watch } from '@nuxtjs/composition-api'
 import VueRouter from 'vue-router'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
-import { GetSession, GetSessions, ListenToSession, ListenToSessions, SessionEntity } from '@modules/sessions'
+import { FindSession, GetSessions, ListenToSession, ListenToSessions, SessionEntity } from '@modules/sessions'
 import { useAuth } from '@app/hooks/auth/auth'
 import { Alert } from '@app/hooks/core/notifications'
 import { setOtherParticipantId } from '@app/hooks/sessions/sessions'
@@ -26,7 +26,7 @@ export const useCurrentSession = () => {
 
 	const fetchSession = async (userId: string, id: string | null) => {
 		if (id && currentGlobal.currentSession.value?.id !== id) {
-			const session = await GetSession.call(id)
+			const session = await FindSession.call(id)
 			currentGlobal.currentSession.value = session
 			if (session) {
 				const id = userId === session.tutorId ? session.studentId : session.tutorId
@@ -108,8 +108,8 @@ const useSession = (key: SessionKey, router: VueRouter, callback: (key: SessionK
 		try {
 			global[key].setLoading(true)
 			const sessions = await GetSessions.call(sessionIds)
-			callback(key, sessions, id.value!, router)
-			global[key].sessions.value = sessions
+			callback(key, sessions.results, id.value!, router)
+			global[key].sessions.value = sessions.results
 			global[key].fetched.value = true
 		} catch (error) {
 			global[key].setError(error)

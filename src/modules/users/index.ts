@@ -3,7 +3,7 @@ import { RoleFirebaseDataSource } from './data/datasources/role-firebase'
 import { NotificationApiDataSource } from './data/datasources/notification-api'
 import { ReviewFirebaseDataSource } from './data/datasources/review-firebase'
 import { ReferralApiDataSource } from './data/datasources/referral-api'
-import { TransactionFirebaseDataSource } from './data/datasources/transaction-firebase'
+import { TransactionApiDataSource } from './data/datasources/transaction-api'
 import { UserTransformer } from './data/transformers/user'
 import { NotificationTransformer } from './data/transformers/notification'
 import { ReviewTransformer } from './data/transformers/review'
@@ -32,7 +32,6 @@ import { ListenToReviewsUseCase } from './domain/usecases/reviews/listenToReview
 import { GetReferralsUseCase } from './domain/usecases/referrals/getReferrals'
 import { ListenToReferralsUseCase } from './domain/usecases/referrals/listenToReferrals'
 import { GetTransactionsUseCase } from './domain/usecases/transactions/getTransactions'
-import { GetOlderTransactionsUseCase } from './domain/usecases/transactions/getOlderTransactions'
 import { generateDefaultBio, UserBio, UserEntity } from './domain/entities/user'
 import { NotificationEntity } from './domain/entities/notification'
 import { ReviewEntity } from './domain/entities/review'
@@ -44,7 +43,7 @@ const roleDataSource = new RoleFirebaseDataSource()
 const notificationDataSource = new NotificationApiDataSource()
 const reviewDataSource = new ReviewFirebaseDataSource()
 const referralDataSource = new ReferralApiDataSource()
-const transactionDataSource = new TransactionFirebaseDataSource()
+const transactionDataSource = new TransactionApiDataSource()
 
 const userTransformer = new UserTransformer()
 const notificationTransformer = new NotificationTransformer()
@@ -81,7 +80,6 @@ export const GetReferrals = new GetReferralsUseCase(referralRepository)
 export const ListenToReferrals = new ListenToReferralsUseCase(referralRepository)
 
 export const GetTransactions = new GetTransactionsUseCase(transactionRepository)
-export const GetOlderTransactions = new GetOlderTransactionsUseCase(transactionRepository)
 
 export { UserEntity, generateDefaultBio, NotificationEntity, ReviewEntity, TransactionEntity, ReferralEntity }
 export type { UserBio }

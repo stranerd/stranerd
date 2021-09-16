@@ -2,7 +2,7 @@ import { UserApiDataSource } from './data/datasources/user-api'
 import { RoleFirebaseDataSource } from './data/datasources/role-firebase'
 import { NotificationApiDataSource } from './data/datasources/notification-api'
 import { ReviewFirebaseDataSource } from './data/datasources/review-firebase'
-import { ReferralFirebaseDataSource } from './data/datasources/referral-firebase'
+import { ReferralApiDataSource } from './data/datasources/referral-api'
 import { TransactionFirebaseDataSource } from './data/datasources/transaction-firebase'
 import { UserTransformer } from './data/transformers/user'
 import { NotificationTransformer } from './data/transformers/notification'
@@ -43,7 +43,7 @@ const userDataSource = new UserApiDataSource()
 const roleDataSource = new RoleFirebaseDataSource()
 const notificationDataSource = new NotificationApiDataSource()
 const reviewDataSource = new ReviewFirebaseDataSource()
-const referralDataSource = new ReferralFirebaseDataSource()
+const referralDataSource = new ReferralApiDataSource()
 const transactionDataSource = new TransactionFirebaseDataSource()
 
 const userTransformer = new UserTransformer()

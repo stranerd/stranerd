@@ -50,5 +50,6 @@ export const logo = `${domain}/images/logo-blue.svg`
 
 export const apiBases = {
 	AUTH: 'http://localhost:80/api/auth',
-	STRANERD: 'http://localhost:80/api/stranerd'
+	STRANERD: 'http://localhost:80/api/stranerd',
+	STORAGE: 'http://localhost:80/api/storage'
 }

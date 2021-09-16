@@ -31,14 +31,3 @@ export const analytics = isClient()
 		}
 	} as unknown as firebase.analytics.Analytics
 export type Timestamp = firebase.firestore.Timestamp
-
-export const uploadFile = async (path: string, file: File) => {
-	try {
-		path = `${path}/${Date.now()}_${file.name}`
-		await storage.ref(path).put(file)
-		const link = await storage.ref(path).getDownloadURL()
-		return { name: file.name, path, link, type: file.type }
-	} catch {
-		throw new Error(`Error uploading ${file.name}`)
-	}
-}

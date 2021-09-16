@@ -1,4 +1,4 @@
-import { DatabaseGetClauses, DatabaseService, HttpClient, QueryParams, QueryResults } from '@modules/core'
+import { HttpClient, Listeners, listenOnSocket, QueryParams, QueryResults } from '@modules/core'
 import { apiBases } from '@utils/environment'
 import { NotificationFromModel } from '../models/notification'
 import { NotificationBaseDataSource } from './notification-base'
@@ -18,8 +18,12 @@ export class NotificationApiDataSource implements NotificationBaseDataSource {
 		return await this.stranerdClient.get<QueryParams, QueryResults<NotificationFromModel>>('/notifications', query)
 	}
 
-	async listen (userId: string, callback: (documents: NotificationFromModel[]) => void, conditions?: DatabaseGetClauses) {
-		return await DatabaseService.listenToMany<NotificationFromModel>(`users/${userId}/notifications`, callback, conditions)
+	async listenToOne (_: string, id: string, listener: Listeners<NotificationFromModel>) {
+		return listenOnSocket(`notifications/${id}`, listener)
+	}
+
+	async listenToMany (_: string, listener: Listeners<NotificationFromModel>) {
+		return listenOnSocket('notifications', listener)
 	}
 
 	async markSeen (_: string, id: string, seen: boolean) {

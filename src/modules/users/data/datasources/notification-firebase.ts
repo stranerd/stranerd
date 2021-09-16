@@ -1,4 +1,4 @@
-import { DatabaseGetClauses, DatabaseService, QueryParams } from '@modules/core'
+import { DatabaseService, Listeners, QueryParams } from '@modules/core'
 import { NotificationFromModel } from '../models/notification'
 import { NotificationBaseDataSource } from './notification-base'
 
@@ -13,8 +13,14 @@ export class NotificationFirebaseDataSource implements NotificationBaseDataSourc
 		return await DatabaseService.getMany<NotificationFromModel>(`users/${userId}/notifications`, query)
 	}
 
-	async listen (userId: string, callback: (documents: NotificationFromModel[]) => void, conditions?: DatabaseGetClauses) {
-		return await DatabaseService.listenToMany<NotificationFromModel>(`users/${userId}/notifications`, callback, conditions)
+	async listenToOne (userId: string, id: string, listener: Listeners<NotificationFromModel>) {
+		// @ts-ignore
+		return await DatabaseService.listenToMany<NotificationFromModel>(`users/${userId}/notifications/${id}`, listener)
+	}
+
+	async listenToMany (userId: string, listener: Listeners<NotificationFromModel>) {
+		// @ts-ignore
+		return await DatabaseService.listenToMany<NotificationFromModel>(`users/${userId}/notifications`, listener)
 	}
 
 	async markSeen (userId: string, id: string, seen: boolean) {

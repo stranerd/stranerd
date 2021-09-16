@@ -29,11 +29,18 @@ export const useNotificationList = () => {
 		const listener = useListener(async () => {
 			if (!id.value) return () => {
 			}
-			const appendNotifications = (notifications: NotificationEntity[]) => {
-				notifications.forEach((notification) => unshiftToNotificationList(userId, notification))
-			}
-			const date = global[userId].notifications.value[0]?.createdAt
-			return ListenToNotifications.call(userId, appendNotifications, date)
+			return ListenToNotifications.call(userId, {
+				created: async (entity) => {
+					unshiftToNotificationList(userId, entity)
+				},
+				updated: async (entity) => {
+					unshiftToNotificationList(userId, entity)
+				},
+				deleted: async (entity) => {
+					const index = global[userId].notifications.value.findIndex((t) => t.id === entity.id)
+					if (index !== -1) global[userId].notifications.value.splice(index, 1)
+				}
+			})
 		})
 		global[userId] = {
 			notifications: ssrRef([]),

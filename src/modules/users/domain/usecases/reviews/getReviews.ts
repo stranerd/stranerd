@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core'
+import { Conditions, QueryParams } from '@modules/core'
 import { PAGINATION_LIMIT } from '@utils/constants'
 import { IReviewRepository } from '../../irepositories/ireview'
 
@@ -10,11 +10,11 @@ export class GetReviewsUseCase {
 	}
 
 	async call (userId: string, date?: number) {
-		const conditions: DatabaseGetClauses = {
-			order: { field: 'dates/createdAt' },
-			limit: { count: PAGINATION_LIMIT + 1, bottom: true }
+		const conditions: QueryParams = {
+			sort: { field: 'createdAt', order: -1 },
+			limit: PAGINATION_LIMIT
 		}
-		if (date) conditions!.order!.condition = { '<': date }
+		if (date) conditions.where = [{ field: 'createdAt', condition: Conditions.lt, value: date }]
 		return await this.repository.get(userId, conditions)
 	}
 }

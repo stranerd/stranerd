@@ -1,8 +1,8 @@
-import { DatabaseGetClauses } from '@modules/core'
+import { DatabaseGetClauses, QueryParams } from '@modules/core'
 import { IReviewRepository } from '../../domain/irepositories/ireview'
 import { ReviewBaseDataSource } from '../datasources/review-base'
 import { ReviewTransformer } from '../transformers/review'
-import { ReviewFromModel } from '../models/review'
+import { ReviewFromModel, ReviewToModel } from '../models/review'
 import { ReviewEntity } from '../../domain/entities/review'
 
 export class ReviewRepository implements IReviewRepository {
@@ -14,9 +14,16 @@ export class ReviewRepository implements IReviewRepository {
 		this.transformer = transformer
 	}
 
-	async get (userId: string, conditions?: DatabaseGetClauses) {
-		const models = await this.dataSource.get(userId, conditions)
-		return models.map((model: ReviewFromModel) => this.transformer.fromJSON(model))
+	async create (data: ReviewToModel) {
+		return this.dataSource.create(data)
+	}
+
+	async get (userId: string, query: QueryParams) {
+		const models = await this.dataSource.get(userId, query)
+		return {
+			...models,
+			results: models.results.map(this.transformer.fromJSON)
+		}
 	}
 
 	async listen (userId: string, callback: (entities: ReviewEntity[]) => void, conditions?: DatabaseGetClauses) {

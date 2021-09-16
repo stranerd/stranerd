@@ -13,8 +13,4 @@ export class MetaFirebaseDataSource implements MetaBaseDataSource {
 	async tipTutor (data: { amount: number, tutorId: string }) {
 		return await FunctionsService.call('tipTutor', data)
 	}
-
-	async rateTutor (data: { rating: number, review: string | undefined, tutorId: string }) {
-		return await FunctionsService.call('rateTutor', data)
-	}
 }

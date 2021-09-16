@@ -1,7 +1,7 @@
 import { UserApiDataSource } from './data/datasources/user-api'
 import { RoleFirebaseDataSource } from './data/datasources/role-firebase'
 import { NotificationApiDataSource } from './data/datasources/notification-api'
-import { ReviewFirebaseDataSource } from './data/datasources/review-firebase'
+import { ReviewApiDataSource } from './data/datasources/review-api'
 import { ReferralApiDataSource } from './data/datasources/referral-api'
 import { TransactionApiDataSource } from './data/datasources/transaction-api'
 import { UserTransformer } from './data/transformers/user'
@@ -29,6 +29,7 @@ import { ListenToNotificationsUseCase } from './domain/usecases/notifications/li
 import { MarkNotificationSeenUseCase } from './domain/usecases/notifications/markNotificationSeen'
 import { GetReviewsUseCase } from './domain/usecases/reviews/getReviews'
 import { ListenToReviewsUseCase } from './domain/usecases/reviews/listenToReviews'
+import { CreateReviewUseCase } from './domain/usecases/reviews/createReview'
 import { GetReferralsUseCase } from './domain/usecases/referrals/getReferrals'
 import { ListenToReferralsUseCase } from './domain/usecases/referrals/listenToReferrals'
 import { GetTransactionsUseCase } from './domain/usecases/transactions/getTransactions'
@@ -41,7 +42,7 @@ import { TransactionEntity } from './domain/entities/transaction'
 const userDataSource = new UserApiDataSource()
 const roleDataSource = new RoleFirebaseDataSource()
 const notificationDataSource = new NotificationApiDataSource()
-const reviewDataSource = new ReviewFirebaseDataSource()
+const reviewDataSource = new ReviewApiDataSource()
 const referralDataSource = new ReferralApiDataSource()
 const transactionDataSource = new TransactionApiDataSource()
 
@@ -73,6 +74,7 @@ export const GetNotifications = new GetNotificationsUseCase(notificationReposito
 export const ListenToNotifications = new ListenToNotificationsUseCase(notificationRepository)
 export const MarkNotificationSeen = new MarkNotificationSeenUseCase(notificationRepository)
 
+export const CreateReview = new CreateReviewUseCase(reviewRepository)
 export const GetReviews = new GetReviewsUseCase(reviewRepository)
 export const ListenToReviews = new ListenToReviewsUseCase(reviewRepository)
 

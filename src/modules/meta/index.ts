@@ -5,7 +5,6 @@ import { MessageRepository } from './data/repositories/message'
 import { MakeStripePaymentUseCase } from './domain/usecases/meta/makeStripePayment'
 import { BuyCoinsUseCase } from './domain/usecases/meta/buyCoins'
 import { TipTutorUseCase } from './domain/usecases/meta/tipTutor'
-import { RateTutorUseCase } from './domain/usecases/meta/rateTutor'
 import { AddMessageUseCase } from './domain/usecases/messages/addMessage'
 import { MessageFactory } from './domain/factories/message'
 
@@ -17,7 +16,6 @@ const metaRepository = new MetaRepository(metaDataSource)
 export const MakeStripePayment = new MakeStripePaymentUseCase(metaRepository)
 export const BuyCoins = new BuyCoinsUseCase(metaRepository)
 export const TipTutor = new TipTutorUseCase(metaRepository)
-export const RateTutor = new RateTutorUseCase(metaRepository)
 
 const messageRepository = new MessageRepository(messageDataSource)
 

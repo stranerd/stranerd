@@ -1,7 +1,6 @@
 import { computed, Ref, ref, ssrRef, useRouter } from '@nuxtjs/composition-api'
 import { AddSession, BeginSession, CancelSession, SessionFactory } from '@modules/sessions'
-import { UserBio } from '@modules/users'
-import { RateTutor } from '@modules/meta'
+import { CreateReview, UserBio } from '@modules/users'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useSessionModal } from '@app/hooks/core/modals'
@@ -137,7 +136,11 @@ export const useRateSession = () => {
 			setError('')
 			setLoading(true)
 			try {
-				await RateTutor.call(otherParticipantId, rating.value, review.value)
+				await CreateReview.call({
+					tutorId: otherParticipantId,
+					rating: rating.value,
+					review: review.value
+				})
 				useSessionModal().closeRatings()
 			} catch (error) {
 				setError(error)

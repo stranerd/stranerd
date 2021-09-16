@@ -1,6 +1,5 @@
 import { Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import { GetReviews, ReviewEntity } from '@modules/users'
-import { PAGINATION_LIMIT } from '@utils/constants'
 import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 
 const global = {} as Record<string, {
@@ -31,8 +30,8 @@ export const useUserReviewList = (id: string) => {
 			global[id].setLoading(true)
 			const lastDate = global[id].reviews.value[global[id].reviews.value.length - 1]?.createdAt
 			const reviews = await GetReviews.call(id, lastDate)
-			global[id].hasMore.value = reviews.length === PAGINATION_LIMIT + 1
-			reviews.slice(0, PAGINATION_LIMIT).forEach((a) => pushToReviewList(id, a))
+			global[id].hasMore.value = !!reviews.pages.next
+			reviews.results.forEach((a) => pushToReviewList(id, a))
 			global[id].fetched.value = true
 		} catch (error) {
 			global[id].setError(error)

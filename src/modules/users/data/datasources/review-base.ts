@@ -1,7 +1,8 @@
-import { DatabaseGetClauses } from '@modules/core'
-import { ReviewFromModel } from '../models/review'
+import { DatabaseGetClauses, QueryParams, QueryResults } from '@modules/core'
+import { ReviewFromModel, ReviewToModel } from '../models/review'
 
 export abstract class ReviewBaseDataSource {
-	abstract get: (user: string, condition?: DatabaseGetClauses) => Promise<ReviewFromModel[]>
+	abstract create: (data: ReviewToModel) => Promise<string>
+	abstract get: (user: string, query: QueryParams) => Promise<QueryResults<ReviewFromModel>>
 	abstract listen: (user: string, callback: (documents: ReviewFromModel[]) => void, condition?: DatabaseGetClauses) => Promise<() => void>
 }

@@ -1,4 +1,4 @@
-import { HttpClient, QueryParams, QueryResults } from '@modules/core'
+import { HttpClient, Listeners, listenOnSocket, QueryParams, QueryResults } from '@modules/core'
 import { apiBases } from '@utils/environment'
 import { ReportFromModel, ReportToModel } from '../models/report'
 import { ReportBaseDataSource } from './report-base'
@@ -25,5 +25,13 @@ export class ReportApiDataSource implements ReportBaseDataSource {
 
 	async delete (id: string) {
 		await this.stranerdClient.delete<{}, boolean>(`/reports/${id}`, {})
+	}
+
+	async listenToOne (id: string, listener: Listeners<ReportFromModel>) {
+		return listenOnSocket(`reports/${id}`, listener)
+	}
+
+	async listenToMany (listener: Listeners<ReportFromModel>) {
+		return listenOnSocket('reports', listener)
 	}
 }

@@ -1,4 +1,4 @@
-import { DatabaseService, FunctionsService, QueryParams } from '@modules/core'
+import { DatabaseService, FunctionsService, Listeners, QueryParams } from '@modules/core'
 import { ReportFromModel, ReportToModel } from '../models/report'
 import { ReportBaseDataSource } from './report-base'
 
@@ -21,6 +21,16 @@ export class ReportFirebaseDataSource implements ReportBaseDataSource {
 	async get (query?: QueryParams) {
 		// @ts-ignore
 		return await DatabaseService.getMany<ReportFromModel>('reports', query)
+	}
+
+	async listenToOne (id: string, listener: Listeners<ReportFromModel>) {
+		// @ts-ignore
+		return await DatabaseService.listenToMany<ReportFromModel>(`reports/${id}`, listener)
+	}
+
+	async listenToMany (listener: Listeners<ReportFromModel>) {
+		// @ts-ignore
+		return await DatabaseService.listenToMany<ReportFromModel>('reports', listener)
 	}
 
 	async delete (id: string) {

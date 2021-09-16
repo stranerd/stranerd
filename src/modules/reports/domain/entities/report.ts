@@ -69,17 +69,17 @@ export class QuestionReportEntity extends ReportEntity<QuestionReportType> {
 export class AnswerReportEntity extends ReportEntity<AnswerReportType> {
 }
 
-type UserReportType = {
+export type UserReportType = {
 	type: ReportType.users,
 	reported: { bio: UserBio, userId: string }
 }
 
-type QuestionReportType = {
+export type QuestionReportType = {
 	type: ReportType.questions,
 	reported: { body: string, userId: string }
 }
 
-type AnswerReportType = {
+export type AnswerReportType = {
 	type: ReportType.answers,
 	reported: { title: string, body: string, questionId: string, userId: string }
 }

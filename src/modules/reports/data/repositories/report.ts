@@ -1,10 +1,11 @@
-import { QueryParams } from '@modules/core'
+import { Listeners, QueryParams } from '@modules/core'
 import { IReportRepository } from '../../domain/irepositories/ireport'
 import { ReportBaseDataSource } from '../datasources/report-base'
 import { ReportTransformer } from '../transformers/report'
 import { ReportToModel } from '../models/report'
+import { ReportEntity } from '../../domain/entities/report'
 
-export class ReportRepository implements IReportRepository {
+export class ReportRepository<Type> implements IReportRepository {
 	private dataSource: ReportBaseDataSource
 	private transformer: ReportTransformer
 
@@ -33,5 +34,33 @@ export class ReportRepository implements IReportRepository {
 
 	async delete (id: string) {
 		return await this.dataSource.delete(id)
+	}
+
+	async listenToOne (id: string, listener: Listeners<ReportEntity<Type>>) {
+		return this.dataSource.listenToOne(id, {
+			created: async (model) => {
+				await listener.created(this.transformer.fromJSON(model))
+			},
+			updated: async (model) => {
+				await listener.updated(this.transformer.fromJSON(model))
+			},
+			deleted: async (model) => {
+				await listener.deleted(this.transformer.fromJSON(model))
+			}
+		})
+	}
+
+	async listenToMany (listener: Listeners<ReportEntity<Type>>) {
+		return this.dataSource.listenToMany({
+			created: async (model) => {
+				await listener.created(this.transformer.fromJSON(model))
+			},
+			updated: async (model) => {
+				await listener.updated(this.transformer.fromJSON(model))
+			},
+			deleted: async (model) => {
+				await listener.deleted(this.transformer.fromJSON(model))
+			}
+		})
 	}
 }

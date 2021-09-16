@@ -1,9 +1,9 @@
-import { Conditions, QueryParams } from '@modules/core'
+import { Conditions, QueryParams, QueryResults } from '@modules/core'
 import { PAGINATION_LIMIT } from '@utils/constants'
 import { IReportRepository } from '../irepositories/ireport'
-import { ReportType } from '../entities/report'
+import { ReportEntity, ReportType } from '../entities/report'
 
-export class GetReportsUseCase {
+export class GetReportsUseCase<Type> {
 	private repository: IReportRepository
 	private readonly type: ReportType
 
@@ -12,7 +12,7 @@ export class GetReportsUseCase {
 		this.type = type
 	}
 
-	async call (date?: number) {
+	async call (date?: number): Promise<QueryResults<ReportEntity<Type>>> {
 		const conditions: QueryParams = {
 			sort: { field: 'createdAt' },
 			limit: PAGINATION_LIMIT,

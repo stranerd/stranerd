@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core'
+import { QueryParams } from '@modules/core'
 import { IReportRepository } from '../../domain/irepositories/ireport'
 import { ReportBaseDataSource } from '../datasources/report-base'
 import { ReportTransformer } from '../transformers/report'
@@ -23,8 +23,8 @@ export class ReportRepository implements IReportRepository {
 		else return null
 	}
 
-	async get (conditions?: DatabaseGetClauses) {
-		const models = await this.dataSource.get(conditions)
+	async get (query: QueryParams) {
+		const models = await this.dataSource.get(query)
 		return models.map((model: ReportFromModel) => this.transformer.fromJSON(model))
 	}
 

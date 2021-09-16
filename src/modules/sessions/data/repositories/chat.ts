@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core'
+import { DatabaseGetClauses, QueryParams } from '@modules/core'
 import { ChatBaseDataSource } from '../datasources/chat-base'
 import { ChatTransformer } from '../transformers/chat'
 import { IChatRepository } from '../../domain/irepositories/ichat'
@@ -15,28 +15,28 @@ export class ChatRepository implements IChatRepository {
 		this.transformer = transformer
 	}
 
-	async add (path: [string, string], data: ChatToModel) {
-		return await this.dataSource.create(path, data)
+	async add (data: ChatToModel) {
+		return await this.dataSource.create(data)
 	}
 
-	async get (path: [string, string], conditions?: DatabaseGetClauses) {
-		const models = await this.dataSource.get(path, conditions)
+	async get (query: QueryParams) {
+		const models = await this.dataSource.get(query)
 		return models.map(this.transformer.fromJSON)
 	}
 
-	async getMeta (id: string, conditions?: DatabaseGetClauses) {
-		const models = await this.dataSource.getMeta(id, conditions)
+	async getMeta (query: QueryParams) {
+		const models = await this.dataSource.getMeta(query)
 		return models.map(this.transformer.metaFromJSON)
 	}
 
-	async find (path: [string, string], id: string) {
-		const model = await this.dataSource.find(path, id)
+	async find (id: string) {
+		const model = await this.dataSource.find(id)
 		return model ? this.transformer.fromJSON(model) : model
 	}
 
-	async listen (path: [string, string], callback: (entities: ChatEntity[]) => void, conditions?: DatabaseGetClauses) {
+	async listen (callback: (entities: ChatEntity[]) => void, conditions?: DatabaseGetClauses) {
 		const listenCB = (documents: ChatFromModel[]) => callback(documents.map(this.transformer.fromJSON))
-		return await this.dataSource.listen(path, listenCB, conditions)
+		return await this.dataSource.listen(listenCB, conditions)
 	}
 
 	async listenToMeta (id: string, callback: (entities: ChatMetaEntity[]) => void, conditions?: DatabaseGetClauses) {
@@ -44,11 +44,11 @@ export class ChatRepository implements IChatRepository {
 		return await this.dataSource.listenToMeta(id, listenCB, conditions)
 	}
 
-	async markRead (path: [string, string], id: string) {
-		await this.dataSource.markRead(path, id)
+	async markRead (chatId: string, to: string) {
+		await this.dataSource.markRead(chatId, to)
 	}
 
-	async delete (path: [string, string], id: string) {
-		return await this.dataSource.delete(path, id)
+	async delete (id: string) {
+		return await this.dataSource.delete(id)
 	}
 }

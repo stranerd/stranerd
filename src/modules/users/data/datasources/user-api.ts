@@ -1,4 +1,4 @@
-import { DatabaseGetClauses, DatabaseService, HttpClient, QueryParams, QueryResults } from '@modules/core'
+import { HttpClient, Listeners, listenOnSocket, QueryParams, QueryResults } from '@modules/core'
 import { apiBases } from '@utils/environment'
 import { UserBaseDataSource } from '../datasources/user-base'
 import { UserFromModel } from '../models/user'
@@ -18,12 +18,12 @@ export class UserApiDataSource implements UserBaseDataSource {
 		return await this.stranerdClient.get<QueryParams, QueryResults<UserFromModel>>('/users', query)
 	}
 
-	async listen (id: string, callback: (model: UserFromModel | null) => void, updateStatus = false) {
-		return await DatabaseService.listen<UserFromModel>(`profiles/${id}`, callback, undefined, updateStatus)
+	async listenToOne (id: string, listeners: Listeners<UserFromModel>) {
+		return listenOnSocket(`users/${id}`, listeners)
 	}
 
-	async listenToMany (callback: (models: UserFromModel[]) => void, conditions?: DatabaseGetClauses) {
-		return await DatabaseService.listenToMany<UserFromModel>('profiles', callback, conditions)
+	async listenToMany (listeners: Listeners<UserFromModel>) {
+		return listenOnSocket('users', listeners)
 	}
 
 	async updateStreak () {

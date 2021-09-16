@@ -45,8 +45,10 @@ export const useUser = (userId: string) => {
 			return () => {
 			}
 		}
-		const callback = (user: UserEntity | null) => global[userId].user.value = user
-		return await ListenToUser.call(userId, callback)
+		const callback = async (user: UserEntity) => {
+			global[userId].user.value = user
+		}
+		return await ListenToUser.call(userId, { created: callback, updated: callback, deleted: callback })
 	})
 
 	return {

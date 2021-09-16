@@ -40,10 +40,19 @@ export const useTutorsList = () => {
 		}
 	})
 	const listener = useListener(async () => {
-		const appendTutors = (tutors: UserEntity[]) => {
-			global.tutors.value = tutors
-		}
-		return await ListenToAllSessionTutors.call(appendTutors)
+		return await ListenToAllSessionTutors.call({
+			created: async (entity) => {
+				global.tutors.value.push(entity)
+			},
+			updated: async (entity) => {
+				const index = global.tutors.value.findIndex((t) => t.id === entity.id)
+				global.tutors.value.splice(index, 1, entity)
+			},
+			deleted: async (entity) => {
+				const index = global.tutors.value.findIndex((t) => t.id === entity.id)
+				global.tutors.value.splice(index, 1)
+			}
+		})
 	})
 
 	useFetch(async () => {

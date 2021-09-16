@@ -1,4 +1,4 @@
-import { DatabaseGetClauses, DatabaseService, FunctionsService, QueryParams } from '@modules/core'
+import { DatabaseService, FunctionsService, Listeners, QueryParams } from '@modules/core'
 import { UserBaseDataSource } from '../datasources/user-base'
 import { UserFromModel } from '../models/user'
 
@@ -17,8 +17,14 @@ export class UserFirebaseDataSource implements UserBaseDataSource {
 		return await DatabaseService.listen<UserFromModel>(`profiles/${id}`, callback, undefined, updateStatus)
 	}
 
-	async listenToMany (callback: (models: UserFromModel[]) => void, conditions?: DatabaseGetClauses) {
-		return await DatabaseService.listenToMany<UserFromModel>('profiles', callback, conditions)
+	async listenToOne (id: string, listener: Listeners<UserFromModel>) {
+		// @ts-ignore
+		return await DatabaseService.listenToMany<UserFromModel>(`profiles/${id}`, listener)
+	}
+
+	async listenToMany (listener: Listeners<UserFromModel>) {
+		// @ts-ignore
+		return await DatabaseService.listenToMany<UserFromModel>('profiles', listener)
 	}
 
 	async updateStreak () {

@@ -1,8 +1,7 @@
-import { DatabaseGetClauses, QueryParams } from '@modules/core'
+import { Listeners, QueryParams } from '@modules/core'
 import { IUserRepository } from '../../domain/irepositories/iuser'
 import { UserBaseDataSource } from '../datasources/user-base'
 import { UserTransformer } from '../transformers/user'
-import { UserFromModel } from '../models/user'
 import { UserEntity } from '../../domain/entities/user'
 
 export class UserRepository implements IUserRepository {
@@ -28,19 +27,32 @@ export class UserRepository implements IUserRepository {
 		}
 	}
 
-	async listen (id: string, callback: (entity: UserEntity | null) => void, updateStatus = false) {
-		const cb = (model: UserFromModel | null) => {
-			const user = model ? this.transformer.fromJSON(model) : null
-			callback(user)
-		}
-		return this.dataSource.listen(id, cb, updateStatus)
+	async listenToOne (id: string, listener: Listeners<UserEntity>) {
+		return this.dataSource.listenToOne(id, {
+			created: async (model) => {
+				await listener.created(this.transformer.fromJSON(model))
+			},
+			updated: async (model) => {
+				await listener.updated(this.transformer.fromJSON(model))
+			},
+			deleted: async (model) => {
+				await listener.deleted(this.transformer.fromJSON(model))
+			}
+		})
 	}
 
-	async listenToMany (callback: (entities: UserEntity[]) => void, conditions?: DatabaseGetClauses) {
-		const cb = (models: UserFromModel[]) => {
-			callback(models.map(this.transformer.fromJSON))
-		}
-		return this.dataSource.listenToMany(cb, conditions)
+	async listenToMany (listener: Listeners<UserEntity>) {
+		return this.dataSource.listenToMany({
+			created: async (model) => {
+				await listener.created(this.transformer.fromJSON(model))
+			},
+			updated: async (model) => {
+				await listener.updated(this.transformer.fromJSON(model))
+			},
+			deleted: async (model) => {
+				await listener.deleted(this.transformer.fromJSON(model))
+			}
+		})
 	}
 
 	async updateStreak () {

@@ -1,3 +1,5 @@
+import { EmitTypes } from '@modules/core/services/sockets'
+
 export interface FirestoreWhereCondition {
 	field: string
 	condition: '<' | '<=' | '==' | '>=' | '>' | 'array-contains' | 'in' | 'array-contains-any'
@@ -28,4 +30,10 @@ export interface DatabaseGetClauses {
 			'=='?: any
 		}
 	}
+}
+
+export type Listeners<Model> = {
+	[EmitTypes.created]: (model: Model) => Promise<void>
+	[EmitTypes.updated]: (model: Model) => Promise<void>
+	[EmitTypes.deleted]: (model: Model) => Promise<void>
 }

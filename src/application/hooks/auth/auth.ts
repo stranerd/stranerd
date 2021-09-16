@@ -62,9 +62,11 @@ export const useAuth = () => {
 		if (global.listener) global.listener()
 
 		const id = global.auth.value?.id
-		const setUser = (user: UserEntity | null) => global.user.value = user
+		const setUser = async (user: UserEntity) => {
+			global.user.value = user
+		}
 		if (id) {
-			global.listener = await ListenToUser.call(id, setUser, true)
+			global.listener = await ListenToUser.call(id, { created: setUser, updated: setUser, deleted: setUser })
 			await UpdateStreak.call().catch(() => {
 			})
 		}

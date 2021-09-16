@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core'
+import { Listeners } from '@modules/core'
 import { IUserRepository } from '../../irepositories/iuser'
 import { UserEntity } from '../../entities/user'
 import { Ranks } from '../../entities/rank'
@@ -10,10 +10,17 @@ export class ListenToAllSessionTutorsUseCase {
 		this.repository = repository
 	}
 
-	async call (callback: (entities: UserEntity[]) => void) {
-		const conditions: DatabaseGetClauses = {
-			order: { field: 'account/rank', condition: { '>=': Ranks.Scholar.level } }
-		}
-		return await this.repository.listenToMany(callback, conditions)
+	async call (listener: Listeners<UserEntity>) {
+		return await this.repository.listenToMany({
+			created: async (entity) => {
+				if (entity.rank.level >= Ranks.Scholar.level) await listener.created(entity)
+			},
+			updated: async (entity) => {
+				if (entity.rank.level >= Ranks.Scholar.level) await listener.updated(entity)
+			},
+			deleted: async (entity) => {
+				if (entity.rank.level >= Ranks.Scholar.level) await listener.deleted(entity)
+			}
+		})
 	}
 }

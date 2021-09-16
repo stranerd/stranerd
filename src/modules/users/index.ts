@@ -1,5 +1,5 @@
 import { UserApiDataSource } from './data/datasources/user-api'
-import { RoleFirebaseDataSource } from './data/datasources/role-firebase'
+import { RoleApiDataSource } from './data/datasources/role-api'
 import { NotificationApiDataSource } from './data/datasources/notification-api'
 import { ReviewApiDataSource } from './data/datasources/review-api'
 import { ReferralApiDataSource } from './data/datasources/referral-api'
@@ -40,7 +40,7 @@ import { ReferralEntity } from './domain/entities/referral'
 import { TransactionEntity } from './domain/entities/transaction'
 
 const userDataSource = new UserApiDataSource()
-const roleDataSource = new RoleFirebaseDataSource()
+const roleDataSource = new RoleApiDataSource()
 const notificationDataSource = new NotificationApiDataSource()
 const reviewDataSource = new ReviewApiDataSource()
 const referralDataSource = new ReferralApiDataSource()

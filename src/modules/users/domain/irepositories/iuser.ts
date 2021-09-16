@@ -1,12 +1,10 @@
-import { DatabaseGetClauses } from '@modules/core'
+import { DatabaseGetClauses, QueryParams, QueryResults } from '@modules/core'
 import { UserEntity } from '../entities/user'
-import { UserToModel } from '../../data/models/user'
 
 export interface IUserRepository {
 	find: (id: string) => Promise<UserEntity | null>,
-	get: (conditions?: DatabaseGetClauses) => Promise<UserEntity[]>
+	get: (query: QueryParams) => Promise<QueryResults<UserEntity>>
 	listen: (id: string, callback: (entity: UserEntity | null) => void, updateStatus: boolean) => Promise<() => void>
 	listenToMany: (callback: (entities: UserEntity[]) => void, conditions?: DatabaseGetClauses) => Promise<() => void>
-	update: (id: string, data: Partial<UserToModel>) => Promise<string>
 	updateStreak: () => Promise<void>
 }

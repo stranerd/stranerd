@@ -15,7 +15,8 @@ export const useTutorsList = () => {
 		global.setError('')
 		try {
 			global.setLoading(true)
-			global.tutors.value = await GetAllSessionTutors.call()
+			const tutors = await GetAllSessionTutors.call()
+			global.tutors.value = tutors.results
 			global.fetched.value = true
 		} catch (error) {
 			global.setError(error)

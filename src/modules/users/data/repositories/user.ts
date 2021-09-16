@@ -1,8 +1,8 @@
-import { DatabaseGetClauses } from '@modules/core'
+import { DatabaseGetClauses, QueryParams } from '@modules/core'
 import { IUserRepository } from '../../domain/irepositories/iuser'
 import { UserBaseDataSource } from '../datasources/user-base'
 import { UserTransformer } from '../transformers/user'
-import { UserFromModel, UserToModel } from '../models/user'
+import { UserFromModel } from '../models/user'
 import { UserEntity } from '../../domain/entities/user'
 
 export class UserRepository implements IUserRepository {
@@ -20,9 +20,12 @@ export class UserRepository implements IUserRepository {
 		else return null
 	}
 
-	async get (conditions?: DatabaseGetClauses) {
-		const models = await this.dataSource.get(conditions)
-		return models.map(this.transformer.fromJSON)
+	async get (query: QueryParams) {
+		const models = await this.dataSource.get(query)
+		return {
+			...models,
+			results: models.results.map(this.transformer.fromJSON)
+		}
 	}
 
 	async listen (id: string, callback: (entity: UserEntity | null) => void, updateStatus = false) {
@@ -38,10 +41,6 @@ export class UserRepository implements IUserRepository {
 			callback(models.map(this.transformer.fromJSON))
 		}
 		return this.dataSource.listenToMany(cb, conditions)
-	}
-
-	async update (id: string, data: Partial<UserToModel>) {
-		return this.dataSource.update(id, data)
 	}
 
 	async updateStreak () {

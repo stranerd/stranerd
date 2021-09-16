@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core'
+import { Conditions } from '@modules/core'
 import { IUserRepository } from '../../irepositories/iuser'
 import { Ranks } from '../../entities/rank'
 
@@ -10,9 +10,9 @@ export class GetAllSessionTutorsUseCase {
 	}
 
 	async call () {
-		const conditions: DatabaseGetClauses = {
-			order: { field: 'account/rank', condition: { '>=': Ranks.Scholar.level } }
-		}
-		return await this.repository.get(conditions)
+		return await this.repository.get({
+			where: [{ field: 'account.rank', condition: Conditions.gte, value: Ranks.Scholar.level }],
+			all: true
+		})
 	}
 }

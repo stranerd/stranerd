@@ -1,11 +1,10 @@
-import { DatabaseGetClauses } from '@modules/core'
-import { UserFromModel, UserToModel } from '../models/user'
+import { DatabaseGetClauses, QueryParams, QueryResults } from '@modules/core'
+import { UserFromModel } from '../models/user'
 
 export abstract class UserBaseDataSource {
 	abstract find: (id: string) => Promise<UserFromModel | null>
-	abstract get: (condition?: DatabaseGetClauses) => Promise<UserFromModel[]>
+	abstract get: (query: QueryParams) => Promise<QueryResults<UserFromModel>>
 	abstract listen: (id: string, callback: (user: UserFromModel | null) => void, updateStatus: boolean) => Promise<() => void>
 	abstract listenToMany: (callback: (users: UserFromModel[]) => void, condition?: DatabaseGetClauses) => Promise<() => void>
-	abstract update: (id: string, data: Partial<UserToModel>) => Promise<string>
 	abstract updateStreak: () => Promise<void>
 }

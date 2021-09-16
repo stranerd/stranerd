@@ -1,6 +1,6 @@
 import { UserApiDataSource } from './data/datasources/user-api'
 import { RoleFirebaseDataSource } from './data/datasources/role-firebase'
-import { NotificationFirebaseDataSource } from './data/datasources/notification-firebase'
+import { NotificationApiDataSource } from './data/datasources/notification-api'
 import { ReviewFirebaseDataSource } from './data/datasources/review-firebase'
 import { ReferralFirebaseDataSource } from './data/datasources/referral-firebase'
 import { TransactionFirebaseDataSource } from './data/datasources/transaction-firebase'
@@ -41,7 +41,7 @@ import { TransactionEntity } from './domain/entities/transaction'
 
 const userDataSource = new UserApiDataSource()
 const roleDataSource = new RoleFirebaseDataSource()
-const notificationDataSource = new NotificationFirebaseDataSource()
+const notificationDataSource = new NotificationApiDataSource()
 const reviewDataSource = new ReviewFirebaseDataSource()
 const referralDataSource = new ReferralFirebaseDataSource()
 const transactionDataSource = new TransactionFirebaseDataSource()

@@ -1,7 +1,7 @@
 import { BaseEntity } from '@modules/core'
 import { generateDefaultBio, UserBio } from '@modules/users'
 
-type Type = {
+export type Type = {
 	type: ReportType,
 	reported: Record<string, any>
 }

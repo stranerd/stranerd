@@ -1,3 +1,3 @@
 export abstract class FormBaseDataSource<To> {
-	abstract create: (data: To) => Promise<string>
+	abstract create: (data: To) => Promise<void>
 }

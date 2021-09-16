@@ -5,7 +5,7 @@ import { ReportTransformer } from '../transformers/report'
 import { ReportToModel } from '../models/report'
 import { ReportEntity } from '../../domain/entities/report'
 
-export class ReportRepository<Type> implements IReportRepository {
+export class ReportRepository implements IReportRepository {
 	private dataSource: ReportBaseDataSource
 	private transformer: ReportTransformer
 
@@ -36,7 +36,7 @@ export class ReportRepository<Type> implements IReportRepository {
 		return await this.dataSource.delete(id)
 	}
 
-	async listenToOne (id: string, listener: Listeners<ReportEntity<Type>>) {
+	async listenToOne (id: string, listener: Listeners<ReportEntity<any>>) {
 		return this.dataSource.listenToOne(id, {
 			created: async (model) => {
 				await listener.created(this.transformer.fromJSON(model))
@@ -50,7 +50,7 @@ export class ReportRepository<Type> implements IReportRepository {
 		})
 	}
 
-	async listenToMany (listener: Listeners<ReportEntity<Type>>) {
+	async listenToMany (listener: Listeners<ReportEntity<any>>) {
 		return this.dataSource.listenToMany({
 			created: async (model) => {
 				await listener.created(this.transformer.fromJSON(model))

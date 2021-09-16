@@ -8,15 +8,15 @@
 				</span>
 				<input
 					id="first_name"
-					v-model="factory.fName"
-					:class="{'is-invalid': factory.errors.fName, 'is-valid': factory.isValid('fName')}"
+					v-model="factory.firstName"
+					:class="{'is-invalid': factory.errors.firstName, 'is-valid': factory.isValid('firstName')}"
 					class="form-control"
 					placeholder="John"
 				>
-				<small v-if="factory.errors.fName" class="small text-danger d-block">
-					<DynamicText>{{ factory.errors.fName }}</DynamicText>
+				<small v-if="factory.errors.firstName" class="small text-danger d-block">
+					<DynamicText>{{ factory.errors.firstName }}</DynamicText>
 				</small>
-				<DynamicText>{{ factory.errors.fName }}</DynamicText>
+				<DynamicText>{{ factory.errors.firstName }}</DynamicText>
 			</div>
 			<div class="w-100 flex-grow-1 d-flex flex-column">
 				<span>
@@ -25,13 +25,13 @@
 				</span>
 				<input
 					id="last_name"
-					v-model="factory.lName"
-					:class="{'is-invalid': factory.errors.lName, 'is-valid': factory.isValid('lName')}"
+					v-model="factory.lastName"
+					:class="{'is-invalid': factory.errors.lastName, 'is-valid': factory.isValid('lastName')}"
 					class="form-control"
 					placeholder="Smith"
 				>
-				<small v-if="factory.errors.lName" class="small text-danger d-block">
-					<DynamicText>{{ factory.errors.lName }}</DynamicText>
+				<small v-if="factory.errors.lastName" class="small text-danger d-block">
+					<DynamicText>{{ factory.errors.lastName }}</DynamicText>
 				</small>
 			</div>
 		</div>

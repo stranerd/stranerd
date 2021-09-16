@@ -4,6 +4,6 @@ import { FormBaseDataSource } from './form-base'
 
 export class MessageFirebaseDataSource implements FormBaseDataSource<MessageToModel> {
 	async create (message: MessageToModel) {
-		return await DatabaseService.create<MessageToModel>('forms/messages', message)
+		await DatabaseService.create<MessageToModel>('forms/messages', message)
 	}
 }

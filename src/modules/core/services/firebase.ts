@@ -158,7 +158,6 @@ export interface FUNCTIONS {
 	makeStripePayment: { amount: number, currency: string },
 	buyCoins: { amount: number, isGold: boolean },
 	updateStreak: {},
-	tipTutor: { tutorId: string, amount: number },
 	rateTutor: { tutorId: string, rating: number, review: string | undefined },
 	approveTutorApplication: { id: string, approved: boolean },
 	markAsBestAnswer: { questionId: string, answerId: string }
@@ -174,7 +173,6 @@ export interface FUNCTION_RETURNS {
 	makeStripePayment: string,
 	buyCoins: void,
 	updateStreak: { skip: boolean, increase: boolean, reset: boolean, streak: number },
-	tipTutor: void,
 	rateTutor: string,
 	approveTutorApplication: void,
 	markAsBestAnswer: void

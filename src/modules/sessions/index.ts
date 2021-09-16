@@ -1,5 +1,5 @@
-import { PersonalChatFirebaseDataSource } from './data/datasources/personal-chat-firebase'
-import { SessionFirebaseDataSource } from './data/datasources/session-firebase'
+import { ChatApiDataSource } from './data/datasources/chat-api'
+import { SessionApiDataSource } from './data/datasources/session-api'
 import { ChatTransformer } from './data/transformers/chat'
 import { SessionTransformer } from './data/transformers/session'
 import { ChatRepository } from './data/repositories/chat'
@@ -12,7 +12,7 @@ import { ListenToChatsUseCase } from './domain/usecases/chats/listenToChats'
 import { ListenToChatsMetaUseCase } from './domain/usecases/chats/listenToChatsMeta'
 import { ListenToSessionUseCase } from './domain/usecases/sessions/listenToSession'
 import { ListenToSessionsUseCase } from './domain/usecases/sessions/listenToSessions'
-import { GetSessionUseCase } from './domain/usecases/sessions/getSession'
+import { FindSessionUseCase } from './domain/usecases/sessions/findSession'
 import { GetSessionsUseCase } from './domain/usecases/sessions/getSessions'
 import { AddSessionUseCase } from './domain/usecases/sessions/addSession'
 import { BeginSessionUseCase } from './domain/usecases/sessions/beginSession'
@@ -23,8 +23,8 @@ import { ChatFactory } from './domain/factories/chat'
 import { SessionEntity } from './domain/entities/session'
 import { SessionFactory } from './domain/factories/session'
 
-const personalChatDataSource = new PersonalChatFirebaseDataSource()
-const sessionDataSource = new SessionFirebaseDataSource()
+const personalChatDataSource = new ChatApiDataSource()
+const sessionDataSource = new SessionApiDataSource()
 
 const chatTransformer = new ChatTransformer()
 const sessionTransformer = new SessionTransformer()
@@ -39,7 +39,7 @@ export const ListenToPersonalChatsMeta = new ListenToChatsMetaUseCase(personalCh
 export const AddPersonalChat = new AddChatUseCase(personalChatRepository)
 export const MarkPersonalChatRead = new MarkChatReadUseCase(personalChatRepository)
 
-export const GetSession = new GetSessionUseCase(sessionRepository)
+export const FindSession = new FindSessionUseCase(sessionRepository)
 export const GetSessions = new GetSessionsUseCase(sessionRepository)
 export const ListenToSession = new ListenToSessionUseCase(sessionRepository)
 export const ListenToSessions = new ListenToSessionsUseCase(sessionRepository)

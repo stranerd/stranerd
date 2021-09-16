@@ -1,6 +1,6 @@
 import { ISessionRepository } from '../../irepositories/isession'
 
-export class GetSessionUseCase {
+export class FindSessionUseCase {
 	private repository: ISessionRepository
 
 	constructor (repository: ISessionRepository) {

@@ -14,13 +14,16 @@ export class SessionRepository implements ISessionRepository {
 		this.transformer = transformer
 	}
 
-	async add (data: Partial<SessionToModel>) {
+	async add (data: SessionToModel) {
 		return await this.dataSource.create(data)
 	}
 
 	async get (query: QueryParams) {
 		const models = await this.dataSource.get(query)
-		return models.map(this.transformer.fromJSON)
+		return {
+			...models,
+			results: models.results.map(this.transformer.fromJSON)
+		}
 	}
 
 	async find (id: string) {

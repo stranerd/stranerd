@@ -1,25 +1,26 @@
-import { HttpClient, FirestoreGetClauses, FirestoreService, QueryParams } from '../../../core'
+import { FirestoreGetClauses, FirestoreService, HttpClient, QueryParams, QueryResults } from '../../../core'
 import { apiBases } from '../../../../utils/environment'
-import { SessionToModel, SessionFromModel } from '../models/session'
+import { SessionFromModel, SessionToModel } from '../models/session'
 import { SessionBaseDataSource } from './session-base'
 
-export class SessionDataSource implements SessionBaseDataSource {
+export class SessionApiDataSource implements SessionBaseDataSource {
 	private stranerdClient: HttpClient
 
 	constructor () {
 		this.stranerdClient = new HttpClient(apiBases.STRANERD)
 	}
 
-	async create (session: Partial<SessionToModel>) {
-	  return await this.stranerdClient.post<any, any>('/sessions', session)
+	async create (data: SessionToModel) {
+		const session = await this.stranerdClient.post<SessionToModel, SessionFromModel>('/sessions', data)
+		return session.id
 	}
 
 	async find (id: string) {
-		return await this.stranerdClient.get<any, any>(`/sessions/${id}`, {})
+		return await this.stranerdClient.get<{}, SessionFromModel>(`/sessions/${id}`, {})
 	}
 
 	async get (query: QueryParams) {
-		return await this.stranerdClient.get<QueryParams, any>('/sessions', query)
+		return await this.stranerdClient.get<QueryParams, QueryResults<SessionFromModel>>('/sessions', query)
 	}
 
 	async listenToOne (id: string, callback: (session: (SessionFromModel | null)) => void): Promise<() => void> {
@@ -31,10 +32,10 @@ export class SessionDataSource implements SessionBaseDataSource {
 	}
 
 	async accept (id: string, accepted: boolean) {
-		return await this.stranerdClient.put<any, any>(`/sessions/${id}/accept`, { accepted })
+		await this.stranerdClient.put<{ accepted: boolean }, boolean>(`/sessions/${id}/accept`, { accepted })
 	}
 
 	async cancel (id: string) {
-		return await this.stranerdClient.put<any, any>(`/sessions/${id}/cancle`, {})
+		await this.stranerdClient.put<{}, boolean>(`/sessions/${id}/cancel`, {})
 	}
 }

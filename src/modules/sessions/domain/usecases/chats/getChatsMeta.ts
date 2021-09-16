@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core'
+import { QueryParams } from '@modules/core'
 import { IChatRepository } from '../../irepositories/ichat'
 
 export class GetChatsMetaUseCase {
@@ -9,9 +9,10 @@ export class GetChatsMetaUseCase {
 	}
 
 	async call (id: string) {
-		const conditions: DatabaseGetClauses = {
-			order: { field: 'last/dates/createdAt' }
+		const conditions: QueryParams = {
+			sort: { field: 'last/createdAt', order: -1 },
+			all: true
 		}
-		return await (await this.repository.getMeta(id, conditions)).reverse()
+		return await this.repository.getMeta(id, conditions)
 	}
 }

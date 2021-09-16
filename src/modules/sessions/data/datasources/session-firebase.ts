@@ -1,4 +1,4 @@
-import { FirestoreGetClauses, FirestoreService, FunctionsService } from '@modules/core'
+import { FirestoreGetClauses, FirestoreService, FunctionsService, QueryParams } from '@modules/core'
 import { SessionFromModel, SessionToModel } from '../models/session'
 import { SessionBaseDataSource } from './session-base'
 
@@ -19,8 +19,10 @@ export class SessionFirebaseDataSource implements SessionBaseDataSource {
 		return await FirestoreService.find<SessionFromModel>('sessions', id)
 	}
 
-	async get (conditions?: FirestoreGetClauses): Promise<SessionFromModel[]> {
-		return await FirestoreService.get<SessionFromModel>('sessions', conditions)
+	// @ts-ignore
+	async get (query: QueryParams): Promise<SessionFromModel[]> {
+		// @ts-ignore
+		return await FirestoreService.get<SessionFromModel>('sessions', query)
 	}
 
 	async listenToOne (id: string, callback: (session: (SessionFromModel | null)) => void): Promise<() => void> {

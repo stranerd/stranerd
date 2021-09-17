@@ -13,7 +13,12 @@
 				</span>
 
 				<NuxtLink to="/">
-					<Logo :secondary="true" class="logo" />
+					<Logo :secondary="false" class="logo" />
+					<!-- <Icon
+						class-name="text-white"
+						size="l"
+						icon-name="logo"
+					/> -->
 				</NuxtLink>
 
 				<SearchBar class="middle-body mx-auto d-none d-lg-flex" />

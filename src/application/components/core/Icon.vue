@@ -5,7 +5,6 @@
 		viewBox="0 0 24 24"
 	>
 		<use
-			:class="light ? 'light' : 'dark'"
 			v-bind="{'xlink:href':`${iconSvg}#${iconName}`}"
 		/>
 	</svg>
@@ -79,42 +78,6 @@ export default {
 
 	.auto {
 		width: 100%;
-	}
-
-	.location {
-		color: #4ea4f4;
-	}
-
-	.paySettings {
-		color: #1a32cc;
-	}
-
-	.paySchedule {
-		color: #13b56a;
-	}
-
-	.approvalFlow {
-		color: #eacee3;
-	}
-
-	.signatories {
-		color: #490166;
-	}
-
-	.timeOff {
-		color: #333;
-	}
-
-	.performance {
-		color: #13b56a;
-	}
-
-	.documents {
-		color: #f57a4d;
-	}
-
-	.bills {
-		color: #2f80ed;
 	}
 
 </style>

@@ -1,5 +1,12 @@
 <template>
-	<div class="position-relative">
+	<div class="position-relative d-flex">
+		<div v-if="icon" class="bg-primary filter">
+			<Icon
+				class-name="text-white"
+				size="s"
+				icon-name="filter"
+			/>
+		</div>
 		<input
 			v-model="term"
 			:placeholder="placeholder"
@@ -33,6 +40,11 @@ import { computed, defineComponent, PropType, ref } from '@nuxtjs/composition-ap
 export default defineComponent({
 	name: 'AutoComplete',
 	props: {
+		icon: {
+			type: Boolean,
+			required: false,
+			default: false
+		},
 		suggestions: {
 			type: Array as PropType<{ search: string, value: string, title: string }[]>,
 			required: true
@@ -100,6 +112,13 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.filter{
+	padding: 1rem;
+	border-radius: 12px 0 0 12px;
+	width: 5rem;
+	display: grid;
+	place-items: center;
+}
 	input.form-control {
 		font-size: 1em;
 		line-height: 1em;

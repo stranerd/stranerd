@@ -1,5 +1,62 @@
 <template>
-	<div class="mb-2 mb-md-2-25">
+	<div class="d-flex flex-wrap justify-content-between w-100">
+		<div v-for="n in 4" :key="n" class="mb-2 mb-md-2-25 w-48">
+			<div class="flex-column nerd-body shadow gap-0-5 d-md-flex">
+				<div class="d-flex align-items-center nerd-card gap-1 custom-p">
+					<span class="d-flex justify-content-start">
+						<NuxtLink :to="`/users/${tutor.id}`" class="position-relative">
+							<Avatar :size="72" :src="tutor.avatar" />
+							<i
+								:class="tutor.isOnline ? 'text-success' : 'text-sub'"
+								class="fas fa-circle position-absolute rounded-pill"
+								style="z-index: 1; right: 0; bottom: 0; font-size: 1.25rem; border: 3px solid white;"
+							/>
+						</NuxtLink>
+					</span>
+					<div class="d-flex align-items-start align-self-end flex-column ms-0-5 gap-0-75">
+						<NuxtLink :to="`/users/${tutor.id}`" class="name">
+							<DynamicText class="fw-bold">
+								{{ tutor.fullName }}
+							</DynamicText>
+						</NuxtLink>
+						<DynamicText class="rank">
+							{{ tutor.rank.id }}
+						</DynamicText>
+					</div>
+				</div>
+				<div class="session ">
+					<span>
+						36 Sessions Hosted
+					</span>
+				</div>
+				<div class="nerd-card gap-1-5 custom-p">
+					<span class="ms-0-5 text-sub">
+						Teaches
+					</span>
+					<DynamicText class="head-text ms-0-5 text-primary">
+						Mathematics
+					</DynamicText>
+				</div>
+				<div class="nerd-card gap-1-5 custom-p">
+					<span class="ms-0-5 text-sub">
+						Takes
+					</span>
+					<DynamicText class="head-text ms-1-5 fw-bold text-sub">
+						High School
+					</DynamicText>
+				</div>
+				<div class="d-flex justify-content-center">
+					<button
+						class="btn btn-primary ms-auto rounded-pill mt-1"
+						@click="requestNewSession"
+					>
+						Request A Session
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- <div class="mb-2 mb-md-2-25">
 		<div class="flex-column nerd-body gap-1 d-md-flex d-none">
 			<div class="d-flex align-items-center nerd-card gap-1">
 				<span class="d-flex justify-content-end">
@@ -55,7 +112,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- smaller screens -->
 		<div class="d-flex flex-column align-items-center nerd-body gap-0-75 d-md-none">
 			<NuxtLink :to="`/users/${tutor.id}`" class="position-relative">
 				<Avatar :size="70" :src="tutor.avatar" />
@@ -97,23 +153,24 @@
 				Request A Session
 			</button>
 		</div>
-		<!-- ends -->
-	</div>
+	</div> -->
 </template>
 
 <script lang="ts">
+// @ts-ignore
+// eslint-disabled
 import { computed, defineComponent, PropType } from '@nuxtjs/composition-api'
 import { UserEntity } from '@modules/users'
 import { formatNumber, pluralize } from '@utils/commons'
-import Tag from '@app/components/questions/tags/Tag.vue'
-import Subject from '@app/components/questions/subjects/Subject.vue'
+// import Tag from '@app/components/questions/tags/Tag.vue'
+// import Subject from '@app/components/questions/subjects/Subject.vue'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useSessionModal } from '@app/hooks/core/modals'
 import { setNewSessionTutorIdBio } from '@app/hooks/sessions/sessions'
 
 export default defineComponent({
 	name: 'TutorsListCard',
-	components: { Tag, Subject },
+	// components: { Tag, Subject },
 	props: {
 		tutor: {
 			type: Object as PropType<UserEntity>,
@@ -140,12 +197,27 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.btn{
+	min-width:100% ;
+	max-width: 20rem;
+}
+.session{
+	margin-left: 8rem;
+	font-weight: 700;
+	font-size: 1.125rem;
+}
+	.w-48{
+		width: 100%;
+		@media (min-width: $md) {
+			width:48%;
+		}
+	}
 	.nerd-card {
 		display: flex;
 		align-items: center;
 		@media (min-width: $md) {
 			& > *:first-child {
-				min-width: 120px;
+				// min-width: 120px;
 				text-align: right;
 				font-size: 1rem;
 			}
@@ -153,9 +225,8 @@ export default defineComponent({
 	}
 
 	.head-text {
-		color: $color-sub;
 		font-size: 18px;
-		font-weight: 600;
+
 	}
 
 	.sub-text {
@@ -163,15 +234,24 @@ export default defineComponent({
 		color: $color-primary;
 		font-weight: normal;
 	}
-
+	.custom-p{
+		padding-right: 3rem;
+			padding-left: 3rem;
+	@media (min-width: $sm) {
+			padding: 0rem 2rem;
+		}
+	}
 	.nerd-body {
 		background: $color-white;
-		border: 1px solid $color-line;
 		border-radius: 12px;
 		padding: 1rem 1rem;
-		@media (min-width: $md) {
-			padding: 1.5rem 3rem;
+			padding-top: 1.5rem;
+			padding-bottom: 1.5rem;
+		@media (min-width: $sm) {
+			padding-top: 1.5rem;
+			padding-bottom: 1.5rem;
 		}
+
 	}
 
 	.name {

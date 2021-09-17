@@ -6,6 +6,7 @@
 		:suggestions="subjects.filter((s) => !exclude.includes(s.id)).map((s) => ({ search: s.name, value: s.id, title: s.name }))"
 		:value="value"
 		class="w-100"
+		:icon="hasIcon"
 		@update:value="update($event)"
 	/>
 </template>
@@ -17,6 +18,11 @@ import { useSubjectList } from '@app/hooks/questions/subjects'
 export default defineComponent({
 	name: 'SelectSubject',
 	props: {
+		hasIcon: {
+			type: Boolean,
+			required: false,
+			default: false
+		},
 		subjectId: {
 			type: String,
 			required: true

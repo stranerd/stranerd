@@ -11,7 +11,7 @@
     "lint": "eslint src/ --ext .ts,.js,.vue --fix && stylelint src/**/*.scss src/**/*.vue --fix",
     "firebase:start": "npm run firebase:functions:build && npm run env:copy:functions && firebase emulators:start --import ./firebase/docs/exports -P development",
     "generate-icon-name-enum": "node generate-icon-name-enum.js",
-    "generate-sprite": "svgstore -o ./src/assets/icons/sprite.svg ./src/assets/icons/source/*.svg",
+    "generate-sprite": "svgstore -o ./src/application/assets/icons/sprite.svg ./src/application/assets/icons/source/*.svg",
     "prestart": "npm run generate-sprite && npm run generate-icon-name-enum",
     "firebase:save": "firebase emulators:export ./firebase/docs/exports -P development",
     "firebase:functions:watch": "npm run watch --prefix ./firebase/functions",

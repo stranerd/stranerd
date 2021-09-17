@@ -13,7 +13,6 @@ const names = fs
 	.join(',\n  ')
 
 const content = `// THIS FILE IS AUTO GENERATED
-/* eslint-disable prettier/prettier */
 
 export enum IconNames {
   ${names}

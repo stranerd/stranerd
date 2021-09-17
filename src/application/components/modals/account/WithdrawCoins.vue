@@ -114,47 +114,51 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-input{
-	padding: 0.6rem 0.75rem !important;
-}
-.convert_box{
-	height: 6.75rem;
+	input {
+		padding: 0.6rem 0.75rem !important;
+	}
+
+	.convert_box {
+		height: 6.75rem;
 		width: 50%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: 0.6rem;
-	border-radius: 12px;
-	font-size: 2.25rem;
-	background:$color-primary-dark;
-	color: $color-white;
-}
-.spec{
-	color: $color-dark;
-	font-weight: 700;
-	font-size: 1.125rem;
-}
-.coin_tab{
-	border: 1px solid $color-line;
-	width: 50%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: 0.6rem;
-	border-radius: 6px;
-	font-weight: 700;
-	font-size: 1.125rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 0.6rem;
+		border-radius: 12px;
+		font-size: 2.25rem;
+		background: $color-primary-dark;
+		color: $color-white;
+	}
 
-	&:hover{
+	.spec {
+		color: $color-dark;
+		font-weight: 700;
+		font-size: 1.125rem;
+	}
+
+	.coin_tab {
+		border: 1px solid $color-line;
+		width: 50%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 0.6rem;
+		border-radius: 6px;
+		font-weight: 700;
+		font-size: 1.125rem;
+
+		&:hover {
+			background: $color-primary;
+			color: $color-white;
+		}
+	}
+
+	.active {
 		background: $color-primary;
 		color: $color-white;
 	}
 
-}
-	.active{
-		background: $color-primary;
-		color: $color-white;
-	}
 	.headertext {
 		margin: 0;
 		font-weight: bold;

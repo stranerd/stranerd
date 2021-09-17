@@ -13,7 +13,7 @@
 							/>
 						</NuxtLink>
 					</span>
-					<div class="d-flex align-items-start align-self-end flex-column ms-0-5 gap-0-75">
+					<div class="d-flex align-items-start align-self-end flex-column ms-1 gap-0-75">
 						<NuxtLink :to="`/users/${tutor.id}`" class="name">
 							<DynamicText class="fw-bold">
 								{{ tutor.fullName }}
@@ -24,24 +24,26 @@
 						</DynamicText>
 					</div>
 				</div>
-				<div class="session ">
-					<span>
+
+				<div class="nerd-card gap-1-5 custom-p">
+					<ShowRatings :rating="tutor.averageRating" />
+					<span class="session">
 						36 Sessions Hosted
 					</span>
 				</div>
 				<div class="nerd-card gap-1-5 custom-p">
-					<span class="ms-0-5 text-sub">
+					<span class=" text-sub">
 						Teaches
 					</span>
-					<DynamicText class="head-text ms-0-5 text-primary">
+					<DynamicText class="head-text ms-1-5 text-primary">
 						Mathematics
 					</DynamicText>
 				</div>
 				<div class="nerd-card gap-1-5 custom-p">
-					<span class="ms-0-5 text-sub">
+					<span class=" text-sub">
 						Takes
 					</span>
-					<DynamicText class="head-text ms-1-5 fw-bold text-sub">
+					<DynamicText class="head-text ms-2-5 fw-bold text-sub">
 						High School
 					</DynamicText>
 				</div>
@@ -203,9 +205,8 @@ export default defineComponent({
 	}
 
 	.session {
-		margin-left: 8rem;
 		font-weight: 700;
-		font-size: 1.125rem;
+		font-size: 1rem;
 	}
 
 	.w-48 {

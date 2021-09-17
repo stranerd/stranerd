@@ -49,9 +49,10 @@ export default defineComponent({
 })
 </script>
 <style lang="scss" scoped>
-.btn{
-	min-width: 11.25rem;
-}
+	.btn {
+		min-width: 11.25rem;
+	}
+
 	.boxStyle {
 		border-radius: 6px;
 	}

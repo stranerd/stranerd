@@ -197,21 +197,24 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.btn{
-	min-width:100% ;
-	max-width: 20rem;
-}
-.session{
-	margin-left: 8rem;
-	font-weight: 700;
-	font-size: 1.125rem;
-}
-	.w-48{
+	.btn {
+		min-width: 100%;
+		max-width: 20rem;
+	}
+
+	.session {
+		margin-left: 8rem;
+		font-weight: 700;
+		font-size: 1.125rem;
+	}
+
+	.w-48 {
 		width: 100%;
 		@media (min-width: $md) {
-			width:48%;
+			width: 48%;
 		}
 	}
+
 	.nerd-card {
 		display: flex;
 		align-items: center;
@@ -226,7 +229,6 @@ export default defineComponent({
 
 	.head-text {
 		font-size: 18px;
-
 	}
 
 	.sub-text {
@@ -234,24 +236,25 @@ export default defineComponent({
 		color: $color-primary;
 		font-weight: normal;
 	}
-	.custom-p{
+
+	.custom-p {
 		padding-right: 3rem;
-			padding-left: 3rem;
-	@media (min-width: $sm) {
-			padding: 0rem 2rem;
+		padding-left: 3rem;
+		@media (min-width: $sm) {
+			padding: 0 2rem;
 		}
 	}
+
 	.nerd-body {
 		background: $color-white;
 		border-radius: 12px;
 		padding: 1rem 1rem;
-			padding-top: 1.5rem;
-			padding-bottom: 1.5rem;
+		padding-top: 1.5rem;
+		padding-bottom: 1.5rem;
 		@media (min-width: $sm) {
 			padding-top: 1.5rem;
 			padding-bottom: 1.5rem;
 		}
-
 	}
 
 	.name {

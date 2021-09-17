@@ -4,7 +4,7 @@
 			Available Balance
 		</h4>
 		<div
-			class="px-0-5 px-sm-1 py-3 p-md-3 boxStyle d-flex col-12 col-md-10 gap-1 align-content-center justify-content-center"
+			class="px-0-5 px-sm-1 py-3 p-md-3 boxStyle shadow d-flex col-12 col-md-10 gap-1 align-content-center justify-content-center"
 		>
 			<div class="d-flex col-6 gap-2 align-items-center justify-content-center ">
 				<Coins :size="45" />
@@ -19,6 +19,12 @@
 				</DynamicText>
 				<Coins :gold="true" :size="45" />
 			</div>
+		</div>
+
+		<div>
+			<button class="sidebar-btn btn" @click="openWithdrawCoins">
+				<span>Withdraw</span>
+			</button>
 		</div>
 	</div>
 </template>
@@ -38,13 +44,15 @@ export default defineComponent({
 		}
 	},
 	setup () {
-		return { formatNumber, openBuyCoins: useAccountModal().openBuyCoins }
+		return { formatNumber, openBuyCoins: useAccountModal().openBuyCoins, openWithdrawCoins: useAccountModal().openWithdrawCoins }
 	}
 })
 </script>
 <style lang="scss" scoped>
+.btn{
+	min-width: 11.25rem;
+}
 	.boxStyle {
-		border: 1px solid $color-line;
 		border-radius: 6px;
 	}
 

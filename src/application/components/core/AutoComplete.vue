@@ -112,13 +112,14 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.filter{
-	padding: 1rem;
-	border-radius: 12px 0 0 12px;
-	width: 5rem;
-	display: grid;
-	place-items: center;
-}
+	.filter {
+		padding: 1rem;
+		border-radius: 12px 0 0 12px;
+		width: 5rem;
+		display: grid;
+		place-items: center;
+	}
+
 	input.form-control {
 		font-size: 1em;
 		line-height: 1em;

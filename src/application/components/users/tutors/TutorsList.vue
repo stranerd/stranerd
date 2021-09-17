@@ -36,13 +36,15 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.sub{
-	font-size: 1.125rem;
-	max-width: 35rem;
-}
-.fs-32{
-	font-size: 2rem;
-}
+	.sub {
+		font-size: 1.125rem;
+		max-width: 35rem;
+	}
+
+	.fs-32 {
+		font-size: 2rem;
+	}
+
 	.select {
 		flex-grow: 1;
 		color: $color-sub;

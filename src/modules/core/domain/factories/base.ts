@@ -3,6 +3,7 @@ import { UploaderService } from '../../services/uploader'
 
 export abstract class BaseFactory<E, T, K extends Record<string, any>> {
 	errors: Record<keyof K, string>
+	valids: Record<keyof K, boolean>
 	abstract toModel: () => Promise<T>
 	abstract loadEntity: (entity: E) => void
 	abstract reserved: string[]
@@ -19,6 +20,10 @@ export abstract class BaseFactory<E, T, K extends Record<string, any>> {
 			.reduce((acc, value: keyof K) => ({
 				...acc, [value]: ''
 			}), {} as Record<keyof K, string>)
+		this.valids = Object.keys(keys)
+			.reduce((acc, value: keyof K) => ({
+				...acc, [value]: false
+			}), {} as Record<keyof K, boolean>)
 	}
 
 	get valid () {
@@ -33,22 +38,26 @@ export abstract class BaseFactory<E, T, K extends Record<string, any>> {
 		this.values[property] = value
 		this.validValues[property] = check.isValid ? value : this.defaults[property]
 		this.errors[property] = check.message ?? ''
+		this.valids[property] = check.isValid
 
 		return check.isValid
 	}
 
-	isValid = (property: keyof K) => this.checkValidity(property, this.validValues[property]).isValid
-
-	validateAll = () => Object.keys(this.defaults)
-		.forEach((key) => this.set(key, this.values[key]))
-
-	checkValidity (property: keyof K, value: any) {
-		const validity = Validator.single(value, this.rules[property].rules, this.rules[property].required)
-		if (validity.isValid) return { isValid: validity.isValid, message: undefined }
-		else return { isValid: validity.isValid, message: validity.errors[0] }
+	isValid (property: keyof K) {
+		return this.valids[property]
 	}
 
-	reset = () => {
+	validateAll () {
+		Object.keys(this.defaults)
+			.forEach((key) => this.set(key, this.values[key]))
+	}
+
+	checkValidity (property: keyof K, value: any) {
+		const { isValid, errors } = Validator.single(value, this.rules[property].rules, this.rules[property].required)
+		return { isValid, message: errors.find((e) => !!e) ?? null }
+	}
+
+	reset () {
 		const reserved = ['userId', 'user']
 		Object.keys(this.defaults)
 			.filter((key) => !reserved.concat(this.reserved ?? []).includes(key))
@@ -56,8 +65,11 @@ export abstract class BaseFactory<E, T, K extends Record<string, any>> {
 				this.values[key] = this.defaults[key]
 				this.validValues[key] = this.defaults[key]
 				this.errors[key] = ''
+				this.valids[key] = false
 			})
 	}
 
-	uploadFile = async (path: string, file: File) => await UploaderService.call(path, file)
+	async uploadFile (path: string, file: File) {
+		return await UploaderService.call(path, file)
+	}
 }

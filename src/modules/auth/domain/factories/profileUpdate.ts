@@ -6,8 +6,8 @@ import {
 	isImage,
 	isInvalid,
 	isLongerThanX,
-	isRequiredIfX,
-	isShallowEqualToX,
+	isRequiredIf,
+	isShallowEqualTo,
 	isShorterThanX,
 	isString,
 	isValid
@@ -25,10 +25,10 @@ export class ProfileUpdateFactory extends BaseFactory<UserEntity, UpdateUser, Ke
 		email: { required: true, rules: [isString, isEmail] },
 		description: { required: true, rules: [isString] },
 		avatar: { required: false, rules: [isImage] },
-		password: { required: false, rules: [isString, isLongerThanX(5), isShorterThanX(17)] },
+		password: { required: false, rules: [isString, isLongerThanX(7), isShorterThanX(17)] },
 		cPassword: {
 			required: false,
-			rules: [isString, isRequiredIfX(!!this.password), isShallowEqualToX(this.password), isLongerThanX(5), isShorterThanX(17)]
+			rules: [isString, (val: string) => isRequiredIf(val, !!this.password), (val: string) => isShallowEqualTo(val, this.password), isLongerThanX(7), isShorterThanX(17)]
 		},
 		strongestSubject: {
 			required: true,

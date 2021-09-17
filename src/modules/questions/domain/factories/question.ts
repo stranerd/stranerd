@@ -62,7 +62,11 @@ export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel
 		return this.values.tags
 	}
 
-	addTag = (value: string) => this.set('tags', [...this.tags, value.toLowerCase()])
+	addTag = (value: string) => {
+		if (this.tags.find((t) => t === value.toLowerCase())) return
+		this.set('tags', [...this.tags, value.toLowerCase()])
+	}
+
 	removeTag = (value: string) => this.set('tags', this.tags.filter((tag) => tag !== value))
 
 	loadEntity = (entity: QuestionEntity) => {

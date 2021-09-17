@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
+import { getUser, signout } from '../utils/auth'
 import {
 	ACCESS_TOKEN_NAME,
 	ACCESS_TOKEN_TTL,
@@ -6,7 +7,6 @@ import {
 	REFRESH_TOKEN_TTL,
 	USER_SESSION_NAME
 } from '../../../utils/constants'
-import { getUser, signout } from '../utils/auth'
 
 export const SigninController = async (req: Request, res: Response) => {
 	const { accessToken, refreshToken } = req.body
@@ -20,10 +20,14 @@ export const SigninController = async (req: Request, res: Response) => {
 	}).end()
 
 	try {
-		const user = await getUser(accessToken, refreshToken)
+		const {
+			user,
+			accessToken: newAccessToken,
+			refreshToken: newRefreshToken
+		} = await getUser(accessToken, refreshToken)
 		if (user) {
-			setCookie(res, ACCESS_TOKEN_NAME, accessToken, ACCESS_TOKEN_TTL)
-			setCookie(res, REFRESH_TOKEN_NAME, refreshToken, REFRESH_TOKEN_TTL)
+			setCookie(res, ACCESS_TOKEN_NAME, newAccessToken, ACCESS_TOKEN_TTL)
+			setCookie(res, REFRESH_TOKEN_NAME, newRefreshToken, REFRESH_TOKEN_TTL)
 			setCookie(res, USER_SESSION_NAME, JSON.stringify(user), ACCESS_TOKEN_TTL)
 		}
 
@@ -68,7 +72,16 @@ export const DecodeAuthUserMiddleware = async (req: Request, res: Response, next
 		const refreshToken = req.cookies[REFRESH_TOKEN_NAME]
 		if (!accessToken) throw new Error('no access token')
 		if (!refreshToken) throw new Error('no refresh token')
-		const user = await getUser(accessToken, refreshToken)
+		const {
+			user,
+			retry,
+			accessToken: newAccessToken,
+			refreshToken: newRefreshToken
+		} = await getUser(accessToken, refreshToken)
+		if (retry) {
+			setCookie(res, ACCESS_TOKEN_NAME, newAccessToken, ACCESS_TOKEN_TTL)
+			setCookie(res, REFRESH_TOKEN_NAME, newRefreshToken, REFRESH_TOKEN_TTL)
+		}
 		if (user) setCookie(res, USER_SESSION_NAME, JSON.stringify(user), ACCESS_TOKEN_TTL)
 	} catch (err) {
 		deleteCookie(res, ACCESS_TOKEN_NAME)

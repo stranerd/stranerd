@@ -73,8 +73,8 @@ export default defineComponent({
 					editor.insertEmbed(cursorLocation, 'image', res.link)
 					editor.setSelection(cursorLocation + 1, 'silent')
 					resetUploader()
-				} catch (e) {
-					await Notify({ title: e, icon: 'error' })
+				} catch (e: unknown) {
+					await Notify({ title: e as any, icon: 'error' })
 				}
 			}
 		}

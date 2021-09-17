@@ -2,11 +2,13 @@ import { computed, reqSsrRef } from '@nuxtjs/composition-api'
 import { FindUser, ListenToUser, UpdateStreak, UserEntity } from '@modules/users'
 import { AuthDetails, UserLocation } from '@modules/auth/domain/entities/auth'
 import { SessionSignout } from '@modules/auth'
-import { isClient } from '@utils/environment'
-import { analytics, auth } from '@modules/core'
+import { appName, isClient } from '@utils/environment'
+import { analytics } from '@modules/core'
 import VueRouter from 'vue-router'
+import { saveTokens } from '@utils/tokens'
 
 const global = {
+	tokens: reqSsrRef(null as { accessToken: string, refreshToken: string } | null),
 	auth: reqSsrRef(null as AuthDetails | null),
 	user: reqSsrRef(null as UserEntity | null),
 	location: reqSsrRef(null as UserLocation | null),
@@ -32,7 +34,7 @@ export const useAuth = () => {
 		}
 	})
 	const isAdmin = computed({
-		get: () => !!global.user.value?.roles.isAdmin, set: () => {
+		get: () => !!global.user.value?.roles[appName].isAdmin, set: () => {
 		}
 	})
 	const currentSessionId = computed({
@@ -44,6 +46,13 @@ export const useAuth = () => {
 	const setUserLocation = (data: UserLocation) => {
 		global.location.value = data
 	}
+
+	const setTokens = async (data: { accessToken: string, refreshToken: string }) => {
+		global.tokens.value = data
+		await saveTokens(data)
+	}
+
+	const getTokens = () => global.tokens.value
 
 	const setAuthUser = async (details: AuthDetails | null, router: VueRouter) => {
 		if (global.listener) global.listener()
@@ -74,7 +83,6 @@ export const useAuth = () => {
 
 	const signin = async (remembered: boolean, router: VueRouter) => {
 		try {
-			if (global.auth.value?.token) await auth.signInWithCustomToken(global.auth.value.token)
 			await startProfileListener()
 			analytics.logEvent('login', { remembered })
 		} catch (e) {
@@ -85,7 +93,6 @@ export const useAuth = () => {
 	const signout = async (router: VueRouter) => {
 		await SessionSignout.call()
 		await setAuthUser(null, router)
-		await auth.signOut()
 		await router.push('/')
 		if (isClient()) window.location.assign('/')
 	}
@@ -103,7 +110,7 @@ export const useAuth = () => {
 	return {
 		id, bio, user: global.user, auth: global.auth, location: global.location,
 		isLoggedIn, isVerified, isAdmin, currentSessionId,
-		setAuthUser, setUserLocation, signin, signout,
+		setAuthUser, setUserLocation, signin, signout, setTokens, getTokens,
 		getLocalAmount, getLocalCurrency, getLocalCurrencySymbol
 	}
 }

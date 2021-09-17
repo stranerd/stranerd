@@ -19,7 +19,7 @@
 					Ranking Up
 				</Heading>
 				<div class="d-flex gap-1 align-items-center text-dark">
-					<img :src="user.rank.image" alt="" class="img-rank">
+					<img :src="user.rankImage" alt="" class="img-rank">
 					<ProgressBar :current="user.rankProgress" :primary="true" />
 					<img v-if="user.nextRank" :src="user.nextRankImage" alt="" class="img-rank">
 				</div>

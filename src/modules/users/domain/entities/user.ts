@@ -1,4 +1,5 @@
 import { BaseEntity, Media } from '@modules/core'
+import { appName } from '@utils/environment'
 import { capitalize, catchDivideByZero, formatNumber } from '@utils/commons'
 import { getRankImage, getScholarLevel, RankTypes } from './rank'
 
@@ -32,7 +33,9 @@ export class UserEntity extends BaseEntity {
 		this.id = id
 		this.bio = generateDefaultBio(bio)
 		this.roles = {
-			isAdmin: roles?.isAdmin ?? false
+			[appName]: {
+				isAdmin: roles[appName]?.isAdmin ?? false
+			}
 		}
 		this.account = account
 		this.status = status
@@ -153,7 +156,7 @@ export class UserEntity extends BaseEntity {
 	}
 
 	get referrals () {
-		return Object.keys(this.account.referrals)
+		return Object.keys(this.account.referrals ?? {})
 	}
 
 	get nerdScoreMessage () {
@@ -188,7 +191,9 @@ export interface UserBio {
 }
 
 export interface UserRoles {
-	isAdmin: boolean
+	[appName]: {
+		isAdmin: boolean
+	}
 }
 
 export interface UserAccount {

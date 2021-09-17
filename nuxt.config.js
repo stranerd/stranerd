@@ -57,7 +57,7 @@ export const components = [
 
 export const buildModules = [
 	'@nuxtjs/composition-api/module', '@nuxt/typescript-build', '@nuxtjs/pwa',
-	'@nuxtjs/style-resources', 'nuxt-purgecss',
+	'@nuxtjs/style-resources', 'nuxt-purgecss', 'vue2-editor/nuxt',
 	['nuxt-compress', { gzip: { cache: true }, brotli: { threshold: 10240 } }]
 ]
 

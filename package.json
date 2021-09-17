@@ -23,7 +23,7 @@
 	"dependencies": {
 		"@fortawesome/fontawesome-free": "^5.15.4",
 		"@nuxtjs/composition-api": "^0.29.0",
-		"@stranerd/validate": "^1.4.1",
+		"@stranerd/validate": "^1.4.2",
 		"@stripe/stripe-js": "^1.17.1",
 		"@vue-stripe/vue-stripe": "^4.2.5",
 		"algoliasearch": "^4.10.5",

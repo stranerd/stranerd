@@ -1,9 +1,8 @@
-export const TOKEN_SESSION_NAME = 'session'
 export const ACCESS_TOKEN_NAME = 'access-token'
 export const REFRESH_TOKEN_NAME = 'refresh-token'
 export const USER_SESSION_NAME = 'user'
 export const REDIRECT_SESSION_NAME = 'redirect-to'
-export const ACCESS_TOKEN_TTL = 10 * 60
+export const ACCESS_TOKEN_TTL = 14 * 24 * 60 * 60 // 10 * 60
 export const REFRESH_TOKEN_TTL = 14 * 24 * 60 * 60
 
 export const PAGINATION_LIMIT = 10

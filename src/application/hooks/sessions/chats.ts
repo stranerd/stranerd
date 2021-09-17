@@ -1,12 +1,5 @@
 import { computed, Ref, ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
-import {
-	AddPersonalChat,
-	ChatEntity,
-	ChatFactory,
-	GetPersonalChats,
-	ListenToPersonalChats,
-	MarkPersonalChatRead
-} from '@modules/sessions'
+import { AddChat, ChatEntity, ChatFactory, GetChats, ListenToChats, MarkChatRead } from '@modules/sessions'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
 import { getRandomValue } from '@utils/commons'
@@ -52,7 +45,7 @@ export const useChats = (userId: string) => {
 		try {
 			global[userId].setLoading(true)
 			const lastDate = chats.value[0]?.createdAt
-			const c = await GetPersonalChats.call(path, lastDate)
+			const c = await GetChats.call(path, lastDate)
 			global[userId].hasMore.value = !!c.pages.next
 			c.results.map((c) => unshiftToChats(userId, c))
 			global[userId].fetched.value = true
@@ -63,9 +56,18 @@ export const useChats = (userId: string) => {
 	}
 
 	const listener = useListener(async () => {
-		const lastDate = chats.value[chats.value.length - 1]?.createdAt
-		const callback = (chats: ChatEntity[]) => chats.map((c) => pushToChats(userId, c))
-		return ListenToPersonalChats.call(path, callback, lastDate ? new Date(lastDate) : undefined)
+		return ListenToChats.call(path, {
+			created: async (entity) => {
+				pushToChats(userId, entity)
+			},
+			updated: async (entity) => {
+				pushToChats(userId, entity)
+			},
+			deleted: async (entity) => {
+				const index = global[userId].chats.value.findIndex((c) => c.id === entity.id)
+				if (index !== -1) global[userId].chats.value.splice(index, 1)
+			}
+		})
 	})
 
 	useFetch(async () => {
@@ -101,7 +103,7 @@ export const useCreateChat = (userId: string, sessionId?: string) => {
 		if (factory.value.valid && !loading.value) {
 			try {
 				setLoading(true)
-				await AddPersonalChat.call(path, factory.value)
+				await AddChat.call(path, factory.value)
 				factory.value.reset()
 			} catch (e) {
 				setError(e)
@@ -119,7 +121,7 @@ export const useCreateChat = (userId: string, sessionId?: string) => {
 				mediaFactory.to = userId
 				mediaFactory.media = file
 				try {
-					await AddPersonalChat.call(path, mediaFactory)
+					await AddChat.call(path, mediaFactory)
 				} catch (error) {
 					setError(error)
 				}
@@ -153,7 +155,7 @@ export const useChat = (chat: ChatEntity, userId: string) => {
 	const path = [id.value, userId] as [string, string]
 
 	const markChatRead = async () => {
-		await MarkPersonalChatRead.call(path, chat.id)
+		await MarkChatRead.call(path, chat.id)
 	}
 
 	return { markChatRead }

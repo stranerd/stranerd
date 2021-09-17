@@ -27,7 +27,7 @@ export class CommentRepository implements ICommentRepository {
 			const entities = documents.map(this.transformer.fromJSON)
 			callback(entities)
 		}
-		return this.dataSource.listen(baseId, cb, conditions)
+		return this.dataSource.listenToOne(baseId, cb, conditions)
 	}
 
 	async add (data: CommentToModel) {

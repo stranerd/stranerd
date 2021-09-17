@@ -1,10 +1,9 @@
-import { DatabaseGetClauses, QueryParams } from '@modules/core'
+import { Listeners, QueryParams } from '@modules/core'
 import { ChatBaseDataSource } from '../datasources/chat-base'
 import { ChatTransformer } from '../transformers/chat'
 import { IChatRepository } from '../../domain/irepositories/ichat'
-import { ChatFromModel, ChatMetaFromModel, ChatToModel } from '../models/chat'
+import { ChatToModel } from '../models/chat'
 import { ChatEntity } from '../../domain/entities/chat'
-import { ChatMetaEntity } from '../../domain/entities/chatMeta'
 
 export class ChatRepository implements IChatRepository {
 	private dataSource: ChatBaseDataSource
@@ -27,27 +26,37 @@ export class ChatRepository implements IChatRepository {
 		}
 	}
 
-	async getMeta (id: string, query: QueryParams) {
-		const models = await this.dataSource.getMeta(id, query)
-		return {
-			...models,
-			results: models.results.map(this.transformer.metaFromJSON)
-		}
-	}
-
 	async find (path: [string, string], id: string) {
 		const model = await this.dataSource.find(path, id)
 		return model ? this.transformer.fromJSON(model) : model
 	}
 
-	async listen (path: [string, string], callback: (entities: ChatEntity[]) => void, conditions?: DatabaseGetClauses) {
-		const listenCB = (documents: ChatFromModel[]) => callback(documents.map(this.transformer.fromJSON))
-		return await this.dataSource.listen(path, listenCB, conditions)
+	async listenToOne (id: string, listener: Listeners<ChatEntity>) {
+		return this.dataSource.listenToOne(id, {
+			created: async (model) => {
+				await listener.created(this.transformer.fromJSON(model))
+			},
+			updated: async (model) => {
+				await listener.updated(this.transformer.fromJSON(model))
+			},
+			deleted: async (model) => {
+				await listener.deleted(this.transformer.fromJSON(model))
+			}
+		})
 	}
 
-	async listenToMeta (id: string, callback: (entities: ChatMetaEntity[]) => void, conditions?: DatabaseGetClauses) {
-		const listenCB = (documents: ChatMetaFromModel[]) => callback(documents.map(this.transformer.metaFromJSON))
-		return await this.dataSource.listenToMeta(id, listenCB, conditions)
+	async listenToMany (listener: Listeners<ChatEntity>) {
+		return this.dataSource.listenToMany({
+			created: async (model) => {
+				await listener.created(this.transformer.fromJSON(model))
+			},
+			updated: async (model) => {
+				await listener.updated(this.transformer.fromJSON(model))
+			},
+			deleted: async (model) => {
+				await listener.deleted(this.transformer.fromJSON(model))
+			}
+		})
 	}
 
 	async markRead (path: [string, string], chatId: string, to: string) {

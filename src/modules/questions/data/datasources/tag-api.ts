@@ -17,4 +17,12 @@ export class TagApiDataSource implements TagBaseDataSource {
 	async get (query: QueryParams) {
 		return await this.stranerdClient.get<QueryParams, QueryResults<TagFromModel>>('/tags', query)
 	}
+
+	async listenToOne (id: string, listener: Listeners<TagFromModel>) {
+		return listenOnSocket(`tags/${id}`, listener)
+	}
+
+	async listenToMany (listener: Listeners<TagFromModel>) {
+		return listenOnSocket('tags', listener)
+	}
 }

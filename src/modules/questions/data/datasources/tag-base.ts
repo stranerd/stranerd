@@ -4,4 +4,6 @@ import { TagFromModel } from '../models/tag'
 export abstract class TagBaseDataSource {
 	abstract get: (query: QueryParams) => Promise<QueryResults<TagFromModel>>
 	abstract listen: (listener: Listeners<TagFromModel>) => Promise<() => void>
+	abstract listenToOne: (id: string, listener: Listeners<TagFromModel>) => Promise<() => void>
+	abstract listenToMany: (listener: Listeners<TagFromModel>) => Promise<() => void>
 }

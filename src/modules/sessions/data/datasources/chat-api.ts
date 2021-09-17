@@ -1,6 +1,6 @@
 import { HttpClient, Listeners, listenOnSocket, QueryParams, QueryResults } from '@modules/core'
 import { apiBases } from '@utils/environment'
-import { ChatFromModel, ChatMetaFromModel, ChatToModel } from '../models/chat'
+import { ChatFromModel, ChatToModel } from '../models/chat'
 import { ChatBaseDataSource } from './chat-base'
 
 export class ChatApiDataSource implements ChatBaseDataSource {
@@ -23,16 +23,12 @@ export class ChatApiDataSource implements ChatBaseDataSource {
 		return await this.stranerdClient.get<QueryParams, QueryResults<ChatFromModel>>('/chats', query)
 	}
 
-	async getMeta (_: string, query: QueryParams) {
-		return await this.stranerdClient.get<QueryParams, QueryResults<ChatMetaFromModel>>('/chatMeta', query)
+	async listenToMany (listener: Listeners<ChatFromModel>) {
+		return listenOnSocket('chats', listener)
 	}
 
-	async listen (listener: Listeners<ChatFromModel>) {
-		return listenOnSocket('chats/single/', listener)
-	}
-
-	async listenToMeta (id: string, listener: Listeners<ChatMetaFromModel>) {
-		return listenOnSocket(`chats/meta/${id}`, listener)
+	async listenToOne (id: string, listener: Listeners<ChatFromModel>) {
+		return listenOnSocket(`chats/${id}`, listener)
 	}
 
 	async markRead (_: [string, string], chatId: string, to: string) {

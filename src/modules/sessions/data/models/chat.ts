@@ -1,5 +1,4 @@
 import { Media } from '@modules/core'
-import { UserBio } from '@modules/users'
 
 export interface ChatFromModel extends ChatToModel {
 	id: string
@@ -15,15 +14,4 @@ export interface ChatToModel {
 	media: Media | null
 	sessionId: string | null
 	to: string
-}
-
-export interface ChatMetaFromModel {
-	id: string
-	unRead: string[]
-	ownerId: string
-	userId: string
-	userBio: UserBio
-	last: ChatFromModel
-	createdAt: number
-	updatedAt: number
 }

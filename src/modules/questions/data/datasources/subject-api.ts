@@ -1,4 +1,4 @@
-import { HttpClient, QueryParams, QueryResults } from '@modules/core'
+import { HttpClient, Listeners, listenOnSocket, QueryParams, QueryResults } from '@modules/core'
 import { apiBases } from '@utils/environment'
 import { SubjectFromModel, SubjectToModel } from '../models/subject'
 import { SubjectBaseDataSource } from './subject-base'
@@ -29,5 +29,13 @@ export class SubjectApiDataSource implements SubjectBaseDataSource {
 
 	async delete (id: string) {
 		await this.stranerdClient.delete<string, boolean>(`/subjects/${id}`, '')
+	}
+
+	async listenToOne (id: string, listener: Listeners<SubjectFromModel>) {
+		return listenOnSocket(`subjects/${id}`, listener)
+	}
+
+	async listenToMany (listener: Listeners<SubjectFromModel>) {
+		return listenOnSocket('subjects', listener)
 	}
 }

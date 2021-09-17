@@ -22,14 +22,18 @@ export class CommentApiDataSource implements CommentBaseDataSource {
 	}
 
 	async get (query: QueryParams) {
-		return await this.stranerdClient.get<QueryParams, QueryResults<CommentFromModel>>('/answerComments', query)
+		return await this.stranerdClient.get<QueryParams, QueryResults<CommentFromModel>>(`${this.path}`, query)
 	}
 
 	async update (id: string, data: CommentToModel) {
 		await this.stranerdClient.put<CommentToModel, CommentFromModel>(`/${this.path}/${id}`, data)
 	}
 
-	async listen (baseId: string, listener: Listeners<CommentFromModel>) {
-		return listenOnSocket(`comments/questions/${baseId}`, listener)
+	async listenToOne (id: string, listener: Listeners<CommentFromModel>) {
+		return listenOnSocket(`${this.path}/${id}`, listener)
+	}
+
+	async listenToMany (listener: Listeners<CommentFromModel>) {
+		return listenOnSocket(`${this.path}`, listener)
 	}
 }

@@ -1,4 +1,4 @@
-import { FirestoreGetClauses, FirestoreService, HttpClient, QueryParams, QueryResults } from '@modules/core'
+import { HttpClient, Listeners, listenOnSocket, QueryParams, QueryResults } from '@modules/core'
 import { apiBases } from '@utils/environment'
 import { QuestionFromModel, QuestionToModel } from '../models/question'
 import { QuestionBaseDataSource } from './question-base'
@@ -23,12 +23,12 @@ export class QuestionApiDataSource implements QuestionBaseDataSource {
 		return await this.stranerdClient.get<QueryParams, QueryResults<QuestionFromModel>>('/questions', query)
 	}
 
-	async listenToOne (id: string, callback: (document: QuestionFromModel | null) => void) {
-		return await FirestoreService.listenToOne<QuestionFromModel>(callback, 'questions', id)
+	async listenToOne (_: string, id: string, listener: Listeners<QuestionFromModel>) {
+		return listenOnSocket(`questions/${id}`, listener)
 	}
 
-	async listenToMany (callback: (documents: QuestionFromModel[]) => void, conditions?: FirestoreGetClauses) {
-		return await FirestoreService.listenToMany<QuestionFromModel>(callback, 'questions', conditions)
+	async listenToMany (_: string, listener: Listeners<QuestionFromModel>) {
+		return listenOnSocket('questions', listener)
 	}
 
 	async delete (id: string) {

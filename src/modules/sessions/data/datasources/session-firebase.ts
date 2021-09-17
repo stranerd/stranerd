@@ -25,10 +25,12 @@ export class SessionFirebaseDataSource implements SessionBaseDataSource {
 		return await FirestoreService.get<SessionFromModel>('sessions', query)
 	}
 
+	// @ts-ignore
 	async listenToOne (id: string, callback: (session: (SessionFromModel | null)) => void): Promise<() => void> {
 		return await FirestoreService.listenToOne<SessionFromModel>(callback, 'sessions', id)
 	}
 
+	// @ts-ignore
 	async listenToMany (callback: (sessions: SessionFromModel[]) => void, conditions?: FirestoreGetClauses): Promise<() => void> {
 		return await FirestoreService.listenToMany<SessionFromModel>(callback, 'sessions', conditions)
 	}

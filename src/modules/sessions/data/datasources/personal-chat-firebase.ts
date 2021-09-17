@@ -34,10 +34,12 @@ export class PersonalChatFirebaseDataSource implements ChatBaseDataSource {
 		return await DatabaseService.get<ChatFromModel>(`chats/single/${path}/${id}`)
 	}
 
+	// @ts-ignore
 	public async listen (path: [string, string], callback: (documents: ChatFromModel[]) => void, conditions?: DatabaseGetClauses) {
 		return await DatabaseService.listenToMany<ChatFromModel>(`chats/single/${getChatsPath(path)}`, callback, conditions)
 	}
 
+	// @ts-ignore
 	public async listenToMeta (id: string, callback: (documents: ChatMetaFromModel[]) => void, conditions?: DatabaseGetClauses) {
 		return await DatabaseService.listenToMany<ChatMetaFromModel>(`chats/meta/${id}`, callback, conditions)
 	}

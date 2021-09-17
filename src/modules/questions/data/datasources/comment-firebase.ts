@@ -17,6 +17,7 @@ export class QuestionCommentFirebaseDataSource implements CommentBaseDataSource 
 		return await DatabaseService.getMany<CommentFromModel>('comments/questions', query)
 	}
 
+	// @ts-ignore
 	async listen (baseId: string, callback: (documents: CommentFromModel[]) => void, conditions?: DatabaseGetClauses) {
 		return await DatabaseService.listenToMany<CommentFromModel>(`comments/questions/${baseId}`, callback, conditions)
 	}
@@ -41,6 +42,7 @@ export class AnswerCommentFirebaseDataSource implements CommentBaseDataSource {
 		return await DatabaseService.getMany<CommentFromModel>('comments/answers', query)
 	}
 
+	// @ts-ignore
 	async listen (baseId: string, callback: (documents: CommentFromModel[]) => void, conditions?: DatabaseGetClauses) {
 		return await DatabaseService.listenToMany<CommentFromModel>(`comments/answers/${baseId}`, callback, conditions)
 	}

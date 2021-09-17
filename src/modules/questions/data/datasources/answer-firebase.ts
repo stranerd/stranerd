@@ -17,10 +17,12 @@ export class AnswerFirebaseDataSource implements AnswerBaseDataSource {
 		return await FirestoreService.get<AnswerFromModel>('answers', query)
 	}
 
+	// @ts-ignore
 	async listenToOne (id: string, callback: (document: AnswerFromModel | null) => void) {
 		return await FirestoreService.listenToOne<AnswerFromModel>(callback, 'answers', id)
 	}
 
+	// @ts-ignore
 	async listenToMany (callback: (documents: AnswerFromModel[]) => void, conditions?: FirestoreGetClauses) {
 		return await FirestoreService.listenToMany<AnswerFromModel>(callback, 'answers', conditions)
 	}

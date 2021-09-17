@@ -1,4 +1,4 @@
-import { DatabaseGetClauses, DatabaseService, HttpClient, QueryParams, QueryResults } from '@modules/core'
+import { HttpClient, Listeners, listenOnSocket, QueryParams, QueryResults } from '@modules/core'
 import { apiBases } from '@utils/environment'
 import { ChatFromModel, ChatMetaFromModel, ChatToModel } from '../models/chat'
 import { ChatBaseDataSource } from './chat-base'
@@ -27,12 +27,12 @@ export class ChatApiDataSource implements ChatBaseDataSource {
 		return await this.stranerdClient.get<QueryParams, QueryResults<ChatMetaFromModel>>('/chatMeta', query)
 	}
 
-	public async listen (_: [string, string], callback: (documents: ChatFromModel[]) => void, conditions?: DatabaseGetClauses) {
-		return await DatabaseService.listenToMany<ChatFromModel>('chats/single/', callback, conditions)
+	async listen (listener: Listeners<ChatFromModel>) {
+		return listenOnSocket('chats/single/', listener)
 	}
 
-	public async listenToMeta (id: string, callback: (documents: ChatMetaFromModel[]) => void, conditions?: DatabaseGetClauses) {
-		return await DatabaseService.listenToMany<ChatMetaFromModel>(`chats/meta/${id}`, callback, conditions)
+	async listenToMeta (id: string, listener: Listeners<ChatMetaFromModel>) {
+		return listenOnSocket(`chats/meta/${id}`, listener)
 	}
 
 	async markRead (_: [string, string], chatId: string, to: string) {

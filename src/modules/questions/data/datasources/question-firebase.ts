@@ -21,10 +21,12 @@ export class QuestionFirebaseDataSource implements QuestionBaseDataSource {
 		return await FirestoreService.get<QuestionFromModel>('questions', query)
 	}
 
+	// @ts-ignore
 	async listenToOne (id: string, callback: (document: QuestionFromModel | null) => void) {
 		return await FirestoreService.listenToOne<QuestionFromModel>(callback, 'questions', id)
 	}
 
+	// @ts-ignore
 	async listenToMany (callback: (documents: QuestionFromModel[]) => void, conditions?: FirestoreGetClauses) {
 		return await FirestoreService.listenToMany<QuestionFromModel>(callback, 'questions', conditions)
 	}

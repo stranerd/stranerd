@@ -9,6 +9,7 @@ export class TagFirebaseDataSource implements TagBaseDataSource {
 		return await DatabaseService.getMany<TagFromModel>('tags', query)
 	}
 
+	// @ts-ignore
 	async listen (callback: (documents: TagFromModel[]) => void, conditions?: DatabaseGetClauses) {
 		return await DatabaseService.listenToMany<TagFromModel>('tags', callback, conditions)
 	}

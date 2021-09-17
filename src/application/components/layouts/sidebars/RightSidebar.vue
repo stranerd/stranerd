@@ -89,14 +89,16 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.leaderBoardCount{
-	font-size: 14px;
-	font-weight: bold;
-	color:$color-sub;
-}
-select{
-	width:45%
-}
+	.leaderBoardCount {
+		font-size: 14px;
+		font-weight: bold;
+		color: $color-sub;
+	}
+
+	select {
+		width: 45%;
+	}
+
 	.background {
 		background: $color-line;
 		@media (min-width: $lg) {

@@ -21,7 +21,7 @@
 				<span>Class</span>
 			</NuxtLink>
 
-			<NuxtLink class="sidebar-link" to="/nerds">
+			<NuxtLink class="sidebar-link" to="/schedule">
 				<img alt="" src="@app/assets/images/icons/schedule.svg">
 				<span>Schedule</span>
 			</NuxtLink>

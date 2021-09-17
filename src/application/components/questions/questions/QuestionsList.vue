@@ -89,12 +89,14 @@ export default defineComponent({
 			}
 		}
 	}
-	.title{
+
+	.title {
 		text-align: center;
 		@media (min-width: $md) {
 			text-align: left;
 		}
 	}
+
 	.dash {
 		width: 100%;
 		background-color: $color-line;

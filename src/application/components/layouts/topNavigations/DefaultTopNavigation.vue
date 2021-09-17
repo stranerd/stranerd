@@ -226,7 +226,8 @@ export default defineComponent({
 			}
 		}
 	}
-	.logo{
-		color:white !important
+
+	.logo {
+		color: white !important;
 	}
 </style>

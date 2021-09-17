@@ -33,71 +33,88 @@ export default {
 </script>
 
 <style scoped>
-.light {
-    fill: '#ffffff';
-  }
-  .dark {
-    fill: '#344563';
-  }
-  .xxxs{
-    width: 0.25rem;
-  }
-  .xxs{
-    width: 0.5rem;
-  }
-  .xms{
-    width: 0.75rem;
-  }
-  .xs{
-    width: 1rem;
-  }
-  .xsm{
-    width: 1.25rem;
-  }
-  .s{
-    width: 1.5rem;
-  }
-  .m{
-    width: 2rem;
-  }
-  .l{
-    width: 2.5rem;
-  }
-  .xl{
-    width: 3rem;
-  }
-  .auto{
-    width: 100%;
-  }
+	.light {
+		fill: '#ffffff';
+	}
 
-  .location{
-    color: #4EA4F4 ;
-  }
-  .paySettings{
-    color: #1A32CC;
-  }
-  .paySchedule{
-    color: #13B56A;
-  }
-  .approvalFlow{
-    color: #EACEE3;
-  }
-  .signatories{
-    color: #490166;
-  }
-  .timeOff{
-   color: #333333;
-  }
-  .performance{
-  color: #13B56A;
+	.dark {
+		fill: '#344563';
+	}
 
-  }
-  .documents{
-   color: #F57A4D;
-  }
-  .bills{
-   color: #2F80ED;
+	.xxxs {
+		width: 0.25rem;
+	}
 
-  }
+	.xxs {
+		width: 0.5rem;
+	}
+
+	.xms {
+		width: 0.75rem;
+	}
+
+	.xs {
+		width: 1rem;
+	}
+
+	.xsm {
+		width: 1.25rem;
+	}
+
+	.s {
+		width: 1.5rem;
+	}
+
+	.m {
+		width: 2rem;
+	}
+
+	.l {
+		width: 2.5rem;
+	}
+
+	.xl {
+		width: 3rem;
+	}
+
+	.auto {
+		width: 100%;
+	}
+
+	.location {
+		color: #4ea4f4;
+	}
+
+	.paySettings {
+		color: #1a32cc;
+	}
+
+	.paySchedule {
+		color: #13b56a;
+	}
+
+	.approvalFlow {
+		color: #eacee3;
+	}
+
+	.signatories {
+		color: #490166;
+	}
+
+	.timeOff {
+		color: #333;
+	}
+
+	.performance {
+		color: #13b56a;
+	}
+
+	.documents {
+		color: #f57a4d;
+	}
+
+	.bills {
+		color: #2f80ed;
+	}
 
 </style>

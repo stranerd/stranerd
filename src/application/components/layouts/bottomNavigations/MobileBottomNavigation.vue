@@ -8,7 +8,7 @@
 			</div>
 		</NuxtLink>
 
-		<NuxtLink to="/">
+		<NuxtLink to="/sessions">
 			<div class="mobile-bottom-nav__item">
 				<img src="@app/assets/images/icons/questions-nav.svg" class="icon" alt="">
 			</div>
@@ -20,7 +20,7 @@
 			</div>
 		</NuxtLink>
 
-		<NuxtLink to="/">
+		<NuxtLink to="/notifications">
 			<div class="mobile-bottom-nav__item">
 				<img src="@app/assets/images/icons/notification-outline.svg" class="icon" alt="">
 			</div>

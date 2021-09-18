@@ -1,7 +1,12 @@
 <template>
 	<NuxtLink class="gap-0-5" to="/sessions">
 		<span class="position-relative">
-			<img alt="" class="head-icons" src="@app/assets/images/icons/chat.svg">
+			<Icon
+				class="head-icons"
+				class-name="head-icons"
+				size="s"
+				icon-name="chat"
+			/>
 			<i
 				v-if="meta.map((m) => m.unRead.length).filter((c) => !!c).length > 0"
 				class="fas fa-circle text-danger position-absolute"
@@ -26,3 +31,12 @@ export default defineComponent({
 	}
 })
 </script>
+
+<style scoped lang="scss">
+	.head-icons{
+		color: white;
+				@media (max-width: $md) {
+			color: $color-primary-dark
+		}
+	}
+</style>

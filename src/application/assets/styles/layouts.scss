@@ -18,12 +18,15 @@ body {
 	flex-direction: row;
 	margin: 0 auto;
 	gap: 2rem;
-	padding: 1.5rem 1rem;
+	padding: 1.5rem 1.875rem;
 	@media (min-width: $md) {
 		padding: 2rem 2rem;
 	}
 	@media (min-width: $lg) {
 		padding: 2.25rem 0;
+	}
+	@media (max-width: $sm) {
+		padding: 0.75rem 1.125rem;
 	}
 }
 
@@ -234,6 +237,7 @@ body[data-no-gap='true'] .layout-body {
 .shadow {
 	box-shadow: 0 5px 10px rgba(19, 39, 64, 0.047);
 }
+
 // For scroll
 
 /*! purgecss start ignore */

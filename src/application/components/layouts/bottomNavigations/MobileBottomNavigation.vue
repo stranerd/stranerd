@@ -48,6 +48,7 @@ export default {
 	}
 
 	.mobile-bottom-nav {
+		color: $color-dark;
 		position: fixed;
 		bottom: 0;
 		left: 0;

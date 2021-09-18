@@ -2,8 +2,8 @@
 	<div class="d-flex flex-wrap justify-content-between w-100">
 		<div v-for="n in 4" :key="n" class="mb-2 mb-md-2-25 w-48">
 			<div class="flex-column nerd-body shadow gap-0-5 d-md-flex">
-				<div class="d-flex align-items-center nerd-card gap-1 custom-p">
-					<span class="d-flex justify-content-start">
+				<div class="d-flex align-items-center nerd-card gap-1-5 custom-p">
+					<span class="d-flex justify-content-start w-30">
 						<NuxtLink :to="`/users/${tutor.id}`" class="position-relative">
 							<Avatar :size="72" :src="tutor.avatar" />
 							<i
@@ -13,7 +13,7 @@
 							/>
 						</NuxtLink>
 					</span>
-					<div class="d-flex align-items-start align-self-end flex-column ms-1 gap-0-75">
+					<div class="d-flex align-items-start align-self-end flex-column  gap-0-75 w-50">
 						<NuxtLink :to="`/users/${tutor.id}`" class="name">
 							<DynamicText class="fw-bold">
 								{{ tutor.fullName }}
@@ -25,25 +25,25 @@
 					</div>
 				</div>
 
-				<div class="nerd-card gap-1-5 custom-p">
-					<ShowRatings :rating="tutor.averageRating" />
+				<div class="nerd-card gap-1-5 custom-p d-flex">
+					<ShowRatings :rating="tutor.averageRating" class="w-30" />
 					<span class="session">
 						36 Sessions Hosted
 					</span>
 				</div>
-				<div class="nerd-card gap-1-5 custom-p">
-					<span class=" text-sub">
+				<div class="nerd-card gap-1-5 custom-p d-flex">
+					<span class=" text-sub text-right w-30">
 						Teaches
 					</span>
-					<DynamicText class="head-text ms-1-5 text-primary">
+					<DynamicText class="head-text w-50 text-primary">
 						Mathematics
 					</DynamicText>
 				</div>
-				<div class="nerd-card gap-1-5 custom-p">
-					<span class=" text-sub">
+				<div class="nerd-card gap-1-5 custom-p d-flex">
+					<span class=" text-sub text-right w-30">
 						Takes
 					</span>
-					<DynamicText class="head-text ms-2-5 fw-bold text-sub">
+					<DynamicText class="head-text fw-bold text-sub w-50">
 						High School
 					</DynamicText>
 				</div>
@@ -199,6 +199,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.w-30{
+	width:30%
+}
 	.btn {
 		min-width: 100%;
 		max-width: 20rem;
@@ -207,6 +210,7 @@ export default defineComponent({
 	.session {
 		font-weight: 700;
 		font-size: 1rem;
+		width: 60%;
 	}
 
 	.w-48 {

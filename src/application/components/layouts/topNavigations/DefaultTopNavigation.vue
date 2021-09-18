@@ -3,35 +3,51 @@
 		<nav class="default-top-nav gap-1" role="navigation">
 			<template v-if="showSearch">
 				<span @click="showSearch = false">
-					<img alt="" class="head-icons" src="@app/assets/images/icons/close.svg">
+					<Icon
+						class="head-icons"
+						class-name="text-white head-icons"
+						size="l"
+						icon-name="close"
+					/>
 				</span>
 				<SearchBar class="flex-grow-1" />
 			</template>
 			<template v-else>
 				<span :class="{'d-lg-none': !showLeftMenu}" @click="openLeftMenu">
-					<img alt="" class="head-icons" src="@app/assets/images/icons/hamburger.svg">
+					<Icon
+						class="head-icons"
+						class-name="head-icons"
+						size="s"
+						icon-name="hamburger"
+					/>
 				</span>
 
-				<NuxtLink to="/">
+				<NuxtLink to="/" class="mx-auto mx-md-0">
 					<Logo :secondary="false" class="logo" />
-					<!-- <Icon
-						class-name="text-white"
-						size="l"
-						icon-name="logo"
-					/> -->
+					<Logo :secondary="true" class="sm-logo " />
 				</NuxtLink>
 
 				<SearchBar class="middle-body mx-auto d-none d-lg-flex" />
 
-				<div class="right-body gap-1-5 gap-md-2-25 gap-lg-3 gap-xl-4 ms-auto ms-lg-0">
+				<div class="right-body gap-0 gap-sm-1-5 gap-md-2-25 gap-lg-3 gap-xl-4 ms-md-auto ms-lg-0">
 					<span class="d-lg-none" @click="showSearch = !showSearch">
-						<img class="head-icons" src="@app/assets/images/icons/search.svg">
+						<Icon
+							class="head-icons d-lg-none"
+							class-name="head-icons"
+							size="s"
+							icon-name="search"
+						/>
 					</span>
-					<MessageLink :key="'messages' + isLoggedIn" />
-					<NotificationBell :key="'notifications' + isLoggedIn" />
+					<MessageLink :key="'messages' + isLoggedIn" class="d-md-inline d-none" />
+					<NotificationBell :key="'notifications' + isLoggedIn" class="d-sm-inline d-none" />
 
 					<span :class="{'d-lg-none': !showRightMenu}" @click="openRightMenu">
-						<img alt="" class="head-icons" src="@app/assets/images/icons/right-nav.svg">
+						<Icon
+							class="head-icons d-lg-none d-sm-inline d-none"
+							class-name="head-icons"
+							size="s"
+							icon-name="right-nav"
+						/>
 					</span>
 
 					<div
@@ -177,10 +193,15 @@ export default defineComponent({
 		color: $color-white;
 		background: $color-primary-dark;
 		padding: 0.75rem 1rem;
+
 		@media (max-width: $md) {
 			background: $color-white;
 			border-bottom: 4px solid $color-primary-dark;
-			padding: 0.75rem 2rem;
+			padding: 0.75rem 1.875rem;
+		}
+			@media (max-width: $sm) {
+			padding: 0.75rem 1.125rem;
+			border-bottom: 1px solid $color-line;
 		}
 		@media (min-width: $md) {
 			padding: 0.75rem 2rem;
@@ -192,9 +213,6 @@ export default defineComponent({
 			padding: 0.75rem 4rem;
 		}
 
-		.head-icons, /deep/ .head-icons {
-			filter: brightness(1000%);
-		}
 	}
 
 	.middle-body {
@@ -231,8 +249,25 @@ export default defineComponent({
 			}
 		}
 	}
-
+	.head-icons{
+		color: white;
+				@media (max-width: $md) {
+			color: $color-primary-dark
+		}
+				@media (max-width: $sm) {
+			color: $color-dark
+		}
+	}
+	.sm-logo {
+		display: block;
+			@media (min-width: $md) {
+			display: none;
+		}
+	}
 	.logo {
-		color: white !important;
+		display: none;
+			@media (min-width: $md) {
+			display: block;
+		}
 	}
 </style>

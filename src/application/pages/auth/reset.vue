@@ -3,7 +3,6 @@
 		<Heading class="text-center" variant="1">
 			Reset Password
 		</Heading>
-		<!-- TODO: add logic for reset password in app -->
 		<span class="textStyle text-center">
 			To reset your password, type your new password below and reset
 		</span>
@@ -29,7 +28,7 @@
 				autocomplete="password"
 				class="form-control"
 				name="cPassword"
-				placeholder="Confirm Password"
+				placeholder="Confirm New Password"
 				required
 				type="password"
 			>
@@ -52,15 +51,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useMeta } from '@nuxtjs/composition-api'
+import { defineComponent, useMeta, useRoute } from '@nuxtjs/composition-api'
 import { usePasswordReset } from '@app/hooks/auth/passwords'
 
 export default defineComponent({
 	name: 'AuthResetPage',
 	layout: 'auth',
-	middleware: ['isNotAuthenticated'],
+	middleware: ['isNotAuthenticated', ({ params, redirect }) => {
+		if (!params.token) redirect('/auth/signin')
+	}],
 	setup () {
-		const { factory, loading, resetPassword, error, message } = usePasswordReset()
+		const { token } = useRoute().value.params
+		const { factory, loading, resetPassword, error, message } = usePasswordReset(token)
 		useMeta(() => ({
 			title: 'Reset Password | Stranerd'
 		}))

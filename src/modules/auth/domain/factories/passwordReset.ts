@@ -1,11 +1,10 @@
 import { BaseFactory } from '@modules/core'
 import { isLongerThanX, isRequiredIf, isShallowEqualTo, isShorterThanX, isString } from '@stranerd/validate'
 
-type Keys = { password: string, cPassword: string, token: string }
+type Keys = { password: string, cPassword: string }
 
-export class PasswordResetFactory extends BaseFactory<null, { password: string, token: string }, Keys> {
+export class PasswordResetFactory extends BaseFactory<null, { password: string }, Keys> {
 	readonly rules = {
-		token: { required: true, rules: [isString] },
 		password: { required: false, rules: [isString, isLongerThanX(7), isShorterThanX(17)] },
 		cPassword: {
 			required: false,
@@ -16,15 +15,7 @@ export class PasswordResetFactory extends BaseFactory<null, { password: string, 
 	reserved = []
 
 	constructor () {
-		super({ password: '', cPassword: '', token: '' })
-	}
-
-	get token () {
-		return this.values.token
-	}
-
-	set token (value: string) {
-		this.set('token', value)
+		super({ password: '', cPassword: '' })
 	}
 
 	get password () {
@@ -46,7 +37,7 @@ export class PasswordResetFactory extends BaseFactory<null, { password: string, 
 
 	toModel = async () => {
 		if (this.valid) {
-			return { password: this.validValues.password, token: this.validValues.token }
+			return { password: this.validValues.password }
 		} else throw new Error('Validation errors')
 	}
 

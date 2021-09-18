@@ -1,5 +1,5 @@
 <template>
-	<form class="gap-1 gap-md-2 d-flex flex-column" @submit.prevent="resetPassword">
+	<form class="gap-1 gap-md-2 d-flex flex-column" @submit.prevent="sendResetEmail">
 		<Heading class="text-center" variant="1">
 			Forgot Your Password?
 		</Heading>
@@ -37,18 +37,18 @@
 
 <script lang="ts">
 import { defineComponent, useMeta } from '@nuxtjs/composition-api'
-import { usePasswordReset } from '@app/hooks/auth/passwords'
+import { usePasswordResetRequest } from '@app/hooks/auth/passwords'
 
 export default defineComponent({
 	name: 'AuthForgotPage',
 	layout: 'auth',
 	middleware: ['isNotAuthenticated'],
 	setup () {
-		const { factory, loading, resetPassword, error, message } = usePasswordReset()
+		const { factory, loading, sendResetEmail, error, message } = usePasswordResetRequest()
 		useMeta(() => ({
 			title: 'Forgot Password | Stranerd'
 		}))
-		return { factory, loading, resetPassword, error, message }
+		return { factory, loading, sendResetEmail, error, message }
 	},
 	head: {}
 })

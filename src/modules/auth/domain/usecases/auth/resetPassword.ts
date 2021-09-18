@@ -8,8 +8,8 @@ export class ResetPasswordUseCase {
 		this.repository = repository
 	}
 
-	async call (factory: PasswordResetFactory) {
-		const { password, token } = await factory.toModel()
+	async call (token: string, factory: PasswordResetFactory) {
+		const { password } = await factory.toModel()
 		return await this.repository.resetPassword(token, password)
 	}
 }

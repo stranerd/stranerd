@@ -1,5 +1,6 @@
 import { Ref, ref, ssrRef, useRouter } from '@nuxtjs/composition-api'
 import {
+	CompleteEmailVerification,
 	EmailSigninFactory,
 	EmailSignupFactory,
 	SigninWithEmail,
@@ -83,6 +84,24 @@ export const useEmailSignup = () => {
 		} else factory.value.validateAll()
 	}
 	return { factory, loading, error, signup }
+}
+
+export const useCompleteEmailVerification = (token: string) => {
+	const router = useRouter()
+	const { error, setError } = useErrorHandler()
+	const { loading, setLoading } = useLoadingHandler()
+	const completeVerification = async () => {
+		setError('')
+		setLoading(true)
+		try {
+			const user = await CompleteEmailVerification.call(token)
+			await createSession(user, router)
+		} catch (error) {
+			setError(error)
+		}
+		setLoading(false)
+	}
+	return { loading, error, completeVerification }
 }
 
 export const setReferrerId = (id: string) => {

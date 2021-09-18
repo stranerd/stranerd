@@ -1,5 +1,4 @@
-import { FirestoreGetClauses } from '@modules/core'
-import { PAGINATION_LIMIT } from '@utils/constants'
+import { Listeners } from '@modules/core'
 import { IQuestionRepository } from '../../irepositories/iquestion'
 import { QuestionEntity } from '../../entities/question'
 
@@ -10,16 +9,21 @@ export class ListenToUserQuestionsUseCase {
 		this.repository = repository
 	}
 
-	async call (userId: string, callback: (entities: QuestionEntity[]) => void, date?: Date) {
-		const conditions: FirestoreGetClauses = {
-			order: { field: 'dates.createdAt', desc: true },
-			limit: PAGINATION_LIMIT + 1,
-			where: [
-				{ field: 'userId', value: userId, condition: '==' }
-			]
-		}
-		if (date) conditions.where!.push({ field: 'dates.createdAt', condition: '>=', value: date })
-
-		return await this.repository.listenToMany(callback, conditions)
+	async call (userId: string, listener: Listeners<QuestionEntity>, date?: number) {
+		return await this.repository.listenToMany({
+			created: async (entity) => {
+				if (entity.userId === userId) await listener.created(entity)
+			},
+			updated: async (entity) => {
+				if (entity.userId === userId) {
+					if (date) {
+						if (entity.createdAt >= date) await listener.updated(entity)
+					} else await listener.updated(entity)
+				}
+			},
+			deleted: async (entity) => {
+				if (entity.userId === userId) await listener.deleted(entity)
+			}
+		})
 	}
 }

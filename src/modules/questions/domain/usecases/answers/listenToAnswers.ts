@@ -1,4 +1,4 @@
-import { FirestoreGetClauses } from '@modules/core'
+import { Listeners } from '@modules/core'
 import { IAnswerRepository } from '../../irepositories/ianswer'
 import { AnswerEntity } from '../../entities/answer'
 
@@ -9,14 +9,17 @@ export class ListenToAnswersUseCase {
 		this.repository = repository
 	}
 
-	async call (questionId: string, callback: (entities: AnswerEntity[]) => void) {
-		const conditions: FirestoreGetClauses = {
-			order: { field: 'dates.createdAt', desc: false },
-			where: [
-				{ field: 'questionId', condition: '==', value: questionId }
-			]
-		}
-
-		return await this.repository.listenToMany(callback, conditions)
+	async call (questionId: string, listener: Listeners<AnswerEntity>) {
+		return await this.repository.listenToMany({
+			created: async (entity) => {
+				if (entity.questionId === questionId) await listener.created(entity)
+			},
+			updated: async (entity) => {
+				if (entity.questionId === questionId) await listener.updated(entity)
+			},
+			deleted: async (entity) => {
+				if (entity.questionId === questionId) await listener.deleted(entity)
+			}
+		})
 	}
 }

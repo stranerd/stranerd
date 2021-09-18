@@ -3,7 +3,7 @@ import { FindUser, ListenToUser, UpdateStreak, UserEntity } from '@modules/users
 import { AuthDetails, UserLocation } from '@modules/auth/domain/entities/auth'
 import { SessionSignout } from '@modules/auth'
 import { isClient } from '@utils/environment'
-import { analytics, auth } from '@modules/core'
+import { analytics } from '@modules/core'
 import VueRouter from 'vue-router'
 
 const global = {
@@ -74,7 +74,6 @@ export const useAuth = () => {
 
 	const signin = async (remembered: boolean, router: VueRouter) => {
 		try {
-			if (global.auth.value?.token) await auth.signInWithCustomToken(global.auth.value.token)
 			await startProfileListener()
 			analytics.logEvent('login', { remembered })
 		} catch (e) {
@@ -85,7 +84,6 @@ export const useAuth = () => {
 	const signout = async (router: VueRouter) => {
 		await SessionSignout.call()
 		await setAuthUser(null, router)
-		await auth.signOut()
 		await router.push('/')
 		if (isClient()) window.location.assign('/')
 	}

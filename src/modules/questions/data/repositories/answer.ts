@@ -1,9 +1,9 @@
-import { FirestoreGetClauses, QueryParams } from '@modules/core'
+import { Listeners, QueryParams } from '@modules/core'
 import { IAnswerRepository } from '../../domain/irepositories/ianswer'
 import { AnswerEntity } from '../../domain/entities/answer'
 import { AnswerBaseDataSource } from '../datasources/answer-base'
 import { AnswerTransformer } from '../transformers/answer'
-import { AnswerFromModel, AnswerToModel } from '../models/answer'
+import { AnswerToModel } from '../models/answer'
 
 export class AnswerRepository implements IAnswerRepository {
 	private dataSource: AnswerBaseDataSource
@@ -22,20 +22,32 @@ export class AnswerRepository implements IAnswerRepository {
 		}
 	}
 
-	async listenToOne (id: string, callback: (entity: AnswerEntity | null) => void) {
-		const cb = (document: AnswerFromModel | null) => {
-			const entity = document ? this.transformer.fromJSON(document) : null
-			callback(entity)
-		}
-		return this.dataSource.listenToOne(id, cb)
+	async listenToOne (id: string, listener: Listeners<AnswerEntity>) {
+		return this.dataSource.listenToOne(id, {
+			created: async (model) => {
+				await listener.created(this.transformer.fromJSON(model))
+			},
+			updated: async (model) => {
+				await listener.updated(this.transformer.fromJSON(model))
+			},
+			deleted: async (model) => {
+				await listener.deleted(this.transformer.fromJSON(model))
+			}
+		})
 	}
 
-	async listenToMany (callback: (entities: AnswerEntity[]) => void, conditions?: FirestoreGetClauses) {
-		const cb = (documents: AnswerFromModel[]) => {
-			const entities = documents.map(this.transformer.fromJSON)
-			callback(entities)
-		}
-		return this.dataSource.listenToMany(cb, conditions)
+	async listenToMany (listener: Listeners<AnswerEntity>) {
+		return this.dataSource.listenToMany({
+			created: async (model) => {
+				await listener.created(this.transformer.fromJSON(model))
+			},
+			updated: async (model) => {
+				await listener.updated(this.transformer.fromJSON(model))
+			},
+			deleted: async (model) => {
+				await listener.deleted(this.transformer.fromJSON(model))
+			}
+		})
 	}
 
 	async add (data: AnswerToModel) {

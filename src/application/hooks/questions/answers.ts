@@ -43,8 +43,19 @@ export const useAnswerList = (questionId: string) => {
 	}
 
 	const listener = useListener(async () => {
-		const callback = (answers: AnswerEntity[]) => global[questionId].answers.value = answers
-		return await ListenToAnswers.call(questionId, callback)
+		return await ListenToAnswers.call(questionId, {
+			created: async (entity) => {
+				global[questionId].answers.value.push(entity)
+			},
+			updated: async (entity) => {
+				const index = global[questionId].answers.value.findIndex((c) => c.id === entity.id)
+				if (index === -1) global[questionId].answers.value.push(entity)
+				else global[questionId].answers.value.splice(index, 1, entity)
+			},
+			deleted: async (entity) => {
+				global[questionId].answers.value = global[questionId].answers.value.filter((c) => c.id !== entity.id)
+			}
+		})
 	})
 
 	useFetch(async () => {

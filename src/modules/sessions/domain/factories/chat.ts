@@ -1,5 +1,5 @@
 import { BaseFactory, Media } from '@modules/core'
-import { isFile, isLongerThanX, isRequiredIfX, isString } from '@stranerd/validate'
+import { isFile, isLongerThanX, isRequiredIf, isString } from '@stranerd/validate'
 import { ChatToModel } from '../../data/models/chat'
 import { ChatEntity } from '../entities/chat'
 
@@ -8,10 +8,10 @@ type Keys = { content: string | null, to: string, sessionId: string | null, medi
 
 export class ChatFactory extends BaseFactory<ChatEntity, ChatToModel, Keys> {
 	readonly rules = {
-		content: { required: false, rules: [isRequiredIfX(!this.media), isString, isLongerThanX(0)] },
+		content: { required: false, rules: [(val: any) => isRequiredIf(val, !this.media), isString, isLongerThanX(0)] },
 		to: { required: true, rules: [isString] },
 		sessionId: { required: false, rules: [isString] },
-		media: { required: false, rules: [isRequiredIfX(!this.content), isFile] }
+		media: { required: false, rules: [(val: any) => isRequiredIf(val, !this.content), isFile] }
 	}
 
 	reserved = ['to']

@@ -12,7 +12,8 @@ import { serialize } from '@utils/cookie'
 
 export const createSession = async (afterAuth: AfterAuthUser, router: VueRouter) => {
 	const authDetails = await SessionSignin.call(afterAuth)
-	const { setAuthUser, signin } = useAuth()
+	const { setAuthUser, signin, setTokens } = useAuth()
+	await setTokens({ accessToken: afterAuth.accessToken, refreshToken: afterAuth.refreshToken })
 	const isVerified = await setAuthUser(authDetails, router)
 	if (!isVerified) return
 	await signin(false, router)

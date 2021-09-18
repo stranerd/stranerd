@@ -1,5 +1,5 @@
 import { HttpClient } from '@modules/core'
-import { apiBases } from '@utils/environment'
+import { apiBases, domain } from '@utils/environment'
 import { AfterAuthUser, AuthDetails, AuthExtras, NewUser, UpdateUser } from '../../domain/entities/auth'
 import { AuthBaseDataSource } from './auth-base'
 
@@ -37,14 +37,16 @@ export class AuthApiDataSource implements AuthBaseDataSource {
 	}
 
 	async sendVerificationEmail (email: string) {
+		const redirectUrl = domain + '/auth/complete-verification'
 		await this.authClient.post<any, boolean>('/emails/verify/mail', {
-			email
+			email, redirectUrl
 		})
 	}
 
 	async sendPasswordResetEmail (email: string) {
+		const redirectUrl = domain + '/auth/reset'
 		await this.authClient.post<any, boolean>('/passwords/reset/mail', {
-			email
+			email, redirectUrl
 		})
 	}
 

@@ -2338,10 +2338,10 @@
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
   integrity sha512-9NET910DNaIPngYnLLPeg+Ogzqsi9uM4mSboU5y6p8S5DzMTVEsJZrawi+BoDNUVBa2DhJqQYUFvMDfgU062LQ==
 
-"@stranerd/validate@^1.4.1":
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/@stranerd/validate/-/validate-1.4.1.tgz#9417b10df09a4754275849bafbc8d73934a0d875"
-  integrity sha512-tgYZwAuyBOLmigUIAj3ZrNgRt8cir0VH6h07lW+KCg7oaeLSn9XMzZXs3ZwQhsuryKh6lf9PDCSj2GlGPUry/g==
+"@stranerd/validate@^1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@stranerd/validate/-/validate-1.4.2.tgz#0fcc02886c80cae20bdc820761a55daf0bc73de4"
+  integrity sha512-RB0y+ssglqM3XJg52BYnOL2eLoqLI0Yo/1aa2n6+fIUB7DpieVDPodbdYXreI6taLIMAlT2CwODMAtxIs6Sm7A==
 
 "@stripe/stripe-js@^1.13.2", "@stripe/stripe-js@^1.17.1":
   version "1.17.1"

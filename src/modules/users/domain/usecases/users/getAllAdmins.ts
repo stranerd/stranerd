@@ -1,3 +1,4 @@
+import { appName } from '@utils/environment'
 import { IUserRepository } from '../../irepositories/iuser'
 
 export class GetAllAdminsUseCase {
@@ -9,7 +10,7 @@ export class GetAllAdminsUseCase {
 
 	async call () {
 		return await this.repository.get({
-			where: [{ field: 'roles.stranerd.isAdmin', value: true }]
+			where: [{ field: `roles.${appName}.isAdmin`, value: true }]
 		})
 	}
 }

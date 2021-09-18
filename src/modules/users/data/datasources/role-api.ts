@@ -1,5 +1,5 @@
 import { HttpClient } from '@modules/core'
-import { apiBases } from '@utils/environment'
+import { apiBases, appName } from '@utils/environment'
 import { RoleBaseDataSource } from '../datasources/role-base'
 
 export class RoleApiDataSource implements RoleBaseDataSource {
@@ -11,7 +11,7 @@ export class RoleApiDataSource implements RoleBaseDataSource {
 
 	async toggleAdmin (data: { id: string, isAdmin: boolean }) {
 		await this.authClient.post<any, boolean>('/user/roles', {
-			app: 'stranerd',
+			app: appName,
 			role: 'isAdmin',
 			userId: data.id,
 			value: data.isAdmin

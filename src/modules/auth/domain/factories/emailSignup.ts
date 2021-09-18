@@ -1,5 +1,5 @@
 import { BaseFactory } from '@modules/core'
-import { isEmail, isLongerThanX, isShallowEqualToX, isShorterThanX, isString } from '@stranerd/validate'
+import { isEmail, isLongerThanX, isShallowEqualTo, isShorterThanX, isString } from '@stranerd/validate'
 import { AuthUser } from '../entities/auth'
 
 type Keys = { first: string, last: string, email: string, password: string, cPassword: string }
@@ -9,10 +9,10 @@ export class EmailSignupFactory extends BaseFactory<null, AuthUser, Keys> {
 		first: { required: true, rules: [isString, isLongerThanX(2)] },
 		last: { required: true, rules: [isString, isLongerThanX(2)] },
 		email: { required: true, rules: [isString, isEmail] },
-		password: { required: true, rules: [isString, isLongerThanX(5), isShorterThanX(17)] },
+		password: { required: true, rules: [isString, isLongerThanX(7), isShorterThanX(17)] },
 		cPassword: {
 			required: true,
-			rules: [isShallowEqualToX(this.password), isLongerThanX(5), isShorterThanX(17)]
+			rules: [(val: string) => isShallowEqualTo(val, this.password), isLongerThanX(7), isShorterThanX(17)]
 		}
 	}
 

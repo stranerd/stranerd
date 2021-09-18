@@ -1,4 +1,5 @@
 import { BaseEntity, Media } from '@modules/core'
+import { appName } from '@utils/environment'
 import { capitalize, catchDivideByZero, formatNumber } from '@utils/commons'
 import { getRankImage, getScholarLevel, RankTypes } from './rank'
 
@@ -32,7 +33,9 @@ export class UserEntity extends BaseEntity {
 		this.id = id
 		this.bio = generateDefaultBio(bio)
 		this.roles = {
-			isAdmin: roles?.isAdmin ?? false
+			[appName]: {
+				isAdmin: roles[appName]?.isAdmin ?? false
+			}
 		}
 		this.account = account
 		this.status = status
@@ -153,7 +156,7 @@ export class UserEntity extends BaseEntity {
 	}
 
 	get referrals () {
-		return Object.keys(this.account.referrals)
+		return Object.keys(this.account.referrals ?? {})
 	}
 
 	get nerdScoreMessage () {
@@ -161,6 +164,14 @@ export class UserEntity extends BaseEntity {
 		if (this.score / this.expectedScore > 0.5) return 'Your Nerd Score is ok but not there yet. Keep pushing.'
 		if (this.score / this.expectedScore > 0.25) return 'Your Nerd Score is not strong. You can do better.'
 		return 'Your Nerd Score is low. Try to bring it up.'
+	}
+
+	get isAdmin () {
+		return this.roles[appName].isAdmin
+	}
+
+	set isAdmin (isAdmin) {
+		this.roles[appName].isAdmin = isAdmin
 	}
 }
 
@@ -188,7 +199,9 @@ export interface UserBio {
 }
 
 export interface UserRoles {
-	isAdmin: boolean
+	[appName]: {
+		isAdmin: boolean
+	}
 }
 
 export interface UserAccount {

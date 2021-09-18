@@ -5,11 +5,22 @@ import { Listeners, StatusCodes } from '@modules/core'
 import { DefaultEventsMap } from 'socket.io-client/build/typed-events'
 
 let socket = null as Socket<DefaultEventsMap, DefaultEventsMap> | null
+const getSocketBaseAndPath = () => {
+	const stranerdBase = apiBases.STRANERD
+	const splitOnDoubleSlash = stranerdBase.split('//')
+	const http = splitOnDoubleSlash[0]
+	const minusHttp = splitOnDoubleSlash[1]
+	const minusDomain = minusHttp.split('/').slice(1).join('/')
+	const path = '/' + (minusDomain ?? '') + '/socket.io'
+	const domain = [http, minusHttp.split('/')[0]].join('//')
+	return { path, domain }
+}
 
 export async function listenOnSocket<Model> (channel: string, listeners: Listeners<Model>) {
 	if (!socket) {
 		const { accessToken } = await getTokens()
-		socket = io(apiBases.STRANERD, {
+		socket = io(getSocketBaseAndPath().domain, {
+			path: getSocketBaseAndPath().path,
 			auth: {
 				token: accessToken,
 				app: 'stranerd'

@@ -93,7 +93,7 @@ export const useAdminRoles = () => {
 			setLoading(true)
 			try {
 				await MakeAdmin.call(user.id)
-				user.roles.isAdmin = true
+				user.isAdmin = true
 				pushToAdminsList(user)
 				reset()
 				setMessage('Successfully upgraded to admin')

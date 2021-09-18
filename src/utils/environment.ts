@@ -1,4 +1,4 @@
-export const appName = process.env.APP_NAME
+export const appName = 'stranerd'
 export const isDev = process.env.ENVIRONMENT === 'development'
 
 export const isServer = () => process.server

@@ -1,9 +1,9 @@
 import { Listeners, QueryParams, QueryResults } from '@modules/core'
 import { TagFromModel } from '../models/tag'
 
-export abstract class TagBaseDataSource {
-	abstract get: (query: QueryParams) => Promise<QueryResults<TagFromModel>>
-	abstract listen: (listener: Listeners<TagFromModel>) => Promise<() => void>
-	abstract listenToOne: (id: string, listener: Listeners<TagFromModel>) => Promise<() => void>
-	abstract listenToMany: (listener: Listeners<TagFromModel>) => Promise<() => void>
+export interface TagBaseDataSource {
+	get: (query: QueryParams) => Promise<QueryResults<TagFromModel>>
+	listen: (listener: Listeners<TagFromModel>) => Promise<() => void>
+	listenToOne: (id: string, listener: Listeners<TagFromModel>) => Promise<() => void>
+	listenToMany: (listener: Listeners<TagFromModel>) => Promise<() => void>
 }

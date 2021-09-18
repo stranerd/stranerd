@@ -43,6 +43,12 @@ export class AuthApiDataSource implements AuthBaseDataSource {
 		})
 	}
 
+	async completeEmailVerification (token: string) {
+		return await this.authClient.post<any, AfterAuthUser>('/emails/verify/mail', {
+			token
+		})
+	}
+
 	async sendPasswordResetEmail (email: string) {
 		const redirectUrl = domain + '/auth/reset'
 		await this.authClient.post<any, boolean>('/passwords/reset/mail', {
@@ -51,7 +57,7 @@ export class AuthApiDataSource implements AuthBaseDataSource {
 	}
 
 	async resetPassword (token: string, password: string) {
-		await this.authClient.post<any, boolean>('/passwords/reset', {
+		return await this.authClient.post<any, AfterAuthUser>('/passwords/reset', {
 			token, password
 		})
 	}
@@ -78,7 +84,7 @@ export class AuthApiDataSource implements AuthBaseDataSource {
 		return user
 	}
 
-	async logout () {
+	async signout () {
 		await this.nuxtClient.post<any, any>('/signout', {})
 	}
 }

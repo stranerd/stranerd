@@ -1,13 +1,13 @@
 import { IAuthRepository } from '../../irepositories/iauth'
 
-export class SessionSignoutUseCase {
+export class CompleteEmailVerificationUseCase {
 	private repository: IAuthRepository
 
 	constructor (repository: IAuthRepository) {
 		this.repository = repository
 	}
 
-	async call () {
-		return await this.repository.signout()
+	async call (token: string) {
+		return await this.repository.completeEmailVerification(token)
 	}
 }

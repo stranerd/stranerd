@@ -5,9 +5,10 @@ export interface IAuthRepository {
 	signinWithGoogle: (extras: AuthExtras) => Promise<AfterAuthUser>
 	signupWithEmail: (data: NewUser, extras: AuthExtras) => Promise<AfterAuthUser>
 	sendVerificationEmail: (email: string) => Promise<void>
+	completeEmailVerification: (token: string) => Promise<AfterAuthUser>
 	sendPasswordResetEmail: (email: string) => Promise<void>
-	resetPassword: (token: string, password: string) => Promise<void>
+	resetPassword: (token: string, password: string) => Promise<AfterAuthUser>
 	updateProfile: (profile: UpdateUser) => Promise<void>
 	session: (afterAuth: AfterAuthUser) => Promise<AuthDetails>
-	logout: () => Promise<void>
+	signout: () => Promise<void>
 }

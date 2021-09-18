@@ -1,12 +1,12 @@
 import { Listeners, QueryParams, QueryResults } from '@modules/core'
 import { AnswerFromModel, AnswerToModel } from '../models/answer'
 
-export abstract class AnswerBaseDataSource {
-	abstract create: (data: AnswerToModel) => Promise<string>
-	abstract get: (query: QueryParams) => Promise<QueryResults<AnswerFromModel>>
-	abstract listenToOne: (id: string, listener: Listeners<AnswerFromModel>) => Promise<() => void>
-	abstract listenToMany: (listener: Listeners<AnswerFromModel>) => Promise<() => void>
-	abstract find: (id: string) => Promise<AnswerFromModel | null>
-	abstract update: (id: string, data: AnswerToModel) => Promise<void>
-	abstract delete: (id: string) => Promise<void>
+export interface AnswerBaseDataSource {
+	create: (data: AnswerToModel) => Promise<string>
+	get: (query: QueryParams) => Promise<QueryResults<AnswerFromModel>>
+	listenToOne: (id: string, listener: Listeners<AnswerFromModel>) => Promise<() => void>
+	listenToMany: (listener: Listeners<AnswerFromModel>) => Promise<() => void>
+	find: (id: string) => Promise<AnswerFromModel | null>
+	update: (id: string, data: AnswerToModel) => Promise<void>
+	delete: (id: string) => Promise<void>
 }

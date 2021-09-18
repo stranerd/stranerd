@@ -25,6 +25,10 @@ export class AuthRepository implements IAuthRepository {
 		return await this.dataSource.sendVerificationEmail(email)
 	}
 
+	async completeEmailVerification (token: string) {
+		return await this.dataSource.completeEmailVerification(token)
+	}
+
 	async sendPasswordResetEmail (email: string) {
 		return await this.dataSource.sendPasswordResetEmail(email)
 	}
@@ -41,7 +45,7 @@ export class AuthRepository implements IAuthRepository {
 		return await this.dataSource.session(afterAuth)
 	}
 
-	async logout () {
-		return await this.dataSource.logout()
+	async signout () {
+		return await this.dataSource.signout()
 	}
 }

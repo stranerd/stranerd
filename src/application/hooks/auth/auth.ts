@@ -2,7 +2,7 @@ import { computed, reqSsrRef } from '@nuxtjs/composition-api'
 import { FindUser, ListenToUser, UpdateStreak, UserEntity } from '@modules/users'
 import { AuthDetails, UserLocation } from '@modules/auth/domain/entities/auth'
 import { SessionSignout } from '@modules/auth'
-import { appName, isClient } from '@utils/environment'
+import { isClient } from '@utils/environment'
 import { analytics } from '@modules/core'
 import VueRouter from 'vue-router'
 import { saveTokens } from '@utils/tokens'
@@ -34,7 +34,7 @@ export const useAuth = () => {
 		}
 	})
 	const isAdmin = computed({
-		get: () => !!global.user.value?.roles[appName].isAdmin, set: () => {
+		get: () => !!global.user.value?.isAdmin, set: () => {
 		}
 	})
 	const currentSessionId = computed({

@@ -46,7 +46,6 @@ import {
 	ListenToQuestionCommentsUseCase
 } from './domain/usecases/comments/listenToComments'
 import { GetTagsUseCase } from './domain/usecases/tags/getTags'
-import { ListenToTagsUseCase } from './domain/usecases/tags/listenToTags'
 import { SubjectEntity } from './domain/entities/subject'
 import { SubjectFactory } from './domain/factories/subject'
 import { QuestionEntity } from './domain/entities/question'
@@ -114,7 +113,6 @@ export const ListenToQuestionComments = new ListenToQuestionCommentsUseCase(ques
 export const ListenToAnswerComments = new ListenToAnswerCommentsUseCase(answerCommentRepository)
 
 export const GetTags = new GetTagsUseCase(tagRepository)
-export const ListenToTags = new ListenToTagsUseCase(tagRepository)
 
 export { SubjectEntity, SubjectFactory }
 export { QuestionEntity, QuestionFactory }

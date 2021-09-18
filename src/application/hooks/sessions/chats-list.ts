@@ -19,17 +19,28 @@ export const useChatsList = () => {
 		const listener = useListener(async () => {
 			if (!id.value) return () => {
 			}
-			const cb = async (entities: ChatMetaEntity[]) => {
-				const hasNewMessage = entities.some((entity) => {
-					const globalUnReads = global[userId].meta.value.find((m) => m.id === entity.id)
-					if (!globalUnReads) return true
-					return entity.unRead.some((unread) => !globalUnReads.unRead.includes(unread))
-				})
-				global[userId].meta.value = entities
-				if (hasNewMessage) await player.play()
-			}
-
-			return ListenToPersonalChatsMeta.call(userId, cb)
+			return ListenToPersonalChatsMeta.call({
+				created: async (entity) => {
+					global[userId].meta.value.unshift(entity)
+					await player.play()
+				},
+				updated: async (entity) => {
+					global[userId].meta.value.unshift(entity)
+					const index = global[userId].meta.value.findIndex((m) => m.id === entity.id)
+					if (index === -1) {
+						global[userId].meta.value.unshift(entity)
+						await player.play()
+					} else {
+						const globalUnReads = global[userId].meta.value[index]
+						const hasNewMessage = entity.unRead.some((unRead) => !globalUnReads.unRead.includes(unRead))
+						if (hasNewMessage) await player.play()
+						global[userId].meta.value.splice(index, 1, entity)
+					}
+				},
+				deleted: async (entity) => {
+					global[userId].meta.value = global[userId].meta.value.filter((m) => m.id !== entity.id)
+				}
+			})
 		})
 		global[userId] = {
 			meta: ssrRef([]),
@@ -44,7 +55,7 @@ export const useChatsList = () => {
 		global[userId].setError('')
 		try {
 			global[userId].setLoading(true)
-			const metas = await GetPersonalChatsMeta.call(userId)
+			const metas = await GetPersonalChatsMeta.call()
 			global[userId].meta.value = metas.results
 			global[userId].fetched.value = true
 		} catch (e) {

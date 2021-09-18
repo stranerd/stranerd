@@ -1,5 +1,5 @@
 import { computed, Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
-import { GetTagQuestions, ListenToQuestions, QuestionEntity } from '@modules/questions'
+import { GetTagQuestions, ListenToTagQuestions, QuestionEntity } from '@modules/questions'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 
 enum Answered {
@@ -47,11 +47,19 @@ export const useTagQuestionList = (tag: string) => {
 		...useLoadingHandler()
 	}
 	const listener = useListener(async () => {
-		const appendQuestions = (questions: QuestionEntity[]) => {
-			questions.map((q) => unshiftToQuestionList(tag, q))
-		}
 		const lastDate = global[tag].questions.value[global[tag].questions.value.length - 1]?.createdAt
-		return await ListenToQuestions.call(appendQuestions, lastDate ? new Date(lastDate) : undefined)
+		return await ListenToTagQuestions.call(tag, {
+			created: async (entity) => {
+				unshiftToQuestionList(tag, entity)
+			},
+			updated: async (entity) => {
+				unshiftToQuestionList(tag, entity)
+			},
+			deleted: async (entity) => {
+				const index = global[tag].questions.value.findIndex((q) => q.id === entity.id)
+				if (index !== -1) global[tag].questions.value.splice(index, 1)
+			}
+		}, lastDate)
 	})
 	const filteredQuestions = computed({
 		get: () => global[tag].questions.value.filter((q) => {

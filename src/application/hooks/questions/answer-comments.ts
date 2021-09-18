@@ -34,8 +34,19 @@ export const useAnswerCommentList = (answerId: string) => {
 	}
 
 	const listener = useListener(async () => {
-		const callback = (comments: CommentEntity[]) => global[answerId].comments.value = comments
-		return await ListenToAnswerComments.call(answerId, callback)
+		return await ListenToAnswerComments.call(answerId, {
+			created: async (entity) => {
+				global[answerId].comments.value.push(entity)
+			},
+			updated: async (entity) => {
+				const index = global[answerId].comments.value.findIndex((c) => c.id === entity.id)
+				if (index === -1) global[answerId].comments.value.push(entity)
+				else global[answerId].comments.value.splice(index, 1, entity)
+			},
+			deleted: async (entity) => {
+				global[answerId].comments.value = global[answerId].comments.value.filter((c) => c.id !== entity.id)
+			}
+		})
 	})
 
 	useFetch(async () => {

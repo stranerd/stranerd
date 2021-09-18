@@ -1,29 +1,17 @@
 import firebase from 'firebase/compat/app'
-import 'firebase/compat/auth'
 import 'firebase/compat/analytics'
-import 'firebase/compat/database'
-import 'firebase/compat/firestore'
 import 'firebase/compat/functions'
-import 'firebase/compat/storage'
 import { firebaseConfig, isClient, isDev } from '@utils/environment'
 
 if (firebase.apps.length === 0) {
 	firebase.initializeApp(firebaseConfig)
 	if (isDev) {
-		firebase.auth().useEmulator('http://localhost:5004')
-		firebase.database().useEmulator('localhost', 5003)
-		firebase.firestore().useEmulator('localhost', 5002)
 		firebase.functions().useEmulator('localhost', 5001)
-		firebase.storage().useEmulator('localhost', 5005)
 	}
 }
 
 export default firebase
-export const auth = firebase.auth()
-export const database = firebase.database()
-export const firestore = firebase.firestore()
 export const functions = firebase.functions()
-export const storage = firebase.storage()
 export const analytics = isClient()
 	? firebase.analytics()
 	: {

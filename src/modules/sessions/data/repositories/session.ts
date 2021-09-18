@@ -1,8 +1,8 @@
-import { FirestoreGetClauses, QueryParams } from '@modules/core'
+import { Listeners, QueryParams } from '@modules/core'
 import { SessionBaseDataSource } from '../datasources/session-base'
 import { SessionTransformer } from '../transformers/session'
 import { ISessionRepository } from '../../domain/irepositories/isession'
-import { SessionFromModel, SessionToModel } from '../models/session'
+import { SessionToModel } from '../models/session'
 import { SessionEntity } from '../../domain/entities/session'
 
 export class SessionRepository implements ISessionRepository {
@@ -31,18 +31,32 @@ export class SessionRepository implements ISessionRepository {
 		return model ? this.transformer.fromJSON(model) : model
 	}
 
-	async listenToOne (id: string, callback: (entity: SessionEntity | null) => void) {
-		const listenCB = (document: SessionFromModel | null) => callback(
-			document ? this.transformer.fromJSON(document) : null
-		)
-		return await this.dataSource.listenToOne(id, listenCB)
+	async listenToOne (id: string, listener: Listeners<SessionEntity>) {
+		return this.dataSource.listenToOne(id, {
+			created: async (model) => {
+				await listener.created(this.transformer.fromJSON(model))
+			},
+			updated: async (model) => {
+				await listener.updated(this.transformer.fromJSON(model))
+			},
+			deleted: async (model) => {
+				await listener.deleted(this.transformer.fromJSON(model))
+			}
+		})
 	}
 
-	async listenToMany (callback: (entities: SessionEntity[]) => void, conditions?: FirestoreGetClauses) {
-		const listenCB = (documents: SessionFromModel[]) => callback(
-			documents.map(this.transformer.fromJSON)
-		)
-		return await this.dataSource.listenToMany(listenCB, conditions)
+	async listenToMany (listener: Listeners<SessionEntity>) {
+		return this.dataSource.listenToMany({
+			created: async (model) => {
+				await listener.created(this.transformer.fromJSON(model))
+			},
+			updated: async (model) => {
+				await listener.updated(this.transformer.fromJSON(model))
+			},
+			deleted: async (model) => {
+				await listener.deleted(this.transformer.fromJSON(model))
+			}
+		})
 	}
 
 	async accept (id: string, accepted: boolean) {

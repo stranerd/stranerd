@@ -165,6 +165,14 @@ export class UserEntity extends BaseEntity {
 		if (this.score / this.expectedScore > 0.25) return 'Your Nerd Score is not strong. You can do better.'
 		return 'Your Nerd Score is low. Try to bring it up.'
 	}
+
+	get isAdmin () {
+		return this.roles[appName].isAdmin
+	}
+
+	set isAdmin (isAdmin) {
+		this.roles[appName].isAdmin = isAdmin
+	}
 }
 
 type UserConstructorArgs = {

@@ -1,11 +1,12 @@
-import { DatabaseGetClauses, QueryParams, QueryResults } from '@modules/core'
+import { Listeners, QueryParams, QueryResults } from '@modules/core'
 import { CommentToModel } from '../../data/models/comment'
 import { CommentEntity } from '../entities/comment'
 
 export interface ICommentRepository {
 	add: (data: CommentToModel) => Promise<string>
 	get: (query: QueryParams) => Promise<QueryResults<CommentEntity>>
-	listen: (baseId: string, callback: (entities: CommentEntity[]) => void, conditions?: DatabaseGetClauses) => Promise<() => void>
+	listenToOne: (id: string, listener: Listeners<CommentEntity>) => Promise<() => void>
+	listenToMany: (listener: Listeners<CommentEntity>) => Promise<() => void>
 	find: (id: string) => Promise<CommentEntity | null>
 	update: (id: string, data: CommentToModel) => Promise<void>
 }

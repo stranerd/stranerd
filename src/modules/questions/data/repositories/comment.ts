@@ -1,9 +1,9 @@
-import { DatabaseGetClauses, QueryParams } from '@modules/core'
+import { Listeners, QueryParams } from '@modules/core'
 import { ICommentRepository } from '../../domain/irepositories/icomment'
 import { CommentEntity } from '../../domain/entities/comment'
 import { CommentBaseDataSource } from '../datasources/comment-base'
 import { CommentTransformer } from '../transformers/comment'
-import { CommentFromModel, CommentToModel } from '../models/comment'
+import { CommentToModel } from '../models/comment'
 
 export class CommentRepository implements ICommentRepository {
 	private dataSource: CommentBaseDataSource
@@ -22,12 +22,32 @@ export class CommentRepository implements ICommentRepository {
 		}
 	}
 
-	async listen (baseId: string, callback: (entities: CommentEntity[]) => void, conditions?: DatabaseGetClauses) {
-		const cb = (documents: CommentFromModel[]) => {
-			const entities = documents.map(this.transformer.fromJSON)
-			callback(entities)
-		}
-		return this.dataSource.listen(baseId, cb, conditions)
+	async listenToOne (id: string, listener: Listeners<CommentEntity>) {
+		return this.dataSource.listenToOne(id, {
+			created: async (model) => {
+				await listener.created(this.transformer.fromJSON(model))
+			},
+			updated: async (model) => {
+				await listener.updated(this.transformer.fromJSON(model))
+			},
+			deleted: async (model) => {
+				await listener.deleted(this.transformer.fromJSON(model))
+			}
+		})
+	}
+
+	async listenToMany (listener: Listeners<CommentEntity>) {
+		return this.dataSource.listenToMany({
+			created: async (model) => {
+				await listener.created(this.transformer.fromJSON(model))
+			},
+			updated: async (model) => {
+				await listener.updated(this.transformer.fromJSON(model))
+			},
+			deleted: async (model) => {
+				await listener.deleted(this.transformer.fromJSON(model))
+			}
+		})
 	}
 
 	async add (data: CommentToModel) {

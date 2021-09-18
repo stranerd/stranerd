@@ -28,10 +28,20 @@ export const useSimilarQuestionList = (question: QuestionEntity) => {
 	}
 
 	const listener = useListener(async () => {
-		const callback = (questions: QuestionEntity[]) => {
-			global[question.id].questions.value = questions.filter((q) => q.id !== question.id).slice(0, 10)
-		}
-		return await ListenToSimilarQuestions.call(question.tags, callback)
+		return await ListenToSimilarQuestions.call(question.id, question.tags, {
+			created: async (entity) => {
+				global[question.id].questions.value.unshift(entity)
+			},
+			updated: async (entity) => {
+				const index = global[question.id].questions.value.findIndex((q) => q.id === entity.id)
+				if (index > -1) global[question.id].questions.value.splice(index, 1, entity)
+				else global[question.id].questions.value.unshift(entity)
+			},
+			deleted: async (entity) => {
+				const index = global[question.id].questions.value.findIndex((q) => q.id === entity.id)
+				if (index > -1) global[question.id].questions.value.splice(index, 1)
+			}
+		})
 	})
 
 	useFetch(async () => {

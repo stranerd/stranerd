@@ -32,17 +32,23 @@ export const useCurrentSession = () => {
 				const id = userId === session.tutorId ? session.studentId : session.tutorId
 				await router.push(`/sessions/${id}`)
 			}
+			const listenerCallback = async (entity: SessionEntity) => {
+				const oldDone = currentGlobal.currentSession.value?.done ?? false
+				if (!oldDone && entity?.done) {
+					const id = userId === entity.tutorId ? entity.studentId : entity.tutorId
+					setOtherParticipantId(id)
+					useSessionModal().openRatings()
+				}
+				currentGlobal.previousSession.value = currentGlobal.currentSession.value
+				if (entity) currentGlobal.currentSession.value = entity
+			}
 			await currentGlobal.listener.resetListener(
 				async () => id
-					? ListenToSession.call(id, (s) => {
-						const oldDone = currentGlobal.currentSession.value?.done ?? false
-						if (!oldDone && s?.done) {
-							const id = userId === s.tutorId ? s.studentId : s.tutorId
-							setOtherParticipantId(id)
-							useSessionModal().openRatings()
+					? ListenToSession.call(id, {
+						created: listenerCallback,
+						updated: listenerCallback,
+						deleted: async () => {
 						}
-						currentGlobal.previousSession.value = currentGlobal.currentSession.value
-						if (s) currentGlobal.currentSession.value = s
 					})
 					: () => () => {
 					}
@@ -86,11 +92,22 @@ const useSession = (key: SessionKey, router: VueRouter, callback: (key: SessionK
 			return () => {
 			}
 		}
-		const cb = (sessions: SessionEntity[]) => {
-			callback(key, sessions, id.value!, router)
-			global[key].sessions.value = sessions
-		}
-		return ListenToSessions.call(sessionIds, cb)
+		return ListenToSessions.call(sessionIds, {
+			created: async (entity) => {
+				global[key].sessions.value.push(entity)
+				callback(key, global[key].sessions.value, id.value!, router)
+			},
+			updated: async (entity) => {
+				const index = global[key].sessions.value.findIndex((e) => e.id === entity.id)
+				if (index > -1) global[key].sessions.value.splice(index, 1, entity)
+				else global[key].sessions.value.push(entity)
+				callback(key, global[key].sessions.value, id.value!, router)
+			},
+			deleted: async (entity) => {
+				global[key].sessions.value = global[key].sessions.value.filter((e) => e.id !== entity.id)
+				callback(key, global[key].sessions.value, id.value!, router)
+			}
+		})
 	}
 
 	if (global[key] === undefined) global[key] = {

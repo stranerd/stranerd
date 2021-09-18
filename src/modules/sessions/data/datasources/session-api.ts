@@ -1,4 +1,4 @@
-import { FirestoreGetClauses, FirestoreService, HttpClient, QueryParams, QueryResults } from '../../../core'
+import { HttpClient, QueryParams, QueryResults, Listeners, listenOnSocket } from '../../../core'
 import { apiBases } from '../../../../utils/environment'
 import { SessionFromModel, SessionToModel } from '../models/session'
 import { SessionBaseDataSource } from './session-base'
@@ -23,12 +23,12 @@ export class SessionApiDataSource implements SessionBaseDataSource {
 		return await this.stranerdClient.get<QueryParams, QueryResults<SessionFromModel>>('/sessions', query)
 	}
 
-	async listenToOne (id: string, callback: (session: (SessionFromModel | null)) => void): Promise<() => void> {
-		return await FirestoreService.listenToOne<SessionFromModel>(callback, 'sessions', id)
+	async listenToOne (id: string, listener: Listeners<SessionFromModel>) {
+		return listenOnSocket(`sessions/${id}`, listener)
 	}
 
-	async listenToMany (callback: (sessions: SessionFromModel[]) => void, conditions?: FirestoreGetClauses): Promise<() => void> {
-		return await FirestoreService.listenToMany<SessionFromModel>(callback, 'sessions', conditions)
+	async listenToMany (listener: Listeners<SessionFromModel>) {
+		return listenOnSocket('sessions', listener)
 	}
 
 	async accept (id: string, accepted: boolean) {

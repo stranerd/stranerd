@@ -68,11 +68,19 @@ export const useQuestionList = () => {
 		global.setLoading(false)
 	}
 	const listener = useListener(async () => {
-		const appendQuestions = (questions: QuestionEntity[]) => {
-			questions.map(unshiftToQuestionList)
-		}
 		const lastDate = global.questions.value[global.questions.value.length - 1]?.createdAt
-		return await ListenToQuestions.call(appendQuestions, lastDate ? new Date(lastDate) : undefined)
+		return await ListenToQuestions.call({
+			created: async (entity) => {
+				unshiftToQuestionList(entity)
+			},
+			updated: async (entity) => {
+				unshiftToQuestionList(entity)
+			},
+			deleted: async (entity) => {
+				const index = global.questions.value.findIndex((q) => q.id === entity.id)
+				if (index !== -1) global.questions.value.splice(index, 1)
+			}
+		}, lastDate)
 	})
 	const filteredQuestions = computed({
 		get: () => global.questions.value.filter((q) => {
@@ -91,11 +99,19 @@ export const useQuestionList = () => {
 	const fetchOlderQuestions = async () => {
 		await fetchQuestions()
 		await listener.resetListener(async () => {
-			const appendQuestions = (questions: QuestionEntity[]) => {
-				questions.map(unshiftToQuestionList)
-			}
 			const lastDate = global.questions.value[global.questions.value.length - 1]?.createdAt
-			return await ListenToQuestions.call(appendQuestions, lastDate ? new Date(lastDate) : undefined)
+			return await ListenToQuestions.call({
+				created: async (entity) => {
+					unshiftToQuestionList(entity)
+				},
+				updated: async (entity) => {
+					unshiftToQuestionList(entity)
+				},
+				deleted: async (entity) => {
+					const index = global.questions.value.findIndex((q) => q.id === entity.id)
+					if (index !== -1) global.questions.value.splice(index, 1)
+				}
+			}, lastDate)
 		})
 	}
 
@@ -186,10 +202,18 @@ export const useQuestion = (questionId: string) => {
 		setLoading(false)
 	}
 	const listener = useListener(async () => {
-		const callback = (q: QuestionEntity | null) => {
-			if (q) unshiftToQuestionList(q)
-		}
-		return await ListenToQuestion.call(questionId, callback)
+		return await ListenToQuestion.call(questionId, {
+			created: async (entity) => {
+				unshiftToQuestionList(entity)
+			},
+			updated: async (entity) => {
+				unshiftToQuestionList(entity)
+			},
+			deleted: async (entity) => {
+				const index = global.questions.value.findIndex((q) => q.id === entity.id)
+				if (index !== -1) global.questions.value.splice(index, 1)
+			}
+		})
 	})
 
 	useFetch(fetchQuestion)

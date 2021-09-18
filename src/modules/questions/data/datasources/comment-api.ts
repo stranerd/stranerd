@@ -1,4 +1,4 @@
-import { DatabaseGetClauses, DatabaseService, HttpClient, QueryParams, QueryResults } from '@modules/core'
+import { HttpClient, Listeners, listenOnSocket, QueryParams, QueryResults } from '@modules/core'
 import { apiBases } from '@utils/environment'
 import { CommentFromModel, CommentToModel } from '../models/comment'
 import { CommentBaseDataSource } from './comment-base'
@@ -22,14 +22,18 @@ export class CommentApiDataSource implements CommentBaseDataSource {
 	}
 
 	async get (query: QueryParams) {
-		return await this.stranerdClient.get<QueryParams, QueryResults<CommentFromModel>>('/answerComments', query)
+		return await this.stranerdClient.get<QueryParams, QueryResults<CommentFromModel>>(`${this.path}`, query)
 	}
 
 	async update (id: string, data: CommentToModel) {
 		await this.stranerdClient.put<CommentToModel, CommentFromModel>(`/${this.path}/${id}`, data)
 	}
 
-	async listen (baseId: string, callback: (documents: CommentFromModel[]) => void, conditions?: DatabaseGetClauses) {
-		return await DatabaseService.listenToMany<CommentFromModel>(`comments/questions/${baseId}`, callback, conditions)
+	async listenToOne (id: string, listener: Listeners<CommentFromModel>) {
+		return listenOnSocket(`${this.path}/${id}`, listener)
+	}
+
+	async listenToMany (listener: Listeners<CommentFromModel>) {
+		return listenOnSocket(`${this.path}`, listener)
 	}
 }

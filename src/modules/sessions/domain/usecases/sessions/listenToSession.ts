@@ -1,3 +1,4 @@
+import { Listeners } from '@modules/core'
 import { ISessionRepository } from '../../irepositories/isession'
 import { SessionEntity } from '../../entities/session'
 
@@ -8,7 +9,7 @@ export class ListenToSessionUseCase {
 		this.repository = repository
 	}
 
-	async call (id: string, callback: (entity: SessionEntity | null) => void) {
-		return await this.repository.listenToOne(id, callback)
+	async call (id: string, listener: Listeners<SessionEntity>) {
+		return await this.repository.listenToOne(id, listener)
 	}
 }

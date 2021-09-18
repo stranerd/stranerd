@@ -1,5 +1,5 @@
-import { SendVerificationEmail, SessionSignin } from '@modules/auth'
-import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
+import { SessionSignin } from '@modules/auth'
+import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 import { isServer } from '@utils/environment'
 import { REDIRECT_SESSION_NAME } from '@utils/constants'
 import Cookie from 'cookie'
@@ -59,30 +59,4 @@ export const useRedirectToAuth = () => {
 	}
 
 	return { redirect }
-}
-
-export const useVerifyEmail = () => {
-	const { loading, setLoading } = useLoadingHandler()
-	const { error, setError } = useErrorHandler()
-	const { message, setMessage } = useSuccessHandler()
-
-	const verifyEmail = async () => {
-		const email = useAuth().auth.value?.email
-		if (!email) return
-		setError('')
-		setLoading(true)
-		try {
-			await SendVerificationEmail.call(email)
-			setMessage(`A verification email was just sent to ${email}. Proceed to your email to complete your verification.`)
-		} catch (error) {
-			setError(error)
-		}
-		setLoading(false)
-	}
-
-	return {
-		email: useAuth().auth.value?.email,
-		loading, error, message,
-		verifyEmail
-	}
 }

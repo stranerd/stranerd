@@ -5,9 +5,9 @@
 		</Heading>
 		<span class="textStyle text-center">
 			An email was just sent to <b><DynamicText>{{ email }}</DynamicText></b>. Follow the link to verify your account.
-			If an error occurred or you didn't receive the email, click the button below to resend the email.
+			If an error occurred, click the button below to retry verification.
 		</span>
-		<button class="btn btn-lg btn-custom py-1 " @click="sendVerificationEmail">
+		<button class="btn btn-lg btn-custom py-1 " @click="completeVerification">
 			Resend Mail
 		</button>
 		<DisplayError :error="error" />
@@ -22,26 +22,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, useMeta } from '@nuxtjs/composition-api'
-import { useAuth } from '@app/hooks/auth/auth'
-import { useEmailVerificationRequest } from '@app/hooks/auth/signin'
+import { defineComponent, onMounted, useMeta, useRoute } from '@nuxtjs/composition-api'
+import { useCompleteEmailVerification } from '@app/hooks/auth/signin'
 
 export default defineComponent({
-	name: 'AuthVerifyPage',
+	name: 'AuthCompleteVerificationPage',
 	layout: 'auth',
-	middleware: [
-		({ redirect }) => {
-			const { auth } = useAuth()
-			if (!auth.value) redirect('/auth/signin')
-		}
-	],
+	middleware: ['isNotAuthenticated', ({ params, redirect }) => {
+		if (!params.token) redirect('/auth/signin')
+	}],
 	setup () {
-		const { email, loading, error, message, sendVerificationEmail } = useEmailVerificationRequest()
-		onMounted(sendVerificationEmail)
+		const { token } = useRoute().value.params
+		const { loading, error, completeVerification } = useCompleteEmailVerification(token)
+		onMounted(completeVerification)
 		useMeta(() => ({
-			title: 'Email Verification | Stranerd'
+			title: 'Complete Email Verification | Stranerd'
 		}))
-		return { email, loading, error, message, sendVerificationEmail }
+		return { loading, error, completeVerification }
 	},
 	head: {}
 })

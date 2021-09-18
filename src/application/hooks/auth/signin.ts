@@ -3,13 +3,16 @@ import {
 	CompleteEmailVerification,
 	EmailSigninFactory,
 	EmailSignupFactory,
+	SendVerificationEmail,
 	SigninWithEmail,
 	SigninWithGoogle,
 	SignupWithEmail
 } from '@modules/auth'
-import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
+import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { createSession } from '@app/hooks/auth/session'
 import { isClient } from '@utils/environment'
+import { NetworkError, StatusCodes } from '@modules/core'
+import { useAuth } from '@app/hooks/auth/auth'
 
 const global = {
 	referrerId: ssrRef(undefined as string | undefined)
@@ -98,10 +101,40 @@ export const useCompleteEmailVerification = (token: string) => {
 			await createSession(user, router)
 		} catch (error) {
 			setError(error)
+			if (error instanceof NetworkError && error.statusCode === StatusCodes.InvalidToken) {
+				setError('Invalid or expired token. Proceed to signin!')
+				await router.replace('/auth/signin')
+			} else setError(error)
 		}
 		setLoading(false)
 	}
 	return { loading, error, completeVerification }
+}
+
+export const useEmailVerificationRequest = () => {
+	const { loading, setLoading } = useLoadingHandler()
+	const { error, setError } = useErrorHandler()
+	const { message, setMessage } = useSuccessHandler()
+
+	const sendVerificationEmail = async () => {
+		const email = useAuth().auth.value?.email
+		if (!email) return
+		setError('')
+		setLoading(true)
+		try {
+			await SendVerificationEmail.call(email)
+			setMessage(`A verification email was just sent to ${email}. Proceed to your email to complete your verification.`)
+		} catch (error) {
+			setError(error)
+		}
+		setLoading(false)
+	}
+
+	return {
+		email: useAuth().auth.value?.email,
+		loading, error, message,
+		sendVerificationEmail
+	}
 }
 
 export const setReferrerId = (id: string) => {

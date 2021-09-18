@@ -42,7 +42,7 @@ export const usePasswordReset = (token: string) => {
 				await createSession(user, router)
 			} catch (error) {
 				if (error instanceof NetworkError && error.statusCode === StatusCodes.InvalidToken) {
-					setError('Reset token has expired. Request a new link sent to your email')
+					setError('Invalid or expired token. Request a new link sent to your email')
 					await router.replace('/auth/forgot')
 				} else setError(error)
 			}

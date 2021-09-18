@@ -4,7 +4,7 @@ import { isServer } from '@utils/environment'
 import { REDIRECT_SESSION_NAME } from '@utils/constants'
 import Cookie from 'cookie'
 import { AfterAuthUser } from '@modules/auth/domain/entities/auth'
-import { useContext, useRouter } from '@nuxtjs/composition-api'
+import { useContext } from '@nuxtjs/composition-api'
 import VueRouter from 'vue-router'
 import { useAuth } from '@app/hooks/auth/auth'
 import { Alert } from '@app/hooks/core/notifications'
@@ -16,7 +16,7 @@ export const createSession = async (afterAuth: AfterAuthUser, router: VueRouter)
 	await setTokens({ accessToken: afterAuth.accessToken, refreshToken: afterAuth.refreshToken })
 	const isVerified = await setAuthUser(authDetails, router)
 	if (!isVerified) return
-	await signin(false, router)
+	await signin(false)
 
 	const { [REDIRECT_SESSION_NAME]: redirect } = Cookie.parse(document.cookie ?? '')
 	document.cookie = Cookie.serialize(REDIRECT_SESSION_NAME, '', { expires: new Date(0) })
@@ -24,7 +24,6 @@ export const createSession = async (afterAuth: AfterAuthUser, router: VueRouter)
 }
 
 export const useSessionSignout = () => {
-	const router = useRouter()
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const signout = async () => {
@@ -38,7 +37,7 @@ export const useSessionSignout = () => {
 		if (accepted) {
 			setLoading(true)
 			try {
-				await useAuth().signout(router)
+				await useAuth().signout()
 			} catch (error) {
 				setError(error)
 			}

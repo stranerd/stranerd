@@ -16,6 +16,8 @@ const getSocketBaseAndPath = () => {
 	return { path, domain }
 }
 
+type SocketReturn = { code: StatusCodes, message: string, channel: string }
+
 export async function listenOnSocket<Model> (channel: string, listeners: Listeners<Model>) {
 	if (!socket) {
 		const { accessToken } = await getTokens()
@@ -29,7 +31,8 @@ export async function listenOnSocket<Model> (channel: string, listeners: Listene
 	}
 
 	let finalChannel = ''
-	await socket.emit('join', { channel }, (res: { code: StatusCodes, message: string, channel: string }) => {
+	await socket.emit('join', { channel }, (res: SocketReturn) => {
+		// TODO: catch socket return errors
 		finalChannel = res.channel
 		socket?.on(finalChannel, async (data: { channel: string, type: EmitTypes, data: Model }) => {
 			if (finalChannel !== data.channel) return
@@ -38,7 +41,8 @@ export async function listenOnSocket<Model> (channel: string, listeners: Listene
 	})
 	return () => {
 		try {
-			socket?.emit('leave', { channel: finalChannel })
+			socket?.emit('leave', { channel: finalChannel }, (_: SocketReturn) => {
+			})
 		} catch (e) {
 		}
 	}

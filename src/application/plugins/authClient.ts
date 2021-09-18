@@ -6,7 +6,7 @@ export default defineNuxtPlugin(async ({ app }) => {
 	if (useAuth().getTokens()) await useAuth().setTokens(useAuth().getTokens()!)
 
 	const { isLoggedIn, isVerified, signin } = useAuth()
-	if (isLoggedIn.value && isVerified.value) await signin(true, app?.router!)
+	if (isLoggedIn.value && isVerified.value) await signin(true)
 
 	onGlobalSetup(() => {
 		useCurrentSession().listener.startListener()

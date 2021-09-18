@@ -81,19 +81,18 @@ export const useAuth = () => {
 		}
 	}
 
-	const signin = async (remembered: boolean, router: VueRouter) => {
+	const signin = async (remembered: boolean) => {
 		try {
 			await startProfileListener()
 			analytics.logEvent('login', { remembered })
 		} catch (e) {
-			await signout(router)
+			await signout()
 		}
 	}
 
-	const signout = async (router: VueRouter) => {
+	const signout = async () => {
 		await SessionSignout.call()
-		await setAuthUser(null, router)
-		await router.push('/')
+		await setAuthUser(null, {} as unknown as VueRouter)
 		if (isClient()) window.location.assign('/')
 	}
 

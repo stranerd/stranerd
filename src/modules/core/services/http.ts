@@ -58,9 +58,9 @@ export class HttpClient {
 			const error = e as unknown as AxiosError
 			if (!error.isAxiosError) throw error
 			if (!error.response) throw error
-			const isFromOurServer = Object.values(apiBases).includes(this.client.defaults.baseURL!)
-			if (!isFromOurServer) throw error
 			const status = error.response.status
+			const isFromOurServer = Object.values(apiBases).includes(this.client.defaults.baseURL!) && Object.values(StatusCodes).includes(status)
+			if (!isFromOurServer) throw error
 			if (status !== StatusCodes.AccessTokenExpired) throw new NetworkError(status, error.response.data)
 			await this.getNewTokens()
 			return this.makeRequest(url, method, data)

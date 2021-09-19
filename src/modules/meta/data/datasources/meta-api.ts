@@ -1,4 +1,4 @@
-import { FunctionsService, HttpClient, QueryResults } from '@modules/core'
+import { HttpClient, QueryResults } from '@modules/core'
 import { apiBases } from '@utils/environment'
 import { QuestionFromModel } from '@modules/questions/data/models/question'
 import { AnswerFromModel } from '@modules/questions/data/models/answer'
@@ -10,14 +10,6 @@ export class MetaApiDataSource implements MetaBaseDataSource {
 
 	constructor () {
 		this.stranerdClient = new HttpClient(apiBases.STRANERD)
-	}
-
-	async makeStripePayment (data: { amount: number, currency: string }) {
-		return await FunctionsService.call('makeStripePayment', data)
-	}
-
-	async buyCoins (data: { amount: number, isGold: boolean }) {
-		return await FunctionsService.call('buyCoins', data)
 	}
 
 	async search (search: string) {

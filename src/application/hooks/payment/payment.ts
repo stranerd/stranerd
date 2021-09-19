@@ -1,4 +1,4 @@
-import { MakeStripePayment } from '@modules/meta'
+import { BuyCoinsWithStripe, VerifyStripePayment } from '@modules/meta'
 import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 import { stripeConfig } from '@utils/environment'
 import { usePaymentModal } from '@app/hooks/core/modals'
@@ -6,9 +6,11 @@ import { analytics } from '@modules/core'
 import { loadStripe } from '@stripe/stripe-js'
 import { useAuth } from '@app/hooks/auth/auth'
 
-let props = {
-	amount: null as number | null,
-	afterPayment: null as null | ((res: boolean) => Promise<void>)
+let props: RawPaymentProps & PaymentData = {
+	type: null,
+	amount: null,
+	afterPayment: null,
+	data: {} as Record<string, any>
 }
 export const setPaymentProps = (prop: typeof props) => props = prop
 
@@ -46,16 +48,22 @@ export const useStripePayment = () => {
 		try {
 			const stripe = await loadStripe(stripeConfig.publicKey)
 			if (!stripe) return setLoading(false)
-			const clientSecret = await MakeStripePayment.call(getLocalAmount(props.amount!), getLocalCurrency())
-			const res = await stripe.confirmCardPayment(clientSecret, {
-				payment_method: {
-					card: { token }
-				}
-			})
-			if (res.error) throw new Error(res.error.message)
-			const succeeded = res.paymentIntent.status === 'succeeded'
+			if (props.type === 'buyCoins') {
+				const { id, clientSecret } = await BuyCoinsWithStripe.call(
+					getLocalAmount(props.amount!),
+					getLocalCurrency(),
+					{ gold: props.data.gold, bronze: props.data.bronze }
+				)
+				const intent = await stripe.confirmCardPayment(clientSecret, {
+					payment_method: {
+						card: { token }
+					}
+				})
+				if (intent.error) throw new Error(intent.error.message)
+				const succeeded = await VerifyStripePayment.call(id)
+				await props.afterPayment?.(succeeded)
+			}
 			usePaymentModal().closeMakePayment()
-			await props.afterPayment?.(succeeded)
 			// @ts-ignore
 			analytics.logEvent('purchase', {
 				value: props.amount!
@@ -67,4 +75,17 @@ export const useStripePayment = () => {
 	}
 
 	return { error, loading, pay, setLoading }
+}
+
+type RawPaymentProps = {
+	afterPayment: null | ((res: boolean) => Promise<void>)
+	amount: number | null
+}
+
+type PaymentData = {
+	type: 'buyCoins',
+	data: { gold: number, bronze: number }
+} | {
+	type: null,
+	data: {}
 }

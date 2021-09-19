@@ -2,8 +2,6 @@ import { MetaApiDataSource } from './data/datasources/meta-api'
 import { MessageApiDataSource } from './data/datasources/message-api'
 import { MetaRepository } from './data/repositories/meta'
 import { MessageRepository } from './data/repositories/message'
-import { MakeStripePaymentUseCase } from './domain/usecases/meta/makeStripePayment'
-import { BuyCoinsUseCase } from './domain/usecases/meta/buyCoins'
 import { SearchUseCase } from './domain/usecases/meta/search'
 import { AddMessageUseCase } from './domain/usecases/messages/addMessage'
 import { MessageFactory } from './domain/factories/message'
@@ -17,8 +15,6 @@ const metaRepository = new MetaRepository(metaDataSource)
 
 export const BuyCoinsWithStripe = new BuyCoinsWithStripeUseCase(metaRepository)
 export const VerifyStripePayment = new VerifyStripePaymentUseCase(metaRepository)
-export const MakeStripePayment = new MakeStripePaymentUseCase(metaRepository)
-export const BuyCoins = new BuyCoinsUseCase(metaRepository)
 export const Search = new SearchUseCase(metaRepository)
 
 const messageRepository = new MessageRepository(messageDataSource)

@@ -3,7 +3,6 @@ import { Ref, ref, useRouter, watch } from '@nuxtjs/composition-api'
 import { ProfileUpdateFactory, UpdateProfile } from '@modules/auth'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useAccountModal, usePaymentModal } from '@app/hooks/core/modals'
-import { BuyCoins } from '@modules/meta'
 import { setPaymentProps } from '@app/hooks/payment/payment'
 import { analytics } from '@modules/core'
 
@@ -56,25 +55,24 @@ export const useBuyCoins = () => {
 
 	const buyCoins = async (option: typeof BRONZE_PRICES[0], isGold: boolean) => {
 		setPaymentProps({
+			type: 'buyCoins',
 			amount: option.price,
+			data: { gold: isGold ? option.amount : 0, bronze: isGold ? 0 : option.amount },
 			afterPayment: async (res: boolean) => {
-				if (res) {
-					if (!loading.value) {
-						try {
-							setLoading(true)
-							await BuyCoins.call(option.amount, isGold)
-							useAccountModal().closeBuyCoins()
-							analytics.logEvent('buy_coins_end', {
-								amount: option.amount,
-								price: option.price,
-								isGold
-							})
-							setMessage('Coins purchased successfully')
-						} catch (e) {
-							setError(e)
-						}
-						setLoading(false)
+				if (res && !loading.value) {
+					try {
+						setLoading(true)
+						useAccountModal().closeBuyCoins()
+						analytics.logEvent('buy_coins_end', {
+							amount: option.amount,
+							price: option.price,
+							isGold
+						})
+						setMessage('Coins purchased successfully')
+					} catch (e) {
+						setError(e)
 					}
+					setLoading(false)
 				}
 			}
 		})

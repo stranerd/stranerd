@@ -1,13 +1,14 @@
 <template>
 	<SideMenu :close="close" background-class="sd-menu-background" menu-class="sd-menu-left">
 		<div class="head gap-1">
-			<Logo :secondary="true" />
-			<Icon
-				class="text-primary-dark"
-				size="s"
-				icon-name="close"
-				@click="close"
-			/>
+			<Logo :secondary="true" class="bright" />
+			<div @click="close">
+				<Icon
+					class="text-primary-dark bright"
+					size="s"
+					icon-name="close"
+				/>
+			</div>
 		</div>
 		<div class="d-flex flex-column flex-grow-1">
 			<slot />
@@ -55,7 +56,9 @@ export default defineComponent({
 		}
 	}
 
-	// .head-icons, /deep/ .head-icons {
-	// 	filter: brightness(1000%);
-	// }
+	.bright {
+		@media (min-width: $md) {
+		filter: brightness(1000%);
+		}
+	}
 </style>

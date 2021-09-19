@@ -1,6 +1,7 @@
 // THIS FILE IS AUTO GENERATED
 
 export enum IconNames {
+  'admin' = 'admin',
   'app-outline' = 'app-outline',
   'app' = 'app',
   'arrow-left' = 'arrow-left',
@@ -17,6 +18,7 @@ export enum IconNames {
   'home-outline' = 'home-outline',
   'home' = 'home',
   'logo' = 'logo',
+  'logout' = 'logout',
   'questions-outline' = 'questions-outline',
   'questions' = 'questions',
   'right-nav' = 'right-nav',

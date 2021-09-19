@@ -1,17 +1,31 @@
 <template>
 	<SideMenu :close="close" background-class="sd-menu-background" menu-class="sd-menu-right">
 		<div class="head gap-1 text-primary">
-			<img alt="" class="head-icons" src="@app/assets/images/icons/close.svg" @click="close">
+			<div @click="close">
+				<Icon
+					class="text-primary-dark bright"
+					size="s"
+					icon-name="close"
+				/>
+			</div>
+
+			<MessageLink :key="'messages' + isLoggedIn" class="d-inline d-md-none" />
+
 			<NuxtLink v-if="isAdmin" to="/admin/">
-				<img alt="" class="head-icons" src="@app/assets/images/icons/admin.svg">
+				<Icon
+					class="text-primary-dark bright"
+					size="s"
+					icon-name="admin"
+				/>
 			</NuxtLink>
-			<img
-				v-if="isLoggedIn"
-				alt=""
-				class="head-icons"
-				src="@app/assets/images/icons/signout.svg"
-				@click="signout"
-			>
+
+			<div @click="signout">
+				<Icon
+					class="text-primary-dark bright"
+					size="s"
+					icon-name="logout"
+				/>
+			</div>
 			<PageLoading v-if="loading" />
 		</div>
 		<div class="d-flex flex-column flex-grow-1">
@@ -26,10 +40,11 @@ import { modal } from '@app/hooks/core/modals'
 import SideMenu from '@app/components/core/modals/SideMenu.vue'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useSessionSignout } from '@app/hooks/auth/session'
+import MessageLink from '@app/components/layouts/topNavigations/MessageLink.vue'
 
 export default defineComponent({
 	name: 'RightSideMenu',
-	components: { SideMenu },
+	components: { SideMenu, MessageLink },
 	props: {
 		modal: {
 			type: String,
@@ -49,12 +64,24 @@ export default defineComponent({
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		margin-bottom: 1rem;
 		background: $color-primary-dark;
 		color: $color-white;
 		padding: 0.75rem 1rem;
+			@media (max-width: $md) {
+			background: $color-white;
+			border-bottom: 4px solid $color-primary-dark;
+			padding: 0.63rem 1.875rem;
+		}
+		@media (max-width: $sm) {
+			padding: 0.75rem 2.125rem;
+			border-bottom: 1px solid $color-line;
+		}
 	}
 
-	.head-icons, /deep/ .head-icons {
+	.bright {
+		@media (min-width: $md) {
 		filter: brightness(1000%);
+		}
 	}
 </style>

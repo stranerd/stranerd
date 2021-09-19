@@ -32,7 +32,6 @@ export class QuestionApiDataSource implements QuestionBaseDataSource {
 
 	async listenToMany (query: QueryParams, listeners: Listeners<QuestionFromModel>) {
 		const listener = listenOnSocket('questions', listeners)
-		query.all = true
 		const models = await this.get(query)
 		await Promise.all(models.results.map(listeners.updated))
 		return listener

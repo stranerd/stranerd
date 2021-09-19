@@ -27,7 +27,6 @@ export class UserApiDataSource implements UserBaseDataSource {
 
 	async listenToMany (query: QueryParams, listeners: Listeners<UserFromModel>) {
 		const listener = listenOnSocket('users', listeners)
-		query.all = true
 		const models = await this.get(query)
 		await Promise.all(models.results.map(listeners.updated))
 		return listener

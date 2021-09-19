@@ -38,7 +38,6 @@ export class CommentApiDataSource implements CommentBaseDataSource {
 
 	async listenToMany (query: QueryParams, listeners: Listeners<CommentFromModel>) {
 		const listener = listenOnSocket(`${this.path}`, listeners)
-		query.all = true
 		const models = await this.get(query)
 		await Promise.all(models.results.map(listeners.updated))
 		return listener

@@ -9,7 +9,7 @@
 						{{ user.id === id ? 'My Rank' : user.firstName + '\'s Badge' }}
 					</DynamicText>
 				</Heading>
-				<img :src="user.rank.image" alt="" class="img-rank">
+				<img :src="user.rankImage" alt="" class="img-rank">
 			</div>
 			<div class="border border-line align-self-stretch w-75 mx-auto" style="border-width: 1px !important;" />
 			<div class="col-md-6 d-flex flex-column gap-1 align-items-center">
@@ -35,7 +35,7 @@
 						Ranking Up
 					</Heading>
 					<div class="d-flex gap-1 align-items-center text-dark">
-						<img :src="user.rank.image" alt="" class="img-rank-2">
+						<img :src="user.rankImage" alt="" class="img-rank-2">
 						<ProgressBar :current="user.rankProgress" :primary="true" />
 						<img
 							v-if="user.nextRank"
@@ -53,7 +53,7 @@
 							{{ user.id === id ? 'My Rank' : user.firstName + '\'s Badge' }}
 						</DynamicText>
 					</Heading>
-					<img :src="user.rank.image" alt="" class="img-rank">
+					<img :src="user.rankImage" alt="" class="img-rank">
 				</div>
 			</div>
 			<div class="d-flex flex-column gap-1 align-items-center ranking">

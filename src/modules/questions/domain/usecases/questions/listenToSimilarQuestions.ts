@@ -16,7 +16,7 @@ export class ListenToSimilarQuestionsUseCase {
 				{ field: 'tags', condition: Conditions.in, value: tags },
 				{ field: 'id', condition: Conditions.ne, value: questionId }
 			],
-			sort: { field: 'createdAt', order: 1 },
+			sort: { field: 'createdAt', order: -1 },
 			limit: 10
 		}
 

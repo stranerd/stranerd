@@ -27,7 +27,6 @@ export class TransactionApiDataSource implements TransactionBaseDataSource {
 
 	async listenToMany (_: string, query: QueryParams, listeners: Listeners<TransactionFromModel>) {
 		const listener = listenOnSocket('transactions', listeners)
-		query.all = true
 		const models = await this.get(_, query)
 		await Promise.all(models.results.map(listeners.updated))
 		return listener

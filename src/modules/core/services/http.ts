@@ -52,7 +52,7 @@ export class HttpClient {
 	private async makeRequest<Body, ReturnValue> (url: string, method: Method, data: Body): Promise<ReturnValue> {
 		try {
 			const res = await this.client.request<Body, AxiosResponse<ReturnValue>>({
-				url, method, data
+				url, method, [method === 'get' ? 'params' : 'data']: data
 			})
 			return res.data
 		} catch (e) {

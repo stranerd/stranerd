@@ -32,7 +32,6 @@ export class ReviewApiDataSource implements ReviewBaseDataSource {
 
 	async listenToMany (_: string, query: QueryParams, listeners: Listeners<ReviewFromModel>) {
 		const listener = listenOnSocket('reviews', listeners)
-		query.all = true
 		const models = await this.get(_, query)
 		await Promise.all(models.results.map(listeners.updated))
 		return listener

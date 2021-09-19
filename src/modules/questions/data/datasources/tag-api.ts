@@ -27,7 +27,6 @@ export class TagApiDataSource implements TagBaseDataSource {
 
 	async listenToMany (query: QueryParams, listeners: Listeners<TagFromModel>) {
 		const listener = listenOnSocket('tags', listeners)
-		query.all = true
 		const models = await this.get(query)
 		await Promise.all(models.results.map(listeners.updated))
 		return listener

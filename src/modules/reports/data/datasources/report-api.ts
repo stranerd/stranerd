@@ -36,7 +36,6 @@ export class ReportApiDataSource implements ReportBaseDataSource {
 
 	async listenToMany (query: QueryParams, listeners: Listeners<ReportFromModel>) {
 		const listener = listenOnSocket('reports', listeners)
-		query.all = true
 		const models = await this.get(query)
 		await Promise.all(models.results.map(listeners.updated))
 		return listener

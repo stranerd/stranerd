@@ -27,7 +27,6 @@ export class ReferralApiDataSource implements ReferralBaseDataSource {
 
 	async listenToMany (_: string, query: QueryParams, listeners: Listeners<ReferralFromModel>) {
 		const listener = listenOnSocket('referrals', listeners)
-		query.all = true
 		const models = await this.get(_, query)
 		await Promise.all(models.results.map(listeners.updated))
 		return listener

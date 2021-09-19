@@ -32,7 +32,6 @@ export class SessionApiDataSource implements SessionBaseDataSource {
 
 	async listenToMany (query: QueryParams, listeners: Listeners<SessionFromModel>) {
 		const listener = listenOnSocket('sessions', listeners)
-		query.all = true
 		const models = await this.get(query)
 		await Promise.all(models.results.map(listeners.updated))
 		return listener

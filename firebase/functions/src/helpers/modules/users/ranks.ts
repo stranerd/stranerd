@@ -32,7 +32,7 @@ type Rank = {
 	ratings: number
 }
 
-const Ranks :Record<RankTypes, Rank> = {
+const Ranks: Record<RankTypes, Rank> = {
 	[RankTypes.Rookie]: {
 		id: RankTypes.Rookie,
 		level: 1,
@@ -105,12 +105,12 @@ const getRating = (account: any) => {
 	return count === 0 ? 0 : total / count
 }
 
-const getLastRank = (rank: RankTypes) :Rank => {
+const getLastRank = (rank: RankTypes): Rank => {
 	const index = ranks.findIndex((r) => r.id === rank)
 	return ranks[index - 1] ?? Ranks[RankTypes.Rookie]
 }
 
-const getNextRank = (rank: RankTypes) :Rank | null => {
+const getNextRank = (rank: RankTypes): Rank | null => {
 	const index = ranks.findIndex((r) => r.id === rank)
 	return ranks[index + 1] ?? null
 }

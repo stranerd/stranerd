@@ -1,7 +1,12 @@
 import * as functions from 'firebase-functions'
 import {
-	updateMyAnswerCommentsBio, updateMyAnswersBio, updateMyChatsBio,
-	updateMyQuestionCommentsBio, updateMyQuestionsBio, updateMySessionsBio, updateMyTutorSessionsBio
+	updateMyAnswerCommentsBio,
+	updateMyAnswersBio,
+	updateMyChatsBio,
+	updateMyQuestionCommentsBio,
+	updateMyQuestionsBio,
+	updateMySessionsBio,
+	updateMyTutorSessionsBio
 } from '../../helpers/modules/users/users'
 import { saveToAlgolia } from '../../helpers/algolia'
 import { checkRank } from '../../helpers/modules/users/ranks'
@@ -33,7 +38,8 @@ const callback = async (_: functions.Change<functions.database.DataSnapshot>, co
 	try {
 		const { userId } = context.params
 		await checkRank(userId)
-	} catch (err) {}
+	} catch (err) {
+	}
 }
 
 export const userAccountRatingsUpdated = functions.database.ref(path + 'ratings').onWrite(callback)

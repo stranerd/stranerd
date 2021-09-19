@@ -13,13 +13,13 @@ export class ListenToAllSessionTutorsUseCase {
 	async call (listener: Listeners<UserEntity>) {
 		return await this.repository.listenToMany({
 			created: async (entity) => {
-				if (entity.rank.level >= Ranks.Scholar.level) await listener.created(entity)
+				if (entity.score >= Ranks.Scholar.score) await listener.created(entity)
 			},
 			updated: async (entity) => {
-				if (entity.rank.level >= Ranks.Scholar.level) await listener.updated(entity)
+				if (entity.score >= Ranks.Scholar.score) await listener.updated(entity)
 			},
 			deleted: async (entity) => {
-				if (entity.rank.level >= Ranks.Scholar.level) await listener.deleted(entity)
+				if (entity.score >= Ranks.Scholar.score) await listener.deleted(entity)
 			}
 		})
 	}

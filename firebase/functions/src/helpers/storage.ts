@@ -6,5 +6,7 @@ export const deleteFromStorage = async (path: string | undefined) => {
 		const file = admin.storage().bucket().file(path)
 		const exists = (await file.exists())[0]
 		if (exists) await file.delete()
-	} catch (error) { console.warn(`Failed to delete file at ${path}`) }
+	} catch (error) {
+		console.warn(`Failed to delete file at ${path}`)
+	}
 }

@@ -1,7 +1,7 @@
 import * as admin from 'firebase-admin'
 import { createTransport } from 'nodemailer'
 import * as Template from 'email-templates'
-import { EMAILS, email, domain, logo, appName } from './environment'
+import { appName, domain, email, EMAILS, logo } from './environment'
 import { EmailNotification } from './modules/users/notifications'
 import { Message, Report } from './modules/forms'
 

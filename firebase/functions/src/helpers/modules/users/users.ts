@@ -7,7 +7,7 @@ export const getAllUserIds = async () => {
 	return Object.keys(userIdsObjects ?? {})
 }
 
-export const chunkArray = <T>(arr: T[], size: number) => new Array(Math.ceil(arr.length / size))
+export const chunkArray = <T> (arr: T[], size: number) => new Array(Math.ceil(arr.length / size))
 	.fill([])
 	.map((_, index) => arr.slice(index * size, (index + 1) * size))
 	.filter((chunk) => chunk.length > 0)
@@ -30,7 +30,9 @@ export const updateMyQuestionsBio = async (userId: string, user: any) => {
 				return await batch.commit()
 			})
 		)
-	} catch (error) { console.log(`Error updating bios of ${userId} questions`) }
+	} catch (error) {
+		console.log(`Error updating bios of ${userId} questions`)
+	}
 }
 
 export const updateMyAnswersBio = async (userId: string, user: any) => {
@@ -51,7 +53,9 @@ export const updateMyAnswersBio = async (userId: string, user: any) => {
 				return await batch.commit()
 			})
 		)
-	} catch (error) { console.log(`Error updating bios of ${userId} answers`) }
+	} catch (error) {
+		console.log(`Error updating bios of ${userId} answers`)
+	}
 }
 
 export const updateMyQuestionCommentsBio = async (userId: string, user: any) => {
@@ -65,7 +69,9 @@ export const updateMyQuestionCommentsBio = async (userId: string, user: any) => 
 			commentIds.map((id) => [id.replace(PATH_SEPARATOR, '/') + '/user', user])
 		)
 		await admin.database().ref('comments/questions').update(data)
-	} catch (error) { console.log(`Error updating bios of ${userId} question-comments`) }
+	} catch (error) {
+		console.log(`Error updating bios of ${userId} question-comments`)
+	}
 }
 
 export const updateMyAnswerCommentsBio = async (userId: string, user: any) => {
@@ -79,7 +85,9 @@ export const updateMyAnswerCommentsBio = async (userId: string, user: any) => {
 			commentIds.map((id) => [id.replace(PATH_SEPARATOR, '/') + '/user', user])
 		)
 		await admin.database().ref('comments/answers').update(data)
-	} catch (error) { console.log(`Error setting bios of ${userId} answer-comments`) }
+	} catch (error) {
+		console.log(`Error setting bios of ${userId} answer-comments`)
+	}
 }
 
 export const updateMySessionsBio = async (userId: string, user: any) => {
@@ -100,7 +108,9 @@ export const updateMySessionsBio = async (userId: string, user: any) => {
 				return await batch.commit()
 			})
 		)
-	} catch (error) { console.log(`Error updating bios of ${userId} attended sessions`) }
+	} catch (error) {
+		console.log(`Error updating bios of ${userId} attended sessions`)
+	}
 }
 
 export const updateMyTutorSessionsBio = async (userId: string, user: any) => {
@@ -121,7 +131,9 @@ export const updateMyTutorSessionsBio = async (userId: string, user: any) => {
 				return await batch.commit()
 			})
 		)
-	} catch (error) { console.log(`Error updating bios of ${userId} hosted sessions`) }
+	} catch (error) {
+		console.log(`Error updating bios of ${userId} hosted sessions`)
+	}
 }
 
 export const updateMyChatsBio = async (userId: string, user: any) => {
@@ -132,5 +144,7 @@ export const updateMyChatsBio = async (userId: string, user: any) => {
 		const chatIds = Object.keys(chatRefs.val() ?? {})
 		const data = Object.fromEntries(chatIds.map((id) => [`${id}/${userId}/bio`, user]))
 		await admin.database().ref('chats/meta').update(data)
-	} catch (error) { console.log(`Error updating bios of ${userId} chats`) }
+	} catch (error) {
+		console.log(`Error updating bios of ${userId} chats`)
+	}
 }

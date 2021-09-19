@@ -13,5 +13,7 @@ export const subscribeToMailchimpList = async (email: string) => {
 
 	try {
 		await axios.post(url, bodyJSON, { headers: { Authorization: `auth ${apiKey}` } })
-	} catch (error) { throw new Error(error.message) }
+	} catch (error) {
+		throw new Error(error.message)
+	}
 }

@@ -16,6 +16,8 @@ export const runWeekly = functions.runWith(defaultConfig).pubsub.schedule(WEEKLY
 	await deleteOlderNotifications()
 })
 
-export const runMonthly = functions.runWith(defaultConfig).pubsub.schedule(MONTHLY_CRONTAB_SYNTAX).onRun(async () => {})
+export const runMonthly = functions.runWith(defaultConfig).pubsub.schedule(MONTHLY_CRONTAB_SYNTAX).onRun(async () => {
+})
 
-export const runQuarterly = functions.pubsub.schedule(QUARTERLY_CRONTAB_SYNTAX).onRun(async () => {})
+export const runQuarterly = functions.pubsub.schedule(QUARTERLY_CRONTAB_SYNTAX).onRun(async () => {
+})

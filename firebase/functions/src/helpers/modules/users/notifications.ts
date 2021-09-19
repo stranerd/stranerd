@@ -54,10 +54,10 @@ const getOldNotifications = async (userId: string) => {
 export const deleteOlderNotifications = async () => {
 	const userIds = await getAllUserIds()
 	const data = await Promise.all(
-	    userIds.map(async (userId) => {
-	        const notifications = await getOldNotifications(userId)
-		    return notifications.map((id) => `${userId}/notifications/${id}`)
-	    })
+		userIds.map(async (userId) => {
+			const notifications = await getOldNotifications(userId)
+			return notifications.map((id) => `${userId}/notifications/${id}`)
+		})
 	)
 	const allNotifications = data
 		.reduce((acc, cur) => {

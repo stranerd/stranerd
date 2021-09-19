@@ -7,7 +7,10 @@
 		<div v-if="hasMore" class="text-center py-2 text-18 text-primary-dark">
 			<a @click.prevent="fetchOlderQuestions">Load More</a>
 		</div>
-		<DisplayWarning v-if="!loading && !error && questions.length === 0" message="No questions found for this tag." />
+		<DisplayWarning
+			v-if="!loading && !error && questions.length === 0"
+			message="No questions found for this tag."
+		/>
 		<DisplayError :error="error" />
 		<PageLoading v-if="loading" />
 	</div>

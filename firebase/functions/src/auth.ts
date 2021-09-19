@@ -62,9 +62,11 @@ export const deleteUnVerifiedUsers = async () => {
 					userIds.push(user.uid)
 				})
 				if (pageToken) await listAllUsers(pageToken)
-			} catch (err) {}
+			} catch (err) {
+			}
 		}
 		await listAllUsers()
 		userIds.forEach(admin.auth().deleteUser)
-	} catch (err) {}
+	} catch (err) {
+	}
 }

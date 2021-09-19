@@ -11,7 +11,7 @@ export class GetAllSessionTutorsUseCase {
 
 	async call () {
 		return await this.repository.get({
-			where: [{ field: 'account.rank', condition: Conditions.gte, value: Ranks.Scholar.level }],
+			where: [{ field: 'account.score', condition: Conditions.gte, value: Ranks.Scholar.score }],
 			all: true
 		})
 	}

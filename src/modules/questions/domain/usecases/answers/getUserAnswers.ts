@@ -11,7 +11,7 @@ export class GetUserAnswersUseCase {
 
 	async call (userId: string, date?: number) {
 		const conditions: QueryParams = {
-			sort: { field: 'createdAt' },
+			sort: { field: 'createdAt', order: -1 },
 			limit: PAGINATION_LIMIT,
 			where: [{ field: 'userId', value: userId }]
 		}

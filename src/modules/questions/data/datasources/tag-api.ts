@@ -10,19 +10,26 @@ export class TagApiDataSource implements TagBaseDataSource {
 		this.stranerdClient = new HttpClient(apiBases.STRANERD)
 	}
 
-	async listen (listener: Listeners<TagFromModel>) {
-		return listenOnSocket('tags', listener)
+	async find (id: string) {
+		return await this.stranerdClient.get<{}, TagFromModel | null>(`/tags/${id}`, {})
 	}
 
 	async get (query: QueryParams) {
 		return await this.stranerdClient.get<QueryParams, QueryResults<TagFromModel>>('/tags', query)
 	}
 
-	async listenToOne (id: string, listener: Listeners<TagFromModel>) {
-		return listenOnSocket(`tags/${id}`, listener)
+	async listenToOne (id: string, listeners: Listeners<TagFromModel>) {
+		const listener = listenOnSocket(`tags/${id}`, listeners)
+		const model = await this.find(id)
+		if (model) await listeners.updated(model)
+		return listener
 	}
 
-	async listenToMany (listener: Listeners<TagFromModel>) {
-		return listenOnSocket('tags', listener)
+	async listenToMany (query: QueryParams, listeners: Listeners<TagFromModel>) {
+		const listener = listenOnSocket('tags', listeners)
+		query.all = true
+		const models = await this.get(query)
+		await Promise.all(models.results.map(listeners.updated))
+		return listener
 	}
 }

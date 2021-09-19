@@ -1,4 +1,4 @@
-import { Listeners } from '@modules/core'
+import { Conditions, Listeners, QueryParams } from '@modules/core'
 import { IQuestionRepository } from '../../irepositories/iquestion'
 import { QuestionEntity } from '../../entities/question'
 
@@ -10,18 +10,15 @@ export class ListenToQuestionsUseCase {
 	}
 
 	async call (listener: Listeners<QuestionEntity>, date?: number) {
-		return await this.repository.listenToMany({
-			created: async (entity) => {
-				await listener.created(entity)
-			},
-			updated: async (entity) => {
-				if (date) {
-					if (entity.createdAt >= date) await listener.updated(entity)
-				} else await listener.updated(entity)
-			},
-			deleted: async (entity) => {
-				await listener.deleted(entity)
-			}
+		const conditions: QueryParams = {
+			sort: { field: 'createdAt', order: 1 },
+			all: true
+		}
+		if (date) conditions.where = [{ field: 'createdAt', condition: Conditions.gt, value: date }]
+
+		return await this.repository.listenToMany(conditions, listener, (entity) => {
+			if (date) return entity.createdAt > date
+			return true
 		})
 	}
 }

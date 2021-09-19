@@ -11,7 +11,7 @@ export class GetQuestionsUseCase {
 
 	async call (date?: number) {
 		const conditions: QueryParams = {
-			sort: { field: 'createdAt' },
+			sort: { field: 'createdAt', order: -1 },
 			limit: PAGINATION_LIMIT
 		}
 		if (date) conditions.where = [{ field: 'createdAt', condition: Conditions.lt, value: date }]

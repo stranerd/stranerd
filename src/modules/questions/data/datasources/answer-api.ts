@@ -23,12 +23,19 @@ export class AnswerApiDataSource implements AnswerBaseDataSource {
 		return await this.stranerdClient.get<QueryParams, QueryResults<AnswerFromModel>>('/answers', query)
 	}
 
-	async listenToOne (id: string, listener: Listeners<AnswerFromModel>) {
-		return listenOnSocket(`answers/${id}`, listener)
+	async listenToOne (id: string, listeners: Listeners<AnswerFromModel>) {
+		const listener = listenOnSocket(`answers/${id}`, listeners)
+		const model = await this.find(id)
+		if (model) await listeners.updated(model)
+		return listener
 	}
 
-	async listenToMany (listener: Listeners<AnswerFromModel>) {
-		return listenOnSocket('answers', listener)
+	async listenToMany (query: QueryParams, listeners: Listeners<AnswerFromModel>) {
+		const listener = listenOnSocket('reports', listeners)
+		query.all = true
+		const models = await this.get(query)
+		await Promise.all(models.results.map(listeners.updated))
+		return listener
 	}
 
 	async update (id: string, data: AnswerToModel) {

@@ -56,7 +56,7 @@ export const useChats = (userId: string) => {
 	}
 
 	const listener = useListener(async () => {
-		const lastDate = chats.value[chats.value.length - 1]?.createdAt
+		const lastDate = chats.value[0]?.createdAt
 		return ListenToChats.call(path, {
 			created: async (entity) => {
 				pushToChats(userId, entity)
@@ -70,6 +70,25 @@ export const useChats = (userId: string) => {
 			}
 		}, lastDate)
 	})
+
+	const fetchOlderChats = async () => {
+		await fetchChats()
+		await listener.resetListener(async () => {
+			const lastDate = chats.value[0]?.createdAt
+			return ListenToChats.call(path, {
+				created: async (entity) => {
+					pushToChats(userId, entity)
+				},
+				updated: async (entity) => {
+					pushToChats(userId, entity)
+				},
+				deleted: async (entity) => {
+					const index = global[userId].chats.value.findIndex((c) => c.id === entity.id)
+					if (index !== -1) global[userId].chats.value.splice(index, 1)
+				}
+			}, lastDate)
+		})
+	}
 
 	useFetch(async () => {
 		if (!global[userId].fetched.value && !global[userId].loading.value) await fetchChats()
@@ -85,7 +104,7 @@ export const useChats = (userId: string) => {
 		error: global[userId].error,
 		hasMore: global[userId].hasMore,
 		listener,
-		fetchOlderChats: fetchChats
+		fetchOlderChats
 	}
 }
 

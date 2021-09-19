@@ -23,12 +23,19 @@ export class QuestionApiDataSource implements QuestionBaseDataSource {
 		return await this.stranerdClient.get<QueryParams, QueryResults<QuestionFromModel>>('/questions', query)
 	}
 
-	async listenToOne (id: string, listener: Listeners<QuestionFromModel>) {
-		return listenOnSocket(`questions/${id}`, listener)
+	async listenToOne (id: string, listeners: Listeners<QuestionFromModel>) {
+		const listener = listenOnSocket(`questions/${id}`, listeners)
+		const model = await this.find(id)
+		if (model) await listeners.updated(model)
+		return listener
 	}
 
-	async listenToMany (listener: Listeners<QuestionFromModel>) {
-		return listenOnSocket('questions', listener)
+	async listenToMany (query: QueryParams, listeners: Listeners<QuestionFromModel>) {
+		const listener = listenOnSocket('questions', listeners)
+		query.all = true
+		const models = await this.get(query)
+		await Promise.all(models.results.map(listeners.updated))
+		return listener
 	}
 
 	async delete (id: string) {

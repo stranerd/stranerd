@@ -36,16 +36,19 @@ export class AnswerRepository implements IAnswerRepository {
 		})
 	}
 
-	async listenToMany (listener: Listeners<AnswerEntity>) {
-		return this.dataSource.listenToMany({
+	async listenToMany (query: QueryParams, listener: Listeners<AnswerEntity>, matches: (entity: AnswerEntity) => boolean) {
+		return this.dataSource.listenToMany(query, {
 			created: async (model) => {
-				await listener.created(this.transformer.fromJSON(model))
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.created(entity)
 			},
 			updated: async (model) => {
-				await listener.updated(this.transformer.fromJSON(model))
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.updated(entity)
 			},
 			deleted: async (model) => {
-				await listener.deleted(this.transformer.fromJSON(model))
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.deleted(entity)
 			}
 		})
 	}

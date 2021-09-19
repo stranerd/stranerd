@@ -80,7 +80,7 @@ export const useQuestionList = () => {
 				const index = global.questions.value.findIndex((q) => q.id === entity.id)
 				if (index !== -1) global.questions.value.splice(index, 1)
 			}
-		}, lastDate)
+		}, lastDate ? lastDate - 1 : undefined)
 	})
 	const filteredQuestions = computed({
 		get: () => global.questions.value.filter((q) => {
@@ -111,7 +111,7 @@ export const useQuestionList = () => {
 					const index = global.questions.value.findIndex((q) => q.id === entity.id)
 					if (index !== -1) global.questions.value.splice(index, 1)
 				}
-			}, lastDate)
+			}, lastDate ? lastDate - 1 : undefined)
 		})
 	}
 

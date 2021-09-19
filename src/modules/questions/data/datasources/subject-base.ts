@@ -8,5 +8,5 @@ export interface SubjectBaseDataSource {
 	delete: (id: string) => Promise<void>
 	update: (id: string, data: SubjectToModel) => Promise<void>
 	listenToOne: (id: string, listener: Listeners<SubjectFromModel>) => Promise<() => void>
-	listenToMany: (listener: Listeners<SubjectFromModel>) => Promise<() => void>
+	listenToMany: (query: QueryParams, listener: Listeners<SubjectFromModel>) => Promise<() => void>
 }

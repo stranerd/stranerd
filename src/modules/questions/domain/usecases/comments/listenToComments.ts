@@ -11,16 +11,10 @@ export class ListenToQuestionCommentsUseCase {
 
 	async call (questionId: string, listener: Listeners<CommentEntity>) {
 		return await this.repository.listenToMany({
-			created: async (entity) => {
-				if (entity.questionId === questionId) await listener.created(entity)
-			},
-			updated: async (entity) => {
-				if (entity.questionId === questionId) await listener.updated(entity)
-			},
-			deleted: async (entity) => {
-				if (entity.questionId === questionId) await listener.deleted(entity)
-			}
-		})
+			where: [{ field: 'questionId', value: questionId }],
+			sort: { field: 'createdAt', order: 1 },
+			all: true
+		}, listener, (entity) => entity.questionId === questionId)
 	}
 }
 
@@ -33,15 +27,9 @@ export class ListenToAnswerCommentsUseCase {
 
 	async call (answerId: string, listener: Listeners<CommentEntity>) {
 		return await this.repository.listenToMany({
-			created: async (entity) => {
-				if (entity.answerId === answerId) await listener.created(entity)
-			},
-			updated: async (entity) => {
-				if (entity.answerId === answerId) await listener.updated(entity)
-			},
-			deleted: async (entity) => {
-				if (entity.answerId === answerId) await listener.deleted(entity)
-			}
-		})
+			where: [{ field: 'answerId', value: answerId }],
+			sort: { field: 'createdAt', order: 1 },
+			all: true
+		}, listener, (entity) => entity.answerId === answerId)
 	}
 }

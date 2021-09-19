@@ -47,7 +47,7 @@ export const useTagQuestionList = (tag: string) => {
 		...useLoadingHandler()
 	}
 	const listener = useListener(async () => {
-		const lastDate = global[tag].questions.value[global[tag].questions.value.length - 1]?.createdAt
+		const lastDate = global[tag].questions.value[0]?.createdAt
 		return await ListenToTagQuestions.call(tag, {
 			created: async (entity) => {
 				unshiftToQuestionList(tag, entity)

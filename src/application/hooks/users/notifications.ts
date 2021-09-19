@@ -29,7 +29,7 @@ export const useNotificationList = () => {
 		const listener = useListener(async () => {
 			if (!id.value) return () => {
 			}
-			const firstDate = global[userId].notifications.value[0]?.createdAt
+			const lastDate = global[userId].notifications.value[global[userId].notifications.value.length - 1]?.createdAt
 			return ListenToNotifications.call(userId, {
 				created: async (entity) => {
 					unshiftToNotificationList(userId, entity)
@@ -41,7 +41,7 @@ export const useNotificationList = () => {
 					const index = global[userId].notifications.value.findIndex((t) => t.id === entity.id)
 					if (index !== -1) global[userId].notifications.value.splice(index, 1)
 				}
-			}, firstDate)
+			}, lastDate)
 		})
 		global[userId] = {
 			notifications: ssrRef([]),
@@ -68,12 +68,33 @@ export const useNotificationList = () => {
 		global[userId].setLoading(false)
 	}
 
+	const fetchOlderNotifications = async () => {
+		await fetchNotifications()
+		await global[userId].listener.resetListener(async () => {
+			if (!id.value) return () => {
+			}
+			const lastDate = global[userId].notifications.value[global[userId].notifications.value.length - 1]?.createdAt
+			return ListenToNotifications.call(userId, {
+				created: async (entity) => {
+					unshiftToNotificationList(userId, entity)
+				},
+				updated: async (entity) => {
+					unshiftToNotificationList(userId, entity)
+				},
+				deleted: async (entity) => {
+					const index = global[userId].notifications.value.findIndex((t) => t.id === entity.id)
+					if (index !== -1) global[userId].notifications.value.splice(index, 1)
+				}
+			}, lastDate)
+		})
+	}
+
 	useFetch(async () => {
 		if (!id.value) return
 		if (!global[userId].fetched.value && !global[userId].loading.value) await fetchNotifications()
 	})
 
-	return { ...global[userId], fetchOlderNotifications: fetchNotifications }
+	return { ...global[userId], fetchOlderNotifications }
 }
 
 export const useNotification = (notification: NotificationEntity) => {

@@ -6,7 +6,7 @@ export interface IAnswerRepository {
 	add: (data: AnswerToModel) => Promise<string>
 	get: (query: QueryParams) => Promise<QueryResults<AnswerEntity>>
 	listenToOne: (id: string, listener: Listeners<AnswerEntity>) => Promise<() => void>
-	listenToMany: (listener: Listeners<AnswerEntity>) => Promise<() => void>
+	listenToMany: (query: QueryParams, listener: Listeners<AnswerEntity>, matches: (entity: AnswerEntity) => boolean) => Promise<() => void>
 	find: (id: string) => Promise<AnswerEntity | null>
 	update: (id: string, data: AnswerToModel) => Promise<void>
 	delete: (id: string) => Promise<void>

@@ -68,7 +68,7 @@ export default defineComponent({
 		background: $color-primary-dark;
 		color: $color-white;
 		padding: 0.75rem 1rem;
-			@media (max-width: $md) {
+		@media (max-width: $md) {
 			background: $color-white;
 			border-bottom: 4px solid $color-primary-dark;
 			padding: 0.63rem 1.875rem;
@@ -81,7 +81,7 @@ export default defineComponent({
 
 	.bright {
 		@media (min-width: $md) {
-		filter: brightness(1000%);
+			filter: brightness(1000%);
 		}
 	}
 </style>

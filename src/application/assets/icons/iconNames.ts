@@ -8,10 +8,13 @@ export enum IconNames {
   'arrow-right' = 'arrow-right',
   'bell-outline' = 'bell-outline',
   'bell' = 'bell',
+  'chat-outline' = 'chat-outline',
   'chat' = 'chat',
+  'class' = 'class',
   'close' = 'close',
   'create-outline' = 'create-outline',
   'create' = 'create',
+  'e-wallet' = 'e-wallet',
   'equal-to' = 'equal-to',
   'filter' = 'filter',
   'hamburger' = 'hamburger',
@@ -19,8 +22,10 @@ export enum IconNames {
   'home' = 'home',
   'logo' = 'logo',
   'logout' = 'logout',
-  'questions-outline' = 'questions-outline',
   'questions' = 'questions',
   'right-nav' = 'right-nav',
-  'search' = 'search'
+  'schedule' = 'schedule',
+  'search' = 'search',
+  'study' = 'study',
+  'tutors' = 'tutors'
 }

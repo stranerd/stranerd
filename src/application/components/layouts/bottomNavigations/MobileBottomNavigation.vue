@@ -17,7 +17,7 @@
 				<Icon
 					class="text-dark"
 					size="s"
-					icon-name="questions-outline"
+					icon-name="chat-outline"
 				/>
 			</div>
 		</NuxtLink>
@@ -73,7 +73,7 @@ export default {
 		bottom: 0;
 		left: 0;
 		right: 0;
-		z-index: 1000;
+		z-index: 100;
 		will-change: transform;
 		display: flex;
 		justify-content: space-around;

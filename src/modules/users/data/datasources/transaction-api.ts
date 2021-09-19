@@ -10,15 +10,26 @@ export class TransactionApiDataSource implements TransactionBaseDataSource {
 		this.stranerdClient = new HttpClient(apiBases.STRANERD)
 	}
 
+	async find (_: string, id: string) {
+		return await this.stranerdClient.get<{}, TransactionFromModel | null>(`/transactions/${id}`, {})
+	}
+
 	async get (_: string, query: QueryParams) {
 		return await this.stranerdClient.get<QueryParams, QueryResults<TransactionFromModel>>('/transactions', query)
 	}
 
-	async listenToOne (_: string, id: string, listener: Listeners<TransactionFromModel>) {
-		return listenOnSocket(`transactions/${id}`, listener)
+	async listenToOne (_: string, id: string, listeners: Listeners<TransactionFromModel>) {
+		const listener = listenOnSocket(`transactions/${id}`, listeners)
+		const model = await this.find(_, id)
+		if (model) await listeners.updated(model)
+		return listener
 	}
 
-	async listenToMany (_: string, listener: Listeners<TransactionFromModel>) {
-		return listenOnSocket('transactions', listener)
+	async listenToMany (_: string, query: QueryParams, listeners: Listeners<TransactionFromModel>) {
+		const listener = listenOnSocket('transactions', listeners)
+		query.all = true
+		const models = await this.get(_, query)
+		await Promise.all(models.results.map(listeners.updated))
+		return listener
 	}
 }

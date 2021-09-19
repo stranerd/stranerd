@@ -29,6 +29,7 @@ export const useNotificationList = () => {
 		const listener = useListener(async () => {
 			if (!id.value) return () => {
 			}
+			const firstDate = global[userId].notifications.value[0]?.createdAt
 			return ListenToNotifications.call(userId, {
 				created: async (entity) => {
 					unshiftToNotificationList(userId, entity)
@@ -40,7 +41,7 @@ export const useNotificationList = () => {
 					const index = global[userId].notifications.value.findIndex((t) => t.id === entity.id)
 					if (index !== -1) global[userId].notifications.value.splice(index, 1)
 				}
-			})
+			}, firstDate)
 		})
 		global[userId] = {
 			notifications: ssrRef([]),
@@ -57,7 +58,8 @@ export const useNotificationList = () => {
 		global[userId].setError('')
 		global[userId].setLoading(true)
 		try {
-			const notifications = await GetNotifications.call(userId)
+			const lastDate = global[userId].notifications.value[global[userId].notifications.value.length - 1]?.createdAt
+			const notifications = await GetNotifications.call(userId, lastDate)
 			global[userId].hasMore.value = !!notifications.pages.next
 			notifications.results.forEach((t) => pushToNotificationList(userId, t))
 		} catch (e) {

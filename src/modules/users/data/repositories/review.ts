@@ -40,16 +40,19 @@ export class ReviewRepository implements IReviewRepository {
 		})
 	}
 
-	async listenToMany (userId: string, listener: Listeners<ReviewEntity>) {
-		return this.dataSource.listenToMany(userId, {
+	async listenToMany (userId: string, query: QueryParams, listener: Listeners<ReviewEntity>, matches: (entity: ReviewEntity) => boolean) {
+		return this.dataSource.listenToMany(userId, query, {
 			created: async (model) => {
-				await listener.created(this.transformer.fromJSON(model))
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.created(entity)
 			},
 			updated: async (model) => {
-				await listener.updated(this.transformer.fromJSON(model))
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.updated(entity)
 			},
 			deleted: async (model) => {
-				await listener.deleted(this.transformer.fromJSON(model))
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.deleted(entity)
 			}
 		})
 	}

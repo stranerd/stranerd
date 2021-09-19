@@ -1,4 +1,4 @@
-import { Listeners } from '@modules/core'
+import { Conditions, Listeners } from '@modules/core'
 import { IUserRepository } from '../../irepositories/iuser'
 import { UserEntity } from '../../entities/user'
 import { Ranks } from '../../entities/rank'
@@ -12,15 +12,8 @@ export class ListenToAllSessionTutorsUseCase {
 
 	async call (listener: Listeners<UserEntity>) {
 		return await this.repository.listenToMany({
-			created: async (entity) => {
-				if (entity.score >= Ranks.Scholar.score) await listener.created(entity)
-			},
-			updated: async (entity) => {
-				if (entity.score >= Ranks.Scholar.score) await listener.updated(entity)
-			},
-			deleted: async (entity) => {
-				if (entity.score >= Ranks.Scholar.score) await listener.deleted(entity)
-			}
-		})
+			where: [{ field: 'account.score', condition: Conditions.gte, value: Ranks.Scholar.score }],
+			all: true
+		}, listener, (entity) => entity.score >= Ranks.Scholar.score)
 	}
 }

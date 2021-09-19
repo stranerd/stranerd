@@ -15,15 +15,26 @@ export class ReviewApiDataSource implements ReviewBaseDataSource {
 		return review.id
 	}
 
+	async find (_: string, id: string) {
+		return await this.stranerdClient.get<{}, ReviewFromModel | null>(`/reviews/${id}`, {})
+	}
+
 	async get (_: string, query: QueryParams) {
 		return await this.stranerdClient.get<QueryParams, QueryResults<ReviewFromModel>>('/reviews', query)
 	}
 
-	async listenToOne (_: string, id: string, listener: Listeners<ReviewFromModel>) {
-		return listenOnSocket(`reviews/${id}`, listener)
+	async listenToOne (_: string, id: string, listeners: Listeners<ReviewFromModel>) {
+		const listener = listenOnSocket(`reviews/${id}`, listeners)
+		const model = await this.find(_, id)
+		if (model) await listeners.updated(model)
+		return listener
 	}
 
-	async listenToMany (_: string, listener: Listeners<ReviewFromModel>) {
-		return listenOnSocket('reviews', listener)
+	async listenToMany (_: string, query: QueryParams, listeners: Listeners<ReviewFromModel>) {
+		const listener = listenOnSocket('reviews', listeners)
+		query.all = true
+		const models = await this.get(_, query)
+		await Promise.all(models.results.map(listeners.updated))
+		return listener
 	}
 }

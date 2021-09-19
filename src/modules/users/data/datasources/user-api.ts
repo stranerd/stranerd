@@ -11,7 +11,7 @@ export class UserApiDataSource implements UserBaseDataSource {
 	}
 
 	async find (id: string) {
-		return await this.stranerdClient.get<{}, UserFromModel>(`/users/${id}`, {})
+		return await this.stranerdClient.get<{}, UserFromModel | null>(`/users/${id}`, {})
 	}
 
 	async get (query: QueryParams) {
@@ -19,11 +19,18 @@ export class UserApiDataSource implements UserBaseDataSource {
 	}
 
 	async listenToOne (id: string, listeners: Listeners<UserFromModel>) {
-		return listenOnSocket(`users/${id}`, listeners)
+		const listener = listenOnSocket(`users/${id}`, listeners)
+		const model = await this.find(id)
+		if (model) await listeners.updated(model)
+		return listener
 	}
 
-	async listenToMany (listeners: Listeners<UserFromModel>) {
-		return listenOnSocket('users', listeners)
+	async listenToMany (query: QueryParams, listeners: Listeners<UserFromModel>) {
+		const listener = listenOnSocket('users', listeners)
+		query.all = true
+		const models = await this.get(query)
+		await Promise.all(models.results.map(listeners.updated))
+		return listener
 	}
 
 	async updateStreak () {

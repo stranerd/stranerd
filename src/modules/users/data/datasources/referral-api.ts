@@ -10,15 +10,26 @@ export class ReferralApiDataSource implements ReferralBaseDataSource {
 		this.stranerdClient = new HttpClient(apiBases.STRANERD)
 	}
 
+	async find (_: string, id: string) {
+		return await this.stranerdClient.get<{}, ReferralFromModel | null>(`/referrals/${id}`, {})
+	}
+
 	async get (_: string, query: QueryParams) {
 		return await this.stranerdClient.get<QueryParams, QueryResults<ReferralFromModel>>('/referrals', query)
 	}
 
-	async listenToOne (_: string, id: string, listener: Listeners<ReferralFromModel>) {
-		return listenOnSocket(`referrals/${id}`, listener)
+	async listenToOne (_: string, id: string, listeners: Listeners<ReferralFromModel>) {
+		const listener = listenOnSocket(`referrals/${id}`, listeners)
+		const model = await this.find(_, id)
+		if (model) await listeners.updated(model)
+		return listener
 	}
 
-	async listenToMany (_: string, listener: Listeners<ReferralFromModel>) {
-		return listenOnSocket('referrals', listener)
+	async listenToMany (_: string, query: QueryParams, listeners: Listeners<ReferralFromModel>) {
+		const listener = listenOnSocket('referrals', listeners)
+		query.all = true
+		const models = await this.get(_, query)
+		await Promise.all(models.results.map(listeners.updated))
+		return listener
 	}
 }

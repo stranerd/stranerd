@@ -1,14 +1,13 @@
 <template>
 	<div class="gap-1 gap-md-2 d-flex flex-column">
 		<Heading class="text-center" variant="1">
-			Verify Your Email Address
+			Verifying Your Email Address
 		</Heading>
 		<span class="textStyle text-center">
-			An email was just sent to <b><DynamicText>{{ email }}</DynamicText></b>. Follow the link to verify your account.
 			If an error occurred, click the button below to retry verification.
 		</span>
-		<button class="btn btn-lg btn-custom py-1 " @click="completeVerification">
-			Resend Mail
+		<button class="btn btn-lg btn-custom py-1" @click="completeVerification">
+			Retry Verification
 		</button>
 		<DisplayError :error="error" />
 		<PageLoading v-if="loading" />
@@ -28,12 +27,12 @@ import { useCompleteEmailVerification } from '@app/hooks/auth/signin'
 export default defineComponent({
 	name: 'AuthCompleteVerificationPage',
 	layout: 'auth',
-	middleware: ['isNotAuthenticated', ({ params, redirect }) => {
-		if (!params.token) redirect('/auth/signin')
+	middleware: [({ query, redirect }) => {
+		if (!query.token) redirect('/auth/signin')
 	}],
 	setup () {
-		const { token } = useRoute().value.params
-		const { loading, error, completeVerification } = useCompleteEmailVerification(token)
+		const { token } = useRoute().value.query
+		const { loading, error, completeVerification } = useCompleteEmailVerification(token as string)
 		onMounted(completeVerification)
 		useMeta(() => ({
 			title: 'Complete Email Verification | Stranerd'

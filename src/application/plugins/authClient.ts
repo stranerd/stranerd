@@ -3,7 +3,7 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { useCurrentSession, useLobbySessions, useRequestSessions } from '@app/hooks/sessions/session'
 
 export default defineNuxtPlugin(async ({ app }) => {
-	if (useAuth().getTokens()) await useAuth().setTokens(useAuth().getTokens()!)
+	await useAuth().setTokens(useAuth().getTokens())
 
 	const { isLoggedIn, isVerified, signin } = useAuth()
 	if (isLoggedIn.value && isVerified.value) await signin(true)

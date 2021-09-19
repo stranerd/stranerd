@@ -1,8 +1,9 @@
 import axios, { AxiosError, AxiosInstance, AxiosResponse, Method } from 'axios'
-import { getTokens, saveTokens } from '@utils/tokens'
+import { getTokens, saveTokensToCookies } from '@utils/tokens'
 import { apiBases } from '@utils/environment'
 import type { QueryParams, QueryResults } from '@utils/http'
 import { Conditions, StatusCodes } from '@utils/http'
+import { AfterAuthUser } from '@modules/auth/domain/entities/auth'
 
 export { StatusCodes, Conditions, QueryResults, QueryParams }
 
@@ -62,18 +63,23 @@ export class HttpClient {
 			const isFromOurServer = Object.values(apiBases).includes(this.client.defaults.baseURL!) && Object.values(StatusCodes).includes(status)
 			if (!isFromOurServer) throw error
 			if (status !== StatusCodes.AccessTokenExpired) throw new NetworkError(status, error.response.data)
-			await this.getNewTokens()
-			return this.makeRequest(url, method, data)
+			const res = await this.getNewTokens()
+			if (res) return this.makeRequest(url, method, data)
+			else throw error
 		}
 	}
 
 	private async getNewTokens () {
-		const res = await this.client.post('/token', {}, { baseURL: apiBases.AUTH })
-		const { accessToken, refreshToken } = res.data
-		await saveTokens({ accessToken, refreshToken })
-		await this.client.post('/api/auth/signin',
-			{ accessToken, refreshToken },
-			{ baseURL: '' }
-		)
+		try {
+			const { data } = await this.client.post<{}, AxiosResponse<AfterAuthUser>>('/token', {}, { baseURL: apiBases.AUTH })
+			await saveTokensToCookies(data)
+			return !!data
+		} catch (e) {
+			const error = e as unknown as AxiosError
+			if (!error.isAxiosError) throw error
+			if (!error.response) throw error
+			const status = error.response.status
+			throw new NetworkError(status, error.response.data)
+		}
 	}
 }

@@ -1,14 +1,16 @@
 import { computed, reqSsrRef } from '@nuxtjs/composition-api'
 import { FindUser, ListenToUser, UpdateStreak, UserEntity } from '@modules/users'
-import { AuthDetails, UserLocation } from '@modules/auth/domain/entities/auth'
+import { AuthDetails, AuthTypes, UserLocation } from '@modules/auth/domain/entities/auth'
 import { SessionSignout } from '@modules/auth'
 import { isClient } from '@utils/environment'
 import { analytics } from '@modules/core'
-import VueRouter from 'vue-router'
 import { saveTokens } from '@utils/tokens'
 
 const global = {
-	tokens: reqSsrRef(null as { accessToken: string, refreshToken: string } | null),
+	tokens: reqSsrRef({
+		accessToken: null,
+		refreshToken: null
+	} as { accessToken: string | null, refreshToken: string | null }),
 	auth: reqSsrRef(null as AuthDetails | null),
 	user: reqSsrRef(null as UserEntity | null),
 	location: reqSsrRef(null as UserLocation | null),
@@ -43,28 +45,28 @@ export const useAuth = () => {
 		}
 	})
 
+	const hasPassword = computed({
+		get: () => !!global.auth.value?.authTypes.includes(AuthTypes.email),
+		set: () => {
+		}
+	})
+
 	const setUserLocation = (data: UserLocation) => {
 		global.location.value = data
 	}
 
-	const setTokens = async (data: { accessToken: string, refreshToken: string }) => {
+	const setTokens = async (data: typeof global.tokens.value) => {
 		global.tokens.value = data
 		await saveTokens(data)
 	}
 
 	const getTokens = () => global.tokens.value
 
-	const setAuthUser = async (details: AuthDetails | null, router: VueRouter) => {
+	const setAuthUser = async (details: AuthDetails | null) => {
 		if (global.listener) global.listener()
 		global.auth.value = details
-		if (details?.id) {
-			if (!details.isVerified) {
-				await router.push('/auth/verify')
-				return false
-			}
-			global.user.value = await FindUser.call(details.id)
-		} else global.user.value = null
-		return true
+		if (details?.id) global.user.value = await FindUser.call(details.id)
+		else global.user.value = null
 	}
 
 	const startProfileListener = async () => {
@@ -82,17 +84,13 @@ export const useAuth = () => {
 	}
 
 	const signin = async (remembered: boolean) => {
-		try {
-			await startProfileListener()
-			analytics.logEvent('login', { remembered })
-		} catch (e) {
-			await signout()
-		}
+		await startProfileListener()
+		analytics.logEvent('login', { remembered })
 	}
 
 	const signout = async () => {
 		await SessionSignout.call()
-		await setAuthUser(null, {} as unknown as VueRouter)
+		await setAuthUser(null)
 		if (isClient()) window.location.assign('/')
 	}
 
@@ -108,7 +106,7 @@ export const useAuth = () => {
 
 	return {
 		id, bio, user: global.user, auth: global.auth, location: global.location,
-		isLoggedIn, isVerified, isAdmin, currentSessionId,
+		isLoggedIn, isVerified, isAdmin, currentSessionId, hasPassword,
 		setAuthUser, setUserLocation, signin, signout, setTokens, getTokens,
 		getLocalAmount, getLocalCurrency, getLocalCurrencySymbol
 	}

@@ -36,7 +36,7 @@
 				{{ factory.errors.cPassword }}
 			</DynamicText>
 		</div>
-		<button class="btn btn-lg btn-custom py-1 " type="submit">
+		<button :disabled="loading || !factory.valid" class="btn btn-lg btn-custom py-1" type="submit">
 			Reset Password
 		</button>
 		<DisplayError :error="error" />
@@ -57,12 +57,12 @@ import { usePasswordReset } from '@app/hooks/auth/passwords'
 export default defineComponent({
 	name: 'AuthResetPage',
 	layout: 'auth',
-	middleware: ['isNotAuthenticated', ({ params, redirect }) => {
-		if (!params.token) redirect('/auth/signin')
+	middleware: [({ query, redirect }) => {
+		if (!query.token) redirect('/auth/signin')
 	}],
 	setup () {
-		const { token } = useRoute().value.params
-		const { factory, loading, resetPassword, error, message } = usePasswordReset(token)
+		const { token } = useRoute().value.query
+		const { factory, loading, resetPassword, error, message } = usePasswordReset(token as string)
 		useMeta(() => ({
 			title: 'Reset Password | Stranerd'
 		}))

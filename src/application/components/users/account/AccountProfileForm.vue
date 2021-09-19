@@ -119,7 +119,7 @@
 				{{ factory.errors.description }}
 			</DynamicText>
 		</div>
-		<template v-if="auth.signInMethod === 'password'">
+		<template v-if="hasPassword">
 			<hr>
 			<p class="small text-center mt-n1">
 				Fill this if you want to update your password
@@ -184,7 +184,7 @@ export default defineComponent({
 		}
 	},
 	setup () {
-		const { auth } = useAuth()
+		const { hasPassword } = useAuth()
 		const { show, toggle } = usePassword()
 		const { factory, error, loading, updateProfile } = useUpdateProfile()
 		const imageLink = ref((factory.value.avatar as any)?.link ?? '')
@@ -202,7 +202,7 @@ export default defineComponent({
 			(sTag: string) => factory.value.removeWeakerSubjects(sTag)
 		)
 		return {
-			auth, show, toggle, catchFiles, imageLink, removeImage, sTag, removeTag,
+			hasPassword, show, toggle, catchFiles, imageLink, removeImage, sTag, removeTag,
 			factory, error, loading, updateProfile, DEFAULT_PROFILE_IMAGE
 		}
 	}

@@ -5,7 +5,7 @@ export { BaseEntity } from './domain/entities/base'
 export { BaseFactory } from './domain/factories/base'
 
 export { HttpClient, NetworkError, StatusCodes, Conditions } from './services/http'
-export { listenOnSocket } from './services/sockets'
+export { listenOnSocket, closeSocket } from './services/sockets'
 export type { QueryParams, QueryResults } from './services/http'
 export { FunctionsService } from './services/firebase'
 export { UploaderService } from './services/uploader'

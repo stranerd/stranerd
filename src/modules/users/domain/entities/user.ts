@@ -100,7 +100,9 @@ export class UserEntity extends BaseEntity {
 	}
 
 	get subjects () {
-		return [this.tutor.strongestSubject, ...this.tutor.weakerSubjects]
+		const subjects = [...this.tutor.weakerSubjects]
+		if (this.tutor.strongestSubject) subjects.push(this.tutor.strongestSubject)
+		return subjects
 	}
 
 	get tags () {

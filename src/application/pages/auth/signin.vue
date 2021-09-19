@@ -38,7 +38,7 @@
 				</NuxtLink>
 			</div>
 		</div>
-		<button class="btn btn-lg btn-custom py-1 " type="submit">
+		<button :disabled="loading || !factory.valid" class="btn btn-lg btn-custom py-1" type="submit">
 			Sign In
 		</button>
 		<DisplayError :error="error" />

@@ -11,16 +11,19 @@ import { Alert } from '@app/hooks/core/notifications'
 import { serialize } from '@utils/cookie'
 
 export const createSession = async (afterAuth: AfterAuthUser, router: VueRouter) => {
-	const authDetails = await SessionSignin.call(afterAuth)
+	if (!afterAuth.user.isVerified) {
+		await useAuth().setAuthUser(afterAuth.user)
+		return await router.push('/auth/verify')
+	}
+	await SessionSignin.call(afterAuth)
 	const { setAuthUser, signin, setTokens } = useAuth()
 	await setTokens({ accessToken: afterAuth.accessToken, refreshToken: afterAuth.refreshToken })
-	const isVerified = await setAuthUser(authDetails, router)
-	if (!isVerified) return
+	await setAuthUser(afterAuth.user)
 	await signin(false)
 
 	const { [REDIRECT_SESSION_NAME]: redirect } = Cookie.parse(document.cookie ?? '')
 	document.cookie = Cookie.serialize(REDIRECT_SESSION_NAME, '', { expires: new Date(0) })
-	await router.push(redirect ?? '/dashboard')
+	await window.location.assign(redirect ?? '/dashboard')
 }
 
 export const useSessionSignout = () => {

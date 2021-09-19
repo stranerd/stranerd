@@ -1,17 +1,16 @@
-import { HttpClient } from '@modules/core'
+import { closeSocket, HttpClient } from '@modules/core'
 import { apiBases, domain } from '@utils/environment'
-import { AfterAuthUser, AuthDetails, AuthExtras, NewUser, UpdateUser } from '../../domain/entities/auth'
+import { deleteTokensFromCookies, saveTokensToCookies } from '@utils/tokens'
+import { AfterAuthUser, AuthExtras, NewUser, UpdateUser } from '../../domain/entities/auth'
 import { AuthBaseDataSource } from './auth-base'
 
 export class AuthApiDataSource implements AuthBaseDataSource {
 	private authClient: HttpClient
 	private stranerdClient: HttpClient
-	private nuxtClient: HttpClient
 
 	constructor () {
 		this.authClient = new HttpClient(apiBases.AUTH)
 		this.stranerdClient = new HttpClient(apiBases.STRANERD)
-		this.nuxtClient = new HttpClient('/api/auth')
 	}
 
 	async signinWithEmail (email: string, password: string, extras: AuthExtras) {
@@ -44,7 +43,7 @@ export class AuthApiDataSource implements AuthBaseDataSource {
 	}
 
 	async completeEmailVerification (token: string) {
-		return await this.authClient.post<any, AfterAuthUser>('/emails/verify/mail', {
+		return await this.authClient.post<any, AfterAuthUser>('/emails/verify', {
 			token
 		})
 	}
@@ -76,15 +75,14 @@ export class AuthApiDataSource implements AuthBaseDataSource {
 	}
 
 	async session (afterAuth: AfterAuthUser) {
-		const { accessToken, refreshToken } = afterAuth
-		const { user } = await this.nuxtClient.post<any, { user: AuthDetails }>(
-			'/signin',
-			{ accessToken, refreshToken }
-		)
-		return user
+		await saveTokensToCookies(afterAuth)
+		await closeSocket()
+		return afterAuth.user
 	}
 
 	async signout () {
-		await this.nuxtClient.post<any, any>('/signout', {})
+		await this.authClient.post<any, boolean>('/user/signout', {}).catch()
+		await deleteTokensFromCookies()
+		await closeSocket()
 	}
 }

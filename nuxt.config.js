@@ -38,8 +38,6 @@ export const styleResources = {
 	scss: ['@/assets/styles/globals.scss']
 }
 
-export const serverMiddleware = ['./src/server/api/index']
-
 export const plugins = [
 	{ mode: 'server', src: '@/plugins/parseLoggedInUser' },
 	{ mode: 'client', src: '@/plugins/ipAddressGetter' },

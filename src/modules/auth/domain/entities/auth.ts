@@ -35,7 +35,7 @@ export type UpdateUser = {
 	weakerSubjects: string[]
 }
 
-enum AuthTypes {
+export enum AuthTypes {
 	google = 'google',
 	email = 'email',
 	facebook = 'facebook',
@@ -45,20 +45,17 @@ enum AuthTypes {
 export type AfterAuthUser = {
 	accessToken: string
 	refreshToken: string
-	user: {
-		id: string
-		isVerified: boolean
-		roles: Record<string, Record<string, boolean>>
-		authTypes: AuthTypes[]
-	}
+	user: AuthDetails
 }
 
 export type AuthDetails = {
 	id: string
+	firstName: string
+	lastName: string
 	email: string
-	token: string
 	isVerified: boolean
-	signInMethod: string
+	roles: Record<string, Record<string, boolean>>
+	authTypes: AuthTypes[]
 }
 
 export type AuthExtras = {

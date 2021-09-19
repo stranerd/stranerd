@@ -1,4 +1,4 @@
-import { Listeners } from '@modules/core'
+import { Conditions, Listeners } from '@modules/core'
 import { ISessionRepository } from '../../irepositories/isession'
 import { SessionEntity } from '../../entities/session'
 
@@ -11,15 +11,8 @@ export class ListenToSessionsUseCase {
 
 	async call (ids: string[], listener: Listeners<SessionEntity>) {
 		return await this.repository.listenToMany({
-			created: async (entity) => {
-				if (ids.includes(entity.id)) await listener.created(entity)
-			},
-			updated: async (entity) => {
-				if (ids.includes(entity.id)) await listener.updated(entity)
-			},
-			deleted: async (entity) => {
-				if (ids.includes(entity.id)) await listener.deleted(entity)
-			}
-		})
+			where: [{ field: 'id', condition: Conditions.in, value: ids }],
+			all: true
+		}, listener, (entity) => ids.includes(entity.id))
 	}
 }

@@ -14,7 +14,7 @@ export class GetReportsUseCase<T extends Type> {
 
 	async call (date?: number): Promise<QueryResults<ReportEntity<T>>> {
 		const conditions: QueryParams = {
-			sort: { field: 'createdAt' },
+			sort: { field: 'createdAt', order: -1 },
 			limit: PAGINATION_LIMIT,
 			where: [{ field: 'type', value: this.type }]
 		}

@@ -53,10 +53,16 @@ const global = {
 	...useLoadingHandler()
 }
 
-const pushToReportList = (report: AnswerReportEntity) => {
+/* const pushToReportList = (report: AnswerReportEntity) => {
+ const index = global.reports.value.findIndex((r) => r.id === report.id)
+ if (index !== -1) global.reports.value.splice(index, 1, report)
+ else global.reports.value.push(report)
+ } */
+
+const unshiftToReportList = (report: AnswerReportEntity) => {
 	const index = global.reports.value.findIndex((r) => r.id === report.id)
 	if (index !== -1) global.reports.value.splice(index, 1, report)
-	else global.reports.value.push(report)
+	else global.reports.value.unshift(report)
 }
 
 export const useReportsList = () => {
@@ -64,10 +70,10 @@ export const useReportsList = () => {
 		global.setError('')
 		try {
 			global.setLoading(true)
-			const lastDate = global.reports.value[global.reports.value.length - 1]?.createdAt
+			const lastDate = global.reports.value[0]?.createdAt
 			const reports = await GetAnswerReports.call(lastDate)
 			global.hasMore.value = !!reports.pages.next
-			reports.results.forEach(pushToReportList)
+			reports.results.forEach(unshiftToReportList)
 			global.fetched.value = true
 		} catch (error) {
 			global.setError(error)

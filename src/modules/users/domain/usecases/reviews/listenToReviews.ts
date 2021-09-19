@@ -1,5 +1,4 @@
 import { Conditions, Listeners, QueryParams } from '@modules/core'
-import { PAGINATION_LIMIT } from '@utils/constants'
 import { IReviewRepository } from '../../irepositories/ireview'
 import { ReviewEntity } from '../../entities/review'
 
@@ -12,8 +11,8 @@ export class ListenToReviewsUseCase {
 
 	async call (userId: string, listener: Listeners<ReviewEntity>, date?: number) {
 		const conditions: QueryParams = {
-			sort: { field: 'createdAt', order: -1 },
-			limit: PAGINATION_LIMIT
+			sort: { field: 'createdAt', order: 1 },
+			all: true
 		}
 		if (date) conditions.where = [{ field: 'createdAt', condition: Conditions.gt, value: date }]
 

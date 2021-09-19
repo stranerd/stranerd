@@ -1,5 +1,4 @@
 import { Conditions, Listeners, QueryParams } from '@modules/core'
-import { PAGINATION_LIMIT } from '@utils/constants'
 import { IReferralRepository } from '../../irepositories/ireferral'
 import { ReferralEntity } from '../../entities/referral'
 
@@ -12,8 +11,7 @@ export class ListenToReferralsUseCase {
 
 	async call (userId: string, listener: Listeners<ReferralEntity>, date?: number) {
 		const conditions: QueryParams = {
-			sort: { field: 'createdAt', order: -1 },
-			limit: PAGINATION_LIMIT,
+			sort: { field: 'createdAt', order: 1 },
 			all: true
 		}
 		if (date) conditions.where = [{ field: 'createdAt', condition: Conditions.gt, value: date }]

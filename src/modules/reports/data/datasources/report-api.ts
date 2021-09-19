@@ -27,11 +27,18 @@ export class ReportApiDataSource implements ReportBaseDataSource {
 		await this.stranerdClient.delete<{}, boolean>(`/reports/${id}`, {})
 	}
 
-	async listenToOne (id: string, listener: Listeners<ReportFromModel>) {
-		return listenOnSocket(`reports/${id}`, listener)
+	async listenToOne (id: string, listeners: Listeners<ReportFromModel>) {
+		const listener = listenOnSocket(`reports/${id}`, listeners)
+		const model = await this.find(id)
+		if (model) await listeners.updated(model)
+		return listener
 	}
 
-	async listenToMany (listener: Listeners<ReportFromModel>) {
-		return listenOnSocket('reports', listener)
+	async listenToMany (query: QueryParams, listeners: Listeners<ReportFromModel>) {
+		const listener = listenOnSocket('reports', listeners)
+		query.all = true
+		const models = await this.get(query)
+		await Promise.all(models.results.map(listeners.updated))
+		return listener
 	}
 }

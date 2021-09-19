@@ -7,6 +7,6 @@ export interface SessionBaseDataSource {
 	cancel: (id: string) => Promise<void>
 	get: (query: QueryParams) => Promise<QueryResults<SessionFromModel>>
 	listenToOne: (id: string, listener: Listeners<SessionFromModel>) => Promise<() => void>
-	listenToMany: (listener: Listeners<SessionFromModel>) => Promise<() => void>
+	listenToMany: (query: QueryParams, listener: Listeners<SessionFromModel>) => Promise<() => void>
 	find: (id: string) => Promise<SessionFromModel | null>
 }

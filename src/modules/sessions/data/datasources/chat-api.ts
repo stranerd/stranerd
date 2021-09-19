@@ -16,19 +16,26 @@ export class ChatApiDataSource implements ChatBaseDataSource {
 	}
 
 	async find (_: [string, string], id: string) {
-		return await this.stranerdClient.get<{}, ChatFromModel>(`/chats/${id}`, {})
+		return await this.stranerdClient.get<{}, ChatFromModel | null>(`/chats/${id}`, {})
 	}
 
 	async get (_: [string, string], query: QueryParams) {
 		return await this.stranerdClient.get<QueryParams, QueryResults<ChatFromModel>>('/chats', query)
 	}
 
-	async listenToMany (listener: Listeners<ChatFromModel>) {
-		return listenOnSocket('chats', listener)
+	async listenToMany (_: [string, string], query: QueryParams, listeners: Listeners<ChatFromModel>) {
+		const listener = listenOnSocket('chats', listeners)
+		query.all = true
+		const models = await this.get(_, query)
+		await Promise.all(models.results.map(listeners.updated))
+		return listener
 	}
 
-	async listenToOne (id: string, listener: Listeners<ChatFromModel>) {
-		return listenOnSocket(`chats/${id}`, listener)
+	async listenToOne (_: [string, string], id: string, listeners: Listeners<ChatFromModel>) {
+		const listener = listenOnSocket(`chats/${id}`, listeners)
+		const model = await this.find(_, id)
+		if (model) await listeners.updated(model)
+		return listener
 	}
 
 	async markRead (_: [string, string], chatId: string, to: string) {

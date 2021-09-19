@@ -16,19 +16,26 @@ export class SessionApiDataSource implements SessionBaseDataSource {
 	}
 
 	async find (id: string) {
-		return await this.stranerdClient.get<{}, SessionFromModel>(`/sessions/${id}`, {})
+		return await this.stranerdClient.get<{}, SessionFromModel | null>(`/sessions/${id}`, {})
 	}
 
 	async get (query: QueryParams) {
 		return await this.stranerdClient.get<QueryParams, QueryResults<SessionFromModel>>('/sessions', query)
 	}
 
-	async listenToOne (id: string, listener: Listeners<SessionFromModel>) {
-		return listenOnSocket(`sessions/${id}`, listener)
+	async listenToOne (id: string, listeners: Listeners<SessionFromModel>) {
+		const listener = listenOnSocket(`sessions/${id}`, listeners)
+		const model = await this.find(id)
+		if (model) await listeners.updated(model)
+		return listener
 	}
 
-	async listenToMany (listener: Listeners<SessionFromModel>) {
-		return listenOnSocket('sessions', listener)
+	async listenToMany (query: QueryParams, listeners: Listeners<SessionFromModel>) {
+		const listener = listenOnSocket('sessions', listeners)
+		query.all = true
+		const models = await this.get(query)
+		await Promise.all(models.results.map(listeners.updated))
+		return listener
 	}
 
 	async accept (id: string, accepted: boolean) {

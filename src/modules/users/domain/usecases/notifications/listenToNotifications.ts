@@ -1,5 +1,4 @@
 import { Conditions, Listeners, QueryParams } from '@modules/core'
-import { PAGINATION_LIMIT } from '@utils/constants'
 import { INotificationRepository } from '../../irepositories/inotification'
 import { NotificationEntity } from '../../entities/notification'
 
@@ -12,8 +11,8 @@ export class ListenToNotificationsUseCase {
 
 	async call (userId: string, listener: Listeners<NotificationEntity>, date?: number) {
 		const conditions: QueryParams = {
-			sort: { field: 'createdAt', order: -1 },
-			limit: PAGINATION_LIMIT
+			sort: { field: 'createdAt', order: 1 },
+			all: true
 		}
 		if (date) conditions.where = [{ field: 'createdAt', condition: Conditions.gt, value: date }]
 

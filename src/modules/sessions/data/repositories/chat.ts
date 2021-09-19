@@ -31,8 +31,8 @@ export class ChatRepository implements IChatRepository {
 		return model ? this.transformer.fromJSON(model) : model
 	}
 
-	async listenToOne (id: string, listener: Listeners<ChatEntity>) {
-		return this.dataSource.listenToOne(id, {
+	async listenToOne (path: [string, string], id: string, listener: Listeners<ChatEntity>) {
+		return this.dataSource.listenToOne(path, id, {
 			created: async (model) => {
 				await listener.created(this.transformer.fromJSON(model))
 			},
@@ -45,16 +45,19 @@ export class ChatRepository implements IChatRepository {
 		})
 	}
 
-	async listenToMany (listener: Listeners<ChatEntity>) {
-		return this.dataSource.listenToMany({
+	async listenToMany (path: [string, string], query: QueryParams, listener: Listeners<ChatEntity>, matches: (entity: ChatEntity) => boolean) {
+		return this.dataSource.listenToMany(path, query, {
 			created: async (model) => {
-				await listener.created(this.transformer.fromJSON(model))
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.created(entity)
 			},
 			updated: async (model) => {
-				await listener.updated(this.transformer.fromJSON(model))
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.updated(entity)
 			},
 			deleted: async (model) => {
-				await listener.deleted(this.transformer.fromJSON(model))
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.deleted(entity)
 			}
 		})
 	}

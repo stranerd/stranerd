@@ -1,4 +1,4 @@
-import { Listeners } from '@modules/core'
+import { Listeners, QueryParams } from '@modules/core'
 import { IChatMetaRepository } from '../../irepositories/ichatMeta'
 import { ChatMetaEntity } from '../../entities/chatMeta'
 
@@ -10,6 +10,10 @@ export class ListenToChatsMetaUseCase {
 	}
 
 	async call (listener: Listeners<ChatMetaEntity>) {
-		return await this.repository.listenToMany(listener)
+		const conditions: QueryParams = {
+			sort: { field: 'last.createdAt', order: 1 },
+			all: true
+		}
+		return await this.repository.listenToMany(conditions, listener, (entity) => !!entity)
 	}
 }

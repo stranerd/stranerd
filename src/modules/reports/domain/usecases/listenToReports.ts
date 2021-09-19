@@ -1,4 +1,4 @@
-import { Listeners } from '@modules/core'
+import { Conditions, Listeners, QueryParams } from '@modules/core'
 import { IReportRepository } from '../irepositories/ireport'
 import { ReportEntity, ReportType, Type } from '../entities/report'
 
@@ -11,17 +11,18 @@ export class ListenToReportsUseCase<T extends Type> {
 		this.type = type
 	}
 
-	async call (listener: Listeners<ReportEntity<T>>) {
-		return await this.repository.listenToMany({
-			created: async (entity) => {
-				if (entity.type === this.type) await listener.created(entity)
-			},
-			updated: async (entity) => {
-				if (entity.type === this.type) await listener.updated(entity)
-			},
-			deleted: async (entity) => {
-				if (entity.type === this.type) await listener.deleted(entity)
-			}
+	async call (listener: Listeners<ReportEntity<T>>, date?: number) {
+		const conditions: QueryParams = {
+			sort: { field: 'createdAt', order: 1 },
+			where: [{ field: 'type', value: this.type }],
+			all: true
+		}
+		if (date) conditions.where!.push({ field: 'createdAt', condition: Conditions.gt, value: date })
+
+		return await this.repository.listenToMany(conditions, listener, (entity) => {
+			if (entity.type !== this.type) return false
+			if (date) return entity.createdAt > date
+			return true
 		})
 	}
 }

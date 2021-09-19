@@ -33,10 +33,10 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-	.head-icons{
+	.head-icons {
 		color: white;
-				@media (max-width: $md) {
-			color: $color-primary-dark
+		@media (max-width: $md) {
+			color: $color-primary-dark;
 		}
 	}
 </style>

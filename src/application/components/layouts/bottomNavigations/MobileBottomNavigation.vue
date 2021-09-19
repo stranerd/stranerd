@@ -3,32 +3,52 @@
 		<NuxtLink to="/">
 			<div class="mobile-bottom-nav__item mobile-bottom-nav__item--active  ">
 				<div class="mobile-bottom-nav__item-content">
-					<img src="@app/assets/images/icons/home.svg" class="icon" alt="">
+					<Icon
+						class="text-dark"
+						size="s"
+						:icon-name="$route.name=='dashboard'?'home':'home-outline'"
+					/>
 				</div>
 			</div>
 		</NuxtLink>
 
 		<NuxtLink to="/sessions">
 			<div class="mobile-bottom-nav__item">
-				<img src="@app/assets/images/icons/questions-nav.svg" class="icon" alt="">
+				<Icon
+					class="text-dark"
+					size="s"
+					icon-name="questions-outline"
+				/>
 			</div>
 		</NuxtLink>
 
 		<NuxtLink to="/">
 			<div class="mobile-bottom-nav__item">
-				<img src="@app/assets/images/icons/create.svg" class="icon" alt="">
+				<Icon
+					class="text-dark"
+					size="s"
+					icon-name="create-outline"
+				/>
 			</div>
 		</NuxtLink>
 
 		<NuxtLink to="/notifications">
 			<div class="mobile-bottom-nav__item">
-				<img src="@app/assets/images/icons/notification-outline.svg" class="icon" alt="">
+				<Icon
+					class="text-dark"
+					size="s"
+					:icon-name="$route.name=='notifications'?'bell':'bell-outline'"
+				/>
 			</div>
 		</NuxtLink>
 
 		<NuxtLink to="/">
 			<div class="mobile-bottom-nav__item">
-				<img src="@app/assets/images/icons/apps.svg" class="icon" alt="">
+				<Icon
+					class="text-dark"
+					size="s"
+					icon-name="app-outline"
+				/>
 			</div>
 		</NuxtLink>
 	</nav>
@@ -67,11 +87,6 @@ export default {
 			text-align: center;
 			font-size: 1.25rem;
 			justify-content: center;
-		}
-
-		&__item--active {
-			//dev
-			color: red;
 		}
 
 		&__item-content {

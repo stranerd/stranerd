@@ -193,13 +193,12 @@ export default defineComponent({
 		color: $color-white;
 		background: $color-primary-dark;
 		padding: 0.75rem 1rem;
-
 		@media (max-width: $md) {
 			background: $color-white;
 			border-bottom: 4px solid $color-primary-dark;
 			padding: 0.75rem 1.875rem;
 		}
-			@media (max-width: $sm) {
+		@media (max-width: $sm) {
 			padding: 0.75rem 1.125rem;
 			border-bottom: 1px solid $color-line;
 		}
@@ -212,7 +211,6 @@ export default defineComponent({
 		@media (min-width: $xl) {
 			padding: 0.75rem 4rem;
 		}
-
 	}
 
 	.middle-body {
@@ -249,24 +247,27 @@ export default defineComponent({
 			}
 		}
 	}
-	.head-icons{
+
+	.head-icons {
 		color: white;
-				@media (max-width: $md) {
-			color: $color-primary-dark
+		@media (max-width: $md) {
+			color: $color-primary-dark;
 		}
-				@media (max-width: $sm) {
-			color: $color-dark
+		@media (max-width: $sm) {
+			color: $color-dark;
 		}
 	}
+
 	.sm-logo {
 		display: block;
-			@media (min-width: $md) {
+		@media (min-width: $md) {
 			display: none;
 		}
 	}
+
 	.logo {
 		display: none;
-			@media (min-width: $md) {
+		@media (min-width: $md) {
 			display: block;
 		}
 	}

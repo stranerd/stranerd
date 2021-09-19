@@ -199,9 +199,10 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.w-30{
-	width:30%
-}
+	.w-30 {
+		width: 30%;
+	}
+
 	.btn {
 		min-width: 100%;
 		max-width: 20rem;

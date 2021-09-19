@@ -126,6 +126,19 @@
 			</p>
 			<div class="form-group">
 				<input
+					id="oldPassword"
+					v-model="factory.oldPassword"
+					:class="{'is-invalid': factory.errors.oldPassword}"
+					:type="show ? 'text' : 'password'"
+					class="form-control"
+					placeholder="Old Password"
+				>
+				<DynamicText v-if="factory.errors.password" class="small text-danger d-block">
+					{{ factory.errors.password }}
+				</DynamicText>
+			</div>
+			<div class="form-group">
+				<input
 					id="password"
 					v-model="factory.password"
 					:class="{'is-invalid': factory.errors.password}"

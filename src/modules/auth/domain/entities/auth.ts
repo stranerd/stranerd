@@ -30,7 +30,10 @@ export type UserLocation = {
 
 export type UpdateUser = {
 	bio: Omit<UserBio, 'fullName'>
-	password: string
+	passwords?: {
+		oldPassword: string
+		newPassword: string
+	}
 	strongestSubject: string,
 	weakerSubjects: string[]
 }

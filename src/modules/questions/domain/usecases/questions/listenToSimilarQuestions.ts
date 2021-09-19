@@ -10,7 +10,6 @@ export class ListenToSimilarQuestionsUseCase {
 	}
 
 	async call (questionId: string, tags: string[], listener: Listeners<QuestionEntity>) {
-		// TODO: Test this query for tags in tag name arrays
 		const conditions: QueryParams = {
 			where: [
 				{ field: 'tags', condition: Conditions.in, value: tags },

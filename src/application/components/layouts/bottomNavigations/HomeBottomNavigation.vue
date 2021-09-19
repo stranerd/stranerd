@@ -30,7 +30,6 @@
 						Terms & Conditions
 					</NuxtLink>
 				</div>
-				<!-- TODO: Add community and help links-->
 				<div class="block">
 					<h5 class="sessionHead">
 						Community
@@ -38,7 +37,7 @@
 					<NuxtLink class="linkText" to="/questions/create">
 						Ask a Question
 					</NuxtLink>
-					<NuxtLink class="linkText" to="/">
+					<NuxtLink class="linkText d-none" to="/">
 						Blog
 					</NuxtLink>
 				</div>

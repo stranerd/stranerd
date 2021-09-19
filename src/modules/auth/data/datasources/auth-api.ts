@@ -61,13 +61,18 @@ export class AuthApiDataSource implements AuthBaseDataSource {
 		})
 	}
 
-	async updateProfile ({ bio, strongestSubject, weakerSubjects }: UpdateUser) {
-		// TODO: Figure out whether to update password in same form as profile
+	async updateProfile ({ bio, strongestSubject, weakerSubjects, passwords }: UpdateUser) {
 		await Promise.all([
 			await this.authClient.put<any, any>('/user', {
 				firstName: bio.firstName, lastName: bio.lastName,
 				description: bio.description, photo: bio.photo
 			}),
+			passwords
+				? await this.authClient.post<any, any>('//passwords/update', {
+					oldPassword: passwords.oldPassword,
+					password: passwords.newPassword
+				})
+				: Promise.resolve(),
 			await this.stranerdClient.post<any, any>('/users/subjects', {
 				strongestSubject, weakerSubjects
 			})

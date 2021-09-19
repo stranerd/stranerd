@@ -32,24 +32,13 @@ export const stripeConfig = {
 	publicKey: stripe.public_key
 }
 
-export enum EMAILS {
-	NO_REPLY = 'no-reply@stranerd.com'
-}
-
-const mails = JSON.parse(process.env.EMAIL ?? '{}')
-export const email = Object.fromEntries(
-	Object.entries(EMAILS).map(([key, value]) => [value, {
-		privateKey: mails?.[key.toLowerCase()]?.private_key,
-		clientId: mails?.[key.toLowerCase()]?.client_id
-	}])
-)
-
 export const host = (process.env.DOMAIN ?? '') + (isDev ? `:${process.env.PORT}` : '')
 export const domain = `http${!isDev ? 's' : ''}://${host}`
 export const logo = `${domain}/images/logo-blue.svg`
 
+const apis = JSON.parse(process.env.API_BASES ?? '{}')
 export const apiBases = {
-	AUTH: 'http://localhost:80/api/auth',
-	STRANERD: 'http://localhost:80/api/stranerd',
-	STORAGE: 'http://localhost:80/api/storage'
+	AUTH: apis.auth,
+	STRANERD: apis.stranerd,
+	STORAGE: apis.storage
 }

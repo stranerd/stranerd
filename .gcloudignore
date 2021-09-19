@@ -26,7 +26,3 @@ node_modules/
 *.log
 env.example.json
 README.md
-
-firebase/
-firebase.json
-.firebaserc

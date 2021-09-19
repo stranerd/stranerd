@@ -32,31 +32,3 @@ jobs:
           APPLICATION_CREDENTIALS: ${{ secrets.GCLOUD_AUTH }}
         with:
           args: "app deploy --quiet"
-  publish-fb:
-    environment: staging
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@master
-      - name: Fetch secrets
-        uses: actions-hub/gcloud@master
-        env:
-          PROJECT_ID: ${{ secrets.GCLOUD_PROJECT }}
-          APPLICATION_CREDENTIALS: ${{ secrets.GCLOUD_AUTH }}
-        with:
-          args: "secrets versions access latest --secret=App_Engine_Environment_Variables > env.json"
-      - name: Install Dependencies
-        run: yarn
-      - name: Install Functions Dependencies
-        run: yarn
-        working-directory: ./firebase/functions
-      - name: Set Functions Config
-        run: npm run env:set:functions
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-      - name: Deploy to Firebase
-        uses: w9jds/firebase-action@master
-        with:
-          args: "deploy -P staging --non-interactive"
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

@@ -107,11 +107,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.fixed{
-	position: fixed;
-	bottom: 0px;
-	margin-left: 0.5rem;
-	padding: 1rem 2rem;
-	font-size: 18px;
-}
+	.fixed {
+		position: fixed;
+		bottom: 0;
+		margin-left: 0.5rem;
+		padding: 1rem 2rem;
+		font-size: 18px;
+	}
 </style>

@@ -6,6 +6,7 @@
 				<Nuxt />
 			</main>
 		</section>
+		<MobileBottomNavigation />
 		<ModalBase />
 	</div>
 </template>
@@ -13,9 +14,10 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import TopNavigation from '@app/components/layouts/topNavigations/DefaultTopNavigation.vue'
+import MobileBottomNavigation from '@app/components/layouts/bottomNavigations/MobileBottomNavigation.vue'
 
 export default defineComponent({
 	name: 'ChatLayout',
-	components: { TopNavigation }
+	components: { TopNavigation, MobileBottomNavigation }
 })
 </script>

@@ -14,6 +14,7 @@
 				<ProfileRightSidebar />
 			</section>
 		</section>
+		<MobileBottomNavigation />
 		<ModalBase />
 	</div>
 </template>
@@ -23,10 +24,11 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import ProfileLeftSidebar from '@app/components/layouts/sidebars/ProfileLeftSidebar.vue'
 import ProfileRightSidebar from '@app/components/layouts/sidebars/ProfileRightSidebar.vue'
 import TopNavigation from '@app/components/layouts/topNavigations/DefaultTopNavigation.vue'
+import MobileBottomNavigation from '@app/components/layouts/bottomNavigations/MobileBottomNavigation.vue'
 
 export default defineComponent({
 	name: 'ProfileLayout',
-	components: { TopNavigation, ProfileRightSidebar, ProfileLeftSidebar }
+	components: { TopNavigation, ProfileRightSidebar, ProfileLeftSidebar, MobileBottomNavigation }
 })
 </script>
 

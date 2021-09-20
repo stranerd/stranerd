@@ -497,7 +497,7 @@
 		</p>
 
 		<h5 class="fw-bold">
-			Parental or Guardian Permissionct
+			Parental or Guardian Permission
 		</h5>
 		<p>
 			Some of the Content on the Websites may not be appropriate for children. CHILDREN UNDER THE AGE OF 17 ARE
@@ -578,7 +578,7 @@
 			and/or the Service.
 		</p>
 		<h5 class="fw-bold">
-			Severability; Waivert
+			Severability; Waiver
 		</h5>
 		<p>
 			If any provision of this Agreement is found to be invalid by any court having competent jurisdiction, the

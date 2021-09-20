@@ -1,6 +1,6 @@
 <template>
 	<div class="d-flex flex-column bg-white">
-		<div class="head">
+		<div class="head d-none d-sm-inline">
 			<NuxtLink to="/sessions">
 				<Heading variant="1">
 					Inbox

@@ -122,7 +122,7 @@ export default defineComponent({
 			},
 			{
 				question: 'Can I add new subjects myself if it’s not in the subject list?',
-				answer: 'EuniceApo',
+				answer: 'We considered this and realized it would lead to disorganization. Currently, subjects on the site are root subjects that broader subject revolve around',
 				show: false
 			},
 			{

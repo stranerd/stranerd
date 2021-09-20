@@ -45,7 +45,6 @@
 			Your Content
 		</h5>
 		<p>
-			v
 			Some of our services allow you to upload, store, send, or even receive your own content. You own and reserve
 			the rights to this content just like you did before you used it within our services.
 
@@ -56,8 +55,6 @@
 			Some of these services offer methods of accessing and removing or limiting our use of your content.
 
 			Please find additional information on how we use and store content in our Privacy Policy.
-
-			.
 		</p>
 
 		<h5 class="fw-bold">
@@ -69,8 +66,6 @@
 
 			You can at any time, stop using our services. We also give prior notice for you to remove your content and
 			data from our services, if for any reason we have to remove your account.
-
-			e.
 		</p>
 
 		<h5 class="fw-bold">
@@ -111,7 +106,7 @@
 		</p>
 
 		<h5 class="fw-bold">
-			Violation of Terms of Servicet
+			Violation of Terms of Service
 		</h5>
 		<p>
 			We may disclose information about you if we determine that such disclosure is necessary in connection to

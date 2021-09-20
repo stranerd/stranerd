@@ -83,11 +83,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.form-select{
-	max-width: 9.75rem;
-	background-color: #F8F8FF;
-	border: 0.5px solid #D7E2EC;
-}
+	.form-select {
+		max-width: 9.75rem;
+		background-color: #f8f8ff;
+		border: 0.5px solid #d7e2ec;
+	}
+
 	.headertext {
 		font-weight: bold;
 		color: $color-dark;
@@ -101,7 +102,8 @@ export default defineComponent({
 		font-size: 18px;
 		padding: 1.188rem 2.281rem;
 	}
-		.table-data-style {
+
+	.table-data-style {
 		border: 1px solid $color-line;
 		border-radius: 6px;
 		background: $color-tags;

@@ -27,7 +27,7 @@ export const useCreateSession = () => {
 	})
 
 	const createSession = async () => {
-		setError('')
+		await setError('')
 		if (factory.value.valid && hasEnoughCoins.value && !loading.value) {
 			try {
 				setLoading(true)
@@ -38,7 +38,7 @@ export const useCreateSession = () => {
 				setMessage('Session request successful.')
 				analytics.logEvent('session_request', { sessionId })
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
 			setLoading(false)
 		} else factory.value.validateAll()
@@ -55,7 +55,7 @@ export const useSession = (sessionId: string) => {
 	const { error, setError } = useErrorHandler()
 
 	const cancelSession = async () => {
-		setError('')
+		await setError('')
 		const accepted = await Alert({
 			title: 'Are you sure you want to cancel this session',
 			text: 'This cannot be undone',
@@ -68,14 +68,14 @@ export const useSession = (sessionId: string) => {
 				setLoading(true)
 				if (sessionId) await CancelSession.call(sessionId)
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
 			setLoading(false)
 		}
 	}
 
 	const acceptSession = async () => {
-		setError('')
+		await setError('')
 		const accepted = await Alert({
 			title: 'Are you sure you want to accept this session',
 			text: '',
@@ -89,14 +89,14 @@ export const useSession = (sessionId: string) => {
 				if (sessionId) await BeginSession.call(sessionId, true)
 				analytics.logEvent('session_accepted', { sessionId, accepted: true })
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
 			setLoading(false)
 		}
 	}
 
 	const rejectSession = async () => {
-		setError('')
+		await setError('')
 		const accepted = await Alert({
 			title: 'Are you sure you want to reject this session',
 			text: '',
@@ -110,7 +110,7 @@ export const useSession = (sessionId: string) => {
 				if (sessionId) await BeginSession.call(sessionId, false)
 				analytics.logEvent('session_accepted', { sessionId, accepted: false })
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
 			setLoading(false)
 		}
@@ -133,7 +133,7 @@ export const useRateSession = () => {
 	const rateSession = async () => {
 		if (!otherParticipantId) return
 		if (rating.value || review.value) {
-			setError('')
+			await setError('')
 			setLoading(true)
 			try {
 				await CreateReview.call({
@@ -143,7 +143,7 @@ export const useRateSession = () => {
 				})
 				useSessionModal().closeRatings()
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
 			setLoading(false)
 		}

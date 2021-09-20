@@ -76,7 +76,7 @@ export const useTagQuestionList = (tag: string) => {
 	})
 
 	const fetchQuestions = async () => {
-		global[tag].setError('')
+		await global[tag].setError('')
 		try {
 			global[tag].setLoading(true)
 			const lastDate = global[tag].questions.value[global[tag].questions.value.length - 1]?.createdAt
@@ -85,7 +85,7 @@ export const useTagQuestionList = (tag: string) => {
 			questions.results.forEach((q) => pushToQuestionList(tag, q))
 			global[tag].fetched.value = true
 		} catch (error) {
-			global[tag].setError(error)
+			await global[tag].setError(error)
 		}
 		global[tag].setLoading(false)
 	}

@@ -9,7 +9,7 @@ export const useCreateMessage = () => {
 	const { error, setError } = useErrorHandler()
 
 	const createMessage = async () => {
-		setError('')
+		await setError('')
 		if (factory.value.valid && !loading.value) {
 			try {
 				setLoading(true)
@@ -17,7 +17,7 @@ export const useCreateMessage = () => {
 				factory.value.reset()
 				await setMessage('Message sent successfully')
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
 			setLoading(false)
 		} else factory.value.validateAll()

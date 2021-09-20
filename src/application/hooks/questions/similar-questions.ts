@@ -16,13 +16,13 @@ export const useSimilarQuestionList = (question: QuestionEntity) => {
 	}
 
 	const fetchQuestions = async () => {
-		global[question.id].setError('')
+		await global[question.id].setError('')
 		try {
 			global[question.id].setLoading(true)
 			global[question.id].questions.value = (await GetSimilarQuestions.call(question.id, question.tags)).results
 			global[question.id].fetched.value = true
 		} catch (error) {
-			global[question.id].setError(error)
+			await global[question.id].setError(error)
 		}
 		global[question.id].setLoading(false)
 	}

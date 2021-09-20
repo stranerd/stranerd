@@ -55,7 +55,7 @@ export const useNotificationList = () => {
 
 	const fetchNotifications = async () => {
 		if (!id.value) return
-		global[userId].setError('')
+		await global[userId].setError('')
 		global[userId].setLoading(true)
 		try {
 			const lastDate = global[userId].notifications.value[global[userId].notifications.value.length - 1]?.createdAt
@@ -63,7 +63,7 @@ export const useNotificationList = () => {
 			global[userId].hasMore.value = !!notifications.pages.next
 			notifications.results.forEach((t) => pushToNotificationList(userId, t))
 		} catch (e) {
-			global[userId].setError(e)
+			await global[userId].setError(e)
 		}
 		global[userId].setLoading(false)
 	}
@@ -103,12 +103,12 @@ export const useNotification = (notification: NotificationEntity) => {
 	const { error, setError } = useErrorHandler()
 	const markNotificationSeen = async () => {
 		if (notification.seen) return
-		setError('')
+		await setError('')
 		try {
 			setLoading(true)
 			await MarkNotificationSeen.call(id.value!, notification.id, true)
 		} catch (e) {
-			setError(e)
+			await setError(e)
 		}
 		setLoading(false)
 	}

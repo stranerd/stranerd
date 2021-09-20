@@ -24,7 +24,7 @@ export const useTransactionList = (userId: string) => {
 	}
 
 	const fetchTransactions = async () => {
-		global[userId].setError('')
+		await global[userId].setError('')
 		global[userId].setLoading(true)
 		try {
 			const lastDate = global[userId].transactions.value[global[userId].transactions.value.length - 1]?.createdAt
@@ -33,7 +33,7 @@ export const useTransactionList = (userId: string) => {
 			transactions.results.forEach((t) => pushToTransactionList(userId, t))
 			global[userId].fetched.value = true
 		} catch (e) {
-			global[userId].setError(e)
+			await global[userId].setError(e)
 		}
 		global[userId].setLoading(false)
 	}

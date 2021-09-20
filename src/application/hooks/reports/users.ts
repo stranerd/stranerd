@@ -24,7 +24,7 @@ export const useCreateReport = () => {
 	factory.value.reportedId = reportedEntity!
 
 	const createReport = async () => {
-		setError('')
+		await setError('')
 		if (factory.value.valid && !loading.value) {
 			try {
 				setLoading(true)
@@ -33,7 +33,7 @@ export const useCreateReport = () => {
 				factory.value.reset()
 				setMessage('Report sent successfully')
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
 			setLoading(false)
 		} else factory.value.validateAll()
@@ -67,7 +67,7 @@ const unshiftToReportList = (report: UserReportEntity) => {
 
 export const useReportsList = () => {
 	const fetchReports = async () => {
-		global.setError('')
+		await global.setError('')
 		try {
 			global.setLoading(true)
 			const lastDate = global.reports.value[0]?.createdAt
@@ -76,7 +76,7 @@ export const useReportsList = () => {
 			reports.results.forEach(unshiftToReportList)
 			global.fetched.value = true
 		} catch (error) {
-			global.setError(error)
+			await global.setError(error)
 		}
 		global.setLoading(false)
 	}
@@ -94,7 +94,7 @@ export const useDeleteReport = (id: string) => {
 	const { setMessage } = useSuccessHandler()
 
 	const deleteReport = async () => {
-		setError('')
+		await setError('')
 		const accepted = await Alert({
 			title: 'Are you sure you want to remove this report?',
 			text: 'This cannot be reversed',
@@ -109,7 +109,7 @@ export const useDeleteReport = (id: string) => {
 					.filter((r) => r.id !== id)
 				setMessage('Report deleted successfully')
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
 			setLoading(false)
 		}

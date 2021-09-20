@@ -10,13 +10,13 @@ const global = {
 }
 
 const fetchTags = async () => {
-	global.setError('')
+	await global.setError('')
 	global.setLoading(true)
 	try {
 		global.tags.value = (await GetTags.call()).results
 		global.fetched.value = true
 	} catch (error) {
-		global.setError(error)
+		await global.setError(error)
 	}
 	global.setLoading(false)
 }

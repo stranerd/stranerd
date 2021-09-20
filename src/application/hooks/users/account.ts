@@ -18,7 +18,7 @@ export const useUpdateProfile = () => {
 	watch(() => user.value?.hash, () => user.value ? factory.value.loadEntity(user.value) : null)
 
 	const updateProfile = async () => {
-		setError('')
+		await setError('')
 		if (factory.value.valid && !loading.value) {
 			try {
 				setLoading(true)
@@ -26,7 +26,7 @@ export const useUpdateProfile = () => {
 				await router.push('/account/')
 				setMessage('Profile updated successfully!')
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
 			setLoading(false)
 		} else factory.value.validateAll()
@@ -70,7 +70,7 @@ export const useBuyCoins = () => {
 						})
 						setMessage('Coins purchased successfully')
 					} catch (e) {
-						setError(e)
+						await setError(e)
 					}
 					setLoading(false)
 				}

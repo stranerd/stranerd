@@ -23,7 +23,7 @@ export const useGoogleSignin = () => {
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const signin = async (idToken: string) => {
-		setError('')
+		await setError('')
 		if (!loading.value) {
 			setLoading(true)
 			try {
@@ -33,7 +33,7 @@ export const useGoogleSignin = () => {
 				await createSession(user, router)
 				if (isClient()) window.localStorage.removeItem('referrer')
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
 			setLoading(false)
 		}
@@ -47,7 +47,7 @@ export const useEmailSignin = () => {
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const signin = async () => {
-		setError('')
+		await setError('')
 		if (factory.value.valid && !loading.value) {
 			setLoading(true)
 			try {
@@ -57,7 +57,7 @@ export const useEmailSignin = () => {
 				await createSession(user, router)
 				if (isClient()) window.localStorage.removeItem('referrer')
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
 			setLoading(false)
 		} else factory.value.validateAll()
@@ -71,7 +71,7 @@ export const useEmailSignup = () => {
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const signup = async () => {
-		setError('')
+		await setError('')
 		if (factory.value.valid && !loading.value) {
 			setLoading(true)
 			try {
@@ -81,7 +81,7 @@ export const useEmailSignup = () => {
 				await createSession(user, router)
 				if (isClient()) window.localStorage.removeItem('referrer')
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
 			setLoading(false)
 		} else factory.value.validateAll()
@@ -94,17 +94,17 @@ export const useCompleteEmailVerification = (token: string) => {
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const completeVerification = async () => {
-		setError('')
+		await setError('')
 		setLoading(true)
 		try {
 			const user = await CompleteEmailVerification.call(token)
 			await createSession(user, router)
 		} catch (error) {
-			setError(error)
+			await setError(error)
 			if (error instanceof NetworkError && error.statusCode === StatusCodes.InvalidToken) {
-				setError('Invalid or expired token. Proceed to signin!')
+				await setError('Invalid or expired token. Proceed to signin!')
 				await router.replace('/auth/signin')
-			} else setError(error)
+			} else await setError(error)
 		}
 		setLoading(false)
 	}
@@ -119,13 +119,13 @@ export const useEmailVerificationRequest = () => {
 	const sendVerificationEmail = async () => {
 		const email = useAuth().auth.value?.email
 		if (!email) return
-		setError('')
+		await setError('')
 		setLoading(true)
 		try {
 			await SendVerificationEmail.call(email)
 			setMessage(`A verification email was just sent to ${email}. Proceed to your email to complete your verification.`)
 		} catch (error) {
-			setError(error)
+			await setError(error)
 		}
 		setLoading(false)
 	}

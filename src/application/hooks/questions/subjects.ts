@@ -17,13 +17,13 @@ const pushToGlobalSubjects = (subject: SubjectEntity) => {
 }
 
 const fetchSubjects = async () => {
-	global.setError('')
+	await global.setError('')
 	global.setLoading(true)
 	try {
 		global.subjects.value = (await GetSubjects.call()).results
 		global.fetched.value = true
 	} catch (error) {
-		global.setError(error)
+		await global.setError(error)
 	}
 	global.setLoading(false)
 }
@@ -57,7 +57,7 @@ export const useCreateSubject = () => {
 	const { loading, setLoading } = useLoadingHandler()
 
 	const createSubject = async () => {
-		setError('')
+		await setError('')
 		if (factory.value.valid && !loading.value) {
 			setLoading(true)
 			try {
@@ -67,7 +67,7 @@ export const useCreateSubject = () => {
 				factory.value.reset()
 				setMessage('Subject created successfully')
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
 			setLoading(false)
 		} else factory.value.validateAll()
@@ -82,7 +82,7 @@ export const useDeleteSubject = (subject: SubjectEntity) => {
 	const { setMessage } = useSuccessHandler()
 
 	const deleteSubject = async () => {
-		setError('')
+		await setError('')
 		const accepted = await Alert({
 			title: 'Are you sure you want to remove this subject?',
 			text: 'This cannot be reversed',
@@ -97,7 +97,7 @@ export const useDeleteSubject = (subject: SubjectEntity) => {
 					.filter((s) => s.id !== subject.id)
 				setMessage('Subject deleted successfully')
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
 			setLoading(false)
 		}

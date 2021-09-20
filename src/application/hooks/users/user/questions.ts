@@ -56,7 +56,7 @@ export const useUserQuestionList = (id: string) => {
 	})
 
 	const fetchQuestions = async () => {
-		global[id].setError('')
+		await global[id].setError('')
 		try {
 			global[id].setLoading(true)
 			const lastDate = global[id].questions.value[global[id].questions.value.length - 1]?.createdAt
@@ -65,7 +65,7 @@ export const useUserQuestionList = (id: string) => {
 			questions.results.forEach((q) => pushToQuestionList(id, q))
 			global[id].fetched.value = true
 		} catch (error) {
-			global[id].setError(error)
+			await global[id].setError(error)
 		}
 		global[id].setLoading(false)
 	}

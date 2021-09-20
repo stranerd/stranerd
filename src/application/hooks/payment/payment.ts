@@ -19,7 +19,7 @@ export const useFlutterwavePayment = () => {
 	const { error, setError } = useErrorHandler()
 
 	const pay = async (successful: boolean) => {
-		setError('')
+		await setError('')
 		setLoading(true)
 		try {
 			usePaymentModal().closeMakePayment()
@@ -29,7 +29,7 @@ export const useFlutterwavePayment = () => {
 				value: props.amount!
 			})
 		} catch (e) {
-			setError(e)
+			await setError(e)
 		}
 		setLoading(false)
 	}
@@ -43,7 +43,7 @@ export const useStripePayment = () => {
 	const { error, setError } = useErrorHandler()
 
 	const pay = async (token: string) => {
-		setError('')
+		await setError('')
 		setLoading(true)
 		try {
 			const stripe = await loadStripe(stripeConfig.publicKey)
@@ -69,7 +69,7 @@ export const useStripePayment = () => {
 				value: props.amount!
 			})
 		} catch (e) {
-			setError(e)
+			await setError(e)
 		}
 		setLoading(false)
 	}

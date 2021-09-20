@@ -7,7 +7,7 @@ import { useAuth } from '@app/hooks/auth/auth'
 
 export const useErrorHandler = () => {
 	const errorState = ssrRef('')
-	const setError = (error: any) => {
+	const setError = async (error: any) => {
 		if (error instanceof NetworkError) {
 			errorState.value = error.errors
 				.map(({ message, field }) => `${capitalize(field ?? 'Error')}: ${message}`)

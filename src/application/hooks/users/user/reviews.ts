@@ -24,7 +24,7 @@ export const useUserReviewList = (id: string) => {
 	}
 
 	const fetchReviews = async () => {
-		global[id].setError('')
+		await global[id].setError('')
 		if (!id) return
 		try {
 			global[id].setLoading(true)
@@ -34,7 +34,7 @@ export const useUserReviewList = (id: string) => {
 			reviews.results.forEach((a) => pushToReviewList(id, a))
 			global[id].fetched.value = true
 		} catch (error) {
-			global[id].setError(error)
+			await global[id].setError(error)
 		}
 		global[id].setLoading(false)
 	}

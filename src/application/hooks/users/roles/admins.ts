@@ -20,14 +20,14 @@ const pushToAdminsList = (admin: UserEntity) => {
 
 export const useAdminsList = () => {
 	const fetchAdmins = async () => {
-		global.setError('')
+		await global.setError('')
 		try {
 			global.setLoading(true)
 			const admins = await GetAllAdmins.call()
 			admins.results.forEach(pushToAdminsList)
 			global.fetched.value = true
 		} catch (error) {
-			global.setError(error)
+			await global.setError(error)
 		}
 		global.setLoading(false)
 	}
@@ -69,7 +69,7 @@ export const useAdminRoles = () => {
 				state.users = reactive(users.results)
 				state.fetched = true
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
 			setLoading(false)
 		}
@@ -82,7 +82,7 @@ export const useAdminRoles = () => {
 	}
 
 	const adminUser = async (user: UserEntity) => {
-		setError('')
+		await setError('')
 		const accepted = await Alert({
 			title: 'Are you sure you want to make this user an admin?',
 			text: 'This user will gain admin privileges to the entire site',
@@ -98,14 +98,14 @@ export const useAdminRoles = () => {
 				reset()
 				setMessage('Successfully upgraded to admin')
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
 			setLoading(false)
 		}
 	}
 
 	const deAdminUser = async (user: UserEntity) => {
-		setError('')
+		await setError('')
 		const accepted = await Alert({
 			title: 'Are you sure you want to de-admin this user?',
 			text: 'This user will lose admin privileges to the entire site',
@@ -120,7 +120,7 @@ export const useAdminRoles = () => {
 					.filter((u) => u.id !== user.id)
 				setMessage('Successfully downgraded from admin')
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
 			setLoading(false)
 		}

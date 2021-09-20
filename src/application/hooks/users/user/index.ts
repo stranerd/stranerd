@@ -19,7 +19,7 @@ export const useUser = (userId: string) => {
 	}
 
 	const fetchUser = async () => {
-		global[userId].setError('')
+		await global[userId].setError('')
 		try {
 			global[userId].setLoading(true)
 			// Dont fetch if it is the current auth user
@@ -28,7 +28,7 @@ export const useUser = (userId: string) => {
 			else global[userId].user.value = await FindUser.call(userId)
 			global[userId].fetched.value = true
 		} catch (error) {
-			global[userId].setError(error)
+			await global[userId].setError(error)
 		}
 		global[userId].setLoading(false)
 	}

@@ -41,7 +41,7 @@ export const useChats = (userId: string) => {
 	})
 
 	const fetchChats = async () => {
-		global[userId].setError('')
+		await global[userId].setError('')
 		try {
 			global[userId].setLoading(true)
 			const lastDate = chats.value[0]?.createdAt
@@ -50,7 +50,7 @@ export const useChats = (userId: string) => {
 			c.results.map((c) => unshiftToChats(userId, c))
 			global[userId].fetched.value = true
 		} catch (e) {
-			global[userId].setError(e)
+			await global[userId].setError(e)
 		}
 		global[userId].setLoading(false)
 	}
@@ -119,14 +119,14 @@ export const useCreateChat = (userId: string, sessionId?: string) => {
 
 	const createTextChat = async () => {
 		if (sessionId) factory.value.sessionId = sessionId
-		setError('')
+		await setError('')
 		if (factory.value.valid && !loading.value) {
 			try {
 				setLoading(true)
 				await AddChat.call(path, factory.value)
 				factory.value.reset()
 			} catch (e) {
-				setError(e)
+				await setError(e)
 			}
 			factory.value.reset()
 			setLoading(false)
@@ -143,7 +143,7 @@ export const useCreateChat = (userId: string, sessionId?: string) => {
 				try {
 					await AddChat.call(path, mediaFactory)
 				} catch (error) {
-					setError(error)
+					await setError(error)
 				}
 			})
 			await Promise.all(promises)

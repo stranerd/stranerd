@@ -10,7 +10,7 @@ export const usePasswordResetRequest = () => {
 	const { message, setMessage } = useSuccessHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const sendResetEmail = async () => {
-		setError('')
+		await setError('')
 		if (factory.value.valid && !loading.value) {
 			setLoading(true)
 			try {
@@ -18,7 +18,7 @@ export const usePasswordResetRequest = () => {
 				factory.value.reset()
 				setMessage('Proceed to your email to continue')
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
 			setLoading(false)
 		} else factory.value.validateAll()
@@ -33,7 +33,7 @@ export const usePasswordReset = (token: string) => {
 	const { message, setMessage } = useSuccessHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const resetPassword = async () => {
-		setError('')
+		await setError('')
 		if (factory.value.valid && !loading.value) {
 			setLoading(true)
 			try {
@@ -42,9 +42,9 @@ export const usePasswordReset = (token: string) => {
 				await createSession(user, router)
 			} catch (error) {
 				if (error instanceof NetworkError && error.statusCode === StatusCodes.InvalidToken) {
-					setError('Invalid or expired token. Request a new link sent to your email')
+					await setError('Invalid or expired token. Request a new link sent to your email')
 					await router.replace('/auth/forgot')
-				} else setError(error)
+				} else await setError(error)
 			}
 			setLoading(false)
 		} else factory.value.validateAll()

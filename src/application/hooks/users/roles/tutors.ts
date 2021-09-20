@@ -12,14 +12,14 @@ const global = {
 
 export const useTutorsList = () => {
 	const fetchTutors = async () => {
-		global.setError('')
+		await global.setError('')
 		try {
 			global.setLoading(true)
 			const tutors = await GetAllSessionTutors.call()
 			global.tutors.value = tutors.results
 			global.fetched.value = true
 		} catch (error) {
-			global.setError(error)
+			await global.setError(error)
 		}
 		global.setLoading(false)
 	}

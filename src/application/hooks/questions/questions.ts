@@ -54,7 +54,7 @@ const unshiftToQuestionList = (question: QuestionEntity) => {
 
 export const useQuestionList = () => {
 	const fetchQuestions = async () => {
-		global.setError('')
+		await global.setError('')
 		try {
 			global.setLoading(true)
 			const lastDate = global.questions.value[global.questions.value.length - 1]?.createdAt
@@ -63,7 +63,7 @@ export const useQuestionList = () => {
 			questions.results.forEach(pushToQuestionList)
 			global.fetched.value = true
 		} catch (error) {
-			global.setError(error)
+			await global.setError(error)
 		}
 		global.setLoading(false)
 	}
@@ -136,11 +136,11 @@ export const useCreateQuestion = () => {
 	const coins = computed({
 		get: () => {
 			if (!isLoggedIn) {
-				setError('Login to continue')
+				setError('Login to continue').then()
 				return []
 			}
 			if (user.value!.account.coins.bronze < MINIMUM_COINS) {
-				setError(`You need at least ${MINIMUM_COINS} coins to ask a question`)
+				setError(`You need at least ${MINIMUM_COINS} coins to ask a question`).then()
 				return []
 			}
 			const coins = [] as number[]
@@ -152,7 +152,7 @@ export const useCreateQuestion = () => {
 	})
 
 	const createQuestion = async () => {
-		setError('')
+		await setError('')
 		if (factory.value.valid && !loading.value) {
 			try {
 				setLoading(true)
@@ -166,7 +166,7 @@ export const useCreateQuestion = () => {
 				})
 				useQuestionsModal().closeAskQuestions()
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
 			setLoading(false)
 		} else factory.value.validateAll()
@@ -186,7 +186,7 @@ export const useQuestion = (questionId: string) => {
 	})
 
 	const fetchQuestion = async () => {
-		setError('')
+		await setError('')
 		try {
 			setLoading(true)
 			let question = global.questions.value.find((q) => q.id === questionId) ?? null
@@ -197,7 +197,7 @@ export const useQuestion = (questionId: string) => {
 			question = await FindQuestion.call(questionId)
 			if (question) unshiftToQuestionList(question)
 		} catch (error) {
-			setError(error)
+			await setError(error)
 		}
 		setLoading(false)
 	}
@@ -237,11 +237,11 @@ export const useEditQuestion = (questionId: string) => {
 	const coins = computed({
 		get: () => {
 			if (!isLoggedIn) {
-				setError('Login to continue')
+				setError('Login to continue').then()
 				return []
 			}
 			if (user.value!.account.coins.bronze < MINIMUM_COINS) {
-				setError(`You need at least ${MINIMUM_COINS} coins to ask a question`)
+				setError(`You need at least ${MINIMUM_COINS} coins to ask a question`).then()
 				return []
 			}
 			const coins = [] as number[]
@@ -255,7 +255,7 @@ export const useEditQuestion = (questionId: string) => {
 	if (editingQuestion) factory.value.loadEntity(editingQuestion)
 
 	const editQuestion = async () => {
-		setError('')
+		await setError('')
 		if (factory.value.valid && !loading.value) {
 			try {
 				setLoading(true)
@@ -268,7 +268,7 @@ export const useEditQuestion = (questionId: string) => {
 					questionId, subject
 				})
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
 			setLoading(false)
 		} else factory.value.validateAll()
@@ -284,7 +284,7 @@ export const useDeleteQuestion = (questionId: string) => {
 	const router = useRouter()
 
 	const deleteQuestion = async () => {
-		setError('')
+		await setError('')
 		const accepted = await Alert({
 			title: 'Are you sure you want to delete this question?',
 			text: 'This cannot be reversed',
@@ -300,7 +300,7 @@ export const useDeleteQuestion = (questionId: string) => {
 				setMessage('Question deleted successfully')
 				await router.push('/questions')
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
 			setLoading(false)
 		}

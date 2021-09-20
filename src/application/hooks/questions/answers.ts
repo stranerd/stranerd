@@ -31,13 +31,13 @@ export const useAnswerList = (questionId: string) => {
 	}
 
 	const fetchAnswers = async () => {
-		global[questionId].setError('')
+		await global[questionId].setError('')
 		try {
 			global[questionId].setLoading(true)
 			global[questionId].answers.value = (await GetAnswers.call(questionId)).results
 			global[questionId].fetched.value = true
 		} catch (error) {
-			global[questionId].setError(error)
+			await global[questionId].setError(error)
 		}
 		global[questionId].setLoading(false)
 	}
@@ -88,7 +88,7 @@ export const useCreateAnswer = () => {
 	factory.value.questionId = answeringQuestion!.id
 
 	const createAnswer = async () => {
-		setError('')
+		await setError('')
 		if (factory.value.valid && !loading.value) {
 			try {
 				setLoading(true)
@@ -102,7 +102,7 @@ export const useCreateAnswer = () => {
 					subject: answeringQuestion?.subjectId
 				})
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
 			setLoading(false)
 		} else factory.value.validateAll()
@@ -125,12 +125,12 @@ export const useAnswer = (answer: AnswerEntity) => {
 		const voted = answer.votes.find((v) => v.userId === userId)
 		if (vote && voted?.vote === 1) return
 		if (!vote && voted?.vote === -1) return
-		setError('')
+		await setError('')
 		try {
 			setLoading(true)
 			await VoteAnswer.call(answer.id, userId, vote)
 		} catch (error) {
-			setError(error)
+			await setError(error)
 		}
 		setLoading(false)
 	}
@@ -138,7 +138,7 @@ export const useAnswer = (answer: AnswerEntity) => {
 	const markBestAnswer = async (question: QuestionEntity | null) => {
 		if (!question || question.isAnswered) return
 		if (question.userId !== id.value) return
-		setError('')
+		await setError('')
 		const accepted = await Alert({
 			title: 'Are you sure you want to mark this answer as the best',
 			text: 'This cannot be reversed',
@@ -150,7 +150,7 @@ export const useAnswer = (answer: AnswerEntity) => {
 				setLoading(true)
 				await MarkBestAnswer.call(question.id, answer.id)
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
 			setLoading(false)
 		}
@@ -177,7 +177,7 @@ export const useEditAnswer = (answerId: string) => {
 	if (editingQuestionAnswer) factory.value.loadEntity(editingQuestionAnswer.answer)
 
 	const editAnswer = async () => {
-		setError('')
+		await setError('')
 		if (factory.value.valid && !loading.value) {
 			try {
 				setLoading(true)
@@ -191,7 +191,7 @@ export const useEditAnswer = (answerId: string) => {
 					subject: editingQuestionAnswer?.question.subjectId
 				})
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
 			setLoading(false)
 		} else factory.value.validateAll()
@@ -206,7 +206,7 @@ export const useDeleteAnswer = (answerId: string) => {
 	const { setMessage } = useSuccessHandler()
 
 	const deleteAnswer = async () => {
-		setError('')
+		await setError('')
 		const accepted = await Alert({
 			title: 'Are you sure you want to delete this answer?',
 			text: 'This cannot be reversed',
@@ -219,7 +219,7 @@ export const useDeleteAnswer = (answerId: string) => {
 				await DeleteAnswer.call(answerId)
 				setMessage('Answer deleted successfully')
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
 			setLoading(false)
 		}

@@ -30,7 +30,7 @@ export const useSessionSignout = () => {
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const signout = async () => {
-		setError('')
+		await setError('')
 		const accepted = await Alert({
 			title: 'Are you sure you want to sign out?',
 			text: '',
@@ -42,7 +42,7 @@ export const useSessionSignout = () => {
 			try {
 				await useAuth().signout()
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
 			setLoading(false)
 		}

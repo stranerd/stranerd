@@ -24,7 +24,7 @@ export const useUserAnswerList = (id: string) => {
 	}
 
 	const fetchAnswers = async () => {
-		global[id].setError('')
+		await global[id].setError('')
 		if (!id) return
 		try {
 			global[id].setLoading(true)
@@ -34,7 +34,7 @@ export const useUserAnswerList = (id: string) => {
 			answers.results.forEach((a) => pushToAnswerList(id, a))
 			global[id].fetched.value = true
 		} catch (error) {
-			global[id].setError(error)
+			await global[id].setError(error)
 		}
 		global[id].setLoading(false)
 	}

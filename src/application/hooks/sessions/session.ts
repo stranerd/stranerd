@@ -119,7 +119,7 @@ const useSession = (key: SessionKey, router: VueRouter, callback: (key: SessionK
 	}
 
 	const fetchSessions = async () => {
-		global[key].setError('')
+		await global[key].setError('')
 		const sessionIds = user.value?.session?.[key] ?? []
 		if (sessionIds.length === 0) return global[key].sessions.value = []
 		try {
@@ -129,7 +129,7 @@ const useSession = (key: SessionKey, router: VueRouter, callback: (key: SessionK
 			global[key].sessions.value = sessions.results
 			global[key].fetched.value = true
 		} catch (error) {
-			global[key].setError(error)
+			await global[key].setError(error)
 		}
 		global[key].setLoading(false)
 	}

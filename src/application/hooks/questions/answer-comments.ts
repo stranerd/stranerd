@@ -22,13 +22,13 @@ export const useAnswerCommentList = (answerId: string) => {
 	}
 
 	const fetchComments = async () => {
-		global[answerId].setError('')
+		await global[answerId].setError('')
 		try {
 			global[answerId].setLoading(true)
 			global[answerId].comments.value = (await GetAnswerComments.call(answerId)).results
 			global[answerId].fetched.value = true
 		} catch (error) {
-			global[answerId].setError(error)
+			await global[answerId].setError(error)
 		}
 		global[answerId].setLoading(false)
 	}
@@ -67,14 +67,14 @@ export const useCreateAnswerComments = (answerId: string) => {
 	const { error, setError } = useErrorHandler()
 
 	const createComment = async () => {
-		setError('')
+		await setError('')
 		if (factory.value.valid && !loading.value) {
 			try {
 				setLoading(true)
 				await AddAnswerComment.call(answerId, factory.value)
 				factory.value.reset()
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
 			setLoading(false)
 		} else factory.value.validateAll()

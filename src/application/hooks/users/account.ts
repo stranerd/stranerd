@@ -24,7 +24,7 @@ export const useUpdateProfile = () => {
 				await setLoading(true)
 				await UpdateProfile.call(factory.value)
 				await router.push('/account/')
-				setMessage('Profile updated successfully!')
+				await setMessage('Profile updated successfully!')
 			} catch (error) {
 				await setError(error)
 			}
@@ -68,7 +68,7 @@ export const useBuyCoins = () => {
 							price: option.price,
 							isGold
 						})
-						setMessage('Coins purchased successfully')
+						await setMessage('Coins purchased successfully')
 					} catch (e) {
 						await setError(e)
 					}

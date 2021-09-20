@@ -15,7 +15,7 @@ export const useCreateMessage = () => {
 				await setLoading(true)
 				await AddMessage.call(factory.value)
 				factory.value.reset()
-				await setMessage('Message sent successfully')
+				await await setMessage('Message sent successfully')
 			} catch (error) {
 				await setError(error)
 			}

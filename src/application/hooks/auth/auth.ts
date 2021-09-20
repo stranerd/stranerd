@@ -91,7 +91,7 @@ export const useAuth = () => {
 	const signout = async () => {
 		await SessionSignout.call()
 		await setAuthUser(null)
-		if (isClient()) window.location.assign('/')
+		if (isClient()) window.location.assign('/auth/signin')
 	}
 
 	const getKey = (): keyof typeof CONVERSION_RATES | null => {

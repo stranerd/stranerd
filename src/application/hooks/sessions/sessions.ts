@@ -35,7 +35,7 @@ export const useCreateSession = () => {
 				useSessionModal().closeCreateSession()
 				await router.push(`/sessions/${newSessionTutorIdBio?.id}`)
 				factory.value.reset()
-				setMessage('Session request successful.')
+				await setMessage('Session request successful.')
 				analytics.logEvent('session_request', { sessionId })
 			} catch (error) {
 				await setError(error)

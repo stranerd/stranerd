@@ -16,7 +16,7 @@ export const usePasswordResetRequest = () => {
 			try {
 				await SendPasswordResetEmail.call(factory.value)
 				factory.value.reset()
-				setMessage('Proceed to your email to continue')
+				await setMessage('Proceed to your email to continue')
 			} catch (error) {
 				await setError(error)
 			}
@@ -38,7 +38,7 @@ export const usePasswordReset = (token: string) => {
 			await setLoading(true)
 			try {
 				const user = await ResetPassword.call(token, factory.value)
-				setMessage('Password reset successfully!')
+				await setMessage('Password reset successfully!')
 				await createSession(user, router)
 			} catch (error) {
 				if (error instanceof NetworkError && error.statusCode === StatusCodes.InvalidToken) {

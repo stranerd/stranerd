@@ -93,7 +93,7 @@ export const useCreateAnswer = () => {
 			try {
 				await setLoading(true)
 				const answerId = await AddAnswer.call(factory.value)
-				setMessage('Answer submitted successfully.')
+				await setMessage('Answer submitted successfully.')
 				factory.value.reset()
 				await router.replace(`/questions/${answeringQuestion?.id ?? ''}/#${answerId}`)
 				analytics.logEvent('answer_question_completed', {
@@ -182,7 +182,7 @@ export const useEditAnswer = (answerId: string) => {
 			try {
 				await setLoading(true)
 				await EditAnswer.call(answerId, factory.value)
-				setMessage('Answer edited successfully')
+				await setMessage('Answer edited successfully')
 				factory.value.reset()
 				await router.replace(`/questions/${editingQuestionAnswer?.question.id}#${answerId}`)
 				analytics.logEvent('edit_answer_completed', {
@@ -217,7 +217,7 @@ export const useDeleteAnswer = (answerId: string) => {
 			await setLoading(true)
 			try {
 				await DeleteAnswer.call(answerId)
-				setMessage('Answer deleted successfully')
+				await setMessage('Answer deleted successfully')
 			} catch (error) {
 				await setError(error)
 			}

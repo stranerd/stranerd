@@ -123,7 +123,7 @@ export const useEmailVerificationRequest = () => {
 		await setLoading(true)
 		try {
 			await SendVerificationEmail.call(email)
-			setMessage(`A verification email was just sent to ${email}. Proceed to your email to complete your verification.`)
+			await setMessage(`A verification email was just sent to ${email}. Proceed to your email to complete your verification.`)
 		} catch (error) {
 			await setError(error)
 		}

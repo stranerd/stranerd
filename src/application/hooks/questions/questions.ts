@@ -157,7 +157,7 @@ export const useCreateQuestion = () => {
 			try {
 				await setLoading(true)
 				const questionId = await AddQuestion.call(factory.value)
-				setMessage('Question submitted successfully')
+				await setMessage('Question submitted successfully')
 				const subject = factory.value.subjectId
 				factory.value.reset()
 				await router.replace(`/questions/${questionId}`)
@@ -260,7 +260,7 @@ export const useEditQuestion = (questionId: string) => {
 			try {
 				await setLoading(true)
 				await EditQuestion.call(questionId, factory.value)
-				setMessage('Question edited successfully')
+				await setMessage('Question edited successfully')
 				const subject = factory.value.subjectId
 				factory.value.reset()
 				await router.replace(`/questions/${questionId}`)
@@ -297,7 +297,7 @@ export const useDeleteQuestion = (questionId: string) => {
 				await DeleteQuestion.call(questionId)
 				global.questions.value = global.questions.value
 					.filter((q) => q.id !== questionId)
-				setMessage('Question deleted successfully')
+				await setMessage('Question deleted successfully')
 				await router.push('/questions')
 			} catch (error) {
 				await setError(error)

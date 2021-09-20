@@ -96,7 +96,7 @@ export const useAdminRoles = () => {
 				user.isAdmin = true
 				pushToAdminsList(user)
 				reset()
-				setMessage('Successfully upgraded to admin')
+				await setMessage('Successfully upgraded to admin')
 			} catch (error) {
 				await setError(error)
 			}
@@ -118,7 +118,7 @@ export const useAdminRoles = () => {
 				await RemoveAdmin.call(user.id)
 				global.admins.value = global.admins.value
 					.filter((u) => u.id !== user.id)
-				setMessage('Successfully downgraded from admin')
+				await setMessage('Successfully downgraded from admin')
 			} catch (error) {
 				await setError(error)
 			}

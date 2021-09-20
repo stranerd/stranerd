@@ -65,7 +65,7 @@ export const useCreateSubject = () => {
 				const subject = await FindSubject.call(id)
 				if (subject) pushToGlobalSubjects(subject)
 				factory.value.reset()
-				setMessage('Subject created successfully')
+				await setMessage('Subject created successfully')
 			} catch (error) {
 				await setError(error)
 			}
@@ -95,7 +95,7 @@ export const useDeleteSubject = (subject: SubjectEntity) => {
 				await DeleteSubject.call(subject.id)
 				global.subjects.value = global.subjects.value
 					.filter((s) => s.id !== subject.id)
-				setMessage('Subject deleted successfully')
+				await setMessage('Subject deleted successfully')
 			} catch (error) {
 				await setError(error)
 			}

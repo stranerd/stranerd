@@ -31,7 +31,7 @@ export const useCreateReport = () => {
 				await AddAnswerReport.call(factory.value)
 				useReportModal().closeReportAnswer()
 				factory.value.reset()
-				setMessage('Report sent successfully')
+				await setMessage('Report sent successfully')
 			} catch (error) {
 				await setError(error)
 			}
@@ -107,7 +107,7 @@ export const useDeleteReport = (id: string) => {
 				await DeleteAnswerReport.call(id)
 				global.reports.value = global.reports.value
 					.filter((r) => r.id !== id)
-				setMessage('Report deleted successfully')
+				await setMessage('Report deleted successfully')
 			} catch (error) {
 				await setError(error)
 			}

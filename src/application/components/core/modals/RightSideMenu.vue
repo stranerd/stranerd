@@ -3,9 +3,14 @@
 		<div class="head gap-1 text-primary">
 			<div @click="close">
 				<Icon
-					class="text-primary-dark bright"
+					class="text-primary-dark bright d-none d-sm-block "
 					size="s"
 					icon-name="close"
+				/>
+				<Icon
+					class="text-primary-dark bright d-block d-sm-none"
+					size="s"
+					icon-name="close-thin"
 				/>
 			</div>
 

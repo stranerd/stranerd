@@ -1,10 +1,10 @@
 <template>
 	<div>
 		<div class="notification-body">
-			<Heading class="p-1 p-md-3 text-dark border bottom border-line" variant="1">
+			<Heading class="p-0 p-sm-1 p-md-3 text-dark border bottom border-line d-none d-sm-block" variant="1">
 				Notifications
 			</Heading>
-			<NotificationsList class="px-1 px-md-3" />
+			<NotificationsList class=" px-0-5 px-sm-1 px-md-3" />
 		</div>
 	</div>
 </template>
@@ -32,5 +32,8 @@ export default defineComponent({
 		background: $color-white;
 		border: 1px solid $color-line;
 		border-radius: 6px;
+				@media (max-width: $sm) {
+			border:none;
+		}
 	}
 </style>

@@ -1,9 +1,9 @@
 <template>
 	<div class="d-flex flex-wrap justify-content-between w-100">
-		<div v-for="n in 4" :key="n" class="mb-2 mb-md-2-25 w-48">
+		<div class="mb-2 mb-md-2-25 w-48">
 			<div class="flex-column nerd-body shadow gap-0-5 d-md-flex">
 				<div class="d-flex align-items-center nerd-card gap-1-5 custom-p">
-					<span class="d-flex justify-content-start w-30">
+					<span class="d-flex justify-content-end w-30">
 						<NuxtLink :to="`/users/${tutor.id}`" class="position-relative">
 							<Avatar :size="72" :src="tutor.avatar" />
 							<i

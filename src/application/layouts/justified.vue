@@ -1,7 +1,7 @@
 <template>
 	<div class="layout-page">
 		<TopNavigation />
-		<section class="layout-body ps-lg-2 pe-lg-1-5">
+		<section class="layout-body ps-lg-2 pe-lg-1-5 mb-4">
 			<main class="layout-main">
 				<Nuxt />
 			</main>

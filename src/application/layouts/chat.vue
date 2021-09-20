@@ -1,7 +1,7 @@
 <template>
 	<div class="layout-page bg-dark">
 		<TopNavigation :show-left-menu="true" :show-right-menu="true" />
-		<section class="layout-body p-0">
+		<section class="layout-body p-0 mb-4">
 			<main class="layout-main p-0">
 				<Nuxt />
 			</main>

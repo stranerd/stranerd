@@ -4,9 +4,14 @@
 			<Logo :secondary="true" class="bright" />
 			<div @click="close">
 				<Icon
-					class="text-primary-dark bright"
+					class="text-primary-dark bright d-none d-sm-block "
 					size="s"
 					icon-name="close"
+				/>
+				<Icon
+					class="text-primary-dark bright d-block d-sm-none"
+					size="s"
+					icon-name="close-thin"
 				/>
 			</div>
 		</div>

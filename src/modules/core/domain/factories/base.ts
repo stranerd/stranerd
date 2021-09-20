@@ -3,7 +3,6 @@ import { UploaderService } from '../../services/uploader'
 
 export abstract class BaseFactory<E, T, K extends Record<string, any>> {
 	errors: Record<keyof K, string>
-	valids: Record<keyof K, boolean>
 	abstract toModel: () => Promise<T>
 	abstract loadEntity: (entity: E) => void
 	abstract reserved: string[]
@@ -20,10 +19,6 @@ export abstract class BaseFactory<E, T, K extends Record<string, any>> {
 			.reduce((acc, value: keyof K) => ({
 				...acc, [value]: ''
 			}), {} as Record<keyof K, string>)
-		this.valids = Object.keys(keys)
-			.reduce((acc, value: keyof K) => ({
-				...acc, [value]: false
-			}), {} as Record<keyof K, boolean>)
 	}
 
 	get valid () {
@@ -38,14 +33,11 @@ export abstract class BaseFactory<E, T, K extends Record<string, any>> {
 		this.values[property] = value
 		this.validValues[property] = check.isValid ? value : this.defaults[property]
 		this.errors[property] = check.message ?? ''
-		this.valids[property] = check.isValid
 
 		return check.isValid
 	}
 
-	isValid (property: keyof K) {
-		return this.valids[property]
-	}
+	isValid = (property: keyof K) => this.checkValidity(property, this.validValues[property]).isValid
 
 	validateAll () {
 		Object.keys(this.defaults)
@@ -65,7 +57,6 @@ export abstract class BaseFactory<E, T, K extends Record<string, any>> {
 				this.values[key] = this.defaults[key]
 				this.validValues[key] = this.defaults[key]
 				this.errors[key] = ''
-				this.valids[key] = false
 			})
 	}
 

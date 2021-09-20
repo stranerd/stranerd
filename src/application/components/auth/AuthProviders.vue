@@ -28,7 +28,7 @@ export default defineComponent({
 	setup () {
 		const { loading: googleLoading, signin: googleSignin, error: googleError, setError } = useGoogleSignin()
 		const googleParams = { client_id: googleClientId }
-		const onFailure = (error: any) => setError(error.err)
+		const onFailure = (_: any) => setError('Error signing in with google')
 		const onSuccess = async (data: any) => await googleSignin(data.getAuthResponse().id_token)
 		return { googleError, googleLoading, googleSignin, onSuccess, onFailure, googleParams }
 	}

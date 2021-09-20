@@ -122,6 +122,9 @@ export const useAnswer = (answer: AnswerEntity) => {
 	const voteAnswer = async (vote: boolean) => {
 		const userId = useAuth().id.value
 		if (!userId) return
+		const voted = answer.votes.find((v) => v.userId === userId)
+		if (vote && voted?.vote === 1) return
+		if (!vote && voted?.vote === -1) return
 		setError('')
 		try {
 			setLoading(true)

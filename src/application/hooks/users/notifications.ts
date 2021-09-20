@@ -29,7 +29,7 @@ export const useNotificationList = () => {
 		const listener = useListener(async () => {
 			if (!id.value) return () => {
 			}
-			const lastDate = global[userId].notifications.value[global[userId].notifications.value.length - 1]?.createdAt
+			const lastDate = global[userId].notifications.value[0]?.createdAt
 			return ListenToNotifications.call(userId, {
 				created: async (entity) => {
 					unshiftToNotificationList(userId, entity)
@@ -73,7 +73,7 @@ export const useNotificationList = () => {
 		await global[userId].listener.resetListener(async () => {
 			if (!id.value) return () => {
 			}
-			const lastDate = global[userId].notifications.value[global[userId].notifications.value.length - 1]?.createdAt
+			const lastDate = global[userId].notifications.value[0]?.createdAt
 			return ListenToNotifications.call(userId, {
 				created: async (entity) => {
 					unshiftToNotificationList(userId, entity)

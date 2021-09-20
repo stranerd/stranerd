@@ -25,6 +25,8 @@ export class NotificationEntity extends BaseEntity {
 	get link () {
 		if (this.action === 'questions') return `/questions/${this.data.questionId}`
 		else if (this.action === 'answers') return `/questions/${this.data.questionId}#${this.data.answerId}`
+		else if (this.action === 'questionComments') return `/questions/${this.data.questionId}`
+		else if (this.action === 'answerComments') return `/questions/${this.data.questionId}#${this.data.answerId}`
 		else if (this.action === 'sessions') return `/sessions/${this.data.studentId}`
 		else if (this.action === 'users') return `/users/${this.data.userId}`
 		return '/dashboard'

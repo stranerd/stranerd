@@ -4,7 +4,7 @@
 			Make Purchase
 		</template>
 		<client-only>
-			<PaymentsFlutterwave v-if="isAfrican" />
+			<PaymentsFlutterwave v-if="false && isAfrican" />
 			<PaymentsStripe v-else />
 		</client-only>
 	</Modal>

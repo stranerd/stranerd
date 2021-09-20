@@ -16,7 +16,6 @@
 				<small v-if="factory.errors.firstName" class="small text-danger d-block">
 					<DynamicText>{{ factory.errors.firstName }}</DynamicText>
 				</small>
-				<DynamicText>{{ factory.errors.firstName }}</DynamicText>
 			</div>
 			<div class="w-100 flex-grow-1 d-flex flex-column">
 				<span>

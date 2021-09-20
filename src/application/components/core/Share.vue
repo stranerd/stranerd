@@ -40,7 +40,7 @@ export default defineComponent({
 				text: props.text
 			})
 			else {
-				const res = copyToClipboard(domain + link.startsWith('/') ? link : `/${link}`)
+				const res = await copyToClipboard(domain + link.startsWith('/') ? link : `/${link}`)
 				await Notify({
 					title: `Your current device is unable to share links.${res ? ' The link has been copied to your clipboard instead' : ''}`,
 					icon: 'info'

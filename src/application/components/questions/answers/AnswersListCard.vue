@@ -9,10 +9,6 @@
 					<DynamicText>{{ answer.userName }}</DynamicText>
 				</BodyText>
 			</NuxtLink>
-			<span class="d-flex align-items-baseline gap-0-25 ms-auto">
-				<DynamicText class="text-primary">{{ formatNumber(answer.averageRating, 1) }}/5</DynamicText>
-				<i class="fas fa-star text-gold" style="font-size: 21px;" />
-			</span>
 		</div>
 		<div class="answer-content d-flex flex-column gap-1">
 			<BodyText class="text-dark" variant="large">
@@ -47,7 +43,24 @@
 					<span>Mark as best</span>
 					<i class="fas fa-check-circle" />
 				</span>
-				<SelectRating v-if="showRatingButton" :rating="0" :set-rating="rateAnswer" />
+				<span class="d-flex gap-0-75 text-sub">
+					<span class="d-flex gap-0-25 align-items-center">
+						<span>{{ answer.upVotes }}</span>
+						<i
+							:class="{'text-primary': answer.votes.find((v) => v.vote === 1 && v.userId === id)}"
+							class="fas fa-thumbs-up"
+							@click="() => voteAnswer(true)"
+						/>
+					</span>
+					<span class="d-flex gap-0-25 align-items-center">
+						<span>{{ answer.downVotes }}</span>
+						<i
+							:class="{'text-primary': answer.votes.find((v) => v.vote === -1 && v.userId === id)}"
+							class="fas fa-thumbs-down"
+							@click="() => voteAnswer(false)"
+						/>
+					</span>
+				</span>
 				<Share
 					:link="`/questions/${answer.questionId}#${answer.id}`"
 					:text="answer.strippedBody"
@@ -123,11 +136,6 @@ export default defineComponent({
 		const showComments = ref(false)
 		const showExplanation = ref(false)
 		const { id, isLoggedIn, user } = useAuth()
-		const showRatingButton = computed({
-			get: () => isLoggedIn.value && props.answer.userId !== id.value,
-			set: () => {
-			}
-		})
 		const showEditButton = computed({
 			get: () => props.answer.userId === id.value && props.answer.canBeEdited,
 			set: () => {
@@ -138,7 +146,7 @@ export default defineComponent({
 			set: () => {
 			}
 		})
-		const { error, loading, rateAnswer, markBestAnswer } = useAnswer(props.answer)
+		const { error, loading, markBestAnswer, voteAnswer } = useAnswer(props.answer)
 		const reportAnswer = () => {
 			setReportedEntity(props.answer.id)
 			useReportModal().openReportAnswer()
@@ -148,7 +156,7 @@ export default defineComponent({
 			id, isLoggedIn, user, formatTime, showComments, showExplanation,
 			showEditButton, showDeleteButton, deleteLoading, deleteError, deleteAnswer,
 			openEditModal: () => openAnswerEditModal({ question: props.question, answer: props.answer }, router),
-			error, loading, rateAnswer, showRatingButton, formatNumber,
+			error, loading, voteAnswer, formatNumber,
 			markBestAnswer: () => markBestAnswer(props.question),
 			reportAnswer
 		}

@@ -37,8 +37,8 @@ import { ListenToUserAnswersUseCase } from './domain/usecases/answers/listenToUs
 import { AddAnswerUseCase } from './domain/usecases/answers/addAnswer'
 import { EditAnswerUseCase } from './domain/usecases/answers/editAnswer'
 import { DeleteAnswerUseCase } from './domain/usecases/answers/deleteAnswer'
-import { RateAnswerUseCase } from './domain/usecases/answers/rateAnswer'
 import { ListenToAnswersUseCase } from './domain/usecases/answers/listenToAnswers'
+import { VoteAnswerUseCase } from './domain/usecases/answers/voteAnswer'
 import { AddAnswerCommentUseCase, AddQuestionCommentUseCase } from './domain/usecases/comments/addComment'
 import { GetAnswerCommentsUseCase, GetQuestionCommentsUseCase } from './domain/usecases/comments/getComments'
 import {
@@ -103,7 +103,7 @@ export const ListenToUserAnswers = new ListenToUserAnswersUseCase(answerReposito
 export const AddAnswer = new AddAnswerUseCase(answerRepository)
 export const EditAnswer = new EditAnswerUseCase(answerRepository)
 export const DeleteAnswer = new DeleteAnswerUseCase(answerRepository)
-export const RateAnswer = new RateAnswerUseCase(answerRepository)
+export const VoteAnswer = new VoteAnswerUseCase(answerRepository)
 
 export const AddQuestionComment = new AddQuestionCommentUseCase(questionCommentRepository)
 export const AddAnswerComment = new AddAnswerCommentUseCase(answerCommentRepository)

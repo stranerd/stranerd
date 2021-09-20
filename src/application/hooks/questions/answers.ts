@@ -9,7 +9,7 @@ import {
 	ListenToAnswers,
 	MarkBestAnswer,
 	QuestionEntity,
-	RateAnswer
+	VoteAnswer
 } from '@modules/questions'
 import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
@@ -119,26 +119,17 @@ export const useAnswer = (answer: AnswerEntity) => {
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
 
-	const rateAnswer = async (rating: number) => {
-		if (rating > 5 || rating < 0) return
-		const userId = useAuth().id.value!
+	const voteAnswer = async (vote: boolean) => {
+		const userId = useAuth().id.value
 		if (!userId) return
 		setError('')
-		const accepted = await Alert({
-			title: `Are you sure you want to rate this answer: ${rating} stars?`,
-			text: 'This cannot be reversed',
-			icon: 'info',
-			confirmButtonText: 'Yes, continue'
-		})
-		if (accepted) {
-			try {
-				setLoading(true)
-				await RateAnswer.call(answer.id, userId, rating)
-			} catch (error) {
-				setError(error)
-			}
-			setLoading(false)
+		try {
+			setLoading(true)
+			await VoteAnswer.call(answer.id, userId, vote)
+		} catch (error) {
+			setError(error)
 		}
+		setLoading(false)
 	}
 
 	const markBestAnswer = async (question: QuestionEntity | null) => {
@@ -163,7 +154,7 @@ export const useAnswer = (answer: AnswerEntity) => {
 	}
 
 	return {
-		loading, error, rateAnswer, markBestAnswer
+		loading, error, markBestAnswer, voteAnswer
 	}
 }
 

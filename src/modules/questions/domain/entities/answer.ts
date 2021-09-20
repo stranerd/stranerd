@@ -73,6 +73,14 @@ export class AnswerEntity extends BaseEntity {
 	get canBeDeleted () {
 		return !this.isModified
 	}
+
+	get upVotes () {
+		return this.votes.filter((v) => v.vote === 1).length
+	}
+
+	get downVotes () {
+		return this.votes.filter((v) => v.vote === -1).length
+	}
 }
 
 type AnswerConstructorArgs = {

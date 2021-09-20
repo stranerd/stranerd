@@ -1,48 +1,50 @@
 <template>
-	<form class="gap-1 gap-md-2 d-flex flex-column" @submit.prevent="signin">
-		<Heading class="text-center" variant="1">
-			Sign In
-		</Heading>
-		<div>
-			<input
-				id="email"
-				v-model="factory.email"
-				autocomplete="email"
-				class="form-control"
-				name="email"
-				placeholder="Email"
-				required
-				type="email"
-			>
-			<DynamicText v-if="factory.errors.email" class="small text-danger d-block">
-				{{ factory.errors.email }}
-			</DynamicText>
-		</div>
-		<div>
-			<input
-				id="password"
-				v-model="factory.password"
-				autocomplete="password"
-				class="form-control"
-				name="password"
-				placeholder="Password"
-				required
-				type="password"
-			>
-			<DynamicText v-if="factory.errors.password" class="small text-danger d-block">
-				{{ factory.errors.password }}
-			</DynamicText>
-			<div class="text-end mt-1">
-				<NuxtLink class="linkText text-decoration-none" to="/auth/forgot">
-					Forgot Password
-				</NuxtLink>
+	<div class="gap-1 gap-md-2 d-flex flex-column">
+		<form class="gap-1 gap-md-2 d-flex flex-column" @submit.prevent="signin">
+			<Heading class="text-center" variant="1">
+				Sign In
+			</Heading>
+			<div>
+				<input
+					id="email"
+					v-model="factory.email"
+					autocomplete="email"
+					class="form-control"
+					name="email"
+					placeholder="Email"
+					required
+					type="email"
+				>
+				<DynamicText v-if="factory.errors.email" class="small text-danger d-block">
+					{{ factory.errors.email }}
+				</DynamicText>
 			</div>
-		</div>
-		<button :disabled="loading || !factory.valid" class="btn btn-lg btn-custom py-1" type="submit">
-			Sign In
-		</button>
-		<DisplayError :error="error" />
-		<PageLoading v-if="loading" />
+			<div>
+				<input
+					id="password"
+					v-model="factory.password"
+					autocomplete="password"
+					class="form-control"
+					name="password"
+					placeholder="Password"
+					required
+					type="password"
+				>
+				<DynamicText v-if="factory.errors.password" class="small text-danger d-block">
+					{{ factory.errors.password }}
+				</DynamicText>
+				<div class="text-end mt-1">
+					<NuxtLink class="linkText text-decoration-none" to="/auth/forgot">
+						Forgot Password
+					</NuxtLink>
+				</div>
+			</div>
+			<button :disabled="loading || !factory.valid" class="btn btn-lg btn-custom py-1" type="submit">
+				Sign In
+			</button>
+			<DisplayError :error="error" />
+			<PageLoading v-if="loading" />
+		</form>
 		<div class="d-flex gap-1 align-items-center">
 			<div class="flex-grow-1 border-bottom border-line" style="height: 2px;" />
 			<span>or sign in with</span>
@@ -55,7 +57,7 @@
 				Sign Up
 			</NuxtLink>
 		</div>
-	</form>
+	</div>
 </template>
 
 <script lang="ts">

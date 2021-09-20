@@ -4,6 +4,8 @@ export const isDev = process.env.ENVIRONMENT === 'development'
 export const isServer = () => process.server
 export const isClient = () => process.client
 
+export const googleClientId = process.env.GOOGLE_CLIENT_ID ?? ''
+
 const firebase = JSON.parse(process.env.FIREBASE_CLIENT_CONFIG ?? '{}')
 export const firebaseConfig = {
 	apiKey: firebase.api_key,

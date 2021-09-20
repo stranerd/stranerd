@@ -8,7 +8,7 @@ export class SigninWithGoogleUseCase {
 		this.repository = repository
 	}
 
-	async call (extras: AuthExtras) {
-		return await this.repository.signinWithGoogle(extras)
+	async call (idToken: string, extras: AuthExtras) {
+		return await this.repository.signinWithGoogle(idToken, extras)
 	}
 }

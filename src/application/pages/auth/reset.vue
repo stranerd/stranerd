@@ -1,53 +1,55 @@
 <template>
-	<form class="gap-1 gap-md-2 d-flex flex-column" @submit.prevent="resetPassword">
-		<Heading class="text-center" variant="1">
-			Reset Password
-		</Heading>
-		<span class="textStyle text-center">
-			To reset your password, type your new password below and reset
-		</span>
-		<div>
-			<input
-				id="password"
-				v-model="factory.password"
-				autocomplete="password"
-				class="form-control"
-				name="password"
-				placeholder="New Password"
-				required
-				type="password"
-			>
-			<DynamicText v-if="factory.errors.password" class="small text-danger d-block">
-				{{ factory.errors.password }}
-			</DynamicText>
-		</div>
-		<div>
-			<input
-				id="cPassword"
-				v-model="factory.cPassword"
-				autocomplete="password"
-				class="form-control"
-				name="cPassword"
-				placeholder="Confirm New Password"
-				required
-				type="password"
-			>
-			<DynamicText v-if="factory.errors.cPassword" class="small text-danger d-block">
-				{{ factory.errors.cPassword }}
-			</DynamicText>
-		</div>
-		<button :disabled="loading || !factory.valid" class="btn btn-lg btn-custom py-1" type="submit">
-			Reset Password
-		</button>
-		<DisplayError :error="error" />
-		<PageLoading v-if="loading" />
+	<div class="gap-1 gap-md-2 d-flex flex-column">
+		<form class="gap-1 gap-md-2 d-flex flex-column" @submit.prevent="resetPassword">
+			<Heading class="text-center" variant="1">
+				Reset Password
+			</Heading>
+			<span class="textStyle text-center">
+				To reset your password, type your new password below and reset
+			</span>
+			<div>
+				<input
+					id="password"
+					v-model="factory.password"
+					autocomplete="password"
+					class="form-control"
+					name="password"
+					placeholder="New Password"
+					required
+					type="password"
+				>
+				<DynamicText v-if="factory.errors.password" class="small text-danger d-block">
+					{{ factory.errors.password }}
+				</DynamicText>
+			</div>
+			<div>
+				<input
+					id="cPassword"
+					v-model="factory.cPassword"
+					autocomplete="password"
+					class="form-control"
+					name="cPassword"
+					placeholder="Confirm New Password"
+					required
+					type="password"
+				>
+				<DynamicText v-if="factory.errors.cPassword" class="small text-danger d-block">
+					{{ factory.errors.cPassword }}
+				</DynamicText>
+			</div>
+			<button :disabled="loading || !factory.valid" class="btn btn-lg btn-custom py-1" type="submit">
+				Reset Password
+			</button>
+			<DisplayError :error="error" />
+			<PageLoading v-if="loading" />
+		</form>
 		<div class="d-flex align-items-center justify-content-center gap-0-25">
 			<span>Return to</span>
 			<NuxtLink class="linkText" to="/auth/signin">
 				Sign In
 			</NuxtLink>
 		</div>
-	</form>
+	</div>
 </template>
 
 <script lang="ts">

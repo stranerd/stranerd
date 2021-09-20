@@ -1,90 +1,92 @@
 <template>
-	<form class="gap-1 gap-md-2 d-flex flex-column" @submit.prevent="signup">
-		<Heading class="text-center" variant="1">
-			Sign Up
-		</Heading>
-		<div class="d-flex flex-column gap-1 gap-md-2 flex-md-row">
-			<div class="flew-grow-1 w-100">
+	<div class="gap-1 gap-md-2 d-flex flex-column">
+		<form class="d-flex gap-1 gap-md-2 flex-column" @submit.prevent="signup">
+			<Heading class="text-center" variant="1">
+				Sign Up
+			</Heading>
+			<div class="d-flex flex-column gap-1 gap-md-2 flex-md-row">
+				<div class="flew-grow-1 w-100">
+					<input
+						id="first"
+						v-model="factory.first"
+						autocomplete="first-name"
+						class="form-control"
+						name="first"
+						placeholder="First name"
+						required
+						type="text"
+					>
+					<DynamicText v-if="factory.errors.first" class="small text-danger d-block">
+						{{ factory.errors.first }}
+					</DynamicText>
+				</div>
+				<div class="flew-grow-1 w-100">
+					<input
+						id="last"
+						v-model="factory.last"
+						autocomplete="last-name"
+						class="form-control"
+						name="last"
+						placeholder="Last name"
+						required
+						type="text"
+					>
+					<DynamicText v-if="factory.errors.last" class="small text-danger d-block">
+						{{ factory.errors.last }}
+					</DynamicText>
+				</div>
+			</div>
+			<div>
 				<input
-					id="first"
-					v-model="factory.first"
-					autocomplete="first-name"
+					id="email"
+					v-model="factory.email"
+					autocomplete="email"
 					class="form-control"
-					name="first"
-					placeholder="First name"
+					name="email"
+					placeholder="Email"
 					required
-					type="text"
+					type="email"
 				>
-				<DynamicText v-if="factory.errors.first" class="small text-danger d-block">
-					{{ factory.errors.first }}
+				<DynamicText v-if="factory.errors.email" class="small text-danger d-block">
+					{{ factory.errors.email }}
 				</DynamicText>
 			</div>
-			<div class="flew-grow-1 w-100">
+			<div>
 				<input
-					id="last"
-					v-model="factory.last"
-					autocomplete="last-name"
+					id="password"
+					v-model="factory.password"
+					autocomplete="password"
 					class="form-control"
-					name="last"
-					placeholder="Last name"
+					name="password"
+					placeholder="Password"
 					required
-					type="text"
+					type="password"
 				>
-				<DynamicText v-if="factory.errors.last" class="small text-danger d-block">
-					{{ factory.errors.last }}
+				<DynamicText v-if="factory.errors.password" class="small text-danger d-block">
+					{{ factory.errors.password }}
 				</DynamicText>
 			</div>
-		</div>
-		<div>
-			<input
-				id="email"
-				v-model="factory.email"
-				autocomplete="email"
-				class="form-control"
-				name="email"
-				placeholder="Email"
-				required
-				type="email"
-			>
-			<DynamicText v-if="factory.errors.email" class="small text-danger d-block">
-				{{ factory.errors.email }}
-			</DynamicText>
-		</div>
-		<div>
-			<input
-				id="password"
-				v-model="factory.password"
-				autocomplete="password"
-				class="form-control"
-				name="password"
-				placeholder="Password"
-				required
-				type="password"
-			>
-			<DynamicText v-if="factory.errors.password" class="small text-danger d-block">
-				{{ factory.errors.password }}
-			</DynamicText>
-		</div>
-		<div>
-			<input
-				id="cPassword"
-				v-model="factory.cPassword"
-				autocomplete="password"
-				class="form-control"
-				name="cPassword"
-				placeholder="Confirm Password"
-				required
-				type="password"
-			>
-			<DynamicText v-if="factory.errors.cPassword" class="small text-danger d-block">
-				{{ factory.errors.cPassword }}
-			</DynamicText>
-		</div>
-		<button :disabled="loading || !factory.valid" class="btn btn-lg btn-custom py-1 " type="submit">
-			Sign Up
-		</button>
-		<DisplayError :error="error" />
-		<PageLoading v-if="loading" />
+			<div>
+				<input
+					id="cPassword"
+					v-model="factory.cPassword"
+					autocomplete="password"
+					class="form-control"
+					name="cPassword"
+					placeholder="Confirm Password"
+					required
+					type="password"
+				>
+				<DynamicText v-if="factory.errors.cPassword" class="small text-danger d-block">
+					{{ factory.errors.cPassword }}
+				</DynamicText>
+			</div>
+			<button :disabled="loading || !factory.valid" class="btn btn-lg btn-custom py-1 " type="submit">
+				Sign Up
+			</button>
+			<DisplayError :error="error" />
+			<PageLoading v-if="loading" />
+		</form>
 		<div class="d-flex gap-1 align-items-center">
 			<div class="flex-grow-1 border-bottom border-line" style="height: 2px;" />
 			<span>or sign up with</span>
@@ -97,7 +99,7 @@
 				Sign in
 			</NuxtLink>
 		</div>
-	</form>
+	</div>
 </template>
 
 <script lang="ts">

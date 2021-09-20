@@ -22,12 +22,12 @@ export const useGoogleSignin = () => {
 	const router = useRouter()
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
-	const signin = async () => {
+	const signin = async (idToken: string) => {
 		setError('')
 		if (!loading.value) {
 			setLoading(true)
 			try {
-				const user = await SigninWithGoogle.call({
+				const user = await SigninWithGoogle.call(idToken, {
 					referrer: getReferrerId()
 				})
 				await createSession(user, router)
@@ -38,7 +38,7 @@ export const useGoogleSignin = () => {
 			setLoading(false)
 		}
 	}
-	return { loading, error, signin }
+	return { loading, error, signin, setError }
 }
 
 export const useEmailSignin = () => {

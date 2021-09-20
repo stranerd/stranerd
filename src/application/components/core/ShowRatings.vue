@@ -1,5 +1,5 @@
 <template>
-	<div class="d-inline-flex text-no-wrap">
+	<div class="d-inline-flex text-no-wrap justify-content-end">
 		<i
 			:class="{'fa-star text-gold': rating >= 0.5, 'fa-star-half-alt text-gold': rating > 0 && rating < 0.5, 'fa-star text-sub': rating <= 0 }"
 			class="fas"

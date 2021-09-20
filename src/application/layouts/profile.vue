@@ -1,7 +1,7 @@
 <template>
 	<div :key="$route.fullPath" class="layout-page">
 		<TopNavigation :show-left-menu="true" :show-right-menu="true" />
-		<section class="layout-body p-0 py-lg-3">
+		<section class="layout-body p-0 py-lg-3 mb-4">
 			<section class="layout-side-left">
 				<ProfileLeftSidebar />
 			</section>

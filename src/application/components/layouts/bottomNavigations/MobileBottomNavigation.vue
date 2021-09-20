@@ -93,6 +93,7 @@ export default {
 		justify-content: space-around;
 		align-items: center;
 		height: 50px;
+		border-top: 1px solid $color-line;
 
 		// box-shadow: 0 -2px 5px -2px #333;
 		background-color: #fff;

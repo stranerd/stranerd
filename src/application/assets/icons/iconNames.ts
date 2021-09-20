@@ -11,6 +11,7 @@ export enum IconNames {
   'chat-outline' = 'chat-outline',
   'chat' = 'chat',
   'class' = 'class',
+  'close-thin' = 'close-thin',
   'close' = 'close',
   'create-outline' = 'create-outline',
   'create' = 'create',

@@ -14,14 +14,14 @@ export const useTutorsList = () => {
 	const fetchTutors = async () => {
 		await global.setError('')
 		try {
-			global.setLoading(true)
+			await global.setLoading(true)
 			const tutors = await GetAllSessionTutors.call()
 			global.tutors.value = tutors.results
 			global.fetched.value = true
 		} catch (error) {
 			await global.setError(error)
 		}
-		global.setLoading(false)
+		await global.setLoading(false)
 	}
 	const filteredTutors = computed({
 		get: () => global.tutors.value

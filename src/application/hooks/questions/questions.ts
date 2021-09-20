@@ -56,7 +56,7 @@ export const useQuestionList = () => {
 	const fetchQuestions = async () => {
 		await global.setError('')
 		try {
-			global.setLoading(true)
+			await global.setLoading(true)
 			const lastDate = global.questions.value[global.questions.value.length - 1]?.createdAt
 			const questions = await GetQuestions.call(lastDate)
 			global.hasMore.value = !!questions.pages.next
@@ -65,7 +65,7 @@ export const useQuestionList = () => {
 		} catch (error) {
 			await global.setError(error)
 		}
-		global.setLoading(false)
+		await global.setLoading(false)
 	}
 	const listener = useListener(async () => {
 		const lastDate = global.questions.value[global.questions.value.length - 1]?.createdAt
@@ -155,7 +155,7 @@ export const useCreateQuestion = () => {
 		await setError('')
 		if (factory.value.valid && !loading.value) {
 			try {
-				setLoading(true)
+				await setLoading(true)
 				const questionId = await AddQuestion.call(factory.value)
 				setMessage('Question submitted successfully')
 				const subject = factory.value.subjectId
@@ -168,7 +168,7 @@ export const useCreateQuestion = () => {
 			} catch (error) {
 				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		} else factory.value.validateAll()
 	}
 
@@ -188,10 +188,10 @@ export const useQuestion = (questionId: string) => {
 	const fetchQuestion = async () => {
 		await setError('')
 		try {
-			setLoading(true)
+			await setLoading(true)
 			let question = global.questions.value.find((q) => q.id === questionId) ?? null
 			if (question) {
-				setLoading(false)
+				await setLoading(false)
 				return
 			}
 			question = await FindQuestion.call(questionId)
@@ -199,7 +199,7 @@ export const useQuestion = (questionId: string) => {
 		} catch (error) {
 			await setError(error)
 		}
-		setLoading(false)
+		await setLoading(false)
 	}
 	const listener = useListener(async () => {
 		return await ListenToQuestion.call(questionId, {
@@ -258,7 +258,7 @@ export const useEditQuestion = (questionId: string) => {
 		await setError('')
 		if (factory.value.valid && !loading.value) {
 			try {
-				setLoading(true)
+				await setLoading(true)
 				await EditQuestion.call(questionId, factory.value)
 				setMessage('Question edited successfully')
 				const subject = factory.value.subjectId
@@ -270,7 +270,7 @@ export const useEditQuestion = (questionId: string) => {
 			} catch (error) {
 				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		} else factory.value.validateAll()
 	}
 
@@ -292,7 +292,7 @@ export const useDeleteQuestion = (questionId: string) => {
 			confirmButtonText: 'Yes, delete'
 		})
 		if (accepted) {
-			setLoading(true)
+			await setLoading(true)
 			try {
 				await DeleteQuestion.call(questionId)
 				global.questions.value = global.questions.value
@@ -302,7 +302,7 @@ export const useDeleteQuestion = (questionId: string) => {
 			} catch (error) {
 				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		}
 	}
 

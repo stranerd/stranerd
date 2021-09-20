@@ -18,14 +18,14 @@ const pushToGlobalSubjects = (subject: SubjectEntity) => {
 
 const fetchSubjects = async () => {
 	await global.setError('')
-	global.setLoading(true)
+	await global.setLoading(true)
 	try {
 		global.subjects.value = (await GetSubjects.call()).results
 		global.fetched.value = true
 	} catch (error) {
 		await global.setError(error)
 	}
-	global.setLoading(false)
+	await global.setLoading(false)
 }
 
 export const useSubjectList = () => {
@@ -59,7 +59,7 @@ export const useCreateSubject = () => {
 	const createSubject = async () => {
 		await setError('')
 		if (factory.value.valid && !loading.value) {
-			setLoading(true)
+			await setLoading(true)
 			try {
 				const id = await AddSubject.call(factory.value)
 				const subject = await FindSubject.call(id)
@@ -69,7 +69,7 @@ export const useCreateSubject = () => {
 			} catch (error) {
 				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		} else factory.value.validateAll()
 	}
 
@@ -90,7 +90,7 @@ export const useDeleteSubject = (subject: SubjectEntity) => {
 			confirmButtonText: 'Yes, remove'
 		})
 		if (accepted) {
-			setLoading(true)
+			await setLoading(true)
 			try {
 				await DeleteSubject.call(subject.id)
 				global.subjects.value = global.subjects.value
@@ -99,7 +99,7 @@ export const useDeleteSubject = (subject: SubjectEntity) => {
 			} catch (error) {
 				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		}
 	}
 

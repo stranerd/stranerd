@@ -38,13 +38,13 @@ export const useSessionSignout = () => {
 			confirmButtonText: 'Yes, signout'
 		})
 		if (accepted) {
-			setLoading(true)
+			await setLoading(true)
 			try {
 				await useAuth().signout()
 			} catch (error) {
 				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		}
 	}
 

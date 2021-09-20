@@ -12,14 +12,14 @@ export const useCreateMessage = () => {
 		await setError('')
 		if (factory.value.valid && !loading.value) {
 			try {
-				setLoading(true)
+				await setLoading(true)
 				await AddMessage.call(factory.value)
 				factory.value.reset()
 				await setMessage('Message sent successfully')
 			} catch (error) {
 				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		} else factory.value.validateAll()
 	}
 

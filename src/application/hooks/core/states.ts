@@ -39,7 +39,7 @@ export const useSuccessHandler = () => {
 
 export const useLoadingHandler = () => {
 	const loadingState = ssrRef(false)
-	const setLoading = (loading: boolean) => loadingState.value = loading
+	const setLoading = async (loading: boolean) => loadingState.value = loading
 	return { loading: loadingState, setLoading }
 }
 

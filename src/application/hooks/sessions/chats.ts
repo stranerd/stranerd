@@ -43,7 +43,7 @@ export const useChats = (userId: string) => {
 	const fetchChats = async () => {
 		await global[userId].setError('')
 		try {
-			global[userId].setLoading(true)
+			await global[userId].setLoading(true)
 			const lastDate = chats.value[0]?.createdAt
 			const c = await GetChats.call(path, lastDate)
 			global[userId].hasMore.value = !!c.pages.next
@@ -52,7 +52,7 @@ export const useChats = (userId: string) => {
 		} catch (e) {
 			await global[userId].setError(e)
 		}
-		global[userId].setLoading(false)
+		await global[userId].setLoading(false)
 	}
 
 	const listener = useListener(async () => {
@@ -122,20 +122,20 @@ export const useCreateChat = (userId: string, sessionId?: string) => {
 		await setError('')
 		if (factory.value.valid && !loading.value) {
 			try {
-				setLoading(true)
+				await setLoading(true)
 				await AddChat.call(path, factory.value)
 				factory.value.reset()
 			} catch (e) {
 				await setError(e)
 			}
 			factory.value.reset()
-			setLoading(false)
+			await setLoading(false)
 		}
 	}
 
 	const createMediaChat = async (files: File[]) => {
 		if (!loading.value) {
-			setLoading(true)
+			await setLoading(true)
 			const promises = files.map(async (file) => {
 				const mediaFactory = new ChatFactory()
 				mediaFactory.to = userId
@@ -147,7 +147,7 @@ export const useCreateChat = (userId: string, sessionId?: string) => {
 				}
 			})
 			await Promise.all(promises)
-			setLoading(false)
+			await setLoading(false)
 		}
 	}
 

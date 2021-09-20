@@ -27,7 +27,7 @@ export const useCreateReport = () => {
 		await setError('')
 		if (factory.value.valid && !loading.value) {
 			try {
-				setLoading(true)
+				await setLoading(true)
 				await AddQuestionReport.call(factory.value)
 				useReportModal().closeReportQuestion()
 				factory.value.reset()
@@ -35,7 +35,7 @@ export const useCreateReport = () => {
 			} catch (error) {
 				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		} else factory.value.validateAll()
 	}
 
@@ -69,7 +69,7 @@ export const useReportsList = () => {
 	const fetchReports = async () => {
 		await global.setError('')
 		try {
-			global.setLoading(true)
+			await global.setLoading(true)
 			const lastDate = global.reports.value[0]?.createdAt
 			const reports = await GetQuestionReports.call(lastDate)
 			global.hasMore.value = !!reports.pages.next
@@ -78,7 +78,7 @@ export const useReportsList = () => {
 		} catch (error) {
 			await global.setError(error)
 		}
-		global.setLoading(false)
+		await global.setLoading(false)
 	}
 
 	useFetch(async () => {
@@ -102,7 +102,7 @@ export const useDeleteReport = (id: string) => {
 			confirmButtonText: 'Yes, remove'
 		})
 		if (accepted) {
-			setLoading(true)
+			await setLoading(true)
 			try {
 				await DeleteQuestionReport.call(id)
 				global.reports.value = global.reports.value
@@ -111,7 +111,7 @@ export const useDeleteReport = (id: string) => {
 			} catch (error) {
 				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		}
 	}
 

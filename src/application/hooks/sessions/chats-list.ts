@@ -54,14 +54,14 @@ export const useChatsList = () => {
 		if (!id.value) return
 		await global[userId].setError('')
 		try {
-			global[userId].setLoading(true)
+			await global[userId].setLoading(true)
 			const metas = await GetPersonalChatsMeta.call()
 			global[userId].meta.value = metas.results
 			global[userId].fetched.value = true
 		} catch (e) {
 			await global[userId].setError(e)
 		}
-		global[userId].setLoading(false)
+		await global[userId].setLoading(false)
 	}
 	useFetch(async () => {
 		if (!id.value) return

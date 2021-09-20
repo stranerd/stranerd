@@ -33,13 +33,13 @@ export const useAnswerList = (questionId: string) => {
 	const fetchAnswers = async () => {
 		await global[questionId].setError('')
 		try {
-			global[questionId].setLoading(true)
+			await global[questionId].setLoading(true)
 			global[questionId].answers.value = (await GetAnswers.call(questionId)).results
 			global[questionId].fetched.value = true
 		} catch (error) {
 			await global[questionId].setError(error)
 		}
-		global[questionId].setLoading(false)
+		await global[questionId].setLoading(false)
 	}
 
 	const listener = useListener(async () => {
@@ -91,7 +91,7 @@ export const useCreateAnswer = () => {
 		await setError('')
 		if (factory.value.valid && !loading.value) {
 			try {
-				setLoading(true)
+				await setLoading(true)
 				const answerId = await AddAnswer.call(factory.value)
 				setMessage('Answer submitted successfully.')
 				factory.value.reset()
@@ -104,7 +104,7 @@ export const useCreateAnswer = () => {
 			} catch (error) {
 				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		} else factory.value.validateAll()
 	}
 
@@ -127,12 +127,12 @@ export const useAnswer = (answer: AnswerEntity) => {
 		if (!vote && voted?.vote === -1) return
 		await setError('')
 		try {
-			setLoading(true)
+			await setLoading(true)
 			await VoteAnswer.call(answer.id, userId, vote)
 		} catch (error) {
 			await setError(error)
 		}
-		setLoading(false)
+		await setLoading(false)
 	}
 
 	const markBestAnswer = async (question: QuestionEntity | null) => {
@@ -147,12 +147,12 @@ export const useAnswer = (answer: AnswerEntity) => {
 		})
 		if (accepted) {
 			try {
-				setLoading(true)
+				await setLoading(true)
 				await MarkBestAnswer.call(question.id, answer.id)
 			} catch (error) {
 				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		}
 	}
 
@@ -180,7 +180,7 @@ export const useEditAnswer = (answerId: string) => {
 		await setError('')
 		if (factory.value.valid && !loading.value) {
 			try {
-				setLoading(true)
+				await setLoading(true)
 				await EditAnswer.call(answerId, factory.value)
 				setMessage('Answer edited successfully')
 				factory.value.reset()
@@ -193,7 +193,7 @@ export const useEditAnswer = (answerId: string) => {
 			} catch (error) {
 				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		} else factory.value.validateAll()
 	}
 
@@ -214,14 +214,14 @@ export const useDeleteAnswer = (answerId: string) => {
 			confirmButtonText: 'Yes, delete'
 		})
 		if (accepted) {
-			setLoading(true)
+			await setLoading(true)
 			try {
 				await DeleteAnswer.call(answerId)
 				setMessage('Answer deleted successfully')
 			} catch (error) {
 				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		}
 	}
 

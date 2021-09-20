@@ -12,7 +12,7 @@ export const usePasswordResetRequest = () => {
 	const sendResetEmail = async () => {
 		await setError('')
 		if (factory.value.valid && !loading.value) {
-			setLoading(true)
+			await setLoading(true)
 			try {
 				await SendPasswordResetEmail.call(factory.value)
 				factory.value.reset()
@@ -20,7 +20,7 @@ export const usePasswordResetRequest = () => {
 			} catch (error) {
 				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		} else factory.value.validateAll()
 	}
 	return { factory, loading, message, error, sendResetEmail }
@@ -35,7 +35,7 @@ export const usePasswordReset = (token: string) => {
 	const resetPassword = async () => {
 		await setError('')
 		if (factory.value.valid && !loading.value) {
-			setLoading(true)
+			await setLoading(true)
 			try {
 				const user = await ResetPassword.call(token, factory.value)
 				setMessage('Password reset successfully!')
@@ -46,7 +46,7 @@ export const usePasswordReset = (token: string) => {
 					await router.replace('/auth/forgot')
 				} else await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		} else factory.value.validateAll()
 	}
 	return { factory, loading, message, error, resetPassword }

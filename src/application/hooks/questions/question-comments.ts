@@ -24,13 +24,13 @@ export const useQuestionCommentList = (questionId: string) => {
 	const fetchComments = async () => {
 		await global[questionId].setError('')
 		try {
-			global[questionId].setLoading(true)
+			await global[questionId].setLoading(true)
 			global[questionId].comments.value = (await GetQuestionComments.call(questionId)).results
 			global[questionId].fetched.value = true
 		} catch (error) {
 			await global[questionId].setError(error)
 		}
-		global[questionId].setLoading(false)
+		await global[questionId].setLoading(false)
 	}
 
 	const listener = useListener(async () => {
@@ -70,13 +70,13 @@ export const useCreateQuestionComments = (questionId: string) => {
 		await setError('')
 		if (factory.value.valid && !loading.value) {
 			try {
-				setLoading(true)
+				await setLoading(true)
 				await AddQuestionComment.call(questionId, factory.value)
 				factory.value.reset()
 			} catch (error) {
 				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		} else factory.value.validateAll()
 	}
 

@@ -22,14 +22,14 @@ export const useAdminsList = () => {
 	const fetchAdmins = async () => {
 		await global.setError('')
 		try {
-			global.setLoading(true)
+			await global.setLoading(true)
 			const admins = await GetAllAdmins.call()
 			admins.results.forEach(pushToAdminsList)
 			global.fetched.value = true
 		} catch (error) {
 			await global.setError(error)
 		}
-		global.setLoading(false)
+		await global.setLoading(false)
 	}
 	const filteredAdmins = computed({
 		get: () => global.admins.value.filter((admin) => {
@@ -63,7 +63,7 @@ export const useAdminRoles = () => {
 
 	const getUsersByEmail = async () => {
 		if (state.email) {
-			setLoading(true)
+			await setLoading(true)
 			try {
 				const users = await GetUsersByEmail.call(state.email.toLowerCase())
 				state.users = reactive(users.results)
@@ -71,7 +71,7 @@ export const useAdminRoles = () => {
 			} catch (error) {
 				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		}
 	}
 
@@ -90,7 +90,7 @@ export const useAdminRoles = () => {
 			confirmButtonText: 'Yes, continue'
 		})
 		if (accepted) {
-			setLoading(true)
+			await setLoading(true)
 			try {
 				await MakeAdmin.call(user.id)
 				user.isAdmin = true
@@ -100,7 +100,7 @@ export const useAdminRoles = () => {
 			} catch (error) {
 				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		}
 	}
 
@@ -113,7 +113,7 @@ export const useAdminRoles = () => {
 			confirmButtonText: 'Yes, continue'
 		})
 		if (accepted) {
-			setLoading(true)
+			await setLoading(true)
 			try {
 				await RemoveAdmin.call(user.id)
 				global.admins.value = global.admins.value
@@ -122,7 +122,7 @@ export const useAdminRoles = () => {
 			} catch (error) {
 				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		}
 	}
 

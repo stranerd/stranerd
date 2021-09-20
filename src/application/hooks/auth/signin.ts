@@ -25,7 +25,7 @@ export const useGoogleSignin = () => {
 	const signin = async (idToken: string) => {
 		await setError('')
 		if (!loading.value) {
-			setLoading(true)
+			await setLoading(true)
 			try {
 				const user = await SigninWithGoogle.call(idToken, {
 					referrer: getReferrerId()
@@ -35,7 +35,7 @@ export const useGoogleSignin = () => {
 			} catch (error) {
 				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		}
 	}
 	return { loading, error, signin, setError }
@@ -49,7 +49,7 @@ export const useEmailSignin = () => {
 	const signin = async () => {
 		await setError('')
 		if (factory.value.valid && !loading.value) {
-			setLoading(true)
+			await setLoading(true)
 			try {
 				const user = await SigninWithEmail.call(factory.value, {
 					referrer: getReferrerId()
@@ -59,7 +59,7 @@ export const useEmailSignin = () => {
 			} catch (error) {
 				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		} else factory.value.validateAll()
 	}
 	return { factory, loading, error, signin }
@@ -73,7 +73,7 @@ export const useEmailSignup = () => {
 	const signup = async () => {
 		await setError('')
 		if (factory.value.valid && !loading.value) {
-			setLoading(true)
+			await setLoading(true)
 			try {
 				const user = await SignupWithEmail.call(factory.value, {
 					referrer: getReferrerId()
@@ -83,7 +83,7 @@ export const useEmailSignup = () => {
 			} catch (error) {
 				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		} else factory.value.validateAll()
 	}
 	return { factory, loading, error, signup }
@@ -95,7 +95,7 @@ export const useCompleteEmailVerification = (token: string) => {
 	const { loading, setLoading } = useLoadingHandler()
 	const completeVerification = async () => {
 		await setError('')
-		setLoading(true)
+		await setLoading(true)
 		try {
 			const user = await CompleteEmailVerification.call(token)
 			await createSession(user, router)
@@ -106,7 +106,7 @@ export const useCompleteEmailVerification = (token: string) => {
 				await router.replace('/auth/signin')
 			} else await setError(error)
 		}
-		setLoading(false)
+		await setLoading(false)
 	}
 	return { loading, error, completeVerification }
 }
@@ -120,14 +120,14 @@ export const useEmailVerificationRequest = () => {
 		const email = useAuth().auth.value?.email
 		if (!email) return
 		await setError('')
-		setLoading(true)
+		await setLoading(true)
 		try {
 			await SendVerificationEmail.call(email)
 			setMessage(`A verification email was just sent to ${email}. Proceed to your email to complete your verification.`)
 		} catch (error) {
 			await setError(error)
 		}
-		setLoading(false)
+		await setLoading(false)
 	}
 
 	return {

@@ -27,7 +27,7 @@ export const useUserAnswerList = (id: string) => {
 		await global[id].setError('')
 		if (!id) return
 		try {
-			global[id].setLoading(true)
+			await global[id].setLoading(true)
 			const lastDate = global[id].answers.value[global[id].answers.value.length - 1]?.createdAt
 			const answers = await GetUserAnswers.call(id, lastDate)
 			global[id].hasMore.value = !!answers.pages.next
@@ -36,7 +36,7 @@ export const useUserAnswerList = (id: string) => {
 		} catch (error) {
 			await global[id].setError(error)
 		}
-		global[id].setLoading(false)
+		await global[id].setLoading(false)
 	}
 
 	useFetch(async () => {

@@ -78,7 +78,7 @@ export const useTagQuestionList = (tag: string) => {
 	const fetchQuestions = async () => {
 		await global[tag].setError('')
 		try {
-			global[tag].setLoading(true)
+			await global[tag].setLoading(true)
 			const lastDate = global[tag].questions.value[global[tag].questions.value.length - 1]?.createdAt
 			const questions = await GetTagQuestions.call(tag, lastDate)
 			global[tag].hasMore.value = !!questions.pages.next
@@ -87,7 +87,7 @@ export const useTagQuestionList = (tag: string) => {
 		} catch (error) {
 			await global[tag].setError(error)
 		}
-		global[tag].setLoading(false)
+		await global[tag].setLoading(false)
 	}
 
 	useFetch(async () => {

@@ -58,7 +58,7 @@ export const useUserQuestionList = (id: string) => {
 	const fetchQuestions = async () => {
 		await global[id].setError('')
 		try {
-			global[id].setLoading(true)
+			await global[id].setLoading(true)
 			const lastDate = global[id].questions.value[global[id].questions.value.length - 1]?.createdAt
 			const questions = await GetUserQuestions.call(id, lastDate)
 			global[id].hasMore.value = !!questions.pages.next
@@ -67,7 +67,7 @@ export const useUserQuestionList = (id: string) => {
 		} catch (error) {
 			await global[id].setError(error)
 		}
-		global[id].setLoading(false)
+		await global[id].setLoading(false)
 	}
 
 	useFetch(async () => {

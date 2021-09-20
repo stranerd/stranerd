@@ -21,7 +21,7 @@ export const useUser = (userId: string) => {
 	const fetchUser = async () => {
 		await global[userId].setError('')
 		try {
-			global[userId].setLoading(true)
+			await global[userId].setLoading(true)
 			// Dont fetch if it is the current auth user
 			// Instead get auth user details
 			if (id.value && id.value === userId) global[userId].user.value = user.value
@@ -30,7 +30,7 @@ export const useUser = (userId: string) => {
 		} catch (error) {
 			await global[userId].setError(error)
 		}
-		global[userId].setLoading(false)
+		await global[userId].setLoading(false)
 	}
 
 	useFetch(async () => {

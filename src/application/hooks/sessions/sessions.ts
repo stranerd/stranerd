@@ -30,7 +30,7 @@ export const useCreateSession = () => {
 		await setError('')
 		if (factory.value.valid && hasEnoughCoins.value && !loading.value) {
 			try {
-				setLoading(true)
+				await setLoading(true)
 				const sessionId = await AddSession.call(factory.value)
 				useSessionModal().closeCreateSession()
 				await router.push(`/sessions/${newSessionTutorIdBio?.id}`)
@@ -40,7 +40,7 @@ export const useCreateSession = () => {
 			} catch (error) {
 				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		} else factory.value.validateAll()
 	}
 
@@ -65,12 +65,12 @@ export const useSession = (sessionId: string) => {
 		})
 		if (accepted) {
 			try {
-				setLoading(true)
+				await setLoading(true)
 				if (sessionId) await CancelSession.call(sessionId)
 			} catch (error) {
 				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		}
 	}
 
@@ -85,13 +85,13 @@ export const useSession = (sessionId: string) => {
 		})
 		if (accepted) {
 			try {
-				setLoading(true)
+				await setLoading(true)
 				if (sessionId) await BeginSession.call(sessionId, true)
 				analytics.logEvent('session_accepted', { sessionId, accepted: true })
 			} catch (error) {
 				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		}
 	}
 
@@ -106,13 +106,13 @@ export const useSession = (sessionId: string) => {
 		})
 		if (accepted) {
 			try {
-				setLoading(true)
+				await setLoading(true)
 				if (sessionId) await BeginSession.call(sessionId, false)
 				analytics.logEvent('session_accepted', { sessionId, accepted: false })
 			} catch (error) {
 				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		}
 	}
 
@@ -134,7 +134,7 @@ export const useRateSession = () => {
 		if (!otherParticipantId) return
 		if (rating.value || review.value) {
 			await setError('')
-			setLoading(true)
+			await setLoading(true)
 			try {
 				await CreateReview.call({
 					tutorId: otherParticipantId,
@@ -145,7 +145,7 @@ export const useRateSession = () => {
 			} catch (error) {
 				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		}
 	}
 

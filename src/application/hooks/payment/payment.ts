@@ -20,7 +20,7 @@ export const useFlutterwavePayment = () => {
 
 	const pay = async (successful: boolean) => {
 		await setError('')
-		setLoading(true)
+		await setLoading(true)
 		try {
 			usePaymentModal().closeMakePayment()
 			await props.afterPayment?.(successful)
@@ -31,7 +31,7 @@ export const useFlutterwavePayment = () => {
 		} catch (e) {
 			await setError(e)
 		}
-		setLoading(false)
+		await setLoading(false)
 	}
 
 	return { error, loading, pay, amount: props.amount }
@@ -44,10 +44,10 @@ export const useStripePayment = () => {
 
 	const pay = async (token: string) => {
 		await setError('')
-		setLoading(true)
+		await setLoading(true)
 		try {
 			const stripe = await loadStripe(stripeConfig.publicKey)
-			if (!stripe) return setLoading(false)
+			if (!stripe) return await setLoading(false)
 			if (props.type === 'buyCoins') {
 				const { id, clientSecret } = await BuyCoinsWithStripe.call(
 					getLocalAmount(props.amount!),
@@ -71,7 +71,7 @@ export const useStripePayment = () => {
 		} catch (e) {
 			await setError(e)
 		}
-		setLoading(false)
+		await setLoading(false)
 	}
 
 	return { error, loading, pay, setLoading }

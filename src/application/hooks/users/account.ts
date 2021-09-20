@@ -21,14 +21,14 @@ export const useUpdateProfile = () => {
 		await setError('')
 		if (factory.value.valid && !loading.value) {
 			try {
-				setLoading(true)
+				await setLoading(true)
 				await UpdateProfile.call(factory.value)
 				await router.push('/account/')
 				setMessage('Profile updated successfully!')
 			} catch (error) {
 				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		} else factory.value.validateAll()
 	}
 
@@ -61,7 +61,7 @@ export const useBuyCoins = () => {
 			afterPayment: async (res: boolean) => {
 				if (res && !loading.value) {
 					try {
-						setLoading(true)
+						await setLoading(true)
 						useAccountModal().closeBuyCoins()
 						analytics.logEvent('buy_coins_end', {
 							amount: option.amount,
@@ -72,7 +72,7 @@ export const useBuyCoins = () => {
 					} catch (e) {
 						await setError(e)
 					}
-					setLoading(false)
+					await setLoading(false)
 				}
 			}
 		})

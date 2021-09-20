@@ -39,6 +39,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 	i {
-		font-size: 1.125rem;
+		font-size: 0.9rem;
 	}
 </style>

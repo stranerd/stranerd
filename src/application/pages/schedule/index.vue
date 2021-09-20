@@ -49,7 +49,7 @@ export default defineComponent({
 		height: 7.5rem;
 		border-radius: 12px;
 
-		&:hover{
+		&:hover {
 			box-shadow: 0 5px 10px rgba(19, 39, 64, 0.047);
 		}
 	}
@@ -67,10 +67,12 @@ export default defineComponent({
 	.year {
 		font-size: 36px;
 	}
-	.fs-7{
+
+	.fs-7 {
 		font-size: 1.875rem;
 	}
-	.fs-8{
+
+	.fs-8 {
 		font-size: 1.5rem;
 	}
 

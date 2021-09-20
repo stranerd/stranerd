@@ -1,7 +1,12 @@
 <template>
 	<NuxtLink to="/notifications">
 		<span class="position-relative">
-			<img alt="" class="head-icons" src="@app/assets/images/icons/notification.svg">
+			<Icon
+				class="head-icons"
+				class-name="head-icons"
+				size="s"
+				icon-name="bell"
+			/>
 			<i
 				v-if="notifications.filter((n) => !n.seen).length > 0"
 				class="fas fa-circle text-danger position-absolute"
@@ -26,3 +31,12 @@ export default defineComponent({
 	}
 })
 </script>
+
+<style scoped lang="scss">
+	.head-icons {
+		color: white;
+		@media (max-width: $md) {
+			color: $color-primary-dark;
+		}
+	}
+</style>

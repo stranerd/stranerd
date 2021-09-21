@@ -1,7 +1,7 @@
 <template>
 	<div class="layout-page">
 		<TopNavigation />
-		<section class="layout-body ps-lg-2 pe-lg-1-5">
+		<section class="layout-body ps-lg-2 pe-lg-1-5 mb-4">
 			<main class="layout-main">
 				<Nuxt />
 			</main>
@@ -9,6 +9,7 @@
 				<RightSidebar />
 			</section>
 		</section>
+		<MobileBottomNavigation />
 		<ModalBase />
 	</div>
 </template>
@@ -17,10 +18,11 @@
 import { defineComponent } from '@nuxtjs/composition-api'
 import RightSidebar from '@app/components/layouts/sidebars/RightSidebar.vue'
 import TopNavigation from '@app/components/layouts/topNavigations/DefaultTopNavigation.vue'
+import MobileBottomNavigation from '@app/components/layouts/bottomNavigations/MobileBottomNavigation.vue'
 
 export default defineComponent({
 	name: 'JustifiedLayout',
-	components: { TopNavigation, RightSidebar }
+	components: { TopNavigation, RightSidebar, MobileBottomNavigation }
 })
 </script>
 

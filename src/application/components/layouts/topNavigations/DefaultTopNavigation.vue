@@ -5,9 +5,9 @@
 				<span @click="showSearch = false">
 					<Icon
 						class="head-icons"
-						class-name="text-white head-icons"
+						class-name="text-dark head-icons"
 						size="l"
-						icon-name="close"
+						icon-name="close-thin"
 					/>
 				</span>
 				<SearchBar class="flex-grow-1" />
@@ -24,7 +24,9 @@
 
 				<NuxtLink to="/" class="mx-auto mx-md-0">
 					<Logo :secondary="false" class="logo" />
-					<Logo :secondary="true" class="sm-logo " />
+					<div class="sm-logo text-dark">
+						{{ $route.name }}
+					</div>
 				</NuxtLink>
 
 				<SearchBar class="middle-body mx-auto d-none d-lg-flex" />
@@ -260,6 +262,9 @@ export default defineComponent({
 
 	.sm-logo {
 		display: block;
+			font-size:1.125rem;
+		font-weight:600;
+		text-transform: capitalize;
 		@media (min-width: $md) {
 			display: none;
 		}

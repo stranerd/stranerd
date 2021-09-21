@@ -42,6 +42,7 @@ export default defineComponent({
 		return { loading, createQuestion, factory, error, coins }
 	},
 	head: {}
+
 })
 </script>
 

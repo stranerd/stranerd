@@ -1,7 +1,7 @@
 <template>
 	<div :key="$route.fullPath" class="layout-page">
 		<TopNavigation :show-left-menu="true" :show-right-menu="true" />
-		<section class="layout-body p-0 py-lg-3">
+		<section class="layout-body p-0 py-lg-3 mb-4">
 			<section class="layout-side-left">
 				<ProfileLeftSidebar />
 			</section>
@@ -14,6 +14,7 @@
 				<ProfileRightSidebar />
 			</section>
 		</section>
+		<MobileBottomNavigation />
 		<ModalBase />
 	</div>
 </template>
@@ -23,10 +24,11 @@ import { defineComponent } from '@nuxtjs/composition-api'
 import ProfileLeftSidebar from '@app/components/layouts/sidebars/ProfileLeftSidebar.vue'
 import ProfileRightSidebar from '@app/components/layouts/sidebars/ProfileRightSidebar.vue'
 import TopNavigation from '@app/components/layouts/topNavigations/DefaultTopNavigation.vue'
+import MobileBottomNavigation from '@app/components/layouts/bottomNavigations/MobileBottomNavigation.vue'
 
 export default defineComponent({
 	name: 'ProfileLayout',
-	components: { TopNavigation, ProfileRightSidebar, ProfileLeftSidebar }
+	components: { TopNavigation, ProfileRightSidebar, ProfileLeftSidebar, MobileBottomNavigation }
 })
 </script>
 

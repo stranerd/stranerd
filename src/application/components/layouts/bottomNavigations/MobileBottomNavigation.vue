@@ -17,17 +17,17 @@
 				<Icon
 					class="text-dark"
 					size="s"
-					icon-name="chat-outline"
+					:icon-name="$route.name=='sessions'?'chat':'chat-outline'"
 				/>
 			</div>
 		</NuxtLink>
 
-		<NuxtLink to="/">
+		<NuxtLink to="/questions/create">
 			<div class="mobile-bottom-nav__item">
 				<Icon
 					class="text-dark"
 					size="s"
-					icon-name="create-outline"
+					:icon-name="$route.name=='questions-create'?'create':'create-outline'"
 				/>
 			</div>
 		</NuxtLink>
@@ -42,12 +42,12 @@
 			</div>
 		</NuxtLink>
 
-		<NuxtLink to="/">
+		<NuxtLink to="/widgets">
 			<div class="mobile-bottom-nav__item">
 				<Icon
 					class="text-dark"
 					size="s"
-					icon-name="app-outline"
+					:icon-name="$route.name=='widgets'?'app':'app-outline'"
 				/>
 			</div>
 		</NuxtLink>
@@ -55,8 +55,22 @@
 </template>
 
 <script>
+import { useQuestionsModal } from '@app/hooks/core/modals'
+import { useRedirectToAuth } from '@app/hooks/auth/session'
+import { useAuth } from '@app/hooks/auth/auth'
+
 export default {
 
+	setup () {
+		const { isLoggedIn } = useAuth()
+		const { redirect } = useRedirectToAuth()
+		const askQuestion = () => {
+			if (isLoggedIn.value) useQuestionsModal().openAskQuestions()
+			else redirect()
+		}
+
+		return { askQuestion }
+	}
 }
 </script>
 
@@ -79,6 +93,7 @@ export default {
 		justify-content: space-around;
 		align-items: center;
 		height: 50px;
+		border-top: 1px solid $color-line;
 
 		// box-shadow: 0 -2px 5px -2px #333;
 		background-color: #fff;

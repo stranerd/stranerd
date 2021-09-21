@@ -6,6 +6,8 @@ export interface QuestionFromModel extends QuestionToModel {
 	userBio: UserBio
 	bestAnswers: string[]
 	answers: { id: string, userId: string }[]
+	isAnswered: boolean
+	creditable: number
 	commentsCount: number
 	createdAt: number
 	updatedAt: number

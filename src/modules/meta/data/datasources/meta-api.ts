@@ -17,7 +17,7 @@ export class MetaApiDataSource implements MetaBaseDataSource {
 			questions: QueryResults<QuestionFromModel>
 			answers: QueryResults<AnswerFromModel>
 			users: QueryResults<UserFromModel>
-		}>(`/search/${search}`, {})
+		}>(`/meta/search/${search}`, {})
 	}
 
 	async buyCoinsWithStripe (data: { amount: number; currency: string; gold: number; bronze: number }) {

@@ -2,13 +2,12 @@ import { SessionSignin } from '@modules/auth'
 import { useErrorHandler, useLoadingHandler } from '@app/hooks/core/states'
 import { isServer } from '@utils/environment'
 import { REDIRECT_SESSION_NAME } from '@utils/constants'
-import Cookie from 'cookie'
 import { AfterAuthUser } from '@modules/auth/domain/entities/auth'
 import { useContext } from '@nuxtjs/composition-api'
 import VueRouter from 'vue-router'
 import { useAuth } from '@app/hooks/auth/auth'
 import { Alert } from '@app/hooks/core/notifications'
-import { serialize } from '@utils/cookie'
+import { parseCookie, serializeToCookie } from '@utils/cookie'
 
 export const createSession = async (afterAuth: AfterAuthUser, router: VueRouter) => {
 	if (!afterAuth.user.isVerified) {
@@ -21,8 +20,8 @@ export const createSession = async (afterAuth: AfterAuthUser, router: VueRouter)
 	await setAuthUser(afterAuth.user)
 	await signin(false)
 
-	const { [REDIRECT_SESSION_NAME]: redirect } = Cookie.parse(document.cookie ?? '')
-	document.cookie = Cookie.serialize(REDIRECT_SESSION_NAME, '', { expires: new Date(0) })
+	const { [REDIRECT_SESSION_NAME]: redirect } = parseCookie(document.cookie ?? '')
+	document.cookie = serializeToCookie(REDIRECT_SESSION_NAME, '', -1)
 	await window.location.assign(redirect ?? '/dashboard')
 }
 
@@ -55,8 +54,8 @@ export const useRedirectToAuth = () => {
 	const { app, res, route } = useContext()
 
 	const redirect = () => {
-		if (isServer()) res.setHeader('Set-Cookie', serialize(REDIRECT_SESSION_NAME, route.value.fullPath))
-		else document.cookie = serialize(REDIRECT_SESSION_NAME, route.value.fullPath)
+		if (isServer()) res.setHeader('Set-Cookie', serializeToCookie(REDIRECT_SESSION_NAME, route.value.fullPath))
+		else document.cookie = serializeToCookie(REDIRECT_SESSION_NAME, route.value.fullPath)
 		if (app.router) app.router.push('/auth/signin')
 	}
 

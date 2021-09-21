@@ -18,12 +18,6 @@ export const firebaseConfig = {
 	measurementId: firebase.measurement_id
 }
 
-const algolia = JSON.parse(process.env.ALGOLIA ?? '{}')
-export const algoliaConfig = {
-	appId: algolia.app_id,
-	searchAPIKey: algolia.search_api_key
-}
-
 const flutterwave = JSON.parse(process.env.FLUTTERWAVE ?? '{}')
 export const flutterwaveConfig = {
 	publicKey: flutterwave.public_key

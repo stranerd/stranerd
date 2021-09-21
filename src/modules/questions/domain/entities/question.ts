@@ -1,7 +1,6 @@
 import { generateDefaultBio, UserBio } from '@modules/users'
 import { BaseEntity } from '@modules/core'
 import { extractTextFromHTML, getStringCount, trimToLength } from '@utils/commons'
-import { BEST_ANSWERS_COUNT, QUESTION_DISCOUNT } from '@utils/constants'
 
 export class QuestionEntity extends BaseEntity {
 	public readonly id: string
@@ -14,11 +13,13 @@ export class QuestionEntity extends BaseEntity {
 	public readonly bestAnswers: string[]
 	public readonly answers: { id: string, userId: string }[]
 	public readonly commentsCount: number
+	public readonly creditable: number
+	public readonly isAnswered: boolean
 	public readonly createdAt: number
 	public readonly updatedAt: number
 
 	constructor ({
-		             id, body, coins, subjectId,
+		             id, body, coins, subjectId, creditable, isAnswered,
 		             bestAnswers, createdAt, userId, userBio,
 		             answers, commentsCount, tags, updatedAt
 	             }: QuestionConstructorArgs) {
@@ -26,6 +27,8 @@ export class QuestionEntity extends BaseEntity {
 		this.id = id
 		this.body = body
 		this.coins = coins
+		this.creditable = creditable
+		this.isAnswered = isAnswered
 		this.tags = tags
 		this.subjectId = subjectId
 		this.userId = userId
@@ -35,14 +38,6 @@ export class QuestionEntity extends BaseEntity {
 		this.commentsCount = commentsCount ?? 0
 		this.createdAt = createdAt
 		this.updatedAt = updatedAt
-	}
-
-	get isAnswered () {
-		return this.bestAnswers.length > 0
-	}
-
-	get creditable () {
-		return Math.floor(this.coins * QUESTION_DISCOUNT / BEST_ANSWERS_COUNT)
 	}
 
 	get userName () {
@@ -82,6 +77,8 @@ type QuestionConstructorArgs = {
 	id: string
 	body: string
 	coins: number
+	creditable: number
+	isAnswered: boolean
 	tags: string[]
 	subjectId: string
 	userId: string

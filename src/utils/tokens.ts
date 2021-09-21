@@ -7,7 +7,7 @@ import {
 } from '@utils/constants'
 import { AfterAuthUser } from '@modules/auth/domain/entities/auth'
 import { isClient } from '@utils/environment'
-import Cookie from 'cookie'
+import { serializeToCookie } from '@utils/cookie'
 
 type Tokens = {
 	accessToken: string | null
@@ -29,24 +29,19 @@ export const getTokens = async (): Promise<Tokens> => ({
 	refreshToken: tokens.refreshToken
 })
 
-const setCookie = (key: string, value: string, ttlInSec: number) => {
-	if (isClient()) document.cookie = Cookie.serialize(key, value, {
-		maxAge: ttlInSec,
-		secure: true,
-		sameSite: 'lax',
-		path: '/'
-	})
-}
-
 export const saveTokensToCookies = async ({ accessToken, refreshToken, user }: AfterAuthUser) => {
 	await saveTokens({ accessToken, refreshToken })
-	setCookie(ACCESS_TOKEN_NAME, accessToken, ACCESS_TOKEN_TTL)
-	setCookie(REFRESH_TOKEN_NAME, refreshToken, REFRESH_TOKEN_TTL)
-	setCookie(USER_SESSION_NAME, JSON.stringify(user), ACCESS_TOKEN_TTL)
+	if (isClient()) {
+		document.cookie = serializeToCookie(ACCESS_TOKEN_NAME, accessToken, ACCESS_TOKEN_TTL)
+		document.cookie = serializeToCookie(REFRESH_TOKEN_NAME, refreshToken, REFRESH_TOKEN_TTL)
+		document.cookie = serializeToCookie(USER_SESSION_NAME, JSON.stringify(user), ACCESS_TOKEN_TTL)
+	}
 }
 
 export const deleteTokensFromCookies = async () => {
-	setCookie(ACCESS_TOKEN_NAME, '', -1)
-	setCookie(REFRESH_TOKEN_NAME, '', -1)
-	setCookie(USER_SESSION_NAME, '', -1)
+	if (isClient()) {
+		document.cookie = serializeToCookie(ACCESS_TOKEN_NAME, '', -1)
+		document.cookie = serializeToCookie(REFRESH_TOKEN_NAME, '', -1)
+		document.cookie = serializeToCookie(USER_SESSION_NAME, '', -1)
+	}
 }

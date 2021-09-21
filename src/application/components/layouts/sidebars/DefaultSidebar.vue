@@ -21,14 +21,14 @@
 				<span>Questions</span>
 			</NuxtLink>
 
-			<!-- <NuxtLink class="sidebar-link" to="/nerds">
+			<NuxtLink class="sidebar-link" to="/nerds">
 				<Icon
 					class=" me-1-5"
 					size="s"
 					icon-name="study"
 				/>
 				<span>Study</span>
-			</NuxtLink> -->
+			</NuxtLink>
 
 			<NuxtLink class="sidebar-link" to="/nerds">
 				<Icon
@@ -39,23 +39,23 @@
 				<span>Tutors</span>
 			</NuxtLink>
 
-			<!-- <NuxtLink class="sidebar-link" to="/nerds">
+			<NuxtLink class="sidebar-link" to="/nerds">
 				<Icon
 					class=" me-1-5"
 					size="s"
 					icon-name="class"
 				/>
 				<span>Class</span>
-			</NuxtLink> -->
+			</NuxtLink>
 
-			<!-- <NuxtLink class="sidebar-link" to="/schedule">
+			<NuxtLink class="sidebar-link" to="/schedule">
 				<Icon
 					class=" me-1-5"
 					size="s"
 					icon-name="schedule"
 				/>
 				<span>Schedule</span>
-			</NuxtLink> -->
+			</NuxtLink>
 
 			<NuxtLink class="sidebar-link" to="/account/e-wallet">
 				<Icon

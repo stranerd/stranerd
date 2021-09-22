@@ -262,8 +262,8 @@ export default defineComponent({
 
 	.sm-logo {
 		display: block;
-			font-size:1.125rem;
-		font-weight:600;
+		font-size: 1.125rem;
+		font-weight: 600;
 		text-transform: capitalize;
 		@media (min-width: $md) {
 			display: none;

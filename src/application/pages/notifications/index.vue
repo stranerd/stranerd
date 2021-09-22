@@ -32,8 +32,8 @@ export default defineComponent({
 		background: $color-white;
 		border: 1px solid $color-line;
 		border-radius: 6px;
-				@media (max-width: $sm) {
-			border:none;
+		@media (max-width: $sm) {
+			border: none;
 		}
 	}
 </style>

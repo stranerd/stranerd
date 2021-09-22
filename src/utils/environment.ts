@@ -1,5 +1,5 @@
 export const appName = 'stranerd'
-export const isDev = process.env.ENVIRONMENT === 'development'
+export const isDev = process.env.ENVIRONMENT === 'local'
 
 export const isServer = () => process.server
 export const isClient = () => process.client
@@ -28,7 +28,7 @@ export const stripeConfig = {
 	publicKey: stripe.public_key
 }
 
-export const host = (process.env.DOMAIN ?? '') + (isDev ? `:${process.env.PORT}` : '')
+const host = (process.env.DOMAIN ?? '') + (isDev ? `:${process.env.PORT}` : '')
 export const domain = `http${!isDev ? 's' : ''}://${host}`
 export const logo = `${domain}/images/logo-blue.svg`
 

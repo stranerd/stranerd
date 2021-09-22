@@ -67,6 +67,7 @@ export const DecodeSessionCookieMiddleware = async (req: Request, res: Response,
 const setCookie = (res: Response, key: string, value: any) => res.cookie(key, value, {
 	maxAge: 14 * 24 * 60 * 60 * 1000,
 	httpOnly: true,
+	path: '/',
 	sameSite: 'lax'
 })
 

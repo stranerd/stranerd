@@ -5,9 +5,13 @@
 		background-class="modal-background"
 		modal-class="modal-inner"
 	>
-		<div class="d-flex justify-content-end">
-			<a class="fas fa-times" style="font-size: 1.5rem;" @click.prevent="closeModal" />
+		<div class="w-100 d-flex ">
+			<slot name="headerOption" class="float-left me-auto" />
+			<div class="float-right ms-auto">
+				<a class="fas fa-times" style="font-size: 1.5rem;" @click.prevent="closeModal" />
+			</div>
 		</div>
+
 		<Heading class="my-1" variant="3">
 			<slot name="title">
 				Title

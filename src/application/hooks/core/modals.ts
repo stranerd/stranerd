@@ -12,7 +12,7 @@ import ReportUser from '@app/components/modals/reports/ReportUser.vue'
 import ReportQuestion from '@app/components/modals/reports/ReportQuestion.vue'
 import ReportAnswer from '@app/components/modals/reports/ReportAnswer.vue'
 import AskQuestions from '@app/components/modals/questions/AskQuestions.vue'
-import ListOpenings from '@app/components/modals/schedule/ListOpenings.vue'
+import CreateOpening from '@app/components/modals/schedule/createOpening.vue'
 import ManageOpenings from '@app/components/modals/schedule/ManageOpenings.vue'
 import RequestSession from '@app/components/modals/schedule/RequestSession.vue'
 import ScheduleManager from '@app/components/modals/schedule/ScheduleManager.vue'
@@ -23,7 +23,7 @@ type SessionTypes = 'CreateSession' | 'Ratings'
 type PaymentTypes = 'MakePayment'
 type ReportTypes = 'ReportUser' | 'ReportQuestion' | 'ReportAnswer'
 type QuestionTypes = 'AskQuestions'
-type ScheduleTypes = 'ListOpenings' | 'ManageOpenings' | 'RequestSession' | 'ScheduleManager'
+type ScheduleTypes = 'CreateOpening' | 'ManageOpenings' | 'RequestSession' | 'ScheduleManager'
 
 const AccountModals = { BuyCoins, TipTutor, WithdrawCoins } as Record<AccountTypes, any>
 const MenuModals = { RightSidebar, Sidebar } as Record<MenuTypes, any>
@@ -31,7 +31,7 @@ const SessionModals = { CreateSession, Ratings } as Record<SessionTypes, any>
 const PaymentModals = { MakePayment } as Record<PaymentTypes, any>
 const ReportModals = { ReportUser, ReportQuestion, ReportAnswer } as Record<ReportTypes, any>
 const QuestionModals = { AskQuestions } as Record<QuestionTypes, any>
-const ScheduleModals = { ListOpenings, ManageOpenings, RequestSession, ScheduleManager } as Record<ScheduleTypes, any>
+const ScheduleModals = { CreateOpening, ManageOpenings, RequestSession, ScheduleManager } as Record<ScheduleTypes, any>
 
 export const modal = useModal(ssrRef([] as string[]))
 const accountModal = modal.register('Account', AccountModals)

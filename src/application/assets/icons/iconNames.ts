@@ -4,6 +4,7 @@ export enum IconNames {
   'admin' = 'admin',
   'app-outline' = 'app-outline',
   'app' = 'app',
+  'arrow-left-thin' = 'arrow-left-thin',
   'arrow-left' = 'arrow-left',
   'arrow-right' = 'arrow-right',
   'bell-outline' = 'bell-outline',
@@ -15,6 +16,7 @@ export enum IconNames {
   'close' = 'close',
   'create-outline' = 'create-outline',
   'create' = 'create',
+  'createSchedule' = 'createSchedule',
   'e-wallet' = 'e-wallet',
   'equal-to' = 'equal-to',
   'filter' = 'filter',
@@ -28,5 +30,6 @@ export enum IconNames {
   'schedule' = 'schedule',
   'search' = 'search',
   'study' = 'study',
-  'tutors' = 'tutors'
+  'tutors' = 'tutors',
+  'viewOpenings' = 'viewOpenings'
 }

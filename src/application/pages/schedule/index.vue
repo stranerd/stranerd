@@ -3,7 +3,7 @@
 		<div class="d-flex justify-content-between align-items-end">
 			<span class="date">Tuesday, August 10</span>
 			<span class="year fw-bold text-primary-dark">2021</span>
-			<span class="name text-primary">Schedule Manager</span>
+			<span class="name text-primary pe-auto cursor-pointer" @click="openScheduler">Schedule Manager</span>
 		</div>
 
 		<div class="scheduler shadow w-100 p-2  justify-content-between align-items-center mb-3 mt-0-5 d-none d-sm-flex">
@@ -60,11 +60,25 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 import Calendar from '@app/components/schedule/Calendar.vue'
+import { useAuth } from '@app/hooks/auth/auth'
+import { useScheduleModal } from '@app/hooks/core/modals'
+import { useRedirectToAuth } from '@app/hooks/auth/session'
 
 export default defineComponent({
 	name: 'QuestionsList',
 	components: { Calendar },
-	layout: 'dashboard'
+	layout: 'dashboard',
+
+	setup () {
+		const { redirect } = useRedirectToAuth()
+		const { isLoggedIn } = useAuth()
+		const openScheduler = () => {
+			if (isLoggedIn.value) useScheduleModal().openScheduleManager()
+			else redirect()
+		}
+
+		return { openScheduler }
+	}
 
 })
 </script>

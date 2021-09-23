@@ -76,6 +76,10 @@ export default {
 		width: 3rem;
 	}
 
+	.xxxl {
+		width: 6.5rem;
+	}
+
 	.auto {
 		width: 100%;
 	}

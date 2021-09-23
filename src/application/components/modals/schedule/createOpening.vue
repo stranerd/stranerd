@@ -13,9 +13,9 @@
 			</div>
 		</template>
 		<template slot="title">
-			<div class="w-100 d-flex align-items-center justify-content-between">
-				Manage your openings
-			</div>
+			<span class="text-32">
+				List an opening
+			</span>
 		</template>
 		<span class="text-18 mt-n-2">Let student know what exact time in the future you would be available to tutor.</span>
 

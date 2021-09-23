@@ -68,49 +68,48 @@ export default {
 
 <style scoped lang="scss">
 
-table{
-	width: 100%;
-	height: 100%;
-}
-.container {
-  border-radius: 15px;
-  box-shadow: 8px 8px 8px #d0d3d4, -0.6em 0 0.8em #f8f9f9;
-  padding: 15px;
-  display: inline-block; /*NP*/
- justify-content: center;
- align-items: center;
-  min-height: 13rem;
-}
+	table {
+		width: 100%;
+		height: 100%;
+	}
 
-th,
-tr,
-td {
-  width: 2rem;
-  height: 2rem;
-  text-align: center;
-}
+	.container {
+		border-radius: 15px;
+		box-shadow: 8px 8px 8px #d0d3d4, -0.6em 0 0.8em #f8f9f9;
+		padding: 15px;
+		display: inline-block; /* NP */
+		justify-content: center;
+		align-items: center;
+		min-height: 13rem;
+	}
 
-td {
-  padding: 7px;
-  margin: 2px;
-  cursor: pointer;
-}
+	th, tr, td {
+		width: 2rem;
+		height: 2rem;
+		text-align: center;
+	}
 
-tr {
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
+	td {
+		padding: 7px;
+		margin: 2px;
+		cursor: pointer;
+	}
 
-th {
-  font-weight: 600;
-}
+	tr {
+		padding-top: 8px;
+		padding-bottom: 8px;
+	}
 
-.marked {
-  background-color: $color-primary;
-  color: #fff;
-  border-radius: 6px;
-   width: 24px;
-  height: 24px;
-  box-shadow: 2px 2px 2px #a6acaf, -1em 0 0.8em #f8f9f9;
-}
+	th {
+		font-weight: 600;
+	}
+
+	.marked {
+		background-color: $color-primary;
+		color: #fff;
+		border-radius: 6px;
+		width: 24px;
+		height: 24px;
+		box-shadow: 2px 2px 2px #a6acaf, -1em 0 0.8em #f8f9f9;
+	}
 </style>

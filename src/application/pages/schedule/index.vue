@@ -70,31 +70,34 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.dot{
-	height: 6px;
-	width: 6px;
-	border-radius: 100%;
-}
-.detail_tab{
-	height:9rem;
-	border-radius: 12px;
+	.dot {
+		height: 6px;
+		width: 6px;
+		border-radius: 100%;
+	}
+
+	.detail_tab {
+		height: 9rem;
+		border-radius: 12px;
 		@media (max-width: $sm) {
 			flex-direction: column;
 			height: fit-content;
 			border-radius: 0;
 		}
-	.date{
-		width: 9rem;
-		height:9rem;
-		border-radius: 12px 0 0 12px;
-		font-size: 1.875rem;
-		@media (max-width: $sm) {
-			width: 100%;
-		height:4rem;
-		border-radius: 12px 12px 0 0;
+
+		.date {
+			width: 9rem;
+			height: 9rem;
+			border-radius: 12px 0 0 12px;
+			font-size: 1.875rem;
+			@media (max-width: $sm) {
+				width: 100%;
+				height: 4rem;
+				border-radius: 12px 12px 0 0;
+			}
 		}
 	}
-}
+
 	.date_tab {
 		width: 6.5rem;
 		height: 6.5rem;
@@ -113,16 +116,16 @@ export default defineComponent({
 	.date {
 		font-size: 18px;
 		font-size: 400;
-			@media (max-width: $sm) {
-				font-size: 11px;
-			}
+		@media (max-width: $sm) {
+			font-size: 11px;
+		}
 	}
 
 	.year {
 		font-size: 36px;
-			@media (max-width: $sm) {
-				font-size: 11px;
-			}
+		@media (max-width: $sm) {
+			font-size: 11px;
+		}
 	}
 
 	.fs-7 {

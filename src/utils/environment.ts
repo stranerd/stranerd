@@ -6,26 +6,16 @@ export const isClient = () => process.client
 
 export const googleClientId = process.env.GOOGLE_CLIENT_ID ?? ''
 
-const firebase = JSON.parse(process.env.FIREBASE_CLIENT_CONFIG ?? '{}')
-export const firebaseConfig = {
-	apiKey: firebase.api_key,
-	authDomain: firebase.auth_domain,
-	databaseURL: firebase.database_url,
-	projectId: firebase.project_id,
-	storageBucket: firebase.storage_bucket,
-	messagingSenderId: firebase.messaging_sender_id,
-	appId: firebase.app_id,
-	measurementId: firebase.measurement_id
-}
+export const firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG ?? '{}')
 
 const flutterwave = JSON.parse(process.env.FLUTTERWAVE ?? '{}')
 export const flutterwaveConfig = {
-	publicKey: flutterwave.public_key
+	publicKey: flutterwave.publicKey
 }
 
 const stripe = JSON.parse(process.env.STRIPE ?? '{}')
 export const stripeConfig = {
-	publicKey: stripe.public_key
+	publicKey: stripe.publicKey
 }
 
 const host = (process.env.DOMAIN ?? '') + (isDev ? `:${process.env.PORT}` : '')

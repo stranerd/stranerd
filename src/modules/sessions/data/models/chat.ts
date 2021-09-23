@@ -1,29 +1,17 @@
 import { Media } from '@modules/core'
-import { UserBio } from '@modules/users'
 
-export interface ChatFromModel {
+export interface ChatFromModel extends ChatToModel {
 	id: string
-	content?: string
-	media?: Media
 	from: string
-	sessionId?: string
-	readAt?: number,
-	dates: {
-		createdAt: number,
-	}
+	path: [string, string]
+	readAt: number | null,
+	createdAt: number
+	updatedAt: number
 }
 
 export interface ChatToModel {
-	content?: string
-	media?: Media
-	from: string
-	sessionId?: string
-	readAt?: number,
-}
-
-export interface ChatMeta {
-	id: string
-	unRead: Record<string, boolean>,
-	last: ChatFromModel,
-	bio: UserBio
+	content: string | null
+	media: Media | null
+	sessionId: string | null
+	to: string
 }

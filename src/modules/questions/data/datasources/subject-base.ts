@@ -1,10 +1,12 @@
-import { DatabaseGetClauses } from '@modules/core'
+import { Listeners, QueryParams, QueryResults } from '@modules/core'
 import { SubjectFromModel, SubjectToModel } from '../models/subject'
 
-export abstract class SubjectBaseDataSource {
-	abstract add: (data: SubjectToModel) => Promise<string>
-	abstract update: (id: string, data: SubjectToModel) => Promise<void>
-	abstract get: (condition?: DatabaseGetClauses) => Promise<SubjectFromModel[]>
-	abstract find: (id: string) => Promise<SubjectFromModel | null>
-	abstract delete: (id: string) => Promise<void>
+export interface SubjectBaseDataSource {
+	add: (data: SubjectToModel) => Promise<string>
+	get: (query: QueryParams) => Promise<QueryResults<SubjectFromModel>>
+	find: (id: string) => Promise<SubjectFromModel | null>
+	delete: (id: string) => Promise<void>
+	update: (id: string, data: SubjectToModel) => Promise<void>
+	listenToOne: (id: string, listener: Listeners<SubjectFromModel>) => Promise<() => void>
+	listenToMany: (query: QueryParams, listener: Listeners<SubjectFromModel>) => Promise<() => void>
 }

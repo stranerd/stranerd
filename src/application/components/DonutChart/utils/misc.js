@@ -58,3 +58,5 @@ export function sectionValidator (section) {
 		return acc && valid
 	}, true)
 }
+
+export default null

@@ -1,57 +1,41 @@
-import { ssrRef, useFetch, watch } from '@nuxtjs/composition-api'
+import { ssrRef, useFetch } from '@nuxtjs/composition-api'
 import {
 	AddAnswerReport,
 	AnswerReportEntity,
-	AnswerReportFactory,
-	AnswerReportType,
 	DeleteAnswerReport,
-	GetAnswerReports
+	GetAnswerReports,
+	ReportFactory,
+	ReportType
 } from '@modules/reports'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useReportModal } from '@app/hooks/core/modals'
-import { useAuth } from '@app/hooks/auth/auth'
-import { AnswerEntity } from '@modules/questions'
-import { PAGINATION_LIMIT } from '@utils/constants'
 import { Alert } from '../core/notifications'
 
-let reportedEntity = null as { id: string, reported: AnswerReportType } | null
-export const setReportedEntity = (answer: AnswerEntity) => {
-	reportedEntity = {
-		id: answer.id,
-		reported: {
-			title: answer.title,
-			body: answer.body,
-			questionId: answer.questionId,
-			userId: answer.userId
-		}
-	}
-}
+let reportedEntity = null as string | null
+export const setReportedEntity = (answerId: string) => reportedEntity = answerId
 
 export const useCreateReport = () => {
-	const { id, bio } = useAuth()
-	const factory = ssrRef(new AnswerReportFactory())
+	const factory = ssrRef(new ReportFactory())
 	const { message, setMessage } = useSuccessHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
 
-	factory.value.reporterBioAndId = { id: id.value!, bio: bio.value! }
-	watch(() => id.value, () => factory.value.reporterBioAndId = { id: id.value!, bio: bio.value! })
-	watch(() => bio.value, () => factory.value.reporterBioAndId = { id: id.value!, bio: bio.value! })
-	factory.value.reported = reportedEntity!
+	factory.value.type = ReportType.answers
+	factory.value.reportedId = reportedEntity!
 
 	const createReport = async () => {
-		setError('')
+		await setError('')
 		if (factory.value.valid && !loading.value) {
 			try {
-				setLoading(true)
+				await setLoading(true)
 				await AddAnswerReport.call(factory.value)
 				useReportModal().closeReportAnswer()
 				factory.value.reset()
-				setMessage('Report sent successfully')
+				await setMessage('Report sent successfully')
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		} else factory.value.validateAll()
 	}
 
@@ -69,26 +53,32 @@ const global = {
 	...useLoadingHandler()
 }
 
-const pushToReportList = (report: AnswerReportEntity) => {
+/* const pushToReportList = (report: AnswerReportEntity) => {
+ const index = global.reports.value.findIndex((r) => r.id === report.id)
+ if (index !== -1) global.reports.value.splice(index, 1, report)
+ else global.reports.value.push(report)
+ } */
+
+const unshiftToReportList = (report: AnswerReportEntity) => {
 	const index = global.reports.value.findIndex((r) => r.id === report.id)
 	if (index !== -1) global.reports.value.splice(index, 1, report)
-	else global.reports.value.push(report)
+	else global.reports.value.unshift(report)
 }
 
 export const useReportsList = () => {
 	const fetchReports = async () => {
-		global.setError('')
+		await global.setError('')
 		try {
-			global.setLoading(true)
-			const lastDate = global.reports.value[global.reports.value.length - 1]?.createdAt
+			await global.setLoading(true)
+			const lastDate = global.reports.value[0]?.createdAt
 			const reports = await GetAnswerReports.call(lastDate)
-			global.hasMore.value = reports.length === PAGINATION_LIMIT + 1
-			reports.slice(0, PAGINATION_LIMIT).forEach(pushToReportList)
+			global.hasMore.value = !!reports.pages.next
+			reports.results.forEach(unshiftToReportList)
 			global.fetched.value = true
 		} catch (error) {
-			global.setError(error)
+			await global.setError(error)
 		}
-		global.setLoading(false)
+		await global.setLoading(false)
 	}
 
 	useFetch(async () => {
@@ -104,7 +94,7 @@ export const useDeleteReport = (id: string) => {
 	const { setMessage } = useSuccessHandler()
 
 	const deleteReport = async () => {
-		setError('')
+		await setError('')
 		const accepted = await Alert({
 			title: 'Are you sure you want to remove this report?',
 			text: 'This cannot be reversed',
@@ -112,16 +102,16 @@ export const useDeleteReport = (id: string) => {
 			confirmButtonText: 'Yes, remove'
 		})
 		if (accepted) {
-			setLoading(true)
+			await setLoading(true)
 			try {
 				await DeleteAnswerReport.call(id)
 				global.reports.value = global.reports.value
 					.filter((r) => r.id !== id)
-				setMessage('Report deleted successfully')
+				await setMessage('Report deleted successfully')
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		}
 	}
 

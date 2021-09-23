@@ -1,7 +1,10 @@
 import Cookie from 'cookie'
 
-export const serialize = (name: string, value: string) => Cookie.serialize(name, value, {
-	maxAge: 3600,
+export const serializeToCookie = (name: string, value: string, ttlInSecs = 3600) => Cookie.serialize(name, value, {
+	maxAge: ttlInSecs,
 	path: '/',
-	sameSite: 'lax'
+	sameSite: 'lax',
+	secure: true
 })
+
+export const parseCookie = (value: string) => Cookie.parse(value)

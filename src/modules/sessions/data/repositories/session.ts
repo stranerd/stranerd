@@ -1,8 +1,8 @@
-import { FirestoreGetClauses } from '@modules/core'
+import { Listeners, QueryParams } from '@modules/core'
 import { SessionBaseDataSource } from '../datasources/session-base'
 import { SessionTransformer } from '../transformers/session'
 import { ISessionRepository } from '../../domain/irepositories/isession'
-import { SessionFromModel, SessionToModel } from '../models/session'
+import { SessionToModel } from '../models/session'
 import { SessionEntity } from '../../domain/entities/session'
 
 export class SessionRepository implements ISessionRepository {
@@ -14,13 +14,16 @@ export class SessionRepository implements ISessionRepository {
 		this.transformer = transformer
 	}
 
-	async add (data: Partial<SessionToModel>) {
+	async add (data: SessionToModel) {
 		return await this.dataSource.create(data)
 	}
 
-	async get (conditions?: FirestoreGetClauses) {
-		const models = await this.dataSource.get(conditions)
-		return models.map(this.transformer.fromJSON)
+	async get (query: QueryParams) {
+		const models = await this.dataSource.get(query)
+		return {
+			...models,
+			results: models.results.map(this.transformer.fromJSON)
+		}
 	}
 
 	async find (id: string) {
@@ -28,18 +31,35 @@ export class SessionRepository implements ISessionRepository {
 		return model ? this.transformer.fromJSON(model) : model
 	}
 
-	async listenToOne (id: string, callback: (entity: SessionEntity | null) => void) {
-		const listenCB = (document: SessionFromModel | null) => callback(
-			document ? this.transformer.fromJSON(document) : null
-		)
-		return await this.dataSource.listenToOne(id, listenCB)
+	async listenToOne (id: string, listener: Listeners<SessionEntity>) {
+		return this.dataSource.listenToOne(id, {
+			created: async (model) => {
+				await listener.created(this.transformer.fromJSON(model))
+			},
+			updated: async (model) => {
+				await listener.updated(this.transformer.fromJSON(model))
+			},
+			deleted: async (model) => {
+				await listener.deleted(this.transformer.fromJSON(model))
+			}
+		})
 	}
 
-	async listenToMany (callback: (entities: SessionEntity[]) => void, conditions?: FirestoreGetClauses) {
-		const listenCB = (documents: SessionFromModel[]) => callback(
-			documents.map(this.transformer.fromJSON)
-		)
-		return await this.dataSource.listenToMany(listenCB, conditions)
+	async listenToMany (query: QueryParams, listener: Listeners<SessionEntity>, matches: (entity: SessionEntity) => boolean) {
+		return this.dataSource.listenToMany(query, {
+			created: async (model) => {
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.created(entity)
+			},
+			updated: async (model) => {
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.updated(entity)
+			},
+			deleted: async (model) => {
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.deleted(entity)
+			}
+		})
 	}
 
 	async accept (id: string, accepted: boolean) {

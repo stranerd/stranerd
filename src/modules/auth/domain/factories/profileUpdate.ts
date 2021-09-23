@@ -1,46 +1,47 @@
 import { BaseFactory, Media } from '@modules/core'
 import {
-	hasLessThan,
+	hasLessThanX,
+	isArrayOfX,
 	isEmail,
 	isImage,
-	isLongerThan,
+	isInvalid,
+	isLongerThanX,
 	isRequiredIf,
 	isShallowEqualTo,
-	isShorterThan
-} from 'sd-validate/lib/rules'
+	isShorterThanX,
+	isString,
+	isValid
+} from '@stranerd/validate'
 import { UserEntity } from '@modules/users'
 import { UpdateUser } from '../entities/auth'
 
 type Content = File | Media | undefined
-type Keys = { first: string, last: string, email: string, description: string, avatar: Content, password: string | undefined, cPassword: string | undefined, strongestSubject: string, weakerSubjects: string[] }
-const isLongerThan2 = (value: string) => isLongerThan(value, 2)
-const isLongerThan5 = (value: string) => isLongerThan(value, 5)
-const isShorterThan17 = (value: string) => isShorterThan(value, 17)
-const hasLessThan4 = (value: string[]) => hasLessThan(value, 4)
+type Keys = { first: string, last: string, email: string, description: string, avatar: Content, oldPassword: string | undefined, password: string | undefined, cPassword: string | undefined, strongestSubject: string, weakerSubjects: string[] }
 
 export class ProfileUpdateFactory extends BaseFactory<UserEntity, UpdateUser, Keys> {
 	readonly rules = {
-		first: { required: true, rules: [isLongerThan2] },
-		last: { required: true, rules: [isLongerThan2] },
-		email: { required: true, rules: [isEmail] },
-		description: { required: true, rules: [] },
+		first: { required: true, rules: [isString, isLongerThanX(2)] },
+		last: { required: true, rules: [isString, isLongerThanX(2)] },
+		email: { required: true, rules: [isString, isEmail] },
+		description: { required: true, rules: [isString] },
 		avatar: { required: false, rules: [isImage] },
-		password: { required: false, rules: [isLongerThan5, isShorterThan17] },
+		oldPassword: { required: false, rules: [isString] },
+		password: {
+			required: false,
+			rules: [isString, (val: any) => isRequiredIf(val, !!this.oldPassword), isLongerThanX(7), isShorterThanX(17)]
+		},
 		cPassword: {
 			required: false,
-			rules: [(value: string) => isRequiredIf(value, !!this.password), (value: string) => isShallowEqualTo(value, this.password), isLongerThan5, isShorterThan17]
+			rules: [isString, (val: any) => isRequiredIf(val, !!this.oldPassword), (val: string) => isRequiredIf(val, !!this.password), (val: string) => isShallowEqualTo(val, this.password), isLongerThanX(7), isShorterThanX(17)]
 		},
 		strongestSubject: {
-			required: true, rules: [isLongerThan2, (value: string) => {
-				return this.weakerSubjects.includes(value)
-					? {
-						valid: false,
-						error: 'subject already exist in your weaker subjects'
-					}
-					: { valid: true, error: undefined }
-			}]
+			required: true,
+			rules: [isString, (value: string) => this.weakerSubjects.includes(value) ? isInvalid('subject already exist in your weaker subjects') : isValid()]
 		},
-		weakerSubjects: { required: true, rules: [hasLessThan4] }
+		weakerSubjects: {
+			required: true,
+			rules: [isArrayOfX((com) => isString(com).valid, 'string'), hasLessThanX(4)]
+		}
 	}
 
 	reserved = []
@@ -48,7 +49,7 @@ export class ProfileUpdateFactory extends BaseFactory<UserEntity, UpdateUser, Ke
 	constructor () {
 		super({
 			first: '', last: '', email: '', description: '', strongestSubject: '', weakerSubjects: [],
-			avatar: undefined, password: undefined, cPassword: undefined
+			avatar: undefined, oldPassword: undefined, password: undefined, cPassword: undefined
 		})
 	}
 
@@ -92,19 +93,23 @@ export class ProfileUpdateFactory extends BaseFactory<UserEntity, UpdateUser, Ke
 		this.set('avatar', avatar)
 	}
 
+	get oldPassword () {
+		return this.values.oldPassword!
+	}
+
+	set oldPassword (value: string) {
+		this.set('oldPassword', value)
+		this.set('password', this.password)
+		this.set('cPassword', this.cPassword)
+	}
+
 	get password () {
 		return this.values.password!
 	}
 
 	set password (value: string) {
-		if (value) {
-			this.set('password', value)
-			this.set('cPassword', this.cPassword)
-		} else {
-			this.values.password = this.defaults.strongestSubject
-			this.validValues.password = this.defaults.strongestSubject
-			this.errors.password = ''
-		}
+		this.set('password', value)
+		this.set('cPassword', this.cPassword)
 	}
 
 	get cPassword () {
@@ -156,25 +161,31 @@ export class ProfileUpdateFactory extends BaseFactory<UserEntity, UpdateUser, Ke
 				email,
 				description,
 				avatar,
+				oldPassword,
 				password,
 				strongestSubject,
 				weakerSubjects
 			} = this.validValues
 			return {
 				bio: {
-					name: { first, last },
+					firstName: first, lastName: last,
 					email, description,
-					avatar: (avatar ?? null) as Media
+					photo: (avatar ?? null) as Media
 				},
-				password: password!,
+				passwords: oldPassword
+					? {
+						oldPassword: oldPassword!,
+						newPassword: password!
+					}
+					: undefined,
 				strongestSubject, weakerSubjects
 			}
 		} else throw new Error('Validation errors')
 	}
 
 	loadEntity = (entity: UserEntity) => {
-		this.first = entity.bio.name.first
-		this.last = entity.bio.name.last
+		this.first = entity.bio.firstName
+		this.last = entity.bio.lastName
 		this.email = entity.email
 		this.description = entity.description
 		this.avatar = entity.avatar ?? undefined

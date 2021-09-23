@@ -16,23 +16,32 @@ export const useSimilarQuestionList = (question: QuestionEntity) => {
 	}
 
 	const fetchQuestions = async () => {
-		global[question.id].setError('')
+		await global[question.id].setError('')
 		try {
-			global[question.id].setLoading(true)
-			const questions = await GetSimilarQuestions.call(question.tags)
-			global[question.id].questions.value = questions.filter((q) => q.id !== question.id).slice(0, 10)
+			await global[question.id].setLoading(true)
+			global[question.id].questions.value = (await GetSimilarQuestions.call(question.id, question.tags)).results
 			global[question.id].fetched.value = true
 		} catch (error) {
-			global[question.id].setError(error)
+			await global[question.id].setError(error)
 		}
-		global[question.id].setLoading(false)
+		await global[question.id].setLoading(false)
 	}
 
 	const listener = useListener(async () => {
-		const callback = (questions: QuestionEntity[]) => {
-			global[question.id].questions.value = questions.filter((q) => q.id !== question.id).slice(0, 10)
-		}
-		return await ListenToSimilarQuestions.call(question.tags, callback)
+		return await ListenToSimilarQuestions.call(question.id, question.tags, {
+			created: async (entity) => {
+				global[question.id].questions.value.unshift(entity)
+			},
+			updated: async (entity) => {
+				const index = global[question.id].questions.value.findIndex((q) => q.id === entity.id)
+				if (index > -1) global[question.id].questions.value.splice(index, 1, entity)
+				else global[question.id].questions.value.unshift(entity)
+			},
+			deleted: async (entity) => {
+				const index = global[question.id].questions.value.findIndex((q) => q.id === entity.id)
+				if (index > -1) global[question.id].questions.value.splice(index, 1)
+			}
+		})
 	})
 
 	useFetch(async () => {

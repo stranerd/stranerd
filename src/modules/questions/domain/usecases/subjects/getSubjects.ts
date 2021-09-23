@@ -1,4 +1,3 @@
-import { DatabaseGetClauses } from '@modules/core'
 import { ISubjectRepository } from '../../irepositories/isubject'
 
 export class GetSubjectsUseCase {
@@ -9,9 +8,9 @@ export class GetSubjectsUseCase {
 	}
 
 	async call () {
-		const conditions: DatabaseGetClauses = {
-			order: { field: 'name' }
-		}
-		return await this.repository.get(conditions)
+		return await this.repository.get({
+			sort: { field: 'name' },
+			all: true
+		})
 	}
 }

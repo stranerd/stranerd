@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core'
+import { Conditions, Listeners, QueryParams } from '@modules/core'
 import { IReviewRepository } from '../../irepositories/ireview'
 import { ReviewEntity } from '../../entities/review'
 
@@ -9,12 +9,17 @@ export class ListenToReviewsUseCase {
 		this.repository = repository
 	}
 
-	async call (userId: string, callback: (entities: ReviewEntity[]) => void, date?: number) {
-		const conditions: DatabaseGetClauses = {
-			order: { field: 'dates/createdAt' }
+	async call (userId: string, listener: Listeners<ReviewEntity>, date?: number) {
+		const conditions: QueryParams = {
+			sort: { field: 'createdAt', order: 1 },
+			all: true
 		}
-		if (date) conditions!.order!.condition = { '>': date }
-		const cb = (entities: ReviewEntity[]) => callback(entities)
-		return await this.repository.listen(userId, cb, conditions)
+		if (date) conditions.where = [{ field: 'createdAt', condition: Conditions.gt, value: date }]
+
+		return await this.repository.listenToMany(userId, conditions, listener, (entity) => {
+			if (entity.userId !== userId) return false
+			if (date) return entity.createdAt > date
+			else return true
+		})
 	}
 }

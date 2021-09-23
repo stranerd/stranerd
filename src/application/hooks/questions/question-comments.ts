@@ -1,4 +1,4 @@
-import { Ref, ref, ssrRef, useFetch, watch } from '@nuxtjs/composition-api'
+import { Ref, ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import {
 	AddQuestionComment,
 	CommentEntity,
@@ -7,7 +7,6 @@ import {
 	ListenToQuestionComments
 } from '@modules/questions'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
-import { useAuth } from '@app/hooks/auth/auth'
 
 const global = {} as Record<string, {
 	comments: Ref<CommentEntity[]>,
@@ -23,20 +22,31 @@ export const useQuestionCommentList = (questionId: string) => {
 	}
 
 	const fetchComments = async () => {
-		global[questionId].setError('')
+		await global[questionId].setError('')
 		try {
-			global[questionId].setLoading(true)
-			global[questionId].comments.value = await GetQuestionComments.call(questionId)
+			await global[questionId].setLoading(true)
+			global[questionId].comments.value = (await GetQuestionComments.call(questionId)).results
 			global[questionId].fetched.value = true
 		} catch (error) {
-			global[questionId].setError(error)
+			await global[questionId].setError(error)
 		}
-		global[questionId].setLoading(false)
+		await global[questionId].setLoading(false)
 	}
 
 	const listener = useListener(async () => {
-		const callback = (comments: CommentEntity[]) => global[questionId].comments.value = comments
-		return await ListenToQuestionComments.call(questionId, callback)
+		return await ListenToQuestionComments.call(questionId, {
+			created: async (entity) => {
+				global[questionId].comments.value.push(entity)
+			},
+			updated: async (entity) => {
+				const index = global[questionId].comments.value.findIndex((c) => c.id === entity.id)
+				if (index === -1) global[questionId].comments.value.push(entity)
+				else global[questionId].comments.value.splice(index, 1, entity)
+			},
+			deleted: async (entity) => {
+				global[questionId].comments.value = global[questionId].comments.value.filter((c) => c.id !== entity.id)
+			}
+		})
 	})
 
 	useFetch(async () => {
@@ -52,26 +62,21 @@ export const useQuestionCommentList = (questionId: string) => {
 }
 
 export const useCreateQuestionComments = (questionId: string) => {
-	const { id, bio } = useAuth()
 	const factory = ref(new CommentFactory()) as Ref<CommentFactory>
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
 
-	factory.value.userBioAndId = { id: id.value!, user: bio.value! }
-	watch(() => id.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
-	watch(() => bio.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
-
 	const createComment = async () => {
-		setError('')
+		await setError('')
 		if (factory.value.valid && !loading.value) {
 			try {
-				setLoading(true)
+				await setLoading(true)
 				await AddQuestionComment.call(questionId, factory.value)
 				factory.value.reset()
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		} else factory.value.validateAll()
 	}
 

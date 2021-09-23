@@ -1,9 +1,9 @@
 import { IReportRepository } from '../irepositories/ireport'
 
-export class DeleteReportUseCase<ReportedType extends { userId: string }> {
-	private repository: IReportRepository<ReportedType>
+export class DeleteReportUseCase {
+	private repository: IReportRepository
 
-	constructor (repository: IReportRepository<ReportedType>) {
+	constructor (repository: IReportRepository) {
 		this.repository = repository
 	}
 

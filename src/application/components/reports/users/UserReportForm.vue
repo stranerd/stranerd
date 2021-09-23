@@ -24,13 +24,13 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
-import { UserReportFactory } from '@modules/reports'
+import { ReportFactory } from '@modules/reports'
 
 export default defineComponent({
 	name: 'UserReportForm',
 	props: {
 		factory: {
-			type: Object as PropType<UserReportFactory>,
+			type: Object as PropType<ReportFactory>,
 			required: true
 		},
 		submit: {

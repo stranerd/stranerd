@@ -12,22 +12,22 @@ const global = {
 
 export const useTutorsList = () => {
 	const fetchTutors = async () => {
-		global.setError('')
+		await global.setError('')
 		try {
-			global.setLoading(true)
-			global.tutors.value = await GetAllSessionTutors.call()
+			await global.setLoading(true)
+			const tutors = await GetAllSessionTutors.call()
+			global.tutors.value = tutors.results
 			global.fetched.value = true
 		} catch (error) {
-			global.setError(error)
+			await global.setError(error)
 		}
-		global.setLoading(false)
+		await global.setLoading(false)
 	}
 	const filteredTutors = computed({
 		get: () => global.tutors.value
-			// TODO: Check if sorting is cause of empty flash in prod
 			.sort((a, b) => a.score > b.score ? -1 : a.score === b.score ? 0 : 1)
 			.filter((tutor) => {
-				if (global.subjectId.value && !tutor.subjects.find((s) => s.id === global.subjectId.value)) return false
+				if (global.subjectId.value && !tutor.subjects.includes(global.subjectId.value)) return false
 				return true
 			}), // .slice(0, 50),
 		set: (tutors) => {
@@ -39,10 +39,19 @@ export const useTutorsList = () => {
 		}
 	})
 	const listener = useListener(async () => {
-		const appendTutors = (tutors: UserEntity[]) => {
-			global.tutors.value = tutors
-		}
-		return await ListenToAllSessionTutors.call(appendTutors)
+		return await ListenToAllSessionTutors.call({
+			created: async (entity) => {
+				global.tutors.value.push(entity)
+			},
+			updated: async (entity) => {
+				const index = global.tutors.value.findIndex((t) => t.id === entity.id)
+				global.tutors.value.splice(index, 1, entity)
+			},
+			deleted: async (entity) => {
+				const index = global.tutors.value.findIndex((t) => t.id === entity.id)
+				global.tutors.value.splice(index, 1)
+			}
+		})
 	})
 
 	useFetch(async () => {

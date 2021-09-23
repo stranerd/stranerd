@@ -19,18 +19,18 @@ export const useUser = (userId: string) => {
 	}
 
 	const fetchUser = async () => {
-		global[userId].setError('')
+		await global[userId].setError('')
 		try {
-			global[userId].setLoading(true)
+			await global[userId].setLoading(true)
 			// Dont fetch if it is the current auth user
 			// Instead get auth user details
 			if (id.value && id.value === userId) global[userId].user.value = user.value
 			else global[userId].user.value = await FindUser.call(userId)
 			global[userId].fetched.value = true
 		} catch (error) {
-			global[userId].setError(error)
+			await global[userId].setError(error)
 		}
-		global[userId].setLoading(false)
+		await global[userId].setLoading(false)
 	}
 
 	useFetch(async () => {
@@ -45,8 +45,10 @@ export const useUser = (userId: string) => {
 			return () => {
 			}
 		}
-		const callback = (user: UserEntity | null) => global[userId].user.value = user
-		return await ListenToUser.call(userId, callback)
+		const callback = async (user: UserEntity) => {
+			global[userId].user.value = user
+		}
+		return await ListenToUser.call(userId, { created: callback, updated: callback, deleted: callback })
 	})
 
 	return {

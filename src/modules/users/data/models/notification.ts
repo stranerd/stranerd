@@ -1,15 +1,13 @@
-export interface NotificationFromModel {
+export interface NotificationFromModel extends NotificationToModel {
 	id: string
-	body: string
-	seen: boolean
-	action: string
-	dates: {
-		createdAt: number
-	}
+	userId: string
+	createdAt: number
+	updatedAt: number
 }
 
 export interface NotificationToModel {
 	body: string
 	seen: boolean
 	action: string
+	data: Record<string, any>
 }

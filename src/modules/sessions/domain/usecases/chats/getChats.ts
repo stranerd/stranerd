@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core'
+import { Conditions, QueryParams } from '@modules/core'
 import { CHAT_PAGINATION_LIMIT } from '@utils/constants'
 import { IChatRepository } from '../../irepositories/ichat'
 
@@ -9,21 +9,13 @@ export class GetChatsUseCase {
 		this.repository = repository
 	}
 
-	async call (path: [string, string], date?: Date) {
-		const conditions: DatabaseGetClauses = {
-			order: {
-				field: 'dates/createdAt'
-			},
-			limit: {
-				count: CHAT_PAGINATION_LIMIT + 1,
-				bottom: true
-			}
+	async call (path: [string, string], date?: number) {
+		const conditions: QueryParams = {
+			sort: { field: 'createdAt', order: -1 },
+			limit: CHAT_PAGINATION_LIMIT
 		}
 
-		if (date) {
-			conditions.order!.condition = { '<': date.getTime() }
-			conditions.limit!.count = CHAT_PAGINATION_LIMIT + 2 // RTDB not mixing order well with limit
-		}
+		if (date) conditions.where = [{ field: 'createdAt', condition: Conditions.lt, value: date }]
 
 		return await this.repository.get(path, conditions)
 	}

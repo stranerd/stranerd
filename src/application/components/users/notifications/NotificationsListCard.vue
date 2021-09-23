@@ -1,7 +1,7 @@
 <template>
-	<div class="notification gap-0-5 text-dark" @click="markSeen">
+	<div class="notification gap-0-5 text-dark" @click="markNotificationSeen">
 		<PageLoading v-if="loading" />
-		<NuxtLink :class="{'text-primary-dark': !notification.seen}" :to="notification.action">
+		<NuxtLink :class="{'text-primary-dark': !notification.seen}" :to="notification.link">
 			<BodyText class="main cursor-pointer" variant="large">
 				<DynamicText>{{ notification.body }}</DynamicText>
 			</BodyText>
@@ -28,10 +28,7 @@ export default defineComponent({
 	},
 	setup (props) {
 		const { loading, error, markNotificationSeen } = useNotification(props.notification)
-		const markSeen = async () => {
-			await markNotificationSeen()
-		}
-		return { loading, error, markSeen, formatTime }
+		return { loading, error, markNotificationSeen, formatTime }
 	}
 })
 </script>

@@ -1,45 +1,37 @@
 import {
-	hasLessThan,
-	hasMoreThan,
-	isExtractedHTMLLongerThan,
-	isLessThan,
-	isLongerThan,
-	isMoreThan
-} from 'sd-validate/lib/rules'
+	hasLessThanX,
+	hasMoreThanX,
+	isArrayOfX,
+	isExtractedHTMLLongerThanX,
+	isLessThanX,
+	isMoreThanX,
+	isNumber,
+	isString
+} from '@stranerd/validate'
 import { BaseFactory } from '@modules/core'
-import { UserBio } from '@modules/users'
 import { MAXIMUM_COINS, MINIMUM_COINS } from '@utils/constants'
 import { QuestionEntity } from '../entities/question'
 import { QuestionToModel } from '../../data/models/question'
 
 type Keys = {
-	body: string, coins: number, subjectId: string,
-	userId: string, user: UserBio | undefined, tags: string[]
+	body: string, coins: number, subjectId: string, tags: string[]
 }
-const isLongerThan0 = (value: string) => isLongerThan(value, 0)
-const isLongerThan2 = (value: string) => isExtractedHTMLLongerThan(value, 2)
-const isMoreThanMinimum = (value: number) => isMoreThan(value, MINIMUM_COINS - 1)
-const isLessThanMaximum = (value: number) => isLessThan(value, MAXIMUM_COINS + 1)
-const hasMoreThan0 = (value: string[]) => hasMoreThan(value, 0)
-const hasLessThan4 = (value: string[]) => hasLessThan(value, 4)
 
 export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel, Keys> {
 	readonly rules = {
-		body: { required: true, rules: [isLongerThan2] },
-		coins: { required: true, rules: [isMoreThanMinimum, isLessThanMaximum] },
-		subjectId: { required: true, rules: [isLongerThan0] },
-		userId: { required: true, rules: [isLongerThan0] },
-		user: { required: true, rules: [] },
-		tags: { required: true, rules: [hasMoreThan0, hasLessThan4] }
+		body: { required: true, rules: [isString, isExtractedHTMLLongerThanX(2)] },
+		coins: { required: true, rules: [isNumber, isMoreThanX(MINIMUM_COINS - 1), isLessThanX(MAXIMUM_COINS + 1)] },
+		subjectId: { required: true, rules: [isString] },
+		tags: {
+			required: true,
+			rules: [isArrayOfX((com) => isString(com).valid, 'string'), hasMoreThanX(0), hasLessThanX(4)]
+		}
 	}
 
 	reserved = []
 
 	constructor () {
-		super({
-			body: '', coins: 0, subjectId: '',
-			userId: '', user: undefined, tags: []
-		})
+		super({ body: '', coins: 0, subjectId: '', tags: [] })
 	}
 
 	get body () {
@@ -66,30 +58,28 @@ export class QuestionFactory extends BaseFactory<QuestionEntity, QuestionToModel
 		this.set('subjectId', value)
 	}
 
-	set userBioAndId (value: { id: string, user: UserBio }) {
-		this.set('userId', value.id)
-		this.set('user', value.user)
-	}
-
 	get tags () {
 		return this.values.tags
 	}
 
-	addTag = (value: string) => this.set('tags', [...this.tags, value.toLowerCase()])
+	addTag = (value: string) => {
+		if (this.tags.find((t) => t === value.toLowerCase())) return
+		this.set('tags', [...this.tags, value.toLowerCase()])
+	}
+
 	removeTag = (value: string) => this.set('tags', this.tags.filter((tag) => tag !== value))
 
 	loadEntity = (entity: QuestionEntity) => {
 		this.body = entity.body
 		this.coins = entity.coins
 		this.subjectId = entity.subjectId
-		this.userBioAndId = { id: entity.userId, user: entity.user }
 		this.set('tags', entity.tags)
 	}
 
 	toModel = async () => {
 		if (this.valid) {
-			const { body, coins, tags, subjectId, userId, user } = this.validValues
-			return { body, coins, tags, subjectId, userId, user: user! }
+			const { body, coins, tags, subjectId } = this.validValues
+			return { body, coins, tags, subjectId }
 		} else {
 			throw new Error('Validation errors')
 		}

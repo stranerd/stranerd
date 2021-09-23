@@ -8,6 +8,6 @@ export class MarkNotificationSeenUseCase {
 	}
 
 	async call (userId: string, id: string, seen: boolean) {
-		return await this.repository.update(userId, id, { seen })
+		return await this.repository.markSeen(userId, id, seen)
 	}
 }

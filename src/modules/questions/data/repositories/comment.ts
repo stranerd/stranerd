@@ -1,9 +1,9 @@
-import { DatabaseGetClauses } from '@modules/core'
+import { Listeners, QueryParams } from '@modules/core'
 import { ICommentRepository } from '../../domain/irepositories/icomment'
 import { CommentEntity } from '../../domain/entities/comment'
 import { CommentBaseDataSource } from '../datasources/comment-base'
 import { CommentTransformer } from '../transformers/comment'
-import { CommentFromModel, CommentToModel } from '../models/comment'
+import { CommentToModel } from '../models/comment'
 
 export class CommentRepository implements ICommentRepository {
 	private dataSource: CommentBaseDataSource
@@ -14,29 +14,55 @@ export class CommentRepository implements ICommentRepository {
 		this.transformer = transformer
 	}
 
-	async get (baseId: string, conditions?: DatabaseGetClauses) {
-		const models = await this.dataSource.get(baseId, conditions)
-		return models.map(this.transformer.fromJSON)
-	}
-
-	async listen (baseId: string, callback: (entities: CommentEntity[]) => void, conditions?: DatabaseGetClauses) {
-		const cb = (documents: CommentFromModel[]) => {
-			const entities = documents.map(this.transformer.fromJSON)
-			callback(entities)
+	async get (query: QueryParams) {
+		const models = await this.dataSource.get(query)
+		return {
+			...models,
+			results: models.results.map(this.transformer.fromJSON)
 		}
-		return this.dataSource.listen(baseId, cb, conditions)
 	}
 
-	async add (baseId: string, data: CommentToModel) {
-		return await this.dataSource.create(baseId, data)
+	async listenToOne (id: string, listener: Listeners<CommentEntity>) {
+		return this.dataSource.listenToOne(id, {
+			created: async (model) => {
+				await listener.created(this.transformer.fromJSON(model))
+			},
+			updated: async (model) => {
+				await listener.updated(this.transformer.fromJSON(model))
+			},
+			deleted: async (model) => {
+				await listener.deleted(this.transformer.fromJSON(model))
+			}
+		})
 	}
 
-	async find (baseId: string, id: string) {
-		const model = await this.dataSource.find(baseId, id)
+	async listenToMany (query: QueryParams, listener: Listeners<CommentEntity>, matches: (entity: CommentEntity) => boolean) {
+		return this.dataSource.listenToMany(query, {
+			created: async (model) => {
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.created(entity)
+			},
+			updated: async (model) => {
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.updated(entity)
+			},
+			deleted: async (model) => {
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.deleted(entity)
+			}
+		})
+	}
+
+	async add (data: CommentToModel) {
+		return await this.dataSource.create(data)
+	}
+
+	async find (id: string) {
+		const model = await this.dataSource.find(id)
 		return model ? this.transformer.fromJSON(model) : null
 	}
 
-	async update (baseId: string, id: string, data: object) {
-		return await this.dataSource.update(baseId, id, data)
+	async update (id: string, data: CommentToModel) {
+		return await this.dataSource.update(id, data)
 	}
 }

@@ -98,7 +98,7 @@ export default defineComponent({
 			})
 		}
 		const reportUser = () => {
-			setReportedEntity(props.user)
+			setReportedEntity(props.user.id)
 			useReportModal().openReportUser()
 			show.value = false
 		}
@@ -109,13 +109,13 @@ export default defineComponent({
 		})
 		const inSession = computed({
 			get: () => currentSessionId.value &&
-					currentSessionId.value === props.user.currentSession,
+				currentSessionId.value === props.user.currentSession,
 			set: () => {
 			}
 		})
 		const canEndSession = computed({
 			get: () => currentSessionId.value === props.user.currentSession &&
-					currentSession.value?.studentId === id.value,
+				currentSession.value?.studentId === id.value,
 			set: () => {
 			}
 		})

@@ -1,8 +1,8 @@
-import { DatabaseGetClauses } from '@modules/core'
+import { Listeners, QueryParams } from '@modules/core'
 import { IReviewRepository } from '../../domain/irepositories/ireview'
 import { ReviewBaseDataSource } from '../datasources/review-base'
 import { ReviewTransformer } from '../transformers/review'
-import { ReviewFromModel } from '../models/review'
+import { ReviewToModel } from '../models/review'
 import { ReviewEntity } from '../../domain/entities/review'
 
 export class ReviewRepository implements IReviewRepository {
@@ -14,16 +14,46 @@ export class ReviewRepository implements IReviewRepository {
 		this.transformer = transformer
 	}
 
-	async get (userId: string, conditions?: DatabaseGetClauses) {
-		const models = await this.dataSource.get(userId, conditions)
-		return models.map((model: ReviewFromModel) => this.transformer.fromJSON(model))
+	async create (data: ReviewToModel) {
+		return this.dataSource.create(data)
 	}
 
-	async listen (userId: string, callback: (entities: ReviewEntity[]) => void, conditions?: DatabaseGetClauses) {
-		const listenCB = (documents: ReviewFromModel[]) => {
-			const entities = documents.map(this.transformer.fromJSON)
-			callback(entities)
+	async get (userId: string, query: QueryParams) {
+		const models = await this.dataSource.get(userId, query)
+		return {
+			...models,
+			results: models.results.map(this.transformer.fromJSON)
 		}
-		return await this.dataSource.listen(userId, listenCB, conditions)
+	}
+
+	async listenToOne (userId: string, id: string, listener: Listeners<ReviewEntity>) {
+		return this.dataSource.listenToOne(userId, id, {
+			created: async (model) => {
+				await listener.created(this.transformer.fromJSON(model))
+			},
+			updated: async (model) => {
+				await listener.updated(this.transformer.fromJSON(model))
+			},
+			deleted: async (model) => {
+				await listener.deleted(this.transformer.fromJSON(model))
+			}
+		})
+	}
+
+	async listenToMany (userId: string, query: QueryParams, listener: Listeners<ReviewEntity>, matches: (entity: ReviewEntity) => boolean) {
+		return this.dataSource.listenToMany(userId, query, {
+			created: async (model) => {
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.created(entity)
+			},
+			updated: async (model) => {
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.updated(entity)
+			},
+			deleted: async (model) => {
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.deleted(entity)
+			}
+		})
 	}
 }

@@ -23,18 +23,18 @@ let VueEditor = null
 if (isClient()) VueEditor = require('vue2-editor').VueEditor
 
 /* const customToolBar = [
-	 [{ size: ['small', false, 'large', 'huge'] }],
-	 [{ header: [false,1,2,3,4,5,6] }],
-	 ['bold', 'italic', 'underline', 'strike'],
-	 [{ script: 'sub' }, { script: 'super' }],
-	 [{ indent: '-1' }, { indent: '+1' }],
-	 [{ align: '' },{ align: 'center' },{ align: 'right' },{ align: 'justify' }],
-	 ['blockquote', 'code-block'],
-	 [{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
-	 [{ color: [] },{ background: [] }],
-	 ['link', 'image', 'video', 'formula'],
-	 ['clean']
-	 ] */
+ [{ size: ['small', false, 'large', 'huge'] }],
+ [{ header: [false,1,2,3,4,5,6] }],
+ ['bold', 'italic', 'underline', 'strike'],
+ [{ script: 'sub' }, { script: 'super' }],
+ [{ indent: '-1' }, { indent: '+1' }],
+ [{ align: '' },{ align: 'center' },{ align: 'right' },{ align: 'justify' }],
+ ['blockquote', 'code-block'],
+ [{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
+ [{ color: [] },{ background: [] }],
+ ['link', 'image', 'video', 'formula'],
+ ['clean']
+ ] */
 
 export default defineComponent({
 	name: 'BaseEditor',
@@ -73,8 +73,8 @@ export default defineComponent({
 					editor.insertEmbed(cursorLocation, 'image', res.link)
 					editor.setSelection(cursorLocation + 1, 'silent')
 					resetUploader()
-				} catch (e) {
-					await Notify({ title: e, icon: 'error' })
+				} catch (e: unknown) {
+					await Notify({ title: e as any, icon: 'error' })
 				}
 			}
 		}

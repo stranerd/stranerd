@@ -1,4 +1,3 @@
-import { DatabaseGetClauses } from '@modules/core'
 import { IUserRepository } from '../../irepositories/iuser'
 
 export class GetUsersByEmailUseCase {
@@ -9,12 +8,9 @@ export class GetUsersByEmailUseCase {
 	}
 
 	async call (email: string) {
-		const conditions: DatabaseGetClauses = {
-			order: {
-				field: 'bio/email',
-				condition: { '==': email }
-			}
-		}
-		return await this.repository.get(conditions)
+		return await this.repository.get({
+			where: [{ field: 'bio.email', value: email }],
+			all: true
+		})
 	}
 }

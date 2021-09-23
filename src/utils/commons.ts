@@ -39,7 +39,7 @@ export const trimToLength = (body: string, length: number) => {
 
 export const copyToClipboard = async (data: string) => {
 	if (!isClient()) return false
-	const result = await window.navigator.permissions.query({ name: 'clipboard-write' })
+	const result = await window.navigator.permissions.query({ name: 'clipboard-write' as any })
 	if (result.state === 'granted' || result.state === 'prompt') {
 		await window.navigator.clipboard.writeText(data)
 		return true

@@ -3,7 +3,7 @@ name: Publish to GCloud App Engine
 on:
   push:
     branches:
-      development
+      develop
 
 jobs:
   publish-gae:

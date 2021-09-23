@@ -1,17 +1,20 @@
 import { computed, reqSsrRef } from '@nuxtjs/composition-api'
 import { FindUser, ListenToUser, UpdateStreak, UserEntity } from '@modules/users'
-import { AuthDetails, UserLocation } from '@modules/auth/domain/entities/auth'
+import { AuthDetails, AuthTypes, UserLocation } from '@modules/auth/domain/entities/auth'
 import { SessionSignout } from '@modules/auth'
 import { isClient } from '@utils/environment'
-import { analytics, auth } from '@modules/core'
-import VueRouter from 'vue-router'
+import { analytics } from '@modules/core'
+import { saveTokens } from '@utils/tokens'
 
 const global = {
+	tokens: reqSsrRef({
+		accessToken: null,
+		refreshToken: null
+	} as { accessToken: string | null, refreshToken: string | null }),
 	auth: reqSsrRef(null as AuthDetails | null),
 	user: reqSsrRef(null as UserEntity | null),
 	location: reqSsrRef(null as UserLocation | null),
-	listener: null as null | (() => void),
-	showProfileModal: reqSsrRef(true)
+	listener: null as null | (() => void)
 }
 
 export const useAuth = () => {
@@ -33,7 +36,7 @@ export const useAuth = () => {
 		}
 	})
 	const isAdmin = computed({
-		get: () => !!global.user.value?.roles.isAdmin, set: () => {
+		get: () => !!global.user.value?.isAdmin, set: () => {
 		}
 	})
 	const currentSessionId = computed({
@@ -42,54 +45,53 @@ export const useAuth = () => {
 		}
 	})
 
+	const hasPassword = computed({
+		get: () => !!global.auth.value?.authTypes.includes(AuthTypes.email),
+		set: () => {
+		}
+	})
+
 	const setUserLocation = (data: UserLocation) => {
 		global.location.value = data
 	}
 
-	const setAuthUser = async (details: AuthDetails | null, router: VueRouter) => {
-		if (global.listener) global.listener()
-		global.auth.value = details
-		if (details?.id) {
-			if (!details.isVerified) {
-				await router.push('/auth/verify')
-				return false
-			}
-			global.user.value = await FindUser.call(details.id)
-		} else global.user.value = null
-		return true
+	const setTokens = async (data: typeof global.tokens.value) => {
+		global.tokens.value = data
+		await saveTokens(data)
 	}
 
-	const startProfileListener = async (router: VueRouter) => {
+	const getTokens = () => global.tokens.value
+
+	const setAuthUser = async (details: AuthDetails | null) => {
+		if (global.listener) global.listener()
+		global.auth.value = details
+		if (details?.id) global.user.value = await FindUser.call(details.id)
+		else global.user.value = null
+	}
+
+	const startProfileListener = async () => {
 		if (global.listener) global.listener()
 
 		const id = global.auth.value?.id
-		const setUser = (user: UserEntity | null) => {
-			if (user?.bio.isNew && global.showProfileModal.value) router.push('/account/edit')
+		const setUser = async (user: UserEntity) => {
 			global.user.value = user
 		}
 		if (id) {
-			global.listener = await ListenToUser.call(id, setUser, true)
+			global.listener = await ListenToUser.call(id, { created: setUser, updated: setUser, deleted: setUser })
 			await UpdateStreak.call().catch(() => {
 			})
 		}
 	}
 
-	const signin = async (remembered: boolean, router: VueRouter) => {
-		try {
-			if (global.auth.value?.token) await auth.signInWithCustomToken(global.auth.value.token)
-			await startProfileListener(router)
-			analytics.logEvent('login', { remembered })
-		} catch (e) {
-			await signout(router)
-		}
+	const signin = async (remembered: boolean) => {
+		await startProfileListener()
+		analytics.logEvent('login', { remembered })
 	}
 
-	const signout = async (router: VueRouter) => {
+	const signout = async () => {
 		await SessionSignout.call()
-		await setAuthUser(null, router)
-		await auth.signOut()
-		await router.push('/')
-		if (isClient()) window.location.assign('/')
+		await setAuthUser(null)
+		if (isClient()) window.location.assign('/auth/signin')
 	}
 
 	const getKey = (): keyof typeof CONVERSION_RATES | null => {
@@ -104,13 +106,11 @@ export const useAuth = () => {
 
 	return {
 		id, bio, user: global.user, auth: global.auth, location: global.location,
-		isLoggedIn, isVerified, isAdmin, currentSessionId,
-		setAuthUser, setUserLocation, signin, signout,
+		isLoggedIn, isVerified, isAdmin, currentSessionId, hasPassword,
+		setAuthUser, setUserLocation, signin, signout, setTokens, getTokens,
 		getLocalAmount, getLocalCurrency, getLocalCurrencySymbol
 	}
 }
-
-export const setShowProfileModal = (show: boolean) => global.showProfileModal.value = show
 
 export const CONVERSION_RATES = {
 	USD: 1,

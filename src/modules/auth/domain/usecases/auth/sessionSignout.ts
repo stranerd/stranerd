@@ -8,6 +8,6 @@ export class SessionSignoutUseCase {
 	}
 
 	async call () {
-		return await this.repository.logout()
+		return await this.repository.signout()
 	}
 }

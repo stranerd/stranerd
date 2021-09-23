@@ -7,14 +7,14 @@
 				<span>
 					Reported by <NuxtLink :to="`/users/${report.reporterId}`">
 						<DynamicText class="text-primary">
-							{{ report.reporterBio.name.fullName }}
+							{{ report.reporterBio.fullName }}
 						</DynamicText>
 					</NuxtLink>
 				</span>
 				<span>
 					Reported user <NuxtLink :to="`/users/${report.reportedId}`">
 						<DynamicText class="text-primary">
-							{{ report.reported.bio.name.fullName }}
+							{{ report.reported.bio.fullName }}
 						</DynamicText>
 					</NuxtLink>
 				</span>

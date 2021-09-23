@@ -1,4 +1,4 @@
-import { computed, ref, Ref, ssrRef, useFetch, useRouter, watch } from '@nuxtjs/composition-api'
+import { computed, ref, Ref, ssrRef, useFetch, useRouter } from '@nuxtjs/composition-api'
 import {
 	AddQuestion,
 	DeleteQuestion,
@@ -11,7 +11,7 @@ import {
 	QuestionFactory
 } from '@modules/questions'
 import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
-import { COINS_GAP, MAXIMUM_COINS, MINIMUM_COINS, PAGINATION_LIMIT } from '@utils/constants'
+import { COINS_GAP, MAXIMUM_COINS, MINIMUM_COINS } from '@utils/constants'
 import { useAuth } from '@app/hooks/auth/auth'
 import { analytics } from '@modules/core'
 import VueRouter from 'vue-router'
@@ -54,31 +54,39 @@ const unshiftToQuestionList = (question: QuestionEntity) => {
 
 export const useQuestionList = () => {
 	const fetchQuestions = async () => {
-		global.setError('')
+		await global.setError('')
 		try {
-			global.setLoading(true)
+			await global.setLoading(true)
 			const lastDate = global.questions.value[global.questions.value.length - 1]?.createdAt
-			const questions = await GetQuestions.call(lastDate ? new Date(lastDate) : undefined)
-			global.hasMore.value = questions.length === PAGINATION_LIMIT + 1
-			questions.slice(0, PAGINATION_LIMIT).forEach(pushToQuestionList)
+			const questions = await GetQuestions.call(lastDate)
+			global.hasMore.value = !!questions.pages.next
+			questions.results.forEach(pushToQuestionList)
 			global.fetched.value = true
 		} catch (error) {
-			global.setError(error)
+			await global.setError(error)
 		}
-		global.setLoading(false)
+		await global.setLoading(false)
 	}
 	const listener = useListener(async () => {
-		const appendQuestions = (questions: QuestionEntity[]) => {
-			questions.map(unshiftToQuestionList)
-		}
 		const lastDate = global.questions.value[global.questions.value.length - 1]?.createdAt
-		return await ListenToQuestions.call(appendQuestions, lastDate ? new Date(lastDate) : undefined)
+		return await ListenToQuestions.call({
+			created: async (entity) => {
+				unshiftToQuestionList(entity)
+			},
+			updated: async (entity) => {
+				unshiftToQuestionList(entity)
+			},
+			deleted: async (entity) => {
+				const index = global.questions.value.findIndex((q) => q.id === entity.id)
+				if (index !== -1) global.questions.value.splice(index, 1)
+			}
+		}, lastDate ? lastDate - 1 : undefined)
 	})
 	const filteredQuestions = computed({
 		get: () => global.questions.value.filter((q) => {
 			if (global.subjectId.value && q.subjectId !== global.subjectId.value) return false
-			if (global.answered.value === Answered.Answered && q.answers === 0) return false
-			if (global.answered.value === Answered.Unanswered && q.answers > 0) return false
+			if (global.answered.value === Answered.Answered && q.answers.length === 0) return false
+			if (global.answered.value === Answered.Unanswered && q.answers.length > 0) return false
 			if (global.answered.value === Answered.BestAnswered && !q.isAnswered) return false
 			return true
 		}).sort((a, b) => {
@@ -91,11 +99,19 @@ export const useQuestionList = () => {
 	const fetchOlderQuestions = async () => {
 		await fetchQuestions()
 		await listener.resetListener(async () => {
-			const appendQuestions = (questions: QuestionEntity[]) => {
-				questions.map(unshiftToQuestionList)
-			}
 			const lastDate = global.questions.value[global.questions.value.length - 1]?.createdAt
-			return await ListenToQuestions.call(appendQuestions, lastDate ? new Date(lastDate) : undefined)
+			return await ListenToQuestions.call({
+				created: async (entity) => {
+					unshiftToQuestionList(entity)
+				},
+				updated: async (entity) => {
+					unshiftToQuestionList(entity)
+				},
+				deleted: async (entity) => {
+					const index = global.questions.value.findIndex((q) => q.id === entity.id)
+					if (index !== -1) global.questions.value.splice(index, 1)
+				}
+			}, lastDate ? lastDate - 1 : undefined)
 		})
 	}
 
@@ -112,7 +128,7 @@ export const useQuestionList = () => {
 
 const factory = ref(new QuestionFactory()) as Ref<QuestionFactory>
 export const useCreateQuestion = () => {
-	const { id, bio, user, isLoggedIn } = useAuth()
+	const { user, isLoggedIn } = useAuth()
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const { setMessage } = useSuccessHandler()
@@ -120,11 +136,11 @@ export const useCreateQuestion = () => {
 	const coins = computed({
 		get: () => {
 			if (!isLoggedIn) {
-				setError('Login to continue')
+				setError('Login to continue').then()
 				return []
 			}
 			if (user.value!.account.coins.bronze < MINIMUM_COINS) {
-				setError(`You need at least ${MINIMUM_COINS} coins to ask a question`)
+				setError(`You need at least ${MINIMUM_COINS} coins to ask a question`).then()
 				return []
 			}
 			const coins = [] as number[]
@@ -135,17 +151,13 @@ export const useCreateQuestion = () => {
 		}
 	})
 
-	factory.value.userBioAndId = { id: id.value!, user: bio.value! }
-	watch(() => id.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
-	watch(() => bio.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
-
 	const createQuestion = async () => {
-		setError('')
+		await setError('')
 		if (factory.value.valid && !loading.value) {
 			try {
-				setLoading(true)
+				await setLoading(true)
 				const questionId = await AddQuestion.call(factory.value)
-				setMessage('Question submitted successfully')
+				await setMessage('Question submitted successfully')
 				const subject = factory.value.subjectId
 				factory.value.reset()
 				await router.replace(`/questions/${questionId}`)
@@ -154,9 +166,9 @@ export const useCreateQuestion = () => {
 				})
 				useQuestionsModal().closeAskQuestions()
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		} else factory.value.validateAll()
 	}
 
@@ -174,26 +186,34 @@ export const useQuestion = (questionId: string) => {
 	})
 
 	const fetchQuestion = async () => {
-		setError('')
+		await setError('')
 		try {
-			setLoading(true)
+			await setLoading(true)
 			let question = global.questions.value.find((q) => q.id === questionId) ?? null
 			if (question) {
-				setLoading(false)
+				await setLoading(false)
 				return
 			}
 			question = await FindQuestion.call(questionId)
 			if (question) unshiftToQuestionList(question)
 		} catch (error) {
-			setError(error)
+			await setError(error)
 		}
-		setLoading(false)
+		await setLoading(false)
 	}
 	const listener = useListener(async () => {
-		const callback = (q: QuestionEntity | null) => {
-			if (q) unshiftToQuestionList(q)
-		}
-		return await ListenToQuestion.call(questionId, callback)
+		return await ListenToQuestion.call(questionId, {
+			created: async (entity) => {
+				unshiftToQuestionList(entity)
+			},
+			updated: async (entity) => {
+				unshiftToQuestionList(entity)
+			},
+			deleted: async (entity) => {
+				const index = global.questions.value.findIndex((q) => q.id === entity.id)
+				if (index !== -1) global.questions.value.splice(index, 1)
+			}
+		})
 	})
 
 	useFetch(fetchQuestion)
@@ -208,7 +228,7 @@ export const openQuestionEditModal = (question: QuestionEntity, router: VueRoute
 	router.push(`/questions/${question.id}/edit`)
 }
 export const useEditQuestion = (questionId: string) => {
-	const { id, bio, user, isLoggedIn } = useAuth()
+	const { user, isLoggedIn } = useAuth()
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const { setMessage } = useSuccessHandler()
@@ -217,11 +237,11 @@ export const useEditQuestion = (questionId: string) => {
 	const coins = computed({
 		get: () => {
 			if (!isLoggedIn) {
-				setError('Login to continue')
+				setError('Login to continue').then()
 				return []
 			}
 			if (user.value!.account.coins.bronze < MINIMUM_COINS) {
-				setError(`You need at least ${MINIMUM_COINS} coins to ask a question`)
+				setError(`You need at least ${MINIMUM_COINS} coins to ask a question`).then()
 				return []
 			}
 			const coins = [] as number[]
@@ -233,16 +253,14 @@ export const useEditQuestion = (questionId: string) => {
 	})
 
 	if (editingQuestion) factory.value.loadEntity(editingQuestion)
-	watch(() => id.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
-	watch(() => bio.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
 
 	const editQuestion = async () => {
-		setError('')
+		await setError('')
 		if (factory.value.valid && !loading.value) {
 			try {
-				setLoading(true)
+				await setLoading(true)
 				await EditQuestion.call(questionId, factory.value)
-				setMessage('Question edited successfully')
+				await setMessage('Question edited successfully')
 				const subject = factory.value.subjectId
 				factory.value.reset()
 				await router.replace(`/questions/${questionId}`)
@@ -250,9 +268,9 @@ export const useEditQuestion = (questionId: string) => {
 					questionId, subject
 				})
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		} else factory.value.validateAll()
 	}
 
@@ -266,7 +284,7 @@ export const useDeleteQuestion = (questionId: string) => {
 	const router = useRouter()
 
 	const deleteQuestion = async () => {
-		setError('')
+		await setError('')
 		const accepted = await Alert({
 			title: 'Are you sure you want to delete this question?',
 			text: 'This cannot be reversed',
@@ -274,17 +292,17 @@ export const useDeleteQuestion = (questionId: string) => {
 			confirmButtonText: 'Yes, delete'
 		})
 		if (accepted) {
-			setLoading(true)
+			await setLoading(true)
 			try {
 				await DeleteQuestion.call(questionId)
 				global.questions.value = global.questions.value
 					.filter((q) => q.id !== questionId)
-				setMessage('Question deleted successfully')
+				await setMessage('Question deleted successfully')
 				await router.push('/questions')
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		}
 	}
 

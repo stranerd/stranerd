@@ -1,30 +1,43 @@
 import { BaseFactory } from '@modules/core'
-import { isEmail } from 'sd-validate/lib/rules'
+import { isLongerThanX, isRequiredIf, isShallowEqualTo, isShorterThanX, isString } from '@stranerd/validate'
 
-type Keys = { email: string }
+type Keys = { password: string, cPassword: string }
 
-export class PasswordResetFactory extends BaseFactory<null, Keys, Keys> {
+export class PasswordResetFactory extends BaseFactory<null, { password: string }, Keys> {
 	readonly rules = {
-		email: { required: true, rules: [isEmail] }
+		password: { required: false, rules: [isString, isLongerThanX(7), isShorterThanX(17)] },
+		cPassword: {
+			required: false,
+			rules: [isString, (val: string) => isRequiredIf(val, !!this.password), (val: string) => isShallowEqualTo(val, this.password), isLongerThanX(7), isShorterThanX(17)]
+		}
 	}
 
 	reserved = []
 
 	constructor () {
-		super({ email: '' })
+		super({ password: '', cPassword: '' })
 	}
 
-	get email () {
-		return this.values.email
+	get password () {
+		return this.values.password
 	}
 
-	set email (value: string) {
-		this.set('email', value)
+	set password (value: string) {
+		this.set('password', value)
+		this.set('cPassword', this.cPassword)
+	}
+
+	get cPassword () {
+		return this.values.cPassword!
+	}
+
+	set cPassword (value: string) {
+		this.set('cPassword', value)
 	}
 
 	toModel = async () => {
 		if (this.valid) {
-			return { email: this.validValues.email }
+			return { password: this.validValues.password }
 		} else throw new Error('Validation errors')
 	}
 

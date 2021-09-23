@@ -5,6 +5,13 @@ export type AuthUser = {
 	password: string
 }
 
+export type NewUser = {
+	firstName: string
+	lastName: string
+	email: string
+	password: string
+}
+
 export type UserLocation = {
 	ip: string,
 	city: string,
@@ -22,24 +29,36 @@ export type UserLocation = {
 }
 
 export type UpdateUser = {
-	bio: UserBio
-	password: string
+	bio: Omit<UserBio, 'fullName'>
+	passwords?: {
+		oldPassword: string
+		newPassword: string
+	}
 	strongestSubject: string,
 	weakerSubjects: string[]
 }
 
+export enum AuthTypes {
+	google = 'google',
+	email = 'email',
+	facebook = 'facebook',
+	twitter = 'twitter'
+}
+
 export type AfterAuthUser = {
-	idToken: string
-	id: string
-	email: string
+	accessToken: string
+	refreshToken: string
+	user: AuthDetails
 }
 
 export type AuthDetails = {
 	id: string
+	firstName: string
+	lastName: string
 	email: string
-	token: string
 	isVerified: boolean
-	signInMethod: string
+	roles: Record<string, Record<string, boolean>>
+	authTypes: AuthTypes[]
 }
 
 export type AuthExtras = {

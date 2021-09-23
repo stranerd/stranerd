@@ -3,7 +3,7 @@
 		<div class="d-flex gap-0-5 gap-md-1 align-items-center">
 			<Avatar :size="36" :src="review.avatar" />
 			<DynamicText class="name">
-				{{ review.userBio.name.fullName }}
+				{{ review.userBio.fullName }}
 			</DynamicText>
 			<span class="d-flex align-items-baseline gap-0-25 mx-auto">
 				<i class="fas fa-star text-gold" style="font-size: 21px;" />

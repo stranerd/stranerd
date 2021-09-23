@@ -1,7 +1,9 @@
-import { DatabaseGetClauses } from '@modules/core'
+import { Listeners, QueryParams, QueryResults } from '@modules/core'
 import { TagFromModel } from '../models/tag'
 
-export abstract class TagBaseDataSource {
-	abstract get: (condition?: DatabaseGetClauses) => Promise<TagFromModel[]>
-	abstract listen: (callback: (documents: TagFromModel[]) => void, condition?: DatabaseGetClauses) => Promise<() => void>
+export interface TagBaseDataSource {
+	find: (id: string) => Promise<TagFromModel | null>
+	get: (query: QueryParams) => Promise<QueryResults<TagFromModel>>
+	listenToOne: (id: string, listener: Listeners<TagFromModel>) => Promise<() => void>
+	listenToMany: (query: QueryParams, listener: Listeners<TagFromModel>) => Promise<() => void>
 }

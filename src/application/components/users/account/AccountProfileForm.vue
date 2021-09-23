@@ -119,11 +119,24 @@
 				{{ factory.errors.description }}
 			</DynamicText>
 		</div>
-		<template v-if="auth.signInMethod === 'password'">
+		<template v-if="hasPassword">
 			<hr>
 			<p class="small text-center mt-n1">
 				Fill this if you want to update your password
 			</p>
+			<div class="form-group">
+				<input
+					id="oldPassword"
+					v-model="factory.oldPassword"
+					:class="{'is-invalid': factory.errors.oldPassword}"
+					:type="show ? 'text' : 'password'"
+					class="form-control"
+					placeholder="Old Password"
+				>
+				<DynamicText v-if="factory.errors.password" class="small text-danger d-block">
+					{{ factory.errors.password }}
+				</DynamicText>
+			</div>
 			<div class="form-group">
 				<input
 					id="password"
@@ -165,9 +178,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeUnmount, PropType, ref } from '@nuxtjs/composition-api'
+import { defineComponent, PropType, ref } from '@nuxtjs/composition-api'
 import { useUpdateProfile } from '@app/hooks/users/account'
-import { setShowProfileModal, useAuth } from '@app/hooks/auth/auth'
+import { useAuth } from '@app/hooks/auth/auth'
 import { useFileInputs, usePassword, useSubjectAsTags } from '@app/hooks/core/forms'
 import { isClient } from '@utils/environment'
 import { DEFAULT_PROFILE_IMAGE } from '@utils/constants'
@@ -184,7 +197,7 @@ export default defineComponent({
 		}
 	},
 	setup () {
-		const { auth } = useAuth()
+		const { hasPassword } = useAuth()
 		const { show, toggle } = usePassword()
 		const { factory, error, loading, updateProfile } = useUpdateProfile()
 		const imageLink = ref((factory.value.avatar as any)?.link ?? '')
@@ -201,9 +214,8 @@ export default defineComponent({
 			(sTag: string) => factory.value.addWeakerSubjects(sTag),
 			(sTag: string) => factory.value.removeWeakerSubjects(sTag)
 		)
-		onBeforeUnmount(() => setShowProfileModal(false))
 		return {
-			auth, show, toggle, catchFiles, imageLink, removeImage, sTag, removeTag,
+			hasPassword, show, toggle, catchFiles, imageLink, removeImage, sTag, removeTag,
 			factory, error, loading, updateProfile, DEFAULT_PROFILE_IMAGE
 		}
 	}

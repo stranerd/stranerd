@@ -56,15 +56,18 @@
 			<div class="d-flex align-items-center gap-1">
 				<span class="d-flex align-items-center gap-0-25">
 					<img alt="" class="sub-icons" src="@app/assets/images/icons/answers.svg">
-					<DynamicText>{{
-						formatNumber(question.answers)
-					}} {{ pluralize(question.answers, 'answer', 'answers') }}</DynamicText>
+					<DynamicText>
+						{{ formatNumber(question.answers.length) }} {{
+							pluralize(question.answers.length, 'answer', 'answers')
+						}}</DynamicText>
 				</span>
 				<span v-if="question.attachments" class="d-flex align-items-center gap-0-25">
 					<i class="sub-icons fas fa-paperclip" />
-					<DynamicText>{{
-						formatNumber(question.attachments)
-					}} {{ pluralize(question.attachments, 'image', 'images') }}</DynamicText>
+					<DynamicText>
+						{{ formatNumber(question.attachments) }} {{
+							pluralize(question.attachments, 'image', 'images')
+						}}
+					</DynamicText>
 				</span>
 			</div>
 		</div>
@@ -95,10 +98,10 @@ export default defineComponent({
 		}
 	},
 	setup (props) {
-		const { id, user } = useAuth()
+		const { id } = useAuth()
 		const router = useRouter()
 		const showAnswerButton = computed({
-			get: () => props.question.userId !== id.value && !props.question.isAnswered && !user.value?.meta.answeredQuestions.includes(props.question.id),
+			get: () => props.question.userId !== id.value && !props.question.isAnswered && !props.question.answers.find((a) => a.userId === id.value),
 			set: () => {
 			}
 		})

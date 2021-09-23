@@ -1,54 +1,56 @@
 <template>
-	<form class="gap-1 gap-md-2 d-flex flex-column" @submit.prevent="resetPassword">
-		<Heading class="text-center" variant="1">
-			Forgot Your Password?
-		</Heading>
-		<span class="textStyle text-center">
-			To reset your password, type your email address
-		</span>
-		<div>
-			<input
-				id="email"
-				v-model="factory.email"
-				autocomplete="email"
-				class="form-control"
-				name="email"
-				placeholder="Email"
-				required
-				type="email"
-			>
-			<DynamicText v-if="factory.errors.email" class="small text-danger d-block">
-				{{ factory.errors.email }}
-			</DynamicText>
-		</div>
-		<button class="btn btn-lg btn-custom py-1 " type="submit">
-			Send Reset Mail
-		</button>
-		<DisplayError :error="error" />
-		<PageLoading v-if="loading" />
+	<div class="gap-1 gap-md-2 d-flex flex-column">
+		<form class="gap-1 gap-md-2 d-flex flex-column" @submit.prevent="sendResetEmail">
+			<Heading class="text-center" variant="1">
+				Forgot Your Password?
+			</Heading>
+			<span class="textStyle text-center">
+				To reset your password, type your email address
+			</span>
+			<div>
+				<input
+					id="email"
+					v-model="factory.email"
+					autocomplete="email"
+					class="form-control"
+					name="email"
+					placeholder="Email"
+					required
+					type="email"
+				>
+				<DynamicText v-if="factory.errors.email" class="small text-danger d-block">
+					{{ factory.errors.email }}
+				</DynamicText>
+			</div>
+			<button :disabled="loading || !factory.valid" class="btn btn-lg btn-custom py-1" type="submit">
+				Send Reset Mail
+			</button>
+			<DisplayError :error="error" />
+			<PageLoading v-if="loading" />
+		</form>
 		<div class="d-flex align-items-center justify-content-center gap-0-25">
 			<span>Return to</span>
 			<NuxtLink class="linkText" to="/auth/signin">
 				Sign In
 			</NuxtLink>
 		</div>
-	</form>
+	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent, useMeta } from '@nuxtjs/composition-api'
-import { usePasswordReset } from '@app/hooks/auth/passwords'
+import { usePasswordResetRequest } from '@app/hooks/auth/passwords'
 
 export default defineComponent({
 	name: 'AuthForgotPage',
 	layout: 'auth',
 	middleware: ['isNotAuthenticated'],
 	setup () {
-		const { factory, loading, resetPassword, error, message } = usePasswordReset()
+		const { factory, loading, sendResetEmail, error, message } = usePasswordResetRequest()
 		useMeta(() => ({
 			title: 'Forgot Password | Stranerd'
 		}))
-		return { factory, loading, resetPassword, error, message }
+		return { factory, loading, sendResetEmail, error, message }
 	},
 	head: {}
 })

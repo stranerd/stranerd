@@ -1,7 +1,6 @@
 import { generateDefaultBio, UserBio } from '@modules/users'
 import { BaseEntity } from '@modules/core'
 import { extractTextFromHTML, getStringCount, trimToLength } from '@utils/commons'
-import { BEST_ANSWERS_COUNT, QUESTION_DISCOUNT } from '@utils/constants'
 
 export class QuestionEntity extends BaseEntity {
 	public readonly id: string
@@ -10,45 +9,43 @@ export class QuestionEntity extends BaseEntity {
 	public readonly tags: string[]
 	public readonly subjectId: string
 	public readonly userId: string
-	public readonly user: UserBio
-	public readonly answerId: { first: string | null, second: string | null }
-	public readonly answers: number
+	public readonly userBio: UserBio
+	public readonly bestAnswers: string[]
+	public readonly answers: { id: string, userId: string }[]
 	public readonly commentsCount: number
+	public readonly creditable: number
+	public readonly isAnswered: boolean
 	public readonly createdAt: number
+	public readonly updatedAt: number
 
 	constructor ({
-		             id, body, coins, subjectId,
-		             answerId, createdAt, userId, user, comments,
-		             answers, tags
+		             id, body, coins, subjectId, creditable, isAnswered,
+		             bestAnswers, createdAt, userId, userBio,
+		             answers, commentsCount, tags, updatedAt
 	             }: QuestionConstructorArgs) {
 		super()
 		this.id = id
 		this.body = body
 		this.coins = coins
+		this.creditable = creditable
+		this.isAnswered = isAnswered
 		this.tags = tags
 		this.subjectId = subjectId
 		this.userId = userId
-		this.user = generateDefaultBio(user)
-		this.answerId = { first: answerId?.first ?? null, second: answerId?.second ?? null }
-		this.answers = answers ?? 0
-		this.commentsCount = comments?.count ?? 0
+		this.userBio = generateDefaultBio(userBio)
+		this.bestAnswers = bestAnswers
+		this.answers = answers
+		this.commentsCount = commentsCount ?? 0
 		this.createdAt = createdAt
-	}
-
-	get isAnswered () {
-		return this.answerId.first && this.answerId.second
-	}
-
-	get creditable () {
-		return Math.floor(this.coins * QUESTION_DISCOUNT / BEST_ANSWERS_COUNT)
+		this.updatedAt = updatedAt
 	}
 
 	get userName () {
-		return this.user.name.fullName
+		return this.userBio.fullName!
 	}
 
 	get avatar () {
-		return this.user.avatar
+		return this.userBio.photo
 	}
 
 	get trimmedBody () {
@@ -60,7 +57,7 @@ export class QuestionEntity extends BaseEntity {
 	}
 
 	get isModified () {
-		return this.answers > 0
+		return this.commentsCount > 0 || this.answers.length > 0
 	}
 
 	get canBeEdited () {
@@ -80,12 +77,15 @@ type QuestionConstructorArgs = {
 	id: string
 	body: string
 	coins: number
+	creditable: number
+	isAnswered: boolean
 	tags: string[]
 	subjectId: string
-	createdAt: number
 	userId: string
-	user: UserBio
-	answerId?: { first?: string | null, second?: string | null }
-	answers?: number
-	comments?: { count: number }
+	userBio: UserBio
+	bestAnswers: string[]
+	answers: { id: string, userId: string }[]
+	commentsCount: number
+	createdAt: number
+	updatedAt: number
 }

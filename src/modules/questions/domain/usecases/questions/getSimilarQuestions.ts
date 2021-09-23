@@ -1,4 +1,4 @@
-import { FirestoreGetClauses } from '@modules/core'
+import { Conditions, QueryParams } from '@modules/core'
 import { IQuestionRepository } from '../../irepositories/iquestion'
 
 export class GetSimilarQuestionsUseCase {
@@ -8,13 +8,14 @@ export class GetSimilarQuestionsUseCase {
 		this.repository = repository
 	}
 
-	async call (tags: string[]) {
-		const conditions: FirestoreGetClauses = {
+	async call (questionId: string, tags: string[]) {
+		const conditions: QueryParams = {
 			where: [
-				{ field: 'tags', condition: 'array-contains-any', value: tags }
+				{ field: 'tags', condition: Conditions.in, value: tags },
+				{ field: 'id', condition: Conditions.ne, value: questionId }
 			],
-			order: { field: 'dates.createdAt', desc: true },
-			limit: 11
+			sort: { field: 'createdAt', order: -1 },
+			limit: 10
 		}
 
 		return await this.repository.get(conditions)

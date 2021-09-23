@@ -1,67 +1,38 @@
-import { UserBio } from '@modules/users'
-import { ReportFirebaseDataSource } from './data/datasources/report-firebase'
+import { ReportApiDataSource } from './data/datasources/report-api'
 import { ReportTransformer } from './data/transformers/report'
 import { ReportRepository } from './data/repositories/report'
 import { AddReportUseCase } from './domain/usecases/addReport'
 import { GetReportsUseCase } from './domain/usecases/getReports'
 import { DeleteReportUseCase } from './domain/usecases/deleteReport'
-import { ReportFactory } from './domain/factories/report'
-import { ReportEntity } from './domain/entities/report'
+import { ListenToReportsUseCase } from './domain/usecases/listenToReports'
+import { ListenToReportUseCase } from './domain/usecases/listenToReport'
+import { AnswerReportType, QuestionReportType, ReportType, UserReportType } from './domain/entities/report'
 
-const userReportDataSource = new ReportFirebaseDataSource<'users', UserReportType>('users')
-const questionReportDataSource = new ReportFirebaseDataSource<'questions', QuestionReportType>('questions')
-const answerReportDataSource = new ReportFirebaseDataSource<'answers', AnswerReportType>('answers')
+export { ReportFactory } from './domain/factories/report'
+export { ReportType, UserReportEntity, AnswerReportEntity, QuestionReportEntity } from './domain/entities/report'
 
-const userReportTransformer = new ReportTransformer<UserReportType>()
-const questionReportTransformer = new ReportTransformer<QuestionReportType>()
-const answerReportTransformer = new ReportTransformer<AnswerReportType>()
+const reportDataSource = new ReportApiDataSource()
 
-const userReportRepository = new ReportRepository(userReportDataSource, userReportTransformer)
-const questionReportRepository = new ReportRepository(questionReportDataSource, questionReportTransformer)
-const answerReportRepository = new ReportRepository(answerReportDataSource, answerReportTransformer)
+const reportTransformer = new ReportTransformer()
 
-export const AddUserReport = new AddReportUseCase(userReportRepository)
-export const AddQuestionReport = new AddReportUseCase(questionReportRepository)
-export const AddAnswerReport = new AddReportUseCase(answerReportRepository)
+const reportRepository = new ReportRepository(reportDataSource, reportTransformer)
 
-export const GetUserReports = new GetReportsUseCase(userReportRepository)
-export const GetQuestionReports = new GetReportsUseCase(questionReportRepository)
-export const GetAnswerReports = new GetReportsUseCase(answerReportRepository)
+export const AddUserReport = new AddReportUseCase(reportRepository)
+export const AddQuestionReport = new AddReportUseCase(reportRepository)
+export const AddAnswerReport = new AddReportUseCase(reportRepository)
 
-export const DeleteUserReport = new DeleteReportUseCase(userReportRepository)
-export const DeleteQuestionReport = new DeleteReportUseCase(questionReportRepository)
-export const DeleteAnswerReport = new DeleteReportUseCase(answerReportRepository)
+export const GetUserReports = new GetReportsUseCase<UserReportType>(ReportType.users, reportRepository)
+export const GetQuestionReports = new GetReportsUseCase<QuestionReportType>(ReportType.questions, reportRepository)
+export const GetAnswerReports = new GetReportsUseCase<AnswerReportType>(ReportType.answers, reportRepository)
 
-export class UserReportFactory extends ReportFactory<UserReportType> {
-}
+export const ListenToUserReports = new ListenToReportsUseCase<UserReportType>(ReportType.users, reportRepository)
+export const ListenToQuestionReports = new ListenToReportsUseCase<QuestionReportType>(ReportType.questions, reportRepository)
+export const ListenToAnswerReports = new ListenToReportsUseCase<AnswerReportType>(ReportType.answers, reportRepository)
 
-export class QuestionReportFactory extends ReportFactory<QuestionReportType> {
-}
+export const ListenToUserReport = new ListenToReportUseCase<UserReportType>(reportRepository)
+export const ListenToQuestionReport = new ListenToReportUseCase<AnswerReportType>(reportRepository)
+export const ListenToAnswerReport = new ListenToReportUseCase<UserReportType>(reportRepository)
 
-export class AnswerReportFactory extends ReportFactory<AnswerReportType> {
-}
-
-export class UserReportEntity extends ReportEntity<UserReportType> {
-}
-
-export class QuestionReportEntity extends ReportEntity<QuestionReportType> {
-}
-
-export class AnswerReportEntity extends ReportEntity<AnswerReportType> {
-}
-
-export type UserReportType = {
-	bio: UserBio
-	userId: string
-}
-
-export type QuestionReportType = {
-	body: string
-	userId: string
-}
-export type AnswerReportType = {
-	title: string
-	body: string
-	questionId: string
-	userId: string
-}
+export const DeleteUserReport = new DeleteReportUseCase(reportRepository)
+export const DeleteQuestionReport = new DeleteReportUseCase(reportRepository)
+export const DeleteAnswerReport = new DeleteReportUseCase(reportRepository)

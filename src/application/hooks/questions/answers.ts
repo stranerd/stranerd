@@ -1,4 +1,4 @@
-import { Ref, ref, ssrRef, useFetch, useRouter, watch } from '@nuxtjs/composition-api'
+import { Ref, ref, ssrRef, useFetch, useRouter } from '@nuxtjs/composition-api'
 import {
 	AddAnswer,
 	AnswerEntity,
@@ -7,9 +7,9 @@ import {
 	EditAnswer,
 	GetAnswers,
 	ListenToAnswers,
-	MarkAsBestAnswer,
+	MarkBestAnswer,
 	QuestionEntity,
-	RateAnswer
+	VoteAnswer
 } from '@modules/questions'
 import { useErrorHandler, useListener, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
@@ -31,20 +31,31 @@ export const useAnswerList = (questionId: string) => {
 	}
 
 	const fetchAnswers = async () => {
-		global[questionId].setError('')
+		await global[questionId].setError('')
 		try {
-			global[questionId].setLoading(true)
-			global[questionId].answers.value = await GetAnswers.call(questionId)
+			await global[questionId].setLoading(true)
+			global[questionId].answers.value = (await GetAnswers.call(questionId)).results
 			global[questionId].fetched.value = true
 		} catch (error) {
-			global[questionId].setError(error)
+			await global[questionId].setError(error)
 		}
-		global[questionId].setLoading(false)
+		await global[questionId].setLoading(false)
 	}
 
 	const listener = useListener(async () => {
-		const callback = (answers: AnswerEntity[]) => global[questionId].answers.value = answers
-		return await ListenToAnswers.call(questionId, callback)
+		return await ListenToAnswers.call(questionId, {
+			created: async (entity) => {
+				global[questionId].answers.value.push(entity)
+			},
+			updated: async (entity) => {
+				const index = global[questionId].answers.value.findIndex((c) => c.id === entity.id)
+				if (index === -1) global[questionId].answers.value.push(entity)
+				else global[questionId].answers.value.splice(index, 1, entity)
+			},
+			deleted: async (entity) => {
+				global[questionId].answers.value = global[questionId].answers.value.filter((c) => c.id !== entity.id)
+			}
+		})
 	})
 
 	useFetch(async () => {
@@ -67,7 +78,6 @@ export const openAnswerModal = (question: QuestionEntity, router: VueRouter) => 
 }
 
 export const useCreateAnswer = () => {
-	const { id, bio } = useAuth()
 	const router = useRouter()
 	const factory = ref(new AnswerFactory()) as Ref<AnswerFactory>
 	const { loading, setLoading } = useLoadingHandler()
@@ -76,20 +86,14 @@ export const useCreateAnswer = () => {
 
 	if (!answeringQuestion) router.replace('/questions')
 	factory.value.questionId = answeringQuestion!.id
-	factory.value.subjectId = answeringQuestion!.subjectId
-	factory.value.coins = answeringQuestion!.creditable
-	factory.value.tags = answeringQuestion!.tags
-	factory.value.userBioAndId = { id: id.value!, user: bio.value! }
-	watch(() => id.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
-	watch(() => bio.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
 
 	const createAnswer = async () => {
-		setError('')
+		await setError('')
 		if (factory.value.valid && !loading.value) {
 			try {
-				setLoading(true)
+				await setLoading(true)
 				const answerId = await AddAnswer.call(factory.value)
-				setMessage('Answer submitted successfully.')
+				await setMessage('Answer submitted successfully.')
 				factory.value.reset()
 				await router.replace(`/questions/${answeringQuestion?.id ?? ''}/#${answerId}`)
 				analytics.logEvent('answer_question_completed', {
@@ -98,9 +102,9 @@ export const useCreateAnswer = () => {
 					subject: answeringQuestion?.subjectId
 				})
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		} else factory.value.validateAll()
 	}
 
@@ -115,32 +119,26 @@ export const useAnswer = (answer: AnswerEntity) => {
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
 
-	const rateAnswer = async (rating: number) => {
-		if (rating > 5 || rating < 0) return
-		const userId = useAuth().id.value!
+	const voteAnswer = async (vote: boolean) => {
+		const userId = useAuth().id.value
 		if (!userId) return
-		setError('')
-		const accepted = await Alert({
-			title: `Are you sure you want to rate this answer: ${rating} stars?`,
-			text: 'This cannot be reversed',
-			icon: 'info',
-			confirmButtonText: 'Yes, continue'
-		})
-		if (accepted) {
-			try {
-				setLoading(true)
-				await RateAnswer.call(answer.id, userId, rating)
-			} catch (error) {
-				setError(error)
-			}
-			setLoading(false)
+		const voted = answer.votes.find((v) => v.userId === userId)
+		if (vote && voted?.vote === 1) return
+		if (!vote && voted?.vote === -1) return
+		await setError('')
+		try {
+			await setLoading(true)
+			await VoteAnswer.call(answer.id, userId, vote)
+		} catch (error) {
+			await setError(error)
 		}
+		await setLoading(false)
 	}
 
 	const markBestAnswer = async (question: QuestionEntity | null) => {
 		if (!question || question.isAnswered) return
 		if (question.userId !== id.value) return
-		setError('')
+		await setError('')
 		const accepted = await Alert({
 			title: 'Are you sure you want to mark this answer as the best',
 			text: 'This cannot be reversed',
@@ -149,17 +147,17 @@ export const useAnswer = (answer: AnswerEntity) => {
 		})
 		if (accepted) {
 			try {
-				setLoading(true)
-				await MarkAsBestAnswer.call(question.id, answer.id)
+				await setLoading(true)
+				await MarkBestAnswer.call(question.id, answer.id)
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		}
 	}
 
 	return {
-		loading, error, rateAnswer, markBestAnswer
+		loading, error, markBestAnswer, voteAnswer
 	}
 }
 
@@ -170,7 +168,6 @@ export const openAnswerEditModal = (data: { question: QuestionEntity, answer: An
 	router.push(`/questions/${data.question.id}/answers/${data.answer.id}/edit`)
 }
 export const useEditAnswer = (answerId: string) => {
-	const { id, bio } = useAuth()
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 	const { setMessage } = useSuccessHandler()
@@ -178,27 +175,25 @@ export const useEditAnswer = (answerId: string) => {
 	const router = useRouter()
 
 	if (editingQuestionAnswer) factory.value.loadEntity(editingQuestionAnswer.answer)
-	watch(() => id.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
-	watch(() => bio.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
 
 	const editAnswer = async () => {
-		setError('')
+		await setError('')
 		if (factory.value.valid && !loading.value) {
 			try {
-				setLoading(true)
+				await setLoading(true)
 				await EditAnswer.call(answerId, factory.value)
-				setMessage('Answer edited successfully')
+				await setMessage('Answer edited successfully')
 				factory.value.reset()
 				await router.replace(`/questions/${editingQuestionAnswer?.question.id}#${answerId}`)
 				analytics.logEvent('edit_answer_completed', {
 					questionId: editingQuestionAnswer?.answer.questionId,
 					answerId,
-					subject: editingQuestionAnswer?.answer.subjectId
+					subject: editingQuestionAnswer?.question.subjectId
 				})
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		} else factory.value.validateAll()
 	}
 
@@ -211,7 +206,7 @@ export const useDeleteAnswer = (answerId: string) => {
 	const { setMessage } = useSuccessHandler()
 
 	const deleteAnswer = async () => {
-		setError('')
+		await setError('')
 		const accepted = await Alert({
 			title: 'Are you sure you want to delete this answer?',
 			text: 'This cannot be reversed',
@@ -219,14 +214,14 @@ export const useDeleteAnswer = (answerId: string) => {
 			confirmButtonText: 'Yes, delete'
 		})
 		if (accepted) {
-			setLoading(true)
+			await setLoading(true)
 			try {
 				await DeleteAnswer.call(answerId)
-				setMessage('Answer deleted successfully')
+				await setMessage('Answer deleted successfully')
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		}
 	}
 

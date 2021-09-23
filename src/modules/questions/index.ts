@@ -1,8 +1,8 @@
-import { SubjectFirebaseDataSource } from './data/datasources/subject-firebase'
-import { QuestionFirebaseDataSource } from './data/datasources/question-firebase'
-import { AnswerFirebaseDataSource } from './data/datasources/answer-firebase'
-import { AnswerCommentFirebaseDataSource, QuestionCommentFirebaseDataSource } from './data/datasources/comment-firebase'
-import { TagFirebaseDataSource } from './data/datasources/tag-firebase'
+import { SubjectApiDataSource } from './data/datasources/subject-api'
+import { QuestionApiDataSource } from './data/datasources/question-api'
+import { AnswerApiDataSource } from './data/datasources/answer-api'
+import { CommentApiDataSource } from './data/datasources/comment-api'
+import { TagApiDataSource } from './data/datasources/tag-api'
 import { SubjectTransformer } from './data/transformers/subject'
 import { QuestionTransformer } from './data/transformers/question'
 import { AnswerTransformer } from './data/transformers/answer'
@@ -27,7 +27,7 @@ import { ListenToTagQuestionsUseCase } from './domain/usecases/questions/listenT
 import { AddQuestionUseCase } from './domain/usecases/questions/addQuestion'
 import { EditQuestionUseCase } from './domain/usecases/questions/editQuestion'
 import { DeleteQuestionUseCase } from './domain/usecases/questions/deleteQuestion'
-import { MarkAsBestAnswerUseCase } from './domain/usecases/answers/markAsBestAnswer'
+import { MarkBestAnswerUseCase } from './domain/usecases/questions/markBestAnswer'
 import { ListenToQuestionUseCase } from './domain/usecases/questions/listenToQuestion'
 import { ListenToQuestionsUseCase } from './domain/usecases/questions/listenToQuestions'
 import { ListenToSimilarQuestionsUseCase } from './domain/usecases/questions/listenToSimilarQuestions'
@@ -37,8 +37,8 @@ import { ListenToUserAnswersUseCase } from './domain/usecases/answers/listenToUs
 import { AddAnswerUseCase } from './domain/usecases/answers/addAnswer'
 import { EditAnswerUseCase } from './domain/usecases/answers/editAnswer'
 import { DeleteAnswerUseCase } from './domain/usecases/answers/deleteAnswer'
-import { RateAnswerUseCase } from './domain/usecases/answers/rateAnswer'
 import { ListenToAnswersUseCase } from './domain/usecases/answers/listenToAnswers'
+import { VoteAnswerUseCase } from './domain/usecases/answers/voteAnswer'
 import { AddAnswerCommentUseCase, AddQuestionCommentUseCase } from './domain/usecases/comments/addComment'
 import { GetAnswerCommentsUseCase, GetQuestionCommentsUseCase } from './domain/usecases/comments/getComments'
 import {
@@ -46,7 +46,6 @@ import {
 	ListenToQuestionCommentsUseCase
 } from './domain/usecases/comments/listenToComments'
 import { GetTagsUseCase } from './domain/usecases/tags/getTags'
-import { ListenToTagsUseCase } from './domain/usecases/tags/listenToTags'
 import { SubjectEntity } from './domain/entities/subject'
 import { SubjectFactory } from './domain/factories/subject'
 import { QuestionEntity } from './domain/entities/question'
@@ -57,12 +56,12 @@ import { CommentEntity } from './domain/entities/comment'
 import { CommentFactory } from './domain/factories/comment'
 import { TagEntity } from './domain/entities/tag'
 
-const subjectDataSource = new SubjectFirebaseDataSource()
-const questionDataSource = new QuestionFirebaseDataSource()
-const answerDataSource = new AnswerFirebaseDataSource()
-const questionCommentDataSource = new QuestionCommentFirebaseDataSource()
-const answerCommentDataSource = new AnswerCommentFirebaseDataSource()
-const tagDataSource = new TagFirebaseDataSource()
+const subjectDataSource = new SubjectApiDataSource()
+const questionDataSource = new QuestionApiDataSource()
+const answerDataSource = new AnswerApiDataSource()
+const questionCommentDataSource = new CommentApiDataSource('questionComments')
+const answerCommentDataSource = new CommentApiDataSource('answerComments')
+const tagDataSource = new TagApiDataSource()
 
 const subjectTransformer = new SubjectTransformer()
 const questionTransformer = new QuestionTransformer()
@@ -95,6 +94,7 @@ export const AddQuestion = new AddQuestionUseCase(questionRepository)
 export const EditQuestion = new EditQuestionUseCase(questionRepository)
 export const FindQuestion = new FindQuestionUseCase(questionRepository)
 export const DeleteQuestion = new DeleteQuestionUseCase(questionRepository)
+export const MarkBestAnswer = new MarkBestAnswerUseCase(questionRepository)
 
 export const GetAnswers = new GetAnswersUseCase(answerRepository)
 export const GetUserAnswers = new GetUserAnswersUseCase(answerRepository)
@@ -103,8 +103,7 @@ export const ListenToUserAnswers = new ListenToUserAnswersUseCase(answerReposito
 export const AddAnswer = new AddAnswerUseCase(answerRepository)
 export const EditAnswer = new EditAnswerUseCase(answerRepository)
 export const DeleteAnswer = new DeleteAnswerUseCase(answerRepository)
-export const RateAnswer = new RateAnswerUseCase(answerRepository)
-export const MarkAsBestAnswer = new MarkAsBestAnswerUseCase(answerRepository)
+export const VoteAnswer = new VoteAnswerUseCase(answerRepository)
 
 export const AddQuestionComment = new AddQuestionCommentUseCase(questionCommentRepository)
 export const AddAnswerComment = new AddAnswerCommentUseCase(answerCommentRepository)
@@ -114,7 +113,6 @@ export const ListenToQuestionComments = new ListenToQuestionCommentsUseCase(ques
 export const ListenToAnswerComments = new ListenToAnswerCommentsUseCase(answerCommentRepository)
 
 export const GetTags = new GetTagsUseCase(tagRepository)
-export const ListenToTags = new ListenToTagsUseCase(tagRepository)
 
 export { SubjectEntity, SubjectFactory }
 export { QuestionEntity, QuestionFactory }

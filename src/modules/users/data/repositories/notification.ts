@@ -1,8 +1,7 @@
-import { DatabaseGetClauses } from '@modules/core'
+import { Listeners, QueryParams } from '@modules/core'
 import { INotificationRepository } from '../../domain/irepositories/inotification'
 import { NotificationBaseDataSource } from '../datasources/notification-base'
 import { NotificationTransformer } from '../transformers/notification'
-import { NotificationFromModel, NotificationToModel } from '../models/notification'
 import { NotificationEntity } from '../../domain/entities/notification'
 
 export class NotificationRepository implements INotificationRepository {
@@ -14,34 +13,52 @@ export class NotificationRepository implements INotificationRepository {
 		this.transformer = transformer
 	}
 
-	async add (userId: string, data: NotificationToModel) {
-		return await this.dataSource.create(userId, data)
-	}
-
 	async find (userId: string, id: string) {
 		const model = await this.dataSource.find(userId, id)
 		if (model) return this.transformer.fromJSON(model)
 		else return null
 	}
 
-	async get (userId: string, conditions?: DatabaseGetClauses) {
-		const models = await this.dataSource.get(userId, conditions)
-		return models.map((model: NotificationFromModel) => this.transformer.fromJSON(model))
-	}
-
-	async listen (userId: string, callback: (entities: NotificationEntity[]) => void, conditions?: DatabaseGetClauses) {
-		const listenCB = (documents: NotificationFromModel[]) => {
-			const entities = documents.map(this.transformer.fromJSON)
-			callback(entities)
+	async get (userId: string, query: QueryParams) {
+		const models = await this.dataSource.get(userId, query)
+		return {
+			...models,
+			results: models.results.map(this.transformer.fromJSON)
 		}
-		return await this.dataSource.listen(userId, listenCB, conditions)
 	}
 
-	async update (userId: string, id: string, data: Partial<NotificationToModel>) {
-		return await this.dataSource.update(userId, id, data)
+	async listenToOne (userId: string, id: string, listener: Listeners<NotificationEntity>) {
+		return this.dataSource.listenToOne(userId, id, {
+			created: async (model) => {
+				await listener.created(this.transformer.fromJSON(model))
+			},
+			updated: async (model) => {
+				await listener.updated(this.transformer.fromJSON(model))
+			},
+			deleted: async (model) => {
+				await listener.deleted(this.transformer.fromJSON(model))
+			}
+		})
 	}
 
-	async delete (userId: string, id: string) {
-		return await this.dataSource.delete(userId, id)
+	async listenToMany (userId: string, query: QueryParams, listener: Listeners<NotificationEntity>, matches: (entity: NotificationEntity) => boolean) {
+		return this.dataSource.listenToMany(userId, query, {
+			created: async (model) => {
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.created(entity)
+			},
+			updated: async (model) => {
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.updated(entity)
+			},
+			deleted: async (model) => {
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.deleted(entity)
+			}
+		})
+	}
+
+	async markSeen (userId: string, id: string, seen: boolean) {
+		return await this.dataSource.markSeen(userId, id, seen)
 	}
 }

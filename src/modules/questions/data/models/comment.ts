@@ -1,17 +1,15 @@
 import { UserBio } from '@modules/users'
 
-export interface CommentFromModel {
+export interface CommentFromModel extends CommentToModel {
 	id: string
-	body: string
 	userId: string
-	user: UserBio
-	dates: {
-		createdAt: number
-	}
+	userBio: UserBio
+	createdAt: number
+	updatedAt: number
 }
 
 export interface CommentToModel {
 	body: string
-	userId: string
-	user: UserBio
+	answerId?: string
+	questionId?: string
 }

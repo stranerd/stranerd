@@ -1,15 +1,7 @@
-import { computed, Ref, ref, ssrRef, useFetch, watch } from '@nuxtjs/composition-api'
-import {
-	AddPersonalChat,
-	ChatEntity,
-	ChatFactory,
-	GetPersonalChats,
-	ListenToPersonalChats,
-	MarkPersonalChatRead
-} from '@modules/sessions'
+import { computed, Ref, ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
+import { AddChat, ChatEntity, ChatFactory, GetChats, ListenToChats, MarkChatRead } from '@modules/sessions'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 import { useAuth } from '@app/hooks/auth/auth'
-import { CHAT_PAGINATION_LIMIT } from '@utils/constants'
 import { getRandomValue } from '@utils/commons'
 
 const global = {} as Record<string, {
@@ -49,25 +41,54 @@ export const useChats = (userId: string) => {
 	})
 
 	const fetchChats = async () => {
-		global[userId].setError('')
+		await global[userId].setError('')
 		try {
-			global[userId].setLoading(true)
+			await global[userId].setLoading(true)
 			const lastDate = chats.value[0]?.createdAt
-			const c = await GetPersonalChats.call(path, lastDate ? new Date(lastDate) : undefined)
-			global[userId].hasMore.value = c.length >= CHAT_PAGINATION_LIMIT + 1
-			c.slice().reverse().slice(0, CHAT_PAGINATION_LIMIT).map((c) => unshiftToChats(userId, c))
+			const c = await GetChats.call(path, lastDate)
+			global[userId].hasMore.value = !!c.pages.next
+			c.results.map((c) => unshiftToChats(userId, c))
 			global[userId].fetched.value = true
 		} catch (e) {
-			global[userId].setError(e)
+			await global[userId].setError(e)
 		}
-		global[userId].setLoading(false)
+		await global[userId].setLoading(false)
 	}
 
 	const listener = useListener(async () => {
-		const lastDate = chats.value[chats.value.length - 1]?.createdAt
-		const callback = (chats: ChatEntity[]) => chats.map((c) => pushToChats(userId, c))
-		return ListenToPersonalChats.call(path, callback, lastDate ? new Date(lastDate) : undefined)
+		const lastDate = chats.value[0]?.createdAt
+		return ListenToChats.call(path, {
+			created: async (entity) => {
+				pushToChats(userId, entity)
+			},
+			updated: async (entity) => {
+				pushToChats(userId, entity)
+			},
+			deleted: async (entity) => {
+				const index = global[userId].chats.value.findIndex((c) => c.id === entity.id)
+				if (index !== -1) global[userId].chats.value.splice(index, 1)
+			}
+		}, lastDate)
 	})
+
+	const fetchOlderChats = async () => {
+		await fetchChats()
+		await listener.resetListener(async () => {
+			const lastDate = chats.value[0]?.createdAt
+			return ListenToChats.call(path, {
+				created: async (entity) => {
+					pushToChats(userId, entity)
+				},
+				updated: async (entity) => {
+					pushToChats(userId, entity)
+				},
+				deleted: async (entity) => {
+					const index = global[userId].chats.value.findIndex((c) => c.id === entity.id)
+					if (index !== -1) global[userId].chats.value.splice(index, 1)
+				}
+			}, lastDate)
+		})
+	}
 
 	useFetch(async () => {
 		if (!global[userId].fetched.value && !global[userId].loading.value) await fetchChats()
@@ -83,7 +104,7 @@ export const useChats = (userId: string) => {
 		error: global[userId].error,
 		hasMore: global[userId].hasMore,
 		listener,
-		fetchOlderChats: fetchChats
+		fetchOlderChats
 	}
 }
 
@@ -94,40 +115,39 @@ export const useCreateChat = (userId: string, sessionId?: string) => {
 	const { error, setError } = useErrorHandler()
 	const { loading, setLoading } = useLoadingHandler()
 
-	factory.value.from = id.value!
-	watch(() => id.value, () => factory.value.from = id.value!)
+	factory.value.to = userId
 
 	const createTextChat = async () => {
 		if (sessionId) factory.value.sessionId = sessionId
-		setError('')
+		await setError('')
 		if (factory.value.valid && !loading.value) {
 			try {
-				setLoading(true)
-				await AddPersonalChat.call(path, factory.value)
+				await setLoading(true)
+				await AddChat.call(path, factory.value)
 				factory.value.reset()
 			} catch (e) {
-				setError(e)
+				await setError(e)
 			}
 			factory.value.reset()
-			setLoading(false)
+			await setLoading(false)
 		}
 	}
 
 	const createMediaChat = async (files: File[]) => {
 		if (!loading.value) {
-			setLoading(true)
+			await setLoading(true)
 			const promises = files.map(async (file) => {
 				const mediaFactory = new ChatFactory()
-				mediaFactory.from = id.value
+				mediaFactory.to = userId
 				mediaFactory.media = file
 				try {
-					await AddPersonalChat.call(path, mediaFactory)
+					await AddChat.call(path, mediaFactory)
 				} catch (error) {
-					setError(error)
+					await setError(error)
 				}
 			})
 			await Promise.all(promises)
-			setLoading(false)
+			await setLoading(false)
 		}
 	}
 
@@ -155,7 +175,7 @@ export const useChat = (chat: ChatEntity, userId: string) => {
 	const path = [id.value, userId] as [string, string]
 
 	const markChatRead = async () => {
-		await MarkPersonalChatRead.call(path, chat.id)
+		await MarkChatRead.call(path, chat.id)
 	}
 
 	return { markChatRead }

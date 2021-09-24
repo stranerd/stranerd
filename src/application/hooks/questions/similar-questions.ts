@@ -30,7 +30,9 @@ export const useSimilarQuestionList = (question: QuestionEntity) => {
 	const listener = useListener(async () => {
 		return await ListenToSimilarQuestions.call(question.id, question.tags, {
 			created: async (entity) => {
-				global[question.id].questions.value.unshift(entity)
+				const index = global[question.id].questions.value.findIndex((q) => q.id === entity.id)
+				if (index > -1) global[question.id].questions.value.splice(index, 1, entity)
+				else global[question.id].questions.value.unshift(entity)
 			},
 			updated: async (entity) => {
 				const index = global[question.id].questions.value.findIndex((q) => q.id === entity.id)

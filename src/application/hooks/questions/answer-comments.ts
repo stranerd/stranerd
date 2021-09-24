@@ -36,7 +36,9 @@ export const useAnswerCommentList = (answerId: string) => {
 	const listener = useListener(async () => {
 		return await ListenToAnswerComments.call(answerId, {
 			created: async (entity) => {
-				global[answerId].comments.value.push(entity)
+				const index = global[answerId].comments.value.findIndex((c) => c.id === entity.id)
+				if (index === -1) global[answerId].comments.value.push(entity)
+				else global[answerId].comments.value.splice(index, 1, entity)
 			},
 			updated: async (entity) => {
 				const index = global[answerId].comments.value.findIndex((c) => c.id === entity.id)

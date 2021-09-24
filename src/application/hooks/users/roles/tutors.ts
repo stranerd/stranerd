@@ -41,7 +41,8 @@ export const useTutorsList = () => {
 	const listener = useListener(async () => {
 		return await ListenToAllSessionTutors.call({
 			created: async (entity) => {
-				global.tutors.value.push(entity)
+				const index = global.tutors.value.findIndex((t) => t.id === entity.id)
+				global.tutors.value.splice(index, 1, entity)
 			},
 			updated: async (entity) => {
 				const index = global.tutors.value.findIndex((t) => t.id === entity.id)

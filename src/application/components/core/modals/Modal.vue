@@ -13,9 +13,7 @@
 		</div>
 
 		<Heading class="my-1" variant="3">
-			<slot name="title">
-				Title
-			</slot>
+			<slot name="title" />
 		</Heading>
 		<hr v-if="!hideSeparator">
 		<slot>

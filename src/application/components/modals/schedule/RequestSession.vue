@@ -1,65 +1,85 @@
 <template>
-	<Modal :modal="$attrs.modal">
-		<template slot="title">
-			Request Session
+	<Modal :hide-separator="true" :modal="$attrs.modal">
+		<template slot="headerOption">
+			<span class="text-32 fw-bold">
+				Request A Session
+			</span>
 		</template>
-		<form @submit.prevent="createSession">
-			<div>
-				<textarea
-					id="email"
-					v-model="factory.message"
-					class="form-control"
-					placeholder="Leave a message for the nerd"
-					required
-				/>
-				<DynamicText v-if="factory.errors.message" class="small text-danger d-block">
-					{{ factory.errors.message }}
-				</DynamicText>
+		<div class="text-18 mt-n-2 bg-tags bod w-100 p-0-5 ps-1-5">
+			You are requesting a session from Jerry Maguire.
+		</div>
+
+		<div class="form-group my-1 mt-4-5 d-flex flex-column gap-1-5">
+			<div class="d-flex flex-column gap-0-5">
+				<span class="fw-bold text-24 text-dark">
+					Message
+				</span>
+				<span class="text-18 text-dark">
+					Leave a message explaining what you want to achieve in the session
+				</span>
+
+				<QuestionEditor placeholder="Explain your homework or study problems" />
 			</div>
-			<div class="form-group my-1">
-				<select v-model="factory.duration" class="form-select">
-					<option :value="0" disabled>
-						Select Session Duration
-					</option>
-					<option v-for="option in factory.prices" :key="option.duration" :value="option.duration">
-						{{ option.duration }} minutes - {{ option.price }} gold coins
+			<div class="d-flex flex-column gap-0-5">
+				<span class="fw-bold text-24 text-dark">
+					Schedule
+				</span>
+				<span class="text-18 text-dark">
+					Let the tutor know when you want the session.
+				</span>
+				<select class="form-select">
+					<option>
+						Immediate
 					</option>
 				</select>
-				<template v-if="!hasEnoughCoins" class="small">
-					<span class="text-danger">You don't have enough gold coins to continue.</span>
-					<a class="ml-half" @click.prevent="buy">Buy More Coins</a>
-				</template>
 			</div>
-			<button
-				:disabled="loading || !factory.valid || !hasEnoughCoins"
-				class="btn btn-dark my-1 w-100"
-				type="submit"
-			>
-				Request Session
-			</button>
-			<DisplayError :error="error" />
-			<PageLoading v-if="loading" />
-		</form>
+
+			<div class="w-100">
+				<button class="btn sidebar-btn w-7 me-auto mt-1-5">
+					Request
+				</button>
+			</div>
+		</div>
 	</Modal>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from '@nuxtjs/composition-api'
-import { useAccountModal } from '@app/hooks/core/modals'
-import { useCreateSession } from '@app/hooks/sessions/sessions'
-import { analytics } from '@modules/core'
+import { defineComponent } from '@nuxtjs/composition-api'
+import { useScheduleModal } from '@app/hooks/core/modals'
+import QuestionEditor from '@app/components/core/editor/QuestionEditor.vue'
+
 export default defineComponent({
-	name: 'RequestSessions',
+	name: 'ListOpenings',
+	components: { QuestionEditor },
 	setup () {
-		const buy = useAccountModal().openBuyCoins
-		const { factory, loading, error, hasEnoughCoins, createSession } = useCreateSession()
-		onMounted(() => {
-			analytics.logEvent('view_session_request')
-		})
-		return {
-			buy, hasEnoughCoins,
-			factory, loading, error, createSession
+		const goBack = () => {
+			useScheduleModal().closeCreateOpening()
+			useScheduleModal().openScheduleManager()
 		}
+
+		return { goBack }
 	}
 })
 </script>
+
+<style scooped>
+.bod{
+	border: 0.5px solid #D7E2EC;
+	position: absolute;
+    left: 0;
+    right: 0;
+}
+	.mt {
+		margin-top: 2px;
+	}
+
+	.w-7 {
+		width: 10.5rem !important;
+		margin-left: 0 !important;
+	}
+
+	select {
+		border: 1px solid #d7e2ec !important;
+		padding: 0.775rem 2.25rem 0.775rem 0.75rem !important;
+	}
+</style>

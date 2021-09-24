@@ -72,7 +72,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.bord{
-	border: 0.5px solid #D7E2EC;
-}
+	.bord {
+		border: 0.5px solid #d7e2ec;
+	}
 </style>

@@ -14,34 +14,50 @@
 		</template>
 		<template slot="title">
 			<div class="w-100 d-flex align-items-center justify-content-between">
-				Manage your openings
+				<span>Manage your openings				</span>
+				<select class="form-select select">
+					<option>
+						Booked
+					</option>
+				</select>
 			</div>
 		</template>
-		<span class="text-18 mt-n-2">Let student know what exact time in the future you would be available to tutor.</span>
 
-		<div class="form-group my-1 mt-2-5 d-flex flex-column gap-1-5">
-			<select class="form-select">
-				<option>
-					Date (e.g August 1)
-				</option>
-			</select>
-			<select class="form-select">
-				<option>
-					Time (e.g 9 AM)
-				</option>
-			</select>
-			<select class="form-select">
-				<option>
-					Date (e.g August 1)
-				</option>
-			</select>
-			<div class="w-100">
-				<button class="btn sidebar-btn w-7 me-auto mt-1-5">
-					add
-				</button>
-			</div>
-			<div class="text-primary fw-bold">
-				Aug 19 - 9 AM - 1 hour <span class="text-success"> added </span>
+		<div class="d-flex flex-column align-items-center justify-content-center gap-1 gap-md-2">
+			<div class="d-flex flex-column gap-0-5 w-100">
+				<div class="d-flex table-custom-style  text-dark bg-line">
+					<div class="col-6">
+						<span>Time</span>
+					</div>
+					<div class="col-4">
+						<span>Status</span>
+					</div>
+					<div class="col-2 ">
+						<span>Action</span>
+					</div>
+				</div>
+				<div v-for="n in 2" :key="n" class="d-flex table-data-style  text-dark bg-line">
+					<div class="col-6">
+						<span class="text-primary-dark">Aug 19 - 9 AM - 1 hour</span>
+					</div>
+					<div class="col-4">
+						<span class="text-primary">Booked</span>
+					</div>
+					<div class="col-2 text-danger">
+						<span>Delete </span>
+					</div>
+				</div>
+				<div v-for="n in 2" :key="n" class="d-flex table-data-style  text-dark bg-line">
+					<div class="col-6">
+						<span class="text-primary-dark">Aug 19 - 9 AM - 1 hour</span>
+					</div>
+					<div class="col-4">
+						<span class="text-sub">Unbooked</span>
+					</div>
+					<div class="col-2 text-danger">
+						<span>Delete </span>
+					</div>
+				</div>
 			</div>
 		</div>
 	</Modal>
@@ -55,7 +71,7 @@ export default defineComponent({
 	name: 'ListOpenings',
 	setup () {
 		const goBack = () => {
-			useScheduleModal().closeCreateOpening()
+			useScheduleModal().closeManageOpenings()
 			useScheduleModal().openScheduleManager()
 		}
 
@@ -64,16 +80,26 @@ export default defineComponent({
 })
 </script>
 
-<style scooped>
-	.mt{
-		margin-top: 2px;
+<style scooped lang="scss">
+	.select {
+		max-width: 9.75rem;
+		background-color: #f8f8ff;
+		border: 0.5px solid #d7e2ec;
 	}
-	.w-7{
-		width: 7.5rem !important;
-		margin-left: 0 !important;
+		.table-custom-style {
+		border: 1px solid $color-primary;
+		border-radius: 6px;
+		font-weight: bold;
+		font-size: 18px;
+		padding: 1.188rem 2.281rem;
 	}
-	select{
-		border: 1px solid #D7E2EC !important;
-		padding: 0.775rem 2.25rem 0.775rem 0.75rem !important;
+		.table-data-style {
+		border: 0.5px solid $color-line;
+		border-radius: 6px;
+		background: $color-tags;
+		font-weight: 700;
+		font-size: 18px;
+		color: $color-dark;
+		padding: 1.188rem 2.281rem;
 	}
 </style>

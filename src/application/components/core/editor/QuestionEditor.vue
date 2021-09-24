@@ -6,7 +6,7 @@
 			:valid="valid"
 			:value="model"
 			path="questions"
-			placeholder="Explain your question in full detail."
+			:placeholder="placeholder"
 			@update:value="$emit('update:model',$event)"
 		/>
 	</client-only>
@@ -31,6 +31,11 @@ export default defineComponent({
 		valid: {
 			required: true,
 			type: Boolean
+		},
+		placeholder: {
+			required: false,
+			type: String,
+			default: 'Explain your question in full detail.'
 		}
 	},
 	setup () {

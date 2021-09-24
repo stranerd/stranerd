@@ -65,15 +65,17 @@ export default defineComponent({
 </script>
 
 <style scooped>
-	.mt{
+	.mt {
 		margin-top: 2px;
 	}
-	.w-7{
+
+	.w-7 {
 		width: 7.5rem !important;
 		margin-left: 0 !important;
 	}
-	select{
-		border: 1px solid #D7E2EC !important;
+
+	select {
+		border: 1px solid #d7e2ec !important;
 		padding: 0.775rem 2.25rem 0.775rem 0.75rem !important;
 	}
 </style>

@@ -12,7 +12,11 @@ export const useErrorHandler = () => {
 			errorState.value = error.errors
 				.map(({ message, field }) => `${capitalize(field ?? 'Error')}: ${message}`)
 				.join('\n')
-			if (error.statusCode === StatusCodes.NotAuthenticated) await useAuth().signout()
+			if ([
+				StatusCodes.NotAuthenticated,
+				StatusCodes.AccessTokenExpired,
+				StatusCodes.RefreshTokenMisused
+			].includes(error.statusCode)) await useAuth().signout()
 		} else errorState.value = error.message ?? error
 		if (isClient() && errorState.value) Notify({
 			title: errorState.value,

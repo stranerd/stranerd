@@ -27,6 +27,10 @@ export class ChatMetaEntity extends BaseEntity {
 	get avatar () {
 		return this.userBio.photo
 	}
+
+	get fullName () {
+		return this.userBio.fullName
+	}
 }
 
 type ChatMetaConstructorArgs = {

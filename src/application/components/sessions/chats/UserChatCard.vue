@@ -5,7 +5,7 @@
 		<div class="flex-grow-1 text-truncate">
 			<div class="d-flex justify-content-between align-items-center gap-0-5">
 				<DynamicText :truncate="true" class="name">
-					{{ meta.bio.fullName }}
+					{{ meta.fullName }}
 				</DynamicText>
 				<DynamicText>{{ formatTime(meta.last.createdAt, true) }}</DynamicText>
 			</div>

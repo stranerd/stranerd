@@ -31,7 +31,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 	.light {
 		fill: '#ffffff';
 	}
@@ -82,6 +82,12 @@ export default {
 
 	.auto {
 		width: 100%;
+	}
+	.study{
+		width: 6.5rem;
+			@media (max-width: $sm) {
+				width: 3.5rem;
+			}
 	}
 
 </style>

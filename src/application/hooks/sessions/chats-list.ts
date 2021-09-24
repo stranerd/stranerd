@@ -21,11 +21,18 @@ export const useChatsList = () => {
 			}
 			return ListenToPersonalChatsMeta.call({
 				created: async (entity) => {
-					global[userId].meta.value.unshift(entity)
-					await player.play()
+					const index = global[userId].meta.value.findIndex((m) => m.id === entity.id)
+					if (index === -1) {
+						global[userId].meta.value.unshift(entity)
+						await player.play()
+					} else {
+						const globalUnReads = global[userId].meta.value[index]
+						const hasNewMessage = entity.unRead.some((unRead) => !globalUnReads.unRead.includes(unRead))
+						if (hasNewMessage) await player.play()
+						global[userId].meta.value.splice(index, 1, entity)
+					}
 				},
 				updated: async (entity) => {
-					global[userId].meta.value.unshift(entity)
 					const index = global[userId].meta.value.findIndex((m) => m.id === entity.id)
 					if (index === -1) {
 						global[userId].meta.value.unshift(entity)

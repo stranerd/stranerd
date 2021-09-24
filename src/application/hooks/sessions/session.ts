@@ -94,7 +94,9 @@ const useSession = (key: SessionKey, router: VueRouter, callback: (key: SessionK
 		}
 		return ListenToSessions.call(sessionIds, {
 			created: async (entity) => {
-				global[key].sessions.value.push(entity)
+				const index = global[key].sessions.value.findIndex((e) => e.id === entity.id)
+				if (index > -1) global[key].sessions.value.splice(index, 1, entity)
+				else global[key].sessions.value.push(entity)
 				callback(key, global[key].sessions.value, id.value!, router)
 			},
 			updated: async (entity) => {

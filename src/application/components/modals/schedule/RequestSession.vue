@@ -63,12 +63,13 @@ export default defineComponent({
 </script>
 
 <style scooped>
-.bod{
-	border: 0.5px solid #D7E2EC;
-	position: absolute;
-    left: 0;
-    right: 0;
-}
+	.bod {
+		border: 0.5px solid #d7e2ec;
+		position: absolute;
+		left: 0;
+		right: 0;
+	}
+
 	.mt {
 		margin-top: 2px;
 	}

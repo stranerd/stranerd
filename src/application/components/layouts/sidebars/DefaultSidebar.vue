@@ -21,7 +21,7 @@
 				<span>Questions</span>
 			</NuxtLink>
 
-			<NuxtLink class="sidebar-link" to="/nerds">
+			<NuxtLink class="sidebar-link" to="/study">
 				<Icon
 					class=" me-1-5"
 					size="s"

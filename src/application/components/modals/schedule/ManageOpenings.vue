@@ -81,19 +81,22 @@ export default defineComponent({
 </script>
 
 <style scooped lang="scss">
+
 	.select {
 		max-width: 9.75rem;
 		background-color: #f8f8ff;
 		border: 0.5px solid #d7e2ec;
 	}
-		.table-custom-style {
+
+	.table-custom-style {
 		border: 1px solid $color-primary;
 		border-radius: 6px;
 		font-weight: bold;
 		font-size: 18px;
 		padding: 1.188rem 2.281rem;
 	}
-		.table-data-style {
+
+	.table-data-style {
 		border: 0.5px solid $color-line;
 		border-radius: 6px;
 		background: $color-tags;

@@ -107,7 +107,11 @@ export const pwa = {
 		twitterSite: 'https://stranerd.com'
 	},
 	manifest: {
-		start_url: '/dashboard?standalone=true'
+		start_url: '/dashboard?standalone=true',
+		orientation: 'portrait-primary',
+		categories: ['education', 'tutors', 'books and reference'],
+		shortcuts: [],
+		screenshots: []
 	},
 	workbox: {
 		runtimeCaching: [
@@ -133,6 +137,21 @@ export const pwa = {
 			},
 			{
 				urlPattern: 'https://firebasestorage.googleapis.com/*',
+				handler: 'cacheFirst',
+				strategyOptions: { cacheName: 'storage' },
+				strategyPlugins: [
+					{
+						use: 'CacheableResponse',
+						config: { statuses: [0, 200] }
+					},
+					{
+						use: 'Expiration',
+						config: { maxEntries: 100, maxAgeSeconds: 14 * 24 * 60 * 60 }
+					}
+				]
+			},
+			{
+				urlPattern: 'https://storage.googleapis.com/*',
 				handler: 'cacheFirst',
 				strategyOptions: { cacheName: 'storage' },
 				strategyPlugins: [

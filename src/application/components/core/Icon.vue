@@ -83,11 +83,12 @@ export default {
 	.auto {
 		width: 100%;
 	}
-	.study{
+
+	.study {
 		width: 6.5rem;
-			@media (max-width: $sm) {
-				width: 3.5rem;
-			}
+		@media (max-width: $sm) {
+			width: 3.5rem;
+		}
 	}
 
 </style>

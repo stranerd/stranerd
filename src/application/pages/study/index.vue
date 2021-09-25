@@ -67,10 +67,9 @@ export default defineComponent({
 		height: 11.25rem;
 		font-size: 1.875rem;
 		border-radius: 6px;
-			@media (max-width: $sm) {
-				font-size: 1rem;
-				gap:1rem;
-			}
-
+		@media (max-width: $sm) {
+			font-size: 1rem;
+			gap: 1rem;
+		}
 	}
 </style>

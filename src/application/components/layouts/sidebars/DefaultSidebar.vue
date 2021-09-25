@@ -1,6 +1,6 @@
 <template>
 	<aside class="d-flex flex-column gap-1">
-		<div class="d-flex align-items-center mx-1-5 d-block d-sm-none">
+		<div v-if="isLoggedIn" class="d-flex align-items-center mx-1-5 d-block d-sm-none">
 			<Avatar :size="50" :src="user.avatar" />
 			<div class="d-flex flex-column ms-1 gap-0-5">
 				<DynamicText :truncate="true" class="fw-bold text-sub">
@@ -15,8 +15,8 @@
 			<NuxtLink class="sidebar-link" to="/dashboard">
 				<Icon
 					class="me-1-5"
-					size="s"
 					icon-name="questions"
+					size="s"
 				/>
 				<span>Questions</span>
 			</NuxtLink>
@@ -33,8 +33,8 @@
 			<NuxtLink class="sidebar-link" to="/nerds">
 				<Icon
 					class=" me-1-5"
-					size="s"
 					icon-name="tutors"
+					size="s"
 				/>
 				<span>Tutors</span>
 			</NuxtLink>
@@ -60,8 +60,8 @@
 			<NuxtLink class="sidebar-link" to="/account/e-wallet">
 				<Icon
 					class=" me-1-5"
-					size="s"
 					icon-name="e-wallet"
+					size="s"
 				/>
 				<span>e-Wallet</span>
 			</NuxtLink>
@@ -69,8 +69,8 @@
 			<div class="sidebar-link d-block d-sm-none" @click="signout">
 				<Icon
 					class=" me-1-5"
-					size="s"
 					icon-name="logout"
+					size="s"
 				/>
 				<span>Log Out</span>
 			</div>

@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeUnmount, onMounted } from '@nuxtjs/composition-api'
+import { defineComponent } from '@nuxtjs/composition-api'
 import TagListCard from '@app/components/questions/tags/TagListCard.vue'
 import { useTagsList } from '@app/hooks/questions/tags'
 
@@ -21,9 +21,7 @@ export default defineComponent({
 	name: 'TagsList',
 	components: { TagListCard },
 	setup () {
-		const { loading, error, tags, listener } = useTagsList()
-		onMounted(listener.startListener)
-		onBeforeUnmount(listener.closeListener)
+		const { loading, error, tags } = useTagsList()
 		return { loading, error, tags }
 	}
 })

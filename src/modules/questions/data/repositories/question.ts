@@ -1,9 +1,9 @@
-import { FirestoreGetClauses } from '@modules/core'
+import { Listeners, QueryParams } from '@modules/core'
 import { IQuestionRepository } from '../../domain/irepositories/iquestion'
 import { QuestionEntity } from '../../domain/entities/question'
 import { QuestionBaseDataSource } from '../datasources/question-base'
 import { QuestionTransformer } from '../transformers/question'
-import { QuestionFromModel, QuestionToModel } from '../models/question'
+import { QuestionToModel } from '../models/question'
 
 export class QuestionRepository implements IQuestionRepository {
 	private dataSource: QuestionBaseDataSource
@@ -14,24 +14,43 @@ export class QuestionRepository implements IQuestionRepository {
 		this.transformer = transformer
 	}
 
-	async get (conditions?: FirestoreGetClauses) {
-		const models = await this.dataSource.get(conditions)
-		return models.map(this.transformer.fromJSON)
+	async get (query: QueryParams) {
+		const models = await this.dataSource.get(query)
+		return {
+			...models,
+			results: models.results.map(this.transformer.fromJSON)
+		}
 	}
 
-	async listenToOne (id: string, callback: (entity: QuestionEntity | null) => void) {
-		const cb = (document: QuestionFromModel | null) => {
-			callback(document ? this.transformer.fromJSON(document) : null)
-		}
-		return this.dataSource.listenToOne(id, cb)
+	async listenToOne (id: string, listener: Listeners<QuestionEntity>) {
+		return this.dataSource.listenToOne(id, {
+			created: async (model) => {
+				await listener.created(this.transformer.fromJSON(model))
+			},
+			updated: async (model) => {
+				await listener.updated(this.transformer.fromJSON(model))
+			},
+			deleted: async (model) => {
+				await listener.deleted(this.transformer.fromJSON(model))
+			}
+		})
 	}
 
-	async listenToMany (callback: (entities: QuestionEntity[]) => void, conditions?: FirestoreGetClauses) {
-		const cb = (documents: QuestionFromModel[]) => {
-			const entities = documents.map(this.transformer.fromJSON)
-			callback(entities)
-		}
-		return this.dataSource.listenToMany(cb, conditions)
+	async listenToMany (query: QueryParams, listener: Listeners<QuestionEntity>, matches: (entity: QuestionEntity) => boolean) {
+		return this.dataSource.listenToMany(query, {
+			created: async (model) => {
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.created(entity)
+			},
+			updated: async (model) => {
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.updated(entity)
+			},
+			deleted: async (model) => {
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.deleted(entity)
+			}
+		})
 	}
 
 	async add (data: QuestionToModel) {
@@ -43,11 +62,15 @@ export class QuestionRepository implements IQuestionRepository {
 		return model ? this.transformer.fromJSON(model) : null
 	}
 
-	async update (id: string, data: Partial<QuestionToModel>) {
+	async update (id: string, data: QuestionToModel) {
 		return this.dataSource.update(id, data)
 	}
 
 	async delete (id: string) {
 		return this.dataSource.delete(id)
+	}
+
+	async markBestAnswer (questionId: string, answerId: string) {
+		return this.dataSource.markBestAnswer(questionId, answerId)
 	}
 }

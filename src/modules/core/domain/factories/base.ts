@@ -1,4 +1,4 @@
-import { Rule, Validator } from 'sd-validate'
+import { Rule, Validator } from '@stranerd/validate'
 import { UploaderService } from '../../services/uploader'
 
 export abstract class BaseFactory<E, T, K extends Record<string, any>> {
@@ -39,16 +39,17 @@ export abstract class BaseFactory<E, T, K extends Record<string, any>> {
 
 	isValid = (property: keyof K) => this.checkValidity(property, this.validValues[property]).isValid
 
-	validateAll = () => Object.keys(this.defaults)
-		.forEach((key) => this.set(key, this.values[key]))
-
-	checkValidity (property: keyof K, value: any) {
-		const validity = Validator.single(value, this.rules[property].rules, this.rules[property].required)
-		if (validity.isValid) return { isValid: validity.isValid, message: undefined }
-		else return { isValid: validity.isValid, message: validity.errors[0] }
+	validateAll () {
+		Object.keys(this.defaults)
+			.forEach((key) => this.set(key, this.values[key]))
 	}
 
-	reset = () => {
+	checkValidity (property: keyof K, value: any) {
+		const { isValid, errors } = Validator.single(value, this.rules[property].rules, this.rules[property].required)
+		return { isValid, message: errors.find((e) => !!e) ?? null }
+	}
+
+	reset () {
 		const reserved = ['userId', 'user']
 		Object.keys(this.defaults)
 			.filter((key) => !reserved.concat(this.reserved ?? []).includes(key))
@@ -59,5 +60,7 @@ export abstract class BaseFactory<E, T, K extends Record<string, any>> {
 			})
 	}
 
-	uploadFile = async (path: string, file: File) => await UploaderService.call(path, file)
+	async uploadFile (path: string, file: File) {
+		return await UploaderService.call(path, file)
+	}
 }

@@ -1,10 +1,9 @@
-import { DatabaseGetClauses } from '@modules/core'
+import { Listeners, QueryParams } from '@modules/core'
 import { ChatBaseDataSource } from '../datasources/chat-base'
 import { ChatTransformer } from '../transformers/chat'
 import { IChatRepository } from '../../domain/irepositories/ichat'
-import { ChatFromModel, ChatMeta, ChatToModel } from '../models/chat'
+import { ChatToModel } from '../models/chat'
 import { ChatEntity } from '../../domain/entities/chat'
-import { ChatMetaEntity } from '../../domain/entities/chatMeta'
 
 export class ChatRepository implements IChatRepository {
 	private dataSource: ChatBaseDataSource
@@ -19,14 +18,12 @@ export class ChatRepository implements IChatRepository {
 		return await this.dataSource.create(path, data)
 	}
 
-	async get (path: [string, string], conditions?: DatabaseGetClauses) {
-		const models = await this.dataSource.get(path, conditions)
-		return models.map(this.transformer.fromJSON)
-	}
-
-	async getMeta (id: string, conditions?: DatabaseGetClauses) {
-		const models = await this.dataSource.getMeta(id, conditions)
-		return models.map(this.transformer.metaFromJSON)
+	async get (path: [string, string], query: QueryParams) {
+		const models = await this.dataSource.get(path, query)
+		return {
+			...models,
+			results: models.results.map(this.transformer.fromJSON)
+		}
 	}
 
 	async find (path: [string, string], id: string) {
@@ -34,21 +31,38 @@ export class ChatRepository implements IChatRepository {
 		return model ? this.transformer.fromJSON(model) : model
 	}
 
-	async listen (path: [string, string], callback: (entities: ChatEntity[]) => void, conditions?: DatabaseGetClauses) {
-		const listenCB = (documents: ChatFromModel[]) => callback(documents.map(this.transformer.fromJSON))
-		return await this.dataSource.listen(path, listenCB, conditions)
+	async listenToOne (path: [string, string], id: string, listener: Listeners<ChatEntity>) {
+		return this.dataSource.listenToOne(path, id, {
+			created: async (model) => {
+				await listener.created(this.transformer.fromJSON(model))
+			},
+			updated: async (model) => {
+				await listener.updated(this.transformer.fromJSON(model))
+			},
+			deleted: async (model) => {
+				await listener.deleted(this.transformer.fromJSON(model))
+			}
+		})
 	}
 
-	async listenToMeta (id: string, callback: (entities: ChatMetaEntity[]) => void, conditions?: DatabaseGetClauses) {
-		const listenCB = (documents: ChatMeta[]) => callback(documents.map(this.transformer.metaFromJSON))
-		return await this.dataSource.listenToMeta(id, listenCB, conditions)
+	async listenToMany (path: [string, string], query: QueryParams, listener: Listeners<ChatEntity>, matches: (entity: ChatEntity) => boolean) {
+		return this.dataSource.listenToMany(path, query, {
+			created: async (model) => {
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.created(entity)
+			},
+			updated: async (model) => {
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.updated(entity)
+			},
+			deleted: async (model) => {
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.deleted(entity)
+			}
+		})
 	}
 
-	async markRead (path: [string, string], id: string) {
-		await this.dataSource.markRead(path, id)
-	}
-
-	async delete (path: [string, string], id: string) {
-		return await this.dataSource.delete(path, id)
+	async markRead (path: [string, string], chatId: string, to: string) {
+		await this.dataSource.markRead(path, chatId, to)
 	}
 }

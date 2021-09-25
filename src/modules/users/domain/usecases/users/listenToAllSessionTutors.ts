@@ -1,4 +1,4 @@
-import { DatabaseGetClauses } from '@modules/core'
+import { Conditions, Listeners } from '@modules/core'
 import { IUserRepository } from '../../irepositories/iuser'
 import { UserEntity } from '../../entities/user'
 import { Ranks } from '../../entities/rank'
@@ -10,10 +10,10 @@ export class ListenToAllSessionTutorsUseCase {
 		this.repository = repository
 	}
 
-	async call (callback: (entities: UserEntity[]) => void) {
-		const conditions: DatabaseGetClauses = {
-			order: { field: 'account/rank', condition: { '>=': Ranks.Scholar.level } }
-		}
-		return await this.repository.listenToMany(callback, conditions)
+	async call (listener: Listeners<UserEntity>) {
+		return await this.repository.listenToMany({
+			where: [{ field: 'account.score', condition: Conditions.gte, value: Ranks.Scholar.score }],
+			all: true
+		}, listener, (entity) => entity.score >= Ranks.Scholar.score)
 	}
 }

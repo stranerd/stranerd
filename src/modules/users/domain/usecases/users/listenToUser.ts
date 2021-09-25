@@ -1,3 +1,4 @@
+import { Listeners } from '@modules/core'
 import { IUserRepository } from '../../irepositories/iuser'
 import { UserEntity } from '../../entities/user'
 
@@ -8,7 +9,7 @@ export class ListenToUserUseCase {
 		this.repository = repository
 	}
 
-	async call (id: string, callback: (user: UserEntity | null) => void, updateStatus = false) {
-		return await this.repository.listen(id, callback, updateStatus)
+	async call (id: string, listeners: Listeners<UserEntity>) {
+		return await this.repository.listenToOne(id, listeners)
 	}
 }

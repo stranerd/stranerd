@@ -1,6 +1,8 @@
 export interface Media {
 	name: string
-	path: string
-	link: string
 	type: string
+	size: number
+	path: string
+	timestamp: number
+	link: string
 }

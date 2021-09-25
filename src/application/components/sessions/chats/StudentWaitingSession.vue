@@ -1,7 +1,7 @@
 <template>
 	<div class="bg-primary text-white py-1 lead text-center">
 		Waiting for&nbsp;
-		<DynamicText>{{ session.tutorBio.name.fullName }}</DynamicText>
+		<DynamicText>{{ session.tutorBio.fullName }}</DynamicText>
 		&nbsp;to accept session
 	</div>
 </template>

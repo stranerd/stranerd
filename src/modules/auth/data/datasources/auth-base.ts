@@ -1,13 +1,14 @@
-import { AfterAuthUser, AuthDetails, AuthExtras, UpdateUser } from '../../domain/entities/auth'
+import { AfterAuthUser, AuthDetails, AuthExtras, NewUser, UpdateUser } from '../../domain/entities/auth'
 
-export abstract class AuthBaseDataSource {
-	abstract signinWithEmail: (email: string, password: string, extras: AuthExtras) => Promise<AfterAuthUser>
-	abstract signinWithGoogle: (extras: AuthExtras) => Promise<AfterAuthUser>
-	abstract signupWithEmail: (data: { first: string, last: string, email: string, password: string }, extras: AuthExtras) => Promise<AfterAuthUser>
-	abstract sendVerificationEmail: (email: string, redirectUrl: string) => Promise<void>
-	abstract resetPassword: (email: string, redirectUrl: string) => Promise<void>
-	abstract confirmPasswordReset: (code: string, password: string) => Promise<void>
-	abstract updateProfile: (profile: UpdateUser) => Promise<void>
-	abstract session: (idToken: string) => Promise<AuthDetails>
-	abstract logout: () => Promise<void>
+export interface AuthBaseDataSource {
+	signinWithEmail: (email: string, password: string, extras: AuthExtras) => Promise<AfterAuthUser>
+	signinWithGoogle: (idToken: string, extras: AuthExtras) => Promise<AfterAuthUser>
+	signupWithEmail: (data: NewUser, extras: AuthExtras) => Promise<AfterAuthUser>
+	sendVerificationEmail: (email: string) => Promise<void>
+	completeEmailVerification: (token: string) => Promise<AfterAuthUser>
+	sendPasswordResetEmail: (email: string) => Promise<void>
+	resetPassword: (token: string, password: string) => Promise<AfterAuthUser>
+	updateProfile: (profile: UpdateUser) => Promise<void>
+	session: (afterAuth: AfterAuthUser) => Promise<AuthDetails>
+	signout: () => Promise<void>
 }

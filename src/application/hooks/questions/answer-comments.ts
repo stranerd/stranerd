@@ -1,4 +1,4 @@
-import { Ref, ref, ssrRef, useFetch, watch } from '@nuxtjs/composition-api'
+import { Ref, ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import {
 	AddAnswerComment,
 	CommentEntity,
@@ -7,7 +7,6 @@ import {
 	ListenToAnswerComments
 } from '@modules/questions'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
-import { useAuth } from '@app/hooks/auth/auth'
 
 const global = {} as Record<string, {
 	comments: Ref<CommentEntity[]>,
@@ -23,20 +22,33 @@ export const useAnswerCommentList = (answerId: string) => {
 	}
 
 	const fetchComments = async () => {
-		global[answerId].setError('')
+		await global[answerId].setError('')
 		try {
-			global[answerId].setLoading(true)
-			global[answerId].comments.value = await GetAnswerComments.call(answerId)
+			await global[answerId].setLoading(true)
+			global[answerId].comments.value = (await GetAnswerComments.call(answerId)).results
 			global[answerId].fetched.value = true
 		} catch (error) {
-			global[answerId].setError(error)
+			await global[answerId].setError(error)
 		}
-		global[answerId].setLoading(false)
+		await global[answerId].setLoading(false)
 	}
 
 	const listener = useListener(async () => {
-		const callback = (comments: CommentEntity[]) => global[answerId].comments.value = comments
-		return await ListenToAnswerComments.call(answerId, callback)
+		return await ListenToAnswerComments.call(answerId, {
+			created: async (entity) => {
+				const index = global[answerId].comments.value.findIndex((c) => c.id === entity.id)
+				if (index === -1) global[answerId].comments.value.push(entity)
+				else global[answerId].comments.value.splice(index, 1, entity)
+			},
+			updated: async (entity) => {
+				const index = global[answerId].comments.value.findIndex((c) => c.id === entity.id)
+				if (index === -1) global[answerId].comments.value.push(entity)
+				else global[answerId].comments.value.splice(index, 1, entity)
+			},
+			deleted: async (entity) => {
+				global[answerId].comments.value = global[answerId].comments.value.filter((c) => c.id !== entity.id)
+			}
+		})
 	})
 
 	useFetch(async () => {
@@ -52,26 +64,21 @@ export const useAnswerCommentList = (answerId: string) => {
 }
 
 export const useCreateAnswerComments = (answerId: string) => {
-	const { id, bio } = useAuth()
 	const factory = ref(new CommentFactory()) as Ref<CommentFactory>
 	const { loading, setLoading } = useLoadingHandler()
 	const { error, setError } = useErrorHandler()
 
-	factory.value.userBioAndId = { id: id.value!, user: bio.value! }
-	watch(() => id.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
-	watch(() => bio.value, () => factory.value.userBioAndId = { id: id.value!, user: bio.value! })
-
 	const createComment = async () => {
-		setError('')
+		await setError('')
 		if (factory.value.valid && !loading.value) {
 			try {
-				setLoading(true)
+				await setLoading(true)
 				await AddAnswerComment.call(answerId, factory.value)
 				factory.value.reset()
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		} else factory.value.validateAll()
 	}
 

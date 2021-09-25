@@ -1,15 +1,12 @@
-import { DatabaseGetClauses } from '@modules/core'
+import { Listeners, QueryParams, QueryResults } from '@modules/core'
 import { ChatToModel } from '../../data/models/chat'
 import { ChatEntity } from '../entities/chat'
-import { ChatMetaEntity } from '../entities/chatMeta'
 
 export interface IChatRepository {
 	add: (path: [string, string], data: ChatToModel) => Promise<string>,
-	get: (path: [string, string], conditions?: DatabaseGetClauses) => Promise<ChatEntity[]>
-	getMeta: (id: string, conditions?: DatabaseGetClauses) => Promise<ChatMetaEntity[]>
+	get: (path: [string, string], query: QueryParams) => Promise<QueryResults<ChatEntity>>
 	find: (path: [string, string], id: string) => Promise<ChatEntity | null>
-	listen: (path: [string, string], callback: (entities: ChatEntity[]) => void, conditions?: DatabaseGetClauses) => Promise<() => void>
-	listenToMeta: (id: string, callback: (entities: ChatMetaEntity[]) => void, conditions?: DatabaseGetClauses) => Promise<() => void>
-	markRead: (path: [string, string], id: string) => Promise<void>
-	delete: (path: [string, string], id: string) => Promise<void>
+	listenToOne: (path: [string, string], id: string, listener: Listeners<ChatEntity>) => Promise<() => void>
+	listenToMany: (path: [string, string], query: QueryParams, listener: Listeners<ChatEntity>, matches: (entity: ChatEntity) => boolean) => Promise<() => void>
+	markRead: (path: [string, string], chatId: string, to: string) => Promise<void>
 }

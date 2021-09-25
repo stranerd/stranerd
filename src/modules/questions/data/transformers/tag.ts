@@ -3,15 +3,15 @@ import { TagEntity } from '../../domain/entities/tag'
 
 export class TagTransformer {
 	fromJSON (model: TagFromModel) {
-		const { id, count } = model
+		const { id, name, count, createdAt, updatedAt } = model
 		return new TagEntity({
-			id, count
+			id, name, count, createdAt, updatedAt
 		})
 	}
 
 	toJSON (entity: TagEntity): TagToModel {
 		return {
-			count: entity.count
+			name: entity.name
 		}
 	}
 }

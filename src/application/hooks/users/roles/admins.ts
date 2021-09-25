@@ -20,16 +20,16 @@ const pushToAdminsList = (admin: UserEntity) => {
 
 export const useAdminsList = () => {
 	const fetchAdmins = async () => {
-		global.setError('')
+		await global.setError('')
 		try {
-			global.setLoading(true)
+			await global.setLoading(true)
 			const admins = await GetAllAdmins.call()
-			admins.forEach(pushToAdminsList)
+			admins.results.forEach(pushToAdminsList)
 			global.fetched.value = true
 		} catch (error) {
-			global.setError(error)
+			await global.setError(error)
 		}
-		global.setLoading(false)
+		await global.setLoading(false)
 	}
 	const filteredAdmins = computed({
 		get: () => global.admins.value.filter((admin) => {
@@ -63,14 +63,15 @@ export const useAdminRoles = () => {
 
 	const getUsersByEmail = async () => {
 		if (state.email) {
-			setLoading(true)
+			await setLoading(true)
 			try {
-				state.users = reactive(await GetUsersByEmail.call(state.email.toLowerCase()))
+				const users = await GetUsersByEmail.call(state.email.toLowerCase())
+				state.users = reactive(users.results)
 				state.fetched = true
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		}
 	}
 
@@ -81,7 +82,7 @@ export const useAdminRoles = () => {
 	}
 
 	const adminUser = async (user: UserEntity) => {
-		setError('')
+		await setError('')
 		const accepted = await Alert({
 			title: 'Are you sure you want to make this user an admin?',
 			text: 'This user will gain admin privileges to the entire site',
@@ -89,22 +90,22 @@ export const useAdminRoles = () => {
 			confirmButtonText: 'Yes, continue'
 		})
 		if (accepted) {
-			setLoading(true)
+			await setLoading(true)
 			try {
 				await MakeAdmin.call(user.id)
-				user.roles.isAdmin = true
+				user.isAdmin = true
 				pushToAdminsList(user)
 				reset()
-				setMessage('Successfully upgraded to admin')
+				await setMessage('Successfully upgraded to admin')
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		}
 	}
 
 	const deAdminUser = async (user: UserEntity) => {
-		setError('')
+		await setError('')
 		const accepted = await Alert({
 			title: 'Are you sure you want to de-admin this user?',
 			text: 'This user will lose admin privileges to the entire site',
@@ -112,16 +113,16 @@ export const useAdminRoles = () => {
 			confirmButtonText: 'Yes, continue'
 		})
 		if (accepted) {
-			setLoading(true)
+			await setLoading(true)
 			try {
 				await RemoveAdmin.call(user.id)
 				global.admins.value = global.admins.value
 					.filter((u) => u.id !== user.id)
-				setMessage('Successfully downgraded from admin')
+				await setMessage('Successfully downgraded from admin')
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		}
 	}
 

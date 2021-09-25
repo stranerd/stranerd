@@ -2,7 +2,6 @@ import { ssrRef } from '@nuxtjs/composition-api'
 import { useModal } from '@app/hooks/core/modal'
 import MakePayment from '@app/components/modals/payments/MakePayment.vue'
 import BuyCoins from '@app/components/modals/account/AccountBuyCoins.vue'
-import TipTutor from '@app/components/modals/account/AccountTipTutor.vue'
 import WithdrawCoins from '@app/components/modals/account/WithdrawCoins.vue'
 import RightSidebar from '@app/components/modals/menus/RightSidebarMenu.vue'
 import Sidebar from '@app/components/modals/menus/SidebarMenu.vue'
@@ -17,7 +16,7 @@ import ManageOpenings from '@app/components/modals/schedule/ManageOpenings.vue'
 import RequestSession from '@app/components/modals/schedule/RequestSession.vue'
 import ScheduleManager from '@app/components/modals/schedule/ScheduleManager.vue'
 
-type AccountTypes = 'BuyCoins' | 'TipTutor' | 'WithdrawCoins'
+type AccountTypes = 'BuyCoins' | 'WithdrawCoins'
 type MenuTypes = 'RightSidebar' | 'Sidebar'
 type SessionTypes = 'CreateSession' | 'Ratings'
 type PaymentTypes = 'MakePayment'
@@ -25,7 +24,7 @@ type ReportTypes = 'ReportUser' | 'ReportQuestion' | 'ReportAnswer'
 type QuestionTypes = 'AskQuestions'
 type ScheduleTypes = 'CreateOpening' | 'ManageOpenings' | 'RequestSession' | 'ScheduleManager'
 
-const AccountModals = { BuyCoins, TipTutor, WithdrawCoins } as Record<AccountTypes, any>
+const AccountModals = { BuyCoins, WithdrawCoins } as Record<AccountTypes, any>
 const MenuModals = { RightSidebar, Sidebar } as Record<MenuTypes, any>
 const SessionModals = { CreateSession, Ratings } as Record<SessionTypes, any>
 const PaymentModals = { MakePayment } as Record<PaymentTypes, any>

@@ -1,0 +1,60 @@
+{
+    "env": {
+        "email": {
+            "no_reply": {
+                "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC+fcZKkUL5GZnK\nQB6pF9FlJ5I1CPtLj9375OJ4qCsyp8OGxtXHPT2oC+wU3ybQoFoMap1Sz4RRZ+OT\njjWjbN5Py0AmzziHA3wSk/GNL+3g4H9YpwoXi4iz1pusIkiZ6r8a1MyCiS+NHIW9\nB7wyvBL5edVfN4YBf2sVmsA8yztpRY4YaTfcj0kDuUVK+vURfXawkw+0dhdvrckD\n25uGHutHLsWcc2e9yIkw17WFlsdWP4aB0cRrQVC4L4WQa1knd5+dAAUVQyAT5Cf/\nFUX4vk6FqgH1Ze8CHwltSAIb30LTknZiOTtdimRl0hCccTikZfDNcCG7qYTCin5A\n9AzU7gkVAgMBAAECggEACi0T47Xg2wfIFGraeHQCRqIXiGfDbOTxmdw/UOzC6gDW\nTCPhFbSqz4hbgz3sh+aZCOLFJsBZNDQVjzNgoCtXsPGNqsUVIvlHroJivAUccw/r\nHaRGwL0+f0TuqgJm2HoW3WsSxcJoXORyLIf2QMuVQ+iDQoPnz7qr0MqkjFrbAKOT\n6Lk5qAHQHOvbWTL7fUvzhfV+pmR2pXV+yNKszT6NmYl/nBDp2UFf7OgDcq652VLA\n55R6Wkh1afFhE2TiGuLF88DWb27uGqYyYi0pOJhXgiev3FqgLJN4Z8UTPzqPVSGC\nncTDEbnCwlt+30zkgkX+UI1V9HtcqX7ySLvshejJ3QKBgQDvgpyGo2guFgcLqawy\n9r9ll5de2U6Ywrjev/3IPZxpcAfySY9BpQ5khNv9jOGKkZBMQW7z7B30yNSmtnQj\n4VGOg9FalC1mdolM1gh4nG6WsGMZ4ifdTiRiyCdxuuFCaivL7gsUuWsa6VaOGE5q\nfsYjdx+LKme95TVKB/dgawgEUwKBgQDLmzNmnzJbcQaD2EVr3433OA8GDSlR7j6H\n90Yyo+Lksdou1MpqhsJkj1LtX259VNZCDRl6YF4ZJTAXwcPpwYOsvI1YXlNBI/NQ\nINIOYkQoQiQsJhKF4QxZC4kzRbtYsUqbATRzh5340veUvQrDF+nnnwYKL8MeeZ+D\nEkpPaisP9wKBgCl7rs6nCMlKqWe8uIWPNTFMYzxbWQCeYVS7XiJLgYbFj6rIUNam\n1upUFKJCv2G3uo1qm+QFll6qViKV4WHBidWsQRt2JLLlfvxe6dKyDXluDYwTHqJ3\nAVhWoHZTTuao6vMERMkPIFzl40bzMMnDMWA9Jqp86sD6LROoc5EwmI/fAoGBAKB3\nUhxoDWUaABt7IMNy7k1QBi8rwkwLK4c3MEEK/vBk52MPW/R2/tAIUUA5fTgT28U0\n08aqGp9QusWOddxOInvKIs/pj04Aimu1Yjfp5HOiJSYSX3jaNEQdnmUlaRDusbDW\nU0NWN/96LZwxHUFDIJrmrvjqSapECp5flOdf8k5jAoGBAIm+Uqeww2zjtmseJnDA\n93b+g7VH30SqeXhGYA9BUasZtMzh//qzSGepdOsjBjYLygLwcXOk1mj9miyf7/O2\nm2SFbqLioIT9/10T+wjgDSdARsJ8sRcQBwF9C2LAom/Z6gRPGDRVPThWLpCuQp4K\nNQ/xQGxlF52sh539LJDUHf0M\n-----END PRIVATE KEY-----\n",
+                "client_id": "111092027823639186520"
+            }
+        },
+        "braintree": {
+            "merchant_id": "cvqsy73bwrd8cmkc",
+            "private_key": "67e834c71c005cd6619604cd52eb3f47",
+            "public_key": "g3pc4yjrt88dhhv8"
+        },
+        "paypal": {
+            "client_id": "AYVizWYMsN4pHYJrPwjWtWWZkVLiN0DuslH9xANYaIgR3XTIWqV1DmowDvYbiozTGCW--CDlmazL6rBo",
+            "client_secret": "EH3L-X4r741iqtbqnpxvfs5-c5QWurkz-w88vmULn22KX-eH1WdScpf5loufWnd6pgUiYLOkhdL1Yh8Y"
+        },
+        "flutterwave": {
+            "public_key": "FLWPUBK_TEST-b4c7a713bd2ee831fa3ef6e75aa5f3a6-X"
+        },
+        "stripe": {
+            "public_key": "pk_test_51IXRSbH8qRmmmd9uJL8dyrgzLE5wINjo0T9Q6B1M5BswYhCzCiS6KS2lxadwvfYuHVRYti0mtYvMeeTbgHGQtb4t00i99K11Qi",
+            "secret_key": "sk_test_51IXRSbH8qRmmmd9uQ9deEmfPt6JUhEFGmDhRQfRAfCEQW70zIX75U5m5vQYS0PAfeezGc0iIpbQTGpiQ3xhlr1pE00cGx9lu7U"
+        },
+        "mailchimp": {
+            "api_key": "6f690c09cc8d73f6887ca859c4ab2eeb-us10",
+            "audience_id": "f630d749d7",
+            "data_center": "us10"
+        },
+        "algolia": {
+            "admin_api_key": "74c47bca9a9426ba3ccc46c8d554e58b",
+            "search_api_key": "3340c1d8739634f5788646c30babd8e2",
+            "app_id": "C9EBH3CMRD"
+        },
+        "firebase_client_config": {
+            "api_key": "AIzaSyBqkCjohNU8hh9omuGkEqmCrVphX4DpPzI",
+            "auth_domain": "ss-nuxtify.firebaseapp.com",
+            "database_url": "https://ss-nuxtify.firebaseio.com",
+            "project_id": "ss-nuxtify",
+            "storage_bucket": "ss-nuxtify.appspot.com",
+            "messaging_sender_id": "585363008583",
+            "app_id": "1:585363008583:web:1473bb94d43fc8e319d562",
+            "measurement_id": "G-FLWR182V4Y"
+        },
+        "firebase_meta": {
+            "loc_short": "uc",
+            "loc_long": "us-central1",
+            "task_email": "cloud-tasks"
+        },
+        "environment": "development",
+        "domain": "localhost",
+        "port": 8080,
+        "firebase_auth_emulator_host": "localhost:5004",
+        "firebase_database_emulator_host": "localhost:5003",
+        "firestore_emulator_host": "localhost:5002",
+        "firebase_storage_emulator_host": "localhost:5005",
+        "google_application_credentials": "firebase/docs/credentials.json",
+        "app_name": "Stranerd"
+    }
+}

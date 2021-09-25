@@ -3,10 +3,7 @@ import { Ref, ref, useRouter, watch } from '@nuxtjs/composition-api'
 import { ProfileUpdateFactory, UpdateProfile } from '@modules/auth'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useAccountModal, usePaymentModal } from '@app/hooks/core/modals'
-import { BuyCoins, TipTutor } from '@modules/meta'
-import { UserBio } from '@modules/users'
 import { setPaymentProps } from '@app/hooks/payment/payment'
-import { Alert } from '@app/hooks/core/notifications'
 import { analytics } from '@modules/core'
 
 export const useUpdateProfile = () => {
@@ -21,17 +18,17 @@ export const useUpdateProfile = () => {
 	watch(() => user.value?.hash, () => user.value ? factory.value.loadEntity(user.value) : null)
 
 	const updateProfile = async () => {
-		setError('')
+		await setError('')
 		if (factory.value.valid && !loading.value) {
 			try {
-				setLoading(true)
+				await setLoading(true)
 				await UpdateProfile.call(factory.value)
 				await router.push('/account/')
-				setMessage('Profile updated successfully!')
+				await setMessage('Profile updated successfully!')
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		} else factory.value.validateAll()
 	}
 
@@ -58,25 +55,24 @@ export const useBuyCoins = () => {
 
 	const buyCoins = async (option: typeof BRONZE_PRICES[0], isGold: boolean) => {
 		setPaymentProps({
+			type: 'buyCoins',
 			amount: option.price,
+			data: { gold: isGold ? option.amount : 0, bronze: isGold ? 0 : option.amount },
 			afterPayment: async (res: boolean) => {
-				if (res) {
-					if (!loading.value) {
-						try {
-							setLoading(true)
-							await BuyCoins.call(option.amount, isGold)
-							useAccountModal().closeBuyCoins()
-							analytics.logEvent('buy_coins_end', {
-								amount: option.amount,
-								price: option.price,
-								isGold
-							})
-							setMessage('Coins purchased successfully')
-						} catch (e) {
-							setError(e)
-						}
-						setLoading(false)
+				if (res && !loading.value) {
+					try {
+						await setLoading(true)
+						useAccountModal().closeBuyCoins()
+						analytics.logEvent('buy_coins_end', {
+							amount: option.amount,
+							price: option.price,
+							isGold
+						})
+						await setMessage('Coins purchased successfully')
+					} catch (e) {
+						await setError(e)
 					}
+					await setLoading(false)
 				}
 			}
 		})
@@ -86,48 +82,5 @@ export const useBuyCoins = () => {
 	return {
 		loading, error, message, buyCoins,
 		BRONZE_PRICES, GOLD_PRICES
-	}
-}
-
-let nerdBioAndId = null as { id: string, bio: UserBio } | null
-export const setNerdBioAndId = ({ id, bio }: { id: string, bio: UserBio }) => {
-	nerdBioAndId = { id, bio }
-}
-
-export const useTipTutor = () => {
-	const { loading, setLoading } = useLoadingHandler()
-	const { error, setError } = useErrorHandler()
-	const { message, setMessage } = useSuccessHandler()
-	const TIP_AMOUNTS = [1, 2, 3, 4, 5, 10, 15, 20, 25, 35, 40, 45, 50]
-
-	const tipTutor = async (amount: number) => {
-		if (!nerdBioAndId) useAccountModal().closeTipTutor()
-		if (!loading.value) {
-			setError('')
-			const result = await Alert({
-				icon: 'info',
-				cancelButtonText: 'No, cancel',
-				confirmButtonText: 'Yes, proceed',
-				title: `Tip ${amount} coins`,
-				text: `Are you sure you want to tip ${amount} coins?`
-			})
-			if (result) {
-				try {
-					setLoading(true)
-					await TipTutor.call(amount, nerdBioAndId!.id)
-					useAccountModal().closeTipTutor()
-					setMessage('Tipped successfully')
-					analytics.logEvent('tip_nerd_completed', { amount })
-				} catch (e) {
-					setError(e)
-				}
-				setLoading(false)
-			}
-		}
-	}
-
-	return {
-		loading, error, message, nerdBioAndId,
-		tipTutor, TIP_AMOUNTS
 	}
 }

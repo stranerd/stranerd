@@ -1,4 +1,3 @@
-import { FirestoreGetClauses } from '@modules/core'
 import { IAnswerRepository } from '../../irepositories/ianswer'
 
 export class GetAnswersUseCase {
@@ -9,13 +8,10 @@ export class GetAnswersUseCase {
 	}
 
 	async call (questionId: string) {
-		const conditions: FirestoreGetClauses = {
-			order: { field: 'dates.createdAt', desc: false },
-			where: [
-				{ field: 'questionId', condition: '==', value: questionId }
-			]
-		}
-
-		return await this.repository.get(conditions)
+		return await this.repository.get({
+			where: [{ field: 'questionId', value: questionId }],
+			sort: { field: 'createdAt' },
+			all: true
+		})
 	}
 }

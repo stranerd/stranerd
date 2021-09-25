@@ -1,7 +1,6 @@
 import { Ref, ssrRef, useFetch } from '@nuxtjs/composition-api'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
 import { GetNotifications, ListenToNotifications, MarkNotificationSeen, NotificationEntity } from '@modules/users'
-import { PAGINATION_LIMIT } from '@utils/constants'
 import { useAuth } from '@app/hooks/auth/auth'
 
 const global = {} as Record<string, {
@@ -30,11 +29,19 @@ export const useNotificationList = () => {
 		const listener = useListener(async () => {
 			if (!id.value) return () => {
 			}
-			const appendNotifications = (notifications: NotificationEntity[]) => {
-				notifications.forEach((notification) => unshiftToNotificationList(userId, notification))
-			}
-			const date = global[userId].notifications.value[0]?.createdAt
-			return ListenToNotifications.call(userId, appendNotifications, date)
+			const lastDate = global[userId].notifications.value[global[userId].notifications.value.length - 1]?.createdAt
+			return ListenToNotifications.call(userId, {
+				created: async (entity) => {
+					unshiftToNotificationList(userId, entity)
+				},
+				updated: async (entity) => {
+					unshiftToNotificationList(userId, entity)
+				},
+				deleted: async (entity) => {
+					const index = global[userId].notifications.value.findIndex((t) => t.id === entity.id)
+					if (index !== -1) global[userId].notifications.value.splice(index, 1)
+				}
+			}, lastDate)
 		})
 		global[userId] = {
 			notifications: ssrRef([]),
@@ -48,16 +55,38 @@ export const useNotificationList = () => {
 
 	const fetchNotifications = async () => {
 		if (!id.value) return
-		global[userId].setError('')
-		global[userId].setLoading(true)
+		await global[userId].setError('')
+		await global[userId].setLoading(true)
 		try {
-			const notifications = await GetNotifications.call(userId)
-			global[userId].hasMore.value = notifications.length === PAGINATION_LIMIT + 1
-			notifications.reverse().slice(0, PAGINATION_LIMIT).forEach((t) => pushToNotificationList(userId, t))
+			const lastDate = global[userId].notifications.value[global[userId].notifications.value.length - 1]?.createdAt
+			const notifications = await GetNotifications.call(userId, lastDate)
+			global[userId].hasMore.value = !!notifications.pages.next
+			notifications.results.forEach((t) => pushToNotificationList(userId, t))
 		} catch (e) {
-			global[userId].setError(e)
+			await global[userId].setError(e)
 		}
-		global[userId].setLoading(false)
+		await global[userId].setLoading(false)
+	}
+
+	const fetchOlderNotifications = async () => {
+		await fetchNotifications()
+		await global[userId].listener.resetListener(async () => {
+			if (!id.value) return () => {
+			}
+			const lastDate = global[userId].notifications.value[global[userId].notifications.value.length - 1]?.createdAt
+			return ListenToNotifications.call(userId, {
+				created: async (entity) => {
+					unshiftToNotificationList(userId, entity)
+				},
+				updated: async (entity) => {
+					unshiftToNotificationList(userId, entity)
+				},
+				deleted: async (entity) => {
+					const index = global[userId].notifications.value.findIndex((t) => t.id === entity.id)
+					if (index !== -1) global[userId].notifications.value.splice(index, 1)
+				}
+			}, lastDate)
+		})
 	}
 
 	useFetch(async () => {
@@ -65,7 +94,7 @@ export const useNotificationList = () => {
 		if (!global[userId].fetched.value && !global[userId].loading.value) await fetchNotifications()
 	})
 
-	return { ...global[userId], fetchOlderNotifications: fetchNotifications }
+	return { ...global[userId], fetchOlderNotifications }
 }
 
 export const useNotification = (notification: NotificationEntity) => {
@@ -74,14 +103,14 @@ export const useNotification = (notification: NotificationEntity) => {
 	const { error, setError } = useErrorHandler()
 	const markNotificationSeen = async () => {
 		if (notification.seen) return
-		setError('')
+		await setError('')
 		try {
-			setLoading(true)
+			await setLoading(true)
 			await MarkNotificationSeen.call(id.value!, notification.id, true)
 		} catch (e) {
-			setError(e)
+			await setError(e)
 		}
-		setLoading(false)
+		await setLoading(false)
 	}
 
 	return { loading, error, markNotificationSeen }

@@ -1,5 +1,5 @@
 import { ssrRef } from '@nuxtjs/composition-api'
-import { AddMessage, MessageFactory } from '@modules/forms'
+import { AddMessage, MessageFactory } from '@modules/meta'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
 
 export const useCreateMessage = () => {
@@ -9,17 +9,17 @@ export const useCreateMessage = () => {
 	const { error, setError } = useErrorHandler()
 
 	const createMessage = async () => {
-		setError('')
+		await setError('')
 		if (factory.value.valid && !loading.value) {
 			try {
-				setLoading(true)
+				await setLoading(true)
 				await AddMessage.call(factory.value)
 				factory.value.reset()
-				await setMessage('Message sent successfully')
+				await await setMessage('Message sent successfully')
 			} catch (error) {
-				setError(error)
+				await setError(error)
 			}
-			setLoading(false)
+			await setLoading(false)
 		} else factory.value.validateAll()
 	}
 

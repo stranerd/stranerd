@@ -8,7 +8,11 @@ export class GetQuestionCommentsUseCase {
 	}
 
 	async call (questionId: string) {
-		return await this.repository.get(questionId)
+		return await this.repository.get({
+			where: [{ field: 'questionId', value: questionId }],
+			sort: { field: 'createdAt', order: 1 },
+			all: true
+		})
 	}
 }
 
@@ -20,6 +24,10 @@ export class GetAnswerCommentsUseCase {
 	}
 
 	async call (answerId: string) {
-		return await this.repository.get(answerId)
+		return await this.repository.get({
+			where: [{ field: 'answerId', value: answerId }],
+			sort: { field: 'createdAt', order: 1 },
+			all: true
+		})
 	}
 }

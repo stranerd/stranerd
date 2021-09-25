@@ -1,8 +1,7 @@
-import { DatabaseGetClauses } from '@modules/core'
+import { Listeners, QueryParams } from '@modules/core'
 import { IUserRepository } from '../../domain/irepositories/iuser'
 import { UserBaseDataSource } from '../datasources/user-base'
 import { UserTransformer } from '../transformers/user'
-import { UserFromModel, UserToModel } from '../models/user'
 import { UserEntity } from '../../domain/entities/user'
 
 export class UserRepository implements IUserRepository {
@@ -20,28 +19,43 @@ export class UserRepository implements IUserRepository {
 		else return null
 	}
 
-	async get (conditions?: DatabaseGetClauses) {
-		const models = await this.dataSource.get(conditions)
-		return models.map(this.transformer.fromJSON)
-	}
-
-	async listen (id: string, callback: (entity: UserEntity | null) => void, updateStatus = false) {
-		const cb = (model: UserFromModel | null) => {
-			const user = model ? this.transformer.fromJSON(model) : null
-			callback(user)
+	async get (query: QueryParams) {
+		const models = await this.dataSource.get(query)
+		return {
+			...models,
+			results: models.results.map(this.transformer.fromJSON)
 		}
-		return this.dataSource.listen(id, cb, updateStatus)
 	}
 
-	async listenToMany (callback: (entities: UserEntity[]) => void, conditions?: DatabaseGetClauses) {
-		const cb = (models: UserFromModel[]) => {
-			callback(models.map(this.transformer.fromJSON))
-		}
-		return this.dataSource.listenToMany(cb, conditions)
+	async listenToOne (id: string, listener: Listeners<UserEntity>) {
+		return this.dataSource.listenToOne(id, {
+			created: async (model) => {
+				await listener.created(this.transformer.fromJSON(model))
+			},
+			updated: async (model) => {
+				await listener.updated(this.transformer.fromJSON(model))
+			},
+			deleted: async (model) => {
+				await listener.deleted(this.transformer.fromJSON(model))
+			}
+		})
 	}
 
-	async update (id: string, data: Partial<UserToModel>) {
-		return this.dataSource.update(id, data)
+	async listenToMany (query: QueryParams, listener: Listeners<UserEntity>, matches: (entity: UserEntity) => boolean) {
+		return this.dataSource.listenToMany(query, {
+			created: async (model) => {
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.created(entity)
+			},
+			updated: async (model) => {
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.updated(entity)
+			},
+			deleted: async (model) => {
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.deleted(entity)
+			}
+		})
 	}
 
 	async updateStreak () {

@@ -22,21 +22,9 @@
 					Unlock a new badge for every milestone reached
 				</p>
 				<div class="d-flex gap-1 align-items-center text-dark">
-					<img :src="user.rank.image" alt="" class="img-rank">
-					<ProgressBar :current="user.rankProgress.overall" :primary="true" />
-					<img v-if="user.rankProgress.next" :src="user.rankProgress.next.image" alt="" class="img-rank">
-				</div>
-				<div class="d-flex flex-column gap-1">
-					<div
-						v-for="detail in user.rankProgress.progresses"
-						:key="detail.title"
-						class="d-flex justify-content-between align-items-center gap-0-25"
-					>
-						<DynamicText class="stat">
-							{{ detail.title }}
-						</DynamicText>
-						<ProgressBar :current="detail.progress" />
-					</div>
+					<img :src="user.rankImage" alt="" class="img-rank">
+					<ProgressBar :current="user.rankProgress" :primary="true" />
+					<img v-if="user.nextRank" :src="user.nextRankImage" alt="" class="img-rank">
 				</div>
 			</div>
 

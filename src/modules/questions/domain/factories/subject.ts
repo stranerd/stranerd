@@ -1,5 +1,5 @@
-import { isLongerThan } from 'sd-validate/lib/rules'
 import { BaseFactory } from '@modules/core'
+import { isLongerThanX, isString } from '@stranerd/validate'
 import { SubjectEntity } from '../entities/subject'
 import { SubjectToModel } from '../../data/models/subject'
 
@@ -7,11 +7,9 @@ interface Keys {
 	name: string
 }
 
-const isLongerThan2 = (value: string) => isLongerThan(value, 2)
-
 export class SubjectFactory extends BaseFactory<SubjectEntity, SubjectToModel, Keys> {
 	readonly rules = {
-		name: { required: true, rules: [isLongerThan2] }
+		name: { required: true, rules: [isString, isLongerThanX(0)] }
 	}
 
 	reserved = []

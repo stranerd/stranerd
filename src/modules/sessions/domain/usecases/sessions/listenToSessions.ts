@@ -1,4 +1,4 @@
-import { FirestoreGetClauses } from '@modules/core'
+import { Conditions, Listeners } from '@modules/core'
 import { ISessionRepository } from '../../irepositories/isession'
 import { SessionEntity } from '../../entities/session'
 
@@ -9,12 +9,10 @@ export class ListenToSessionsUseCase {
 		this.repository = repository
 	}
 
-	async call (ids: string[], callback: (entities: SessionEntity[]) => void) {
-		const conditions: FirestoreGetClauses = {
-			where: [
-				{ field: '__name__', condition: 'in', value: ids }
-			]
-		}
-		return await this.repository.listenToMany(callback, conditions)
+	async call (ids: string[], listener: Listeners<SessionEntity>) {
+		return await this.repository.listenToMany({
+			where: [{ field: 'id', condition: Conditions.in, value: ids }],
+			all: true
+		}, listener, (entity) => ids.includes(entity.id))
 	}
 }

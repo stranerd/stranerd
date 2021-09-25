@@ -1,19 +1,20 @@
-import { DatabaseGetClauses } from '@modules/core'
+import { Listeners, QueryParams } from '@modules/core'
 import { IReportRepository } from '../../domain/irepositories/ireport'
 import { ReportBaseDataSource } from '../datasources/report-base'
 import { ReportTransformer } from '../transformers/report'
-import { ReportFromModel, ReportToModel } from '../models/report'
+import { ReportToModel } from '../models/report'
+import { ReportEntity } from '../../domain/entities/report'
 
-export class ReportRepository<Key extends string, ReportType extends { userId: string }> implements IReportRepository<ReportType> {
-	private dataSource: ReportBaseDataSource<Key, ReportType>
-	private transformer: ReportTransformer<ReportType>
+export class ReportRepository implements IReportRepository {
+	private dataSource: ReportBaseDataSource
+	private transformer: ReportTransformer
 
-	constructor (dataSource: ReportBaseDataSource<Key, ReportType>, transformer: ReportTransformer<ReportType>) {
+	constructor (dataSource: ReportBaseDataSource, transformer: ReportTransformer) {
 		this.dataSource = dataSource
 		this.transformer = transformer
 	}
 
-	async add (data: ReportToModel<ReportType>) {
+	async add (data: ReportToModel) {
 		return await this.dataSource.create(data)
 	}
 
@@ -23,16 +24,46 @@ export class ReportRepository<Key extends string, ReportType extends { userId: s
 		else return null
 	}
 
-	async get (conditions?: DatabaseGetClauses) {
-		const models = await this.dataSource.get(conditions)
-		return models.map((model: ReportFromModel<ReportType>) => this.transformer.fromJSON(model))
-	}
-
-	async update (id: string, data: ReportToModel<ReportType>) {
-		return await this.dataSource.update(id, data)
+	async get (query: QueryParams) {
+		const models = await this.dataSource.get(query)
+		return {
+			...models,
+			results: models.results.map(this.transformer.fromJSON)
+		}
 	}
 
 	async delete (id: string) {
 		return await this.dataSource.delete(id)
+	}
+
+	async listenToOne (id: string, listener: Listeners<ReportEntity<any>>) {
+		return this.dataSource.listenToOne(id, {
+			created: async (model) => {
+				await listener.created(this.transformer.fromJSON(model))
+			},
+			updated: async (model) => {
+				await listener.updated(this.transformer.fromJSON(model))
+			},
+			deleted: async (model) => {
+				await listener.deleted(this.transformer.fromJSON(model))
+			}
+		})
+	}
+
+	async listenToMany (query: QueryParams, listener: Listeners<ReportEntity<any>>, matches: (entity: ReportEntity<any>) => boolean) {
+		return this.dataSource.listenToMany(query, {
+			created: async (model) => {
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.created(entity)
+			},
+			updated: async (model) => {
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.updated(entity)
+			},
+			deleted: async (model) => {
+				const entity = this.transformer.fromJSON(model)
+				if (matches(entity)) await listener.deleted(entity)
+			}
+		})
 	}
 }

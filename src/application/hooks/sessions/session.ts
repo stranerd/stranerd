@@ -1,7 +1,7 @@
 import { computed, Ref, ssrRef, useFetch, useRouter, watch } from '@nuxtjs/composition-api'
 import VueRouter from 'vue-router'
 import { useErrorHandler, useListener, useLoadingHandler } from '@app/hooks/core/states'
-import { GetSession, GetSessions, ListenToSession, ListenToSessions, SessionEntity } from '@modules/sessions'
+import { FindSession, GetSessions, ListenToSession, ListenToSessions, SessionEntity } from '@modules/sessions'
 import { useAuth } from '@app/hooks/auth/auth'
 import { Alert } from '@app/hooks/core/notifications'
 import { setOtherParticipantId } from '@app/hooks/sessions/sessions'
@@ -26,23 +26,29 @@ export const useCurrentSession = () => {
 
 	const fetchSession = async (userId: string, id: string | null) => {
 		if (id && currentGlobal.currentSession.value?.id !== id) {
-			const session = await GetSession.call(id)
+			const session = await FindSession.call(id)
 			currentGlobal.currentSession.value = session
 			if (session) {
 				const id = userId === session.tutorId ? session.studentId : session.tutorId
 				await router.push(`/sessions/${id}`)
 			}
+			const listenerCallback = async (entity: SessionEntity) => {
+				const oldDone = currentGlobal.currentSession.value?.done ?? false
+				if (!oldDone && entity?.done) {
+					const id = userId === entity.tutorId ? entity.studentId : entity.tutorId
+					setOtherParticipantId(id)
+					useSessionModal().openRatings()
+				}
+				currentGlobal.previousSession.value = currentGlobal.currentSession.value
+				if (entity) currentGlobal.currentSession.value = entity
+			}
 			await currentGlobal.listener.resetListener(
 				async () => id
-					? ListenToSession.call(id, (s) => {
-						const oldDone = currentGlobal.currentSession.value?.done ?? false
-						if (!oldDone && s?.done) {
-							const id = userId === s.tutorId ? s.studentId : s.tutorId
-							setOtherParticipantId(id)
-							useSessionModal().openRatings()
+					? ListenToSession.call(id, {
+						created: listenerCallback,
+						updated: listenerCallback,
+						deleted: async () => {
 						}
-						currentGlobal.previousSession.value = currentGlobal.currentSession.value
-						if (s) currentGlobal.currentSession.value = s
 					})
 					: () => () => {
 					}
@@ -80,17 +86,30 @@ export const useCurrentSession = () => {
 const useSession = (key: SessionKey, router: VueRouter, callback: (key: SessionKey, sessions: SessionEntity[], id: string, router: VueRouter) => void) => {
 	const { user, id } = useAuth()
 	const listenerCb = async () => {
-		const sessionIds = Object.keys(user.value?.session?.[key] ?? {})
+		const sessionIds = user.value?.session?.[key] ?? []
 		if (sessionIds.length === 0) {
 			global[key].sessions.value = []
 			return () => {
 			}
 		}
-		const cb = (sessions: SessionEntity[]) => {
-			callback(key, sessions, id.value!, router)
-			global[key].sessions.value = sessions
-		}
-		return ListenToSessions.call(sessionIds, cb)
+		return ListenToSessions.call(sessionIds, {
+			created: async (entity) => {
+				const index = global[key].sessions.value.findIndex((e) => e.id === entity.id)
+				if (index > -1) global[key].sessions.value.splice(index, 1, entity)
+				else global[key].sessions.value.push(entity)
+				callback(key, global[key].sessions.value, id.value!, router)
+			},
+			updated: async (entity) => {
+				const index = global[key].sessions.value.findIndex((e) => e.id === entity.id)
+				if (index > -1) global[key].sessions.value.splice(index, 1, entity)
+				else global[key].sessions.value.push(entity)
+				callback(key, global[key].sessions.value, id.value!, router)
+			},
+			deleted: async (entity) => {
+				global[key].sessions.value = global[key].sessions.value.filter((e) => e.id !== entity.id)
+				callback(key, global[key].sessions.value, id.value!, router)
+			}
+		})
 	}
 
 	if (global[key] === undefined) global[key] = {
@@ -102,19 +121,19 @@ const useSession = (key: SessionKey, router: VueRouter, callback: (key: SessionK
 	}
 
 	const fetchSessions = async () => {
-		global[key].setError('')
-		const sessionIds = Object.keys(user.value?.session?.[key] ?? {})
+		await global[key].setError('')
+		const sessionIds = user.value?.session?.[key] ?? []
 		if (sessionIds.length === 0) return global[key].sessions.value = []
 		try {
-			global[key].setLoading(true)
+			await global[key].setLoading(true)
 			const sessions = await GetSessions.call(sessionIds)
-			callback(key, sessions, id.value!, router)
-			global[key].sessions.value = sessions
+			callback(key, sessions.results, id.value!, router)
+			global[key].sessions.value = sessions.results
 			global[key].fetched.value = true
 		} catch (error) {
-			global[key].setError(error)
+			await global[key].setError(error)
 		}
-		global[key].setLoading(false)
+		await global[key].setLoading(false)
 	}
 
 	useFetch(async () => {

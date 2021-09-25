@@ -1,7 +1,0 @@
-{
-  "projects": {
-    "development": "ss-nuxtify",
-    "staging": "stranerd-staging",
-    "release": "stranerd"
-  }
-}

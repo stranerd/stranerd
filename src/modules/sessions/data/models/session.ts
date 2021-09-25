@@ -1,41 +1,23 @@
 import { UserBio } from '@modules/users'
-import { Timestamp } from '@modules/core'
 
-export interface SessionFromModel {
+export interface SessionFromModel extends SessionToModel {
 	id: string
-	message: string
+	price: number
 	studentId: string
 	studentBio: UserBio
-	tutorId: string
 	tutorBio: UserBio
-	duration: number
-	accepted: boolean
+	accepted: boolean | null
 	done: boolean
-	price: number
 	cancelled: { tutor: boolean, student: boolean, busy: boolean }
-	reviews: {
-		student?: { rating: number, comment: string }
-		tutor?: { rating: number, comment: string }
-	}
-	dates: {
-		createdAt: Timestamp
-		endedAt?: Timestamp
-	}
+	createdAt: number
+	updatedAt: number
+	startedAt: number | null
+	endedAt: number | null
+	taskId: string
 }
 
 export interface SessionToModel {
 	message: string
-	studentId: string
-	studentBio: UserBio
 	tutorId: string
-	tutorBio: UserBio
 	duration: number
-	price: number
-	accepted: boolean
-	done: boolean
-	reviews: {
-		student?: { rating: number, comment: string }
-		tutor?: { rating: number, comment: string }
-	}
-	cancelled: { tutor: boolean, student: boolean, busy: boolean }
 }

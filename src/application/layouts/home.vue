@@ -1,11 +1,9 @@
 <template>
-	<div :key="$route.fullPath" class="layout-page">
+	<div :key="$route.fullPath" class="max-w-full grid grid-cols-12">
 		<HomeTopNavigation />
-		<section class="layout-body p-0">
-			<main class="layout-main p-0">
-				<Nuxt class="flex-grow-1" />
-				<HomeBottomNavigation />
-			</main>
+		<section class="col-span-12 grid grid-cols-12 mt-20">
+			<Nuxt class="col-span-12" />
+			<HomeBottomNavigation />
 		</section>
 	</div>
 </template>

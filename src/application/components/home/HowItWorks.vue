@@ -1,75 +1,90 @@
 <template>
-	<div class="d-flex flex-column col-lg-10 offset-lg-1 px-1 py-7-5">
-		<div class="section">
-			<div>
-				<img src="@app/assets/images/homepage/ask-question.svg">
+	<div class="col-span-12 lg:col-start-3 lg:col-end-11 grid grid-cols-2 mt-28">
+		<div class="grid grid-cols-2 col-span-2 mb-24">
+			<div class="col-span-2 lg:col-span-1 flex flex-col justify-center items-center">
+				<img src="@app/assets/images/homepage/ask-question.svg" class="lg:w-5/6 md:w-3/5 w-10/12">
 			</div>
-			<div class="px-md-3 mt-3 mt-md-0">
-				<Heading variant="1">
+			<div class="col-span-2 px-7 lg:col-span-1 flex flex-col justify-center mt-11 lg:items-start md:items-center items-center lg:mt-0">
+				<h1 class="font-bold text-heading md:text-2xl text-lg pb-2">
 					Ask A Question
-				</Heading>
-				<div class="py-2 d-flex flex-column gap-0-5">
-					<span>- Ask questions on various subjects to clear your doubts</span>
-					<span>- Go through all available answers from smart students</span>
-					<span>- Choose your best answers and ask another question</span>
+				</h1>
+				<ul class="py-2 list-none text-gray-700 md:text-lg text-sm">
+					<li>✔️ Ask questions on various subjects to clear your doubts</li>
+					<li>✔️ Go through all available answers from smart students</li>
+					<li>✔️ Choose your best answers and ask another question</li>
+				</ul>
+				<div class="mt-8">
+					<NuxtLink class=" md:px-6 md:py-4 px-4 py-3 bg-primary text-white font-bold md:text-base text-sm rounded-md" to="/questions/create">
+						Ask A Question
+					</NuxtLink>
 				</div>
-				<NuxtLink class="btn btn-md btn-custom py-1" to="/questions/create">
-					Ask A Question
-				</NuxtLink>
 			</div>
 		</div>
-		<div class="section flex-md-row-reverse">
-			<div>
-				<img src="@app/assets/images/homepage/answer-question.svg">
+		<div class="grid grid-cols-2 col-span-2 mb-24">
+			<div class="col-span-2 lg:col-span-1 flex flex-col justify-center lg:hidden items-center">
+				<img src="@app/assets/images/homepage/answer-question.svg" class="lg:w-5/6 md:w-3/5 w-10/12">
 			</div>
-			<div>
-				<Heading variant="1">
+			<div class="col-span-2 px-7 lg:col-span-1 flex flex-col justify-center mt-11 lg:items-start md:items-center items-center lg:mt-0">
+				<h1 class="font-bold text-heading md:text-2xl text-lg pb-2">
 					Answer A Question
-				</Heading>
-				<div class="py-2 d-flex flex-column gap-0-5">
-					<span>- Answer questions in subjects you are very good at</span>
-					<span>- Get rewarded if your answer is chosen as one of the best answers</span>
+				</h1>
+				<ul class="py-2 list-none text-gray-700 md:text-lg text-sm">
+					<li>✔️ Answer questions in subjects you are very good at</li>
+					<li>✔️ Get rewarded if your answer is chosen as one of the best answers</li>
+				</ul>
+				<div class="mt-8">
+					<NuxtLink class=" md:px-6 md:py-4 px-4 py-3 bg-primary text-white font-bold md:text-base text-sm rounded-md" to="/questions/create">
+						Answer A Question
+					</NuxtLink>
 				</div>
-				<NuxtLink class="btn btn-md btn-custom py-1" to="/dashboard">
-					Answer A Question
-				</NuxtLink>
+			</div>
+			<div class="col-span-2 lg:col-span-1 flex-col justify-center lg:flex hidden items-center">
+				<img src="@app/assets/images/homepage/answer-question.svg" class="w-5/6">
 			</div>
 		</div>
-		<div class="section">
-			<div>
-				<img src="@app/assets/images/homepage/meet-top-nerd.svg">
+		<div class="grid grid-cols-2 col-span-2 mb-24">
+			<div class="col-span-2 lg:col-span-1 flex flex-col justify-center items-center">
+				<img src="@app/assets/images/homepage/meet-top-nerd.svg" class="lg:w-5/6 md:w-3/5 w-10/12">
 			</div>
-			<div>
-				<Heading variant="1">
+			<div class="col-span-2 px-7 lg:col-span-1 flex flex-col justify-center mt-11 lg:items-start md:items-center items-center lg:mt-0">
+				<h1 class="font-bold text-heading md:text-2xl text-lg pb-2">
 					Meet Top Nerds
-				</Heading>
-				<div class="py-2 d-flex flex-column gap-0-5">
-					<span>- Get in-depth answers to homework questions</span>
-					<span>- Request sessions to get help for your homework</span>
-					<span>- Collaborate to solve problems and earn rewards</span>
+				</h1>
+				<ul class="py-2 list-none text-gray-700  md:text-lg text-sm">
+					<li>✔️ Get in-depth answers to homework questions</li>
+					<li>✔️ Request sessions to get help for your homework</li>
+					<li>✔️ Collaborate to solve problems and earn rewards</li>
+				</ul>
+				<div class="mt-8">
+					<NuxtLink class=" md:px-6 md:py-4 px-4 py-3 bg-primary text-white font-bold md:text-base text-sm rounded-md" to="/questions/create">
+						Meet Top Nerds
+					</NuxtLink>
 				</div>
-				<NuxtLink class="btn btn-md btn-custom py-1" to="/nerds/">
-					Meet Top Nerds
-				</NuxtLink>
 			</div>
 		</div>
-		<div class="section flex-md-row-reverse">
-			<div>
-				<img v-if="isNigerian" src="@app/assets/images/homepage/buy-coins-ng.svg">
-				<img v-else src="@app/assets/images/homepage/buy-coins.svg">
+		<div class="grid grid-cols-2 col-span-2 mb-24">
+			<div class="col-span-2 lg:col-span-1 flex flex-col justify-center items-center lg:hidden">
+				<img v-if="isNigerian" class="lg:w-5/6 md:w-3/5 w-10/12" src="@app/assets/images/homepage/buy-coins-ng.svg">
+				<img v-else class="lg:w-5/6 md:w-3/5 w-10/12" src="@app/assets/images/homepage/buy-coins.svg">
 			</div>
-			<div>
-				<Heading variant="1">
+			<div class="col-span-2 px-7 lg:col-span-1 flex flex-col justify-center mt-11 lg:items-start md:items-center items-center lg:mt-0">
+				<h1 class="font-bold text-heading md:text-2xl text-lg pb-2">
 					Coin System
-				</Heading>
-				<div class="py-2 d-flex flex-column gap-0-5">
-					<span>- Buy or gain affordable coins to interact on the site</span>
-					<span>- Bronze Coins are used to Ask Questions while</span>
-					<span>- Gold Coins are used for Booking Sessions with Nerds</span>
+				</h1>
+				<ul class="py-2 list-none text-gray-700 md:text-lg text-sm">
+					<li>✔️ Buy or gain affordable coins to interact on the site</li>
+					<li>✔️ Bronze Coins are used to Ask Questions while</li>
+					<li>✔️ Gold Coins are used for Booking Sessions with Nerds</li>
+				</ul>
+				<div class="mt-8">
+					<NuxtLink class=" md:px-6 md:py-4 px-4 py-3 bg-primary text-white font-bold md:text-base rounded-md" to="/questions/create">
+						Buy Coins
+					</NuxtLink>
 				</div>
-				<NuxtLink class="btn btn-md btn-custom py-1" to="/account/e-wallet">
-					Buy Coins
-				</NuxtLink>
+			</div>
+			<div class="col-span-2 lg:col-span-1 flex-col justify-center items-center lg:flex hidden ">
+				<img v-if="isNigerian" class="w-5/6" src="@app/assets/images/homepage/buy-coins-ng.svg">
+				<img v-else class="w-5/6" src="@app/assets/images/homepage/buy-coins.svg">
 			</div>
 		</div>
 	</div>
@@ -93,54 +108,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-	h1 {
-		color: $color-primary-dark;
-	}
-
-	a.btn-custom {
-		display: inline-block;
-		background-color: $color-primary;
-		color: $color-white;
-		border: 2px solid $color-primary;
-		border-radius: 6px;
-	}
-
-	.section {
-		display: flex;
-		position: relative;
-		align-items: center;
-		justify-content: center;
-		flex-direction: column;
-		@media (min-width: $md) {
-			flex-direction: row;
-		}
-
-		& + & {
-			margin-top: 10rem;
-		}
-
-		& > * {
-			text-align: center;
-			width: 100%;
-			@media (min-width: $lg) {
-				width: 50%;
-			}
-		}
-
-		& > *:first-child {
-			img {
-				width: 85%;
-			}
-		}
-
-		& > *:last-child {
-			margin-top: 3rem;
-			@media (min-width: $md) {
-				padding: 0 3rem;
-				margin-top: 0;
-				text-align: left;
-			}
-		}
-	}
 
 </style>

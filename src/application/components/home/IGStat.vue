@@ -1,45 +1,43 @@
 <template>
-	<div class="content_wrapper py-5 px-2">
-		<div class="sub mb-2 text-center">
-			Already trusted by more than 33,000 students
-		</div>
-		<div
-			class="d-flex flex-column flex-lg-row justify-content-center inner-wrapper align-items-center col-lg-10 offset-lg-1 gap-2"
-		>
-			<div class="w-100 flex-grow-1 text-center">
-				<img src="@app/assets/images/homepage/stranerd-ig.svg" width="100%">
+	<div class="col-span-12 grid grid-cols-12 py-5 pb-14 bg-text_link">
+		<div class="col-span-12 md:col-start-3 md:col-end-11 flex flex-col justify-center items-center">
+			<div class="text-center md:py-7 py-4">
+				<span class="text-white font-bold md:text-2xl text-lg">Already trusted by more than 33,000 students</span>
 			</div>
-			<div
-				class="w-100 flex-grow-1 text-center d-flex flex-column justify-content-center align-items-center position-relative"
-			>
-				<img class="ImageBubble" src="@app/assets/images/homepage/testimonial.svg">
-				<div class="py-3 box">
-					<div
-						class="col-md-10 commentsBox p-1 d-flex flex-column justify-content-center align-items-center mx-auto"
-					>
-						<img :src="comments[currentIndex].img" class="testimonial-image">
-						<div class="mb-1">
-							{{ comments[currentIndex].text }}
-						</div>
-						<div class="mt-auto authorname">
-							{{ comments[currentIndex].author }}
-						</div>
-					</div>
-					<div class="d-flex justify-content-center align-items-center mt-1">
-						<a class="commentIcons" to="#" @click.prevent="goToPrev">
-							<i class="fas fa-chevron-left" />
-						</a>
-						<a
-							v-for="(comment,index) in comments"
-							:key="'comment'+ index"
-							:class="currentIndex === index ? 'commentIconsDotActive' : 'commentIconsDot'"
-							@click.prevent="goToComment(index)"
+			<div class="grid grid-cols-12 md:mt-16 mt-8">
+				<div class="col-span-12 lg:col-span-6 text-center flex flex-col py-3 justify-center items-center">
+					<img src="@app/assets/images/homepage/stranerd-ig.svg" class="w-10/12">
+				</div>
+				<div class="col-span-12 lg:col-span-6 text-center py-3 flex flex-col justify-center items-center">
+					<img class="w-4/6" src="@app/assets/images/homepage/testimonial.svg">
+					<div class="py-3 box md:max-w-[420px] max-w-[320px] mt-7">
+						<div
+							class="col-md-10 commentsBox p-1 py-2  flex flex-col justify-center items-center mx-auto"
 						>
-							<i class="fas fa-circle" />
-						</a>
-						<a class="commentIcons" to="#" @click.prevent="goToNext">
-							<i class="fas fa-chevron-right" />
-						</a>
+							<img :src="comments[currentIndex].img" class="testimonial-image">
+							<div class="mb-1 line-clamp-3 md:text-base text-sm">
+								{{ comments[currentIndex].text }}
+							</div>
+							<div class="mt-auto authorname">
+								{{ comments[currentIndex].author }}
+							</div>
+						</div>
+						<div class="d-flex justify-content-center align-items-center mt-1">
+							<a class="commentIcons" to="#" @click.prevent="goToPrev">
+								<i class="fas fa-chevron-left" />
+							</a>
+							<a
+								v-for="(comment,index) in comments"
+								:key="'comment'+ index"
+								:class="currentIndex === index ? 'commentIconsDotActive' : 'commentIconsDot'"
+								@click.prevent="goToComment(index)"
+							>
+								<i class="fas fa-circle" />
+							</a>
+							<a class="commentIcons" to="#" @click.prevent="goToNext">
+								<i class="fas fa-chevron-right" />
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -83,6 +81,19 @@ export default defineComponent({
 		}
 		const goToNext = () => goToComment(currentIndex.value + 1)
 		const goToPrev = () => goToComment(currentIndex.value - 1)
+		const autoSlidder = () => {
+			setInterval(() => {
+				 if (currentIndex.value === 0) {
+					goToNext()
+				 } else if (currentIndex.value >= comments.length - 1) {
+					 currentIndex.value = 0
+				 } else {
+					 goToNext()
+				 }
+			}, 4000)
+		}
+
+		autoSlidder()
 
 		return { comments, currentIndex, goToComment, goToPrev, goToNext }
 	}
@@ -97,15 +108,6 @@ export default defineComponent({
 		object-fit: cover;
 		margin-bottom: 9px;
 	}
-
-	.content_wrapper {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		background: $color-primary;
-		color: $color-white;
-	}
-
 	.authorname {
 		color: $color-primary;
 		font-size: 15px;
@@ -121,20 +123,7 @@ export default defineComponent({
 	}
 
 	.box {
-		position: absolute;
-		z-index: 1;
-		top: 50%;
-		transform: translateY(-40%);
-	}
-
-	.ImageBubble {
-		width: 90%;
-		@media (min-width: $md) {
-			width: 50%;
-		}
-		@media (min-width: $lg) {
-			width: 60%;
-		}
+		position:absolute;
 	}
 
 	.sub {
@@ -188,11 +177,4 @@ export default defineComponent({
 		margin-right: 10px;
 	}
 
-	.btn-custom {
-		background-color: $color-primary-dark;
-		color: $color-white;
-		border: 2px solid $color-primary-dark;
-		border-radius: 6px;
-		font-weight: bold;
-	}
 </style>

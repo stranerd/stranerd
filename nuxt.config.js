@@ -54,7 +54,7 @@ export const components = [
 ]
 
 export const buildModules = [
-	'@nuxtjs/composition-api/module', '@nuxt/typescript-build', '@nuxtjs/pwa',
+	'@nuxtjs/composition-api/module', '@nuxt/typescript-build', '@nuxtjs/pwa', '@nuxtjs/tailwindcss',
 	'@nuxtjs/style-resources', 'nuxt-purgecss', 'vue2-editor/nuxt',
 	['nuxt-compress', { gzip: { cache: true }, brotli: { threshold: 10240 } }]
 ]
@@ -85,6 +85,38 @@ export const typescript = {
 		eslint: {
 			files: 'src/**/*.{ts,js,vue}'
 		}
+	}
+}
+
+export const tailwindcss = {
+	cssPath: 'src/application/assets/styles/tailwind.css',
+	exposeConfig: false,
+	config: {
+		purge: [
+			'./src/**/*.{vue,js}',
+			'./nuxt.config.{js,ts}'
+		],
+		mode: 'jit',
+		darkMode: false, // or 'media' or 'class'
+		theme: {
+			extend: {
+				colors: {
+					primary: '#546DD3',
+					secondary: '#132740',
+					primary_dark: '#374B99',
+					button_text: '#374B99',
+					text_link: '#546DD2',
+					heading: '#374B98'
+				}
+			}
+		},
+		variants: {
+			extend: {}
+		},
+		plugins: [
+			require('@tailwindcss/forms'),
+			require('@tailwindcss/line-clamp')
+		]
 	}
 }
 

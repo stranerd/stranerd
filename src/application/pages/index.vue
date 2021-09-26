@@ -1,22 +1,15 @@
 <template>
-	<div>
-		<img
-			alt=""
-			class="d-lg-none"
-			src="@app/assets/images/homepage/wave-bottom.svg"
-			style="margin-top: -2px;"
-			width="100%"
-		>
+	<div class="col-span-12 grid grid-col-12">
 		<CTA />
-		<img alt="" src="@app/assets/images/homepage/wave-top.svg" style="margin-bottom: -2px;" width="100%">
+		<img alt="" src="@app/assets/images/homepage/wave-top.svg" class="col-span-12 w-full -mb-1">
 		<IGStat />
-		<img alt="" src="@app/assets/images/homepage/wave-bottom.svg" style="margin-top: -2px;" width="100%">
+		<img alt="" src="@app/assets/images/homepage/wave-bottom.svg" class="col-span-12 w-full -mt-1">
 		<HowItWorks id="how-it-works" />
-		<img alt="" src="@app/assets/images/homepage/wave-top.svg" style="margin-bottom: -2px;" width="100%">
+		<img alt="" src="@app/assets/images/homepage/wave-top.svg" class="col-span-12 w-full -mb-1">
 		<Connect />
-		<img alt="" src="@app/assets/images/homepage/wave-bottom.svg" style="margin-top: -2px;" width="100%">
+		<img alt="" src="@app/assets/images/homepage/wave-bottom.svg" class="col-span-12 w-full -mt-1">
 		<ContactUs id="contact-us" />
-		<img alt="" src="@app/assets/images/homepage/wave-footer.svg" style="margin-bottom: -2px;" width="100%">
+		<img alt="" src="@app/assets/images/homepage/wave-footer.svg" class="col-span-12 w-full -mb-1">
 	</div>
 </template>
 

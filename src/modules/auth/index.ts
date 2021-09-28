@@ -10,6 +10,7 @@ import { SendVerificationEmailUseCase } from './domain/usecases/auth/sendVerific
 import { SendPasswordResetEmailUseCase } from './domain/usecases/auth/sendPasswordResetMail'
 import { ResetPasswordUseCase } from './domain/usecases/auth/resetPassword'
 import { CompleteEmailVerificationUseCase } from './domain/usecases/auth/completeEmailVerification'
+import { GetAuthUserUseCase } from './domain/usecases/auth/getAuthUser'
 
 export { ProfileUpdateFactory } from './domain/factories/profileUpdate'
 export { EmailSigninFactory } from './domain/factories/emailSignin'
@@ -21,6 +22,7 @@ const authDataSource = new AuthApiDataSource()
 
 const authRepository = new AuthRepository(authDataSource)
 
+export const GetAuthUser = new GetAuthUserUseCase(authRepository)
 export const SigninWithGoogle = new SigninWithGoogleUseCase(authRepository)
 export const SigninWithEmail = new SigninWithEmailUseCase(authRepository)
 export const SignupWithEmail = new SignupWithEmailUseCase(authRepository)

@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosInstance, AxiosResponse, Method } from 'axios'
-import { getTokens, saveTokensToCookies } from '@utils/tokens'
+import { getTokens, saveTokens } from '@utils/tokens'
 import { apiBases } from '@utils/environment'
 import type { QueryParams, QueryResults } from '@utils/http'
 import { Conditions, StatusCodes } from '@utils/http'
@@ -72,7 +72,7 @@ export class HttpClient {
 	private async getNewTokens () {
 		try {
 			const { data } = await this.client.post<{}, AxiosResponse<AfterAuthUser>>('/token', {}, { baseURL: apiBases.AUTH })
-			await saveTokensToCookies(data)
+			await saveTokens(data)
 			return !!data
 		} catch (e) {
 			const error = e as unknown as AxiosError

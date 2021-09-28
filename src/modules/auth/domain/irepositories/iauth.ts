@@ -1,6 +1,7 @@
 import { AfterAuthUser, AuthDetails, AuthExtras, NewUser, UpdateUser } from '../entities/auth'
 
 export interface IAuthRepository {
+	getAuthUser: () => Promise<AuthDetails | null>
 	signinWithEmail: (email: string, password: string, extras: AuthExtras) => Promise<AfterAuthUser>
 	signinWithGoogle: (idToken: string, extras: AuthExtras) => Promise<AfterAuthUser>
 	signupWithEmail: (data: NewUser, extras: AuthExtras) => Promise<AfterAuthUser>

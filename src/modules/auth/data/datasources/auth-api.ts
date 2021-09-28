@@ -1,7 +1,7 @@
 import { closeSocket, HttpClient } from '@modules/core'
 import { apiBases, domain } from '@utils/environment'
-import { deleteTokensFromCookies, saveTokensToCookies } from '@utils/tokens'
-import { AfterAuthUser, AuthExtras, NewUser, UpdateUser } from '../../domain/entities/auth'
+import { deleteTokensFromCookies, saveTokens } from '@utils/tokens'
+import { AfterAuthUser, AuthDetails, AuthExtras, NewUser, UpdateUser } from '../../domain/entities/auth'
 import { AuthBaseDataSource } from './auth-base'
 
 export class AuthApiDataSource implements AuthBaseDataSource {
@@ -11,6 +11,10 @@ export class AuthApiDataSource implements AuthBaseDataSource {
 	constructor () {
 		this.authClient = new HttpClient(apiBases.AUTH)
 		this.stranerdClient = new HttpClient(apiBases.STRANERD)
+	}
+
+	async getAuthUser () {
+		return await this.authClient.get<any, AuthDetails | null>('/user', {})
 	}
 
 	async signinWithEmail (email: string, password: string, extras: AuthExtras) {
@@ -79,7 +83,7 @@ export class AuthApiDataSource implements AuthBaseDataSource {
 	}
 
 	async session (afterAuth: AfterAuthUser) {
-		await saveTokensToCookies(afterAuth)
+		await saveTokens(afterAuth)
 		await closeSocket()
 		return afterAuth.user
 	}

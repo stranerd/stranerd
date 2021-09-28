@@ -4,13 +4,8 @@ import { AuthDetails, AuthTypes, UserLocation } from '@modules/auth/domain/entit
 import { SessionSignout } from '@modules/auth'
 import { isClient } from '@utils/environment'
 import { analytics } from '@modules/core'
-import { saveTokens } from '@utils/tokens'
 
 const global = {
-	tokens: reqSsrRef({
-		accessToken: null,
-		refreshToken: null
-	} as { accessToken: string | null, refreshToken: string | null }),
 	auth: reqSsrRef(null as AuthDetails | null),
 	user: reqSsrRef(null as UserEntity | null),
 	location: reqSsrRef(null as UserLocation | null),
@@ -54,13 +49,6 @@ export const useAuth = () => {
 	const setUserLocation = (data: UserLocation) => {
 		global.location.value = data
 	}
-
-	const setTokens = async (data: typeof global.tokens.value) => {
-		global.tokens.value = data
-		await saveTokens(data)
-	}
-
-	const getTokens = () => global.tokens.value
 
 	const setAuthUser = async (details: AuthDetails | null) => {
 		if (global.listener) global.listener()
@@ -107,13 +95,13 @@ export const useAuth = () => {
 	return {
 		id, bio, user: global.user, auth: global.auth, location: global.location,
 		isLoggedIn, isVerified, isAdmin, currentSessionId, hasPassword,
-		setAuthUser, setUserLocation, signin, signout, setTokens, getTokens,
+		setAuthUser, setUserLocation, signin, signout,
 		getLocalAmount, getLocalCurrency, getLocalCurrencySymbol
 	}
 }
 
 export const CONVERSION_RATES = {
 	USD: 1,
-	NGN: 100,
-	INR: 70
+	NGN: 500,
+	INR: 75
 } as const

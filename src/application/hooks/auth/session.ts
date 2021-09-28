@@ -15,8 +15,7 @@ export const createSession = async (afterAuth: AfterAuthUser, router: VueRouter)
 		return await router.push('/auth/verify')
 	}
 	await SessionSignin.call(afterAuth)
-	const { setAuthUser, signin, setTokens } = useAuth()
-	await setTokens({ accessToken: afterAuth.accessToken, refreshToken: afterAuth.refreshToken })
+	const { setAuthUser, signin } = useAuth()
 	await setAuthUser(afterAuth.user)
 	await signin(false)
 

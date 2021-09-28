@@ -9,6 +9,10 @@ export class AuthRepository implements IAuthRepository {
 		this.dataSource = dataSource
 	}
 
+	async getAuthUser () {
+		return await this.dataSource.getAuthUser()
+	}
+
 	async signinWithEmail (email: string, password: string, extras: AuthExtras) {
 		return await this.dataSource.signinWithEmail(email, password, extras)
 	}

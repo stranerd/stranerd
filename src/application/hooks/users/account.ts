@@ -40,12 +40,12 @@ export const useUpdateProfile = () => {
 }
 
 const BRONZE_PRICES = [
-	{ amount: 300, price: 0.99, src: '/images/buyCoins/bronze-1.svg' },
-	{ amount: 500, price: 1.99, src: '/images/buyCoins/bronze-2.svg' }
+	{ amount: 200, price: 0.99, src: '/images/buyCoins/bronze-1.svg' },
+	{ amount: 400, price: 1.99, src: '/images/buyCoins/bronze-2.svg' }
 ]
 const GOLD_PRICES = [
 	{ amount: 10, price: 0.99, src: '/images/buyCoins/gold-1.svg' },
-	{ amount: 50, price: 4.99, src: '/images/buyCoins/gold-2.svg' }
+	{ amount: 20, price: 1.99, src: '/images/buyCoins/gold-2.svg' }
 ]
 
 export const useBuyCoins = () => {

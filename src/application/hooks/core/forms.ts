@@ -35,6 +35,7 @@ export const useTags = (addCb: callback, removeCb: callback) => {
 				.replaceAll(',', ' ')
 				.trim()
 				.split(' ')
+				.filter((tag) => !!tag)
 				.forEach(addCb)
 			tag.value = ''
 		}

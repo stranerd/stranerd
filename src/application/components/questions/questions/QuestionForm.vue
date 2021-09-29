@@ -12,6 +12,40 @@
 
 		<div class="form-group">
 			<BodyText class="title" variant="large">
+				Attachments
+			</BodyText>
+			<BodyText class="sub-title" variant="normal">
+				Add any image, if necessary, that complements your question
+			</BodyText>
+			<input
+				ref="attachments"
+				accept="image/*"
+				class="d-none"
+				multiple
+				type="file"
+				@change="catchAttachments"
+			>
+			<p v-if="factory.attachments.length" class="d-flex gap-0-5">
+				<span v-for="attachment in factory.attachments" :key="attachment.name" class="mr-1">
+					<span class="mr-half">{{ attachment.name }}</span>
+					<a class="text-danger" @click.prevent="factory.removeAttachment(attachment)">
+						<i class="fas fa-times" />
+					</a>
+				</span>
+			</p>
+			<a
+				class="text-info align-self-start"
+				@click.prevent="() => { $refs.attachments.value= ''; $refs.attachments.click() }"
+			>
+				{{ factory.attachments.length > 0 ? 'Add' : 'Upload' }} attachments
+			</a>
+			<DynamicText v-if="factory.errors.attachments" class="text-danger small">
+				{{ factory.errors.attachments }}
+			</DynamicText>
+		</div>
+
+		<div class="form-group">
+			<BodyText class="title" variant="large">
 				Subject
 			</BodyText>
 			<BodyText class="sub-title" variant="normal">
@@ -98,7 +132,7 @@ import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { QuestionFactory } from '@modules/questions'
 import QuestionEditor from '@app/components/core/editor/QuestionEditor.vue'
 import { useAccountModal } from '@app/hooks/core/modals'
-import { useTags } from '@app/hooks/core/forms'
+import { useMultipleFileInputs, useTags } from '@app/hooks/core/forms'
 import SelectSubject from '@app/components/questions/subjects/SelectSubject.vue'
 
 export default defineComponent({
@@ -132,7 +166,10 @@ export default defineComponent({
 			(tag: string) => props.factory.addTag(tag),
 			(tag: string) => props.factory.removeTag(tag)
 		)
-		return { openBuyCoins, tag, removeTag }
+		const { catchMultipleFiles: catchAttachments } = useMultipleFileInputs(
+			(files: File[]) => files.map(props.factory.addAttachment)
+		)
+		return { openBuyCoins, tag, removeTag, catchAttachments }
 	}
 })
 </script>

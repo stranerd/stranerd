@@ -61,11 +61,11 @@
 							pluralize(question.answers.length, 'answer', 'answers')
 						}}</DynamicText>
 				</span>
-				<span v-if="question.attachments" class="d-flex align-items-center gap-0-25">
+				<span v-if="question.attachments.length" class="d-flex align-items-center gap-0-25">
 					<i class="sub-icons fas fa-paperclip" />
 					<DynamicText>
-						{{ formatNumber(question.attachments) }} {{
-							pluralize(question.attachments, 'image', 'images')
+						{{ formatNumber(question.attachments.length) }} {{
+							pluralize(question.attachments.length, 'image', 'images')
 						}}
 					</DynamicText>
 				</span>

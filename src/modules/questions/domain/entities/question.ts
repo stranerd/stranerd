@@ -1,12 +1,13 @@
 import { generateDefaultBio, UserBio } from '@modules/users'
-import { BaseEntity } from '@modules/core'
-import { extractTextFromHTML, getStringCount, trimToLength } from '@utils/commons'
+import { BaseEntity, Media } from '@modules/core'
+import { extractTextFromHTML, trimToLength } from '@utils/commons'
 
 export class QuestionEntity extends BaseEntity {
 	public readonly id: string
 	public readonly body: string
 	public readonly coins: number
 	public readonly tags: string[]
+	public readonly attachments: Media[]
 	public readonly subjectId: string
 	public readonly userId: string
 	public readonly userBio: UserBio
@@ -20,7 +21,7 @@ export class QuestionEntity extends BaseEntity {
 
 	constructor ({
 		             id, body, coins, subjectId, creditable, isAnswered,
-		             bestAnswers, createdAt, userId, userBio,
+		             bestAnswers, createdAt, userId, userBio, attachments,
 		             answers, commentsCount, tags, updatedAt
 	             }: QuestionConstructorArgs) {
 		super()
@@ -30,6 +31,7 @@ export class QuestionEntity extends BaseEntity {
 		this.creditable = creditable
 		this.isAnswered = isAnswered
 		this.tags = tags
+		this.attachments = attachments ?? []
 		this.subjectId = subjectId
 		this.userId = userId
 		this.userBio = generateDefaultBio(userBio)
@@ -67,10 +69,6 @@ export class QuestionEntity extends BaseEntity {
 	get canBeDeleted () {
 		return !this.isModified
 	}
-
-	get attachments () {
-		return getStringCount(this.body, '<img')
-	}
 }
 
 type QuestionConstructorArgs = {
@@ -80,6 +78,7 @@ type QuestionConstructorArgs = {
 	creditable: number
 	isAnswered: boolean
 	tags: string[]
+	attachments: Media[]
 	subjectId: string
 	userId: string
 	userBio: UserBio

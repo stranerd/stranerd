@@ -40,7 +40,6 @@ export default defineComponent({
 				['bold', 'italic', 'underline', 'strike'],
 				[{ script: 'sub' }, { script: 'super' }],
 				['code-block'],
-				['image'],
 				['clean']
 			]
 		}

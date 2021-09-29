@@ -90,6 +90,18 @@
 		<div v-if="showExplanation" class="answer-content bg-tags">
 			<div class="editor-body" v-html="answer.body || 'No explanation'" />
 		</div>
+		<div v-if="answer.attachments.length" class="answer-content d-flex flex-wrap gap-1">
+			<a
+				v-for="attachment in answer.attachments"
+				:key="attachment.path"
+				:href="attachment.link"
+				class="w-100"
+				style="max-width: 250px;"
+				target="_blank"
+			>
+				<img :src="attachment.link" alt="" class="w-100">
+			</a>
+		</div>
 		<div v-if="showComments && answer.commentsCount" class="answer-content">
 			<CommentList :answer-id="answer.id" />
 		</div>

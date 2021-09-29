@@ -1,8 +1,7 @@
-import { Conditions } from '@modules/core'
+import { appName } from '@utils/environment'
 import { IUserRepository } from '../../irepositories/iuser'
-import { Ranks } from '../../entities/rank'
 
-export class GetAllSessionTutorsUseCase {
+export class GetAllTutorsUseCase {
 	private repository: IUserRepository
 
 	constructor (repository: IUserRepository) {
@@ -11,7 +10,7 @@ export class GetAllSessionTutorsUseCase {
 
 	async call () {
 		return await this.repository.get({
-			where: [{ field: 'account.score', condition: Conditions.gte, value: Ranks.Scholar.score }],
+			where: [{ field: `roles.${appName}.isTutor`, value: true }],
 			all: true
 		})
 	}

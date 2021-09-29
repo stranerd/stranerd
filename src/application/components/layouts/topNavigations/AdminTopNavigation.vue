@@ -9,6 +9,9 @@
 			<NuxtLink class="nav-link-custom px-md-3 py-md-1 px-1 py-1" to="/admin/users/admins">
 				<span>Admins</span>
 			</NuxtLink>
+			<NuxtLink class="nav-link-custom px-md-3 py-md-1 px-1 py-1" to="/admin/users/tutors">
+				<span>Tutors</span>
+			</NuxtLink>
 			<NuxtLink class="nav-link-custom px-md-3 py-md-1 px-1 py-1" to="/admin/reports">
 				<span>Reports</span>
 			</NuxtLink>

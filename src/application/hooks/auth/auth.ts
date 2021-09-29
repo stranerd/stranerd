@@ -34,6 +34,10 @@ export const useAuth = () => {
 		get: () => !!global.user.value?.isAdmin, set: () => {
 		}
 	})
+	const isTutor = computed({
+		get: () => !!global.user.value?.isTutor, set: () => {
+		}
+	})
 	const currentSessionId = computed({
 		get: () => global.user.value?.currentSession ?? null,
 		set: () => {
@@ -94,7 +98,7 @@ export const useAuth = () => {
 
 	return {
 		id, bio, user: global.user, auth: global.auth, location: global.location,
-		isLoggedIn, isVerified, isAdmin, currentSessionId, hasPassword,
+		isLoggedIn, isVerified, isAdmin, isTutor, currentSessionId, hasPassword,
 		setAuthUser, setUserLocation, signin, signout,
 		getLocalAmount, getLocalCurrency, getLocalCurrencySymbol
 	}

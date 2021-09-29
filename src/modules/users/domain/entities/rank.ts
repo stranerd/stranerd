@@ -46,6 +46,4 @@ export const Ranks: Record<RankTypes, Rank> = {
 	}
 }
 
-export const getScholarLevel = () => Ranks.Scholar.level
-
 export const getRankImage = (rank: RankTypes) => Ranks[rank].image

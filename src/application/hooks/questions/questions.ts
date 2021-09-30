@@ -161,7 +161,7 @@ export const useCreateQuestion = () => {
 				const subject = factory.value.subjectId
 				factory.value.reset()
 				await router.replace(`/questions/${questionId}`)
-				analytics.logEvent('ask_question_completed', {
+				await analytics.logEvent('ask_question_completed', {
 					questionId, subject
 				})
 				useQuestionsModal().closeAskQuestions()
@@ -264,7 +264,7 @@ export const useEditQuestion = (questionId: string) => {
 				const subject = factory.value.subjectId
 				factory.value.reset()
 				await router.replace(`/questions/${questionId}`)
-				analytics.logEvent('edit_question_completed', {
+				await analytics.logEvent('edit_question_completed', {
 					questionId, subject
 				})
 			} catch (error) {

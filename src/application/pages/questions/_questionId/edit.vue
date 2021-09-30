@@ -44,8 +44,8 @@ export default defineComponent({
 	setup () {
 		const { questionId } = useRoute().value.params
 		const { loading, editQuestion, factory, error, coins } = useEditQuestion(questionId)
-		onMounted(() => {
-			analytics.logEvent('edit_question_start')
+		onMounted(async () => {
+			await analytics.logEvent('edit_question_start')
 		})
 		useMeta(() => ({
 			title: 'Edit Your Question | Stranerd'

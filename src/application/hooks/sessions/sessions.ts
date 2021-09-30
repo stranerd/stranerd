@@ -36,7 +36,7 @@ export const useCreateSession = () => {
 				await router.push(`/sessions/${newSessionTutorIdBio?.id}`)
 				factory.value.reset()
 				await setMessage('Session request successful.')
-				analytics.logEvent('session_request', { sessionId })
+				await analytics.logEvent('session_request', { sessionId })
 			} catch (error) {
 				await setError(error)
 			}
@@ -87,7 +87,7 @@ export const useSession = (sessionId: string) => {
 			try {
 				await setLoading(true)
 				if (sessionId) await BeginSession.call(sessionId, true)
-				analytics.logEvent('session_accepted', { sessionId, accepted: true })
+				await analytics.logEvent('session_accepted', { sessionId, accepted: true })
 			} catch (error) {
 				await setError(error)
 			}
@@ -108,7 +108,7 @@ export const useSession = (sessionId: string) => {
 			try {
 				await setLoading(true)
 				if (sessionId) await BeginSession.call(sessionId, false)
-				analytics.logEvent('session_accepted', { sessionId, accepted: false })
+				await analytics.logEvent('session_accepted', { sessionId, accepted: false })
 			} catch (error) {
 				await setError(error)
 			}

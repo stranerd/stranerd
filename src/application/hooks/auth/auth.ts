@@ -77,7 +77,7 @@ export const useAuth = () => {
 
 	const signin = async (remembered: boolean) => {
 		await startProfileListener()
-		analytics.logEvent('login', { remembered })
+		await analytics.logEvent('login', { remembered })
 	}
 
 	const signout = async () => {

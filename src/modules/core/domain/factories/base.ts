@@ -61,6 +61,10 @@ export abstract class BaseFactory<E, T, K extends Record<string, any>> {
 	}
 
 	async uploadFile (path: string, file: File) {
-		return await UploaderService.call(path, file)
+		return await UploaderService.single(path, file)
+	}
+
+	async uploadFiles (path: string, files: File[]) {
+		return await UploaderService.multiple(path, files)
 	}
 }

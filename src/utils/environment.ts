@@ -26,5 +26,5 @@ const apis = JSON.parse(process.env.API_BASES ?? '{}')
 export const apiBases = {
 	AUTH: apis.auth,
 	STRANERD: apis.stranerd,
-	STORAGE: apis.storage
+	UTILS: apis.utils
 }

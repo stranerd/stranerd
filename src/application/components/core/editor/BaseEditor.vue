@@ -69,7 +69,7 @@ export default defineComponent({
 		return {
 			handleImageUpload: async (file: File, editor: any, cursorLocation: any, resetUploader: any) => {
 				try {
-					const res = await UploaderService.call(props.path, file)
+					const res = await UploaderService.single(props.path, file)
 					editor.insertEmbed(cursorLocation, 'image', res.link)
 					editor.setSelection(cursorLocation + 1, 'silent')
 					resetUploader()

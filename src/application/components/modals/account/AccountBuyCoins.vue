@@ -71,8 +71,8 @@ export default defineComponent({
 	setup () {
 		const { user, getLocalAmount, getLocalCurrencySymbol } = useAuth()
 		const { loading, error, buyCoins, BRONZE_PRICES, GOLD_PRICES } = useBuyCoins()
-		onMounted(() => {
-			analytics.logEvent('buy_coins_start')
+		onMounted(async () => {
+			await analytics.logEvent('buy_coins_start')
 		})
 		return {
 			user, getLocalAmount, getLocalCurrencySymbol, formatNumber,

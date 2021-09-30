@@ -33,8 +33,8 @@ export default defineComponent({
 	middleware: ['isAuthenticated'],
 	setup () {
 		const { loading, createQuestion, factory, error, coins } = useCreateQuestion()
-		onMounted(() => {
-			analytics.logEvent('ask_question_start')
+		onMounted(async () => {
+			await analytics.logEvent('ask_question_start')
 		})
 		useMeta({
 			title: 'Ask a Question | Stranerd'

@@ -63,7 +63,7 @@ export const useBuyCoins = () => {
 					try {
 						await setLoading(true)
 						useAccountModal().closeBuyCoins()
-						analytics.logEvent('buy_coins_end', {
+						await analytics.logEvent('buy_coins_end', {
 							amount: option.amount,
 							price: option.price,
 							isGold

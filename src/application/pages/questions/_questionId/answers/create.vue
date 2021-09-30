@@ -55,8 +55,8 @@ export default defineComponent({
 	],
 	setup () {
 		const { loading, createAnswer, factory, error, answeringQuestion } = useCreateAnswer()
-		onMounted(() => {
-			analytics.logEvent('answer_question_start', {
+		onMounted(async () => {
+			await analytics.logEvent('answer_question_start', {
 				questionId: answeringQuestion?.id,
 				subject: answeringQuestion?.subjectId
 			})

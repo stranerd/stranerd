@@ -91,7 +91,7 @@ export default defineComponent({
 		const cancelSession = async () => {
 			show.value = false
 			await cancel()
-			analytics.logEvent('session_cancelled', {
+			await analytics.logEvent('session_cancelled', {
 				sessionId: currentSessionId.value,
 				duration: currentSession.value?.duration ?? 0,
 				lasted: (currentSession.value?.duration ?? 0) - (diffInSec.value / 60)

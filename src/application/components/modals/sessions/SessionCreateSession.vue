@@ -4,8 +4,6 @@
 			Request Session
 		</template>
 		<form @submit.prevent="createSession">
-			<!-- <SessionEditor :model.sync="factory.message" :error="factory.errors.message" :valid="factory.isValid('message')" /> -->
-			<!-- Add editor and check if text is for editor in chat cards -->
 			<div>
 				<textarea
 					id="email"
@@ -50,15 +48,14 @@ import { defineComponent, onMounted } from '@nuxtjs/composition-api'
 import { useAccountModal } from '@app/hooks/core/modals'
 import { useCreateSession } from '@app/hooks/sessions/sessions'
 import { analytics } from '@modules/core'
-// import SessionEditor from '@app/components/core/editor/SessionEditor.vue'
+
 export default defineComponent({
 	name: 'SessionCreateSession',
-	// components: { SessionEditor },
 	setup () {
 		const buy = useAccountModal().openBuyCoins
 		const { factory, loading, error, hasEnoughCoins, createSession } = useCreateSession()
-		onMounted(() => {
-			analytics.logEvent('view_session_request')
+		onMounted(async () => {
+			await analytics.logEvent('view_session_request')
 		})
 		return {
 			buy, hasEnoughCoins,

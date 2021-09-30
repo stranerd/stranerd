@@ -22,7 +22,7 @@ export const useErrorHandler = () => {
 			title: errorState.value,
 			icon: 'error'
 		}).then()
-		if (errorState.value) analytics.logEvent('error', {
+		if (errorState.value) await analytics.logEvent('error', {
 			error: errorState.value
 		})
 	}

@@ -98,7 +98,7 @@ export const useCreateAnswer = () => {
 				await setMessage('Answer submitted successfully.')
 				factory.value.reset()
 				await router.replace(`/questions/${answeringQuestion?.id ?? ''}/#${answerId}`)
-				analytics.logEvent('answer_question_completed', {
+				await analytics.logEvent('answer_question_completed', {
 					questionId: answeringQuestion?.id,
 					answerId,
 					subject: answeringQuestion?.subjectId
@@ -187,7 +187,7 @@ export const useEditAnswer = (answerId: string) => {
 				await setMessage('Answer edited successfully')
 				factory.value.reset()
 				await router.replace(`/questions/${editingQuestionAnswer?.question.id}#${answerId}`)
-				analytics.logEvent('edit_answer_completed', {
+				await analytics.logEvent('edit_answer_completed', {
 					questionId: editingQuestionAnswer?.answer.questionId,
 					answerId,
 					subject: editingQuestionAnswer?.question.subjectId

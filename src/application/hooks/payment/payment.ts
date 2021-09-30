@@ -25,7 +25,7 @@ export const useFlutterwavePayment = () => {
 			usePaymentModal().closeMakePayment()
 			await props.afterPayment?.(successful)
 			// @ts-ignore
-			analytics.logEvent('purchase', {
+			await analytics.logEvent('purchase', {
 				value: props.amount!
 			})
 		} catch (e) {
@@ -65,7 +65,7 @@ export const useStripePayment = () => {
 			}
 			usePaymentModal().closeMakePayment()
 			// @ts-ignore
-			analytics.logEvent('purchase', {
+			await analytics.logEvent('purchase', {
 				value: props.amount!
 			})
 		} catch (e) {

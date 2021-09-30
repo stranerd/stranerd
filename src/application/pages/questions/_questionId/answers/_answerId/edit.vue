@@ -56,8 +56,8 @@ export default defineComponent({
 		const edit = getEditingAnswer()
 		const { answerId } = useRoute().value.params
 		const { loading, editAnswer, factory, error } = useEditAnswer(answerId)
-		onMounted(() => {
-			analytics.logEvent('answer_question_start', {
+		onMounted(async () => {
+			await analytics.logEvent('answer_question_start', {
 				questionId: edit?.answer.questionId,
 				answerId,
 				subject: edit?.question.subjectId

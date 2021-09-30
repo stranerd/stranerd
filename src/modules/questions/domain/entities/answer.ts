@@ -1,5 +1,5 @@
 import { generateDefaultBio, UserBio } from '@modules/users'
-import { BaseEntity } from '@modules/core'
+import { BaseEntity, Media } from '@modules/core'
 import { extractTextFromHTML, trimToLength } from '@utils/commons'
 
 export class AnswerEntity extends BaseEntity {
@@ -10,6 +10,7 @@ export class AnswerEntity extends BaseEntity {
 	public readonly best: boolean
 	public readonly questionId: string
 	public readonly tags: string[]
+	public readonly attachments: Media[]
 	public readonly userId: string
 	public readonly userBio: UserBio
 	public readonly votes: { userId: string, vote: 1 | -1 }[]
@@ -19,7 +20,7 @@ export class AnswerEntity extends BaseEntity {
 
 	constructor ({
 		             id, title, body, coins, questionId,
-		             createdAt, userId, userBio, tags,
+		             createdAt, userId, userBio, tags, attachments,
 		             best, votes, commentsCount, updatedAt
 	             }: AnswerConstructorArgs) {
 		super()
@@ -30,6 +31,7 @@ export class AnswerEntity extends BaseEntity {
 		this.questionId = questionId
 		this.userId = userId
 		this.tags = tags
+		this.attachments = attachments ?? []
 		this.userBio = generateDefaultBio(userBio)
 		this.best = best ?? false
 		this.votes = votes
@@ -90,6 +92,7 @@ type AnswerConstructorArgs = {
 	coins: number
 	questionId: string
 	tags: string[]
+	attachments: Media[]
 	createdAt: number
 	updatedAt: number
 	userId: string

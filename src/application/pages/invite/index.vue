@@ -38,8 +38,9 @@
 				</Share>
 			</div>
 			<BodyText variant="large">
-				Successful Referrals ({{ user.referrals.length }})
+				Successful Referrals ({{ referrals.length }})
 			</BodyText>
+			<PageLoading v-if="loading" />
 		</div>
 	</div>
 </template>
@@ -50,12 +51,14 @@ import { useAuth } from '@app/hooks/auth/auth'
 import { domain } from '@utils/environment'
 import { copyToClipboard } from '@utils/commons'
 import { Notify } from '@app/hooks/core/notifications'
+import { useReferralList } from '@app/hooks/users/referrals'
 
 export default defineComponent({
 	name: 'InvitePage',
 	middleware: 'isAuthenticated',
 	setup () {
 		const { id, user, isLoggedIn } = useAuth()
+		const { referrals, loading } = useReferralList()
 		const link = computed({
 			get: () => `${domain}/invite/${id.value}`,
 			set: () => {
@@ -68,7 +71,7 @@ export default defineComponent({
 		useMeta(() => ({
 			title: 'Invite Your Friends to Stranerd'
 		}))
-		return { link, user, copy, isLoggedIn }
+		return { link, user, copy, isLoggedIn, referrals, loading }
 	},
 	head: {}
 })

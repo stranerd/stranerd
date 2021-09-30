@@ -13,7 +13,7 @@ export class ReportFactory extends BaseFactory<ReportEntity<any>, ReportToModel,
 			required: true,
 			rules: [isString, arrayContainsX(Object.values<string>(ReportType), (cur, val) => cur === val)]
 		},
-		reportedId: { required: true, rules: [isString] },
+		reportedId: { required: true, rules: [isString, isLongerThanX(0)] },
 		message: { required: true, rules: [isString, isLongerThanX(0)] }
 	}
 

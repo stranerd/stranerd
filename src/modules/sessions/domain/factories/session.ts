@@ -14,7 +14,7 @@ export class SessionFactory extends BaseFactory<SessionEntity, SessionToModel, K
 			required: true,
 			rules: [isNumber, arrayContainsX(this.prices.map((p) => p.duration), (cur, val) => cur === val)]
 		},
-		tutorId: { required: true, rules: [isString] }
+		tutorId: { required: true, rules: [isString, isLongerThanX(0)] }
 	}
 
 	reserved = []

@@ -18,10 +18,12 @@ import { TransactionRepository } from './data/repositories/transaction'
 import { FindUserUseCase } from './domain/usecases/users/findUser'
 import { MakeAdminUseCase } from './domain/usecases/roles/makeAdmin'
 import { RemoveAdminUseCase } from './domain/usecases/roles/removeAdmin'
+import { MakeTutorUseCase } from './domain/usecases/roles/makeTutor'
+import { RemoveTutorUseCase } from './domain/usecases/roles/removeTutor'
 import { GetUsersByEmailUseCase } from './domain/usecases/users/getUsersByEmail'
 import { GetAllAdminsUseCase } from './domain/usecases/users/getAllAdmins'
-import { GetAllSessionTutorsUseCase } from './domain/usecases/users/getAllSessionTutors'
-import { ListenToAllSessionTutorsUseCase } from './domain/usecases/users/listenToAllSessionTutors'
+import { GetAllTutorsUseCase } from './domain/usecases/users/getAllTutors'
+import { ListenToAllTutorsUseCase } from './domain/usecases/users/listenToAllTutors'
 import { ListenToUserUseCase } from './domain/usecases/users/listenToUser'
 import { UpdateStreakUseCase } from './domain/usecases/users/updateStreak'
 import { GetNotificationsUseCase } from './domain/usecases/notifications/getNotifications'
@@ -63,13 +65,15 @@ const transactionRepository = new TransactionRepository(transactionDataSource, t
 export const FindUser = new FindUserUseCase(userRepository)
 export const GetUsersByEmail = new GetUsersByEmailUseCase(userRepository)
 export const GetAllAdmins = new GetAllAdminsUseCase(userRepository)
-export const GetAllSessionTutors = new GetAllSessionTutorsUseCase(userRepository)
-export const ListenToAllSessionTutors = new ListenToAllSessionTutorsUseCase(userRepository)
+export const GetAllTutors = new GetAllTutorsUseCase(userRepository)
+export const ListenToAllTutors = new ListenToAllTutorsUseCase(userRepository)
 export const ListenToUser = new ListenToUserUseCase(userRepository)
 export const UpdateStreak = new UpdateStreakUseCase(userRepository)
 
 export const MakeAdmin = new MakeAdminUseCase(roleRepository)
+export const MakeTutor = new MakeTutorUseCase(roleRepository)
 export const RemoveAdmin = new RemoveAdminUseCase(roleRepository)
+export const RemoveTutor = new RemoveTutorUseCase(roleRepository)
 
 export const GetNotifications = new GetNotificationsUseCase(notificationRepository)
 export const ListenToNotifications = new ListenToNotificationsUseCase(notificationRepository)

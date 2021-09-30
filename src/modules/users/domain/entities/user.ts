@@ -1,7 +1,7 @@
 import { BaseEntity, Media } from '@modules/core'
 import { appName } from '@utils/environment'
 import { capitalize, catchDivideByZero, formatNumber } from '@utils/commons'
-import { getRankImage, getScholarLevel, RankTypes } from './rank'
+import { getRankImage, RankTypes } from './rank'
 
 export class UserEntity extends BaseEntity {
 	public readonly id: string
@@ -34,7 +34,8 @@ export class UserEntity extends BaseEntity {
 		this.bio = generateDefaultBio(bio)
 		this.roles = {
 			[appName]: {
-				isAdmin: roles[appName]?.isAdmin ?? false
+				isAdmin: roles[appName]?.isAdmin ?? false,
+				isTutor: roles[appName]?.isTutor ?? false
 			}
 		}
 		this.account = account
@@ -134,16 +135,12 @@ export class UserEntity extends BaseEntity {
 		return formatNumber(this.score, 2)
 	}
 
-	get isScholar () {
-		return this.rank.level >= getScholarLevel()
-	}
-
 	get currentSession () {
 		return this.session.currentSession || this.session.currentTutorSession || null
 	}
 
 	get canHostSessions () {
-		return !this.currentSession && this.isScholar && this.isOnline
+		return !this.currentSession && this.isTutor && this.isOnline
 	}
 
 	get canRequestSessions () {
@@ -175,6 +172,14 @@ export class UserEntity extends BaseEntity {
 	set isAdmin (isAdmin) {
 		this.roles[appName].isAdmin = isAdmin
 	}
+
+	get isTutor () {
+		return this.roles[appName].isTutor
+	}
+
+	set isTutor (isTutor) {
+		this.roles[appName].isTutor = isTutor
+	}
 }
 
 type UserConstructorArgs = {
@@ -203,6 +208,7 @@ export interface UserBio {
 export interface UserRoles {
 	[appName]: {
 		isAdmin: boolean
+		isTutor: boolean
 	}
 }
 

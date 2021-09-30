@@ -32,11 +32,11 @@
 						{{ user.email }}
 					</DynamicText>
 				</div>
-				<span v-if="user.isAdmin" class="text-danger">
-					Already an admin
+				<span v-if="user.isTutor" class="text-danger">
+					Already a tutor
 				</span>
-				<button v-else class="btn btn-sm btn-success" @click="adminUser(user)">
-					Make admin
+				<button v-else class="btn btn-sm btn-success" @click="tutorUser(user)">
+					Make tutor
 				</button>
 			</div>
 			<hr class="my-0">
@@ -48,17 +48,17 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
-import { useAdminRoles } from '@app/hooks/users/roles/admins'
+import { useTutorRoles } from '@app/hooks/users/roles/tutors'
 
 export default defineComponent({
 	setup () {
 		const {
 			loading, fetched, email, users, error,
-			getUsersByEmail, adminUser, reset
-		} = useAdminRoles()
+			getUsersByEmail, tutorUser, reset
+		} = useTutorRoles()
 		return {
 			loading, fetched, email, users, error,
-			getUsersByEmail, adminUser, reset
+			getUsersByEmail, tutorUser, reset
 		}
 	}
 })

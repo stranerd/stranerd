@@ -17,4 +17,13 @@ export class RoleApiDataSource implements RoleBaseDataSource {
 			value: data.isAdmin
 		})
 	}
+
+	async toggleTutor (data: { id: string, isTutor: boolean }) {
+		await this.authClient.post<any, boolean>('/user/roles', {
+			app: appName,
+			role: 'isTutor',
+			userId: data.id,
+			value: data.isTutor
+		})
+	}
 }

@@ -47,6 +47,19 @@
 
 		<div class="question-body editor-body" v-html="question.body" />
 
+		<div v-if="question.attachments.length" class="question-body d-flex flex-wrap gap-1">
+			<a
+				v-for="attachment in question.attachments"
+				:key="attachment.path"
+				:href="attachment.link"
+				class="w-100"
+				style="max-width: 250px;"
+				target="_blank"
+			>
+				<img :src="attachment.link" alt="" class="w-100">
+			</a>
+		</div>
+
 		<div class="d-flex align-items-center flex-row flex-wrap gap-1">
 			<div class="d-flex align-items-center flex-wrap gap-0-5 gap-md-1 me-auto tags">
 				<Tag v-for="tag in question.tags" :key="tag" :tag="tag" />

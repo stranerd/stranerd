@@ -11,4 +11,8 @@ export class RoleRepository implements IRoleRepository {
 	async toggleAdmin (id: string, isAdmin: boolean) {
 		return await this.dataSource.toggleAdmin({ id, isAdmin })
 	}
+
+	async toggleTutor (id: string, isTutor: boolean) {
+		return await this.dataSource.toggleTutor({ id, isTutor })
+	}
 }

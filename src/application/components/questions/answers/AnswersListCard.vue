@@ -87,7 +87,7 @@
 				</span>
 			</div>
 		</div>
-		<div v-if="showExplanation" class="answer-content bg-tags">
+		<div v-if="showExplanation && answer.strippedBody" class="answer-content bg-tags">
 			<div class="editor-body" v-html="answer.body || 'No explanation'" />
 		</div>
 		<div v-if="answer.attachments.length" class="answer-content d-flex flex-wrap gap-1">

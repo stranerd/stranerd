@@ -136,7 +136,7 @@ export class UserEntity extends BaseEntity {
 	}
 
 	get currentSession () {
-		return this.session.currentSession || this.session.currentTutorSession || null
+		return this.session.currentSessions[0] || this.session.currentTutorSessions[0] || null
 	}
 
 	get canHostSessions () {
@@ -244,8 +244,8 @@ export interface UserStatus {
 }
 
 export interface UserSession {
-	currentSession: string | null
-	currentTutorSession: string | null
+	currentSessions: string[]
+	currentTutorSessions: string[]
 	requests: string[]
 	lobby: string[]
 }

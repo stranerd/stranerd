@@ -10,4 +10,5 @@ export interface ISessionRepository {
 	listenToMany: (queryParams: QueryParams, listener: Listeners<SessionEntity>, matches: (entity: SessionEntity) => boolean) => Promise<() => void>
 	accept: (id: string, accepted: boolean) => Promise<void>
 	cancel: (id: string) => Promise<void>
+	end: (id: string) => Promise<void>
 }

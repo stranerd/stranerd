@@ -69,4 +69,8 @@ export class SessionRepository implements ISessionRepository {
 	async cancel (id: string) {
 		return await this.dataSource.cancel(id)
 	}
+
+	async end (id: string) {
+		return await this.dataSource.end(id)
+	}
 }

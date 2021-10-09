@@ -30,7 +30,7 @@
 			</a>
 			<a @click="reportUser">Report</a>
 			<PageLoading v-if="loading" />
-			<a v-if="canEndSession" @click.prevent="cancelSession">End Session</a>
+			<a v-if="canEndSession" @click.prevent="endSession">End Session</a>
 			<DisplayError :error="error" />
 		</div>
 	</div>
@@ -87,11 +87,11 @@ export default defineComponent({
 			useSessionModal().openCreateSession()
 			show.value = false
 		}
-		const { cancelSession: cancel, loading, error } = useSession(currentSessionId.value ?? '')
-		const cancelSession = async () => {
+		const { endSession: end, loading, error } = useSession(currentSessionId.value ?? '')
+		const endSession = async () => {
 			show.value = false
-			await cancel()
-			await analytics.logEvent('session_cancelled', {
+			await end()
+			await analytics.logEvent('session_ended', {
 				sessionId: currentSessionId.value,
 				duration: currentSession.value?.duration ?? 0,
 				lasted: (currentSession.value?.duration ?? 0) - (diffInSec.value / 60)
@@ -122,7 +122,7 @@ export default defineComponent({
 		return {
 			canRequestSession, canEndSession, inSession,
 			show, time, countDown, requestNewSession,
-			cancelSession, loading, error, reportUser
+			endSession, loading, error, reportUser
 		}
 	}
 })

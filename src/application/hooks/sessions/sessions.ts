@@ -1,5 +1,5 @@
 import { computed, Ref, ref, ssrRef, useRouter } from '@nuxtjs/composition-api'
-import { AddSession, BeginSession, CancelSession, SessionFactory } from '@modules/sessions'
+import { AddSession, BeginSession, CancelSession, EndSession, SessionFactory } from '@modules/sessions'
 import { CreateReview, UserBio } from '@modules/users'
 import { useAuth } from '@app/hooks/auth/auth'
 import { useErrorHandler, useLoadingHandler, useSuccessHandler } from '@app/hooks/core/states'
@@ -74,6 +74,26 @@ export const useSession = (sessionId: string) => {
 		}
 	}
 
+	const endSession = async () => {
+		await setError('')
+		const accepted = await Alert({
+			title: 'Are you sure you want to end this session',
+			text: 'This cannot be undone',
+			icon: 'info',
+			confirmButtonText: 'Yes, end',
+			cancelButtonText: 'No, ignore'
+		})
+		if (accepted) {
+			try {
+				await setLoading(true)
+				if (sessionId) await EndSession.call(sessionId)
+			} catch (error) {
+				await setError(error)
+			}
+			await setLoading(false)
+		}
+	}
+
 	const acceptSession = async () => {
 		await setError('')
 		const accepted = await Alert({
@@ -116,7 +136,7 @@ export const useSession = (sessionId: string) => {
 		}
 	}
 
-	return { loading, error, cancelSession, acceptSession, rejectSession }
+	return { loading, error, cancelSession, acceptSession, rejectSession, endSession }
 }
 
 let otherParticipantId = null as null | string

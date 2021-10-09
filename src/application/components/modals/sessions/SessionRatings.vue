@@ -4,8 +4,7 @@
 			Rate Session
 		</template>
 		<p class="text-center my-0">
-			<span v-if="session && session.wasCancelled">The session was cancelled.</span>
-			<span>Time to leave a rating for the session</span>
+			Time to leave a rating for the session
 		</p>
 		<div class="text-center my-1">
 			<SelectRating :rating="rating" :set-rating="(val) => rating = val" />

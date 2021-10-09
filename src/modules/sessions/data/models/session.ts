@@ -8,7 +8,7 @@ export interface SessionFromModel extends SessionToModel {
 	tutorBio: UserBio
 	accepted: boolean | null
 	done: boolean
-	cancelled: { tutor: boolean, student: boolean, busy: boolean }
+	cancelled: { tutor: boolean, student: boolean }
 	createdAt: number
 	updatedAt: number
 	startedAt: number | null

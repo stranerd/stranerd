@@ -13,7 +13,7 @@ export class SessionEntity extends BaseEntity {
 	readonly price: number
 	readonly accepted: boolean
 	readonly done: boolean
-	readonly cancelled: { student: boolean, tutor: boolean, busy: boolean }
+	readonly cancelled: { student: boolean, tutor: boolean }
 	readonly createdAt: number
 	readonly updatedAt: number
 	readonly startedAt: number | null
@@ -51,17 +51,13 @@ export class SessionEntity extends BaseEntity {
 	get tutorAvatar () {
 		return this.tutorBio.photo
 	}
-
-	get wasCancelled () {
-		return this.cancelled.busy || this.cancelled.student || this.cancelled.tutor
-	}
 }
 
 type SessionConstructorArgs = {
 	id: string, duration: number, price: number, message: string,
 	studentId: string, tutorId: string, studentBio: UserBio, tutorBio: UserBio,
 	accepted: boolean | null, done: boolean,
-	cancelled: { tutor: boolean, student: boolean, busy: boolean },
+	cancelled: { tutor: boolean, student: boolean },
 	createdAt: number,
 	updatedAt: number,
 	startedAt: number | null

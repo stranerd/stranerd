@@ -20,6 +20,7 @@ import { GetSessionsUseCase } from './domain/usecases/sessions/getSessions'
 import { AddSessionUseCase } from './domain/usecases/sessions/addSession'
 import { BeginSessionUseCase } from './domain/usecases/sessions/beginSession'
 import { CancelSessionUseCase } from './domain/usecases/sessions/cancelSession'
+import { EndSessionUseCase } from './domain/usecases/sessions/endSession'
 import { ChatEntity } from './domain/entities/chat'
 import { ChatMetaEntity } from './domain/entities/chatMeta'
 import { ChatFactory } from './domain/factories/chat'
@@ -53,6 +54,7 @@ export const ListenToSessions = new ListenToSessionsUseCase(sessionRepository)
 export const AddSession = new AddSessionUseCase(sessionRepository)
 export const BeginSession = new BeginSessionUseCase(sessionRepository)
 export const CancelSession = new CancelSessionUseCase(sessionRepository)
+export const EndSession = new EndSessionUseCase(sessionRepository)
 
 export { ChatEntity, ChatFactory, ChatMetaEntity }
 export { SessionEntity, SessionFactory }

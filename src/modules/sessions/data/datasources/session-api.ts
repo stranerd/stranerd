@@ -44,4 +44,8 @@ export class SessionApiDataSource implements SessionBaseDataSource {
 	async cancel (id: string) {
 		await this.stranerdClient.put<{}, boolean>(`/sessions/${id}/cancel`, {})
 	}
+
+	async end (id: string) {
+		await this.stranerdClient.put<{}, boolean>(`/sessions/${id}/end`, {})
+	}
 }

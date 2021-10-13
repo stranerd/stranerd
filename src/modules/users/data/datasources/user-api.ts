@@ -7,15 +7,15 @@ export class UserApiDataSource implements UserBaseDataSource {
 	private stranerdClient: HttpClient
 
 	constructor () {
-		this.stranerdClient = new HttpClient(apiBases.STRANERD)
+		this.stranerdClient = new HttpClient(apiBases.STRANERD + '/users/users')
 	}
 
 	async find (id: string) {
-		return await this.stranerdClient.get<{}, UserFromModel | null>(`/users/${id}`, {})
+		return await this.stranerdClient.get<{}, UserFromModel | null>(`/${id}`, {})
 	}
 
 	async get (query: QueryParams) {
-		return await this.stranerdClient.get<QueryParams, QueryResults<UserFromModel>>('/users', query)
+		return await this.stranerdClient.get<QueryParams, QueryResults<UserFromModel>>('/', query)
 	}
 
 	async listenToOne (id: string, listeners: Listeners<UserFromModel>) {
@@ -34,6 +34,6 @@ export class UserApiDataSource implements UserBaseDataSource {
 
 	async updateStreak () {
 		type Streak = { skip: boolean, increase: boolean, reset: boolean, streak: number }
-		await this.stranerdClient.post<{}, Streak>('/users/streak', {})
+		await this.stranerdClient.post<{}, Streak>('/streak', {})
 	}
 }

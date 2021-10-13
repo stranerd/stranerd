@@ -7,15 +7,15 @@ export class ReferralApiDataSource implements ReferralBaseDataSource {
 	private stranerdClient: HttpClient
 
 	constructor () {
-		this.stranerdClient = new HttpClient(apiBases.STRANERD)
+		this.stranerdClient = new HttpClient(apiBases.STRANERD + '/users/referrals')
 	}
 
 	async find (_: string, id: string) {
-		return await this.stranerdClient.get<{}, ReferralFromModel | null>(`/referrals/${id}`, {})
+		return await this.stranerdClient.get<{}, ReferralFromModel | null>(`/${id}`, {})
 	}
 
 	async get (_: string, query: QueryParams) {
-		return await this.stranerdClient.get<QueryParams, QueryResults<ReferralFromModel>>('/referrals', query)
+		return await this.stranerdClient.get<QueryParams, QueryResults<ReferralFromModel>>('/', query)
 	}
 
 	async listenToOne (_: string, id: string, listeners: Listeners<ReferralFromModel>) {

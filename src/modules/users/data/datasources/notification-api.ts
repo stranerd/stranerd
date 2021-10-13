@@ -7,15 +7,15 @@ export class NotificationApiDataSource implements NotificationBaseDataSource {
 	private stranerdClient: HttpClient
 
 	constructor () {
-		this.stranerdClient = new HttpClient(apiBases.STRANERD)
+		this.stranerdClient = new HttpClient(apiBases.STRANERD + '/users/notifications')
 	}
 
 	async find (_: string, id: string) {
-		return await this.stranerdClient.get<{}, NotificationFromModel | null>(`/notifications/${id}`, {})
+		return await this.stranerdClient.get<{}, NotificationFromModel | null>(`/${id}`, {})
 	}
 
 	async get (_: string, query: QueryParams) {
-		return await this.stranerdClient.get<QueryParams, QueryResults<NotificationFromModel>>('/notifications', query)
+		return await this.stranerdClient.get<QueryParams, QueryResults<NotificationFromModel>>('/', query)
 	}
 
 	async listenToOne (_: string, id: string, listeners: Listeners<NotificationFromModel>) {
@@ -33,6 +33,6 @@ export class NotificationApiDataSource implements NotificationBaseDataSource {
 	}
 
 	async markSeen (_: string, id: string, seen: boolean) {
-		return await this.stranerdClient.put<{ seen: boolean }, boolean>(`/notifications/${id}/seen`, { seen })
+		return await this.stranerdClient.put<{ seen: boolean }, boolean>(`/${id}/seen`, { seen })
 	}
 }

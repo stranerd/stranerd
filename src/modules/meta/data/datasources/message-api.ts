@@ -7,10 +7,10 @@ export class MessageApiDataSource implements FormBaseDataSource<MessageToModel> 
 	private stranerdClient: HttpClient
 
 	constructor () {
-		this.stranerdClient = new HttpClient(apiBases.STRANERD)
+		this.stranerdClient = new HttpClient(apiBases.STRANERD + '/meta/messages')
 	}
 
 	async create (data: MessageToModel) {
-		await this.stranerdClient.post<MessageToModel, boolean>('/meta/messages', data)
+		await this.stranerdClient.post<MessageToModel, boolean>('/', data)
 	}
 }

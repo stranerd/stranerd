@@ -6,7 +6,7 @@ export class RoleApiDataSource implements RoleBaseDataSource {
 	private authClient: HttpClient
 
 	constructor () {
-		this.authClient = new HttpClient(apiBases.STRANERD)
+		this.authClient = new HttpClient(apiBases.AUTH)
 	}
 
 	async toggleAdmin (data: { id: string, isAdmin: boolean }) {

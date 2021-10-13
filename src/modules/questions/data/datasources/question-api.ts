@@ -7,20 +7,20 @@ export class QuestionApiDataSource implements QuestionBaseDataSource {
 	private stranerdClient: HttpClient
 
 	constructor () {
-		this.stranerdClient = new HttpClient(apiBases.STRANERD)
+		this.stranerdClient = new HttpClient(apiBases.STRANERD + '/questions/questions')
 	}
 
 	async create (data: QuestionToModel) {
-		const question = await this.stranerdClient.post<QuestionToModel, QuestionFromModel>('/questions', data)
+		const question = await this.stranerdClient.post<QuestionToModel, QuestionFromModel>('/', data)
 		return question.id
 	}
 
 	async find (id: string) {
-		return await this.stranerdClient.get<{}, QuestionFromModel>(`/questions/${id}`, {})
+		return await this.stranerdClient.get<{}, QuestionFromModel>(`/${id}`, {})
 	}
 
 	async get (query: QueryParams) {
-		return await this.stranerdClient.get<QueryParams, QueryResults<QuestionFromModel>>('/questions', query)
+		return await this.stranerdClient.get<QueryParams, QueryResults<QuestionFromModel>>('/', query)
 	}
 
 	async listenToOne (id: string, listeners: Listeners<QuestionFromModel>) {
@@ -38,14 +38,14 @@ export class QuestionApiDataSource implements QuestionBaseDataSource {
 	}
 
 	async delete (id: string) {
-		await this.stranerdClient.delete<{}, boolean>(`/questions/${id}`, {})
+		await this.stranerdClient.delete<{}, boolean>(`/${id}`, {})
 	}
 
 	async markBestAnswer (questionId: string, answerId: string) {
-		await this.stranerdClient.put<{ answerId: string }, boolean>(`/questions/${questionId}/best`, { answerId })
+		await this.stranerdClient.put<{ answerId: string }, boolean>(`/${questionId}/best`, { answerId })
 	}
 
 	async update (id: string, data: QuestionToModel) {
-		await this.stranerdClient.put<QuestionToModel, QuestionFromModel>(`/questions/${id}`, data)
+		await this.stranerdClient.put<QuestionToModel, QuestionFromModel>(`/${id}`, data)
 	}
 }

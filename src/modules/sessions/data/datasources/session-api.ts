@@ -7,20 +7,20 @@ export class SessionApiDataSource implements SessionBaseDataSource {
 	private stranerdClient: HttpClient
 
 	constructor () {
-		this.stranerdClient = new HttpClient(apiBases.STRANERD)
+		this.stranerdClient = new HttpClient(apiBases.STRANERD + '/sessions/sessions')
 	}
 
 	async create (data: SessionToModel) {
-		const session = await this.stranerdClient.post<SessionToModel, SessionFromModel>('/sessions', data)
+		const session = await this.stranerdClient.post<SessionToModel, SessionFromModel>('/', data)
 		return session.id
 	}
 
 	async find (id: string) {
-		return await this.stranerdClient.get<{}, SessionFromModel | null>(`/sessions/${id}`, {})
+		return await this.stranerdClient.get<{}, SessionFromModel | null>(`/${id}`, {})
 	}
 
 	async get (query: QueryParams) {
-		return await this.stranerdClient.get<QueryParams, QueryResults<SessionFromModel>>('/sessions', query)
+		return await this.stranerdClient.get<QueryParams, QueryResults<SessionFromModel>>('/', query)
 	}
 
 	async listenToOne (id: string, listeners: Listeners<SessionFromModel>) {
@@ -38,14 +38,14 @@ export class SessionApiDataSource implements SessionBaseDataSource {
 	}
 
 	async accept (id: string, accepted: boolean) {
-		await this.stranerdClient.put<{ accepted: boolean }, boolean>(`/sessions/${id}/accept`, { accepted })
+		await this.stranerdClient.put<{ accepted: boolean }, boolean>(`/${id}/accept`, { accepted })
 	}
 
 	async cancel (id: string) {
-		await this.stranerdClient.put<{}, boolean>(`/sessions/${id}/cancel`, {})
+		await this.stranerdClient.put<{}, boolean>(`/${id}/cancel`, {})
 	}
 
 	async end (id: string) {
-		await this.stranerdClient.put<{}, boolean>(`/sessions/${id}/end`, {})
+		await this.stranerdClient.put<{}, boolean>(`/${id}/end`, {})
 	}
 }

@@ -7,15 +7,15 @@ export class ChatMetaApiDataSource implements ChatMetaBaseDataSource {
 	private stranerdClient: HttpClient
 
 	constructor () {
-		this.stranerdClient = new HttpClient(apiBases.STRANERD)
+		this.stranerdClient = new HttpClient(apiBases.STRANERD + '/sessions/chatMetas')
 	}
 
 	async find (id: string) {
-		return await this.stranerdClient.get<{}, ChatMetaFromModel | null>(`/chatMetas/${id}`, {})
+		return await this.stranerdClient.get<{}, ChatMetaFromModel | null>(`/${id}`, {})
 	}
 
 	async get (query: QueryParams) {
-		return await this.stranerdClient.get<QueryParams, QueryResults<ChatMetaFromModel>>('/chatMetas', query)
+		return await this.stranerdClient.get<QueryParams, QueryResults<ChatMetaFromModel>>('/', query)
 	}
 
 	async listenToOne (id: string, listeners: Listeners<ChatMetaFromModel>) {

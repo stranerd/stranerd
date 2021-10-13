@@ -7,20 +7,20 @@ export class ReviewApiDataSource implements ReviewBaseDataSource {
 	private stranerdClient: HttpClient
 
 	constructor () {
-		this.stranerdClient = new HttpClient(apiBases.STRANERD)
+		this.stranerdClient = new HttpClient(apiBases.STRANERD + '/users/reviews')
 	}
 
 	async create (data: ReviewToModel) {
-		const review = await this.stranerdClient.post<ReviewToModel, ReviewFromModel>('/reviews', data)
+		const review = await this.stranerdClient.post<ReviewToModel, ReviewFromModel>('/', data)
 		return review.id
 	}
 
 	async find (_: string, id: string) {
-		return await this.stranerdClient.get<{}, ReviewFromModel | null>(`/reviews/${id}`, {})
+		return await this.stranerdClient.get<{}, ReviewFromModel | null>(`/${id}`, {})
 	}
 
 	async get (_: string, query: QueryParams) {
-		return await this.stranerdClient.get<QueryParams, QueryResults<ReviewFromModel>>('/reviews', query)
+		return await this.stranerdClient.get<QueryParams, QueryResults<ReviewFromModel>>('/', query)
 	}
 
 	async listenToOne (_: string, id: string, listeners: Listeners<ReviewFromModel>) {

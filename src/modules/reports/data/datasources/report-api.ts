@@ -7,24 +7,24 @@ export class ReportApiDataSource implements ReportBaseDataSource {
 	private stranerdClient: HttpClient
 
 	constructor () {
-		this.stranerdClient = new HttpClient(apiBases.STRANERD)
+		this.stranerdClient = new HttpClient(apiBases.STRANERD + '/reports/reports')
 	}
 
 	async create (data: ReportToModel) {
-		const report = await this.stranerdClient.post<ReportToModel, ReportFromModel>('/reports', data)
+		const report = await this.stranerdClient.post<ReportToModel, ReportFromModel>('/', data)
 		return report.id
 	}
 
 	async find (id: string) {
-		return await this.stranerdClient.get<{}, ReportFromModel>(`/reports/${id}`, {})
+		return await this.stranerdClient.get<{}, ReportFromModel>(`/${id}`, {})
 	}
 
 	async get (query: QueryParams) {
-		return await this.stranerdClient.get<QueryParams, QueryResults<ReportFromModel>>('/reports', query)
+		return await this.stranerdClient.get<QueryParams, QueryResults<ReportFromModel>>('/', query)
 	}
 
 	async delete (id: string) {
-		await this.stranerdClient.delete<{}, boolean>(`/reports/${id}`, {})
+		await this.stranerdClient.delete<{}, boolean>(`/${id}`, {})
 	}
 
 	async listenToOne (id: string, listeners: Listeners<ReportFromModel>) {

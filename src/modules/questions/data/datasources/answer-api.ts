@@ -7,7 +7,7 @@ export class AnswerApiDataSource implements AnswerBaseDataSource {
 	private stranerdClient: HttpClient
 
 	constructor () {
-		this.stranerdClient = new HttpClient(apiBases.STRANERD)
+		this.stranerdClient = new HttpClient(apiBases.STRANERD + '/questions')
 	}
 
 	async create (data: AnswerToModel) {

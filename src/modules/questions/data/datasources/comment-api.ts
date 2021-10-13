@@ -8,25 +8,25 @@ export class CommentApiDataSource implements CommentBaseDataSource {
 	private readonly path: string
 
 	constructor (path: string) {
-		this.stranerdClient = new HttpClient(apiBases.STRANERD)
 		this.path = path
+		this.stranerdClient = new HttpClient(apiBases.STRANERD + `/questions/${path}`)
 	}
 
 	async create (data: CommentToModel) {
-		const comment = await this.stranerdClient.post<CommentToModel, CommentFromModel>(`/${this.path}`, data)
+		const comment = await this.stranerdClient.post<CommentToModel, CommentFromModel>('/', data)
 		return comment.id
 	}
 
 	async find (id: string) {
-		return await this.stranerdClient.get<{}, CommentFromModel>(`/${this.path}/${id}`, {})
+		return await this.stranerdClient.get<{}, CommentFromModel>(`/${id}`, {})
 	}
 
 	async get (query: QueryParams) {
-		return await this.stranerdClient.get<QueryParams, QueryResults<CommentFromModel>>(`${this.path}`, query)
+		return await this.stranerdClient.get<QueryParams, QueryResults<CommentFromModel>>('/', query)
 	}
 
 	async update (id: string, data: CommentToModel) {
-		await this.stranerdClient.put<CommentToModel, CommentFromModel>(`/${this.path}/${id}`, data)
+		await this.stranerdClient.put<CommentToModel, CommentFromModel>(`/${id}`, data)
 	}
 
 	async listenToOne (id: string, listeners: Listeners<CommentFromModel>) {

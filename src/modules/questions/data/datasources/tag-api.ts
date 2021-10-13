@@ -7,15 +7,15 @@ export class TagApiDataSource implements TagBaseDataSource {
 	private stranerdClient: HttpClient
 
 	constructor () {
-		this.stranerdClient = new HttpClient(apiBases.STRANERD)
+		this.stranerdClient = new HttpClient(apiBases.STRANERD + '/questions/tags')
 	}
 
 	async find (id: string) {
-		return await this.stranerdClient.get<{}, TagFromModel | null>(`/tags/${id}`, {})
+		return await this.stranerdClient.get<{}, TagFromModel | null>(`/${id}`, {})
 	}
 
 	async get (query: QueryParams) {
-		return await this.stranerdClient.get<QueryParams, QueryResults<TagFromModel>>('/tags', query)
+		return await this.stranerdClient.get<QueryParams, QueryResults<TagFromModel>>('/', query)
 	}
 
 	async listenToOne (id: string, listeners: Listeners<TagFromModel>) {

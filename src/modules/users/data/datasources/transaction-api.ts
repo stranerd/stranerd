@@ -7,15 +7,15 @@ export class TransactionApiDataSource implements TransactionBaseDataSource {
 	private stranerdClient: HttpClient
 
 	constructor () {
-		this.stranerdClient = new HttpClient(apiBases.STRANERD)
+		this.stranerdClient = new HttpClient(apiBases.STRANERD + '/users/transactions')
 	}
 
 	async find (_: string, id: string) {
-		return await this.stranerdClient.get<{}, TransactionFromModel | null>(`/transactions/${id}`, {})
+		return await this.stranerdClient.get<{}, TransactionFromModel | null>(`/${id}`, {})
 	}
 
 	async get (_: string, query: QueryParams) {
-		return await this.stranerdClient.get<QueryParams, QueryResults<TransactionFromModel>>('/transactions', query)
+		return await this.stranerdClient.get<QueryParams, QueryResults<TransactionFromModel>>('/', query)
 	}
 
 	async listenToOne (_: string, id: string, listeners: Listeners<TransactionFromModel>) {

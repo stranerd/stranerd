@@ -24,8 +24,7 @@ export class HttpClient {
 	constructor (baseURL: string) {
 		this.client = axios.create({ baseURL })
 		this.client.interceptors.request.use(async (config) => {
-			if (!config.baseURL) return config
-			const isFromOurServer = Object.values(apiBases).find((base) => config.baseURL.startsWith(base))
+			const isFromOurServer = Object.values(apiBases).find((base) => !!config.baseURL?.startsWith(base))
 			if (!isFromOurServer) return config
 			const { accessToken, refreshToken } = await getTokens()
 			if (accessToken) config.headers['Access-Token'] = accessToken

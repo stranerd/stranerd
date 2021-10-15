@@ -71,12 +71,12 @@ export class AuthApiDataSource implements AuthBaseDataSource {
 				description: bio.description, photo: bio.photo
 			}),
 			passwords
-				? await this.authClient.post<any, any>('//passwords/update', {
+				? await this.authClient.post<any, any>('/passwords/update', {
 					oldPassword: passwords.oldPassword,
 					password: passwords.newPassword
 				})
 				: Promise.resolve(),
-			await this.stranerdClient.post<any, any>('/users/subjects', {
+			await this.stranerdClient.post<any, any>('/users/users/subjects', {
 				strongestSubject, weakerSubjects
 			})
 		])

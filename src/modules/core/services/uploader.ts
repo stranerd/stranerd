@@ -14,7 +14,7 @@ export const uploadFile = async (path: string, file: File): Promise<Media> => {
 		data.set('file', file)
 		const utilsClient = new HttpClient(apiBases.UTILS)
 		const media = await utilsClient.post<typeof data, Media>('/storage/file', data)
-		if (!media.link) media.link = apiBases.UTILS + '/' + media.path
+		if (!media.link) media.link = apiBases.UTILS + media.path
 		return media
 	} catch {
 		throw new Error('Error uploading file')
@@ -29,7 +29,7 @@ export const uploadFiles = async (path: string, files: File[]): Promise<Media[]>
 		const utilsClient = new HttpClient(apiBases.UTILS)
 		const medias = await utilsClient.post<typeof data, Media[]>('/storage/files', data)
 		return medias.map((media) => {
-			if (!media.link) media.link = apiBases.UTILS + '/' + media.path
+			if (!media.link) media.link = apiBases.UTILS + media.path
 			return media
 		})
 	} catch {

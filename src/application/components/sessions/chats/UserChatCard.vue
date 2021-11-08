@@ -1,5 +1,5 @@
 <template>
-	<NuxtLink :to="`/sessions/${meta.id}`" class="gap-0-5">
+	<NuxtLink :to="`/sessions/${meta.userId}`" class="gap-0-5">
 		<Avatar :size="40" :src="meta.avatar" class="d-md-none" />
 		<Avatar :size="56" :src="meta.avatar" class="d-none d-md-inline" />
 		<div class="flex-grow-1 text-truncate">
